@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+from modelcluster.fields import ParentalKey
+
 
 class Post(Page):
 	"""Abstract class for pages."""
@@ -30,17 +32,23 @@ class Post(Page):
 	]
 
 class Program(Post):
-	"""Program page"""
-	pass
+	"""Program model"""
+
+
+class Subprogram(Post):
+	"""Subprogram model"""
+
+
+class ProgramRelationship():
+	subprogram = models.ForeignKey(Subprogram, related_name="+")
+	program = ParentalKey('Program', related_name='subprogram')
+	panels = [
+		Field
+	]
+
 
 class Book(Post):
 	"""Book page"""
 	pass
 
-class Subprogram(Post):
-
-	content_panels = Post.content_panels + [
-	FieldPanel('home_program')
-	]
-	home_program = models.ManyToManyField(Program)
-
+https://github.com/torchbox/wagtail/issues/231
