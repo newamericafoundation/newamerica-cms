@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
@@ -14,7 +14,7 @@ class Post(Page):
 	class Meta:
 		abstract = True
 
-	author = models.CharField(max_length=255)
+	author = models.ForeignKey(User)
 	date = models.DateField("Post date")
 	body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
@@ -29,10 +29,18 @@ class Post(Page):
 		StreamFieldPanel('body'),
 	]
 
-class ProgramPage(Post):
+class Program(Post):
 	"""Program page"""
 	pass
 
-class BookPage(Post):
+class Book(Post):
 	"""Book page"""
 	pass
+
+class Subprogram(Post):
+
+	content_panels = Post.content_panels + [
+	FieldPanel('home_program')
+	]
+	home_program = models.ManyToManyField(Program)
+
