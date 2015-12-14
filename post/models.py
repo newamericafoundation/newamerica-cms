@@ -16,7 +16,6 @@ class Post(Page):
     class Meta:
         abstract = True
 
-    author = models.ForeignKey(User)
     date = models.DateField("Post date")
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
