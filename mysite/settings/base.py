@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'search',
     'post',
     'programs',
+    'person',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
