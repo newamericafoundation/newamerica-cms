@@ -11,8 +11,6 @@ from modelcluster.fields import ParentalKey
 
 class Post(Page):
     """Abstract class for pages."""
-    is_abstract = True
-
     class Meta:
         abstract = True
 
