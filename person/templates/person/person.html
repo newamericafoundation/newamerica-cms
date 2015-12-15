@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-person{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    Bio: {{ page.bio }}
+    <br>
+    <br>
+    <br>
+
+    Role: {{ page.role }}
+
+    {% if page.image %}
+      {% image page.image width-400 %}
+    {% endif %}
+    
+{% endblock %}
