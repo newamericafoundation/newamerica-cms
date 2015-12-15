@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-program{% endblock %}
+
+{% block content %}
+    <p class="meta">{{ page.program.name }}</p>
+    <div class="intro">{{ page.description }}</div>
+
+{% endblock %}
