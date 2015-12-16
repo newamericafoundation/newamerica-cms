@@ -23,7 +23,6 @@ class Post(Page):
     ])
 
     content_panels = Page.content_panels + [
-        FieldPanel('author'),
         FieldPanel('date'),
         StreamFieldPanel('body'),
     ]

@@ -5,6 +5,7 @@ from django.db import migrations, models
 import wagtail.wagtailcore.fields
 import wagtail.wagtailcore.blocks
 import wagtail.wagtailimages.blocks
+import modelcluster.fields
 
 
 class Migration(migrations.Migration):
@@ -17,15 +18,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Program',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(primary_key=True, serialize=False, to='wagtailcore.Page', auto_created=True, parent_link=True)),
                 ('name', models.CharField(max_length=100)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ProgramPage',
-            fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('description', wagtail.wagtailcore.fields.StreamField([(b'heading', wagtail.wagtailcore.blocks.CharBlock(classname=b'full title')), (b'paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), (b'html', wagtail.wagtailcore.blocks.RawHTMLBlock()), (b'image', wagtail.wagtailimages.blocks.ImageChooserBlock())])),
+                ('description', wagtail.wagtailcore.fields.StreamField((('heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('html', wagtail.wagtailcore.blocks.RawHTMLBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
             ],
             options={
                 'abstract': False,
@@ -33,31 +28,32 @@ class Migration(migrations.Migration):
             bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
-            name='Subprogram',
+            name='ProgramSubprogramRelationship',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=100)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('program', modelcluster.fields.ParentalKey(related_name='subprograms', to='programs.Program')),
             ],
         ),
         migrations.CreateModel(
-            name='SubprogramPage',
+            name='Subprogram',
             fields=[
-                ('programpage_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='programs.ProgramPage')),
-                ('subprogram', models.ForeignKey(to='programs.Subprogram')),
+                ('page_ptr', models.OneToOneField(primary_key=True, serialize=False, to='wagtailcore.Page', auto_created=True, parent_link=True)),
+                ('name', models.CharField(max_length=100)),
+                ('description', wagtail.wagtailcore.fields.StreamField((('heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('html', wagtail.wagtailcore.blocks.RawHTMLBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
             ],
             options={
                 'abstract': False,
             },
-            bases=('programs.programpage',),
+            bases=('wagtailcore.page',),
         ),
         migrations.AddField(
-            model_name='programpage',
-            name='program',
-            field=models.ForeignKey(to='programs.Program'),
+            model_name='programsubprogramrelationship',
+            name='subprogram',
+            field=models.ForeignKey(to='programs.Subprogram'),
         ),
         migrations.AddField(
             model_name='program',
-            name='subprograms',
-            field=models.ManyToManyField(to='programs.Subprogram'),
+            name='program_subprograms',
+            field=models.ManyToManyField(blank=True, to='programs.Subprogram', through='programs.ProgramSubprogramRelationship'),
         ),
     ]

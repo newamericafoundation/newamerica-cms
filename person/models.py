@@ -14,17 +14,13 @@ class Person(Page):
 	name = models.CharField(max_length=150)
 	bio = models.CharField(max_length=1000)
 	program = models.ForeignKey(Program, blank=True, null=True)
-	BOARD_MEMBER = 'Board Member'
-	STAFF = 'Staff'
-	FELLOW = 'Fellow'
-	PROGRAM_FELLOW = 'Program Fellow'
 	ROLE_OPTIONS = (
-		(BOARD_MEMBER, 'Board Member'),
-		(STAFF, 'Staff'),
-		(FELLOW, 'Fellow'),
-		(PROGRAM_FELLOW, 'Program Fellow'),
+		('Board Member', 'Board Member'),
+		('Staff', 'Staff'),
+		('Fellow', 'Fellow'),
+		('Program Fellow', 'Program Fellow'),
 	)
-	role = models.CharField(choices=ROLE_OPTIONS, max_length=100)
+	role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
 
 	content_panels = Page.content_panels + [
         FieldPanel('name'),
