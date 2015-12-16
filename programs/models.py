@@ -4,7 +4,6 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
-from multiselectfield import MultiSelectField
 from modelcluster.fields import ParentalKey
 
 #Abstract Program class that inherits from Page and provides template
@@ -29,6 +28,7 @@ class Program(AbstractProgram):
         StreamFieldPanel('description'),
     ]
 
+
 #Through relationship for Programs to Subprogram
 class ProgramSubprogramRelationship(models.Model):
     program = models.ForeignKey(Program, related_name="+")
@@ -36,6 +36,7 @@ class ProgramSubprogramRelationship(models.Model):
     panels = [
         FieldPanel('program'),
     ]
+
 
 #Subprograms models which when instantiated can be linked to multiple programs
 class Subprogram(AbstractProgram):
