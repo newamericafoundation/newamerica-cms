@@ -7,12 +7,21 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, Inl
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from modelcluster.fields import ParentalKey
+from programs.models import Program
 
 
+class PostProgramRelationship(models.Model):
+    program = models.ForeignKey(Program, related_name="+")
+    post = ParentalKey('Post', related_name='programs')
+
+    panels = [
+        FieldPanel('program'),
+    ]
+
+
+#Abstract Post class that inherits from Page and provides a model template for other content type models
 class Post(Page):
     """Abstract class for pages."""
-    class Meta:
-        abstract = True
 
     date = models.DateField("Post date")
     body = StreamField([
@@ -22,12 +31,39 @@ class Post(Page):
         ('image', ImageChooserBlock()),
     ])
 
+    parent_programs = models.ManyToManyField(Program, through=PostProgramRelationship, blank=True)
+
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         StreamFieldPanel('body'),
+        InlinePanel('programs', label=("Programs")),
     ]
+
+    is_creatable = False
+
+
 
 
 class Book(Post):
     """Book page"""
+    pass
+
+
+class Article(Post):
+    pass
+
+
+class Event(Post):
+    pass
+
+
+class Podcasts(Post):
+    pass
+
+
+class PolicyPaper(Post):
+    pass
+
+
+class About(Post):
     pass
