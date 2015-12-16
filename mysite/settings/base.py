@@ -29,8 +29,7 @@ INSTALLED_APPS = [
     'post',
     'programs',
     'person',
-    'multiselectfield',
-
+    
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
