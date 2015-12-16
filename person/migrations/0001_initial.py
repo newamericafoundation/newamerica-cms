@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Person',
             fields=[
-                ('page_ptr', models.OneToOneField(primary_key=True, serialize=False, to='wagtailcore.Page', auto_created=True, parent_link=True)),
+                ('page_ptr', models.OneToOneField(serialize=False, to='wagtailcore.Page', primary_key=True, parent_link=True, auto_created=True)),
                 ('name', models.CharField(max_length=150)),
                 ('bio', models.CharField(max_length=1000)),
                 ('role', models.CharField(choices=[('Board Member', 'Board Member'), ('Staff', 'Staff'), ('Fellow', 'Fellow'), ('Program Fellow', 'Program Fellow')], max_length=50)),

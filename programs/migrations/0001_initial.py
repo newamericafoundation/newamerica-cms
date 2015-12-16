@@ -2,10 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import wagtail.wagtailcore.fields
-import wagtail.wagtailcore.blocks
 import wagtail.wagtailimages.blocks
 import modelcluster.fields
+import wagtail.wagtailcore.fields
+import wagtail.wagtailcore.blocks
 
 
 class Migration(migrations.Migration):
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Program',
             fields=[
-                ('page_ptr', models.OneToOneField(primary_key=True, serialize=False, to='wagtailcore.Page', auto_created=True, parent_link=True)),
+                ('page_ptr', models.OneToOneField(serialize=False, to='wagtailcore.Page', primary_key=True, parent_link=True, auto_created=True)),
                 ('name', models.CharField(max_length=100)),
                 ('description', wagtail.wagtailcore.fields.StreamField((('heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('html', wagtail.wagtailcore.blocks.RawHTMLBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
             ],
@@ -30,16 +30,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProgramSubprogramRelationship',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
-                ('program', modelcluster.fields.ParentalKey(related_name='subprograms', to='programs.Program')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('program', models.ForeignKey(to='programs.Program', related_name='+')),
             ],
         ),
         migrations.CreateModel(
             name='Subprogram',
             fields=[
-                ('page_ptr', models.OneToOneField(primary_key=True, serialize=False, to='wagtailcore.Page', auto_created=True, parent_link=True)),
+                ('page_ptr', models.OneToOneField(serialize=False, to='wagtailcore.Page', primary_key=True, parent_link=True, auto_created=True)),
                 ('name', models.CharField(max_length=100)),
                 ('description', wagtail.wagtailcore.fields.StreamField((('heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('html', wagtail.wagtailcore.blocks.RawHTMLBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
+                ('parent_programs', models.ManyToManyField(to='programs.Program', blank=True, through='programs.ProgramSubprogramRelationship')),
             ],
             options={
                 'abstract': False,
@@ -49,11 +50,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='programsubprogramrelationship',
             name='subprogram',
-            field=models.ForeignKey(to='programs.Subprogram'),
-        ),
-        migrations.AddField(
-            model_name='program',
-            name='program_subprograms',
-            field=models.ManyToManyField(blank=True, to='programs.Subprogram', through='programs.ProgramSubprogramRelationship'),
+            field=modelcluster.fields.ParentalKey(to='programs.Subprogram', related_name='programs'),
         ),
     ]
