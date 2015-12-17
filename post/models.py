@@ -91,6 +91,15 @@ class Book(Post):
     pass
 
 
+class book_home_page(Page):
+    
+    def get_context(self, request):
+        context = super(book_home_page, self).get_context(request)
+
+        context['books'] = Book.objects.all()
+        return context
+
+    
 class Article(Post):
     """
     Article class that inherits from the abstract Post 
