@@ -17,7 +17,7 @@ class Person(Page):
 	ROLE_OPTIONS = (
 		('Board Member', 'Board Member'),
 		('Staff', 'Staff'),
-		('Fellow', 'Fellow'),
+		('New America Fellow', 'New America Fellow'),
 		('Program Fellow', 'Program Fellow'),
 	)
 	role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
