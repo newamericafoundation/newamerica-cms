@@ -8,13 +8,25 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from modelcluster.fields import ParentalKey
 from programs.models import Program, Subprogram
+from person.models import Person
 
+class PostAuthorRelationship(models.Model):
+    """
+    Through model that maps the many to many
+    relationship between Post and Authors
+    """
+    author = models.ForeignKey(Person, related_name="+")
+    post = ParentalKey('Post', related_name='authors')
+
+    panels = [
+        FieldPanel('author'),
+    ]
 
 
 class PostProgramRelationship(models.Model):
     """
-    Through model that maps the many to many relationship 
-    between Post and Programs
+    Through model that maps the many to many 
+    relationship between Post and Programs
     """
     
     program = models.ForeignKey(Program, related_name="+")
@@ -24,10 +36,11 @@ class PostProgramRelationship(models.Model):
         FieldPanel('program'),
     ]
 
+
 class PostSubprogramRelationship(models.Model):
     """
-    Through model that maps the many to many relationship 
-    between Post and Subprograms
+    Through model that maps the many to many
+    relationship between Post and Subprograms
     """
     subprogram = models.ForeignKey(Subprogram, related_name="+")
     post = ParentalKey('Post', related_name='subprograms')
@@ -35,7 +48,6 @@ class PostSubprogramRelationship(models.Model):
     panels = [
         FieldPanel('subprogram'),
     ]
-
 
 
 class Post(Page):
@@ -57,22 +69,24 @@ class Post(Page):
 
     post_subprogram = models.ManyToManyField(Subprogram, through=PostSubprogramRelationship, blank=True)
 
+    post_author = models.ManyToManyField(Person, through=PostAuthorRelationship, blank=True)
+
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         StreamFieldPanel('body'),
         InlinePanel('programs', label=("Programs")),
         InlinePanel('subprograms', label=("Subprograms")),
+        InlinePanel('authors', label=("Authors")),
     ]
 
     is_creatable = False
 
 
 
-
 class Book(Post):
     """
-    Book class that inherits from the abstract Post model
-    and creates pages for Books. 
+    Book class that inherits from the abstract Post 
+    model and creates pages for Books. 
     """
     pass
 
