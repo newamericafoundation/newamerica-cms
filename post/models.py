@@ -1,14 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
-from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from modelcluster.fields import ParentalKey
 from programs.models import Program, Subprogram
 from person.models import Person
+
 
 class PostAuthorRelationship(models.Model):
     """
@@ -25,10 +24,9 @@ class PostAuthorRelationship(models.Model):
 
 class PostProgramRelationship(models.Model):
     """
-    Through model that maps the many to many 
+    Through model that maps the many to many
     relationship between Post and Programs
     """
-    
     program = models.ForeignKey(Program, related_name="+")
     post = ParentalKey('Post', related_name='programs')
 
@@ -52,8 +50,8 @@ class PostSubprogramRelationship(models.Model):
 
 class Post(Page):
     """
-    Abstract Post class that inherits from Page 
-    and provides a model template for other content 
+    Abstract Post class that inherits from Page
+    and provides a model template for other content
     type models
     """
 
@@ -65,11 +63,14 @@ class Post(Page):
         ('image', ImageChooserBlock()),
     ])
 
-    parent_programs = models.ManyToManyField(Program, through=PostProgramRelationship, blank=True)
+    parent_programs = models.ManyToManyField(
+        Program, through=PostProgramRelationship, blank=True)
 
-    post_subprogram = models.ManyToManyField(Subprogram, through=PostSubprogramRelationship, blank=True)
+    post_subprogram = models.ManyToManyField(
+        Subprogram, through=PostSubprogramRelationship, blank=True)
 
-    post_author = models.ManyToManyField(Person, through=PostAuthorRelationship, blank=True)
+    post_author = models.ManyToManyField(
+        Person, through=PostAuthorRelationship, blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
@@ -82,56 +83,64 @@ class Post(Page):
     is_creatable = False
 
 
-
 class Book(Post):
     """
-    Book class that inherits from the abstract Post 
-    model and creates pages for Books. 
+    Book class that inherits from the abstract Post
+    model and creates pages for Books.
     """
     pass
 
 
+class book_home_page(Page):
+    def get_context(self, request):
+        context = super(book_home_page, self).get_context(request)
+
+        context['books'] = Book.objects.all()
+        return context
+
+
 class Article(Post):
     """
-    Article class that inherits from the abstract Post 
-    model and creates pages for Articles. 
+    Article class that inherits from the abstract Post
+    model and creates pages for Articles.
     """
     pass
 
 
 class Event(Post):
     """
-    Event class that inherits from the abstract Post 
-    model and creates pages for Events. 
+    Event class that inherits from the abstract Post
+    model and creates pages for Events.
     """
     pass
 
 
 class Podcasts(Post):
     """
-    Podcast class that inherits from the abstract Post 
-    model and creates pages for Podcasts. 
+    Podcast class that inherits from the abstract Post
+    model and creates pages for Podcasts.
     """
     pass
 
 
 class PolicyPaper(Post):
     """
-    Policy paper class that inherits from the abstract 
-    Post model and creates pages for Policy papers. 
+    Policy paper class that inherits from the abstract
+    Post model and creates pages for Policy papers.
     """
     pass
 
 
 class About(Post):
     """
-    About class that inherits from the abstract 
-    Post model and creates About Us pages. 
+    About class that inherits from the abstract
+    Post model and creates About Us pages.
     """
     pass
 
+
 class Blog(Post):
     """
-    Blog class that inherits from the abstract 
-    Post model and creates pages for blog posts. 
+    Blog class that inherits from the abstract
+    Post model and creates pages for blog posts.
     """
