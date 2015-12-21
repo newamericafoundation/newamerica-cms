@@ -4,15 +4,13 @@ from django.db import models
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
-from programs.models import Program
-
 class HomePage(Page):
-    parent_page_types = ['home.HomePage',]
+    parent_page_types = ['home.HomePage', ]
     pass
 
 
@@ -22,7 +20,6 @@ class SimplePage(Page):
     creates simple, generic pages.
     """
     subpage_types = ['SimplePage']
-    
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
