@@ -35,6 +35,11 @@ class Person(Page):
     subpage_types = []
 
 class OurPeoplePage(Page):
+    """
+    A page which inherits from the abstract Page model and returns
+    everyone from the Person model
+    """
+
     parent_page_types = ['home.HomePage',]
     subpage_types = ['Person', ]
 
@@ -46,6 +51,10 @@ class OurPeoplePage(Page):
         return context
 
 class ExpertPage(Page):
+    """
+    A page which inherits from the abstract Page model and returns
+    everyone who is marked as an expert from the Person model
+    """
     parent_page_types = ['home.HomePage',]
     subpage_types = []
 
@@ -56,6 +65,11 @@ class ExpertPage(Page):
         return context
 
 class ProgramPeoplePage(Page):
+    """
+    A page which inherits from the abstract Page model and returns
+    everyone from the Person model for a specific program which is 
+    determined using the url path
+    """
     parent_page_types = ['programs.Program',]
     subpage_types = []
 
