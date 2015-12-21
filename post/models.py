@@ -8,6 +8,9 @@ from modelcluster.fields import ParentalKey
 from programs.models import Program, Subprogram
 from person.models import Person
 
+import django.db.models.options as options
+options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
+
 
 class PostAuthorRelationship(models.Model):
     """
@@ -101,6 +104,9 @@ class BookHomePage(Page):
         context['books'] = Book.objects.all()
         return context
 
+    class Meta:
+        verbose_name = "Homepage for all Books"
+
 
 class Article(Post):
     """
@@ -110,12 +116,39 @@ class Article(Post):
     pass
 
 
+class ArticleHomePage(Page):
+    parent_page_types = ['home.HomePage',]
+    subpage_types = []
+
+    def get_context(self, request):
+        context = super(ArticleHomePage, self).get_context(request)
+
+        context['articles'] = Article.objects.all()
+        return context
+
+    class Meta:
+        verbose_name = "Homepage for all Articles"
+
+
 class Event(Post):
     """
     Event class that inherits from the abstract Post
     model and creates pages for Events.
     """
     pass
+
+class EventsHomePage(Page):
+    parent_page_types = ['home.HomePage',]
+    subpage_types = []
+
+    def get_context(self, request):
+        context = super(EventsHomePage, self).get_context(request)
+
+        context['events'] = Event.objects.all()
+        return context
+
+    class Meta:
+        verbose_name = "Homepage for all Events"
 
 
 class Podcasts(Post):
@@ -134,8 +167,21 @@ class PolicyPaper(Post):
     pass
 
 
-class Blog(Post):
+class BlogPost(Post):
     """
     Blog class that inherits from the abstract
     Post model and creates pages for blog posts.
+    """
+
+class PressRelease(Post):
+    """
+    Press release class that inherits from the abstract
+    Post model and creates pages for press releases.
+    """
+
+class Quoted(Post):
+    """
+    Quoted class that inherits from the abstract
+    Post model and creates pages for Quoted pages where New 
+    America was in the news.
     """

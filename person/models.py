@@ -10,6 +10,7 @@ from taggit.models import TaggedItemBase
 from modelcluster.models import ClusterableModel
 from programs.models import Program
 
+
 class Person(Page):
     name = models.CharField(max_length=150)
     bio = models.CharField(max_length=1000)
@@ -34,6 +35,7 @@ class Person(Page):
     parent_page_types = ['OurPeoplePage',]
     subpage_types = []
 
+
 class OurPeoplePage(Page):
     """
     A page which inherits from the abstract Page model and returns
@@ -50,6 +52,10 @@ class OurPeoplePage(Page):
 
         return context
 
+    class Meta:
+        verbose_name = "Homepage for all People in NAF"
+
+
 class ExpertPage(Page):
     """
     A page which inherits from the abstract Page model and returns
@@ -63,6 +69,7 @@ class ExpertPage(Page):
 
         context['experts'] = Person.objects.filter(expert=True)
         return context
+
 
 class ProgramPeoplePage(Page):
     """
@@ -80,3 +87,6 @@ class ProgramPeoplePage(Page):
         program = Program.objects.get(slug=program_slug)
         context['people'] = Person.objects.filter(program=program)
         return context
+
+    class Meta:
+        verbose_name = "Our People Page for Programs"
