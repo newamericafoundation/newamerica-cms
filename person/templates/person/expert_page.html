@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-expertpage{% endblock %}
+
+{% block content %}
+    {% for expert in experts %}
+
+        <h1>{{ expert.title }}</h1>
+
+        Bio: {{ expert.bio }}
+        <br>
+
+        Role: {{ expert.role }}
+
+        {% if page.image %}
+          {% image page.image width-400 %}
+        {% endif %}
+        <hr>
+    {% endfor %}
+
+
+{% endblock %}

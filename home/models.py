@@ -3,13 +3,30 @@ from __future__ import unicode_literals
 from django.db import models
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailimages.blocks import ImageChooserBlock
 
+
+from programs.models import Program
 
 class HomePage(Page):
-    body = RichTextField(blank=True)
+    pass
+
+
+class SimplePage(Page):
+    """
+    About class that inherits from the abstract
+    Post model and creates About Us pages.
+    """
+    body = StreamField([
+        ('heading', blocks.CharBlock(classname='full title')),
+        ('paragraph', blocks.RichTextBlock()),
+        ('html', blocks.RawHTMLBlock()),
+        ('image', ImageChooserBlock()),
+    ])
 
     content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full")
+        StreamFieldPanel('body')
     ]
