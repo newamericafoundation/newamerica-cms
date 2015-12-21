@@ -12,6 +12,7 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from programs.models import Program
 
 class HomePage(Page):
+    parent_page_types = ['home.HomePage',]
     pass
 
 
@@ -20,6 +21,8 @@ class SimplePage(Page):
     Simple page class that inherits from the Page model and
     creates simple, generic pages.
     """
+    subpage_types = ['SimplePage']
+    
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
