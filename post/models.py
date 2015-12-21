@@ -131,14 +131,6 @@ class PolicyPaper(Post):
     pass
 
 
-class About(Post):
-    """
-    About class that inherits from the abstract
-    Post model and creates About Us pages.
-    """
-    pass
-
-
 class Blog(Post):
     """
     Blog class that inherits from the abstract
