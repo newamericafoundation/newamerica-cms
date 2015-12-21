@@ -5,9 +5,6 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
-from modelcluster.models import ClusterableModel
 from programs.models import Program
 
 
