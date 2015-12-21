@@ -23,6 +23,8 @@ class AbstractProgram(Page):
 
 #Programs model which creates programs
 class Program(AbstractProgram):
+    parent_page_types = ['home.HomePage',]
+
     content_panels = Page.content_panels + [
         FieldPanel('name'),
         StreamFieldPanel('description'),
@@ -46,4 +48,7 @@ class Subprogram(AbstractProgram):
         StreamFieldPanel('description'),
         InlinePanel('programs', label=("Programs")),
     ]
+
+    class Meta:
+        verbose_name = "Subprogram/Initiative Page"
 
