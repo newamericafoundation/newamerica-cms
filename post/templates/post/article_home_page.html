@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-articlehomepage{% endblock %}
+
+{% block content %}
+<h1>ARTICLES</h1>
+
+
+	{% for article in articles %}
+		<li>{{ article}}</li>
+	{% endfor %}
+
+{% endblock %}
