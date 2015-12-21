@@ -91,9 +91,12 @@ class Book(Post):
     pass
 
 
-class book_home_page(Page):
+class BookHomePage(Page):
+    parent_page_types = ['home.HomePage',]
+    subpage_types = []
+
     def get_context(self, request):
-        context = super(book_home_page, self).get_context(request)
+        context = super(BookHomePage, self).get_context(request)
 
         context['books'] = Book.objects.all()
         return context

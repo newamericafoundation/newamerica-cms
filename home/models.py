@@ -17,8 +17,8 @@ class HomePage(Page):
 
 class SimplePage(Page):
     """
-    About class that inherits from the abstract
-    Post model and creates About Us pages.
+    Simple page class that inherits from the Page model and
+    creates simple, generic pages.
     """
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
