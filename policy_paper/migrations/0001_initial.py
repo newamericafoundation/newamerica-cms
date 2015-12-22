@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('post', '0001_initial'),
+        ('home', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='PolicyPaper',
             fields=[
-                ('post_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='post.Post')),
+                ('post_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='home.Post')),
             ],
             options={
                 'abstract': False,
             },
-            bases=('post.post',),
+            bases=('home.post',),
         ),
     ]

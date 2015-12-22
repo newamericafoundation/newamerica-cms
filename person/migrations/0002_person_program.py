@@ -8,11 +8,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('programs', '0001_initial'),
+        ('person', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='subprogram',
-            options={'verbose_name': 'Subprogram/Initiative Page'},
+        migrations.AddField(
+            model_name='person',
+            name='program',
+            field=models.ForeignKey(blank=True, to='programs.Program', null=True),
         ),
     ]
