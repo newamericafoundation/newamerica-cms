@@ -35,8 +35,8 @@ class Person(Page):
 
 class OurPeoplePage(Page):
     """
-    A page which inherits from the abstract Page model and returns
-    everyone from the Person model
+    A page which inherits from the abstract Page model and 
+    returns everyone from the Person model
     """
 
     parent_page_types = ['home.HomePage',]
