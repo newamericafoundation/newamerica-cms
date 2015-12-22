@@ -2,7 +2,7 @@ from django.db import models
 
 from wagtail.wagtailcore.models import Page
 
-from post.models import Post
+from home.models import Post
 
 class Book(Post):
     """

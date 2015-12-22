@@ -1,6 +1,6 @@
 from django.db import models
 
-from post.models import Post
+from home.models import Post
 
 
 class PressRelease(Post):
