@@ -14,6 +14,10 @@ class Book(Post):
 
 
 class AllBooksHomePage(Page):
+    """
+    A page which inherits from the abstract Page model and 
+    returns every Book in the Book model
+    """
     parent_page_types = ['home.HomePage',]
     subpage_types = []
 
