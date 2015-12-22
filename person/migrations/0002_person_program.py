@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='person',
             name='program',
-            field=models.ForeignKey(blank=True, null=True, to='programs.Program'),
+            field=models.ForeignKey(blank=True, to='programs.Program', null=True),
         ),
     ]

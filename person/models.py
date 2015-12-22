@@ -5,10 +5,8 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
-from modelcluster.models import ClusterableModel
 from programs.models import Program
+
 
 class Person(Page):
     name = models.CharField(max_length=150)
@@ -34,7 +32,13 @@ class Person(Page):
     parent_page_types = ['OurPeoplePage',]
     subpage_types = []
 
+
 class OurPeoplePage(Page):
+    """
+    A page which inherits from the abstract Page model and returns
+    everyone from the Person model
+    """
+
     parent_page_types = ['home.HomePage',]
     subpage_types = ['Person', ]
 
@@ -45,7 +49,15 @@ class OurPeoplePage(Page):
 
         return context
 
+    class Meta:
+        verbose_name = "Homepage for all People in NAF"
+
+
 class ExpertPage(Page):
+    """
+    A page which inherits from the abstract Page model and returns
+    everyone who is marked as an expert from the Person model
+    """
     parent_page_types = ['home.HomePage',]
     subpage_types = []
 
@@ -55,7 +67,13 @@ class ExpertPage(Page):
         context['experts'] = Person.objects.filter(expert=True)
         return context
 
+
 class ProgramPeoplePage(Page):
+    """
+    A page which inherits from the abstract Page model and returns
+    everyone from the Person model for a specific program which is 
+    determined using the url path
+    """
     parent_page_types = ['programs.Program',]
     subpage_types = []
 
@@ -66,3 +84,6 @@ class ProgramPeoplePage(Page):
         program = Program.objects.get(slug=program_slug)
         context['people'] = Person.objects.filter(program=program)
         return context
+
+    class Meta:
+        verbose_name = "Our People Page for Programs"

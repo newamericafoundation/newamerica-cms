@@ -1,3 +1,6 @@
+Custom Content Management System (CMS) built for New America
+
+
 Install
 -----------------
 
