@@ -10,7 +10,8 @@ class Book(Post):
     Book class that inherits from the abstract Post
     model and creates pages for Books.
     """
-    pass
+    parent_page_types = ['ProgramBooksPage',]
+    subpage_types = []
 
 
 class AllBooksHomePage(Page):
