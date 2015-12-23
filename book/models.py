@@ -37,6 +37,9 @@ class ProgramBooksPage(Page):
     returns all Books associated with a specific program which 
     is determined using the url path
     """
+    parent_page_types = ['programs.Program',]
+    subpage_types = ['Book']
+    
     def get_context(self, request):
         context = super(ProgramBooksPage, self).get_context(request)
 
