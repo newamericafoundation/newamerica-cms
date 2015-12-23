@@ -12,7 +12,7 @@ class Article(Post):
     Article class that inherits from the abstract Post
     model and creates pages for Articles.
     """
-    parent_page_types = ['ProgramArticlesPage', 'AllArticlesHomePage',]
+    parent_page_types = ['ProgramArticlesPage',]
     subpage_types = []
 
 
