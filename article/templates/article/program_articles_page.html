@@ -2,14 +2,14 @@
 
 {% load wagtailcore_tags %}
 
-{% block body_class %}template-articlehomepage{% endblock %}
+{% block body_class %}template-programarticlespage{% endblock %}
 
 {% block content %}
 <h1>ARTICLES</h1>
 
 
 	{% for article in articles %}
-		<li>{{ article}}</li>
+		<li> {{ article.title }}</li>
 	{% endfor %}
 
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-programbookshomepage{% endblock %}
+
+{% block content %}
+<h1>BOOKS</h1>
+
+
+	{% for book in books %}
+		<li>{{ book.title }} {{ book.program }}</li>
+	{% endfor %}
+
+{% endblock %}
