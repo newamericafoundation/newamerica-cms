@@ -21,3 +21,13 @@ Run
 -----------------
 
     manage.py runserver
+
+
+Front-end
+-----------------
+
+	brew install node
+	bower install
+	npm install
+	npm run compile-styles
+	npm run compile-scripts

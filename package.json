@@ -1,0 +1,23 @@
+{
+  "name": "newamerica-cms",
+  "version": "1.0.0",
+  "description": "Custom Content Management System (CMS) built for New America",
+  "main": "index.js",
+  "scripts": {
+    "compile-styles": "sass ",
+    "compile-scripts": "webpack "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newamericafoundation/newamerica-cms.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newamericafoundation/newamerica-cms/issues"
+  },
+  "homepage": "https://github.com/newamericafoundation/newamerica-cms#readme",
+  "dependencies": {
+    "jquery": "^2.1.4"
+  }
+}
