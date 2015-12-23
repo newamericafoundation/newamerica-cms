@@ -12,7 +12,7 @@ class Article(Post):
     Article class that inherits from the abstract Post
     model and creates pages for Articles.
     """
-    parent_page_types = ['programs.Program',]
+    parent_page_types = ['ProgramArticlesPage', 'AllArticlesHomePage',]
     subpage_types = []
 
 
@@ -43,7 +43,7 @@ class ProgramArticlesPage(Page):
     """
 
     parent_page_types = ['programs.Program',]
-    subpage_types = []
+    subpage_types = ['Article']
     
     def get_context(self, request):
         context = super(ProgramArticlesPage, self).get_context(request)
