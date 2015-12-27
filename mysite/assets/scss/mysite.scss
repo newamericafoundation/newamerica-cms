@@ -1,5 +1,6 @@
 @import 'variables';
 
-@import 'base/manifest';
+@import 'vendor/manifest';
 
-@import '~foundation-sites/scss/foundation';
+@import 'base/manifest';
+@import 'modules/manifest';

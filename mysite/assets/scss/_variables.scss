@@ -1,0 +1,32 @@
+// Custom variables
+
+$color-palette: (
+	grey: #dcdcdc,
+	black: #2c2f35,
+	white: #ffffff,
+	turquoise: #2dbbb3
+);
+
+@function palette-get($key) {
+	@return map-get($color-palette, $key);
+}
+
+
+// Foundation default variable overrides
+
+$global-lineheight: 1.65;
+
+$button-background: palette-get(black);
+$button-background-hover: palette-get(turquoise);
+$button-margin: 0;
+
+$grid-column-align-edge: false;
+
+$input-background: palette-get(grey);
+$input-background-focus: palette-get(grey);
+
+$input-color: palette-get(black);
+$input-border: none;
+$input-border-focus: none;
+$input-shadow: none;
+$input-shadow-focus: none;

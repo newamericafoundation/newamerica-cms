@@ -1,0 +1,35 @@
+.footer {
+
+	@include clearfix;
+
+	position: relative;
+
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		list-style-type: none;
+		display: inline-block;
+	}
+
+	&__main-nav {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		text-align: center;
+	}
+
+	&__info {
+		float: left;
+		p {
+			margin: 0;
+		}
+	}
+
+	&__social-nav {
+		float: right;
+	}
+
+}
