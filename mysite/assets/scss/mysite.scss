@@ -1,5 +1,13 @@
 @import 'variables';
 
-@import 'base/manifest';
+@import '~normalize.css/normalize';
 
 @import '~foundation-sites/scss/foundation';
+
+@include foundation-grid;
+@include foundation-button;
+@include foundation-forms;
+@include foundation-float-classes;
+
+@import 'base/manifest';
+@import 'modules/manifest';

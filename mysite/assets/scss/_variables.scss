@@ -1,0 +1,23 @@
+// Custom variables
+
+$color-palette: (
+	grey: #dcdcdc,
+	black: #2c2f35,
+	white: #ffffff
+);
+
+@function palette-get($key) {
+	@return map-get($color-palette, $key);
+}
+
+
+// Foundation default variable overrides
+
+$input-background: palette-get(grey);
+$input-background-focus: palette-get(grey);
+
+$input-color: palette-get(black);
+$input-border: none;
+$input-border-focus: none;
+$input-shadow: none;
+$input-shadow-focus: none;

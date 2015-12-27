@@ -1,0 +1,12 @@
+.panel {
+
+	padding: 60px 0;
+	background-color: palette-get(grey);
+
+	h1, p {
+		text-align: center;
+		max-width: 600px;
+		margin: auto;
+	}
+
+}

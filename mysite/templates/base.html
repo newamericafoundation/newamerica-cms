@@ -23,7 +23,15 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
-        {% block content %}{% endblock %}
+        <div class='wrapper'>
+
+            {% include 'ui_elements/header.html' %}
+
+            {% block content %}{% endblock %}
+
+            {% include 'ui_elements/footer.html' %}
+
+        </div>
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
