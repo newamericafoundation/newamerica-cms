@@ -1,5 +1,19 @@
 .header {
 
+	position: relative;
+
+	border-bottom: 4px solid palette-get(turquoise);
+
+	.button {
+		background: none;
+		color: palette-get(black);
+		&:after { color: palette-get(black); }
+		&:hover {
+			background-color: palette-get(turquoise);
+			color: palette-get(white);
+		}
+	}
+
 	&__logo {
 
 		& > * {
@@ -13,6 +27,7 @@
 		}
 
 		h1 {
+			line-height: 100%;
 			font-family: 'Platform';
 			font-weight: bold;
 			text-transform: uppercase;
@@ -25,11 +40,27 @@
 
 	&__main-nav {
 
+		ul {
+			margin: 0;
+		}
+
 		li {
 			list-style-type: none;
 			display: inline-block;
 		}
 
+	}
+
+	&__search {
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		right: 0;
+		bottom: 5px;
+		width: 200px;
+		input {
+			margin: 0;
+		}
 	}
 
 }

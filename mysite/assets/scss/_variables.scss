@@ -3,7 +3,8 @@
 $color-palette: (
 	grey: #dcdcdc,
 	black: #2c2f35,
-	white: #ffffff
+	white: #ffffff,
+	turquoise: #2dbbb3
 );
 
 @function palette-get($key) {
@@ -12,6 +13,14 @@ $color-palette: (
 
 
 // Foundation default variable overrides
+
+$global-lineheight: 1.65;
+
+$button-background: palette-get(black);
+$button-background-hover: palette-get(turquoise);
+$button-margin: 0;
+
+$grid-column-align-edge: false;
 
 $input-background: palette-get(grey);
 $input-background-focus: palette-get(grey);
