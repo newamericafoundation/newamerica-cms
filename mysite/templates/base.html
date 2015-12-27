@@ -12,8 +12,8 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/dist/mysite.css' %}">
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -24,9 +24,6 @@
         {% wagtailuserbar %}
 
         {% block content %}{% endblock %}
-
-        {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/dist/mysite.js' %}"></script>
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}

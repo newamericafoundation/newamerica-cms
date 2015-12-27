@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'Platform';
-  src: url('/assets/fonts/platform/Platform-Bold-Web.eot');
-  src: url('/assets/fonts/platform/Platform-Bold-Web.eot?#iefix') format('embedded-opentype'),
-       url('/assets/fonts/platform/Platform-Bold-Web.woff') format('woff'),
-       url('/assets/fonts/platform/Platform-Bold-Web.ttf') format('truetype'),
-       url('/assets/fonts/platform/Platform-Bold-Web.svg') format('svg');
+  src: url('/static/fonts/platform/Platform-Bold-Web.eot');
+  src: url('/static/fonts/platform/Platform-Bold-Web.eot?#iefix') format('embedded-opentype'),
+       url('/static/fonts/platform/Platform-Bold-Web.woff') format('woff'),
+       url('/static/fonts/platform/Platform-Bold-Web.ttf') format('truetype'),
+       url('/static/fonts/platform/Platform-Bold-Web.svg') format('svg');
   font-style:   normal;
   font-weight: bold;
   font-stretch: normal;
@@ -12,11 +12,11 @@
 
 @font-face {
   font-family: 'Platform Hairline';
-  src: url('/assets/fonts/platform_hairline/Platform-Hairline.eot');
-  src: url('/assets/fonts/platform_hairline/Platform-Hairline.eot?#iefix') format('embedded-opentype'),
-       url('/assets/fonts/platform_hairline/Platform-Hairline.woff') format('woff'),
-       url('/assets/fonts/platform_hairline/Platform-Hairline.ttf') format('truetype'),
-       url('/assets/fonts/platform_hairline/Platform-Hairline.svg') format('svg');
+  src: url('/static/fonts/platform_hairline/Platform-Hairline.eot');
+  src: url('/static/fonts/platform_hairline/Platform-Hairline.eot?#iefix') format('embedded-opentype'),
+       url('/static/fonts/platform_hairline/Platform-Hairline.woff') format('woff'),
+       url('/static/fonts/platform_hairline/Platform-Hairline.ttf') format('truetype'),
+       url('/static/fonts/platform_hairline/Platform-Hairline.svg') format('svg');
   font-style:   normal;
   font-weight: normal;
   font-stretch: normal;
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: 'Platform';
-  src: url('/assets/fonts/platform_light/Platform-Light.otf');
+  src: url('/static/fonts/platform_light/Platform-Light.otf');
   font-style:   normal;
   font-weight: lighter;
   font-stretch: normal;
