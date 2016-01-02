@@ -1,0 +1,18 @@
+.border-panel {
+
+	border: 5px solid palette-get(grey);
+	height: 250px;
+	width: 100%;
+
+	display: table;
+	text-align: center;
+
+	&__content {
+		width: 100%;
+		max-width: 400px;
+		display: table-cell;
+
+		vertical-align: middle;
+	}
+
+}

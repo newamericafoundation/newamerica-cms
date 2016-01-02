@@ -1,8 +1,12 @@
 .header {
 
+	$pad: 20px;
+
+	padding: $pad ($pad + 10px) 0px;
+
 	position: relative;
 
-	border-bottom: 4px solid palette-get(turquoise);
+	border-bottom: 5px solid palette-get(turquoise);
 
 	.button {
 		background: none;
@@ -12,6 +16,43 @@
 			background-color: palette-get(turquoise);
 			color: palette-get(white);
 		}
+	}
+
+	&__link-group {
+
+		display: none;
+		.header__main-nav__item:hover & {
+			display: block;
+		}
+
+		padding-top: 5px;
+		
+		position: absolute;
+
+		top: 40px;
+		left: -15px;
+
+		width: calc(100% + 60px);
+		
+		&__heading {
+			font-weight: bold;
+			opacity: 0.4;
+			font-size: 22px;
+		}
+
+		&__main-element {
+			font-weight: bold;
+		}
+
+		&__sub-element {
+
+		}
+
+		&__content {
+			padding: 17px;
+			background-color: palette-get(grey);
+		}
+
 	}
 
 	&__logo {
@@ -39,24 +80,27 @@
 	}
 
 	&__main-nav {
+		position: relative;
+		left: -16px;
+		margin-top: 5px;
+		width: auto;
+	}
 
-		ul {
-			margin: 0;
+	&__secondary-nav {
+		position: absolute;
+		top: 30px; 
+		right: $pad + 10px;
+		a {
+			padding: 0 8px;
 		}
-
-		li {
-			list-style-type: none;
-			display: inline-block;
-		}
-
 	}
 
 	&__search {
 		margin: 0;
 		padding: 0;
 		position: absolute;
-		right: 0;
-		bottom: 5px;
+		right: $pad + 10px;
+		bottom: 15px;
 		width: 200px;
 		input {
 			margin: 0;
