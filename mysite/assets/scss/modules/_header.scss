@@ -3,18 +3,22 @@
 	$pad: 20px;
 
 	padding: $pad ($pad + 10px) 0px;
-
 	position: relative;
-
 	border-bottom: 5px solid palette-get(turquoise);
 
-	.button {
+	&__button {
 		background: none;
 		color: palette-get(black);
-		&:after { color: palette-get(black); }
 		&:hover {
 			background-color: palette-get(turquoise);
 			color: palette-get(white);
+		}
+
+		&--dropdown {
+			@include button-dropdown(0.4rem, palette-get(black), down);
+			&:hover {
+				@include button-dropdown(0.4rem, palette-get(white), down);
+			}
 		}
 	}
 
@@ -25,32 +29,49 @@
 			display: block;
 		}
 
+		a, p, h1, li { 
+			color: palette-get(white); 
+			width: 100%; 
+		}
+
+		ul { margin: 0; width: 100%; }
+
 		padding-top: 5px;
 		
 		position: absolute;
 
 		top: 40px;
-		left: -15px;
+		left: -12px;
 
 		width: calc(100% + 60px);
 		
 		&__heading {
+			margin-bottom: 0;
 			font-weight: bold;
-			opacity: 0.4;
-			font-size: 22px;
+			font-size: rem-calc(22);
+		}
+
+		&__main-element, &__sub-element {
+			display: block;
+			font-weight: bold;
+			&:hover { opacity: 1; }
 		}
 
 		&__main-element {
-			font-weight: bold;
+			margin-top: 16px;
+			font-size: rem-calc(18);
+			opacity: 0.9;
 		}
 
 		&__sub-element {
-
+			margin-top: 3px;
+			font-size: rem-calc(16px);
+			opacity: 0.7;
 		}
 
 		&__content {
-			padding: 17px;
-			background-color: palette-get(grey);
+			padding: 14px 15px;
+			background-color: palette-get(turquoise);
 		}
 
 	}
@@ -81,7 +102,7 @@
 
 	&__main-nav {
 		position: relative;
-		left: -16px;
+		left: -18px;
 		margin-top: 5px;
 		width: auto;
 	}

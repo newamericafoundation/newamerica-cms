@@ -9,6 +9,9 @@
 
 a {
 	text-decoration: none;
+	&:hover {
+		color: palette-get(turquoise);
+	}
 }
 
 ul {
@@ -19,4 +22,6 @@ ul {
 li {
 	list-style-type: none;
 	display: inline-block;
+	margin: 0;
+	padding: 0;
 }

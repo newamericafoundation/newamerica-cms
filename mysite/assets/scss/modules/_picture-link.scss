@@ -22,7 +22,7 @@
 
 	&__content {
 
-		padding-top: 8px;
+		padding-top: 4px;
 
 		width: calc(100% - #{$size + $gutter});
 		display: inline-block;
@@ -36,11 +36,12 @@
 
 		h1 {
 			font-weight: bold;
-			font-size: 18px;
+			font-size: rem-calc(16);
 		}
 
 		p {
-			font-size: 16px;
+			margin-top: 3px;
+			font-size: rem-calc(14);
 		}
 
 	}
