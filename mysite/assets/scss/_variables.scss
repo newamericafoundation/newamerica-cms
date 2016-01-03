@@ -16,11 +16,28 @@ $color-palette: (
 
 $global-lineheight: 1.65;
 
+$body-font-family: 'Simplon';
+
 $button-background: palette-get(black);
 $button-background-hover: palette-get(turquoise);
 $button-margin: 0;
 
+$button-sizes: (
+  tiny: rem-calc(12),
+  small: rem-calc(14),
+  default: rem-calc(16),
+  large: rem-calc(18),
+);
+
 $grid-column-align-edge: false;
+
+$grid-column-responsive-gutter: (
+  small: 20px,
+  medium: 30px,
+);
+
+// Overrides the maximum width a row can take on.
+$grid-row-width: 85rem;
 
 $input-background: palette-get(grey);
 $input-background-focus: palette-get(grey);
@@ -30,3 +47,6 @@ $input-border: none;
 $input-border-focus: none;
 $input-shadow: none;
 $input-shadow-focus: none;
+
+$primary-color: palette-get(black);
+$secondary-color: palette-get(turquoise);

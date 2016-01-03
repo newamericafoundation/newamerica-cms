@@ -5,14 +5,23 @@
     
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    font-family: "Simplon";
 }
 
 a {
 	text-decoration: none;
+	&:hover {
+		color: palette-get(turquoise);
+	}
 }
 
 ul {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style-type: none;
+	display: inline-block;
+	margin: 0;
 	padding: 0;
 }

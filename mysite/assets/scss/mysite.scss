@@ -1,6 +1,17 @@
+/*
+ * Main SASS entry point. See include comments and the subfolders' _manifest.scss for documentation.
+ *
+ */
+
+// Style variables, including Foundation overrides
 @import 'variables';
 
+// Vendor style includes
 @import 'vendor/manifest';
 
+// Base setup
 @import 'base/manifest';
+
+// Includes styling for different UI elements.
+// In general, UI elements do not specify their own outside margins. This is handled by parent UI elements through a simple nested style.
 @import 'modules/manifest';

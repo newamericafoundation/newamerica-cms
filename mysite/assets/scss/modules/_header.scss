@@ -1,17 +1,79 @@
 .header {
 
+	$pad: 20px;
+
+	padding: $pad ($pad + 10px) 0px;
 	position: relative;
+	border-bottom: 5px solid palette-get(turquoise);
 
-	border-bottom: 4px solid palette-get(turquoise);
-
-	.button {
+	&__button {
 		background: none;
 		color: palette-get(black);
-		&:after { color: palette-get(black); }
 		&:hover {
 			background-color: palette-get(turquoise);
 			color: palette-get(white);
 		}
+
+		&--dropdown {
+			@include button-dropdown(0.4rem, palette-get(black), down);
+			&:hover {
+				@include button-dropdown(0.4rem, palette-get(white), down);
+			}
+		}
+	}
+
+	&__link-group {
+
+		display: none;
+		.header__main-nav__item:hover & {
+			display: block;
+		}
+
+		a, p, h1, li { 
+			color: palette-get(white); 
+			width: 100%; 
+		}
+
+		ul { margin: 0; width: 100%; }
+
+		padding-top: 5px;
+		
+		position: absolute;
+
+		top: 40px;
+		left: -12px;
+
+		width: calc(100% + 60px);
+		
+		&__heading {
+			margin-bottom: 0;
+			font-weight: bold;
+			font-size: rem-calc(22);
+		}
+
+		&__main-element, &__sub-element {
+			display: block;
+			font-weight: bold;
+			&:hover { opacity: 1; }
+		}
+
+		&__main-element {
+			margin-top: 16px;
+			font-size: rem-calc(18);
+			opacity: 0.9;
+		}
+
+		&__sub-element {
+			margin-top: 3px;
+			font-size: rem-calc(16px);
+			opacity: 0.7;
+		}
+
+		&__content {
+			padding: 14px 15px;
+			background-color: palette-get(turquoise);
+		}
+
 	}
 
 	&__logo {
@@ -39,24 +101,27 @@
 	}
 
 	&__main-nav {
+		position: relative;
+		left: -18px;
+		margin-top: 5px;
+		width: auto;
+	}
 
-		ul {
-			margin: 0;
+	&__secondary-nav {
+		position: absolute;
+		top: 30px; 
+		right: $pad + 10px;
+		a {
+			padding: 0 8px;
 		}
-
-		li {
-			list-style-type: none;
-			display: inline-block;
-		}
-
 	}
 
 	&__search {
 		margin: 0;
 		padding: 0;
 		position: absolute;
-		right: 0;
-		bottom: 5px;
+		right: $pad + 10px;
+		bottom: 15px;
 		width: 200px;
 		input {
 			margin: 0;

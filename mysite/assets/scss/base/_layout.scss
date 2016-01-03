@@ -1,6 +1,27 @@
 .wrapper {
+
 	display: block;
 	width: 100%;
-	max-width: 1000px;
 	margin: auto;
+	overflow-y: hidden;
+
+}
+
+// A section within the wrapper, providing standard spacing between UI elements on the page.
+.section {
+
+	$pad: 30px;
+	margin-top: $pad;
+	&:last-of-type {
+		margin-bottom: $pad;
+	}
+
+	// Modifier class that produces a centered section with a maximum width.
+	&--fixed-width {
+		width: 100%;
+		max-width: 1000px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
 }
