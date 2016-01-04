@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-programeventspage{% endblock %}
+
+{% block content %}
+<h1>{{ program }} Events </h1>
+
+	{% for event in events %}
+		<li>{{ event.title }} on {{ event.date }} at {{ event.time}} </li>
+	{% endfor %}
+
+{% endblock %}
