@@ -24,6 +24,8 @@
 
 	&__link-group {
 
+		z-index: 2;
+
 		display: none;
 		.header__main-nav__item:hover & {
 			display: block;
