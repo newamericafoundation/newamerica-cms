@@ -7,16 +7,18 @@
 
 {% block content %}
     <h1>{{ page.title }}</h1>
+    <h4> {{ page.date }} at {{ page.time}} </h3>
+    <h4> {{ page.address }}</h3>
 
-    <p class="meta">{{ page.date }}</p>
-    <p class="meta">{{ page.author }}</p>
+    <h4> {{ page.body }} </h3>
 
-    <div class="intro">{{ page.intro }}</div>
-
-    {{ page.body }}
+    <h4> <a href="{{page.rsvp_link}}">RSVP here</a>
 
     {% if page.image %}
       {% image page.image width-400 %}
     {% endif %}
     
+	{{page.map_iframe}}
+
 {% endblock %}
+
