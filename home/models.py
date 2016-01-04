@@ -6,6 +6,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
 from modelcluster.fields import ParentalKey
 from programs.models import Program, Subprogram
@@ -16,7 +17,6 @@ options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
 class HomePage(Page):
     parent_page_types = ['home.HomePage', ]
-    pass
 
 
 class SimplePage(Page):
@@ -30,6 +30,7 @@ class SimplePage(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('html', blocks.RawHTMLBlock()),
         ('image', ImageChooserBlock()),
+        ('video', EmbedBlock()),
     ])
 
     content_panels = Page.content_panels + [
@@ -88,6 +89,7 @@ class Post(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('html', blocks.RawHTMLBlock()),
         ('image', ImageChooserBlock()),
+        ('video', EmbedBlock()),
     ])
 
     parent_programs = models.ManyToManyField(
