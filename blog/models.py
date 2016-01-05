@@ -12,11 +12,11 @@ class BlogPost(Post):
 	Blog class that inherits from the abstract
 	Post model and creates pages for blog posts.
 	"""
-	parent_page_types = ['ProgramBlogHome']
+	parent_page_types = ['ProgramBlogPostsPage']
 	subpage_types = []
 
 
-class AllBlogPostPages(Page):
+class AllBlogPostsHomePage(Page):
 	"""
 	A page which inherits from the abstract Page model and 
 	returns every Blog post in the BlogPost model for the 
@@ -35,7 +35,7 @@ class AllBlogPostPages(Page):
 		verbose_name = "Homepage for all Blog Posts"
 
 
-class ProgramBlogHome(Page):
+class ProgramBlogPostsPage(Page):
 	"""
 	A page which inherits from the abstract Page model and returns
 	all Blog Posts associated with a specific program which is 
@@ -46,12 +46,13 @@ class ProgramBlogHome(Page):
 	subpage_types = ['BlogPost']
 
 	def get_context(self, request):
-		context = super(ProgramBlogHome, self).get_context(request)
+		context = super(ProgramBlogPostsPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
 		context['blog_posts'] = BlogPost.objects.filter(parent_programs=program)
 		context['program'] = program
 		return context
+		
 
 	class Meta:
 		verbose_name = "Blog Homepage for Program"
