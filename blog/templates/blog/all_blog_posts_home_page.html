@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-allblogpostshomepage{% endblock %}
+
+{% block content %}
+<h1>ALL BLOG POSTS</h1>
+
+
+	{% for post in blog_posts %}
+		<li>{{ post.title }}</li>
+	{% endfor %}
+
+{% endblock %}
