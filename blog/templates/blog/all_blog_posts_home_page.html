@@ -8,7 +8,17 @@
 <h1>ALL BLOG POSTS</h1>
 
 	{% for blog in blog_posts %}
-		<li>{{ blog.title }}</li>
+	<li>
+		{% for program in blog.parent_programs.all %}
+			<a href="/{{ program|slugify }}/blog/{{blog.title|slugify}}">{{blog.title}}</a> 
+		{% endfor %}
+		{{ blog.title }}
+			{% if blog.post_author.all %}
+				by {% for author in blog.post_author.all %} 
+    			<a href="/our-people/{{author|slugify}}">{{author}}</a>
+    			{% endfor %}
+    		{% endif %}
+    </li>
 	{% endfor %}
 
 {% endblock %}
