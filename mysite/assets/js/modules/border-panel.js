@@ -1,12 +1,45 @@
 import $ from 'jquery'
 
+
+$.fn.extend({
+
+	/*
+	 * Adds prefixed transform style.
+	 *
+	 */
+	addTransformStyle: function(transformString) {
+		$(this).css({
+			'-webkit-transform': transformString,
+			'-ms-transform': transformString,
+			'transform': transformString
+		})
+	},
+
+
+	/*
+	 * Sets BEM modifier class.
+	 *
+	 */
+	setModifier: function(baseClass, modifier, condition) {
+		var modifier = `${baseClass}--${modifier}`
+		var $el = $(this)
+		if (condition) {
+			$el.addClass(modifier)
+		} else {
+			$el.removeClass(modifier)
+		}
+	}
+
+})
+
+
 $.fn.extend({
 
 	/*
 	 * Plug-in to animate border panels.
 	 *
 	 */
-	animateBorderPanel: function() {
+	startBorderPanel: function() {
 
 		var width = 0
 		var itemCount = 0
@@ -18,7 +51,6 @@ $.fn.extend({
 		 */
 		setup()
 		addNavigationListeners()
-
 
 		/*
 		 * Cache element width and jQuery object.
@@ -40,23 +72,13 @@ $.fn.extend({
 
 			$this.find('.border-panel__item').each((i, el) => {
 				var $el = $(el)
-				console.log(i, activeItemIndex)
 				var xTransform = (i - activeItemIndex) * width
-				if (i === activeItemIndex) {
-					$el.addClass('border-panel__item--active')
-				} else {
-					$el.removeClass('border-panel__item--active')
-				}
-				$el.css('transform', `translate(${xTransform}px, 0)`)
+				$el.addTransformStyle(`translate(${xTransform}px, 0)`)
+				$el.setModifier('border-panel__item', 'active', (i === activeItemIndex))
 			})
 
 			$this.find('.border-panel__button').each((i, el) => {
-				var $el = $(el)
-				if (i === activeItemIndex) {
-					$el.addClass('border-panel__button--active')
-				} else {
-					$el.removeClass('border-panel__button--active')
-				}
+				$(el).setModifier('border-panel__button', 'active', (i === activeItemIndex))
 			})
 		}
 
@@ -68,6 +90,7 @@ $.fn.extend({
 		function addNavigationListeners() {
 			$this.find('.border-panel__nav').click((e) => { 
 				var $target = $(e.target)
+				if (!$target.hasClass('border-panel__button')) { return }
 				var index = $target.index()
 				if (activeItemIndex !== index) {
 					activeItemIndex = index
@@ -82,6 +105,6 @@ $.fn.extend({
 
 $(() => {
 	$('.border-panel').each((i, el) => {
-		$(el).animateBorderPanel()
+		$(el).startBorderPanel()
 	})
 })

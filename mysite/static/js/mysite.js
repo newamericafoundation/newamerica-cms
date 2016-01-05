@@ -9644,10 +9644,40 @@
 	_jquery2.default.fn.extend({
 
 		/*
+	  * Adds prefixed transform style.
+	  *
+	  */
+		addTransformStyle: function addTransformStyle(transformString) {
+			(0, _jquery2.default)(this).css({
+				'-webkit-transform': transformString,
+				'-ms-transform': transformString,
+				'transform': transformString
+			});
+		},
+
+		/*
+	  * Sets BEM modifier class.
+	  *
+	  */
+		setModifier: function setModifier(baseClass, modifier, condition) {
+			var modifier = baseClass + '--' + modifier;
+			var $el = (0, _jquery2.default)(this);
+			if (condition) {
+				$el.addClass(modifier);
+			} else {
+				$el.removeClass(modifier);
+			}
+		}
+
+	});
+
+	_jquery2.default.fn.extend({
+
+		/*
 	  * Plug-in to animate border panels.
 	  *
 	  */
-		animateBorderPanel: function animateBorderPanel() {
+		startBorderPanel: function startBorderPanel() {
 
 			var width = 0;
 			var itemCount = 0;
@@ -9680,23 +9710,13 @@
 
 				$this.find('.border-panel__item').each(function (i, el) {
 					var $el = (0, _jquery2.default)(el);
-					console.log(i, activeItemIndex);
 					var xTransform = (i - activeItemIndex) * width;
-					if (i === activeItemIndex) {
-						$el.addClass('border-panel__item--active');
-					} else {
-						$el.removeClass('border-panel__item--active');
-					}
-					$el.css('transform', 'translate(' + xTransform + 'px, 0)');
+					$el.addTransformStyle('translate(' + xTransform + 'px, 0)');
+					$el.setModifier('border-panel__item', 'active', i === activeItemIndex);
 				});
 
 				$this.find('.border-panel__button').each(function (i, el) {
-					var $el = (0, _jquery2.default)(el);
-					if (i === activeItemIndex) {
-						$el.addClass('border-panel__button--active');
-					} else {
-						$el.removeClass('border-panel__button--active');
-					}
+					(0, _jquery2.default)(el).setModifier('border-panel__button', 'active', i === activeItemIndex);
 				});
 			}
 
@@ -9707,6 +9727,9 @@
 			function addNavigationListeners() {
 				$this.find('.border-panel__nav').click(function (e) {
 					var $target = (0, _jquery2.default)(e.target);
+					if (!$target.hasClass('border-panel__button')) {
+						return;
+					}
 					var index = $target.index();
 					if (activeItemIndex !== index) {
 						activeItemIndex = index;
@@ -9720,7 +9743,7 @@
 
 	(0, _jquery2.default)(function () {
 		(0, _jquery2.default)('.border-panel').each(function (i, el) {
-			(0, _jquery2.default)(el).animateBorderPanel();
+			(0, _jquery2.default)(el).startBorderPanel();
 		});
 	});
 
