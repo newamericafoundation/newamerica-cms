@@ -1,10 +1,13 @@
 from django.db import models
+
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+
 from modelcluster.fields import ParentalKey
+
 from programs.models import Program
 
 
