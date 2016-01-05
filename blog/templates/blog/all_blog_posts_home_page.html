@@ -7,9 +7,8 @@
 {% block content %}
 <h1>ALL BLOG POSTS</h1>
 
-
-	{% for post in blog_posts %}
-		<li>{{ post.title }}</li>
+	{% for blog in blog_posts %}
+		<li>{{ blog.title }}</li>
 	{% endfor %}
 
 {% endblock %}
