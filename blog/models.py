@@ -1,10 +1,13 @@
 from django.db import models
+from django.utils.text import slugify
 
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
 
 from programs.models import Program
+
+from person.models import Person
 
 
 class BlogPost(Post):
@@ -26,7 +29,7 @@ class AllBlogPostsHomePage(Page):
 	subpage_types = []
 
 	def get_context(self, request):
-		context = super(AllBlogPostPages, self).get_context(request)
+		context = super(AllBlogPostsHomePage, self).get_context(request)
 		
 		context['blog_posts'] = BlogPost.objects.all()
 		return context
