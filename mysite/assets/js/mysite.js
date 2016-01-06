@@ -2,7 +2,9 @@ import './../scss/mysite.scss'
 
 import $ from 'jquery'
 
-import './modules/border-panel.js'
+import './plugins/index.js'
+
+import './modules/border-panel/index.js'
 
 // Entry point to the app.
 function startNewAmerica() {
