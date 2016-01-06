@@ -9,8 +9,11 @@
 
 	{% for person in people %}
 		<a href="{{ person.url }}">{{person.name}}</a><br>
-		{{ person.role }}<br>
-		{{ person.bio }}
+		{{ person.position_at_new_america }}
+		{% if person.program %}
+            <br>
+            <a href="{{person.program.url }}">{{ person.program }}</a>
+        {% endif %}
 		<br>
 		<br>
 	{% endfor %}
