@@ -8,15 +8,14 @@
 {% block content %}
     <h1>{{ page.title }}</h1>
 
-    <p class="meta">{{ page.date }}</p>
-    <p class="meta">{{ page.author }}</p>
-
-    <div class="intro">{{ page.intro }}</div>
+    {{ page.date }}
+    <br>
+    {% for author in page.post_author.all %} 
+    	<a href="{{ author.url }}">{{ author }}</a>
+    {% endfor %}
+    {{ page.author }}</p>
 
     {{ page.body }}
 
-    {% if page.image %}
-      {% image page.image width-400 %}
-    {% endif %}
     
 {% endblock %}
