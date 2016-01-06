@@ -19,8 +19,21 @@ $.fn.extend({
 		 * Entry point
 		 */
 		setup()
-		addNav()
 		addNavigationListeners()
+		setCarouselInterval()
+
+
+		/*
+		 *
+		 *
+		 */
+		function stepActiveItemIndex() {
+			activeItemIndex += 1
+			if (activeItemIndex === itemCount) {
+				activeItemIndex = 0
+			}
+		}
+
 
 		/*
 		 * Cache element width and jQuery object.
@@ -30,12 +43,13 @@ $.fn.extend({
 			activeItemIndex = 0
 			itemCount = $this.find('.border-panel__item').length
 			width = $this.width()
+			addNav()
 			update()
 		}
 
 
 		/*
-		 *
+		 * Add navigation html.
 		 *
 		 */
 		function addNav() {
@@ -49,6 +63,7 @@ $.fn.extend({
 		 *
 		 */
 		function update() {
+			// Update element width.
 			width = $this.width()
 
 			$this.find('.border-panel__item').each((i, el) => {
@@ -78,6 +93,19 @@ $.fn.extend({
 					update()
 				}			
 			})
+		}
+
+
+		/*
+		 *
+		 *
+		 */
+		function setCarouselInterval() {
+			if (itemCount === 1) { return }
+			setInterval(() => {
+				stepActiveItemIndex()
+				update()
+			}, 5500)
 		}
 
 	}

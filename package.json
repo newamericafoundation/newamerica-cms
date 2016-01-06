@@ -4,8 +4,8 @@
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
   "scripts": {
-    "compile-assets-development": "webpack --config webpack.config.development.js",
-    "compile-assets-dev": "webpack --config webpack.config.development.js --watch"
+    "dev": "webpack --config webpack.config.development.js --watch",
+    "server": "python manage.py runserver"
   },
   "repository": {
     "type": "git",

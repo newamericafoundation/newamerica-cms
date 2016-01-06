@@ -8,7 +8,8 @@ module.exports = {
 	output: {
 		path: path.resolve('./mysite/static/js'),
 		publicPath: 'http://localhost:8000/',
-		filename: 'mysite.js'
+		filename: 'mysite.js',
+		sourceMapFilename: 'mysite.js.map'
 	},
 
 	resolve: {
