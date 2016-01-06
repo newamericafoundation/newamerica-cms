@@ -110,6 +110,7 @@ class ProgramPeoplePage(Page):
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
         context['people'] = Person.objects.filter(program=program)
+        context['program'] = program
         return context
 
     class Meta:

@@ -8,14 +8,12 @@
 {% block content %}
     {% for person in people %}
 
-        <h1>{{ person.title }}</h1>
-
-        Bio: {{ person.bio }}
+        <h1><a href="{{ person.url }}">{{ person.title }}</a></h1>
+       	{{ person.position_at_new_america }}
+       	<br>
+       	{{ person.bio }}
         <br>
-
-        Role: {{ person.role }}
-
-        <hr>
+        <br>
     {% endfor %}
 
 {% endblock %}
