@@ -1,0 +1,7 @@
+div(class='border-panel__nav')
+	ul
+		if (buttonCount && buttonCount > 1)
+			- var n = 0
+			while n < buttonCount
+				li(class='border-panel__button')
+				- n += 1

@@ -4,8 +4,9 @@
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
   "scripts": {
-    "compile-assets-development": "webpack --config webpack.config.development.js",
-    "compile-assets-dev": "webpack --config webpack.config.development.js --watch"
+    "dev": "webpack --config webpack.config.development.js --watch",
+    "bundle": "webpack --config webpack.config.production.js",
+    "server": "python manage.py runserver"
   },
   "repository": {
     "type": "git",
@@ -25,9 +26,13 @@
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",
+    "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
+    "compression-webpack-plugin": "^0.2.0",
     "css-loader": "^0.23.1",
+    "jade": "^1.11.0",
+    "jade-loader": "^0.8.0",
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",

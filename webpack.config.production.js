@@ -1,5 +1,6 @@
 var path = require('path'),
-	webpack = require('webpack');
+	webpack = require('webpack'),
+	CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
 
@@ -8,8 +9,8 @@ module.exports = {
 	output: {
 		path: path.resolve('./mysite/static/js'),
 		publicPath: 'http://localhost:8000/',
-		filename: 'mysite.js',
-		sourceMapFilename: 'mysite.js.map'
+		filename: 'mysite.min.js',
+		sourceMapFilename: 'mysite.min.js.map'
 	},
 
 	resolve: {
@@ -39,6 +40,15 @@ module.exports = {
 			}
 
 		]
-	}
+	},
+
+	plugins: [
+		new webpack.optimize.UglifyJsPlugin({
+			mangle: {
+				except: [ '$super', '$', 'exports', 'require' ]
+			}
+		}),
+		new CompressionPlugin()
+	]
 
 }

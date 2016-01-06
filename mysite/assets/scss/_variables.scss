@@ -2,6 +2,8 @@
 
 $color-palette: (
 	grey: #dcdcdc,
+  lightgrey: #eee,
+  darkgrey: #555,
 	black: #2c2f35,
 	white: #ffffff,
 	turquoise: #2dbbb3
@@ -43,10 +45,13 @@ $input-background: palette-get(grey);
 $input-background-focus: palette-get(grey);
 
 $input-color: palette-get(black);
+$input-height: 50px;
 $input-border: none;
 $input-border-focus: none;
 $input-shadow: none;
 $input-shadow-focus: none;
+
+$form-spacing: 1.27rem;
 
 $primary-color: palette-get(black);
 $secondary-color: palette-get(turquoise);

@@ -1,0 +1,34 @@
+.date-box {
+
+	position: relative;
+	display: inline-block !important;
+	padding: 5px 8px;
+	background-color: palette-get(lightgrey);
+
+	&__month, &__day {
+		margin: 0;
+		padding: 0;
+		line-height: 100%;
+	}
+
+	&__month {
+		font-size: rem-calc(12);
+		text-transform: uppercase;
+	}
+
+	&__day {
+		font-weight: bold;
+		font-size: rem-calc(20);
+	}
+
+	&__fold {
+		width: 0;
+		height: 0;
+		border-bottom: 10px solid palette-get(white);
+		border-left: 10px solid palette-get(lightgrey);
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+
+}
