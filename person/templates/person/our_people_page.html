@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-ourpeoplepage{% endblock %}
+
+{% block content %}
+<h1>Our People</h1>
+
+	{% for person in people %}
+		<a href="{{ person.url }}">{{person.name}}</a><br>
+		{{ person.role }}<br>
+		{{ person.bio }}
+		<br>
+		<br>
+	{% endfor %}
+
+{% endblock %}
