@@ -28,9 +28,8 @@ class SimplePage(Page):
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
-        ('html', blocks.RawHTMLBlock()),
-        ('image', ImageChooserBlock()),
-        ('video', EmbedBlock()),
+        ('image', ImageChooserBlock(icon='image')),
+        ('video', EmbedBlock(icon='media')),
     ])
 
     content_panels = Page.content_panels + [
@@ -87,9 +86,8 @@ class Post(Page):
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
-        ('html', blocks.RawHTMLBlock()),
-        ('image', ImageChooserBlock()),
-        ('video', EmbedBlock()),
+        ('image', ImageChooserBlock(icon='image')),
+        ('video', EmbedBlock(icon='media')),
     ])
 
     parent_programs = models.ManyToManyField(
