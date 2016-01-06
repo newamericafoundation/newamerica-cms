@@ -8,7 +8,11 @@
 <h1>{{ program }} Events </h1>
 
 	{% for event in events %}
-		<li>{{ event.title }} on {{ event.date }} at {{ event.time}} </li>
+		<a href="{{ event.url }}">{{ event.title }}</a> on {{ event.date }} at {{ event.time}}
+		<br>
+		{{ event.address }}
+		<br>
+		<br>
 	{% endfor %}
 
 {% endblock %}
