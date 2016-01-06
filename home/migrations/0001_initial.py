@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import modelcluster.fields
-import wagtail.wagtailimages.blocks
 import wagtail.wagtailcore.fields
 import wagtail.wagtailcore.blocks
+import wagtail.wagtailembeds.blocks
+import modelcluster.fields
+import wagtail.wagtailimages.blocks
 
 
 class Migration(migrations.Migration):
@@ -30,7 +31,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
                 ('date', models.DateField(verbose_name='Post date')),
-                ('body', wagtail.wagtailcore.fields.StreamField([('heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('html', wagtail.wagtailcore.blocks.RawHTMLBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())])),
+                ('body', wagtail.wagtailcore.fields.StreamField([('heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('html', wagtail.wagtailcore.blocks.RawHTMLBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock()), ('video', wagtail.wagtailembeds.blocks.EmbedBlock())])),
             ],
             options={
                 'abstract': False,
@@ -60,7 +61,7 @@ class Migration(migrations.Migration):
             name='SimplePage',
             fields=[
                 ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.wagtailcore.fields.StreamField([('heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('html', wagtail.wagtailcore.blocks.RawHTMLBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())])),
+                ('body', wagtail.wagtailcore.fields.StreamField([('heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('html', wagtail.wagtailcore.blocks.RawHTMLBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock()), ('video', wagtail.wagtailembeds.blocks.EmbedBlock())])),
             ],
             options={
                 'abstract': False,
