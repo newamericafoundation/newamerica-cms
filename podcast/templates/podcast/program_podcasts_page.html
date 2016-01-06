@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-programpodcastspage{% endblock %}
+
+{% block content %}
+<h1>{{ program }}'s Podcasts </h1>
+
+	{% for podcast in podcasts %}
+		<h3>{{ podcast.title }}</h3>
+		{{ podcast.soundcloud }}
+		<hr>
+	{% endfor %}
+
+{% endblock %}

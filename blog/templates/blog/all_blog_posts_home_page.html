@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-allblogpostshomepage{% endblock %}
+
+{% block content %}
+<h1>ALL BLOG POSTS</h1>
+
+	{% for blog in blog_posts %}
+	<li>
+			<a href="{{ blog.url }}">{{blog.title}}</a> 
+			{% if blog.post_author.all %}
+				by {% for author in blog.post_author.all %} 
+    			<a href="{{ author.url }}">{{author}}</a>
+    			{% endfor %}
+    		{% endif %}
+    </li>
+	{% endfor %}
+
+{% endblock %}

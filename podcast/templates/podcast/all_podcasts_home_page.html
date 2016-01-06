@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-allpodcastshomepage{% endblock %}
+
+{% block content %}
+<h1>ALL PODCASTS</h1>
+
+
+	{% for podcast in podcasts %}
+		<li>{{ podcast.title }}</li>
+	{% endfor %}
+
+{% endblock %}

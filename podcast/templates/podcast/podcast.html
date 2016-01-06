@@ -3,20 +3,17 @@
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-event{% endblock %}
+{% block body_class %}template-podcast{% endblock %}
 
 {% block content %}
     <h1>{{ page.title }}</h1>
-    <h4> {{ page.date }} at {{ page.time}} </h3>
-    <h4> {{ page.address }}</h3>
 
-    <h4> {{ page.body }} </h3>
+    <h4> {{ page.body }} </h4>
 
-    <h4> <a href="{{page.rsvp_link}}">RSVP here</a>
+    {{ page.soundcloud }}
 
     {% if page.image %}
       {% image page.image width-400 %}
     {% endif %}
 
 {% endblock %}
-
