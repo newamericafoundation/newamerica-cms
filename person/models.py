@@ -15,7 +15,9 @@ from programs.models import Program
 class Person(Page):
     name = models.CharField(max_length=150)
     position_at_new_america = models.CharField(max_length=500, help_text="Position or Title at New America")
-    bio = models.TextField(max_length=1000)
+    email = models.EmailField()
+    short_bio = models.TextField(max_length=1000, blank=True, null=True)
+    long_bio = models.TextField(max_length=5000, blank=True, null=True)
     program = models.ForeignKey(Program, blank=True, null=True)
     expert = models.BooleanField()
     location = models.CharField(max_length=200)
@@ -44,7 +46,9 @@ class Person(Page):
     content_panels = Page.content_panels + [
         FieldPanel('name'),
         FieldPanel('position_at_new_america'),
-        FieldPanel('bio', classname="full"),
+        FieldPanel('email'),
+        FieldPanel('short_bio'),
+        FieldPanel('long_bio', classname="full"),
         FieldPanel('program'),
         FieldPanel('role'),
         FieldPanel('expert'),
