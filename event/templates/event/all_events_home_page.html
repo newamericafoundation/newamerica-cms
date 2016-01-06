@@ -7,9 +7,16 @@
 {% block content %}
 <h1>EVENTS</h1>
 
-
 	{% for event in events %}
-		<li>{{ event.title }} on {{ event.date }}</li>
+		<a href="{{ event.url }}">{{ event.title }}</a> - {{ event.date }} - {{ event.time }}
+		<br>
+		{{ event.address }}
+		<br>
+		{% for program in event.parent_programs.all %}
+			<a href="{{ program.url }}">{{ program }}</a>
+		{% endfor %}
+		<br>
+		<br>
 	{% endfor %}
 
 {% endblock %}
