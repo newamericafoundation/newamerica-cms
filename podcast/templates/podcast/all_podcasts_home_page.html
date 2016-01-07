@@ -7,9 +7,21 @@
 {% block content %}
 <h1>ALL PODCASTS</h1>
 
-
 	{% for podcast in podcasts %}
-		<li>{{ podcast.title }}</li>
+		<a href="{{ podcast.url }}">{{ podcast.title }}</a> - {{ podcast.date }} - {% for program in podcast.parent_programs.all %}
+			<a href="{{ program.url }}">{{ program }}</a>
+		{% endfor %}
+		<br>
+		{% if podcast.post_author.all %}
+			{% for author in podcast.post_author.all %}
+				<a href="{{ author.url }}">{{ author }} </a>
+				<br>
+			{% endfor %}
+		{% endif %}
+		<br>
+		{{ podcast.soundcloud }}
+		<br>
+		<br>
 	{% endfor %}
 
 {% endblock %}
