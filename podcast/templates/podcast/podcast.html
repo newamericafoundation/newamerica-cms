@@ -6,14 +6,18 @@
 {% block body_class %}template-podcast{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
-
+    <h1> {{ page.title }} </h1>
+    <h3> {{ page.date }} </h3>
     <h4> {{ page.body }} </h4>
 
-    {{ page.soundcloud }}
+    {% if page.post_author.all %}
+			{% for author in page.post_author.all %}
+				<a href="{{ author.url }}">{{ author }}</a>
+				<br>
+			{% endfor %}
+		{% endif %}
+		<br>
 
-    {% if page.image %}
-      {% image page.image width-400 %}
-    {% endif %}
+    {{ page.soundcloud }}
 
 {% endblock %}
