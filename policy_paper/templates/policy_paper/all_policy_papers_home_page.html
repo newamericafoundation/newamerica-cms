@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-allpolicypapershomepage{% endblock %}
+
+{% block content %}
+<h1>New America Policy Papers</h1>
+
+	{% for paper in policy_papers %}
+		<a href="{{ paper.url }}">{{ paper.title }}</a>
+		<br>
+		{{ paper.date }}
+		<br>
+		{% if paper.post_author.all %}
+			{% for author in paper.post_author.all %}
+				<a href="{{ author.url }}">{{ author }} </a>
+			{% endfor %}
+		{% endif %}
+		<br>
+		{% for program in paper.parent_programs.all %}
+			<a href="{{ program.url }}">{{ program }}</a>
+		{% endfor %}
+		<br>
+		<br>
+	{% endfor %}
+
+{% endblock %}
