@@ -3,20 +3,17 @@
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-bookpage{% endblock %}
+{% block body_class %}template-book{% endblock %}
 
 {% block content %}
     <h1>{{ page.title }}</h1>
+    <h2> {{page.date}}</h2>
 
-    <p class="meta">{{ page.date }}</p>
-    <p class="meta">{{ page.author }}</p>
+	    {% for author in page.post_author.all %} 
+	    	<a href="{{ author.url }}">{{ author }}</a>
+	    	<br>
+	    {% endfor %}
 
-    <div class="intro">{{ page.intro }}</div>
+    <p> {{ page.body }} </p>
 
-    {{ page.body }}
-
-    {% if page.image %}
-      {% image page.image width-400 %}
-    {% endif %}
-    
 {% endblock %}

@@ -8,7 +8,14 @@
 <h1>{{program}} Blog</h1>
 
 	{% for post in blog_posts %}
-		<li>{{ post.title }} on {{ post.date }}</li>
+		<a href="{{ post.url }}">{{ post.title }}</a><br>
+		{% for author in post.post_author.all %} 
+	    	<a href="{{ author.url }}">{{ author }}</a>
+	    {% endfor %}
+	    <br>
+	    {{ post.date }}
+	    <br>
+	    <br>
 	{% endfor %}
 
 {% endblock %}

@@ -8,13 +8,12 @@ from modelcluster.fields import ParentalKey
 
 #Abstract Program class that inherits from Page and provides template
 class AbstractProgram(Page):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, help_text='Name of Program')
 
     description = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
-        ('html', blocks.RawHTMLBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', ImageChooserBlock(icon='image')),
     ])
 
     class Meta:
@@ -26,7 +25,7 @@ class Program(AbstractProgram):
     parent_page_types = ['home.HomePage',]
 
     content_panels = Page.content_panels + [
-        FieldPanel('name'),
+        FieldPanel('name', classname='full title'),
         StreamFieldPanel('description'),
     ]
 

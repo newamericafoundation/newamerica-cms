@@ -5,21 +5,22 @@
 
 {% block body_class %}template-expertpage{% endblock %}
 
+
 {% block content %}
+    <h1>Experts</h1>
+
     {% for expert in experts %}
-
-        <h1>{{ expert.title }}</h1>
-
-        Bio: {{ expert.bio }}
+        <a href="{{ expert.url }}">{{ expert.name }}</a>
         <br>
-
-        Role: {{ expert.role }}
-
-        {% if page.image %}
-          {% image page.image width-400 %}
+        {{ expert.short_bio }}
+        <br>
+        {{ expert.role }}
+        <br>
+        {% if expert.program %}
+            <a href="{{expert.program.url }}">{{ expert.program }}</a>
         {% endif %}
-        <hr>
+        <br> 
+        <br>
     {% endfor %}
-
 
 {% endblock %}

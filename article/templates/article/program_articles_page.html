@@ -5,11 +5,17 @@
 {% block body_class %}template-programarticlespage{% endblock %}
 
 {% block content %}
-<h1>ARTICLES</h1>
+<h1>{{ program }} Articles</h1>
 
 
 	{% for article in articles %}
-		<li> {{ article.title }}</li>
+		<a href="{{ article.url }}">{{ article.title }}</a>
+		<br>
+		{% for author in article.post_author.all %} 
+			<a href="{{ author.url }}">{{author}}</a>
+			{% endfor %} {{ article.date }}
+		<br>
+		<br>
 	{% endfor %}
 
 {% endblock %}

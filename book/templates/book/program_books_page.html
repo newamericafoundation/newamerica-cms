@@ -7,9 +7,20 @@
 {% block content %}
 <h1>BOOKS</h1>
 
-
 	{% for book in books %}
-		<li>{{ book.title }} {{ book.program }}</li>
+		<a href="{{ book.url }}">{{ book.title }}</a>
+		<br>
+		{% if book.post_author.all %}
+			{% for author in book.post_author.all %} 
+			<a href="{{ author.url }}">{{author}}</a>
+			{% endfor %}
+		{% endif %}
+		<br>
+		{% for program in book.parent_programs.all %}
+			<a href="{{ program.url }}">{{ program }}</a>
+		{% endfor %}
+		<br> 
+    <br>
+    <br>
 	{% endfor %}
-
 {% endblock %}

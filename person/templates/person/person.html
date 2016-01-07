@@ -6,17 +6,20 @@
 {% block body_class %}template-person{% endblock %}
 
 {% block content %}
+
     <h1>{{ page.title }}</h1>
-
-    Bio: {{ page.bio }}
+    {{ page.position_at_new_america }}
     <br>
+    {{ page.role }}
     <br>
-    <br>
-
-    Role: {{ page.role }}
-
-    {% if page.image %}
-      {% image page.image width-400 %}
+    {% if page.long_bio %}
+    	{{ page.long_bio }}
+    	<br>
     {% endif %}
-    
+    {% if page.program %}
+    	<a href="{{ page.program.url }}">{{ page.program }}</a>
+    	<br>
+    {% endif %}
+    {{ page.email }}
+
 {% endblock %}

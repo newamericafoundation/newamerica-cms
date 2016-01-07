@@ -6,20 +6,14 @@
 {% block body_class %}template-programpeoplepage{% endblock %}
 
 {% block content %}
+    <h1>Our Team at {{ program }}</h1>
     {% for person in people %}
-
-        <h1>{{ person.title }}</h1>
-
-        Bio: {{ person.bio }}
+        <a href="{{ person.url }}">{{ person.title }}</a>
         <br>
-
-        Role: {{ person.role }}
-
-        {% if page.image %}
-          {% image page.image width-400 %}
-        {% endif %}
-        <hr>
+       	{{ person.position_at_new_america }}
+       	{{ person.short_bio }}
+        <br>
+        <br>
     {% endfor %}
-
 
 {% endblock %}
