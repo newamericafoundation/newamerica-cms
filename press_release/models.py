@@ -12,7 +12,7 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
 class PressRelease(Post):
     """
-    Press release class that inherits from the abstract
+    Press Release class that inherits from the abstract
     Post model and creates pages for Press Releases.
     """
     parent_page_types = ['ProgramPressReleasesPage']
