@@ -35,7 +35,7 @@ To contribute to frontend development, you need to install a ``Node.js`` environ
 
 To compile front-end assets, run the following:
 
-	npm run compile-assets-development
+	npm run dev
 
 ### Client-side JavaScript
 
