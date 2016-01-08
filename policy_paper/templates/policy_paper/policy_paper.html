@@ -3,12 +3,11 @@
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-podcast{% endblock %}
+{% block body_class %}template-policypaper{% endblock %}
 
 {% block content %}
     <h1> {{ page.title }} </h1>
     <h3> {{ page.date }} </h3>
-    <h4> {{ page.body }} </h4>
 
     {% if page.post_author.all %}
 			{% for author in page.post_author.all %}
@@ -17,7 +16,8 @@
 			{% endfor %}
 		{% endif %}
 		<br>
-
-    {{ page.soundcloud }}
+    {{ page.body }}
+    {{ page.paper_url }}
+    {{ page.attachment }}
 
 {% endblock %}

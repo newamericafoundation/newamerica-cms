@@ -7,8 +7,6 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, Inl
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import URLBlock
 
-from modelcluster.fields import ParentalKey
-
 from programs.models import Program
 
 

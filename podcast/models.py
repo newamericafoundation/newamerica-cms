@@ -23,7 +23,6 @@ class Podcast(Post):
     
     ])
 
-
     content_panels = Post.content_panels + [
     	StreamFieldPanel('soundcloud'),
 
