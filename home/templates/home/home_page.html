@@ -6,5 +6,6 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
-   {{ page.body|richtext }}
+   {% include 'ui_elements/dummy_content.html' %}
+   {{ page.body }}
 {% endblock %}
