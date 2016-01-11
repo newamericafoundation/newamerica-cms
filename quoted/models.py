@@ -18,7 +18,7 @@ class Quoted(Post):
     parent_page_types = ['ProgramQuotedPage']
     subpage_types = []
 
-    source = models.CharField(max_length=3000)
+    source = models.TextField(max_length=8000)
     source_url = models.URLField()
 
     content_panels = Post.content_panels + [
