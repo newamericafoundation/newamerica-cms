@@ -3,7 +3,7 @@
 	position: relative;
 	display: inline-block !important;
 	padding: 5px 8px;
-	background-color: palette-get(lightgrey);
+	background-color: palette-get(grey);
 
 	&__month, &__day {
 		margin: 0;
@@ -25,7 +25,7 @@
 		width: 0;
 		height: 0;
 		border-bottom: 10px solid palette-get(white);
-		border-left: 10px solid palette-get(lightgrey);
+		border-left: 10px solid palette-get(grey);
 		position: absolute;
 		right: 0;
 		bottom: 0;
