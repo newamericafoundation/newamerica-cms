@@ -7,19 +7,22 @@
 	border-bottom: 5px solid palette-get(turquoise);
 
 	&__button {
+
 		background: none;
 		color: palette-get(black);
-		&:hover {
+
+		&:hover, .header__main-nav__item:hover & {
 			background-color: palette-get(turquoise);
 			color: palette-get(white);
 		}
 
 		&--dropdown {
 			@include button-dropdown(0.4rem, palette-get(black), down);
-			&:hover {
+			&:hover, .header__main-nav__item:hover & {
 				@include button-dropdown(0.4rem, palette-get(white), down);
 			}
 		}
+
 	}
 
 	&__link-group {

@@ -1,8 +1,7 @@
 // Custom variables
 
 $color-palette: (
-	grey: #dcdcdc,
-  lightgrey: #eee,
+	grey: #ebebeb,
   darkgrey: #555,
 	black: #2c2f35,
 	white: #ffffff,
@@ -12,6 +11,8 @@ $color-palette: (
 @function palette-get($key) {
 	@return map-get($color-palette, $key);
 }
+
+$max-content-width: 1350px;
 
 
 // Foundation default variable overrides
