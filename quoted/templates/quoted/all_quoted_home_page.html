@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-allquotedhomepage{% endblock %}
+
+{% block content %}
+<h1>New America Quoted</h1>
+
+	{% for quoted in quoted_pieces %}
+		<a href="{{ quoted.url }}">{{ quoted.title }}</a>
+		<br>
+		{{ quoted.date }}
+		<br>
+		{% if quoted.post_author.all %}
+			{% for author in quoted.post_author.all %}
+				<a href="{{ author.url }}">{{ author }} </a>
+			{% endfor %}
+		{% endif %}
+		<br>
+		{% for program in quoted.parent_programs.all %}
+			<a href="{{ program.url }}">{{ program }}</a>
+		{% endfor %}
+		<br>
+		<br>
+	{% endfor %}
+
+{% endblock %}
