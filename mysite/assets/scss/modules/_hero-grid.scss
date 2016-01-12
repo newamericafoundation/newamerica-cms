@@ -9,7 +9,7 @@
 	$height: 400px;
 
 	// Adjustment made to the widths of the main and secondary grid columns so it lines up with regular grid.
-	$gutter-adjust: 20px;
+	$gutter-adjust: 15px;
 
 	$local-gutter: 5px;
 
@@ -89,13 +89,17 @@
 			bottom: 0;
 			padding: 15px 20px;
 			p, h1 { color: palette-get(white); }
-			h1 { 
+			h1 {
+				line-height: 108%;
 				font-weight: bold; 
-				font-size: rem-calc(22); 
+				font-size: rem-calc(24);
+				.hero-grid__main & {
+					font-size: rem-calc(32);
+				} 
 				margin-bottom: 0; 
 			}
 			p { 
-				font-size: rem-calc(18); 
+				font-size: rem-calc(16); 
 				margin-bottom: 0; 
 			}
 		}

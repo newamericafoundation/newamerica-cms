@@ -12,7 +12,8 @@ $color-palette: (
 	@return map-get($color-palette, $key);
 }
 
-$max-content-width: 1350px;
+$max-site-width: 1350px;
+$max-body-width: 650px;
 
 
 // Foundation default variable overrides
@@ -36,7 +37,7 @@ $grid-column-align-edge: false;
 
 $grid-column-responsive-gutter: (
   small: 20px,
-  medium: 30px,
+  medium: 20px,
 );
 
 // Overrides the maximum width a row can take on.
@@ -53,6 +54,16 @@ $input-shadow: none;
 $input-shadow-focus: none;
 
 $form-spacing: 1.27rem;
+
+$anchor-color: palette-get(black);
+$anchor-color-hover: palette-get(turquoise);
+
+$paragraph-lineheight: 1.65;
+$paragraph-color: palette-get(black);
+
+$blockquote-color: palette-get(black);
+// $blockquote-padding: rem-calc(9 20 0 19);
+$blockquote-border: 4px solid palette-get(black);
 
 $primary-color: palette-get(black);
 $secondary-color: palette-get(turquoise);

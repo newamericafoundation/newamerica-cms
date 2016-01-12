@@ -1,0 +1,20 @@
+.post-body {
+
+	max-width: $max-body-width;
+	width: 100%;
+	margin: auto;
+
+	p, blockquote {
+		font-size: rem-calc(20);
+		color: palette-get(black);
+	}
+
+	blockquote {
+		margin: 20px 0;
+		border-left-width: 4px;
+		border-color: palette-get(black);
+		padding: 0 15px;
+		font-style: italic;
+	}
+
+}
