@@ -2,9 +2,17 @@
 
 	$pad: 20px;
 
-	padding: $pad ($pad + 10px) 0px;
-	position: relative;
+	
 	border-bottom: 5px solid palette-get(turquoise);
+
+	&__content {
+		padding: $pad ($pad - 10px + 1px) 0px;
+		position: relative;
+		display: block;
+		width: 100%;
+		margin: auto;
+		max-width: $max-site-width;
+	}
 
 	&__button {
 
@@ -75,7 +83,7 @@
 		}
 
 		&__content {
-			padding: 14px 15px;
+			padding: 30px 15px;
 			background-color: palette-get(turquoise);
 		}
 
@@ -90,7 +98,7 @@
 		}
 
 		svg {
-			width: 60px;
+			width: 55px;
 		}
 
 		h1 {
@@ -98,9 +106,9 @@
 			font-family: 'Platform';
 			font-weight: bold;
 			text-transform: uppercase;
-			font-size:26px;
+			font-size: rem-calc(23);
 			width: 80px;
-			padding-top: 6px;
+			padding-top: 5px;
 			padding-left: 5px;
 		}
 	}
@@ -126,7 +134,7 @@
 		padding: 0;
 		position: absolute;
 		right: $pad + 10px;
-		bottom: 15px;
+		bottom: 5px;
 		width: 200px;
 		input {
 			margin: 0;
