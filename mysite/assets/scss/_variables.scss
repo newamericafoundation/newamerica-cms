@@ -33,6 +33,8 @@ $button-sizes: (
   large: rem-calc(18),
 );
 
+// $button-padding: 0.65rem;
+
 $grid-column-align-edge: false;
 
 $grid-column-responsive-gutter: (
@@ -41,19 +43,23 @@ $grid-column-responsive-gutter: (
 );
 
 // Overrides the maximum width a row can take on.
-$grid-row-width: 85rem;
+$grid-row-width: rem-calc($max-site-width);
 
 $input-background: palette-get(grey);
-$input-background-focus: palette-get(grey);
+$input-background-focus: palette-get(turquoise);
 
 $input-color: palette-get(black);
-$input-height: 50px;
+$input-color-focus: palette-get(white);
+
+$input-height: 40px;
+$input-font-size: rem-calc(16);
+
 $input-border: none;
 $input-border-focus: none;
 $input-shadow: none;
 $input-shadow-focus: none;
 
-$form-spacing: 1.27rem;
+$form-spacing: 1.73rem;//1.375rem;
 
 $anchor-color: palette-get(black);
 $anchor-color-hover: palette-get(turquoise);

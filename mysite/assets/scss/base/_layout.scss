@@ -10,6 +10,11 @@
 
 	$pad: 30px;
 	margin-top: $pad;
+
+	&:first-of-type {
+		margin-top: 0;
+	}
+
 	&:last-of-type {
 		margin-bottom: $pad;
 	}
