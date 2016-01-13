@@ -52,7 +52,7 @@
 
                                         <div class='small-12 large-4 columns'>
 
-                                            {% for program in programs %}
+                                            {% for program in programs|slice:":5" %}
                                                 {% if program %}
                                                     <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
                                                     {% top_menu_children parent=program %}
@@ -60,7 +60,30 @@
                                                     <a href="{% pageurl program %}" class="header__link-group__main-element">{{ program.title }}</a>
                                                 {% endif %}
                                             {% endfor %}
+                                        </div>
 
+                                        <div class='small-12 large-4 columns'>
+
+                                            {% for program in programs|slice:"5:10" %}
+                                                {% if program %}
+                                                    <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
+                                                    {% top_menu_children parent=program %}
+                                                {% else %}
+                                                    <a href="{% pageurl program %}" class="header__link-group__main-element">{{ program.title }}</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class='small-12 large-4 columns'>
+
+                                            {% for program in programs|slice:"10:" %}
+                                                {% if program %}
+                                                    <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
+                                                    {% top_menu_children parent=program %}
+                                                {% else %}
+                                                    <a href="{% pageurl program %}" class="header__link-group__main-element">{{ program.title }}</a>
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
 
                                     </div>
@@ -89,13 +112,13 @@
                 </li>
 
                 <li class='header__main-nav__item'>
-                    <a class='header__button button'>Events</a>
+                    <a class='header__button button' href="/events">Events</a>
                 </li>
                 <li class='header__main-nav__item'>
                     <a class='header__button button'>Our Work</a>
                 </li>
                 <li class='header__main-nav__item'>
-                    <a class='header__button button'>Experts</a>
+                    <a class='header__button button' href="/experts">Experts</a>
                 </li>
                 <li class='header__main-nav__item'>
                     <a class='header__button button'>About</a>

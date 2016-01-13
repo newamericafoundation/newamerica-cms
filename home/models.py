@@ -15,8 +15,9 @@ from person.models import Person
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
+
 class HomePage(Page):
-    parent_page_types = ['home.HomePage', ]
+    pass
 
 
 class SimplePage(Page):
