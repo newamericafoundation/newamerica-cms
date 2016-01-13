@@ -45,5 +45,11 @@
 
 // Overrides. Use very sparingly - modify Foundation variables instead.
 .button {
-  font-weight: bold;
+	font-weight: bold;
+}
+
+input[type='text'] {
+	&:focus {
+		color: #fff;
+	}
 }

@@ -1,7 +1,9 @@
 .border-panel {
 
+	$h: 225px;
+
 	border: 5px solid palette-get(grey);
-	height: 250px;
+	height: $h;
 	width: 100%;
 
 	overflow: hidden;
@@ -28,7 +30,7 @@
 		z-index: 2;
 		position: absolute;
 		width: 100%;
-		bottom: 10px;
+		bottom: 25px;
 		ul { text-align: center; }
 	}
 
@@ -36,7 +38,7 @@
 		position: absolute;
 		width: 100%;
 		text-align: center;
-		top: 20px;
+		top: 25px;
 	}
 
 	&__button {
@@ -46,10 +48,11 @@
 		height: 12px;
 		border-radius: 100%;
 		margin: 0 6px;
-		background-color: palette-get(black);
-		opacity: 0.3;
+		background-color: palette-get(grey);
 
-		&:hover, &--active { opacity: 1; }
+		&:hover, &--active { 
+			background-color: palette-get(black);
+		}
 	}
 
 	&__content {
@@ -65,7 +68,7 @@
 		h1, p { padding: 2 }
 
 		h1 {
-			font-size: rem-calc(22px);
+			font-size: rem-calc(24px);
 			font-weight: bold;
 		}
 

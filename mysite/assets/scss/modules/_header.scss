@@ -2,6 +2,7 @@
 
 	$pad: 20px;
 
+	// margin-bottom: -30px;
 	
 	border-bottom: 5px solid palette-get(turquoise);
 
@@ -120,12 +121,18 @@
 		width: auto;
 	}
 
+	&__secondary-nav, &__search {
+		right: 10px;
+	}
+
 	&__secondary-nav {
 		position: absolute;
 		top: 30px; 
-		right: $pad + 10px;
 		a {
 			padding: 0 8px;
+			&:last-of-type {
+				padding-right: 0;
+			}
 		}
 	}
 
@@ -133,8 +140,7 @@
 		margin: 0;
 		padding: 0;
 		position: absolute;
-		right: $pad + 10px;
-		bottom: 5px;
+		bottom: 0;
 		width: 200px;
 		input {
 			margin: 0;
