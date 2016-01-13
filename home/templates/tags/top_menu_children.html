@@ -1,0 +1,8 @@
+{% load top_menu wagtailcore_tags %}
+
+<ul>
+    {% for subprogram in subprograms %}
+        <li><a href="{% pageurl subprogram %}" class='header__link-group__sub-element'>{{ subprogram.title }}</a></li>
+        <br>
+    {% endfor %}
+</ul>

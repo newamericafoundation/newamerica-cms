@@ -1,0 +1,119 @@
+{% load top_menu wagtailcore_tags static %}
+{% get_site_root as site_root %}
+
+<header class='header'>
+
+    <div class='header__content'>
+
+        <div class='header__logo'>
+            {% include 'ui_elements/svg_icons/naf.html' %}
+            <h1>New America</h1>
+        </div>
+
+        <div class='header__secondary-nav'>
+            <ul>
+                <li>
+                    <a href="">Jobs</a>
+                </li>
+                <li>
+                    <a href="">Subscribe</a>
+                </li>
+                <li>
+                    <a href="">Press</a>
+                </li>
+                <li>
+                    <a href="">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <nav class='header__main-nav'>
+            <ul>
+                <li class='header__main-nav__item'>
+                    <a class='header__button header__button--dropdown button'>Programs</a>
+
+                    <div class='header__link-group'>
+
+                        <div class='header__link-group__content'>
+
+                            <div class='row'>
+
+                                <div class='small-12 large-9 columns'>
+
+                                    <div class='row'>
+                                        
+                                        <div class='small-12 large-12 columns'>
+                                            <h1 class='header__link-group__heading'>Programs and Initiatives</h1>
+                                        </div>
+
+                                    </div>
+
+                                    <div class='row'>
+
+                                        <div class='small-12 large-4 columns'>
+
+                                            {% for program in programs %}
+                                                {% if program %}
+                                                    <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
+                                                    {% top_menu_children parent=program %}
+                                                {% else %}
+                                                    <a href="{% pageurl program %}" class="header__link-group__main-element">{{ program.title }}</a>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class='small-12 large-3 columns'>
+
+                                    <div class='row'>
+                                        <div class='small-12 large-12 columns'>
+                                            <h1 class='header__link-group__heading'>By Location</h1>
+                                            <a class='header__link-group__main-element'>Washington DC Head Office</a>
+                                            <a class='header__link-group__main-element'>New America NYC</a>
+                                            <a class='header__link-group__main-element'>New America California</a>
+                                            <a class='header__link-group__main-element'>New America Chicago</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </li>
+
+                <li class='header__main-nav__item'>
+                    <a class='header__button button'>Events</a>
+                </li>
+                <li class='header__main-nav__item'>
+                    <a class='header__button button'>Our Work</a>
+                </li>
+                <li class='header__main-nav__item'>
+                    <a class='header__button button'>Experts</a>
+                </li>
+                <li class='header__main-nav__item'>
+                    <a class='header__button button'>About</a>
+                </li>
+                <li class='header__main-nav__item'>
+                    <a class='header__button button'>Donate</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <div class='header__search'>
+            <form action="" method="get">
+                <input type='text' placeholder='Search'></input>
+            </form>
+        </div>
+
+    </div>
+
+</header>
