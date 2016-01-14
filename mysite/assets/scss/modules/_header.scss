@@ -1,8 +1,6 @@
 .header {
 
 	$pad: 20px;
-
-	// margin-bottom: -30px;
 	
 	border-bottom: 5px solid palette-get(turquoise);
 
@@ -55,9 +53,9 @@
 		position: absolute;
 
 		top: 40px;
-		left: -12px;
+		left: 0px;
 
-		width: calc(100% + 60px);
+		width: calc(100% + 36px);
 		
 		&__heading {
 			margin-bottom: 0;
@@ -84,7 +82,7 @@
 		}
 
 		&__content {
-			padding: 30px 15px;
+			padding: 30px 7px;
 			background-color: palette-get(turquoise);
 		}
 
