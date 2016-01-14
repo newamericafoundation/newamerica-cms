@@ -1,7 +1,7 @@
 .footer {
 
 	$pad: 20px;
-	$link-pad: 5px;
+	$link-pad: 16px;
 
 	$opacity: 0.7;
 
@@ -14,7 +14,10 @@
 	}
 
 	a {
-		padding: 0 $link-pad;
+		margin: 0 $link-pad;
+		&:first-of-type {
+			margin-left: 0;
+		}
 		&:hover {
 			opacity: 1;
 		}
@@ -22,26 +25,36 @@
 
 	position: relative;
 
-	&__main-nav {
-		$w: 500px;
-		width: $w;
-		position: absolute;
+	&__main-nav, &__info, &__social-nav {
+		ul { margin: 12px 0; }
 		text-align: center;
-		top: $pad + 0px;
-		left: calc(50% - #{$w / 2});
-		text-align: center;
-		
 	}
 
-	&__info {
-		float: left;
-		p {
-			margin: 0;
+	@include breakpoint(large) {
+
+		ul { margin: 0; }
+
+		&__main-nav {
+			$w: 500px;
+			width: $w;
+			position: absolute;
+			text-align: center;
+			left: calc(50% - #{$w / 2});
+			top: $pad + 0px;
+			
 		}
-	}
 
-	&__social-nav {
-		float: right;
+		&__info {
+			float: left;
+			p {
+				margin: 0;
+			}
+		}
+
+		&__social-nav {
+			float: right;
+		}
+
 	}
 
 }
