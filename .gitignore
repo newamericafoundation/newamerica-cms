@@ -10,3 +10,9 @@ bower_components
 npm-debug.log
 mysite/static/js/
 requirements.txt
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+.ebextensions/
