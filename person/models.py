@@ -16,7 +16,7 @@ class Person(Page):
     email = models.EmailField()
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
-    program = models.ForeignKey(Program, blank=True, null=True)
+    belongs_to_program = models.ForeignKey(Program, blank=True, null=True, help_text="The Program this person works for")
     expert = models.BooleanField()
     location = models.CharField(max_length=200)
     photo = StreamField([
@@ -47,7 +47,7 @@ class Person(Page):
         FieldPanel('email'),
         FieldPanel('short_bio'),
         FieldPanel('long_bio', classname="full"),
-        FieldPanel('program'),
+        FieldPanel('belongs_to_program'),
         FieldPanel('role'),
         FieldPanel('expert'),
         StreamFieldPanel('photo'),
