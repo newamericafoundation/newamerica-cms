@@ -65,14 +65,17 @@
 		position: relative;
 		top: 18px;
 
-		h1, p { padding: 2 }
+		h1, p { padding: 0; line-height: 130%; }
 
 		h1 {
 			font-size: rem-calc(24px);
+			margin-bottom: 0;
 			font-weight: bold;
+
 		}
 
 		p {
+			margin-top: 0;
 			font-size: rem-calc(16px);
 		}
 
