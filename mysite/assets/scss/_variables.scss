@@ -2,7 +2,7 @@
 
 $color-palette: (
 	grey: #ebebeb,
-  darkgrey: #555,
+  darkgrey: #777,
 	black: #2c2f35,
 	white: #ffffff,
 	turquoise: #2dbbb3
@@ -45,9 +45,11 @@ $button-sizes: (
 
 $grid-column-align-edge: false;
 
+$gutter: 20px;
+
 $grid-column-responsive-gutter: (
-  small: 20px,
-  medium: 20px,
+  small: $gutter,
+  medium: $gutter,
 );
 
 // Overrides the maximum width a row can take on.
