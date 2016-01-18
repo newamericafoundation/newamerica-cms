@@ -2,6 +2,8 @@ from datetime import date
 from django import template
 from django.conf import settings
 
+import logging
+
 from programs.models import Program
 
 register = template.Library()

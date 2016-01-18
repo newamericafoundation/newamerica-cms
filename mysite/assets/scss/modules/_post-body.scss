@@ -3,6 +3,7 @@
 	max-width: $max-body-width;
 	width: 100%;
 	margin: auto;
+	padding: 0 $gutter / 2;
 
 	p, blockquote {
 		font-size: rem-calc(20);

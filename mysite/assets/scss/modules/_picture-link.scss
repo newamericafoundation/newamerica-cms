@@ -8,6 +8,11 @@
 	width: auto;
 	height: $size;
 
+	margin: $gutter/2 0;
+	@include breakpoint(small) {
+		margin: 0;
+	}
+
 	&__picture, &__content {
 		float: left;
 	}

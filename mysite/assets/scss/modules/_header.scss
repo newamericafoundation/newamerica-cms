@@ -13,6 +13,11 @@
 		max-width: $max-site-width;
 	}
 
+	// &__dropdown-button {
+	// 	width: 10px;
+	// 	height: 10px;
+	// }
+
 	&__button {
 
 		background: none;
@@ -25,9 +30,24 @@
 
 		&--dropdown {
 			@include button-dropdown(0.4rem, palette-get(black), down);
+			&:after { top: 3px; }
 			&:hover, .header__main-nav__item:hover & {
 				@include button-dropdown(0.4rem, palette-get(white), down);
+				&:after { top: 3px; }
 			}
+
+			// position: relative;
+			// &:after {
+			// 	position: absolute;
+			// 	right: 0;
+			// 	top: 15px;
+			// 	content: '';
+			// 	display: block;
+			// 	width: 15px;
+			// 	height: 15px;
+			// 	background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIj4KPHJlY3QgeD0iMjg2LjI0OSIgeT0iMjI0LjI5OCIgdHJhbnNmb3JtPSJtYXRyaXgoMC43MDcxIC0wLjcwNzEgMC43MDcxIDAuNzA3MSAtMjU5LjUwNTggMzg1LjQ2ODYpIiB3aWR0aD0iOTguNTkiIGhlaWdodD0iNTYzLjM3IiBmaWxsPScjMDAwJyAvPgo8cmVjdCB4PSI2MTQuODQ0IiB5PSIyMjQuMzA0IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjcwNzEgMC43MDcxIC0wLjcwNzEgMC43MDcxIDU1Mi4zMDk4IC0zMjEuNDE3MSkiIHdpZHRoPSI5OC41OSIgaGVpZ2h0PSI1NjMuMzY5IiBmaWxsPScjMDAwJyAvPgo8L3N2Zz4=');
+			// 	background-size: contain;
+			// }
 		}
 
 	}
