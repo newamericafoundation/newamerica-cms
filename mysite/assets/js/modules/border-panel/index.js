@@ -10,10 +10,14 @@ $.fn.extend({
 	 */
 	startBorderPanel: function() {
 
+		const INTERVAL = 5500
+
 		var width = 0
 		var itemCount = 0
 		var activeItemIndex = 0
 		var $this = $(this)
+
+		var shouldChangeOnInterval = true
 
 		/*
 		 * Entry point
@@ -86,6 +90,7 @@ $.fn.extend({
 		function addNavigationListeners() {
 			$this.find('.border-panel__nav').click((e) => { 
 				var $target = $(e.target)
+				shouldChangeOnInterval = false
 				if (!$target.hasClass('border-panel__button')) { return }
 				var index = $target.index()
 				if (activeItemIndex !== index) {
@@ -103,9 +108,13 @@ $.fn.extend({
 		function setCarouselInterval() {
 			if (itemCount === 1) { return }
 			setInterval(() => {
+				if (!shouldChangeOnInterval) {
+					shouldChangeOnInterval = true
+					return
+				}
 				stepActiveItemIndex()
 				update()
-			}, 5500)
+			}, INTERVAL)
 		}
 
 	}

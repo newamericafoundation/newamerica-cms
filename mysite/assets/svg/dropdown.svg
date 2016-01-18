@@ -1,4 +1,8 @@
-<svg viewBox="0 0 1000 1000">
-<rect x="286.249" y="224.298" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -259.5058 385.4686)" width="98.59" height="563.37" fill='#000' />
-<rect x="614.844" y="224.304" transform="matrix(0.7071 0.7071 -0.7071 0.7071 552.3098 -321.4171)" width="98.59" height="563.369" fill='#000' />
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1000px" height="1000px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+<rect fill="#fff" x="280.03" y="209.304" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 945.5853 590.2974)" width="141.015" height="563.365"/>
+<rect fill="#fff" x="578.63" y="209.298" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 760.9729 1297.1653)" width="141.015" height="563.364"/>
 </svg>
