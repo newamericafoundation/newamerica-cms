@@ -17,19 +17,21 @@
 
 	&__main, &__secondary {
 		float: left;
-		height: $height;
 	}
 
 	&__main {
+		height: $height / 2;
 		width: 100%;
 		margin-bottom: $local-gutter;
 		@include unfold() {
+			height: $height;
 			width: calc(#{100% * 2 / 3} + #{$gutter-adjust});
 			margin-bottom: 0;
 		}
 	}
 
 	&__secondary {
+		height: $height;
 		width: 100%;
 		@include unfold() {
 			width: calc(#{100% * 1 / 3} - #{$gutter-adjust});
@@ -43,8 +45,9 @@
 		position: relative;
 
 		.hero-grid__main & {
-			height: $height;
+			height: $height / 2;
 			@include unfold() {
+				height: $height;
 				padding-right: 5px;
 			}
 		}
