@@ -148,6 +148,10 @@
 	}
 
 	&__secondary-nav {
+		display: none;
+		@include breakpoint(medium) {
+			display: block;
+		}
 		position: absolute;
 		top: 30px; 
 		a {

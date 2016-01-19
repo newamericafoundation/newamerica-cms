@@ -1,16 +1,19 @@
 .picture-link {
 
 	$size: 75px;
-	$gutter: 15px;
+	$local-gutter: 15px;
 
 	@include clearfix;
 
 	width: auto;
 	height: $size;
 
-	margin: $gutter/2 0;
-	@include breakpoint(small) {
-		margin: 0;
+	margin-top: $gutter / 2;
+	margin-bottom: $gutter / 2;
+
+	@include breakpoint(medium) {
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 
 	&__picture, &__content {
@@ -29,9 +32,9 @@
 
 		padding-top: 4px;
 
-		width: calc(100% - #{$size + $gutter});
+		width: calc(100% - #{$size + $local-gutter});
 		display: inline-block;
-		margin-left: $gutter;
+		margin-left: $local-gutter;
 
 		h1, p {
 			width: 100%;
