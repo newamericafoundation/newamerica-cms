@@ -1,8 +1,15 @@
 .header {
 
+	// Mixin used only in this scope to control when the menu should expand.
+	// Modify here only.
+	@mixin expand() {
+		@include breakpoint(medium) {
+			@content;
+		}
+	}
+
 	$pad: 20px;
 	
-	// border-bottom: 5px solid palette-get(turquoise);
 	border-bottom: 5px solid palette-get(white);
 
 	&__content {
@@ -15,6 +22,11 @@
 	}
 
 	&__button {
+
+		display: none;
+		@include expand() {
+			display: block;
+		}
 
 		background: none;
 		color: palette-get(black);
@@ -33,7 +45,6 @@
 			// }
 
 			padding-right: 33px;
-
 			position: relative;
 			&:after {
 				position: absolute;
@@ -121,10 +132,17 @@
 		}
 
 		svg {
-			width: 55px;
+			width: 30px;
+			@include breakpoint(medium) {
+				width: 55px;
+			}
 		}
 
 		h1 {
+			display: none;
+			@include expand() {
+				display: inline-block;
+			}
 			line-height: 100%;
 			font-family: 'Platform';
 			font-weight: bold;
@@ -143,13 +161,26 @@
 		width: auto;
 	}
 
+	// Appears only in responsive mode.
+	&__icon {
+		width: 40px;
+		height: 40px;
+		i {
+			font-size: 40px;
+		}
+		display: block;
+		@include expand() {
+			display: none;
+		}
+	}
+
 	&__secondary-nav, &__search {
 		right: 10px;
 	}
 
 	&__secondary-nav {
 		display: none;
-		@include breakpoint(medium) {
+		@include expand() {
 			display: block;
 		}
 		position: absolute;
@@ -168,6 +199,12 @@
 		position: absolute;
 		bottom: 0;
 		width: 200px;
+		form {
+			display: none;
+			@include expand() {
+				display: block;
+			}
+		}
 		input {
 			margin: 0;
 		}
