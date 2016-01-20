@@ -17,7 +17,7 @@ options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
 
 class HomePage(Page):
-    pass
+    parent_page_types = ['home.HomePage',]
 
 
 class SimplePage(Page):
