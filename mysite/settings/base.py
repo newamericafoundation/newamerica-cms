@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'policy_paper',
     'press_release',
     'quoted',
+    'issue',
     
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
