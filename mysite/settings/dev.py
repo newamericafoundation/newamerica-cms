@@ -2,14 +2,13 @@ from .base import *
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", False)
 
 for template_engine in TEMPLATES:
     template_engine['OPTIONS']['debug'] = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!_qc+kg-$@jtwysz=on)0pne$shgxycji@r#ywx+@s(p((hfvc'
-
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
