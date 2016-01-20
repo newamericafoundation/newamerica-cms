@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-simplepage{% endblock %}
+
+{% block content %}
+    <h1>{{ program }} Issues</h1>
+ 	<br>
+    {{ page.body }}
+    
+    {% for issue in issues %}
+		<h3><a href="{{ issue.url }}">{{ issue.title }}</a></h3>
+		<br>
+		<br>
+	{% endfor %}
+
+{% endblock %}
