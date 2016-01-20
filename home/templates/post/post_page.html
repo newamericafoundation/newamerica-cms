@@ -6,9 +6,9 @@
 
 {% block content %}
     <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date }}</p>
+    {{ page.date }}
 
-    <div class="intro">{{ page.intro }}</div>
+    {{ page.intro }}
 
-    {{ page.body|richtext }}
+    {{ page.body }}
 {% endblock %}
