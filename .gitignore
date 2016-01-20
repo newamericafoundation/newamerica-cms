@@ -9,7 +9,5 @@
 node_modules
 bower_components
 npm-debug.log
-mysite/static/js/
 media/documents/
-static/
 test.log
