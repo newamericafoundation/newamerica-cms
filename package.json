@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --config webpack.config.development.js --watch",
     "bundle": "webpack --config webpack.config.production.js",
-    "server": "python manage.py runserver"
+    "testserver": "node mysite/testserver/app.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "compression-webpack-plugin": "^0.2.0",
     "css-loader": "^0.23.1",
+    "express": "^4.13.4",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "node-sass": "^3.4.2",

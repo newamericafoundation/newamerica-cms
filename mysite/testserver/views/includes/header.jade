@@ -1,0 +1,65 @@
+header.header
+  .header__content
+    .header__logo
+      include ./svg/naf.jade
+      h1 New America
+    .header__secondary-nav
+      ul
+        li
+          a(href='') Jobs
+        li
+          a(href='') Subscribe
+        li
+          a(href='') Press
+        li
+          a(href='') Contact
+    nav.header__main-nav
+      ul
+        li.header__main-nav__item
+          a.header__button.header__button--dropdown.button Programs
+          .header__icon
+            i.icon-i_award
+          .header__link-group
+            .header__link-group__content
+              .row
+                .small-12.large-9.columns
+                  .row
+                    .small-12.large-12.columns
+                      h1.header__link-group__heading Programs and Initiatives
+                  .row
+                    .small-12.large-4.columns
+                    .small-12.large-4.columns
+                    .small-12.large-4.columns
+                .small-12.large-3.columns
+                  .row
+                    .small-12.large-12.columns
+                      h1.header__link-group__heading By Location
+                      a.header__link-group__main-element Washington DC Head Office
+                      a.header__link-group__main-element New America NYC
+                      a.header__link-group__main-element New America California
+                      a.header__link-group__main-element New America Chicago
+        li.header__main-nav__item
+          a.header__button.button(href='/events') Events
+          .header__icon
+            i.icon-i_calendar
+        li.header__main-nav__item
+          a.header__button.button Our Work
+          .header__icon
+            i.icon-i_book
+        li.header__main-nav__item
+          a.header__button.button(href='/experts') Experts
+          .header__icon
+            i.icon-i_people
+        li.header__main-nav__item
+          a.header__button.button About
+          .header__icon
+            i.icon-i_award
+        li.header__main-nav__item
+          a.header__button.button Donate
+          .header__icon
+            i.icon-i_heart
+    .header__search
+      .header__icon
+        i.icon-i_magnifying-glass
+      form(action='', method='get')
+        input(type='text', placeholder='Search')

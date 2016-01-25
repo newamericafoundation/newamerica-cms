@@ -1,0 +1,93 @@
+extends layout
+
+block content
+
+  include ./includes/header.jade
+  section.section.section--fixed-width
+    .row
+      .columns
+        include ./includes/hero-grid-main-secondary.jade
+
+        h1 Separator
+
+        include ./includes/hero-grid-thirds.jade
+  section.section.section--fixed-width
+    .row
+      .small-12.large-4.columns
+        .picture-link
+          .picture-link__picture
+            img(src='http://climatedesk.org/wp-content/uploads/2014/02/drought670x380.jpg', alt='Climate')
+          .picture-link__content
+            h1 Reinventing the Think Tank
+            p Why we're building a new model of nationwide civic engagement.
+      .small-12.large-4.columns
+        .picture-link
+          .picture-link__picture
+            img(src='http://graphics8.nytimes.com/images/2016/01/11/us/11firstdraft-clinton/11firstdraft-clinton-tmagArticle.jpg', alt='Draft')
+          .picture-link__content
+            h1 The Next Social Contract
+            p Why we need to reexamine the role of governments in a sharing economy.
+      .small-12.large-4.columns
+        .picture-link
+          .picture-link__picture
+            img(src='http://climatedesk.org/wp-content/uploads/2014/02/drought670x380.jpg', alt='')
+          .picture-link__content
+            h1 2016 Annual Conference
+            p
+              | Join us as we explore how big ideas and a new social contract can change America.
+  section.section.section--fixed-width
+    .row
+      .small-12.large-6.columns
+        .border-panel
+          .border-panel__item
+            .border-panel__content
+              h1 Subscribe to New America Weekly!
+              p Get our weekly digital magazine and events lineup in your inbox
+              #subscribe
+                input#subscribe__email-field(type='text', placeholder='Your e-mail')
+                button#subscribe__link.button Sign up
+                #subscribe__modal-container
+      .small-12.large-6.columns
+        .border-panel
+          ul
+            li.border-panel__item
+              .border-panel__date
+                .date-box
+                  p.date-box__day 22
+                  p.date-box__month Nov
+                  .date-box__fold
+              .border-panel__content
+                h1 ISIS in the West
+                p A new policy paper investigates Westerners drawn to Jihadist groups
+            li.border-panel__item
+              .border-panel__date
+                .date-box
+                  p.date-box__day 22
+                  p.date-box__month Nov
+                  .date-box__fold
+              .border-panel__content
+                h1 ISIS in the West
+                p A new policy paper investigates Westerners drawn to Jihadist groups
+            li.border-panel__item
+              .border-panel__date
+                .date-box
+                  p.date-box__day 22
+                  p.date-box__month Nov
+                  .date-box__fold
+              .border-panel__content
+                h1 ISIS in the West
+                p A new policy paper investigates Westerners drawn to Jihadist groups
+  .post-body
+    p
+      | Join us as protagonists from all sides of the debate, as well as researchers with groundbreaking social media data, consider the record – the evidence of left-right cooperation, as well as the evidence of its failures and limits. What actually happened in states where Common Core was repealed? Has anything really changed? What drove the assault, and could Common Core’s backers have done anything differently?
+    p
+      | The event will also mark the release of the third in a series of New Models of Policy Change case studies. Patrick McGuinn and Jonathan Supovitz examine the successes and limits of transpartisan opposition to Common Core. What are the lessons of the Common Core fight for education policy? Are there lessons applicable to other fragile areas of bipartisan cooperation?
+    blockquote
+      | The event will also mark the release of the third in a series of New Models of Policy Change case studies. Patrick McGuinn and Jonathan Supovitz examine the successes and limits of transpartisan opposition to Common Core. What are the lessons of the Common Core fight for education policy? Are there lessons applicable to other fragile areas of bipartisan cooperation?
+  .panel
+    h1 Our Story
+    p
+      | Founded in 1999, New America is a think tank and civic enterprise committed to renewing American politics, prosperity, and purpose in the Digital Age. We generate big ideas, bridge the gap between technology and policy, and curate broad public conversation.
+    .panel__link
+      a.button(href='') Read our story
+  include ./includes/footer.jade
