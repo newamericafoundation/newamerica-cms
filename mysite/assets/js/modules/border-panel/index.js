@@ -19,18 +19,14 @@ $.fn.extend({
 
 		var shouldChangeOnInterval = true
 
-		/*
-		 * Entry point
-		 */
-		setup()
-		addNavigationListeners()
-		setCarouselInterval()
+		start()
 
+		function start() {
+			setup()
+			addNavigationListeners()
+			setCarouselInterval()
+		}
 
-		/*
-		 *
-		 *
-		 */
 		function stepActiveItemIndex() {
 			activeItemIndex += 1
 			if (activeItemIndex === itemCount) {
@@ -38,11 +34,6 @@ $.fn.extend({
 			}
 		}
 
-
-		/*
-		 * Cache element width and jQuery object.
-		 *
-		 */
 		function setup() {
 			activeItemIndex = 0
 			itemCount = $this.find('.border-panel__item').length
@@ -51,21 +42,11 @@ $.fn.extend({
 			update()
 		}
 
-
-		/*
-		 * Add navigation html.
-		 *
-		 */
 		function addNav() {
 			var navHtml = navTemplate({ buttonCount: itemCount })
 			$this.prepend(navHtml)
 		}
 
-
-		/*
-		 * Update dom.
-		 *
-		 */
 		function update() {
 			// Update element width.
 			width = $this.width()
@@ -82,11 +63,6 @@ $.fn.extend({
 			})
 		}
 
-
-		/*
-		 * Adds nav click listeners
-		 *
-		 */
 		function addNavigationListeners() {
 			$this.find('.border-panel__nav').click((e) => { 
 				var $target = $(e.target)
@@ -98,13 +74,12 @@ $.fn.extend({
 					update()
 				}			
 			})
+			$this.on('swiperight', () => {
+				activeItemIndex = 1
+				update()
+			})
 		}
 
-
-		/*
-		 *
-		 *
-		 */
 		function setCarouselInterval() {
 			if (itemCount === 1) { return }
 			setInterval(() => {
