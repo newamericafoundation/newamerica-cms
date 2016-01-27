@@ -28,7 +28,7 @@ $breakpoints: (
   large: 1024px,
   xlarge: 1200px,
   xxlarge: 1440px,
-) !default;
+);
 
 $button-background: palette-get(black);
 $button-background-hover: palette-get(turquoise);
@@ -54,6 +54,15 @@ $grid-column-responsive-gutter: (
 
 // Overrides the maximum width a row can take on.
 $grid-row-width: rem-calc($max-site-width);
+
+$breadcrumbs-margin: 0;
+$breadcrumbs-item-font-size: rem-calc(16);
+$breadcrumbs-item-color: palette-get(black);
+// $breadcrumbs-item-color-current: $black !default;
+// $breadcrumbs-item-color-disabled: $medium-gray !default;
+// $breadcrumbs-item-margin: 0.75rem !default;
+$breadcrumbs-item-uppercase: false;
+$breadcrumbs-item-slash: true !default;
 
 $input-background: palette-get(grey);
 $input-background-focus: palette-get(turquoise);

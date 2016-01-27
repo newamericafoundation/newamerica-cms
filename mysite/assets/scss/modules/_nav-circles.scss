@@ -1,0 +1,19 @@
+.nav-circles {
+	
+	text-align: center;
+
+	&__circle {
+		cursor: pointer;
+		content: '';
+		width: 12px;
+		height: 12px;
+		border-radius: 100%;
+		margin: 0 4px;
+		background-color: palette-get(grey);
+
+		&:hover, &--active { 
+			background-color: palette-get(black);
+		}
+	}
+
+}

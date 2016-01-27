@@ -17,7 +17,7 @@
 // @include foundation-accordion;
 // @include foundation-accordion-menu;
 // @include foundation-badge;
-// @include foundation-breadcrumbs;
+@include foundation-breadcrumbs;
 // @include foundation-button-group;
 // @include foundation-callout;
 // @include foundation-close-button;
@@ -62,4 +62,23 @@ input[type='text'] {
 		      &:-moz-placeholder { color: palette-get(darkgrey); }
 		 &:-ms-input-placeholder { color: palette-get(darkgrey); }
 		 
+}
+
+.breadcrumbs {
+	a {
+		&:hover {
+			text-decoration: none;
+			color: palette-get(turquoise);
+		}
+	}
+
+	li:not(:last-child)::after {
+        // color: $medium-gray;
+        // content: '>';
+        // font-weight: bold;
+        // margin: 0 $breadcrumbs-item-margin;
+        // position: relative;
+        // top: 1px;
+        // opacity: 1;
+     }
 }

@@ -1,17 +1,12 @@
 doctype html
 html
-	head
-		title Atlas
-		meta(charset='utf-8')
-
-		//- Added to show correct width on phones.
-		meta(name='viewport', content='width=device-width')
-		meta(name='viewport', content='initial-scale=1, maximum-scale=1, user-scalable=no')
-
-		script(src='/static/js/mysite.js')
-
-	body
-
-		div(class='wrapper')
-
-			block content
+  head
+    title Atlas
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width')
+    meta(name='viewport', content='initial-scale=1, maximum-scale=1, user-scalable=no')
+    script(src='/static/js/mysite.js')
+  body
+    .wrapper
+      .wrapper__clear-header
+        block content

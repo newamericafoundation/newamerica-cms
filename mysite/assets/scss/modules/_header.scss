@@ -1,19 +1,26 @@
 .header {
 
-	// Mixin used only in this scope to control when the menu should expand.
-	// Modify here only.
-	@mixin expand() {
-		@include breakpoint(medium) {
-			@content;
-		}
-	}
+	position: fixed;
+	top: 0;
+
+	background-color: palette-get(white);
+
+	width: 100%;
+
+	z-index: 1000;
 
 	$pad: 20px;
-	
-	border-bottom: 5px solid palette-get(white);
+
+	padding-bottom: 0px;
+	@include expand-header {
+		padding-bottom: 10px;
+	}
 
 	&__content {
-		padding: $pad ($pad - 10px + 1px) 0px;
+		padding: 0;
+		@include expand-header() {
+			padding: $pad ($pad - 10px + 1px) 0px;
+		}
 		position: relative;
 		display: block;
 		width: 100%;
@@ -24,7 +31,7 @@
 	&__button {
 
 		display: none;
-		@include expand() {
+		@include expand-header() {
 			display: block;
 		}
 
@@ -37,12 +44,6 @@
 		}
 
 		&--dropdown {
-			// @include button-dropdown(0.4rem, palette-get(black), down);
-			// &:after { top: 3px; }
-			// &:hover, .header__main-nav__item:hover & {
-			// 	@include button-dropdown(0.4rem, palette-get(white), down);
-			// 	&:after { top: 3px; }
-			// }
 
 			padding-right: 33px;
 			position: relative;
@@ -125,6 +126,12 @@
 
 	&__logo {
 
+		display: none;
+
+		@include expand-header() {
+			display: inline-block;
+		}
+
 		& > * {
 			display: inline-block;
 			vertical-align: top;
@@ -132,55 +139,44 @@
 		}
 
 		svg {
-			width: 30px;
-			@include breakpoint(medium) {
-				width: 55px;
-			}
+			width: 55px;
 		}
 
 		h1 {
-			display: none;
-			@include expand() {
-				display: inline-block;
-			}
 			line-height: 100%;
 			font-family: 'Platform';
 			font-weight: bold;
 			text-transform: uppercase;
 			font-size: rem-calc(23);
-			width: 80px;
+			width: 110px;
 			padding-top: 5px;
 			padding-left: 5px;
+			color: palette-get(black);
+			&:hover {
+				color: palette-get(black);
+			}
 		}
 	}
 
 	&__main-nav {
+		display: none;
+		@include expand-header() {
+			display: block;
+		}
 		position: relative;
 		left: -18px;
 		margin-top: 5px;
 		width: auto;
 	}
 
-	// Appears only in responsive mode.
-	&__icon {
-		width: 40px;
-		height: 40px;
-		i {
-			font-size: 40px;
-		}
-		display: block;
-		@include expand() {
-			display: none;
-		}
-	}
-
 	&__secondary-nav, &__search {
 		right: 10px;
+		a { margin-left: 8px; }
 	}
 
 	&__secondary-nav {
 		display: none;
-		@include expand() {
+		@include expand-header() {
 			display: block;
 		}
 		position: absolute;
@@ -194,6 +190,10 @@
 	}
 
 	&__search {
+		display: none;
+		@include expand-header() {
+			display: block;
+		}
 		margin: 0;
 		padding: 0;
 		position: absolute;
@@ -201,12 +201,32 @@
 		width: 200px;
 		form {
 			display: none;
-			@include expand() {
+			@include expand-header() {
 				display: block;
 			}
 		}
 		input {
 			margin: 0;
+		}
+	}
+
+	&__icon {
+		width: 40px;
+		height: 40px;
+		i {
+			font-size: 40px;
+		}
+		display: block;
+		@include expand-header() {
+			display: none;
+		}
+	}
+
+	.mobile-nav {
+
+		display: block;
+		@include expand-header() {
+			display: none;
 		}
 	}
 

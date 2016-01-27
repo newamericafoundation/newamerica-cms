@@ -8,13 +8,7 @@
 	width: auto;
 	height: $size;
 
-	margin-top: $gutter / 2;
-	margin-bottom: $gutter / 2;
-
-	@include breakpoint(medium) {
-		margin-top: 0;
-		margin-bottom: 0;
-	}
+	@include space-out-small;
 
 	&__picture, &__content {
 		float: left;

@@ -6,6 +6,8 @@
 	height: $h;
 	width: 100%;
 
+	@include space-out-small;
+
 	overflow: hidden;
 
 	position: relative;
@@ -39,20 +41,6 @@
 		width: 100%;
 		text-align: center;
 		top: 25px;
-	}
-
-	&__button {
-		cursor: pointer;
-		content: '';
-		width: 12px;
-		height: 12px;
-		border-radius: 100%;
-		margin: 0 6px;
-		background-color: palette-get(grey);
-
-		&:hover, &--active { 
-			background-color: palette-get(black);
-		}
 	}
 
 	&__content {

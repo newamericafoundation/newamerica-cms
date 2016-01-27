@@ -1,0 +1,9 @@
+@mixin space-out-small() {
+	margin-top: $gutter / 2;
+	margin-bottom: $gutter / 2;
+
+	@include breakpoint(medium) {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}

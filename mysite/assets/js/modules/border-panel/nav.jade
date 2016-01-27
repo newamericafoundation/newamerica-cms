@@ -1,7 +1,7 @@
 div(class='border-panel__nav')
-	ul
+	ul.nav-circles
 		if (buttonCount && buttonCount > 1)
 			- var n = 0
 			while n < buttonCount
-				li(class='border-panel__button')
+				li.border-panel__button.nav-circles__circle
 				- n += 1
