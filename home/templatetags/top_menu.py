@@ -29,8 +29,6 @@ def top_menu(context, parent, calling_page=None):
             location_programs.append(program)
         else:
             programs.append(program)
-
-    # location_programs = Program.objects.in_menu().order_by("title").filter(location=True)
     return {
         'calling_page': calling_page,
         'programs': programs,
