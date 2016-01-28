@@ -1,0 +1,12 @@
+branch-defaults:
+  issues:
+    environment: newamerica-cms-dev
+  testsite:
+    environment: newamerica-cms-dev
+    group_suffix: null
+global:
+  application_name: newamerica-cms
+  default_platform: Python 2.7
+  default_region: us-west-2
+  profile: eb-cli
+  sc: git

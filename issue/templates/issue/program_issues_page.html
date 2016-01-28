@@ -6,9 +6,14 @@
 {% block body_class %}template-simplepage{% endblock %}
 
 {% block content %}
-
-    {{ page.title }}
-
+    <h1>{{ program }} Issues</h1>
+ 	<br>
     {{ page.body }}
+    
+    {% for issue in issues %}
+		<h3><a href="{{ issue.url }}">{{ issue.title }}</a></h3>
+		<br>
+		<br>
+	{% endfor %}
 
 {% endblock %}

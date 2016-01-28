@@ -20,10 +20,19 @@ def has_menu_children(page):
 # Retrieves the top menu items - the immediate children of the parent page
 @register.inclusion_tag('tags/top_menu.html', takes_context=True)
 def top_menu(context, parent, calling_page=None):
-    programs = Program.objects.in_menu().order_by("title")
+    # programs = Program.objects.in_menu().order_by("title").exclude(location=True)
+    programs = []
+    location_programs = []
+    all_programs = Program.objects.in_menu().order_by("title")
+    for program in all_programs:
+        if program.location == True:
+            location_programs.append(program)
+        else:
+            programs.append(program)
     return {
         'calling_page': calling_page,
         'programs': programs,
+        'location_programs': location_programs,
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
     }

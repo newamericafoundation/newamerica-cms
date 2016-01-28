@@ -3,12 +3,11 @@
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-simplepage{% endblock %}
+{% block body_class %}template-issuepage{% endblock %}
 
 {% block content %}
 
-    {{ page.title }}
-
+    <h2>{{ page.title }}</h2>
     {{ page.body }}
 
 {% endblock %}

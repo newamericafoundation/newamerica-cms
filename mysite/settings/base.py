@@ -25,7 +25,6 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # Application definition
 
-ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'home',
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'policy_paper',
     'press_release',
     'quoted',
+    'issue',
     
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -143,6 +143,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 
 
 # Wagtail settings

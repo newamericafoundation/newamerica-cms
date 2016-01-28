@@ -110,10 +110,14 @@
                                     <div class='row'>
                                         <div class='small-12 large-12 columns'>
                                             <h1 class='header__link-group__heading'>By Location</h1>
-                                            <a class='header__link-group__main-element'>Washington DC Head Office</a>
-                                            <a class='header__link-group__main-element'>New America NYC</a>
-                                            <a class='header__link-group__main-element'>New America California</a>
-                                            <a class='header__link-group__main-element'>New America Chicago</a>
+                                            {% for program in location_programs %}
+                                                {% if program %}
+                                                        <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
+                                                        {% top_menu_children parent=program %}
+                                                    {% else %}
+                                                        <a href="{% pageurl program %}" class="header__link-group__main-element">{{ program.title }}</a>
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
                                     </div>
 
