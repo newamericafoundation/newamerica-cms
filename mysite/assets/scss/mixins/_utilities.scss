@@ -7,3 +7,9 @@
 		margin-bottom: 0;
 	}
 }
+
+@mixin standard-shadow() {
+	$s: 0 0 25px 0px palette-get(shadow);
+	-webkit-box-shadow: $s; 
+	box-shadow: $s;
+}

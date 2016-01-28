@@ -57,10 +57,10 @@ input[type='text'] {
 		     &:-ms-input-placeholder { color: rgba(255, 255, 255, 0.8); }
 	}
 
-	&::-webkit-input-placeholder { color: palette-get(darkgrey); }
-		     &::-moz-placeholder { color: palette-get(darkgrey); }
-		      &:-moz-placeholder { color: palette-get(darkgrey); }
-		 &:-ms-input-placeholder { color: palette-get(darkgrey); }
+	&::-webkit-input-placeholder { color: palette-get(na-black-40); }
+		     &::-moz-placeholder { color: palette-get(na-black-40); }
+		      &:-moz-placeholder { color: palette-get(na-black-40); }
+		 &:-ms-input-placeholder { color: palette-get(na-black-40); }
 		 
 }
 
@@ -68,7 +68,7 @@ input[type='text'] {
 	a {
 		&:hover {
 			text-decoration: none;
-			color: palette-get(turquoise);
+			color: palette-get(na-turquoise);
 		}
 	}
 

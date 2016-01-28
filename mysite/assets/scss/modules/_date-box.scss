@@ -1,9 +1,12 @@
 .date-box {
 
+	$grey: palette-get(na-black-10);
+	$white: palette-get(na-white);
+
 	position: relative;
-	display: inline-block !important;
+	display: inline-block;
 	padding: 5px 8px;
-	background-color: palette-get(grey);
+	background-color: $grey;
 
 	&__month, &__day {
 		margin: 0;
@@ -24,8 +27,8 @@
 	&__fold {
 		width: 0;
 		height: 0;
-		border-bottom: 10px solid palette-get(white);
-		border-left: 10px solid palette-get(grey);
+		border-bottom: 10px solid $white;
+		border-left: 10px solid $grey;
 		position: absolute;
 		right: 0;
 		bottom: 0;

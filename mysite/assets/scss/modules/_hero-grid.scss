@@ -70,12 +70,6 @@
 
 			padding: $local-gutter/2 0;
 
-			// padding-top: $local-gutter / 2;
-			// padding-bottom: $local-gutter / 2;
-
-			// padding-left: 0;
-			// padding-right: 0;
-
 			@include unfold() {
 				width: 33.333333333%;
 
@@ -92,10 +86,6 @@
 					padding-left: $local-gutter / 2;
 				}
 			}
-
-			
-
-			
 
 		}
 
@@ -129,7 +119,7 @@
 		&__text-bar {
 			bottom: 0;
 			padding: 15px 20px;
-			p, h1 { color: palette-get(white); }
+			p, h1 { color: palette-get(na-white); }
 			h1 {
 				line-height: 108%;
 				font-weight: bold; 

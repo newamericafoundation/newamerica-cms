@@ -22,14 +22,14 @@
 		border-bottom: 1px solid;
 		border-right: 1px solid;
 
-		border-color: palette-get(grey);
-		background-color: palette-get(white);
-		i { color: palette-get(black); }
+		border-color: palette-get(na-black-10);
+		background-color: palette-get(na-white);
+		i { color: palette-get(na-black); }
 
 		&:hover, &--active {
-			border-color: palette-get(turquoise);
-			background-color: palette-get(turquoise);
-			i { color: palette-get(white); }
+			border-color: palette-get(na-turquoise);
+			background-color: palette-get(na-turquoise);
+			i { color: palette-get(na-white); }
 		}
 	}
 

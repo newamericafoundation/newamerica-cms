@@ -1,23 +1,3 @@
-// Custom variables
-
-$color-palette: (
-	grey: #ebebeb,
-  darkgrey: #777,
-	black: #2c2f35,
-	white: #ffffff,
-	turquoise: #2dbbb3
-);
-
-@function palette-get($key) {
-	@return map-get($color-palette, $key);
-}
-
-$max-site-width: 1150px;
-$max-body-width: 650px;
-
-
-// Foundation default variable overrides
-
 $global-lineheight: 1.65;
 
 $body-font-family: 'Simplon';
@@ -30,8 +10,8 @@ $breakpoints: (
   xxlarge: 1440px,
 );
 
-$button-background: palette-get(black);
-$button-background-hover: palette-get(turquoise);
+$button-background: palette-get(na-black);
+$button-background-hover: palette-get(na-turquoise);
 $button-margin: 0;
 
 $button-sizes: (
@@ -57,18 +37,18 @@ $grid-row-width: rem-calc($max-site-width);
 
 $breadcrumbs-margin: 0;
 $breadcrumbs-item-font-size: rem-calc(16);
-$breadcrumbs-item-color: palette-get(black);
+$breadcrumbs-item-color: palette-get(na-black);
 // $breadcrumbs-item-color-current: $black !default;
 // $breadcrumbs-item-color-disabled: $medium-gray !default;
 // $breadcrumbs-item-margin: 0.75rem !default;
 $breadcrumbs-item-uppercase: false;
 $breadcrumbs-item-slash: true !default;
 
-$input-background: palette-get(grey);
-$input-background-focus: palette-get(turquoise);
+$input-background: palette-get(na-black-10);
+$input-background-focus: palette-get(na-turquoise);
 
-$input-color: palette-get(black);
-$input-color-focus: palette-get(white);
+$input-color: palette-get(na-black);
+$input-color-focus: palette-get(na-white);
 
 $input-height: 40px;
 $input-font-size: rem-calc(16);
@@ -80,15 +60,15 @@ $input-shadow-focus: none;
 
 $form-spacing: 1.73rem;//1.375rem;
 
-$anchor-color: palette-get(black);
-$anchor-color-hover: palette-get(turquoise);
+$anchor-color: palette-get(na-black);
+$anchor-color-hover: palette-get(na-turquoise);
 
 $paragraph-lineheight: 1.65;
-$paragraph-color: palette-get(black);
+$paragraph-color: palette-get(na-black);
 
-$blockquote-color: palette-get(black);
+$blockquote-color: palette-get(na-black);
 // $blockquote-padding: rem-calc(9 20 0 19);
-$blockquote-border: 4px solid palette-get(black);
+$blockquote-border: 4px solid palette-get(na-black);
 
-$primary-color: palette-get(black);
-$secondary-color: palette-get(turquoise);
+$primary-color: palette-get(na-black);
+$secondary-color: palette-get(na-turquoise);
