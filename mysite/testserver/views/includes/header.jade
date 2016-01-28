@@ -1,7 +1,7 @@
 header.header
   .header__content
-    .header__logo
-      include ./svg/naf.jade
+    a(class='header__logo',href='/')
+      include ./svg/new-america.jade
       h1 New America
     .header__secondary-nav
       ul
@@ -13,12 +13,28 @@ header.header
           a(href='') Press
         li
           a(href='') Contact
+    .mobile-nav
+      ul
+        li.mobile-nav__button.mobile-nav__button--active
+          i.icon-i_new-america
+        li.mobile-nav__button
+          i.icon-i_calendar
+        li.mobile-nav__button
+          i.icon-i_book
+        li.mobile-nav__button
+          i.icon-i_people
+        li.mobile-nav__button
+          i.icon-i_award
+        li.mobile-nav__button
+          i.icon-i_heart
+        li.mobile-nav__button
+          i.icon-i_magnifying-glass
+
     nav.header__main-nav
       ul
         li.header__main-nav__item
           a.header__button.header__button--dropdown.button Programs
-          .header__icon
-            i.icon-i_award
+          .header__button__cover-bottom-shadow
           .header__link-group
             .header__link-group__content
               .row
@@ -40,24 +56,14 @@ header.header
                       a.header__link-group__main-element New America Chicago
         li.header__main-nav__item
           a.header__button.button(href='/events') Events
-          .header__icon
-            i.icon-i_calendar
         li.header__main-nav__item
           a.header__button.button Our Work
-          .header__icon
-            i.icon-i_book
         li.header__main-nav__item
           a.header__button.button(href='/experts') Experts
-          .header__icon
-            i.icon-i_people
         li.header__main-nav__item
-          a.header__button.button About
-          .header__icon
-            i.icon-i_award
+          a.header__button.header__button--dropdown.button About
         li.header__main-nav__item
           a.header__button.button Donate
-          .header__icon
-            i.icon-i_heart
     .header__search
       .header__icon
         i.icon-i_magnifying-glass
