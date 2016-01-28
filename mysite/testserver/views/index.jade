@@ -1,0 +1,23 @@
+extends layout
+
+block content
+
+  include ./includes/header.jade
+
+  section.section.section--fixed-width
+    .row
+      .columns
+        //- include ./includes/hero-grid-main-secondary.jade
+        include ./includes/press-releases.jade
+
+  section.section.section--fixed-width
+    include ./includes/picture-links.jade
+
+  section.section.section--fixed-width
+    include ./includes/border-panels.jade
+
+  include ./includes/post-body.jade
+
+  include ./includes/panel.jade
+
+  include ./includes/footer.jade

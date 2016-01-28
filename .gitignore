@@ -11,6 +11,16 @@ bower_components
 npm-debug.log
 mysite/static/js/
 requirements.txt
+
 media/documents/
 static/
-test.log
+
+venv
+*.log
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+.ebextensions/
+

@@ -7,13 +7,13 @@
 
 	p, blockquote {
 		font-size: rem-calc(20);
-		color: palette-get(black);
+		color: palette-get(na-black);
 	}
 
 	blockquote {
 		margin: 20px 0;
 		border-left-width: 4px;
-		border-color: palette-get(black);
+		border-color: palette-get(na-black);
 		padding: 0 15px;
 		font-style: italic;
 	}

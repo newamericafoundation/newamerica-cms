@@ -1,10 +1,16 @@
 .border-panel {
 
-	$h: 225px;
+	$border-color: palette-get(na-black-10);
+	$height: 240px;
 
-	border: 5px solid palette-get(grey);
-	height: $h;
+	$nav-and-info-offset: 10px;
+
+	border: 5px solid $border-color;
+
+	height: $height;
 	width: 100%;
+
+	@include space-out-small;
 
 	overflow: hidden;
 
@@ -30,29 +36,19 @@
 		z-index: 2;
 		position: absolute;
 		width: 100%;
-		bottom: 25px;
+		bottom: $nav-and-info-offset;
 		ul { text-align: center; }
 	}
 
-	&__date {
+	&__info {
+		opacity: 1;
 		position: absolute;
 		width: 100%;
 		text-align: center;
-		top: 25px;
-	}
-
-	&__button {
-		cursor: pointer;
-		content: '';
-		width: 12px;
-		height: 12px;
-		border-radius: 100%;
-		margin: 0 6px;
-		background-color: palette-get(grey);
-
-		&:hover, &--active { 
-			background-color: palette-get(black);
-		}
+		top: $nav-and-info-offset;
+		color: palette-get(na-black-10);
+		font-weight: bold;
+		text-transform: uppercase;
 	}
 
 	&__content {
@@ -63,13 +59,12 @@
 		vertical-align: middle;
 
 		position: relative;
-		top: 18px;
 
 		h1, p { padding: 0; line-height: 130%; }
 
 		h1 {
 			font-size: rem-calc(24px);
-			margin-bottom: 0;
+			margin-bottom: 6px;
 			font-weight: bold;
 
 		}

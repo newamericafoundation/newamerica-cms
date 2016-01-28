@@ -1,0 +1,71 @@
+header.header
+  .header__content
+    a(class='header__logo',href='/')
+      include ./svg/new-america.jade
+      h1 New America
+    .header__secondary-nav
+      ul
+        li
+          a(href='') Jobs
+        li
+          a(href='') Subscribe
+        li
+          a(href='') Press
+        li
+          a(href='') Contact
+    .mobile-nav
+      ul
+        li.mobile-nav__button.mobile-nav__button--active
+          i.icon-i_new-america
+        li.mobile-nav__button
+          i.icon-i_calendar
+        li.mobile-nav__button
+          i.icon-i_book
+        li.mobile-nav__button
+          i.icon-i_people
+        li.mobile-nav__button
+          i.icon-i_award
+        li.mobile-nav__button
+          i.icon-i_heart
+        li.mobile-nav__button
+          i.icon-i_magnifying-glass
+
+    nav.header__main-nav
+      ul
+        li.header__main-nav__item
+          a.header__button.header__button--dropdown.button Programs
+          .header__button__cover-bottom-shadow
+          .header__link-group
+            .header__link-group__content
+              .row
+                .small-12.large-9.columns
+                  .row
+                    .small-12.large-12.columns
+                      h1.header__link-group__heading Programs and Initiatives
+                  .row
+                    .small-12.large-4.columns
+                    .small-12.large-4.columns
+                    .small-12.large-4.columns
+                .small-12.large-3.columns
+                  .row
+                    .small-12.large-12.columns
+                      h1.header__link-group__heading By Location
+                      a.header__link-group__main-element Washington DC Head Office
+                      a.header__link-group__main-element New America NYC
+                      a.header__link-group__main-element New America California
+                      a.header__link-group__main-element New America Chicago
+        li.header__main-nav__item
+          a.header__button.button(href='/events') Events
+        li.header__main-nav__item
+          a.header__button.button Our Work
+        li.header__main-nav__item
+          a.header__button.button(href='/experts') Experts
+        li.header__main-nav__item
+          a.header__button.header__button--dropdown.button About
+        li.header__main-nav__item
+          a.header__button.button Donate
+    .header__search
+      .header__icon
+        i.icon-i_magnifying-glass
+      form(action='', method='get')
+        input(type='text', placeholder='Search')

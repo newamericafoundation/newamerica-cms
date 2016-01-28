@@ -1,8 +1,18 @@
 .wrapper {
+
 	display: block;
 	width: 100%;
 	margin: auto;
-	overflow-y: visible;
+	overflow: hidden;
+
+	&__clear-header {
+		width: 100%;
+		padding-top: 80px;
+		@include expand-header() {
+			padding-top: 160px;
+		}
+	}
+
 }
 
 // A section within the wrapper, providing standard spacing between UI elements on the page.
