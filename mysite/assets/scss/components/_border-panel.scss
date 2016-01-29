@@ -10,7 +10,7 @@
 	height: $height;
 	width: 100%;
 
-	@include space-out-small;
+	@include space-out(medium);
 
 	overflow: hidden;
 

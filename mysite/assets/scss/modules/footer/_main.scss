@@ -1,5 +1,11 @@
 .footer {
 
+	@mixin expand {
+		@include breakpoint(large) {
+			@content;
+		}
+	}
+
 	$pad: 20px;
 	$link-pad: 16px;
 
@@ -30,7 +36,7 @@
 		text-align: center;
 	}
 
-	@include breakpoint(large) {
+	@include expand {
 
 		ul { margin: 0; }
 

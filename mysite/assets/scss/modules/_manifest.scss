@@ -1,13 +1,11 @@
-@import 'header';
-@import 'mobile-nav';
-@import 'footer';
-@import 'panel';
-@import 'gallery';
-@import 'hero-grid';
-@import 'picture-link';
-@import 'border-panel';
-@import 'date-box';
-@import 'post-body';
-@import 'press-releases';
-@import 'nav-circles';
-@import 'utilities';
+/*
+ * Larger UI modules containing several, deeply nested components and miscellaneous tags.
+ *
+ *
+ *
+ */
+
+@import 'header/manifest';
+@import 'footer/manifest';
+@import 'mobile-nav/manifest';
+@import 'hero-grid/manifest';

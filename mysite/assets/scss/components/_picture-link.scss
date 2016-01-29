@@ -8,7 +8,7 @@
 	width: auto;
 	height: $size;
 
-	@include space-out-small;
+	@include space-out(medium);
 
 	&__picture, &__content {
 		float: left;

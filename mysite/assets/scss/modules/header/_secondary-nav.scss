@@ -1,0 +1,21 @@
+.header__secondary-nav {
+
+	display: none;
+	@include desktop-header {
+		display: none;
+	}
+	@include expanded-header {
+		display: inline-block;
+	}
+
+	position: absolute;
+	top: 30px; 
+
+	a {
+		padding: 0 8px;
+		&:last-of-type {
+			padding-right: 0;
+		}
+	}
+
+}

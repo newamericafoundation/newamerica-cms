@@ -37,6 +37,14 @@ To compile front-end assets, run the following:
 
 	npm run dev
 
+### Frontend test server
+
+There is a separate, tiny Express server used solely to test HTML and CSS without the need to have Python, Django or Postgres configured. Run it by simply typing:
+
+	npm run testserver
+
+Its code is under ``/mysite/testserver``.
+
 ### Stylesheets
 
 Development stylesheets are found under ``/mysite/assets/scss``.
