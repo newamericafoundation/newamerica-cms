@@ -1,4 +1,4 @@
-$color-palette: (
+$_color-palette: (
 	na-turquoise: #2ebcb3,
 	na-dark-turquoise: #2a8e88,
 	oti-blue: #5ba4da,
@@ -9,11 +9,12 @@ $color-palette: (
 	na-black-40: #abacae,
 	na-black-10: #eaeaeb,
 	na-white: #ffffff,
-	shadow: rgba(0, 0, 0, .25)
+	shadow: rgba(0, 0, 0, 0.25),
+	overlay: rgba(0, 0, 0, 0.2)
 );
 
 @function palette-get($key) {
-	@return map-get($color-palette, $key);
+	@return map-get($_color-palette, $key);
 }
 
 /*

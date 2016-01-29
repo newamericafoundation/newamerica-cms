@@ -1,7 +1,11 @@
-
-// Mixin used only in this scope to control when the menu should expand.
-@mixin expand-header() {
+@mixin desktop-header() {
 	@include breakpoint(medium) {
+		@content;
+	}
+}
+
+@mixin expanded-header() {
+	.header--expanded & {
 		@content;
 	}
 }

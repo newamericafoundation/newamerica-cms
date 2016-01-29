@@ -1,0 +1,35 @@
+.header__main-nav {
+
+	position: relative;
+
+	padding-top: 0px;
+
+	display: none;
+
+	@include desktop-header {
+		left: 0;
+		top: 16px;
+		display: inline-block;
+	}
+
+	@include expanded-header {
+		left: -18px;
+		top: 0;
+		display: inline-block;
+	}
+
+	
+
+	margin-top: 5px;
+
+	width: auto;
+
+	overflow: visible;
+
+	&__item {
+		z-index: 3;
+		overflow: visible;
+	}
+	
+
+}
