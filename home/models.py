@@ -61,6 +61,11 @@ class PostProgramRelationship(models.Model):
     panels = [
         FieldPanel('program'),
     ]
+    class meta:
+        unique_together = (("program", "post"),)
+
+    def __str__(self):
+        return str(self.program) + "," + str(self.post)
 
 
 class PostSubprogramRelationship(models.Model):
@@ -74,6 +79,8 @@ class PostSubprogramRelationship(models.Model):
     panels = [
         FieldPanel('subprogram'),
     ]
+    class meta:
+        unique_together = (("subprogram", "post"),)
 
 
 class Post(Page):
@@ -109,3 +116,23 @@ class Post(Page):
     ]
 
     is_creatable = False
+
+    def save(self, *args, **kwargs):
+        """
+        This save method overloads the wagtailcore Page save method in
+        order to ensure that the parent program - post relationship is
+        captured even if the user does not select it.
+        """
+        super(Post, self).save(*args, **kwargs)
+        parent_program_page = self.get_parent().get_parent()
+        parent_program = Program.objects.get(
+            slug=parent_program_page.slug
+        )
+        relationship, created = PostProgramRelationship.objects.get_or_create(
+            program=parent_program, post=self
+        )
+        if created:
+            relationship.save()
+
+
+
