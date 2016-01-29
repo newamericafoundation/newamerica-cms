@@ -1,6 +1,8 @@
 branch-defaults:
   issues:
     environment: newamerica-cms-dev
+  master:
+    environment: newamerica-cms-dev
   testsite:
     environment: newamerica-cms-dev
     group_suffix: null
