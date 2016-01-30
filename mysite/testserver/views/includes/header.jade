@@ -3,6 +3,8 @@ header.header
     a(class='header__logo',href='/')
       include ./svg/new-america.jade
       h1 New America
+    .header__sub-logo
+      h1 Education Policy
     .header__secondary-nav
       ul
         li
@@ -34,7 +36,7 @@ header.header
       ul
         li.header__main-nav__item
           a.header__button.header__button--dropdown.button Programs
-          .header__button__cover-bottom-shadow
+          //- .header__button__cover-bottom-shadow
           .header__link-group
             .header__link-group__content
               .row
@@ -62,6 +64,8 @@ header.header
           a.header__button.button(href='/experts') Experts
         li.header__main-nav__item
           a.header__button.header__button--dropdown.button About
+          .header__link-group
+            .header__link-group__content
         li.header__main-nav__item
           a.header__button.button Donate
     .header__search

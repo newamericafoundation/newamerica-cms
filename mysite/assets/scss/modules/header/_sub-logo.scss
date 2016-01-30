@@ -1,0 +1,36 @@
+.header__sub-logo {
+	
+	display: none;
+
+	@include desktop-header {
+		display: inline-block;
+	}
+
+	@include expanded-header {
+		display: inline-block;
+	}
+
+	width: auto;
+	max-width: 150px;
+	height: 60px;
+
+	position: relative;
+	top: 4px;
+
+	cursor: pointer;
+
+	padding: 6px 10px;
+
+	border: 1px solid palette-get(na-black-40);
+
+	h1 {
+		@include header-logo-text;
+	}
+
+	&:hover {
+		border: none;
+		background-color: palette-get(na-turquoise);
+		h1 { color: white; }
+	}
+	
+}

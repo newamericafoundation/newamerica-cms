@@ -4,11 +4,7 @@ var navTemplate = require('./nav.jade')
 
 $.fn.extend({
 
-	/*
-	 * Plug-in to animate border panels.
-	 *
-	 */
-	startBorderPanel: function() {
+	addBorderPanelInteractivity: function() {
 
 		const INTERVAL = 5500
 
@@ -103,6 +99,6 @@ $.fn.extend({
 
 $(() => {
 	$('.border-panel').each((i, el) => {
-		$(el).startBorderPanel()
+		$(el).addBorderPanelInteractivity()
 	})
 })
