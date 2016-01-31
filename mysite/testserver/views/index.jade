@@ -1,24 +1,16 @@
 extends layout
 
 block content
+  div(style='text-align: center; margin: 100px auto;')
+    h1(style='font-family: Platform; font-weight: bold; font-size: 36px; text-transform: uppercase;') newamerica.org frontend demo
+    a.button(href='/home', style='margin: 20px')
+      | home
+    a.button(href='/press-releases', style='margin: 20px;')
+      | press releases
+    a.button(href='/post', style='margin: 20px;')
+      | post
+    a.button(href='/misc-ui', style='margin: 20px;')
+      | miscellaneous
 
-  include ./includes/header.jade
-
-  section.section.section--fixed-width
-    .row
-      .columns
-        include ./includes/hero-grid-main-secondary.jade
-        //- include ./includes/hero-grid-thirds.jade
-        //- include ./includes/hero-grid-complex.jade
-
-  section.section.section--fixed-width
-    include ./includes/picture-links.jade
-
-  section.section.section--fixed-width
-    include ./includes/border-panels.jade
-
-  include ./includes/post-body.jade
-
-  include ./includes/panel.jade
-
-  include ./includes/footer.jade
+  script(type='text/javascript').
+    window.uiState = { isHeaderExpanded: true }

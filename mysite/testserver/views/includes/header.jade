@@ -3,18 +3,16 @@ header.header
     a(class='header__logo',href='/')
       include ./svg/new-america.jade
       h1 New America
+
     .header__sub-logo
       h1 Education Policy
+
     .header__secondary-nav
       ul
-        li
-          a(href='') Jobs
-        li
-          a(href='') Subscribe
-        li
-          a(href='') Press
-        li
-          a(href='') Contact
+        each link in [ 'Jobs', 'Subscribe', 'Press', 'Contact' ]
+          li
+            a(href='')= link
+
     .mobile-nav
       ul
         li.mobile-nav__button.mobile-nav__button--active
@@ -36,7 +34,6 @@ header.header
       ul
         li.header__main-nav__item
           a.header__button.header__button--dropdown.button Programs
-          //- .header__button__cover-bottom-shadow
           .header__link-group
             .header__link-group__content
               .row
@@ -52,10 +49,9 @@ header.header
                   .row
                     .small-12.large-12.columns
                       h1.header__link-group__heading By Location
-                      a.header__link-group__main-element Washington DC Head Office
-                      a.header__link-group__main-element New America NYC
-                      a.header__link-group__main-element New America California
-                      a.header__link-group__main-element New America Chicago
+                      each office in [ 'Washington DC Head Office', 'New America NYC', 'New America California', 'New America Chicago' ]
+                        a.header__link-group__main-element(href='')= office 
+
         li.header__main-nav__item
           a.header__button.button(href='/events') Events
         li.header__main-nav__item

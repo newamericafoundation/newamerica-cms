@@ -6,6 +6,9 @@
 
 @mixin expanded-header() {
 	.header--expanded & {
-		@content;
+		// Ensure that the header can only be expanded on desktop.
+		@include desktop-header {
+			@content;
+		}
 	}
 }

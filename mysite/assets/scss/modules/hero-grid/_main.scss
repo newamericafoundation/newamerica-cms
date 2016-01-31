@@ -13,7 +13,6 @@
 	// Adjustment made to the widths of the main and secondary grid columns so it lines up with regular grid.
 	$gutter-adjust: $local-gutter / 2;
 	
-
 	@extend clearfix;
 
 	&__main, &__secondary, &__thirds {
@@ -120,7 +119,7 @@
 
 		}
 
-		&__wrapper {
+		&__content {
 			position: relative;
 			width: 100%;
 			height: 100%;

@@ -11,4 +11,16 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
+app.get('/home', function(req, res) {
+	res.render('home');
+});
+
+app.get('/post', function(req, res) {
+	res.render('post');
+});
+
+app.get('/press-releases', function(req, res) {
+	res.render('press-releases');
+});
+
 app.listen(3000);

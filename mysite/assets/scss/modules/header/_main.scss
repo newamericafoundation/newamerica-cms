@@ -10,7 +10,7 @@
 
 	$pad: 20px;
 
-	padding-bottom: 0px;
+	padding: 0;
 
 	position: fixed;
 	
@@ -20,6 +20,7 @@
 	}
 
 	@include expanded-header {
+		padding-top: 8px;
 		position: relative;
 		border: none;
 	}
@@ -30,7 +31,9 @@
 			padding: 10px ($pad - 10px + 1px) 14px;
 		}
 		@include expanded-header {
-			padding: $pad ($pad - 10px + 1px) 12px;
+			@include desktop-header {
+				padding: $pad ($pad - 10px + 1px) 12px;
+			}
 		}
 		& > * {
 			vertical-align: bottom;
