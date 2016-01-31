@@ -1,12 +1,10 @@
 .header__link-group {
 
 	@mixin is-active {
-		.header__main-nav__item--active & {
+		.header__has-link-group--active & {
 			@content;
 		}
 	}
-
-
 
 	display: none;
 	@include is-active {

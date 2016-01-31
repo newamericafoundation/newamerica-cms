@@ -11,22 +11,22 @@ $.fn.extend({
 	},
 
 	setModifier: function(baseClass, modifier, condition = true) {
-		var modifier = `${baseClass}--${modifier}`
+		var modifierClassName = `${baseClass}--${modifier}`
 		var $el = $(this)
 		if (condition) {
-			$el.addClass(modifier)
+			$el.addClass(modifierClassName)
 		} else {
-			$el.removeClass(modifier)
+			$el.removeClass(modifierClassName)
 		}
 	},
 
 	toggleModifier: function(baseClass, modifier) {
-		var modifier = `${baseClass}--${modifier}`
+		var modifierClassName = `${baseClass}--${modifier}`
 		var $el = $(this)
-		if ($el.hasClass(modifier)) {
-			$el.removeClass(modifier)
+		if ($el.hasClass(modifierClassName)) {
+			$el.removeClass(modifierClassName)
 		} else {
-			$el.addClass(modifier)
+			$el.addClass(modifierClassName)
 		}
 	}
 

@@ -1,7 +1,13 @@
-div(class='border-panel__nav')
-	ul.nav-circles
-		if (buttonCount && buttonCount > 1)
-			- var n = 0
-			while n < buttonCount
-				li.border-panel__button.nav-circles__circle
-				- n += 1
+.border-panel__circle-nav
+  ul.nav-circles
+    if (buttonCount && buttonCount > 1)
+      - var n = 0
+        while n < buttonCount 
+          li.border-panel__button.nav-circles__circle
+          - n += 1
+
+//- .border-panel__arrow-nav
+//-   .border-panel__arrow-nav__left
+//-     | left
+//-   .border-panel__arrow-nav__right
+//-     | right

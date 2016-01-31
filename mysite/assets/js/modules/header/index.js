@@ -1,16 +1,26 @@
 import $ from 'jquery'
 
-function addHeaderInteractivity() {
+function addLinkGroupInteractivity() {
 
-	const NAV_ITEM_CLASS_NAME = 'header__main-nav__item'
-	const NAV_ITEM_LINK_GROUP_CLASS_NAME = 'header__link-group'
+	const CONTAINER_CLASS_NAME = 'header__has-link-group'
+	const LINK_GROUP_CLASS_NAME = 'header__link-group'
+	const LINK_GROUP_CONTENT_CLASS_NAME = 'header__link-group__content'
 
 	var $header = $('.header')
 	var $body = $(document.body)
-	var $mainNavItems = $header.find(`.${NAV_ITEM_CLASS_NAME}`)
+	var $mainNavItems = $header.find(`.${CONTAINER_CLASS_NAME}`)
+	var $linkGroups = $header.find(`.${LINK_GROUP_CLASS_NAME}`)
 
 	setExpandedState()
 	addNavItemListeners()
+
+	function isEscape(keyCode) { return (keyCode === 27) }
+
+	$(document.body).on('keydown', (e) => {
+		if (isEscape(e.keyCode)) {
+			$mainNavItems.setModifier(CONTAINER_CLASS_NAME, 'active', false)
+		}
+	})
 
 	function setExpandedState() {
 		var isExpanded = window.uiState ? window.uiState.isHeaderExpanded : false
@@ -19,15 +29,18 @@ function addHeaderInteractivity() {
 
 	function addNavItemListeners() {
 		$mainNavItems.on('click', (e) => {
-			var $target = $(e.currentTarget)
-			var $linkGroup = $target.find(`.${NAV_ITEM_LINK_GROUP_CLASS_NAME}`)
-			if ($linkGroup.length > 0) {
-				e.preventDefault()
-				$target.toggleModifier(NAV_ITEM_CLASS_NAME, 'active')
-			}
+
+			var $currentTarget = $(e.currentTarget)
+			var $target = $(e.target)
+			var $linkGroup = $target.find(`.${LINK_GROUP_CLASS_NAME}`)
+			var isTargetParentOfLinkGroup = $linkGroup.length > 0
+
+			$currentTarget.setModifier(CONTAINER_CLASS_NAME, 'active', !$target.hasClass(LINK_GROUP_CLASS_NAME))
+
 		})
+
 	}
 
 }
 
-$(addHeaderInteractivity)
+$(addLinkGroupInteractivity)
