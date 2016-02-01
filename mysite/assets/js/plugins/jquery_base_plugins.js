@@ -2,10 +2,6 @@ import $ from 'jquery'
 
 $.fn.extend({
 
-	/*
-	 * Adds prefixed transform style.
-	 *
-	 */
 	addTransformStyle: function(transformString) {
 		$(this).css({
 			'-webkit-transform': transformString,
@@ -14,18 +10,23 @@ $.fn.extend({
 		})
 	},
 
-
-	/*
-	 * Sets BEM modifier class.
-	 *
-	 */
-	setModifier: function(baseClass, modifier, condition) {
-		var modifier = `${baseClass}--${modifier}`
+	setModifier: function(baseClass, modifier, condition = true) {
+		var modifierClassName = `${baseClass}--${modifier}`
 		var $el = $(this)
 		if (condition) {
-			$el.addClass(modifier)
+			$el.addClass(modifierClassName)
 		} else {
-			$el.removeClass(modifier)
+			$el.removeClass(modifierClassName)
+		}
+	},
+
+	toggleModifier: function(baseClass, modifier) {
+		var modifierClassName = `${baseClass}--${modifier}`
+		var $el = $(this)
+		if ($el.hasClass(modifierClassName)) {
+			$el.removeClass(modifierClassName)
+		} else {
+			$el.addClass(modifierClassName)
 		}
 	}
 

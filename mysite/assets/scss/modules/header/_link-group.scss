@@ -1,47 +1,81 @@
 .header__link-group {
 
-		display: none;
-		.header__main-nav__item:hover & {
-			display: block;
+	@mixin is-active {
+		.header__has-link-group--active & {
+			@content;
+		}
+	}
+
+	display: none;
+	@include is-active {
+		display: flex;
+	}
+
+	.no-flexbox & {
+		display: block !important;
+	}
+
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.2);
+
+	width: 100vw;
+	left: 0vw;
+	height: 100vh;
+	top: 0vh;
+
+	// width: calc(100% + 36px);
+	// position: absolute;
+	// top: 40px;
+	// left: 0;
+
+	z-index: 4;
+
+	padding-top: 5px;
+
+	a, p, h1, li { 
+		color: palette-get(na-black); 
+		width: 100%; 
+	}
+
+	ul { margin: 0; width: 100%; }
+
+	@mixin local-hover {
+		&:hover { 
+			opacity: 1;
+			color: palette-get(na-white);
+			background-color: palette-get(na-turquoise);
+		}
+	}
+
+	&__content {
+
+		width: 90%;
+		margin: auto;
+
+		border-bottom: 4px solid palette-get(na-turquoise);
+
+		.no-flexbox & {
+			position: absolute;
+			height: 90%;
+			left: 5%;
+			top: 5%;
 		}
 
-		width: calc(100% + 36px);
-		position: absolute;
-		top: 40px;
-		left: 0px;
-
-		z-index: 2;
-
-		padding-top: 5px;
-
-		a, p, h1, li { 
-			color: palette-get(na-black); 
-			width: 100%; 
-		}
-
-		ul { margin: 0; width: 100%; }
-
-		@mixin local-hover {
-			&:hover { 
-				opacity: 1;
-				color: palette-get(na-white);
-				background-color: palette-get(na-turquoise);
-			}
-		}
-
-		&__content {
-			@include standard-shadow;
-			padding: 30px 7px;
-			background-color: palette-get(na-white);
-		}
+		@include standard-shadow;
 		
-		&__heading {
-			margin-bottom: 0;
-			padding-bottom: 10px;
-			border-bottom: 1px solid palette-get(na-black-10);
-			font-weight: bold;
-			font-size: rem-calc(22);
-		}
+		padding: 30px 7px;
+
+		background-color: palette-get(na-white);
+
+	}
+		
+	&__heading {
+		margin-bottom: 0;
+		padding-bottom: 10px;
+		border-bottom: 1px solid palette-get(na-black-10);
+		font-weight: bold;
+		font-size: rem-calc(22);
+	}
 
 		&__heading, &__main-element, &__sub-element {
 			padding-left: 10px;

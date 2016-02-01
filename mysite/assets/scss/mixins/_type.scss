@@ -1,0 +1,8 @@
+@mixin header-logo-text {
+	line-height: 100%;
+	font-family: 'Platform';
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: rem-calc(23);
+	color: palette-get(na-black);
+}

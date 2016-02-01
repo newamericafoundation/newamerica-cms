@@ -2,25 +2,22 @@
 
 	position: relative;
 
-	padding-top: 0px;
-
 	display: none;
 
 	@include desktop-header {
 		left: 0;
-		top: 16px;
+		top: -2px;
+		margin-left: 10px;
 		display: inline-block;
 	}
 
 	@include expanded-header {
 		left: -18px;
-		top: 0;
-		display: inline-block;
+		top: -2px;
+		margin-top: 15px;
+		margin-left: 0;
+		display: block;
 	}
-
-	
-
-	margin-top: 5px;
 
 	width: auto;
 
@@ -30,6 +27,5 @@
 		z-index: 3;
 		overflow: visible;
 	}
-	
 
 }

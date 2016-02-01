@@ -1,0 +1,20 @@
+- data = [ { title: 'A Settlement For Syria', author: 'Anne-Marie Slaughter', imageUrl: 'https://40.media.tumblr.com/b534bd03d1a36510d3cc17817672aa9a/tumblr_np58ozBk0E1tpfl1vo1_1280.jpg' }, { title: "Hillary Clinton's Defining Moment", author: 'Julian Zelizer', imageUrl: 'http://graphics8.nytimes.com/images/2016/01/11/us/11firstdraft-clinton/11firstdraft-clinton-tmagArticle.jpg' }, { title: 'How Evangelicals Spread The Gospel Of Climate Change', author: 'Heather Hurlburt', imageUrl: 'http://climatedesk.org/wp-content/uploads/2014/02/drought670x380.jpg' }, { title: 'How Evangelicals Spread The Gospel Of Climate Change', author: 'Heather Hurlburt', imageUrl: 'http://climatedesk.org/wp-content/uploads/2014/02/drought670x380.jpg' } ]
+
+.hero-grid.has-4-children
+  .hero-grid__main
+    .hero-grid__element
+      .hero-grid__element__content
+        .hero-grid__element__background(style='background-image: url(' + data[0].imageUrl + ')')
+        .hero-grid__element__overlay
+        .hero-grid__element__text-bar
+          p= data[0].author
+          h1= data[0].title
+  .hero-grid__secondary
+    each i in [ 1, 2, 3 ]
+      .hero-grid__element
+        .hero-grid__element__content
+          .hero-grid__element__background(style='background-image: url(' + data[i].imageUrl + ')')
+          .hero-grid__element__overlay
+          .hero-grid__element__text-bar
+            p= data[i].author
+            h1= data[i].title

@@ -4,10 +4,10 @@ var formTemplate = require('./form.jade')
 
 $(() => {
 
-	const baseClass = 'subscribe'
+	const BASE_CLASS = 'subscribe'
 
-	var $link = $(`#${baseClass}__link`)
-	var $emailField = $(`#${baseClass}__email-field`)
+	var $link = $(`#${BASE_CLASS}__link`)
+	var $emailField = $(`#${BASE_CLASS}__email-field`)
 
 	$link.on('click', () => {
 		var value = $emailField[0].value

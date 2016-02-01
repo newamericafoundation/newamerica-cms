@@ -1,9 +1,11 @@
 .header__secondary-nav {
 
 	display: none;
+
 	@include desktop-header {
 		display: none;
 	}
+	
 	@include expanded-header {
 		display: inline-block;
 	}
