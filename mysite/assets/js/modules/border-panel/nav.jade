@@ -1,13 +1,15 @@
-.border-panel__circle-nav
-  ul.nav-circles
-    if (buttonCount && buttonCount > 1)
+if (buttonCount && buttonCount > 1)
+
+  .border-panel__circle-nav
+    ul.nav-circles
       - var n = 0
         while n < buttonCount 
           li.border-panel__button.nav-circles__circle
           - n += 1
-
-//- .border-panel__arrow-nav
-//-   .border-panel__arrow-nav__left
-//-     | left
-//-   .border-panel__arrow-nav__right
-//-     | right
+  .border-panel__arrow-nav
+    .border-panel__arrow-nav__left
+      svg(viewBox="0 0 100 100")
+        polygon(points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 ")
+    .border-panel__arrow-nav__right
+      svg(viewBox="0 0 100 100")
+        polygon(points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 ")

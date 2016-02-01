@@ -1,6 +1,6 @@
 .mobile-nav {
 
-	$width: 58px;
+	$height: 58px;
 	$padding: 10px;
 
 	width: 100%;
@@ -14,7 +14,7 @@
 	&__button {
 		width: 14.2857142857%;
 		text-align: center;
-		height: $width;
+		height: $height;
 		padding: $padding;
 
 		cursor: pointer;
@@ -24,19 +24,18 @@
 
 		border-color: palette-get(na-black-10);
 		background-color: palette-get(na-white);
-		i { color: palette-get(na-black); }
+		svg { fill: palette-get(na-black); }
 
 		&:hover, &--active {
 			border-color: palette-get(na-turquoise);
 			background-color: palette-get(na-turquoise);
-			i { color: palette-get(na-white); }
+			svg { fill: palette-get(na-white); }
 		}
 	}
 
-	i {
-		width: 100%;
-		height: 100%;
-		font-size: $width - 2 * $padding;
+	svg {
+		width: $height - 2 * $padding;
+		height: $height - 2 * $padding;
 	}
 
 }

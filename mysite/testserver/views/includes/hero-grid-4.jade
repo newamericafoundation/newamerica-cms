@@ -7,8 +7,8 @@
         .hero-grid__element__background(style='background-image: url(' + data[0].imageUrl + ')')
         .hero-grid__element__overlay
         .hero-grid__element__text-bar
-          p Anne-Marie Slaughter
-          h1 A Settlement For Syria
+          p= data[0].author
+          h1= data[0].title
   .hero-grid__secondary
     each i in [ 1, 2, 3 ]
       .hero-grid__element

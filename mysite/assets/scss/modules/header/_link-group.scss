@@ -62,8 +62,11 @@
 		}
 
 		@include standard-shadow;
+		
 		padding: 30px 7px;
+
 		background-color: palette-get(na-white);
+
 	}
 		
 	&__heading {
