@@ -12,3 +12,9 @@
 		}
 	}
 }
+
+@mixin expand-footer() {
+	@include breakpoint(large) {
+		@content;
+	}
+}

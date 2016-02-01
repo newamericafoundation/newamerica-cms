@@ -7,6 +7,12 @@
 
 	$nav-and-info-offset: 10px;
 
+	@mixin show-circle-nav {
+		@include breakpoint(medium) {
+			@content;
+		}
+	}
+
 	border: 5px solid $border-color;
 
 	height: $height;
@@ -40,6 +46,10 @@
 	}
 
 	&__circle-nav {
+		display: none;
+		@include show-circle-nav {
+			display: block;
+		}
 		position: absolute;
 		width: 100%;
 		bottom: $nav-and-info-offset;
@@ -47,6 +57,11 @@
 	}
 
 	&__arrow-nav {
+
+		display: block;
+		@include show-circle-nav {
+			display: none;
+		}
 
 		position: static;
 
