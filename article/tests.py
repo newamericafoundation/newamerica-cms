@@ -10,17 +10,23 @@ from home.models import HomePage
 from programs.models import Program
 
 class ArticleTests(WagtailPageTests):
+	"""
+	Testing hierarchies between pages and whether it is possible 
+	to create an All Articles Homepage under the Homepage, 
+	a Program Articles Page under Program pages, Articles under 
+	Program Articles Pages. 
+
+	Testing the many to many relationships between Programs and Articles. 
+	"""
+	
 	def setUp(self):
+		self.login()
 		self.root_page = Page.objects.get(id=1)
 		self.home_page = self.root_page.add_child(instance=HomePage(title='New America'))
 		self.program_page = self.home_page.add_child(instance=Program(title='OTI', name='OTI', location=False, depth=3))
-		self.login()
+		self.program_articles_page = self.program_page.add_child(instance=ProgramArticlesPage(title='Program Articles'))
+		self.article = self.program_articles_page.add_child(instance=Article(title='Article 1', date='2016-02-02'))
 
-	
-	"""
-	Testing whether a particular child Page type can be created or can not be 
-	created under certain parent Page types
-	"""
 	def test_can_create_program_articles_page_under_program(self):
 		self.assertCanCreateAt(Program, ProgramArticlesPage)
 
@@ -31,10 +37,6 @@ class ArticleTests(WagtailPageTests):
 		self.assertCanNotCreateAt(AllArticlesHomePage, Article)
 
 
-	"""
-	Testing whether a child of the given Page type can be created
-	under the parent with the supplied POST data
-	"""
 	def test_can_create_all_articles_homepage_under_homepage(self):
 		self.assertCanCreate(self.home_page, AllArticlesHomePage, {
 			'title':'Articles',
@@ -47,14 +49,7 @@ class ArticleTests(WagtailPageTests):
 			}
 		)
 
-	def test_can_create_article_under_program(self):
-		self.program_articles_page = self.program_page.add_child(instance=ProgramArticlesPage(title='Articles'))
-		self.assertCanCreate(self.program_articles_page, Article, {
-			'title':'Test Article 1',
-			'date':'2016-02-01',
-			'body-count':0,
-			}
-		)
-
+	def test_article_is_inside_program(self):
+		
 
 
