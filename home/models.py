@@ -9,6 +9,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalKey
 from programs.models import Program, Subprogram
 from person.models import Person
@@ -161,13 +162,21 @@ class Post(Page):
     post_author = models.ManyToManyField(
         Person, through=PostAuthorRelationship, blank=True)
 
-    lead_story = models.NullBooleanField(help_text='Lead story featured most prominently on the homepage or Program page. Most recent story is the one that will appear.')
+    STORY_TYPE = (
+        (0, 'Regular Story'),
+        (1, 'Lead Story'),
+        (2, 'Feature Story'),
+    )
+    program_page_status = models.IntegerField(choices=STORY_TYPE, default=0)
+    home_page_status = models.IntegerField(choices=STORY_TYPE, default=0)
 
-    featured_story = models.NullBooleanField(help_text='Feature story to appear after the lead story on the homepage or Program page. Most recent featured stories will appear.')
-
-    story_image = StreamField([
-        ('story_image', ImageChooserBlock())
-        ], blank=True, null=True, help_text='Image to accompany lead or feature story on the homepage or Program page')
+    story_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
@@ -178,9 +187,9 @@ class Post(Page):
     ]
 
     promote_panels = Page.promote_panels + [
-        FieldPanel('lead_story'),
-        FieldPanel('featured_story'),
-        StreamFieldPanel('story_image'),
+        FieldPanel('program_page_status'),
+        FieldPanel('home_page_status'),
+        ImageChooserPanel('story_image'),
 
     ]
 
