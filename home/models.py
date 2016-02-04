@@ -22,56 +22,40 @@ class HomePage(Page):
     parent_page_types = ['home.HomePage',]
 
     TEMPLATE_OPTIONS = (
-        ('Four Story Template', 'Four Story Template'),
-        ('Three Story Template', 'Three Story Template'),
-        ('Two Story Template', 'Two Story Template'),
-        ('One Story Template', 'One Story Template'),
+        (4, 'Four Story Template'),
+        (3, 'Three Story Template'),
+        (2, 'Two Story Template'),
+        (1, 'One Story Template'),
     )
-    template = models.CharField(choices=TEMPLATE_OPTIONS, max_length=50, blank=True, null=True)
+    template = models.IntegerField(choices=TEMPLATE_OPTIONS, default=3)
 
     promote_panels = Page.promote_panels + [
         FieldPanel('template'),
     ]
 
-
     def get_template(self, request):
         """Allows choice of four templates for homepage"""
-        if self.template == 'Four Story Template':
+        if self.template == 4:
             return 'home/four_story_template.html'
-        elif self.template == 'Three Story Template':
+        elif self.template == 3:
             return 'home/three_story_template.html'
-        elif self.template == 'Two Story Template':
+        elif self.template == 2:
             return 'home/two_story_template.html'
-        elif self.template == 'One Story Template':
+        elif self.template == 1:
             return 'home/one_story_template.html'
 
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
 
-        stories = Post.objects.filter(
-            Q(lead_story=True) | Q(featured_story=True)
-        )
-        
-        featured_stories = []
-        for story in stories:
-            if story.lead_story == True:
-                lead_story = story
-            if story.featured_story == True:
-                featured_stories.append(story)
+        context['lead_story'] = Post.objects.filter(home_page_status=1) \
+            .order_by('-date').first()
 
-        context['lead_story'] = lead_story
-
-        context['featured_story_1'] = featured_stories[0]
-        context['featured_story_2'] = featured_stories[1]
-        context['featured_story_3'] = featured_stories[2]
+        number_of_featured_stories = self.template-1
+        if number_of_featured_stories > 1:
+            context['featured_stories'] = Post.objects.filter(home_page_status=2) \
+                .order_by('-date')[:number_of_featured_stories]
         
-        context['lead_image_file_name'] = context['lead_story'].story_image[0].value.filename
-        context['featured_story_1_image_file_name'] = featured_stories[0].story_image[0].value.filename
-        context['featured_story_2_image_file_name'] = featured_stories[1].story_image[0].value.filename
-        context['featured_story_3_image_file_name'] = featured_stories[2].story_image[0].value.filename
-        
-
         return context
 
 
