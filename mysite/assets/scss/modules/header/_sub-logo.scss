@@ -12,7 +12,7 @@
 
 	width: auto;
 	max-width: 150px;
-	height: 60px;
+	// height: 52px;
 
 	position: relative;
 	top: 4px;
@@ -28,7 +28,7 @@
 	}
 
 	&:hover {
-		border: none;
+		border-color: palette-get(na-turquoise);
 		background-color: palette-get(na-turquoise);
 		h1 { color: white; }
 	}

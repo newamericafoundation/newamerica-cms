@@ -28,7 +28,7 @@
 	&__content {
 		padding: 0;
 		@include desktop-header() {
-			padding: 10px ($pad - 10px + 1px) 14px;
+			padding: 6px ($pad - 10px + 1px) 14px;
 		}
 		@include expanded-header {
 			@include desktop-header {
@@ -58,7 +58,7 @@
 		margin: 0;
 		padding: 0;
 		position: absolute;
-		bottom: 15px;
+		bottom: 13px;
 		width: 200px;
 		input {
 			margin: 0;
