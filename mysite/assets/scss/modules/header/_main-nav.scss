@@ -6,14 +6,14 @@
 
 	@include desktop-header {
 		left: 0;
-		top: -2px;
+		top: 0px;
 		margin-left: 10px;
 		display: inline-block;
 	}
 
 	@include expanded-header {
 		left: -18px;
-		top: -2px;
+		top: 0px;
 		margin-top: 15px;
 		margin-left: 0;
 		display: block;

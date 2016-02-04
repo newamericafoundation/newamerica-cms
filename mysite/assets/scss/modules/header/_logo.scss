@@ -1,6 +1,7 @@
 .header__logo {
 
-	$logo-width: 55px;
+	$logo-width: 47px;
+	$expanded-logo-width: 53px;
 
 	display: none;
 	@include desktop-header() {
@@ -15,11 +16,17 @@
 
 	svg {
 		width: $logo-width;
+		@include expanded-header {
+			width: $expanded-logo-width;
+		}
 		rect, path { fill: palette-get(na-black); }
 	}
 
 	h1 {
 		@include header-logo-text;
+		@include expanded-header {
+			@include expanded-header-logo-text;
+		}
 		width: 120px;
 		padding-top: 5px;
 		padding-left: 5px;
