@@ -13,6 +13,8 @@ requirements.txt
 
 media/documents/
 
+mysite/static/js
+
 
 venv
 *.log
