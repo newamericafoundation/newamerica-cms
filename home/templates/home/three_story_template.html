@@ -6,7 +6,6 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
-
 <section class='section section--fixed-width'>
 
 	<div class='row'>
@@ -18,9 +17,11 @@
 				<div class='hero-grid__element'>
 				<a href="{{ lead_story.url }}">
 					<div class='hero-grid__element__wrapper'>
-						<div class='hero-grid__element__background' style='background-image: url(/media/original_images/{{ lead_image_file_name }})'></div>
+					{% image lead_story.story_image original as story_image %}
+						<div class='hero-grid__element__background' style='background-image: url({{ story_image.url }})'></div>
 						<div class='hero-grid__element__overlay'></div>
 						<div class='hero-grid__element__text-bar'>
+
 							<p>
 							{% for author in lead_story.post_author.all %}
 								{{ author }}
@@ -36,40 +37,26 @@
 			</div>
 
 			<div class='hero-grid__secondary'>
-
+			{% for story in featured_stories %}
 				<div class='hero-grid__element'>
-				<a href="{{ featured_story_1.url }}">
+				<a href="{{ story.url }}">
 					<div class='hero-grid__element__wrapper'>
-						<div class='hero-grid__element__background' style='background-image: url(/media/original_images/{{ featured_story_1_image_file_name }})'></div>
+					{% image story.story_image original as story_image %}
+						<div class='hero-grid__element__background' style='background-image: url({{ story_image.url }})'></div>
 						<div class='hero-grid__element__overlay'></div>
 						<div class='hero-grid__element__text-bar'>
 							<p>
-							{% for author in featured_story_1.post_author.all %}
+							{% for author in story.post_author.all %}
 								{{ author}}
 							{% endfor %}
 							</p>
-							<h1><a href="{{ featured_story_1.url }}">{{ featured_story_1.title }}</a></h1>
+							<h1><a href="{{ story.url }}">{{ story.title }}</a></h1>
 						</div>
 					</div>
 				</a>
 				</div>
-
-				<div class='hero-grid__element'>
-				<a href="{{ featured_story_2.url }}">
-					<div class='hero-grid__element__wrapper'>
-						<div class='hero-grid__element__background' style='background-image: url(http://climatedesk.org/wp-content/uploads/2014/02/drought670x380.jpg)'></div>
-						<div class='hero-grid__element__overlay'></div>
-						<div class='hero-grid__element__text-bar'>
-							<p>
-							{% for author in featured_story_2.post_author.all %}
-								{{ author}}
-							{% endfor %}
-							</p>
-							<h1><a href="{{ featured_story_2.url }}">{{ featured_story_2.title }}</a></h1>
-						</div>
-					</div>
-				</div>
-
+			{% endfor %}
+			</div>
 			</div>
 
 		</div>
