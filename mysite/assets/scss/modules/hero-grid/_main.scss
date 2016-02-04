@@ -6,6 +6,12 @@
 		}
 	}
 
+	@mixin unfold-1-children {
+		@media screen and (min-width: 600px) {
+			@content;
+		}
+	}
+
 	@mixin unfold-2-children {
 		@media screen and (min-width: 700px) {
 			@content;
@@ -40,8 +46,17 @@
 	}
 
 	&__main {
+
 		height: $height / 2;
 		margin-bottom: $local-gutter;
+
+		.hero-grid.has-1-children & {
+			@include unfold-1-children {
+				margin-bottom: 0;
+				height: $height;
+				width: 100%;
+			}
+		}
 
 		.hero-grid.has-2-children & {
 			@include unfold-2-children {
@@ -105,6 +120,12 @@
 
 		.hero-grid__main & {
 			height: $height / 2;
+			.hero-grid.has-1-children & {
+				@include unfold-1-children {
+					height: $height;
+					padding-right: $local-gutter / 2;
+				}
+			}
 			.hero-grid.has-2-children & {
 				@include unfold-2-children {
 					height: $height;
