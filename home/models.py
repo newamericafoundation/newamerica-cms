@@ -53,11 +53,7 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name='+',
     )
-    template = models.IntegerField(choices=TEMPLATE_OPTIONS, default=3)
 
-    promote_panels = Page.promote_panels + [
-        FieldPanel('template'),
-    ]
 
     #Up to three featured stories to appear underneath the lead stories. All of the same size and formatting.
     feature_1 = models.ForeignKey(
@@ -110,14 +106,21 @@ class HomePage(Page):
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
 
-        context['lead_story'] = Post.objects.filter(home_page_status=1) \
-            .order_by('-date').first()
+        other_lead_stories = []
 
-        number_of_featured_stories = self.template-1
-        if number_of_featured_stories > 1:
-            context['featured_stories'] = Post.objects.filter(home_page_status=2) \
-                .order_by('-date')[:number_of_featured_stories]
-        
+        if self.lead_2 is not None:
+            other_lead_stories.append(self.lead_2)
+        if self.lead_3 is not None:
+            other_lead_stories.append(self.lead_3)
+        if self.lead_4 is not None:
+            other_lead_stories.append(self.lead_4)
+
+        context['lead_1'] = self.lead_1
+        context['other_lead_stories'] = other_lead_stories
+        context['lead_2'] = self.lead_2
+
+        context['featured_stories'] = [self.feature_1, self.feature_2, self.feature_3]
+
         return context
 
 
