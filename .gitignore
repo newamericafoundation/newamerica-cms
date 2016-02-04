@@ -12,14 +12,7 @@ npm-debug.log
 requirements.txt
 
 media/documents/
-static/
+
 
 venv
 *.log
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
-.ebextensions/
-

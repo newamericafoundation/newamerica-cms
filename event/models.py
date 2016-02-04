@@ -16,7 +16,7 @@ class Event(Post):
     Event class that inherits from the abstract Post
     model and creates pages for Events.
     """
-    parent_page_types = ['ProgramEventsPage']
+    parent_page_types = ['ProgramEventsPage', 'AllEventsHomePage']
     subpage_types = []
 
     time = models.TimeField(default=timezone.now)
@@ -36,7 +36,7 @@ class AllEventsHomePage(Page):
     Event in the Event model for the Events homepage
     """
     parent_page_types = ['home.HomePage',]
-    subpage_types = []
+    subpage_types = ['Event']
 
     def get_context(self, request):
         context = super(AllEventsHomePage, self).get_context(request)
