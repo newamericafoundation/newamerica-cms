@@ -1,15 +1,13 @@
 .footer {
 
-	@mixin expand {
-		@include breakpoint(large) {
-			@content;
-		}
-	}
-
 	$pad: 20px;
 	$link-pad: 16px;
 
 	$opacity: 0.7;
+
+	max-width: $max-site-width;
+
+	margin: auto;
 
 	padding: $pad;
 
@@ -36,7 +34,9 @@
 		text-align: center;
 	}
 
-	@include expand {
+	@include expand-footer {
+
+		padding: $pad $gutter/2;
 
 		ul { margin: 0; }
 

@@ -22,9 +22,11 @@
   "dependencies": {
     "foundation-sites": "^6.1.1",
     "jquery": "^2.1.4",
+    "modernizr": "^3.3.1",
     "normalize.css": "^3.0.3"
   },
   "devDependencies": {
+    "assets-webpack-plugin": "^3.2.0",
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",
     "babel-polyfill": "^6.3.14",

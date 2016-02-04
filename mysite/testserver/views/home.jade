@@ -1,0 +1,19 @@
+extends layout
+
+block content
+
+  section.section.section--fixed-width
+    .row
+      .columns
+        include ./includes/hero-grid-1.jade
+
+  section.section.section--fixed-width
+    include ./includes/picture-links.jade
+
+  section.section.section--fixed-width
+    include ./includes/border-panels.jade
+
+  include ./includes/panel.jade
+
+  script(type='text/javascript').
+    window.uiState = { isHeaderExpanded: true }

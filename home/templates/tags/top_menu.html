@@ -5,10 +5,10 @@
 
     <div class='header__content'>
 
-        <div class='header__logo'>
-            {% include 'ui_elements/svg_icons/naf.html' %}
+        <a class='header__logo' href='/'>
+            {% include 'ui_elements/svg/new-america.html' %}
             <h1>New America</h1>
-        </div>
+        </a>
 
         <div class='header__secondary-nav'>
             <ul>
@@ -29,23 +29,35 @@
 
         <div class="mobile-nav">
             <ul>
-                <li class="mobile-nav__button mobile-nav__button--active"><i class="icon-i_new-america"></i></li>
-                <li class="mobile-nav__button"><i class="icon-i_calendar"></i></li>
-                <li class="mobile-nav__button"><i class="icon-i_book"></i></li>
-                <li class="mobile-nav__button"><i class="icon-i_people"></i></li>
-                <li class="mobile-nav__button"><i class="icon-i_award"></i></li>
-                <li class="mobile-nav__button"><i class="icon-i_heart"></i></li>
-                <li class="mobile-nav__button"><i class="icon-i_magnifying-glass"></i></li>
+                <li class="mobile-nav__button mobile-nav__button--active">
+                    {% include 'ui_elements/svg/new-america.html' %}
+                </li>
+                <li class="mobile-nav__button">
+                    {% include 'ui_elements/svg/calendar.html' %}
+                </li>
+                <li class="mobile-nav__button">
+                    {% include 'ui_elements/svg/book.html' %}
+                </li>
+                <li class="mobile-nav__button">
+                    {% include 'ui_elements/svg/people.html' %}
+                </li>
+                <li class="mobile-nav__button">
+                    {% include 'ui_elements/svg/award.html' %}
+                </li>
+                <li class="mobile-nav__button">
+                    {% include 'ui_elements/svg/heart.html' %}
+                </li>
+                <li class="mobile-nav__button">
+                    {% include 'ui_elements/svg/magnifying-glass.html' %}
+                </li>
             </ul>
         </div>
 
         <nav class='header__main-nav'>
             <ul>
-                <li class='header__main-nav__item'>
+                <li class='header__main-nav__item header__has-link-group'>
 
-                    <a class='header__button header__button--dropdown button'>Programs</a>
-
-                    <div class="header__button__cover-bottom-shadow"></div>
+                    <a class='header__button button'>Programs</a>
 
                     <div class='header__link-group'>
 
@@ -140,8 +152,12 @@
                     <a class='header__button button' href="/experts">Experts</a>
                 </li>
 
-                <li class="header__main-nav__item">
-                    <a class="header__button header__button--dropdown button">About</a>
+                <li class="header__main-nav__item header__has-link-group">
+                    <a class="header__button button">About</a>
+                    <div class='header__link-group'>
+                        <div class='header__link-group__content'>
+                        </div>
+                    </div>
                 </li>
 
                 <li class='header__main-nav__item'>

@@ -14,33 +14,30 @@
         color: palette-get(na-white);
     }
 
-    &--dropdown {
+    // &--dropdown {
 
-        padding-right: 33px;
-        position: relative;
+    //     padding-right: 33px;
+    //     position: relative;
 
-        &:after {
-            position: absolute;
-            right: 13px;
-            top: 15px;
-            content: '';
-            display: block;
-            width: 14px;
-            height: 14px;
-            background-image: url(shape-urls-get(down-arrow-na-black));
-            background-size: contain;
-        }
+    //     &:after {
+    //         position: absolute;
+    //         right: 13px;
+    //         top: 15px;
+    //         content: '';
+    //         display: block;
+    //         width: 14px;
+    //         height: 14px;
+    //         background-image: url(shape-urls-get(down-arrow-na-black));
+    //         background-size: contain;
+    //     }
 
-        &:hover, .header__main-nav__item:hover & {
-            background-color: palette-get(na-white);
-            color: palette-get(na-black);
-            @include standard-shadow;
-            &:after {
-                background-image: url(shape-urls-get(down-arrow-na-black));
-            }
-        }
+    //     &:hover, .header__main-nav__item:hover & {
+    //         background-color: palette-get(na-white);
+    //         color: palette-get(na-black);
+    //         @include standard-shadow;
+    //     }
 
-    }
+    // }
 
     &__cover-bottom-shadow {
     	$height: 15px;

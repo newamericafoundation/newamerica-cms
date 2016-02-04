@@ -1,16 +1,12 @@
 require('babel-core/register');
 
-var IconSvgFiles = require('./icon_svg_files.js').default;
+var SvgFolderParser = require('./svg_folder_parser.js').default;
 
-function entryPoint() {
-	// Entry point.
-	new IconSvgFiles('/../../images/svg')
-		.setIcons((iconSvgFiles) => {
-			if (iconSvgFiles == null) { return }
-			iconSvgFiles.getReactComponent((comp) => {
-				console.log(comp)
-			})
-		});
-}
-
-entryPoint()
+new SvgFolderParser({ readPath: '/../../images/svg', writePath: 'mysite/testserver/views/includes/svg' })
+	.setIcons((folderParser) => {
+		if (folderParser == null) { return }
+		folderParser.parseAndWrite((err, result) => {
+			if (err) { return console.log(err) }
+			console.log('done')
+		})
+	});

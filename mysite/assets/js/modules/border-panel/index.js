@@ -4,17 +4,16 @@ var navTemplate = require('./nav.jade')
 
 $.fn.extend({
 
-	/*
-	 * Plug-in to animate border panels.
-	 *
-	 */
-	startBorderPanel: function() {
+	addBorderPanelInteractivity: function() {
 
 		const INTERVAL = 5500
 
 		const CONTENT_ITEM_CLASS_NAME = 'border-panel__item'
 		const NAV_CLASS_NAME = 'nav-circles'
 		const NAV_ITEM_CLASS_NAME = 'nav-circles__circle'
+
+		const LEFT_ARROW_CLASS_NAME = 'border-panel__arrow-nav__left'
+		const RIGHT_ARROW_CLASS_NAME = 'border-panel__arrow-nav__right'
 
 		var width = 0
 		var itemCount = 0
@@ -31,10 +30,12 @@ $.fn.extend({
 			setCarouselInterval()
 		}
 
-		function stepActiveItemIndex() {
-			activeItemIndex += 1
-			if (activeItemIndex === itemCount) {
+		function shiftActiveItemIndex(step = +1) {
+			activeItemIndex += step
+			if (activeItemIndex >= itemCount) {
 				activeItemIndex = 0
+			} else if (activeItemIndex <= -1) {
+				activeItemIndex = itemCount - 1
 			}
 		}
 
@@ -79,10 +80,18 @@ $.fn.extend({
 				}
 			})
 
-			$this.on('swiperight', () => {
-				activeItemIndex = 1
+			$this.find(`.${LEFT_ARROW_CLASS_NAME}`).click((e) => {
+				shiftActiveItemIndex(-1)
+				shouldChangeOnInterval = false
 				update()
 			})
+
+			$this.find(`.${RIGHT_ARROW_CLASS_NAME}`).click((e) => {
+				shiftActiveItemIndex(+1)
+				shouldChangeOnInterval = false
+				update()
+			})
+
 		}
 
 		function setCarouselInterval() {
@@ -92,7 +101,7 @@ $.fn.extend({
 					shouldChangeOnInterval = true
 					return
 				}
-				stepActiveItemIndex()
+				shiftActiveItemIndex(+1)
 				update()
 			}, INTERVAL)
 		}
@@ -103,6 +112,6 @@ $.fn.extend({
 
 $(() => {
 	$('.border-panel').each((i, el) => {
-		$(el).startBorderPanel()
+		$(el).addBorderPanelInteractivity()
 	})
 })

@@ -10,18 +10,17 @@
 
 	$pad: 20px;
 
-	padding-bottom: 0px;
+	padding: 0;
 
 	position: fixed;
 	
 	@include desktop-header {
-		padding-bottom: 14px;
 		position: fixed;
 		border-bottom: 4px solid palette-get(na-black-10);
 	}
 
 	@include expanded-header {
-		padding-bottom: 12px;
+		padding-top: 8px;
 		position: relative;
 		border: none;
 	}
@@ -29,10 +28,15 @@
 	&__content {
 		padding: 0;
 		@include desktop-header() {
-			padding: 0 ($pad - 10px + 1px) 0px;
+			padding: 6px ($pad - 10px + 1px) 14px;
 		}
 		@include expanded-header {
-			padding: $pad ($pad - 10px + 1px) 0px;
+			@include desktop-header {
+				padding: $pad ($pad - 10px + 1px) 12px;
+			}
+		}
+		& > * {
+			vertical-align: bottom;
 		}
 		position: relative;
 		display: block;
@@ -54,7 +58,7 @@
 		margin: 0;
 		padding: 0;
 		position: absolute;
-		bottom: 0;
+		bottom: 13px;
 		width: 200px;
 		input {
 			margin: 0;
