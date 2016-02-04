@@ -8,7 +8,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, PageChooserPanel, MultiFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalKey
 from programs.models import Program, Subprogram
@@ -21,11 +21,37 @@ options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 class HomePage(Page):
     parent_page_types = ['home.HomePage',]
 
-    TEMPLATE_OPTIONS = (
-        (4, 'Four Story Template'),
-        (3, 'Three Story Template'),
-        (2, 'Two Story Template'),
-        (1, 'One Story Template'),
+    #Up to four lead stories can be featured on the homepage. Lead_1 will be featured most prominently.
+    lead_1 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    lead_2 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    lead_3 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    lead_4 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
     )
     template = models.IntegerField(choices=TEMPLATE_OPTIONS, default=3)
 
@@ -33,18 +59,54 @@ class HomePage(Page):
         FieldPanel('template'),
     ]
 
-    def get_template(self, request):
-        """Allows choice of four templates for homepage"""
-        if self.template == 4:
-            return 'home/four_story_template.html'
-        elif self.template == 3:
-            return 'home/three_story_template.html'
-        elif self.template == 2:
-            return 'home/two_story_template.html'
-        elif self.template == 1:
-            return 'home/one_story_template.html'
+    #Up to three featured stories to appear underneath the lead stories. All of the same size and formatting.
+    feature_1 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    feature_2 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    feature_3 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    featured_stories = [feature_1, feature_2, feature_3]
 
 
+    promote_panels = Page.promote_panels + [
+        MultiFieldPanel([
+            PageChooserPanel('lead_1'),
+            PageChooserPanel('lead_2'),
+            PageChooserPanel('lead_3'),
+            PageChooserPanel('lead_4'),
+        ],
+        heading="Lead Stories",
+        classname="collapsible"
+        ),
+        MultiFieldPanel([
+            PageChooserPanel('feature_1'),
+            PageChooserPanel('feature_2'),
+            PageChooserPanel('feature_3'),
+        ],
+        heading="Featured Stories",
+        classname="collapsible"
+        ),
+    ]    
+    
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
 
@@ -146,13 +208,7 @@ class Post(Page):
     post_author = models.ManyToManyField(
         Person, through=PostAuthorRelationship, blank=True)
 
-    STORY_TYPE = (
-        (0, 'Regular Story'),
-        (1, 'Lead Story'),
-        (2, 'Feature Story'),
-    )
-    program_page_status = models.IntegerField(choices=STORY_TYPE, default=0)
-    home_page_status = models.IntegerField(choices=STORY_TYPE, default=0)
+    story_excerpt = models.TextField(blank=True)
 
     story_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -171,8 +227,7 @@ class Post(Page):
     ]
 
     promote_panels = Page.promote_panels + [
-        FieldPanel('program_page_status'),
-        FieldPanel('home_page_status'),
+        FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
 
     ]
