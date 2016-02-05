@@ -105,8 +105,8 @@ class HomePage(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
-    ]    
-    
+    ]
+
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
 
@@ -127,7 +127,8 @@ class HomePage(Page):
         ]
 
         return context
-
+    
+    
 
 class SimplePage(Page):
     """
