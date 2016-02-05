@@ -1,10 +1,178 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
-
+{% load wagtailimages_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
-   {% include 'ui_elements/dummy_content.html' %}
+<section class='section section--fixed-width'>
+
+	<div class='row'>
+	<div class='columns'>
+		<div class='hero-grid has-{{ other_lead_stories|length|add:"1" }}-children'>
+
+			<div class='hero-grid__main'>
+
+				<div class='hero-grid__element'>
+				<a href="{{ lead_1.url }}">
+					<div class='hero-grid__element__wrapper'>
+					{% image lead_1.post.story_image original as lead1_image %}
+						<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
+						<div class='hero-grid__element__overlay'></div>
+						<div class='hero-grid__element__text-bar'>
+							<p>
+							{% for author in lead_1.post_author.all %}
+								{{ author }}
+							{% endfor %}
+							</p>
+							<h1><a href="{{ lead_1.url }}">{{ lead_1.title }}</a></h1>
+						</div>
+					</div>
+				</a>
+				</div>
+
+			</div>
+
+			{% if other_lead_stories %}
+			<div class='hero-grid__secondary'>
+			{% for other_lead_story in other_lead_stories %}
+				{% if other_lead_story %}
+					<div class='hero-grid__element'>
+					<a href="{{ other_lead_story.url }}">
+						<div class='hero-grid__element__wrapper'>
+						{% image other_lead_story.post.story_image original as other_lead_story_image %}
+							<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
+							<div class='hero-grid__element__overlay'></div>
+							<div class='hero-grid__element__text-bar'>
+								<p>
+								{% for author in other_lead_story.post_author.all %}
+									{{ author}}
+								{% endfor %}
+								</p>
+								<h1><a href="{{ story.url }}">{{ other_lead_story.title }}</a></h1>
+							</div>
+						</div>
+					</a>
+					</div>
+				{% endif %}
+			{% endfor %}
+			{% endif %}
+			</div>
+		</div>
+
+	</div>
+	</div>
+
+</section>
+
+<section class='section section--fixed-width'>
+
+	<div class='row'>
+
+		{% for feature_story in featured_stories %}
+		<div class='small-12 large-4 columns'>
+			{% image feature_story.post.story_image original as feature_story_image %}
+			<div class='picture-link'>
+				<div class='picture-link__picture'>
+					<a href="{{ feature_story.url }}"><img {{ feature_story_image.attrs }} /></a>
+				</div>
+				<div class='picture-link__content'>
+					<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
+					<p>{{ feature_story.post.story_excerpt }}</p>
+				</div>
+			</div>
+
+		</div>
+		{% endfor %}
+
+	</div>
+
+</section>
+
+
+<section class='section section--fixed-width'>
+
+	<div class='row'>
+
+		<div class='small-12 large-6 columns'>
+
+			<div class='border-panel'>
+
+				<div class='border-panel__item'>
+					<div class='border-panel__content'>
+						<h1>Subscribe to New America Weekly!</h1>
+						<p>Get our weekly digital magazine and events lineup in your inbox</p>
+						<div id='subscribe'>
+							<input type='text' placeholder='Your e-mail' id='subscribe__email-field'></input>
+							<button class='button' id='subscribe__link'>Sign up</button>
+							<div id='subscribe__modal-container'></div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+
+		<div class='small-12 large-6 columns'>
+
+			<div class='border-panel'>
+
+				<ul>
+
+					<li class='border-panel__item'>
+						<div class='border-panel__info'>Policy Paper - January 18, 2016</div>
+						<div class='border-panel__content'>
+							<h1>ISIS in the West</h1>
+							<p>A new policy paper investigates Westerners drawn to Jihadist groups</p>
+							<div class='button'>Attend Event</div>
+						</div>
+					</li>
+
+					<li class='border-panel__item'>
+						<div class='border-panel__info'>Policy Paper - January 18, 2016</div>
+						<div class='border-panel__content'>
+							<h1>ISIS in the West</h1>
+							<p>A new policy paper investigates Westerners drawn to Jihadist groups</p>
+							<div class='button'>Attend Event</div>
+						</div>
+					</li>
+
+					<li class='border-panel__item'>
+						<div class='border-panel__info'>Policy Paper - January 18, 2016</div>
+						<div class='border-panel__content'>
+							<h1>ISIS in the West</h1>
+							<p>A new policy paper investigates Westerners drawn to Jihadist groups</p>
+							<div class='button'>Attend Event</div>
+						</div>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<div class='post-body'>
+	<p>Join us as protagonists from all sides of the debate, as well as researchers with groundbreaking social media data, consider the record – the evidence of left-right cooperation, as well as the evidence of its failures and limits. What actually happened in states where Common Core was repealed? Has anything really changed? What drove the assault, and could Common Core’s backers have done anything differently?</p>
+	<p>The event will also mark the release of the third in a series of New Models of Policy Change case studies. Patrick McGuinn and Jonathan Supovitz examine the successes and limits of transpartisan opposition to Common Core. What are the lessons of the Common Core fight for education policy? Are there lessons applicable to other fragile areas of bipartisan cooperation? </p>
+	<blockquote>The event will also mark the release of the third in a series of New Models of Policy Change case studies. Patrick McGuinn and Jonathan Supovitz examine the successes and limits of transpartisan opposition to Common Core. What are the lessons of the Common Core fight for education policy? Are there lessons applicable to other fragile areas of bipartisan cooperation? </blockquote>
+</div>
+
+
+<div class='panel'>
+
+	<h1>Our Story</h1>
+	<p>Founded in 1999, New America is a think tank and civic enterprise committed to renewing American politics, prosperity, and purpose in the Digital Age. We generate big ideas, bridge the gap between technology and policy, and curate broad public conversation.</p>
+
+	<div class='panel__link'>
+		<a href='' class='button'>Read our story</a>
+	</div>
+
+</div>
 {% endblock %}
