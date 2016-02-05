@@ -1,5 +1,6 @@
 {% load static wagtailuserbar %}
 {% load top_menu %}
+{% load wagtailcore_tags %} 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -33,8 +34,22 @@
                     {% get_site_root as site_root %}
                     {% top_menu parent=site_root calling_page=self %}
                 {% endblock %}
+                {% if self.get_ancestors|length > 2 %}
+                    <ul class=”breadcrumb”>
 
-                {% block content %}{% endblock %}
+                    {% for page in self.get_ancestors %}
+                        {% if page.is_root == False %}
+                        <li><a href="{{ page.url }}">{{ page.title }} > </a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <li class=”active”>{{ self.title }}</li>
+
+                    </ul>
+                {% endif %}
+                
+                {% block content %}
+                {% endblock %}
 
                 {% include 'ui_elements/footer.html' %}
 
