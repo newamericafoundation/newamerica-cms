@@ -19,6 +19,6 @@ class MapBlock(blocks.StructBlock):
     variable_option = blocks.CharBlock(required=True,max_length=500)
  
     class Meta:
-        template = './map.html'
+        template = './home/map.html'
         icon = 'cogs'
         label = 'Map'
