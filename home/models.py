@@ -18,6 +18,7 @@ from person.models import Person
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
+from blocks import *
 
 class HomePage(Page):
     parent_page_types = ['home.HomePage', ]
@@ -140,6 +141,7 @@ class SimplePage(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
+        ('map', MapBlock(icon='cogs'))
     ])
 
     content_panels = Page.content_panels + [
