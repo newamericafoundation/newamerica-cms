@@ -1,14 +1,15 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.db.models import Q
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, PageChooserPanel, MultiFieldPanel
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel, StreamFieldPanel, InlinePanel, 
+    PageChooserPanel, MultiFieldPanel)
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalKey
 from programs.models import Program, Subprogram
@@ -19,9 +20,10 @@ options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
 
 class HomePage(Page):
-    parent_page_types = ['home.HomePage',]
+    parent_page_types = ['home.HomePage', ]
 
-    #Up to four lead stories can be featured on the homepage. Lead_1 will be featured most prominently.
+    # Up to four lead stories can be featured on the homepage. 
+    # Lead_1 will be featured most prominently.
     lead_1 = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -54,8 +56,8 @@ class HomePage(Page):
         related_name='+',
     )
 
-
-    #Up to three featured stories to appear underneath the lead stories. All of the same size and formatting.
+    # Up to three featured stories to appear underneath 
+    # the lead stories. All of the same size and formatting.
     feature_1 = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -84,42 +86,45 @@ class HomePage(Page):
 
 
     promote_panels = Page.promote_panels + [
-        MultiFieldPanel([
-            PageChooserPanel('lead_1'),
-            PageChooserPanel('lead_2'),
-            PageChooserPanel('lead_3'),
-            PageChooserPanel('lead_4'),
-        ],
-        heading="Lead Stories",
-        classname="collapsible"
+        MultiFieldPanel(
+            [
+                PageChooserPanel('lead_1'),
+                PageChooserPanel('lead_2'),
+                PageChooserPanel('lead_3'),
+                PageChooserPanel('lead_4'),
+            ],
+            heading="Lead Stories",
+            classname="collapsible"
         ),
-        MultiFieldPanel([
-            PageChooserPanel('feature_1'),
-            PageChooserPanel('feature_2'),
-            PageChooserPanel('feature_3'),
-        ],
-        heading="Featured Stories",
-        classname="collapsible"
+        MultiFieldPanel(
+            [
+                PageChooserPanel('feature_1'),
+                PageChooserPanel('feature_2'),
+                PageChooserPanel('feature_3'),
+            ],
+            heading="Featured Stories",
+            classname="collapsible"
         ),
     ]    
     
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
 
-        other_lead_stories = []
+        context['other_lead_stories'] = []
 
-        if self.lead_2 is not None:
-            other_lead_stories.append(self.lead_2)
-        if self.lead_3 is not None:
-            other_lead_stories.append(self.lead_3)
-        if self.lead_4 is not None:
-            other_lead_stories.append(self.lead_4)
+        if self.lead_2:
+            context['other_lead_stories'].append(self.lead_2)
+        if self.lead_3:
+            context['other_lead_stories'].append(self.lead_3)
+        if self.lead_4:
+            context['other_lead_stories'].append(self.lead_4)
 
         context['lead_1'] = self.lead_1
-        context['other_lead_stories'] = other_lead_stories
         context['lead_2'] = self.lead_2
 
-        context['featured_stories'] = [self.feature_1, self.feature_2, self.feature_3]
+        context['featured_stories'] = [
+            self.feature_1, self.feature_2, self.feature_3
+        ]
 
         return context
 
@@ -141,6 +146,7 @@ class SimplePage(Page):
         StreamFieldPanel('body')
     ]
 
+
 class PostAuthorRelationship(models.Model):
     """
     Through model that maps the many to many
@@ -159,12 +165,14 @@ class PostProgramRelationship(models.Model):
     Through model that maps the many to many
     relationship between Post and Programs
     """
+    
     program = models.ForeignKey(Program, related_name="+")
     post = ParentalKey('Post', related_name='programs')
 
     panels = [
         FieldPanel('program'),
     ]
+
     class meta:
         unique_together = (("program", "post"),)
 
@@ -177,6 +185,7 @@ class PostSubprogramRelationship(models.Model):
     Through model that maps the many to many
     relationship between Post and Subprograms
     """
+    
     subprogram = models.ForeignKey(Subprogram, related_name="+")
     post = ParentalKey('Post', related_name='subprograms')
 
@@ -232,7 +241,6 @@ class Post(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
-
     ]
 
     is_creatable = False
@@ -253,6 +261,3 @@ class Post(Page):
         )
         if created:
             relationship.save()
-
-
-
