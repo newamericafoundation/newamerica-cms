@@ -1,7 +1,7 @@
 .header__link-group {
 
 	@mixin is-active {
-		.header__has-link-group--active & {
+		.header__has-link-group:hover &, .header__has-link-group--active & {
 			@content;
 		}
 	}
@@ -15,18 +15,17 @@
 		display: block !important;
 	}
 
-	position: fixed;
-	background-color: rgba(0, 0, 0, 0.2);
+	// position: fixed;
+	// background-color: rgba(0, 0, 0, 0.2);
+	// width: 100vw;
+	// left: 0vw;
+	// height: 100vh;
+	// top: 0vh;
 
-	width: 100vw;
-	left: 0vw;
-	height: 100vh;
-	top: 0vh;
-
-	// width: calc(100% + 36px);
-	// position: absolute;
-	// top: 40px;
-	// left: 0;
+	width: calc(100% + 36px);
+	position: absolute;
+	top: 40px;
+	left: 0;
 
 	z-index: 4;
 
@@ -49,17 +48,17 @@
 
 	&__content {
 
-		width: 90%;
+		width: 100%;
 		margin: auto;
 
 		border-bottom: 4px solid palette-get(na-turquoise);
 
-		.no-flexbox & {
-			position: absolute;
-			height: 90%;
-			left: 5%;
-			top: 5%;
-		}
+		// .no-flexbox & {
+		// 	position: absolute;
+		// 	height: 90%;
+		// 	left: 5%;
+		// 	top: 5%;
+		// }
 
 		@include standard-shadow;
 		
