@@ -65,6 +65,29 @@
 		}
 	}
 
+	&__cover-bottom-shadow {
+    	$height: 15px;
+
+    	width: 100%;
+        height: $height;
+        z-index: 5;
+
+        position: relative;
+        bottom: 0;
+        left: 0;
+
+        transition: none;
+
+        display: block;
+
+        .header__main-nav__item:hover {
+            display: block;
+        }
+        
+        background-color: palette-get(na-white);
+        
+    }
+
 	.mobile-nav {
 
 		display: block;
