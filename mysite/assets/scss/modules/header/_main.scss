@@ -65,9 +65,33 @@
 		}
 	}
 
+	&__cover-bottom-shadow {
+    	$height: 25px;
+
+    	width: 100%;
+        height: $height;
+        z-index: 5;
+
+        position: relative;
+        bottom: 0;
+        left: 0;
+
+        transition: none;
+
+        display: none;
+
+        .header__has-link-group:hover &, .header__has-link-group--active & {
+			display: block;
+		}
+        
+        background-color: palette-get(na-white);
+        
+    }
+
 	.mobile-nav {
 
 		display: block;
+		
 		@include desktop-header() {
 			display: none;
 		}

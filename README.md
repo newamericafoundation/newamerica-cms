@@ -33,9 +33,13 @@ To contribute to frontend development, you need to install a ``Node.js`` environ
 	brew install node
 	npm install
 
-To compile front-end assets, run the following:
+To compile front-end assets in development and keep recompiling when any of the source files change, run the following:
 
 	npm run dev
+
+To compile front-end assets in production, run the one-time command:
+
+	npm run build
 
 ### Frontend test server
 
