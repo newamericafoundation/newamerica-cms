@@ -21,15 +21,25 @@
 	// left: 0vw;
 	// height: 100vh;
 	// top: 0vh;
-
-	width: calc(100% + 36px);
+	
 	position: absolute;
-	top: 40px;
+	
 	left: 0;
+
+	@include desktop-header {
+		width: 100%;
+		top: 77px;
+	}
+
+	@include expanded-header {
+		width: calc(100% + 50px);
+		left: -11px;
+		top: 45px;
+	}
 
 	z-index: 4;
 
-	padding-top: 5px;
+	padding: 5px 11px 0;
 
 	a, p, h1, li { 
 		color: palette-get(na-black); 

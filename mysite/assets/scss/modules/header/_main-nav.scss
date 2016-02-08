@@ -1,17 +1,18 @@
 .header__main-nav {
 
-	position: relative;
-
 	display: none;
 
 	@include desktop-header {
+		position: static;
 		left: 0;
 		top: 0px;
 		margin-left: 10px;
+		margin-top: 12px;
 		display: inline-block;
 	}
 
 	@include expanded-header {
+		position: relative;
 		left: -18px;
 		top: 0px;
 		margin-top: 15px;
@@ -24,6 +25,7 @@
 	overflow: visible;
 
 	&__item {
+		height: 46px;
 		z-index: 3;
 		overflow: visible;
 	}
