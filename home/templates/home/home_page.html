@@ -120,33 +120,16 @@
 			<div class='border-panel'>
 
 				<ul>
-
+					{% for item in recent_carousel %}
 					<li class='border-panel__item'>
-						<div class='border-panel__info'>Policy Paper - January 18, 2016</div>
+						<div class='border-panel__info'>{{ item.value.get_parent }} - {{ item.value.post.date }}</div>
 						<div class='border-panel__content'>
-							<h1>ISIS in the West</h1>
-							<p>A new policy paper investigates Westerners drawn to Jihadist groups</p>
-							<div class='button'>Attend Event</div>
+							<a href="{{ item.value.url }}"><h1>{{ item.value.title }}</h1></a>
+							<p>{{ item.value.post.story_excerpt }}</p>
+							<a href="{{ item.value.url }}"><div class='button'>Learn More</div></a>
 						</div>
 					</li>
-
-					<li class='border-panel__item'>
-						<div class='border-panel__info'>Policy Paper - January 18, 2016</div>
-						<div class='border-panel__content'>
-							<h1>ISIS in the West</h1>
-							<p>A new policy paper investigates Westerners drawn to Jihadist groups</p>
-							<div class='button'>Attend Event</div>
-						</div>
-					</li>
-
-					<li class='border-panel__item'>
-						<div class='border-panel__info'>Policy Paper - January 18, 2016</div>
-						<div class='border-panel__content'>
-							<h1>ISIS in the West</h1>
-							<p>A new policy paper investigates Westerners drawn to Jihadist groups</p>
-							<div class='button'>Attend Event</div>
-						</div>
-					</li>
+					{% endfor %}
 
 				</ul>
 
