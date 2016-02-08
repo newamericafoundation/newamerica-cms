@@ -1,7 +1,7 @@
 .header__button {
 
     z-index: 3;
-    
+
     position: relative;
 
     display: block;
@@ -33,12 +33,14 @@
             background-size: contain;
         }
 
-        &:hover, .header__main-nav__item:hover & {
-            background-color: palette-get(na-white);
-            color: palette-get(na-black);
-            @include standard-shadow;
-        }
 
+
+    }
+
+    &:hover, .header__main-nav__item:hover & {
+        background-color: palette-get(na-white);
+        color: palette-get(na-black);
+        @include standard-shadow;
     }
 
 }
