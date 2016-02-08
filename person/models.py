@@ -89,7 +89,17 @@ class ExpertPage(Page):
     def get_context(self, request):
         context = super(ExpertPage, self).get_context(request)
 
-        context['experts'] = Person.objects.filter(expert=True)
+        experts = Person.objects.filter(expert=True).order_by('belongs_to_program')
+        print(experts)
+        # program_experts = []
+        # other_experts = []
+        # for expert in experts:
+        #     if expert.belongs_to_program:
+        #         program_experts.append(expert)
+        #     else:
+        #         other_experts.append(expert)
+        # context['other_experts'] = other_experts
+        # context['program_experts'] = other_experts
         return context
 
 
