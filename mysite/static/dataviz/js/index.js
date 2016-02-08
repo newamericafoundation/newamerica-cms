@@ -3,7 +3,8 @@ function VizController(data_file, varJSON, div_container) {
 
 	var data;
 	var viz = {};
-	var filt_var = [];
+	var filter_var = [];
+	var curr_filter = 0;
 	var col_scale;
 
 	// d3.select(document.body)
@@ -23,14 +24,17 @@ function VizController(data_file, varJSON, div_container) {
 
 		setColorScale();
 		setFilterVariables();
+		var vals = filter_var[0].dimension.filterAll();
+		console.log(vals);
+		setTimeSlider();
 		createMap();
 		varJSON.integratedChartOption == "display integrated chart" ? createCharts() : null;
 		//data = addStateIDs(d);
 		console.log(d);
-		d3.select("div#slider3")
-            .call(d3.slider().axis(true).min(0).max(100).value(75));
 
 	});
+
+	// SETUP FUNCTIONS //
 
 	function setColorScale() {
 		switch(varJSON.colorScale){
@@ -47,9 +51,12 @@ function VizController(data_file, varJSON, div_container) {
 		var crossfil = crossfilter(data);
 		
 		varJSON.filterVariables.forEach(function(variable, i) {
-			filt_var[i] = {
+			//remove extraneous quotes
+			var variable = variable.substring(1, variable.length-1);
+
+			filter_var[i] = {
 				variable_name: variable,
-				dimension: crossfil.dimension(function(d) {return (d[variable]);})
+				dimension: crossfil.dimension(function(d) { return (d[variable]);}),
 			}
 		});
 
@@ -57,10 +64,25 @@ function VizController(data_file, varJSON, div_container) {
 		// print_filter(filters[2].filter());
 	}
 
+	function setTimeSlider() {
+		var extent = getMinMax(filter_var[curr_filter].variable_name);
+	    $( "#slider-range" ).slider({
+			range: true,
+			min: extent[0],
+			max: extent[1],
+			values: [ extent[0], extent[1] ],
+			slide: function( event, ui ) {
+				console.log(ui);
+				updateTime(ui.values);
+			}
+	    });
+    
+	}
+
 	function createMap() {
 		switch(varJSON.mapType){
 			case 'heatmap':
-				viz.map = Heatmap().width(1000).height(500).data(data).filters(filt_var).color_scale(col_scale).div_container("#map");
+				viz.map = Heatmap().width(1000).height(500).data(data).filters(filter_var).color_scale(col_scale).div_container("#map");
 				viz.map();
 			default:
 				console.log("map type not yet supported");
@@ -74,13 +96,32 @@ function VizController(data_file, varJSON, div_container) {
 		}
 	}
 
-	// function print_filter(filter){
-	// 	var f=eval(filter);
-	// 	if (typeof(f.length) != "undefined") {}else{}
-	// 	if (typeof(f.top) != "undefined") {f=f.top(Infinity);}else{}
-	// 	if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
-	// 	console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
-	// } 
+
+	function updateTime(range) {
+		console.log(range);
+		viz.map.update(range);
+		// viz.map.data(filter_var[curr_filter].dimension.filter([range[0],range[1]]).top(Infinity));
+	}
+
+
+	function renderAll() {
+
+	}
+
+
+	//UTILITY FUNCTIONS
+
+	function print_filter(filter){
+		var f=eval(filter);
+		if (typeof(f.length) != "undefined") {}else{}
+		if (typeof(f.top) != "undefined") {f=f.top(Infinity);}else{}
+		if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
+		console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
+	}
+
+	function getMinMax(variable) {
+		return d3.extent(data, function(d) { console.log(d[variable]); return Number(d[variable]);});
+	} 
 }
 
 

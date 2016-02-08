@@ -5,6 +5,7 @@ function Heatmap()  {
 	var div_container = "body";
 	var data, filters, color_scale;
 	var geography;
+	var paths;
 
 	var path = d3.geo.path();
 	var tooltip = d3.select(div_container)
@@ -22,29 +23,20 @@ function Heatmap()  {
 		var svg = d3.select(div_container).append("svg")
 			.attr("width", width)
 			.attr("height", height)
-			
-			// 	.on("slide", function(evt, value) {
-			//   d3.select('#slider3textmin').text(value[ 0 ]);
-			//   d3.select('#slider3textmax').text(value[ 1 ]);
-			// }));
-
-		// svg.append("div")
-		// 	.attr("width", width)
-		// 	.attr("height", height)
-  //           .call(d3.slider().axis(true).min(0).max(10));
 
 		processData();
 
 		function processData() {
 			console.log(data);
+			// var data_subset = filters[curr_filter].dimension.filter([0,35]).top(Infinity);
+			// console.log(data_subset.valueOf());
 			d3.json("../static/dataviz/geography/us-states.json", function(json) {
 				geography = json;
 				
 				for (i in data) {
 					var state = data[i];
+					// console.log(state);
 					for (j in geography.features) {
-						// console.log(geography.features[j].properties[birth_third_grade_rating]);
-						console.log(state[filter_default]);
 						if (state.name.trim().toLowerCase() == geography.features[j].properties.name.toLowerCase()) {
 							geography.features[j].properties[filter_default] = state[filter_default];
 							geography.features[j].properties.stateID = state.stateID;
@@ -57,7 +49,7 @@ function Heatmap()  {
 		}
 		
 		function render() {
-			svg.selectAll("path")
+			paths = svg.selectAll("path")
 				.data(geography.features)
 				.enter()
 				.append("path")
@@ -95,6 +87,18 @@ function Heatmap()  {
 				});
 			tooltip.style("visibility", "hidden");
 		}
+	}
+
+	my.update = function(r) {
+		console.log(r);
+		paths
+			.attr("fill", function(d) {
+				console.log(d);
+				var value = d.properties.birth_third_grade_rating;
+				return value > r[0] ? color_scale(value) : "white";
+			});
+
+		return my;
 	}
 
 	//Getter and Setter functions
