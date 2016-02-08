@@ -253,12 +253,13 @@ class Post(Page):
         captured even if the user does not select it.
         """
         super(Post, self).save(*args, **kwargs)
-        parent_program_page = self.get_parent().get_parent()
-        parent_program = Program.objects.get(
-            slug=parent_program_page.slug
-        )
-        relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=parent_program, post=self
-        )
-        if created:
-            relationship.save()
+        parent_page = self.get_parent().get_parent()
+        if str(parent_page.content_type) == 'program':
+            parent_program = Program.objects.get(
+                slug=parent_page.slug
+            )
+            relationship, created = PostProgramRelationship.objects.get_or_create(
+                program=parent_program, post=self
+            )
+            if created:
+                relationship.save()
