@@ -128,14 +128,9 @@ class HomePage(Page):
         if self.lead_4:
             context['other_lead_stories'].append(self.lead_4)
 
-        context['lead_1'] = self.lead_1
-        context['lead_2'] = self.lead_2
-
         context['featured_stories'] = [
             self.feature_1, self.feature_2, self.feature_3
         ]
-
-        context['recent_carousel'] = self.recent_carousel
 
         return context
 
