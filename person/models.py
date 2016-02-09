@@ -7,8 +7,19 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, Inl
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import URLBlock
 
+from modelcluster.fields import ParentalKey
+
 from programs.models import Program
 
+# Through relationship that connects the Person model
+# to the Program model so that a Person may belong
+# to more than one Program
+class PersonProgramRelationship(models.Model):
+    program = models.ForeignKey(Program, related_name="+")
+    person = ParentalKey('Person', related_name='program')
+    panels = [
+        FieldPanel('program'),
+    ]
 
 class Person(Page):
     name = models.CharField(max_length=150)
@@ -16,7 +27,7 @@ class Person(Page):
     email = models.EmailField()
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
-    belongs_to_program = models.ForeignKey(Program, blank=True, null=True, help_text="The Program this person works for")
+    belongs_to_program = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True, null=True, help_text="The Program(s) this person works for")
     expert = models.BooleanField()
     location = models.CharField(max_length=200)
     photo = StreamField([
@@ -47,7 +58,7 @@ class Person(Page):
         FieldPanel('email'),
         FieldPanel('short_bio'),
         FieldPanel('long_bio', classname="full"),
-        FieldPanel('belongs_to_program'),
+        InlinePanel('belongs_to_program', label=("Belongs to Program(s)")),
         FieldPanel('role'),
         FieldPanel('expert'),
         StreamFieldPanel('photo'),
