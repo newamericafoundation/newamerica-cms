@@ -8,18 +8,19 @@
 
 {% block content %}
     <h1>Experts</h1>
+    <br>
 
-    {% for expert in experts %}
-        <a href="{{ expert.url }}">{{ expert.name }}</a>
+    {% for program in all_programs %}
+        <h3>{{ program }}</h3>
         <br>
-        {{ expert.short_bio }}
-        <br>
-        {{ expert.role }}
-        <br>
-        {% if expert.program %}
-            <a href="{{expert.program.url }}">{{ expert.program }}</a>
-        {% endif %}
-        <br> 
+        {% for expert in experts %}
+            {% for expert_program in expert.belongs_to_these_programs.all %}
+                    {% if program == expert_program %}
+                        <a href="{{ expert.url }}">{{ expert }}</a>
+                        <br>
+                    {% endif %}
+            {% endfor %}
+        {% endfor %}
         <br>
     {% endfor %}
 

@@ -16,7 +16,7 @@ from programs.models import Program
 # to more than one Program
 class PersonProgramRelationship(models.Model):
     program = models.ForeignKey(Program, related_name="+")
-    person = ParentalKey('Person', related_name='program')
+    person = ParentalKey('Person', related_name='programs')
     panels = [
         FieldPanel('program'),
     ]
@@ -27,13 +27,13 @@ class Person(Page):
     email = models.EmailField()
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
-    belongs_to_program = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True, null=True, help_text="The Program(s) this person works for")
     expert = models.BooleanField()
     location = models.CharField(max_length=200)
     photo = StreamField([
         ('photo', ImageChooserBlock(icon='image')),
     
     ])
+    belongs_to_these_programs = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True)
     
     social_media = StreamField([
         ('twitter', URLBlock(required=False, help_text='Twitter Handle', icon='user')),
@@ -58,7 +58,7 @@ class Person(Page):
         FieldPanel('email'),
         FieldPanel('short_bio'),
         FieldPanel('long_bio', classname="full"),
-        InlinePanel('belongs_to_program', label=("Belongs to Program(s)")),
+        InlinePanel('programs', label=("Belongs to these Programs")),
         FieldPanel('role'),
         FieldPanel('expert'),
         StreamFieldPanel('photo'),
@@ -100,17 +100,13 @@ class ExpertPage(Page):
     def get_context(self, request):
         context = super(ExpertPage, self).get_context(request)
 
-        experts = Person.objects.filter(expert=True).order_by('belongs_to_program')
+        # values = Person.objects.filter(expert=True).values('belongs_to_these_programs')
+        experts = Person.objects.filter(expert=True).order_by('-name')
         print(experts)
-        # program_experts = []
-        # other_experts = []
-        # for expert in experts:
-        #     if expert.belongs_to_program:
-        #         program_experts.append(expert)
-        #     else:
-        #         other_experts.append(expert)
-        # context['other_experts'] = other_experts
-        # context['program_experts'] = other_experts
+        all_programs = Program.objects.all()
+        
+        context['all_programs'] = all_programs
+        context['experts'] = experts
         return context
 
 
@@ -128,7 +124,7 @@ class ProgramPeoplePage(Page):
 
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
-        context['people'] = Person.objects.filter(program=program)
+        context['people'] = Person.objects.filter(belongs_to_these_programs=program)
         context['program'] = program
         return context
 
