@@ -6,6 +6,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailcore.blocks import PageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
@@ -84,6 +85,13 @@ class HomePage(Page):
 
     featured_stories = [feature_1, feature_2, feature_3]
 
+    #Up to three recent items that are below the
+    #featured stories banner that circle through a carousel
+    recent_carousel = StreamField([
+        ('event', PageChooserBlock()),
+        ('policy_paper', PageChooserBlock()),
+    ], blank=True)
+
 
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
@@ -105,6 +113,7 @@ class HomePage(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
+        StreamFieldPanel('recent_carousel'),
     ]
 
     def get_context(self, request):
@@ -119,14 +128,12 @@ class HomePage(Page):
         if self.lead_4:
             context['other_lead_stories'].append(self.lead_4)
 
-        context['lead_1'] = self.lead_1
-        context['lead_2'] = self.lead_2
-
         context['featured_stories'] = [
             self.feature_1, self.feature_2, self.feature_3
         ]
 
         return context
+
 
 
 
@@ -221,7 +228,7 @@ class Post(Page):
     post_author = models.ManyToManyField(
         Person, through=PostAuthorRelationship, blank=True)
 
-    story_excerpt = models.TextField(blank=True)
+    story_excerpt = models.CharField(blank=True, max_length=140)
 
     story_image = models.ForeignKey(
         'wagtailimages.Image',
