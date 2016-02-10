@@ -8,11 +8,11 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel, StreamFieldPanel, InlinePanel, 
+    FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel)
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalKey
-from programs.models import Program, Subprogram
+from programs.models import AbstractProgram, Program, Subprogram
 from person.models import Person
 
 import django.db.models.options as options
@@ -22,7 +22,7 @@ options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 class HomePage(Page):
     parent_page_types = ['home.HomePage', ]
 
-    # Up to four lead stories can be featured on the homepage. 
+    # Up to four lead stories can be featured on the homepage.
     # Lead_1 will be featured most prominently.
     lead_1 = models.ForeignKey(
         'wagtailcore.Page',
@@ -56,7 +56,7 @@ class HomePage(Page):
         related_name='+',
     )
 
-    # Up to three featured stories to appear underneath 
+    # Up to three featured stories to appear underneath
     # the lead stories. All of the same size and formatting.
     feature_1 = models.ForeignKey(
         'wagtailcore.Page',
@@ -127,8 +127,8 @@ class HomePage(Page):
         ]
 
         return context
-    
-    
+
+
 
 class SimplePage(Page):
     """
@@ -166,7 +166,7 @@ class PostProgramRelationship(models.Model):
     Through model that maps the many to many
     relationship between Post and Programs
     """
-    
+
     program = models.ForeignKey(Program, related_name="+")
     post = ParentalKey('Post', related_name='programs')
 
@@ -186,7 +186,7 @@ class PostSubprogramRelationship(models.Model):
     Through model that maps the many to many
     relationship between Post and Subprograms
     """
-    
+
     subprogram = models.ForeignKey(Subprogram, related_name="+")
     post = ParentalKey('Post', related_name='subprograms')
 
@@ -254,10 +254,10 @@ class Post(Page):
         """
         super(Post, self).save(*args, **kwargs)
         parent_page = self.get_parent().get_parent()
-        if str(parent_page.content_type) == 'program':
-            parent_program = Program.objects.get(
-                slug=parent_page.slug
-            )
+        parent_program = Program.objects.get(
+            slug=parent_page.slug
+        )
+        if isinstance(parent_program, AbstractProgram):
             relationship, created = PostProgramRelationship.objects.get_or_create(
                 program=parent_program, post=self
             )
