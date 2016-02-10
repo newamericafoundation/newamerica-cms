@@ -10,16 +10,18 @@
     <h1>Experts</h1>
     <br>
 
+    {% for non_prog_expert in non_program_experts %}
+        <a href="{{ non_prog_expert.url }}">{{ non_prog_expert }}</a>
+            <br>
+    {% endfor %}
+    <br>
+
     {% for program in all_programs %}
         <h3>{{ program }}</h3>
         <br>
-        {% for expert in experts %}
-            {% for expert_program in expert.belongs_to_these_programs.all %}
-                    {% if program == expert_program %}
-                        <a href="{{ expert.url }}">{{ expert }}</a>
-                        <br>
-                    {% endif %}
-            {% endfor %}
+        {% for expert in program.get_experts %}
+            <a href="{{ expert.url }}">{{ expert }}</a>
+            <br>
         {% endfor %}
         <br>
     {% endfor %}
