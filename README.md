@@ -1,26 +1,77 @@
 Custom Content Management System (CMS) built for New America
 
 
-Install
------------------
+# New America CMS Setup
 
-Install dependencies
+- Install and create your virtual environment. One option: (http://virtualenvwrapper.readthedocs.org/en/latest/index.html)
 
-    pip install -r requirements.txt
+- Clone github repo
+
+- Get the requirements.txt and .env files from one of the developers and add both to your root directory of the CMS - as in, where the manage.py file lives
+
+- Install pip if you don't have it: (https://pip.pypa.io/en/stable/installing/)
+
+- Install Postgres and make sure it is running: (http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/)
+Tip: Select the configuration to launch Postgres automatically so you don't have to do so manually each time you log in.
+
+- Install requirements:
+```bash
+pip install -r requirements.txt
+```
+
+- Create a database called newamerica:
+```bash
+createdb newamerica
+```
+
+- Create a user called newamerica with some password:
+```bash
+psql -d newamerica -c "CREATE USER newamerica WITH PASSWORD '<<PASSWORD>>';"
+```
+
+- Updated the DATABASE_URL in the .env file with the Postgres url indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
 
 
-Set up
------------------
-
-    manage.py createsuperuser
-    manage.py makemigrations
-    manage.py migrate
+- Load your environment variables:
+```bash
+source .env
+```
 
 
-Run
------------------
+- Migrate your database:
+```bash
+python manage.py migrate
+```
 
-    manage.py runserver
+- Create a superuser:
+```bash
+python manage.py createsuperuser
+```
+
+
+- Run your local server:
+```bash
+python manage.py runserver
+```
+
+- In your browser, go to the site at (127.0.0.1:8000/admin) and log in with the credentials you created the super user with
+
+
+- Delete the default “Welcome to your Wagtail site!” page
+
+
+- Load the data from the fixture:
+```bash
+python manage.py loaddata fixture.json
+```
+
+- Run your local server:
+```bash
+python manage.py runserver
+```
+
+- In your browser, go to the site at (127.0.0.1:8000/admin) and log in with username: admin and password: admin
+
 
 
 Front-end
