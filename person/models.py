@@ -31,10 +31,10 @@ class Person(Page):
     location = models.CharField(max_length=200)
     photo = StreamField([
         ('photo', ImageChooserBlock(icon='image')),
-    
+
     ])
     belongs_to_these_programs = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True)
-    
+
     social_media = StreamField([
         ('twitter', URLBlock(required=False, help_text='Twitter Handle', icon='user')),
         ('facebook',URLBlock(required=False, help_text='Facebook Profile', icon='user')),
@@ -71,7 +71,7 @@ class Person(Page):
 
 class OurPeoplePage(Page):
     """
-    A page which inherits from the abstract Page model and 
+    A page which inherits from the abstract Page model and
     returns everyone from the Person model
     """
 
@@ -100,20 +100,20 @@ class ExpertPage(Page):
     def get_context(self, request):
         context = super(ExpertPage, self).get_context(request)
 
-        # values = Person.objects.filter(expert=True).values('belongs_to_these_programs')
-        experts = Person.objects.filter(expert=True).order_by('-name')
-        print(experts)
-        all_programs = Program.objects.all()
-        
-        context['all_programs'] = all_programs
-        context['experts'] = experts
+        context['non_program_experts'] = Person.objects\
+            .filter(belongs_to_these_programs=None)\
+            .filter(expert=True)\
+            .order_by('-name')
+
+        context['all_programs'] = Program.objects.all()
+
         return context
 
 
 class ProgramPeoplePage(Page):
     """
     A page which inherits from the abstract Page model and returns
-    everyone from the Person model for a specific program which is 
+    everyone from the Person model for a specific program which is
     determined using the url path
     """
     parent_page_types = ['programs.Program',]
