@@ -7,8 +7,19 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, Inl
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import URLBlock
 
+from modelcluster.fields import ParentalKey
+
 from programs.models import Program
 
+# Through relationship that connects the Person model
+# to the Program model so that a Person may belong
+# to more than one Program
+class PersonProgramRelationship(models.Model):
+    program = models.ForeignKey(Program, related_name="+")
+    person = ParentalKey('Person', related_name='programs')
+    panels = [
+        FieldPanel('program'),
+    ]
 
 class Person(Page):
     name = models.CharField(max_length=150)
@@ -16,14 +27,14 @@ class Person(Page):
     email = models.EmailField()
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
-    belongs_to_program = models.ForeignKey(Program, blank=True, null=True, help_text="The Program this person works for")
     expert = models.BooleanField()
     location = models.CharField(max_length=200)
     photo = StreamField([
         ('photo', ImageChooserBlock(icon='image')),
-    
+
     ])
-    
+    belongs_to_these_programs = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True)
+
     social_media = StreamField([
         ('twitter', URLBlock(required=False, help_text='Twitter Handle', icon='user')),
         ('facebook',URLBlock(required=False, help_text='Facebook Profile', icon='user')),
@@ -47,7 +58,7 @@ class Person(Page):
         FieldPanel('email'),
         FieldPanel('short_bio'),
         FieldPanel('long_bio', classname="full"),
-        FieldPanel('belongs_to_program'),
+        InlinePanel('programs', label=("Belongs to these Programs")),
         FieldPanel('role'),
         FieldPanel('expert'),
         StreamFieldPanel('photo'),
@@ -60,7 +71,7 @@ class Person(Page):
 
 class OurPeoplePage(Page):
     """
-    A page which inherits from the abstract Page model and 
+    A page which inherits from the abstract Page model and
     returns everyone from the Person model
     """
 
@@ -89,14 +100,20 @@ class ExpertPage(Page):
     def get_context(self, request):
         context = super(ExpertPage, self).get_context(request)
 
-        context['experts'] = Person.objects.filter(expert=True)
+        context['non_program_experts'] = Person.objects\
+            .filter(belongs_to_these_programs=None)\
+            .filter(expert=True)\
+            .order_by('-name')
+
+        context['all_programs'] = Program.objects.all()
+
         return context
 
 
 class ProgramPeoplePage(Page):
     """
     A page which inherits from the abstract Page model and returns
-    everyone from the Person model for a specific program which is 
+    everyone from the Person model for a specific program which is
     determined using the url path
     """
     parent_page_types = ['programs.Program',]
@@ -107,7 +124,7 @@ class ProgramPeoplePage(Page):
 
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
-        context['people'] = Person.objects.filter(program=program)
+        context['people'] = Person.objects.filter(belongs_to_these_programs=program)
         context['program'] = program
         return context
 
