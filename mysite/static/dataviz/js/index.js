@@ -1,12 +1,21 @@
-function VizController(data_file, varJSON, div_container) {
+function VizController(dataFile, varJSON, divContainer) {
 	console.log(varJSON);
 
 	var data;
 	var viz = {};
-	var filter_var = [];
-	var curr_filter = 0;
-	var col_scale;
+	var filters = [];
+	var currInteraction = {
+		dataFilter : null,
+		timeFilter : {filterName:"birth_third_grade_rating", filterType:"continuous", filterRange: null},
+		hover : null,
+	}
+	var currFilter = 0;
+	var colorScales;
 
+	// var dropDown = d3.select("#filter").append("select")
+ //        .attr("name", "variable-list");
+ var dropVal = d3.select("#filter").selectAll("option");
+       console.log(dropVal);
 	// d3.select(document.body)
 	//     .append('div')
 	//     .call(d3.slider());
@@ -19,61 +28,90 @@ function VizController(data_file, varJSON, div_container) {
 	// 	.attr("height", height);
 	
 
-	d3.csv("../media/" + data_file, function(d) {
+	d3.csv("../media/" + dataFile, function(d) {
 		data = d;
 
-		setColorScale();
-		setFilterVariables();
-		var vals = filter_var[0].dimension.filterAll();
-		console.log(vals);
+		setColorScales();
+		setFilterOptions();
 		setTimeSlider();
 		createMap();
+		// var options = dropDown.selectAll("option")
+	 //           .data(data)
+	 //         .enter()
+	 //           .append("option");
+
 		varJSON.integratedChartOption == "display integrated chart" ? createCharts() : null;
 		//data = addStateIDs(d);
 		console.log(d);
+
 
 	});
 
 	// SETUP FUNCTIONS //
 
-	function setColorScale() {
+	function setColorScales() {
 		switch(varJSON.colorScale){
 			default:
 				//console.log("color scale not yet supported");
-				col_scale = d3.scale.linear()
-					.domain([0,51])
-					.range(['#005753','white']);
+				colorScales = {
+					numerical: d3.scale.quantize()
+						.domain([0,51])
+						.range(['#005753','#3F817E', '#7FABA9', '#BFD5D4','#FFF']),
+					categorical: d3.scale.ordinal()
+				  		.range(['#32a1d9','#3a74bf','#7612a7','#4f38ad'])
+				};
+				// colorScales = d3.scale.quantize()
+				// .domain([0,51])
+				// .interpolate(d3.interpolateRgb)
+				// 	.range(['#005753','white']);
+
+				// var interp = d3.interpolateRgb('#005753','white');
+				// var color = d3.scale.linear()
+				//     .range(['#005753','white'])
+				//     .interpolate(d3.interpolateRgb);
+				// console.log(color(.5));
 		}
 	}
 
 	// crossfilter will not allow more than 32 dimensions at a time 
-	function setFilterVariables() {
-		var crossfil = crossfilter(data);
-		
+	function setFilterOptions() {
 		varJSON.filterVariables.forEach(function(variable, i) {
 			//remove extraneous quotes
 			var variable = variable.substring(1, variable.length-1);
-
-			filter_var[i] = {
-				variable_name: variable,
-				dimension: crossfil.dimension(function(d) { return (d[variable]);}),
-			}
+			var varType = i > 1 ? "categorical" : "numerical";
+			filters.push({filterName:variable, filterType:varType});
 		});
+		console.log(filters);
+		currInteraction.dataFilter = filters[0];
+
+		$("#filter").on("change", changeFilter);
+		// var crossfil = crossfilter(data);
+		
+		// varJSON.filterVariables.forEach(function(variable, i) {
+		// 	//remove extraneous quotes
+		// 	var variable = variable.substring(1, variable.length-1);
+
+		// 	filter_var[i] = {
+		// 		variable_name: variable,
+		// 		dimension: crossfil.dimension(function(d) { return (d[variable]);}),
+		// 	}
+		// });
 
 		// var rating = cross.dimension(function(d) {return Number(d["birth_third_grade_rating"]);});
 		// print_filter(filters[2].filter());
 	}
 
 	function setTimeSlider() {
-		var extent = getMinMax(filter_var[curr_filter].variable_name);
+		var extent = getMinMax(currInteraction.timeFilter.filterName);
+		currInteraction.timeFilter.filterRange = extent;
 	    $( "#slider-range" ).slider({
 			range: true,
 			min: extent[0],
 			max: extent[1],
 			values: [ extent[0], extent[1] ],
 			slide: function( event, ui ) {
-				console.log(ui);
-				updateTime(ui.values);
+				currInteraction.timeFilter.filterRange = ui.values;
+				updateAll();
 			}
 	    });
     
@@ -82,7 +120,7 @@ function VizController(data_file, varJSON, div_container) {
 	function createMap() {
 		switch(varJSON.mapType){
 			case 'heatmap':
-				viz.map = Heatmap().width(1000).height(500).data(data).filters(filter_var).color_scale(col_scale).div_container("#map");
+				viz.map = Heatmap().width(1000).height(500).data(data).interaction(currInteraction).colorScale(colorScales).divContainer("#map");
 				viz.map();
 			default:
 				console.log("map type not yet supported");
@@ -96,12 +134,29 @@ function VizController(data_file, varJSON, div_container) {
 		}
 	}
 
+	//UPDATE FUNCTIONS
 
-	function updateTime(range) {
-		console.log(range);
-		viz.map.update(range);
-		// viz.map.data(filter_var[curr_filter].dimension.filter([range[0],range[1]]).top(Infinity));
+	function updateAll() {
+		viz.map.update(currInteraction);
 	}
+
+	function changeFilter() {
+		var newFilter = $("#filter").val()
+		console.log(newFilter);
+
+		currInteraction.dataFilter = filters[newFilter];
+		updateAll();
+	}
+
+	// function updateTime(range) {
+	// 	console.log(range);
+	// 	viz.map.updateTime(range);
+	// }
+
+	// function updateFilter(filter) {
+	// 	console.log(range);
+	// 	viz.map.update(range);
+	// }
 
 
 	function renderAll() {
@@ -120,7 +175,7 @@ function VizController(data_file, varJSON, div_container) {
 	}
 
 	function getMinMax(variable) {
-		return d3.extent(data, function(d) { console.log(d[variable]); return Number(d[variable]);});
+		return d3.extent(data, function(d) { return Number(d[variable]);});
 	} 
 }
 

@@ -2,25 +2,25 @@ function Heatmap()  {
 	//default values - overidden if user passes in arguments
 	var width = 1000;
 	var height = 500;
-	var div_container = "body";
-	var data, filters, color_scale;
+	var divContainer = "body";
+	var data, colorScale;
+	var currInteraction;
 	var geography;
 	var paths;
 
 	var path = d3.geo.path();
-	var tooltip = d3.select(div_container)
+	var tooltip = d3.select(divContainer)
 		    .append("div")
 		    .classed("tooltip", true)
 		    .style("visibility", "hidden")
 		    .text("");
 
 	function my() {
-		var curr_filter = 0;
 		// var filter_default = filters[curr_filter].variable_name;
-		var filter_default = "birth_third_grade_rating";
+		var filterDefault = "birth_third_grade_rating";
 
 
-		var svg = d3.select(div_container).append("svg")
+		var svg = d3.select(divContainer).append("svg")
 			.attr("width", width)
 			.attr("height", height)
 
@@ -35,11 +35,16 @@ function Heatmap()  {
 				
 				for (i in data) {
 					var state = data[i];
-					// console.log(state);
 					for (j in geography.features) {
 						if (state.name.trim().toLowerCase() == geography.features[j].properties.name.toLowerCase()) {
-							geography.features[j].properties[filter_default] = state[filter_default];
-							geography.features[j].properties.stateID = state.stateID;
+							// change to only transfer fields needed for filtering, sidebar, etc
+							Object.keys(state).forEach(function(field) {
+								console.log(state[field]);
+								geography.features[j].properties[field] = state[field];
+							});	
+							// geography.features[j].properties[filterDefault] = state[filterDefault];
+							// geography.features[j].properties["educators_ranking"] = state["educators_ranking"];
+							// geography.features[j].properties.stateID = state.stateID;
 							break;
 						}
 					}
@@ -54,12 +59,7 @@ function Heatmap()  {
 				.enter()
 				.append("path")
 				.attr("d", path)
-				.attr("fill", function(d) {
-				    var value = d.properties[filter_default];
-				    // console.log(value);
-				    //returns grey if value is undefined
-				    return value ? color_scale(value) : "#ccc";
-				})
+				.attr("fill", function(d) { return findFill(d);})
 				.on("mouseover", mouseover)
 				.on("mousemove", mousemove)
 				.on("mouseout", mouseout);
@@ -73,32 +73,38 @@ function Heatmap()  {
 		}
 
 		function mousemove() {
-			var dataProps= d3.select(this)[0][0].__data__.properties;
+			var dataProps = d3.select(this)[0][0].__data__.properties;
 			tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-				.text(function() { return dataProps.name + "\n" + dataProps[filter_default] ;});
+				.text(function() { return dataProps.name + "\n" + dataProps[currInteraction.dataFilter.filterName] ;});
 		}
 
 		function mouseout() {
 			d3.select(this)
-				.attr("fill", function(d) {
-					var value = d.properties[filter_default];
-	                    //returns white if value is undefined
-	                return value ? color_scale(value) : "#ccc";
-				});
+				.attr("fill", function(d) { return findFill(d);});
 			tooltip.style("visibility", "hidden");
 		}
 	}
 
-	my.update = function(r) {
-		console.log(r);
-		paths
-			.attr("fill", function(d) {
-				console.log(d);
-				var value = d.properties.birth_third_grade_rating;
-				return value > r[0] ? color_scale(value) : "white";
-			});
+	my.update = function(interaction) {
+		currInteraction = interaction;
+
+		paths.attr("fill", function(d) {return findFill(d);});
 
 		return my;
+	}
+
+	function findFill(d) {
+		var dataVal = d.properties[currInteraction.dataFilter.filterName];
+		var timeVal = d.properties[currInteraction.timeFilter.filterName];
+		var filterType = currInteraction.dataFilter.filterType;
+
+		console.log(dataVal);
+
+		if (timeVal >= currInteraction.timeFilter.filterRange[0] && timeVal <= currInteraction.timeFilter.filterRange[1]) {
+			return colorScale[filterType](dataVal);
+		} else {
+			return "none";
+		}
 	}
 
 	//Getter and Setter functions
@@ -122,21 +128,21 @@ function Heatmap()  {
 		return my;
 	};
 
-	my.filters = function(value) {
-		if (!arguments.length) return filters;
-		filters = value;
+	my.interaction = function(value) {
+		if (!arguments.length) return currInteraction;
+		currInteraction = value;
 		return my;
 	};
 
-	my.color_scale = function(value) {
-		if (!arguments.length) return color_scale;
-		color_scale = value;
+	my.colorScale = function(value) {
+		if (!arguments.length) return colorScale;
+		colorScale = value;
 		return my;
 	};
 
-	my.div_container = function(value) {
-		if (!arguments.length) return div_container;
-		div_container = value;
+	my.divContainer = function(value) {
+		if (!arguments.length) return divContainer;
+		divContainer = value;
 		return my;
 	};
 

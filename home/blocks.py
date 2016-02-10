@@ -27,6 +27,7 @@ def editor_js():
 	)
 	return js_includes + format_html(
 		"""
+		<div id="data-visualization-customizer-app"></div>
 		<script>
 
 		  console.log('hello!!');
@@ -37,8 +38,8 @@ def editor_js():
 
 class MapBlock(blocks.StructBlock):
     data_file = DocumentChooserBlock()
-    doc_uploaded = blocks.BooleanBlock(required=True)
-    variable_option = blocks.CharBlock(required=True,max_length=500)
+    # doc_uploaded = blocks.BooleanBlock(required=True)
+    variable_option = blocks.CharBlock(required=True)
  
     class Meta:
         template = './home/map.html'

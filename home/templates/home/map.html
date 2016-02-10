@@ -1,38 +1,5 @@
-{% load wagtailcore_tags wagtailimages_tags %}
 
-{% load static %}
-<meta charset="utf-8">
-<script src='../static/dataviz/d3.min.js'></script>
-<script src="../static/dataviz/crossfilter.min.js"></script>
-<script src="../static/dataviz/chroniton-only.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src= "http://d3js.org/topojson.v1.min.js"></script>
-<!-- <script src="//d3js.org/queue.v1.min.js"></script> -->
-<script src="../static/dataviz/js/timeslider.js"></script>
-<script src="../static/dataviz/js/index.js"></script>
-<script src="../static/dataviz/js/heatmap.js"></script>
 
-<!-- <script src="../static/geography/us-states.js"></script> -->
-<style>
-	.tooltip {
-		position: absolute;
-	    z-index: 10;
-	    padding: 3px;
-	    background: white;
-	    border-radius: 10px;
-	}
-</style>
-<script>
-	var data_file = '{{self.data_file.file}}';
-	var var_settings = { "status": "success", "filterVariables": [ "\"birth_third_grade_rating\"", "\"image\"", "\"kinder_ecelicensereq\"", "\"child_development_license\"", "\"funding_description\"" ], "sideBarVariables": [], "mainVariable": "\"birth_third_grade_rating\"", "timeVariable": "\"name\"", "integratedChartOption": "display integrated chart", "integratedChartType": "1 variable donut chart", "mapZoomOption": "zoomable", "mapType": "heatmap", "colorScale": "default" };
-	var div_container = "map";
-	VizController(data_file, var_settings, div_container);
 
-	
-</script>
 
-<div id="slider-range"></div>
-<div id="map" style="width:100%;height:500px;margin-left:2%;margin-right:2%"></div>
 <!-- <div id="chart" style="width:20%;height:500px;margin-left:1%"></div> -->

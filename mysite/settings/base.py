@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
     'wagtail.contrib.wagtailstyleguide',
+    'wagtail.contrib.wagtailapi',
 
     'modelcluster',
     'compressor',
