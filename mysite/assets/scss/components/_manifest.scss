@@ -1,10 +1,9 @@
 /*
  * Small UI elements with few nested tags (two levels down at most) and simple markup.
- * 
+ *
  *
  *
  */
-
 @import 'panel';
 @import 'picture-link';
 @import 'border-panel';
@@ -13,3 +12,4 @@
 @import 'press-releases';
 @import 'nav-circles';
 @import 'overlay';
+@import 'modal';

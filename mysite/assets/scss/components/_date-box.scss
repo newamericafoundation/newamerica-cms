@@ -1,37 +1,31 @@
 .date-box {
-
-	$grey: palette-get(na-black-10);
-	$white: palette-get(na-white);
-
-	position: relative;
-	display: inline-block;
-	padding: 5px 8px;
-	background-color: $grey;
-
-	&__month, &__day {
-		margin: 0;
-		padding: 0;
-		line-height: 100%;
-	}
-
-	&__month {
-		font-size: rem-calc(12);
-		text-transform: uppercase;
-	}
-
-	&__day {
-		font-weight: bold;
-		font-size: rem-calc(20);
-	}
-
-	&__fold {
-		width: 0;
-		height: 0;
-		border-bottom: 10px solid $white;
-		border-left: 10px solid $grey;
-		position: absolute;
-		right: 0;
-		bottom: 0;
-	}
-
+  $grey: palette-get(na-black-10);
+  $white: palette-get(na-white);
+  position: relative;
+  display: inline-block;
+  padding: 5px 8px;
+  background-color: $grey;
+  &__month,
+  &__day {
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+  }
+  &__month {
+    font-size: rem-calc(12);
+    text-transform: uppercase;
+  }
+  &__day {
+    font-weight: bold;
+    font-size: rem-calc(20);
+  }
+  &__fold {
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid $white;
+    border-left: 10px solid $grey;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
 }

@@ -1,66 +1,55 @@
 .footer {
-
-	$pad: 20px;
-	$link-pad: 16px;
-
-	$opacity: 0.7;
-
-	max-width: $max-site-width;
-
-	margin: auto;
-
-	padding: $pad;
-
-	@include clearfix;
-
-	p, a {
-		opacity: $opacity;
-	}
-
-	a {
-		margin: 0 $link-pad;
-		&:first-of-type {
-			margin-left: 0;
-		}
-		&:hover {
-			opacity: 1;
-		}
-	}
-
-	position: relative;
-
-	&__main-nav, &__info, &__social-nav {
-		ul { margin: 12px 0; }
-		text-align: center;
-	}
-
-	@include expand-footer {
-
-		padding: $pad $gutter/2;
-
-		ul { margin: 0; }
-
-		&__main-nav {
-			$w: 500px;
-			width: $w;
-			position: absolute;
-			text-align: center;
-			left: calc(50% - #{$w / 2});
-			top: $pad + 0px;
-			
-		}
-
-		&__info {
-			float: left;
-			p {
-				margin: 0;
-			}
-		}
-
-		&__social-nav {
-			float: right;
-		}
-
-	}
-
+  $pad: 20px;
+  $link-pad: 16px;
+  $opacity: 0.7;
+  max-width: $max-site-width;
+  margin: auto;
+  padding: $pad;
+  @include clearfix;
+  p,
+  a {
+    opacity: $opacity;
+  }
+  a {
+    margin: 0 $link-pad;
+    &:first-of-type {
+      margin-left: 0;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+  position: relative;
+  &__main-nav,
+  &__info,
+  &__social-nav {
+    ul {
+      margin: 12px 0;
+    }
+    text-align: center;
+  }
+  @include expand-footer {
+    padding: $pad $gutter/2;
+    ul {
+      margin: 0;
+    }
+    &__main-nav {
+      $w: 500px;
+      width: $w;
+      position: absolute;
+      text-align: center;
+      left: calc(50% - #{$w / 2});
+      top: $pad + 0;
+    }
+    &__info {
+      float: left;
+      p,
+      a {
+        margin: 0;
+      }
+    }
+    &__social-nav {
+      float: right;
+    }
+  }
 }

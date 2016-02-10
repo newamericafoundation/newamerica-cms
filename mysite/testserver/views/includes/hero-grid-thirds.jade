@@ -23,5 +23,5 @@
               .hero-grid__element__background(style='background-image: url(' + data[2].imageUrl + ')')
               .hero-grid__element__overlay
               .hero-grid__element__text-bar
-                p= data[2].author
-                h1= data[2].title
+                p.hero-grid__element__text-bar__subheading= data[2].author
+                h1.hero-grid__element__text-bar__heading= data[2].title

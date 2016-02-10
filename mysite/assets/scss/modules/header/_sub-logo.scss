@@ -1,36 +1,27 @@
 .header__sub-logo {
-	
-	display: none;
-
-	@include desktop-header {
-		display: inline-block;
-	}
-
-	@include expanded-header {
-		display: none;
-	}
-
-	width: auto;
-	max-width: 150px;
-	// height: 52px;
-
-	position: relative;
-	top: 4px;
-
-	cursor: pointer;
-
-	padding: 6px 10px;
-
-	border: 1px solid palette-get(na-black-40);
-
-	h1 {
-		@include header-logo-text;
-	}
-
-	&:hover {
-		border-color: palette-get(na-turquoise);
-		background-color: palette-get(na-turquoise);
-		h1 { color: white; }
-	}
-	
+  display: none;
+  @include desktop-header {
+    display: inline-block;
+  }
+  @include expanded-header {
+    display: none;
+  }
+  width: auto;
+  max-width: 150px;
+  // height: 52px;
+  position: relative;
+  top: 4px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border: 1px solid palette-get(na-black-40);
+  h1 {
+    @include header-logo-text;
+  }
+  &:hover {
+    border-color: palette-get(na-turquoise);
+    background-color: palette-get(na-turquoise);
+    h1 {
+      color: white;
+    }
+  }
 }

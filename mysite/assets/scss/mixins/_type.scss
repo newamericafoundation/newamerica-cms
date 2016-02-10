@@ -1,20 +1,19 @@
 @mixin header-logo-text {
-	margin: 0;
-	line-height: 100%;
-	font-family: 'Platform';
-	font-weight: bold;
-	text-transform: uppercase;
-	font-size: rem-calc(20);
-	color: palette-get(na-black);
+  margin: 0;
+  line-height: 100%;
+  font-family: 'Platform';
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: rem-calc(20);
+  color: palette-get(na-black);
 }
-
 @mixin expanded-header-logo-text {
-	margin: 0;
-	line-height: 100%;
-	font-family: 'Platform';
-	font-weight: bold;
-	text-transform: uppercase;
-	font-size: rem-calc(20);
-	font-size: rem-calc(23);
-	color: palette-get(na-black);
+  margin: 0;
+  line-height: 100%;
+  font-family: 'Platform';
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: rem-calc(20);
+  font-size: rem-calc(23);
+  color: palette-get(na-black);
 }
