@@ -3,11 +3,10 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-
-{% block body_class %}template-program{% endblock %}
+{% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
-    <section class='section section--fixed-width'>
+<section class='section section--fixed-width'>
 
 	<div class='row'>
 	<div class='columns'>
@@ -16,18 +15,18 @@
 			<div class='hero-grid__main'>
 
 				<div class='hero-grid__element'>
-				<a href="{{ lead_1.url }}">
+				<a href="{{ page.lead_1.url }}">
 					<div class='hero-grid__element__wrapper'>
-					{% image lead_1.post.story_image original as lead1_image %}
+					{% image page.lead_1.post.story_image original as lead1_image %}
 						<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
 						<div class='hero-grid__element__overlay'></div>
 						<div class='hero-grid__element__text-bar'>
 							<p>
-							{% for author in lead_1.post_author.all %}
+							{% for author in page.lead_1.post_author.all %}
 								{{ author }}
 							{% endfor %}
 							</p>
-							<h1><a href="{{ lead_1.url }}">{{ lead_1.title }}</a></h1>
+							<h1><a href="{{ lead_1.url }}">{{ page.lead_1.title }}</a></h1>
 						</div>
 					</div>
 				</a>
@@ -90,6 +89,5 @@
 	</div>
 
 </section>
-
 
 {% endblock %}
