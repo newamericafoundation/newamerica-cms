@@ -21,12 +21,12 @@
 						<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
 						<div class='hero-grid__element__overlay'></div>
 						<div class='hero-grid__element__text-bar'>
-							<p>
+							<a class='hero-grid__element__text-bar__subheading' href='/'>
 							{% for author in lead_1.post_author.all %}
 								{{ author }}
 							{% endfor %}
-							</p>
-							<h1><a href="{{ lead_1.url }}">{{ lead_1.title }}</a></h1>
+							</a>
+							<a class='hero-grid__element__text-bar__heading' href="{{ lead_1.url }}">{{ lead_1.title }}</a>
 						</div>
 					</div>
 				</a>
@@ -39,21 +39,19 @@
 			{% for other_lead_story in other_lead_stories %}
 				{% if other_lead_story %}
 					<div class='hero-grid__element'>
-					<a href="{{ other_lead_story.url }}">
-						<div class='hero-grid__element__wrapper'>
+						<a href="{{ other_lead_story.url }}" class='hero-grid__element__content'>
 						{% image other_lead_story.post.story_image original as other_lead_story_image %}
 							<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
-								<p>
+								<a class='hero-grid__element__text-bar__subheading'>
 								{% for author in other_lead_story.post_author.all %}
 									{{ author}}
 								{% endfor %}
-								</p>
-								<h1><a href="{{ story.url }}">{{ other_lead_story.title }}</a></h1>
+								</a>
+								<a class='hero-grid__element__text-bar__heading' href="{{ story.url }}">{{ other_lead_story.title }}</a>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 				{% endif %}
 			{% endfor %}
@@ -110,7 +108,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 
 		</div>

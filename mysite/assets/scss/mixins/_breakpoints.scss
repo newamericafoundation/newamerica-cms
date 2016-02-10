@@ -1,20 +1,18 @@
 @mixin desktop-header() {
-	@include breakpoint(medium) {
-		@content;
-	}
+  @include breakpoint(medium) {
+    @content;
+  }
 }
-
 @mixin expanded-header() {
-	.header--expanded & {
-		// Ensure that the header can only be expanded on desktop.
-		@include desktop-header {
-			@content;
-		}
-	}
+  .header--expanded & {
+    // Ensure that the header can only be expanded on desktop.
+    @include desktop-header {
+      @content;
+    }
+  }
 }
-
 @mixin expand-footer() {
-	@include breakpoint(large) {
-		@content;
-	}
+  @include breakpoint(large) {
+    @content;
+  }
 }

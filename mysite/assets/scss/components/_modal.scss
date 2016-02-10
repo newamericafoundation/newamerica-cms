@@ -1,0 +1,17 @@
+.modal {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: palette-get(overlay);
+  &__content {
+    background-color: palette-get(na-white);
+    min-width: 300px;
+    min-height: 300px;
+    margin: auto;
+    content: '';
+  }
+}

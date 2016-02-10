@@ -3,9 +3,9 @@
 .hero-grid.has-1-children
   .hero-grid__main
     .hero-grid__element
-      .hero-grid__element__content
+      a.hero-grid__element__content(href='/')
         .hero-grid__element__background(style='background-image: url(' + data[0].imageUrl + ')')
         .hero-grid__element__overlay
         .hero-grid__element__text-bar
-          p= data[0].author
-          h1= data[0].title
+          p.hero-grid__element__text-bar__subheading= data[0].author
+          h1.hero-grid__element__text-bar__heading= data[0].title
