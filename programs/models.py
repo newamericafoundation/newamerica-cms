@@ -16,7 +16,7 @@ class AbstractProgram(Page):
         ('image', ImageChooserBlock(icon='image')),
     ])
 
-    # Up to four lead stories can be featured on the homepage. 
+    # Up to four lead stories can be featured on the homepage.
     # Lead_1 will be featured most prominently.
     lead_1 = models.ForeignKey(
         'wagtailcore.Page',
@@ -50,7 +50,7 @@ class AbstractProgram(Page):
         related_name='+',
     )
 
-    # Up to three featured stories to appear underneath 
+    # Up to three featured stories to appear underneath
     # the lead stories. All of the same size and formatting.
     feature_1 = models.ForeignKey(
         'wagtailcore.Page',
@@ -98,7 +98,7 @@ class AbstractProgram(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
-    ]    
+    ]
 
     content_panels = Page.content_panels + [
         FieldPanel('name', classname='full title'),
@@ -106,16 +106,8 @@ class AbstractProgram(Page):
         StreamFieldPanel('description'),
     ]
 
-    class Meta:
-        abstract = True
-
-
-#Programs model which creates programs
-class Program(AbstractProgram):
-    parent_page_types = ['home.HomePage',]
-
     def get_context(self, request):
-        context = super(Program, self).get_context(request)
+        context = super(AbstractProgram, self).get_context(request)
 
         context['other_lead_stories'] = []
 
@@ -126,14 +118,19 @@ class Program(AbstractProgram):
         if self.lead_4:
             context['other_lead_stories'].append(self.lead_4)
 
-        context['lead_1'] = self.lead_1
-        context['lead_2'] = self.lead_2
-
         context['featured_stories'] = [
             self.feature_1, self.feature_2, self.feature_3
         ]
 
         return context
+
+    class Meta:
+        abstract = True
+
+
+#Programs model which creates programs
+class Program(AbstractProgram):
+    parent_page_types = ['home.HomePage',]
 
 
 
@@ -152,28 +149,6 @@ class Subprogram(AbstractProgram):
     content_panels = AbstractProgram.content_panels + [
         InlinePanel('programs', label=("Programs")),
     ]
-
-    def get_context(self, request):
-        context = super(Subprogram, self).get_context(request)
-
-        context['other_lead_stories'] = []
-
-        if self.lead_2:
-            context['other_lead_stories'].append(self.lead_2)
-        if self.lead_3:
-            context['other_lead_stories'].append(self.lead_3)
-        if self.lead_4:
-            context['other_lead_stories'].append(self.lead_4)
-
-        context['lead_1'] = self.lead_1
-        context['lead_2'] = self.lead_2
-
-        context['featured_stories'] = [
-            self.feature_1, self.feature_2, self.feature_3
-        ]
-
-        return context
-
 
     class Meta:
         verbose_name = "Subprogram/Initiative Page"
