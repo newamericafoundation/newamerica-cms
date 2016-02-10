@@ -37,7 +37,7 @@
 	// Adjustment made to the widths of the main and secondary grid columns so it lines up with regular grid.
 	// Works only for two children.
 	$gutter-adjust: $local-gutter / 2;
-	
+
 	@extend clearfix;
 
 	&__main, &__secondary, &__thirds {
@@ -177,7 +177,7 @@
 					@include unfold-4-children {
 						width: 50%;
 					}
-					
+
 				}
 				&:nth-of-type(2) {
 					padding-bottom: $local-gutter / 2;
@@ -190,7 +190,7 @@
 					@include unfold-4-children {
 						padding-left: $local-gutter / 2;
 					}
-				}		
+				}
 			}
 
 		}
@@ -222,6 +222,7 @@
 		}
 
 		&__content {
+			display: block;
 			position: relative;
 			width: 100%;
 			height: 100%;
@@ -251,19 +252,23 @@
 		&__text-bar {
 			bottom: 0;
 			padding: 15px 20px;
-			p, h1 { color: palette-get(na-white); }
-			h1 {
+			&__subheading, &__heading {
+				color: palette-get(na-white);
+			}
+			&__heading {
+				display: block;
 				line-height: 108%;
-				font-weight: bold; 
+				font-weight: bold;
 				font-size: rem-calc(24);
 				.hero-grid__main &, .hero-grid.has-2-children & {
 					font-size: rem-calc(32);
-				} 
-				margin-bottom: 0; 
+				}
+				margin-bottom: 0;
 			}
-			p { 
-				font-size: rem-calc(16); 
-				margin-bottom: 0; 
+			&__subheading {
+				display: inline-block;
+				font-size: rem-calc(16);
+				margin-bottom: 0;
 			}
 		}
 

@@ -1,9 +1,7 @@
 .press-releases {
-	
-	&__title {
-		font-size: rem-calc(24);
-		font-weight: bold;
-		margin: 0 0 10px 0;
-	}
-
+  &__title {
+    font-size: rem-calc(24);
+    font-weight: bold;
+    margin: 0 0 10px;
+  }
 }
