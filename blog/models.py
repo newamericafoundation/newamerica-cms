@@ -17,6 +17,12 @@ class BlogPost(Post):
 	parent_page_types = ['ProgramBlogPostsPage']
 	subpage_types = []
 
+	def get_context(self, request):
+		context = super(BlogPost, self).get_context(request)
+		context['authors'] = self.authors.order_by('pk')
+
+		return context
+
 
 class AllBlogPostsHomePage(Page):
 	"""
