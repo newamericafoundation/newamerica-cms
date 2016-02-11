@@ -37,10 +37,31 @@ class BlogPostTests(WagtailPageTests):
 	def test_can_create_program_blog_posts_page_under_program(self):
 		self.assertCanCreateAt(Program, ProgramBlogPostsPage)
 
-	# Test that only child_model page types can be created under
-	# parent_models
+
+	# Test allowed parent page types
 	def test_blog_post_parent_page(self):
 		self.assertAllowedParentPageTypes(BlogPost, {ProgramBlogPostsPage})
+
+	def test_program_blog_post_parent_page(self):
+		self.assertAllowedParentPageTypes(ProgramBlogPostsPage, {Program})
+
+	def test_all_blog_posts_parent_page(self):
+		self.assertAllowedParentPageTypes(AllBlogPostsHomePage, {HomePage})
+
+
+	# Test allowed subpage types
+	def test_blog_post_subpages(self):
+		self.assertAllowedSubpageTypes(BlogPost, {})
+
+	def test_program_blog_post_subpages(self):
+		self.assertAllowedSubpageTypes(ProgramBlogPostsPage, {BlogPost})
+
+	def test_all_blog_post_subpages(self):
+		self.assertAllowedSubpageTypes(AllBlogPostsHomePage, {})
+
+	def test_home_page_subpages(self):
+		self.assertAllowedSubpageTypes(HomePage, {AllBlogPostsHomePage})
+
 
 
 	# Test relationship between BlogPost and one parent Program
