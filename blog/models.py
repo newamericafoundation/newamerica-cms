@@ -44,7 +44,7 @@ class ProgramBlogPostsPage(Page):
 	determined using the url path
 	"""
 
-	parent_page_types = ['programs.Program']
+	parent_page_types = ['programs.Program',]
 	subpage_types = ['BlogPost']
 
 	def get_context(self, request):

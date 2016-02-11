@@ -26,6 +26,7 @@ class BlogPostTests(WagtailPageTests):
 		self.program_blog_posts_page = self.program_page_1.add_child(instance=ProgramBlogPostsPage(title='OTI Blog'))
 		self.blog_post = self.program_blog_posts_page.add_child(instance=BlogPost(title='Blog Post 1', date='2016-02-10'))
 
+
 	# Test that a particular child Page can be created under 
 	# the appropriate parent Page 
 	def test_can_create_blog_post_under_program_blog_posts_page(self):
@@ -55,19 +56,29 @@ class BlogPostTests(WagtailPageTests):
 
 	def test_program_blog_post_subpages(self):
 		self.assertAllowedSubpageTypes(ProgramBlogPostsPage, {BlogPost})
-
+	
 	def test_all_blog_post_subpages(self):
 		self.assertAllowedSubpageTypes(AllBlogPostsHomePage, {})
 
-	def test_home_page_subpages(self):
-		self.assertAllowedSubpageTypes(HomePage, {AllBlogPostsHomePage})
+	#Test that pages can be created with POST data
+	def test_can_create_all_blog_post_page_under_homepage(self):
+		self.assertCanCreate(self.home_page, AllBlogPostsHomePage, {
+			'title':'All Blogs Posts',
+			}
+		)
 
+	def test_can_create_program_blog_posts_page(self):
+		self.assertCanCreate(self.program_page_1, ProgramBlogPostsPage, {
+			'title':'Program Blogs',
+			}
+		)
 
 
 	# Test relationship between BlogPost and one parent Program
 	def test_blog_post_has_relationship_to_one_program(self):
 		blog = BlogPost.objects.first()
 		self.assertEqual(blog.parent_programs.all()[0].title, 'OTI')
+
 
 	# Test you can create a BlogPost with two parent Programs
 	def test_blog_post_has_relationship_to_two_parent_programs(self):
@@ -87,8 +98,8 @@ class BlogPostTests(WagtailPageTests):
 		self.assertEqual(PostProgramRelationship.objects.filter(post=blog).first(), None)
 		self.assertEqual(PostProgramRelationship.objects.filter(post=blog, program=self.program_page_1).first(), None)
 
-	# Test blog post can be deleted if BlogPost attached 
-	# to two Programs
+
+	# Test blog post can be deleted if attached to two Programs
 	def test_can_delete_blog_post_with_two_programs(self):
 		blog = BlogPost.objects.first()
 		second_program = Program.objects.create(title='Education', name='Education', location=False, depth=3)
@@ -96,4 +107,7 @@ class BlogPostTests(WagtailPageTests):
 		if created:
 			relationship.save()
 		blog.delete()
-		self.assertIs(PostProgramRelationship.objects.filter(post=blog).first(), None)
+		self.assertEqual(BlogPost.objects.filter(title='Blog Post 1').first(), None)
+		self.assertNotIn(blog, ProgramBlogPostsPage.objects.filter(title='OTI Blog').first().get_children())
+		self.assertEqual(PostProgramRelationship.objects.filter(post=blog, program=self.program_page_1).first(), None)
+		self.assertEqual(PostProgramRelationship.objects.filter(post=blog, program=second_program).first(), None)
