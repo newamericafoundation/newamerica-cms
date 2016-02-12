@@ -8,7 +8,7 @@
   position: fixed;
   @include desktop-header {
     position: fixed;
-    border-bottom: 4px solid palette-get(na-black-10);
+    border-bottom: $thick-border-width solid palette-get(na-black-10);
   }
   @include expanded-header {
     padding-top: 8px;

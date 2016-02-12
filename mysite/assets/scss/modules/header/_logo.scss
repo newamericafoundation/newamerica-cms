@@ -1,7 +1,9 @@
 .header__logo {
+
   $logo-width: 47px;
   $expanded-logo-width: 53px;
   display: none;
+
   @include desktop-header() {
     display: inline-block;
   }
@@ -22,10 +24,13 @@
   }
   h1 {
     @include header-logo-text;
+
+    width: 110px;
     @include expanded-header {
+      width: 120px;
       @include expanded-header-logo-text;
     }
-    width: 120px;
+
     padding-top: 5px;
     padding-left: 5px;
   }

@@ -11,10 +11,10 @@
   }
   &__picture {
     width: $size;
-    img {
-      width: $size;
-      height: $size;
-    }
+    height: $size;
+    content: '';
+    background-size: cover;
+    background-position: 50% 50%;
   }
   &__content {
     padding-top: 4px;

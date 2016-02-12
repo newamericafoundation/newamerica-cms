@@ -45,6 +45,7 @@
 .button {
   font-weight: bold;
 }
+
 input[type='text'] {
   &:focus {
     $placeholder-color: rgba(255, 255, 255, 0.8);
@@ -92,8 +93,11 @@ input[type='text'] {
     position: relative;
     top: 1px;
     opacity: 1;
-    .breadcrumbs--white & {
-      color: palette-get(na-white);
-    }
+  }
+}
+
+.breadcrumbs.breadcrumbs--white {
+  li:not(:last-child)::after {
+    color: palette-get(na-white);
   }
 }

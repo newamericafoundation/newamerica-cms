@@ -1,0 +1,17 @@
+.subscribe {
+  padding-top: 5px;
+  h1 {
+    font-weight: bold;
+    font-size: rem-calc(28);
+  }
+
+  &__header {
+    padding: 0 $mobile-padding;
+  }
+
+  label {
+    font-weight: bold;
+    font-size: rem-calc(18);
+    padding-top: 6px;
+  }
+}

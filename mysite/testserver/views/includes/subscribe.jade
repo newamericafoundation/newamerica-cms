@@ -1,0 +1,26 @@
+- fields = [ { type: 'text', label: 'Full Name' }, { type: 'text', label: 'E-mail Address' }, { type: 'text', label: 'Organization' }, { type: 'text', label: 'ZIP Code' }, { type: 'radio', label: 'Subscribe To', options: [ '1', '2', '3' ] } ]
+
+.modal
+  .modal__content
+    .subscribe
+      .subscribe__header
+        h1
+          | Sign Up To Policy Newsletters
+        p
+          | To complete your subscription, please provide us with the following information. We will never share your information you provide with third parties. Read our #[a(href='/') privacy policy].
+      
+      each field in fields
+        if field.type === 'text'
+          .row
+            .small-12.large-3.columns
+              label= field.label
+            .small-12.large-9.columns
+              input(type='text')  
+        else if field.type === 'radio'
+          form
+          .row
+            .small-12.large-3.columns
+              label= field.label
+            .small-12.large-9.columns
+              each option in field.options
+                input(type='radio', name='stuff', value=option)
