@@ -17,6 +17,7 @@ class BlogPost(Post):
 	parent_page_types = ['ProgramBlogPostsPage']
 	subpage_types = []
 
+
 class AllBlogPostsHomePage(Page):
 	"""
 	A page which inherits from the abstract Page model and 
