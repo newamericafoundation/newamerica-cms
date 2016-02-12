@@ -1,21 +1,17 @@
 import $ from 'jquery'
 
-function isEscape(keyCode) {
-	return (keyCode === 27)
-}
+import getJQueryObjects from './../../utilities/get_jquery_objects.js'
+
+import {
+  CONTAINER_CLASS_NAME,
+  LINK_GROUP_CLASS_NAME,
+  LINK_GROUP_CONTENT_CLASS_NAME
+} from './constants.js'
 
 function addHeaderInteractivity() {
 
-	const CONTAINER_CLASS_NAME = 'header__has-link-group'
-	const LINK_GROUP_CLASS_NAME = 'header__link-group'
-	const LINK_GROUP_CONTENT_CLASS_NAME = 'header__link-group__content'
+	var { $body, $window, $wrapper, $header } = getJQueryObjects()
 
-	var $body = $(document.body)
-	var $window = $(window)
-
-	var $wrapper = $('.wrapper')
-
-	var $header = $('.header')
 	var $mainNavItems = $header.find(`.${CONTAINER_CLASS_NAME}`)
 	var $linkGroups = $header.find(`.${LINK_GROUP_CLASS_NAME}`)
 	var $readProgressBar = $header.find(`.header__read-progress-bar`)
@@ -25,16 +21,7 @@ function addHeaderInteractivity() {
 
 	setExpandedState()
 	addSearchClickListener()
-	closeMainNavItemsOnEscape()
 	sizeReadProgressBarOnScroll()
-
-	function closeMainNavItemsOnEscape() {
-		$body.on('keydown', (e) => {
-			if (isEscape(e.keyCode)) {
-				$mainNavItems.setModifierClass('active', false, CONTAINER_CLASS_NAME)
-			}
-		})
-	}
 
 	function setExpandedState() {
 		var isExpanded = window.uiState ? window.uiState.isHeaderExpanded : false
@@ -52,9 +39,7 @@ function addHeaderInteractivity() {
 			var scrollTop = $body.scrollTop()
 			var totalHeight = $wrapper.height()
 			var windowHeight = $window.height()
-			console.log(scrollTop, totalHeight, windowHeight)
 			var ratio = scrollTop / (totalHeight - windowHeight)
-			console.log(ratio)
 			$readProgressBar.css('width', `${ratio * 100}%`)
 		})
 	}
