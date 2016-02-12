@@ -1,27 +1,13 @@
 - data = [ { title: 'A Settlement For Syria', author: 'Anne-Marie Slaughter', imageUrl: 'https://40.media.tumblr.com/b534bd03d1a36510d3cc17817672aa9a/tumblr_np58ozBk0E1tpfl1vo1_1280.jpg' }, { title: "Hillary Clinton's Defining Moment", author: 'Julian Zelizer', imageUrl: 'http://graphics8.nytimes.com/images/2016/01/11/us/11firstdraft-clinton/11firstdraft-clinton-tmagArticle.jpg' }, { title: 'How Evangelicals Spread The Gospel Of Climate Change', author: 'Heather Hurlburt', imageUrl: 'http://climatedesk.org/wp-content/uploads/2014/02/drought670x380.jpg' }, { title: 'How Evangelicals Spread The Gospel Of Climate Change', author: 'Heather Hurlburt', imageUrl: 'http://climatedesk.org/wp-content/uploads/2014/02/drought670x380.jpg' } ]
 
-.section
-  ul.breadcrumbs
-    li
-      a(href='/') Education Policy
-    li
-      a(href='/') Our Work
-  .press-releases
-    h1.press-releases__title
-      | Press releases
-    ul.nav-circles
-      li.nav-circles__circle.nav-circles__circle--active
-      li.nav-circles__circle
-      li.nav-circles__circle
-      li.nav-circles__circle
-      li.nav-circles__circle
-    .hero-grid
-      .hero-grid__thirds
-        each val in [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-          .hero-grid__element
-            .hero-grid__element__content
-              .hero-grid__element__background(style='background-image: url(' + data[2].imageUrl + ')')
-              .hero-grid__element__overlay
-              .hero-grid__element__text-bar
-                p.hero-grid__element__text-bar__subheading= data[2].author
-                h1.hero-grid__element__text-bar__heading= data[2].title
+
+.hero-grid
+  .hero-grid__thirds
+    each val in [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+      .hero-grid__element
+        .hero-grid__element__content
+          .hero-grid__element__background(style='background-image: url(' + data[2].imageUrl + ')')
+          .hero-grid__element__overlay
+          .hero-grid__element__text-bar
+            p.hero-grid__element__text-bar__subheading= data[2].author
+            h1.hero-grid__element__text-bar__heading= data[2].title

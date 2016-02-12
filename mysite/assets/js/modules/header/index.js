@@ -1,45 +1,64 @@
 import $ from 'jquery'
 
-function isEscape(keyCode) { 
-	return (keyCode === 27) 
+function isEscape(keyCode) {
+	return (keyCode === 27)
 }
 
-function addLinkGroupInteractivity() {
+function addHeaderInteractivity() {
 
 	const CONTAINER_CLASS_NAME = 'header__has-link-group'
 	const LINK_GROUP_CLASS_NAME = 'header__link-group'
 	const LINK_GROUP_CONTENT_CLASS_NAME = 'header__link-group__content'
 
-	var $header = $('.header')
 	var $body = $(document.body)
+	var $window = $(window)
+
+	var $wrapper = $('.wrapper')
+
+	var $header = $('.header')
 	var $mainNavItems = $header.find(`.${CONTAINER_CLASS_NAME}`)
 	var $linkGroups = $header.find(`.${LINK_GROUP_CLASS_NAME}`)
+	var $readProgressBar = $header.find(`.header__read-progress-bar`)
+
+	var $search = $('.header__search')
+	var $searchIcon = $('.header__search__icon')
 
 	setExpandedState()
-	addNavItemListeners()
+	addSearchClickListener()
+	closeMainNavItemsOnEscape()
+	sizeReadProgressBarOnScroll()
 
-	$(document.body).on('keydown', (e) => {
-		if (isEscape(e.keyCode)) {
-			$mainNavItems.setModifier(CONTAINER_CLASS_NAME, 'active', false)
-		}
-	})
+	function closeMainNavItemsOnEscape() {
+		$body.on('keydown', (e) => {
+			if (isEscape(e.keyCode)) {
+				$mainNavItems.setModifierClass('active', false, CONTAINER_CLASS_NAME)
+			}
+		})
+	}
 
 	function setExpandedState() {
 		var isExpanded = window.uiState ? window.uiState.isHeaderExpanded : false
-		$body.setModifier('header', 'expanded', isExpanded)
+		$body.setModifierClass('expanded', isExpanded, 'header')
 	}
 
-	function addNavItemListeners() {
-		// $mainNavItems.on('click', (e) => {
-		// 	var $currentTarget = $(e.currentTarget)
-		// 	var $target = $(e.target)
-		// 	var $linkGroup = $target.find(`.${LINK_GROUP_CLASS_NAME}`)
-		// 	var isTargetParentOfLinkGroup = $linkGroup.length > 0
-		// 	$currentTarget.setModifier(CONTAINER_CLASS_NAME, 'active', !$target.hasClass(LINK_GROUP_CLASS_NAME))
-		// })
+	function addSearchClickListener() {
+		$searchIcon.on('click', () => {
+			$search.toggleModifierClass('active', 'header__search')
+		})
+	}
 
+	function sizeReadProgressBarOnScroll() {
+		$window.on('scroll', (e) => {
+			var scrollTop = $body.scrollTop()
+			var totalHeight = $wrapper.height()
+			var windowHeight = $window.height()
+			console.log(scrollTop, totalHeight, windowHeight)
+			var ratio = scrollTop / (totalHeight - windowHeight)
+			console.log(ratio)
+			$readProgressBar.css('width', `${ratio * 100}%`)
+		})
 	}
 
 }
 
-$(addLinkGroupInteractivity)
+$(addHeaderInteractivity)

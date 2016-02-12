@@ -1,0 +1,15 @@
+.header__read-progress-bar {
+  position: absolute;
+  bottom: -4px;
+  height: 4px;
+  width: 0%; // manipulated by JS
+  content: '';
+  background-color: palette-get(na-turquoise);
+  display: block;
+  @include desktop-header {
+    display: block;
+  }
+  @include expanded-header {
+    display: none;
+  }
+}

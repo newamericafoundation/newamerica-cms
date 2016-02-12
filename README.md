@@ -92,6 +92,8 @@ To compile front-end assets in production, run the one-time command:
 
 	npm run build
 
+Note: ``npm run ...`` commands are shorthands for more complex commands mapped under the ``scripts`` key of ``package.json``.
+
 ### Frontend test server
 
 There is a separate, tiny Express server used solely to test HTML and CSS without the need to have Python, Django or Postgres configured. Run it by simply typing:
@@ -111,3 +113,17 @@ Higher-level UI elements are called modules and have their custom styling. These
 ### Client-side JavaScript
 
 The build procedure above allows client-side scripts to be built in CommonJS modules, which makes things easier to write, debug and test. It also allows ES6 features which allows us to skip semicolons and maintain scope while keeping code airy and pretty.
+
+### Images
+
+The ``./mysite/assets/images`` folder contains images in development.
+
+#### Icons
+
+In the ``icons`` subfolder, there is a working Adobe Illustrator file with the current working version of all icons. Each icon occupies a single artboard, with lowercased name and with words separated by dashes.
+
+Every time this file changes or new icons are added, the icons need to be recompiled, which is done as follows:
+
+* save the icons as separate SVG's in the ``icons/svg`` subfolder. The individual filenames should start with ``i_``, followed by the name of the artboard and with a ``.svg`` extension (e.g. ``i_magnifying-glass.svg``). Illustrator saves in this format automatically if you set the save filename as ``i.svg``, and check the artboards as separate files box.
+* run ``npm run get-icon-svgs``. This module will parse the files and ensures that the svg's are fully scalable, stylable and without unnecessary headers. It then copies them into ``/mysite/testserver/includes/svg``, removing the ``i_`` prefix. Note: the source code for this ``icon_parser`` module is under ``/mysite/assets/utilities/icon_parser`` - this is the module you'll need to modify if you change the folder structure or if something breaks with future versions of Node/npm.
+* make sure that these files look right in the ``testserver`` folder. Then copy them into ``/mysite/templates/ui_elements/svg``, overriding as necessary. Automate this step if desired.

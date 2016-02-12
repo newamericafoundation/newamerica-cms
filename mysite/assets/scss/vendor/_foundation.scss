@@ -1,10 +1,9 @@
 // Include from node_modules. This declaration does not produce CSS in itself.
-@import '~foundation-sites/scss/foundation';  
-
+@import '~foundation-sites/scss/foundation';
 // Include used components - uncomment as necessary.
 @include foundation-global-styles;
 // @if not $flex {
-  @include foundation-grid;
+@include foundation-grid;
 // }
 // @else {
 //   @include foundation-flex-grid;
@@ -42,43 +41,59 @@
 // @include foundation-title-bar;
 // @include foundation-tooltip;
 // @include foundation-top-bar;
-
 // Overrides. Use very sparingly - modify Foundation variables instead.
 .button {
-	font-weight: bold;
+  font-weight: bold;
 }
-
 input[type='text'] {
-	&:focus {
-		color: #fff;
-		&::-webkit-input-placeholder { color: rgba(255, 255, 255, 0.8); }
-		         &::-moz-placeholder { color: rgba(255, 255, 255, 0.8); }
-		          &:-moz-placeholder { color: rgba(255, 255, 255, 0.8); }
-		     &:-ms-input-placeholder { color: rgba(255, 255, 255, 0.8); }
-	}
+  &:focus {
+    $placeholder-color: rgba(255, 255, 255, 0.8);
+    color: #fff;
+    &::-webkit-input-placeholder {
+      color: $placeholder-color;
+    }
+    &::-moz-placeholder {
+      color: $placeholder-color;
+    }
+    &:-moz-placeholder {
+      color: $placeholder-color;
+    }
+    &:-ms-input-placeholder {
+      color: $placeholder-color;
+    }
+  }
 
-	&::-webkit-input-placeholder { color: palette-get(na-black-40); }
-		     &::-moz-placeholder { color: palette-get(na-black-40); }
-		      &:-moz-placeholder { color: palette-get(na-black-40); }
-		 &:-ms-input-placeholder { color: palette-get(na-black-40); }
-		 
+  &::-webkit-input-placeholder {
+    color: palette-get(na-black-40);
+  }
+  &::-moz-placeholder {
+    color: palette-get(na-black-40);
+  }
+  &:-moz-placeholder {
+    color: palette-get(na-black-40);
+  }
+  &:-ms-input-placeholder {
+    color: palette-get(na-black-40);
+  }
 }
-
 .breadcrumbs {
-	a {
-		&:hover {
-			text-decoration: none;
-			color: palette-get(na-turquoise);
-		}
-	}
-
-	li:not(:last-child)::after {
-        // color: $medium-gray;
-        // content: '>';
-        // font-weight: bold;
-        // margin: 0 $breadcrumbs-item-margin;
-        // position: relative;
-        // top: 1px;
-        // opacity: 1;
-     }
+  a {
+    &:hover {
+      text-decoration: none;
+      color: palette-get(na-turquoise);
+    }
+  }
+  li:not(:last-child)::after {
+    color: palette-get(na-black);
+    content: '>';
+    font-weight: bold;
+    font-family: 'Platform';
+    margin: 0 $breadcrumbs-item-margin;
+    position: relative;
+    top: 1px;
+    opacity: 1;
+    .breadcrumbs--white & {
+      color: palette-get(na-white);
+    }
+  }
 }

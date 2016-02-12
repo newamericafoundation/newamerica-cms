@@ -13,5 +13,10 @@
     min-height: 300px;
     margin: auto;
     content: '';
+    .no-flexbox & {
+      position: absolute;
+      top: 100px;
+    }
   }
+
 }

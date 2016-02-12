@@ -60,16 +60,16 @@ $.fn.extend({
 				var $el = $(el)
 				var xTransform = (i - activeItemIndex) * width
 				$el.addTransformStyle(`translate(${xTransform}px, 0)`)
-				$el.setModifier(CONTENT_ITEM_CLASS_NAME, 'active', (i === activeItemIndex))
+				$el.setModifierClass('active', (i === activeItemIndex), CONTENT_ITEM_CLASS_NAME)
 			})
 
 			$this.find(`.${NAV_ITEM_CLASS_NAME}`).each((i, el) => {
-				$(el).setModifier(NAV_ITEM_CLASS_NAME, 'active', (i === activeItemIndex))
+				$(el).setModifierClass('active', (i === activeItemIndex), NAV_ITEM_CLASS_NAME)
 			})
 		}
 
 		function addNavigationListeners() {
-			$this.find(`.${NAV_CLASS_NAME}`).click((e) => { 
+			$this.find(`.${NAV_CLASS_NAME}`).click((e) => {
 				var $target = $(e.target)
 				shouldChangeOnInterval = false
 				if (!$target.hasClass(NAV_ITEM_CLASS_NAME)) { return }

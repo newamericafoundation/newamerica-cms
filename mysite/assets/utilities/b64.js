@@ -2,11 +2,12 @@
 
 var fs = require('fs');
 
-var filePath = 'mysite/assets/svg/dropdown.svg';
+const filePath = 'mysite/assets/images/dropdown.svg';
 
 fs.readFile(filePath, function(err, buffer) {
 	if (err) { return console.log(err); }
-	var svgString = buffer.toString('base64');
-	var style = "background-image: url('" + "data:image/svg+xml;base64," + svgString + "');"
-	console.log(style);
+	var encodedSvg = buffer.toString('base64');
+	var encodedSvgUrl = "data:image/svg+xml;base64," + encodedSvg;
+	var style = "background-image: url('" + encodedSvgUrl + "');"
+	console.log(encodedSvgUrl);
 });

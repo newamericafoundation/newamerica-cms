@@ -2,7 +2,7 @@ import $ from 'jquery'
 
 var formTemplate = require('./form.jade')
 
-$(() => {
+function addSubscribeLinkInteractivity() {
 
 	const BASE_CLASS = 'subscribe'
 
@@ -14,4 +14,6 @@ $(() => {
 		console.log(value)
 	})
 
-})
+}
+
+$(addSubscribeLinkInteractivity)
