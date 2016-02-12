@@ -10,10 +10,10 @@
     <h3> {{ page.date }} </h3>
 
     {% if page.post_author.all %}
-			{% for author in page.post_author.all %}
-				<a href="{{ author.url }}">{{ author }}</a>
-				<br>
-			{% endfor %}
+			{% for author in authors %} 
+	    	<a href="{{ author.author.url }}">{{ author.author }}</a>
+	    	<br>
+	    {% endfor %}
 		{% endif %}
 		<br>
     {{ page.body }}
