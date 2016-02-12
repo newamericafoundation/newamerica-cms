@@ -11,11 +11,28 @@ function VizController(dataFile, varJSON, divContainer) {
 	}
 	var currFilter = 0;
 	var colorScales;
+	var numBins = 5;
+
+
+
+	data = d3.csv.parse(dataFile);
+	console.log(data);
+	setColorScales();
+	setFilterOptions();
+	setValueButtons();
+	setTimeSlider();
+
+	console.log(currInteraction);
+
+	createMap();
+
+	varJSON.integratedChartOption == "display integrated chart" ? createCharts() : null;
+
 
 	// var dropDown = d3.select("#filter").append("select")
  //        .attr("name", "variable-list");
- var dropVal = d3.select("#filter").selectAll("option");
-       console.log(dropVal);
+ // var dropVal = d3.select("#filter").selectAll("option");
+       // console.log(dropVal);
 	// d3.select(document.body)
 	//     .append('div')
 	//     .call(d3.slider());
@@ -27,26 +44,38 @@ function VizController(dataFile, varJSON, divContainer) {
 	// 	.attr("width", width)
 	// 	.attr("height", height);
 	
+		// d3.csv("../media/documents/crawling-to-walking1_1.csv", function(d) {
+		// d3.csv("../media/" + dataFile, function(d) {
+		// console.log(dataFile);
+		
 
-	d3.csv("../media/" + dataFile, function(d) {
-		data = d;
-
-		setColorScales();
-		setFilterOptions();
-		setTimeSlider();
-		createMap();
-		// var options = dropDown.selectAll("option")
-	 //           .data(data)
-	 //         .enter()
-	 //           .append("option");
-
-		varJSON.integratedChartOption == "display integrated chart" ? createCharts() : null;
-		//data = addStateIDs(d);
-		console.log(d);
+		// , function(d) {
+		// 	console.log(d);
+		// 	console.log('running again');
+			// data = d;
+			// console.log(data);
+			// setColorScales();
+			// setFilterOptions();
+			// getValueButtons();
+			// setTimeSlider();
 
 
-	});
+			// console.log(currInteraction);
+			// createMap();
+			// var options = dropDown.selectAll("option")
+		 //           .data(data)
+		 //         .enter()
+		 //           .append("option");
 
+			// varJSON.integratedChartOption == "display integrated chart" ? createCharts() : null;
+			// //data = addStateIDs(d);
+			// // console.log(d);
+
+			// var checkboxes = $("fieldset");
+			// console.log(checkboxes);
+		// });
+		// console.log(data);
+	
 	// SETUP FUNCTIONS //
 
 	function setColorScales() {
@@ -75,16 +104,32 @@ function VizController(dataFile, varJSON, divContainer) {
 
 	// crossfilter will not allow more than 32 dimensions at a time 
 	function setFilterOptions() {
+		var dropdown = $('#filter');
+
 		varJSON.filterVariables.forEach(function(variable, i) {
 			//remove extraneous quotes
-			var variable = variable.substring(1, variable.length-1);
-			var varType = i > 1 ? "categorical" : "numerical";
-			filters.push({filterName:variable, filterType:varType});
+			var filtName = variable.substring(1, variable.length-1);
+			var filtType = i > 1 ? "categorical" : "numerical";
+			if (filtType == "categorical") {
+				var filtValues = setFilterValues(filtName);
+				var filtRange = null;
+				var filtInterval = null;
+			} else {
+				var filtValues = setFilterBins(filtName);
+				var filtInterval = setFilterInterval(filtName)
+				//range only needed for time filters - might be able to get rid of
+				var filtRange = setFilterRange(filtName);
+			}
+
+			filters.push({filterName:filtName, filterType:filtType, filterValues:filtValues, filterRange:filtRange, filterInterval:filtInterval});
+			$('<option />', {value: i, text: filtName}).appendTo(dropdown);
 		});
 		console.log(filters);
 		currInteraction.dataFilter = filters[0];
+		//set to whichever user imputs as time filter var
+		currInteraction.timeFilter = filters[0];
 
-		$("#filter").on("change", changeFilter);
+		dropdown.on("change", changeFilter);
 		// var crossfil = crossfilter(data);
 		
 		// varJSON.filterVariables.forEach(function(variable, i) {
@@ -102,13 +147,13 @@ function VizController(dataFile, varJSON, divContainer) {
 	}
 
 	function setTimeSlider() {
-		var extent = getMinMax(currInteraction.timeFilter.filterName);
-		currInteraction.timeFilter.filterRange = extent;
+		// var extent = getMinMax(currInteraction.timeFilter.filterName);
+		var currRange = currInteraction.timeFilter.filterRange;
 	    $( "#slider-range" ).slider({
 			range: true,
-			min: extent[0],
-			max: extent[1],
-			values: [ extent[0], extent[1] ],
+			min: currRange[0],
+			max: currRange[1],
+			values: [ currRange[0], currRange[1] ],
 			slide: function( event, ui ) {
 				currInteraction.timeFilter.filterRange = ui.values;
 				updateAll();
@@ -145,7 +190,107 @@ function VizController(dataFile, varJSON, divContainer) {
 		console.log(newFilter);
 
 		currInteraction.dataFilter = filters[newFilter];
+		setValueButtons();
 		updateAll();
+	}
+
+	
+
+	function setFilterValues(filtName) {
+		var vals = {};
+		var uniqueVals = d3.map(data, function(d){return d[filtName]}).keys();
+
+		for (i in uniqueVals) {
+			var currVal = uniqueVals[i];
+			vals[currVal] = true;
+		}
+		return vals;
+	}
+
+	// function getNumFilterValues(filtName, range) {
+	// 	var numBins = 5;
+	// 	var interval = (range[1]-range[0])/numBins;
+	// 	console.log(interval);
+	// 	var valBins = {};
+
+	// 	for (var i = 0; i < numBins; i++) {
+	// 		console.log(i);
+	// 		var currBinStart = i*interval;
+	// 		var currBinEnd = i*interval
+	// 		valBins[currBin] = true;
+	// 	}
+
+	// 	console.log(valBins);
+
+	// 	return range;
+	// }
+
+	function setFilterBins(filtName) {
+		var bins = {};
+		for (var i = 0; i < numBins; i++) {
+			bins[i] = true;
+		}
+		return bins;
+	}
+
+	function setFilterInterval(filtName) {
+		var range = setFilterRange(filtName);
+		return (range[1]-range[0])/numBins;
+	}
+
+	function setFilterRange(filtName) {
+		return d3.extent(data, function(d) { return Number(d[filtName]);});
+	}
+
+	function setValueButtons() {
+		var currFilter = currInteraction.dataFilter;
+		var interval = currFilter.filterInterval;
+		var buttonContainer = $('#viz-block__filter-buttons');
+		buttonContainer.empty();
+		
+		var i = 0;
+		for (val in currFilter.filterValues) {
+			var label = interval ? binLabel(i) : val;
+			$('<input id=filter-val' + i + ' type="checkbox" checked="checked" value="' + val + '"><label for=filter-val' + i + '">' + label + '</label>')	
+				.appendTo(buttonContainer)
+				.on("click", function(e) { buttonToggled(this.value);});
+			i++;
+		}
+		// 			// .on("click", function(e) {
+		// 	var i = 0;
+		// 	for (val in currFilter.filterValues) {
+		// 		if ()
+		// 		$('<input id=filter-val' + i + ' type="checkbox" checked="checked" value="' + val + '"><label for=filter-val' + i + '">' + val + '</label>')	
+		// 			.appendTo(buttonContainer)
+		// 			// .on("click", function(e) {
+		// 			// 	console.log(e);
+		// 			// 	var val = e.target.value;
+		// 			// 	console.log(val);
+		// 			// 	currFilter.filterValues[val].toggled = !currFilter.filterValues[val].toggled;
+		// 			// 	updateAll();
+		// 			// });
+          		
+		// 		// $('<li><a href="#" class="small button">' + val + '</a></li>').appendTo(buttonContainer);
+		// 	}
+
+		// } else {
+		// 	console.log("needs to get range for numerical values")
+		// }
+
+	}
+
+	function binLabel(binNum) {
+		var interval = currInteraction.dataFilter.filterInterval;
+		if (binNum >= numBins -1) {
+			return binNum*interval + "+";
+		} else {
+			return binNum*interval+1 + " to " + ((binNum+1)*interval);
+		}
+	}
+
+	function buttonToggled(value) {
+		currInteraction.dataFilter.filterValues[value] = !currInteraction.dataFilter.filterValues[value];
+		updateAll();				
 	}
 
 	// function updateTime(range) {
@@ -159,27 +304,20 @@ function VizController(dataFile, varJSON, divContainer) {
 	// }
 
 
-	function renderAll() {
-
-	}
-
-
 	//UTILITY FUNCTIONS
 
-	function print_filter(filter){
-		var f=eval(filter);
-		if (typeof(f.length) != "undefined") {}else{}
-		if (typeof(f.top) != "undefined") {f=f.top(Infinity);}else{}
-		if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
-		console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
-	}
+	
 
-	function getMinMax(variable) {
-		return d3.extent(data, function(d) { return Number(d[variable]);});
-	} 
+	
 }
 
-
+// function print_filter(filter){
+// 		var f=eval(filter);
+// 		if (typeof(f.length) != "undefined") {}else{}
+// 		if (typeof(f.top) != "undefined") {f=f.top(Infinity);}else{}
+// 		if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
+// 		console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
+// 	}
 
 // function addStateIDs(d) {
 // 	for (i in d) {

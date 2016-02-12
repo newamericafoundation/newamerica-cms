@@ -7,6 +7,8 @@ function Heatmap()  {
 	var currInteraction;
 	var geography;
 	var paths;
+	//pass in from index.js
+	var numBins = 5;
 
 	var path = d3.geo.path();
 	var tooltip = d3.select(divContainer)
@@ -39,7 +41,7 @@ function Heatmap()  {
 						if (state.name.trim().toLowerCase() == geography.features[j].properties.name.toLowerCase()) {
 							// change to only transfer fields needed for filtering, sidebar, etc
 							Object.keys(state).forEach(function(field) {
-								console.log(state[field]);
+								// console.log(state[field]);
 								geography.features[j].properties[field] = state[field];
 							});	
 							// geography.features[j].properties[filterDefault] = state[filterDefault];
@@ -59,7 +61,7 @@ function Heatmap()  {
 				.enter()
 				.append("path")
 				.attr("d", path)
-				.attr("fill", function(d) { return findFill(d);})
+				.style(function(d) { return findFill(d);})
 				.on("mouseover", mouseover)
 				.on("mousemove", mousemove)
 				.on("mouseout", mouseout);
@@ -88,7 +90,7 @@ function Heatmap()  {
 	my.update = function(interaction) {
 		currInteraction = interaction;
 
-		paths.attr("fill", function(d) {return findFill(d);});
+		paths.style(function(d) {return findFill(d);});
 
 		return my;
 	}
@@ -98,13 +100,41 @@ function Heatmap()  {
 		var timeVal = d.properties[currInteraction.timeFilter.filterName];
 		var filterType = currInteraction.dataFilter.filterType;
 
-		console.log(dataVal);
-
-		if (timeVal >= currInteraction.timeFilter.filterRange[0] && timeVal <= currInteraction.timeFilter.filterRange[1]) {
-			return colorScale[filterType](dataVal);
+		if (isWithinTimeRange(timeVal) && isToggled(dataVal)) {
+			var color = String(colorScale[filterType](dataVal));
+			return {fill: color, stroke: 'grey'};
 		} else {
-			return "none";
+			return {fill: 'none', stroke: 'white'};
 		}
+	}
+
+	function isWithinTimeRange(timeVal) {
+		if (timeVal >= currInteraction.timeFilter.filterRange[0] && timeVal <= currInteraction.timeFilter.filterRange[1]) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function isToggled(dataVal) {
+		if (currInteraction.dataFilter.filterType == "categorical") {
+			console.log(currInteraction.dataFilter.filterValues[dataVal]);
+			return currInteraction.dataFilter.filterValues[dataVal];
+		} else {
+			console.log(dataVal);
+			console.log(currInteraction.dataFilter.filterValues[whichBin(dataVal)]);
+			return currInteraction.dataFilter.filterValues[whichBin(dataVal)];
+		}
+		
+		
+	}
+
+	function whichBin(dataVal) {
+		console.log(dataVal);
+		var interval = currInteraction.dataFilter.filterInterval;
+		var bin = Math.floor(dataVal/interval);
+		console.log(bin);
+		return bin >= numBins ? (numBins - 1): bin;
 	}
 
 	//Getter and Setter functions
@@ -116,7 +146,7 @@ function Heatmap()  {
 	};
 
 	my.height = function(value) {
-		console.log("here");
+		// console.log("here");
 		if (!arguments.length) return height;
 		height = value;
 		return my;

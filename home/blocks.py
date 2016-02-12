@@ -10,7 +10,7 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, FieldRowPanel,MultiFieldPanel, \
-    InlinePanel, PageChooserPanel, StreamFieldPanel
+	InlinePanel, PageChooserPanel, StreamFieldPanel
 
 from django.utils.html import format_html, format_html_join
 from django.conf import settings
@@ -37,11 +37,13 @@ def editor_js():
 	)
 
 class MapBlock(blocks.StructBlock):
-    data_file = DocumentChooserBlock()
-    # doc_uploaded = blocks.BooleanBlock(required=True)
-    variable_option = blocks.CharBlock(required=True)
+	title = blocks.CharBlock(required=True)
+	short_description = blocks.TextBlock(required=False)
+	# data_file = DocumentChooserBlock()
+	data_url = blocks.CharBlock(required=True)
+	variable_option = blocks.CharBlock(required=True)
  
-    class Meta:
-        template = './home/map.html'
-        icon = 'cogs'
-        label = 'Map'
+	class Meta:
+		template = './home/map.html'
+		icon = 'cogs'
+		label = 'Map'
