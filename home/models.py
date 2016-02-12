@@ -253,6 +253,12 @@ class Post(Page):
 
     is_creatable = False
 
+    def get_context(self, request):
+        context = super(Post, self).get_context(request)
+        context['authors'] = self.authors.order_by('pk')
+
+        return context
+
     def save(self, *args, **kwargs):
         """
         This save method overloads the wagtailcore Page save method in
