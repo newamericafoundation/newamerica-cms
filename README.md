@@ -48,7 +48,6 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-
 - Run your local server:
 ```bash
 python manage.py runserver

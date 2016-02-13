@@ -1,9 +1,7 @@
 .header__logo {
-
   $logo-width: 47px;
   $expanded-logo-width: 53px;
   display: none;
-
   @include desktop-header() {
     display: inline-block;
   }
