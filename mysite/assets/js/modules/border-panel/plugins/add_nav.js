@@ -1,5 +1,7 @@
 import $ from 'jquery'
 
+import navTemplate from './../nav.jade'
+
 import {
   INTERVAL,
   CONTENT_ITEM_CLASS_NAME,
@@ -21,7 +23,12 @@ function shiftActiveItemIndex(state, step = +1) {
   return state
 }
 
-export default function addBorderPanelNavListeners($this, state) {
+function addNavMarkup($this, state) {
+  var navHtml = navTemplate({ buttonCount: state.itemCount })
+  $this.prepend(navHtml)
+}
+
+function addNavEventListeners($this, state) {
   $this.find(`.${NAV_CLASS_NAME}`).click((e) => {
     var $target = $(e.target)
     state.shouldChangeOnInterval = false
@@ -46,4 +53,9 @@ export default function addBorderPanelNavListeners($this, state) {
     state.shouldChangeOnInterval = false
     updateBorderPanel($this, state)
   })
+}
+
+export default function addNav($this, state) {
+  addNavMarkup($this, state)
+  addNavEventListeners($this, state)
 }

@@ -9,7 +9,7 @@ import {
   RIGHT_ARROW_CLASS_NAME
 } from './../constants.js'
 
-export default function updateBorderPanel($this, state) {
+export default function update($this, state) {
     var width = $this.width()
     $this.find(`.${CONTENT_ITEM_CLASS_NAME}`).each((i, el) => {
       var $el = $(el)
