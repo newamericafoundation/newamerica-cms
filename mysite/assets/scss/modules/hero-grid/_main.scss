@@ -32,7 +32,7 @@
 
 	$height: 450px;
 
-	$local-gutter: 5px;
+	$local-gutter: $thick-border-width;
 
 	// Adjustment made to the widths of the main and secondary grid columns so it lines up with regular grid.
 	// Works only for two children.
@@ -115,6 +115,8 @@
 
 		width: 100%;
 		float: left;
+
+		cursor: pointer;
 
 		position: relative;
 
@@ -222,6 +224,7 @@
 		}
 
 		&__content {
+		  background-color: palette-get(na-turquoise);
 			display: block;
 			position: relative;
 			width: 100%;
@@ -233,44 +236,55 @@
 		}
 
 		&__background, &__overlay {
-			width: 100%;
-			height: 100%;
 			top: 0;
+			bottom: 0;
 			left: 0;
+			right: 0;
 		}
 
 		&__background {
+			z-index: 1;
 			background-position: 50% 50%;
+			background-blend-mode: luminosity;
 			background-repeat: no-repeat;
 			background-size: cover;
+			opacity: 1;
+			.hero-grid__element:hover & {
+				opacity: 0.65;
+			}
 		}
 
 		&__overlay {
-			background-color: rgba(0, 0, 0, 0.2);
+			background-color: transparentize(palette-get(na-black), 0.92);
+			background-blend-mode: multiply;
+			z-index: 2;
+		  content: '';
 		}
 
 		&__text-bar {
-			bottom: 0;
-			padding: 15px 20px;
-			&__subheading, &__heading {
-				color: palette-get(na-white);
-			}
-			&__heading {
-				display: block;
-				line-height: 108%;
-				font-weight: bold;
-				font-size: rem-calc(24);
-				.hero-grid__main &, .hero-grid.has-2-children & {
-					font-size: rem-calc(32);
-				}
-				margin-bottom: 0;
-			}
-			&__subheading {
-				display: inline-block;
-				font-size: rem-calc(16);
-				margin-bottom: 0;
-			}
+			z-index: 3;
+		  bottom: 0;
+		  padding: 15px 20px;
+		  &__subheading, &__heading {
+		    color: palette-get(na-white);
+		  }
+		  &__heading {
+		    display: block;
+		    line-height: 108%;
+		    font-weight: bold;
+		    font-size: rem-calc(24);
+		    .hero-grid__main &, .hero-grid.has-2-children & {
+		      font-size: rem-calc(32);
+		    }
+		    margin-bottom: 0;
+		  }
+		  &__subheading {
+		    display: inline-block;
+		    font-size: rem-calc(16);
+		    margin-bottom: 0;
+		  }
 		}
+
 
 	}
 

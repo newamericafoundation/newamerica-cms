@@ -5,7 +5,7 @@ block content
   section.section.section--fixed-width
     .row
       .columns
-        include ./includes/hero-grid-1.jade
+        include ./includes/hero-grid.jade
 
   section.section.section--fixed-width
     include ./includes/picture-links.jade
@@ -19,6 +19,8 @@ block content
         | hi
 
   include ./includes/panel.jade
+  
+  include ./includes/subscribe.jade
 
   script(type='text/javascript').
     window.uiState = { isHeaderExpanded: true }

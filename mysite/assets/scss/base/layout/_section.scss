@@ -1,28 +1,10 @@
-.wrapper {
-
-	display: block;
-	width: 100%;
-	margin: auto;
-	overflow: hidden;
-
-	&__clear-header {
-		width: 100%;
-		padding-top: 80px;
-		@include desktop-header() {
-			padding-top: 100px;
-		}
-		@include expanded-header() {
-			padding-top: 0;
-		}
-	}
-
-}
-
 // A section within the wrapper, providing standard spacing between UI elements on the page.
 .section {
 
 	$pad: 30px;
 	margin-top: $pad;
+
+	@include clearfix;
 
 	&:first-of-type { margin-top: 0; }
 	&:last-of-type { margin-bottom: $pad; }

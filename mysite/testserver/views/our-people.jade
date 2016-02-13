@@ -1,0 +1,11 @@
+extends layout
+
+block content
+
+  include ./includes/page-header.jade
+  
+  section.section.section--fixed-width
+    include ./includes/hero-grid-thirds.jade
+
+  script(type='text/javascript').
+    window.uiState = { isHeaderExpanded: false }

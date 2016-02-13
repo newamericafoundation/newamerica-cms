@@ -1,0 +1,86 @@
+.page-header {
+
+  $height: 250px;
+  $input-width: 200px;
+
+  @mixin unfold {
+    @media screen and (min-width: 600px) {
+      @content;
+    }
+  }
+
+  position: relative;
+
+  display: flex;
+  .no-flexbox & {
+    display: table;
+  }
+
+  width: 100%;
+
+  padding: 30px 0;
+
+  @include unfold {
+    padding: $mobile-padding;
+    height: $height;
+  }
+
+  h1, a {
+    color: palette-get(na-white);
+  }
+
+  h1 {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  &__background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  &__content {
+    padding: 0 $mobile-padding;
+    position: relative;
+    width: 100%;
+    max-width: $max-site-width;
+    margin: auto;
+    .no-flexbox & {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  &__form {
+    position: static;
+    @include unfold {
+      position: absolute;
+      right: 0;
+      bottom: 20px;
+    }
+    input, select {
+      display: inline-block;
+      width: $input-width;
+      margin: 0 10px 0 0;
+    }
+    input {
+      background-color: palette-get(na-white);
+    }
+    select {
+      border: 2px solid palette-get(na-white);
+      background: none;
+      color: palette-get(na-white);
+      &:after {
+        content: url(shape-urls-get(down-arrow-na-white));
+      }
+    }
+  }
+
+}

@@ -7,6 +7,7 @@
     "dev": "webpack --config webpack.config.development.js --watch",
     "build": "webpack --config webpack.config.production.js",
     "get-icon-svgs": "node mysite/assets/utilities/icon_parser/index.js",
+    "get-dropdown-svg-b64": "node mysite/assets/utilities/b64.js",
     "testserver": "node mysite/testserver/app.js"
   },
   "repository": {

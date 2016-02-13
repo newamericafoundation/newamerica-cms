@@ -3,12 +3,8 @@ extends layout
 block content
   div(style='text-align: center; margin: 100px auto;')
     h1(style='font-family: Platform; font-weight: bold; font-size: 36px; text-transform: uppercase;') newamerica.org frontend demo
-    a.button(href='/home', style='margin: 20px')
-      | home
-    a.button(href='/press-releases', style='margin: 20px;')
-      | press releases
-    a.button(href='/post', style='margin: 20px;')
-      | post
+    each urlFragment in [ 'home', 'press-releases', 'post', 'our-people' ]
+      a.button(href='/' + urlFragment, style='margin: 20px')= urlFragment
 
   script(type='text/javascript').
     window.uiState = { isHeaderExpanded: true }
