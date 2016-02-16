@@ -1,0 +1,51 @@
+$left-pad: 20px;
+
+.sidemenu {
+  top: 0;
+  background-color: palette-get(na-black);
+  width: $max-sidemenu-width;
+  z-index: 1000;
+  font-color:palette-get(na-white);
+  padding-top: 20px;
+  /*padding-left: 20px;*/
+
+  &__program-title {
+    margin-left: $left-pad;
+    width: $max-sidemenu-width / 2;
+    background-color: palette-get(na-white);
+    padding: 7px 7px 1.5px 7px;
+
+    &__title {
+      font-size:15px;
+      font-color:palette-get(na-black);
+      /*padding-left: $left-pad;*/
+    }
+  }
+
+  &__link-group {
+    color: white;
+
+    &__title {
+      padding-left: $left-pad;
+      font-size:20px;
+    }
+
+    &__link {
+      padding-left: $left-pad;
+
+      &:hover {
+        background-color: palette-get(na-turquoise);
+      }
+
+      & > a {
+        color: grey;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+   
+  }
+
+}
