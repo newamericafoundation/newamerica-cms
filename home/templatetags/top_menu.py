@@ -23,6 +23,8 @@ def top_menu(context, parent, calling_page=None):
     # programs = Program.objects.in_menu().order_by("title").exclude(location=True)
     programs = []
     location_programs = []
+    print parent
+    print calling_page
     all_programs = Program.objects.in_menu().order_by("title")
     for program in all_programs:
         if program.location == True:
