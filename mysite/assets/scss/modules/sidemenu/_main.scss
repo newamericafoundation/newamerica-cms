@@ -10,13 +10,18 @@ $left-pad: 20px;
   @include desktop-sidemenu {
     display:none;
   }
+
+  &__toggle {
+    color:white;
+    font-weight:bold;
+  }
 }
 
 
 .sidemenu {
   top: 0;
   background-color: palette-get(na-black);
-  width: $max-sidemenu-width;
+  width: 100%;
   z-index: 1000;
   font-color:palette-get(na-white);
   padding-top: 20px;
