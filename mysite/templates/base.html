@@ -51,7 +51,7 @@
                 
                 <section class='section section--fixed-width'>
                     <div class='row'>
-                        <div class='medium-2 columns'>
+                        <div class='sidebar-container'>
                             {% if self.name != 'New America' %}
                                 {% block side_menu %}
                                     {% get_site_root as site_root %}
@@ -59,7 +59,7 @@
                                 {% endblock %}
                             {% endif %}
                         </div>
-                        <div class='medium-10 columns'>
+                        <div class='content-container'>
                             {% block content %}
                             {% endblock %}
                         </div>
