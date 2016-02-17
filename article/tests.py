@@ -75,11 +75,13 @@ class ArticleTests(WagtailPageTests):
 		)
 
 
-	#Test that Article pages created in set up can be retrieved, tests that relationship between an Article and one parent Programs exists, and tests that relationship between an Article and two parent Programs exists
+	# Test relationship between article and one parent Program
 	def test_article_has_relationship_to_one_program(self):
 		article = Article.objects.all()[0]
 		self.assertEqual(article.parent_programs.all()[0].title, 'OTI')
 
+
+	# Test relationship between article and two parent Programs
 	def test_article_has_relationship_to_two_programs(self):
 		article = Article.objects.all()[0]
 		second_program = Program.objects.create(title='Education', name='Education', location=False, depth=3)
@@ -88,6 +90,24 @@ class ArticleTests(WagtailPageTests):
 		self.assertEqual(article.parent_programs.all()[1].title, 'Education')
 
 
-		
+	# Test you can delete an article attached to one Program
+	def test_can_delete_blog_post_with_one_program(self):
+		article = Article.objects.first()
+		article.delete()
+		self.assertEqual(Article.objects.filter(title='Article 1').first(), None)
+		self.assertNotIn(article, ProgramArticlesPage.objects.filter(title='Program Articles').first().get_children())
+		self.assertEqual(PostProgramRelationship.objects.filter(post=article).first(), None)
+		self.assertEqual(PostProgramRelationship.objects.filter(post=article, program=self.program_page).first(), None)
 
-
+	# Test article can be deleted if attached to two Programs
+	def test_can_delete_blog_post_with_two_programs(self):
+		article = Article.objects.first()
+		second_program = Program.objects.create(title='Education', name='Education', location=False, depth=3)
+		relationship, created = PostProgramRelationship.objects.get_or_create(program=second_program, post=article)
+		if created:
+			relationship.save()
+		article.delete()
+		self.assertEqual(Article.objects.filter(title='Article 1').first(), None)
+		self.assertNotIn(article, ProgramArticlesPage.objects.filter(title='Program Articles').first().get_children())
+		self.assertEqual(PostProgramRelationship.objects.filter(post=article, program=self.program_page).first(), None)
+		self.assertEqual(PostProgramRelationship.objects.filter(post=article, program=second_program).first(), None)
