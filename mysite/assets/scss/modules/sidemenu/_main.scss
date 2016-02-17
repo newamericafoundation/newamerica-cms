@@ -1,5 +1,18 @@
 $left-pad: 20px;
 
+.mobile-sidemenu {
+  background-color: palette-get(na-black);
+  width: 100%;
+  height:$mobile-header-height;
+  z-index: 1000;
+  font-color:palette-get(na-white);
+
+  @include desktop-sidemenu {
+    display:none;
+  }
+}
+
+
 .sidemenu {
   top: 0;
   background-color: palette-get(na-black);
@@ -7,7 +20,12 @@ $left-pad: 20px;
   z-index: 1000;
   font-color:palette-get(na-white);
   padding-top: 20px;
+  display:none;
   /*padding-left: 20px;*/
+
+  @include desktop-sidemenu {
+    display:block;
+  }
 
   &__program-title {
     margin-left: $left-pad;

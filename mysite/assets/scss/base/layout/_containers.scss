@@ -1,10 +1,12 @@
 
 .sidebar-container {
-	width: $max-sidemenu-width;
+	width:100%;
 	position:absolute;
 	float:left;
 
-
+	@include desktop-sidemenu {
+		width: $max-sidemenu-width;
+	}
 }
 
 
@@ -12,7 +14,10 @@
 .content-container {
 	width: 100%;
 	height: 100%;
-	padding-left: $max-sidemenu-width;
+	padding-top:$mobile-header-height;
 
-
+	@include desktop-sidemenu {
+		padding-left: $max-sidemenu-width;
+		padding-top:0px;
+	}
 }
