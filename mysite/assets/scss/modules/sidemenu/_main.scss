@@ -28,8 +28,9 @@ $left-pad: 20px;
 
   &__toggle {
     position:absolute;
-    top:10px;
-    left: 300px;
+    z-index: 1100;
+    top: 30px;
+    right: 120px;
     color:white;
     font-weight:bold;
   }
