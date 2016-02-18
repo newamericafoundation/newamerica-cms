@@ -1,10 +1,12 @@
 .person-grid {
-	margin-left:100px;
-	 /*&__spacer {
-	 	width: 200px;
-	 	height:100%;
-	 }*/
+	width:$max-site-width/4;
+	padding-left: auto;
+	padding-right: auto;
 
-
+	@include desktop-header {
+		width:100%;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
 
 }

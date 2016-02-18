@@ -4,9 +4,10 @@
 @include foundation-global-styles;
 // @if not $flex {
 @include foundation-grid;
-
-   //@include foundation-flex-grid;
-
+// }
+// @else {
+//   @include foundation-flex-grid;
+// }
 @include foundation-typography;
 @include foundation-button;
 @include foundation-forms;
