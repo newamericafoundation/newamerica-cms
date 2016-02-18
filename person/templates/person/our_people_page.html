@@ -8,22 +8,26 @@
 
 <section class='section section--fixed-width'>
 	<h1>Our People</h1>
-	<div class='row'>
-		{% for person in people %}
-			<div class="small-12 medium-4 large-3 columns person">
-				<div class="person__photo">{{person.photo}}</div>
-				<div class="person__info">
-					<a class= "person__name" href="{{ person.url }}">{{person.name}}</a><br>
-					{{ person.position_at_new_america }}
-					{% if person.program %}
-			            <br>
-			            <a href="{{person.program.url }}">{{ person.program }}</a>
-			        {% endif %}
+	<!-- <div class="person-grid"> -->
+		<div class="row person-grid">
+		<!-- <div class="person-grid__spacer"></div> -->
+		<!-- <div class="person-grid__content"> -->
+			{% for person in people %}
+				<div class="small-12 medium-4 large-3 columns person">
+					<div class="person__photo">{{person.photo}}</div>
+					<div class="person__info">
+						<a class= "person__info__name" href="{{ person.url }}">{{person.name}}</a><br>
+						{{ person.position_at_new_america }}
+						{% if person.program %}
+				            <br>
+				            <a href="{{person.program.url }}">{{ person.program }}</a>
+				        {% endif %}
+				    </div>
 			    </div>
-		    </div>
-		{% endfor %}
-		
+			{% endfor %}
+		</div>
 	</div>
+	
 
 </section>
 

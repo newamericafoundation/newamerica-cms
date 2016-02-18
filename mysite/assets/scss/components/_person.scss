@@ -1,13 +1,24 @@
+$person-height: 350px;
+$person-width: $max-site-width/4;
 
 .person {
- 	height:300px;
+	width:$person-width;
+	height:$person-height;
+ 	/*background-color: palette-get(na-turquoise);*/
 
  	&__photo {
-
+ 		overflow:hidden;
+ 		height:200px;
  	}
 
- 	&__name {
- 		font-weight: bold;
- 	}
+ 	&__info {
+ 		height:150px;
+ 		border-top: 4px solid palette-get(na-turquoise);
+ 		padding-left:5px;
 
+	 	&__name {
+	 		font-weight: bold;
+	 		line-height: 30px;
+	 	}
+	 }
 }
