@@ -1,0 +1,30 @@
+$content-entry-image-width: 250px;
+
+.content-entry {
+	width: 100%;
+	height: 100%;
+
+	&__image {
+		width:100%;
+		overflow:hidden;
+
+		@include desktop-header {
+			width:$content-entry-image-width;
+		}
+	}
+
+
+	&__text {
+		width:100%;
+
+		@include desktop-header {
+			width:700px;
+		}
+		
+		font-size:15px;
+		&__title {
+			font-weight:bold;
+			font-size:19px;
+		}
+	}
+}
