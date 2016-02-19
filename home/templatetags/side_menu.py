@@ -12,8 +12,6 @@ register = template.Library()
 @register.assignment_tag(takes_context=True)
 def needs_sidebar(context):
     """ Checks if the page is an AbstractProgram descendant """
-    # print(dir(context['self']))
-    print(context['self'].get_parent())
     use_side_bar = False
     if isinstance(context['self'], AbstractProgram):
         use_side_bar = True
