@@ -18,7 +18,7 @@ from person.models import Person
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
-from blocks import *
+from .blocks import MapBlock
 
 class HomePage(Page):
     parent_page_types = ['home.HomePage', ]
