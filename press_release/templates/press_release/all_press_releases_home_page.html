@@ -8,27 +8,28 @@
 <section class='section section--fixed-width'>
 	<h1>New America Press Releases</h1>
 	<div class="content-grid__controls">
-		<div class= "content-grid__controls__">
-
+		
 	</div>
 	<div class="content-grid__content">
 		{% for release in press_releases %}
-			<div class="row content-entry">
-				<div class="small-12 medium-2 columns content-entry__image">
-					<img src="http://www.worldfortravel.com/wp-content/uploads/2011/09/Switzerland-Autumn.jpg">
+			<div class="content-entry">
+				<div class="content-entry__image-container">
+					<img class="image" src="http://www.worldfortravel.com/wp-content/uploads/2011/09/Switzerland-Autumn.jpg">
 				</div>
-				<div class="small-12 medium-10 columns content-entry__text">
-					{{ release.date }}
-					
-					<br>
-					{% for program in release.parent_programs.all %}
-						<a href="{{ program.url }}">{{ program }}</a>
-					{% endfor %}
-					
-					<br>
-					<a class = "content-entry__text__title" href="{{ release.url }}">{{ release.headline }}</a>
-					<br>
-					{{ release.sub_headline }}
+				<div class="content-entry__text-container">
+					<div class="content-entry__text-container__text">
+						<p class= "content-entry__text-container__text__date" >{{ release.date }} </p>
+						
+						<br>
+						{% for program in release.parent_programs.all %}
+							<a href="{{ program.url }}">{{ program }}</a>
+						{% endfor %}
+						
+						<br>
+						<a class = "content-entry__text-container__text__title" href="{{ release.url }}">{{ release.headline }}</a>
+						<br>
+						{{ release.sub_headline }}
+					</div>
 				</div>
 			</div>
 			<hr>
