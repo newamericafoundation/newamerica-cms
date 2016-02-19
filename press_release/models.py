@@ -29,13 +29,14 @@ class PressRelease(Post):
     	FieldPanel('headline'),
     	FieldPanel('sub_headline'),
     	StreamFieldPanel('attachment'),
-    ] + Post.content_panels 
+    ] + Post.content_panels
+
 
 class AllPressReleasesHomePage(Page):
 	"""
 	A page which inherits from the abstract Page model and
 	returns every Press Release in the PressRelease model
-	for the organization-wide Press Release Homepage 
+	for the organization-wide Press Release Homepage
 	"""
 	parent_page_types = ['home.Homepage']
 	subpage_types = []
@@ -48,6 +49,7 @@ class AllPressReleasesHomePage(Page):
 
 	class Meta:
 		verbose_name = "Homepage for all Press Releases"
+
 
 class ProgramPressReleasesPage(Page):
 	"""
