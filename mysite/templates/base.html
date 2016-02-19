@@ -1,7 +1,7 @@
 {% load static wagtailuserbar %}
 {% load top_menu %}
 {% load side_menu %}
-{% load wagtailcore_tags %} 
+{% load wagtailcore_tags %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -48,22 +48,23 @@
 
                     </ul>
                 {% endif %}
-                
+                {% needs_sidebar as use_sidebar %}
+
                 <section class='section section--fixed-width'>
                     <div class='row'>
+                        {% if use_sidebar %}
                         <div class='sidebar-container'>
-                            {% if self.name != 'New America' %}
-                                {% block side_menu %}
-                                    {% get_site_root as site_root %}
-                                    {% side_menu parent=site_root calling_page=self %}
-                                {% endblock %}
-                            {% endif %}
+                            {% block side_menu %}
+                                {% side_menu parent=site_root calling_page=self %}
+                            {% endblock %}
                         </div>
-                        <div class='content-container'>
+                        {% endif %}
+                         <div class='content-container'>
                             {% block content %}
                             {% endblock %}
                         </div>
                     </div>
+
                 </section>
 
                 {% include 'ui_elements/footer.html' %}
