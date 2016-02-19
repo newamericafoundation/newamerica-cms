@@ -51,7 +51,6 @@
                 {% needs_sidebar as use_sidebar %}
 
                 <section class='section section--fixed-width'>
-                    <div class='row '>
                         {% if use_sidebar %}
                         <div class='sidemenu-container'>
                             {% block side_menu %}
@@ -65,14 +64,13 @@
                             {% block content %}
                             {% endblock %}
                         </div>
-                    </div>
-
                 </section>
 
                 {% include 'ui_elements/footer.html' %}
 
             </div>
 
+            
         </div>
 
         {% block extra_js %}
