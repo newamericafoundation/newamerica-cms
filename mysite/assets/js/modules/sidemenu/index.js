@@ -21,8 +21,6 @@ var breakpoint = 640;
 
 $window.resize ( function () {
 	console.log("calling resize");
-	
-		
 		if ($window.width() > breakpoint ) {
 			// if (clicked == true ) {
 				console.log("width is greater");
@@ -37,4 +35,7 @@ $window.resize ( function () {
 	  		}
 	  	} 
 	
+		// $(".sidemenu-container").css("height", function() {
+		// 	return $(".content-container").css("height");
+		// })
 });
