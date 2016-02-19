@@ -5,18 +5,49 @@
 {% block body_class %}template-allpressreleaseshomepage{% endblock %}
 
 {% block content %}
-<h1>New America Press Releases</h1>
+<section class='section section--fixed-width'>
+	<h1>New America Press Releases</h1>
+	<div class="content-grid-page__controls">
 
-	{% for release in press_releases %}
-		<a href="{{ release.url }}">{{ release.headline }}</a>
-		<br>
-		{{ release.date }}
-		<br>
-		{% for program in release.parent_programs.all %}
-			<a href="{{ program.url }}">{{ program }}</a>
+	</div>
+	<div class="content-grid-page__content">
+		{% for release in press_releases %}
+			<!-- <img src -->
+			<div class="row content-grid__element">
+				<div class="small-12 medium-2 columns content-grid__element__image">
+					Image
+				</div>
+				<div class="small-12 medium-10 columns content-grid__element__text">
+					{{ release.date }}
+					
+					<br>
+					{% for program in release.parent_programs.all %}
+						<a href="{{ program.url }}">{{ program }}</a>
+					{% endfor %}
+					
+					<br>
+					<a class = "content-grid__element__text__title" href="{{ release.url }}">{{ release.headline }}</a>
+					<br>
+					{{ release.sub_headline }}
+				</div>
+			</div>
+			<hr>
 		{% endfor %}
-		<br>
-		<br>
-	{% endfor %}
+
+	</div>
+	
+	<!-- {% for release in press_releases %}
+			<a href="{{ release.url }}">{{ release.headline }}</a>
+			<br>
+			{{ release.date }}
+			<br>
+			{% for program in release.parent_programs.all %}
+				<a href="{{ program.url }}">{{ program }}</a>
+			{% endfor %}
+			<br>
+			<br>
+		{% endfor %} -->
+		
+</section>
 
 {% endblock %}

@@ -1,0 +1,11 @@
+.content-grid {
+	&__element {
+		&__text {
+			font-size:15px;
+			&__title {
+				font-weight:bold;
+				font-size:19px;
+			}
+		}
+	}
+}
