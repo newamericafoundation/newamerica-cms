@@ -16,6 +16,7 @@
     @content;
   }
 }
+
 @mixin desktop-sidemenu() {
   @include breakpoint(medium) {
     @content;

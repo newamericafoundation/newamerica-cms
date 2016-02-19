@@ -51,15 +51,17 @@
                 {% needs_sidebar as use_sidebar %}
 
                 <section class='section section--fixed-width'>
-                    <div class='row'>
+                    <div class='row '>
                         {% if use_sidebar %}
-                        <div class='sidebar-container'>
+                        <div class='sidemenu-container'>
                             {% block side_menu %}
                                 {% side_menu parent=site_root calling_page=self %}
                             {% endblock %}
                         </div>
+                        <div class='content-container has-sidemenu'>
+                        {% else %}
+                        <div class='content-container'>
                         {% endif %}
-                         <div class='content-container'>
                             {% block content %}
                             {% endblock %}
                         </div>
