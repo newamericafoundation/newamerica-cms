@@ -23,9 +23,11 @@ class EventTests(WagtailPageTests):
 		self.login()
 		self.root_page = Page.objects.get(id=1)
 		self.home_page = self.root_page.add_child(instance=HomePage(title='New America'))
+		self.all_events_home_page = self.home_page.add_child(instance=AllEventsHomePage(title="All Events at New America!"))
 		self.program_page_1 = self.home_page.add_child(instance=Program(title='OTI', name='OTI', location=False, depth=3))
 		self.program_events_page = self.program_page_1.add_child(instance=ProgramEventsPage(title='OTI Events'))
 		self.event = self.program_events_page.add_child(instance=Event(title='Event 1', date='2016-02-10'))
+		self.org_wide_event = self.all_events_home_page.add_child(instance=Event(title="Org Event", date='2016-02-10'))
 
 
 	# Test that a child Page can be created under 
@@ -77,13 +79,17 @@ class EventTests(WagtailPageTests):
 			}
 		)
 
-
 	# Test relationship between event and one 
 	# Program
 	def test_event_has_relationship_to_one_program(self):
 		event = Event.objects.first()
 		self.assertEqual(event.parent_programs.all()[0].title, 'OTI')
 
+	# Test relationship between event and all events homepage 
+	def test_event_has_relationship_to_all_event_homepage(self):
+		event = Event.objects.filter(title="Org Event")
+		dir(event)
+		# self.assertEqual(event.parent_programs.all()[0].title, 'OTI')
 
 	# Test you can create a event with two parent Programs
 	def test_event_has_relationship_to_two_parent_programs(self):
@@ -96,7 +102,7 @@ class EventTests(WagtailPageTests):
 
 	# Test event can be deleted if attached to one Program
 	def test_can_delete_event_with_one_program(self):
-		event = Event.objects.first()
+		event = Event.objects.filter(title='Event 1').first()
 		event.delete()
 		self.assertEqual(Event.objects.filter(title='Event 1').first(), None)
 		self.assertNotIn(event, ProgramEventsPage.objects.filter(title='OTI Events').first().get_children())
@@ -106,7 +112,7 @@ class EventTests(WagtailPageTests):
 
 	# Test event can be deleted if attached to two Programs
 	def test_can_delete_event_with_two_programs(self):
-		event = Event.objects.first()
+		event = Event.objects.filter(title='Event 1').first()
 		second_program = Program.objects.create(title='Education', name='Education', location=False, depth=3)
 		relationship, created = PostProgramRelationship.objects.get_or_create(program=second_program, post=event)
 		if created:
