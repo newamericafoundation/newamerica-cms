@@ -7,8 +7,23 @@
 {% block content %}
 <section class='section section--fixed-width'>
 	<h1>New America Press Releases</h1>
-	<div class="content-grid__controls">
-		
+	<div class="row content-grid__controls">
+		<div class="column content-grid__controls__program-filter">
+			<select>
+				<option value="all">All Initiatives</option>
+				<option value="open">Open Technology Institute</option>
+				<option value="education">Education Policy</option>
+				<option value="asset">Asset Building</option>
+	        </select>
+	    </div>
+	    <div class="column content-grid__controls__date-filter">
+			<select>
+				<option value="all">All Dates</option>
+	        </select>
+	    </div>
+	    <div class="column content-grid__controls__search">
+      		<input type="search" placeholder="Search Results">
+        </div>
 	</div>
 	<div class="content-grid__content">
 		{% for release in press_releases %}

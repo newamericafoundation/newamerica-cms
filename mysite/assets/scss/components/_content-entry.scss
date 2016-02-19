@@ -18,11 +18,6 @@ $content-entry-side-margins: 20px;
 			padding-left: $content-entry-side-margins;
 			padding-right: $content-entry-side-margins;
 		}	
-
-		&__image{
-			
-			
-		}
 	}
 
 
@@ -33,6 +28,7 @@ $content-entry-side-margins: 20px;
 		@include breakpoint(medium) {
 			width:100%;
 			padding-left:$content-entry-desktop-image-container-width;
+			padding-top:0px;
 		}
 		
 		&__text {
