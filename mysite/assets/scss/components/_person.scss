@@ -4,7 +4,6 @@ $person-width: $max-site-width/4;
 .person {
 	width:$person-width;
 	height:$person-height;
- 	/*background-color: palette-get(na-turquoise);*/
 
  	&__photo {
  		overflow:hidden;
