@@ -5,17 +5,41 @@
 {% block body_class %}template-ourpeoplepage{% endblock %}
 
 {% block content %}
-<h1>Our People</h1>
 
-	{% for person in people %}
-		<a href="{{ person.url }}">{{person.name}}</a><br>
-		{{ person.position_at_new_america }}
-		{% if person.program %}
-            <br>
-            <a href="{{person.program.url }}">{{ person.program }}</a>
-        {% endif %}
-		<br>
-		<br>
-	{% endfor %}
+<section class='section section--fixed-width'>
+	<h1 class="person-grid__title">Our People</h1>
+
+	<div class="row person-grid__controls">
+		<div class="column person-grid__controls__filter">
+		
+	        <select>
+				<option value="all">All Initiatives</option>
+				<option value="open">Open Technology Institute</option>
+				<option value="education">Education Policy</option>
+				<option value="asset">Asset Building</option>
+	        </select>
+	     
+        </div>
+        <div class="column person-grid__controls__search">
+        	<input type="search" placeholder="Search Results">
+        </div>
+	</div>
+
+	<div class="row person-grid__content">
+		{% for person in people %}
+			<div class="small-12 medium-4 large-3 columns person">
+				<div class="person__photo">{{person.photo}}</div>
+				<div class="person__info">
+					<a class= "person__info__name" href="{{ person.url }}">{{person.name}}</a><br>
+					{{ person.position_at_new_america }}
+					{% if person.program %}
+			            <br>
+			            <a href="{{person.program.url }}">{{ person.program }}</a>
+			        {% endif %}
+			    </div>
+		    </div>
+		{% endfor %}
+	</div>
+</section>
 
 {% endblock %}

@@ -1,0 +1,31 @@
+.person-grid {
+	&__title {
+		padding: 20px 0px 20px 10px;
+		font-size: 50px;
+
+
+	}
+
+	&__controls {
+		&__filter {
+			width: 220px;
+		}
+
+		&__search {
+			width: 220px;
+		}
+	}
+
+	&__content {
+		width:$max-site-width/4;
+		padding-left: auto;
+		padding-right: auto;
+
+		@include desktop-header {
+			width:100%;
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+
+}

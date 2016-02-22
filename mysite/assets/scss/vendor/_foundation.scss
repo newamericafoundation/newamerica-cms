@@ -19,10 +19,10 @@
 @include foundation-breadcrumbs;
 // @include foundation-button-group;
 // @include foundation-callout;
-// @include foundation-close-button;
+ @include foundation-close-button;
 // @include foundation-drilldown-menu;
-// @include foundation-dropdown;
-// @include foundation-dropdown-menu;
+@include foundation-dropdown;
+@include foundation-dropdown-menu;
 // @include foundation-flex-video;
 // @include foundation-label;
 // @include foundation-media-object;
