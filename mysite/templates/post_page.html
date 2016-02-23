@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-postpage{% endblock %}
+
+{% block content %}
+	<div class="post-header">
+		<div class="post-header__image">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg">
+		</div>
+
+	</div>
+
+    <h1>{{ page.title }}</h1>
+    {{ page.date }}
+    {{ page.story_image }}
+
+    {{ page.intro }}
+
+    {{ page.body }}
+
+    {% block post-content %}
+
+    {% endblock %}
+{% endblock %}
