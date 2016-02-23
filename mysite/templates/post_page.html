@@ -9,6 +9,19 @@
 		<div class="post-header__image">
 			<img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg">
 		</div>
+		{% if self.get_ancestors|length > 2 %}
+            <ul class=”breadcrumb”>
+
+            {% for page in self.get_ancestors %}
+                {% if page.is_root == False %}
+                <li><a href="{{ page.url }}">{{ page.title }} > </a></li>
+                {% endif %}
+            {% endfor %}
+
+            <li class=”active”>{{ self.title }}</li>
+
+            </ul>
+        {% endif %}
 
 	</div>
 
