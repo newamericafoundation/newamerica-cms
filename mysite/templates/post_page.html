@@ -5,35 +5,42 @@
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}
-	<div class="post-header">
-		<div class="post-header__image">
-			<img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg">
+	<div class="post-header" style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg")>
+		<!-- <div class="post-header__image-container">
+			<img class="post-header__image-container__image" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg">
+		</div> -->
+		<div class="post-header__text">
+			<div class="post-header__text__breadcrumbs">
+				{% if self.get_ancestors|length > 2 %}
+		            <ul class=”breadcrumb”>
+
+		            {% for page in self.get_ancestors %}
+		                {% if page.is_root == False %}
+		                <li><a href="{{ page.url }}">{{ page.title }} > </a></li>
+		                {% endif %}
+		            {% endfor %}
+
+		            <li class=”active”>{{ self.title }}</li>
+
+		            </ul>
+		        {% endif %}
+		    </div>
+		    <div class="post-header__text__title">
+		    	<h1>{{ page.title }}</h1>
+		    </div>
 		</div>
-		{% if self.get_ancestors|length > 2 %}
-            <ul class=”breadcrumb”>
+	</div>
+	<div class="post-body">
+		{{ page.date }}
 
-            {% for page in self.get_ancestors %}
-                {% if page.is_root == False %}
-                <li><a href="{{ page.url }}">{{ page.title }} > </a></li>
-                {% endif %}
-            {% endfor %}
+	    {{ page.intro }}
 
-            <li class=”active”>{{ self.title }}</li>
+	    {{ page.body }}
 
-            </ul>
-        {% endif %}
+	    {% block post-content %}
 
+	    {% endblock %}
 	</div>
 
-    <h1>{{ page.title }}</h1>
-    {{ page.date }}
-    {{ page.story_image }}
-
-    {{ page.intro }}
-
-    {{ page.body }}
-
-    {% block post-content %}
-
-    {% endblock %}
+    
 {% endblock %}
