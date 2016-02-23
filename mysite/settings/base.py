@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'press_release',
     'quoted',
     'issue',
-    
+    'storages',
+
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
