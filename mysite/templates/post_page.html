@@ -5,7 +5,11 @@
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}
-	<div class="post-header" style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg")>
+	<div class="post-header" style="background-image: linear-gradient(
+	      rgba(0, 0, 0, 0.3),
+	      rgba(0, 0, 0, 0.3)
+	    ), 
+    	url(https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg")>
 		<div class="post-header__text">
 			<div >
 				{% if self.get_ancestors|length > 2 %}
@@ -17,7 +21,7 @@
 		                {% endif %}
 		            {% endfor %}
 
-		            <li class="active">{{ self.title }}</li>
+		            <!-- <li class="active">{{ self.title }}</li> -->
 
 		            </ul>
 		        {% endif %}
@@ -27,17 +31,35 @@
 		    </div>
 		</div>
 	</div>
-	<div class="post-body">
-		{{ page.date }}
+	<div class="row">
+		<div class="columns post-body">
+			{{ page.date }}
 
-	    {{ page.intro }}
+		    {{ page.intro }}
 
-	    {{ page.body }}
+		    {{ page.body }}
 
-	    {% block post-content %}
+		    {% block post-content %}
 
-	    {% endblock %}
+		    {% endblock %}
+		</div>
+		<div class="columns post-subscribe">
+			<div class='subscribe-panel'>
+				Subscribe!
+				<!-- <div class='border-panel__item'>
+					<div class='border-panel__content'>
+						<h1>Subscribe to New America Weekly!</h1>
+						<p>Get our weekly digital magazine and events lineup in your inbox</p>
+						<div id='subscribe'>
+							<input type='text' placeholder='Your e-mail' id='subscribe__email-field'></input>
+							<button class='button' id='subscribe__link'>Sign up</button>
+							<div id='subscribe__modal-container'></div>
+						</div>
+					</div>
+				</div> -->
+
+			</div>
+		</div>
 	</div>
-
     
 {% endblock %}
