@@ -1,18 +1,21 @@
-{% extends "base.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-event{% endblock %}
 
-{% block content %}
-    <h1>{{ page.title }}</h1>
-    <h4> {{ page.date }} at {{ page.time}} </h3>
-    <h4> {{ page.address }}</h3>
-
-    <h4> {{ page.body }} </h3>
-
-    <h4> <a href="{{page.rsvp_link}}">RSVP here</a>
+{% block post-content %}
+	<div class="event">
+		<p>Event</p>
+	    <p class="event__title">{{ page.title }}</p>
+	    <p class="event__date"> {{ page.date }} </p>
+	    <p class="event__time"> {{ page.time }} </p>
+	    <p class="event__address"> {{ page.address }}</p>
+	    <a class="event__rsvp button" href="{{page.rsvp_link}}" >RSVP</a>
+	</div>
+    {{ page.body }}
+    
 
 {% endblock %}
 
