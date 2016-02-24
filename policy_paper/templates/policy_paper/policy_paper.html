@@ -7,7 +7,7 @@
 
 {% block post-content %}
     <!-- <h1> {{ page.title }} </h1> -->
-    <h3> {{ page.date }} </h3>
+    <h3 class="post-date"> {{ page.date }} </h3>
 
     {% if page.post_author.all %}
 			{% for author in authors %} 
