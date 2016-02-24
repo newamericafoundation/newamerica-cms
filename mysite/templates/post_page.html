@@ -10,6 +10,7 @@
 	      rgba(0, 0, 0, 0.3)
 	    ), 
     	url(https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg")>
+
 		<div class="post-header__text">
 			<div >
 				{% if self.get_ancestors|length > 2 %}
@@ -21,23 +22,17 @@
 		                {% endif %}
 		            {% endfor %}
 
-		            <!-- <li class="active">{{ self.title }}</li> -->
-
 		            </ul>
 		        {% endif %}
 		    </div>
 		    <div class="post-header__text__title">
-		    	<h1>{{ page.headline }}</h1>
+		    	<h1>{{ page.title }}</h1>
+		    	<!-- <h5>{{ page.sub_headline }}</h5> -->
 		    </div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="small-12 medium-12 large-8 columns post-body">
-			{{ page.date }}
-
-		    {{ page.intro }}
-
-		    {{ page.body }}
 
 		    {% block post-content %}
 
