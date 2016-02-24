@@ -16,10 +16,10 @@
     {% if page.post_author.all %}
     <div class="row person-grid__content">
 		{% for author in authors %}
-			<div class="small-12 medium-4 large-3 columns person">
-				<div class="person__photo">{{author.author.photo}}</div>
-				<div class="person__info">
-					<a class= "person__info__name" href="{{ author.author.url }}">{{author.author.name}}</a><br>
+			<div class="small-6 large-4 columns post-person">
+				<div class="post-person__photo">{{author.author.photo}}</div>
+				<div class="post-person__info">
+					<a class= "post-person__info__name" href="{{ author.author.url }}">{{author.author.name}}</a><br>
 					{{ author.author.position_at_new_america }}
 					{% if author.author.program %}
 			            <br>
@@ -30,14 +30,6 @@
 		{% endfor %}
 	</div>
 	{% endif %}
-
-	    <!-- {% if page.post_author.all %}
-				{% for author in authors %} 
-		    	<a href="{{ author.author.url }}">{{ author.author }}</a>
-		    	<br>
-		    {% endfor %}
-		{% endif %} -->
-			
-    </div>
+    
 
 {% endblock %}

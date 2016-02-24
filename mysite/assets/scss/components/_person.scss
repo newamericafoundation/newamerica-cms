@@ -1,5 +1,7 @@
 $person-height: 350px;
 $person-width: $max-site-width/4;
+$post-person-height: 300px;
+$post-person-width: $max-body-width/3;
 
 .person {
 	width:$person-width;
@@ -12,6 +14,27 @@ $person-width: $max-site-width/4;
 
  	&__info {
  		height:150px;
+ 		border-top: 4.5px solid palette-get(na-turquoise);
+ 		padding-left:5px;
+
+	 	&__name {
+	 		font-weight: bold;
+	 		line-height: 30px;
+	 	}
+	 }
+}
+
+.post-person {
+	/*width:$post-person-width;
+	height:$post-person-height;*/
+
+ 	&__photo {
+ 		overflow:hidden;
+ 		/*height:150px;*/
+ 	}
+
+ 	&__info {
+ 		/*height:100px;*/
  		border-top: 4.5px solid palette-get(na-turquoise);
  		padding-left:5px;
 
