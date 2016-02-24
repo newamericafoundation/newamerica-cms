@@ -9,15 +9,35 @@
     <!-- <h1> {{ page.title }} </h1> -->
     <h3 class="post-date"> {{ page.date }} </h3>
 
-    {% if page.post_author.all %}
-			{% for author in authors %} 
-	    	<a href="{{ author.author.url }}">{{ author.author }}</a>
-	    	<br>
-	    {% endfor %}
-		{% endif %}
-		<br>
     {{ page.body }}
     {{ page.paper_url }}
     {{ page.attachment }}
+
+    {% if page.post_author.all %}
+    <div class="row person-grid__content">
+		{% for author in authors %}
+			<div class="small-12 medium-4 large-3 columns person">
+				<div class="person__photo">{{author.author.photo}}</div>
+				<div class="person__info">
+					<a class= "person__info__name" href="{{ author.author.url }}">{{author.author.name}}</a><br>
+					{{ author.author.position_at_new_america }}
+					{% if author.author.program %}
+			            <br>
+			            <a href="{{author.author.program.url }}">{{ author.author.program }}</a>
+			        {% endif %}
+			    </div>
+		    </div>
+		{% endfor %}
+	</div>
+	{% endif %}
+
+	    <!-- {% if page.post_author.all %}
+				{% for author in authors %} 
+		    	<a href="{{ author.author.url }}">{{ author.author }}</a>
+		    	<br>
+		    {% endfor %}
+		{% endif %} -->
+			
+    </div>
 
 {% endblock %}
