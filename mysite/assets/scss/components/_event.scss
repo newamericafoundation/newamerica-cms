@@ -4,10 +4,10 @@
 	padding-bottom: 15px;
 	margin-bottom: 20px;
 	border-left: 5px solid black;
-	line-height:.5;
+	/*line-height:.5;*/
 
 	& > p {
-		line-height:.5;
+		margin-bottom:0px;
 	}
 	&__title {
 		font-weight:bold;
@@ -25,3 +25,4 @@
 		
 	}
 }
+
