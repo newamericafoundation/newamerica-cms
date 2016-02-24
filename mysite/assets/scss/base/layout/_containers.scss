@@ -1,5 +1,7 @@
 .container {
-	/*display:table;*/
+	@include breakpoint(medium) {
+		display:table;
+	}
 	/*min-height:100%;*/
 	background-color: palette-get(na-black); 
 	/*position: absolute;*/
@@ -7,33 +9,31 @@
 
 .sidemenu-container {
 	width:100%;
-	height:100%;
-	/*min-height:100%;*/
 
-	@include desktop-sidemenu {
-		/*display: table-cell;*/
+	@include breakpoint(medium) {
+		height:100%;
+		display: table-cell;
 		float:left;
 		width: $max-sidemenu-width;
-		/*min-height:100%;*/
-		/*position: absolute; 
-		bottom: 0; top: 78px;*/
 	}
 }
 
 .content-container {
 	width: 100%;
+	height:100%;
 	background-color: palette-get(na-white);
-	/*overflow:;*/
-	/*height: 100%;*/
 
 	&.has-sidemenu {
 		/*padding-top:$mobile-header-height;*/
 
-		@include desktop-sidemenu {
-			/*display: table-cell;*/
-			/*float:left;*/
-			width: calc(100% - #{$max-sidemenu-width});
-			margin-left: $max-sidemenu-width;
+		@include breakpoint(medium) {
+			display:table-cell;
+			width: -webkit-calc(100% - #{$max-sidemenu-width)};
+			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
+			  width:         calc(100% - #{$max-sidemenu-width});
+			 
+			float:right;
+			/*margin-left: $max-sidemenu-width;*/
 			padding-left:10px;
 			padding-top: 0px;
 		}
