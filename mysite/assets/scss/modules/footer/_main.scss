@@ -6,6 +6,9 @@
   margin: auto;
   padding: $pad;
   @include clearfix;
+  background-color: white;
+  position:relative;
+  
   p,
   a {
     opacity: $opacity;
@@ -19,7 +22,7 @@
       opacity: 1;
     }
   }
-  position: relative;
+  /*position: relative;*/
   &__main-nav,
   &__info,
   &__social-nav {
