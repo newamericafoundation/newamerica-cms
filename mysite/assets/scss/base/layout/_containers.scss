@@ -1,25 +1,35 @@
 .container {
+	/*min-height:100%;*/
+	
+	/*position: relative;*/
+	width:100%;
+	height:100%;
 	@include breakpoint(medium) {
 		display:table;
+		
 	}
-	/*min-height:100%;*/
-	background-color: palette-get(na-black); 
-	/*position: absolute;*/
+	
 }
 
 .sidemenu-container {
+	background-color: palette-get(na-black);
 	width:100%;
+
 
 	@include breakpoint(medium) {
 		height:100%;
 		display: table-cell;
-		float:left;
+		/*float:left;*/
 		width: $max-sidemenu-width;
+		/*position:absolute;*/
+		top:0;
+		bottom:0;
+		left:0;
 	}
 }
 
 .content-container {
-	width: 100%;
+	
 	height:100%;
 	background-color: palette-get(na-white);
 
@@ -31,10 +41,10 @@
 			width: -webkit-calc(100% - #{$max-sidemenu-width)};
 			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
 			  width:         calc(100% - #{$max-sidemenu-width});
-			 
-			float:right;
+			
+			/*position:relative; */
 			/*margin-left: $max-sidemenu-width;*/
-			padding-left:10px;
+			/*float:right;*/
 			padding-top: 0px;
 		}
 	}

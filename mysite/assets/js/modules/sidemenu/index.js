@@ -25,7 +25,7 @@ $window.resize ( function () {
 			// if (clicked == true ) {
 				// console.log("width is greater");
 		    	$(".sidemenu").css("display", "block");
-				$(".content-container").css("display", "block");
+				$(".content-container").css("display", "table-cell");
 				$("footer").css("display", "block");
 				clicked = false;
 			

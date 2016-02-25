@@ -7,7 +7,7 @@
 	@include clearfix;
 
 	&:first-of-type { margin-top: 0; }
-	&:last-of-type { margin-bottom: $pad; }
+	/*&:last-of-type { margin-bottom: $pad; }*/
 
 	// Modifier class that produces a centered section with a maximum width.
 	&--fixed-width {
