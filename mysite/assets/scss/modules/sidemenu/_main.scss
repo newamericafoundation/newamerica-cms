@@ -43,27 +43,30 @@ $right-pad: 20px;
 
 .sidemenu {
   top: 0;
-  background-color: palette-get(na-black);
+  background-color: palette-get(na-white);
   width: 100%;
+  border-right: 2px solid palette-get(na-black-10);
+
  /* height:100%;*/
   z-index: 1000;
-  font-color:palette-get(na-white);
-  padding-top: 15px;
-  padding-bottom: 15px;
+  /*padding-top: 15px;
+  padding-bottom: 15px;*/
   display:none;
   /*overflow:scroll;*/
-  background-color: palette-get(na-black);
+  /*background-color: palette-get(na-black);*/
   /*padding-left: 20px;*/
 
   @include desktop-sidemenu {
-    display:table-cell;
+    display:block;
+    margin-top: $desktop-padding;
+    /*display:table-cell;*/
     /*margin-top: 20px;*/
   }
 
   &__program-title {
-    margin-left: $left-pad;
+    margin-left: $desktop-padding;
     width: $max-sidemenu-width / 2;
-    background-color: palette-get(na-white);
+    background-color: palette-get(na-black);
     padding: 9px;
     height:60px;
     max-height:60px;
@@ -76,6 +79,7 @@ $right-pad: 20px;
     &__title {
       position: relative;
       font-family: "Platform"; 
+      color:palette-get(na-white);
       font-weight: bold;
       font-size: 17px; 
       line-height: 18px; 
@@ -86,20 +90,19 @@ $right-pad: 20px;
   }
 
   &__link-group {
-    color: white;
-    margin-top:12px;
+    color: palette-get(na-black);
+    margin-top: 15px;
 
     &__content > li > a {
-      padding: 8px 0px;
+      padding: 8px $desktop-padding;
     }
 
     &__title {
-      padding-left: $left-pad;
+      padding: 10px $desktop-padding;
       font-size:20px;
     }
 
     &__link {
-      padding-left: $left-pad;
 
       &:hover {
         background-color: palette-get(na-turquoise);
