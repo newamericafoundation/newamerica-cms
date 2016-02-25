@@ -6,30 +6,33 @@
 {% block body_class %}template-policypaper{% endblock %}
 
 {% block post-content %}
-    <!-- <h1> {{ page.title }} </h1> -->
     <h3 class="post-date"> {{ page.date }} </h3>
 
     {{ page.body }}
     {{ page.paper_url }}
     {{ page.attachment }}
 
-    {% if page.post_author.all %}
-    <div class="row person-grid__content">
-		{% for author in authors %}
-			<div class="small-6 large-4 columns post-person">
-				<div class="post-person__photo">{{author.author.photo}}</div>
-				<div class="post-person__info">
-					<a class= "post-person__info__name" href="{{ author.author.url }}">{{author.author.name}}</a><br>
-					{{ author.author.position_at_new_america }}
-					{% if author.author.program %}
-			            <br>
-			            <a href="{{author.author.program.url }}">{{ author.author.program }}</a>
-			        {% endif %}
+    <div class="author-box">
+    	<br>
+    	<h5>Authors</h5>
+    	<br>
+	    {% if page.post_author.all %}
+	    <div class="row person-grid__content">
+			{% for author in authors %}
+				<div class="small-6 large-4 columns post-person">
+					<div class="post-person__photo">{{author.author.photo}}</div>
+					<div class="post-person__info">
+						<a class= "post-person__info__name" href="{{ author.author.url }}">{{author.author.name}}</a><br>
+						{{ author.author.position_at_new_america }}
+						{% if author.author.program %}
+				            <br>
+				            <a href="{{author.author.program.url }}">{{ author.author.program }}</a>
+				        {% endif %}
+				    </div>
 			    </div>
-		    </div>
-		{% endfor %}
-	</div>
-	{% endif %}
-    
+			{% endfor %}
+		</div>
+		{% endif %}
+    </div>
 
 {% endblock %}

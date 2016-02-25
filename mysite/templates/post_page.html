@@ -14,7 +14,7 @@
 		<div class="post-header__text">
 			<div >
 				{% if self.get_ancestors|length > 2 %}
-		            <ul class="post-header__text__breadcrumbs">
+		            <ul class="breadcrumb">
 
 		            {% for page in self.get_ancestors %}
 		                {% if page.is_root == False %}
@@ -27,7 +27,6 @@
 		    </div>
 		    <div class="post-header__text__title">
 		    	<h1>{{ page.title }}</h1>
-		    	<!-- <h5>{{ page.sub_headline }}</h5> -->
 		    </div>
 		</div>
 	</div>
