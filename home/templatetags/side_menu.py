@@ -13,12 +13,15 @@ register = template.Library()
 def needs_sidebar(context):
     """ Checks if the page is an AbstractProgram descendant """
     use_side_bar = False
-    if isinstance(context['self'], AbstractProgram):
+    if context['self'] =='Search':
+        use_side_bar = False
+    elif isinstance(context['self'], AbstractProgram):
         use_side_bar = True
     elif isinstance(context['self'], Post):
         use_side_bar = True
     elif 'programs.Program' in context['self'].parent_page_types:
         use_side_bar = True
+    
     return use_side_bar
 
 # Retrieves the top menu items - the immediate children of the parent page
