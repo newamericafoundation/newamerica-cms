@@ -12,16 +12,16 @@
 }
 
 .sidemenu-container {
-	background-color: palette-get(na-black);
+	background-color: palette-get(na-white);
 	width:100%;
 
 
 	@include breakpoint(medium) {
+
 		height:100%;
+		
 		display: table-cell;
-		/*float:left;*/
 		width: $max-sidemenu-width;
-		/*position:absolute;*/
 		top:0;
 		bottom:0;
 		left:0;
@@ -31,21 +31,27 @@
 .content-container {
 	
 	height:100%;
-	background-color: palette-get(na-white);
+	/*padding: $desktop-padding;*/
+	/*background-color: palette-get(na-white);*/
+
+	@include breakpoint(medium) {
+		padding: $desktop-padding;
+	}
+
 
 	&.has-sidemenu {
 		/*padding-top:$mobile-header-height;*/
-
 		@include breakpoint(medium) {
 			display:table-cell;
 			width: -webkit-calc(100% - #{$max-sidemenu-width)};
 			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
 			  width:         calc(100% - #{$max-sidemenu-width});
 			
+			
 			/*position:relative; */
 			/*margin-left: $max-sidemenu-width;*/
 			/*float:right;*/
-			padding-top: 0px;
+			/*padding-top: 0px;*/
 		}
 	}
 }
