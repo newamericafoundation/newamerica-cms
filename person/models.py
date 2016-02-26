@@ -79,7 +79,21 @@ class OurPeoplePage(Page):
     subpage_types = ['Person', ]
 
     def get_context(self, request):
+        search_query = request.GET.get('query', None)
+        
+        if search_query:
+            search_results = Page.objects.live().search(search_query)
+
+            # # Log the query so Wagtail can suggest promoted results
+            # Query.get(search_query).add_hit()
+        else:
+            search_results = Page.objects.none()
+
         context = super(OurPeoplePage, self).get_context(request)
+
+        context['search_query'] = search_query
+
+        context['search_results'] = search_results
 
         context['people'] = Person.objects.all()
 
