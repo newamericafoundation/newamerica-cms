@@ -20,10 +20,35 @@
 	        </select>
 	     
         </div>
-        <div class="column person-grid__controls__search">
-        	<input type="search" placeholder="Search Results">
-        </div>
+        {% block search_box%}
+            <div class="column person-grid__controls__search">
+                {% include 'search_box.html' with query_string=query_string only %}
+            </div>
+        {% endblock %}
 	</div>
+
+	{% if search_results %}
+        <ul>
+            {% for result in search_results %}
+                <li>
+                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
+                    {% if result.search_description %}
+                        {{ result.search_description|safe }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if search_results.has_previous %}
+            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% if search_results.has_next %}
+            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+        {% endif %}
+    {% elif search_query %}
+        No results found
+    {% endif %}
 
 	<div class="row person-grid__content">
 		{% for person in people %}
