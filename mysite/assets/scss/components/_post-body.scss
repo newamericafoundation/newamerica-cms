@@ -1,9 +1,14 @@
 .post-body {
   max-width: $max-body-width;
-  width: 100%;
-  margin: auto;
-  padding: 0 $gutter / 2;
-  p,
+  /*width: 100%;*/
+  /*margin: auto;*/
+  /*padding: 0 $gutter / 2;*/
+  padding-top: 30px;
+  padding-left: 30px;
+
+
+
+  /*p,
   blockquote {
     font-size: rem-calc(20);
     color: palette-get(na-black);
@@ -14,5 +19,17 @@
     border-color: palette-get(na-black);
     padding: 0 15px;
     font-style: italic;
-  }
+  }*/
+}
+
+.post-subscribe {
+  margin-top: 30px;
+  height: 300px;
+  border-width: 2.5px;
+  /*width: 100%;*/
+}
+
+.post-date {
+  font-size: 16px;
+  color: palette-get(na-black-40);
 }

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-postpage{% endblock %}
+
+{% block header %}
+	<div class="post-header" style="background-image: linear-gradient(
+	      rgba(0, 0, 0, 0.3),
+	      rgba(0, 0, 0, 0.3)
+	    ), 
+    	url(https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg")>
+
+		<div class="post-header__text">
+		    <div class="post-header__text__title">
+		    	<h1>{{ page.title }}</h1>
+		    </div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="small-12 medium-12 large-9 columns post-body">
+
+		    {% block post-content %}
+
+		    {% endblock %}
+		</div>
+		<div class="small-12 medium-12 large-3 columns post-subscribe">
+			<div class='border-panel post-subscribe'>
+				<div class='border-panel__item'>
+					<div class='border-panel__content'>
+						<h1>Subscribe</h1>
+						<p>Get our weekly digital magazine and events lineup in your inbox</p>
+						<div id='subscribe'>
+							<input type='text' placeholder='Your e-mail' id='subscribe__email-field'></input>
+							<button class='button' id='subscribe__link'>Sign up</button>
+							<div id='subscribe__modal-container'></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+    
+{% endblock %}

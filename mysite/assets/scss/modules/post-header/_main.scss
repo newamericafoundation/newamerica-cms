@@ -1,0 +1,27 @@
+$post-header-height:225px;
+
+.post-header {
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	position:static;
+
+	&__text {
+		padding: $post-header-height/3 20px 30px 25px;
+		color:white;
+
+		&__breadcrumbs > li > a {
+			color:white;
+		}
+
+		&__title h1 {
+			font-size: 40px;
+			@include breakpoint(large) {
+			    font-size: 50px;
+			}
+			/*font-size: 50px;*/
+
+		}
+	}
+
+}
