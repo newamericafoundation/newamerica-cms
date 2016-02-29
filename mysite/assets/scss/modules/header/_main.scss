@@ -6,6 +6,7 @@
   $pad: 20px;
   padding: 0;
   position: fixed;
+  
 
   
   @include desktop-header {
@@ -14,8 +15,6 @@
     margin-left: auto;
     margin-right: auto;
     max-width: $max-site-width;
-    padding-left: $desktop-padding;
-    padding-right: $desktop-padding;
   }
   @include expanded-header {
     padding-top: 8px;
@@ -24,13 +23,14 @@
   }
 
   &__content {
-    padding: 0;
+    padding: $mobile-padding;
+    /*padding-right: $mobile-padding;*/
     @include desktop-header() {
-      padding: 6px 0px 14px;
+      padding: 6px $desktop-padding 14px $desktop-padding;
     }
     @include expanded-header {
       @include desktop-header {
-        padding: $pad 0px 12px;
+        padding: $pad $desktop-padding 12px $desktop-padding;
       }
     }
     & > * {
@@ -40,11 +40,10 @@
     display: block;
     width: 100%;
     margin: auto;
-    max-width: $max-site-width;
   }
   &__secondary-nav,
   &__search {
-    right: 0px;
+    right: $desktop-padding;
     a {
       margin-left: 8px;
     }
@@ -88,6 +87,20 @@
     border-left: 1px solid palette-get(na-black-10);
     border-right: 1px solid palette-get(na-black-10);
   }
+
+  &__mobile-toggle {
+    float:right;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    height:50px;
+    line-height:25px;
+
+    @include desktop-header() {
+      display: none;
+    }
+  }
+
   .mobile-nav {
     display: block;
     @include desktop-header() {
