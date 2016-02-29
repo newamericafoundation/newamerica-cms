@@ -1,15 +1,14 @@
-{% extends "base.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-pressrelease{% endblock %}
 
-{% block content %}
-    <h1> {{ page.headline }} </h1>
-    <h2> {{ page.sub_headline }}</h2>
-    <h3> {{ page.date }} </h3>
-	<br>
+
+{% block post-content %}
+    <h3 class="post-date"> {{ page.date }} </h3>
+	
     {{ page.body }}
     {{ page.attachment }}
 

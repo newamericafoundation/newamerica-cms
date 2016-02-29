@@ -1,23 +1,38 @@
-{% extends "base.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-policypaper{% endblock %}
 
-{% block content %}
-    <h1> {{ page.title }} </h1>
-    <h3> {{ page.date }} </h3>
+{% block post-content %}
+    <h3 class="post-date"> {{ page.date }} </h3>
 
-    {% if page.post_author.all %}
-			{% for author in authors %} 
-	    	<a href="{{ author.author.url }}">{{ author.author }}</a>
-	    	<br>
-	    {% endfor %}
-		{% endif %}
-		<br>
     {{ page.body }}
     {{ page.paper_url }}
     {{ page.attachment }}
+
+    <div class="author-box">
+    	<br>
+    	<h5>Authors</h5>
+    	<br>
+	    {% if page.post_author.all %}
+	    <div class="row person-grid__content">
+			{% for author in authors %}
+				<div class="small-6 large-4 columns post-person">
+					<div class="post-person__photo">{{author.author.photo}}</div>
+					<div class="post-person__info">
+						<a class= "post-person__info__name" href="{{ author.author.url }}">{{author.author.name}}</a><br>
+						{{ author.author.position_at_new_america }}
+						{% if author.author.program %}
+				            <br>
+				            <a href="{{author.author.program.url }}">{{ author.author.program }}</a>
+				        {% endif %}
+				    </div>
+			    </div>
+			{% endfor %}
+		</div>
+		{% endif %}
+    </div>
 
 {% endblock %}
