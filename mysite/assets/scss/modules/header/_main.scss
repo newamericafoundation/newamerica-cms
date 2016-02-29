@@ -6,6 +6,7 @@
   $pad: 20px;
   padding: 0;
   position: fixed;
+  
   @include desktop-header {
     position: fixed;
     border-bottom: $thick-border-width solid palette-get(na-turquoise);
@@ -13,8 +14,9 @@
   @include expanded-header {
     padding-top: 8px;
     position: relative;
-    border: none;
+    /*border: none;*/
   }
+
   &__content {
     padding: 0;
     @include desktop-header() {
