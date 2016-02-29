@@ -6,10 +6,16 @@
   $pad: 20px;
   padding: 0;
   position: fixed;
+
   
   @include desktop-header {
     position: fixed;
     border-bottom: $thick-border-width solid palette-get(na-turquoise);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $max-site-width;
+    padding-left: $desktop-padding;
+    padding-right: $desktop-padding;
   }
   @include expanded-header {
     padding-top: 8px;
@@ -20,11 +26,11 @@
   &__content {
     padding: 0;
     @include desktop-header() {
-      padding: 6px ($pad - 10px + 1px) 14px;
+      padding: 6px 0px 14px;
     }
     @include expanded-header {
       @include desktop-header {
-        padding: $pad ($pad - 10px + 1px) 12px;
+        padding: $pad 0px 12px;
       }
     }
     & > * {
@@ -38,7 +44,7 @@
   }
   &__secondary-nav,
   &__search {
-    right: 10px;
+    right: 0px;
     a {
       margin-left: 8px;
     }
