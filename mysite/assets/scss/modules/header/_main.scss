@@ -12,9 +12,7 @@
   @include desktop-header {
     position: fixed;
     border-bottom: $thick-border-width solid palette-get(na-turquoise);
-    margin-left: auto;
-    margin-right: auto;
-    max-width: $max-site-width;
+    
   }
   @include expanded-header {
     padding-top: 8px;
@@ -26,6 +24,9 @@
     padding: $mobile-padding;
     /*padding-right: $mobile-padding;*/
     @include desktop-header() {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: $max-site-width;
       padding: 6px $desktop-padding 14px $desktop-padding;
     }
     @include expanded-header {
