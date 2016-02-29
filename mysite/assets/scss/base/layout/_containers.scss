@@ -34,8 +34,11 @@
 	/*padding: $desktop-padding;*/
 	/*background-color: palette-get(na-white);*/
 
-	@include breakpoint(medium) {
+	@include desktop-header {
 		padding: $desktop-padding;
+	}
+	@include expanded-header {
+		padding: 0px $desktop-padding;
 	}
 
 
