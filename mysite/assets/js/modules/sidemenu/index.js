@@ -20,12 +20,12 @@ var $window = $( window ); // so you have a "cached" reference
 var breakpoint = 640;
 
 $window.resize ( function () {
-	console.log("calling resize");
+	// console.log("calling resize");
 		if ($window.width() > breakpoint ) {
 			// if (clicked == true ) {
-				console.log("width is greater");
+				// console.log("width is greater");
 		    	$(".sidemenu").css("display", "block");
-				$(".content-container").css("display", "block");
+				$(".content-container").css("display", "table-cell");
 				$("footer").css("display", "block");
 				clicked = false;
 			
@@ -35,7 +35,5 @@ $window.resize ( function () {
 	  		}
 	  	} 
 	
-		// $(".sidemenu-container").css("height", function() {
-		// 	return $(".content-container").css("height");
-		// })
 });
+

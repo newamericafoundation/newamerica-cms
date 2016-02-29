@@ -3,6 +3,8 @@ branch-defaults:
     environment: newamerica-cms-dev
   master:
     environment: newamerica-cms-dev
+  s3:
+    environment: newamerica-cms-dev
   testsite:
     environment: newamerica-cms-dev
     group_suffix: null

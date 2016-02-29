@@ -1,13 +1,13 @@
 // A section within the wrapper, providing standard spacing between UI elements on the page.
 .section {
 
-	$pad: 30px;
-	margin-top: $pad;
+	/*$pad: 30px;*/
+	/*margin-top: $pad;*/
 
 	@include clearfix;
 
 	&:first-of-type { margin-top: 0; }
-	&:last-of-type { margin-bottom: $pad; }
+	/*&:last-of-type { margin-bottom: $pad; }*/
 
 	// Modifier class that produces a centered section with a maximum width.
 	&--fixed-width {
@@ -22,6 +22,8 @@
 		&:first-of-type { margin-top: 0; }
 		&:last-of-type { margin-bottom: 0; }
 
+		padding-left:0px;
+		padding-right: 0px;
 		@include breakpoint(small) {
 			margin: 0;
 		}
