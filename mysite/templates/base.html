@@ -38,7 +38,7 @@
                 {% needs_sidebar as use_sidebar %}
 
                 <section class='section section--fixed-width'>
-                    <div class="container">
+                    <div class='container'>
                         {% if use_sidebar %}
                         <div class='sidemenu-container'>
                             {% block side_menu %}
@@ -55,7 +55,7 @@
                             
                             <div class='breadcrumb-container'>
                                 {% if self.get_ancestors|length > 2 %}
-                                    <ul class="breadcrumb">
+                                    <ul class='breadcrumb'>
 
                                     {% for page in self.get_ancestors %}
                                         {% if page.is_root == False %}
@@ -63,7 +63,7 @@
                                         {% endif %}
                                     {% endfor %}
 
-                                    <li class=”active”>{{ self.title }}</li>
+                                    <li class='active'>{{ self.title }}</li>
 
                                     </ul>
                                 {% endif %}
