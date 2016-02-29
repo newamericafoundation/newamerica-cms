@@ -82,12 +82,12 @@ class OurPeoplePage(Page):
         search_query = request.GET.get('query', None)
         
         if search_query:
-            search_results = Page.objects.live().search(search_query)
+            search_results = Person.objects.live().search(search_query)
 
             # # Log the query so Wagtail can suggest promoted results
             # Query.get(search_query).add_hit()
         else:
-            search_results = Page.objects.none()
+            search_results = Person.objects.none()
 
         context = super(OurPeoplePage, self).get_context(request)
 
