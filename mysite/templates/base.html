@@ -48,7 +48,26 @@
                         {% else %}
                         <div class='content-container'>
                         {% endif %}
+
+                            {% block header %}
+                            {% endblock %}
                             
+                            <div class='breadcrumb-container'>
+                                {% if self.get_ancestors|length > 2 %}
+                                    <ul class="breadcrumb">
+
+                                    {% for page in self.get_ancestors %}
+                                        {% if page.is_root == False %}
+                                        <li><a href="{{ page.url }}">{{ page.title }} > </a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    <li class=”active”>{{ self.title }}</li>
+
+                                    </ul>
+                                {% endif %}
+                            </div>
+
                             {% block content %}
                             {% endblock %}
                             

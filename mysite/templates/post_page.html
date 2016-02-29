@@ -4,7 +4,7 @@
 
 {% block body_class %}template-postpage{% endblock %}
 
-{% block content %}
+{% block header %}
 	<div class="post-header" style="background-image: linear-gradient(
 	      rgba(0, 0, 0, 0.3),
 	      rgba(0, 0, 0, 0.3)
@@ -12,32 +12,22 @@
     	url(https://upload.wikimedia.org/wikipedia/commons/1/1a/Bachalpseeflowers.jpg")>
 
 		<div class="post-header__text">
-			<div >
-				{% if self.get_ancestors|length > 2 %}
-		            <ul class="breadcrumb">
-
-		            {% for page in self.get_ancestors %}
-		                {% if page.is_root == False %}
-		                <li><a href="{{ page.url }}">{{ page.title }} > </a></li>
-		                {% endif %}
-		            {% endfor %}
-
-		            </ul>
-		        {% endif %}
-		    </div>
 		    <div class="post-header__text__title">
 		    	<h1>{{ page.title }}</h1>
 		    </div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block content %}
 	<div class="row">
-		<div class="small-12 medium-12 large-8 columns post-body">
+		<div class="small-12 medium-12 large-9 columns post-body">
 
 		    {% block post-content %}
 
 		    {% endblock %}
 		</div>
-		<div class="small-12 medium-12 large-4 columns post-subscribe">
+		<div class="small-12 medium-12 large-3 columns post-subscribe">
 			<div class='border-panel post-subscribe'>
 				<div class='border-panel__item'>
 					<div class='border-panel__content'>

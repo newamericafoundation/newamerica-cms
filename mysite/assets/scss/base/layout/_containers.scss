@@ -21,3 +21,15 @@
 		}
 	}
 }
+
+.breadcrumb-container {
+	
+	& > .breadcrumb > li , & > .breadcrumb > li > a {
+		color: palette-get(na-black-40);
+	}
+	@include desktop-sidemenu {
+		padding-left:25px;
+		padding-top:10px;
+	}
+
+}
