@@ -5,8 +5,10 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.models import Query
 
 
+
 def search(request):
     search_query = request.GET.get('query', None)
+    model = request.GET.get('model', None)
     page = request.GET.get('page', 1)
 
     # Search
@@ -31,5 +33,4 @@ def search(request):
     return render(request, 'search/search.html', context={
         'search_query': search_query,
         'search_results': search_results,
-        'self': 'Search',
     })
