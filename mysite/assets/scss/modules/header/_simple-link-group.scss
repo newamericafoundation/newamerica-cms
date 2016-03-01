@@ -12,6 +12,12 @@
   .no-flexbox & {
     display: block !important;
   }
+  // position: fixed;
+  // background-color: rgba(0, 0, 0, 0.2);
+  // width: 100vw;
+  // left: 0vw;
+  // height: 100vh;
+  // top: 0vh;
   position: absolute;
   
   @include desktop-header {
@@ -39,8 +45,7 @@
   @mixin local-hover {
     &:hover {
       opacity: 1;
-      color: palette-get(na-white);
-      background-color: palette-get(na-turquoise);
+      color: palette-get(na-turquoise);
     }
   }
   &__content {
@@ -52,14 +57,16 @@
     background-color: palette-get(na-white);
   }
 
-  &__main-element{
+
+  &__element {
     padding-left: 10px;
     padding-right: 10px;
     display: block;
     @include local-hover;
-    margin-top: 10px;
-    font-size: rem-calc(18);
-    font-weight: bold;
-    opacity: 0.9;
+    color: palette-get(na-black-40);
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: rem-calc(16px);
+    opacity: 0.7;
   }
 }

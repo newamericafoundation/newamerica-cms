@@ -46,8 +46,7 @@
   @mixin local-hover {
     &:hover {
       opacity: 1;
-      color: palette-get(na-white);
-      background-color: palette-get(na-turquoise);
+      color: palette-get(na-turquoise);
     }
   }
   &__content {
