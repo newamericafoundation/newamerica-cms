@@ -54,20 +54,20 @@
     margin: auto;
     border-bottom: 4px solid palette-get(na-turquoise);
     @include standard-shadow;
-    padding: 0px 7px 7px 7px;
+    padding: 10px 7px 7px 7px;
     background-color: palette-get(na-white);
     border: 1px solid palette-get(na-black-10);
   }
 
 
   &__element {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     display: block;
     @include local-hover;
     color: palette-get(na-black-40);
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     font-size: rem-calc(16px);
     opacity: 0.7;
   }
