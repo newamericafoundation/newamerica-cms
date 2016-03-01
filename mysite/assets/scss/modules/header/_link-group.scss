@@ -24,10 +24,6 @@
     width: 100%;
     top: 72px;
 
-    .simple-dropdown & {
-      top: 55px;
-      left:-11px;
-    }
   }
   @include expanded-header {
     width: calc(100% + 50px);
