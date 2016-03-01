@@ -150,3 +150,5 @@ MEDIA_URL = '/media/'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "mysite"
+
+WAGTAILSEARCH_RESULTS_TEMPLATE = 'mysite/search_results.html'

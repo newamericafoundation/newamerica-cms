@@ -6,10 +6,13 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import URLBlock
+from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
 
 from programs.models import Program
+
+from search.search import content_search
 
 # Through relationship that connects the Person model
 # to the Program model so that a Person may belong
@@ -22,6 +25,9 @@ class PersonProgramRelationship(models.Model):
     ]
 
 class Person(Page):
+    parent_page_types = ['OurPeoplePage',]
+    subpage_types = []
+
     name = models.CharField(max_length=150)
     position_at_new_america = models.CharField(max_length=500, help_text="Position or Title at New America")
     email = models.EmailField()
@@ -65,8 +71,10 @@ class Person(Page):
         StreamFieldPanel('social_media'),
     ]
 
-    parent_page_types = ['OurPeoplePage',]
-    subpage_types = []
+    search_fields = (
+        index.FilterField('program_id'),
+        index.FilterField('live'),
+    )
 
 
 class OurPeoplePage(Page):
@@ -80,8 +88,12 @@ class OurPeoplePage(Page):
 
     def get_context(self, request):
         context = super(OurPeoplePage, self).get_context(request)
+        search_query = request.GET.get('query', None)
 
-        context['people'] = Person.objects.all()
+        if search_query: 
+            content_search(request, Person, context)
+        else:
+            context['people'] = Person.objects.all()
 
         return context
 

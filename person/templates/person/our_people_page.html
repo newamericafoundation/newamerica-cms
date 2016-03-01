@@ -12,7 +12,7 @@
 	<div class="row person-grid__controls">
 		<div class="column person-grid__controls__filter">
 		
-	        <select>
+	        <select name="program">
 				<option value="all">All Initiatives</option>
 				<option value="open">Open Technology Institute</option>
 				<option value="education">Education Policy</option>
@@ -20,10 +20,41 @@
 	        </select>
 	     
         </div>
-        <div class="column person-grid__controls__search">
-        	<input type="search" placeholder="Search Results">
-        </div>
+        {% block search_box %}
+            <div class="column person-grid__controls__search">
+                {% include 'content_search_box.html' with query_string=query_string program=program only %}
+            </div>
+        {% endblock %}
 	</div>
+
+	{% if search_results %}
+		<div class="row person-grid__content">
+	            {% for result in search_results %}
+	                <div class="small-12 medium-4 large-3 columns person">
+						<div class="person__photo">{{result.photo}}</div>
+						<div class="person__info">
+		                    <a class= "person__info__name" href="{% pageurl result %}">{{ result.name }}</a><br>
+		                    {{ result.position_at_new_america }}
+		                    {% if result.program %}
+		                    	<br>
+		                        <a href="{{result.program.url }}">{{ result.program }}</a>
+		                    {% endif %}
+		                </div>
+	                </div>
+	            {% endfor %}
+	     </div>
+
+
+        {% if search_results.has_previous %}
+            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% if search_results.has_next %}
+            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+        {% endif %}
+    {% elif search_query %}
+        No results found
+    {% endif %}
 
 	<div class="row person-grid__content">
 		{% for person in people %}

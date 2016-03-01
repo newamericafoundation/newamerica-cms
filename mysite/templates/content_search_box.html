@@ -1,0 +1,9 @@
+<form action="{{ pageurl }}" method="get">
+  <select name="program">
+<!-- 	<option value="blank">All Programs</option> -->
+	<option value="Open Technology Institute">Open Technology Institute</option>
+	<option value="Education Policy">Education Policy</option>
+	<option value="Asset Building">Asset Building</option>
+</select>
+  <input type="text" name="query"{% if query_string %} value="{{ query_string }}" {% endif %}>
+</form>
