@@ -1,4 +1,4 @@
-.header__link-group {
+.header__simple-link-group {
   @mixin is-active {
     .header__has-link-group:hover &,
     .header__has-link-group--active & {
@@ -21,13 +21,9 @@
   position: absolute;
   left: 0;
   @include desktop-header {
-    width: 100%;
-    top: 72px;
-
-    .simple-dropdown & {
-      top: 55px;
-      left:-11px;
-    }
+    width: 230px;
+    top: 55px;
+    left:-11px;
   }
   @include expanded-header {
     width: calc(100% + 50px);
@@ -36,6 +32,7 @@
   }
   z-index: 4;
   padding: 5px 11px 0;
+
   a,
   p,
   h1,
@@ -65,7 +62,7 @@
     // 	top: 5%;
     // }
     @include standard-shadow;
-    padding: 30px 7px;
+    padding: 0px 7px 7px 7px;
     background-color: palette-get(na-white);
   }
   &__heading {
@@ -87,7 +84,7 @@
     @include local-hover;
   }
   &__main-element {
-    margin-top: 16px;
+    margin-top: 10px;
     font-size: rem-calc(18);
     font-weight: bold;
     opacity: 0.9;
