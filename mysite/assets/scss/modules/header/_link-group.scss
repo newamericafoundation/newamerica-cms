@@ -32,6 +32,8 @@
   }
   z-index: 4;
   padding: 5px 11px 0;
+ 
+
   a,
   p,
   h1,
@@ -62,6 +64,7 @@
     @include standard-shadow;
     padding: 30px 7px;
     background-color: palette-get(na-white);
+     border: 1px solid palette-get(na-black-10);
   }
   &__heading {
     margin-bottom: 0;
