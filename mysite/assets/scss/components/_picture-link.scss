@@ -4,6 +4,7 @@
   @include clearfix;
   width: auto;
   height: $size;
+  padding-left: $local-gutter;
   @include space-out(medium);
   &__picture,
   &__content {
@@ -29,7 +30,7 @@
     }
     h1 {
       font-weight: bold;
-      font-size: rem-calc(24);
+      font-size: rem-calc(20);
     }
     p {
       margin-top: 3px;

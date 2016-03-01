@@ -1,8 +1,7 @@
 // A section within the wrapper, providing standard spacing between UI elements on the page.
 .section {
 
-	/*$pad: 30px;*/
-	/*margin-top: $pad;*/
+	margin-top: $desktop-padding;
 
 	@include clearfix;
 

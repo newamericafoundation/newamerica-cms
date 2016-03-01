@@ -53,8 +53,9 @@
                             {% block header %}
                             {% endblock %}
                             
+                            {% if self.get_ancestors|length > 2 %}
                             <div class='breadcrumb-container'>
-                                {% if self.get_ancestors|length > 2 %}
+                                
                                     <ul class='breadcrumb'>
 
                                     {% for page in self.get_ancestors %}
@@ -66,8 +67,9 @@
                                     <li class='active'>{{ self.title }}</li>
 
                                     </ul>
-                                {% endif %}
+                                
                             </div>
+                            {% endif %}
 
                             {% block content %}
                             {% endblock %}
