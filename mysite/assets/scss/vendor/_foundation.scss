@@ -48,8 +48,8 @@
 
 input[type='text'] {
   &:focus {
-    $placeholder-color: rgba(255, 255, 255, 0.8);
-    color: #fff;
+    $placeholder-color: palette-get(na-black-10);
+    color: palette-get(na-black-40);
     &::-webkit-input-placeholder {
       color: $placeholder-color;
     }

@@ -12,7 +12,7 @@
   padding: 0;
   position: absolute;
   bottom: 13px;
-  width: 200px;
+  width: 220px;
   &__form {
     visibility: hidden;
     @include is-active {
@@ -22,7 +22,7 @@
       margin: 0;
     }
   }
-  &__icon {
+  /*&__icon {
     cursor: pointer;
     position: absolute;
     right: 10px;
@@ -32,6 +32,6 @@
     fill: palette-get(na-black);
     @include is-active {
       fill: palette-get(na-black-40);
-    }
-  }
+    }*/
+  
 }

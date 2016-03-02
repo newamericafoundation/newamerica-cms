@@ -44,17 +44,18 @@ $breadcrumbs-item-color: palette-get(na-black);
 $breadcrumbs-item-uppercase: false;
 $breadcrumbs-item-slash: true !default;
 
-$input-background: palette-get(na-black-10);
-$input-background-focus: palette-get(na-turquoise);
+$input-background: #fff;
+$input-background-focus: #fff;
 
-$input-color: palette-get(na-black);
-$input-color-focus: palette-get(na-white);
+/*$input-color: palette-get(na-black-10);
+$input-color-focus: palette-get(na-black);*/
 
 $input-height: 40px;
 $input-font-size: rem-calc(16);
 
-$input-border: none;
-$input-border-focus: none;
+$input-border: 2px solid palette-get(na-black-10);
+$input-border-focus: 2px solid palette-get(na-black-10);
+/*$input-border-focus: none;*/
 $input-shadow: none;
 $input-shadow-focus: none;
 
