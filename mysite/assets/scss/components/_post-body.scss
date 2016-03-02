@@ -3,8 +3,8 @@
   /*width: 100%;*/
   /*margin: auto;*/
   /*padding: 0 $gutter / 2;*/
-  padding-top: 30px;
-  padding-left: 30px;
+  padding-top: $desktop-padding;
+  padding-left: $desktop-padding;
 
 
 
@@ -29,7 +29,14 @@
   /*width: 100%;*/
 }
 
-.post-date {
+.post-author {
+  margin-top: 8px;
   font-size: 16px;
+  font-weight:bold;
+}
+
+.post-date {
+  font-size: 15px;
   color: palette-get(na-black-40);
+  margin-bottom: $desktop-padding;
 }
