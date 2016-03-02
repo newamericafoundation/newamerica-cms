@@ -47,5 +47,27 @@
   &__right {
     display: inline-block;
     float:right;
+
+    &__item {
+      height: 46px;
+      z-index: 3;
+      overflow: visible;
+
+      & > .header__button {
+        background-color: palette-get(na-turquoise);
+        color: palette-get(na-white);
+      }
+    }
+
+    &__search {
+      height:46px;
+      margin-left: 10px;
+
+      & > form > input {
+        height: 46px;
+        margin: 0px;
+      }
+    }
   }
+
 }
