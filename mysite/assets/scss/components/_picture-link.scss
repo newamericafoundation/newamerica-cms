@@ -5,7 +5,11 @@
   width: auto;
   height: $size;
   padding-left: $local-gutter;
-  @include space-out(medium);
+  /*@include space-out(medium);*/
+  margin-top: $gutter / 2;
+  margin-bottom: $gutter / 2;
+
+
   &__picture,
   &__content {
     float: left;
@@ -16,11 +20,14 @@
     content: '';
     background-size: cover;
     background-position: 50% 50%;
+    margin-top: 4px;
   }
   &__content {
     width: calc(100% - #{$size + $local-gutter});
     display: inline-block;
     margin-left: $local-gutter;
+    line-height: 120%;
+
     h1,
     p {
       width: 100%;
@@ -30,6 +37,7 @@
     h1 {
       font-weight: bold;
       font-size: rem-calc(20);
+      line-height: 120%;
     }
     p {
       margin-top: 3px;
