@@ -1,4 +1,5 @@
 .post-body {
+  padding-top:$desktop-padding;
   &:first-letter {
     font-size:110px;
     font-weight:bold;
@@ -39,5 +40,5 @@
 .post-date {
   font-size: 15px;
   color: palette-get(na-black-40);
-  margin-bottom: 15px;
+  margin-bottom: 0px;
 }
