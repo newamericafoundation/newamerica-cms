@@ -102,10 +102,9 @@
     }
   }
 
-  .mobile-nav {
-    display: block;
-    @include desktop-header() {
-      display: none;
-    }
-  }
+  
 }
+
+.mobile-header {
+    display: none;
+  }
