@@ -12,9 +12,6 @@
   height: $height;
   width: 100%;
   @include space-out(medium);
-  /*margin-left: 20px;*/
-  /*margin-right: 20px;*/
-
   overflow: hidden;
   position: relative;
   &__item {

@@ -50,7 +50,6 @@
 			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
 			  width:         calc(100% - #{$max-sidemenu-width});
 			
-			
 			/*position:relative; */
 			/*margin-left: $max-sidemenu-width;*/
 			/*float:right;*/
@@ -72,15 +71,16 @@
 }
 
 .border-panel-container {
-
-	
 	@include breakpoint(medium) {
 		padding: 10px 0px 10px 0px;
 		
 	}
-
 	@include breakpoint(large) {
-		padding-left: 10px;
-		padding-right: 10px;
+		padding: 0px 10px 0px 10px;
 	}
+}
+
+.hero-grid-container {
+	padding-left: 0px;
+	padding-right: 0px;
 }
