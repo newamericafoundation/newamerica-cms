@@ -1,4 +1,5 @@
 .header__secondary-nav {
+
   display: none;
   @include desktop-header {
     display: none;
@@ -9,6 +10,7 @@
   position: absolute;
   top: 30px;
   a {
+    color:palette-get(na-black-40);
     padding: 0 8px;
     &:last-of-type {
       padding-right: 0;
