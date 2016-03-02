@@ -47,17 +47,17 @@ $breadcrumbs-item-slash: true !default;
 $input-background: #fff;
 $input-background-focus: #fff;
 
-/*$input-color: palette-get(na-black-10);
-$input-color-focus: palette-get(na-black);*/
+/*$input-color: palette-get(na-black-10);*/
+$input-color-focus: palette-get(na-black);
 
 $input-height: 35px;
 $input-font-size: rem-calc(16);
 
 $input-border: 2px solid palette-get(na-black-10);
 $input-border-focus: 2px solid palette-get(na-black-10);
-/*$input-border-focus: none;*/
+
 $input-shadow: none;
-$input-shadow-focus: none;
+$input-shadow-focus: 0 0 25px 0 palette-get(shadow);;
 
 $form-spacing: 1.73rem;//1.375rem;
 

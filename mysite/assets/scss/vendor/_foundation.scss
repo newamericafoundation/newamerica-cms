@@ -49,7 +49,7 @@
 input[type='text'] {
   &:focus {
     $placeholder-color: palette-get(na-black-10);
-    color: palette-get(na-black-40);
+    color: palette-get(na-black);
     &::-webkit-input-placeholder {
       color: $placeholder-color;
     }
