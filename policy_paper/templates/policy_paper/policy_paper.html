@@ -6,7 +6,18 @@
 {% block body_class %}template-policypaper{% endblock %}
 
 {% block post-content %}
-    <h3 class="post-date"> {{ page.date }} </h3>
+
+	{% if page.post_author.all %}
+	    	
+	    <h5 class="post-author">By 
+			{% for author in authors %}
+				<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
+			{% endfor %}
+		</h5>
+		
+	{% endif %}
+
+    <h5 class="post-date"> {{ page.date }} </h5>
 
     {{ page.body }}
     {{ page.paper_url }}
