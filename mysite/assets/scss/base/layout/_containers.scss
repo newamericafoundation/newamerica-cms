@@ -71,5 +71,9 @@
 			color: grey;
 		}
 	}
+}
 
+.post-container {
+	max-width: $max-body-width;
+  	padding-top: $desktop-padding;
 }
