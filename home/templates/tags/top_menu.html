@@ -9,6 +9,10 @@
             <h1>New America</h1>
         </a>
 
+        <div class="header__mobile-toggle">
+            <button class="header__mobile-toggle">Menu</button>
+        </div>
+
         <div class='header__secondary-nav'>
             <ul>
                 <li>
@@ -27,7 +31,7 @@
         </div>
 
         <nav class='header__main-nav'>
-            <ul>
+            <ul class='header__main-nav__left'>
                 <li class='header__main-nav__item header__has-link-group'>
 
                     <a class='header__button header__button--dropdown button'>Programs</a>
@@ -161,17 +165,37 @@
 
             </ul>
 
+            <ul class='header__main-nav__right'>
+                <li class='header__main-nav__item'>
+                    <a class='header__button button' href="#">Support</a>
+                </li>
+                <li class='header__main-nav__item'>
+                    <form action="" method="get">
+                            <input type='text' placeholder='Search'></input>
+                    </form>
+                </li>
+
+                <!-- <li class='header__main-nav__item'>
+                    <div class='header__search'>
+                        <form action="" method="get">
+                            <input type='text' placeholder='Search'></input>
+                        </form>
+                    </div>
+                </li> -->
+            </ul>
+
         </nav>
 
-        <div class='header__search'>
-            <form action="" method="get">
-                <input type='text' placeholder='Search'></input>
-            </form>
-        </div>
-
-        <div class="header__mobile-toggle">
-            <button class="header__mobile-toggle">Menu</button>
-        </div>
+        <!-- <div class='header__right-nav'>
+            <!<a class='button' href="#">Support</a> -->
+            <!-- <div class='header__search'>
+                <form action="" method="get">
+                    <input type='text' placeholder='Search'></input>
+                </form>
+            </div>
+        </div> -->
+ 
+        
 
     </div>
 
