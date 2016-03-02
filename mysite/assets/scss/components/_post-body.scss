@@ -1,14 +1,15 @@
 .post-body {
-  max-width: $max-body-width;
-  /*width: 100%;*/
-  /*margin: auto;*/
-  /*padding: 0 $gutter / 2;*/
-  padding-top: $desktop-padding;
-  padding-left: $desktop-padding;
+  &:first-letter {
+    font-size:110px;
+    font-weight:bold;
+    float: left;
+    padding: 20px 10px 5px 0px;
+    height: 55px;
+    margin-right: 0px;
+    line-height: 70px;
+  }
 
-
-
-  /*p,
+  p,
   blockquote {
     font-size: rem-calc(20);
     color: palette-get(na-black);
@@ -19,7 +20,7 @@
     border-color: palette-get(na-black);
     padding: 0 15px;
     font-style: italic;
-  }*/
+  }
 }
 
 .post-subscribe {
@@ -38,5 +39,5 @@
 .post-date {
   font-size: 15px;
   color: palette-get(na-black-40);
-  margin-bottom: $desktop-padding;
+  margin-bottom: 15px;
 }

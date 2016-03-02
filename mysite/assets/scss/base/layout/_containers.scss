@@ -85,3 +85,8 @@
 	padding-left: 0px;
 	padding-right: 0px;
 }
+
+.post-container {
+	max-width: $max-body-width;
+  	padding-top: $desktop-padding;
+}
