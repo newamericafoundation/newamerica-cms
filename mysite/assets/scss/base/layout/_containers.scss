@@ -15,7 +15,6 @@
 	background-color: palette-get(na-white);
 	width:100%;
 
-
 	@include desktop-header {
 		height:100%;
 		display: table-cell;
@@ -57,16 +56,19 @@
 	}
 }
 
-.breadcrumb-container {
-	
-	& > .breadcrumb > li , & > .breadcrumb > li > a {
-		color: palette-get(na-black-40);
-	}
-	@include desktop-header {
-		padding-left: 25px;
-		padding-top: 10px;
-	}
+.breadcrumb-social-media-container {
+	/*@include desktop-sidemenu {
+		padding: 30px 0px;
+	}*/
+	&__content {
+		height: 60px;
+		position: relative;
+		top: 10px;
 
+		& > .breadcrumb > li , & > .breadcrumb > li > a {
+			color: grey;
+		}
+	}
 }
 
 .border-panel-container {
