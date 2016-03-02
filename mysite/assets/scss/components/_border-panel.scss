@@ -13,7 +13,7 @@
   width: 100%;
   @include space-out(medium);
   /*margin-left: 20px;*/
-  margin-right: 20px;
+  /*margin-right: 20px;*/
 
   overflow: hidden;
   position: relative;
@@ -81,6 +81,7 @@
     width: 100%;
     text-align: center;
     top: $nav-and-info-offset;
+    left: 3px;
     color: palette-get(na-black-10);
     font-weight: bold;
     text-transform: uppercase;
