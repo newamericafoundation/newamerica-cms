@@ -65,8 +65,22 @@
 		color: palette-get(na-black-40);
 	}
 	@include desktop-sidemenu {
-		padding-left:25px;
-		padding-top:10px;
+		padding-left: 25px;
+		padding-top: 10px;
 	}
 
+}
+
+.border-panel-container {
+
+	
+	@include breakpoint(medium) {
+		padding: 10px 0px 10px 0px;
+		
+	}
+
+	@include breakpoint(large) {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 }
