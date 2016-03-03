@@ -11,22 +11,21 @@
 	}
 
 	& > ul > li > a {
-		padding: 8px $desktop-padding;
+		padding: $mobile-menu-item-padding;
 	}
 
 	&__link-group {
 	color: palette-get(na-black);
 	margin-top: 15px;
 
-		
-
 		&__title {
-		  padding: 10px $desktop-padding;
-		  font-size:20px;
+			border: 1px solid palette-get(na-black-10);
+			padding: $mobile-menu-item-padding;
+			font-size:20px;
 		}
 
 		&__link {
-
+			border: 1px solid palette-get(na-black-10);
 		  &:hover {
 		    background-color: palette-get(na-turquoise);
 		  }

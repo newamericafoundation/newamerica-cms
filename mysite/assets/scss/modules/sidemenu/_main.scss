@@ -97,15 +97,16 @@ $right-pad: 25px;
 
   &__link-group {
     color: palette-get(na-black);
-    margin-top: 15px;
 
     &__content > li > a {
-      padding: 8px $desktop-padding;
+      padding: $mobile-menu-item-padding;
+      border: 1px solid palette-get(na-black-10);
     }
 
     &__title {
       padding: 10px $desktop-padding;
       font-size:16px;
+      border: 1px solid palette-get(na-black-10);
     }
 
     &__link {

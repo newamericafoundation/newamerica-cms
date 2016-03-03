@@ -2,10 +2,12 @@
 
 <div class="mobile-header">
     <ul class="menu vertical">
-      <li class="menu-text mobile-header__link-group__title">Programs</li>
-      <li class="mobile-header__link-group__link"><a href="#">Future of War</a></li>
-      <li class="mobile-header__link-group__link"><a href="#">Cybersecurity Initiative</a></li>
-      <li class="mobile-header__link-group__link"><a href="#">World of Drones</a></li>
+        <li class="menu-text mobile-header__link-group__title">Programs</li>
+            {% for program in programs %}
+                <li class="mobile-header__link-group__link"><a href="{{ program.url }}">{{ program.title }}</a></li>
+            {% endfor %}
+      
+    
 
       <li class="menu-text mobile-header__link-group__title">Events</li>
 
