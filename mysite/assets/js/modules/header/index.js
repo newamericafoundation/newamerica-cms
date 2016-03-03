@@ -43,16 +43,6 @@ function addHeaderInteractivity() {
 			$readProgressBar.css('width', `${ratio * 100}%`)
 		})
 	}
-
-	$(".header__mobile-toggle__button").on("click", function() {
-		// clicked = !clicked;
-		console.log("clicked!");
-		$(".mobile-header").toggle();
-		$(".mobile-sidemenu").toggle();
-		$(".content-container").toggle();
-		$("footer").toggle();
-	})
-
 }
 
 $(addHeaderInteractivity)
