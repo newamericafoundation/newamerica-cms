@@ -6,12 +6,12 @@
   $pad: 20px;
   padding: 0;
   position: fixed;
-  
+  border-bottom: $thick-border-width solid palette-get(na-turquoise);
 
   
   @include desktop-header {
     position: fixed;
-    border-bottom: $thick-border-width solid palette-get(na-turquoise);
+    
     
   }
   @include expanded-header {
@@ -90,12 +90,14 @@
   }
 
   &__mobile-toggle {
+    position: relative;
     float:right;
     font-weight: bold;
     display: inline-block;
     vertical-align: middle;
-    height:50px;
-    line-height:25px;
+    font-size: 17px; 
+    line-height: 18px; 
+    top: 16px;
 
     @include desktop-header() {
       display: none;
@@ -104,7 +106,3 @@
 
   
 }
-
-.mobile-header {
-    display: none;
-  }

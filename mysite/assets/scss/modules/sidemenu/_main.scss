@@ -101,12 +101,23 @@ $right-pad: 25px;
     &__content > li > a {
       padding: $mobile-menu-item-padding;
       border: 1px solid palette-get(na-black-10);
+
+      @include desktop-sidemenu {
+        padding: 8px $desktop-padding;
+        border: none;
+      }
     }
 
     &__title {
       padding: 10px $desktop-padding;
       font-size:16px;
       border: 1px solid palette-get(na-black-10);
+
+      @include desktop-sidemenu {
+        padding: 10px $desktop-padding;
+        border: none;
+      }
+
     }
 
     &__link {
