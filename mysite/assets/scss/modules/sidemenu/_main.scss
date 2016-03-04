@@ -15,7 +15,7 @@ $right-pad: 25px;
   &__program-title {
     margin-left: $desktop-padding;
     margin-top: 10px;
-    width: $max-sidemenu-width / 2;
+    width: 145px;
     background-color: palette-get(na-white);
     padding: 9px;
     height:50px;
@@ -72,7 +72,7 @@ $right-pad: 25px;
 
   &__program-title {
     margin-left: $desktop-padding;
-    width: $max-sidemenu-width / 2;
+    width: 150px;
     background-color: palette-get(na-black);
     padding: 9px;
     height:60px;
@@ -87,11 +87,9 @@ $right-pad: 25px;
     &__title {
       position: relative;
       font-family: "Platform"; 
-      
-      font-weight: bold;
-      font-size: 17px; 
-      line-height: 18px; 
-      padding-top: 1px;  
+      font-style: normal;
+      font-size: 19px; 
+      line-height: 100%;   
       top: 50%; 
       transform: translateY(-50%);
     }
@@ -107,10 +105,11 @@ $right-pad: 25px;
 
     &__title {
       padding: 10px $desktop-padding;
-      font-size:20px;
+      font-size:16px;
     }
 
     &__link {
+      font-size:15px;
 
       &:hover {
         background-color: palette-get(na-turquoise);
