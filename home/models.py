@@ -271,7 +271,7 @@ class Post(Page):
             slug=parent_page.slug
         )
         if isinstance(parent_program, AbstractProgram):
-            relationship, created = PostProgramRelationship.objects.get_or_create(
+            relationship, created=PostProgramRelationship.objects.get_or_create(
                 program=parent_program, post=self
             )
             if created:
