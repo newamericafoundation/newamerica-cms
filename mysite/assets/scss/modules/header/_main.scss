@@ -1,7 +1,7 @@
 .header {
   top: 0;
   background-color: palette-get(na-white);
-  width: 100%;
+  width: 50%;
   z-index: 1000;
   $pad: 20px;
   padding: 0;
@@ -11,12 +11,13 @@
   
   @include desktop-header {
     position: fixed;
-    
+    width: 100%;
     
   }
   @include expanded-header {
     padding-top: 8px;
     position: relative;
+    width: 100%;
     border: none;
   }
 

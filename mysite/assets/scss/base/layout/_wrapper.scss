@@ -7,7 +7,7 @@
   &__clear-header {
     width: 100%;
     height: 100%;
-    padding-top: $mobile-header-height;
+    /*padding-top: $mobile-header-height;*/
     @include desktop-header() {
       padding-top: 82px;
     }
