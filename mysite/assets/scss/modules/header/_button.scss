@@ -29,6 +29,14 @@
   .header__main-nav__item:hover & {
     background-color: palette-get(na-white);
     color: palette-get(na-black);
+    border: 1px solid palette-get(na-black-10);
+    @include standard-shadow;
+  }
+
+  .header__main-nav__simple-link-group-item:hover & {
+    background-color: palette-get(na-white);
+    color: palette-get(na-black);
+    border: 1px solid palette-get(na-black-10);
     @include standard-shadow;
   }
 }
