@@ -73,9 +73,11 @@
 		<div class='small-12 large-4 columns'>
 			{% image feature_story.post.story_image original as feature_story_image %}
 			<div class='picture-link'>
-				<div class='picture-link__picture'>
-					<a href="{{ feature_story.url }}"><img {{ feature_story_image.attrs }} /></a>
-				</div>
+				<a href="{{ feature_story.url }}">
+					<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>
+						
+					</div>
+				</a>
 				<div class='picture-link__content'>
 					<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
 					<p>{{ feature_story.post.story_excerpt }}</p>
