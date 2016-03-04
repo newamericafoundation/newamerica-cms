@@ -8,6 +8,8 @@ import $ from 'jquery'
 //   LINK_GROUP_CONTENT_CLASS_NAME
 // } from './constants.js'
 
+var desktopHeaderBreakpoint = 945;
+
 var headerExpanded = false;
 var sidemenuExpanded = false;
 
@@ -67,11 +69,11 @@ $(addMenuResponsivity);
 
 
 var $window = $( window ); // so you have a "cached" reference 
-var breakpoint = 640;
+// var breakpoint = 640;
 
 $window.resize ( function () {
 	// console.log("calling resize");
-		if ($window.width() > breakpoint ) {
+		if ($window.width() > desktopHeaderBreakpoint ) {
 			// if (clicked == true ) {
 				console.log("width is greater");
 				$(".mobile-sidemenu").css("display", "none");

@@ -13,7 +13,7 @@ $right-pad: 25px;
   border-bottom: $thick-border-width solid palette-get(na-turquoise);
   /*font-color:palette-get(na-white);*/
 
-  @include desktop-sidemenu {
+  @include desktop-header {
     display:none;
   }
 
@@ -75,7 +75,7 @@ $right-pad: 25px;
   /*background-color: palette-get(na-black);*/
   /*padding-left: 20px;*/
 
-  @include desktop-sidemenu {
+  @include desktop-header {
     top: 0px;
     display:block;
     margin-top: $desktop-padding;
@@ -95,7 +95,7 @@ $right-pad: 25px;
     display:none;
     color:palette-get(na-white);
 
-    @include desktop-sidemenu {
+    @include desktop-header {
       display:block;
     }
 
@@ -113,24 +113,44 @@ $right-pad: 25px;
   &__link-group {
     color: palette-get(na-white);
 
-    @include desktop-sidemenu {
+    @include desktop-header {
       color: palette-get(na-black);
     }
 
+
+    & > ul > li > a {
+      padding: $mobile-menu-item-padding;
+
+      @include desktop-header {
+        padding: 0px;
+      }
+    } 
+
     &__title, &__link {
       height: $mobile-menu-item-height;
-      padding: $mobile-menu-item-padding;
       border-top: 1px solid palette-get(na-off-black);
       border-bottom: 1px solid palette-get(na-off-black);
 
-      @include desktop-sidemenu {
+
+      @include desktop-header {
         height:auto;
-        padding: 10px $desktop-padding;
         border: none;
       }
     }
 
+    &__title {
+      padding: $mobile-menu-item-padding;
+
+      @include desktop-header {
+        padding: 10px $desktop-padding;
+      }
+    }
+
     &__link {
+
+      @include desktop-header {
+        padding: 10px $desktop-padding;
+      }
 
       &:hover {
         background-color: palette-get(na-turquoise);
@@ -148,7 +168,7 @@ $right-pad: 25px;
           color: white;
         }
       }
-    }
+    } 
    
   }
 }

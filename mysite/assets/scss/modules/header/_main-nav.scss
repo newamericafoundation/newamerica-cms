@@ -1,3 +1,9 @@
+@mixin show-support {
+  @media screen and (min-width: 1035px) {
+    @content;
+  }
+}
+
 .header__main-nav {
   $header-brand-width : 174.5px;
 
@@ -49,6 +55,13 @@
     float:right;
 
     &__item {
+      display: none;
+
+      @include show-support {
+         display: inline-block;
+
+      }
+
       height: 46px;
       z-index: 3;
       overflow: visible;

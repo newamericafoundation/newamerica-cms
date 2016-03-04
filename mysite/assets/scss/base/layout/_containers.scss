@@ -4,7 +4,7 @@
 	/*position: relative;*/
 	width:100%;
 	height:100%;
-	@include breakpoint(medium) {
+	@include desktop-header {
 		display:table;
 		
 	}
@@ -16,10 +16,8 @@
 	width:100%;
 
 
-	@include breakpoint(medium) {
-
+	@include desktop-header {
 		height:100%;
-		
 		display: table-cell;
 		width: $max-sidemenu-width;
 		top:0;
@@ -45,7 +43,7 @@
 	&.has-sidemenu {
 		padding-top:$mobile-header-height;
 
-		@include breakpoint(medium) {
+		@include desktop-header {
 			padding-top: $desktop-padding;
 			display:table-cell;
 			width: -webkit-calc(100% - #{$max-sidemenu-width)};
@@ -65,7 +63,7 @@
 	& > .breadcrumb > li , & > .breadcrumb > li > a {
 		color: palette-get(na-black-40);
 	}
-	@include desktop-sidemenu {
+	@include desktop-header {
 		padding-left: 25px;
 		padding-top: 10px;
 	}

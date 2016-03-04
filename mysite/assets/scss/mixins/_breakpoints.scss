@@ -1,5 +1,5 @@
 @mixin desktop-header() {
-  @include breakpoint(medium) {
+  @media screen and (min-width: 945px) {
     @content;
   }
 }
