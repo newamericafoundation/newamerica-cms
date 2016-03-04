@@ -117,38 +117,31 @@ $right-pad: 25px;
       color: palette-get(na-black);
     }
 
-    &__content > li > a {
+    &__title, &__link {
+      height: $mobile-menu-item-height;
       padding: $mobile-menu-item-padding;
-      border-top: 1px solid grey;
-      border-bottom: 1px solid grey;
+      border-top: 1px solid palette-get(na-off-black);
+      border-bottom: 1px solid palette-get(na-off-black);
 
       @include desktop-sidemenu {
-        padding: 8px $desktop-padding;
-        border: none;
-      }
-    }
-
-    &__title {
-      padding: 10px $desktop-padding;
-      font-size:16px;
-      border-top: 1px solid grey;
-      border-bottom: 1px solid grey;
-
-      @include desktop-sidemenu {
+        height:auto;
         padding: 10px $desktop-padding;
         border: none;
       }
-
     }
 
     &__link {
-      font-size:15px;
 
       &:hover {
         background-color: palette-get(na-turquoise);
+
+        & > a {
+          color: white;
+        }
       }
 
       & > a {
+        padding: $mobile-menu-item-padding;
         color: grey;
 
         &:hover {
