@@ -41,12 +41,27 @@ $right-pad: 25px;
   }
 
   &__toggle {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 17px; 
+    line-height: 18px; 
+    position:relative;
     float:right;
     margin-right: $right-pad;
     margin-top: 30px;
-    z-index: 1100;
-    color: palette-get(na-white);
+   
     font-weight:bold;
+    top: 16px;
+    right: 15px;
+
+    &__button {
+      z-index: 1100;
+
+      & > .flip-arrow {
+        fill: palette-get(na-white);
+        /*stroke: palette-get(na-white);*/
+      }
+    }
   }
 }
 

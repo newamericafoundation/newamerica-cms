@@ -30,12 +30,18 @@ function addMenuResponsivity() {
 		
 	})
 
-	$(".mobile-sidemenu__toggle").on("click", function() {
+	$(".mobile-sidemenu__toggle__button").on("click", function() {
 		sidemenuExpanded = !sidemenuExpanded;
 		console.log("clicked!");
 		$(".sidemenu").toggle();
 		$(".content-container").toggle();
 		$("footer").toggle();
+	})
+
+
+	$(".rotate").on("click", function () {
+		console.log("toggling down class");
+	    $(this).toggleClass("down");
 	})
 }
 
