@@ -50,7 +50,6 @@
 			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
 			  width:         calc(100% - #{$max-sidemenu-width});
 			
-			
 			/*position:relative; */
 			/*margin-left: $max-sidemenu-width;*/
 			/*float:right;*/
@@ -65,8 +64,23 @@
 		color: palette-get(na-black-40);
 	}
 	@include desktop-sidemenu {
-		padding-left:25px;
-		padding-top:10px;
+		padding-left: 25px;
+		padding-top: 10px;
 	}
 
+}
+
+.border-panel-container {
+	@include breakpoint(medium) {
+		padding: 10px 0px 10px 0px;
+		
+	}
+	@include breakpoint(large) {
+		padding: 0px 10px 0px 10px;
+	}
+}
+
+.hero-grid-container {
+	padding-left: 0px;
+	padding-right: 0px;
 }
