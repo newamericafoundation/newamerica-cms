@@ -13,11 +13,16 @@ var sidemenuExpanded = false;
 
 function addMenuResponsivity() {
 	$(".header__mobile-toggle__button").on("click", function() {
+		// toggle arrow for header, ensure arrow up for sidemenu
+		$(this).children(".rotate").toggleClass("down");
+		$(".mobile-sidemenu__toggle__button").children(".rotate").removeClass("down");
+
+		// toggle header menu and ensure sidemenu hidden
 		$(".mobile-header").toggle();
-		// $(".mobile-sidemenu").toggle();
 		$(".sidemenu").css("display", "none");
 		sidemenuExpanded = false;
 
+		// if expanding header, hide content and footer, else show content and footer
 		if (headerExpanded) {
 			$(".content-container").css("display", "table-cell");
 			$("footer").css("display", "block");
@@ -31,18 +36,31 @@ function addMenuResponsivity() {
 	})
 
 	$(".mobile-sidemenu__toggle__button").on("click", function() {
-		sidemenuExpanded = !sidemenuExpanded;
-		console.log("clicked!");
+		// toggle arrow for sidemenu, ensure arrow up for header
+		$(this).children(".rotate").toggleClass("down");
+		$(".header__mobile-toggle__button").children(".rotate").removeClass("down");
+
 		$(".sidemenu").toggle();
-		$(".content-container").toggle();
-		$("footer").toggle();
+		$(".mobile-header").css("display", "none");
+		headerExpanded = false;
+		// sidemenuExpanded = !sidemenuExpanded;
+
+		if (sidemenuExpanded) {
+			$(".content-container").css("display", "table-cell");
+			$("footer").css("display", "block");
+			sidemenuExpanded = false;
+		} else {
+			$(".content-container").css("display", "none");
+			$("footer").css("display", "none");
+			sidemenuExpanded = true;
+		}
 	})
 
 
-	$(".rotate").on("click", function () {
-		console.log("toggling down class");
-	    $(this).toggleClass("down");
-	})
+	// $(".rotate").on("click", function () {
+	// 	console.log("toggling down class");
+	//     $(this).toggleClass("down");
+	// })
 }
 
 $(addMenuResponsivity);

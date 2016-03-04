@@ -41,18 +41,12 @@ $right-pad: 25px;
   }
 
   &__toggle {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 17px; 
-    line-height: 18px; 
     position:relative;
     float:right;
-    margin-right: $right-pad;
-    margin-top: 30px;
    
     font-weight:bold;
-    top: 16px;
-    right: 15px;
+    top: 24px;
+    right: 40px;
 
     &__button {
       z-index: 1100;
