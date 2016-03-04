@@ -63,7 +63,7 @@ $right-pad: 25px;
 .sidemenu {
   top: $mobile-header-height;
   position: relative;
-  background-color: palette-get(na-white);
+  background-color: palette-get(na-black);
   width: 100%;
   
 
@@ -79,6 +79,7 @@ $right-pad: 25px;
     top: 0px;
     display:block;
     margin-top: $desktop-padding;
+    background-color: palette-get(na-white);
     border-right: 2px solid palette-get(na-black-10);
     /*display:table-cell;*/
     /*margin-top: 20px;*/
@@ -110,11 +111,16 @@ $right-pad: 25px;
   }
 
   &__link-group {
-    color: palette-get(na-black);
+    color: palette-get(na-white);
+
+    @include desktop-sidemenu {
+      color: palette-get(na-black);
+    }
 
     &__content > li > a {
       padding: $mobile-menu-item-padding;
-      border: 1px solid palette-get(na-black-10);
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
 
       @include desktop-sidemenu {
         padding: 8px $desktop-padding;
@@ -125,7 +131,8 @@ $right-pad: 25px;
     &__title {
       padding: 10px $desktop-padding;
       font-size:16px;
-      border: 1px solid palette-get(na-black-10);
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
 
       @include desktop-sidemenu {
         padding: 10px $desktop-padding;
