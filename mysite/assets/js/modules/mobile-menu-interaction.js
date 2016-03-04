@@ -14,7 +14,7 @@ var sidemenuExpanded = false;
 function addMenuResponsivity() {
 	$(".header__mobile-toggle__button").on("click", function() {
 		$(".mobile-header").toggle();
-		$(".mobile-sidemenu").toggle();
+		// $(".mobile-sidemenu").toggle();
 		$(".sidemenu").css("display", "none");
 		sidemenuExpanded = false;
 
@@ -61,7 +61,6 @@ $window.resize ( function () {
 			
 	  	} else {
 	  		$(".mobile-sidemenu").css("display", "block");
-	  		$(".content-container").css("display", "block");
 
 	  		if (!sidemenuExpanded) {
 	  			$(".sidemenu").css("display", "none");

@@ -1,10 +1,11 @@
 .mobile-header {
     display: none;
-    top: 0;
+    top: $mobile-header-height;
+    position: relative;
 	background-color: palette-get(na-white);
 	width: 100%;
 
-	z-index: 1000;
+	z-index: 500;
 
 	@include desktop-sidemenu {
 		display:none;

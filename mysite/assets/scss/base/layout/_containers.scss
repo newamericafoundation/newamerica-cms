@@ -19,6 +19,7 @@
 	@include breakpoint(medium) {
 
 		height:100%;
+		
 		display: table-cell;
 		width: $max-sidemenu-width;
 		top:0;
@@ -42,9 +43,10 @@
 
 
 	&.has-sidemenu {
-		display:block;
-		/*padding-top:$mobile-header-height;*/
+		padding-top:$mobile-header-height;
+
 		@include breakpoint(medium) {
+			padding-top: $desktop-padding;
 			display:table-cell;
 			width: -webkit-calc(100% - #{$max-sidemenu-width)};
 			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
