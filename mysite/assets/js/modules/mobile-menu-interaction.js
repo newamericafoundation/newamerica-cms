@@ -61,6 +61,7 @@ $window.resize ( function () {
 			
 	  	} else {
 	  		$(".mobile-sidemenu").css("display", "block");
+	  		$(".content-container").css("display", "block");
 
 	  		if (!sidemenuExpanded) {
 	  			$(".sidemenu").css("display", "none");
