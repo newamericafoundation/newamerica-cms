@@ -4,7 +4,9 @@ $right-pad: 25px;
 .mobile-sidemenu {
   background-color: palette-get(na-black);
   width: 50%;
-  float:right;
+  /*float:right;*/
+  right:0px;
+  position: fixed;
   height:$mobile-header-height;
   z-index: 1000;
   border-bottom: $thick-border-width solid palette-get(na-turquoise);
