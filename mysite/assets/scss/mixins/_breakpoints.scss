@@ -6,10 +6,7 @@
 @mixin expanded-header() {
   .header--expanded & {
     @media screen and (min-width: $expanded-header-foldup) {
-      // Ensure that the header can only be expanded on desktop.
-      
         @content;
-      
     }
   }
 }
