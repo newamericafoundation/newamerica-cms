@@ -9,9 +9,11 @@ import $ from 'jquery'
 // } from './constants.js'
 
 var desktopHeaderBreakpoint = 945;
+var expandedHeaderBreakpoint = 750;
+var currHeaderBreakpoint = desktopHeaderBreakpoint;
 
-var headerExpanded = false;
-var sidemenuExpanded = false;
+var headerMenuExpanded = false;
+var sideMenuExpanded = false;
 
 function addMenuResponsivity() {
 	$(".header__mobile-toggle__button").on("click", function() {
@@ -22,17 +24,17 @@ function addMenuResponsivity() {
 		// toggle header menu and ensure sidemenu hidden
 		$(".mobile-header").toggle();
 		$(".sidemenu").css("display", "none");
-		sidemenuExpanded = false;
+		sideMenuExpanded = false;
 
 		// if expanding header, hide content and footer, else show content and footer
-		if (headerExpanded) {
+		if (headerMenuExpanded) {
 			$(".content-container").css("display", "table-cell");
 			$("footer").css("display", "block");
-			headerExpanded = false;
+			headerMenuExpanded = false;
 		} else {
 			$(".content-container").css("display", "none");
 			$("footer").css("display", "none");
-			headerExpanded = true;
+			headerMenuExpanded = true;
 		}
 		
 	})
@@ -44,25 +46,24 @@ function addMenuResponsivity() {
 
 		$(".sidemenu").toggle();
 		$(".mobile-header").css("display", "none");
-		headerExpanded = false;
+		headerMenuExpanded = false;
 		// sidemenuExpanded = !sidemenuExpanded;
 
-		if (sidemenuExpanded) {
+		if (sideMenuExpanded) {
 			$(".content-container").css("display", "table-cell");
 			$("footer").css("display", "block");
-			sidemenuExpanded = false;
+			sideMenuExpanded = false;
 		} else {
 			$(".content-container").css("display", "none");
 			$("footer").css("display", "none");
-			sidemenuExpanded = true;
+			sideMenuExpanded = true;
 		}
 	})
 
+	console.log($("body").hasClass("header--expanded"));
+	currHeaderBreakpoint = $("body").hasClass("header--expanded") ? expandedHeaderBreakpoint : desktopHeaderBreakpoint;
 
-	// $(".rotate").on("click", function () {
-	// 	console.log("toggling down class");
-	//     $(this).toggleClass("down");
-	// })
+
 }
 
 $(addMenuResponsivity);
@@ -73,7 +74,7 @@ var $window = $( window ); // so you have a "cached" reference
 
 $window.resize ( function () {
 	// console.log("calling resize");
-		if ($window.width() > desktopHeaderBreakpoint ) {
+		if ($window.width() > currHeaderBreakpoint ) {
 			// if (clicked == true ) {
 				console.log("width is greater");
 				$(".mobile-sidemenu").css("display", "none");
@@ -81,17 +82,16 @@ $window.resize ( function () {
 		    	$(".mobile-header").css("display", "none");
 				$(".content-container").css("display", "table-cell");
 				$("footer").css("display", "block");
-				sidemenuExpanded = false;
-				headerExpanded = false;
-				// clicked = false;
+				sideMenuExpanded = false;
+				headerMenuExpanded = false;
 			
 	  	} else {
 	  		$(".mobile-sidemenu").css("display", "block");
 
-	  		if (!sidemenuExpanded) {
+	  		if (!sideMenuExpanded) {
 	  			$(".sidemenu").css("display", "none");
 	  		}
-	  		if (!headerExpanded) {
+	  		if (!headerMenuExpanded) {
 	  			$(".mobile-header").css("display", "none");
 	  		}
 	  	} 
