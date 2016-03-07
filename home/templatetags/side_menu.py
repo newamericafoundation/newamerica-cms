@@ -8,7 +8,7 @@ from programs.models import Program, AbstractProgram, Subprogram
 
 from event.models import AllEventsHomePage
 
-from home.models import Post, SimplePage
+from home.models import Post
 
 register = template.Library()
 
@@ -39,7 +39,7 @@ def side_menu(context, parent, calling_page=None):
         #     program_name = context['self'].get_parent().get_parent()
         #     menu_program = Program.objects.get(title=program_name)
         page_depth = context['self'].depth
-        
+
         if page_depth == 3:
             menu_program = context['self']
         elif page_depth > 3:
