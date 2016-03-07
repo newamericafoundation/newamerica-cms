@@ -161,17 +161,33 @@
 			}
 
 			.hero-grid.has-3-children & {
+				@include unfold-3-children {
+					padding-left: $local-gutter / 2;
+				}
+
 				&:nth-of-type(1) {
 					padding-bottom: $local-gutter / 2;
+					@include unfold-3-children {
+						padding-bottom: $local-gutter / 4;
+					}
 				}
 				&:nth-of-type(2) {
 					padding-top: $local-gutter / 2;
+					@include unfold-3-children {
+						padding-top: $local-gutter / 4;
+					}
 				}
 			}
 
 			.hero-grid.has-4-children & {
+				@include unfold-4-children {
+					padding-left: $local-gutter / 2;
+				}
 				&:nth-of-type(1) {
 					padding-bottom: $local-gutter / 2;
+					@include unfold-4-children {
+						padding-bottom: $local-gutter / 4;
+					}
 				}
 				&:nth-of-type(2), &:nth-of-type(3) {
 					width: 100%;
@@ -185,12 +201,14 @@
 					padding-bottom: $local-gutter / 2;
 					@include unfold-4-children {
 						padding-bottom: 0;
-						padding-right: $local-gutter / 2;
+						padding-right: $local-gutter / 4;
+						padding-top: $local-gutter / 4;
 					}
 				}
 				&:nth-of-type(3) {
 					@include unfold-4-children {
-						padding-left: $local-gutter / 2;
+						padding-left: $local-gutter / 4;
+						padding-top: $local-gutter / 4;
 					}
 				}
 			}
@@ -255,7 +273,8 @@
 		}
 
 		&__overlay {
-			background-color: transparentize(palette-get(na-black), 0.92);
+			/*background-color:rgba(44, 47, 53, 0.5);*/
+			background-color: transparentize(palette-get(na-black), 0.5);
 			background-blend-mode: multiply;
 			z-index: 2;
 		  content: '';
