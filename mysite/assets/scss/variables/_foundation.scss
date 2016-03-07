@@ -10,8 +10,8 @@ $breakpoints: (
   xxlarge: 1440px,
 );
 
-$button-background: palette-get(na-turquoise);
-$button-background-hover: palette-get(na-black);
+$button-background: palette-get(na-black);
+$button-background-hover: palette-get(na-turquoise);
 $button-margin: 0;
 
 $button-sizes: (
