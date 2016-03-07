@@ -1,0 +1,42 @@
+div.social-icons {
+  width: 200px;
+  padding: 15px 0;
+}
+
+div.social-icons svg {
+  opacity: 0.3;
+}
+
+div.social-icons svg:hover {
+  opacity: 1;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+div.social-icons svg#facebook-icon {
+  width: 10%;
+  margin-right: 8.75%;
+}
+
+div.social-icons svg#twitter-icon {
+  width: 11%;
+  margin-right: 8.75%;
+}
+
+div.social-icons svg#google-plus-icon {
+  width: 14%;
+  margin-right: 8.75%;
+}
+
+div.social-icons svg#linked-in-icon {
+  width: 10%;
+  margin-right: 8.75%;
+}
+
+div.social-icons svg#youtube-icon {
+  width: 12%;
+}
+
+div.social-icons .st0 {
+  fill: #2C2F35;
+}
