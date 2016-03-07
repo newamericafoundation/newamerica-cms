@@ -1,9 +1,3 @@
-@mixin has-sidemenu {
-  .has_sidemenu & {
-      @content;
-  }
-}
-
 .container {
 	/*min-height:100%;*/
 	
@@ -47,9 +41,7 @@
 	}
 
 
-	@include has_sidemenu {
-		padding-top:$mobile-header-height;
-
+	&.has-sidemenu {
 		@include desktop-header {
 			padding-top: $desktop-padding;
 			display:table-cell;
