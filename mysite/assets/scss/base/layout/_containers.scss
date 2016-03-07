@@ -70,15 +70,7 @@
 
 }
 
-.border-panel-container {
-	@include breakpoint(medium) {
-		padding: 10px 0px 10px 0px;
-		
-	}
-	@include breakpoint(large) {
-		padding: 0px 10px 0px 10px;
-	}
-}
+
 
 .hero-grid-container {
 	padding-left: 0px;
@@ -86,6 +78,57 @@
 }
 
 .picture-link-container {
-	padding-left: 0px;
-	padding-right: 0px;
+	@include breakpoint(medium) {
+		& > .columns {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+
+	@include breakpoint(large) {
+		& > .columns {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:first-child {
+				padding-left: 0px;
+			}
+
+			&:last-child {
+				padding-right: 0px;
+			}
+		}
+	}
+}
+
+.border-panel-container {
+	@include breakpoint(medium) {
+		& > .columns {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+
+	@include breakpoint(large) {
+		& > .columns {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:first-child {
+				padding-left: 0px;
+			}
+
+			&:last-child {
+				padding-right: 0px;
+			}
+		}
+	}
+
+	/*@include breakpoint(medium) {
+		padding: 10px 0px 10px 0px;
+		
+	}
+	@include breakpoint(large) {
+		padding: 0px 10px 0px 10px;
+	}*/
 }
