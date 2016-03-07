@@ -9,7 +9,7 @@
     height: 100%;
     /*padding-top: $mobile-header-height;*/
     @include desktop-header() {
-      padding-top: 82px;
+      padding-top: $desktop-header-height;
     }
     @include expanded-header() {
       padding-top: 0;

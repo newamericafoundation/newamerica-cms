@@ -1,5 +1,9 @@
 .panel {
   padding: 60px 20px;
+  margin-left: -1000px;
+  margin-right:-1000px;
+
+  overflow:hidden;
   margin-top: $desktop-padding;
   background-color: palette-get(na-black-10);
   h1,

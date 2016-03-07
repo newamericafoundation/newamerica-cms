@@ -9,60 +9,60 @@
 {% block content %}
 <section class='section section--fixed-width'>
 	<div class='row'>
-	<div class='columns'>
-		<div class='hero-grid has-{{ other_lead_stories|length|add:"1" }}-children'>
+		<div class='columns hero-grid-container'>
+			<div class='hero-grid has-{{ other_lead_stories|length|add:"1" }}-children'>
 
-			<div class='hero-grid__main'>
+				<div class='hero-grid__main'>
 
-				<div class='hero-grid__element'>
-				<a href="{{ page.lead_1.url }}">
-					<div class='hero-grid__element__wrapper'>
-					{% image page.lead_1.post.story_image original as lead1_image %}
-						<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
-						<div class='hero-grid__element__overlay'></div>
-						<div class='hero-grid__element__text-bar'>
-							<p>
-							{% for author in page.lead_1.post_author.all %}
-								{{ author }}
-							{% endfor %}
-							</p>
-							<h1><a href="{{ lead_1.url }}">{{ page.lead_1.title }}</a></h1>
-						</div>
-					</div>
-				</a>
-				</div>
-
-			</div>
-
-			{% if other_lead_stories %}
-			<div class='hero-grid__secondary'>
-			{% for other_lead_story in other_lead_stories %}
-				{% if other_lead_story %}
 					<div class='hero-grid__element'>
-					<a href="{{ other_lead_story.url }}">
+					<a href="{{ page.lead_1.url }}">
 						<div class='hero-grid__element__wrapper'>
-						{% image other_lead_story.post.story_image original as other_lead_story_image %}
-							<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
+						{% image page.lead_1.post.story_image original as lead1_image %}
+							<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
-								<p>
-								{% for author in other_lead_story.post_author.all %}
-									{{ author}}
+								<p class='hero-grid__element__text-bar__subheading' href="#">
+								{% for author in page.lead_1.post_author.all %}
+									{{ author }}
 								{% endfor %}
 								</p>
-								<h1><a href="{{ story.url }}">{{ other_lead_story.title }}</a></h1>
+								<h1 class='hero-grid__element__text-bar__heading'>{{ page.lead_1.title }}</h1>
 							</div>
 						</div>
 					</a>
 					</div>
-				{% endif %}
-			{% endfor %}
-			</div>
-			{% endif %}
-			
-		</div>
 
-	</div>
+				</div>
+
+				{% if other_lead_stories %}
+				<div class='hero-grid__secondary'>
+				{% for other_lead_story in other_lead_stories %}
+					{% if other_lead_story %}
+						<div class='hero-grid__element'>
+						<a href="{{ other_lead_story.url }}">
+							<div class='hero-grid__element__wrapper'>
+							{% image other_lead_story.post.story_image original as other_lead_story_image %}
+								<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
+								<div class='hero-grid__element__overlay'></div>
+								<div class='hero-grid__element__text-bar'>
+									<p class='hero-grid__element__text-bar__subheading' href="#">
+									{% for author in other_lead_story.post_author.all %}
+										{{ author}}
+									{% endfor %}
+									</p>
+									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>
+								</div>
+							</div>
+						</a>
+						</div>
+					{% endif %}
+				{% endfor %}
+				</div>
+				{% endif %}
+				
+			</div>
+
+		</div>
 	</div>
 
 </section>

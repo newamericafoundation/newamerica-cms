@@ -112,9 +112,9 @@ $right-pad: 25px;
 
   &__link-group {
     color: palette-get(na-white);
-    padding-top: $desktop-padding;
 
     @include desktop-header {
+      padding-top: $desktop-padding;
       color: palette-get(na-black);
     }
 

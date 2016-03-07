@@ -12,16 +12,10 @@
   .no-flexbox & {
     display: block !important;
   }
-  // position: fixed;
-  // background-color: rgba(0, 0, 0, 0.2);
-  // width: 100vw;
-  // left: 0vw;
-  // height: 100vh;
-  // top: 0vh;
   position: absolute;
   
   @include desktop-header {
-    width: 300px;
+    width: 225px;
     top: 55px;
     left:-11px;
   }
