@@ -7,7 +7,6 @@
 {% block sidemenu_status %}has_sidemenu{% endblock %}
 
 {% block content %}
-
 <section class='section section--fixed-width'>
 	<div class='row'>
 		<div class='columns hero-grid-container'>
@@ -22,8 +21,7 @@
 							<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
-
-								<p class='hero-grid__element__text-bar__subheading' href="{{ page.lead_1.url }}">
+								<p class='hero-grid__element__text-bar__subheading' href="#">
 								{% for author in page.lead_1.post_author.all %}
 									{{ author }}
 								{% endfor %}
@@ -41,19 +39,21 @@
 				{% for other_lead_story in other_lead_stories %}
 					{% if other_lead_story %}
 						<div class='hero-grid__element'>
-							<a href="{{ other_lead_story.url }}" class='hero-grid__element__content'>
+						<a href="{{ other_lead_story.url }}">
+							<div class='hero-grid__element__wrapper'>
 							{% image other_lead_story.post.story_image original as other_lead_story_image %}
 								<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
-									<a class='hero-grid__element__text-bar__subheading'>
+									<p class='hero-grid__element__text-bar__subheading' href="#">
 									{% for author in other_lead_story.post_author.all %}
 										{{ author}}
 									{% endfor %}
-									</a>
-									<a class='hero-grid__element__text-bar__heading' href="{{ story.url }}">{{ other_lead_story.title }}</a>
+									</p>
+									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>
 								</div>
-							</a>
+							</div>
+						</a>
 						</div>
 					{% endif %}
 				{% endfor %}
