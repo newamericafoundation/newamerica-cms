@@ -1,9 +1,9 @@
 {% load side_menu wagtailcore_tags static %}
 
 <div class="mobile-sidemenu">
-  <a href= "#">
+  <a href= "{{ url }}">
     <div class="mobile-sidemenu__program-title">
-      <h1 class="mobile-sidemenu__program-title__title">INTERNATIONAL SECURITY</h1>
+      <h1 class="mobile-sidemenu__program-title__title">{{ logo }}</h1>
     </div>
   </a>
   <!-- <button class="mobile-sidemenu__toggle">Menu</button> -->
@@ -15,37 +15,29 @@
 
 
 <div class="sidemenu" >
-  <a href= "#">
+  <a href= "{{ url }}">
     <div class="sidemenu__program-title">
-      <h1 class="sidemenu__program-title__title">INTERNATIONAL SECURITY</h1>
+      <h1 class="sidemenu__program-title__title">{{ logo }}</h1>
     </div>
   </a>
   <div class="sidemenu__link-group">
     <ul class="menu vertical sidemenu__link-group__content" id="example-menu">
       <li class="menu-text sidemenu__link-group__title">Initiatives & Projects</li>
-      <li class="sidemenu__link-group__link"><a href="#">Future of War</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Cybersecurity Initiative</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">World of Drones</a></li>
-
-      <li class="menu-text sidemenu__link-group__title">Events</li>
-      <li class="sidemenu__link-group__link"><a href="#">Current Events</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Past Events</a></li>
+      {% for initiative in initiative_pages %}
+        <li class="sidemenu__link-group__link">{{ initiative }}</li>
+      {% endfor %}
 
       <li class="menu-text sidemenu__link-group__title">Our Work</li>
-      <li class="sidemenu__link-group__link"><a href="#">Blog Posts</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Press Releases</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Articles</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Books</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Quoted</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Podcasts</a></li>
+      {% for work_page in work_pages %}
+        <li class="sidemenu__link-group__link">{{ work_page }}</li>
+      {% endfor %}
 
       <li class="menu-text sidemenu__link-group__title">About</li>
-      <li class="sidemenu__link-group__link"><a href="#">About Us</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Issues</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Our People</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Funders</a></li>
-      <li class="sidemenu__link-group__link"><a href="#">Advisory Council</a></li>
+      {% for about_page in about_pages %}
+        <li class="sidemenu__link-group__link">{{ about_page }}</li>
+      {% endfor %}
 
       <li class="menu-text sidemenu__link-group__title">Subscribe</li>
+    </ul>
   </div>
 </div>
