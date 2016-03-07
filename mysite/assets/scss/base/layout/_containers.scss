@@ -69,6 +69,10 @@
 			height: 60px;
 		}
 
+		& > columns {
+			padding: 0px;
+		}
+
 		& > .breadcrumb > li , & > .breadcrumb > li > a {
 			color: grey;
 		}
