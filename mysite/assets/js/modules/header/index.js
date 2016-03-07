@@ -43,7 +43,7 @@ function addHeaderInteractivity() {
 			$readProgressBar.css('width', `${ratio * 100}%`)
 		})
 	}
-
+	
 }
 
 $(addHeaderInteractivity)

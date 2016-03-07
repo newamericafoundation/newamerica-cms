@@ -8,5 +8,16 @@ $mobile-header-height: 70px;
 $desktop-header-height: 78px;
 
 $mobile-padding: 10px;
+$mobile-menu-item-padding: 20px;
+$mobile-menu-item-height: 60px;
 
 $desktop-padding: 25px;
+
+
+/*breakpoints*/
+
+$desktop-header-foldup: 945px;
+$expanded-header-foldup: 750px;
+
+$desktop-show-support: 1045px;
+$expanded-show-support: 850px;

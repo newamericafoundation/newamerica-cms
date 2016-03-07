@@ -1,0 +1,44 @@
+.mobile-header {
+    display: none;
+    top: $mobile-header-height;
+    position: relative;
+	background-color: palette-get(na-white);
+	width: 100%;
+
+	z-index: 500;
+
+	@include desktop-sidemenu {
+		display:none;
+	}
+
+	& > ul > li > a {
+		padding: $mobile-menu-item-padding;
+	}
+
+	&__link-group {
+	color: palette-get(na-black);
+	margin-top: 15px;
+
+		&__title {
+			border: 1px solid palette-get(na-black-10);
+			padding: $mobile-menu-item-padding;
+			font-size:20px;
+		}
+
+		&__link {
+			border: 1px solid palette-get(na-black-10);
+		  &:hover {
+		    background-color: palette-get(na-turquoise);
+		  }
+
+		  & > a {
+		    color: grey;
+
+		    &:hover {
+		      color: white;
+		    }
+		  }
+		}
+
+	}
+  }
