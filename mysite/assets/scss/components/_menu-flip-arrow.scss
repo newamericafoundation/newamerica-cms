@@ -1,0 +1,31 @@
+.flip-arrow-black { 
+	position: absolute; 
+	display: block; 
+	width: 20px; 
+	height: 20px; 
+	background-image: url(shape-urls-get(down-arrow-na-black));
+	background-size: contain; 
+}
+
+.flip-arrow-white { 
+	position: absolute; 
+	display: block; 
+	width: 20px; 
+	height: 20px; 
+	background-image: url(shape-urls-get(down-arrow-na-white));
+	background-size: contain; 
+}
+
+.rotate {
+    -moz-transition: all .3s linear;
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+    -moz-transform:rotate(0deg);
+    -webkit-transform:rotate(0deg);
+    transform:rotate(0deg);
+}
+.rotate.down {
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    transform:rotate(180deg);
+}

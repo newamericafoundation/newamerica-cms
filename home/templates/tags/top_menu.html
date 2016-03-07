@@ -1,5 +1,41 @@
 {% load top_menu wagtailcore_tags static %}
 
+<div class="mobile-header">
+    <ul class="menu vertical">
+        <li class="menu-text mobile-header__link-group__title">Programs</li>
+            {% for program in programs %}
+                <li class="mobile-header__link-group__link"><a href="{{ program.url }}">{{ program.title }}</a></li>
+            {% endfor %}
+      
+    
+
+      <li class="menu-text mobile-header__link-group__title">Events</li>
+
+      <li class="menu-text mobile-header__link-group__title">Our Work</li>
+      <li class="mobile-header__link-group__link"><a href="#">Blog Posts</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Press Releases</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Articles</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Books</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Quoted</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Podcasts</a></li>
+
+      <li class="menu-text mobile-header__link-group__title">Experts</li>
+
+      <li class="menu-text mobile-header__link-group__title">About</li>
+      <li class="mobile-header__link-group__link"><a href="#">Blog Posts</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Press Releases</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Articles</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Books</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Quoted</a></li>
+      <li class="mobile-header__link-group__link"><a href="#">Podcasts</a></li>
+
+      <li class="menu-text mobile-header__link-group__title">Support</li>
+
+      <li class="menu-text mobile-header__link-group__title">Search</li>
+    </ul>
+
+</div>
+
 <header class='header'>
 
     <div class='header__content'>
@@ -8,6 +44,11 @@
             {% include 'ui_elements/svg/new-america.html' %}
             <h1>New America</h1>
         </a>
+
+        <div class="header__mobile-toggle">
+            <!-- <button class="header__mobile-toggle__button">Menu</button> -->
+            <a class="header__mobile-toggle__button" href="#"><div class="flip-arrow-black rotate"></div></a>
+        </div>
 
         <div class='header__secondary-nav'>
             <ul>
@@ -26,31 +67,8 @@
             </ul>
         </div>
 
-        <div class="mobile-nav">
-            <ul>
-                <li class="mobile-nav__button mobile-nav__button--active">
-                    {% include 'ui_elements/svg/new-america.html' %}
-                </li>
-                <li class="mobile-nav__button">
-                    {% include 'ui_elements/svg/calendar.html' %}
-                </li>
-                <li class="mobile-nav__button">
-                    {% include 'ui_elements/svg/book.html' %}
-                </li>
-                <li class="mobile-nav__button">
-                    {% include 'ui_elements/svg/people.html' %}
-                </li>
-                <li class="mobile-nav__button">
-                    {% include 'ui_elements/svg/award.html' %}
-                </li>
-                <li class="mobile-nav__button">
-                    {% include 'ui_elements/svg/magnifying-glass.html' %}
-                </li>
-            </ul>
-        </div>
-
         <nav class='header__main-nav'>
-            <ul>
+            <ul class='header__main-nav__left'>
                 <li class='header__main-nav__item header__has-link-group'>
 
                     <a class='header__button header__button--dropdown button'>Programs</a>
@@ -184,13 +202,18 @@
 
             </ul>
 
-        </nav>
+            <ul class='header__main-nav__right'>
+                <li class='header__main-nav__right__item'>
+                    <a class='header__button button' href="#">Support</a>
+                </li>
+                <li class='header__main-nav__right__search'>
+                    <form action="" method="get">
+                        <input type='text' placeholder='Search'></input>
+                    </form>
+                </li>
+            </ul>
 
-        <div class='header__search'>
-            <form action="" method="get">
-                <input type='text' placeholder='Search'></input>
-            </form>
-        </div>
+        </nav>
 
     </div>
 

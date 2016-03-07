@@ -19,8 +19,8 @@
 @include foundation-breadcrumbs;
 // @include foundation-button-group;
 // @include foundation-callout;
- @include foundation-close-button;
-// @include foundation-drilldown-menu;
+@include foundation-close-button;
+@include foundation-drilldown-menu;
 @include foundation-dropdown;
 @include foundation-dropdown-menu;
 // @include foundation-flex-video;
@@ -48,8 +48,8 @@
 
 input[type='text'] {
   &:focus {
-    $placeholder-color: rgba(255, 255, 255, 0.8);
-    color: #fff;
+    $placeholder-color: palette-get(na-black-10);
+    color: palette-get(na-black);
     &::-webkit-input-placeholder {
       color: $placeholder-color;
     }
