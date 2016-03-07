@@ -1,6 +1,14 @@
 @mixin show-support {
-  @media screen and (min-width: 1035px) {
-    @content;
+  @include desktop-header() {
+    @media screen and (min-width: $desktop-show-support) {
+      @content;
+    }
+  }
+
+  @include expanded-header() {
+    @media screen and (min-width: $expanded-show-support) {
+      @content;
+    }
   }
 }
 

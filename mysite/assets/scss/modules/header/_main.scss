@@ -31,9 +31,8 @@
       padding: 6px $desktop-padding 14px $desktop-padding;
     }
     @include expanded-header {
-      @include desktop-header {
+     /* @include desktop-header {*/
         padding: $pad $desktop-padding 12px $desktop-padding;
-      }
     }
     & > * {
       vertical-align: bottom;
@@ -102,6 +101,10 @@
     right: 30px;
 
     @include desktop-header() {
+      display: none;
+    }
+
+    @include expanded-header() {
       display: none;
     }
   }

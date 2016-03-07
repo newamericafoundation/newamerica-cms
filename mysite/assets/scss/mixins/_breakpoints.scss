@@ -1,13 +1,15 @@
 @mixin desktop-header() {
-  @media screen and (min-width: 945px) {
+  @media screen and (min-width: $desktop-header-foldup) {
     @content;
   }
 }
 @mixin expanded-header() {
   .header--expanded & {
-    // Ensure that the header can only be expanded on desktop.
-    @include desktop-header {
-      @content;
+    @media screen and (min-width: $expanded-header-foldup) {
+      // Ensure that the header can only be expanded on desktop.
+      
+        @content;
+      
     }
   }
 }
