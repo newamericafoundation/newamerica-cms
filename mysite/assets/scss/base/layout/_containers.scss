@@ -31,13 +31,13 @@
 }
 
 .content-container {
-	
 	height:100%;
+	display: block;
 	/*padding-top:$mobile-header-height;*/
 	/*padding: $desktop-padding;*/
 	/*background-color: palette-get(na-white);*/
 
-	@include breakpoint(medium) {
+	@include desktop-header {
 		padding: $desktop-padding;
 	}
 	@include expanded-header {
@@ -62,25 +62,20 @@
 }
 
 .breadcrumb-social-media-container {
-	/*@include desktop-sidemenu {
-		padding: 30px 0px;
-	}*/
-	&__content {
-		height: 48px;
-		position: relative;
-		top: 10px;
+	height: 48px;
+	position: relative;
+	top: 10px;
 
-		@include desktop-header {
-			height: 60px;
-		}
+	@include desktop-header {
+		height: 60px;
+	}
 
-		& > columns {
-			padding: 0px;
-		}
+	& > columns {
+		padding: 0px;
+	}
 
-		& > .breadcrumb > li , & > .breadcrumb > li > a {
-			color: grey;
-		}
+	& > .breadcrumb > li , & > .breadcrumb > li > a {
+		color: grey;
 	}
 }
 
