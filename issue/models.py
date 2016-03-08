@@ -16,8 +16,8 @@ class Issue(Post):
 	Issue class that inherits from the abstract Post
 	model and creates pages for Issues.
 	"""
-	parent_page_types = ['ProgramIssuesPage',]
-	subpage_types = []
+	parent_page_types = ['ProgramIssuesPage','Issue']
+	subpage_types = ['Issue']
 
 
 class ProgramIssuesPage(Page):
