@@ -1,6 +1,10 @@
 import json 
 import sys
 
+import csv
+import os
+import urllib
+
 from django.utils.text import slugify
 from django.core.files.images import ImageFile
 
@@ -14,42 +18,64 @@ if sys.version_info[0] < 3:
 	reload(sys)  # noqa
 	sys.setdefaultencoding('utf-8')
 
+
 def load_transformation():
 	with open('home/management/api/author_cleanup.json', "r") as stream:
 		return json.load(stream)
 
-def read_json(json_file):
-	with open(json_file, "r") as stream:
-		return json.load(stream)
+def load_users_mapping():
+	csv_data = {}
+	with open('home/management/api/authors.csv', "r") as csvfile:
+		 csv_reader = csv.reader(csvfile)
+		 for row in csv_reader:
+		 	csv_data[str(row[0])] = {'first_name': row[2], 'last_name': row[3], 'duplicate': row[4], 'merged_with': row[5]}
+	return csv_data
+
+
+def users_data_stream():
+	with open('home/management/api/users.json', "r") as stream:
+		return json.load(stream)['results']
+
+
+def download_image(url, image_filename):
+	if url:
+		image_location = os.path.join('home/management/api/images', image_filename)
+		urllib.urlretrieve(url, image_location)
+		image = Image(title=image_filename, file=ImageFile(open(image_location), name=image_filename))
+		image.save()
+		return image
+
 
 def load_authors():
-	authors_data = read_json('home/management/api/authors.json')
-	for idx, author in enumerate(authors_data['results']):
-		if idx > 250:
-			break
-		found = Person.objects.filter(
-			slug=slugify(author['full_name']))
-		if not found:
-			image = Image(title="rando_%s" % idx, file=ImageFile(open('home/management/api/anne.jpeg'), name="ann_%s.jpeg" % idx))
-			image.save()
-
-			person = Person(
+	users_mapping = load_users_mapping()
+	for user_api in users_data_stream():
+		# Look for user in csv data
+		mapped_user = users_mapping[str(user_api['id'])]
+		if not mapped_user['duplicate']:
+			mapped_user_title = '{0} {1}'.format(mapped_user['first_name'], mapped_user['last_name'])
+			mapped_user_slug = slugify(mapped_user_title)
+			db_user = Person.objects.filter(slug=mapped_user_slug).first()
+		if not db_user and mapped_user_slug:
+			print(mapped_user_slug, mapped_user_title, mapped_user['first_name'], mapped_user['last_name'], user_api['email'])
+			db_user = Person(
 				search_description='', 
  				seo_title='', 
  				show_in_menus=False,
- 				slug=slugify(author['full_name']),
-				title=author['full_name'], 
-				name=author['full_name'], 
+ 				slug=mapped_user_slug,
+				title=mapped_user_title, 
+				first_name=mapped_user['first_name'], 
+				last_name=mapped_user['last_name'], 
 				position_at_new_america='Staff', 
 				role='Staff',
-				email='staff@staff.com',
+				email=user_api['email'],
 				expert=False,
 				depth=4,
-				profile_image=image,
+				profile_image=download_image(user_api['image'], mapped_user_slug + "_image.jpeg"),
 			)
-			our_people_page.add_child(instance=person)
-			person.save()
-		
+			our_people_page.add_child(instance=db_user)
+			db_user.save()
+			
+
 
 def run():
 	load_authors()
