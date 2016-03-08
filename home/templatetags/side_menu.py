@@ -7,19 +7,6 @@ from programs.models import Program, AbstractProgram
 register = template.Library()
 
 
-@register.assignment_tag(takes_context=True)
-def needs_sidebar(context):
-    """ Checks if the page is an AbstractProgram descendant """
-    use_side_bar = False
-    if isinstance(context['self'], AbstractProgram):
-        use_side_bar = True
-    elif isinstance(context['self'], Post):
-        use_side_bar = True
-    elif 'programs.Program' in context['self'].parent_page_types:
-        use_side_bar = True
-    return use_side_bar
-
-
 @register.inclusion_tag('tags/side_menu.html', takes_context=True)
 def side_menu(context, parent, calling_page=None):
     """ Returns the needed data to create the dynamic sidebar """
