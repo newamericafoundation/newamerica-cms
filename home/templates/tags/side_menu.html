@@ -1,9 +1,9 @@
 {% load side_menu wagtailcore_tags static %}
 
 <div class="mobile-sidemenu">
-  <a href= "{{ url }}">
+  <a href= "{{ side_menu.url }}">
     <div class="mobile-sidemenu__program-title">
-      <h1 class="mobile-sidemenu__program-title__title">{{ logo }}</h1>
+      <h1 class="mobile-sidemenu__program-title__title">{{ side_menu.logo }}</h1>
     </div>
   </a>
   <!-- <button class="mobile-sidemenu__toggle">Menu</button> -->
@@ -15,25 +15,25 @@
 
 
 <div class="sidemenu" >
-  <a href= "{{ url }}">
+  <a href= "{{ side_menu.url }}">
     <div class="sidemenu__program-title">
-      <h1 class="sidemenu__program-title__title">{{ logo }}</h1>
+      <h1 class="sidemenu__program-title__title">{{ side_menu.logo }}</h1>
     </div>
   </a>
   <div class="sidemenu__link-group">
     <ul class="menu vertical sidemenu__link-group__content" id="example-menu">
       <li class="menu-text sidemenu__link-group__title">Initiatives & Projects</li>
-      {% for initiative in initiative_pages %}
+      {% for initiative in side_menu.initiative_pages %}
         <li class="sidemenu__link-group__link">{{ initiative }}</li>
       {% endfor %}
 
       <li class="menu-text sidemenu__link-group__title">Our Work</li>
-      {% for work_page in work_pages %}
+      {% for work_page in side_menu.work_pages %}
         <li class="sidemenu__link-group__link">{{ work_page }}</li>
       {% endfor %}
 
       <li class="menu-text sidemenu__link-group__title">About</li>
-      {% for about_page in about_pages %}
+      {% for about_page in side_menu.about_pages %}
         <li class="sidemenu__link-group__link">{{ about_page }}</li>
       {% endfor %}
 

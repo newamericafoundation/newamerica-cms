@@ -1,14 +1,8 @@
-from datetime import date
 from django import template
-from django.conf import settings
-
-from wagtail.wagtailcore.models import Page
-
-from programs.models import Program, AbstractProgram, Subprogram
-
-from event.models import AllEventsHomePage
 
 from home.models import Post
+from programs.models import Program, AbstractProgram
+
 
 register = template.Library()
 
@@ -25,35 +19,20 @@ def needs_sidebar(context):
         use_side_bar = True
     return use_side_bar
 
-# Retrieves the top menu items - the immediate children of the parent page
+
 @register.inclusion_tag('tags/side_menu.html', takes_context=True)
 def side_menu(context, parent, calling_page=None):
-   
-    def build_menu():
-        # if page_depth == 3:
-        #     menu_program = context['self']
-        # elif page_depth == 4:
-        #     program_name = context['self'].get_parent()
-        #     menu_program = Program.objects.get(title=program_name)
-        # elif page_depth == 5: 
-        #     program_name = context['self'].get_parent().get_parent()
-        #     menu_program = Program.objects.get(title=program_name)
-        page_depth = context['self'].depth
-
-        if page_depth == 3:
-            menu_program = context['self']
-        elif page_depth > 3:
-            program_name = context['self'].get_ancestors()[2]
-            menu_program = Program.objects.get(title=program_name)
-
-        context['url'] = menu_program.url
-        context['logo'] = menu_program.title
-        context['initiative_pages'] = menu_program.sidebar_menu_initiatives_and_projects_pages
-        context['work_pages'] = menu_program.sidebar_menu_our_work_pages
-        context['about_pages'] = menu_program.sidebar_menu_about_us_pages
-
-        return context
-    
-    build_menu()
-
+    """ Returns the needed data to create the dynamic sidebar """
+    page_depth = context['self'].depth
+    if page_depth == 3:
+        menu_program = context['self']
+    elif page_depth > 3:
+        program_name = context['self'].get_ancestors()[2]
+        menu_program = Program.objects.get(title=program_name)
+    context['side_menu'] = {}
+    context['side_menu']['url'] = menu_program.url
+    context['side_menu']['logo'] = menu_program.title
+    context['side_menu']['initiative_pages'] = menu_program.sidebar_menu_initiatives_and_projects_pages
+    context['side_menu']['work_pages'] = menu_program.sidebar_menu_our_work_pages
+    context['side_menu']['about_pages'] = menu_program.sidebar_menu_about_us_pages
     return context
