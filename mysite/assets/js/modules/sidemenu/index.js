@@ -2,6 +2,15 @@ import $ from 'jquery'
 
 import getJQueryObjects from './../../utilities/get_jquery_objects.js'
 
+function convertToUpper() {
+	var title = $(".sidemenu__program-title__title").text();
+	$(".mobile-sidemenu__program-title__title").text(title.toUpperCase());
+	$(".sidemenu__program-title__title").text(title.toUpperCase());
+}
+
+$(convertToUpper)
+
+
 // var clicked = false;
 
 // function addSidemenuInteractivity() {

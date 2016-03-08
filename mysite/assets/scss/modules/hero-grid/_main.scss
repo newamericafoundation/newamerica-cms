@@ -315,10 +315,46 @@
 		    display: block;
 		    line-height: 108%;
 		    font-weight: bold;
-		    font-size: rem-calc(24);
-		    .hero-grid__main &, .hero-grid.has-2-children & {
+		    font-size: rem-calc(28);
+
+		    @include unfold-1-children {
+			    .has-1-children > .hero-grid__main & {
+			    	font-size: rem-calc(32);
+			    }
+			}
+
+		    @include unfold-2-children {
+			    .has-2-children > .hero-grid__main & {
+			    	font-size: rem-calc(32);
+			    }
+			    .has-2-children > .hero-grid__secondary & {
+			    	font-size: rem-calc(32);
+			    }
+			}
+			 
+	    	@include unfold-3-children {
+			    .has-3-children > .hero-grid__main & {
+			    	font-size: rem-calc(32);
+			    }
+			    .has-3-children > .hero-grid__secondary & {
+			    	font-size: rem-calc(24);
+			    }
+			}
+
+			@include unfold-4-children {
+			    .has-4-children > .hero-grid__main & {
+			    	font-size: rem-calc(32);
+			    }
+			    .has-4-children > .hero-grid__secondary & {
+			    	font-size: rem-calc(24);
+			    }
+			}
+			
+
+		    /*.hero-grid.has-2-children & {
 		      font-size: rem-calc(32);
-		    }
+		    }*/
+
 		    margin-bottom: 0;
 		  }
 		  &__subheading {
