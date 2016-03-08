@@ -71,7 +71,7 @@ $(addMenuResponsivity);
 
 var $window = $( window ); // so you have a "cached" reference 
 
-var desktopMediaQuery = window.matchMedia("(min-width: 945px)");
+var desktopMediaQuery = window.matchMedia("(min-width: " + desktopHeaderBreakpoint + "px)");
 	desktopMediaQuery.addListener(WidthChange);
 	WidthChange(desktopMediaQuery);
 

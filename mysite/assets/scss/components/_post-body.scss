@@ -1,14 +1,30 @@
 .post-body {
   padding-top:$desktop-padding;
-  &:first-letter {
-    font-size:110px;
-    font-weight:bold;
-    float: left;
-    padding: 20px 10px 5px 0px;
-    height: 55px;
-    margin-right: 0px;
-    line-height: 70px;
+  
+  & > .block-paragraph {
+    &:first-letter {
+      font-size:110px;
+      font-weight:bold;
+      float: left;
+      padding: 20px 10px 5px 0px;
+      height: 55px;
+      margin-right: 0px;
+      line-height: 70px;
+    }
   }
+
+  & > .block-paragraph ~ .block-paragraph {
+    &:first-letter {
+      font-size:1.25rem;
+      font-weight:initial;
+      float: initial;
+      padding: initial;
+      height: initial;
+      /*margin-right: inherit;*/
+      line-height: initial;
+    }
+  }
+
 
   p,
   blockquote {
