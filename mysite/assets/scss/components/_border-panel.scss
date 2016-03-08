@@ -1,5 +1,6 @@
 .border-panel {
   $border-color: palette-get(na-black-10);
+  $mobile-height: 350px;
   $height: 240px;
   $arrow-size: 30px;
   $nav-and-info-offset: 10px;
@@ -9,11 +10,16 @@
     }
   }
   border: 5px solid $border-color;
-  height: $height;
+  
   width: 100%;
   @include space-out(medium);
   overflow: hidden;
   position: relative;
+  height: $mobile-height;
+
+  @media screen and (min-width: $home-border-panel-foldup) {
+    height: $height;
+  }
   &__item {
     padding: 0 30px;
     z-index: 1;
