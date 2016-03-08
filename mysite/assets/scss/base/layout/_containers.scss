@@ -65,17 +65,23 @@
 	height: 48px;
 	position: relative;
 	top: 10px;
+	display: none;
 
 	@include desktop-header {
 		height: 60px;
+		display: block;
+	}
+	@include expanded-header {
+		display: block;
 	}
 
-	& > columns {
+	.columns {
 		padding: 0px;
-	}
+		 height: 25px;
 
-	& > .breadcrumb > li , & > .breadcrumb > li > a {
-		color: grey;
+		& > .breadcrumb > li , & > .breadcrumb > li > a {
+			color: grey;
+		}
 	}
 }
 
