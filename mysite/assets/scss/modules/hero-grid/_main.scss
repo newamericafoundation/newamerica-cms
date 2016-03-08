@@ -267,21 +267,34 @@
 			background-repeat: no-repeat;
 			background-size: cover;
 			opacity: 1;
-			/*.hero-grid__element:hover & {
-				opacity: 0.4;
-			}*/
+
+		}
+
+		&__background:before { 
+				background: -moz-linear-gradient(center top , rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0.06) 16%, rgba(0, 0, 0, 0.4) 75%, rgba(0, 0, 0, 0.6) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0); 
+				background: -webkit-linear-gradient(top , rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0.06) 16%, rgba(0, 0, 0, 0.4) 75%, rgba(0, 0, 0, 0.6) 100%); 
+				background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(0,0,0,0.01) 1%,rgba(0,0,0,0.6) 100%);
+				bottom: 0; 
+				content: " "; 
+				display: block; 
+				height: 50%; 
+				left: 0; 
+				position: absolute; 
+				transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1) 0s; 
+				width: 100%; 
+				opacity: 1; 
+				z-index: 1; 
 		}
 
 		&__overlay {
-			/*background-color:rgba(44, 47, 53, 0.5);*/
-			background-color: transparentize(palette-get(na-black), 0.6);
+			background-color: transparentize(palette-get(na-black), 0.8);
 			background-blend-mode: multiply;
 			z-index: 2;
 		  	content: '';
 		  	-webkit-transition: all ease-in 0.25s; -moz-transition: all ease-in .25s; -o-transition: all ease-in 0.25s; transition: all ease-in 0.25s; 
 
 		  	&:hover {
-		  		background-color: transparentize(palette-get(na-black), 0.8);
+		  		background-color: transparentize(palette-get(na-black), 1);
 		  		-webkit-transition: all ease-in 0.25s; -moz-transition: all ease-in .25s; -o-transition: all ease-in .25s; transition: all ease-in .25s; 
 		  	}
 		}
