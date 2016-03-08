@@ -4,6 +4,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailcore.blocks import PageChooserBlock
 from modelcluster.fields import ParentalKey
 
 #Abstract Program class that inherits from Page and provides template
@@ -78,6 +79,7 @@ class AbstractProgram(Page):
 
     featured_stories = [feature_1, feature_2, feature_3]
 
+
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
@@ -135,6 +137,29 @@ class AbstractProgram(Page):
 #Programs model which creates programs
 class Program(AbstractProgram):
     parent_page_types = ['home.HomePage',]
+
+    sidebar_menu_initiatives_and_projects_pages = StreamField([
+        ('Item', PageChooserBlock()),
+    ], blank=True)
+
+    sidebar_menu_our_work_pages = StreamField([
+        ('Item', PageChooserBlock()),
+    ], blank=True)
+
+    sidebar_menu_about_us_pages = StreamField([
+        ('Item', PageChooserBlock()),
+    ], blank=True)
+
+    promote_panels = AbstractProgram.promote_panels + [
+        StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
+        StreamFieldPanel('sidebar_menu_our_work_pages'),
+        StreamFieldPanel('sidebar_menu_about_us_pages'),
+    ]
+
+    def get_context(self, request):
+        context = super(Program, self).get_context(request)
+
+        return context
 
 
 

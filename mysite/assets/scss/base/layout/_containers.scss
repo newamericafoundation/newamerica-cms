@@ -32,7 +32,7 @@
 	/*padding: $desktop-padding;*/
 	/*background-color: palette-get(na-white);*/
 
-	@include desktop-header {
+	@include breakpoint(medium) {
 		padding: $desktop-padding;
 	}
 	@include expanded-header {
@@ -79,7 +79,60 @@
 	}
 }
 
+
+
+.hero-grid-container {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.picture-link-container {
+	@include breakpoint(medium) {
+		& > .columns {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+
+	@include breakpoint(large) {
+		& > .columns {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:first-child {
+				padding-left: 0px;
+			}
+
+			&:last-child {
+				padding-right: 0px;
+			}
+		}
+	}
+}
+
 .border-panel-container {
+	@include breakpoint(medium) {
+		& > .columns {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+
+	@include breakpoint(large) {
+		& > .columns {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:first-child {
+				padding-left: 0px;
+			}
+
+			&:last-child {
+				padding-right: 0px;
+			}
+		}
+	}
+
 	@include breakpoint(medium) {
 		padding: 10px 0px 10px 0px;
 		
@@ -105,3 +158,4 @@
   		padding-right:0px;
   	}
 }
+

@@ -1,0 +1,14 @@
+{# Base page for anything that is part of a program #}
+{% extends "base.html" %}
+
+{% load side_menu %}
+
+
+{% block sidebar %}
+<div class='sidemenu-container'>
+    {% block side_menu %}
+        {% side_menu parent=site_root calling_page=self %}
+    {% endblock %}
+</div>
+<div class='content-container has-sidemenu'>
+{% endblock %}

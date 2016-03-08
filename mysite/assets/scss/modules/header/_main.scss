@@ -14,6 +14,7 @@
   padding: 0;
   position: fixed;
   border-bottom: $thick-border-width solid palette-get(na-turquoise);
+  height:$mobile-header-height;
 
   @include has-sidemenu {
     width: 50%;
@@ -25,6 +26,7 @@
   @include desktop-header {
     position: fixed;
     width: 100%; 
+    height:$desktop-header-height;
   }
 
   @include expanded-header {
@@ -32,6 +34,7 @@
     position: relative;
     width: 100%;
     border: none;
+    height:$expanded-header-height;
   }
 
   &__content {
