@@ -278,9 +278,11 @@
 			background-blend-mode: multiply;
 			z-index: 2;
 		  	content: '';
+		  	-webkit-transition: all ease-in 0.25s; -moz-transition: all ease-in .25s; -o-transition: all ease-in 0.25s; transition: all ease-in 0.25s; 
 
 		  	&:hover {
-		  		background-color: transparentize(palette-get(na-black), 0.25);
+		  		background-color: transparentize(palette-get(na-black), 0.8);
+		  		-webkit-transition: all ease-in 0.25s; -moz-transition: all ease-in .25s; -o-transition: all ease-in .25s; transition: all ease-in .25s; 
 		  	}
 		}
 
@@ -288,6 +290,7 @@
 			z-index: 3;
 		  bottom: 0;
 		  padding: 15px 20px;
+		  pointer-events:none;
 		  &__subheading, &__heading {
 		    color: palette-get(na-white);
 
