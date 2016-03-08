@@ -69,7 +69,7 @@ function addMenuResponsivity() {
 $(addMenuResponsivity);
 
 
-var $window = $( window ); // so you have a "cached" reference 
+var $window = $( window );
 
 var desktopMediaQuery = window.matchMedia("(min-width: " + desktopHeaderBreakpoint + "px)");
 	desktopMediaQuery.addListener(WidthChange);
@@ -78,8 +78,7 @@ var desktopMediaQuery = window.matchMedia("(min-width: " + desktopHeaderBreakpoi
 function WidthChange(mq) {
 
   if (mq.matches) {
-    // window width is at least 500px
-    console.log("width is greater!");
+    console.log("width is greater");
 	$(".mobile-sidemenu").css("display", "none");
 	$(".sidemenu").css("display", "block");
 	$(".mobile-header").css("display", "none");
@@ -88,8 +87,7 @@ function WidthChange(mq) {
 	sideMenuExpanded = false;
 	headerMenuExpanded = false;
   } else {
-    // window width is less than 500px
-    console.log("width is less!");
+    console.log("width is less");
 	$(".mobile-sidemenu").css("display", "block");
 
 	if (!sideMenuExpanded) {
