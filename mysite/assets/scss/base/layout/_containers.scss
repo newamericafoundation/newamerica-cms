@@ -85,8 +85,6 @@
 	}
 }
 
-
-
 .hero-grid-container {
 	padding-left: 0px;
 	padding-right: 0px;
@@ -137,14 +135,6 @@
 				padding-right: 0px;
 			}
 		}
-	}
-
-	@include breakpoint(medium) {
-		padding: 10px 0px 10px 0px;
-		
-	}
-	@include breakpoint(large) {
-		padding: 0px 10px 0px 10px;
 	}
 }
 
