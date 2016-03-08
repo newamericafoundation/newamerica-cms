@@ -1,5 +1,6 @@
 $left-pad: 20px;
 $right-pad: 25px;
+$program-title-width: 150px;
 
 .mobile-sidemenu {
   background-color: palette-get(na-black);
@@ -87,13 +88,14 @@ $right-pad: 25px;
 
   &__program-title {
     margin-left: $desktop-padding;
-    width: 150px;
+    width: $program-title-width;
     background-color: palette-get(na-black);
     padding: 9px;
     height:60px;
     max-height:60px;
     display:none;
     color:palette-get(na-white);
+
 
     @include desktop-header {
       display:block;
@@ -107,6 +109,7 @@ $right-pad: 25px;
       line-height: 100%;   
       top: 50%; 
       transform: translateY(-50%);
+      word-spacing: $program-title-width;
     }
   }
 
