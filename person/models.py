@@ -4,8 +4,9 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
-from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import URLBlock
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailimages.models import Image
 
 from modelcluster.fields import ParentalKey
 
@@ -22,17 +23,22 @@ class PersonProgramRelationship(models.Model):
     ]
 
 class Person(Page):
-    name = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
     position_at_new_america = models.CharField(max_length=500, help_text="Position or Title at New America")
     email = models.EmailField()
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
     expert = models.BooleanField()
     location = models.CharField(max_length=200)
-    photo = StreamField([
-        ('photo', ImageChooserBlock(icon='image')),
+    profile_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
-    ])
     belongs_to_these_programs = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True)
 
     social_media = StreamField([
@@ -53,7 +59,8 @@ class Person(Page):
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
 
     content_panels = Page.content_panels + [
-        FieldPanel('name'),
+        FieldPanel('first_name'),
+        FieldPanel('last_name'),
         FieldPanel('position_at_new_america'),
         FieldPanel('email'),
         FieldPanel('short_bio'),
@@ -61,7 +68,7 @@ class Person(Page):
         InlinePanel('programs', label=("Belongs to these Programs")),
         FieldPanel('role'),
         FieldPanel('expert'),
-        StreamFieldPanel('photo'),
+        ImageChooserPanel('profile_image'),
         StreamFieldPanel('social_media'),
     ]
 
