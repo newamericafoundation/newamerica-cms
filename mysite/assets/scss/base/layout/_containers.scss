@@ -7,7 +7,10 @@
 	@include desktop-header {
 		display:table;
 		padding-top:0px;
-		
+	}
+
+	@include expanded-header {
+		padding-top:0px;
 	}
 	
 }
