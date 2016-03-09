@@ -46,18 +46,19 @@
     overflow: visible;
 
     &__right {
-      display: none;
-
-      @include show-support {
-         display: inline-block;
-
-      }
+      
 
       & > .header__button {
         background-color: palette-get(na-turquoise);
         color: palette-get(na-white);
         margin-right: 10px;
         height: 46px;
+        display: none;
+
+        @include show-support {
+           display: inline-block;
+
+        }
       }
 
       & > form > input {
@@ -85,17 +86,6 @@
     display: inline-block;
     height:46px;
     float:right;
-
-    &__search {
-      height:46px;
-      margin-left: 10px;
-
-      & > form > input {
-        height: 46px;
-        margin: 0px;
-
-      }
-    }
   }
 
 }
