@@ -3,7 +3,8 @@ $post-header-height:225px;
 .post-header {
 	width: 100%;
 	background-repeat: no-repeat;
-	background-size: 100% 100%;
+	background-size: cover;
+	background-position: 50% 50%;
 	position:static;
 
 	&__text {
@@ -15,9 +16,10 @@ $post-header-height:225px;
 		}
 
 		&__title h1 {
-			font-size: 40px;
+			font-size: 30px;
+			max-width: $max-body-width;
 			@include breakpoint(large) {
-			    font-size: 50px;
+			    font-size: 40px;
 			}
 			/*font-size: 50px;*/
 

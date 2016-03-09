@@ -69,31 +69,62 @@ function addMenuResponsivity() {
 $(addMenuResponsivity);
 
 
-var $window = $( window ); // so you have a "cached" reference 
-// var breakpoint = 640;
+var $window = $( window );
 
-$window.resize ( function () {
-	// console.log("calling resize");
-		if ($window.width() > currHeaderBreakpoint ) {
-			// if (clicked == true ) {
-				console.log("width is greater");
-				$(".mobile-sidemenu").css("display", "none");
-		    	$(".sidemenu").css("display", "block");
-		    	$(".mobile-header").css("display", "none");
-				$(".content-container").css("display", "table-cell");
-				$("footer").css("display", "block");
-				sideMenuExpanded = false;
-				headerMenuExpanded = false;
+var desktopMediaQuery = window.matchMedia("(min-width: " + desktopHeaderBreakpoint + "px)");
+	desktopMediaQuery.addListener(WidthChange);
+	WidthChange(desktopMediaQuery);
+
+function WidthChange(mq) {
+
+  if (mq.matches) {
+    console.log("width is greater");
+	$(".mobile-sidemenu").css("display", "none");
+	$(".sidemenu").css("display", "block");
+	$(".mobile-header").css("display", "none");
+	$(".content-container").css("display", "table-cell");
+	$("footer").css("display", "block");
+	sideMenuExpanded = false;
+	headerMenuExpanded = false;
+  } else {
+    console.log("width is less");
+	$(".mobile-sidemenu").css("display", "block");
+
+	if (!sideMenuExpanded) {
+		$(".sidemenu").css("display", "none");
+		$(".content-container").css("display", "block");
+	}
+	if (!headerMenuExpanded) {
+		$(".mobile-header").css("display", "none");
+	}
+  }
+
+}
+
+// $window.resize ( function () {
+// 	console.log($window.width());
+// 	// console.log("calling resize");
+// 		if ($window.width() >= currHeaderBreakpoint ) {
+// 			// if (clicked == true ) {
+// 				console.log("width is greater");
+// 				$(".mobile-sidemenu").css("display", "none");
+// 		    	$(".sidemenu").css("display", "block");
+// 		    	$(".mobile-header").css("display", "none");
+// 				$(".content-container").css("display", "table-cell");
+// 				$("footer").css("display", "block");
+// 				sideMenuExpanded = false;
+// 				headerMenuExpanded = false;
 			
-	  	} else {
-	  		$(".mobile-sidemenu").css("display", "block");
+// 	  	} else {
+// 	  		console.log("width is less");
+// 	  		$(".mobile-sidemenu").css("display", "block");
 
-	  		if (!sideMenuExpanded) {
-	  			$(".sidemenu").css("display", "none");
-	  		}
-	  		if (!headerMenuExpanded) {
-	  			$(".mobile-header").css("display", "none");
-	  		}
-	  	} 
+// 	  		if (!sideMenuExpanded) {
+// 	  			$(".sidemenu").css("display", "none");
+// 	  		}
+// 	  		if (!headerMenuExpanded) {
+// 	  			$(".mobile-header").css("display", "none");
+// 	  		}
+// 	  	} 
 	
-});
+// });
