@@ -45,6 +45,12 @@ $link-group-header-spacing: 30px;
 
   &__channels {
     padding-top: $link-group-header-spacing;
+
+    & > .social-icons {
+      margin-top: 16px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
 
   a,
