@@ -1,10 +1,19 @@
 .post-body {
   padding-top:$desktop-padding;
   
+  & > .block-heading {
+    color: palette-get(na-black);
+    font-size:1.50rem;
+    font-weight: bold;
+  }
+
   & > .block-paragraph {
+
     &:first-letter {
       font-size:110px;
-      font-weight:bold;
+      color: palette-get(na-black);
+      font-weight: bold;
+      opacity: 1;
       float: left;
       padding: 20px 10px 5px 0px;
       height: 55px;
@@ -28,7 +37,7 @@
   p,
   blockquote {
     font-size: rem-calc(20);
-    color: palette-get(na-black);
+    color: palette-get(na-black-70);
   }
   blockquote {
     margin: 20px 0;
@@ -37,14 +46,13 @@
     padding: 0 15px;
     font-style: italic;
   }
+
+  & > .block-attachment {
+
+  }
 }
 
-.post-subscribe {
-  margin-top: 30px;
-  height: 300px;
-  border-width: 2.5px;
-  /*width: 100%;*/
-}
+
 
 .post-author {
   margin-top: 8px;
@@ -54,6 +62,13 @@
 
 .post-date {
   font-size: 15px;
-  color: palette-get(na-black-40);
+  color: palette-get(na-off-black);
   margin-bottom: 0px;
+}
+
+.post-subscribe {
+  margin-top: 30px;
+  height: 300px;
+  border-width: 2.5px;
+  /*width: 100%;*/
 }
