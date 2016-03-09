@@ -45,6 +45,28 @@
     z-index: 3;
     overflow: visible;
 
+    &__right {
+      display: none;
+
+      @include show-support {
+         display: inline-block;
+
+      }
+
+      & > .header__button {
+        background-color: palette-get(na-turquoise);
+        color: palette-get(na-white);
+        margin-right: 10px;
+        height: 46px;
+      }
+
+      & > form > input {
+        height: 46px;
+        margin: 0px;
+        /*padding:0px;*/
+        display: inline-block;
+      }
+    }
   }
 
   &__simple-link-group-item {
@@ -56,29 +78,13 @@
 
   &__left {
     display: inline-block;
+    height:46px;
   }
 
   &__right {
     display: inline-block;
+    height:46px;
     float:right;
-
-    &__item {
-      display: none;
-
-      @include show-support {
-         display: inline-block;
-
-      }
-
-      height: 46px;
-      z-index: 3;
-      overflow: visible;
-
-      & > .header__button {
-        background-color: palette-get(na-turquoise);
-        color: palette-get(na-white);
-      }
-    }
 
     &__search {
       height:46px;
@@ -87,6 +93,7 @@
       & > form > input {
         height: 46px;
         margin: 0px;
+
       }
     }
   }
