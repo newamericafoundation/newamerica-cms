@@ -136,7 +136,7 @@
                                 <div class='small-12 large-3 columns'>
 
                                     <div class='row'>
-                                        <div class='small-12 large-12 columns'>
+                                        <div class='small-12 large-12 columns header__link-group__location'>
                                             <h1 class='header__link-group__heading'>By Location</h1>
                                             {% for program in location_programs %}
                                                 {% if program %}
@@ -146,6 +146,12 @@
                                                         <a href="{% pageurl program %}" class="header__link-group__main-element">{{ program.title }}</a>
                                                 {% endif %}
                                             {% endfor %}
+                                        </div>
+
+                                        <div class='small-12 large-12 columns header__link-group__channels'>
+                                            <h1 class='header__link-group__heading'>Channels</h1>
+                                                <a class="header__link-group__main-element" href="#">New America Weekly</a>
+                                                <a class="header__link-group__main-element" href="#">Context</a>
                                         </div>
                                     </div>
 
