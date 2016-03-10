@@ -110,7 +110,7 @@ class ExpertPage(Page):
         context['non_program_experts'] = Person.objects\
             .filter(belongs_to_these_programs=None)\
             .filter(expert=True)\
-            .order_by('-name')
+            .order_by('-title')
 
         context['all_programs'] = Program.objects.all()
 
