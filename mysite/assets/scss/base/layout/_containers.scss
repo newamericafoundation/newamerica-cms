@@ -1,12 +1,16 @@
 .container {
 	/*min-height:100%;*/
-	
+	padding-top:$mobile-header-height;
 	/*position: relative;*/
 	width:100%;
 	height:100%;
-	@include breakpoint(medium) {
+	@include desktop-header {
 		display:table;
-		
+		padding-top:0px;
+	}
+
+	@include expanded-header {
+		padding-top:0px;
 	}
 	
 }
@@ -14,12 +18,10 @@
 .sidemenu-container {
 	background-color: palette-get(na-white);
 	width:100%;
+	/*padding-top:$mobile-header-height;*/
 
-
-	@include breakpoint(medium) {
-
+	@include desktop-header {
 		height:100%;
-		
 		display: table-cell;
 		width: $max-sidemenu-width;
 		top:0;
@@ -29,8 +31,9 @@
 }
 
 .content-container {
-	
 	height:100%;
+	display: block;
+	/*padding-top:$mobile-header-height;*/
 	/*padding: $desktop-padding;*/
 	/*background-color: palette-get(na-white);*/
 
@@ -43,13 +46,12 @@
 
 
 	&.has-sidemenu {
-		/*padding-top:$mobile-header-height;*/
-		@include breakpoint(medium) {
+		@include desktop-header {
+			padding-top: $desktop-padding;
 			display:table-cell;
 			width: -webkit-calc(100% - #{$max-sidemenu-width)};
 			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
 			  width:         calc(100% - #{$max-sidemenu-width});
-			
 			
 			/*position:relative; */
 			/*margin-left: $max-sidemenu-width;*/
@@ -59,14 +61,101 @@
 	}
 }
 
-.breadcrumb-container {
-	
-	& > .breadcrumb > li , & > .breadcrumb > li > a {
-		color: palette-get(na-black-40);
+.breadcrumb-social-media-container {
+	height: 48px;
+	position: relative;
+	top: 10px;
+	display: none;
+
+	@include desktop-header {
+		height: 60px;
+		display: block;
 	}
-	@include desktop-sidemenu {
-		padding-left:25px;
-		padding-top:10px;
+	@include expanded-header {
+		display: block;
 	}
 
+	.columns {
+		padding: 0px;
+		height: 25px;
+
+		& > .breadcrumb > li , & > .breadcrumb > li > a {
+			color: grey;
+		}
+	}
+
+	.social-icons {
+		float:right;
+	}
 }
+
+.hero-grid-container {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.picture-link-container {
+	@include breakpoint(medium) {
+		& > .columns {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+
+	@include breakpoint(large) {
+		& > .columns {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:first-child {
+				padding-left: 0px;
+			}
+
+			&:last-child {
+				padding-right: 0px;
+			}
+		}
+	}
+}
+
+.border-panel-container {
+	@include breakpoint(medium) {
+		& > .columns {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+
+	@include breakpoint(large) {
+		& > .columns {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:first-child {
+				padding-left: 0px;
+			}
+
+			&:last-child {
+				padding-right: 0px;
+			}
+		}
+	}
+}
+
+.hero-grid-container {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.post-container {
+	max-width: $max-body-width;
+  	padding-top: $desktop-padding;
+  	padding-left: $mobile-padding;
+  	padding-right: $mobile-padding;
+
+  	@include desktop-header {
+  		padding-left:0px;
+  		padding-right:0px;
+  	}
+}
+

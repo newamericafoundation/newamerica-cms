@@ -143,6 +143,7 @@ class SimplePage(Page):
     creates simple, generic pages.
     """
     subpage_types = ['SimplePage']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'SimplePage']
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
@@ -271,7 +272,7 @@ class Post(Page):
             slug=parent_page.slug
         )
         if isinstance(parent_program, AbstractProgram):
-            relationship, created = PostProgramRelationship.objects.get_or_create(
+            relationship, created=PostProgramRelationship.objects.get_or_create(
                 program=parent_program, post=self
             )
             if created:

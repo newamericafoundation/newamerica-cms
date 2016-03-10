@@ -1,0 +1,43 @@
+.social-icons {
+  width: 200px;
+  padding: 0px;
+
+  svg {
+    opacity: 0.3;
+
+    &:hover {
+      opacity: 1;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+  }
+
+  svg#facebook-icon {
+    width: 10%;
+    margin-right: 8.75%;
+  }
+
+  svg#twitter-icon {
+    width: 11%;
+    margin-right: 8.75%;
+  }
+
+  svg#google-plus-icon {
+    width: 14%;
+    margin-right: 8.75%;
+  }
+
+  svg#linked-in-icon {
+    width: 10%;
+    margin-right: 8.75%;
+  }
+
+  svg#youtube-icon {
+    width: 12%;
+  }
+
+  .st0 {
+    fill: #2C2F35;
+  }
+
+}

@@ -4,6 +4,8 @@ import os
 
 DEBUG = False
 
+APPEND_SLASH = True
+
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Will be changed to final host url

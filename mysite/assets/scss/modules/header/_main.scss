@@ -1,29 +1,54 @@
+@mixin has-sidemenu {
+  .has_sidemenu & {
+      @content;
+  }
+}
+
+
 .header {
   top: 0;
-  background-color: palette-get(na-white);
   width: 100%;
+  background-color: palette-get(na-white);
   z-index: 1000;
   $pad: 20px;
   padding: 0;
   position: fixed;
+  border-bottom: $thick-border-width solid palette-get(na-turquoise);
+  height:$mobile-header-height;
+
+  @include has-sidemenu {
+    width: 50%;
+    @include desktop-header {
+      width: 100%; 
+    }
+  }
+
   @include desktop-header {
     position: fixed;
-    border-bottom: $thick-border-width solid palette-get(na-turquoise);
+    width: 100%; 
+    height:$desktop-header-height;
   }
+
   @include expanded-header {
     padding-top: 8px;
     position: relative;
+    width: 100%;
     border: none;
+    height:$expanded-header-height;
   }
+
   &__content {
-    padding: 0;
+    padding: $mobile-padding;
+    /*padding-right: $mobile-padding;*/
     @include desktop-header() {
-      padding: 6px ($pad - 10px + 1px) 14px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: $max-site-width;
+      padding: 14px $desktop-padding 14px $desktop-padding;
     }
     @include expanded-header {
-      @include desktop-header {
-        padding: $pad ($pad - 10px + 1px) 12px;
-      }
+     /* @include desktop-header {*/
+        padding: $pad $desktop-padding 12px $desktop-padding;
     }
     & > * {
       vertical-align: bottom;
@@ -32,11 +57,10 @@
     display: block;
     width: 100%;
     margin: auto;
-    max-width: $max-site-width;
   }
   &__secondary-nav,
   &__search {
-    right: 10px;
+    right: $desktop-padding;
     a {
       margin-left: 8px;
     }
@@ -56,25 +80,50 @@
     }
   }
   &__cover-bottom-shadow {
-    $height: 25px;
+    
     width: 100%;
-    height: $height;
     z-index: 5;
     position: relative;
     bottom: 8px;
     left: 0;
     transition: none;
     display: none;
+
+    @include desktop-header() {
+      height: 26px;
+    }
+
+    @include expanded-header() {
+      height: 15px;
+    }
     .header__has-link-group:hover &,
     .header__has-link-group--active & {
       display: block;
     }
     background-color: palette-get(na-white);
+    border-left: 1px solid palette-get(na-black-10);
+    border-right: 1px solid palette-get(na-black-10);
   }
-  .mobile-nav {
-    display: block;
+
+  &__mobile-toggle {
+    position: relative;
+    float:right;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 17px; 
+    line-height: 18px; 
+    top: 16px;
+    right: 30px;
+
     @include desktop-header() {
       display: none;
     }
+
+    @include expanded-header() {
+      display: none;
+    }
   }
+
+  
 }

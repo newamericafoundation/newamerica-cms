@@ -1,17 +1,43 @@
 .post-body {
-  max-width: $max-body-width;
-  /*width: 100%;*/
-  /*margin: auto;*/
-  /*padding: 0 $gutter / 2;*/
-  padding-top: 30px;
-  padding-left: 30px;
+  padding-top:$desktop-padding;
+  
+  & > .block-heading {
+    color: palette-get(na-black);
+    font-size:1.50rem;
+    font-weight: bold;
+  }
 
+  & > .block-paragraph {
 
+    &:first-letter {
+      font-size:110px;
+      color: palette-get(na-black);
+      font-weight: bold;
+      opacity: 1;
+      float: left;
+      padding: 20px 10px 5px 0px;
+      height: 55px;
+      margin-right: 0px;
+      line-height: 70px;
+    }
+  }
 
-  /*p,
+  & > .block-paragraph ~ .block-paragraph {
+    &:first-letter {
+      font-size:1.25rem;
+      font-weight:initial;
+      float: initial;
+      padding: initial;
+      height: initial;
+      /*margin-right: inherit;*/
+      line-height: initial;
+    }
+  }
+
+  p,
   blockquote {
     font-size: rem-calc(20);
-    color: palette-get(na-black);
+    color: palette-get(na-black-70);
   }
   blockquote {
     margin: 20px 0;
@@ -19,7 +45,25 @@
     border-color: palette-get(na-black);
     padding: 0 15px;
     font-style: italic;
-  }*/
+  }
+
+  & > .block-attachment {
+
+  }
+}
+
+
+
+.post-author {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight:bold;
+}
+
+.post-date {
+  font-size: 15px;
+  color: palette-get(na-off-black);
+  margin-bottom: 0px;
 }
 
 .post-subscribe {
@@ -27,9 +71,4 @@
   height: 300px;
   border-width: 2.5px;
   /*width: 100%;*/
-}
-
-.post-date {
-  font-size: 16px;
-  color: palette-get(na-black-40);
 }

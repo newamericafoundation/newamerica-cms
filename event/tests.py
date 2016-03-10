@@ -47,10 +47,6 @@ class EventTests(WagtailPageTests):
     def test_can_create_event_under_program_events_page(self):
         self.assertCanCreateAt(ProgramEventsPage, Event)
 
-    # Test whether events can be created at the
-    # org wide level
-    def test_can_create_event_under_all_events_page(self):
-        self.assertCanCreateAt(AllEventsHomePage, Event)
 
     def test_can_create_program_events_page_under_program(self):
         self.assertCanCreateAt(Program, ProgramEventsPage)
@@ -58,7 +54,7 @@ class EventTests(WagtailPageTests):
     # Test allowed parent page types
     def test_event_parent_page(self):
         self.assertAllowedParentPageTypes(
-            Event, {ProgramEventsPage, AllEventsHomePage}
+            Event, {ProgramEventsPage}
         )
 
     def test_program_event_parent_page(self):
@@ -74,8 +70,6 @@ class EventTests(WagtailPageTests):
     def test_program_event_subpages(self):
         self.assertAllowedSubpageTypes(ProgramEventsPage, {Event})
 
-    def test_all_event_subpages(self):
-        self.assertAllowedSubpageTypes(AllEventsHomePage, {Event})
 
     # Test that pages can be created with POST data
     def test_can_create_all_event_page_under_homepage(self):

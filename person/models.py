@@ -55,6 +55,7 @@ class Person(Page):
         ('Staff', 'Staff'),
         ('New America Fellow', 'New America Fellow'),
         ('Program Fellow', 'Program Fellow'),
+        ('External Author/Former Staff', 'External Author/Former Staff'),
     )
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
 
@@ -88,7 +89,7 @@ class OurPeoplePage(Page):
     def get_context(self, request):
         context = super(OurPeoplePage, self).get_context(request)
 
-        context['people'] = Person.objects.all()
+        context['people'] = Person.objects.all().exclude(role='External Author/Former Staff')
 
         return context
 
@@ -131,7 +132,10 @@ class ProgramPeoplePage(Page):
 
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
-        context['people'] = Person.objects.filter(belongs_to_these_programs=program)
+        context['people'] = Person.objects\
+        .filter(belongs_to_these_programs=program)\
+        .exclude(role='External Author/Former Staff')
+        
         context['program'] = program
         return context
 

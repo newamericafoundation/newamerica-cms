@@ -10,8 +10,8 @@ $breakpoints: (
   xxlarge: 1440px,
 );
 
-$button-background: palette-get(na-turquoise);
-$button-background-hover: palette-get(na-black);
+$button-background: palette-get(na-black);
+$button-background-hover: palette-get(na-turquoise);
 $button-margin: 0;
 
 $button-sizes: (
@@ -44,19 +44,20 @@ $breadcrumbs-item-color: palette-get(na-black);
 $breadcrumbs-item-uppercase: false;
 $breadcrumbs-item-slash: true !default;
 
-$input-background: palette-get(na-black-10);
-$input-background-focus: palette-get(na-turquoise);
+$input-background: #fff;
+$input-background-focus: #fff;
 
-$input-color: palette-get(na-black);
-$input-color-focus: palette-get(na-white);
+/*$input-color: palette-get(na-black-10);*/
+$input-color-focus: palette-get(na-black);
 
-$input-height: 40px;
+$input-height: 35px;
 $input-font-size: rem-calc(16);
 
-$input-border: none;
-$input-border-focus: none;
+$input-border: 2px solid palette-get(na-black-10);
+$input-border-focus: 2px solid palette-get(na-black-10);
+
 $input-shadow: none;
-$input-shadow-focus: none;
+$input-shadow-focus: 0 0 15px 0 palette-get(shadow);
 
 $form-spacing: 1.73rem;//1.375rem;
 
@@ -74,4 +75,4 @@ $primary-color: palette-get(na-black);
 $secondary-color: palette-get(na-turquoise);
 
 $menu-margin: 0px;
-$menu-item-padding: 14px 0px;
+$menu-item-padding: 0px 0px;

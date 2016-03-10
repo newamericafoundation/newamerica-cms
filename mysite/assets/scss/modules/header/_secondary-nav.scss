@@ -9,6 +9,8 @@
   position: absolute;
   top: 30px;
   a {
+    color:palette-get(na-black);
+    opacity: .7;
     padding: 0 8px;
     &:last-of-type {
       padding-right: 0;

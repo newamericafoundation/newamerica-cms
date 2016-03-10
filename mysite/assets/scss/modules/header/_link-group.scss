@@ -1,3 +1,5 @@
+$link-group-header-spacing: 30px;
+
 .header__link-group {
   @mixin is-active {
     .header__has-link-group:hover &,
@@ -23,6 +25,7 @@
   @include desktop-header {
     width: 100%;
     top: 72px;
+
   }
   @include expanded-header {
     width: calc(100% + 50px);
@@ -31,6 +34,25 @@
   }
   z-index: 4;
   padding: 5px 11px 0;
+ 
+  &__location {
+    padding-top: $link-group-header-spacing;
+
+    @include breakpoint(large) {
+       padding-top: 0px;
+    }
+  }
+
+  &__channels {
+    padding-top: $link-group-header-spacing;
+
+    & > .social-icons {
+      margin-top: 16px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
   a,
   p,
   h1,
@@ -45,8 +67,7 @@
   @mixin local-hover {
     &:hover {
       opacity: 1;
-      color: palette-get(na-white);
-      background-color: palette-get(na-turquoise);
+      color: palette-get(na-turquoise);
     }
   }
   &__content {
@@ -62,6 +83,7 @@
     @include standard-shadow;
     padding: 30px 7px;
     background-color: palette-get(na-white);
+     border: 1px solid palette-get(na-black-10);
   }
   &__heading {
     margin-bottom: 0;

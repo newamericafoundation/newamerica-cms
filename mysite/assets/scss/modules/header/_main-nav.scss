@@ -1,12 +1,31 @@
+@mixin show-support {
+  @include desktop-header() {
+    @media screen and (min-width: $desktop-show-support) {
+      @content;
+    }
+  }
+
+  @include expanded-header() {
+    @media screen and (min-width: $expanded-show-support) {
+      @content;
+    }
+  }
+}
+
 .header__main-nav {
+  $header-brand-width : 174.5px;
+
   display: none;
   @include desktop-header {
     position: static;
     left: 0;
     top: 0;
     margin-left: 10px;
-    margin-top: 12px;
+    margin-top: 0px;
     display: inline-block;
+    width: -webkit-calc(100% - #{$header-brand-width)};
+        width:    -moz-calc(100% - #{$header-brand-width)});
+        width:         calc(100% - #{$header-brand-width});
   }
   @include expanded-header {
     position: relative;
@@ -15,12 +34,61 @@
     margin-top: 15px;
     margin-left: 0;
     display: block;
+    width: -webkit-calc(100% + 19px);
+        width:    -moz-calc(100% + 19px);
+        width:         calc(100% + 19px);
   }
-  width: auto;
+
   overflow: visible;
   &__item {
     height: 46px;
     z-index: 3;
     overflow: visible;
+
   }
+
+  &__simple-link-group-item {
+    position:relative;
+    height: 46px;
+    z-index: 3;
+    overflow: visible;
+  }
+
+  &__left {
+    display: inline-block;
+  }
+
+  &__right {
+    display: inline-block;
+    float:right;
+
+    &__item {
+      display: none;
+
+      @include show-support {
+         display: inline-block;
+
+      }
+
+      height: 46px;
+      z-index: 3;
+      overflow: visible;
+
+      & > .header__button {
+        background-color: palette-get(na-turquoise);
+        color: palette-get(na-white);
+      }
+    }
+
+    &__search {
+      height:46px;
+      margin-left: 10px;
+
+      & > form > input {
+        height: 46px;
+        margin: 0px;
+      }
+    }
+  }
+
 }
