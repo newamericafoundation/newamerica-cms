@@ -12,6 +12,8 @@ from wagtail.wagtailimages.models import Image
 
 from person.models import OurPeoplePage, Person
 
+from .newamerica_api_client import NAClient
+
 our_people_page = OurPeoplePage.objects.first()
 
 if sys.version_info[0] < 3:
@@ -33,9 +35,11 @@ def load_users_mapping():
 
 
 def users_data_stream():
-	with open('home/management/api/users.json', "r") as stream:
-		return json.load(stream)['results']
-
+	users = NAClient('users')
+	for user_set in users.get_data():
+		for user in user_set['results']:
+			yield user
+		
 
 def download_image(url, image_filename):
 	if url:
