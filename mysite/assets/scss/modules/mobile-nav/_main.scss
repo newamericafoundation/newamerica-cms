@@ -4,6 +4,7 @@ $mobile-nav-logo-width: 145px;
 .mobile-nav {
   top: 0;
   width: 100%;
+  z-index: 10000;
   position: fixed;
   border-bottom: $thick-border-width solid palette-get(na-turquoise);
   height: $mobile-header-height;
