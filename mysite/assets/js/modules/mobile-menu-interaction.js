@@ -16,13 +16,13 @@ var headerMenuExpanded = false;
 var sideMenuExpanded = false;
 
 function addMenuResponsivity() {
-	$(".header__mobile-toggle__button").on("click", function() {
+	$(".mobile-nav__main").on("click", function() {
 		// toggle arrow for header, ensure arrow up for sidemenu
-		$(this).children(".rotate").toggleClass("down");
-		$(".mobile-sidemenu__toggle__button").children(".rotate").removeClass("down");
+		$(".mobile-nav__toggle__main").toggleClass("down");
+		$(".mobile-nav__toggle__secondary").removeClass("down");
 
 		// toggle header menu and ensure sidemenu hidden
-		$(".mobile-header").toggle();
+		$(".mobile-header-menu").toggle();
 		$(".sidemenu").css("display", "none");
 		sideMenuExpanded = false;
 
@@ -39,14 +39,14 @@ function addMenuResponsivity() {
 		
 	})
 
-	$(".mobile-sidemenu").on("click", function() {
+	$(".mobile-nav__secondary").on("click", function() {
 		console.log("toggling sidemenu");
 		// toggle arrow for sidemenu, ensure arrow up for header
-		$(".mobile-sidemenu__toggle__button").children(".rotate").toggleClass("down");
-		$(".header__mobile-toggle__button").children(".rotate").removeClass("down");
+		$(".mobile-nav__toggle__secondary").toggleClass("down");
+		$(".mobile-nav__toggle__main").removeClass("down");
 
 		$(".sidemenu").toggle();
-		$(".mobile-header").css("display", "none");
+		$(".mobile-header-menu").css("display", "none");
 		headerMenuExpanded = false;
 		// sidemenuExpanded = !sidemenuExpanded;
 
@@ -79,23 +79,23 @@ function WidthChange(mq) {
 
   if (mq.matches) {
     console.log("width is greater");
-	$(".mobile-sidemenu").css("display", "none");
+	$(".mobile-nav").css("display", "none");
+	$(".mobile-header-menu").css("display", "none");
 	$(".sidemenu").css("display", "block");
-	$(".mobile-header").css("display", "none");
 	$(".content-container").css("display", "table-cell");
 	$("footer").css("display", "block");
 	sideMenuExpanded = false;
 	headerMenuExpanded = false;
   } else {
     console.log("width is less");
-	$(".mobile-sidemenu").css("display", "block");
+	$(".mobile-nav").css("display", "block");
 
 	if (!sideMenuExpanded) {
 		$(".sidemenu").css("display", "none");
 		$(".content-container").css("display", "block");
 	}
 	if (!headerMenuExpanded) {
-		$(".mobile-header").css("display", "none");
+		$(".mobile-header-menu").css("display", "none");
 	}
   }
 

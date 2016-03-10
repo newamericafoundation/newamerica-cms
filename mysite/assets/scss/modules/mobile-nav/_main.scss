@@ -1,47 +1,123 @@
+$mobile-nav-side-padding: 10px;
+$mobile-nav-logo-width: 145px;
+
 .mobile-nav {
+  top: 0;
+  width: 100%;
+  position: fixed;
+  border-bottom: $thick-border-width solid palette-get(na-turquoise);
+  height: $mobile-header-height;
 
-	$height: 60px;
-	$icon-count: 7;
+  @include desktop-header {
+    display: none;
+  }
 
-	$padding: 10px;
+  @include expanded-header {
+    display: none;
+  }
 
-	width: 100%;
+  &__main {
+    background-color: palette-get(na-white);
+    width:100%;
+    height:100%;
+    position: relative;
 
-	ul, li { display: inline-block; margin: 0; float: left; }
-	ul {
-		width: 100%;
-		text-align: left;
-	}
+    @include has-sidemenu {
+      width: 50%;
+      float:left;
+    }
+  }
 
-	&__button {
+  &__secondary {
+    background-color: palette-get(na-black);
+    width:50%;
+    height:100%;
+    position: relative;
+    display:none;
+    float:right;
 
-		width: 100% / $icon-count;
+    @include has-sidemenu {
+      display:block;
+    }
+  }
 
-		overflow: hidden;
+  &__logo {
+    width: $mobile-nav-logo-width;
+    float:left;
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: $mobile-nav-side-padding;
 
-		text-align: center;
-		height: $height;
-		padding: $padding;
+    & > .sidemenu__program-title__title {
+      color: palette-get(na-white);
+      font-family: "Platform"; 
+      font-weight: bold;
+      font-size: 16px; 
+      line-height: 18px;
+      top: 0px;
+      transform: none;
+      margin-bottom: 0px;
+      word-spacing: $mobile-nav-logo-width;
+    }
+  }
 
-		cursor: pointer;
+  &__toggle {
+    position:absolute;
+    right: $mobile-nav-side-padding;
+    vertical-align: middle;
+    top: 50%;
+    transform: translateY(-50%);
 
-		border-bottom: 1px solid;
-		border-right: 1px solid;
+    .flip-arrow-black , .flip-arrow-white {
+      width: 20px;
+      height: 20px;
+      @include has-sidemenu {
+        /*width:15px;
+        height:15px;*/
 
-		border-color: palette-get(na-black-10);
-		background-color: palette-get(na-white);
-		svg { fill: palette-get(na-black); }
+        @include mobile-header {
+          width:20px;
+          height:20px;
+        }
+      }
+    }
+  }
 
-		&:hover, &--active {
-			border-color: palette-get(na-turquoise);
-			background-color: palette-get(na-turquoise);
-			svg { fill: palette-get(na-white); }
-		}
-	}
+}
 
-	svg {
-		width: 100%;
-		height: 100%;
-	}
 
+
+.mobile-header__toggle {
+  position: relative;
+  float:right;
+  display: inline-block;
+  vertical-align: middle;
+  top: 11px;
+  right: 15px;
+  @include mobile-header() {
+    right: 20px;
+  }
+  @include desktop-header() {
+    display: none;
+  }
+
+  @include expanded-header() {
+    display: none;
+  }
+
+  .flip-arrow-black {
+    width: 20px;
+    height: 20px;
+
+    @include has-sidemenu {
+      /*width:15px;
+      height:15px;*/
+
+      @include mobile-header {
+        width:20px;
+        height:20px;
+      }
+    }
+  }
 }
