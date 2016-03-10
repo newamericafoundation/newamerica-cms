@@ -49,6 +49,22 @@ def download_image(url, image_filename):
 		image.save()
 		return image
 
+def get_new_role(old_role):
+
+	new_roles = {
+		"staff": 'Staff', 
+		"board": 'Board Member', 
+		"fellow": 'New America Fellow', 
+		"alumni": 'External Author/Former Staff',
+		"programfellow": 'Program Fellow',
+	}
+	
+	if not old_role:
+		new_role = 'External Author/Former Staff'
+	else:
+		new_role = new_roles.get(old_role[0], 'External Author/Former Staff')
+
+	return new_role
 
 def load_authors():
 	users_mapping = load_users_mapping()
@@ -61,6 +77,7 @@ def load_authors():
 			db_user = Person.objects.filter(slug=mapped_user_slug).first()
 		if not db_user and mapped_user_slug:
 			print(mapped_user_slug, mapped_user_title, mapped_user['first_name'], mapped_user['last_name'], user_api['email'])
+			new_role = get_new_role(user_api['roles'])
 			db_user = Person(
 				search_description='', 
  				seo_title='', 
@@ -69,12 +86,14 @@ def load_authors():
 				title=mapped_user_title, 
 				first_name=mapped_user['first_name'], 
 				last_name=mapped_user['last_name'], 
-				position_at_new_america='Staff', 
-				role='Staff',
+				position_at_new_america=user_api['title'],
+				role=new_role,
 				email=user_api['email'],
 				expert=False,
 				depth=4,
 				profile_image=download_image(user_api['image'], mapped_user_slug + "_image.jpeg"),
+				short_bio=user_api['short_bio'],
+				long_bio=user_api['long_bio'],
 			)
 			our_people_page.add_child(instance=db_user)
 			db_user.save()
