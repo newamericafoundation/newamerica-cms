@@ -39,9 +39,10 @@ function addMenuResponsivity() {
 		
 	})
 
-	$(".mobile-sidemenu__toggle__button").on("click", function() {
+	$(".mobile-sidemenu").on("click", function() {
+		console.log("toggling sidemenu");
 		// toggle arrow for sidemenu, ensure arrow up for header
-		$(this).children(".rotate").toggleClass("down");
+		$(".mobile-sidemenu__toggle__button").children(".rotate").toggleClass("down");
 		$(".header__mobile-toggle__button").children(".rotate").removeClass("down");
 
 		$(".sidemenu").toggle();
@@ -63,17 +64,16 @@ function addMenuResponsivity() {
 	console.log($("body").hasClass("header--expanded"));
 	currHeaderBreakpoint = $("body").hasClass("header--expanded") ? expandedHeaderBreakpoint : desktopHeaderBreakpoint;
 
-
+	addResizeListener();
 }
 
 $(addMenuResponsivity);
 
-
-var $window = $( window );
-
-var desktopMediaQuery = window.matchMedia("(min-width: " + desktopHeaderBreakpoint + "px)");
-	desktopMediaQuery.addListener(WidthChange);
-	WidthChange(desktopMediaQuery);
+function addResizeListener() {
+	var resizeMediaQuery = window.matchMedia("(min-width: " + currHeaderBreakpoint + "px)");
+		resizeMediaQuery.addListener(WidthChange);
+		WidthChange(resizeMediaQuery);
+}
 
 function WidthChange(mq) {
 

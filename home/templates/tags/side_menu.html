@@ -1,11 +1,9 @@
 {% load side_menu wagtailcore_tags static %}
 
 <div class="mobile-sidemenu">
-  <a href= "{{ side_menu.url }}">
-    <div class="mobile-sidemenu__program-title">
-      <h1 class="mobile-sidemenu__program-title__title">{{ side_menu.logo }}</h1>
-    </div>
-  </a>
+  <div class="mobile-sidemenu__program-title">
+    <h1 class="mobile-sidemenu__program-title__title">{{ side_menu.logo }}</h1>
+  </div>
   <!-- <button class="mobile-sidemenu__toggle">Menu</button> -->
   <div class="mobile-sidemenu__toggle">
     <a class="mobile-sidemenu__toggle__button" href="#"><div class="flip-arrow-white rotate"></div></a>
