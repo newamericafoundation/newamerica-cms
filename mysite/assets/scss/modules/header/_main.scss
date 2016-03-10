@@ -1,8 +1,6 @@
-@mixin has-sidemenu {
-  .has_sidemenu & {
-      @content;
-  }
-}
+
+
+
 
 
 .header {
@@ -38,8 +36,12 @@
   }
 
   &__content {
-    padding: $mobile-padding;
-    /*padding-right: $mobile-padding;*/
+
+     /*padding: 16px $mobile-padding;
+    
+    @include mobile-header() {*/
+      padding: 13px $mobile-padding;
+    
     @include desktop-header() {
       margin-left: auto;
       margin-right: auto;
@@ -103,26 +105,6 @@
     background-color: palette-get(na-white);
     border-left: 1px solid palette-get(na-black-10);
     border-right: 1px solid palette-get(na-black-10);
-  }
-
-  &__mobile-toggle {
-    position: relative;
-    float:right;
-    font-weight: bold;
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 17px; 
-    line-height: 18px; 
-    top: 16px;
-    right: 30px;
-
-    @include desktop-header() {
-      display: none;
-    }
-
-    @include expanded-header() {
-      display: none;
-    }
   }
 
   

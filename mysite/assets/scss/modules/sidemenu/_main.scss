@@ -19,11 +19,11 @@ $program-title-width: 150px;
   }
 
   &__program-title {
-    margin-left: $mobile-padding;
+    /*margin-left: $mobile-padding;*/
     margin-top: 10px;
-    width: 145px;
-    padding: 9px;
-    height:50px;
+    width: $program-title-width - 5px;
+    padding: $mobile-padding;
+    height: 50px;
     max-height:60px;
     float:left;
     color:palette-get(na-white);
@@ -33,11 +33,12 @@ $program-title-width: 150px;
       font-family: "Platform"; 
       
       font-weight: bold;
-      font-size: 17px; 
+      font-size: 16px; 
       line-height: 18px; 
       /*padding-top: 1px;  */
       top: 50%; 
       transform: translateY(-50%);
+      word-spacing: $program-title-width;
     }
   }
 
@@ -47,7 +48,7 @@ $program-title-width: 150px;
    
     font-weight:bold;
     top: 24px;
-    right: 40px;
+    right: 30px;
 
     &__button {
       z-index: 1100;
@@ -94,7 +95,6 @@ $program-title-width: 150px;
     max-height:60px;
     display:none;
     color:palette-get(na-white);
-
 
     @include desktop-header {
       display:block;

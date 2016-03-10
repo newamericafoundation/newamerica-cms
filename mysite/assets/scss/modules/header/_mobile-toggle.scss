@@ -1,0 +1,39 @@
+/*@mixin expand-toggle {
+  @media screen and (min-width: 380px) {
+    @content;
+  }
+}*/
+
+.header__mobile-toggle {
+  position: relative;
+  float:right;
+  display: inline-block;
+  vertical-align: middle;
+  top: 11px;
+  right: 15px;
+  @include mobile-header() {
+    right: 20px;
+  }
+  @include desktop-header() {
+    display: none;
+  }
+
+  @include expanded-header() {
+    display: none;
+  }
+
+  .flip-arrow-black {
+    width: 20px;
+    height: 20px;
+
+    @include has-sidemenu {
+      /*width:15px;
+      height:15px;*/
+
+      @include mobile-header {
+        width:20px;
+        height:20px;
+      }
+    }
+  }
+}
