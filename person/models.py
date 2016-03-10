@@ -2,7 +2,6 @@ from django.db import models
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
@@ -25,7 +24,7 @@ class PersonProgramRelationship(models.Model):
 class Person(Page):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    position_at_new_america = models.CharField(max_length=500, help_text="Position or Title at New America")
+    position_at_new_america = models.CharField(max_length=500, help_text="Position or Title at New America", blank=True, null=True)
     email = models.EmailField()
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
