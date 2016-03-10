@@ -49,7 +49,7 @@ def download_image(url, image_filename):
 		image.save()
 		return image
 
-def get_new_role(old_role):
+def get_role_info(old_role):
 
 	new_roles = {
 		"staff": 'Staff', 
@@ -58,13 +58,20 @@ def get_new_role(old_role):
 		"alumni": 'External Author/Former Staff',
 		"programfellow": 'Program Fellow',
 	}
+	expert_roles = ['Board Member', 'New America Fellow', 'Program Fellow']
+	role_info = {}
 	
 	if not old_role:
-		new_role = 'External Author/Former Staff'
+		role_info['role_title'] = 'External Author/Former Staff'
+		role_info['expert'] = False
 	else:
-		new_role = new_roles.get(old_role[0], 'External Author/Former Staff')
+		role_info['role_title'] = new_roles.get(old_role[0], 'External Author/Former Staff')
+		if role_info['role_title'] in expert_roles:
+			role_info['expert'] = True
+		else:
+			role_info['expert'] = False
 
-	return new_role
+	return role_info
 
 def load_authors():
 	users_mapping = load_users_mapping()
@@ -77,7 +84,7 @@ def load_authors():
 			db_user = Person.objects.filter(slug=mapped_user_slug).first()
 		if not db_user and mapped_user_slug:
 			print(mapped_user_slug, mapped_user_title, mapped_user['first_name'], mapped_user['last_name'], user_api['email'])
-			new_role = get_new_role(user_api['roles'])
+			role_info = get_role_info(user_api['roles'])
 			db_user = Person(
 				search_description='', 
  				seo_title='', 
@@ -87,9 +94,9 @@ def load_authors():
 				first_name=mapped_user['first_name'], 
 				last_name=mapped_user['last_name'], 
 				position_at_new_america=user_api['title'],
-				role=new_role,
+				role=role_info['role_title'],
 				email=user_api['email'],
-				expert=False,
+				expert=role_info['expert'],
 				depth=4,
 				profile_image=download_image(user_api['image'], mapped_user_slug + "_image.jpeg"),
 				short_bio=user_api['short_bio'],
