@@ -86,13 +86,15 @@ input[type='text'] {
   }
   li:not(:last-child)::after {
     color: palette-get(na-black);
-    content: '>';
+    content: url(shape-urls-get(right-arrow-na-black));
     font-weight: bold;
     font-family: 'Platform';
     margin: 0 $breadcrumbs-item-margin;
     position: relative;
     top: 1px;
     opacity: 1;
+    width:10px;
+    height: 10px;
   }
 }
 

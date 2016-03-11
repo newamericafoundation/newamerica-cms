@@ -44,14 +44,14 @@
                             {% if self.get_ancestors|length > 2 %}
                             <div class='breadcrumb-social-media-container row'>
                                 <div class= "small-8 columns">
-                                    <ul class='breadcrumb'>
+                                    <ul class='breadcrumbs'>
 
                                     {% for page in self.get_ancestors %}
                                         {% if page.is_root == False %}
-                                        <li><a href="{{ page.url }}">{{ page.title }} > </a></li>
+                                        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
                                         {% endif %}
                                     {% endfor %}
-
+                                         <li class="active">{{ page.title }}</li>
                                     </ul>
                                 </div>
 
