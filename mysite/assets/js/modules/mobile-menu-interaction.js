@@ -40,7 +40,6 @@ function addMenuResponsivity() {
 	})
 
 	$(".mobile-nav__secondary").on("click", function() {
-		console.log("toggling sidemenu");
 		// toggle arrow for sidemenu, ensure arrow up for header
 		$(".mobile-nav__toggle__secondary").toggleClass("down");
 		$(".mobile-nav__toggle__main").removeClass("down");
@@ -61,7 +60,6 @@ function addMenuResponsivity() {
 		}
 	})
 
-	console.log($("body").hasClass("header--expanded"));
 	currHeaderBreakpoint = $("body").hasClass("header--expanded") ? expandedHeaderBreakpoint : desktopHeaderBreakpoint;
 
 	addResizeListener();
