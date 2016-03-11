@@ -1,3 +1,11 @@
+
+
+@mixin mobile-header() {
+  @media screen and (min-width: 340px) {
+    @content;
+  }
+}
+
 @mixin desktop-header() {
   @media screen and (min-width: $desktop-header-foldup) {
     @content;
@@ -19,5 +27,11 @@
 @mixin desktop-sidemenu() {
   @include breakpoint(medium) {
     @content;
+  }
+}
+
+@mixin has-sidemenu {
+  .has_sidemenu & {
+      @content;
   }
 }

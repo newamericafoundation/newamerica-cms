@@ -1,6 +1,4 @@
 .flip-arrow-black { 
-	position: absolute; 
-	display: block; 
 	width: 20px; 
 	height: 20px; 
 	background-image: url(shape-urls-get(down-arrow-na-black));
@@ -8,8 +6,6 @@
 }
 
 .flip-arrow-white { 
-	position: absolute; 
-	display: block; 
 	width: 20px; 
 	height: 20px; 
 	background-image: url(shape-urls-get(down-arrow-na-white));

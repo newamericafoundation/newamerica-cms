@@ -1,4 +1,4 @@
-.mobile-header {
+.mobile-header-menu {
     display: none;
     top: $mobile-header-height;
     position: relative;
@@ -29,14 +29,15 @@
 			border: 1px solid palette-get(na-black-10);
 		  &:hover {
 		    background-color: palette-get(na-turquoise);
+		    border-color: palette-get(na-turquoise);
+
+		   	& > a {
+		      color: white;
+		    }
 		  }
 
 		  & > a {
 		    color: grey;
-
-		    &:hover {
-		      color: white;
-		    }
 		  }
 		}
 

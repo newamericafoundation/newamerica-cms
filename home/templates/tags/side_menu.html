@@ -1,19 +1,5 @@
 {% load side_menu wagtailcore_tags static %}
 
-<div class="mobile-sidemenu">
-  <a href= "{{ side_menu.url }}">
-    <div class="mobile-sidemenu__program-title">
-      <h1 class="mobile-sidemenu__program-title__title">{{ side_menu.logo }}</h1>
-    </div>
-  </a>
-  <!-- <button class="mobile-sidemenu__toggle">Menu</button> -->
-  <div class="mobile-sidemenu__toggle">
-    <a class="mobile-sidemenu__toggle__button" href="#"><div class="flip-arrow-white rotate"></div></a>
-  </div>
-</div>
-
-
-
 <div class="sidemenu" >
   <a href= "{{ side_menu.url }}">
     <div class="sidemenu__program-title">
@@ -22,6 +8,7 @@
   </a>
   <div class="sidemenu__link-group">
     <ul class="menu vertical sidemenu__link-group__content" id="example-menu">
+      <li class="sidemenu__link-group__link"><a href="#">{{ side_menu.logo }} Home Page</a></li>
       <li class="menu-text sidemenu__link-group__title">Initiatives & Projects</li>
       {% for initiative in side_menu.initiative_pages %}
         <li class="sidemenu__link-group__link">{{ initiative }}</li>
