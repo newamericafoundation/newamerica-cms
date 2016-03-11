@@ -14,4 +14,23 @@
     font-size: rem-calc(18);
     padding-top: 6px;
   }
+
+  &__icon {
+    background-color: palette-get(na-black-10);
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    margin: auto;
+    position: relative;
+
+    & > svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 80px;
+      
+    }
+  } 
 }
