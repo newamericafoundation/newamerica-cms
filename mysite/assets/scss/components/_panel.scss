@@ -1,9 +1,16 @@
+
+
 .panel {
   padding: 60px 20px;
 
   @include breakpoint(medium) {
     margin-left: -1000px;
     margin-right:-1000px;
+
+    .has-sidemenu > & {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
   }
 
   /*overflow:hidden;*/
