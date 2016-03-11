@@ -95,6 +95,14 @@
 }
 
 .picture-link-container {
+	padding: 0px $mobile-padding;
+	@include desktop-header {
+		padding: 0px;
+	}
+	@include expanded-header {
+		padding: 0px;
+	}
+
 	@include breakpoint(medium) {
 		& > .columns {
 			padding-left: 0px;
@@ -119,6 +127,14 @@
 }
 
 .border-panel-container {
+	padding: 0px $mobile-padding;
+	@include desktop-header {
+		padding: 0px;
+	}
+	@include expanded-header {
+		padding: 0px;
+	}
+	
 	@include breakpoint(medium) {
 		& > .columns {
 			padding-left: 0px;
