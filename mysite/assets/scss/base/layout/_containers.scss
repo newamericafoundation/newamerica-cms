@@ -95,69 +95,90 @@
 }
 
 .picture-link-container {
-	padding: 0px $mobile-padding;
-	@include desktop-header {
-		padding: 0px;
-	}
-	@include expanded-header {
-		padding: 0px;
-	}
 
-	@include breakpoint(medium) {
+	@include desktop-header {
 		& > .columns {
 			padding-left: 0px;
 			padding-right: 0px;
+
+			@include breakpoint(large) {
+				padding-left: 10px;
+				padding-right: 10px;
+
+				&:first-child {
+					padding-left: 0px;
+				}
+
+				&:last-child {
+					padding-right: 0px;
+				}
+			}
 		}
 	}
 
-	@include breakpoint(large) {
+	@include expanded-header {
 		& > .columns {
-			padding-left: 10px;
-			padding-right: 10px;
+			padding-left: 0px;
+			padding-right: 0px;
 
-			&:first-child {
-				padding-left: 0px;
-			}
+			@include breakpoint(large) {
+				padding-left: 10px;
+				padding-right: 10px;
 
-			&:last-child {
-				padding-right: 0px;
+				&:first-child {
+					padding-left: 0px;
+				}
+
+				&:last-child {
+					padding-right: 0px;
+				}
 			}
 		}
 	}
 }
 
 .border-panel-container {
-	padding: 0px $mobile-padding;
 	@include desktop-header {
-		padding: 0px;
-	}
-	@include expanded-header {
-		padding: 0px;
-	}
-	
-	@include breakpoint(medium) {
 		& > .columns {
 			padding-left: 0px;
 			padding-right: 0px;
+
+			@include breakpoint(large) {
+				padding-left: 10px;
+				padding-right: 10px;
+
+				&:first-child {
+					padding-left: 0px;
+				}
+
+				&:last-child {
+					padding-right: 0px;
+				}
+			}
 		}
 	}
 
-	@include breakpoint(large) {
+	@include expanded-header {
 		& > .columns {
-			padding-left: 10px;
-			padding-right: 10px;
+			padding-left: 0px;
+			padding-right: 0px;
+	
+			@include breakpoint(large) {
+				padding-left: 10px;
+				padding-right: 10px;
 
-			&:first-child {
-				padding-left: 0px;
-			}
+				&:first-child {
+					padding-left: 0px;
+				}
 
-			&:last-child {
-				padding-right: 0px;
+				&:last-child {
+					padding-right: 0px;
+				}
 			}
 		}
 	}
 }
-
+	
 .hero-grid-container {
 	padding-left: 0px;
 	padding-right: 0px;
