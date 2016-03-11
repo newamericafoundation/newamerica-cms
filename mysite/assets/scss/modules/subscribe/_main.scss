@@ -13,14 +13,6 @@ $subscribe-padding: 16px;
     color: palette-get(na-black-40);
   }
 
-  input {
-    margin-bottom: $subscribe-padding;
-;
-    @include breakpoint(medium) {
-      margin-bottom: 0px;
-    }
-  }
-
   &__header {
     padding: 0 $mobile-padding;
   }
@@ -39,11 +31,7 @@ $subscribe-padding: 16px;
     margin: auto;
     position: relative;
     margin-bottom: $subscribe-padding;
-    display: none;
-
-    @include breakpoint(medium) {
-      display: block;
-    }
+    
 
     & > svg {
       position: absolute;
