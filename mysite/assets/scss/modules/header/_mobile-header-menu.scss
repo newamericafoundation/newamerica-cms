@@ -30,14 +30,14 @@
 		  &:hover {
 		    background-color: palette-get(na-turquoise);
 		    border-color: palette-get(na-turquoise);
+
+		   	& > a {
+		      color: white;
+		    }
 		  }
 
 		  & > a {
 		    color: grey;
-
-		    &:hover {
-		      color: white;
-		    }
 		  }
 		}
 
