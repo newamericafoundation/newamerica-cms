@@ -1,8 +1,24 @@
+$subscribe-padding: 16px;
+
 .subscribe {
   padding-top: 5px;
   h1 {
     font-weight: bold;
     font-size: rem-calc(28);
+    margin-bottom: $subscribe-padding;
+  }
+
+  p {
+    margin-bottom: $subscribe-padding;
+    color: palette-get(na-black-40);
+  }
+
+  input {
+    margin-bottom: $subscribe-padding;
+;
+    @include breakpoint(medium) {
+      margin-bottom: 0px;
+    }
   }
 
   &__header {
@@ -22,6 +38,12 @@
     height: 130px;
     margin: auto;
     position: relative;
+    margin-bottom: $subscribe-padding;
+    display: none;
+
+    @include breakpoint(medium) {
+      display: block;
+    }
 
     & > svg {
       position: absolute;
