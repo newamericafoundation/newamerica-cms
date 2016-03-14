@@ -1,4 +1,5 @@
-$post-header-height:225px;
+$std-post-header-padding-with-image: 70px;
+$std-post-header-padding-without-image: $std-post-header-padding-with-image/2;
 
 .post-header {
 	width: 100%;
@@ -10,23 +11,36 @@ $post-header-height:225px;
 	&__text {
 		position: relative;
 		top:50%;
-		min-height: $std-post-header-height;
-		/*transform: translateY(-50%);*/
-		padding: $post-header-height/3 0px 30px 25px;
-		color:white;
+		max-width: $max-body-width;
+		padding: $std-post-header-padding-without-image $mobile-padding;
+		color:palette-get(na-black);
+
+		@include desktop-header {
+			padding: $std-post-header-padding-without-image 0px;
+		}
+
+		@include expanded-header {
+			padding: $std-post-header-padding-without-image 0px;
+		}
+
+		.with-image & {
+			min-height: $std-post-header-height;
+			padding: $std-post-header-padding-with-image $desktop-padding;
+			color:palette-get(na-white);
+		}
 
 		&__headline {
 			font-size: 30px;
-			max-width: $max-body-width;
-			@include breakpoint(large) {
+			@include breakpoint(medium) {
 			    font-size: 40px;
 			}
 		}
 
 		&__sub-headline {
 			font-size: 20px;
-			max-width: $max-body-width;
-			@include breakpoint(large) {
+			color: palette-get(na-black-40);
+			margin-bottom: 0px;
+			@include breakpoint(medium) {
 			    font-size: 30px;
 			}
 		}
