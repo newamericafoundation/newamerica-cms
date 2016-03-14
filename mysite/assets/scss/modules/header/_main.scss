@@ -1,32 +1,18 @@
-@mixin has-sidemenu {
-  .has_sidemenu & {
-      @content;
-  }
-}
-
 
 .header {
   top: 0;
   width: 100%;
-  background-color: palette-get(na-white);
-  z-index: 1000;
-  $pad: 20px;
-  padding: 0;
-  position: fixed;
   border-bottom: $thick-border-width solid palette-get(na-turquoise);
-  height:$mobile-header-height;
-
-  @include has-sidemenu {
-    width: 50%;
-    @include desktop-header {
-      width: 100%; 
-    }
-  }
+  display:none;
+  z-index: 10000;
 
   @include desktop-header {
     position: fixed;
     width: 100%; 
     height:$desktop-header-height;
+    cursor: auto;
+    display: block;
+    top: 0px;
   }
 
   @include expanded-header {
@@ -35,11 +21,14 @@
     width: 100%;
     border: none;
     height:$expanded-header-height;
+    cursor: auto;
+    display: block;
   }
 
   &__content {
-    padding: $mobile-padding;
-    /*padding-right: $mobile-padding;*/
+
+    padding: 13px $mobile-padding;
+    
     @include desktop-header() {
       margin-left: auto;
       margin-right: auto;
@@ -48,7 +37,7 @@
     }
     @include expanded-header {
      /* @include desktop-header {*/
-        padding: $pad $desktop-padding 12px $desktop-padding;
+        padding: 20px $desktop-padding 12px $desktop-padding;
     }
     & > * {
       vertical-align: bottom;
@@ -103,26 +92,6 @@
     background-color: palette-get(na-white);
     border-left: 1px solid palette-get(na-black-10);
     border-right: 1px solid palette-get(na-black-10);
-  }
-
-  &__mobile-toggle {
-    position: relative;
-    float:right;
-    font-weight: bold;
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 17px; 
-    line-height: 18px; 
-    top: 16px;
-    right: 30px;
-
-    @include desktop-header() {
-      display: none;
-    }
-
-    @include expanded-header() {
-      display: none;
-    }
   }
 
   

@@ -15,7 +15,7 @@
   padding: 6px 10px;
   border: 1px solid palette-get(na-black-40);
   h1 {
-    @include header-logo-text;
+    @include desktop-header-logo-text;
   }
   &:hover {
     border-color: palette-get(na-turquoise);

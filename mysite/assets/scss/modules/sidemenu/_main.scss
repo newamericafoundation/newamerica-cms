@@ -1,65 +1,6 @@
 $left-pad: 20px;
 $right-pad: 25px;
-$program-title-width: 150px;
-
-.mobile-sidemenu {
-  background-color: palette-get(na-black);
-  width: 50%;
-  /*float:right;*/
-  right:0px;
-  top:0px;
-  position: fixed;
-  height:$mobile-header-height;
-  z-index: 1000;
-  border-bottom: $thick-border-width solid palette-get(na-turquoise);
-  /*font-color:palette-get(na-white);*/
-
-  @include desktop-header {
-    display:none;
-  }
-
-  &__program-title {
-    margin-left: $mobile-padding;
-    margin-top: 10px;
-    width: 145px;
-    padding: 9px;
-    height:50px;
-    max-height:60px;
-    float:left;
-    color:palette-get(na-white);
-
-    &__title {
-      position: relative;
-      font-family: "Platform"; 
-      
-      font-weight: bold;
-      font-size: 17px; 
-      line-height: 18px; 
-      /*padding-top: 1px;  */
-      top: 50%; 
-      transform: translateY(-50%);
-    }
-  }
-
-  &__toggle {
-    position:relative;
-    float:right;
-   
-    font-weight:bold;
-    top: 24px;
-    right: 40px;
-
-    &__button {
-      z-index: 1100;
-
-      & > .flip-arrow {
-        fill: palette-get(na-white);
-        /*stroke: palette-get(na-white);*/
-      }
-    }
-  }
-}
-
+$program-title-width: 163px;
 
 .sidemenu {
 /*  top: $mobile-header-height;*/
@@ -90,11 +31,11 @@ $program-title-width: 150px;
     width: $program-title-width;
     background-color: palette-get(na-black);
     padding: 9px;
+    line-height: 105%;
     height:60px;
     max-height:60px;
     display:none;
     color:palette-get(na-white);
-
 
     @include desktop-header {
       display:block;
@@ -116,24 +57,25 @@ $program-title-width: 150px;
     color: palette-get(na-white);
 
     @include desktop-header {
-      padding-top: $desktop-padding;
+      padding-top: 10px;
       color: palette-get(na-black);
     }
 
 
     & > ul > li > a {
       padding: $mobile-menu-item-padding;
+      color: grey;
 
       @include desktop-header {
-        padding: 0px;
+        padding: 10px $desktop-padding;
       }
+
     } 
 
     &__title, &__link {
       height: $mobile-menu-item-height;
       border-top: 1px solid palette-get(na-off-black);
       border-bottom: 1px solid palette-get(na-off-black);
-
 
       @include desktop-header {
         height:auto;
@@ -145,29 +87,18 @@ $program-title-width: 150px;
       padding: $mobile-menu-item-padding;
 
       @include desktop-header {
-        padding: 10px $desktop-padding;
+        padding: $desktop-padding $desktop-padding 10px $desktop-padding;
       }
     }
 
     &__link {
-
-      @include desktop-header {
-        padding: 10px $desktop-padding;
-      }
+      padding: 0px;
 
       &:hover {
         background-color: palette-get(na-turquoise);
+        border-color: palette-get(na-turquoise);
 
         & > a {
-          color: white;
-        }
-      }
-
-      & > a {
-        padding: $mobile-menu-item-padding;
-        color: grey;
-
-        &:hover {
           color: white;
         }
       }

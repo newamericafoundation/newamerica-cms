@@ -11,11 +11,7 @@ from modelcluster.fields import ParentalKey
 class AbstractProgram(Page):
     name = models.CharField(max_length=100, help_text='Name of Program')
     location = models.NullBooleanField(help_text='Check box if this is a location based program i.e. New America NYC')
-    description = StreamField([
-        ('heading', blocks.CharBlock(classname='full title')),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock(icon='image')),
-    ])
+    description = models.TextField()
 
     # Up to four lead stories can be featured on the homepage.
     # Lead_1 will be featured most prominently.
@@ -105,7 +101,7 @@ class AbstractProgram(Page):
     content_panels = Page.content_panels + [
         FieldPanel('name', classname='full title'),
         FieldPanel('location'),
-        StreamFieldPanel('description'),
+        FieldPanel('description'),
     ]
 
     def get_context(self, request):

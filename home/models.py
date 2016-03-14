@@ -136,14 +136,11 @@ class HomePage(Page):
 
 
 
-
-class SimplePage(Page):
+class AbstractSimplePage(Page):
     """
-    Simple page class that inherits from the Page model and
+    Abstract Simple page class that inherits from the Page model and
     creates simple, generic pages.
     """
-    subpage_types = ['SimplePage']
-    parent_page_types = ['programs.Program', 'programs.Subprogram', 'SimplePage']
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
@@ -154,6 +151,27 @@ class SimplePage(Page):
     content_panels = Page.content_panels + [
         StreamFieldPanel('body')
     ]
+
+    class Meta:
+        abstract = True
+
+
+class OrgSimplePage(AbstractSimplePage):
+    """
+    Simple Page at the organization level
+    """
+    parent_page_types = ['home.HomePage', 'OrgSimplePage']
+    subpage_types = ['OrgSimplePage']
+
+
+
+class ProgramSimplePage(AbstractSimplePage):
+    """
+    Simple Page at the Program level
+    """
+    parent_page_types = ['programs.Program', 'ProgramSimplePage']
+    subpage_types = ['ProgramSimplePage']
+
 
 
 class PostAuthorRelationship(models.Model):

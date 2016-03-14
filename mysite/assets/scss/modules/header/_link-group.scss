@@ -1,3 +1,5 @@
+$link-group-header-spacing: 30px;
+
 .header__link-group {
   @mixin is-active {
     .header__has-link-group:hover &,
@@ -33,6 +35,23 @@
   z-index: 4;
   padding: 5px 11px 0;
  
+  &__location {
+    padding-top: $link-group-header-spacing;
+
+    @include breakpoint(large) {
+       padding-top: 0px;
+    }
+  }
+
+  &__channels {
+    padding-top: $link-group-header-spacing;
+
+    & > .social-icons {
+      margin-top: 16px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
 
   a,
   p,

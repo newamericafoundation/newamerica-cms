@@ -39,21 +39,19 @@
 				{% for other_lead_story in other_lead_stories %}
 					{% if other_lead_story %}
 						<div class='hero-grid__element'>
-						<a href="{{ other_lead_story.url }}">
-							<div class='hero-grid__element__wrapper'>
+							<a href="{{ other_lead_story.url }}" class='hero-grid__element__content'>
 							{% image other_lead_story.post.story_image original as other_lead_story_image %}
 								<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
-									<p class='hero-grid__element__text-bar__subheading' href="#">
+									<a class='hero-grid__element__text-bar__subheading' href="#">
 									{% for author in other_lead_story.post_author.all %}
 										{{ author}}
 									{% endfor %}
-									</p>
-									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>
+									</a>
+									<a class='hero-grid__element__text-bar__heading' href="{{ story.url }}">{{ other_lead_story.title }}</a>
 								</div>
-							</div>
-						</a>
+							</a>
 						</div>
 					{% endif %}
 				{% endfor %}
@@ -69,15 +67,17 @@
 
 <section class='section section--fixed-width'>
 
-	<div class='row'>
+	<div class='row picture-link-container'>
 
 		{% for feature_story in featured_stories %}
 		<div class='small-12 large-4 columns'>
 			{% image feature_story.post.story_image original as feature_story_image %}
 			<div class='picture-link'>
-				<div class='picture-link__picture'>
-					<a href="{{ feature_story.url }}"><img {{ feature_story_image.attrs }} /></a>
-				</div>
+				<a href="{{ feature_story.url }}">
+					<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>
+		
+					</div>
+				</a>
 				<div class='picture-link__content'>
 					<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
 					<p>{{ feature_story.post.story_excerpt }}</p>
@@ -90,5 +90,68 @@
 	</div>
 
 </section>
+
+<section class='section section--fixed-width'>
+
+	<div class='row border-panel-container'>
+
+		
+
+		<div class='small-12 large-6 columns'>
+
+			<div class='border-panel'>
+
+				<ul>
+					{% for item in page.recent_carousel %}
+					<li class='border-panel__item'>
+						<div class='border-panel__info'>{{ item.value.get_parent }} - {{ item.value.post.date }}</div>
+						<div class='border-panel__content'>
+							<a href="{{ item.value.url }}"><h1>{{ item.value.title }}</h1></a>
+							<p>{{ item.value.post.story_excerpt }}</p>
+							<a href="{{ item.value.url }}"><div class='button'>Learn More</div></a>
+						</div>
+					</li>
+					{% endfor %}
+
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class='small-12 large-6 columns'>
+
+			<div class='border-panel'>
+
+				<div class='border-panel__item'>
+					<div class='border-panel__content'>
+						<h1>Subscribe</h1>
+						<p>Receive Updates from the {{ page.name }} Program</p>
+						<div id='subscribe'>
+							<input type='text' placeholder='Your Email' id='subscribe__email-field'></input>
+							<button class='button' id='subscribe__link'>Sign up</button>
+							<div id='subscribe__modal-container'></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<div class='panel'>
+
+	<h1>About {{ page.name }}</h1>
+	<p>{{ page.description }}</p>
+
+	<div class='panel__link'>
+		<a href='' class='button'>Read our story</a>
+	</div>
+
+</div>
 
 {% endblock %}
