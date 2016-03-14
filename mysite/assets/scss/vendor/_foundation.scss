@@ -77,7 +77,37 @@ input[type='text'] {
     color: palette-get(na-black-40);
   }
 }
+
+.breadcrumb-container {
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  
+}
+
+.breadcrumb-overlay {
+  position: relative;
+  top: 0;
+  left: 0px;
+  display: block;
+  height: 25px;
+  width: 100%;
+  z-index: 2;
+  background-image:linear-gradient(to right, transparent, transparent, transparent, white);
+  pointer-events: none;
+}
+
+
 .breadcrumbs {
+  position: relative;
+  top: -25px;
+  li {
+    display: inline-block;
+    float: none;
+  }
+  
   li > .active {
     opacity: .3;
   }
