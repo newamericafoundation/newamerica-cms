@@ -36,7 +36,8 @@
 
 	// Adjustment made to the widths of the main and secondary grid columns so it lines up with regular grid.
 	// Works only for two children.
-	$gutter-adjust: $local-gutter / 2;
+
+	$gutter-adjust: 0px;
 
 	@extend clearfix;
 

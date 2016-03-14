@@ -18,6 +18,7 @@
 .sidemenu-container {
 	background-color: palette-get(na-white);
 	width:100%;
+	vertical-align:top;
 	/*padding-top:$mobile-header-height;*/
 
 	@include desktop-header {
@@ -32,6 +33,7 @@
 
 .content-container {
 	height:100%;
+	vertical-align:top;
 	display: block;
 	/*padding-top:$mobile-header-height;*/
 	/*padding: $desktop-padding;*/
@@ -80,15 +82,19 @@
 	.columns {
 		padding: 0px;
 		height: 25px;
-
-		& > .breadcrumb > li , & > .breadcrumb > li > a {
-			color: grey;
-		}
 	}
 
 	.social-icons {
 		float:right;
 	}
+}
+
+.breadcrumb-container {
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .hero-grid-container {

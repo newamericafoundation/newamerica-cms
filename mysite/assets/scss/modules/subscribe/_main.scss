@@ -1,8 +1,16 @@
+$subscribe-padding: 16px;
+
 .subscribe {
   padding-top: 5px;
   h1 {
     font-weight: bold;
     font-size: rem-calc(28);
+    margin-bottom: $subscribe-padding;
+  }
+
+  p {
+    margin-bottom: $subscribe-padding;
+    color: palette-get(na-black-40);
   }
 
   &__header {
@@ -14,4 +22,25 @@
     font-size: rem-calc(18);
     padding-top: 6px;
   }
+
+  &__icon {
+    background-color: palette-get(na-black-10);
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    margin: auto;
+    position: relative;
+    margin-bottom: $subscribe-padding;
+    
+
+    & > svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 80px;
+      
+    }
+  } 
 }

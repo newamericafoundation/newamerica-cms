@@ -77,27 +77,3 @@ input[type='text'] {
     color: palette-get(na-black-40);
   }
 }
-.breadcrumbs {
-  a {
-    &:hover {
-      text-decoration: none;
-      color: palette-get(na-turquoise);
-    }
-  }
-  li:not(:last-child)::after {
-    color: palette-get(na-black);
-    content: '>';
-    font-weight: bold;
-    font-family: 'Platform';
-    margin: 0 $breadcrumbs-item-margin;
-    position: relative;
-    top: 1px;
-    opacity: 1;
-  }
-}
-
-.breadcrumbs.breadcrumbs--white {
-  li:not(:last-child)::after {
-    color: palette-get(na-white);
-  }
-}
