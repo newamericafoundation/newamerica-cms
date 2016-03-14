@@ -1,0 +1,44 @@
+.breadcrumb-overlay {
+  position: relative;
+  top: 0;
+  left: 0px;
+  display: block;
+  height: 25px;
+  width: 100%;
+  z-index: 2;
+  background-image:linear-gradient(to right, transparent, transparent 80%, white);
+  pointer-events: none;
+}
+
+
+.breadcrumbs {
+  position: relative;
+  top: -25px;
+  li {
+    display: inline-block;
+    float: none;
+  }
+  
+  li > .active {
+    opacity: .3;
+  }
+  a {
+    opacity: .5;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: none;
+      color: palette-get(na-turquoise);
+    }
+  }
+  li:not(:last-child)::after {
+    content: url(shape-urls-get(right-arrow-na-black));
+    font-weight: bold;
+    font-family: 'Platform';
+    margin: 0 $breadcrumbs-item-margin;
+    position: relative;
+    opacity: .3;
+    width:10px;
+    height: 10px;
+  }
+}
