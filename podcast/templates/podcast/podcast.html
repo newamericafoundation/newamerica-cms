@@ -1,22 +1,27 @@
-{% extends "program_base.html" %}
+{% extends "std_post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-podcast{% endblock %}
 
-{% block content %}
-    <h1> {{ page.title }} </h1>
-    <h3> {{ page.date }} </h3>
-    <h4> {{ page.body }} </h4>
+{% block post-content %}
 
-    {% if page.post_author.all %}
-			{% for author in page.post_author.all %}
-				<a href="{{ author.url }}">{{ author }}</a>
-				<br>
+	{% if page.post_author.all %}
+	    	
+	    <h5 class="post-author">By 
+			{% for author in authors %}
+				<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
 			{% endfor %}
-		{% endif %}
-		<br>
+		</h5>
+		
+	{% endif %}
+
+    <h5 class="post-date"> {{ page.date }} </h5>
+
+    <div class="post-body">
+	    {{ page.body }}
+	</div>
 
     {{ page.soundcloud }}
 
