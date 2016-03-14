@@ -87,6 +87,14 @@
 	}
 }
 
+.breadcrumb-container {
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .hero-grid-container {
 	padding-left: 0px;
 	padding-right: 0px;
