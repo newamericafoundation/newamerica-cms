@@ -8,21 +8,27 @@ $post-header-height:225px;
 	position:static;
 
 	&__text {
-		padding: $post-header-height/3 20px 30px 25px;
+		position: relative;
+		top:50%;
+		min-height: $std-post-header-height;
+		/*transform: translateY(-50%);*/
+		padding: $post-header-height/3 0px 30px 25px;
 		color:white;
 
-		&__breadcrumbs > li > a {
-			color:white;
-		}
-
-		&__title h1 {
+		&__headline {
 			font-size: 30px;
 			max-width: $max-body-width;
 			@include breakpoint(large) {
 			    font-size: 40px;
 			}
-			/*font-size: 50px;*/
+		}
 
+		&__sub-headline {
+			font-size: 20px;
+			max-width: $max-body-width;
+			@include breakpoint(large) {
+			    font-size: 30px;
+			}
 		}
 	}
 
