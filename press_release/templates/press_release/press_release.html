@@ -1,4 +1,4 @@
-{% extends "post_page.html" %}
+{% extends "std_post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -8,8 +8,22 @@
 
 {% block post-content %}
 
-    <h3 class="post-date"> {{ page.date }} </h3>
-    {{ page.body }}
-    {{ page.attachment }}
+    {% if page.post_author.all %}
+	    	
+	    <h5 class="post-author">By 
+			{% for author in authors %}
+				<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
+			{% endfor %}
+		</h5>
+		
+	{% endif %}
+
+    <h5 class="post-date"> {{ page.date }} </h5>
+
+    <div class="post-body">
+	    {{ page.body }}
+	    {{ page.paper_url }}
+	    {{ page.attachment }}
+	</div>
 
 {% endblock %}
