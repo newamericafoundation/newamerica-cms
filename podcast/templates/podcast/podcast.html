@@ -6,6 +6,10 @@
 {% block body_class %}template-podcast{% endblock %}
 
 {% block post-content %}
+	<div class="post-soundcloud">
+		<div class="post-soundcloud__logo"></div>
+    	{{ page.soundcloud }}
+    </div>
 
 	{% if page.post_author.all %}
 	    	
@@ -23,6 +27,5 @@
 	    {{ page.body }}
 	</div>
 
-    {{ page.soundcloud }}
 
 {% endblock %}

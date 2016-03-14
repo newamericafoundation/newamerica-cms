@@ -46,13 +46,8 @@
     padding: 0 15px;
     font-style: italic;
   }
-
-  & > .block-attachment {
-
-  }
+  
 }
-
-
 
 .post-author {
   margin-top: 8px;
@@ -71,4 +66,12 @@
   height: 300px;
   border-width: 2.5px;
   /*width: 100%;*/
+}
+
+.post-soundcloud {
+  margin-bottom: 20px;
+
+  iframe {
+    height: 180px;
+  }
 }
