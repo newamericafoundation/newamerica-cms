@@ -214,6 +214,7 @@
 	width: 100%;
 	padding-top: 30px;
 	padding-left: $mobile-padding;
+	padding-bottom: $desktop-padding;
 
 	@include desktop-header {
 		padding-top: 15px;

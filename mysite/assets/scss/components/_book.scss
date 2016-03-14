@@ -5,9 +5,11 @@ $book-width: 100px;
   display: inline-block;
   box-shadow: 5px 5px 20px #333;
   height: $book-height;
+  width: $book-width;
 
   img {
     height: $book-height;
+    width: $book-width;
     vertical-align: middle;
   }
 }
