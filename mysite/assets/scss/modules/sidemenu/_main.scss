@@ -102,6 +102,13 @@ $program-title-width: 163px;
           color: white;
         }
       }
+
+      .home-link {
+          display: block;
+          @include desktop-header {
+            display: none;
+          }
+      }
     } 
    
   }
