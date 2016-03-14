@@ -22,8 +22,15 @@
 
     <div class="post-body">
 	    {{ page.body }}
-	    {{ page.paper_url }}
-	    {{ page.attachment }}
+	    
+	</div>
+
+	<div class="post-attachment">
+		<div class="post-attachment__image"> </div>
+		<div class="post-attachment__text">
+			<h3>ATTACHMENT</h3>
+			{{ page.attachment }}
+		</div>
 	</div>
 
 {% endblock %}
