@@ -23,6 +23,7 @@
   }
   & > .block-paragraph ~ .block-paragraph {
     &:first-letter {
+      color: palette-get(na-black-70);
       font-size:1.25rem;
       font-weight:initial;
       float: initial;
