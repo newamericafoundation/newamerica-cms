@@ -1,11 +1,11 @@
-{% extends "post_page.html" %}
+{% extends "program_base.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-event{% endblock %}
 
-{% block post-content %}
+{% block content %}
 	<div class="event">
 		<p>Event</p>
 	    <p class="event__title">{{ page.title }}</p>
@@ -14,8 +14,9 @@
 	    <p class="event__address"> {{ page.address }}</p>
 	    <a class="event__rsvp button" href="{{page.rsvp_link}}" >RSVP</a>
 	</div>
-    {{ page.body }}
     
+    <div class="post-body">
+	    {{ page.body }}
+	</div>
 
 {% endblock %}
-

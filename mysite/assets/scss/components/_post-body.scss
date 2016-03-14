@@ -7,8 +7,8 @@
     font-weight: bold;
   }
 
+  /*dropcap styling*/
   & > .block-paragraph {
-
     &:first-letter {
       font-size:110px;
       color: palette-get(na-black);
@@ -21,7 +21,6 @@
       line-height: 70px;
     }
   }
-
   & > .block-paragraph ~ .block-paragraph {
     &:first-letter {
       font-size:1.25rem;
@@ -47,12 +46,39 @@
     font-style: italic;
   }
 
-  & > .block-attachment {
-
-  }
 }
 
+.post-attachment {
+    background-color: palette-get(na-black-10);
+    max-width: $max-body-width/2;
+    padding: 40px $desktop-padding;
 
+    h3 {
+      font-weight: normal;
+      color: palette-get(na-black-40);
+      font-size: 17px;
+      margin-bottom: 0px;
+    }
+    a {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    &__text {
+      padding-left: 80px;
+      
+    }
+
+    &__image {
+        content: '';
+        float:left;
+        /*display: inline-block;*/
+        width: 60px;
+        height: 60px;
+        background-image: url(shape-urls-get(paperclip));
+        background-size: contain;
+    }
+}
 
 .post-author {
   margin-top: 8px;
@@ -71,4 +97,12 @@
   height: 300px;
   border-width: 2.5px;
   /*width: 100%;*/
+}
+
+.post-soundcloud {
+  margin-bottom: 20px;
+
+  iframe {
+    height: 180px;
+  }
 }
