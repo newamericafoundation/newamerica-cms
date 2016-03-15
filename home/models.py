@@ -22,6 +22,7 @@ options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
 class HomePage(Page):
     parent_page_types = ['home.HomePage', ]
+    subpage_types = ['OrgSimplePage', 'programs.Program']
 
     # Up to four lead stories can be featured on the homepage.
     # Lead_1 will be featured most prominently.
