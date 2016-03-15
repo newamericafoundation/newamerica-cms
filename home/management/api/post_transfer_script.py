@@ -14,7 +14,7 @@ mapped_programs = {
 		'19': 'Cybersecurity Initiative',
 		'13': 'Economic Growth',
 		'5': 'Education Policy',
-		'20': 'Family-Centered Social Policy',
+		'20': 'Family Centered Social Policy',
 		'1': 'Future of War',
 		'9': 'Fellows',
 		'2': 'Future Tense',
@@ -92,4 +92,19 @@ def load_articles():
         		story_image=download_image(post['cover_image_url'], post['title'] = "_image.jpeg")
         	)
 
+def load_posts():
+    for post in NAClient().get_posts():
+        if post['type'] == "Article":
+        	article_slug = slugify(post['title'])
+        	new_article = Article.objects.filter(slug=article_slug).first()
+        	if not new_article:
+	        	new_article = Article(
+	        		search_description='',
+	        		seo_title='',
+	        		show_in_menus=False,
+	        		slug=article_slug,
+	        		title=post['title'],
+	        		date='2016-03-15',
 
+
+	        	)
