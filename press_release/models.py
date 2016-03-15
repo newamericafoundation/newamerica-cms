@@ -18,16 +18,11 @@ class PressRelease(Post):
     parent_page_types = ['ProgramPressReleasesPage']
     subpage_types = []
 
-    headline = models.TextField()
-    sub_headline = models.TextField(blank=True, null=True)
-
     attachment = StreamField([
     	('attachment', DocumentChooserBlock(required=False, null=True)),
     ])
 
     content_panels = [
-    	FieldPanel('headline'),
-    	FieldPanel('sub_headline'),
     	StreamFieldPanel('attachment'),
     ] + Post.content_panels
 

@@ -1,5 +1,5 @@
 $std-post-header-padding-with-image: 70px;
-$std-post-header-padding-without-image: $std-post-header-padding-with-image/2;
+$std-post-header-padding-without-image: 25px;
 
 .post-header {
 	width: 100%;
@@ -23,11 +23,7 @@ $std-post-header-padding-without-image: $std-post-header-padding-with-image/2;
 			padding: $std-post-header-padding-without-image 0px;
 		}
 
-		.with-image & {
-			min-height: $std-post-header-height;
-			padding: $std-post-header-padding-with-image $desktop-padding;
-			color:palette-get(na-white);
-		}
+		
 
 		&__headline {
 			font-size: 30px;
@@ -46,10 +42,21 @@ $std-post-header-padding-without-image: $std-post-header-padding-with-image/2;
 		}
 
 		&__button {
+			margin-top: 35px;
 			background-color: palette-get(na-turquoise);
 
 			&:hover {
 				background-color: palette-get(na-black);
+			}
+		}
+
+		.with-image & {
+			min-height: $std-post-header-height;
+			padding: $std-post-header-padding-with-image $desktop-padding;
+			color:palette-get(na-white);
+
+			&__button {
+				margin-top: 15px;
 			}
 		}
 	}
