@@ -6,6 +6,7 @@
   $arrow-size: 30px;
   $info-offset: 26px;
   $nav-offset: 19px;
+  $border-panel-content-padding: 16px;
   @mixin show-circle-nav {
     @include breakpoint(medium) {
       @content;
@@ -99,22 +100,50 @@
     vertical-align: middle;
     position: relative;
 
-    h1,
-    p {
-      padding: 0;
-    }
     h1 {
-      font-size: rem-calc(24px);
-      
       font-weight: bold;
-      line-height:100%
+      font-size: rem-calc(28);
+      margin-bottom: $border-panel-content-padding;
     }
+
     p {
-      margin-top: 0;
-      font-size: rem-calc(16px);
-      line-height: 130%;
+      margin-bottom: $border-panel-content-padding;
+      color: palette-get(na-black-40);
     }
+
+    &__header {
+      padding: 0 $mobile-padding;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: rem-calc(18);
+      padding-top: 6px;
+    }
+
+    &__icon {
+      background-color: palette-get(na-black-10);
+      border-radius: 50%;
+      width: 130px;
+      height: 130px;
+      margin: auto;
+      position: relative;
+      margin-bottom: $border-panel-content-padding;
+      
+
+      & > svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 80px;
+        
+      }
+    } 
+
   }
+
   input {
     max-width: 180px;
     margin-right: 5px;
