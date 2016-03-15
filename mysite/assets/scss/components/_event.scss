@@ -1,5 +1,4 @@
 $event-column-padding: 30px;
-$event-right-column-width: 250px;
 
 .event {
 	font-weight:bold;
@@ -8,14 +7,26 @@ $event-right-column-width: 250px;
 
 	&__left {
 		padding: 0px $event-column-padding 0px 0px;
-		float: left;
+		float: none;
+
+		@media screen and (min-width: 400px) {
+			float: left;
+		}
 	}
 
 	&__right {
-		padding-left: 30px;
-		border-left: 2px solid palette-get(na-black-10);
-		width: $event-right-column-width;
-		float:left;
+		padding-left: 0px;
+		padding-top: $desktop-padding;
+		border-left: none;
+		float: none;
+
+		@media screen and (min-width: 400px) {
+			padding-left: 30px;
+			padding-top: 0px;
+			border-left: 2px solid palette-get(na-black-10);
+			float:left;
+		}
+			
 	}
 
 	p {
