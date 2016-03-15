@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}template-ourpeoplepage{% endblock %}
 
@@ -28,9 +29,9 @@
 	<div class="row person-grid__content">
 		{% for person in people %}
 			<div class="small-12 medium-4 large-3 columns person">
-				<div class="person__photo">{{person.photo}}</div>
+				<div class="person__photo">{% image person.profile_image width-400 %}</div>
 				<div class="person__info">
-					<a class= "person__info__name" href="{{ person.url }}">{{person.name}}</a><br>
+					<a class= "person__info__name" href="{{ person.url }}">{{person.first_name}} {{person.last_name}}</a><br>
 					{{ person.position_at_new_america }}
 					{% if person.program %}
 			            <br>
