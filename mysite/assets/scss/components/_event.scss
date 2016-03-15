@@ -1,28 +1,30 @@
+$event-column-padding: 30px;
+$event-right-column-width: 250px;
+
 .event {
-	padding-left: 20px;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	margin-bottom: 20px;
-	border-left: 5px solid palette-get(na-black);
-	/*line-height:.5;*/
+	font-weight:bold;
+	color:palette-get(na-black);
+	width: 100%;
 
-	& > p {
-		margin-bottom:0px;
-	}
-	&__title {
-		font-weight:bold;
+	&__left {
+		padding: 0px $event-column-padding 0px 0px;
+		float: left;
 	}
 
-	&__date {
-		
+	&__right {
+		padding-left: 30px;
+		border-left: 2px solid palette-get(na-black-10);
+		width: $event-right-column-width;
+		float:left;
 	}
 
-	&__address {
-		
+	p {
+		margin: 0px;
 	}
 
-	&__rsvp{
-		
+	&__heading {
+		font-size: 16px;
+		color:palette-get(na-black-40);
 	}
 }
 
