@@ -40,19 +40,60 @@
 	    {% endblock %}
 
 	</div>
+
+	<div class='row border-panel-container'>
+
+		<div class='small-12 large-6 columns'>
 	
-	<div class='border-panel post-subscribe'>
-		<div class='border-panel__item'>
-			<div class='border-panel__content'>
-				<h1>Subscribe</h1>
-				<p>Get our weekly digital magazine and events lineup in your inbox</p>
-				<div id='subscribe'>
-					<input type='text' placeholder='Your e-mail' id='subscribe__email-field'></input>
-					<button class='button' id='subscribe__link'>Sign up</button>
-					<div id='subscribe__modal-container'></div>
-				</div>
+			<div class='border-panel'>
+
+				<ul>
+					{% for author in authors %}
+
+					<li class='border-panel__item'>
+						<div class='border-panel__info'>AUTHOR</div>
+						<div class='border-panel__content'>
+							<div class='subscribe'>
+								<h1><a class= "" href="{{ author.author.url }}">{{author.author.name}}</a></h1>
+								<div class='subscribe__icon'>
+									{{ author.author.photo }}
+								</div>
+								<p>{{ author.author.short_bio }}</p>
+								
+							
+							</div>
+						</div>
+					</li>
+
+					{% endfor %}
+				</ul>
 			</div>
+
 		</div>
-	</div>
+
+		<div class='small-12 large-6 columns'>
+	
+			<div class='border-panel'>
+
+				<div class='border-panel__item'>
+					<div class='border-panel__info'>STAY CONNECTED</div>
+					<div class='border-panel__content'>
+						<div class='subscribe'>
+							<h1>Subscribe to New America Weekly</h1>
+							<div class='subscribe__icon'>
+								<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 432.61 286.34"><defs><style>.cls-1{fill:#fff;}</style></defs><title>Untitled-6</title><path class="cls-1" d="M413.9,3.44A33.77,33.77,0,0,0,399.11,0H33.51A33.84,33.84,0,0,0,18.66,3.47,33.38,33.38,0,0,0,0,33.5V252.84a33.54,33.54,0,0,0,33.51,33.5h365.6a33.54,33.54,0,0,0,33.51-33.5V33.5A33.4,33.4,0,0,0,413.9,3.44Zm-389.29,44,110.87,96.32L24.61,239V47.45ZM35.79,24.61h361L223.41,175.22a11.74,11.74,0,0,1-14.2,0ZM154.26,160.09l38.91,33.81a36.28,36.28,0,0,0,46.27,0l38.91-33.81L396.66,261.73H36Zm142.87-16.31L408,47.45V239Z"/></svg>
+							</div>
+							<p>Get our weekly digital magazine and events lineup in your inbox</p>
+							
+								<input type='text' placeholder='Your Email' id='subscribe__email-field'></input>
+								<button class='button' id='subscribe__link'>Sign up</button>
+								<div id='subscribe__modal-container'></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
     
 {% endblock %}
