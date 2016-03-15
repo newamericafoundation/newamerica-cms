@@ -11,7 +11,7 @@ bower_components
 npm-debug.log
 requirements.txt
 
-media/documents/
+media/
 
 mysite/static/js
 
