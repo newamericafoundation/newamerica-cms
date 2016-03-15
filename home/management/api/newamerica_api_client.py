@@ -4,15 +4,16 @@ import os
 
 
 class NAClient:
-	def __init__(self, endpoint):
+	def __init__(self):
 		self.login_url = 'https://admin.newamerica.org/login/'
-		self.api_url = 'https://admin.newamerica.org/api/' + endpoint
+		self.api_url = 'https://admin.newamerica.org/api/'
 		self.login_data = {
-			'username': os.getenv('API_EMAIL'), 
+			'username': os.getenv('API_EMAIL'),
 			'password': os.getenv('API_PASSW')
 		}
 		self.client = requests.Session()
 		self.authenticate()
+
 
 	def authenticate(self):
 		headers = {'Referer': self.login_url}

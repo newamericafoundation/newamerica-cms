@@ -13,6 +13,8 @@ from person.models import OurPeoplePage, Person
 
 from .newamerica_api_client import NAClient
 
+from .post_transfer_script import load_posts
+
 our_people_page = OurPeoplePage.objects.first()
 
 if sys.version_info[0] < 3:
@@ -35,8 +37,8 @@ def load_users_mapping():
 
 
 def users_data_stream():
-    users = NAClient('users')
-    for user_set in users.get_data():
+    users = NAClient()
+    for user_set in users.get_data('users'):
         for user in user_set['results']:
             yield user
 
@@ -121,4 +123,5 @@ def load_authors():
 
 
 def run():
-    load_authors()
+    #load_authors()
+    load_posts()
