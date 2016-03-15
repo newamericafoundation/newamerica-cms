@@ -203,5 +203,27 @@
   		padding-left:0px;
   		padding-right:0px;
   	}
+  	@include expanded-header {
+  		padding-left:0px;
+  		padding-right:0px;
+  	}
+}
+
+.book-container {
+	height: 100%;
+	width: 100%;
+	padding-top: 30px;
+	padding-left: $mobile-padding;
+	padding-bottom: $desktop-padding;
+
+	@include desktop-header {
+		padding-top: 15px;
+		padding-left: 0px;
+	}
+
+	@include expanded-header {
+		padding-top: 10px;
+		padding-left: 0px;
+	}
 }
 

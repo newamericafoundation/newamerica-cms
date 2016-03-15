@@ -6,14 +6,41 @@
 {% block body_class %}template-book{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    <h2> {{page.date}}</h2>
+	{% image page.story_image original as story_image %}
 
-	    {% for author in page.post_author.all %} 
-	    	<a href="{{ author.url }}">{{ author }}</a>
-	    	<br>
-	    {% endfor %}
+	<div class="post-header">
+		{% if story_image %}
+			<div class="book-container">
+				<div class="book">
+					<img src="{{ story_image.url }}" />
+				</div>
+			</div>
+		{% endif %}
 
-    <p> {{ page.body }} </p>
+		<div class="post-header__text">
+	    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+	    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+		</div>
+	</div>
+
+	<div class="post-container">
+
+	    {% if page.post_author.all %}
+		    	
+		    <h5 class="post-author">Author: 
+				{% for author in authors %}
+					<a href="{{ author.author.url }}">{{author.author.name}}</a>
+				{% endfor %}
+			</h5>
+			
+		{% endif %}
+
+	    <h5 class="post-date"> {{ page.date }} </h5>
+
+	    <div class="post-body">
+		    {{ page.body }}
+		</div>
+
+	</div>
 
 {% endblock %}
