@@ -232,9 +232,6 @@ class Post(Page):
 
     date = models.DateField("Post date")
 
-    headline = models.TextField(default='No Heading Provided')
-    sub_headline = models.TextField(blank=True, null=True)
-
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
@@ -263,8 +260,6 @@ class Post(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
-        FieldPanel('headline'),
-        FieldPanel('sub_headline'),
         StreamFieldPanel('body'),
         InlinePanel('programs', label=("Programs")),
         InlinePanel('subprograms', label=("Subprograms")),
