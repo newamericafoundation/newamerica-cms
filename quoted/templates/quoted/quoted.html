@@ -1,29 +1,59 @@
-{% extends "std_post_page.html" %}
+{% extends "program_base.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-quoted{% endblock %}
 
-{% block post-content %}
+{% block content %}
+	{% image page.story_image original as story_image %}
 
-    {% if page.post_author.all %}
-	    	
-	    <h5 class="post-author">By 
-			{% for author in authors %}
-				<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
-			{% endfor %}
-		</h5>
-		
+	{% if story_image %}
+
+	<div class="post-header with-image" style="background-image: linear-gradient(
+	      rgba(0, 0, 0, 0.3),
+	      rgba(0, 0, 0, 0.3)
+	    ), 
+    	url({{ story_image.url }})">
+
+		<div class="post-header__text">
+		    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+		    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+		    	<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+		</div>
+	</div>
+	{% else %}
+
+	<div class="post-header">
+
+		<div class="post-header__text">
+		    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+		    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+		    	<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+		</div>
+	</div>
+
 	{% endif %}
 
-    <h5 class="post-date"> {{ page.date }} </h5>
+	<div class="post-container">
 
-    {{ page.source }}
+	    {% if page.post_author.all %}
+		    	
+		    <h5 class="post-author">In the News:  
+				{% for author in authors %}
+					<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
+				{% endfor %}
+			</h5>
+			
+		{% endif %}
 
-    <div class="post-body">
-	    {{ page.body }}
-	    <a href="{{ page.source_url }}">Read the article in {{ page.source }}</a>
+		<h5 class="post-source">Media Outlet: {{ page.source }} </h5>
+	    <h5 class="post-date"> {{ page.date }} </h5>
+
+	    <div class="post-body">
+		    {{ page.body }}
+		</div>
+
 	</div>
 
 {% endblock %}

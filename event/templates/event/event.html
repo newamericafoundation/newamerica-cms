@@ -6,17 +6,51 @@
 {% block body_class %}template-event{% endblock %}
 
 {% block content %}
-	<div class="event">
-		<p>Event</p>
-	    <p class="event__title">{{ page.title }}</p>
-	    <p class="event__date"> {{ page.date }} </p>
-	    <p class="event__time"> {{ page.time }} </p>
-	    <p class="event__address"> {{ page.address }}</p>
-	    <a class="event__rsvp button" href="{{page.rsvp_link}}" >RSVP</a>
+	{% image page.story_image original as story_image %}
+
+	{% if story_image %}
+
+	<div class="post-header with-image" style="background-image: linear-gradient(
+	      rgba(0, 0, 0, 0.3),
+	      rgba(0, 0, 0, 0.3)
+	    ), 
+    	url({{ story_image.url }})">
+
+		<div class="post-header__text">
+		    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+		    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+		    	<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
+		</div>
 	</div>
-    
-    <div class="post-body">
-	    {{ page.body }}
+	{% else %}
+
+	<div class="post-header">
+
+		<div class="post-header__text">
+		    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+		    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+		    	<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
+		</div>
+	</div>
+
+	{% endif %}
+
+	<div class="post-container">
+
+		<div class="event row">
+			<div class="event__left">
+				<h3 class="event__heading">When</h3>
+				<p class="event__date">{{ page.date|date:"F j, Y" }}</p>
+				<p class="event__time">{{ page.time }}</p>
+			</div>
+			<div class="event__right">
+				<h3 class="event__heading">Where</h3>
+				<p class="event__address">{{ page.address|linebreaks }}</p>
+			</div>
+		</div>
+	    <div class="post-body">
+		    {{ page.body }}
+		</div>
 	</div>
 
 {% endblock %}
