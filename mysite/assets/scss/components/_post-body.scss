@@ -64,11 +64,12 @@
       font-weight: normal;
       color: palette-get(na-black-40);
       font-size: 17px;
-      margin-bottom: 0px;
+      margin-bottom: 5px;
     }
     a {
       font-weight: bold;
       font-size: 20px;
+      line-height: 100%;
     }
 
     &__text {
