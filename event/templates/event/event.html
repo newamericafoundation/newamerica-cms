@@ -40,12 +40,12 @@
 		<div class="event row">
 			<div class="event__left">
 				<h3 class="event__heading">When</h3>
-				<p class="event__date">{{ page.date }}</p>
+				<p class="event__date">{{ page.date|date:"F j, Y" }}</p>
 				<p class="event__time">{{ page.time }}</p>
 			</div>
 			<div class="event__right">
 				<h3 class="event__heading">Where</h3>
-				<p class="event__address">{{ page.address }}</p>
+				<p class="event__address">{{ page.address|linebreaks }}</p>
 			</div>
 		</div>
 	    <div class="post-body">
