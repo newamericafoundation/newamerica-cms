@@ -44,6 +44,14 @@ $std-post-header-padding-without-image: $std-post-header-padding-with-image/2;
 			    font-size: 30px;
 			}
 		}
+
+		&__button {
+			background-color: palette-get(na-turquoise);
+
+			&:hover {
+				background-color: palette-get(na-black);
+			}
+		}
 	}
 
 }
