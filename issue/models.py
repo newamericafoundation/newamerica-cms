@@ -29,7 +29,7 @@ class ProgramIssuesPage(Page):
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
         issues = Issue.objects.filter(parent_programs=program)
-        context['issues'] = issues
+        context['all_posts'] = issues
         context['program'] = program
         
         return context

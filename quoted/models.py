@@ -38,7 +38,7 @@ class AllQuotedHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllQuotedHomePage, self).get_context(request)
-		context['quoted_pieces'] = Quoted.objects.all()
+		context['all_posts'] = Quoted.objects.all()
 
 		return context
 	class Meta:
@@ -53,7 +53,7 @@ class ProgramQuotedPage(Page):
 		context = super(ProgramQuotedPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
-		context['quoted_pieces'] = Quoted.objects.filter(parent_programs=program)
+		context['all_posts'] = Quoted.objects.filter(parent_programs=program)
 		context['program'] = program
 
 		return context

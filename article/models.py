@@ -28,7 +28,7 @@ class AllArticlesHomePage(Page):
     def get_context(self, request):
         context = super(AllArticlesHomePage, self).get_context(request)
 
-        context['articles'] = Article.objects.all()
+        context['all_posts'] = Article.objects.all()
         return context
 
     class Meta:
@@ -50,7 +50,7 @@ class ProgramArticlesPage(Page):
 
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
-        context['articles'] = Article.objects.filter(parent_programs=program)
+        context['all_posts'] = Article.objects.filter(parent_programs=program)
         context['program'] = program
         return context
 

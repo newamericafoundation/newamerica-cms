@@ -41,7 +41,7 @@ class AllPodcastsHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllPodcastsHomePage, self).get_context(request)
-		context['podcasts'] = Podcast.objects.all()
+		context['all_posts'] = Podcast.objects.all()
 
 		return context
 
@@ -63,7 +63,7 @@ class ProgramPodcastsPage(Page):
 		context = super(ProgramPodcastsPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
-		context['podcasts'] = Podcast.objects.filter(parent_programs=program)
+		context['all_posts'] = Podcast.objects.filter(parent_programs=program)
 		context['program'] = program
 		return context
 
