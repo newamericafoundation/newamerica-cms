@@ -45,7 +45,7 @@
 		    	
 		    <h5 class="post-author">By 
 				{% for author in authors %}
-					<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
+					<a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>
 				{% endfor %}
 			</h5>
 			

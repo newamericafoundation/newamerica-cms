@@ -9,7 +9,7 @@
     <h1>{{ page.title }}</h1>
     <h2> {{page.date}}</h2>
 	    {% for author in authors %} 
-	    	<a href="{{ author.author.url }}">{{ author.author }}</a>
+	    	<a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>
 	    	<br>
 	    {% endfor %}
 
