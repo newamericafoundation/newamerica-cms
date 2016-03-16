@@ -1,11 +1,11 @@
-{% extends "program_base.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-book{% endblock %}
 
-{% block content %}
+{% block post-content %}
 	{% image page.story_image original as story_image %}
 
 	<div class="post-header">

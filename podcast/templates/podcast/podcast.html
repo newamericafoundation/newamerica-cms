@@ -1,4 +1,4 @@
-{% extends "std_post_page.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -6,26 +6,57 @@
 {% block body_class %}template-podcast{% endblock %}
 
 {% block post-content %}
-	<div class="post-soundcloud">
-		<div class="post-soundcloud__logo"></div>
-    	{{ page.soundcloud }}
-    </div>
+	{% image page.story_image original as story_image %}
 
-	{% if page.post_author.all %}
-	    	
-	    <h5 class="post-author">By 
-			{% for author in authors %}
-				<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
-			{% endfor %}
-		</h5>
-		
+	{% if story_image %}
+
+		<div class="post-header with-image" style="background-image: linear-gradient(
+		      rgba(0, 0, 0, 0.3),
+		      rgba(0, 0, 0, 0.3)
+		    ), 
+	    	url({{ story_image.url }})">
+
+			<div class="post-header__text">
+			    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+			    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+			</div>
+		</div>
+
+	{% else %}
+
+		<div class="post-header">
+
+			<div class="post-header__text">
+			    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+			    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+			</div>
+		</div>
+
 	{% endif %}
 
-    <h5 class="post-date"> {{ page.date }} </h5>
+	<div class="post-container">
 
-    <div class="post-body">
-	    {{ page.body }}
+		<div class="post-soundcloud">
+			<div class="post-soundcloud__logo"></div>
+	    	{{ page.soundcloud }}
+	    </div>
+
+		{% if page.post_author.all %}
+		    	
+		    <h5 class="post-author">By 
+				{% for author in authors %}
+					<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
+				{% endfor %}
+			</h5>
+			
+		{% endif %}
+
+	    <h5 class="post-date"> {{ page.date }} </h5>
+
+	    <div class="post-body">
+		    {{ page.body }}
+		</div>
+
 	</div>
-
 
 {% endblock %}

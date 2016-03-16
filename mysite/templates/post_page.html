@@ -6,40 +6,10 @@
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}
-	{% image page.story_image original as story_image %}
 
-	{% if story_image %}
+    {% block post-content %}
 
-	<div class="post-header with-image" style="background-image: linear-gradient(
-	      rgba(0, 0, 0, 0.3),
-	      rgba(0, 0, 0, 0.3)
-	    ), 
-    	url({{ story_image.url }})">
-
-		<div class="post-header__text">
-		    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
-		    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
-		</div>
-	</div>
-	{% else %}
-
-	<div class="post-header">
-
-		<div class="post-header__text">
-		    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
-		    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
-		</div>
-	</div>
-
-	{% endif %}
-
-	<div class="post-container">
-
-	    {% block post-content %}
-
-	    {% endblock %}
-
-	</div>
+    {% endblock %}
 
 	<div class='row border-panel-container'>
 
@@ -98,7 +68,7 @@
 			</div>
 
 		</div>
-		
+
 	</div>
     
 {% endblock %}
