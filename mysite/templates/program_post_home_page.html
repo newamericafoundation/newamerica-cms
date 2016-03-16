@@ -33,11 +33,15 @@
 
 		{% for post in all_posts %}
 			<div class="content-entry">
-				{% image post.story_image original as post_image %}
+				{% if post.story_image %}
+					{% image post.story_image original as post_image %}
 
-				<div class="content-entry__image-container">
-					<img class="content-entry__image" src="{{post_image.url}}">
-				</div>
+					<div class="content-entry__image-container">
+						<img class="content-entry__image" src="{{post_image.url}}">
+					</div>
+				<div class="content-entry__text-container has-image">
+				{% endif %}
+				
 				<div class="content-entry__text-container">
 					<div class="content-entry__text">
 
