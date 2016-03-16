@@ -9,7 +9,7 @@ $content-entry-text-gutter: 10px;
 
 	&__image-container {
 		width:100%;
-		height:100px;
+		height:150px;
 		overflow:hidden;
 
 		@include breakpoint(medium) {
@@ -37,12 +37,8 @@ $content-entry-text-gutter: 10px;
 		font-size:16px;
 		color: palette-get(na-black);
 
-		h5 {
-			
-			
-			margin-bottom: 0px;
-			line-height: 110%;
-			padding-bottom: $content-entry-text-gutter;
+		h5, p {
+			margin-bottom: $content-entry-text-gutter;
 		}
 
 		&__program {
@@ -50,7 +46,7 @@ $content-entry-text-gutter: 10px;
 			font-weight:bold;
 			color: palette-get(na-black-40);
 			padding-top: 2px;
-			
+			line-height: 100%;
 		}
 
 		&__title {
@@ -61,11 +57,19 @@ $content-entry-text-gutter: 10px;
 		&__author {
 			font-weight:bold;
 			font-size:16px;
+			line-height: 130%;
 		}
 
 		&__date {
 			color: palette-get(na-black-40);
 			font-size:16px;
+			line-height: 130%;
+		}
+
+		&__excerpt {
+			color: palette-get(na-black-40);
+			font-size:16px;
+			line-height: 150%;
 		}
 	}
 }
