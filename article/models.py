@@ -50,7 +50,7 @@ class ProgramArticlesPage(Page):
 
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
-        context['articles'] = Article.objects.filter(parent_programs=program)
+        context['all_posts'] = Article.objects.filter(parent_programs=program)
         context['program'] = program
         return context
 

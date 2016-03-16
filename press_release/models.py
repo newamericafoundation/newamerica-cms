@@ -64,7 +64,7 @@ class ProgramPressReleasesPage(Page):
 		context = super(ProgramPressReleasesPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
-		context['press_releases'] = PressRelease.objects.filter(parent_programs=program)
+		context['all_posts'] = PressRelease.objects.filter(parent_programs=program)
 		context['program'] = program
 
 		return context

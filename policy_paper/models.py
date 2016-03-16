@@ -67,7 +67,7 @@ class ProgramPolicyPapersPage(Page):
 		context = super(ProgramPolicyPapersPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
-		context['policy_papers'] = PolicyPaper.objects.filter(parent_programs=program)
+		context['all_posts'] = PolicyPaper.objects.filter(parent_programs=program)
 		context['program'] = program
 
 		return context
