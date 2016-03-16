@@ -31,7 +31,8 @@ def load_users_mapping():
                 'first_name': row[2],
                 'last_name': row[3],
                 'duplicate': row[4],
-                'merged_with': row[5]
+                'merged_with': row[5],
+                'delete': row[6]
             }
     return csv_data
 
@@ -87,41 +88,66 @@ def get_role_info(old_role):
 
 
 def load_authors():
+
     users_mapping = load_users_mapping()
+    
     for user_api in users_data_stream():
         mapped_user = users_mapping[str(user_api['id'])]
-        if not mapped_user['duplicate']:
+        if not mapped_user['duplicate'] and not mapped_user['delete']:
             mapped_user_title = '{0} {1}'.format(
                 mapped_user['first_name'],
                 mapped_user['last_name'])
+            print(mapped_user_title)
             mapped_user_slug = slugify(mapped_user_title)
             db_user = Person.objects.filter(slug=mapped_user_slug).first()
-        if not db_user and mapped_user_slug:
-            role_info = get_role_info(user_api['roles'])
+        
+        role_info = get_role_info(user_api['roles'])
+        if not db_user or mapped_user_slug:
             db_user = Person(
-                search_description='', 
-                seo_title='', 
-                show_in_menus=False,
-                slug=mapped_user_slug,
-                title=mapped_user_title, 
-                first_name=mapped_user['first_name'], 
-                last_name=mapped_user['last_name'], 
-                position_at_new_america=user_api['title'],
-                role=role_info['role_title'],
-                email=user_api['email'],
-                expert=role_info['expert'],
-                depth=4,
-                profile_image=download_image(
-                    user_api['image'],
-                    mapped_user_slug + "_image.jpeg"
-                ),
-                short_bio=user_api['short_bio'],
-                long_bio=user_api['long_bio'],
-            )
+                    search_description='', 
+                    seo_title='', 
+                    show_in_menus=False,
+                    slug=mapped_user_slug,
+                    title=mapped_user_title, 
+                    first_name=mapped_user['first_name'], 
+                    last_name=mapped_user['last_name'], 
+                    position_at_new_america=user_api['title'],
+                    role=role_info['role_title'],
+                    email=user_api['email'],
+                    expert=role_info['expert'],
+                    depth=4,
+                    profile_image=download_image(
+                        user_api['image'],
+                        mapped_user_slug + "_image.jpeg"
+                    ),
+                    short_bio=user_api['short_bio'],
+                    long_bio=user_api['long_bio'],
+                )
             our_people_page.add_child(instance=db_user)
+            db_user.save()
+        else:
+            db_user.search_description=''
+            db_user.seo_title=''
+            db_user.show_in_menus=False
+            db_user.slug=mapped_user_slug
+            db_user.title=mapped_user_title
+            db_user.first_name=mapped_user['first_name']
+            db_user.last_name=mapped_user['last_name'] 
+            db_user.position_at_new_america=user_api['title']
+            db_user.role=role_info['role_title']
+            db_user.email=user_api['email']
+            db_user.expert=role_info['expert']
+            db_user.depth=4
+            db_user.short_bio=user_api['short_bio']
+            db_user.long_bio=user_api['long_bio']
+
+            db_user.profile_image=download_image(
+                user_api['image'],
+                mapped_user_slug + "_image.jpeg"
+            )
             db_user.save()
 
 
 def run():
-    #load_authors()
-    load_posts()
+    load_authors()
+    # load_posts()
