@@ -5,11 +5,12 @@
 
 {% block body_class %}template-postpage{% endblock %}
 
+
+
 {% block content %}
 
-    {% block post-content %}
-
-    {% endblock %}
+	{% block post-content %}
+	{% endblock %}
 
 	<div class='row border-panel-container'>
 		{% if page.post_author.all %}
@@ -61,7 +62,7 @@
 					<div class='border-panel__content'>
 						
 							<p class= "border-panel__content__subscribe-info">Get our weekly digital magazine and events lineup in your inbox</p>
-							<input type='text' placeholder='Your Email' id='border-panel__content__email-field'></input>
+							<input type='text' placeholder='Your Email' id='border-panel__content__email-field'>
 							<button class='button' id='border-panel__content__link'>Sign up</button>
 						
 					</div>
