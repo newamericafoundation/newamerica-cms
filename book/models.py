@@ -25,7 +25,7 @@ class AllBooksHomePage(Page):
     def get_context(self, request):
         context = super(AllBooksHomePage, self).get_context(request)
 
-        context['books'] = Book.objects.all()
+        ccontext['all_posts'] = Book.objects.all()
         return context
 
     class Meta:

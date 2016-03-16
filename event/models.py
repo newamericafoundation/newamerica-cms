@@ -41,7 +41,7 @@ class AllEventsHomePage(Page):
     def get_context(self, request):
         context = super(AllEventsHomePage, self).get_context(request)
 
-        context['events'] = Event.objects.all()
+        context['all_posts'] = Event.objects.all()
         return context
 
     class Meta:

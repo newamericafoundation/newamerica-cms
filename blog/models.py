@@ -30,7 +30,7 @@ class AllBlogPostsHomePage(Page):
 	def get_context(self, request):
 		context = super(AllBlogPostsHomePage, self).get_context(request)
 		
-		context['blog_posts'] = BlogPost.objects.all()
+		context['all_posts'] = BlogPost.objects.all()
 		return context
 
 	class Meta:

@@ -28,7 +28,7 @@ class AllArticlesHomePage(Page):
     def get_context(self, request):
         context = super(AllArticlesHomePage, self).get_context(request)
 
-        context['articles'] = Article.objects.all()
+        context['all_posts'] = Article.objects.all()
         return context
 
     class Meta:

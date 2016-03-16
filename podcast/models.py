@@ -41,7 +41,7 @@ class AllPodcastsHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllPodcastsHomePage, self).get_context(request)
-		context['podcasts'] = Podcast.objects.all()
+		context['all_posts'] = Podcast.objects.all()
 
 		return context
 

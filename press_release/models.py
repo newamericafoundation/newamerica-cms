@@ -43,7 +43,7 @@ class AllPressReleasesHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllPressReleasesHomePage, self).get_context(request)
-		context['press_releases'] = PressRelease.objects.all()
+		context['all_posts'] = PressRelease.objects.all()
 
 		return context
 

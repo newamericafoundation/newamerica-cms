@@ -38,7 +38,7 @@ class AllQuotedHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllQuotedHomePage, self).get_context(request)
-		context['quoted_pieces'] = Quoted.objects.all()
+		context['all_posts'] = Quoted.objects.all()
 
 		return context
 	class Meta:

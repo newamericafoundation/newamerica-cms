@@ -46,7 +46,7 @@ class AllPolicyPapersHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllPolicyPapersHomePage, self).get_context(request)
-		context['policy_papers'] = PolicyPaper.objects.all()
+		context['all_posts'] = PolicyPaper.objects.all()
 
 		return context
 
