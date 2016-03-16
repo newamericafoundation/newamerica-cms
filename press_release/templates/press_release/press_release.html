@@ -1,4 +1,4 @@
-{% extends "std_post_page.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -7,30 +7,61 @@
 
 
 {% block post-content %}
+	{% image page.story_image original as story_image %}
 
-    {% if page.post_author.all %}
-	    	
-	    <h5 class="post-author">By 
-			{% for author in authors %}
-				<a href="{{ author.author.url }}">{{author.author.name}}</a>
-			{% endfor %}
-		</h5>
-		
+	{% if story_image %}
+
+		<div class="post-header with-image" style="background-image: linear-gradient(
+		      rgba(0, 0, 0, 0.3),
+		      rgba(0, 0, 0, 0.3)
+		    ), 
+	    	url({{ story_image.url }})">
+
+			<div class="post-header__text">
+			    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+			    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+			</div>
+		</div>
+
+	{% else %}
+
+		<div class="post-header">
+
+			<div class="post-header__text">
+			    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+			    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+			</div>
+		</div>
+
 	{% endif %}
 
-    <h5 class="post-date"> {{ page.date }} </h5>
+	<div class="post-container">
 
-    <div class="post-body">
-	    {{ page.body }}
-	    
-	</div>
+	    {% if page.post_author.all %}
+		    	
+		    <h5 class="post-author">By 
+				{% for author in authors %}
+					<a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>
+				{% endfor %}
+			</h5>
+			
+		{% endif %}
 
-	<div class="post-attachment">
-		<div class="post-attachment__image"> </div>
-		<div class="post-attachment__text">
-			<h3>ATTACHMENT</h3>
-			{{ page.attachment }}
+	    <h5 class="post-date"> {{ page.date }} </h5>
+
+	    <div class="post-body">
+		    {{ page.body }}
+		    
 		</div>
+
+		<div class="post-attachment">
+			<div class="post-attachment__image"> </div>
+			<div class="post-attachment__text">
+				<h3>ATTACHMENT</h3>
+				{{ page.attachment }}
+			</div>
+		</div>
+
 	</div>
 
 {% endblock %}
