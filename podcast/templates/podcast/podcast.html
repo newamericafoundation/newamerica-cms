@@ -5,7 +5,7 @@
 
 {% block body_class %}template-podcast{% endblock %}
 
-{% block post-content %}
+{% block post-header %}
 	{% image page.story_image original as story_image %}
 
 	{% if story_image %}
@@ -34,29 +34,18 @@
 
 	{% endif %}
 
-	<div class="post-container">
+	<div class="post-soundcloud">
+		<div class="post-soundcloud__logo"></div>
+    	{{ page.soundcloud }}
+    </div>
 
-		<div class="post-soundcloud">
-			<div class="post-soundcloud__logo"></div>
-	    	{{ page.soundcloud }}
-	    </div>
+{% endblock %}
 
-		{% if page.post_author.all %}
-		    	
-		    <h5 class="post-author">By 
-				{% for author in authors %}
-					<a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>
-				{% endfor %}
-			</h5>
-			
-		{% endif %}
+{% block post-body %}
 
-	    <h5 class="post-date"> {{ page.date }} </h5>
-
-	    <div class="post-body">
-		    {{ page.body }}
-		</div>
-
+    <div class="post-body">
+	    {{ page.body }}
 	</div>
+
 
 {% endblock %}

@@ -1,18 +1,19 @@
-{% extends "program_base.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-blogpost{% endblock %}
 
-{% block content %}
-    <h1>{{ page.title }}</h1>
-    <h2> {{page.date}}</h2>
-	    {% for author in authors %} 
-	    	<a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>
-	    	<br>
-	    {% endfor %}
 
-    <p> {{ page.body }} </p>
+{% block post-header %}
+
+{% endblock %}
+
+{% block post-body %}
+
+    <div class="post-body">
+	    {{ page.body }}
+	</div>
 
 {% endblock %}

@@ -5,8 +5,6 @@
 
 {% block body_class %}template-postpage{% endblock %}
 
-
-
 {% block content %}
 
 	{% block post-header %}
@@ -16,12 +14,7 @@
 
 	    {% if page.post_author.all %}
 		    	
-		    <h5 class="post-author">
-		    	{% if authors|length > 1 %}
-		    		Authors:
-		    	{% else %}
-		    		Author:
-		    	{% endif %}
+		    <h5 class="post-author">By 
 				{% for author in authors %}
 					{% if forloop.revcounter0 >= 2 %}
 						<p><a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>,</p>
