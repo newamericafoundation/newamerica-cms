@@ -25,6 +25,16 @@
 
 {% endblock %}
 
+{% block byline-prefix %}
+
+	{% if authors|length > 1 %}
+		Authors:
+	{% else %}
+		Author:
+	{% endif %}
+
+{% endblock %}
+
 {% block post-body %}
 
     <div class="post-body">

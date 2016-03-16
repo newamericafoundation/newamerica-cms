@@ -41,11 +41,20 @@
 
 {% endblock %}
 
+{% block byline-prefix %}
+
+	{% if authors|length > 1 %}
+		Hosts:
+	{% else %}
+		Host:
+	{% endif %}
+
+{% endblock %}
+
 {% block post-body %}
 
     <div class="post-body">
 	    {{ page.body }}
 	</div>
-
 
 {% endblock %}
