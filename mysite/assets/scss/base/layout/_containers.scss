@@ -198,14 +198,17 @@
   	padding-top: $desktop-padding;
   	padding-left: $mobile-padding;
   	padding-right: $mobile-padding;
+  	padding-bottom: $mobile-padding;
 
   	@include desktop-header {
   		padding-left:0px;
   		padding-right:0px;
+  		padding-bottom: $desktop-padding;
   	}
   	@include expanded-header {
   		padding-left:0px;
   		padding-right:0px;
+  		padding-bottom: $desktop-padding;
   	}
 }
 
