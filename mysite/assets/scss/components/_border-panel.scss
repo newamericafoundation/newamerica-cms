@@ -1,8 +1,8 @@
 .border-panel {
   /*$border-color: palette-get(na-black-10);*/
   $border-color: rgba(44, 47, 53, 0.2);
-  $mobile-height: 375px;
-  $height: 375px;
+  $mobile-height: 350px;
+  $height: 385px;
   $arrow-size: 30px;
   $info-offset: 26px;
   $nav-offset: 19px;
@@ -131,7 +131,7 @@
         border-radius: 50%;
         background-repeat: no-repeat;
         background-size: cover;
-
+        box-shadow: inset 0 0 0 100px rgba(0,0,0,.1);
       }
   }
 
@@ -142,6 +142,40 @@
     text-align: center;
     top: $info-offset;
     padding: $border-panel-content-padding 0px;
+    color: palette-get(na-black-40);
+
+    .fixed-height {
+      height: 100px;
+      overflow: hidden;
+
+      @include desktop-header {
+        height: 120px;
+      }
+    }
+
+    & > p {
+      line-height: 150%;
+    }
+
+    &__subscribe-info {
+      display: none;
+
+      @include breakpoint(medium) {
+        display: block;
+      }
+    }
+
+    &__overlay {
+      position: absolute;
+      top:0px;
+      left:0px;
+      width:100%;
+      height:100%;
+      background-image: linear-gradient(to bottom, transparent, transparent 40%, palette-get(na-white)); 
+    } 
+  }
+
+
     /*width: 100%;
     max-width: 400px;
     padding: 50px 0px;
@@ -189,7 +223,7 @@
       }
     } */
 
-  }
+  
 
   input {
     max-width: 180px;

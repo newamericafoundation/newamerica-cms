@@ -59,7 +59,8 @@
 							<div class='border-panel__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
 							</div>
 						</div>
-						<div class='border-panel__content'>
+						<div class='border-panel__content fixed-height'>
+							<div class='border-panel__content__overlay'></div>
 							<p>{{ author.author.short_bio }}</p>
 						</div>
 					</li>
@@ -82,8 +83,11 @@
 						</svg>
 					</div>
 					<div class='border-panel__content'>
-						<input type='text' placeholder='Your Email' id='border-panel__content__email-field'></input>
-						<button class='button' id='border-panel__content__link'>Sign up</button>
+						
+							<p class= "border-panel__content__subscribe-info">Get our weekly digital magazine and events lineup in your inbox</p>
+							<input type='text' placeholder='Your Email' id='border-panel__content__email-field'></input>
+							<button class='button' id='border-panel__content__link'>Sign up</button>
+						
 					</div>
 					<!-- <div class='border-panel__content'>
 						<h1>Subscribe to New America Weekly</h1>
