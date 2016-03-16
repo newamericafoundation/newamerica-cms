@@ -231,6 +231,7 @@ class Post(Page):
     """
 
     date = models.DateField("Post date")
+
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),

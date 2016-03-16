@@ -1,58 +1,77 @@
-{% extends "std_post_page.html" %}
+{% extends "program_base.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-policypaper{% endblock %}
 
-{% block post-content %}
+{% block content %}
+	{% image page.story_image original as story_image %}
 
-	{% if page.post_author.all %}
-	    	
-	    <h5 class="post-author">By 
-			{% for author in authors %}
-				<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
-			{% endfor %}
-		</h5>
-		
-	{% endif %}
-
-    <h5 class="post-date"> {{ page.date }} </h5>
-
-    <div class="post-body">
-	    {{ page.body }}
-	    {{ page.paper_url }}
-	</div>
-
-	<div class="post-attachment">
-		<div class="post-attachment__image"> </div>
-		<div class="post-attachment__text">
-			<h3>ATTACHMENT</h3>
-			{{ page.attachment }}
-		</div>
-	</div>
-
-    <div class="author-box">
-    	<br>
-    	<h5>Authors</h5>
-    	<br>
-	    {% if page.post_author.all %}
-	    <div class="row person-grid__content">
-			{% for author in authors %}
-				<div class="small-6 large-4 columns post-person">
-					<div class="post-person__photo">{{author.author.photo}}</div>
-					<div class="post-person__info">
-						<a class= "post-person__info__name" href="{{ author.author.url }}">{{author.author.name}}</a><br>
-						{{ author.author.position_at_new_america }}
-						{% if author.author.program %}
-				            <br>
-				            <a href="{{author.author.program.url }}">{{ author.author.program }}</a>
-				        {% endif %}
-				    </div>
-			    </div>
-			{% endfor %}
-		</div>
+	<div class="post-header">
+		{% if story_image %}
+			<div class="book-container">
+				<div class="book">
+					<img src="{{ story_image.url }}" />
+				</div>
+			</div>
 		{% endif %}
-    </div>
+		
+		<div class="post-header__text">
+	    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+	    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+		</div>
+	</div>
+
+	<div class="post-container">
+
+		{% if page.post_author.all %}
+		    	
+		    <h5 class="post-author">Author: 
+				{% for author in authors %}
+					<a class= "" href="{{ author.author.url }}">{{author.author.name}}</a>
+				{% endfor %}
+			</h5>
+			
+		{% endif %}
+
+	    <h5 class="post-date"> {{ page.date }} </h5>
+
+	    <div class="post-body">
+		    {{ page.body }}
+		    {{ page.paper_url }}
+		</div>
+
+		<div class="post-attachment">
+			<div class="post-attachment__image"> </div>
+			<div class="post-attachment__text">
+				<h3>ATTACHMENT</h3>
+				{{ page.attachment }}
+			</div>
+		</div>
+
+	    <div class="author-box">
+	    	<br>
+	    	<h5>Authors</h5>
+	    	<br>
+		    {% if page.post_author.all %}
+		    <div class="row person-grid__content">
+				{% for author in authors %}
+					<div class="small-6 large-4 columns post-person">
+						<div class="post-person__photo">{{author.author.photo}}</div>
+						<div class="post-person__info">
+							<a class= "post-person__info__name" href="{{ author.author.url }}">{{author.author.name}}</a><br>
+							{{ author.author.position_at_new_america }}
+							{% if author.author.program %}
+					            <br>
+					            <a href="{{author.author.program.url }}">{{ author.author.program }}</a>
+					        {% endif %}
+					    </div>
+				    </div>
+				{% endfor %}
+			</div>
+			{% endif %}
+	    </div>
+	</div>
 
 {% endblock %}
