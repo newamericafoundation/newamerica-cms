@@ -1,18 +1,9 @@
-{% extends "program_base.html" %}
+{% extends "program_post_home_page.html" %}
 
 {% load wagtailcore_tags %}
 
 {% block body_class %}template-programeventspage{% endblock %}
 
-{% block content %}
-<h1>{{ program }} Events </h1>
-
-	{% for event in events %}
-		<a href="{{ event.url }}">{{ event.title }}</a> on {{ event.date }} at {{ event.time}}
-		<br>
-		{{ event.address }}
-		<br>
-		<br>
-	{% endfor %}
-
+{% block title %}
+	<h1 class= "content-grid__title"> {{ program }} Events</h1>
 {% endblock %}

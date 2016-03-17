@@ -30,7 +30,7 @@ $content-entry-text-gutter: 10px;
 			padding-top:0px;
 
 			.has-image & {
-				padding-left:$content-entry-desktop-image-container-width;
+				padding-left:$content-entry-desktop-image-container-width - 20px;
 			}
 		}
 	}
@@ -39,19 +39,23 @@ $content-entry-text-gutter: 10px;
 		font-size:16px;
 		color: palette-get(na-black);
 
-		h5, p {
-			margin-bottom: $content-entry-text-gutter;
+		a {
+			width: 100%;
 		}
 
-		&__program {
+		h5, p {
+			margin-bottom: $content-entry-text-gutter;
+			width: 100%;
+		}
+
+		&__program, &__program > a {
 			font-size:16px;
 			font-weight:bold;
 			color: palette-get(na-black-40);
-			padding-top: 2px;
 			line-height: 100%;
 		}
 
-		&__title {
+		&__title, &__title > a {
 			font-weight:bold;
 			font-size:26px;
 		}

@@ -1,4 +1,9 @@
 .content-grid {
+	&__title {
+		color: palette-get(na-black);
+		font-size: 50px;
+	}
+
 	&__controls {
 
 		&__program-filter {
@@ -16,6 +21,6 @@
 	}
 
 	&__entries {
-		
+		max-width: 950px;
 	}
 }
