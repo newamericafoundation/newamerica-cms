@@ -1,11 +1,12 @@
 .content-grid {
 	&__title {
 		color: palette-get(na-black);
-		font-size: 50px;
+		font-size: 40px;
+		margin-bottom: $desktop-padding;
 	}
 
 	&__controls {
-
+		margin-bottom: $desktop-padding;
 		&__program-filter {
 			width:220px;
 			padding-left: 0px;
