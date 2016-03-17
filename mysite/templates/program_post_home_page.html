@@ -37,7 +37,7 @@
 					{% image post.story_image original as post_image %}
 
 					<div class="content-entry__image-container">
-						<img class="content-entry__image" src="{{post_image.url}}">
+						<a href="{{ post.url }}"><img class="content-entry__image" src="{{post_image.url}}"></a>
 					</div>
 				<div class="content-entry__text-container has-image">
 				{% endif %}
