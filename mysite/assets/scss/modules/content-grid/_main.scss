@@ -20,12 +20,11 @@
 	}
 
 	&__controls {
-		margin-bottom: $desktop-padding;
+		margin-bottom: $mobile-padding;
 		max-width: $max-body-width;
 
-		input, select {
-			background-color: white;
-			/*width: 220;*/
+		@include breakpoint(medium) {
+			margin-bottom: $desktop-padding;
 		}
 
 		&__program-filter {
@@ -34,6 +33,7 @@
 			}
 		}
 		&__date-filter {
+
 		}
 		&__search {
 			@include breakpoint(medium) {
@@ -41,10 +41,10 @@
 			}
 		}
 
-
+		input, select {
+			background-color: white;
+		}
 	}
-
-	
 
 	&__entries {
 		max-width: 950px;
