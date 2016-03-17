@@ -11401,7 +11401,7 @@
         "slug": "jobs",
         "content_type": [
             "home",
-            "simplepage"
+            "orgsimplepage"
         ],
         "live": true,
         "has_unpublished_changes": false,
@@ -11431,7 +11431,7 @@
         "slug": "press",
         "content_type": [
             "home",
-            "simplepage"
+            "orgsimplepage"
         ],
         "live": true,
         "has_unpublished_changes": false,
@@ -11461,7 +11461,7 @@
         "slug": "contact",
         "content_type": [
             "home",
-            "simplepage"
+            "orgsimplepage"
         ],
         "live": true,
         "has_unpublished_changes": false,
@@ -11491,7 +11491,7 @@
         "slug": "subscribe",
         "content_type": [
             "home",
-            "simplepage"
+            "orgsimplepage"
         ],
         "live": true,
         "has_unpublished_changes": false,
@@ -16162,28 +16162,28 @@
     }
 },
 {
-    "model": "home.simplepage",
+    "model": "home.orgsimplepage",
     "pk": 34,
     "fields": {
         "body": "[]"
     }
 },
 {
-    "model": "home.simplepage",
+    "model": "home.orgsimplepage",
     "pk": 35,
     "fields": {
         "body": "[]"
     }
 },
 {
-    "model": "home.simplepage",
+    "model": "home.orgsimplepage",
     "pk": 36,
     "fields": {
         "body": "[]"
     }
 },
 {
-    "model": "home.simplepage",
+    "model": "home.orgsimplepage",
     "pk": 37,
     "fields": {
         "body": "[]"
