@@ -1,33 +1,50 @@
 .bio-page {
 	&__heading {
-		margin: $desktop-padding 0px;
-		height:100px;
+		margin: $desktop-padding $desktop-padding;
+		
+
+		@include breakpoint(medium) {
+			height: 100px;
+			margin: $desktop-padding 0px $desktop-padding $desktop-padding;
+		}
+
+		@include desktop-header {
+			margin: $desktop-padding 0px;
+		}
 	}
 
 	&__icon {
-    background-color: palette-get(na-black-10);
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    float:left;
+	    background-color: palette-get(na-black-10);
+	    border-radius: 50%;
+	    width: 100px;
+	    height: 100px;
 
-      &__photo {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background-repeat: no-repeat;
-        background-size: cover;
-        box-shadow: inset 0 0 0 100px rgba(0,0,0,.1);
-      }
+	    @include breakpoint(medium) {
+	    	float:left;
+	    	margin: 0px;
+	    }
+
+		&__photo {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			background-repeat: no-repeat;
+			background-size: cover;
+			box-shadow: inset 0 0 0 100px rgba(0,0,0,.1);
+		}
   	}
 
   	&__heading-text {
-  		padding-left: $desktop-padding;
-  		float:left;
   		position:relative;
-  		top: 50%;
-  		transform: translateY(-50%);
+    	padding-top: $desktop-padding;
 
+    	@include breakpoint(medium) {
+    		float:left;	
+    		padding-left: $desktop-padding;
+    		padding-top: 0px;
+    		top: 50%;
+  			transform: translateY(-50%);
+    	}
   		&__name {
   			@include page-title-text;
   			margin: 0px;
