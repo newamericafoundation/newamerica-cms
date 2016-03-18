@@ -53,3 +53,9 @@ class NAClient:
 			for post_set in self.get_data('posts'):
 				for post in post_set['results']:
 					yield post
+
+	def education_content(self):
+		self.activate_program(5)
+		for post_set in self.get_data('posts'):
+				for post in post_set['results']:
+					yield post
