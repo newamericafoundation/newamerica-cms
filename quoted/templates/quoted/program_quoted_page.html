@@ -1,24 +1,9 @@
-{% extends "program_base.html" %}
+{% extends "program_post_home_page.html" %}
 
 {% load wagtailcore_tags %}
 
 {% block body_class %}template-programquotedhomepage{% endblock %}
 
-{% block content %}
-<h1>{{program}} Quoted</h1>
-
-	{% for quoted in quoted_pieces %}
-		<a href="{{ quoted.url }}">{{ quoted.title }}</a>
-		<br>
-		{{ quoted.source }} - {{ quoted.date }}
-		<br>
-		{% if quoted.post_author.all %}
-			{% for author in quoted.post_author.all %}
-				<a href="{{ author.url }}">{{ author }} </a>
-			{% endfor %}
-		{% endif %}
-		<br>
-		<br>
-	{% endfor %}
-
+{% block title %}
+	<h1 class= "content-grid__title"> {{ program }} In the News</h1>
 {% endblock %}
