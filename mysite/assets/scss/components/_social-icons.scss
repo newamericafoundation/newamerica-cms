@@ -3,13 +3,23 @@
   padding: 0px;
 
   svg {
-    opacity: 0.3;
+    opacity: 1;
 
     &:hover {
       opacity: 1;
       -webkit-transition: 0.4s;
       transition: 0.4s;
+
+      .cls-1 {
+        fill: palette-get(na-black);
+        opacity: 1;
+      }
     }
+  }
+
+  .cls-1 {
+    fill: palette-get(na-black-40);
+    opacity: 1;
   }
 
   svg#facebook-icon {
@@ -39,5 +49,7 @@
   .st0 {
     fill: #2C2F35;
   }
+
+  
 
 }
