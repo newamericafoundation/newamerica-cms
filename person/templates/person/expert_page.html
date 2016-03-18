@@ -7,8 +7,17 @@
 
 
 {% block content %}
-    <h1>Experts</h1>
-    <br>
+    <div class="post-header with-image" style="background-image: linear-gradient(
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.3)
+        ), 
+        url(https://i.ytimg.com/vi/QOrQywoovhY/maxresdefault.jpg)">
+
+        <div class="post-header__text">
+                <h1 class="post-header__text__headline">Experts</h1>
+                <!-- <h2 class="post-header__text__sub-headline"></h2> -->
+        </div>
+    </div>
 
     {% for non_prog_expert in non_program_experts %}
         <a href="{{ non_prog_expert.url }}">{{ non_prog_expert }}</a>
