@@ -2,14 +2,38 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}
 
-    {% block post-content %}
+	{% block post-header %}
+	{% endblock %}
 
-    {% endblock %}
+	<div class="post-container">
+
+	    {% if page.post_author.all %}
+		    	
+		    <h5 class="post-author">
+		    	{% block byline-prefix %}
+				{% endblock %}
+				
+				{% for author in authors %}
+					
+						<p><a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>{% listify forloop.revcounter0 %}</p>
+					
+				{% endfor %}
+			</h5>
+			
+		{% endif %}
+
+		<h5 class="post-date">{{ page.date }}</h5>
+
+		{% block post-body %}
+		{% endblock %}
+
+	</div>
 
 	<div class='row border-panel-container'>
 		{% if page.post_author.all %}
@@ -61,7 +85,7 @@
 					<div class='border-panel__content'>
 						
 							<p class= "border-panel__content__subscribe-info">Get our weekly digital magazine and events lineup in your inbox</p>
-							<input type='text' placeholder='Your Email' id='border-panel__content__email-field'></input>
+							<input type='text' placeholder='Your Email' id='border-panel__content__email-field'>
 							<button class='button' id='border-panel__content__link'>Sign up</button>
 						
 					</div>
