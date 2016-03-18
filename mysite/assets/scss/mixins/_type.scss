@@ -38,13 +38,25 @@
 }
 
 @mixin page-title-text {
-  font-size: 40px;
   font-weight: bold;
   color: palette-get(na-black);
+  font-size: 32px;
+
+  @include breakpoint(medium) {
+    font-size: 40px;
+  }
 }
 
 @mixin page-subtitle-text {
-  font-size: 30px;
   font-weight: normal;
   color: palette-get(na-black-40);
+  font-size: 25px;
+
+  @include breakpoint(medium) {
+    font-size: 30px;
+  }
+
+  a:hover {
+    color: palette-get(na-turquoise);
+  }
 }

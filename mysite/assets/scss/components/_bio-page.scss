@@ -1,6 +1,6 @@
 .bio-page {
 	&__heading {
-		margin: $desktop-padding $desktop-padding;
+		margin: $desktop-padding $mobile-padding;
 		
 
 		@include breakpoint(medium) {
@@ -36,7 +36,7 @@
 
   	&__heading-text {
   		position:relative;
-    	padding-top: $desktop-padding;
+    	padding-top: 15px;
 
     	@include breakpoint(medium) {
     		float:left;	
@@ -51,11 +51,25 @@
   			line-height: 110%;
   		}
 
-  		&__position {
+  		&__position, &__position > a {
   			@include page-subtitle-text;
   			font-weight: bold;
   			margin: 0px;
   			line-height: 100%;
+  		}
+  	}
+
+  	&__content {
+  		max-width: $max-body-width;
+  		padding: $mobile-padding;
+
+  		@include breakpoint(medium) {
+  			padding-left: $desktop-padding;
+  			padding-right: $desktop-padding;
+  		}
+
+  		@include desktop-header {
+  			padding: $mobile-padding 0px;
   		}
   	}
 
