@@ -1,6 +1,7 @@
 $content-entry-desktop-image-container-width: 240px;
 $content-entry-desktop-image-container-height: 150px;
 $content-entry-side-margins: 20px;
+$content-entry-text-gutter: 10px;
 
 .content-entry {
 	width: 100%;
@@ -8,7 +9,7 @@ $content-entry-side-margins: 20px;
 
 	&__image-container {
 		width:100%;
-		height:100px;
+		height:150px;
 		overflow:hidden;
 
 		@include breakpoint(medium) {
@@ -20,35 +21,61 @@ $content-entry-side-margins: 20px;
 		}	
 	}
 
-
 	&__text-container {
 		width: 100%;
 		padding: 20px 20px 0px 20px;
 
 		@include breakpoint(medium) {
 			width:100%;
-			padding-left:$content-entry-desktop-image-container-width;
 			padding-top:0px;
+
+			.has-image & {
+				padding-left:$content-entry-desktop-image-container-width - 20px;
+			}
 		}
-		
-		&__text {
+	}
 
-			/*width:100%;
+	&__text {
+		font-size:16px;
+		color: palette-get(na-black);
 
-			@include desktop-header {
-				width:700px;
-			}
-			
-			font-size:15px;*/
-			&__title {
-				font-weight:bold;
-				font-size:19px;
-			}
+		a {
+			width: 100%;
+		}
 
-			&__date {
-				color:grey;
-				margin-bottom:-22px;
-			}
+		h5, p {
+			margin-bottom: $content-entry-text-gutter;
+			width: 100%;
+		}
+
+		&__program, &__program > a {
+			font-size:16px;
+			font-weight:bold;
+			color: palette-get(na-black-40);
+			line-height: 100%;
+		}
+
+		&__title, &__title > a {
+			font-weight:bold;
+			font-size:26px;
+		}
+
+		&__author {
+			font-weight:bold;
+			font-size:16px;
+			line-height: 130%;
+		}
+
+		&__date {
+			color: palette-get(na-black-40);
+			font-size:16px;
+			line-height: 130%;
+		}
+
+		&__excerpt {
+			color: palette-get(na-black-40);
+			font-size:16px;
+			line-height: 150%;
 		}
 	}
 }

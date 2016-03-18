@@ -1,25 +1,9 @@
-{% extends "program_base.html" %}
+{% extends "program_post_home_page.html" %}
 
 {% load wagtailcore_tags %}
 
 {% block body_class %}template-programpolicypaperspage{% endblock %}
 
-{% block content %}
-<h1>{{ program }} Policy Papers </h1>
-
-	{% for paper in policy_papers %}
-		<a href="{{ paper.url }}">{{ paper.title }}</a>
-		<br>
-		{{ paper.date }}
-		<br>
-		{% if paper.post_author.all %}
-			{% for author in paper.post_author.all %}
-				<a href="{{ author.url }}">{{ author }} </a>
-				<br>
-			{% endfor %}
-		{% endif %}
-		{{ paper.excerpt }}
-		<br>
-		<br>
-	{% endfor %}
+{% block title %}
+	<h1 class= "content-grid__title"> {{ program }} Policy Papers</h1>
 {% endblock %}

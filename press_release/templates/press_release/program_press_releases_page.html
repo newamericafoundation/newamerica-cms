@@ -1,16 +1,9 @@
-{% extends "program_base.html" %}
+{% extends "program_post_home_page.html" %}
 
 {% load wagtailcore_tags %}
 
 {% block body_class %}template-programpressreleasespage{% endblock %}
 
-{% block content %}
-<h1>{{ program }} Press Releases </h1>
-	{% for release in press_releases %}
-		<a href="{{ release.url }}">{{ release.headline }}</a>
-		<br>
-		{{ release.date }}
-		<br>
-		<br>
-	{% endfor %}
+{% block title %}
+	<h1 class= "content-grid__title"> {{ program }} Press Releases</h1>
 {% endblock %}

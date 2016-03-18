@@ -25,7 +25,7 @@ class AllBooksHomePage(Page):
     def get_context(self, request):
         context = super(AllBooksHomePage, self).get_context(request)
 
-        ccontext['all_posts'] = Book.objects.all()
+        context['all_posts'] = Book.objects.all()
         return context
 
     class Meta:
@@ -47,6 +47,7 @@ class ProgramBooksPage(Page):
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
         context['all_posts'] = Book.objects.filter(parent_programs=program)
+        context['program'] = program
         return context
 
     class Meta:

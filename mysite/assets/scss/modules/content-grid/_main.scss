@@ -1,17 +1,52 @@
 .content-grid {
-	&__controls {
-		&__program-filter {
-			width:220px;
+	&__title, &__controls {
+		margin: $mobile-padding;
+
+		@include desktop-header {
+			margin-left: 0px;
+			margin-right: 0px;
 		}
-		&__date-filter {
-			width:220px;
-		}
-		&__search {
-			width:220px;
+
+		@include expanded-header {
+			margin-left: 0px;
+			margin-right: 0px;
 		}
 	}
 
-	&__content {
-		
+	&__title {
+		color: palette-get(na-black);
+		font-size: 40px;
+		margin-bottom: $desktop-padding;
+	}
+
+	&__controls {
+		margin-bottom: $mobile-padding;
+		max-width: $max-body-width;
+
+		@include breakpoint(medium) {
+			margin-bottom: $desktop-padding;
+		}
+
+		&__program-filter {
+			@include breakpoint(medium) {
+				padding-left: 0px;
+			}
+		}
+		&__date-filter {
+
+		}
+		&__search {
+			@include breakpoint(medium) {
+				padding-right: 0px;
+			}
+		}
+
+		input, select {
+			background-color: white;
+		}
+	}
+
+	&__entries {
+		max-width: 950px;
 	}
 }

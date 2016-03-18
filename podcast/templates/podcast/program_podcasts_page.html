@@ -1,23 +1,9 @@
-{% extends "program_base.html" %}
+{% extends "program_post_home_page.html" %}
 
 {% load wagtailcore_tags %}
 
 {% block body_class %}template-programpodcastspage{% endblock %}
 
-{% block content %}
-<h1>{{ program }} Podcasts </h1>
-
-	{% for podcast in podcasts %}
-		<a href="{{ podcast.url }}">{{ podcast.title }}</a>
-		<br>
-		{% if podcast.post_author.all %}
-			{% for author in podcast.post_author.all %}
-				<a href="{{ author.url }}">{{ author }}</a>
-				<br>
-			{% endfor %}
-		{% endif %}
-		<br>
-		{{ podcast.soundcloud }}
-	{% endfor %}
-
+{% block title %}
+	<h1 class= "content-grid__title"> {{ program }} Podcasts</h1>
 {% endblock %}
