@@ -60,3 +60,13 @@
     color: palette-get(na-turquoise);
   }
 }
+
+@mixin page-section-title-text {
+  font-weight: bold;
+  color: palette-get(na-black);
+  font-size: 20px;
+
+  @include breakpoint(medium) {
+    font-size: 26px;
+  }
+}

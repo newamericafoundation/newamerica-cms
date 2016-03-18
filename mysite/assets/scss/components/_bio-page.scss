@@ -1,15 +1,17 @@
 .bio-page {
+  margin: $desktop-padding $mobile-padding;
+
+  @include breakpoint(medium) {
+    margin: $desktop-padding;
+  }
+
+  @include desktop-header {
+    margin: $desktop-padding 0px;
+  }
+
 	&__heading {
-		margin: $desktop-padding $mobile-padding;
-		
-
 		@include breakpoint(medium) {
-			height: 100px;
-			margin: $desktop-padding 0px $desktop-padding $desktop-padding;
-		}
-
-		@include desktop-header {
-			margin: $desktop-padding 0px;
+			height: 100px;	
 		}
 	}
 
@@ -61,28 +63,22 @@
 
   	&__content {
   		max-width: $max-body-width;
-  		padding: $mobile-padding;
-
-  		@include breakpoint(medium) {
-  			padding-left: $desktop-padding;
-  			padding-right: $desktop-padding;
-  		}
+      color: palette-get(na-black-70);
+      padding-top: $desktop-padding;
 
   		@include desktop-header {
-  			padding: $mobile-padding 0px;
+  			padding: $desktop-padding 0px $mobile-padding 0px;
   		}
+
+      /*& > p {
+        &:first-child {
+
+          font-weight: bold;
+        }
+      }*/
   	}
 
   	&__contact {
-  		margin: 0px $mobile-padding;
-
-  		@include breakpoint(medium) {
-  			margin: 0px $desktop-padding;
-  		}
-
-  		@include desktop-header {
-  			margin: 0px;
-  		}
 
   		& > .button {
 
@@ -98,6 +94,13 @@
   			}
   		}
   	}
+
+    &__work {
+      &__title {
+        @include page-section-title-text;
+        padding-top: $desktop-padding;
+      }
+    }
 
 }
 
