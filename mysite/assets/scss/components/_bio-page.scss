@@ -73,5 +73,31 @@
   		}
   	}
 
+  	&__contact {
+  		margin: 0px $mobile-padding;
+
+  		@include breakpoint(medium) {
+  			margin: 0px $desktop-padding;
+  		}
+
+  		@include desktop-header {
+  			margin: 0px;
+  		}
+
+  		& > .button {
+
+  			margin: 0px 5px;
+	  		&:first-child {
+	  			margin-left: 0px;
+	  		}
+
+  			background-color: palette-get(na-turquoise);
+
+  			&:hover {
+  				background-color: palette-get(na-black);
+  			}
+  		}
+  	}
+
 }
 
