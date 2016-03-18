@@ -36,3 +36,15 @@
   font-size: rem-calc(23);
   color: palette-get(na-black);
 }
+
+@mixin page-title-text {
+  font-size: 40px;
+  font-weight: bold;
+  color: palette-get(na-black);
+}
+
+@mixin page-subtitle-text {
+  font-size: 30px;
+  font-weight: normal;
+  color: palette-get(na-black-40);
+}
