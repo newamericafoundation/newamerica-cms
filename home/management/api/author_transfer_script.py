@@ -13,7 +13,7 @@ from person.models import OurPeoplePage, Person
 
 from .newamerica_api_client import NAClient
 
-from .post_transfer_script import load_posts
+from .post_transfer_script import load_posts, education_posts
 
 our_people_page = OurPeoplePage.objects.first()
 
@@ -149,5 +149,6 @@ def load_authors():
 
 
 def run():
-    load_authors()
+    # load_authors()
     # load_posts()
+    education_posts()
