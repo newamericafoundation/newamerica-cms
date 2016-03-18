@@ -2,6 +2,7 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_class %}template-postpage{% endblock %}
 
@@ -19,13 +20,9 @@
 				{% endblock %}
 				
 				{% for author in authors %}
-					{% if forloop.revcounter0 >= 2 %}
-						<p><a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>,</p>
-					{% elif forloop.revcounter0 == 1 %}
-						<p><a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a> and</p>
-					{% else %}	
-						<p><a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a></p>
-					{% endif %}	
+					
+						<p><a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>{% listify forloop.revcounter0 %}</p>
+					
 				{% endfor %}
 			</h5>
 			
