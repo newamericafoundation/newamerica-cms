@@ -4,6 +4,8 @@ from article.models import Article
 
 from django.utils.text import slugify
 
+import json
+
 def get_programs(program_id):
 	str(program_id)
 	
@@ -34,6 +36,11 @@ def get_programs(program_id):
 		'4': 'Youthsave',
 	}
 
+def get_post_date(original_date):
+	old_date_split = original_date.split("T")
+	new_date = old_date_split[0]
+	return new_date
+
 def load_posts():
     for post in NAClient().get_posts():
         if post['type'] == "Article":
@@ -46,9 +53,14 @@ def load_posts():
 	        		show_in_menus=False,
 	        		slug=article_slug,
 	        		title=post['title'],
-	        		date='2016-03-15',
+	        		date=get_post_date(post['publish_at']),
+
 
 
 	        	)
 
+def education_posts():
+	for content in NAClient().education_content():
+		with open("education_content.json", "a") as f:
+			json.dump(content, f)
 
