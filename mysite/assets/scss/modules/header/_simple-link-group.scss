@@ -50,7 +50,9 @@
     @include standard-shadow;
     padding: 10px 7px 7px 7px;
     background-color: palette-get(na-white);
-    border: 1px solid palette-get(na-black-10);
+    border-left: 1px solid palette-get(na-black-10);
+    border-right: 1px solid palette-get(na-black-10);
+    border-top: 1px solid palette-get(na-black-10);
   }
 
 

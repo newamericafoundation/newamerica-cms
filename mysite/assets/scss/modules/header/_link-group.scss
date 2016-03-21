@@ -83,7 +83,9 @@ $link-group-header-spacing: 30px;
     @include standard-shadow;
     padding: 30px 7px;
     background-color: palette-get(na-white);
-     border: 1px solid palette-get(na-black-10);
+    border-left: 1px solid palette-get(na-black-10);
+    border-right: 1px solid palette-get(na-black-10);
+    border-top: 1px solid palette-get(na-black-10);
   }
   &__heading {
     margin-bottom: 0;
