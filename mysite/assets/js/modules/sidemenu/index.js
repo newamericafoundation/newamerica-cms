@@ -7,7 +7,20 @@ function getMobileNavLogo() {
 	$(".sidemenu__program-title__title").text(title.toUpperCase());
 }
 
+function highlightActiveLink() {
+	$('.sidemenu__link-group__link > a').each(function() {
+		console.log($(this).prop('href'));
+		console.log(window.location.href);
+		if ($(this).prop('href') == window.location.href) {
+			console.log("adding active class");
+			$(this).addClass('active');
+		}
+	});
+}
+
 $(getMobileNavLogo)
+$(highlightActiveLink)
+
 
 
 // var clicked = false;
