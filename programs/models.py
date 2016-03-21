@@ -126,6 +126,10 @@ class AbstractProgram(Page):
         """ Return a list of experts in a program """
         return self.person_set.filter(expert=True).order_by('-title')
 
+    def get_subprograms(self):
+        """ Return a list of subprograms in a program """
+        return self.get_children().type(Subprogram)
+
     class Meta:
         abstract = True
 
@@ -154,7 +158,7 @@ class Program(AbstractProgram):
 
     def get_context(self, request):
         context = super(Program, self).get_context(request)
-
+        
         return context
 
 

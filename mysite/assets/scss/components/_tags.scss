@@ -1,0 +1,16 @@
+.tags {
+	&__title {
+		font-weight: bold;
+		padding-right: 10px;
+	}
+
+	&__taglist {
+
+	}
+	.label {
+		background-color: palette-get(na-black-10);
+		& > a {
+			color:palette-get(na-black-70);
+		}
+	}
+}
