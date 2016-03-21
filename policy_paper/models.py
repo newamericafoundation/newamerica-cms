@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from home.models import Post
 
@@ -36,41 +37,53 @@ class PolicyPaper(Post):
 
 
 class AllPolicyPapersHomePage(Page):
-	"""
-	A page which inherits from the abstract Page model and
-	returns every Policy Paper in the Policy Paper model
-	for the organization wide Policy Paper Homepage
-	"""
-	parent_page_types = ['home.Homepage']
-	subpage_types = []
+    """
+    A page which inherits from the abstract Page model and
+    returns every Policy Paper in the Policy Paper model
+    for the organization wide Policy Paper Homepage
+    """
+    parent_page_types = ['home.Homepage']
+    subpage_types = []
 
-	def get_context(self, request):
-		context = super(AllPolicyPapersHomePage, self).get_context(request)
-		context['all_posts'] = PolicyPaper.objects.all()
+    def get_context(self, request):
+        context = super(AllPolicyPapersHomePage, self).get_context(request)
+        context['all_posts'] = PolicyPaper.objects.all()
 
-		return context
+        return context
 
-	class Meta:
-		verbose_name = "Homepage for all Policy Papers"
+    class Meta:
+        verbose_name = "Homepage for all Policy Papers"
 
 
 class ProgramPolicyPapersPage(Page):
-	"""
-	A page which inherits from the abstract Page model and
-	returns all Policy Papers associated with a specific
-	Program which is determined using the url path
-	"""
-	parent_page_types = ['programs.Program']
-	subpage_types = ['PolicyPaper']
+    """
+    A page which inherits from the abstract Page model and
+    returns all Policy Papers associated with a specific
+    Program which is determined using the url path
+    """
+    parent_page_types = ['programs.Program'] 
+    subpage_types = ['PolicyPaper']
 
-	def get_context(self, request):
-		context = super(ProgramPolicyPapersPage, self).get_context(request)
-		program_slug = request.path.split("/")[-3]
-		program = Program.objects.get(slug=program_slug)
-		context['all_posts'] = PolicyPaper.objects.filter(parent_programs=program)
-		context['program'] = program
+    def get_context(self, request):
+        context = super(ProgramPolicyPapersPage, self).get_context(request)
+        program_slug = request.path.split("/")[-3]
+        program = Program.objects.get(slug=program_slug)
+        all_posts = PolicyPaper.objects.filter(parent_programs=program)
+        
+        page = request.GET.get('page')
+        paginator = Paginator(all_posts, 1)
+        try:
+            all_posts = paginator.page(page)
+        except PageNotAnInteger:
+            all_posts = paginator.page(1)
+        except EmptyPage:
+            all_posts = paginator.page(paginator.num_pages)
 
-		return context
+        context['all_posts'] = all_posts
 
-	class Meta:
-		verbose_name = "Policy Paper Homepage for Programs"
+        context['program'] = program
+
+        return context
+
+    class Meta:
+        verbose_name = "Policy Paper Homepage for Programs"
