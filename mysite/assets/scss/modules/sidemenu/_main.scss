@@ -101,6 +101,16 @@ $program-title-width: 163px;
         & > a {
           color: white;
         }
+
+        @include desktop-header {
+          background-color: palette-get(na-white);
+          border-color: palette-get(na-white);
+
+          & > a {
+            color: palette-get(na-turquoise);
+          }
+        }
+        
       }
 
       .home-link {
