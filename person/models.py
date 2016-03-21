@@ -90,6 +90,8 @@ class OurPeoplePage(Page):
 
         context['people'] = Person.objects.all().exclude(role='External Author/Former Staff')
 
+        context['all_programs'] = Program.objects.all()
+
         return context
 
     class Meta:

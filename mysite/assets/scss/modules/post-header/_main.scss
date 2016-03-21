@@ -3,6 +3,7 @@ $std-post-header-padding-without-image: 25px;
 
 .post-header {
 	width: 100%;
+	height: 200px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 50% 50%;
@@ -10,23 +11,15 @@ $std-post-header-padding-without-image: 25px;
 
 	&__text {
 		position: relative;
-		top:50%;
+		line-height: 100%;
+		top: 50%;
+		transform: translateY(-50%);
 		max-width: $max-body-width;
-		padding: $std-post-header-padding-without-image $mobile-padding;
-		color:palette-get(na-black);
-
-		@include desktop-header {
-			padding: $std-post-header-padding-without-image 0px;
-		}
-
-		@include expanded-header {
-			padding: $std-post-header-padding-without-image 0px;
-		}
-
-		
+		color: palette-get(na-black);
 
 		&__headline {
 			font-size: 30px;
+			margin-bottom: 0px;
 			@include breakpoint(medium) {
 			    font-size: 40px;
 			}
@@ -51,9 +44,8 @@ $std-post-header-padding-without-image: 25px;
 		}
 
 		.with-image & {
-			min-height: $std-post-header-height;
-			padding: $std-post-header-padding-with-image $desktop-padding;
 			color:palette-get(na-white);
+			padding: 0px $desktop-padding;
 
 			&__button {
 				margin-top: 15px;

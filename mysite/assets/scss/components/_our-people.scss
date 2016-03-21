@@ -1,0 +1,59 @@
+.our-people {
+	&__body {
+		padding: $mobile-padding;
+		padding-top: $desktop-padding;
+		/*max-width: $max-body-width;*/
+
+    	@include desktop-header {
+    		padding-left: 0px;
+    		padding-right: 0px;
+    	}
+
+		p {
+			font-size: rem-calc(20);
+	    	color: palette-get(na-black-70);
+
+	    	& > a {
+	    		font-weight: bold;
+	    		color: palette-get(na-black);
+	    	}
+	    }
+
+	    h3 {
+	    	font-size: rem-calc(21);
+	    	color: palette-get(na-black);
+	    	font-weight: bold;
+	    }
+
+	    hr {
+	    	width: 100%;
+	    	max-width: 100%;
+	    	margin: $desktop-padding 0px;
+	    }
+
+	    input {
+	    	max-width: 250px;
+	    }
+    	
+	}
+
+	&__item-list {
+		margin-left: $desktop-padding;
+
+		& > .columns {
+			padding: 0px;
+		}
+		&__list {
+
+			& > li {
+				list-style-type:disc;
+				display: list-item;
+				padding-right: 15px;
+				& > a {
+					font-weight: bold;
+				}
+				
+			}
+		}
+	}
+}
