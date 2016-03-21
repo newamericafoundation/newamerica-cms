@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block sidemenu_status %}has_sidemenu simple{% endblock %}
+
+
+{% block sidebar %}
+<div class='sidemenu-container'>
+	<div class="sidemenu simple">
+		<div class="sidemenu__link-group">
+			<ul class="menu vertical sidemenu__link-group__content">
+			  <li class="menu-text sidemenu__link-group__title">About</li>
+			  <li class="sidemenu__link-group__link"><a href='#'>Our Story</a></li>
+			  <li class="sidemenu__link-group__link"><a href='/our-people/'>Our People</a></li>
+			  <li class="sidemenu__link-group__link"><a href='#'>Press</a></li>
+			  <li class="sidemenu__link-group__link"><a href='#'>Jobs</a></li>
+			  <li class="sidemenu__link-group__link"><a href='#'>Funders</a></li>
+			  <li class="sidemenu__link-group__link"><a href='#'>Councils</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class='content-container has-sidemenu'>
+{% endblock %}

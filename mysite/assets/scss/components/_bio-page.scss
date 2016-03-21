@@ -1,0 +1,108 @@
+
+.bio-page {
+  $icon-height: 150px;
+  margin: $desktop-padding $mobile-padding;
+
+  @include breakpoint(medium) {
+    margin: $desktop-padding;
+  }
+
+  @include desktop-header {
+    width: $max-body-width;
+    margin: 10px auto;
+  }
+
+	&__heading {
+		@include breakpoint(medium) {
+			height: $icon-height;	
+		}
+	}
+
+	&__icon {
+	    background-color: palette-get(na-black-10);
+	    border-radius: 50%;
+	    width: $icon-height;
+	    height: $icon-height;
+
+	    @include breakpoint(medium) {
+	    	float:left;
+	    	margin: 0px;
+	    }
+
+		&__photo {
+			width: $icon-height;
+			height: $icon-height;
+			border-radius: 50%;
+			background-repeat: no-repeat;
+			background-size: cover;
+			box-shadow: inset 0 0 0 100px rgba(0,0,0,.1);
+		}
+  }
+
+	&__heading-text {
+		position:relative;
+  	padding-top: 15px;
+
+  	@include breakpoint(medium) {
+  		padding-left: $desktop-padding + $icon-height;
+  		padding-top: 0px;
+  		top: 50%;
+			transform: translateY(-50%);
+  	}
+		&__name {
+			@include page-title-text;
+			margin: 0px;
+			line-height: 110%;
+		}
+
+		&__position, &__position > a {
+			@include page-subtitle-text;
+			font-weight: bold;
+			margin: 0px;
+			line-height: 100%;
+		}
+	}
+
+	&__content {
+		max-width: $max-body-width;
+    color: palette-get(na-black-70);
+    padding-top: $desktop-padding;
+
+		@include desktop-header {
+			padding: $desktop-padding 0px $mobile-padding 0px;
+		}
+
+    /*& > p {
+      &:first-child {
+
+        font-weight: bold;
+      }
+    }*/
+	}
+
+	&__contact {
+
+		& > .button {
+
+			margin: 0px 5px;
+  		&:first-child {
+  			margin-left: 0px;
+  		}
+
+			background-color: palette-get(na-turquoise);
+
+			&:hover {
+				background-color: palette-get(na-black);
+			}
+		}
+	}
+
+  &__work {
+    &__title {
+      @include page-section-title-text;
+      padding-top: $desktop-padding;
+    }
+  }
+
+}
+
