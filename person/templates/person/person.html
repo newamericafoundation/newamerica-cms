@@ -18,7 +18,7 @@
             <h3 class= "bio-page__heading-text__position">{{ page.position_at_new_america }},
                 {% if page.belongs_to_these_programs %}
                     {% for program in page.belongs_to_these_programs.all %}
-                        <a href="{{ program.url }}"> {{ program }}</a>
+                         <a href="{{ program.url }}">{{ program }}</a>
                     {% endfor %}
                 {% endif %}
             </h3>

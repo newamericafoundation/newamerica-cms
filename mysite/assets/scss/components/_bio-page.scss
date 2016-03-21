@@ -44,8 +44,7 @@
   	padding-top: 15px;
 
   	@include breakpoint(medium) {
-  		float:left;	
-  		padding-left: $desktop-padding;
+  		padding-left: $desktop-padding + $icon-height;
   		padding-top: 0px;
   		top: 50%;
 			transform: translateY(-50%);
