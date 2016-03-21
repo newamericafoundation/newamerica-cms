@@ -78,7 +78,7 @@ $program-title-width: 163px;
       border-bottom: 1px solid palette-get(na-off-black);
 
       @include desktop-header {
-        height:auto;
+        height: auto;
         border: none;
       }
     }
@@ -88,6 +88,10 @@ $program-title-width: 163px;
 
       @include desktop-header {
         padding: $desktop-padding $desktop-padding 10px $desktop-padding;
+
+        .short & {
+          padding: 0px $desktop-padding 10px $desktop-padding;
+        }
       }
     }
 
