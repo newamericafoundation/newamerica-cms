@@ -11,7 +11,7 @@ $std-post-header-padding-without-image: 25px;
 
 	&__text {
 		position: relative;
-		height: 50px;
+		line-height: 100%;
 		top: 50%;
 		transform: translateY(-50%);
 		max-width: $max-body-width;
@@ -19,6 +19,7 @@ $std-post-header-padding-without-image: 25px;
 
 		&__headline {
 			font-size: 30px;
+			margin-bottom: 0px;
 			@include breakpoint(medium) {
 			    font-size: 40px;
 			}
@@ -44,6 +45,7 @@ $std-post-header-padding-without-image: 25px;
 
 		.with-image & {
 			color:palette-get(na-white);
+			padding: 0px $desktop-padding;
 
 			&__button {
 				margin-top: 15px;

@@ -19,20 +19,44 @@
         </div>
     </div>
 
-    {% for non_prog_expert in non_program_experts %}
-        <a href="{{ non_prog_expert.url }}">{{ non_prog_expert }}</a>
-            <br>
-    {% endfor %}
-    <br>
+    <div class="our-people__body">
+        <p>This is where the intro text will go - which needs to pull from some kind of intro text field in the experts page model.</p>
+        <hr>
+        <h3>Search our Staff</h3>
+        <p>Search for an expert by name or area of policy expertise</p> 
+        <input type='text' placeholder='Search'></input>
+        <hr>
+        <h3>Contact our Communications Team</h3>
+        <p>This is where the contact comms team text will go - which needs to pull from some kind of text field in the experts page model.</p>
+        <hr>
+        <h3>Find Experts by Program</h3>
+        <p>Our experts are really great and have a lot of expertise in many different areas</p>
+    
 
-    {% for program in all_programs %}
-        <h3>{{ program }}</h3>
-        <br>
-        {% for expert in program.get_experts %}
-            <a href="{{ expert.url }}">{{ expert }}</a>
-            <br>
-        {% endfor %}
-        <br>
-    {% endfor %}
+        <div class="row our-people__program-list">
+            <div class="small-12 medium-4 large-4 columns">
+                <ul class="our-people__program-list__list">
+                    {% for program in all_programs|slice:":6" %}
+                        <li><a href="{{ program.url }}our-people/">{{ program }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
 
+            <div class="small-12 medium-4 large-4 columns">
+                <ul class="our-people__program-list__list">
+                    {% for program in all_programs|slice:"6:12" %}
+                        <li><a href="{{ program.url }}our-people/">{{ program }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="small-12 medium-4 large-4 columns">
+                <ul class="our-people__program-list__list">
+                    {% for program in all_programs|slice:"12:" %}
+                        <li><a href="{{ program.url }}our-people/">{{ program }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}
