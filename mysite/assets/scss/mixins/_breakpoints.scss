@@ -31,7 +31,7 @@
 }
 
 @mixin has-sidemenu {
-  .has_sidemenu & {
-      @content;
+  .has_sidemenu:not(.simple) & {
+    @content;
   }
 }

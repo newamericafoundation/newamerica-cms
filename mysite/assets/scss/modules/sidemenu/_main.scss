@@ -89,7 +89,7 @@ $program-title-width: 163px;
       @include desktop-header {
         padding: $desktop-padding $desktop-padding 10px $desktop-padding;
 
-        .short & {
+        .simple & {
           padding: 0px $desktop-padding 10px $desktop-padding;
         }
       }
