@@ -47,7 +47,6 @@ class NAClient:
 
 	def get_articles(self):
 		for program in self.client.get(self.api_url + 'programs').json():
-			print(program)
 			program_id = program['id']
 			self.activate_program(program_id)
 			for post_set in self.get_data('articles'):
