@@ -7,14 +7,36 @@
 
 
 {% block post-header %}
+	{% image page.story_image original as story_image %}
+
+	{% if story_image %}
+
+		<div class="post-header with-image large" style="background-image: linear-gradient(
+		      rgba(0, 0, 0, 0.3),
+		      rgba(0, 0, 0, 0.3)
+		    ), 
+	    	url({{ story_image.url }})">
+
+			<div class="post-header__text">
+			    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+			    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+			</div>
+		</div>
+
+	{% else %}
+
+		<div class="post-header">
+			<div class="post-header__text">
+			    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
+			    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+			</div>
+		</div>
+
+	{% endif %}
 
 {% endblock %}
 
-{% block byline-prefix %}
-
-	By 
-
-{% endblock %}
+{% block byline-prefix %}By{% endblock %}
 
 {% block post-body %}
 
