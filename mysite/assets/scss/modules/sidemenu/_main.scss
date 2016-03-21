@@ -113,6 +113,12 @@ $program-title-width: 163px;
         
       }
 
+      @include desktop-header {
+        & > .active {
+          color: palette-get(na-turquoise);
+        }
+      }
+
       .home-link {
           display: block;
           @include desktop-header {
