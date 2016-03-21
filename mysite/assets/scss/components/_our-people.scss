@@ -12,6 +12,11 @@
 		p {
 			font-size: rem-calc(20);
 	    	color: palette-get(na-black-70);
+
+	    	& > a {
+	    		font-weight: bold;
+	    		color: palette-get(na-black);
+	    	}
 	    }
 
 	    h3 {
@@ -27,14 +32,19 @@
 	    }
 
 	    input {
-	    	max-width: 300px;
+	    	max-width: 250px;
 	    }
     	
 	}
 
-	&__program-list {
+	&__item-list {
 		margin-left: $desktop-padding;
+
+		& > .columns {
+			padding: 0px;
+		}
 		&__list {
+
 			& > li {
 				list-style-type:disc;
 				display: list-item;

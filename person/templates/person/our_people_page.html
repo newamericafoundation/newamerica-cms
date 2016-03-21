@@ -7,40 +7,68 @@
 
 {% block content %}
 
-<section class='section section--fixed-width'>
-	<h1 class="person-grid__title">Our People</h1>
+<div class="post-header with-image" style="background-image: linear-gradient(
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.3)
+        ), 
+        url(https://i.ytimg.com/vi/QOrQywoovhY/maxresdefault.jpg)">
 
-	<div class="row person-grid__controls">
-		<div class="column person-grid__controls__filter">
-		
-	        <select>
-				<option value="all">All Initiatives</option>
-				<option value="open">Open Technology Institute</option>
-				<option value="education">Education Policy</option>
-				<option value="asset">Asset Building</option>
-	        </select>
-	     
+        <div class="post-header__text">
+                <h1 class="post-header__text__headline">Our People</h1>
+                <h2 class="post-header__text__sub-headline">New America's Staff, Fellows, and Board of Directors</h2>
         </div>
-        <div class="column person-grid__controls__search">
-        	<input type="search" placeholder="Search Results">
-        </div>
-	</div>
+    </div>
 
-	<div class="row person-grid__content">
-		{% for person in people %}
-			<div class="small-12 medium-4 large-3 columns person">
-				<div class="person__photo">{% image person.profile_image width-400 %}</div>
-				<div class="person__info">
-					<a class= "person__info__name" href="{{ person.url }}">{{person.first_name}} {{person.last_name}}</a><br>
-					{{ person.position_at_new_america }}
-					{% if person.program %}
-			            <br>
-			            <a href="{{person.program.url }}">{{ person.program }}</a>
-			        {% endif %}
-			    </div>
-		    </div>
-		{% endfor %}
-	</div>
-</section>
+    <div class="our-people__body">
+        <p>This is where the intro text will go - which needs to pull from some kind of intro text field in the experts page model.</p>
+        <hr>
+        <h3>Search our Staff</h3>
+        <p>Search for a staff member by name or area of policy expertise</p> 
+        <input type='text' placeholder='Search'></input>
+        <hr>
+        <h3>Board of Directors & Leadership</h3>
+        <p>This is some text about the Board of Directors and Leadership Team</p>
+        <div class="our-people__item-list">
+        	<ul class="our-people__item-list__list">
+        		<li><a href="#">Board of Directors</a></li>
+        		<li><a href="#">Leadership Team</a></li>
+        	</ul>
+        </div>
+        <hr>
+        <h3>Program Staff</h3>
+        <p>Our experts are really great and have a lot of expertise in many different areas</p>
+        
+    
+
+        <div class="row our-people__item-list">
+            <div class="small-12 medium-4 large-4 columns">
+                <ul class="our-people__item-list__list">
+                    {% for program in all_programs|slice:":6" %}
+                        <li><a href="{{ program.url }}our-people/">{{ program }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="small-12 medium-4 large-4 columns">
+                <ul class="our-people__item-list__list">
+                    {% for program in all_programs|slice:"6:12" %}
+                        <li><a href="{{ program.url }}our-people/">{{ program }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="small-12 medium-4 large-4 columns">
+                <ul class="our-people__item-list__list">
+                    {% for program in all_programs|slice:"12:" %}
+                        <li><a href="{{ program.url }}our-people/">{{ program }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+        <h3>Central Staff</h3>
+        <p>Our administrative staff provides support for programs through development, finance, talent development, communications, editorial, and production operations. <a href='#'>Find out more about Central Staff</p>
+    </div>
 
 {% endblock %}
