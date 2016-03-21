@@ -51,9 +51,9 @@
 	{% endwith %}
 
 
-	<div class="content-grid__entries">
+	<div class="content-grid__entries blog">
 		
-		{% for post in all_posts|slice:"1:" %}
+		{% for post in all_posts %}
 			<div class="content-entry">
 				{% if post.story_image %}
 					{% image post.story_image original as post_image %}
@@ -62,9 +62,10 @@
 						<a href="{{ post.url }}"><img class="content-entry__image" src="{{post_image.url}}"></a>
 					</div>
 				<div class="content-entry__text-container has-image">
-				{% endif %}
 				
+				{% else %}
 				<div class="content-entry__text-container">
+				{% endif %}
 					<div class="content-entry__text">
 						{% if post.post_subprogram.all %}
 							<h5 class="content-entry__text__program">
@@ -89,8 +90,9 @@
 						
 					</div>
 				</div>
-			</div>
 			<hr>
+			</div>
+			
 		{% endfor %}
 
 	</div>

@@ -1,4 +1,10 @@
 .tags {
+	padding-left: $mobile-padding;
+
+	@include desktop-header {
+		padding-left: 0px;
+	}
+
 	&__title {
 		font-weight: bold;
 		padding-right: 10px;
@@ -11,6 +17,9 @@
 		background-color: palette-get(na-black-10);
 		& > a {
 			color:palette-get(na-black-70);
+			&:hover {
+				color:palette-get(na-black);
+			}
 		}
 	}
 }
