@@ -261,7 +261,7 @@ class Post(Page):
     post_author = models.ManyToManyField(
         Person, through=PostAuthorRelationship, blank=True)
 
-    story_excerpt = models.CharField(blank=True, max_length=140)
+    story_excerpt = models.CharField(blank=True, null=True, max_length=140)
 
     story_image = models.ForeignKey(
         'wagtailimages.Image',
