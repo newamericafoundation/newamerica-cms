@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from home.models import Post
 
@@ -10,6 +9,8 @@ from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
 from programs.models import Program
+
+from mysite.pagination import paginate_results
 
 class PolicyPaper(Post):
     """
@@ -47,7 +48,9 @@ class AllPolicyPapersHomePage(Page):
 
     def get_context(self, request):
         context = super(AllPolicyPapersHomePage, self).get_context(request)
-        context['all_posts'] = PolicyPaper.objects.all()
+        all_posts = PolicyPaper.objects.all()
+
+        context['all_posts'] = paginate_results(request, all_posts)
 
         return context
 
@@ -69,17 +72,8 @@ class ProgramPolicyPapersPage(Page):
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
         all_posts = PolicyPaper.objects.filter(parent_programs=program)
-        
-        page = request.GET.get('page')
-        paginator = Paginator(all_posts, 1)
-        try:
-            all_posts = paginator.page(page)
-        except PageNotAnInteger:
-            all_posts = paginator.page(1)
-        except EmptyPage:
-            all_posts = paginator.page(paginator.num_pages)
 
-        context['all_posts'] = all_posts
+        context['all_posts'] = paginate_results(request, all_posts)
 
         context['program'] = program
 
