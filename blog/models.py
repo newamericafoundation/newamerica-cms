@@ -8,6 +8,8 @@ from programs.models import Program
 
 from person.models import Person
 
+from mysite.pagination import paginate_results
+
 
 class BlogPost(Post):
 	"""
@@ -30,7 +32,10 @@ class AllBlogPostsHomePage(Page):
 	def get_context(self, request):
 		context = super(AllBlogPostsHomePage, self).get_context(request)
 		
-		context['all_posts'] = BlogPost.objects.all()
+		all_posts = BlogPost.objects.all()
+
+		context['all_posts'] = paginate_results(request, all_posts)
+
 		return context
 
 	class Meta:
@@ -51,7 +56,10 @@ class ProgramBlogPostsPage(Page):
 		context = super(ProgramBlogPostsPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
-		context['all_posts'] = BlogPost.objects.filter(parent_programs=program)
+
+		all_posts = BlogPost.objects.filter(parent_programs=program)
+		context['all_posts'] = paginate_results(request, all_posts)
+		
 		context['program'] = program
 		return context
 		
