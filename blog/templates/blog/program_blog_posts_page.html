@@ -10,13 +10,15 @@
 	<h1 class="content-grid__title"> {{ page.title }} </h1>
 
 	{% if program.get_subprograms|length > 1 %}
-	<div class="tags">
-		<ul class="tags__taglist">
-			<li class="tags__title">Topics</h3>
-			{% for subprogram in program.get_subprograms %}
-				<li class="label"><a>{{ subprogram }}</a></li>
-			{% endfor %}
-		</ul>
+	<div class="tags-container">
+		<div class="tags">
+			<ul class="tags__taglist">
+				<li class="tags__title">Topics</h3>
+				{% for subprogram in program.get_subprograms %}
+					<li class="label"><a>{{ subprogram }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 	{% endif %}
 	
