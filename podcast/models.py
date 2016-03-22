@@ -9,6 +9,8 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 
 from programs.models import Program
 
+from mysite.pagination import paginate_results
+
 
 class Podcast(Post):
     """
@@ -41,7 +43,9 @@ class AllPodcastsHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllPodcastsHomePage, self).get_context(request)
-		context['all_posts'] = Podcast.objects.all()
+		all_posts = Podcast.objects.all()
+
+		context['all_posts'] = paginate_results(request, all_posts)
 
 		return context
 
@@ -63,8 +67,12 @@ class ProgramPodcastsPage(Page):
 		context = super(ProgramPodcastsPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
-		context['all_posts'] = Podcast.objects.filter(parent_programs=program)
+		
+		all_posts = Podcast.objects.filter(parent_programs=program)
+		context['all_posts'] = paginate_results(request, all_posts)
+
 		context['program'] = program
+		
 		return context
 
 	class Meta:
