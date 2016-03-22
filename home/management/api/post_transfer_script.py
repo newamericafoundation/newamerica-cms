@@ -58,9 +58,3 @@ def load_posts():
 
 
 	        	)
-
-def education_posts():
-	for content in NAClient().education_content():
-		with open("education_content.json", "a") as f:
-			json.dump(content, f)
-
