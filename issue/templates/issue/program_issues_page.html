@@ -1,7 +1,6 @@
-{% extends "program_base.html" %}
+{% extends "program_post_home_page.html" %}
 
-{% load wagtailcore_tags %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags %}}
 
 {% block body_class %}template-simplepage{% endblock %}
 
@@ -10,7 +9,7 @@
  	<br>
     {{ page.body }}
     
-    {% for issue in issues %}
+    {% for issue in all_posts %}
 		<h3><a href="{{ issue.url }}">{{ issue.title }}</a></h3>
 		<br>
 		<br>
