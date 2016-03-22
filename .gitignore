@@ -21,4 +21,4 @@ venv
 
 *.csv
 
-home/management/api/images/
+home/management/api/article_images/
