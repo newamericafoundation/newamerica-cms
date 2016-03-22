@@ -29,8 +29,8 @@ $content-entry-text-gutter: 10px;
 			width:100%;
 			padding-top:0px;
 
-			.has-image & {
-				padding-left:$content-entry-desktop-image-container-width - 20px;
+			&.has-image {
+				padding-left:$content-entry-desktop-image-container-width;
 			}
 		}
 	}
