@@ -32,6 +32,13 @@
 							<div class='hero-grid__element__background' style='background-image: url({{ post_image.url }})'></div>
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
+								{% if post.post_subprogram.all %}
+									<h5 class="hero-grid__element__text-bar__program">
+									{% for subprogram in post.post_subprogram.all %}
+										<a href="{{ subprogram.url }}"> {{ subprogram | upper }}</a>{% listify forloop.revcounter0 %}
+									{% endfor %}
+									</h5>
+								{% endif %}
 								<h1 class='hero-grid__element__text-bar__heading'>{{ post.title }}</h1>
 								{% if post.post_author.all %}
 									<p class='hero-grid__element__text-bar__subheading' href="{{ post.url }}">By 
@@ -40,7 +47,8 @@
 									{% endfor %}
 									</p>
 								{% endif %}
-								
+								<h5 class= "hero-grid__element__text-bar__date">{{ post.date }} </h5>
+								<p class= "hero-grid__element__text-bar__excerpt">{{ post.story_excerpt }}</p>
 							</div>
 						</div>
 					</a>
