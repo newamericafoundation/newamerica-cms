@@ -14,6 +14,9 @@
         <li class="sidemenu__link-group__link">{{ initiative }}</li>
       {% endfor %}
 
+      <li class="menu-text sidemenu__link-group__title">Events</li>
+        <li class="sidemenu__link-group__link"><a href="{{ side_menu.url }}events/">View All Events</a></li>
+
       <li class="menu-text sidemenu__link-group__title">Our Work</li>
       {% for work_page in side_menu.work_pages %}
         <li class="sidemenu__link-group__link">{{ work_page }}</li>
