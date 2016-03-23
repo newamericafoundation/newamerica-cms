@@ -17,6 +17,9 @@ class Article(Post):
     parent_page_types = ['ProgramArticlesPage',]
     subpage_types = []
 
+    class Meta:
+        verbose_name = "Article and Op-Ed"
+
 
 class AllArticlesHomePage(Page):
     """
@@ -37,7 +40,7 @@ class AllArticlesHomePage(Page):
         return context
 
     class Meta:
-        verbose_name = "Homepage for all Articles"
+        verbose_name = "Homepage for all Articles and Op-Eds"
 
 
 class ProgramArticlesPage(Page):
@@ -65,4 +68,4 @@ class ProgramArticlesPage(Page):
         return context
 
     class Meta:
-        verbose_name = "Articles Homepage for Program"
+        verbose_name = "Articles and Op-Eds Homepage for Program"
