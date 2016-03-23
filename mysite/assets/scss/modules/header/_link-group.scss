@@ -86,7 +86,7 @@ $link-group-header-spacing: 30px;
     @include standard-shadow;
     padding: 30px 7px;
 
-    max-height: 350px;
+    /*max-height: 350px;*/
     overflow: scroll;
     @include breakpoint(large) {
       max-height: none;
