@@ -28,8 +28,8 @@ class Person(Page):
     email = models.EmailField()
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
-    expert = models.BooleanField()
-    leadership = models.BooleanField()
+    expert = models.BooleanField(default=False)
+    leadership = models.BooleanField(default=False)
     location = models.CharField(max_length=200)
     profile_image = models.ForeignKey(
         'wagtailimages.Image',
