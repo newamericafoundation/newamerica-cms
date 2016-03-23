@@ -1,5 +1,6 @@
 .post-body {
   padding-top:$desktop-padding;
+  margin-bottom: $desktop-padding;
   
   & > .block-heading {
     color: palette-get(na-black);
@@ -59,6 +60,7 @@
     background-color: palette-get(na-black-10);
     max-width: $max-body-width/2;
     padding: 40px $desktop-padding;
+    margin-bottom: $desktop-padding;
 
     h3 {
       font-weight: normal;
@@ -125,4 +127,9 @@
   iframe {
     height: 180px;
   }
+}
+
+.post-subheading {
+  color: palette-get(na-black);
+  font-size: 28px;
 }
