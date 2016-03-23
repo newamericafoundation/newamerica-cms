@@ -243,7 +243,7 @@ class Post(Page):
     type models
     """
 
-    subtitle = models.TextField(blank=True, null=True)
+    subheading = models.TextField(blank=True, null=True)
     
     date = models.DateField("Post date")
 
@@ -274,7 +274,7 @@ class Post(Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
+        FieldPanel('subheading'),
         FieldPanel('date'),
         StreamFieldPanel('body'),
         InlinePanel('programs', label=("Programs")),
