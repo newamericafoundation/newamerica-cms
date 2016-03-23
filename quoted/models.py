@@ -27,6 +27,8 @@ class Quoted(Post):
     	FieldPanel('source'),
     	FieldPanel('source_url'),
     ]
+    class Meta:
+		verbose_name = "In The News Piece"
 
 
 class AllQuotedHomePage(Page):
@@ -46,7 +48,7 @@ class AllQuotedHomePage(Page):
 
 		return context
 	class Meta:
-		verbose_name = "Homepage for all Quoted Pieces (formerly In The News)"
+		verbose_name = "Homepage for all In The News Pieces"
 
 
 class ProgramQuotedPage(Page):
@@ -65,4 +67,4 @@ class ProgramQuotedPage(Page):
 
 		return context
 	class Meta:
-		verbose_name = "Quoted Homepage for Programs (formerly In The News)"
+		verbose_name = "In the News Homepage for Programs"
