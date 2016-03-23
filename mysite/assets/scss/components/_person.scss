@@ -7,7 +7,7 @@
 
   border: 1px solid $border-color;
   padding: $desktop-padding;
-  height: 250px;
+  height: 260px;
 
 
   &__icon {
@@ -58,6 +58,7 @@
     padding: 0px;
     color: palette-get(na-black-40);
     font-size: 16px;
+    line-height: 120%;
   }
 
 }
