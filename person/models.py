@@ -29,6 +29,7 @@ class Person(Page):
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
     expert = models.BooleanField()
+    leadership = models.BooleanField()
     location = models.CharField(max_length=200)
     profile_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -41,7 +42,7 @@ class Person(Page):
     belongs_to_these_programs = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True)
 
     social_media = StreamField([
-        ('twitter', URLBlock(required=False, help_text='Twitter Handle', icon='user')),
+        ('twitter', URLBlock(required=False, help_text='Twitter Profile Link', icon='user')),
         ('facebook',URLBlock(required=False, help_text='Facebook Profile', icon='user')),
         ('youtube',URLBlock(required=False, help_text='YouTube Channel', icon='media')),
         ('google_plus',URLBlock(required=False, help_text='Google+ Profile', icon='user')),
@@ -51,9 +52,10 @@ class Person(Page):
 
     ROLE_OPTIONS = (
         ('Board Member', 'Board Member'),
-        ('Staff', 'Staff'),
         ('New America Fellow', 'New America Fellow'),
         ('Program Fellow', 'Program Fellow'),
+        ('Central Staff', 'Central Staff'),
+        ('Program Staff', 'Program Staff'),
         ('External Author/Former Staff', 'External Author/Former Staff'),
     )
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
@@ -68,6 +70,7 @@ class Person(Page):
         InlinePanel('programs', label=("Belongs to these Programs")),
         FieldPanel('role'),
         FieldPanel('expert'),
+        FieldPanel('leadership'),
         ImageChooserPanel('profile_image'),
         StreamFieldPanel('social_media'),
     ]
