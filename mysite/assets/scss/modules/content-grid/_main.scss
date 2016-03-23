@@ -46,7 +46,25 @@
 		}
 	}
 
+	
+
 	&__entries {
 		max-width: 950px;
+
+		&.blog {
+			.content-entry:first-child {
+				display: inline;
+				@include breakpoint(medium) {
+					display: none;
+				}
+			}
+		}
+
+		hr {
+			margin-bottom: 5px;
+			@include breakpoint(medium) {
+				margin-bottom: 25px;
+			}
+		}
 	}
 }

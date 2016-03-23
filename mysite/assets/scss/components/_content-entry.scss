@@ -1,23 +1,24 @@
-$content-entry-desktop-image-container-width: 240px;
-$content-entry-desktop-image-container-height: 150px;
+$content-entry-desktop-image-container-width: 200px;
+$content-entry-desktop-image-container-height: 130px;
 $content-entry-side-margins: 20px;
 $content-entry-text-gutter: 10px;
 
 .content-entry {
 	width: 100%;
-	/*height: 300px;*/
 
 	&__image-container {
 		width:100%;
-		height:150px;
+		height:200px;
 		overflow:hidden;
+		background-size: cover;
 
 		@include breakpoint(medium) {
 			width:$content-entry-desktop-image-container-width;
 			height:$content-entry-desktop-image-container-height;
 			float:left;
-			padding-left: $content-entry-side-margins;
-			padding-right: $content-entry-side-margins;
+			margin-left: $content-entry-side-margins;
+			margin-right: $content-entry-side-margins;
+			
 		}	
 	}
 
@@ -29,8 +30,8 @@ $content-entry-text-gutter: 10px;
 			width:100%;
 			padding-top:0px;
 
-			.has-image & {
-				padding-left:$content-entry-desktop-image-container-width - 20px;
+			&.has-image {
+				padding-left:$content-entry-desktop-image-container-width + 2*$content-entry-side-margins;
 			}
 		}
 	}

@@ -49,13 +49,15 @@
 				{% if post.story_image %}
 					{% image post.story_image original as post_image %}
 
-					<div class="content-entry__image-container">
-						<a href="{{ post.url }}"><img class="content-entry__image" src="{{post_image.url}}"></a>
-					</div>
+					<a href="{{ post.url }}">
+						<div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
+						</div>
+					</a>
 				<div class="content-entry__text-container has-image">
-				{% endif %}
 				
+				{% else %}
 				<div class="content-entry__text-container">
+				{% endif %}
 					<div class="content-entry__text">
 						{% if post.post_subprogram.all %}
 							<h5 class="content-entry__text__program">

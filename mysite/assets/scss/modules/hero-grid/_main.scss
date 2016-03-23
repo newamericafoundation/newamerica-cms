@@ -302,67 +302,98 @@
 
 		&__text-bar {
 			z-index: 3;
-		  bottom: 0;
-		  padding: 15px 20px;
-		  pointer-events:none;
-		  &__subheading, &__heading {
-		    color: palette-get(na-white);
+			bottom: 0;
+			padding: 15px 20px;
+			pointer-events:none;
+			color: palette-get(na-white);
 
-		    &:hover {
-		    	color: palette-get(na-white);
-		    }
-		  }
-		  &__heading {
-		    display: block;
-		    line-height: 108%;
-		    font-weight: bold;
-		    font-size: rem-calc(28);
+			&__subheading, &__heading {
+				color: palette-get(na-white);
 
-		    @include unfold-1-children {
-			    .has-1-children > .hero-grid__main & {
-			    	font-size: rem-calc(32);
-			    }
+				&:hover {
+					color: palette-get(na-white);
+				}
 			}
 
-		    @include unfold-2-children {
-			    .has-2-children > .hero-grid__main & {
-			    	font-size: rem-calc(32);
-			    }
-			    .has-2-children > .hero-grid__secondary & {
-			    	font-size: rem-calc(32);
-			    }
-			}
-			 
-	    	@include unfold-3-children {
-			    .has-3-children > .hero-grid__main & {
-			    	font-size: rem-calc(32);
-			    }
-			    .has-3-children > .hero-grid__secondary & {
-			    	font-size: rem-calc(24);
-			    }
+			&__program, &__excerpt {
+				margin-bottom: 10px;
+				max-width: $max-body-width;
 			}
 
-			@include unfold-4-children {
-			    .has-4-children > .hero-grid__main & {
-			    	font-size: rem-calc(32);
-			    }
-			    .has-4-children > .hero-grid__secondary & {
-			    	font-size: rem-calc(24);
-			    }
+			&__date {
+				margin-top: 7px;
+				margin-bottom: 7px;
 			}
-			
 
-		    /*.hero-grid.has-2-children & {
-		      font-size: rem-calc(32);
-		    }*/
+			&__program {
+				margin-bottom: 0px;
+				& > a {
+					color: palette-get(na-black-40);
+					font-weight: bold;
+					font-size: 16px;
+				}
+			}
 
-		    margin-bottom: 0;
-		  }
-		  &__subheading {
-		    display: inline-block;
-		    font-size: rem-calc(16);
-		    margin-bottom: 0;
-		  }
+			&__heading {
+				display: block;
+				line-height: 108%;
+				font-weight: bold;
+				font-size: rem-calc(28);
+
+				@include unfold-1-children {
+				    .has-1-children > .hero-grid__main & {
+				    	font-size: rem-calc(32);
+				    }
+				}
+
+				@include unfold-2-children {
+				    .has-2-children > .hero-grid__main & {
+				    	font-size: rem-calc(32);
+				    }
+				    .has-2-children > .hero-grid__secondary & {
+				    	font-size: rem-calc(32);
+				    }
+				}
+				 
+				@include unfold-3-children {
+				    .has-3-children > .hero-grid__main & {
+				    	font-size: rem-calc(32);
+				    }
+				    .has-3-children > .hero-grid__secondary & {
+				    	font-size: rem-calc(24);
+				    }
+				}
+
+				@include unfold-4-children {
+				    .has-4-children > .hero-grid__main & {
+				    	font-size: rem-calc(32);
+				    }
+				    .has-4-children > .hero-grid__secondary & {
+				    	font-size: rem-calc(24);
+				    }
+				}
+
+
+			/*.hero-grid.has-2-children & {
+			  font-size: rem-calc(32);
+			}*/
+
+				margin-bottom: 0;
+			}
+
+			&__subheading {
+				display: inline-block;
+				font-size: rem-calc(16);
+				margin-bottom: 0;
+			}
+
+			&__date, &__excerpt {
+				font-size: 16px;
+			}
+
+			&__excerpt {
+				line-height: 130%;
+			}
 		}
 
 

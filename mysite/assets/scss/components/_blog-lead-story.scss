@@ -1,0 +1,12 @@
+.blog-lead-story {
+	width: 100%;
+	margin-top: $desktop-padding;
+	height: 225px;
+	display: none;
+
+	@include breakpoint(medium) {
+		display: block;
+		height: 450px;
+		margin-bottom: 40px;
+	}
+}
