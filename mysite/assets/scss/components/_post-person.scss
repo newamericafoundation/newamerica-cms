@@ -1,0 +1,16 @@
+
+
+.post-person {
+	$person-icon-width: 100px;
+
+	padding-top: $desktop-padding;
+	.person__icon {
+		margin: 0px;
+		float: left;
+	}
+
+	&__text {
+		padding-left: $person-icon-width + $desktop-padding;
+		color: palette-get(na-black-40);
+	}
+}
