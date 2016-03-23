@@ -10,6 +10,8 @@ from programs.models import Program
 from django.utils import timezone
 from django.utils.timezone import now
 
+from mysite.pagination import paginate_results
+
 
 class Event(Post):
     """
@@ -41,7 +43,9 @@ class AllEventsHomePage(Page):
     def get_context(self, request):
         context = super(AllEventsHomePage, self).get_context(request)
 
-        context['all_posts'] = Event.objects.all()
+        all_posts = Event.objects.all()
+        context['all_posts'] = paginate_results(request, all_posts)
+
         return context
 
     class Meta:
@@ -61,7 +65,10 @@ class ProgramEventsPage(Page):
         context = super(ProgramEventsPage, self).get_context(request)
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
-        context['all_posts'] = Event.objects.filter(parent_programs=program)
+        
+        all_posts = Event.objects.filter(parent_programs=program)
+        context['all_posts'] = paginate_results(request, all_posts)
+        
         context['program'] = program
         return context
 

@@ -9,6 +9,8 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
+from mysite.pagination import paginate_results
+
 
 class PressRelease(Post):
     """
@@ -43,7 +45,9 @@ class AllPressReleasesHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllPressReleasesHomePage, self).get_context(request)
-		context['all_posts'] = PressRelease.objects.all()
+		all_posts = PressRelease.objects.all()
+
+		context['all_posts'] = paginate_results(request, all_posts)
 
 		return context
 
@@ -64,7 +68,10 @@ class ProgramPressReleasesPage(Page):
 		context = super(ProgramPressReleasesPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
-		context['all_posts'] = PressRelease.objects.filter(parent_programs=program)
+		
+		all_posts = PressRelease.objects.filter(parent_programs=program)
+		context['all_posts'] = paginate_results(request, all_posts)
+		
 		context['program'] = program
 
 		return context

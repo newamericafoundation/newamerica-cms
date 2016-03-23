@@ -8,6 +8,8 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 
+from mysite.pagination import paginate_results
+
 
 class Quoted(Post):
     """
@@ -38,7 +40,9 @@ class AllQuotedHomePage(Page):
 
 	def get_context(self, request):
 		context = super(AllQuotedHomePage, self).get_context(request)
-		context['all_posts'] = Quoted.objects.all()
+		all_posts = Quoted.objects.all()
+
+		context['all_posts'] = paginate_results(request, all_posts)
 
 		return context
 	class Meta:
@@ -53,7 +57,10 @@ class ProgramQuotedPage(Page):
 		context = super(ProgramQuotedPage, self).get_context(request)
 		program_slug = request.path.split("/")[-3]
 		program = Program.objects.get(slug=program_slug)
-		context['all_posts'] = Quoted.objects.filter(parent_programs=program)
+		
+		all_posts = Quoted.objects.filter(parent_programs=program)
+		context['all_posts'] = paginate_results(request, all_posts)
+
 		context['program'] = program
 
 		return context

@@ -14,3 +14,10 @@ def listify(i):
 		return " and"
 	else:
 		return ""
+
+@register.filter()
+def get_range(num):
+	if num:
+		list_of_numbers = list(range(1, int(num)+1))
+
+		return list_of_numbers

@@ -5,6 +5,8 @@ from wagtail.wagtailcore.models import Page
 from home.models import Post
 from programs.models import Program
 
+from mysite.pagination import paginate_results
+
 class Book(Post):
     """
     Book class that inherits from the abstract Post
@@ -25,7 +27,9 @@ class AllBooksHomePage(Page):
     def get_context(self, request):
         context = super(AllBooksHomePage, self).get_context(request)
 
-        context['all_posts'] = Book.objects.all()
+        all_posts = Book.objects.all()
+        context['all_posts'] = paginate_results(request, all_posts)
+
         return context
 
     class Meta:
@@ -46,7 +50,10 @@ class ProgramBooksPage(Page):
 
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
-        context['all_posts'] = Book.objects.filter(parent_programs=program)
+        
+        all_posts = Book.objects.filter(parent_programs=program)
+        context['all_posts'] = paginate_results(request, all_posts)
+        
         context['program'] = program
         return context
 

@@ -1,21 +1,9 @@
-{% extends "program_base.html" %}
+{% extends "program_post_home_page.html" %}
 
 {% load wagtailcore_tags %}
 
-{% block body_class %}template-programarticlespage{% endblock %}
+{% block body_class %}template-programarticlesspage{% endblock %}
 
-{% block content %}
-<h1>{{ program }} Articles</h1>
-
-
-	{% for article in articles %}
-		<a href="{{ article.url }}">{{ article.title }}</a>
-		<br>
-		{% for author in article.post_author.all %} 
-			<a href="{{ author.url }}">{{author}}</a>
-			{% endfor %} {{ article.date }}
-		<br>
-		<br>
-	{% endfor %}
-
+{% block page-title %}
+	<h1 class= "content-grid__title"> {{ program }} Articles</h1>
 {% endblock %}
