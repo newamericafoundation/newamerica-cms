@@ -17,9 +17,14 @@
 	}
 
 	&__content {
-		width:$max-site-width/4;
+		width:100%;
 		padding-left: auto;
 		padding-right: auto;
+		display: table;
+
+		& > .columns {
+			display: table-cell;
+		}
 
 		@include desktop-header {
 			width:100%;

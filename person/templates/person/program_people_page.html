@@ -28,19 +28,66 @@
 
 	<div class="row person-grid__content">
 		{% for person in people %}
-			<div class="small-12 medium-4 large-3 columns person">
-				<div class="person__photo">{% image person.profile_image width-400 %}</div>
-				<div class="person__info">
-					<a class= "person__info__name" href="{{ person.url }}">{{person.first_name}} {{person.last_name}}</a><br>
-					{{ person.position_at_new_america }}
-					{% if person.program %}
-			            <br>
-			            <a href="{{person.program.url }}">{{ person.program }}</a>
-			        {% endif %}
-			    </div>
-		    </div>
+			<div class="small-12 medium-4 large-4 columns">
+				<div class="person">
+					<a href="{{ person.url }}">
+						<div class='person__icon'>
+							{% image person.profile_image original as person_image %}
+							<div class='person__icon__photo' style='background: no-repeat center/100% url({{ person_image.url }})'>
+							</div>
+						</div>
+					</a>
+					<h5 class='person__name'>
+						<a href="{{ person.url }}">{{ person.first_name }} {{ person.last_name }}</a>
+					</h5>
+					<h5 class='person__position'>{{ person.position_at_new_america }}</h5>
+					<h5 class='person__program'>
+						{% if person.program %}
+				            <a href="{{ person.program.url }}">{{ person.program }}</a>
+				        {% endif %}
+				    </h5>
+					
+				</div>
+			</div>
 		{% endfor %}
 	</div>
 </section>
 
 {% endblock %}
+
+<!-- <div class="small-12 medium-4 large-3 columns person">
+	<div class="person__photo">{% image person.profile_image width-400 %}</div>
+	<div class="person__info">
+		<a class= "person__info__name" href="{{ person.url }}">{{person.first_name}} {{person.last_name}}</a><br>
+		{{ person.position_at_new_america }}
+		{% if person.program %}
+            <br>
+            <a href="{{person.program.url }}">{{ person.program }}</a>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class='border-panel'>
+	<ul>
+		{% for author in authors %}
+
+		<li class='border-panel__item'>
+			<div class='border-panel__info'>AUTHOR</div>
+			<div class='border-panel__title'><a href="{{ author.author.url }}">{{author.author.first_name}} {{author.author.last_name}}</a></div>
+			<a href="{{ author.author.url }}">
+				<div class='border-panel__icon'>
+					{% image author.author.profile_image original as author_image %}
+					<div class='border-panel__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
+					</div>
+				</div>
+			</a>
+			<div class='border-panel__content fixed-height'>
+				<div class='border-panel__content__overlay'></div>
+				<p>{{ author.author.short_bio }}</p>
+			</div>
+		</li>
+
+		{% endfor %}
+	</ul>
+</div> -->
