@@ -1,12 +1,24 @@
 .person-grid {
+	&__controls, &__content {
+		padding-left: 20px;
+		@include desktop-header {
+			padding-left: 0px;
+		}
+	}
+
 	&__title {
-		padding: 20px 0px 20px 10px;
+		padding: 20px 0px 20px 20px;
+		@include desktop-header {
+			padding-left: 0px;
+		}
 		font-size: 50px;
-
-
 	}
 
 	&__controls {
+		& > .columns, .column {
+			padding-left: 0px;
+		}
+
 		&__filter {
 			width: 220px;
 		}
@@ -17,9 +29,13 @@
 	}
 
 	&__content {
-		width:$max-site-width/4;
+		width:100%;
 		padding-left: auto;
 		padding-right: auto;
+
+		& > .columns, .column {
+			padding: 10px 20px 10px 0px;
+		}
 
 		@include desktop-header {
 			width:100%;
@@ -27,5 +43,7 @@
 			padding-right: 0px;
 		}
 	}
+
+	
 
 }

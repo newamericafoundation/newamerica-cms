@@ -12,13 +12,13 @@
 
 	<div class="row person-grid__controls">
 		<div class="column person-grid__controls__filter">
-		
-	        <select>
-				<option value="all">All Initiatives</option>
-				<option value="open">Open Technology Institute</option>
-				<option value="education">Education Policy</option>
-				<option value="asset">Asset Building</option>
-	        </select>
+			<select>
+				<option value="all">All Subprograms</option>
+			{% for subprogram in program.get_subprograms %}
+				<option value="{{ subprogram }}">{{ subprogram }}</option>
+			{% endfor %}
+			</select>
+	        
 	     
         </div>
         <div class="column person-grid__controls__search">
@@ -28,17 +28,22 @@
 
 	<div class="row person-grid__content">
 		{% for person in people %}
-			<div class="small-12 medium-4 large-3 columns person">
-				<div class="person__photo">{% image person.profile_image width-400 %}</div>
-				<div class="person__info">
-					<a class= "person__info__name" href="{{ person.url }}">{{person.first_name}} {{person.last_name}}</a><br>
-					{{ person.position_at_new_america }}
-					{% if person.program %}
-			            <br>
-			            <a href="{{person.program.url }}">{{ person.program }}</a>
-			        {% endif %}
-			    </div>
-		    </div>
+			<div class="small-12 medium-6 large-4 columns">
+				<div class="person">
+					<a href="{{ person.url }}">
+						<div class='person__icon'>
+							{% image person.profile_image original as person_image %}
+							<div class='person__icon__photo' style='background: no-repeat center/100% url({{ person_image.url }})'>
+							</div>
+						</div>
+					</a>
+					<h5 class='person__name'>
+						<a href="{{ person.url }}">{{ person.first_name }} {{ person.last_name }}</a>
+					</h5>
+					<h5 class='person__position'>{{ person.position_at_new_america }}</h5>
+					
+				</div>
+			</div>
 		{% endfor %}
 	</div>
 </section>
