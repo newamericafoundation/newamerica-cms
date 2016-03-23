@@ -2,8 +2,6 @@
 	&__title {
 		padding: 20px 0px 20px 10px;
 		font-size: 50px;
-
-
 	}
 
 	&__controls {
@@ -20,10 +18,9 @@
 		width:100%;
 		padding-left: auto;
 		padding-right: auto;
-		display: table;
 
 		& > .columns {
-			display: table-cell;
+			padding: 10px;
 		}
 
 		@include desktop-header {

@@ -1,12 +1,6 @@
-$person-height: 350px;
-$person-width: $max-site-width/4;
-$post-person-height: 300px;
-$post-person-width: $max-body-width/3;
 
 .person {
   $border-color: rgba(44, 47, 53, 0.2);
-  $mobile-height: 350px;
-  $height: 385px;
   $info-offset: 26px;
   $nav-offset: 19px;
   $border-panel-content-padding: 16px;
@@ -14,8 +8,7 @@ $post-person-width: $max-body-width/3;
   border: 1px solid $border-color;
   padding: $desktop-padding;
   height: 250px;
-  @include space-out(medium);
-  overflow: hidden;
+
 
   &__icon {
     top: $info-offset;
