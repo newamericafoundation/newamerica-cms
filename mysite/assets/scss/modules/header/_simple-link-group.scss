@@ -20,7 +20,9 @@
     left:-11px;
   }
   @include expanded-header {
+    width: 225px;
     top: 45px;
+    left:-11px;
   }
   z-index: 4;
   padding: 5px 11px 0;
@@ -50,7 +52,9 @@
     @include standard-shadow;
     padding: 10px 7px 7px 7px;
     background-color: palette-get(na-white);
-    border: 1px solid palette-get(na-black-10);
+    border-left: 1px solid palette-get(na-black-10);
+    border-right: 1px solid palette-get(na-black-10);
+    border-top: 1px solid palette-get(na-black-10);
   }
 
 

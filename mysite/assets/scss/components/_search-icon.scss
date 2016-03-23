@@ -1,0 +1,19 @@
+.search-box {
+	$search-offset: 7px;
+    &__icon {
+    	width: 25px;
+    	height: 100%;
+	    position: absolute;
+	    z-index: 10000;
+	    fill: palette-get(na-black-10);
+	    top: 0px;
+
+	    @include desktop-header {
+	    	right: $desktop-padding + $search-offset;
+	    }
+
+	    @include expanded-header {
+	    	right: $search-offset;
+	    }
+    }
+}
