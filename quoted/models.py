@@ -24,47 +24,47 @@ class Quoted(Post):
     source_url = models.URLField()
 
     content_panels = Post.content_panels + [
-    	FieldPanel('source'),
-    	FieldPanel('source_url'),
+        FieldPanel('source'),
+        FieldPanel('source_url'),
     ]
     class Meta:
-		verbose_name = "In The News Piece"
+        verbose_name = "In The News Piece"
 
 
 class AllQuotedHomePage(Page):
-	"""
-	A page which inherits from the abstract Page model and
-	returns every Quoted piece from the Quoted model
-	for the organization-wide Quoted Homepage 
-	"""
-	parent_page_types = ['home.Homepage']
-	subpage_types = []
+    """
+    A page which inherits from the abstract Page model and
+    returns every Quoted piece from the Quoted model
+    for the organization-wide Quoted Homepage 
+    """
+    parent_page_types = ['home.Homepage']
+    subpage_types = []
 
-	def get_context(self, request):
-		context = super(AllQuotedHomePage, self).get_context(request)
-		all_posts = Quoted.objects.all()
+    def get_context(self, request):
+        context = super(AllQuotedHomePage, self).get_context(request)
+        all_posts = Quoted.objects.all()
 
-		context['all_posts'] = paginate_results(request, all_posts)
+        context['all_posts'] = paginate_results(request, all_posts)
 
-		return context
-	class Meta:
-		verbose_name = "Homepage for all In The News Pieces"
+        return context
+    class Meta:
+        verbose_name = "Homepage for all In The News Pieces"
 
 
 class ProgramQuotedPage(Page):
-	parent_page_types = ['programs.Program']
-	subpage_types = ['Quoted']
+    parent_page_types = ['programs.Program']
+    subpage_types = ['Quoted']
 
-	def get_context(self, request):
-		context = super(ProgramQuotedPage, self).get_context(request)
-		program_slug = request.path.split("/")[-3]
-		program = Program.objects.get(slug=program_slug)
-		
-		all_posts = Quoted.objects.filter(parent_programs=program)
-		context['all_posts'] = paginate_results(request, all_posts)
+    def get_context(self, request):
+        context = super(ProgramQuotedPage, self).get_context(request)
+        program_slug = request.path.split("/")[-3]
+        program = Program.objects.get(slug=program_slug)
+        
+        all_posts = Quoted.objects.filter(parent_programs=program)
+        context['all_posts'] = paginate_results(request, all_posts)
 
-		context['program'] = program
+        context['program'] = program
 
-		return context
-	class Meta:
-		verbose_name = "In the News Homepage for Programs"
+        return context
+    class Meta:
+        verbose_name = "In the News Homepage for Programs"
