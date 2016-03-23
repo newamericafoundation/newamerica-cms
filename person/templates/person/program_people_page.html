@@ -12,13 +12,13 @@
 
 	<div class="row person-grid__controls">
 		<div class="column person-grid__controls__filter">
-		
-	        <select>
-				<option value="all">All Initiatives</option>
-				<option value="open">Open Technology Institute</option>
-				<option value="education">Education Policy</option>
-				<option value="asset">Asset Building</option>
-	        </select>
+			<select>
+				<option value="all">All Subprograms</option>
+			{% for subprogram in program.get_subprograms %}
+				<option value="{{ subprogram }}">{{ subprogram }}</option>
+			{% endfor %}
+			</select>
+	        
 	     
         </div>
         <div class="column person-grid__controls__search">
