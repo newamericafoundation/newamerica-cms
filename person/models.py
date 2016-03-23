@@ -25,7 +25,7 @@ class Person(Page):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     position_at_new_america = models.CharField(max_length=500, help_text="Position or Title at New America", blank=True, null=True)
-    email = models.EmailField()
+    email = models.EmailField(blank=True, null=True)
     short_bio = models.TextField(max_length=1000, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)
     expert = models.BooleanField(default=False)
