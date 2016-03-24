@@ -101,14 +101,14 @@
 
 			<div class='border-panel'>
 
-				<ul>
+				<ul class='border-panel__list has-{{ page.recent_carousel|length }}-children'>
 					{% for item in page.recent_carousel %}
 					<li class='border-panel__item'>
 						<div class='border-panel__info'>{{ item.value.get_parent }} - {{ item.value.post.date }}, {{ item.value.post.time }}</div>
 						<div class='border-panel__content'>
 							<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 						
-							<p>{{ item.value.post.story_excerpt }}</p>
+							<p>{{ item.value.post.story_excerpt | truncatechars:150 }}</p>
 							<a href="{{ item.value.url }}"><div class='button'>Learn More</div></a>
 						</div>
 					</li>
@@ -123,18 +123,18 @@
 		<div class='small-12 large-6 columns'>
 	
 			<div class='border-panel'>
-
-				<div class='border-panel__item'>
-					<div class='border-panel__info'>STAY CONNECTED</div>
-					<div class='border-panel__content'>
-						<div class='border-panel__title'><a href='#'>Subscribe to New America Weekly</a></div>
-						<p class= "border-panel__content__subscribe-info">Get our weekly digital magazine and events lineup in your inbox</p>
-						<input type='text' placeholder='Your Email' id='border-panel__content__email-field'></input>
-						<button class='button' id='border-panel__content__link'>Sign up</button>
-					</div>
-						
-				</div>
-
+				<ul class='border-panel__list has-1-children'>
+					<li class='border-panel__item'>
+						<div class='border-panel__info'>STAY CONNECTED</div>
+						<div class='border-panel__content'>
+							<div class='border-panel__title'><a href='#'>Subscribe to New America Weekly</a></div>
+							<p>Get our weekly digital magazine and events lineup in your inbox</p>
+							<input type='text' placeholder='Your Email' id='border-panel__content__email-field'></input>
+							<button class='button' id='border-panel__content__link'>Sign up</button>
+						</div>
+							
+					</li>
+				</ul>
 			</div>
 
 		</div>

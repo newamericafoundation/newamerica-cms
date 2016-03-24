@@ -1,30 +1,23 @@
 .border-panel {
-  /*$border-color: palette-get(na-black-10);*/
-  $border-color: rgba(44, 47, 53, 0.2);
-  $mobile-height: 350px;
-  $height: 300px;
+  $border-color: palette-get(na-black-10);
+  $height: 280px;
   $arrow-size: 30px;
-  $info-offset: 26px;
-  $nav-offset: 19px;
-  $border-panel-content-padding: 16px;
+  $nav-and-info-offset: 15px;
+  $nav-and-info-height: 20px;
   @mixin show-circle-nav {
     @include breakpoint(medium) {
       @content;
     }
   }
-  border: 1px solid $border-color;
-  
+
+  border: 2px solid $border-color;
+  height: $height;
   width: 100%;
   @include space-out(medium);
   overflow: hidden;
   position: relative;
-  height: $mobile-height;
-
-  @media screen and (min-width: $home-border-panel-foldup) {
-    height: $height;
-  }
   &__item {
-    padding: 0 30px;
+    padding: 0 15px;
     z-index: 1;
     position: absolute;
     width: 100%;
@@ -48,7 +41,7 @@
     }
     position: absolute;
     width: 100%;
-    bottom: $nav-offset;
+    bottom: $nav-and-info-offset;
     ul {
       text-align: center;
     }
@@ -83,138 +76,62 @@
   }
   &__info {
     opacity: 1;
-    position: relative;
+    position: absolute;
     width: 100%;
     text-align: center;
-    top: $info-offset;
+    top: $nav-and-info-offset;
+    left: 0px;
     color: palette-get(na-black-40);
     font-weight: bold;
     text-transform: uppercase;
-    line-height: 100%;
+  }
+
+  &__list {
+    .border-panel__content {
+      padding: ($nav-and-info-offset + $nav-and-info-height) 30px 10px 30px;
+
+      @include show-circle-nav {
+        padding: 0px 15px;
+      }
+    }
+    &.has-1-children {
+      .border-panel__content {
+        padding: ($nav-and-info-offset + $nav-and-info-height) 15px 15px 15px;
+      }
+    }
+
+  }
+
+  &__content {
+    width: 100%;
+    max-width: 400px;
+    
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    h1,
+    p {
+      padding: 0;
+      line-height: 130%;
+    }
+    h1 {
+      font-size: rem-calc(24px);
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    p {
+      margin-top: 0;
+      font-size: rem-calc(16px);
+    }
   }
 
   &__title {
-    opacity: 1;
-    position: relative;
-    width: 100%;
-    text-align: center;
-    top: $info-offset;
-    padding: $border-panel-content-padding 0px;
     color: palette-get(na-black);
     font-weight: bold;
     font-size: rem-calc(28);
     line-height: 100%;
+    padding-bottom: 10px;
   }
-
-  &__icon {
-    position: relative;
-    top: $info-offset;
-    margin-top: $border-panel-content-padding;
-    background-color: palette-get(na-black-10);
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    position: relative;
-
-      & > svg {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 65px;
-      }
-
-      &__photo {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background-repeat: no-repeat;
-        background-size: cover;
-        box-shadow: inset 0 0 0 100px rgba(0,0,0,.1);
-      }
-  }
-
-  &__content {
-    opacity: 1;
-    position: relative;
-    width: 100%;
-    text-align: center;
-    top: $info-offset;
-    padding: $border-panel-content-padding 0px;
-    color: palette-get(na-black-40);
-
-    .fixed-height {
-      height: 100px;
-      overflow: hidden;
-
-      @include desktop-header {
-        height: 120px;
-      }
-    }
-
-    & > p {
-      line-height: 150%;
-    }
-
-    &__subscribe-info {
-      display: none;
-
-      @include breakpoint(medium) {
-        display: block;
-      }
-    }
-  }
-
-
-    /*width: 100%;
-    max-width: 400px;
-    padding: 50px 0px;
-    display: table-cell;
-    vertical-align: middle;
-    position: relative;
-
-    h1 {
-      font-weight: bold;
-      font-size: rem-calc(28);
-      margin-bottom: $border-panel-content-padding;
-    }
-
-    p {
-      margin-bottom: $border-panel-content-padding;
-      color: palette-get(na-black-40);
-    }
-
-    &__header {
-      padding: 0 $mobile-padding;
-    }
-
-    label {
-      font-weight: bold;
-      font-size: rem-calc(18);
-      padding-top: 6px;
-    }
-
-    &__icon {
-      background-color: palette-get(na-black-10);
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      margin: auto;
-      position: relative;
-      margin-bottom: $border-panel-content-padding;
-
-      & > svg {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 65px;
-        
-      }
-    } */
-
-  
 
   input {
     max-width: 180px;
