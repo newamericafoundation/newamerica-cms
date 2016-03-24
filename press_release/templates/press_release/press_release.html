@@ -43,7 +43,7 @@
 	    {{ page.body }}
 	    
 	</div>
-
+	{% if page.attachment %}
 	<div class="post-attachment">
 		<div class="post-attachment__image"> </div>
 		<div class="post-attachment__text">
@@ -51,5 +51,6 @@
 			{{ page.attachment }}
 		</div>
 	</div>
+	{% endif %}
 
 {% endblock %}

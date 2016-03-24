@@ -73,7 +73,6 @@ $std-post-header-padding-without-image: 25px;
 .post-header.with-image.large {
 	@include desktop-header {
 		height: 600px;
-		width: 100%;
 
 		.post-header__text {
 			position: relative;
@@ -84,7 +83,6 @@ $std-post-header-padding-without-image: 25px;
 
 	@include expanded-header {
 		height: 600px;
-		width: 100%;
 
 		.post-header__text {
 			position: relative;
@@ -92,6 +90,4 @@ $std-post-header-padding-without-image: 25px;
 			transform: translateY(-50%);
 		}
 	}
-}
-	
 }
