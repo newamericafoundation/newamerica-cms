@@ -243,6 +243,8 @@ class Post(Page):
     type models
     """
 
+    subheading = models.TextField(blank=True, null=True)
+    
     date = models.DateField("Post date")
 
     body = StreamField([
@@ -272,6 +274,7 @@ class Post(Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('subheading'),
         FieldPanel('date'),
         StreamFieldPanel('body'),
         InlinePanel('programs', label=("Programs")),
