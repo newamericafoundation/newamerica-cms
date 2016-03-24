@@ -103,15 +103,15 @@
 
 				<ul class='border-panel__list has-{{ page.recent_carousel|length }}-children'>
 					{% for item in page.recent_carousel %}
-					<li class='border-panel__item'>
-						<div class='border-panel__info'>{{ item.value.get_parent }} - {{ item.value.post.date }}, {{ item.value.post.time }}</div>
-						<div class='border-panel__content'>
-							<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
-						
-							<p>{{ item.value.post.story_excerpt | truncatechars:150 }}</p>
-							<a href="{{ item.value.url }}"><div class='button'>Learn More</div></a>
-						</div>
-					</li>
+						<li class='border-panel__item'>
+							<div class='border-panel__info'>Event - {{ item.value.post.date }}</div>
+							<div class='border-panel__content'>
+								<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
+							
+								<p>{{ item.value.post.story_excerpt | truncatechars:150 }}</p>
+								<a href="{{ item.value.url }}"><div class='button'>More About this Event</div></a>
+							</div>
+						</li>
 					{% endfor %}
 
 				</ul>
