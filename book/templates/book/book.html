@@ -8,7 +8,6 @@
 {% block post-header %}
 	{% image page.story_image original as story_image %}
 
-	<div class="post-header">
 		{% if story_image %}
 			<div class="book-container">
 				<div class="book">
@@ -16,10 +15,10 @@
 				</div>
 			</div>
 		{% endif %}
-
+	<div class="post-header">
 		<div class="post-header__text">
-	    	<h1 class="post-header__text__headline">{{ page.title }}</h1>
-	    	<h2 class="post-header__text__sub-headline">{{ page.subheading }}</h2>
+	    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+	    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
 		</div>
 	</div>
 
