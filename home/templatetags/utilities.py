@@ -1,7 +1,6 @@
 from datetime import date
 from django import template
 from django.conf import settings
-
 from programs.models import Program
 
 register = template.Library()
@@ -28,3 +27,4 @@ def pluralize(item):
 		return "s"
 	else:
 		return ""
+
