@@ -46,9 +46,15 @@
 			padding: 0px;
 		}
 		&__list {
-			-webkit-column-count: 3;
-		    -moz-column-count: 3;
-		    column-count: 3;
+			-webkit-column-count: 1;
+		    -moz-column-count: 1;
+		    column-count: 1;
+
+			@include breakpoint(medium) {
+				-webkit-column-count: 3;
+			    -moz-column-count: 3;
+			    column-count: 3;
+			}
 
 			& > li {
 				list-style-type:disc;

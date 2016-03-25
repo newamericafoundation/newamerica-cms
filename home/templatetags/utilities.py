@@ -21,9 +21,3 @@ def get_range(num):
 		list_of_numbers = list(range(1, int(num)+1))
 
 		return list_of_numbers
-
-@register.filter()
-def cutpoint_3_col(entries, col_number):
-	num_entries = len(entries)
-	num_per_col = math.ceil(num_entries/3.0)
-	return int(num_per_col) * int(col_number)
