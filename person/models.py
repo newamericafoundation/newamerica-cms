@@ -7,9 +7,8 @@ from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel, StreamFieldPanel, InlinePanel,
-    PageChooserPanel, MultiFieldPanel)
+from wagtail.wagtailadmin.edit_handlers import PageChooserPanel, MultiFieldPanel
+from wagtail.wagtailimages.models import Image
 
 from modelcluster.fields import ParentalKey
 
@@ -143,9 +142,26 @@ class OurPeoplePage(Page):
     A page which inherits from the abstract Page model and
     returns everyone from the Person model
     """
-
     parent_page_types = ['home.HomePage',]
     subpage_types = ['Person', ]
+
+    page_description = RichTextField(blank=True, null=True)
+    
+    story_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('page_description'),
+    ]
+
+    promote_panels = Page.promote_panels + [
+        ImageChooserPanel('story_image'),
+    ]
 
     def get_context(self, request):
         context = super(OurPeoplePage, self).get_context(request)
@@ -168,6 +184,26 @@ class ExpertPage(Page):
     parent_page_types = ['home.HomePage',]
     subpage_types = []
 
+    page_description = RichTextField(blank=True, null=True)
+    contact_information = RichTextField(blank=True, null=True)
+
+    story_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('page_description'),
+        FieldPanel('contact_information'),
+    ]
+
+    promote_panels = Page.promote_panels + [
+        ImageChooserPanel('story_image'),
+    ]
+    
     def get_context(self, request):
         context = super(ExpertPage, self).get_context(request)
 

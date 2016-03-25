@@ -7,11 +7,12 @@
 
 
 {% block content %}
+{% image page.story_image original as story_image %}
     <div class="post-header with-image" style="background-image: linear-gradient(
           rgba(0, 0, 0, 0.3),
           rgba(0, 0, 0, 0.3)
         ), 
-        url(https://i.ytimg.com/vi/QOrQywoovhY/maxresdefault.jpg)">
+        url({{ story_image.url }})">
 
         <div class="post-header__text">
                 <h1 class="post-header__text__heading">Experts</h1>
@@ -19,14 +20,14 @@
     </div>
 
     <div class="our-people__body">
-        <p>This is where the intro text will go - which needs to pull from some kind of intro text field in the experts page model.</p>
+        <p>{{ page.page_description|richtext }}</p>
         <hr>
         <h3>Search our Staff</h3>
         <p>Search for an expert by name or area of policy expertise</p> 
         <!-- <input type='text' placeholder='Search'></input> -->
         <hr>
         <h3>Contact our Communications Team</h3>
-        <p>This is where the contact comms team text will go - which needs to pull from some kind of text field in the experts page model.</p>
+        <p>{{ page.contact_information|richtext }}</p>
         <hr>
         <h3>Find Experts by Program</h3>
         <p>Our experts are really great and have a lot of expertise in many different areas</p>
