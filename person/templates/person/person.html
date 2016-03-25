@@ -38,6 +38,10 @@
 
     <div class="bio-page__work">
         <h3 class="bio-page__work__title">Related Work</h3>
+        {% for item in featured_work %}
+            {{ item.title }}
+        {% endfor %}
+
     </div>
 </div>
 
