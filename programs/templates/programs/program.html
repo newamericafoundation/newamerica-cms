@@ -100,9 +100,9 @@
 			<div class='border-panel'>
 
 				<ul class='border-panel__list has-{{ page.recent_carousel|length }}-children'>
-					{% for item in page.recent_carousel %}
+					{% for item in page.feature_carousel %}
 					<li class='border-panel__item'>
-						<div class='border-panel__info'>EVENT - {{ item.value.post.date }}</div>
+						<div class='border-panel__info'>{{ item.value.get_parent }} - {{ item.value.post.date }}</div>
 						<div class='border-panel__content'>
 							<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 						
