@@ -197,7 +197,7 @@ class ProgramSimplePage(AbstractSimplePage):
     """
     Simple Page at the Program level
     """
-    parent_page_types = ['programs.Program', 'ProgramSimplePage']
+    parent_page_types = ['programs.Program', 'ProgramSimplePage', 'programs.Subprogram']
     subpage_types = ['ProgramSimplePage']
 
 
