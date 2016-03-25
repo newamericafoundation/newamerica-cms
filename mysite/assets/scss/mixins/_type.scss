@@ -51,6 +51,7 @@
   font-weight: normal;
   color: palette-get(na-black-40);
   font-size: 25px;
+  margin-bottom: 0px;
 
   @include breakpoint(medium) {
     font-size: 30px;
@@ -64,9 +65,10 @@
 @mixin page-section-title-text {
   font-weight: bold;
   color: palette-get(na-black);
-  font-size: 20px;
+  font-size: 26px;
+  margin-bottom: 0px;
 
-  @include breakpoint(medium) {
+  /*@include breakpoint(medium) {
     font-size: 26px;
-  }
+  }*/
 }

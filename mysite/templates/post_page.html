@@ -34,7 +34,7 @@
 		{% endblock %}
 
 		{% if page.post_author.all %}
-		<h1 class="post-subheading">Authors</h1>
+		<h1 class="post-subheading">Author{{ authors|pluralize }}</h1>
 			{% for author in authors %}
 			<div class="post-person">
 				<a href="{{ author.author.url }}">
