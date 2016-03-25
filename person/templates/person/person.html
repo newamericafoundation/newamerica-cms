@@ -27,7 +27,7 @@
 
     <div class="bio-page__content">
         {% if page.long_bio %}
-            {{ page.long_bio | linebreaks }}
+            {{ page.long_bio|richtext|linebreaks }}
         {% endif %}
     </div>
 
@@ -38,6 +38,10 @@
 
     <div class="bio-page__work">
         <h3 class="bio-page__work__title">Related Work</h3>
+        {% for item in featured_work %}
+            {{ item.title }}
+        {% endfor %}
+
     </div>
 </div>
 

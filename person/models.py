@@ -6,10 +6,14 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, Inl
 from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.models import Image
+from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel, StreamFieldPanel, InlinePanel,
+    PageChooserPanel, MultiFieldPanel)
 
 from modelcluster.fields import ParentalKey
 
-from programs.models import Program
+from programs.models import Program, Subprogram
 
 # Through relationship that connects the Person model
 # to the Program model so that a Person may belong
@@ -21,13 +25,23 @@ class PersonProgramRelationship(models.Model):
         FieldPanel('program'),
     ]
 
+# Through relationship that connects the Person model
+# to the Subprogram model so that a Person may belong
+# to more than one Subprogram
+class PersonSubprogramRelationship(models.Model):
+    subprogram = models.ForeignKey(Subprogram, related_name="+")
+    person = ParentalKey('Person', related_name='subprograms')
+    panels = [
+        FieldPanel('subprogram'),
+    ]
+
 class Person(Page):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     position_at_new_america = models.CharField(max_length=500, help_text="Position or Title at New America", blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
-    short_bio = models.TextField(max_length=1000, blank=True, null=True)
-    long_bio = models.TextField(max_length=5000, blank=True, null=True)
+    short_bio = RichTextField(blank=True, null=True)
+    long_bio = RichTextField(blank=True, null=True)
     expert = models.BooleanField(default=False)
     leadership = models.BooleanField(default=False)
     location = models.CharField(max_length=200)
@@ -40,6 +54,8 @@ class Person(Page):
     )
 
     belongs_to_these_programs = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True)
+
+    belongs_to_these_subprograms = models.ManyToManyField(Subprogram, through=PersonSubprogramRelationship, blank=True, null=True)
 
     social_media = StreamField([
         ('twitter', URLBlock(required=False, help_text='Twitter Profile Link', icon='user')),
@@ -60,6 +76,31 @@ class Person(Page):
     )
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
 
+    # Up to three featured work pages to appear on bio page
+    feature_work_1 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    feature_work_2 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    feature_work_3 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('first_name'),
         FieldPanel('last_name'),
@@ -68,15 +109,33 @@ class Person(Page):
         FieldPanel('short_bio'),
         FieldPanel('long_bio', classname="full"),
         InlinePanel('programs', label=("Belongs to these Programs")),
+        InlinePanel('subprograms', label=("Belongs to these Subprograms/Initiatives")),
         FieldPanel('role'),
         FieldPanel('expert'),
         FieldPanel('leadership'),
         ImageChooserPanel('profile_image'),
+        MultiFieldPanel(
+            [
+                PageChooserPanel('feature_work_1'),
+                PageChooserPanel('feature_work_2'),
+                PageChooserPanel('feature_work_3'),
+            ],
+            heading="Featured Work To Highlight on Bio Page",
+            classname="collapsible"
+        ),
         StreamFieldPanel('social_media'),
     ]
 
     parent_page_types = ['OurPeoplePage',]
     subpage_types = []
+
+    def get_context(self, request):
+        context = super(Person, self).get_context(request)
+        featured_work = [self.feature_work_1, self.feature_work_2, self.feature_work_3]
+
+        context['featured_work'] = featured_work
+        
+        return context
 
 
 class OurPeoplePage(Page):
