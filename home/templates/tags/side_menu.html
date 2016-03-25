@@ -1,10 +1,10 @@
 {% load side_menu wagtailcore_tags static %}
+{% load wagtailimages_tags %}
 
-<div class="sidemenu" >
-  <a href= "{{ side_menu.url }}">
-    <div class="sidemenu__program-title">
-      <h1 class="sidemenu__program-title__title">{{ side_menu.logo | upper }}</h1>
-    </div>
+<div class="sidemenu">
+  {% image side_menu.logo original as logo %}
+  <a href="{{ side_menu.url }}">
+     <img class="sidemenu__logo" src="{{ logo.url }}">
   </a>
   <div class="sidemenu__link-group">
     <ul class="menu vertical sidemenu__link-group__content">
