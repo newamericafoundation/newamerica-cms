@@ -2,10 +2,10 @@ import $ from 'jquery'
 
 import getJQueryObjects from './../../utilities/get_jquery_objects.js'
 
-function getMobileNavLogo() {
-	var title = $(".sidemenu__program-title__title").text();
-	$(".sidemenu__program-title__title").text(title.toUpperCase());
-}
+// function getMobileNavLogo() {
+// 	var title = $(".sidemenu__program-title__title").text();
+// 	$(".sidemenu__program-title__title").text(title.toUpperCase());
+// }
 
 function highlightActiveLink() {
 	$('.sidemenu__link-group__link > a').each(function() {
@@ -18,7 +18,7 @@ function highlightActiveLink() {
 	});
 }
 
-$(getMobileNavLogo)
+// $(getMobileNavLogo)
 $(highlightActiveLink)
 
 
