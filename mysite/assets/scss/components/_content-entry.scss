@@ -16,8 +16,8 @@ $content-entry-text-gutter: 10px;
 			width:$content-entry-desktop-image-container-width;
 			height:$content-entry-desktop-image-container-height;
 			float:left;
-			margin-left: $content-entry-side-margins;
-			margin-right: $content-entry-side-margins;
+			margin-left: $desktop-padding;
+			margin-right: $desktop-padding;
 			
 		}	
 	}
@@ -31,7 +31,7 @@ $content-entry-text-gutter: 10px;
 			padding-top:0px;
 
 			&.has-image {
-				padding-left:$content-entry-desktop-image-container-width + 2*$content-entry-side-margins;
+				padding-left:$content-entry-desktop-image-container-width + 2*$desktop-padding;
 			}
 		}
 	}

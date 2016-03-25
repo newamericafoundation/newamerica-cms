@@ -61,7 +61,7 @@
 		}
 
 		hr {
-			margin-bottom: 5px;
+			margin-bottom: 0px;
 			@include breakpoint(medium) {
 				margin-bottom: 25px;
 			}
