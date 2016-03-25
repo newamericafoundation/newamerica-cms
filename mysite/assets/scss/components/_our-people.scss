@@ -40,13 +40,20 @@
 	&__item-list {
 		margin-left: $desktop-padding;
 
+	    
+
 		& > .columns {
 			padding: 0px;
 		}
 		&__list {
+			-webkit-column-count: 3;
+		    -moz-column-count: 3;
+		    column-count: 3;
 
 			& > li {
 				list-style-type:disc;
+				list-style-position: inside;
+
 				display: list-item;
 				padding-right: 15px;
 				& > a {
