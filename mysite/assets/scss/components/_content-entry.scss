@@ -5,6 +5,7 @@ $content-entry-text-gutter: 10px;
 
 .content-entry {
 	width: 100%;
+	min-height: $content-entry-desktop-image-container-height;
 
 	&__image-container {
 		width:100%;
