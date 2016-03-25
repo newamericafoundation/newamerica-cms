@@ -2,7 +2,7 @@ from django.db import models
 
 from home.models import Post
 
-from programs.models import Program
+from programs.models import AbstractProgram
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
@@ -78,3 +78,32 @@ class ProgramArticlesPage(Page):
 
     class Meta:
         verbose_name = "Articles and Op-Eds Homepage for Program"
+
+
+class SubprogramArticlesPage(Page):
+    """
+    A page which inherits from the abstract Page model and 
+    returns all Articles associated with a specific subprogram
+    which is determined using the depth 
+    """
+
+    parent_page_types = ['programs.Subprogram']
+    subpage_types = ['Article']
+    
+    def get_context(self, request):
+        context = super(SubprogramArticlesPage, self).get_context(request)
+
+        subprogram_slug = request.path.split("/")[-3]
+        program = Program.objects.get(slug=program_slug)
+        
+        all_posts = Article.objects.filter(parent_programs=program)
+        
+        context['all_posts'] = paginate_results(request, all_posts)
+
+        context['program'] = program
+        
+        return context
+
+    class Meta:
+        verbose_name = "Articles and Op-Eds Homepage for Program"
+
