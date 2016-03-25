@@ -8,11 +8,12 @@
 
 {% block content %}
 
+{% image page.story_image original as story_image %}
 <div class="post-header with-image" style="background-image: linear-gradient(
           rgba(0, 0, 0, 0.3),
           rgba(0, 0, 0, 0.3)
         ), 
-        url(https://i.ytimg.com/vi/QOrQywoovhY/maxresdefault.jpg)">
+        url({{ story_image.url }})">
 
     <div class="post-header__text">
             <h1 class="post-header__text__heading">Our People</h1>
@@ -21,7 +22,7 @@
 </div>
     <div class="post-container">
         <div class="our-people__body">
-            <p>This is where the intro text will go - which needs to pull from some kind of intro text field in the experts page model.</p>
+            <p>{{ page.page_description|richtext }}</p>
             <hr>
             <h3>Search our Staff</h3>
             <p>Search for a staff member by name or area of policy expertise</p> 
