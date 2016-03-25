@@ -5,6 +5,7 @@ from home.models import Post
 from programs.models import Program
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 from mysite.pagination import paginate_results
 
@@ -16,6 +17,14 @@ class Article(Post):
     """
     parent_page_types = ['ProgramArticlesPage',]
     subpage_types = []
+
+    source = models.TextField(max_length=8000, blank=True, null=True)
+    source_url = models.URLField(blank=True, null=True)
+
+    content_panels = Post.content_panels + [
+        FieldPanel('source'),
+        FieldPanel('source_url'),
+    ]
 
     class Meta:
         verbose_name = "Article and Op-Ed"
