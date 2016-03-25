@@ -21,3 +21,10 @@ def get_range(num):
 		list_of_numbers = list(range(1, int(num)+1))
 
 		return list_of_numbers
+
+@register.filter()
+def pluralize(item):
+	if len(item) > 1:
+		return "s"
+	else:
+		return ""

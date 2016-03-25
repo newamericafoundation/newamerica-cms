@@ -1,21 +1,50 @@
-{% extends "program_base.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-article{% endblock %}
 
-{% block content %}
-    <h1>{{ page.title }}</h1>
+{% block post-header %}
+	{% image page.story_image original as story_image %}
 
-    {{ page.date }}
-    <br>
-    {% for author in page.post_author.all %} 
-    	<a href="{{ author.url }}">{{ author }}</a>
-    {% endfor %}
-    {{ page.author }}</p>
+	{% if story_image %}
 
-    {{ page.body }}
+	<div class="post-header with-image" style="background-image: linear-gradient(
+	      rgba(0, 0, 0, 0.3),
+	      rgba(0, 0, 0, 0.3)
+	    ), 
+    	url({{ story_image.url }})">
 
-    
+		<div class="post-header__text">
+		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+		    	<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+		</div>
+	</div>
+	{% else %}
+
+	<div class="post-header">
+
+		<div class="post-header__text">
+		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+		    	<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+		</div>
+	</div>
+
+	{% endif %}
+
+{% endblock %}
+
+{% block byline-prefix %}Author{{ authors|pluralize}}:{% endblock %}
+
+{% block post-body %}
+
+	<h5 class="post-source">Media Outlet: {{ page.source }} </h5>
+
+    <div class="post-body">
+	    {{ page.body }}
+	</div>
+
 {% endblock %}
