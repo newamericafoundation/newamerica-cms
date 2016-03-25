@@ -103,6 +103,10 @@
 
   	@include breakpoint(medium) {
   		background-color: palette-get(na-black-10);
+  		margin-left:-1000px;
+    	margin-right:-1000px;
+    	padding-left: 1000px;
+    	padding-right: 1000px;
   	}
 
     &__title {
