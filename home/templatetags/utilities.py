@@ -1,7 +1,6 @@
 from datetime import date
 from django import template
 from django.conf import settings
-import math
 from programs.models import Program
 
 register = template.Library()
