@@ -101,7 +101,7 @@
 }
 
 .picture-link-container {
-
+	height: 100%;
 	@include desktop-header {
 		& > .columns {
 			padding-left: 0px;
