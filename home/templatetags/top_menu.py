@@ -41,7 +41,6 @@ def top_menu(context, parent, calling_page=None):
 def side_menu_logo(context, parent, calling_page=None):
     """ Returns the needed data to create the dynamic sidebar """
     page_depth = context['self'].depth
-    print page_depth
     if page_depth == 3:
         menu_program = context['self']
     elif page_depth > 3:
@@ -50,7 +49,6 @@ def side_menu_logo(context, parent, calling_page=None):
     context['side_menu'] = {}
     context['side_menu']['url'] = menu_program.url
     context['side_menu']['logo'] = menu_program.program_logo
-    print "here!"
     return context
 
 # Retrieves the children of the top menu items for the drop downs
