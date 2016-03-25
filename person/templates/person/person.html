@@ -27,7 +27,7 @@
 
     <div class="bio-page__content">
         {% if page.long_bio %}
-            {{ page.long_bio | linebreaks }}
+            {{ page.long_bio|richtext|linebreaks }}
         {% endif %}
     </div>
 
