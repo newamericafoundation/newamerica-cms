@@ -2,6 +2,7 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_class %}template-person{% endblock %}
 
@@ -36,13 +37,59 @@
         <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }}</a>
     </div>
 
+    {% if featured_work.0.title %}
     <div class="bio-page__work">
-        <h3 class="bio-page__work__title">Related Work</h3>
-        {% for item in featured_work %}
-            {{ item.title }}
-        {% endfor %}
+        <h3 class="bio-page__work__title">Featured Work</h3>
 
+        <div class="content-grid__entries">
+
+            {% for item in featured_work %}
+                {% if item.title %}
+                    <div class="content-entry">
+                        {% if item.post.story_image %}
+                            {% image item.post.story_image original as post_image %}
+
+                            <a href="{{ item.post.url }}">
+                                <div class="content-entry__image-container" style="background-image: url('{{ post_image.url }}') ">
+                                </div>
+                            </a>
+                        <div class="content-entry__text-container has-image">
+                        
+                        {% else %}
+                        <div class="content-entry__text-container">
+                        {% endif %}
+                            <div class="content-entry__text">
+                                {% if item.post.post_program.all %}
+                                    <h5 class="content-entry__text__program">
+                                    {% for program in item.post.post_program.all %}
+                                        <a href="{{ program.url }}"> {{ program | upper }}</a>{% listify forloop.revcounter0 %}
+                                    {% endfor %}
+                                    </h5>
+                                {% endif %}
+                                <h5 class= "content-entry__text__title"><a href="{{ item.post.url }}">{{ item.post.title }}</a></h5>
+
+                                {% if item.post.post_author.all %}
+                                    <h5 class= "content-entry__text__author">By
+                                    {% for author in item.post.post_author.all %}
+                                        <a href="{{ author.url }}">{{author.first_name }} {{author.last_name }}</a>{% listify forloop.revcounter0 %}
+                                    {% endfor %}
+                                    </h5>
+                                {% endif %}
+                                <h5 class= "content-entry__text__date">{{ item.post.post.date }} </h5>
+                                <p class= "content-entry__text__excerpt">{{ item.post.story_excerpt }}</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                {% endif %}
+            {% endfor %} 
+        </div>
+        
+        
     </div>
+    {% endif %}
+
 </div>
 
 {% endblock %}

@@ -98,9 +98,16 @@
 	}
 
   &__work {
+  	background-color: palette-get(na-black-10);
+  	margin-top: $desktop-padding;
     &__title {
       @include page-section-title-text;
-      padding-top: $desktop-padding;
+      padding: $desktop-padding;
+    }
+
+    hr {
+    	width: calc(100% - #{$desktop-padding * 2});
+    	
     }
   }
 
