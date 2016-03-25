@@ -1,6 +1,8 @@
 from django.db import models
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailimages.models import Image
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from home.models import Post
 from programs.models import Program
@@ -12,6 +14,18 @@ class Book(Post):
     Book class that inherits from the abstract Post
     model and creates pages for Books.
     """
+    publication_cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    content_panels = Page.content_panels + [
+        ImageChooserPanel('publication_cover_image'),
+    ]
+
     parent_page_types = ['ProgramBooksPage',]
     subpage_types = []
 
