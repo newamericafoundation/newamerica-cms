@@ -65,8 +65,8 @@
 
 	&__content {
 		max-width: $max-body-width;
-    color: palette-get(na-black-70);
-    padding-top: $desktop-padding;
+	    color: palette-get(na-black-70);
+	    padding-top: $desktop-padding;
 
 		@include desktop-header {
 			padding: $desktop-padding 0px $mobile-padding 0px;
@@ -98,16 +98,27 @@
 	}
 
   &__work {
-  	background-color: palette-get(na-black-10);
   	margin-top: $desktop-padding;
+  	background-color: palette-get(na-white);
+
+  	@include breakpoint(medium) {
+  		background-color: palette-get(na-black-10);
+  	}
+
     &__title {
       @include page-section-title-text;
-      padding: $desktop-padding;
+      padding: $desktop-padding $desktop-padding $desktop-padding 0px;
+
+      @include breakpoint(medium) {
+      	padding: $desktop-padding;
+      }
     }
 
     hr {
-    	width: calc(100% - #{$desktop-padding * 2});
-    	
+    	width: 100%;
+    	@include breakpoint(medium) {
+	  		width: calc(100% - #{$desktop-padding * 2});
+	  	}
     }
   }
 
