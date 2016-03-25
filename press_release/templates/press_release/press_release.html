@@ -18,8 +18,8 @@
 	    	url({{ story_image.url }})">
 
 			<div class="post-header__text">
-			    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
-			    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
 			</div>
 		</div>
 
@@ -28,8 +28,8 @@
 		<div class="post-header">
 
 			<div class="post-header__text">
-			    	<h1 class="post-header__text__headline">{{ page.headline }}</h1>
-			    	<h2 class="post-header__text__sub-headline">{{ page.sub_headline }}</h2>
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
 			</div>
 		</div>
 
@@ -43,7 +43,7 @@
 	    {{ page.body }}
 	    
 	</div>
-
+	{% if page.attachment %}
 	<div class="post-attachment">
 		<div class="post-attachment__image"> </div>
 		<div class="post-attachment__text">
@@ -51,5 +51,6 @@
 			{{ page.attachment }}
 		</div>
 	</div>
+	{% endif %}
 
 {% endblock %}

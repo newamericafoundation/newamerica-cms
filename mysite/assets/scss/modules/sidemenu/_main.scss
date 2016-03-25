@@ -23,6 +23,7 @@ $program-title-width: 163px;
     margin-top: $desktop-padding;
     background-color: palette-get(na-white);
     border-right: 2px solid palette-get(na-black-10);
+    width: $max-sidemenu-width;
     /*display:table-cell;*/
     /*margin-top: 20px;*/
   }
