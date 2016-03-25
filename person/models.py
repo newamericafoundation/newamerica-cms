@@ -55,7 +55,7 @@ class Person(Page):
 
     belongs_to_these_programs = models.ManyToManyField(Program, through=PersonProgramRelationship, blank=True)
 
-    belongs_to_these_subprograms = models.ManyToManyField(Subprogram, through=PersonSubprogramRelationship, blank=True)
+    belongs_to_these_subprograms = models.ManyToManyField(Subprogram, through=PersonSubprogramRelationship, blank=True, null=True)
 
     social_media = StreamField([
         ('twitter', URLBlock(required=False, help_text='Twitter Profile Link', icon='user')),
@@ -101,9 +101,6 @@ class Person(Page):
         related_name='+',
     )
 
-    featured_work = [feature_work_1, feature_work_2, feature_work_3]
-
-
     content_panels = Page.content_panels + [
         FieldPanel('first_name'),
         FieldPanel('last_name'),
@@ -131,6 +128,14 @@ class Person(Page):
 
     parent_page_types = ['OurPeoplePage',]
     subpage_types = []
+
+    def get_context(self, request):
+        context = super(Person, self).get_context(request)
+        featured_work = [self.feature_work_1, self.feature_work_2, self.feature_work_3]
+
+        context['featured_work'] = featured_work
+        
+        return context
 
 
 class OurPeoplePage(Page):
