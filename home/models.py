@@ -160,9 +160,23 @@ class AbstractSimplePage(Page):
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
     ])
+    story_excerpt = models.CharField(blank=True, null=True, max_length=140)
+
+    story_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body')
+    ]
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('story_excerpt'),
+        ImageChooserPanel('story_image'),
     ]
 
     class Meta:
