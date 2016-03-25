@@ -1,10 +1,14 @@
 from django.db import models
+
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import PageChooserBlock
+from wagtail.wagtailimages.models import Image
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+
 from modelcluster.fields import ParentalKey
 
 #Abstract Program class that inherits from Page and provides template
@@ -75,6 +79,10 @@ class AbstractProgram(Page):
 
     featured_stories = [feature_1, feature_2, feature_3]
 
+    # Carousel of pages to feature on the landing page
+    feature_carousel = StreamField([
+        ('page', PageChooserBlock()),
+    ], blank=True)
 
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
@@ -96,6 +104,7 @@ class AbstractProgram(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
+        StreamFieldPanel('feature_carousel'),
     ]
 
     content_panels = Page.content_panels + [
@@ -138,6 +147,14 @@ class AbstractProgram(Page):
 class Program(AbstractProgram):
     parent_page_types = ['home.HomePage',]
 
+    program_logo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     sidebar_menu_initiatives_and_projects_pages = StreamField([
         ('Item', PageChooserBlock()),
     ], blank=True)
@@ -149,6 +166,10 @@ class Program(AbstractProgram):
     sidebar_menu_about_us_pages = StreamField([
         ('Item', PageChooserBlock()),
     ], blank=True)
+
+    content_panels = AbstractProgram.content_panels + [
+        ImageChooserPanel('program_logo'),
+    ]
 
     promote_panels = AbstractProgram.promote_panels + [
         StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
