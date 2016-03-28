@@ -7,6 +7,8 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
+from wagtail.wagtailimages.models import Image
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from programs.models import Program
 
@@ -20,7 +22,13 @@ class PolicyPaper(Post):
     parent_page_types = ['ProgramPolicyPapersPage']
     subpage_types = []
 
-    excerpt = models.TextField()
+    publication_cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
     paper_url = StreamField([
     	('policy_paper_url', URLBlock(required=False, null=True)),
@@ -31,9 +39,9 @@ class PolicyPaper(Post):
     ])
 
     content_panels = Post.content_panels + [
-    	FieldPanel('excerpt'),
     	StreamFieldPanel('paper_url'),
     	StreamFieldPanel('attachment'),
+        ImageChooserPanel('publication_cover_image'),
     ]
 
 
