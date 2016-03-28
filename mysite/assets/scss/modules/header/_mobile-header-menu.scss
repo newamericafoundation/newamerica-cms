@@ -27,19 +27,21 @@
 	}*/
 
 	&__toggle {
-		/*position:relative;
+		position:absolute;
 	    right: 20px;
+	    margin-top: -40px;
 	    vertical-align: middle;
-	    top: 50%;
-	    transform: translateY(-50%);
+	    pointer-events: none;
+	    /*transform: translateY(-50%);*/
 	    z-index: 20;
 	    width: 20px;
-	    height: 20px;*/
+	    height: 20px;
 	}
 
 	&__link {
 		&__main, &__secondary {
 	    	& > a {
+	    		height: 60px;
 	    		border: 1px solid palette-get(na-black-10);
 	    		&:hover {
 		    		background-color: palette-get(na-turquoise);
@@ -50,7 +52,7 @@
 		}
 
 		&__main {
-			
+			/*height: 100%;*/
 			& > a {
 				font-weight: bold;
 				font-size: 16px;

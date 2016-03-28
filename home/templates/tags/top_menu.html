@@ -25,8 +25,9 @@
 <div class="mobile-header-menu">
     <ul class="vertical menu" data-accordion-menu>
         <li class="mobile-header-menu__link__main"><a href="/">Home Page</a></li>
-        <li class="mobile-header-menu__link__main"><a href="#">Programs</a>
-            <!-- <div class="mobile-header-menu__toggle flip-arrow-black rotate"></div> -->
+        <li class="mobile-header-menu__link__main">
+            <a href="#">Programs</a>
+            <div class="mobile-header-menu__toggle flip-arrow-black rotate"></div>
             <ul class="vertical menu">
             {% for program in programs %}
                 <li class="mobile-header-menu__link__secondary"><a href="{{ program.url }}">{{ program.title }}</a></li>
