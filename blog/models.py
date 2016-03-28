@@ -4,8 +4,9 @@ from home.models import Post
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
+from wagtail.wagtailcore.fields import RichTextField
 
 from programs.models import Program
 
@@ -62,6 +63,12 @@ class ProgramBlogPostsPage(Page):
 
     parent_page_types = ['programs.Program',]
     subpage_types = ['BlogPost']
+
+    subheading = RichTextField(blank=True, null=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('subheading'),
+    ]
 
     def get_context(self, request):
         context = super(ProgramBlogPostsPage, self).get_context(request)
