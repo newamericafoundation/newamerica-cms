@@ -1,15 +1,10 @@
 .mobile-menu {
-    display: none;
-    top: $mobile-header-height;
-    position: relative;
-	background-color: palette-get(na-white);
+    
 	width: 100%;
 
 	z-index: 500;
 
-	@include desktop-sidemenu {
-		display:none;
-	}
+	
 
 	.menu > li > a {
 		padding: $mobile-menu-item-padding;
@@ -69,6 +64,16 @@
 		}
 	}
 	
+}
 
+.mobile-header {
+	display: none;
+	top: $mobile-header-height;
+    position: relative;
+	background-color: palette-get(na-white);
+
+	@include desktop-sidemenu {
+		display:none;
+	}
 }
 	
