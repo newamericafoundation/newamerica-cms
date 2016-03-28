@@ -26,8 +26,8 @@
     <ul class="vertical menu" data-accordion-menu>
         <li class="mobile-header-menu__link__main"><a href="/">Home Page</a></li>
         <li class="mobile-header-menu__link__main"><a href="#">Programs</a>
-            <div class="mobile-header-menu__toggle flip-arrow-black rotate"></div>
-            <ul class="vertical menu nested">
+            <!-- <div class="mobile-header-menu__toggle flip-arrow-black rotate"></div> -->
+            <ul class="vertical menu">
             {% for program in programs %}
                 <li class="mobile-header-menu__link__secondary"><a href="{{ program.url }}">{{ program.title }}</a></li>
             {% endfor %}
@@ -35,14 +35,14 @@
             </ul>
         </li>
         <li class="mobile-header-menu__link__main"><a href="#">Channels</a>
-            <div class="flip-arrow-black rotate"></div>
-            <ul class="vertical menu nested">
+            <!-- <div class="flip-arrow-black rotate"></div> -->
+            <ul class="vertical menu">
                 <li class="mobile-header-menu__link__secondary"><a href="#">New America Weekly</a></li>
                 <li class="mobile-header-menu__link__secondary"><a href="#">Context (Medium)</a></li>
             </ul>
         </li>
         <li class="mobile-header-menu__link__main"><a href="#">Publications</a>
-            <div class="flip-arrow-black rotate"></div>
+            <!-- <div class="flip-arrow-black rotate"></div> -->
             <ul class="vertical menu">
                 <li class="mobile-header-menu__link__secondary"><a href="/blogs/">Blog Posts</a></li>
                 <li class="mobile-header-menu__link__secondary"><a href="/press-releases/">Press Releases</a></li>
@@ -54,7 +54,7 @@
         </li>
         <li class="mobile-header-menu__link__main"><a href="#">Experts</a></li>
         <li class="mobile-header-menu__link__main"><a href="#">About</a>
-            <div class="flip-arrow-black rotate"></div>
+            <!-- <div class="flip-arrow-black rotate"></div> -->
             <ul class="vertical menu">
                 <li class="mobile-header-menu__link__secondary"><a href="#">Our Story</a></li>
                 <li class="mobile-header-menu__link__secondary"><a href="/our-people/">Our People</a></li>
