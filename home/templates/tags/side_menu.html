@@ -1,5 +1,44 @@
 {% load side_menu wagtailcore_tags static %}
 
+<!-- <div class="mobile-sidemenu">
+    <ul class="vertical menu" data-accordion-menu>
+        <li class="mobile-menu__link__main"><a href="{{ side_menu.url }}">{{ side_menu.logo }} </a></li>
+        {% if side_menu.initiative_pages %}
+          <li class="mobile-menu__link__main"><a href="#">Initiatives & Projects</a>
+            <div class="mobile-menu__toggle flip-arrow-black rotate"></div>
+            <ul class="vertical menu">
+              {% for initiative in side_menu.initiative_pages %}
+                <li class="mobile-menu__link__secondary">{{ initiative }}</li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endif %}
+        {% if side_menu.work_pages %}
+          <li class="mobile-menu__link__main"><a href="#">Our Work</a>
+              <div class="mobile-menu__toggle flip-arrow-black rotate"></div>
+              <ul class="vertical menu">
+                {% for work_page in side_menu.work_pages %}
+                  <li class="mobile-menu__link__secondary">{{ work_page }}</li>
+                {% endfor %}
+              </ul>
+          </li>
+        {% endif %}
+        {% if side_menu.about_pages %}
+          <li class="mobile-menu__link__main"><a href="#">About</a>
+              <div class="mobile-menu__toggle flip-arrow-black rotate"></div>
+              <ul class="vertical menu">
+                {% for about_page in side_menu.about_pages %}
+                    <li class="mobile-menu__link__secondary">{{ about_page }}</li>
+                {% endfor %}
+              </ul>
+          </li>
+        {% endif %}
+    </ul>    
+
+</div> -->
+
+
+
 <div class="sidemenu" >
   <a href= "{{ side_menu.url }}">
     <div class="sidemenu__program-title">

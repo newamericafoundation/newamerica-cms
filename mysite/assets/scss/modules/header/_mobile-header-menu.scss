@@ -1,4 +1,4 @@
-.mobile-header-menu {
+.mobile-menu {
     display: none;
     top: $mobile-header-height;
     position: relative;
@@ -52,7 +52,6 @@
 		}
 
 		&__main {
-			/*height: 100%;*/
 			& > a {
 				font-weight: bold;
 				font-size: 16px;
@@ -65,7 +64,7 @@
 				padding-left: 35px !important;
 				font-weight: normal;
 				font-size: 16px;
-				color: palette-get(na-black-40);
+				color: palette-get(na-black-70);
 			}
 		}
 	}

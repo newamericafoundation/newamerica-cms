@@ -22,7 +22,7 @@ function addMenuResponsivity() {
 		$(".mobile-nav__toggle__secondary").removeClass("down");
 
 		// toggle header menu and ensure sidemenu hidden
-		$(".mobile-header-menu").toggle();
+		$(".mobile-header").toggle();
 		$(".sidemenu").css("display", "none");
 		sideMenuExpanded = false;
 
@@ -45,7 +45,7 @@ function addMenuResponsivity() {
 		$(".mobile-nav__toggle__main").removeClass("down");
 
 		$(".sidemenu").toggle();
-		$(".mobile-header-menu").css("display", "none");
+		$(".mobile-header").css("display", "none");
 		headerMenuExpanded = false;
 		// sidemenuExpanded = !sidemenuExpanded;
 
@@ -68,7 +68,7 @@ function addMenuResponsivity() {
 
 	$( document ).ready(function() {
 		console.log($(".is-accordion-submenu-parent"));
-		$(".mobile-header-menu__link__main").on("click", function() {
+		$(".mobile-menu__link__main").on("click", function() {
 			$(this).children(".rotate").toggleClass("down");
 		});
 
@@ -88,7 +88,7 @@ function WidthChange(mq) {
   if (mq.matches) {
     console.log("width is greater");
 	$(".mobile-nav").css("display", "none");
-	$(".mobile-header-menu").css("display", "none");
+	$(".mobile-header").css("display", "none");
 	$(".sidemenu").css("display", "block");
 	$(".content-container").css("display", "table-cell");
 	$("footer").css("display", "block");
@@ -103,7 +103,7 @@ function WidthChange(mq) {
 		$(".content-container").css("display", "block");
 	}
 	if (!headerMenuExpanded) {
-		$(".mobile-header-menu").css("display", "none");
+		$(".mobile-header").css("display", "none");
 	}
   }
 
