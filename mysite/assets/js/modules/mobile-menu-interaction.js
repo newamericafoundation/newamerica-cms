@@ -63,6 +63,16 @@ function addMenuResponsivity() {
 	currHeaderBreakpoint = $("body").hasClass("header--expanded") ? expandedHeaderBreakpoint : desktopHeaderBreakpoint;
 
 	addResizeListener();
+
+	
+
+	$( document ).ready(function() {
+		console.log($(".is-accordion-submenu-parent"));
+		$(".mobile-header-menu__link__main").on("click", function() {
+			$(this).children(".rotate").toggleClass("down");
+		});
+
+	});
 }
 
 $(addMenuResponsivity);

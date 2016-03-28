@@ -23,7 +23,51 @@
 </div>
 
 <div class="mobile-header-menu">
-    <ul class="menu vertical">
+    <ul class="vertical menu" data-accordion-menu>
+        <li class="mobile-header-menu__link__main"><a href="/">Home Page</a></li>
+        <li class="mobile-header-menu__link__main"><a href="#">Programs</a>
+            <div class="mobile-header-menu__toggle flip-arrow-black rotate"></div>
+            <ul class="vertical menu nested">
+            {% for program in programs %}
+                <li class="mobile-header-menu__link__secondary"><a href="{{ program.url }}">{{ program.title }}</a></li>
+            {% endfor %}
+
+            </ul>
+        </li>
+        <li class="mobile-header-menu__link__main"><a href="#">Channels</a>
+            <div class="flip-arrow-black rotate"></div>
+            <ul class="vertical menu nested">
+                <li class="mobile-header-menu__link__secondary"><a href="#">New America Weekly</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="#">Context (Medium)</a></li>
+            </ul>
+        </li>
+        <li class="mobile-header-menu__link__main"><a href="#">Publications</a>
+            <div class="flip-arrow-black rotate"></div>
+            <ul class="vertical menu">
+                <li class="mobile-header-menu__link__secondary"><a href="/blogs/">Blog Posts</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="/press-releases/">Press Releases</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="/articles/">Articles & Op-Eds</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="/books/">Books</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="/quoted/">In the News</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="/podcasts/">Podcasts</a></li>
+            </ul>
+        </li>
+        <li class="mobile-header-menu__link__main"><a href="#">Experts</a></li>
+        <li class="mobile-header-menu__link__main"><a href="#">About</a>
+            <div class="flip-arrow-black rotate"></div>
+            <ul class="vertical menu">
+                <li class="mobile-header-menu__link__secondary"><a href="#">Our Story</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="/our-people/">Our People</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="#">Press</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="#">Jobs</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="#">Funders</a></li>
+                <li class="mobile-header-menu__link__secondary"><a href="#">Councils</a></li>
+            </ul>
+        </li>
+        <li class="mobile-header-menu__link__main"><a href="#">Donate</a></li>
+        <li class="mobile-header-menu__link__main"><a href="#">Search</a></li>
+    </ul>    
+    <!-- <ul class="menu vertical" data-drilldown>
         <li class="mobile-header-menu__link-group__link"><a href="/">Home Page</a></li>
         <li class="menu-text mobile-header-menu__link-group__title">Programs</li>
             {% for program in programs %}
@@ -57,7 +101,7 @@
         <li class="menu-text mobile-header-menu__link-group__title">Donate</li>
 
         <li class="menu-text mobile-header-menu__link-group__title">Search</li>
-    </ul>
+    </ul> -->
 
 </div>
 
