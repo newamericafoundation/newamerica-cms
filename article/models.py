@@ -1,8 +1,9 @@
 from django.db import models
+from django.utils.text import slugify
 
 from home.models import Post
 
-from programs.models import AbstractProgram
+from programs.models import Program, Subprogram
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
@@ -65,8 +66,9 @@ class ProgramArticlesPage(Page):
     def get_context(self, request):
         context = super(ProgramArticlesPage, self).get_context(request)
 
-        program_slug = request.path.split("/")[-3]
-        program = Program.objects.get(slug=program_slug)
+        program_title = self.get_ancestors()[2]
+
+        program = Program.objects.get(title=program_title)
         
         all_posts = Article.objects.filter(parent_programs=program)
         
