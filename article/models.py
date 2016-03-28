@@ -16,7 +16,7 @@ class Article(Post):
     Article class that inherits from the abstract Post
     model and creates pages for Articles.
     """
-    parent_page_types = ['ProgramArticlesPage',]
+    parent_page_types = ['ProgramArticlesPage','SubprogramArticlesPage']
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
@@ -67,7 +67,6 @@ class ProgramArticlesPage(Page):
         context = super(ProgramArticlesPage, self).get_context(request)
 
         program_title = self.get_ancestors()[2]
-
         program = Program.objects.get(title=program_title)
         
         all_posts = Article.objects.filter(parent_programs=program)
@@ -95,17 +94,17 @@ class SubprogramArticlesPage(Page):
     def get_context(self, request):
         context = super(SubprogramArticlesPage, self).get_context(request)
 
-        subprogram_slug = request.path.split("/")[-3]
-        program = Program.objects.get(slug=program_slug)
+        subprogram_title = self.get_ancestors()[3]
+        subprogram = Subprogram.objects.get(title=subprogram_title)
         
-        all_posts = Article.objects.filter(parent_programs=program)
+        all_posts = Article.objects.filter(post_subprogram=subprogram)
         
         context['all_posts'] = paginate_results(request, all_posts)
 
-        context['program'] = program
+        context['program'] = subprogram
         
         return context
 
     class Meta:
-        verbose_name = "Articles and Op-Eds Homepage for Program"
+        verbose_name = "Articles and Op-Eds Homepage for Subprogram"
 
