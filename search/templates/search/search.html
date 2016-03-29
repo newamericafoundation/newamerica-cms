@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_class %}template-searchresults{% endblock %}
 
@@ -14,16 +16,51 @@
     </form>
 
     {% if search_results %}
-        <ul>
-            {% for result in search_results %}
-                <li>
-                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-                    {% if result.search_description %}
-                        {{ result.search_description|safe }}
-                    {% endif %}
-                </li>
+        <div class="content-grid__entries">
+
+        {% for post in search_results %}
+            <div class="content-entry">
+                {% if post.story_image %}
+                    {% image post.story_image original as post_image %}
+
+                    <a href="{{ post.url }}">
+                        <div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
+                        </div>
+                    </a>
+                <div class="content-entry__text-container has-image">
+                
+                {% else %}
+                <div class="content-entry__text-container">
+                {% endif %}
+                    <div class="content-entry__text">
+                        {% if post.post_subprogram.all %}
+                            <h5 class="content-entry__text__program">
+                            {% for subprogram in post.post_subprogram.all %}
+                                <a href="{{ subprogram.url }}"> {{ subprogram | upper }}</a>{% listify forloop.revcounter0 %}
+                            {% endfor %}
+                            </h5>
+                        {% endif %}
+                        <h5 class= "content-entry__text__title"><a href="{{ post.url }}">{{ post.title }}</a></h5>
+
+                        {{ post.subheading }}
+
+                        {% if post.post_author.all %}
+                            <h5 class= "content-entry__text__author">By
+                            {% for author in post.post_author.all %}
+                                <a href="{{ author.url }}">{{author.first_name }} {{author.last_name }}</a>{% listify forloop.revcounter0 %}
+                            {% endfor %}
+                            </h5>
+                        {% endif %}
+                        <h5 class= "content-entry__text__date">{{ post.date }} </h5>
+                        <p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
+                        
+                    </div>
+                </div>
+            </div>
+            <hr>
             {% endfor %}
-        </ul>
+
+        </div>
 
         {% if search_results.has_previous %}
             <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
@@ -36,3 +73,5 @@
         No results found
     {% endif %}
 {% endblock %}
+
+   
