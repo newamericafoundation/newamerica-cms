@@ -41,7 +41,7 @@ module.exports = {
 
 		]
 	},
-	
+
 	plugins: [
 		// new AssetsPlugin({ filename: 'mysite/static/js/rev-manifest.json', fullPath: false })
 	]
