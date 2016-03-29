@@ -70,11 +70,23 @@ function addMenuResponsivity() {
 
 	$( document ).ready(function() {
 		console.log($(".is-accordion-submenu-parent"));
-		$(".mobile-menu__link__main").on("click", function() {
-			$(this).children(".rotate").toggleClass("down");
-		});
+		$(".mobile-menu__link__main a")
+			.on("click", function() {
+				$(this).siblings(".rotate").toggleClass("down");
+			});
+		
+		$(".mobile-header .mobile-menu__link__main a")
+			.on("mouseover", function() {
+				$(this).siblings(".rotate").removeClass("flip-arrow-black").addClass("flip-arrow-white");
+			})
+			.on("mouseout", function() {
+				console.log($(this).context.offsetParent);
+				$(this).siblings(".rotate").removeClass("flip-arrow-white").addClass("flip-arrow-black");
+			});
 
 	});
+
+	$()
 }
 
 $(addMenuResponsivity);
