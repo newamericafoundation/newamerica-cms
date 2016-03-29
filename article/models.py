@@ -78,3 +78,25 @@ class ProgramArticlesPage(Page):
 
     class Meta:
         verbose_name = "Articles and Op-Eds Homepage for Program"
+
+
+class Weekly(Page):
+    parent_page_types = ['home.HomePage',]
+    subpage_types = ['WeeklyEdition']
+
+    class Meta:
+        verbose_name = "Homepage for all Weekly Editions"
+
+
+class WeeklyEdition(Page):
+    parent_page_types = ['Weekly',]
+    subpage_types = ['WeeklyArticle']
+
+
+class WeeklyArticle(Post):
+    parent_page_types = ['WeeklyEdition']
+    subpage_types = []
+
+    def save(self, *args, **kwargs):
+        super(Post, self).save(*args, **kwargs)
+
