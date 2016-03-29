@@ -35,6 +35,10 @@ class Event(Post):
         FieldPanel('address'),
     ]
 
+    def get_page_type(self):
+        type_name = 'event'
+        return type_name
+
 
 class AllEventsHomePage(Page):
     """

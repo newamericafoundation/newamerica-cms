@@ -27,9 +27,13 @@ class Quoted(Post):
         FieldPanel('source'),
         FieldPanel('source_url'),
     ]
+
+    def get_page_type(self):
+        type_name = 'quoted'
+        return type_name
+
     class Meta:
         verbose_name = "In The News Piece"
-
 
 class AllQuotedHomePage(Page):
     """

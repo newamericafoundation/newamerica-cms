@@ -29,6 +29,10 @@ class Book(Post):
     parent_page_types = ['ProgramBooksPage',]
     subpage_types = []
 
+    def get_page_type(self):
+        type_name = 'book'
+        return type_name
+
 
 class AllBooksHomePage(Page):
     """

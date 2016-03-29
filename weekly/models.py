@@ -44,6 +44,10 @@ class WeeklyArticle(Post):
     parent_page_types = ['WeeklyEdition']
     subpage_types = []
 
+    def get_page_type(self):
+        type_name = 'weekly_article'
+        return type_name
+
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
 
