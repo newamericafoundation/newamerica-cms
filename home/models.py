@@ -26,6 +26,7 @@ class HomePage(Page):
     'OrgSimplePage',
     'programs.Program',
     'article.AllArticlesHomePage',
+    'article.Weekly',
     'event.AllEventsHomePage',
     'blog.AllBlogPostsHomePage',
     'book.AllBooksHomePage',
