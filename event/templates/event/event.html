@@ -40,8 +40,18 @@
 		<div class="event row">
 			<div class="event__left">
 				<h3 class="event__heading">When</h3>
-				<p class="event__date">{{ page.date|date:"F j, Y" }}</p>
-				<p class="event__time">{{ page.time }}</p>
+				<p class="event__date">{{ page.date|date:"F j, Y" }}
+				{% if page.end_date %}
+					- {{ page.end_date|date:"F j, Y" }}</p>
+				{% else %}
+					</p>
+				{% endif %}
+				<p class="event__time">{{ page.start_time }} 
+				{% if page.end_end_time %}
+					- {{ page.end_time }}</p>
+				{% else %}
+					</p>
+				{% endif %}
 			</div>
 			<div class="event__right">
 				<h3 class="event__heading">Where</h3>

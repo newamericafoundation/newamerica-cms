@@ -21,12 +21,16 @@ class Event(Post):
     parent_page_types = ['ProgramEventsPage']
     subpage_types = []
 
-    time = models.TimeField(default=timezone.now)
-    address = models.TextField()
-    rsvp_link = models.URLField()
+    end_date = models.DateField(blank=True, null=True)
+    start_time = models.TimeField(default=timezone.now)
+    end_time = models.TimeField(default=timezone.now, blank=True, null=True)
+    address = models.TextField(default='740 15th St NW #900, Washington, DC 20005')
+    rsvp_link = models.URLField(default='http://www.')
 
     content_panels = Post.content_panels + [
-        FieldPanel('time'),
+        FieldPanel('end_date'),
+        FieldPanel('start_time'),
+        FieldPanel('end_time'),
         FieldPanel('rsvp_link'),
         FieldPanel('address'),
     ]
