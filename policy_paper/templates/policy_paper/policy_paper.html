@@ -9,10 +9,11 @@
 	{% image page.story_image original as story_image %}
 
 	
-		{% if story_image %}
+		{% if page.publication_cover_image %}
 			<div class="book-container">
 				<div class="book">
-					<img src="{{ story_image.url }}" />
+				{% image page.publication_cover_image original as cover_image %}
+					<img src="{{ cover_image.url }}" />
 				</div>
 			</div>
 		{% endif %}
