@@ -45,7 +45,7 @@
 
             {% for item in featured_work %}
                 {% if item.title %}
-                    <div class="content-entry">
+                    <div class="content-entry {{ item.post.get_page_type }}">
                         {% if item.post.story_image %}
                             {% image item.post.story_image original as post_image %}
 
