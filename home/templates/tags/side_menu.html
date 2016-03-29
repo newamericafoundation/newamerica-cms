@@ -1,5 +1,43 @@
 {% load side_menu wagtailcore_tags static %}
 
+<div class="mobile-sidemenu mobile-menu">
+    <ul class="vertical menu" data-accordion-menu>
+        <li class="mobile-menu__link__main"><a href="{{ side_menu.url }}">{{ side_menu.logo }} Home Page</a></li>
+        {% if side_menu.initiative_pages %}
+          <li class="mobile-menu__link__main"><a href="#">Initiatives & Projects</a>
+            <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
+            <ul class="vertical menu">
+              {% for initiative in side_menu.initiative_pages %}
+                <li class="mobile-menu__link__secondary">{{ initiative }}</li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endif %}
+        <li class="mobile-menu__link__main"><a href="{{ side_menu.url }}events/">Events</a></li>
+        {% if side_menu.work_pages %}
+          <li class="mobile-menu__link__main"><a href="#">Publications</a>
+              <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
+              <ul class="vertical menu">
+                {% for work_page in side_menu.work_pages %}
+                  <li class="mobile-menu__link__secondary">{{ work_page }}</li>
+                {% endfor %}
+              </ul>
+          </li>
+        {% endif %}
+        {% if side_menu.about_pages %}
+          <li class="mobile-menu__link__main"><a href="#">About</a>
+              <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
+              <ul class="vertical menu">
+                {% for about_page in side_menu.about_pages %}
+                    <li class="mobile-menu__link__secondary">{{ about_page }}</li>
+                {% endfor %}
+              </ul>
+          </li>
+        {% endif %}
+    </ul>    
+
+</div>
+
 <div class="sidemenu" >
   <a href= "{{ side_menu.url }}">
     <div class="sidemenu__program-title">
@@ -8,7 +46,6 @@
   </a>
   <div class="sidemenu__link-group">
     <ul class="menu vertical sidemenu__link-group__content">
-      <li class="sidemenu__link-group__link"><a class="home-link" href="{{ side_menu.url }}">{{ side_menu.logo }} Home Page</a></li>
       <li class="menu-text sidemenu__link-group__title">Initiatives & Projects</li>
       {% for initiative in side_menu.initiative_pages %}
         <li class="sidemenu__link-group__link">{{ initiative }}</li>
@@ -17,7 +54,7 @@
       <li class="menu-text sidemenu__link-group__title">Events</li>
         <li class="sidemenu__link-group__link"><a href="{{ side_menu.url }}events/">View All Events</a></li>
 
-      <li class="menu-text sidemenu__link-group__title">Our Work</li>
+      <li class="menu-text sidemenu__link-group__title">Publications</li>
       {% for work_page in side_menu.work_pages %}
         <li class="sidemenu__link-group__link">{{ work_page }}</li>
       {% endfor %}

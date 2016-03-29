@@ -1,45 +1,87 @@
-.mobile-header-menu {
-    display: none;
-    top: $mobile-header-height;
+@mixin inverted {
+    .mobile-sidemenu & {
+      @content;
+    }
+ }
+
+.mobile-menu {
+	width: 100%;
+	z-index: 500;
+
+	.menu > li > a {
+		padding: $mobile-menu-item-padding;
+	}
+
+	&__toggle {
+		position:absolute;
+	    right: 20px;
+	    margin-top: -40px;
+	    vertical-align: middle;
+	    pointer-events: none;
+	    z-index: 20;
+	    width: 20px;
+	    height: 20px;
+	}
+
+	&__link {
+		&__main, &__secondary {
+	    	& > a {
+	    		height: 60px;
+	    		border: 1px solid palette-get(na-black-10);
+	    		@include inverted {
+					border: 1px solid palette-get(na-off-black);
+				}
+	    		&:hover {
+		    		background-color: palette-get(na-turquoise);
+			    	border-color: palette-get(na-turquoise);
+			      	color: palette-get(na-white);
+				    @include inverted {
+						color: palette-get(na-white);
+					}
+			    }
+			}
+		}
+
+		&__main {
+			& > a {
+				font-weight: bold;
+				font-size: 16px;
+				color: palette-get(na-black);
+
+				@include inverted {
+					color: palette-get(na-white);
+				}
+			}
+		}
+
+		&__secondary {
+			& > a {
+				padding-left: 35px !important;
+				font-weight: normal;
+				font-size: 16px;
+				color: palette-get(na-black-70);
+				@include inverted {
+					color: palette-get(na-black-40);
+				}
+			}
+		}
+	}
+	
+}
+
+.mobile-header {
+	display: none;
+	top: $mobile-header-height;
     position: relative;
 	background-color: palette-get(na-white);
-	width: 100%;
-
-	z-index: 500;
 
 	@include desktop-sidemenu {
 		display:none;
 	}
+}
 
-	& > ul > li > a {
-		padding: $mobile-menu-item-padding;
-	}
-
-	&__link-group {
-	color: palette-get(na-black);
-	margin-top: 15px;
-
-		&__title {
-			border: 1px solid palette-get(na-black-10);
-			padding: $mobile-menu-item-padding;
-			font-size:20px;
-		}
-
-		&__link {
-			border: 1px solid palette-get(na-black-10);
-		  &:hover {
-		    background-color: palette-get(na-turquoise);
-		    border-color: palette-get(na-turquoise);
-
-		   	& > a {
-		      color: white;
-		    }
-		  }
-
-		  & > a {
-		    color: grey;
-		  }
-		}
-
-	}
-  }
+.mobile-sidemenu {
+	display: none;
+	background-color: palette-get(na-black);
+}
+	
