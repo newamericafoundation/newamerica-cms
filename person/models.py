@@ -67,8 +67,7 @@ class Person(Page):
 
     ROLE_OPTIONS = (
         ('Board Member', 'Board Member'),
-        ('New America Fellow', 'New America Fellow'),
-        ('Program Fellow', 'Program Fellow'),
+        ('Fellow', 'Fellow'),
         ('Central Staff', 'Central Staff'),
         ('Program Staff', 'Program Staff'),
         ('External Author/Former Staff', 'External Author/Former Staff'),
