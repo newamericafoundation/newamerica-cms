@@ -19,6 +19,8 @@ def event_to_csv(content):
             content.get('id'),
             content.get('title'),
             content.get('address'),
+            content.get('location'),
+
     ]
 
 def program_posts():
@@ -35,7 +37,7 @@ def program_posts():
 def event_addresses():
     with open('event_addresses.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['id', 'title', 'address'])
+        writer.writerow(['id', 'title', 'address', 'location'])
         idx = 0
         for content in NAClient().get_events():
             writer.writerows(event_to_csv(content))
