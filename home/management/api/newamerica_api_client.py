@@ -48,8 +48,15 @@ class NAClient:
 	def get_posts(self):
 		for program in self.client.get(self.api_url + 'programs').json():
 			print(program)
-			program_id = 8#program['id']
+			program_id = program['id']
 			self.activate_program(program_id)
 			for post_set in self.get_data('posts'):
+				for post in post_set['results']:
+					yield post
+
+
+	def program_content(self, program_id):
+		self.activate_program(program_id)
+		for post_set in self.get_data('posts'):
 				for post in post_set['results']:
 					yield post
