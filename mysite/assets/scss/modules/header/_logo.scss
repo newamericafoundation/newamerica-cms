@@ -32,7 +32,6 @@
   h1 {
     width: 80px;
     @include mobile-header-logo-text;
-    /*@include mini-mobile-header-logo-text;*/
     
     @include mobile-header {
       
