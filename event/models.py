@@ -36,7 +36,11 @@ class Event(Post):
         FieldPanel('start_time'),
         FieldPanel('end_time'),
         FieldPanel('rsvp_link'),
-        FieldPanel('address'),
+        FieldPanel('host_organization'),
+        FieldPanel('street_address'),
+        FieldPanel('city'),
+        FieldPanel('state'),
+        FieldPanel('zipcode'),
     ]
 
 
