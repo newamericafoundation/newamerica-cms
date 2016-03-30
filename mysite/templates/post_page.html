@@ -23,7 +23,7 @@
 		{% endblock %}
 
 		{% if page.post_author.all %}
-		<h1 class="post-subheading">Author{{ authors|pluralize }}</h1>
+		<h1 class="post-subheading">{% get_byline_prefix page.content_type page.post_author.all %}</h1>
 			{% for author in authors %}
 			<div class="post-person">
 				<a href="{{ author.author.url }}">
@@ -37,17 +37,6 @@
 			</div>
 			{% endfor %}
 		{% endif %}	
-
-		<ul class="vertical menu" data-accordion-menu>
-  <li>
-    <a href="#">Item 1</a>
-    <ul class="menu vertical nested">
-      <li><a href="#">Item 1A</a></li>
-      <li><a href="#">Item 1B</a></li>
-    </ul>
-  </li>
-  <li><a href="#">Item 2</a></li>
-</ul>	
 
 	</div>
     

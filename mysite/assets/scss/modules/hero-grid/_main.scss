@@ -373,11 +373,6 @@
 				    }
 				}
 
-
-			/*.hero-grid.has-2-children & {
-			  font-size: rem-calc(32);
-			}*/
-
 				margin-bottom: 0;
 			}
 
@@ -385,6 +380,10 @@
 				display: inline-block;
 				font-size: rem-calc(16);
 				margin-bottom: 0;
+
+				& > a {
+					color: palette-get(na-white);
+				}
 			}
 
 			&__date, &__excerpt {

@@ -6,6 +6,13 @@ from django.utils.safestring import mark_safe
 
 register = template.Library()
 
+@register.filter()
+def get_range(num):
+	if num:
+		list_of_numbers = list(range(1, int(num)+1))
+
+		return list_of_numbers
+
 @register.simple_tag()
 def list_separator(i):
 	if i >= 2:
@@ -15,42 +22,36 @@ def list_separator(i):
 	else:
 		return ""
 
-@register.filter()
-def get_range(num):
-	if num:
-		list_of_numbers = list(range(1, int(num)+1))
-
-		return list_of_numbers
-
-@register.filter()
-def pluralize(item):
-	if len(item) > 1:
-		return "s"
-	else:
-		return ""
-
-def pluralize_label(num_items, label):
+@register.simple_tag()
+def pluralize(num_items, label):
 	if num_items > 1:
 		return label + "s: "
 	else:
 		return label + ""
 
 @register.simple_tag()
-def generate_byline(type, authors):
-	post_type = str(type)
+def get_byline_prefix(post_type, items_list):
+	num_items = len(items_list)
+	if str(post_type) == "podcast":
+		return pluralize(num_items, "Host")
+	elif str(post_type) == "blog post":
+		return "By "
+	elif str(post_type) == "In The News Piece":
+		return "In the News: "
+	else:
+		return pluralize(num_items, "Author")
+
+
+@register.simple_tag()
+def generate_byline(ptype, authors):
+	post_type = str(ptype)
 	num_authors = len(authors)
 	ret_string = ""
-	
+
 	if post_type == "event" or post_type == "press release":
-		return ""
-	elif post_type == "podcast":
-		ret_string += pluralize_label(num_authors, "Host")
-	elif post_type == "blog post":
-		ret_string += "By "
-	elif post_type == "In The News Piece":
-		ret_string += "In the News: "
-	else:
-		ret_string += pluralize_label(num_authors, "Author")
+		return ret_string
+
+	ret_string += get_byline_prefix(post_type, authors)
 
 	counter = 1
 	for author in authors:
@@ -58,7 +59,6 @@ def generate_byline(type, authors):
 		ret_string += list_separator(num_authors - counter)
 		counter += 1
 
-	print ret_string
 	return mark_safe(ret_string)
 
 @register.simple_tag()
@@ -67,20 +67,23 @@ def generate_dateline(post):
 	date_format = '%B %d, %Y'
 	time_format = '%-I:%M %p'
 
-	
-	if post.date:
-		ret_string += '<p class="date">'
-		ret_string += post.date.strftime(date_format)
-		if post.end_date:
-			ret_string += ' - ' + post.end_date.strftime(date_format)
-		ret_string += '</p>'
+	if str(post.content_type) == "event":
+		if post.date:
+			ret_string += '<p class="date">'
+			ret_string += post.date.strftime(date_format)
+			if post.end_date:
+				ret_string += ' - ' + post.end_date.strftime(date_format)
+			ret_string += '</p>'
 
-	if post.start_time:
-		ret_string += '<p class="time">'
-		ret_string += post.start_time.strftime(time_format).lower()
-		if post.end_time:
-			ret_string += ' - ' + post.end_time.strftime(time_format).lower()
-		ret_string += '</p>'
+		if post.start_time:
+			ret_string += '<p class="time">'
+			ret_string += post.start_time.strftime(time_format).lower()
+			if post.end_time:
+				ret_string += ' - ' + post.end_time.strftime(time_format).lower()
+			ret_string += '</p>'
+	else:
+		if post.date:
+			ret_string += '<p class="date">' + post.date.strftime(date_format) + '</p>'
 
 	return mark_safe(ret_string)
 
