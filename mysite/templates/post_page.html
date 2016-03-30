@@ -13,19 +13,8 @@
 
 	<div class="post-container">
 
-	    {% if page.post_author.all %}
-		    	
-		    <h5 class="post-author">
-		    	{% block byline-prefix %}
-				{% endblock %}
-				
-				{% for author in authors %}
-					
-						<p><a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>{% listify forloop.revcounter0 %}</p>
-					
-				{% endfor %}
-			</h5>
-			
+	    {% if page.post_author.all %}	
+		    <h5 class="post-author">{% generate_byline page.content_type page.post_author.all %}</h5>
 		{% endif %}
 
 		<h5 class="post-date">{{ page.date }}</h5>
@@ -34,7 +23,7 @@
 		{% endblock %}
 
 		{% if page.post_author.all %}
-		<h1 class="post-subheading">Author{{ authors|pluralize }}</h1>
+		<h1 class="post-subheading">{% get_byline_prefix page.content_type page.post_author.all %}</h1>
 			{% for author in authors %}
 			<div class="post-person">
 				<a href="{{ author.author.url }}">
@@ -48,5 +37,6 @@
 			</div>
 			{% endfor %}
 		{% endif %}	
-    
+
+	</div>
 {% endblock %}

@@ -64,13 +64,13 @@
 }
 
 .breadcrumb-social-media-container {
-	height: 48px;
+	height: 25px;
+	margin-bottom: 35px;
 	position: relative;
 	top: 10px;
 	display: none;
 
 	@include desktop-header {
-		height: 60px;
 		display: block;
 	}
 	@include expanded-header {
@@ -89,7 +89,8 @@
 
 .breadcrumb-container {
   height: 100%;
-  width: 100%;
+  width: calc(100% - 220px);
+  float: left;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
