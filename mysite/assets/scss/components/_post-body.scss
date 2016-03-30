@@ -9,7 +9,7 @@
   }
 
   /*dropcap styling*/
-  & > .block-paragraph {
+  &.with-dropcap > .block-paragraph {
     &:first-letter {
       font-size:110px;
       color: palette-get(na-black);
@@ -22,7 +22,7 @@
       line-height: 70px;
     }
   }
-  & > .block-paragraph ~ .block-paragraph {
+  &.with-dropcap > .block-paragraph ~ .block-paragraph {
     &:first-letter {
       color: palette-get(na-black-70);
       font-size:1.25rem;
@@ -35,7 +35,7 @@
     }
   }
 
-  & > .block-video {
+  &.with-dropcap > .block-video {
     div {
       padding-bottom: 0px !important;
     }
