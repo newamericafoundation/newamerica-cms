@@ -61,7 +61,7 @@
 						{% if post.parent_programs.all %}
 							<h5 class="content-entry__text__program">
 							{% for program in post.parent_programs.all %}
-								<a href="{{ program.url }}"> {{ program | upper }}</a>{% listify forloop.revcounter0 %}
+								<a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
 							{% endfor %}
 							</h5>
 						{% endif %}
@@ -70,11 +70,7 @@
 						{{ post.sub_headline }}
 
 						{% if post.post_author.all %}
-							<h5 class= "content-entry__text__author">By
-							{% for author in post.post_author.all %}
-								<a href="{{ author.url }}">{{author.first_name }} {{author.last_name }}</a>{% listify forloop.revcounter0 %}
-							{% endfor %}
-							</h5>
+							<h5 class= "content-entry__text__author">{% generate_byline post.content_type post.post_author.all %}</h5>
 						{% endif %}
 
 						<h5 class= "content-entry__text__date">{{ post.date }} </h5>
