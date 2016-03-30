@@ -44,10 +44,6 @@ class PolicyPaper(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
-    def get_page_type(self):
-        type_name = 'policy_paper'
-        return type_name
-
 
 class AllPolicyPapersHomePage(Page):
     """

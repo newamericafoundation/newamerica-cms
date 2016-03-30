@@ -30,10 +30,6 @@ class Podcast(Post):
 
     ]
 
-    def get_page_type(self):
-        type_name = 'podcast'
-        return type_name
-
 
 class AllPodcastsHomePage(Page):
 	"""

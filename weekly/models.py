@@ -52,11 +52,6 @@ class WeeklyArticle(Post):
     parent_page_types = ['WeeklyEdition']
     subpage_types = []
 
-
-    def get_page_type(self):
-        type_name = 'weekly_article'
-        return type_name
-
     def get_context(self, request):
         context = super(WeeklyArticle, self).get_context(request)
         
