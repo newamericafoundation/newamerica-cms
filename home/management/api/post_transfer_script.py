@@ -91,6 +91,7 @@ def need_to_update_post(modified_date):
     if formatted_revision_date >= one_month_ago.date():
         return True
 
+
 def load_articles():
     for post, program_id in NAClient().get_articles():
         program_id = str(program_id)
