@@ -3,11 +3,15 @@
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-issuepage{% endblock %}
+{% block body_class %}template-issueortopicpage{% endblock %}
 
 {% block content %}
 
     <h2>{{ page.title }}</h2>
     {{ page.body }}
+
+    {% for topic in topics %}
+    	<a href="{{ topic.url }}">{{ topic }}</a>
+    {% endfor %}
 
 {% endblock %}
