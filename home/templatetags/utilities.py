@@ -29,7 +29,7 @@ def pluralize(item):
 	else:
 		return ""
 
-def plural(num_items, label):
+def plural_label(num_items, label):
 	if num_items > 1:
 		return label + "s: "
 	else:
@@ -44,13 +44,13 @@ def generate_byline(type, authors):
 	if post_type == "event" or post_type == "press release":
 		return ""
 	elif post_type == "podcast":
-		ret_string += plural(num_authors, "Host")
+		ret_string += plural_label(num_authors, "Host")
 	elif post_type == "blog post":
 		ret_string += "By "
 	elif post_type == "In The News Piece":
 		ret_string += "In the News: "
 	else:
-		ret_string += plural(num_authors, "Author")
+		ret_string += plural_label(num_authors, "Author")
 
 	counter = 1
 	for author in authors:
