@@ -8,8 +8,8 @@ import $ from 'jquery'
 //   LINK_GROUP_CONTENT_CLASS_NAME
 // } from './constants.js'
 
-var desktopHeaderBreakpoint = 945;
-var expandedHeaderBreakpoint = 750;
+var desktopHeaderBreakpoint = 965;
+var expandedHeaderBreakpoint = 775;
 var currHeaderBreakpoint = desktopHeaderBreakpoint;
 
 var headerMenuExpanded = false;
