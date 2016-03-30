@@ -13,11 +13,8 @@
 
 	<div class="post-container">
 
-	    {% if page.post_author.all %}
-		    	
-		    <h5 class="post-author">{% generate_byline page.content_type page.post_author.all %}
-			</h5>
-			
+	    {% if page.post_author.all %}	
+		    <h5 class="post-author">{% generate_byline page.content_type page.post_author.all %}</h5>
 		{% endif %}
 
 		<h5 class="post-date">{{ page.date }}</h5>

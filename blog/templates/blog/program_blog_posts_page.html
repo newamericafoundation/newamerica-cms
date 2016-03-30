@@ -87,12 +87,10 @@
 						{% endif %}
 						<h5 class= "content-entry__text__title"><a href="{{ post.url }}">{{ post.title }}</a></h5>
 
-						{{ post.sub_headline }}
-
 						{% if post.post_author.all %}
 							<h5 class= "content-entry__text__author">{% generate_byline post.content_type post.post_author.all %}</h5>
 						{% endif %}
-						<h5 class= "content-entry__text__date">{{ post.date }} </h5>
+						<h5 class= "content-entry__text__date-time">{% generate_dateline post %}</h5>
 						<p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
 						
 					</div>
