@@ -127,10 +127,6 @@ class Person(Page):
     parent_page_types = ['OurPeoplePage',]
     subpage_types = []
 
-    def get_page_type(self):
-        type_name = 'person'
-        return type_name
-
     def get_context(self, request):
         context = super(Person, self).get_context(request)
         featured_work = [self.feature_work_1, self.feature_work_2, self.feature_work_3]

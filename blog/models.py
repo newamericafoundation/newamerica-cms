@@ -31,11 +31,6 @@ class BlogPost(Post):
         StreamFieldPanel('attachment'),
     ]
 
-    def get_page_type(self):
-        type_name = 'blog'
-        return type_name
-
-
 class AllBlogPostsHomePage(Page):
     """
     A page which inherits from the abstract Page model and 

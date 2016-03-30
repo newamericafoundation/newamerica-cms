@@ -28,10 +28,6 @@ class PressRelease(Post):
     	StreamFieldPanel('attachment'),
     ]
 
-    def get_page_type(self):
-        type_name = 'press_release'
-        return type_name
-
 class AllPressReleasesHomePage(Page):
 	"""
 	A page which inherits from the abstract Page model and
