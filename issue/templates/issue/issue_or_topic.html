@@ -36,8 +36,37 @@
     	{{ page.body }}
     </div>
 
-    {% for topic in topics %}
-    	<a href="{{ topic.url }}">{{ topic }}</a>
-    {% endfor %}
+    {% if topics %}
+    	<hr>
+
+    	<div class="row issue-grid">
+		    {% for topic in topics %}
+		    	{% if forloop.counter0|divisibleby:2 %}
+		    		<div class="row">
+		    	{% endif %}
+				    	<div class="small-12 medium-6 column issue-grid__entry">
+					    	<h5 class="issue-grid__entry__title"><a href="{{ topic.url }}">{{ topic.title }}</a></h5>
+					    	{{ topic.body }}
+
+					    	{% if topic.get_children %}
+					    		<p>Topics:
+						    		<ul class="issue-grid__entry__child-list">
+							    		{% for child_topic in topic.get_children %}
+							    			<li class="issue-grid__entry__child">&bull;<!--
+							    			--><a class="issue-grid__entry__child__link" href="{{ child_topic.url }}">{{ child_topic.title }}</a>
+							    			</li>
+							    		{% endfor %}
+						    		</ul>
+					    		</p>
+					    	{% endif %}
+					    </div>
+			    {% if forloop.counter|divisibleby:2 %}
+		    		</div>
+		    	{% endif %}
+			    
+		    {% endfor %}
+		</div>
+
+	{% endif %}
 
 {% endblock %}
