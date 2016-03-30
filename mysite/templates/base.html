@@ -50,7 +50,7 @@
                                         <ul class='breadcrumbs'>
 
                                         {% for page in self.get_ancestors %}
-                                            {% if page.is_root == False %}
+                                            {% if forloop.counter > 2 %}
                                             <li><a href="{{ page.url }}">{{ page.title }}</a></li>
                                             {% endif %}
                                         {% endfor %}
