@@ -1,15 +1,16 @@
-
-
 .post-person {
 	$person-icon-width: 100px;
+	min-height: $person-icon-width;
+	height: 100%;
 
-	padding-top: $desktop-padding;
+	margin-top: $desktop-padding;
 	.person__icon {
 		margin: 0px;
 		float: left;
 	}
 
 	&__text {
+		height: 100%;
 		padding-left: $person-icon-width + $desktop-padding;
 		color: palette-get(na-black-40);
 	}
