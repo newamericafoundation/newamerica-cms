@@ -5,7 +5,9 @@ from django.db import models
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailcore.blocks import PageChooserBlock
 
 from mysite.pagination import paginate_results
 
@@ -30,12 +32,18 @@ class WeeklyEdition(Page):
     parent_page_types = ['Weekly',]
     subpage_types = ['WeeklyArticle']
 
+    edition_stories = StreamField([
+        ('Story', PageChooserBlock()),
+    ], blank=True)
+
+    promote_panels = Page.promote_panels + [
+        StreamFieldPanel('edition_stories'),
+    ]
+
     def get_context(self, request):
         context = super(WeeklyEdition, self).get_context(request)
         
-        all_posts = self.get_children()
-        
-        context['all_posts'] = paginate_results(request, all_posts)
+        context['all_posts'] = self.edition_stories
         
         return context
 
@@ -43,6 +51,13 @@ class WeeklyEdition(Page):
 class WeeklyArticle(Post):
     parent_page_types = ['WeeklyEdition']
     subpage_types = []
+
+    def get_context(self, request):
+        context = super(WeeklyArticle, self).get_context(request)
+        
+        context['siblings'] = self.get_siblings(inclusive=False)
+        
+        return context
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)

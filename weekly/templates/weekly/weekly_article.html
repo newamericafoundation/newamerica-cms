@@ -8,5 +8,9 @@
     {{ page.title }}
     
     {{ page.body }}
-
+    <hr>
+    Sibling: 
+    {% for sibling in siblings %}
+    	<a href="{{ sibling.url }}">{{ sibling }}</a>
+    {% endfor %}
 {% endblock %}
