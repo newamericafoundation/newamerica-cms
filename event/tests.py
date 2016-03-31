@@ -64,7 +64,7 @@ class EventTests(WagtailPageTests):
         self.assertAllowedParentPageTypes(AllEventsHomePage, {HomePage})
 
     # Test allowed subpage types
-    def test_blog_post_subpages(self):
+    def test_event_subpages(self):
         self.assertAllowedSubpageTypes(Event, {})
 
     def test_program_event_subpages(self):

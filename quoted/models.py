@@ -27,9 +27,9 @@ class Quoted(Post):
         FieldPanel('source'),
         FieldPanel('source_url'),
     ]
+
     class Meta:
         verbose_name = "In The News Piece"
-
 
 class AllQuotedHomePage(Page):
     """

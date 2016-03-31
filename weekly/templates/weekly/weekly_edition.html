@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body_class %}template-weeklyedition{% endblock %}
+
+
+{% block content %}
+
+    Weekly Edition #{{ page.title }}
+    <br>
+    {% for post in all_posts %}
+ 		<a href="{{ post.url }}">{{ post }}</a>
+	{% endfor %}
+
+{% endblock %}

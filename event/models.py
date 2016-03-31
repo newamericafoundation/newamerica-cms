@@ -24,7 +24,11 @@ class Event(Post):
     end_date = models.DateField(blank=True, null=True)
     start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(default=timezone.now, blank=True, null=True)
-    address = models.TextField(default='740 15th St NW #900, Washington, DC 20005')
+    host_organization = models.TextField(default='New America', blank=True, null=True)
+    street_address = models.TextField(default='740 15th St NW #900')
+    city = models.TextField(default='Washington')
+    state = models.TextField(default='D.C.')
+    zipcode = models.TextField(default='20005')
     rsvp_link = models.URLField(default='http://www.')
 
     content_panels = Post.content_panels + [
@@ -32,7 +36,11 @@ class Event(Post):
         FieldPanel('start_time'),
         FieldPanel('end_time'),
         FieldPanel('rsvp_link'),
-        FieldPanel('address'),
+        FieldPanel('host_organization'),
+        FieldPanel('street_address'),
+        FieldPanel('city'),
+        FieldPanel('state'),
+        FieldPanel('zipcode'),
     ]
 
 

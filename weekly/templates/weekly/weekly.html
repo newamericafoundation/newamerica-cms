@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-weekly{% endblock %}
+
+{% block content %}
+	{% for edition in all_posts %}
+		<a href="{{ edition.url }}">Weekly Edition #{{ edition }}</a>
+	{% endfor %}
+{% endblock %}
