@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-jobspage{% endblock %}
+
+{% block content %}
+
+    {{ page.title }}
+
+    {{ page.body }}
+
+{% endblock %}
