@@ -45,7 +45,9 @@
 			</div>
 			<div class="event__right">
 				<h3 class="event__heading">Where</h3>
-				<p class="event__address">{{ page.address|linebreaks }}</p>
+				<p>{{ page.host_organization }}</p>
+				<p>{{ page.street_address }}</p>
+				<p>{{ page.city }}, {{ page.state }} {{ page.zipcode }}</p>
 			</div>
 		</div>
 	    <div class="post-body">
