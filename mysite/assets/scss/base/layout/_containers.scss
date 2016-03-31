@@ -66,8 +66,7 @@
 .breadcrumb-social-media-container {
 	height: 25px;
 	margin-bottom: 35px;
-	position: relative;
-	top: 10px;
+	margin-top: 15px;
 	display: none;
 
 	@include desktop-header {
@@ -193,7 +192,7 @@
 
 .post-container {
 	max-width: $max-body-width;
-  	padding-top: $desktop-padding;
+  	padding-top: 0px;
   	padding-left: $mobile-padding;
   	padding-right: $mobile-padding;
   	padding-bottom: $mobile-padding;

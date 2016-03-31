@@ -38,7 +38,7 @@
 {% block post-body %}
 
     <div class="post-body with-dropcap">
-	    {{ page.body }}
+	    {{ page.body | safe}}
 	</div>
 
 {% endblock %}
