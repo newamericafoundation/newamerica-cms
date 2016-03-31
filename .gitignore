@@ -18,3 +18,8 @@ mysite/static/js
 
 venv
 *.log
+
+*.csv
+
+home/management/api/article_images/
+home/management/api/images/
