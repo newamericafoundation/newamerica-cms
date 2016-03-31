@@ -66,7 +66,7 @@
                             {% for program in post.specific.parent_programs.all %}
                                 <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
                             {% endfor %}
-                            </h5>
+                            {{ post.specific.content_type | upper }}</h5>
                         {% endif %}
                         <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
 
