@@ -15,6 +15,7 @@ from .newamerica_api_client import NAClient
 
 from .post_transfer_script import load_articles, load_events
 
+
 our_people_page = OurPeoplePage.objects.first()
 
 if sys.version_info[0] < 3:
@@ -152,3 +153,4 @@ def run():
     #load_authors()
     # load_articles()
     load_events()
+
