@@ -1,16 +1,21 @@
-
-
 .post-person {
 	$person-icon-width: 100px;
+	min-height: $person-icon-width;
+	height: 100%;
+	display: table;
+	margin-top: $desktop-padding;
 
-	padding-top: $desktop-padding;
 	.person__icon {
+		display: table-cell;
+		vertical-align: middle;
 		margin: 0px;
-		float: left;
 	}
 
 	&__text {
-		padding-left: $person-icon-width + $desktop-padding;
+		display: table-cell;
+		vertical-align: middle;
+		height: 100%;
+		padding-left: $desktop-padding;
 		color: palette-get(na-black-40);
 	}
 }

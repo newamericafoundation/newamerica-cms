@@ -6,16 +6,14 @@
 {% block body_class %}template-book{% endblock %}
 
 {% block post-header %}
-	{% image page.story_image original as story_image %}
-
-		{% if page.publication_cover_image %}
-			<div class="book-container">
-				<div class="book">
-				{% image page.publication_cover_image original as cover_image %}
-					<img src="{{ cover_image.url }}" />
-				</div>
+	{% if page.publication_cover_image %}
+		<div class="book-container">
+			<div class="book">
+			{% image page.publication_cover_image original as cover_image %}
+				<img src="{{ cover_image.url }}" />
 			</div>
-		{% endif %}
+		</div>
+	{% endif %}
 	<div class="post-header">
 		<div class="post-header__text">
 	    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
