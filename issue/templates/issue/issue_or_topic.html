@@ -47,7 +47,7 @@
 		    	{% endif %}
 				    	<div class="small-12 medium-6 column issue-grid__entry">
 					    	<h5 class="issue-grid__entry__title"><a href="{{ topic.url }}">{{ topic.title }}</a></h5>
-					    	
+					    	{{ topic.specific.story_excerpt }}
 
 					    	{% if topic.get_children %}
 					    		<p>Topics:
