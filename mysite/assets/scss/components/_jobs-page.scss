@@ -1,15 +1,3 @@
-  
-.jobs-page {
-  @include desktop-header {
-    width: $max-body-width;
-    margin: 10px auto;
-  }
-
-  .post-body {
-    padding-bottom: 15px;
-  }
-}
-
 .resumator-job-title {
   font-weight: bold !important;
   font-size: 26px !important;
