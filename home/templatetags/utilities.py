@@ -66,7 +66,7 @@ def generate_dateline(post):
 	ret_string = ""
 	date_format = '%B %d, %Y'
 	time_format = '%-I:%M %p'
-	print post.content_type
+	
 	if str(post.content_type) == "event":
 		if post.date:
 			ret_string += '<p class="date">'
