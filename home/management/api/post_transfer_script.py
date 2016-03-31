@@ -10,6 +10,7 @@ from wagtail.wagtailimages.models import Image
 from .newamerica_api_client import NAClient
 
 from article.models import Article, ProgramArticlesPage
+from event.models import Event, ProgramEventsPage
 
 from django.utils.text import slugify
 from django.core.files.images import ImageFile
@@ -141,3 +142,57 @@ def load_articles():
             print("Updating existing article: ")
             print(new_article)
             new_article.save()
+
+def load_events():
+    for post, program_id in NAClient().get_events():
+        program_id = str(program_id)
+        post_parent_program = Program.objects.get_or_create(title=mapped_programs[program_id])[0]
+
+        parent_program_events_homepage = post_parent_program.get_children().type(ProgramEventsPage).first()
+
+        event_slug = slugify(post['title'])
+
+        new_event = Event.objects.filter(slug=article_slug).first()
+
+        if not new_event and event_slug:
+            new_event = Event(
+                search_description='',
+                seo_title='',
+                depth=4,
+                show_in_menus=False,
+                slug=event_slug,
+                title=post['title'],
+                date=get_post_date(post['start_date']),
+                end_date=,
+                start_time=,
+                end_time=,
+                
+                body=json.dumps([{'type':'paragraph', 'value':post['content']}]),
+                story_exerpt=post['summary'],
+                story_image=download_image(
+                    post['cover_image_url'], 
+                    post['title'] + "_image.jpeg"
+                )
+            )
+            print("Adding new article: ")
+            print(new_event)
+            parent_program_articles_homepage.add_child(instance=nnew_event)
+            new_event.save()
+        elif new_event and event_slug and need_to_update_post(post['modified']):
+            new_event.search_description=''
+            new_event.seo_title=''
+            new_event.depth=4
+            new_event.show_in_menus=False
+            new_event.slug=article_slug
+            new_event.title=post['title']
+            new_event.date=get_post_date(post['publish_at'])
+            new_event.body=json.dumps(
+                [{'type':'paragraph', 'value':post['content']}]
+            )
+            new_event.story_image=download_image(
+                    post['cover_image_url'], 
+                    post['title'] + "_image.jpeg"
+                )
+            print("Updating existing article: ")
+            print(new_event)
+            new_event.save()
