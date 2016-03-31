@@ -15,9 +15,6 @@ class IssueOrTopic(ProgramSimplePage):
     parent_page_types = ['programs.Program', 'IssueOrTopic']
     subpage_types = ['IssueOrTopic']
 
-    def get_excerpt(self, request):
-    	return self.story_excerpt
-
     def get_context(self, request):
         context = super(IssueOrTopic, self).get_context(request)
 
