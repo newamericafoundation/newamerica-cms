@@ -6,11 +6,40 @@
 {% block body_class %}template-jobspage{% endblock %}
 
 {% block content %}
+	<div class="jobs-page">
+		{% image page.story_image original as story_image %}
 
-	{{ page.title }}
+		{% if story_image %}
 
-	{{ page.body }}
+			<div class="post-header with-image" style="background-image: linear-gradient(
+			      rgba(0, 0, 0, 0.3),
+			      rgba(0, 0, 0, 0.3)
+			    ), 
+		    	url({{ story_image.url }})">
 
-	<script type="text/javascript" src="//app.jazz.co/widgets/basic/create/newamerica" charset="utf-8"></script>
+				<div class="post-header__text">
+				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+				    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+				    	<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+				</div>
+			</div>
+		{% else %}
 
+			<div class="post-header">
+
+				<div class="post-header__text">
+				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+				</div>
+			</div>
+
+		{% endif %}
+
+		<div class="post-container">
+		    <div class="post-body">
+			    {{ page.body }}
+			</div>
+
+			<script type="text/javascript" src="//app.jazz.co/widgets/basic/create/newamerica" charset="utf-8"></script>
+		</div>
+	</div>
 {% endblock %}

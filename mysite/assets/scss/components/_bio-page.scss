@@ -41,7 +41,7 @@
 
 	&__heading-text {
 		position:relative;
-  	padding-top: 15px;
+  		padding-top: 15px;
 
   	@include breakpoint(medium) {
   		padding-left: $desktop-padding + $icon-height;
