@@ -15,10 +15,38 @@
         <input type="submit" value="Search">
     </form>
 
+    <br>
     {% if search_results %}
         <div class="content-grid__entries">
 
         {% for post in search_results %}
+
+            {% if post.specific.content_type|stringformat:"s" == "person"  %}
+
+                <div class="post-person">
+                    <a href="{{ post.specific..url }}">
+                        <div class='person__icon'>
+                            {% image post.specific.profile_image original as person_image %}
+                            <div class='person__icon__photo' style='background: no-repeat center/100% url({{ person_image.url }})'>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="post-person__text">
+                        {% if post.specific.belongs_to_these_programs.all %}
+                            <h5 class="content-entry__text__program">
+                            {% for program in post.specific.belongs_to_these_programs.all %}
+                                <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
+                            {% endfor %}
+                            PERSON</h5>
+                        {% endif %}
+                        <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
+
+                        {{ post.specific.short_bio }}
+                    </div>
+                </div>
+
+            {% else %}
+
             <div class="content-entry">
                 {% if post.specific.story_image %}
                     {% image post.specific.story_image original as post_image %}
@@ -33,10 +61,10 @@
                 <div class="content-entry__text-container">
                 {% endif %}
                     <div class="content-entry__text">
-                        {% if post.specific.post_subprogram.all %}
+                        {% if post.specific.parent_programs.all %}
                             <h5 class="content-entry__text__program">
-                            {% for subprogram in post.specific.post_subprogram.all %}
-                                <a href="{{ subprogram.url }}"> {{ subprogram | upper }}</a>{% list_separator forloop.revcounter0 %}
+                            {% for program in post.specific.parent_programs.all %}
+                                <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
                             {% endfor %}
                             </h5>
                         {% endif %}
@@ -46,14 +74,20 @@
                             <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.specific.post_author.all %}
                             </h5>
                         {% endif %}
-                        
+
+                        {% if post.specific.date %}
+                            <h5 class= "content-entry__text__date-time">{% generate_dateline post.specific %}</h5>
+                        {% endif %}
                         <p class= "content-entry__text__excerpt">{{ post.specific.story_excerpt }}</p>
                         
                     </div>
                 </div>
             </div>
+            
+
+            {% endif %}
             <hr>
-            {% endfor %}
+        {% endfor %}
 
         </div>
 

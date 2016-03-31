@@ -43,6 +43,7 @@ $content-entry-text-gutter: 10px;
 
 		a {
 			width: 100%;
+			
 		}
 
 		h5, p {
@@ -57,6 +58,11 @@ $content-entry-text-gutter: 10px;
 			line-height: 100%;
 		}
 
+		&__program > a {
+			&:hover {
+				color:palette-get(na-turquoise);
+			}
+		}
 		&__title, &__title > a {
 			font-weight:bold;
 			font-size:26px;
