@@ -13,7 +13,9 @@ from person.models import OurPeoplePage, Person
 
 from .newamerica_api_client import NAClient
 
-from .post_transfer_script import load_articles, load_events
+from .article_transfer_script import load_articles
+
+from .event_transfer_script import load_events
 
 
 our_people_page = OurPeoplePage.objects.first()
