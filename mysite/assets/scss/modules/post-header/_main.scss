@@ -6,6 +6,7 @@ $std-post-header-padding-without-image: 25px;
 /*	height: 100%;*/
 	position:static;
 	margin-bottom: $desktop-padding;
+	margin-top: $desktop-padding;
 
 	&__text {
 		line-height: 100%;
@@ -66,6 +67,7 @@ $std-post-header-padding-without-image: 25px;
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: 50% 50%;
+		margin-top: 0px;
 	}
 
 }
