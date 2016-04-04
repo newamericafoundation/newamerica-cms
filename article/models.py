@@ -1,15 +1,11 @@
 from django.db import models
-from django.utils.text import slugify
 
 from home.models import Post
-
-from programs.models import Program, Subprogram
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from mysite.pagination import paginate_results
-from mysite.helpers import get_posts_and_programs
+from mysite.helpers import paginate_results, get_posts_and_programs
 
 
 class Article(Post):
@@ -34,11 +30,11 @@ class Article(Post):
 
 class AllArticlesHomePage(Page):
     """
-    A page which inherits from the abstract Page model and 
+    A page which inherits from the abstract Page model and
     returns every Article in the Article model for the Article
     homepage
     """
-    parent_page_types = ['home.HomePage',]
+    parent_page_types = ['home.HomePage', ]
     subpage_types = []
 
     def get_context(self, request):
@@ -56,16 +52,21 @@ class AllArticlesHomePage(Page):
 
 class ProgramArticlesPage(Page):
     """
-    A page which inherits from the abstract Page model and 
+    A page which inherits from the abstract Page model and
     returns all Articles associated with a specific Program
     or Subprogram
     """
 
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Article']
-    
+
     def get_context(self, request):
-        return get_posts_and_programs(self, request, ProgramArticlesPage, Article)
+        return get_posts_and_programs(
+            self,
+            request,
+            ProgramArticlesPage,
+            Article
+        )
 
     class Meta:
         verbose_name = "Articles and Op-Eds Homepage for Program and Subprograms"
