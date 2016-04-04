@@ -8,6 +8,11 @@
 		-moz-box-shadow: 0px 0px 20px 0px palette-get(na-black-10);
 		box-shadow: 0px 0px 20px 0px palette-get(na-black-10);
 
+	display: none;
+	@include breakpoint(medium) {
+		display: block;
+	}
+
 	&__image {
 		width: calc(100% - #{$lead-text-width});
 		height: 500px;

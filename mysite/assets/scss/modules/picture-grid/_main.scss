@@ -1,10 +1,17 @@
 .picture-grid {
+	&.hide-first {
+		@include breakpoint(medium) {
+			.picture-grid__entry:first-child {
+				display: none;
+			}
+		}
+	}
 	&__entry {
 		height: 100%;
 		width: 100%;
 
 		@include breakpoint(medium) {
-			height: 460px;
+			height: 480px;
 			width: 300px;
 			float: left;
 			margin: 10px;
