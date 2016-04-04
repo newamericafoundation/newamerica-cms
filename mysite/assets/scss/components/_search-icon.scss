@@ -1,15 +1,14 @@
 .search-box {
 	$search-offset: 7px;
-    &__icon {
-    	width: 25px;
-    	height: 25px;
-	    position: absolute;
+
+	&__submit {
+		position: absolute;
 	    z-index: 10000;
 	    fill: palette-get(na-black-10);
-	    
+	    background-color: white;
 
 	    @include desktop-header {
-	    	top: 25px;
+	    	top: $desktop-padding;
 	    	right: $desktop-padding + $search-offset;
 	    }
 
@@ -17,5 +16,9 @@
 	    	top: 11px;
 	    	right: $search-offset;
 	    }
+	}
+
+    &__icon {
+    	width: 25px;
     }
 }

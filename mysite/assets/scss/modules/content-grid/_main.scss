@@ -20,20 +20,32 @@
 	}
 
 	&__controls {
+		width: 100%;
 		margin-bottom: $mobile-padding;
-		max-width: $max-body-width;
+		margin-right: $mobile-padding;
 
 		@include breakpoint(medium) {
 			margin-bottom: $desktop-padding;
+		}
+		.columns, .column {
+			padding-left: 0px;
+		}
+
+		&__filters {
+			width: 100%;
+			padding-right: $mobile-padding;
+			
+			@include breakpoint(medium) {
+				width: calc(100% - #{$pagination-width});
+				display: inline-block;
+				padding-right: 0px;
+			}
 		}
 
 		&__program-filter {
 			@include breakpoint(medium) {
 				padding-left: 0px;
 			}
-		}
-		&__date-filter {
-
 		}
 		&__search {
 			@include breakpoint(medium) {
@@ -43,6 +55,11 @@
 
 		input, select {
 			background-color: white;
+			margin-bottom: $mobile-padding;
+
+			@include breakpoint(medium) {
+				margin-bottom: 0px;
+			}
 		}
 	}
 
