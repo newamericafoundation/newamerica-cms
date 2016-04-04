@@ -1,6 +1,18 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from programs.models import Program, Subprogram
-from mysite.pagination import paginate_results
 
+def paginate_results(request, all_posts):
+    page = request.GET.get('page')
+    paginator = Paginator(all_posts, 10)
+    
+    try:
+        all_posts = paginator.page(page)
+    except PageNotAnInteger:
+        all_posts = paginator.page(1)
+    except EmptyPage:
+        all_posts = paginator.page(paginator.num_pages)
+
+    return all_posts
 
 def get_posts_and_programs(self, request, page_type, content_model):
     """
