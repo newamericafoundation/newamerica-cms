@@ -8,6 +8,7 @@ from home.models import Post
 from programs.models import Program
 
 from mysite.pagination import paginate_results
+from mysite.helpers import get_posts_and_programs
 
 class Book(Post):
     """
@@ -22,7 +23,7 @@ class Book(Post):
         related_name='+',
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = Post.content_panels + [
         ImageChooserPanel('publication_cover_image'),
     ]
 
@@ -41,7 +42,7 @@ class AllBooksHomePage(Page):
     def get_context(self, request):
         context = super(AllBooksHomePage, self).get_context(request)
 
-        all_posts = Book.objects.all()
+        all_posts = Book.objects.all().order_by("-date")
         context['all_posts'] = paginate_results(request, all_posts)
 
         return context
@@ -56,20 +57,11 @@ class ProgramBooksPage(Page):
     returns all Books associated with a specific program which 
     is determined using the url path
     """
-    parent_page_types = ['programs.Program',]
+    parent_page_types = ['programs.Program','programs.Subprogram']
     subpage_types = ['Book']
     
     def get_context(self, request):
-        context = super(ProgramBooksPage, self).get_context(request)
-
-        program_slug = request.path.split("/")[-3]
-        program = Program.objects.get(slug=program_slug)
-        
-        all_posts = Book.objects.filter(parent_programs=program)
-        context['all_posts'] = paginate_results(request, all_posts)
-        
-        context['program'] = program
-        return context
+        return get_posts_and_programs(self, request, ProgramBooksPage, Book)
 
     class Meta:
-        verbose_name = "Books Homepage for Program"
+        verbose_name = "Books Homepage for Program and Subprogram"
