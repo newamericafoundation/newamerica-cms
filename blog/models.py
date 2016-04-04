@@ -1,5 +1,3 @@
-from django.db import models
-
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
@@ -8,12 +6,7 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailcore.fields import RichTextField
 
-from programs.models import Program
-
-from person.models import Person
-
-from mysite.pagination import paginate_results
-from mysite.helpers import get_posts_and_programs
+from mysite.helpers import paginate_results, get_posts_and_programs
 
 
 class BlogPost(Post):
@@ -31,6 +24,7 @@ class BlogPost(Post):
     content_panels = Post.content_panels + [
         StreamFieldPanel('attachment'),
     ]
+
 
 class AllBlogPostsHomePage(Page):
     """
@@ -71,8 +65,11 @@ class ProgramBlogPostsPage(Page):
     ]
 
     def get_context(self, request):
-        return get_posts_and_programs(self, request, ProgramBlogPostsPage, BlogPost)
+        return get_posts_and_programs(
+            self,
+            request,
+            ProgramBlogPostsPage,
+            BlogPost)
         
-
     class Meta:
         verbose_name = "Blog Homepage for Program and Subprograms"
