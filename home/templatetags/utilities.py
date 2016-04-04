@@ -66,7 +66,7 @@ def generate_dateline(post):
 	ret_string = ""
 	date_format = '%B %d, %Y'
 	time_format = '%-I:%M %p'
-
+	
 	if str(post.content_type) == "event":
 		if post.date:
 			ret_string += '<p class="date">'
@@ -81,6 +81,8 @@ def generate_dateline(post):
 			if post.end_time:
 				ret_string += ' - ' + post.end_time.strftime(time_format).lower()
 			ret_string += '</p>'
+	elif str(post.content_type) == "person":
+		return ""
 	else:
 		if post.date:
 			ret_string += '<p class="date">' + post.date.strftime(date_format) + '</p>'
