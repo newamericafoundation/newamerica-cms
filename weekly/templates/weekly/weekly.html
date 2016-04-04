@@ -1,18 +1,37 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}template-weekly{% endblock %}
 
 {% block content %}
 
-	<div class="row">
+	<div class="picture-grid">
 	{% for edition in all_posts %}
-		{% with first_story=edition.all_posts.0 %}
-		<div class="small-12 medium-6 large-4 columns">
-			<a href="{{ edition.url }}">Weekly Edition #{{ edition }}</a>
-			{{ first_story.specific.story_excerpt }}
-		</div>
+		{% with first_story=edition.get_children.all.0 %}
+
+		
+		<!-- <div class=""> -->
+			<div class="picture-grid__entry">
+				{% image first_story.specific.story_image original as post_image %}
+				<div class="picture-grid__entry__image-container" style="background-image: url('{{post_image.url}}') ">
+				</div>
+				<div class="picture-grid__entry__text-container">
+					<h5 class="picture-grid__entry__description">
+						<a href="{{ edition.url }}">Edition {{ edition }}</a>
+					</h5>
+					<h5 class="picture-grid__entry__title">
+						<a href="{{ edition.url }}">{{ first_story.specific.title }}</a>
+					</h5>
+					<hr>
+					<p class="picture-grid__entry__body">
+						{{ first_story.specific.story_excerpt }}
+					</p>
+				</div>
+				
+			</div>
+		<!-- </div> -->
 		{% endwith %}
 	{% endfor %}
 </div>
