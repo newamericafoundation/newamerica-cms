@@ -162,7 +162,7 @@ class AbstractSimplePage(Page):
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
     ])
-    story_excerpt = models.CharField(blank=True, null=True, max_length=140)
+    story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
     story_image = models.ForeignKey(
         'wagtailimages.Image',

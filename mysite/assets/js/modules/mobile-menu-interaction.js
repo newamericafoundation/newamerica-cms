@@ -1,13 +1,5 @@
 import $ from 'jquery'
 
-// import getJQueryObjects from './../../utilities/get_jquery_objects.js'
-
-// import {
-//   CONTAINER_CLASS_NAME,
-//   LINK_GROUP_CLASS_NAME,
-//   LINK_GROUP_CONTENT_CLASS_NAME
-// } from './constants.js'
-
 var desktopHeaderBreakpoint = 965;
 var expandedHeaderBreakpoint = 775;
 var currHeaderBreakpoint = desktopHeaderBreakpoint;
@@ -125,31 +117,3 @@ function WidthChange(mq) {
   }
 
 }
-
-// $window.resize ( function () {
-// 	console.log($window.width());
-// 	// console.log("calling resize");
-// 		if ($window.width() >= currHeaderBreakpoint ) {
-// 			// if (clicked == true ) {
-// 				console.log("width is greater");
-// 				$(".mobile-sidemenu").css("display", "none");
-// 		    	$(".sidemenu").css("display", "block");
-// 		    	$(".mobile-header").css("display", "none");
-// 				$(".content-container").css("display", "table-cell");
-// 				$("footer").css("display", "block");
-// 				sideMenuExpanded = false;
-// 				headerMenuExpanded = false;
-			
-// 	  	} else {
-// 	  		console.log("width is less");
-// 	  		$(".mobile-sidemenu").css("display", "block");
-
-// 	  		if (!sideMenuExpanded) {
-// 	  			$(".sidemenu").css("display", "none");
-// 	  		}
-// 	  		if (!headerMenuExpanded) {
-// 	  			$(".mobile-header").css("display", "none");
-// 	  		}
-// 	  	} 
-	
-// });

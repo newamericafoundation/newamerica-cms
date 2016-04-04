@@ -6,12 +6,68 @@
 {% block body_class %}template-issueortopicpage{% endblock %}
 
 {% block content %}
+	{% image page.story_image original as story_image %}
 
-    <h2>{{ page.title }}</h2>
-    {{ page.body }}
+	{% if story_image %}
 
-    {% for topic in topics %}
-    	<a href="{{ topic.url }}">{{ topic }}</a>
-    {% endfor %}
+		<div class="post-header with-image" style="background-image: linear-gradient(
+		      rgba(0, 0, 0, 0.3),
+		      rgba(0, 0, 0, 0.3)
+		    ), 
+	    	url({{ story_image.url }})">
 
+			<div class="post-header__text">
+			    <h1 class="post-header__text__heading">{{ page.title }}</h1>
+			</div>
+		</div>
+
+	{% else %}
+
+		<div class="post-header">
+
+			<div class="post-header__text">
+			    <h1 class="post-header__text__heading">{{ page.title }}</h1>
+			</div>
+		</div>
+
+	{% endif %}
+
+	<div class="post-container">
+		<div class="post-body">
+	    	{{ page.body }}
+	    </div>
+
+    {% if topics %}
+    	<hr>
+
+    	<div class="row issue-grid">
+		    {% for topic in topics %}
+		    	{% if forloop.counter0|divisibleby:2 %}
+		    		<div class="row">
+		    	{% endif %}
+				    	<div class="small-12 medium-6 column issue-grid__entry">
+					    	<h5 class="issue-grid__entry__title"><a href="{{ topic.url }}">{{ topic.title }}</a></h5>
+					    	<p class="issue-grid__entry__text">{{ topic.specific.story_excerpt }}</p>
+
+					    	{% if topic.get_children %}
+					    		<p>Topics:
+						    		<ul class="issue-grid__entry__child-list">
+							    		{% for child_topic in topic.get_children %}
+							    			<li class="issue-grid__entry__child">&bull;<!--
+							    			--><a class="issue-grid__entry__child__link" href="{{ child_topic.url }}">{{ child_topic.title }}</a>
+							    			</li>
+							    		{% endfor %}
+						    		</ul>
+					    		</p>
+					    	{% endif %}
+					    </div>
+			    {% if forloop.counter|divisibleby:2 %}
+		    		</div>
+		    	{% endif %}
+			    
+		    {% endfor %}
+		</div>
+
+	{% endif %}
+	</div>
 {% endblock %}
