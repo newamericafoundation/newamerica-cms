@@ -10,6 +10,7 @@ from wagtail.wagtailimages.models import Image
 from .newamerica_api_client import NAClient
 
 from article.models import Article, ProgramArticlesPage
+from event.models import Event, ProgramEventsPage
 
 from django.utils.text import slugify
 from django.core.files.images import ImageFile
@@ -67,7 +68,7 @@ def get_post_date(original_date):
 def download_image(url, image_filename):
     if url:
         image_location = os.path.join(
-            'home/management/api/article_images',
+            'home/management/api/images',
             image_filename
         )
         urllib.urlretrieve(url, image_location)
@@ -113,7 +114,7 @@ def load_articles():
                 title=post['title'],
                 date=get_post_date(post['publish_at']),
                 body=json.dumps([{'type':'paragraph', 'value':post['content']}]),
-                story_exerpt=post['summary'],
+                story_excerpt=post['summary'],
                 story_image=download_image(
                     post['cover_image_url'], 
                     post['title'] + "_image.jpeg"
