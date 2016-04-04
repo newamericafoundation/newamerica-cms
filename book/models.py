@@ -1,14 +1,12 @@
 from django.db import models
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from home.models import Post
-from programs.models import Program
 
-from mysite.pagination import paginate_results
-from mysite.helpers import get_posts_and_programs
+from mysite.helpers import paginate_results, get_posts_and_programs
+
 
 class Book(Post):
     """
@@ -27,7 +25,7 @@ class Book(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
-    parent_page_types = ['ProgramBooksPage',]
+    parent_page_types = ['ProgramBooksPage', ]
     subpage_types = []
 
 
@@ -36,7 +34,7 @@ class AllBooksHomePage(Page):
     A page which inherits from the abstract Page model and 
     returns every Book in the Book model
     """
-    parent_page_types = ['home.HomePage',]
+    parent_page_types = ['home.HomePage', ]
     subpage_types = []
 
     def get_context(self, request):
@@ -57,7 +55,7 @@ class ProgramBooksPage(Page):
     returns all Books associated with a specific program which 
     is determined using the url path
     """
-    parent_page_types = ['programs.Program','programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Book']
     
     def get_context(self, request):
