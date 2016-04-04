@@ -36,7 +36,7 @@ class AllPressReleasesHomePage(Page):
 
     def get_context(self, request):
         context = super(AllPressReleasesHomePage, self).get_context(request)
-        all_posts = PressRelease.objects.all()
+        all_posts = PressRelease.objects.all().order_by("-date")
 
         context['all_posts'] = paginate_results(request, all_posts)
 
