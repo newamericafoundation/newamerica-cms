@@ -1,15 +1,11 @@
-from django.db import models
-
 from home.models import Post
-
-from programs.models import Program
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
-from mysite.pagination import paginate_results
+from mysite.helpers import paginate_results, get_posts_and_programs
 
 
 class PressRelease(Post):
@@ -21,55 +17,51 @@ class PressRelease(Post):
     subpage_types = []
 
     attachment = StreamField([
-    	('attachment', DocumentChooserBlock(required=False, null=True)),
+        ('attachment', DocumentChooserBlock(required=False, null=True)),
     ])
 
     content_panels = Post.content_panels + [
-    	StreamFieldPanel('attachment'),
+        StreamFieldPanel('attachment'),
     ]
 
+
 class AllPressReleasesHomePage(Page):
-	"""
-	A page which inherits from the abstract Page model and
-	returns every Press Release in the PressRelease model
-	for the organization-wide Press Release Homepage
-	"""
-	parent_page_types = ['home.Homepage']
-	subpage_types = []
+    """
+    A page which inherits from the abstract Page model and
+    returns every Press Release in the PressRelease model
+    for the organization-wide Press Release Homepage
+    """
+    parent_page_types = ['home.Homepage']
+    subpage_types = []
 
-	def get_context(self, request):
-		context = super(AllPressReleasesHomePage, self).get_context(request)
-		all_posts = PressRelease.objects.all()
+    def get_context(self, request):
+        context = super(AllPressReleasesHomePage, self).get_context(request)
+        all_posts = PressRelease.objects.all()
 
-		context['all_posts'] = paginate_results(request, all_posts)
+        context['all_posts'] = paginate_results(request, all_posts)
 
-		return context
+        return context
 
-	class Meta:
-		verbose_name = "Homepage for all Press Releases"
+    class Meta:
+        verbose_name = "Homepage for all Press Releases"
 
 
 class ProgramPressReleasesPage(Page):
-	"""
-	A page which inherits from the abstract Page model and
-	returns all Press Releases associated with a specific
-	Program which is determined using the url path
-	"""
-	parent_page_types = ['programs.Program']
-	subpage_types = ['PressRelease']
+    """
+    A page which inherits from the abstract Page model and
+    returns all Press Releases associated with a specific
+    Program which is determined using the url path
+    """
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    subpage_types = ['PressRelease']
 
-	def get_context(self, request):
-		context = super(ProgramPressReleasesPage, self).get_context(request)
-		program_slug = request.path.split("/")[-3]
-		program = Program.objects.get(slug=program_slug)
-		
-		all_posts = PressRelease.objects.filter(parent_programs=program)
-		context['all_posts'] = paginate_results(request, all_posts)
-		
-		context['program'] = program
+    def get_context(self, request):
+        return get_posts_and_programs(
+            self,
+            request,
+            ProgramPressReleasesPage,
+            PressRelease
+        )
 
-		return context
-
-	class Meta:
-		verbose_name = "Press Release Homepage for Program"
-
+    class Meta:
+        verbose_name = "Press Release Homepage for Program and Subprograms"
