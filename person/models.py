@@ -273,8 +273,7 @@ class ExpertPage(Page):
 class ProgramPeoplePage(Page):
     """
     A page which inherits from the abstract Page model and returns
-    everyone from the Person model for a specific program which is
-    determined using the url path
+    everyone from the Person model for a specific program or Subprogram
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = []

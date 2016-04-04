@@ -50,7 +50,7 @@ class ProgramPressReleasesPage(Page):
     """
     A page which inherits from the abstract Page model and
     returns all Press Releases associated with a specific
-    Program which is determined using the url path
+    Program or Subprogram
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['PressRelease']

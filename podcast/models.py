@@ -52,7 +52,7 @@ class ProgramPodcastsPage(Page):
     """
     A page which inherits from the abstract Page model and
     returns all Podcasts associated with a sepcific program
-    which is determined using the url path
+    or Subprogram
     """
 
     parent_page_types = ['programs.Program', 'programs.Subprogram']

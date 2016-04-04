@@ -52,8 +52,7 @@ class AllBooksHomePage(Page):
 class ProgramBooksPage(Page):
     """
     A page which inherits from the abstract Page model and 
-    returns all Books associated with a specific program which 
-    is determined using the url path
+    returns all Books associated with a specific program or Subprogram
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Book']

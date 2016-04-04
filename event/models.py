@@ -68,8 +68,7 @@ class AllEventsHomePage(Page):
 class ProgramEventsPage(Page):
     """
     Page which inherits from abstract Page model and returns every
-    Event associated with a specific Program which is determined
-    using the url path
+    Event associated with a specific Program or Subprogram
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Event']
