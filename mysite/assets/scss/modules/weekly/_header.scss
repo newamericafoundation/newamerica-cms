@@ -1,0 +1,44 @@
+.weekly__header {
+	display: table;
+	&__left {
+		display: table-cell;
+		width: 200px;
+		border-right: 2px solid palette-get(na-black-10);
+		&__text {
+			font-family:"Platform";
+			color:palette-get(na-black);
+			line-height: 90%;
+			font-size: 40px;
+		}
+	}
+
+	&__middle {
+		display: table-cell;
+		padding-left: $desktop-padding;
+		padding-right: $desktop-padding;
+		&__text {
+			font-family:"Simplon";
+			color:palette-get(na-black-40);
+
+			/*line-height: 90%;*/
+			/*font-size: 40px;*/
+
+			a {
+				font-weight: bold;
+			}
+		}
+	}
+
+	&__right {
+		display: table-cell;
+		width: 100px;
+		margin-left: $desktop-padding;
+		.pagination {
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			width: 100%;
+		}
+	}
+
+}
