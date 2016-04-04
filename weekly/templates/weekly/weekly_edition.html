@@ -7,7 +7,7 @@
 
     Weekly Edition #{{ page.title }}
     <br>
-    {% for post in all_posts %}
+    {% for post in self.get_children %}
  		<a href="{{ post.url }}">{{ post }}</a>
 	{% endfor %}
 

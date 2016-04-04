@@ -1,7 +1,27 @@
 {% extends "base.html" %}
 
-{% block body_class %}template-weeklyarticle{% endblock %}
+{% block sidemenu_status %}has_sidemenu simple{% endblock %}
 
+{% block sidebar %}
+<div class='sidemenu-container'>
+	<div class="sidemenu weekly-sidemenu">
+		<div class="weekly-sidemenu__title-block">
+			<h1 class="weekly-sidemenu__title">NEW AMERICA WEEKLY<h1>
+			<h3 class="weekly-sidemenu__subtitle">EDITION # {{ self.get_parent }}</h3>
+		</div>
+		<h5 class="weekly-sidemenu__subheading">In this Edition</h5>
+		{% for story in siblings %}
+			{{ story }}
+		{% endfor %}
+
+		
+		<h5 class="weekly-sidemenu__subheading">Subscribe</h5>
+		<h5 class="weekly-sidemenu__subheading">Change Edition</h5>
+	</div>
+</div>
+
+<div class='content-container has-sidemenu'>
+{% endblock %}
 
 {% block content %}
 

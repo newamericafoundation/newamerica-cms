@@ -1,0 +1,27 @@
+.weekly-sidemenu {
+	padding-left: $desktop-padding;
+	padding-right: $desktop-padding;
+
+	&__title-block {
+		margin-bottom: $desktop-padding;
+	}
+
+	&__title, &__subtitle {
+		line-height: 100%;
+		font-weight: bold;
+		font-family: "Platform";
+	}
+
+	&__title {
+		color: palette-get(na-black);
+	}
+
+	&__subtitle {
+		color: palette-get(na-black-40);
+	}
+
+	&__subheading {
+		font-weight: bold;
+		color: palette-get(na-black);
+	}
+}

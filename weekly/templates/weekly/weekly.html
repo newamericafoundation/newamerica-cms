@@ -5,7 +5,15 @@
 {% block body_class %}template-weekly{% endblock %}
 
 {% block content %}
+
+	<div class="row">
 	{% for edition in all_posts %}
-		<a href="{{ edition.url }}">Weekly Edition #{{ edition }}</a>
+		{% with first_story=edition.all_posts.0 %}
+		<div class="small-12 medium-6 large-4 columns">
+			<a href="{{ edition.url }}">Weekly Edition #{{ edition }}</a>
+			{{ first_story.specific.story_excerpt }}
+		</div>
+		{% endwith %}
 	{% endfor %}
+</div>
 {% endblock %}
