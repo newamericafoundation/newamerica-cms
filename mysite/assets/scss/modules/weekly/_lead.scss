@@ -1,4 +1,5 @@
 .weekly__lead {
+	$lead-text-width: 260px;
 	width: 100%;
 	height: 504px;
 	border: 2px solid palette-get(na-black-10);
@@ -8,7 +9,7 @@
 		box-shadow: 0px 0px 20px 0px palette-get(na-black-10);
 
 	&__image {
-		width: 75%;
+		width: calc(100% - #{$lead-text-width});
 		height: 500px;
 		float: left;
 
@@ -18,7 +19,36 @@
 	}
 
 	&__text {
-		height: 500px;
+		width: $lead-text-width;
+		float: left;
+		padding: $desktop-padding;
+		text-align: center;
+
+		&__title {
+			font-size: 16px;
+			color: palette-get(na-turquoise);
+			font-weight: bold;
+			margin-bottom: 15px;
+		}
+
+		&__item {
+			margin-bottom: 10px;
+			&__name, &__name > a  {
+				font-size: 16px;
+				font-family: "Platform";
+				color: palette-get(na-black);
+				font-weight: bold;
+				margin-bottom: 0px;
+			}
+
+			&__description, &__description > a {
+				font-size: 15px;
+				font-family: "Simplon";
+				color: palette-get(na-black-40);
+				font-weight: bold;
+				margin-bottom: 0px;
+			}
+		}
 	}
 
 }

@@ -49,13 +49,13 @@
 		{% with first_edition=all_posts.0 %}
 			{% with first_story=first_edition.get_children.all.0 %}
 
-			{% image first_story.specific.story_image original as edition_image %}
 			<div class="weekly__lead__image">
 				<div class='hero-grid has-1-children'>
 					<div class='hero-grid__main'>
 						<div class='hero-grid__element'>
 						<a href="{{ first_edition.specific.url }}">
 							<div class='hero-grid__element__wrapper'>
+								{% image first_story.specific.story_image original as edition_image %}
 								<div class='hero-grid__element__background' style='background-image: url({{ edition_image.url }})'></div>
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
@@ -71,6 +71,20 @@
 						</div>
 					</div>
 				</div>
+			</div>
+
+			<div class="weekly__lead__text">
+				<h3 class="weekly__lead__text__title">Also in this Edition</h3>
+
+				{% for story in first_edition.get_children.all %}
+					<div class="weekly__lead__text__item">
+						<h3 class="weekly__lead__text__item__name"><a href="{{ story.url }}"> {{ story.title }}</a></h3>
+						{% if story.specific.post_author.all %}
+							<h3 class="weekly__lead__text__item__description">{% generate_byline story.content_type story.specific.post_author.all %}</h3>
+						{% endif %}
+					</div>
+				{% endfor %}
+
 			</div>
 		
 			{% endwith %}
