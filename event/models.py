@@ -55,7 +55,7 @@ class AllEventsHomePage(Page):
     def get_context(self, request):
         context = super(AllEventsHomePage, self).get_context(request)
 
-        all_posts = Event.objects.all()
+        all_posts = Event.objects.all().order_by("-date")
         context['all_posts'] = paginate_results(request, all_posts)
 
         return context
@@ -78,7 +78,7 @@ class ProgramEventsPage(Page):
         program_slug = request.path.split("/")[-3]
         program = Program.objects.get(slug=program_slug)
         
-        all_posts = Event.objects.filter(parent_programs=program)
+        all_posts = Event.objects.filter(parent_programs=program).order_by("-date")
         context['all_posts'] = paginate_results(request, all_posts)
         
         context['program'] = program
