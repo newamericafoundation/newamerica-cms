@@ -12,11 +12,11 @@ def get_posts_and_programs(self, request, page_type, content_model):
     if self.depth == 4:
         program_title = self.get_ancestors()[2]
         program = Program.objects.get(title=program_title)
-        all_posts = content_model.objects.filter(parent_programs=program)
+        all_posts = content_model.objects.filter(parent_programs=program).order_by("-date")
     else:
         subprogram_title = self.get_ancestors()[3]
         program = Subprogram.objects.get(title=subprogram_title)
-        all_posts = content_model.objects.filter(post_subprogram=program)
+        all_posts = content_model.objects.filter(post_subprogram=program).order_by("-date")
     
     context['all_posts'] = paginate_results(request, all_posts)
 
