@@ -1,13 +1,8 @@
 .pagination {
 	/*width: $pagination-width - 30px;*/
-	padding-left: $mobile-padding;
-	padding-top: $mobile-padding;
-	display:block;
+	display:inline-block;
 	margin: auto;
-	@include breakpoint(medium) {
-		padding:0px;
-		display: inline-block;
-	}
+	padding:0px;
 
 	span {
 		color: palette-get(na-black);

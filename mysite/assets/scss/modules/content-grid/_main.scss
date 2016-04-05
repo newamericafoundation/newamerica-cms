@@ -42,6 +42,19 @@
 			}
 		}
 
+		&__right {
+			width: $pagination-width;
+			height: 100%;
+			float: right;
+			text-align: center;
+			margin-top: 10px;
+			display: none;
+
+			@include breakpoint(medium) {
+				display:block;
+			}
+		}
+
 		&__program-filter {
 			@include breakpoint(medium) {
 				padding-left: 0px;
