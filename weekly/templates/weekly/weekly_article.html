@@ -14,11 +14,24 @@
 			<h3 class="weekly-sidemenu__subtitle">EDITION # {{ self.get_parent }}</h3>
 		</div>
 		<h5 class="weekly-sidemenu__subheading">In this Edition</h5>
-		{% for story in siblings %}
-			{{ story }}
-		{% endfor %}
 
-		
+		<div class="weekly-sidemenu__sibling-list">
+			{% for sibling in siblings %}
+				{% image sibling.specific.story_image original as sibling_image %}
+				<div class='picture-link'>
+					<a href="{{ sibling.specific.url }}">
+						<div class='picture-link__picture' style='background-image: url({{ sibling_image.url }})'>
+							
+						</div>
+					</a>
+					<div class='picture-link__content'>
+						<h1><a href="{{ sibling.specific.url }}">{{ sibling.specific.title }}</a></h1>
+					</div>
+				</div>
+				
+			{% endfor %}
+		</div>
+
 		<h5 class="weekly-sidemenu__subheading">Subscribe</h5>
 		<h5 class="weekly-sidemenu__subheading">Change Edition</h5>
 	</div>

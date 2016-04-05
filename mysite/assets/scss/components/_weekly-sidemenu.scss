@@ -24,4 +24,12 @@
 		font-weight: bold;
 		color: palette-get(na-black);
 	}
+
+	&__sibling-list {
+		padding-bottom: $desktop-padding;
+		a {
+			font-size: 18px;
+		}
+		
+	}
 }
