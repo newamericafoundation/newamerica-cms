@@ -1,4 +1,6 @@
 .weekly-sidemenu {
+	$picture-size: 60px;
+	$local-gutter: 15px;
 	$active-link-border-width: 5px;
 	padding-left: $desktop-padding;
 	padding-right: $desktop-padding;
@@ -27,7 +29,8 @@
 	}
 
 	&__sibling-list {
-		padding-bottom: $desktop-padding;
+		padding: 15px 0px;
+		/*padding-bottom: $desktop-padding;
 		a {
 			font-size: 18px;
 			color: palette-get(na-black-40);
@@ -44,7 +47,75 @@
 			}
 
 			&__picture {
+				height: 65px;
+				width: 65px;
 				margin-top: 0px;
+			}
+		}*/
+
+		&__entry {
+			/*padding-right: $local-gutter;*/
+    			padding-left: 5px;
+
+			overflow: auto;
+			margin-bottom: $local-gutter;
+			&__picture {
+				height: $picture-size;
+				width: $picture-size;
+				background-size: cover;
+    			background-position: 50% 50%;
+    			float:left;
+
+    			&__label {
+					width: 15px;
+					z-index: 500;
+					color: white;
+					font-weight: bold;
+					font-size: 35px;
+					position: relative;
+					top: 50%;
+					transform: translateY(-50%);
+					margin: auto;
+					text-align: center;
+				}
+			    			
+			}
+
+			&__text {
+				width: calc(100% - #{$picture-size + $local-gutter + 5px});
+			    float:left;
+			    color:palette-get(na-black-40);
+			    padding-left: $local-gutter;
+
+			    h1 {
+			      font-weight: bold;
+			      margin: 0px;
+			      font-size: rem-calc(17);
+			      line-height: 120%;
+			    }
+			    
+			}
+		}
+
+		&__link {
+			&.active {
+				.weekly-sidemenu__sibling-list__entry {
+
+					&__picture {
+						margin-left: -5px;
+						width: $picture-size + 5px;
+						border-left: 5px solid palette-get(na-turquoise);
+					}
+					h1 {
+						color: palette-get(na-black);
+					}
+				}		
+			}
+
+			:hover {
+				h1 {
+					color: palette-get(na-black);
+				}
 			}
 		}
 		

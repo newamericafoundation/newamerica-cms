@@ -3,8 +3,8 @@ import $ from 'jquery'
 import getJQueryObjects from './../../utilities/get_jquery_objects.js'
 
 function weeklyHighlightActiveLink() {
-	$('.weekly-sidemenu__sibling-list > .picture-link').each(function() {
-		var link = $(this).children(".picture-link__link").prop('href');
+	$('.weekly-sidemenu__sibling-list__link').each(function() {
+		var link = $(this).prop('href');
 		console.log(link);
 
 		if (link == window.location.href) {
