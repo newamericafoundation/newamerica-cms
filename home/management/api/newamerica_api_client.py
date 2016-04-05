@@ -45,11 +45,26 @@ class NAClient:
 		assert login_attempt.status_code == 200
 
 
-	def get_posts(self):
+	def get_articles(self):
 		for program in self.client.get(self.api_url + 'programs').json():
-			print(program)
-			program_id = 8#program['id']
+			program_id = program['id']
 			self.activate_program(program_id)
-			for post_set in self.get_data('posts'):
+			for post_set in self.get_data('articles'):
+				for post in post_set['results']:
+					yield post, program_id
+
+
+	def get_events(self):
+		for program in self.client.get(self.api_url + 'programs').json():
+			program_id = program['id']
+			self.activate_program(program_id)
+			for post_set in self.get_data('events'):
+				for post in post_set['results']:
+					yield post, program_id
+
+
+	def program_content(self, program_id):
+		self.activate_program(program_id)
+		for post_set in self.get_data('posts'):
 				for post in post_set['results']:
 					yield post

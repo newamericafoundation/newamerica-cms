@@ -1,5 +1,3 @@
-from django.db import models
-
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
@@ -8,11 +6,7 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailcore.fields import RichTextField
 
-from programs.models import Program
-
-from person.models import Person
-
-from mysite.pagination import paginate_results
+from mysite.helpers import paginate_results, get_posts_and_programs
 
 
 class BlogPost(Post):
@@ -31,6 +25,7 @@ class BlogPost(Post):
         StreamFieldPanel('attachment'),
     ]
 
+
 class AllBlogPostsHomePage(Page):
     """
     A page which inherits from the abstract Page model and 
@@ -43,7 +38,7 @@ class AllBlogPostsHomePage(Page):
     def get_context(self, request):
         context = super(AllBlogPostsHomePage, self).get_context(request)
         
-        all_posts = BlogPost.objects.all()
+        all_posts = BlogPost.objects.all().order_by("-date")
 
         context['all_posts'] = paginate_results(request, all_posts)
 
@@ -56,11 +51,11 @@ class AllBlogPostsHomePage(Page):
 class ProgramBlogPostsPage(Page):
     """
     A page which inherits from the abstract Page model and returns
-    all Blog Posts associated with a specific program which is 
-    determined using the url path
+    all Blog Posts associated with a specific Program or 
+    Subprogram
     """
 
-    parent_page_types = ['programs.Program',]
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['BlogPost']
 
     subheading = RichTextField(blank=True, null=True)
@@ -70,16 +65,11 @@ class ProgramBlogPostsPage(Page):
     ]
 
     def get_context(self, request):
-        context = super(ProgramBlogPostsPage, self).get_context(request)
-        program_slug = request.path.split("/")[-3]
-        program = Program.objects.get(slug=program_slug)
-
-        all_posts = BlogPost.objects.filter(parent_programs=program)
-        context['all_posts'] = paginate_results(request, all_posts)
+        return get_posts_and_programs(
+            self,
+            request,
+            ProgramBlogPostsPage,
+            BlogPost)
         
-        context['program'] = program
-        return context
-        
-
     class Meta:
-        verbose_name = "Blog Homepage for Program"
+        verbose_name = "Blog Homepage for Program and Subprograms"

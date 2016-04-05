@@ -1,13 +1,12 @@
 from django.db import models
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from home.models import Post
-from programs.models import Program
 
-from mysite.pagination import paginate_results
+from mysite.helpers import paginate_results, get_posts_and_programs
+
 
 class Book(Post):
     """
@@ -22,11 +21,11 @@ class Book(Post):
         related_name='+',
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = Post.content_panels + [
         ImageChooserPanel('publication_cover_image'),
     ]
 
-    parent_page_types = ['ProgramBooksPage',]
+    parent_page_types = ['ProgramBooksPage', ]
     subpage_types = []
 
 
@@ -35,13 +34,13 @@ class AllBooksHomePage(Page):
     A page which inherits from the abstract Page model and 
     returns every Book in the Book model
     """
-    parent_page_types = ['home.HomePage',]
+    parent_page_types = ['home.HomePage', ]
     subpage_types = []
 
     def get_context(self, request):
         context = super(AllBooksHomePage, self).get_context(request)
 
-        all_posts = Book.objects.all()
+        all_posts = Book.objects.all().order_by("-date")
         context['all_posts'] = paginate_results(request, all_posts)
 
         return context
@@ -53,23 +52,13 @@ class AllBooksHomePage(Page):
 class ProgramBooksPage(Page):
     """
     A page which inherits from the abstract Page model and 
-    returns all Books associated with a specific program which 
-    is determined using the url path
+    returns all Books associated with a specific program or Subprogram
     """
-    parent_page_types = ['programs.Program',]
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Book']
     
     def get_context(self, request):
-        context = super(ProgramBooksPage, self).get_context(request)
-
-        program_slug = request.path.split("/")[-3]
-        program = Program.objects.get(slug=program_slug)
-        
-        all_posts = Book.objects.filter(parent_programs=program)
-        context['all_posts'] = paginate_results(request, all_posts)
-        
-        context['program'] = program
-        return context
+        return get_posts_and_programs(self, request, ProgramBooksPage, Book)
 
     class Meta:
-        verbose_name = "Books Homepage for Program"
+        verbose_name = "Books Homepage for Program and Subprogram"
