@@ -69,8 +69,10 @@
 
 			<div class="picture-grid__entry">
 				{% image first_story.specific.story_image original as edition_image %}
-				<div class="picture-grid__entry__image-container" style="background-image: url('{{ edition_image.url }}') ">
-				</div>
+				<a href="{{ edition.url }}">
+					<div class="picture-grid__entry__image-container" style="background-image: url('{{ edition_image.url }}') ">
+					</div>
+				</a>
 				<div class="picture-grid__entry__text-container">
 					<h5 class="picture-grid__entry__description">
 						<a href="{{ edition.url }}">Edition {{ edition }}</a>
