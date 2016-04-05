@@ -1,14 +1,18 @@
 $picture-grid-padding: 10px;
 .picture-grid {
-	
-	
+	$entry-height: 500px;
+	$entry-image-height: 200px;
+	$entry-text-height: $entry-height - $entry-image-height - $desktop-padding;
+	height: 100%;
+	width: 100%;
+
 	&__entry {
 		height: 100%;
 		width: 100%;
 
 		@include breakpoint(medium) {
 			$num_columns: 2;
-			height: 500px;
+			height: $entry-height;
 			min-width: 300px;
 			width: calc((100% - #{$num_columns * $picture-grid-padding})/#{$num_columns});
 			float: left;
@@ -71,14 +75,48 @@ $picture-grid-padding: 10px;
 
 		&__image-container {
 			width:100%;
-			height:200px;
+			height:$entry-image-height;
 			overflow:hidden;
 			background-size: cover;
 		}
 
 		&__text-container {
+			@include breakpoint(medium) {
+				width:100%;
+				height:$entry-text-height;
+			}
 			text-align: center;
+			overflow:hidden;
 			padding: 15px;
+			padding-bottom: 0px;
+		}
+
+		&__text-fadeout {
+			z-index: 1000;
+			position: relative;
+			width: 100%;
+			height: 40px;
+			top:-20px;
+			background: -webkit-linear-gradient(
+		        rgba(255, 255, 255, 0) 0%,
+		        rgba(255, 255, 255, 1) 60%
+		    ); 
+		    background-image: -moz-linear-gradient(
+		        rgba(255, 255, 255, 0) 0%,
+		        rgba(255, 255, 255, 1) 60%
+		    );
+		    background-image: -o-linear-gradient(
+		        rgba(255, 255, 255, 0) 0%,
+		        rgba(255, 255, 255, 1) 60%
+		    );
+		    background-image: linear-gradient(
+		        rgba(255, 255, 255, 0) 0%,
+		        rgba(255, 255, 255, 1) 60%
+		    );
+		    background-image: -ms-linear-gradient(
+		        rgba(255, 255, 255, 0) 0%,
+		        rgba(255, 255, 255, 1) 60%
+		    );
 		}
 
 		&__description {
@@ -104,6 +142,7 @@ $picture-grid-padding: 10px;
 			font-size: 17px;
 			font-family: "Simplon";
 			line-height: 130%;
+			margin-bottom: 0px;
 		}
 
 		hr {
