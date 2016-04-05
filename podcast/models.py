@@ -1,5 +1,3 @@
-from django.db import models
-
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
@@ -7,9 +5,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 
-from programs.models import Program
-
-from mysite.pagination import paginate_results
+from mysite.helpers import paginate_results, get_posts_and_programs
 
 
 class Podcast(Post):
@@ -21,60 +17,54 @@ class Podcast(Post):
     subpage_types = []
 
     soundcloud = StreamField([
-    	('soundcloud_embed', EmbedBlock()),
-    
+        ('soundcloud_embed', EmbedBlock()),
     ])
 
     content_panels = Post.content_panels + [
-    	StreamFieldPanel('soundcloud'),
+        StreamFieldPanel('soundcloud'),
 
     ]
 
 
 class AllPodcastsHomePage(Page):
-	"""
-	A page which inherits from the abstract Page model
-	and returns every Podcast in the Podcast model for
-	the organization wide Podcast homepage
-	"""
+    """
+    A page which inherits from the abstract Page model
+    and returns every Podcast in the Podcast model for
+    the organization wide Podcast homepage
+    """
 
-	parent_page_types = ['home.HomePage',]
-	subpage_types = []
+    parent_page_types = ['home.HomePage']
+    subpage_types = []
 
-	def get_context(self, request):
-		context = super(AllPodcastsHomePage, self).get_context(request)
-		all_posts = Podcast.objects.all()
+    def get_context(self, request):
+        context = super(AllPodcastsHomePage, self).get_context(request)
+        all_posts = Podcast.objects.all().order_by("-date")
 
-		context['all_posts'] = paginate_results(request, all_posts)
+        context['all_posts'] = paginate_results(request, all_posts)
 
-		return context
+        return context
 
-	class Meta:
-		verbose_name = "Homepage for all Podcasts"
+    class Meta:
+        verbose_name = "Homepage for all Podcasts"
 
 
 class ProgramPodcastsPage(Page):
-	"""
-	A page which inherits from the abstract Page model and
-	returns all Podcasts associated with a sepcific program
-	which is determined using the url path
-	"""
+    """
+    A page which inherits from the abstract Page model and
+    returns all Podcasts associated with a sepcific program
+    or Subprogram
+    """
 
-	parent_page_types = ['programs.Program']
-	subpage_types = ['Podcast']
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    subpage_types = ['Podcast']
 
-	def get_context(self, request):
-		context = super(ProgramPodcastsPage, self).get_context(request)
-		program_slug = request.path.split("/")[-3]
-		program = Program.objects.get(slug=program_slug)
-		
-		all_posts = Podcast.objects.filter(parent_programs=program)
-		context['all_posts'] = paginate_results(request, all_posts)
+    def get_context(self, request):
+        return get_posts_and_programs(
+            self,
+            request,
+            ProgramPodcastsPage,
+            Podcast
+        )
 
-		context['program'] = program
-		
-		return context
-
-	class Meta:
-		verbose_name = "Podcast Homepage for Program"
-
+    class Meta:
+        verbose_name = "Podcast Homepage for Program and Subprograms"

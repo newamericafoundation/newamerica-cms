@@ -1,18 +1,17 @@
 from __future__ import unicode_literals
 
-from django.db import models
-
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.blocks import PageChooserBlock
 
 from mysite.pagination import paginate_results
 
+
 class Weekly(Page):
-    parent_page_types = ['home.HomePage',]
+    parent_page_types = ['home.HomePage']
     subpage_types = ['WeeklyEdition']
 
     def get_context(self, request):
@@ -29,7 +28,7 @@ class Weekly(Page):
 
 
 class WeeklyEdition(Page):
-    parent_page_types = ['Weekly',]
+    parent_page_types = ['Weekly']
     subpage_types = ['WeeklyArticle']
 
     edition_stories = StreamField([

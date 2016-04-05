@@ -5,12 +5,9 @@ from home.models import Post
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from programs.models import Program
-
 from django.utils import timezone
-from django.utils.timezone import now
 
-from mysite.pagination import paginate_results
+from mysite.helpers import paginate_results, get_posts_and_programs
 
 
 class Event(Post):
@@ -24,7 +21,11 @@ class Event(Post):
     end_date = models.DateField(blank=True, null=True)
     start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(default=timezone.now, blank=True, null=True)
-    host_organization = models.TextField(default='New America', blank=True, null=True)
+    host_organization = models.TextField(
+        default='New America', 
+        blank=True, 
+        null=True
+    )
     street_address = models.TextField(default='740 15th St NW #900')
     city = models.TextField(default='Washington')
     state = models.TextField(default='D.C.')
@@ -49,7 +50,7 @@ class AllEventsHomePage(Page):
     Page which inherits from abstract Page model and returns every
     Event in the Event model for the Events homepage
     """
-    parent_page_types = ['home.HomePage',]
+    parent_page_types = ['home.HomePage']
     subpage_types = ['Event']
 
     def get_context(self, request):
@@ -67,23 +68,14 @@ class AllEventsHomePage(Page):
 class ProgramEventsPage(Page):
     """
     Page which inherits from abstract Page model and returns every
-    Event associated with a specific Program which is determined
-    using the url path
+    Event associated with a specific Program or Subprogram
     """
-    parent_page_types = ['programs.Program',]
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Event']
 
     def get_context(self, request):
-        context = super(ProgramEventsPage, self).get_context(request)
-        program_slug = request.path.split("/")[-3]
-        program = Program.objects.get(slug=program_slug)
-        
-        all_posts = Event.objects.filter(parent_programs=program).order_by("-date")
-        context['all_posts'] = paginate_results(request, all_posts)
-        
-        context['program'] = program
-        return context
+        return get_posts_and_programs(self, request, ProgramEventsPage, Event)
 
     class Meta:
-        verbose_name = "Events Homepage for Program"
+        verbose_name = "Events Homepage for Program and Subprograms"
 

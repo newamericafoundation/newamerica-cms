@@ -7,7 +7,7 @@ from .models import Event, AllEventsHomePage, ProgramEventsPage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program
+from programs.models import Program, Subprogram
 
 
 class EventTests(WagtailPageTests):
@@ -58,7 +58,7 @@ class EventTests(WagtailPageTests):
         )
 
     def test_program_event_parent_page(self):
-        self.assertAllowedParentPageTypes(ProgramEventsPage, {Program})
+        self.assertAllowedParentPageTypes(ProgramEventsPage, {Program, Subprogram})
 
     def test_all_events_parent_page(self):
         self.assertAllowedParentPageTypes(AllEventsHomePage, {HomePage})

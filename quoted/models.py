@@ -2,13 +2,10 @@ from django.db import models
 
 from home.models import Post
 
-from programs.models import Program
-
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from mysite.pagination import paginate_results
+from mysite.helpers import paginate_results, get_posts_and_programs
 
 
 class Quoted(Post):
@@ -31,40 +28,44 @@ class Quoted(Post):
     class Meta:
         verbose_name = "In The News Piece"
 
+
 class AllQuotedHomePage(Page):
     """
     A page which inherits from the abstract Page model and
     returns every Quoted piece from the Quoted model
-    for the organization-wide Quoted Homepage 
+    for the organization-wide Quoted Homepage
     """
     parent_page_types = ['home.Homepage']
     subpage_types = []
 
     def get_context(self, request):
         context = super(AllQuotedHomePage, self).get_context(request)
-        all_posts = Quoted.objects.all()
+        all_posts = Quoted.objects.all().order_by("-date")
 
         context['all_posts'] = paginate_results(request, all_posts)
 
         return context
+    
     class Meta:
         verbose_name = "Homepage for all In The News Pieces"
 
 
 class ProgramQuotedPage(Page):
-    parent_page_types = ['programs.Program']
+    """
+    A page which inherits from the abstract Page model and
+    returns all Quoted pieces associated with a specific Program
+    or Subprogram
+    """
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Quoted']
 
     def get_context(self, request):
-        context = super(ProgramQuotedPage, self).get_context(request)
-        program_slug = request.path.split("/")[-3]
-        program = Program.objects.get(slug=program_slug)
-        
-        all_posts = Quoted.objects.filter(parent_programs=program)
-        context['all_posts'] = paginate_results(request, all_posts)
+        return get_posts_and_programs(
+            self,
+            request,
+            ProgramQuotedPage,
+            Quoted
+        )
 
-        context['program'] = program
-
-        return context
     class Meta:
-        verbose_name = "In the News Homepage for Programs"
+        verbose_name = "In the News Homepage for Programs and Subprogram"
