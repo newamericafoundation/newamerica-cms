@@ -1,0 +1,9 @@
+.weekly {
+	padding: 0px;
+	@include breakpoint(medium) {
+		padding: 0px $mobile-padding;
+	}
+	@include desktop-header {
+		padding: 0px;
+	}
+}

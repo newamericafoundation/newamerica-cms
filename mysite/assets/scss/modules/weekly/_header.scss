@@ -1,7 +1,17 @@
 .weekly__header {
 	display: table;
+	padding: $desktop-padding $mobile-padding;
+
+	@include breakpoint(medium) {
+		padding: $desktop-padding 0px 0px 0px;
+	}
+	@include desktop-header {
+		padding: 0px;
+	}
+
 	&__left {
 		border: none;
+		margin-bottom: 0px;
 		@include breakpoint(medium) {
 			display: table-cell;
 			width: 200px;
@@ -13,11 +23,13 @@
 			color:palette-get(na-black);
 			line-height: 90%;
 			font-size: 40px;
+			margin-bottom: 0px;
 		}
 	}
 
 	&__middle {
 		display: none;
+		max-width: $max-body-width;
 		@include breakpoint(medium) {
 			display: table-cell;
 			padding-left: $desktop-padding;
@@ -26,7 +38,7 @@
 		&__text {
 			font-family:"Simplon";
 			color:palette-get(na-black-40);
-
+			margin-bottom: 0px;
 			a {
 				font-weight: bold;
 			}
