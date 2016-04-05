@@ -6,6 +6,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.blocks import PageChooserBlock
+from django.shortcuts import redirect
 
 from mysite.pagination import paginate_results
 
@@ -45,6 +46,10 @@ class WeeklyEdition(Page):
         context['all_posts'] = self.edition_stories
         
         return context
+
+    def serve(self, request):
+        child_url = self.get_children().first().url
+        return redirect(child_url)
 
 
 class WeeklyArticle(Post):
