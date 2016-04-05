@@ -1,4 +1,5 @@
 .weekly-sidemenu {
+	$active-link-border-width: 5px;
 	padding-left: $desktop-padding;
 	padding-right: $desktop-padding;
 
@@ -29,6 +30,22 @@
 		padding-bottom: $desktop-padding;
 		a {
 			font-size: 18px;
+			color: palette-get(na-black-40);
+		}
+
+		.picture-link {
+			&.active {
+				margin-left: $active-link-border-width * -1;
+				border-left: $active-link-border-width solid palette-get(na-turquoise);
+
+				a {
+					color: palette-get(na-black);
+				}
+			}
+
+			&__picture {
+				margin-top: 0px;
+			}
 		}
 		
 	}

@@ -19,9 +19,9 @@
 			{% for sibling in siblings %}
 				{% image sibling.specific.story_image original as sibling_image %}
 				<div class='picture-link'>
-					<a href="{{ sibling.specific.url }}">
+					<a class='picture-link__link' href="{{ sibling.specific.url }}">
 						<div class='picture-link__picture' style='background-image: url({{ sibling_image.url }})'>
-							
+							<div class='picture-link__picture__text'>{{ forloop.counter }}</div>
 						</div>
 					</a>
 					<div class='picture-link__content'>
@@ -34,6 +34,13 @@
 
 		<h5 class="weekly-sidemenu__subheading">Subscribe</h5>
 		<h5 class="weekly-sidemenu__subheading">Change Edition</h5>
+		<select onchange="location = this.value;">
+			{% for edition in self.get_parent.get_siblings %}
+				{% if edition != self.get_parent %}
+					<option value="{{ edition.url }}">Edition #{{ edition.title }}</option>
+				{% endif %}
+			{% endfor %}
+		</select>
 	</div>
 </div>
 
