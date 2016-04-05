@@ -12,6 +12,7 @@
 		box-shadow: 0px 0px 20px 0px palette-get(na-black-10);
 
 	display: none;
+	position: relative;
 
 
 	@include breakpoint(medium) {
@@ -20,34 +21,45 @@
 	
 
 	&__image {
-		width: calc(100% - #{$lead-text-width});
+		width: 100%;
 		height: 500px;
-		float: left;
+		/*float: left;*/
 
 		.hero-grid.has-1-children .hero-grid__main .hero-grid__element {
 			height: 500px;
+		}
+
+		.hero-grid__element__text-bar {
+			width: calc(100% - #{$lead-text-width});
 		}
 	}
 
 	&__text {
 		width: $lead-text-width;
-		float: left;
+		border-left: 2px solid palette-get(na-black-40);
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		z-index: 10;
+		/*float: left;*/
 		padding: $desktop-padding;
-		text-align: center;
+		top: 50%;
+		transform: translateY(-50%);
 
 		&__title {
 			font-size: 16px;
-			color: palette-get(na-turquoise);
+			color: palette-get(na-white);
 			font-weight: bold;
 			margin-bottom: 15px;
 		}
 
 		&__item {
-			margin-bottom: 10px;
+			margin-bottom: 20px;
 			&__name, &__name > a  {
-				font-size: 16px;
+				font-size: 20px;
+				line-height: 110%;
 				font-family: "Platform";
-				color: palette-get(na-black);
+				color: palette-get(na-white);
 				font-weight: bold;
 				margin-bottom: 0px;
 			}
@@ -55,7 +67,7 @@
 			&__description, &__description > a {
 				font-size: 15px;
 				font-family: "Simplon";
-				color: palette-get(na-black-40);
+				color: palette-get(na-white);
 				font-weight: bold;
 				margin-bottom: 0px;
 			}
