@@ -35,6 +35,7 @@ class HomePage(Page):
     'policy_paper.AllPolicyPapersHomePage',
     'press_release.AllPressReleasesHomePage',
     'quoted.AllQuotedHomePage',
+    'JobsPage',
     ]
 
     # Up to four lead stories can be featured on the homepage.
@@ -200,6 +201,12 @@ class ProgramSimplePage(AbstractSimplePage):
     parent_page_types = ['programs.Program', 'ProgramSimplePage', 'programs.Subprogram']
     subpage_types = ['ProgramSimplePage']
 
+
+class JobsPage(OrgSimplePage):
+    """
+    Jobs Page at the organization level
+    """
+    parent_page_types = ['home.HomePage']
 
 
 class PostAuthorRelationship(models.Model):
