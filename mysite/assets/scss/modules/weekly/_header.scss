@@ -36,12 +36,24 @@
 			padding-right: $desktop-padding;
 		}
 		&__text {
+			height: 100%;
+			top: 50%;
 			font-family:"Simplon";
 			color:palette-get(na-black-40);
 			margin-bottom: 0px;
 			a {
 				font-weight: bold;
 			}
+		}
+		&__title {
+			font-size: 35px;
+			position: relative;
+			top: 40px;
+			margin-bottom: 0px;
+			vertical-align: middle;
+			height: 100%;
+			font-family:"Simplon";
+			color:palette-get(na-black-40);
 		}
 	}
 

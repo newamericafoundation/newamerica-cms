@@ -25,13 +25,13 @@
 				<div class='hero-grid has-1-children'>
 					<div class='hero-grid__main'>
 						<div class='hero-grid__element'>
-						<a href="{{ first_edition.specific.url }}">
+						<a href="{{ first_story.specific.url }}">
 							<div class='hero-grid__element__wrapper'>
 								{% image first_story.specific.story_image original as edition_image %}
 								<div class='hero-grid__element__background' style='background-image: url({{ edition_image.url }})'></div>
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
-									<h5 class="hero-grid__element__text-bar__program"><a href="#">{{ first_edition.specific.title }}</a></h5>
+									<h5 class="hero-grid__element__text-bar__program"><a href="{{ first_edition.url }}">{{ first_edition.specific.title }}</a></h5>
 									<h1 class='hero-grid__element__text-bar__heading'>{{ first_story.specific.title }}</h1>
 									{% if first_story.specific.post_author.all %}
 										<p class='hero-grid__element__text-bar__subheading' href="{{ first_story.specific.url }}">{% generate_byline first_story.content_type first_story.specific.post_author.all %}</p>
@@ -71,7 +71,7 @@
 
 				<div class="picture-grid__entry">
 					{% image first_story.specific.story_image original as edition_image %}
-					<a href="{{ edition.url }}">
+					<a href="{{ first_story.specific.url }}">
 						<div class="picture-grid__entry__image-container" style="background-image: url('{{ edition_image.url }}') ">
 						</div>
 					</a>
@@ -80,7 +80,7 @@
 							<a href="{{ edition.url }}">{{ edition }}</a>
 						</h5>
 						<h5 class="picture-grid__entry__title">
-							<a href="{{ edition.url }}">{{ first_story.specific.title }}</a>
+							<a href="{{ first_story.specific.url }}">{{ first_story.specific.title }}</a>
 						</h5>
 						<hr>
 						<p class="picture-grid__entry__body">
