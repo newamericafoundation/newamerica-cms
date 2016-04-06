@@ -46,17 +46,18 @@
 			</div>
 
 			<div class="weekly__lead__text">
-				<h3 class="weekly__lead__text__title">Also in this Edition</h3>
+				<div class="weekly__lead__text__content">
+					<h3 class="weekly__lead__text__title">Also in this Edition</h3>
 
-				{% for story in first_edition.get_children.all|slice:"1:" %}
-					<div class="weekly__lead__text__item">
-						<h3 class="weekly__lead__text__item__name"><a href="{{ story.url }}"> {{ story.title }}</a></h3>
-						{% if story.specific.post_author.all %}
-							<h3 class="weekly__lead__text__item__description">{% generate_byline story.content_type story.specific.post_author.all %}</h3>
-						{% endif %}
-					</div>
-				{% endfor %}
-
+					{% for story in first_edition.get_children.all|slice:"1:6" %}
+						<div class="weekly__lead__text__item">
+							<h3 class="weekly__lead__text__item__name"><a href="{{ story.url }}"> {{ story.title }}</a></h3>
+							{% if story.specific.post_author.all %}
+								<h3 class="weekly__lead__text__item__description">{% generate_byline story.content_type story.specific.post_author.all %}</h3>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
 			</div>
 		
 			{% endwith %}

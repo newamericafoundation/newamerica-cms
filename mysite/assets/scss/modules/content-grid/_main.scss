@@ -88,6 +88,13 @@
 					display: none;
 				}
 			}
+
+			hr:first-child {
+				display: block;
+				@include breakpoint(medium) {
+					display: none;
+				}
+			}
 		}
 
 		hr {
