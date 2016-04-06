@@ -32,8 +32,7 @@
 		padding: 15px 0px;
 
 		&__entry {
-			/*padding-right: $local-gutter;*/
-    			padding-left: 5px;
+    		padding-left: 5px;
 
 			overflow: auto;
 			margin-bottom: $local-gutter;
@@ -43,6 +42,7 @@
 				background-size: cover;
     			background-position: 50% 50%;
     			float:left;
+    			margin-right: $local-gutter;
 
     			&__label {
 					width: 15px;
@@ -63,7 +63,7 @@
 				width: calc(100% - #{$picture-size + $local-gutter + 5px});
 			    float:left;
 			    color:palette-get(na-black-40);
-			    padding-left: $local-gutter;
+			    
 
 			    h1 {
 			      font-weight: bold;

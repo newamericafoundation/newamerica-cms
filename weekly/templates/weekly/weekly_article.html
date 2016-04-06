@@ -27,7 +27,7 @@
 						{% endif %}
 					
 						<div class='weekly-sidemenu__sibling-list__entry__text'>
-							<h1>{{ sibling.specific.title }}</h1>
+							<h1>{{ sibling.specific.title | truncatechars:60 }}</h1>
 						</div>
 					</div>
 				</a>
