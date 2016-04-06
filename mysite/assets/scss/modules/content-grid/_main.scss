@@ -88,20 +88,8 @@
 					display: none;
 				}
 			}
-
-			hr:first-child {
-				display: block;
-				@include breakpoint(medium) {
-					display: none;
-				}
-			}
 		}
 
-		hr {
-			margin-bottom: 0px;
-			@include breakpoint(medium) {
-				margin-bottom: 25px;
-			}
-		}
+
 	}
 }

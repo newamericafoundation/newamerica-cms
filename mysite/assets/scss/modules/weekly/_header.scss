@@ -10,12 +10,13 @@
 	}
 
 	&__left {
-		border: none;
+		border-right: 2px solid palette-get(na-black-10);
+		padding-right: $desktop-padding;
 		margin-bottom: 0px;
 		@include breakpoint(medium) {
 			display: table-cell;
 			width: 200px;
-			border-right: 2px solid palette-get(na-black-10);
+			padding: 0px;
 		}
 
 		&__text {
@@ -28,20 +29,23 @@
 	}
 
 	&__middle {
-		display: none;
 		max-width: $max-body-width;
-		@include breakpoint(medium) {
-			display: table-cell;
-			vertical-align: middle;
-			padding-left: $desktop-padding;
-			padding-right: $desktop-padding;
-		}
+		display: table-cell;
+		vertical-align: middle;
+		padding-left: $desktop-padding;
+		padding-right: $desktop-padding;
+
 		&__text {
 			height: 100%;
 			top: 50%;
 			font-family:"Simplon";
 			color:palette-get(na-black-40);
 			margin-bottom: 0px;
+			display: none;
+
+			@include breakpoint(medium) {
+				display: table-cell;
+			}
 			a {
 				font-weight: bold;
 			}
