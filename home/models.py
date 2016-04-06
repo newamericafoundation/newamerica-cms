@@ -36,6 +36,7 @@ class HomePage(Page):
     'press_release.AllPressReleasesHomePage',
     'quoted.AllQuotedHomePage',
     'JobsPage',
+    'SubscribePage',
     ]
 
     # Up to four lead stories can be featured on the homepage.
@@ -205,6 +206,13 @@ class ProgramSimplePage(AbstractSimplePage):
 class JobsPage(OrgSimplePage):
     """
     Jobs Page at the organization level
+    """
+    parent_page_types = ['home.HomePage']
+
+
+class SubscribePage(OrgSimplePage):
+    """
+    Subscribe Page at the organization level
     """
     parent_page_types = ['home.HomePage']
 
