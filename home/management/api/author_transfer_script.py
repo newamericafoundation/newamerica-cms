@@ -1,3 +1,4 @@
+# coding=utf-8
 import sys
 
 import csv
@@ -153,6 +154,6 @@ def load_authors():
 
 def run():
     #load_authors()
-    # load_articles()
-    load_events()
+    load_articles()
+    # load_events()
 

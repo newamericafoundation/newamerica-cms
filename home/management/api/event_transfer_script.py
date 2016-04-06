@@ -36,7 +36,7 @@ mapped_programs = {
         '1': 'Future of War',
         '9': 'Fellows',
         '2': 'Future Tense',
-        '22': 'Global Cybersecurity Norms',
+        '22': 'Cybersecurity Initiative',
         '10': 'International Security',
         '8': 'New America DC',
         '24': 'New America CA',
