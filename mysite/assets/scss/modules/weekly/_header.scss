@@ -32,6 +32,7 @@
 		max-width: $max-body-width;
 		@include breakpoint(medium) {
 			display: table-cell;
+			vertical-align: middle;
 			padding-left: $desktop-padding;
 			padding-right: $desktop-padding;
 		}
@@ -47,11 +48,7 @@
 		}
 		&__title {
 			font-size: 35px;
-			position: relative;
-			top: 40px;
 			margin-bottom: 0px;
-			vertical-align: middle;
-			height: 100%;
 			font-family:"Simplon";
 			color:palette-get(na-black-40);
 		}
