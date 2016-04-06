@@ -1,0 +1,70 @@
+.subscribe-page {
+	max-width: $max-body-width;
+	margin: auto;
+
+	.post-header {
+		@include desktop-header {
+			margin-left: 10px;
+		}
+	}
+
+	&__description {
+		font-weight: normal;
+		color: palette-get(na-black-40);
+		margin: 0px 10px 20px 10px;
+	}
+	&__section-heading {
+		font-size: 18px;
+		font-weight: bold;
+		color: palette-get(na-black);
+		margin-left: 10px;
+		margin-bottom: 15px;
+	}
+
+	&__list {
+		&__entry {
+			margin: 10px 0px;
+			padding: 15px;
+			border: 2px solid palette-get(na-black-10);
+			cursor: pointer;
+			text-align: center;
+			height: 100%;
+			@include breakpoint(medium) {
+				height: 200px;
+			}
+			
+			label {
+				cursor: pointer;
+				& > [type='checkbox'] {
+					margin: 0px;
+				}
+			}
+			
+			&__title {
+				font-weight: bold;
+				font-size: 16px;
+				margin-top: 5px;
+				margin-bottom: 15px;
+			}
+
+			&__description {
+				font-weight: normal;
+				font-size: 16px;
+				color: palette-get(na-black-40);
+				margin-bottom: 5px;
+				line-height: 120%;
+			}
+		}
+	}
+
+	.button {
+		float: right;
+		margin-top: 10px;
+		margin-right: 10px;
+		background-color: palette-get(na-turquoise);
+
+		&:hover {
+			background-color: pallete-get(na-black);
+		}
+	}
+}

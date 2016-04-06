@@ -1,4 +1,4 @@
-{% extends "about_sidemenu.html" %}
+{% extends "base.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -6,6 +6,159 @@
 {% block body_class %}template-subscribepage{% endblock %}
 
 {% block content %}
+	<div class="subscribe-page">
+		{% if story_image %}
+			<div class="post-header with-image" style="background-image: linear-gradient(
+			      rgba(0, 0, 0, 0.3),
+			      rgba(0, 0, 0, 0.3)
+			    ), 
+		    	url({{ story_image.url }})">
 
+				<div class="post-header__text">
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	
+				</div>
+			</div>
+		{% else %}
+
+			<div class="post-header">
+
+				<div class="post-header__text">
+				    <h1 class="post-header__text__heading">{{ page.title }}</h1>
+				    
+				</div>
+			</div>
+
+		{% endif %}
+
+		<p class="subscribe-page__description">{{ page.story_excerpt }}</p>
+
+		<form action="http://newamerica.createsend.com/t/d/s/jdjrz/" method="post" id="subForm">
+			<h3 class="subscribe-page__section-heading">Your Information</h3>
+
+			<div class="row">
+				<div class="medium-5 columns">
+					<label>Full Name*
+						<input id="fieldName" name="cm-name" type="text" required>
+					</label>
+				</div>
+				<div class="medium-5 columns">
+					<label>Email*
+						<input id="fieldEmail" name="cm-jdjrz-jdjrz" type="email" required>
+					</label>
+				</div>
+				<div class="medium-2 columns">
+					<label>Zip Code*
+						<input id="fieldtdkjdi" name="cm-f-tdkjdi" type="text" required>
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="medium-6 columns">
+					<label>Organization
+						<input id="fieldzuhg" name="cm-f-zuhg" type="text">
+					</label>
+				</div>
+				<div class="medium-6 columns">
+					<label>Job Title
+						<input id="fieldzuhw" name="cm-f-zuhw" type="text">
+					</label>
+				</div>
+			</div>
+
+			<h3 class="subscribe-page__section-heading">Your Subscriptions</h3>
+			<!-- The newsletter ID appears after the word 'list' in the input id, and after the letters 'cm-ol-' in the input name -->
+			<div class="row">
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listtkthhd" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthhd" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">New America Weekly</h5>
+							<p class="subscribe-page__list__entry__description">New America's weekly digital magazine, distributed Thursdays, featuring the big ideas and innovative thinking.</p>
+					   	</label>
+					</div>
+				</div>
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listkjhtji" class="subscribe-page__list__entry__checkbox" name="cm-ol-kjhtji" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">The Week Ahead</h5>
+							<p class="subscribe-page__list__entry__description">Our Monday digest of what's happening at New America</p>
+					   	</label>
+					</div>
+				</div>
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listtkthyk" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthyk" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">Assets Update</h5>
+							<p class="subscribe-page__list__entry__description">Our weekly newsletter on XYZ, plus Asset Building event updates.</p>
+					   	</label>
+					</div>
+				</div>
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listtkthtl" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtl" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">Your Life, Better</h5>
+							<p class="subscribe-page__list__entry__description">Our weekly newsletter on XYZ, plus Better Life Lab event updates.</p>
+					   	</label>
+					</div>
+				</div>
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listikjhuh" class="subscribe-page__list__entry__checkbox" name="cm-ol-ikjhuh" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">Global Cyber Quarterly Update</h5>
+							<p class="subscribe-page__list__entry__description">Our quarterly newsletter on XYZ</p>
+					   	</label>
+					</div>
+				</div>
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listirluv" class="subscribe-page__list__entry__checkbox" name="cm-ol-irluv" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">DLL National Work Group Newsletter</h5>
+							<p class="subscribe-page__list__entry__description">Our newsletter on XYZ, distributed every Monday.</p>
+					   	</label>
+					</div>
+				</div>
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listtkthtd" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtd" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">Early &amp; Elementary Ed Update</h5>
+							<p class="subscribe-page__list__entry__description">Our weekly newsletter on XYZ, distributed every Tuesday.</p>
+					   	</label>
+					</div>
+				</div>
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listtkthtt" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtt" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">Education Weekly &amp; Highlights</h5>
+							<p class="subscribe-page__list__entry__description">Our Education Weekly and Highlights newsletters on XYZ, plus Education Policy event updates.</p>
+					   	</label>
+					</div>
+				</div>
+				<div class="small-12 medium-6 large-4 columns">
+					<div class="subscribe-page__list__entry">
+						<label>
+							<input id="listdyjtn" class="subscribe-page__list__entry__checkbox" name="cm-ol-dyjtn" type="checkbox" />
+							<h5 class="subscribe-page__list__entry__title">Food and Farming</h5>
+							<p class="subscribe-page__list__entry__description">Our newsletter on XYZ.</p>
+					   	</label>
+					</div>
+				</div>
+				
+			</div>
+			<button class="button" type="submit" value="Submit">Submit</button>
+		</form>
+
+		
+
+
+
+	</div>
 
 {% endblock %}
