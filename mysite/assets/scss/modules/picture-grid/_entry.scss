@@ -3,15 +3,18 @@
      	@content;
      }
 }
-
+@mixin is-with-sidemenu-width {
+   	.with-sidemenu-width & {
+     	@content;
+     }
+}
+	
 .picture-grid__entry {
 	$entry-height: 500px;
 	$entry-image-height: 200px;
 	$entry-text-height: $entry-height - $entry-image-height - $desktop-padding;
 
 	width: 100%;
-
-
 
 	@include breakpoint(medium) {
 		$num_columns: 2;
@@ -36,7 +39,28 @@
 			box-shadow: 0px 0px 15px 0px palette-get(na-black-10);
 	}
 
-	/*@include is-full-width {*/
+	@include is-with-sidemenu-width {
+		@media screen and (min-width: 1250px) {
+			$num_columns: 3;
+			width: calc((100% - #{4 * $picture-grid-padding})/#{$num_columns});
+
+			&:nth-child(3n+1) {
+				margin-left: 0px;
+				margin-right: $picture-grid-padding;
+			}
+			&:nth-child(3n+2) {
+				margin-left: $picture-grid-padding;
+				margin-right: $picture-grid-padding;
+			}
+			&:nth-child(3n+0) {
+				margin-left: $picture-grid-padding;
+				margin-right: 0px;
+			}
+		}
+	}
+
+
+	@include is-full-width {
 		@include breakpoint(large) {
 			$num_columns: 3;
 			width: calc((100% - #{4 * $picture-grid-padding})/#{$num_columns});
@@ -54,7 +78,7 @@
 				margin-right: 0px;
 			}
 		}
-	/*}*/
+	}
 
 	@include is-full-width {
 		@include breakpoint(xlarge) {
@@ -100,10 +124,9 @@
 		background-color: white;
 		transform: translateY(0%);
    		transition: transform .35s ease-out;
-
-		&:hover {
-			/*overflow: visible;*/
-		}
+   		-webkit-transition: transform .35s ease-out;
+	    -moz-transition: transform .35s ease-out;
+	    -o-transition: transform .35s ease-out;
 	}
 
 	&__text-fadeout {
@@ -192,13 +215,13 @@
 	}
 }
 
-.hide-first > .picture-grid__entry {
-	@include breakpoint(medium) {
-		.picture-grid__entry {
+.hide-first {
+
+	& > .picture-grid__entry {
+		@include breakpoint(medium) {
 			&:first-child {
 				display: none;
 			}
-
 			&:nth-child(even) {
 				margin-left: 0px;
 				margin-right: $picture-grid-padding;
@@ -207,11 +230,11 @@
 				margin-left: $picture-grid-padding;
 				margin-right: 0px;
 			}
+			
 		}
-	}
 
-	@include breakpoint(large) {
-		.picture-grid__entry {
+		@include breakpoint(large) {
+			
 			&:nth-child(3n+2) {
 				margin-left: 0px;
 				margin-right: $picture-grid-padding;
@@ -224,29 +247,29 @@
 				margin-left: $picture-grid-padding;
 				margin-right: 0px;
 			}
+			
 		}
-	}
-
-	@include is-full-width {
+	
 		@include breakpoint(xlarge) {
-			.picture-grid__entry {
-				&:nth-child(4n+2) {
-					margin-left: 0px;
-					margin-right: $picture-grid-padding;
-				}
-				&:nth-child(4n+3) {
-					margin-left: $picture-grid-padding;
-					margin-right: $picture-grid-padding;
-				}
-				&:nth-child(4n+0) {
-					margin-left: $picture-grid-padding;
-					margin-right: $picture-grid-padding;
-				}
-				&:nth-child(4n+1) {
-					margin-left: $picture-grid-padding;
-					margin-right: 0px;
-				}
+			
+			&:nth-child(4n+2) {
+				margin-left: 0px;
+				margin-right: $picture-grid-padding;
 			}
+			&:nth-child(4n+3) {
+				margin-left: $picture-grid-padding;
+				margin-right: $picture-grid-padding;
+			}
+			&:nth-child(4n+0) {
+				margin-left: $picture-grid-padding;
+				margin-right: $picture-grid-padding;
+			}
+			&:nth-child(4n+1) {
+				margin-left: $picture-grid-padding;
+				margin-right: 0px;
+			}
+			
 		}
+	
 	}
 }
