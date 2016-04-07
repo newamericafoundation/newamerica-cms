@@ -25,7 +25,9 @@ class PressReleaseTests(WagtailPageTests):
             title='New America')
         )
         self.all_press_releases_home_page = self.home_page.add_child(
-            instance=AllPressReleasesHomePage(title='New America Press Releases')
+            instance=AllPressReleasesHomePage(
+                title='New America Press Releases'
+            )
         )
         self.program_page_1 = self.home_page.add_child(
             instance=Program(title='OTI', name='OTI', location=False, depth=3)
@@ -43,7 +45,6 @@ class PressReleaseTests(WagtailPageTests):
         self.program_press_releases_page.add_child(
             instance=self.press_release)
         self.press_release.save()
-
 
     # Test that a child Page can be created under the appropriate
     # Parent Page
@@ -79,8 +80,10 @@ class PressReleaseTests(WagtailPageTests):
         self.assertAllowedSubpageTypes(PressRelease, {})
 
     def test_program_press_release_subpages(self):
-        self.assertAllowedSubpageTypes(ProgramPressReleasesPage, {PressRelease})
-
+        self.assertAllowedSubpageTypes(
+            ProgramPressReleasesPage,
+            {PressRelease}
+        )
 
     # Test that pages can be created with POST data
     def test_can_create_all_press_releases_page_under_homepage(self):
