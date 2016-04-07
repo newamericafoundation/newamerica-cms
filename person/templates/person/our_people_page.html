@@ -42,8 +42,8 @@
 
             <div class="row our-people__item-list">
                 <ul class="our-people__item-list__list">
-                    {% for program in all_programs %}
-                        <li><a href="{{ program.url }}our-people/">{{ program }}</a></li>
+                    {% for our_people_page in all_our_people_pages %}
+                        <li><a href="{{ our_people_page.url }}">{{ our_people_page.get_parent }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
