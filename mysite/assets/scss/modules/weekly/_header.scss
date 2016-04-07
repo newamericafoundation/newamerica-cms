@@ -1,0 +1,73 @@
+.weekly__header {
+	display: table;
+	padding: $desktop-padding $mobile-padding;
+
+	@include breakpoint(medium) {
+		padding: $desktop-padding 0px 0px 0px;
+	}
+	@include desktop-header {
+		padding: 0px;
+	}
+
+	&__left {
+		border-right: 2px solid palette-get(na-black-10);
+		padding-right: $desktop-padding;
+		margin-bottom: 0px;
+		@include breakpoint(medium) {
+			display: table-cell;
+			width: 200px;
+			padding: 0px;
+		}
+
+		&__text {
+			font-family:"Platform";
+			color:palette-get(na-black);
+			line-height: 90%;
+			font-size: 40px;
+			margin-bottom: 0px;
+		}
+	}
+
+	&__middle {
+		max-width: $max-body-width;
+		display: table-cell;
+		vertical-align: middle;
+		padding-left: $desktop-padding;
+		padding-right: $desktop-padding;
+
+		&__text {
+			height: 100%;
+			top: 50%;
+			font-family:"Simplon";
+			color:palette-get(na-black-40);
+			margin-bottom: 0px;
+			display: none;
+
+			@include breakpoint(medium) {
+				display: table-cell;
+			}
+			a {
+				font-weight: bold;
+			}
+		}
+		&__title {
+			font-size: 35px;
+			margin-bottom: 0px;
+			font-family:"Simplon";
+			color:palette-get(na-black-40);
+		}
+	}
+
+	&__right {
+		display: table-cell;
+		width: 100px;
+		margin-left: $desktop-padding;
+		.pagination {
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			width: 100%;
+		}
+	}
+
+}

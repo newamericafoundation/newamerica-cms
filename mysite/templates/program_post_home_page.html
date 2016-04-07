@@ -31,7 +31,8 @@
 	        </div>
 
 		</div>
-		<div class="pagination">
+		<div class="content-grid__controls__right">
+			<div class="pagination">
 				{% if all_posts.has_previous %}
 					<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}">
 
@@ -57,6 +58,7 @@
 						</svg>
 					</a>
 				{% endif %}
+			</div>
 		</div>
 	</div>
 
