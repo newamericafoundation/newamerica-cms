@@ -29,6 +29,7 @@
 			cursor: pointer;
 			text-align: center;
 			height: 100%;
+			/*background-color: white;*/
 			@include breakpoint(medium) {
 				height: 200px;
 			}
@@ -71,4 +72,23 @@
 	.tabs, .tabs-content {
 		background-color: white;
 	}
+
+	.tabs {
+		margin: 0px 10px;
+		border-bottom: 2px solid palette-get(na-black-10);
+		& > li {
+			border: 2px solid palette-get(na-black-10);
+			border-bottom: none;
+
+			& > a {
+				font-size: 14px;
+			}
+		}
+	}
+
+	.tabs-content {
+		/*background-color: palette-get(na-black-10);*/
+	}
+
+
 }
