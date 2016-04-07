@@ -133,6 +133,23 @@ $picture-grid-padding: 10px;
 			}
 		}
 
+		&__date-time {
+			color: palette-get(na-black);
+			font-weight: bold;
+			font-size: 15px;
+			
+			p {
+				line-height: 130%;
+				margin:0px;
+			}
+		}
+
+		&__location {
+			color: palette-get(na-black-40);
+			font-weight: bold;
+			font-size: 15px;
+		}
+
 		&__title {
 			a {
 				color: palette-get(na-black);
