@@ -66,18 +66,25 @@
 						</div>
 					</a>
 					<div class="picture-grid__entry__text-container">
-						<h5 class= "picture-grid__entry__date-time">{% generate_dateline post %}</h5>
-						<h5 class= "picture-grid__entry__location">{{ post.city }}, {{ post.state }}</h5>
+						{% if post.parent_programs %}
+							<h5 class="picture-grid__entry__description">
+							{% for program in post.parent_programs.all %}
+								<a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
+							{% endfor %}
+							</h5>
+						{% endif %}
 						<h5 class="picture-grid__entry__title">
 							<a href="{{ post.url }}">{{ post.title }}</a>
 						</h5>
+						<h5 class= "picture-grid__entry__date-time">{% generate_dateline post %}</h5>
+						<h5 class= "picture-grid__entry__location">{{ post.city }}, {{ post.state }}</h5>
+						
 						<hr>
 						<p class="picture-grid__entry__body">
 							{{ post.story_excerpt }}
 						</p>
 					</div>
 					<div class="picture-grid__entry__text-fadeout"></div>
-					
 			</div>
 				
 			
