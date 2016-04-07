@@ -47,15 +47,37 @@ class NAClient:
 
 
 	def get_articles(self):
-		# for program in self.client.get(self.api_url + 'programs').json():
+		"""
+		Gets all the content type of Article from the old database API
+		for all programs excluding New America and New America Weekly
+		and creates new objects in the new database using the Article model
+		"""
+		for program in self.client.get(self.api_url + 'programs').json():
+			self.activate_program(program_id)
+			for post_set in self.get_data('articles'):
+				for post in post_set['results']:
+					yield post, program_id
+
+
+	def get_weekly_articles(self):
+		"""
+		Gets all the content type of Article from the old database API
+		for New America and creates new objects in the 
+		new database using the WeeklyArticle model
+		"""
 		program_id = '12'
 		self.activate_program(program_id)
 		for post_set in self.get_data('articles'):
 			for post in post_set['results']:
-				yield post, program_id
+				yield post
 
 
 	def get_events(self):
+		"""
+		Gets all the content type of Event from the old database API
+		for all programs and creates new objects in the new database 
+		using the Event model
+		"""
 		for program in self.client.get(self.api_url + 'programs').json():
 			program_id = program['id']
 			self.activate_program(program_id)
@@ -65,6 +87,12 @@ class NAClient:
 
 
 	def program_content(self, program_id):
+		"""
+		Gets all posts, which do not provide content but just high level info
+		(like title, date, programs, etc) from the old database API
+		for only one program. Currently used to generate a CSV for content
+		auditing.
+		"""
 		self.activate_program(program_id)
 		for post_set in self.get_data('posts'):
 				for post in post_set['results']:
