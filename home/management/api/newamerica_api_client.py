@@ -47,12 +47,12 @@ class NAClient:
 
 
 	def get_articles(self):
-		for program in self.client.get(self.api_url + 'programs').json():
-			program_id = program['id']
-			self.activate_program(program_id)
-			for post_set in self.get_data('articles'):
-				for post in post_set['results']:
-					yield post, program_id
+		# for program in self.client.get(self.api_url + 'programs').json():
+		program_id = '12'
+		self.activate_program(program_id)
+		for post_set in self.get_data('articles'):
+			for post in post_set['results']:
+				yield post, program_id
 
 
 	def get_events(self):

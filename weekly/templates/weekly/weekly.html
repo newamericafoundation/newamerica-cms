@@ -68,7 +68,6 @@
 
 	<div class="picture-grid hide-first">
 	{% for edition in all_posts %}
-<<<<<<< 571d9c071c6261d80646997ee44f424fc23a802b
 		{% if edition.get_children|length > 0 %}
 			{% with first_story=edition.get_children.all.0 %}
 
@@ -95,9 +94,6 @@
 				</div>
 			{% endwith %}
 		{% endif %}
-=======
-		<a href="{{ edition.url }}">Weekly Edition #{{ edition }}</a><br><br>
->>>>>>> Weekly content migration
 	{% endfor %}
 	</div>
 

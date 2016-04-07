@@ -204,7 +204,7 @@ def load_articles():
                     new_weekly_article.seo_title = ''
                     new_weekly_article.depth = 5
                     new_weekly_article.show_in_menus = False
-                    new_weekly_article = weekly_article_slug
+                    new_weekly_article.slug = weekly_article_slug
                     new_weekly_article.title = post['title']
                     new_weekly_article.date = get_post_date(post['publish_at'])
                     new_weekly_article.body = json.dumps(
@@ -216,4 +216,5 @@ def load_articles():
                         )
                     print("Updating existing article: ")
                     print(new_weekly_article)
+                    print(type(new_weekly_article))
                     new_weekly_article.save()
