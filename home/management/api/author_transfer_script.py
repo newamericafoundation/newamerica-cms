@@ -14,7 +14,7 @@ from person.models import OurPeoplePage, Person
 
 from .newamerica_api_client import NAClient
 
-from .article_transfer_script import load_articles
+from .article_transfer_script import load_articles, load_weekly_articles
 
 from .event_transfer_script import load_events
 
@@ -154,6 +154,7 @@ def load_authors():
 
 def run():
     #load_authors()
-    load_articles()
+    #load_articles()
     # load_events()
+    load_weekly_articles()
 
