@@ -1,0 +1,13 @@
+.weekly-edition {
+	width: $desktop-header-foldup;
+	margin: auto;
+	padding: 0px;
+	@include breakpoint(medium) {
+		padding: 0px $desktop-padding;
+	}
+
+	@include desktop-header {
+		padding: 0px;
+	}
+
+}

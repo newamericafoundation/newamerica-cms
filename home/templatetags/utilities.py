@@ -32,9 +32,10 @@ def pluralize(num_items, label):
 @register.simple_tag()
 def get_byline_prefix(post_type, items_list):
 	num_items = len(items_list)
+
 	if str(post_type) == "podcast":
 		return pluralize(num_items, "Host")
-	elif str(post_type) == "blog post":
+	elif str(post_type) == "blog post" or "weekly article":
 		return "By "
 	elif str(post_type) == "In The News Piece":
 		return "In the News: "

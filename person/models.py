@@ -223,6 +223,8 @@ class OurPeoplePage(Page):
 
         context['all_programs'] = Program.objects.all()
 
+        context['all_our_people_pages'] = ProgramPeoplePage.objects.all()
+
         return context
 
     class Meta:
@@ -266,6 +268,8 @@ class ExpertPage(Page):
             .order_by('-title')
 
         context['all_programs'] = Program.objects.all()
+
+        context['all_our_people_pages'] = ProgramPeoplePage.objects.all()
 
         return context
 
