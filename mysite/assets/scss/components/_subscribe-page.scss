@@ -44,7 +44,7 @@
 			&__title {
 				font-weight: bold;
 				font-size: 16px;
-				margin-top: 5px;
+				margin-top: 15px;
 				margin-bottom: 15px;
 			}
 
@@ -87,8 +87,46 @@
 	}
 
 	.tabs-content {
-		/*background-color: palette-get(na-black-10);*/
+		padding-top: 10px;
 	}
 
+	.control {
+		position: relative;
+		display: block;
 
+		input {
+			position: absolute;
+			z-index: -1;
+			opacity: 0;
+		}
+	}
+
+	.control__indicator {
+		width: 20px;
+		height: 20px;
+		margin: auto;
+		background: #e6e6e6;
+
+		&:after {
+			position: relative;
+			display: none;
+			content: '';
+		}
+	}
+
+	/* Show check mark */
+	.control input:checked ~ .control__indicator:after {
+		display: block;
+	}
+
+	/* Checkbox tick */
+	.control--checkbox .control__indicator:after {
+		top: 0px;
+		left: 7px;
+		width: 7px;
+		height: 15px;
+		transform: rotate(45deg);
+		border: solid palette-get(na-black);
+		border-width: 0 3px 3px 0;
+	}
 }
