@@ -118,3 +118,67 @@ class QuotedTests(WagtailPageTests):
                 title='Education').first().title, 'Education'
         )
 
+    # Test quoted page with one parent Program can be deleted
+    def test_quoted_with_one_parent_program_can_be_deleted(self):
+        quoted = Quoted.objects.filter(
+            title='Quoted 1').first()
+        quoted.delete()
+        self.assertEqual(Quoted.objects.filter(
+            title='Quoted 1').first(), None
+        )
+        self.assertNotIn(
+            quoted,
+            ProgramQuotedPage.objects.filter(
+                title='OTI In The News').first().get_children()
+        )
+        self.assertEqual(
+            PostProgramRelationship.objects.filter(
+                post=quoted).first(), None
+        )
+        self.assertEqual(
+            PostProgramRelationship.objects.filter(
+                post=quoted,
+                program=self.program_page_1).first(),
+            None
+        )
+
+    # Test Quoted page with two parent Programs can be deleted
+    def test_quoted_with_two_parent_programs_can_be_deleted(self):
+        quoted = Quoted.objects.filter(
+            title='Quoted 1').first()
+        second_program = Program(
+            title='Education', 
+            name='Education', 
+            slug='education', 
+            description='Education', 
+            location=False, 
+            depth=3
+        )
+        self.home_page.add_child(instance=second_program)
+        relationship, created = PostProgramRelationship.objects.get_or_create(
+            program=second_program,
+            post=quoted
+            )
+        if created:
+            relationship.save()
+        quoted.delete()
+        self.assertEqual(Quoted.objects.filter(
+            title='Quoted 1').first(), None
+        )
+        self.assertNotIn(
+            quoted,
+            ProgramQuotedPage.objects.filter(
+                title='OTI In The News').first().get_children()
+        )
+        self.assertEqual(
+            PostProgramRelationship.objects.filter(
+                post=quoted,
+                program=self.program_page_1).first(),
+            None
+        )
+        self.assertEqual(
+            PostProgramRelationship.objects.filter(
+                post=quoted,
+                program=second_program).first(), None
+        )
+
