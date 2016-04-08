@@ -26,6 +26,7 @@ class HomePage(Page):
     'OrgSimplePage',
     'programs.Program',
     'article.AllArticlesHomePage',
+    'weekly.Weekly',
     'event.AllEventsHomePage',
     'blog.AllBlogPostsHomePage',
     'book.AllBooksHomePage',
@@ -34,6 +35,8 @@ class HomePage(Page):
     'policy_paper.AllPolicyPapersHomePage',
     'press_release.AllPressReleasesHomePage',
     'quoted.AllQuotedHomePage',
+    'JobsPage',
+    'SubscribePage',
     ]
 
     # Up to four lead stories can be featured on the homepage.
@@ -160,7 +163,7 @@ class AbstractSimplePage(Page):
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
     ])
-    story_excerpt = models.CharField(blank=True, null=True, max_length=140)
+    story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
     story_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -196,9 +199,22 @@ class ProgramSimplePage(AbstractSimplePage):
     """
     Simple Page at the Program level
     """
-    parent_page_types = ['programs.Program', 'ProgramSimplePage']
+    parent_page_types = ['programs.Program', 'ProgramSimplePage', 'programs.Subprogram']
     subpage_types = ['ProgramSimplePage']
 
+
+class JobsPage(OrgSimplePage):
+    """
+    Jobs Page at the organization level
+    """
+    parent_page_types = ['home.HomePage']
+
+
+class SubscribePage(OrgSimplePage):
+    """
+    Subscribe Page at the organization level
+    """
+    parent_page_types = ['home.HomePage']
 
 
 class PostAuthorRelationship(models.Model):
@@ -316,13 +332,25 @@ class Post(Page):
         captured even if the user does not select it.
         """
         super(Post, self).save(*args, **kwargs)
-        parent_page = self.get_parent().get_parent()
-        parent_program = Program.objects.get(
-            slug=parent_page.slug
+        program_title = self.get_ancestors()[2]
+        program = Program.objects.get(
+            slug=program_title.slug
         )
-        if isinstance(parent_program, AbstractProgram):
+
+        if isinstance(program, AbstractProgram):
             relationship, created=PostProgramRelationship.objects.get_or_create(
-                program=parent_program, post=self
+                program=program, post=self
             )
             if created:
                 relationship.save()
+
+        if len(self.get_ancestors()) >= 5:
+            subprogram_title = self.get_ancestors()[3]
+            subprogram = Subprogram.objects.get(slug=subprogram_title.slug)
+
+            if isinstance(subprogram, AbstractProgram):
+                relationship, created=PostSubprogramRelationship.objects.get_or_create(
+                    subprogram=subprogram, post=self
+                )
+                if created:
+                    relationship.save()

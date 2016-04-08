@@ -41,11 +41,9 @@
 
 {% endblock %}
 
-{% block byline-prefix %}Host{{ authors|pluralize }}:{% endblock %}
-
 {% block post-body %}
 
-    <div class="post-body">
+    <div class="post-body with-dropcap">
 	    {{ page.body }}
 	</div>
 

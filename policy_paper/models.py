@@ -4,13 +4,13 @@ from home.models import Post
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from programs.models import Program
+from mysite.helpers import paginate_results, get_posts_and_programs
 
-from mysite.pagination import paginate_results
 
 class PolicyPaper(Post):
     """
@@ -20,20 +20,26 @@ class PolicyPaper(Post):
     parent_page_types = ['ProgramPolicyPapersPage']
     subpage_types = []
 
-    excerpt = models.TextField()
+    publication_cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
     paper_url = StreamField([
-    	('policy_paper_url', URLBlock(required=False, null=True)),
+        ('policy_paper_url', URLBlock(required=False, null=True)),
     ])
 
     attachment = StreamField([
-    	('attachment', DocumentChooserBlock(required=False, null=True)),
+        ('attachment', DocumentChooserBlock(required=False, null=True)),
     ])
 
     content_panels = Post.content_panels + [
-    	FieldPanel('excerpt'),
-    	StreamFieldPanel('paper_url'),
-    	StreamFieldPanel('attachment'),
+        StreamFieldPanel('paper_url'),
+        StreamFieldPanel('attachment'),
+        ImageChooserPanel('publication_cover_image'),
     ]
 
 
@@ -48,7 +54,7 @@ class AllPolicyPapersHomePage(Page):
 
     def get_context(self, request):
         context = super(AllPolicyPapersHomePage, self).get_context(request)
-        all_posts = PolicyPaper.objects.all()
+        all_posts = PolicyPaper.objects.all().order_by("-date")
 
         context['all_posts'] = paginate_results(request, all_posts)
 
@@ -62,22 +68,18 @@ class ProgramPolicyPapersPage(Page):
     """
     A page which inherits from the abstract Page model and
     returns all Policy Papers associated with a specific
-    Program which is determined using the url path
+    Program or Subprogram
     """
-    parent_page_types = ['programs.Program'] 
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['PolicyPaper']
 
     def get_context(self, request):
-        context = super(ProgramPolicyPapersPage, self).get_context(request)
-        program_slug = request.path.split("/")[-3]
-        program = Program.objects.get(slug=program_slug)
-        all_posts = PolicyPaper.objects.filter(parent_programs=program)
-
-        context['all_posts'] = paginate_results(request, all_posts)
-
-        context['program'] = program
-
-        return context
+        return get_posts_and_programs(
+            self,
+            request,
+            ProgramPolicyPapersPage,
+            PolicyPaper
+        )
 
     class Meta:
-        verbose_name = "Policy Paper Homepage for Programs"
+        verbose_name = "Policy Paper Homepage for Programs and Subprograms"

@@ -43,23 +43,23 @@
                         <div class='content-container'>
                         {% endblock %}
                             {% if self.get_ancestors|length > 2 %}
-                            <div class='breadcrumb-social-media-container row'>
-                                <div class= "small-9 columns">
+                            <div class='breadcrumb-social-media-container'>
+                                
                                     <div class='breadcrumb-container'>
                                         <div class='breadcrumb-overlay'></div>
                                         <ul class='breadcrumbs'>
 
                                         {% for page in self.get_ancestors %}
-                                            {% if page.is_root == False %}
+                                            {% if forloop.counter > 2 %}
                                             <li><a href="{{ page.url }}">{{ page.title }}</a></li>
                                             {% endif %}
                                         {% endfor %}
                                              <li class="active">{{ page.title }}</li>
                                         </ul>
                                     </div>
-                                </div>
+                                
 
-                                <div class="social-icons small-3 columns">
+                                <div class="social-icons">
 
                                     <a href="http://www.facebook.com/NewAmerica" target="_blank"><svg id="facebook-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 266.89 266.89"><defs><style>.cls-1{fill:#2c2f35;}</style></defs><title>Untitled-1</title><path id="White" class="cls-1" d="M252.16,0H14.73A14.73,14.73,0,0,0,0,14.73V252.16a14.73,14.73,0,0,0,14.73,14.73H142.56V163.54H107.78V123.26h34.78V93.55c0-34.47,21.05-53.24,51.81-53.24a285.37,285.37,0,0,1,31.08,1.59v36H204.12c-16.72,0-20,7.95-20,19.61v25.72H224l-5.19,40.28H184.15V266.89h68a14.73,14.73,0,0,0,14.73-14.73V14.73A14.73,14.73,0,0,0,252.16,0Z"/></svg></a>
 

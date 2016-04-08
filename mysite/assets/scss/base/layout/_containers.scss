@@ -64,13 +64,12 @@
 }
 
 .breadcrumb-social-media-container {
-	height: 48px;
-	position: relative;
-	top: 10px;
+	height: 25px;
+	margin-bottom: 35px;
+	margin-top: 15px;
 	display: none;
 
 	@include desktop-header {
-		height: 60px;
 		display: block;
 	}
 	@include expanded-header {
@@ -89,7 +88,8 @@
 
 .breadcrumb-container {
   height: 100%;
-  width: 100%;
+  width: calc(100% - 220px);
+  float: left;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -192,7 +192,7 @@
 
 .post-container {
 	max-width: $max-body-width;
-  	padding-top: $desktop-padding;
+  	padding-top: 0px;
   	padding-left: $mobile-padding;
   	padding-right: $mobile-padding;
   	padding-bottom: $mobile-padding;

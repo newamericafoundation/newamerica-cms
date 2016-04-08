@@ -1,68 +1,75 @@
-from django.db import models
-
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.wagtaildocs.blocks import DocumentChooserBlock
+from wagtail.wagtailcore.fields import RichTextField
 
-from programs.models import Program
-
-from person.models import Person
-
-from mysite.pagination import paginate_results
+from mysite.helpers import paginate_results, get_posts_and_programs
 
 
 class BlogPost(Post):
-	"""
-	Blog class that inherits from the abstract
-	Post model and creates pages for blog posts.
-	"""
-	parent_page_types = ['ProgramBlogPostsPage']
-	subpage_types = []
+    """
+    Blog class that inherits from the abstract
+    Post model and creates pages for blog posts.
+    """
+    parent_page_types = ['ProgramBlogPostsPage']
+    subpage_types = []
+
+    attachment = StreamField([
+        ('attachment', DocumentChooserBlock(required=False)),
+    ], null=True)
+
+    content_panels = Post.content_panels + [
+        StreamFieldPanel('attachment'),
+    ]
 
 
 class AllBlogPostsHomePage(Page):
-	"""
-	A page which inherits from the abstract Page model and 
-	returns every Blog post in the BlogPost model for the 
-	Blog posts homepage
-	"""
-	parent_page_types = ['home.HomePage', ]
-	subpage_types = []
+    """
+    A page which inherits from the abstract Page model and 
+    returns every Blog post in the BlogPost model for the 
+    Blog posts homepage
+    """
+    parent_page_types = ['home.HomePage', ]
+    subpage_types = []
 
-	def get_context(self, request):
-		context = super(AllBlogPostsHomePage, self).get_context(request)
-		
-		all_posts = BlogPost.objects.all()
+    def get_context(self, request):
+        context = super(AllBlogPostsHomePage, self).get_context(request)
+        
+        all_posts = BlogPost.objects.all().order_by("-date")
 
-		context['all_posts'] = paginate_results(request, all_posts)
+        context['all_posts'] = paginate_results(request, all_posts)
 
-		return context
+        return context
 
-	class Meta:
-		verbose_name = "Homepage for all Blog Posts"
+    class Meta:
+        verbose_name = "Homepage for all Blog Posts"
 
 
 class ProgramBlogPostsPage(Page):
-	"""
-	A page which inherits from the abstract Page model and returns
-	all Blog Posts associated with a specific program which is 
-	determined using the url path
-	"""
+    """
+    A page which inherits from the abstract Page model and returns
+    all Blog Posts associated with a specific Program or 
+    Subprogram
+    """
 
-	parent_page_types = ['programs.Program',]
-	subpage_types = ['BlogPost']
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    subpage_types = ['BlogPost']
 
-	def get_context(self, request):
-		context = super(ProgramBlogPostsPage, self).get_context(request)
-		program_slug = request.path.split("/")[-3]
-		program = Program.objects.get(slug=program_slug)
+    subheading = RichTextField(blank=True, null=True)
 
-		all_posts = BlogPost.objects.filter(parent_programs=program)
-		context['all_posts'] = paginate_results(request, all_posts)
-		
-		context['program'] = program
-		return context
-		
+    content_panels = Page.content_panels + [
+        FieldPanel('subheading'),
+    ]
 
-	class Meta:
-		verbose_name = "Blog Homepage for Program"
+    def get_context(self, request):
+        return get_posts_and_programs(
+            self,
+            request,
+            ProgramBlogPostsPage,
+            BlogPost)
+        
+    class Meta:
+        verbose_name = "Blog Homepage for Program and Subprograms"

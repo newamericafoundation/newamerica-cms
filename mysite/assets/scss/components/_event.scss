@@ -9,7 +9,7 @@ $event-column-padding: 30px;
 		padding: 0px $event-column-padding 0px 0px;
 		float: none;
 
-		@media screen and (min-width: 400px) {
+		@include breakpoint(medium) {
 			float: left;
 		}
 	}
@@ -20,7 +20,7 @@ $event-column-padding: 30px;
 		border-left: none;
 		float: none;
 
-		@media screen and (min-width: 400px) {
+		@include breakpoint(medium) {
 			padding-left: 30px;
 			padding-top: 0px;
 			border-left: 2px solid palette-get(na-black-10);

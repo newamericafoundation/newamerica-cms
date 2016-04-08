@@ -2,30 +2,14 @@ $left-pad: 20px;
 $right-pad: 25px;
 
 .sidemenu {
-/*  top: $mobile-header-height;*/
   position: relative;
-  background-color: palette-get(na-black);
-  width: 100%;
   height:100%;
-
- /* height:100%;*/
-  /*padding-top: 15px;
-  padding-bottom: 15px;*/
-  display:none;
-  /*overflow:scroll;*/
-  /*background-color: palette-get(na-black);*/
-  /*padding-left: 20px;*/
-
-  @include desktop-header {
-    top: 0px;
-    display:block;
-    margin-top: $desktop-padding;
-    background-color: palette-get(na-white);
-    border-right: 2px solid palette-get(na-black-10);
-    width: $max-sidemenu-width;
-    /*display:table-cell;*/
-    /*margin-top: 20px;*/
-  }
+  top: 0px;
+  display:block;
+  margin-top: $desktop-padding;
+  background-color: palette-get(na-white);
+  border-right: 2px solid palette-get(na-black-10);
+  width: $max-sidemenu-width;
 
   &__logo {
     width: $program-logo-width;
@@ -34,44 +18,25 @@ $right-pad: 25px;
   }
 
   &__link-group {
-    color: palette-get(na-white);
-
-    @include desktop-header {
-      padding-top: 10px;
-      color: palette-get(na-black);
-    }
+    padding-top: 10px;
+    color: palette-get(na-black);
 
 
     & > ul > li > a {
-      padding: $mobile-menu-item-padding;
+      padding: 10px $desktop-padding;
       color: grey;
-
-      @include desktop-header {
-        padding: 10px $desktop-padding;
-      }
-
     } 
 
     &__title, &__link {
-      height: $mobile-menu-item-height;
-      border-top: 1px solid palette-get(na-off-black);
-      border-bottom: 1px solid palette-get(na-off-black);
-
-      @include desktop-header {
-        height: auto;
-        border: none;
-      }
+      height: auto;
+      border: none;
     }
 
     &__title {
-      padding: $mobile-menu-item-padding;
+      padding: $desktop-padding $desktop-padding 10px $desktop-padding;
 
-      @include desktop-header {
-        padding: $desktop-padding $desktop-padding 10px $desktop-padding;
-
-        .simple & {
-          padding: 0px $desktop-padding 10px $desktop-padding;
-        }
+      .simple & {
+        padding: 0px $desktop-padding 10px $desktop-padding;
       }
     }
 
@@ -79,35 +44,16 @@ $right-pad: 25px;
       padding: 0px;
 
       &:hover {
-        background-color: palette-get(na-turquoise);
-        border-color: palette-get(na-turquoise);
+        background-color: palette-get(na-white);
+        border-color: palette-get(na-white);
 
         & > a {
-          color: white;
-        }
-
-        @include desktop-header {
-          background-color: palette-get(na-white);
-          border-color: palette-get(na-white);
-
-          & > a {
-            color: palette-get(na-turquoise);
-          }
-        }
-        
-      }
-
-      @include desktop-header {
-        & > .active {
           color: palette-get(na-turquoise);
-        }
+        }        
       }
 
-      .home-link {
-          display: block;
-          @include desktop-header {
-            display: none;
-          }
+      & > .active {
+        color: palette-get(na-turquoise);
       }
     } 
    

@@ -37,13 +37,11 @@
 
 {% endblock %}
 
-{% block byline-prefix %}Author{{ authors|pluralize}}:{% endblock %}
-
 {% block post-body %}
 
 	<h5 class="post-source">Media Outlet: {{ page.source }} </h5>
 
-    <div class="post-body">
+    <div class="post-body with-dropcap">
 	    {{ page.body }}
 	</div>
 

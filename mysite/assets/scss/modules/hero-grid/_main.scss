@@ -1,4 +1,5 @@
 .hero-grid {
+	$max-header-width: $max-body-width + 75px;
 
 	@mixin unfold() {
 		@media screen and (min-width: 700px) {
@@ -309,7 +310,7 @@
 
 			&__subheading, &__heading {
 				color: palette-get(na-white);
-
+				max-width: $max-header-width;
 				&:hover {
 					color: palette-get(na-white);
 				}
@@ -373,11 +374,6 @@
 				    }
 				}
 
-
-			/*.hero-grid.has-2-children & {
-			  font-size: rem-calc(32);
-			}*/
-
 				margin-bottom: 0;
 			}
 
@@ -385,6 +381,10 @@
 				display: inline-block;
 				font-size: rem-calc(16);
 				margin-bottom: 0;
+
+				& > a {
+					color: palette-get(na-white);
+				}
 			}
 
 			&__date, &__excerpt {

@@ -12,9 +12,15 @@ npm-debug.log
 requirements.txt
 
 media/
+static/
 
 mysite/static/js
 
 
 venv
 *.log
+
+*.csv
+
+home/management/api/article_images/
+home/management/api/images/

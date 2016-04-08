@@ -9,7 +9,7 @@ from .models import Book, AllBooksHomePage, ProgramBooksPage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program
+from programs.models import Program, Subprogram
 
 class BookTests(WagtailPageTests):
 	"""
@@ -46,7 +46,7 @@ class BookTests(WagtailPageTests):
 		self.assertAllowedParentPageTypes(Book, {ProgramBooksPage})
 
 	def test_program_book_parent_page(self):
-		self.assertAllowedParentPageTypes(ProgramBooksPage, {Program})
+		self.assertAllowedParentPageTypes(ProgramBooksPage, {Program, Subprogram})
 
 	def test_all_books_parent_page(self):
 		self.assertAllowedParentPageTypes(AllBooksHomePage, {HomePage})

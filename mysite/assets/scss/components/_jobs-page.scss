@@ -1,0 +1,64 @@
+.resumator-job-title {
+  font-weight: bold !important;
+  font-size: 26px !important;
+  color: #2c2f35 !important;
+  font-family: "simplon" !important;
+  padding: 18px 0px 0px 0px !important;
+  border-top: 2px solid rgba(44, 47, 53, 0.15) !important;
+}
+
+.resumator-job-info,
+.resumator-job-info-details {
+  padding: 9px 0px 9px 0px;
+}
+
+.resumator-job-info-details,
+.resumator-job-info-details span,
+.resumator-job-info.resumator-jobs-text span,
+.resumator-job-info.resumator-jobs-text span a,
+.resumator-job-info-details,
+.resumator-job-info.resumator-jobs-text,.resumator-job-experience-data {
+  font-size:17px !important;
+  font-family: "simplon" !important;
+  color: rgba(44, 47, 53, 0.7) !important;
+}
+
+
+.resumator-job-info-details span,
+.resumator-job-info.resumator-jobs-text span { color:rgba(44,47,53,1) !important;}
+
+.resumator-job-experience-data { opacity:0.7 !important; }
+
+.resumator-job-heading {
+  color: rgba(44, 47, 53, 1) !important;
+}
+
+.resumator-job-description p, .resumator-job-description ul {
+  font-size:17px !important;
+  font-family: "simplon" !important;
+  color: rgba(44, 47, 53, 0.7) !important;
+}
+
+.resumator-job-description p bold,
+.resumator-job-description p strong, .resumator-job-description li strong, .resumator-job-description li bold {
+  color: rgba(44, 47, 53, 1)
+}
+
+.resumator-jobs-text { color:rgba(44,47,53,1) !important; font-family:"simplon" !important; font-size:17px !important; }
+.resumator-jobs-text li { display:list-item !important; padding-left:0px !important; margin-left:0px !important; }
+
+.resumator-job-title { color:rgba(44,47,53,1) !important; font-family:"simplon" !important; font-size:24px !important; }
+.resumator-job-title li { display:list-item !important; padding-left:0px !important; margin-left:0px !important; }
+.resumator-job-description li, .resumator-job-description p { font-size:17px !important; font-family:"simplon" !important; font-size:17px !important;}
+
+/* Buttons */
+.resumator-hide-details { display:inline !important; }
+.resumator-job-view-details, { padding-top:15px !important; padding-bottom:15px !important;}
+.resumator-job-link, .resumator-job-link input[type="button"], input[type="reset"], input[type="submit"] { padding:15px !important; border-bottom-color:none !important;border-bottom-width:0px !important; border-image-width:0px !important; border-right-color:none !important;border-right-width:0px !important;border-left-width:0px !important; border-top-width:0px !important; background-color:#2dbbb3 !important; color:white !important; font-family:"simplon" !important; font-weight:800 !important;}
+.resumator-buttons {     height: 55px !important; }
+
+#resumator-logo { display:none !important;}
+
+.resumator-job-view-details {
+    padding: 17px 0px !important;
+}

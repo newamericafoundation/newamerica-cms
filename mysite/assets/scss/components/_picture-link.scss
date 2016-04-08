@@ -17,10 +17,21 @@
   &__picture {
     width: $size;
     height: $size;
-    content: '';
     background-size: cover;
     background-position: 50% 50%;
     margin-top: 4px;
+
+    &__text {
+      width: 10px;
+      z-index: 500;
+      color: white;
+      font-weight: bold;
+      font-size: 35px;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: auto;
+    }
   }
   &__content {
     width: calc(100% - #{$size + $local-gutter});

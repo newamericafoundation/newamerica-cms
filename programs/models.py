@@ -2,19 +2,19 @@ from django.db import models
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import PageChooserBlock
-from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey
 
-#Abstract Program class that inherits from Page and provides template
+
+# Abstract Program class that inherits from Page and provides template
 class AbstractProgram(Page):
     name = models.CharField(max_length=100, help_text='Name of Program')
-    location = models.NullBooleanField(help_text='Check box if this is a location based program i.e. New America NYC')
+    location = models.NullBooleanField(
+        help_text='Select if location based program i.e. New America NYC'
+    )
     description = models.TextField()
 
     # Up to four lead stories can be featured on the homepage.
@@ -143,9 +143,9 @@ class AbstractProgram(Page):
         abstract = True
 
 
-#Programs model which creates programs
+# Programs model which creates programs
 class Program(AbstractProgram):
-    parent_page_types = ['home.HomePage',]
+    parent_page_types = ['home.HomePage']
 
     program_logo = models.ForeignKey(
         'wagtailimages.Image',
@@ -183,8 +183,7 @@ class Program(AbstractProgram):
         return context
 
 
-
-#Through relationship for Programs to Subprogram
+# Through relationship for Programs to Subprogram
 class ProgramSubprogramRelationship(models.Model):
     program = models.ForeignKey(Program, related_name="+")
     subprogram = ParentalKey('Subprogram', related_name='programs')
@@ -193,13 +192,16 @@ class ProgramSubprogramRelationship(models.Model):
     ]
 
 
-#Subprograms models which when instantiated can be linked to multiple programs
+# Subprograms models which when instantiated can be linked to multiple programs
 class Subprogram(AbstractProgram):
-    parent_programs = models.ManyToManyField(Program, through=ProgramSubprogramRelationship, blank=True)
+    parent_programs = models.ManyToManyField(
+        Program,
+        through=ProgramSubprogramRelationship,
+        blank=True
+    )
     content_panels = AbstractProgram.content_panels + [
         InlinePanel('programs', label=("Programs")),
     ]
 
     class Meta:
         verbose_name = "Subprogram/Initiative Page"
-

@@ -13,19 +13,8 @@
 
 	<div class="post-container">
 
-	    {% if page.post_author.all %}
-		    	
-		    <h5 class="post-author">
-		    	{% block byline-prefix %}
-				{% endblock %}
-				
-				{% for author in authors %}
-					
-						<p><a href="{{ author.author.url }}">{{ author.author.first_name }} {{ author.author.last_name }}</a>{% listify forloop.revcounter0 %}</p>
-					
-				{% endfor %}
-			</h5>
-			
+	    {% if page.post_author.all %}	
+		    <h5 class="post-author">{% generate_byline page.content_type page.post_author.all %}</h5>
 		{% endif %}
 
 		<h5 class="post-date">{{ page.date }}</h5>
@@ -34,7 +23,7 @@
 		{% endblock %}
 
 		{% if page.post_author.all %}
-		<h1 class="post-subheading">Author{{ authors|pluralize }}</h1>
+		<h1 class="post-subheading">{% get_byline_prefix page.content_type page.post_author.all %}</h1>
 			{% for author in authors %}
 			<div class="post-person">
 				<a href="{{ author.author.url }}">
@@ -47,39 +36,7 @@
 				<p class="post-person__text">{{ author.author.short_bio }}</p>
 			</div>
 			{% endfor %}
-		{% endif %}			
+		{% endif %}	
 
 	</div>
-
-	<div class='row border-panel-container'>
-
-		<div class='small-12 large-6 columns'>
-	
-			<div class='border-panel'>
-
-				<div class='border-panel__item'>
-					<div class='border-panel__info'>STAY CONNECTED</div>
-					<div class='border-panel__title'><a href='#'>Subscribe to New America Weekly</a></div>
-					<a href='#'>
-						<div class='border-panel__icon'>
-							<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 432.61 286.34"><defs><style>.cls-1{fill:#fff;}</style></defs><title>Untitled-6</title><path class="cls-1" d="M413.9,3.44A33.77,33.77,0,0,0,399.11,0H33.51A33.84,33.84,0,0,0,18.66,3.47,33.38,33.38,0,0,0,0,33.5V252.84a33.54,33.54,0,0,0,33.51,33.5h365.6a33.54,33.54,0,0,0,33.51-33.5V33.5A33.4,33.4,0,0,0,413.9,3.44Zm-389.29,44,110.87,96.32L24.61,239V47.45ZM35.79,24.61h361L223.41,175.22a11.74,11.74,0,0,1-14.2,0ZM154.26,160.09l38.91,33.81a36.28,36.28,0,0,0,46.27,0l38.91-33.81L396.66,261.73H36Zm142.87-16.31L408,47.45V239Z"/>
-							</svg>
-						</div>
-					</a>
-					<div class='border-panel__content'>
-						
-							<p class= "border-panel__content__subscribe-info">Get our weekly digital magazine and events lineup in your inbox</p>
-							<input type='text' placeholder='Your Email' id='border-panel__content__email-field'>
-							<button class='button' id='border-panel__content__link'>Sign up</button>
-						
-					</div>
-						
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-    
 {% endblock %}

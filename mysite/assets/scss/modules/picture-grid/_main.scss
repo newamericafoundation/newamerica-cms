@@ -1,0 +1,14 @@
+$picture-grid-padding: 10px;
+.picture-grid {
+	height: 100%;
+	width: 100%;
+}
+
+.event-post-home-page > .picture-grid {
+	@include breakpoint(medium) {
+		padding: 0px $picture-grid-padding;
+	}
+	@include desktop-header {
+		padding: 0px;
+	}
+}

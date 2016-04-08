@@ -1,0 +1,17 @@
+.weekly {
+	padding: 0px;
+	@include breakpoint(medium) {
+		padding: 0px $mobile-padding;
+	}
+	@include desktop-header {
+		padding: 0px;
+	}
+
+	.weekly__header__left {
+		border: none;
+
+		@include breakpoint(medium) {
+			border-right: 2px solid palette-get(na-black-10);
+		}
+	}
+}

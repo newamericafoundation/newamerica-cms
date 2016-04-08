@@ -42,25 +42,14 @@ $mobile-nav-logo-width: 145px;
     }
   }
 
-  &__logo {
+  &__logo, &__secondary__logo {
     width: $mobile-nav-logo-width;
     float:left;
     position:absolute;
+    z-index: 1000;
     top: 50%;
     transform: translateY(-50%);
     left: $mobile-nav-side-padding;
-
-    & > .sidemenu__program-title__title {
-      color: palette-get(na-white);
-      font-family: "Platform"; 
-      font-weight: bold;
-      font-size: 16px; 
-      line-height: 18px;
-      top: 0px;
-      transform: none;
-      margin-bottom: 0px;
-      word-spacing: $mobile-nav-logo-width;
-    }
   }
 
   &__toggle {
