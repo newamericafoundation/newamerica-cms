@@ -66,7 +66,7 @@
 		{% endwith %}
 	</div>
 
-	<div class="picture-grid hide-first">
+	<div class="picture-grid hide-first full-width">
 	{% for edition in all_posts %}
 		{% if edition.get_children|length > 0 %}
 			{% with first_story=edition.get_children.all.0 %}
