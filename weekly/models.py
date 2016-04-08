@@ -47,6 +47,7 @@ class WeeklyEdition(Page):
         return context
 
 
+
 class WeeklyArticle(Post):
     parent_page_types = ['WeeklyEdition']
     subpage_types = []
@@ -54,7 +55,7 @@ class WeeklyArticle(Post):
     def get_context(self, request):
         context = super(WeeklyArticle, self).get_context(request)
         
-        context['siblings'] = self.get_siblings(inclusive=False)
+        context['siblings'] = self.get_siblings(inclusive=True)
         
         return context
 

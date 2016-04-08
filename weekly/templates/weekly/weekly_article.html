@@ -1,16 +1,110 @@
 {% extends "base.html" %}
 
-{% block body_class %}template-weeklyarticle{% endblock %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
 
+{% block sidemenu_status %}has_sidemenu simple{% endblock %}
+
+{% block sidebar %}
+<div class='sidemenu-container'>
+	<div class="sidemenu weekly-sidemenu">
+		<div class="weekly-sidemenu__title-block">
+			<a href="/new-america-weekly/"><h1 class="weekly-sidemenu__title">NEW AMERICA WEEKLY<h1></a>
+			<h3 class="weekly-sidemenu__subtitle">{{ self.get_parent }}</h3>
+		</div>
+		<h5 class="weekly-sidemenu__subheading">In this Edition</h5>
+
+		<div class="weekly-sidemenu__sibling-list">
+			{% for sibling in siblings %}
+				<a class="weekly-sidemenu__sibling-list__link" href="{{ sibling.specific.url }}">
+					<div class="weekly-sidemenu__sibling-list__entry">
+						{% if sibling.specific.story_image %}
+							{% image sibling.specific.story_image original as sibling_image %}
+							<div class='weekly-sidemenu__sibling-list__entry__picture' style='background-image: url({{ sibling_image.url }})'>
+								<div class='weekly-sidemenu__sibling-list__entry__picture__label'>{{ forloop.counter }}</div>
+							</div>
+						{% endif %}
+					
+						<div class='weekly-sidemenu__sibling-list__entry__text'>
+							<h1>{{ sibling.specific.title | truncatechars:60 }}</h1>
+						</div>
+					</div>
+				</a>
+				
+			{% endfor %}
+		</div>
+
+		<h5 class="weekly-sidemenu__subheading">Subscribe</h5>
+		<h5 class="weekly-sidemenu__subheading">Change Edition</h5>
+		<select onchange="location = this.value;">
+			<option disabled selected value> -- select an edition -- </option>
+			{% for edition in self.get_parent.get_siblings %}
+				{% if edition != self.get_parent and edition.get_children|length > 0 %}
+					<option value="{{ edition.url }}">{{ edition.title }}</option>
+				{% endif %}
+			{% endfor %}
+		</select>
+	</div>
+</div>
+
+<div class='content-container has-sidemenu'>
+{% endblock %}
 
 {% block content %}
+	{% image page.story_image original as story_image %}
 
-    {{ page.title }}
-    
-    {{ page.body }}
-    <hr>
-    Sibling: 
-    {% for sibling in siblings %}
-    	<a href="{{ sibling.url }}">{{ sibling }}</a>
-    {% endfor %}
+	{% if story_image %}
+
+		<div class="post-header with-image large" style="background-image: linear-gradient(
+		      rgba(0, 0, 0, 0.3),
+		      rgba(0, 0, 0, 0.3)
+		    ), 
+	    	url({{ story_image.url }})">
+
+			<div class="post-header__text">
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+			</div>
+		</div>
+
+	{% else %}
+
+		<div class="post-header">
+			<div class="post-header__text">
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+			</div>
+		</div>
+
+	{% endif %}
+
+	<div class="post-container">
+
+	    {% if page.post_author.all %}	
+		    <h5 class="post-author">{% generate_byline page.content_type page.post_author.all %}</h5>
+		{% endif %}
+
+		<h5 class="post-date">{{ page.date }}</h5>
+
+	    <div class="post-body with-dropcap">
+		    {{ page.body | safe}}
+		</div>
+	    
+	    {% if page.post_author.all %}
+		<h1 class="post-subheading">{% get_byline_prefix page.content_type page.post_author.all %}</h1>
+			{% for author in authors %}
+			<div class="post-person">
+				<a href="{{ author.author.url }}">
+					<div class='person__icon'>
+						{% image author.author.profile_image original as author_image %}
+						<div class='person__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
+						</div>
+					</div>
+				</a>
+				<p class="post-person__text">{{ author.author.short_bio }}</p>
+			</div>
+			{% endfor %}
+		{% endif %}	
+	</div>
 {% endblock %}

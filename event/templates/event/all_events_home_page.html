@@ -1,9 +1,122 @@
-{% extends "org_post_home_page.html" %}
+{% extends "events_sidemenu.html" %}
 
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_class %}template-alleventshomepage{% endblock %}
 
-{% block page-title %}
-	<h1 class= "content-grid__title">New America Events</h1>
+{% block content %}
+	{% image page.story_image original as story_image %}
+
+	{% if story_image %}
+
+	<div class="post-header with-image" style="background-image: linear-gradient(
+	      rgba(0, 0, 0, 0.3),
+	      rgba(0, 0, 0, 0.3)
+	    ), 
+    	url({{ story_image.url }})">
+
+		<div class="post-header__text">
+		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+		</div>
+	</div>
+	{% else %}
+
+	<div class="post-header">
+		<div class="post-header__text">
+		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+		</div>
+	</div>
+
+	{% endif %}
+
+	<div class="event-post-home-page">
+		<div class="content-grid__controls">
+			<div class="row content-grid__controls__filters">
+				<div class="column small-12 medium-4 large-4 content-grid__controls__program-filter">
+					<select>
+						<option value="all">All Initiatives</option>
+						<option value="open">Open Technology Institute</option>
+						<option value="education">Education Policy</option>
+						<option value="asset">Asset Building</option>
+			        </select>
+			    </div>
+			    <div class="column small-12 medium-4 large-4 content-grid__controls__date-filter">
+					<select>
+						<option value="all">All Dates</option>
+			        </select>
+			    </div>
+			    <div class="column small-12 medium-4 large-4 content-grid__controls__search">
+		      		<input type="search" placeholder="Search Results">
+		        </div>
+
+			</div>
+			<div class="content-grid__controls__right">
+				<div class="pagination">
+						{% if all_posts.has_previous %}
+							<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}">
+
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+									<polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
+								</svg>
+
+							</a>
+						{% endif %}
+
+						<span>Page</span>
+						<form class="pagination__form" action="?page=value" method="get">
+							<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
+						</form>
+
+						<span>of</span>
+						<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
+			
+						{% if all_posts.has_next %}
+					    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}">
+					    		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+									<polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
+								</svg>
+							</a>
+						{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<div class="picture-grid with-sidemenu-width">
+			{% for post in all_posts %}
+				<div class="picture-grid__entry">
+						{% image post.story_image original as post_image %}
+						<a href="{{ post.url }}">
+							<div class="picture-grid__entry__image-container" style="background-image: url('{{ post_image.url }}') ">
+							</div>
+						</a>
+						<div class="picture-grid__entry__text-container">
+							{% if post.parent_programs %}
+								<h5 class="picture-grid__entry__description">
+								{% for program in post.parent_programs.all %}
+									<a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
+								{% endfor %}
+								</h5>
+							{% endif %}
+							<h5 class="picture-grid__entry__title">
+								<a href="{{ post.url }}">{{ post.title }}</a>
+							</h5>
+							<h5 class= "picture-grid__entry__date-time">{% generate_dateline post %}</h5>
+							<h5 class= "picture-grid__entry__location">{{ post.city }}, {{ post.state }}</h5>
+							
+							<hr>
+							<p class="picture-grid__entry__body">
+								{{ post.story_excerpt }}
+							</p>
+						</div>
+						<div class="picture-grid__entry__text-fadeout"></div>
+				</div>
+	
+			{% endfor %}
+		</div>
+	</div>
+
 {% endblock %}
