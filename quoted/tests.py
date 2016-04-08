@@ -1,3 +1,75 @@
-from django.test import TestCase
+from wagtail.tests.utils import WagtailPageTests
+from wagtail.wagtailcore.models import Page
 
-# Create your tests here.
+from home.models import HomePage, PostProgramRelationship
+
+from programs.models import Program, Subprogram
+
+from .models import Quoted, AllQuotedHomePage, ProgramQuotedPage
+
+
+class QuotedTests(WagtailPageTests):
+    """
+    Testing the Quoted, AllQuotedHomePage, and
+    ProgramQuotedPage models to confirm
+    hierarchies between pages and
+    whether it is possible to create
+    pages where it is appropriate.
+
+    """
+    def setUp(self):
+        self.login()
+        self.root_page = Page.objects.get(id=1)
+        self.home_page = self.root_page.add_child(instance=HomePage(
+            title='New America')
+        )
+        self.all_quoted_home_page = self.home_page.add_child(
+            instance=AllQuotedHomePage(title='New America In The News')
+        )
+        self.program_page_1 = self.home_page.add_child(
+            instance=Program(title='OTI', name='OTI', description='OTI',location=False, depth=3)
+        )
+        self.program_quoted_page = self.program_page_1\
+            .add_child(instance=ProgramQuotedPage(
+                title='OTI In The News')
+            )
+        self.quoted = Quoted(
+            title='Quoted 1',
+            slug='quoted-1',
+            date='2016-02-10',
+            depth=5
+        )
+        self.program_quoted_page.add_child(
+            instance=self.quoted)
+        self.quoted.save()
+
+
+    # Test that a child Page can be created under hte appropriate
+    # Parent Page
+    def test_can_create_quoted_under_program_quoted_page(self):
+        self.assertCanCreateAt(ProgramQuotedPage, Quoted)
+
+    def test_can_create_program_quoted_page_under_program(self):
+        self.assertCanCreateAt(Program, ProgramQuotedPage)
+
+    def test_can_create_program_quoted_page_under_subprogram(self):
+        self.assertCanCreateAt(Subprogram, ProgramQuotedPage)
+
+     # Test allowed parent Page types
+    def test_quoted_parent_page(self):
+        self.assertAllowedParentPageTypes(
+            Quoted, {ProgramQuotedPage}
+        )
+
+    def test_program_quoted_parent_page(self):
+        self.assertAllowedParentPageTypes(
+            ProgramQuotedPage,
+            {Program, Subprogram}
+        )
+
+    def test_all_quoted_parent_page(self):
+        self.assertAllowedParentPageTypes(
+            AllQuotedHomePage,
+            {HomePage}
+        )
+
