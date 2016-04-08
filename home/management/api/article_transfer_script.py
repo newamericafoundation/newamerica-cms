@@ -199,7 +199,7 @@ def load_articles():
                                 'type': 'paragraph',
                                 'value': post['content']
                             }
-                    ]),
+                    ])
                     new_article.story_image = download_image(
                             post['cover_image_url'], 
                             post['title'] + "_image.jpeg"
@@ -294,7 +294,7 @@ def load_weekly_articles():
                             'type': 'paragraph',
                             'value': post['content']
                         }
-                    ]),
+                    ])
                     new_weekly_article.story_image = download_image(
                             post['cover_image_url'], 
                             post['title'] + "_image.jpeg"
