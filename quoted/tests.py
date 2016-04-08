@@ -44,7 +44,7 @@ class QuotedTests(WagtailPageTests):
         self.quoted.save()
 
 
-    # Test that a child Page can be created under hte appropriate
+    # Test that a child Page can be created under the appropriate
     # Parent Page
     def test_can_create_quoted_under_program_quoted_page(self):
         self.assertCanCreateAt(ProgramQuotedPage, Quoted)
@@ -72,4 +72,11 @@ class QuotedTests(WagtailPageTests):
             AllQuotedHomePage,
             {HomePage}
         )
+
+    # Test allowed subpage types
+    def test_quoted_subpages(self):
+        self.assertAllowedSubpageTypes(Quoted, {})
+
+    def test_program_quoted_subpages(self):
+        self.assertAllowedSubpageTypes(ProgramQuotedPage, {Quoted})
 
