@@ -93,3 +93,28 @@ class QuotedTests(WagtailPageTests):
             }
         )
 
+    # Test relationship between quoted and one Program
+    def test_quoted_has_relationship_to_one_program(self):
+        quoted = Quoted.objects.first()
+        self.assertEqual(quoted.parent_programs.all()[0].title, 'OTI')
+
+    # Test you can create a quoted item with two parent Programs
+    def test_quoted_has_relationship_to_two_parent_programs(self):
+        quoted = Quoted.objects.first()
+        second_program = Program(
+            title='Education', 
+            name='Education', 
+            slug='education', 
+            description='Education', 
+            location=False, 
+            depth=3
+        )
+        self.home_page.add_child(instance=second_program)
+        relationship, created = PostProgramRelationship.objects.get_or_create(
+            program=second_program, post=quoted)
+        relationship.save()
+        self.assertEqual(
+            quoted.parent_programs.filter(
+                title='Education').first().title, 'Education'
+        )
+
