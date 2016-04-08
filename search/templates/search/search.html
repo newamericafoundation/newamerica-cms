@@ -10,7 +10,12 @@
 {% block content %}
     <div class="post-header">
         <div class="post-header__text">
-            <h1 class="post-header__text__heading">Search: "{{ search_query }}"</h1>
+            {% if search_query %}
+                <h1 class="post-header__text__heading">Search: "{{ search_query }}"</h1>
+            {% else %}
+                <h1 class="post-header__text__heading">Search New America</h1>
+            {% endif %}
+            
         </div>
     </div>
 
