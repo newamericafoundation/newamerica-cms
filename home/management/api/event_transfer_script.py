@@ -244,6 +244,7 @@ def load_events():
                     zipcode=event_data['zipcode'],
                     rsvp_link=event_data['rsvp_link'],
                     body=json.dumps([{'type':'paragraph', 'value':post['content']}]),
+                    soundcloud_url=post['soundcloud_url'],
                     story_image=download_image(
                         post['cover_image_url'], 
                         event_slug + "_image.jpeg"
@@ -277,6 +278,7 @@ def load_events():
                         post['cover_image_url'], 
                         event_slug + "_image.jpeg"
                 )
+                new_event.soundcloud_url=post['soundcloud_url']
                 print("Updating existing event: ")
                 print(new_event)
                 new_event.save()
