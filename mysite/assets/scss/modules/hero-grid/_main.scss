@@ -293,11 +293,11 @@
 			background-blend-mode: multiply;
 			z-index: 2;
 		  	content: '';
-		  	-webkit-transition: all ease-in 0.25s; -moz-transition: all ease-in .25s; -o-transition: all ease-in 0.25s; transition: all ease-in 0.25s; 
+		  	-webkit-transition: all ease-in 0.15s; -moz-transition: all ease-in .15s; -o-transition: all ease-in 0.15s; transition: all ease-in 0.15s; 
 
 		  	&:hover {
 		  		background-color: transparentize(palette-get(na-black), 1);
-		  		-webkit-transition: all ease-in 0.25s; -moz-transition: all ease-in .25s; -o-transition: all ease-in .25s; transition: all ease-in .25s; 
+		  		-webkit-transition: all ease-in 0.15s; -moz-transition: all ease-in .15s; -o-transition: all ease-in .15s; transition: all ease-in .15s; 
 		  	}
 		}
 
