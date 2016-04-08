@@ -11,15 +11,11 @@ $link-group-header-spacing: 30px;
   @include is-active {
     display: flex;
   }
+  
   .no-flexbox & {
     display: block !important;
   }
-  // position: fixed;
-  // background-color: rgba(0, 0, 0, 0.2);
-  // width: 100vw;
-  // left: 0vw;
-  // height: 100vh;
-  // top: 0vh;
+
   position: absolute;
   left: 0;
 
@@ -75,29 +71,49 @@ $link-group-header-spacing: 30px;
     width: 100%;
 
     margin: auto;
+
     border-bottom: 4px solid palette-get(na-turquoise);
    
-    // .no-flexbox & {
-    // 	position: absolute;
-    // 	height: 90%;
-    // 	left: 5%;
-    // 	top: 5%;
-    // }
     @include standard-shadow;
     padding: 30px 7px;
 
-    /*max-height: 350px;*/
-    overflow: scroll;
-    @include breakpoint(large) {
-      max-height: none;
-      overflow: none;
-    }
 
     background-color: palette-get(na-white);
     border-left: 1px solid palette-get(na-black-10);
     border-right: 1px solid palette-get(na-black-10);
     border-top: 1px solid palette-get(na-black-10);
   }
+
+  &__main {
+  	width: 75%;
+  	float: left;
+
+  	&__entry-group {
+  		padding-top: 15px;
+	  	@include breakpoint(medium) {
+		  	-moz-column-count:2; 
+			-webkit-column-count:2; 
+			column-count:2;
+		}
+	  	@include breakpoint(large) {
+		  	-moz-column-count:3; 
+			-webkit-column-count:3; 
+			column-count:3;
+		}
+	}
+
+	&__entry {
+		padding-bottom: 15px;
+		width: 100%;
+		display: inline-block;
+	}
+  }
+
+  &__secondary {
+  	width: 25%;
+  	float: left;
+  }
+
   &__heading {
     margin-bottom: 0;
     padding-bottom: 10px;
@@ -117,7 +133,6 @@ $link-group-header-spacing: 30px;
     @include local-hover;
   }
   &__main-element {
-    margin-top: 16px;
     font-size: rem-calc(18);
     font-weight: bold;
     opacity: 0.9;
