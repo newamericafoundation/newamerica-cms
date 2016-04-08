@@ -80,3 +80,16 @@ class QuotedTests(WagtailPageTests):
     def test_program_quoted_subpages(self):
         self.assertAllowedSubpageTypes(ProgramQuotedPage, {Quoted})
 
+    # Test that pages can be created with POST data
+    def test_can_create_all_quoted_page_under_homepage(self):
+        self.assertCanCreate(self.home_page, AllQuotedHomePage, {
+            'title': 'New America In The News Again',
+            }
+        )
+
+    def test_can_create_program_quoted_page(self):
+        self.assertCanCreate(self.program_page_1, ProgramQuotedPage, {
+            'title': 'Our Program In The News',
+            }
+        )
+
