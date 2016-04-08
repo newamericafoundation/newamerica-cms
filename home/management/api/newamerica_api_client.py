@@ -53,6 +53,7 @@ class NAClient:
 		and creates new objects in the new database using the Article model
 		"""
 		for program in self.client.get(self.api_url + 'programs').json():
+			program_id = program['id']
 			self.activate_program(program_id)
 			for post_set in self.get_data('articles'):
 				for post in post_set['results']:
