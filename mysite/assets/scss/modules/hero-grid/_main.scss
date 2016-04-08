@@ -48,7 +48,7 @@
 	}
 
 	&__main {
-
+		background-color: palette-get(na-turquoise);
 		height: $height / 2;
 		margin-bottom: $local-gutter;
 
@@ -244,7 +244,7 @@
 		}
 
 		&__content {
-		  	background-color: palette-get(na-turquoise);
+			background-color: palette-get(na-turquoise);
 			display: block;
 			position: relative;
 			width: 100%;
