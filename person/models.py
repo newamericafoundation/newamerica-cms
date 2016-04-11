@@ -209,7 +209,6 @@ class OurPeoplePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('page_description'),
-        FieldPanel('role_query'),
     ]
 
     promote_panels = Page.promote_panels + [
@@ -229,7 +228,7 @@ class OurPeoplePage(Page):
         return context
 
     class Meta:
-        verbose_name = "Homepage for People in NAF"
+        verbose_name = "Homepage for All People in NAF"
 
 
 class ExpertPage(Page):
