@@ -3,6 +3,8 @@ from django import template
 from django.conf import settings
 from programs.models import Program
 from django.utils.safestring import mark_safe
+from wagtail.wagtailimages.models import Image
+from wagtail.wagtailsearch.backends import get_search_backend
 
 register = template.Library()
 
@@ -89,4 +91,23 @@ def generate_dateline(post):
 			ret_string += '<p class="date">' + post.date.strftime(date_format) + '</p>'
 
 	return mark_safe(ret_string)
+
+@register.simple_tag()
+def default_image(post_title):
+	s = get_search_backend()
+	results = s.search("Default", Image)
+
+	num_results = len(results)
+	interval = 50/num_results
+	i = 0
+	
+	for result in results:
+		if len(post_title) > i*interval and len(post_title) < (i+1)*interval:
+			return "/media/" + str(result.file)
+			i += 1
+
+	return "/media/" + str(results[num_results-1].file)
+	
+
+
 
