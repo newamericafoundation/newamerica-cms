@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-programpeoplepage{% endblock %}
+
+{% block content %}
+
+    <section class='section section--fixed-width'>
+	<h1 class="person-grid__title">{{page.title}}</h1>
+
+	<div class="row person-grid__content">
+		{% for person in people %}
+			<div class="small-12 medium-6 large-4 columns">
+				<div class="person">
+					<a href="{{ person.url }}">
+						<div class='person__icon'>
+							{% image person.profile_image original as person_image %}
+							<div class='person__icon__photo' style='background: no-repeat center/100% url({{ person_image.url }})'>
+							</div>
+						</div>
+					</a>
+					<h5 class='person__name'>
+						<a href="{{ person.url }}">{{ person.first_name }} {{ person.last_name }}</a>
+					</h5>
+					<h5 class='person__position'>{{ person.position_at_new_america }}</h5>
+					
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</section>
+
+{% endblock %}

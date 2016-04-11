@@ -209,6 +209,7 @@ class OurPeoplePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('page_description'),
+        FieldPanel('role_query'),
     ]
 
     promote_panels = Page.promote_panels + [
@@ -228,7 +229,7 @@ class OurPeoplePage(Page):
         return context
 
     class Meta:
-        verbose_name = "Homepage for all People in NAF"
+        verbose_name = "Homepage for People in NAF"
 
 
 class ExpertPage(Page):
@@ -306,3 +307,43 @@ class ProgramPeoplePage(Page):
 
     class Meta:
         verbose_name = "Our People Page for Programs and Subprograms"
+
+
+class BoardAndLeadershipPeoplePage(Page):
+    """
+    A page which inherits from the abstract Page model and returns
+    everyone from the Person model for a specific program or Subprogram
+    """
+    parent_page_types = ['home.HomePage']
+    subpage_types = []
+
+    page_description = RichTextField(blank=True, null=True)
+
+    QUERY_OPTIONS = (
+        ('Board Member', 'Board Members'),
+        ('Leadership Team', 'Leadership Team'),
+        ('Central Staff', 'Central Staff'),
+    )
+    role_query = models.CharField(choices=QUERY_OPTIONS, max_length=50, default='Board Members')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('page_description'),
+        FieldPanel('role_query'),
+    ]
+
+    def get_context(self, request):
+        context = super(BoardAndLeadershipPeoplePage, self).get_context(request)
+
+        which_role = self.role_query
+
+        if which_role == 'Leadership Team':
+            all_people = Person.objects.filter(leadership=True)
+        else:
+            all_people = Person.objects.filter(role=which_role)
+
+        context['people'] = paginate_results(request, all_people)
+
+        return context
+
+    class Meta:
+        verbose_name = "Our People Page for Board of Directors, Central Staff, and Leadership Team"
