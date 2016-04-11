@@ -112,6 +112,20 @@ $link-group-header-spacing: 30px;
   &__secondary {
   	width: 25%;
   	float: left;
+
+  	&__entry-group {
+  		padding: 15px 0px;
+  	}
+
+  	.header__link-group__main-element {
+  		padding-bottom: 15px;
+  	}
+
+  }
+
+  &__heading-container {
+  	padding-right: 10px;
+  	padding-left: 10px;
   }
 
   &__heading {
@@ -120,15 +134,13 @@ $link-group-header-spacing: 30px;
     border-bottom: 1px solid palette-get(na-black-10);
     font-weight: bold;
     font-size: rem-calc(22);
+    margin-right: 10px;
   }
-  &__heading,
+
   &__main-element,
   &__sub-element {
     padding-left: 10px;
     padding-right: 10px;
-  }
-  &__main-element,
-  &__sub-element {
     display: block;
     @include local-hover;
   }
@@ -142,5 +154,10 @@ $link-group-header-spacing: 30px;
     margin-top: 3px;
     font-size: rem-calc(16px);
     opacity: 0.7;
+  }
+
+  .social-icons {
+  	float: none;
+  	padding-left: 10px;
   }
 }
