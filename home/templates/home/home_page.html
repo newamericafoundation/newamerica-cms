@@ -2,6 +2,7 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_class %}template-homepage{% endblock %}
 {% block sidemenu_status %}no_sidemenu{% endblock %}
@@ -17,7 +18,15 @@
 					<div class='hero-grid__element'>
 					<a href="{{ page.lead_1.url }}">
 						<div class='hero-grid__element__wrapper'>
-						{% image page.lead_1.post.story_image original as lead1_image %}
+							{% if page.lead_1.post.story_image %}
+								{% image page.lead_1.post.story_image original as lead1_image %}
+								<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
+								
+							{% else %}
+								<div class='hero-grid__element__background' style="background-image: url('{% default_image post.title %}') ">
+								</div>
+							{% endif %}
+						
 							<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
@@ -41,8 +50,15 @@
 					{% if other_lead_story %}
 						<div class='hero-grid__element'>
 							<a href="{{ other_lead_story.url }}" class='hero-grid__element__content'>
-							{% image other_lead_story.post.story_image original as other_lead_story_image %}
-								<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
+								{% if other_lead_story.post.story_image %}
+									{% image other_lead_story.post.story_image original as other_lead_story_image %}
+									<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
+									
+								{% else %}
+									<div class='hero-grid__element__background' style="background-image: url('{% default_image post.title %}') ">
+									</div>
+								{% endif %}
+							
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
 									<a class='hero-grid__element__text-bar__subheading'>
@@ -72,12 +88,19 @@
 
 		{% for feature_story in featured_stories %}
 		<div class='small-12 large-4 columns'>
-			{% image feature_story.post.story_image original as feature_story_image %}
+			
+			
+
 			<div class='picture-link'>
 				<a href="{{ feature_story.url }}">
-					<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>
-						
-					</div>
+					{% if feature_story.post.story_image %}
+						{% image feature_story.post.story_image original as feature_story_image %}
+						<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>	
+						</div>
+					{% else %}
+						<div class='picture-link__picture' style="background-image: url('{% default_image post.title %}') ">
+						</div>
+					{% endif %}
 				</a>
 				<div class='picture-link__content'>
 					<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
