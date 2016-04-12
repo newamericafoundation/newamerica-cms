@@ -120,10 +120,11 @@
 
     &__title {
       @include page-section-title-text;
-      padding: $desktop-padding $desktop-padding $desktop-padding 0px;
+      padding: $desktop-padding;
+      padding-left: 0px;
 
       @include breakpoint(medium) {
-      	padding: $desktop-padding;
+      	padding-left: 20px;
       }
     }
 
