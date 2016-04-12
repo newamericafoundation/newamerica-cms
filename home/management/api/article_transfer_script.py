@@ -10,6 +10,7 @@ from .newamerica_api_client import NAClient
 
 from article.models import Article, ProgramArticlesPage
 
+import django.db.utils
 from django.utils.text import slugify
 from django.core.files.images import ImageFile
 from django.core.exceptions import ObjectDoesNotExist
@@ -18,89 +19,7 @@ from programs.models import Program
 
 from weekly.models import Weekly, WeeklyEdition, WeeklyArticle
 
-# Maps the program id from the old database API to the
-# titles of the programs in the new database
-mapped_programs = {
-    '15': 'Asset Building',
-    '7': 'Better Life Lab',
-    '19': 'Cybersecurity Initiative',
-    '13': 'Economic Growth',
-    '5': 'Education Policy',
-    '20': 'Family-Centered Social Policy',
-    '1': 'Future of War',
-    '9': 'Fellows',
-    '2': 'Future Tense',
-    '22': 'Cybersecurity Initiative',
-    '10': 'International Security',
-    '8': 'New America DC',
-    '24': 'New America CA',
-    '17': 'New America Live',
-    '18': 'New America NYC',
-    '16': 'Open Markets',
-    '3': 'Open Technology Institute',
-    '6': 'Political Reform',
-    '14': 'Post Secondary National Policy Institute',
-    '21': 'Profits & Purpose',
-    '23': 'Resilient Communities',
-    '25': 'Resource Security',
-    '12': 'New America Weekly',
-    '4': 'Asset Building',
-}
-
-
-def get_post_date(original_date):
-    """
-    Takes the original date from the API
-    and transforms it to fit the new database.
-    If no date, it provides a default value.
-    """
-    if original_date:
-        old_date_split = original_date.split("T")
-        new_date = old_date_split[0]
-    else:
-        new_date = '2016-03-21'
-
-    return new_date
-
-
-def download_image(url, image_filename):
-    """
-    Takes the image URL from the old database API,
-    retrieves the image and then saves it with a new
-    filename
-    """
-    if url:
-        image_location = os.path.join(
-            'home/management/api/images',
-            image_filename
-        )
-        urllib.urlretrieve(url, image_location)
-        image = Image(
-            title=image_filename,
-            file=ImageFile(open(image_location), name=image_filename)
-        )
-        image.save()
-        return image
-
-
-def need_to_update_post(modified_date):
-    """
-    Takes in the modified date of the post and checks
-    if it has been changes within the last 30 days
-    and then updates the content as necessary
-    """
-    today = datetime.datetime.today()
-    one_month_ago = today - datetime.timedelta(days=30)
-
-    formatted_revision_date = get_post_date(modified_date)
-    formatted_revision_date = datetime.datetime.strptime(
-        formatted_revision_date, '%Y-%m-%d'
-    )
-    formatted_revision_date = formatted_revision_date.date()
-    print(formatted_revision_date)
-
-    if formatted_revision_date >= one_month_ago.date():
-        return True
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage, get_post_authors
 
 
 def load_weekly_mapping():
@@ -118,18 +37,6 @@ def load_weekly_mapping():
     return csv_data
 
 
-def get_summary(old_summary):
-    """
-    Takes the original post summary from the API
-    and transforms it to fit the new database.
-    If no summary, it provides a default value.
-    """
-    if old_summary:
-        return old_summary[:140]
-    else:
-        return "Summary goes here"
-
-
 def load_articles():
     """
     Transfers all articles from the old database API
@@ -137,17 +44,16 @@ def load_articles():
     into the new database creating objects of the Article model
     """
     for post, program_id in NAClient().get_articles():
-        program_id = str(program_id)
         excluded_programs = ["12", "8"]
         # Leave out articles from New America DC and New America Weekly Programs
         if program_id not in excluded_programs:
-            post_parent_program = Program.objects.get_or_create(
-                title=mapped_programs[program_id])[0]
+            post_parent_program = get_program(program_id)
 
-            parent_program_articles_homepage = post_parent_program\
-                .get_children()\
-                .type(ProgramArticlesPage)\
-                .first()
+            parent_program_articles_homepage = get_content_homepage(
+                    post_parent_program, 
+                    ProgramArticlesPage,
+                    'Articles',
+                )
 
             article_slug = slugify(post['title'])
 
@@ -157,56 +63,62 @@ def load_articles():
             if post['status'] == "published":
                 # Checks that an article with this slug does not
                 # exist already in the database and creates a new object
-                if not new_article and article_slug:
-                    new_article = Article(
-                        search_description='',
-                        seo_title='',
-                        depth=4,
-                        show_in_menus=False,
-                        slug=article_slug,
-                        title=post['title'],
-                        date=get_post_date(post['publish_at']),
-                        body=json.dumps([
-                            {
-                                'type': 'paragraph',
-                                'value': post['content']
-                            }
-                        ]),
-                        # story_excerpt=post['summary'],
-                        story_image=download_image(
-                            post['cover_image_url'],
-                            post['title'] + "_image.jpeg"
+                try:
+                    if not new_article and article_slug:
+                        new_article = Article(
+                            search_description='',
+                            seo_title='',
+                            depth=4,
+                            show_in_menus=False,
+                            slug=article_slug,
+                            title=post['title'],
+                            date=get_post_date(post['publish_at']),
+                            body=json.dumps([
+                                {
+                                    'type': 'paragraph',
+                                    'value': post['content']
+                                }
+                            ]),
+                            story_excerpt=get_summary(post['summary']),
+                            story_image=download_image(
+                                post['cover_image_url'],
+                                post['title'] + "_image.jpeg"
+                            )
                         )
-                    )
-                    print("Adding new article: ")
-                    print(new_article)
-                    parent_program_articles_homepage.add_child(
-                        instance=new_article
-                    )
-                    new_article.save()
-                # If the article does exist and has been modified within the
-                # specified last number of days, it updates the fields 
-                elif new_article and article_slug and need_to_update_post(post['modified']):
-                    new_article.search_description = ''
-                    new_article.seo_title = ''
-                    new_article.depth = 4
-                    new_article.show_in_menus = False
-                    new_article.slug = article_slug
-                    new_article.title = post['title']
-                    new_article.date = get_post_date(post['publish_at'])
-                    new_article.body = json.dumps([
-                            {
-                                'type': 'paragraph',
-                                'value': post['content']
-                            }
-                    ])
-                    new_article.story_image = download_image(
-                            post['cover_image_url'], 
-                            post['title'] + "_image.jpeg"
+                        print("Adding new article: ")
+                        print(new_article)
+                        parent_program_articles_homepage.add_child(
+                            instance=new_article
                         )
-                    print("Updating existing article: ")
-                    print(new_article)
-                    new_article.save()
+                        new_article.save()
+                        get_post_authors(new_article, post['authors'])
+                    # If the article does exist and has been modified within the
+                    # specified last number of days, it updates the fields 
+                    elif new_article and article_slug and need_to_update_post(post['modified']):
+                        new_article.search_description = ''
+                        new_article.seo_title = ''
+                        new_article.depth = 4
+                        new_article.show_in_menus = False
+                        new_article.slug = article_slug
+                        new_article.title = post['title']
+                        new_article.date = get_post_date(post['publish_at'])
+                        new_article.body = json.dumps([
+                                {
+                                    'type': 'paragraph',
+                                    'value': post['content']
+                                }
+                        ])
+                        new_article.story_image = download_image(
+                                post['cover_image_url'], 
+                                post['title'] + "_image.jpeg"
+                            )
+                        new_article.story_excerpt=get_summary(post['summary'])
+                        print("Updating existing article: ")
+                        print(new_article)
+                        new_article.save()
+                        get_post_authors(new_article, post['authors'])
+                except django.db.utils.IntegrityError:
+                    pass
 
 
 def load_weekly_articles():
