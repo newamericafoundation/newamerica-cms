@@ -23,7 +23,7 @@ from person.models import Person
 
 from home.models import PostAuthorRelationship
 
-from transfer_script_helpers import mapped_programs, download_image, get_post_date, get_summary, need_to_update_post, get_post_authors
+from transfer_script_helpers import mapped_programs, download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage
 
 
 def load_books():
@@ -35,13 +35,13 @@ def load_books():
     for post, program_id in NAClient().get_books():
         if post['status'] == "published":
             try:
-                program_id = str(program_id)
-                post_parent_program = Program.objects.get_or_create(
-                    title=mapped_programs[program_id], 
-                    depth=3
-                )[0]
-                post_parent_program.save()
-                parent_program_books_homepage = post_parent_program.get_children().type(ProgramBooksPage).first()
+                post_parent_program = get_program(program_id)
+                
+                parent_program_books_homepage = get_content_homepage(
+                    post_parent_program, 
+                    ProgramBooksPage,
+                    'Books',
+                )
 
                 book_slug = slugify(post['title'])
 
