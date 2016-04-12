@@ -23,7 +23,7 @@
 		{% endblock %}
 
 		{% if authors %}
-		<h1 class="post-subheading">{% get_byline_prefix page.content_type authors %}</h1>
+		<h1 class="post-subheading">{% get_author-block_prefix page.content_type authors %}</h1>
 			{% for author in authors %}
 			{% if author.author.profile_image %}
 				<div class="post-person with-image">

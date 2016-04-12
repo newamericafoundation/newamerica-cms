@@ -31,6 +31,7 @@ class HomePage(Page):
     'blog.AllBlogPostsHomePage',
     'book.AllBooksHomePage',
     'person.OurPeoplePage',
+    'person.BoardAndLeadershipPeoplePage',
     'podcast.AllPodcastsHomePage',
     'policy_paper.AllPolicyPapersHomePage',
     'press_release.AllPressReleasesHomePage',
