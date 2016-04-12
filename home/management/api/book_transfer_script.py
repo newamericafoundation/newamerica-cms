@@ -1,29 +1,14 @@
-import csv
-import os
-import urllib
-import json
-import datetime
 import django.db.utils
 
-from wagtail.wagtailimages.models import Image
+import json
 
 from .newamerica_api_client import NAClient
-
-import author_transfer_script
 
 from book.models import Book, ProgramBooksPage
 
 from django.utils.text import slugify
-from django.core.files.images import ImageFile
-from django.core.exceptions import ObjectDoesNotExist
 
-from programs.models import Program
-
-from person.models import Person
-
-from home.models import PostAuthorRelationship
-
-from transfer_script_helpers import mapped_programs, download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage
 
 
 def load_books():
