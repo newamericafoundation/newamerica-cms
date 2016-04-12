@@ -8,18 +8,26 @@
 
 {% block content %}
 <div class="bio-page">
-    <div class="bio-page__heading">
-        <div class='bio-page__icon'>
-            {% image page.profile_image original as bio_image %}
-            <div class='bio-page__icon__photo' style='background: no-repeat center/100% url({{ bio_image.url }})'>
+    {% if page.profile_image %}
+        <div class="bio-page__heading with-image">
+            <div class='bio-page__heading__icon'>
+                {% image page.profile_image original as bio_image %}
+                <div class='bio-page__heading__icon__photo' style='background: no-repeat center/100% url({{ bio_image.url }})'>
+                </div>
+            </div>
+            <div class="bio-page__heading__text">
+                <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
+                <h3 class= "bio-page__heading__text__position">{{ page.position_at_new_america }}</h3>
             </div>
         </div>
-        <div class="bio-page__heading-text">
-            <h1 class= "bio-page__heading-text__name">{{ page.first_name }} {{ page.last_name }}</h1>
-            <h3 class= "bio-page__heading-text__position">{{ page.position_at_new_america }}</h3>
+    {% else %}
+        <div class="bio-page__heading">
+            <div class="bio-page__heading__text">
+                <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
+                <h3 class= "bio-page__heading__text__position">{{ page.position_at_new_america }}</h3>
+            </div>
         </div>
-    </div>
-
+    {% endif %}
     <div class="bio-page__content">
         {% if page.long_bio %}
             {{ page.long_bio|richtext|linebreaks }}
