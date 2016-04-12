@@ -3,11 +3,12 @@ import $ from 'jquery'
 function addSearchBoxInteraction() {
 	$(".search-box__input")
 		.on("focus", function() {
-			$(".search-box__icon").attr("fill", "#abacae");
-			console.log("focused!!!!");
+			var submit = $(this).siblings(".search-box__submit ");
+			$(submit).children(".search-box__icon ").attr("fill", "#abacae");
 		})
 		.on("focusout", function() {
-			$(".search-box__icon").attr("fill", "#eaeaeb");
+			var submit = $(this).siblings(".search-box__submit ");
+			$(submit).children(".search-box__icon ").attr("fill", "#eaeaeb");
 		});
 }
 $(addSearchBoxInteraction);
