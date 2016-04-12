@@ -22,9 +22,9 @@ if sys.version_info[0] < 3:
     sys.setdefaultencoding('utf-8')
 
 
-def users_data_stream():
+def users_data_stream(endpoint):
     users = NAClient()
-    for user_set in users.get_data('authors'):
+    for user_set in users.get_data(endpoint):
         for user in user_set['results']:
             yield user
 
