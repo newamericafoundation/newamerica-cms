@@ -1,6 +1,5 @@
 .post-person {
-	$person-icon-width: 100px;
-	min-height: $person-icon-width;
+	
 	height: 100%;
 	display: table;
 	margin-top: $desktop-padding;
@@ -15,7 +14,15 @@
 		display: table-cell;
 		vertical-align: middle;
 		height: 100%;
-		padding-left: $desktop-padding;
 		color: palette-get(na-black-40);
+	}
+
+	&.with-image {
+		$person-icon-width: 100px;
+		min-height: $person-icon-width;
+
+		.post-person__text {
+			padding-left: $desktop-padding;
+		}
 	}
 }

@@ -94,16 +94,22 @@
 	    {% if page.authors.all %}
 		<h1 class="post-subheading">{% get_byline_prefix page.content_type page.authors.all %}</h1>
 			{% for author in authors %}
-			<div class="post-person">
-				<a href="{{ author.author.url }}">
-					<div class='person__icon'>
-						{% image author.author.profile_image original as author_image %}
-						<div class='person__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
-						</div>
-					</div>
-				</a>
-				<p class="post-person__text">{{ author.author.short_bio }}</p>
-			</div>
+			{% if author.author.profile_image %}
+				<div class="post-person with-image">
+					<a href="{{ author.author.url }}">
+							<div class='person__icon'>
+								{% image author.author.profile_image original as author_image %}
+								<div class='person__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
+								</div>
+							</div>
+					</a>
+					<p class="post-person__text">{{ author.author.short_bio }}</p>
+				</div>
+			{% else %}
+				<div class="post-person">
+					<p class="post-person__text">{{ author.author.short_bio }}</p>
+				</div>
+			{% endif %}
 			{% endfor %}
 		{% endif %}	
 	</div>
