@@ -161,16 +161,19 @@ def get_post_authors(post, authors):
     for author in authors:
         author = str(author)
         author_data = author_mapping[author]
-        author_object = Person.objects.get(
-            first_name=author_data['first_name'], 
-            last_name=author_data['last_name']
-        )
-        if author_object:
-            relationship = PostAuthorRelationship.objects.create(
-                author=author_object,
-                post=post,
-            )
-            relationship.save()
+        print(author_data)
+        if author_data['first_name']:
+            if not author_data['delete'] and not author_data['duplicate']:
+                author_object = Person.objects.get(
+                    first_name=author_data['first_name'], 
+                    last_name=author_data['last_name']
+                )
+                if author_object:
+                    relationship = PostAuthorRelationship.objects.create(
+                        author=author_object,
+                        post=post,
+                    )
+                    relationship.save()
 
 
 def need_to_update_post(modified_date):
