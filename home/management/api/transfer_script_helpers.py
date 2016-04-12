@@ -161,18 +161,15 @@ def get_post_authors(post, authors):
     for author in authors:
         author = str(author)
         author_data = author_mapping[author]
-        print(author_data)
         author_object = Person.objects.get(
             first_name=author_data['first_name'], 
             last_name=author_data['last_name']
         )
-        print(author_object)
         if author_object:
             relationship = PostAuthorRelationship.objects.create(
                 author=author_object,
                 post=post,
             )
-            print(relationship)
             relationship.save()
 
 
