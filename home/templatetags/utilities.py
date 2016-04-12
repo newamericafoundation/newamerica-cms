@@ -56,7 +56,7 @@ def generate_byline(ptype, authors):
 
 	counter = 1
 	for author in authors:
-		ret_string += '<a href="' + author.url + '">' + author.first_name + ' ' + author.last_name + '</a>'
+		ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
 		ret_string += list_separator(num_authors - counter)
 		counter += 1
 

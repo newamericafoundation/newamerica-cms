@@ -77,8 +77,8 @@
                             {% endif %}
                             <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
 
-                            {% if post.specific.post_author.all %}
-                                <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.specific.post_author.all %}
+                            {% if post.specific.authors.all %}
+                                <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.specific.authors.all %}
                                 </h5>
                             {% endif %}
 
