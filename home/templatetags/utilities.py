@@ -42,6 +42,15 @@ def get_byline_prefix(post_type, items_list):
 	else:
 		return pluralize(num_items, "Author")
 
+@register.simple_tag()
+def get_author_block_prefix(post_type, items_list):
+	num_items = len(items_list)
+
+	if str(post_type) == "blog post" or "weekly article":
+		return pluralize(num_items, "Author")
+	else:
+		return get_byline_prefix(post_type, items_list)
+
 
 @register.simple_tag()
 def generate_byline(ptype, authors):

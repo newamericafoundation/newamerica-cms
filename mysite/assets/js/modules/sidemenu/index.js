@@ -8,14 +8,29 @@ function getMobileNavLogo() {
 }
 
 function highlightActiveLink() {
+	$('.sidemenu__link-group__sub-link > a').hide();
+
 	$('.sidemenu__link-group__link > a').each(function() {
-		console.log($(this).prop('href'));
-		console.log(window.location.href);
+		
 		if ($(this).prop('href') == window.location.href) {
-			console.log("adding active class");
 			$(this).addClass('active');
+			
+			if($(this).attr("href") == '/our-people/') {
+				showSublinks()
+			}
 		}
 	});
+
+	$('.sidemenu__link-group__sub-link > a').each(function() {
+		if ($(this).prop('href') == window.location.href) {
+			$(this).addClass('active');
+			showSublinks();
+		}
+	});
+
+	function showSublinks() {
+		$('.sidemenu__link-group__sub-link > a').show();
+	}
 }
 
 $(getMobileNavLogo)

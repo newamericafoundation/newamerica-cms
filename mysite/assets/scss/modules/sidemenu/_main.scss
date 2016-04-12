@@ -58,7 +58,7 @@ $program-title-width: 163px;
       }
     }
 
-    &__link {
+    &__link, &__sub-link {
       padding: 0px;
 
       &:hover {
@@ -73,6 +73,10 @@ $program-title-width: 163px;
       & > .active {
         color: palette-get(na-turquoise);
       }
+    }
+
+    &__sub-link {
+      padding-left: 15px;
     } 
    
   }

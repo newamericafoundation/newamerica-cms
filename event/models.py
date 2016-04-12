@@ -31,7 +31,7 @@ class Event(Post):
     state = models.TextField(default='D.C.')
     zipcode = models.TextField(default='20005')
     rsvp_link = models.URLField(default='http://www.')
-    soundcloud_url = models.URLField(default='http://www.')
+    soundcloud_url = models.URLField(default='http://www.', blank=True, null=True)
 
     content_panels = Post.content_panels + [
         FieldPanel('end_date'),
