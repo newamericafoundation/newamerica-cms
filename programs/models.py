@@ -203,5 +203,8 @@ class Subprogram(AbstractProgram):
         InlinePanel('programs', label=("Programs")),
     ]
 
+    def get_template(self, request):
+        return 'programs/program.html'
+
     class Meta:
         verbose_name = "Subprogram/Initiative Page"

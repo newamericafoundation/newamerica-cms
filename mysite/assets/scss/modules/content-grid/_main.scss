@@ -92,4 +92,11 @@
 
 
 	}
+
+	&__footer {
+		width: 100%;
+		overflow:auto;
+		text-align: center;
+		padding-top: $desktop-padding;
+	}
 }

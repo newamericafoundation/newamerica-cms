@@ -163,12 +163,14 @@
 
 	}
 
-	&__description {
-		a {
-			color: palette-get(na-black-40);
-			font-weight: bold;
-			font-size: 15px;
-		}
+	&__description, &__description a {
+		color: palette-get(na-black-40);
+		font-weight: bold;
+		font-size: 15px;
+	}
+
+	&__description a:hover {
+		color: palette-get(na-turquoise);
 	}
 
 	&__date-time {
