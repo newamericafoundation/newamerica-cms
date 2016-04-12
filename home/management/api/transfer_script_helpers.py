@@ -13,6 +13,7 @@ from article.models import Article, ProgramArticlesPage
 
 from django.utils.text import slugify
 from django.core.files.images import ImageFile
+from django.core.exceptions import ObjectDoesNotExist
 
 from home.models import PostProgramRelationship
 
@@ -20,7 +21,9 @@ from programs.models import Program
 
 from person.models import Person
 
-from home.models import PostAuthorRelationship
+from home.models import PostAuthorRelationship, HomePage
+
+home = HomePage.objects.first()
 
 # Maps the program id from the old database API to the
 # titles of the programs in the new database
@@ -52,17 +55,42 @@ mapped_programs = {
 }
 
 
-def get_program(programs, post):
+def get_program(program_id):
     """
     Gets the program from the new database
     using the program_id from the 
     old database API 
     """
-    for old_program in programs:
-        old_program = str(old_program)
-        new_program = Program.objects.get_or_create(title=mapped_programs['old_program'],description=mapped_programs['old_program'], depth=3)
-        relationship = PostProgramRelationship(program=new_program, post=post)
-        relationship.save()
+    program_id = str(program_id)
+    old_program = mapped_programs[program_id]
+    try:
+        program = Program.objects.get(title=old_program)
+    except ObjectDoesNotExist:
+        program = Program(
+            name=old_program,
+            title=old_program,
+            slug=slugify(old_program),
+            description=old_program,
+            depth=3,
+        )
+        home.add_child(instance=program)
+        program.save()
+    return program
+
+
+def get_content_homepage(program, content_homepage_type, page_title):
+    content_homepage = program.get_children().type(content_homepage_type).first()
+    if content_homepage:
+        return content_homepage
+    else:
+        content_homepage = content_homepage_type(
+            title=page_title,
+            slug=slugify(page_title),
+            depth=(program.depth + 1),
+        )
+        program.add_child(instance=content_homepage)
+        content_homepage.save()
+        return content_homepage
 
 
 def get_summary(old_summary):
