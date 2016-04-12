@@ -5,6 +5,7 @@
  }
 
 .mobile-menu {
+	$icon-right-padding: 15px;
 	width: 100%;
 	z-index: 500;
 
@@ -14,7 +15,7 @@
 
 	&__toggle {
 		position:absolute;
-	    right: 20px;
+	    right: $icon-right-padding;
 	    margin-top: -40px;
 	    vertical-align: middle;
 	    pointer-events: none;
@@ -64,6 +65,18 @@
 					color: palette-get(na-black-40);
 				}
 			}
+		}
+	}
+
+	.search-box {
+		& > input {
+			height: 60px;
+			padding-left: 20px;
+			border-width: 1px;
+		}
+
+		&__submit {
+			right: $icon-right-padding;
 		}
 	}
 	
