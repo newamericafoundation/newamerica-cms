@@ -25,7 +25,7 @@ $link-group-header-spacing: 30px;
 
   }
   @include expanded-header {
-    width: calc(100% + 50px);
+    width: calc(100% + 40px);
     left: -11px;
     top: 45px;
   }
@@ -85,21 +85,29 @@ $link-group-header-spacing: 30px;
   }
 
   &__main {
-  	width: 75%;
   	float: left;
+
+    @include breakpoint(medium) {
+      width: 66.6%;
+    }
+
+    @include breakpoint(large) {
+      width: 75%;
+    }
 
   	&__entry-group {
   		padding-top: 15px;
+      padding-right: 25px;
 	  	@include breakpoint(medium) {
 		  	-moz-column-count:2; 
-			-webkit-column-count:2; 
-			column-count:2;
-		}
+  			-webkit-column-count:2; 
+  			column-count:2;
+		  }
 	  	@include breakpoint(large) {
 		  	-moz-column-count:3; 
-			-webkit-column-count:3; 
-			column-count:3;
-		}
+  			-webkit-column-count:3; 
+  			column-count:3;
+		  }
 	}
 
 	&__entry {
@@ -110,8 +118,15 @@ $link-group-header-spacing: 30px;
   }
 
   &__secondary {
-  	width: 25%;
   	float: left;
+
+    @include breakpoint(medium) {
+      width: 33.3%;
+    }
+
+    @include breakpoint(large) {
+      width: 25%;
+    }
 
   	&__entry-group {
   		padding: 15px 0px;
