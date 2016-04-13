@@ -31,14 +31,6 @@ class WeeklyEdition(Page):
     parent_page_types = ['Weekly']
     subpage_types = ['WeeklyArticle']
 
-    edition_stories = StreamField([
-        ('Story', PageChooserBlock()),
-    ], blank=True)
-
-    promote_panels = Page.promote_panels + [
-        StreamFieldPanel('edition_stories'),
-    ]
-
     def get_context(self, request):
         context = super(WeeklyEdition, self).get_context(request)
         
