@@ -4,6 +4,8 @@
   display: block;
   background: none;
   color: palette-get(na-black);
+  -webkit-box-shadow: none;
+  box-shadow: none;
 
   &--dropdown {
     z-index: 5;
