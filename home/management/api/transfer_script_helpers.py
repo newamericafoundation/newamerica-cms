@@ -169,7 +169,7 @@ def get_post_authors(post, authors):
                     last_name=author_data['last_name']
                 )
                 if author_object:
-                    relationship = PostAuthorRelationship.objects.create(
+                    relationship = PostAuthorRelationship.objects.get(
                         author=author_object,
                         post=post,
                     )
