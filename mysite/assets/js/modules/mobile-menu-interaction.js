@@ -58,7 +58,6 @@ function addMenuResponsivity() {
 
 	addResizeListener();
 
-	
 
 	$( document ).ready(function() {
 		console.log($(".is-accordion-submenu-parent"));
@@ -77,8 +76,6 @@ function addMenuResponsivity() {
 			});
 
 	});
-
-	$()
 }
 
 $(addMenuResponsivity);
