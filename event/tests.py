@@ -26,17 +26,34 @@ class EventTests(WagtailPageTests):
         self.home_page = self.root_page.add_child(instance=HomePage(
             title='New America')
         )
-        self.all_events_home_page = self.home_page.add_child(
-            instance=AllEventsHomePage(title="All Events at New America!")
-        )
         self.program_page_1 = self.home_page.add_child(
-            instance=Program(title='OTI', name='OTI', location=False, depth=3)
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        self.second_program = self.home_page.add_child(
+            instance=Program(
+            title='Education', 
+            name='Education', 
+            slug='education', 
+            description='Education', 
+            location=False, 
+            depth=3
+            )
         )
         self.program_events_page = self.program_page_1.add_child(
             instance=ProgramEventsPage(title='OTI Events')
         )
         self.event = self.program_events_page.add_child(
-            instance=Event(title='Event 1', date='2016-02-10')
+            instance=Event(
+                title='Event 1',
+                date='2016-02-10',
+                
+            )
         )
         self.org_wide_event = self.all_events_home_page.add_child(
             instance=Event(title="Org Event", date='2016-02-10')
@@ -98,10 +115,8 @@ class EventTests(WagtailPageTests):
     # Test you can create a event with two parent Programs
     def test_event_has_relationship_to_two_parent_programs(self):
         event = Event.objects.first()
-        second_program = Program.objects.create(
-            title='Education', name='Education', location=False, depth=3)
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=second_program, post=event)
+            program=self.second_program, post=event)
         relationship.save()
         self.assertEqual(
             event.parent_programs.filter(title='Education').first().title,
@@ -123,10 +138,8 @@ class EventTests(WagtailPageTests):
     # Test event can be deleted if attached to two Programs
     def test_can_delete_event_with_two_programs(self):
         event = Event.objects.filter(title='Event 1').first()
-        second_program = Program.objects.create(
-            title='Education', name='Education', location=False, depth=3)
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=second_program, post=event)
+            program=self.second_program, post=event)
         if created:
             relationship.save()
         event.delete()
@@ -136,4 +149,4 @@ class EventTests(WagtailPageTests):
         self.assertEqual(PostProgramRelationship.objects.filter(
             post=event, program=self.program_page_1).first(), None)
         self.assertEqual(PostProgramRelationship.objects.filter(
-            post=event, program=second_program).first(), None)
+            post=event, program=self.second_program).first(), None)
