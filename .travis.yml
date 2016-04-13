@@ -19,6 +19,7 @@ install:
   - travis_retry pip install Django==1.9
   - travis_retry pip install wagtail==1.4.3
   - travis_retry pip install django-storages==1.4
+  - travis_retry pip install django-compressor==2.0
 
 
 script:
