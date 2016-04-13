@@ -88,11 +88,17 @@
 		<div class="picture-grid with-sidemenu-width">
 			{% for post in all_posts %}
 				<div class="picture-grid__entry">
+					<a href="{{ post.url }}">
+					{% if post.story_image %}
 						{% image post.story_image original as post_image %}
-						<a href="{{ post.url }}">
-							<div class="picture-grid__entry__image-container" style="background-image: url('{{ post_image.url }}') ">
-							</div>
-						</a>
+						<div class="picture-grid__entry__image-container" style="background-image: url('{{ post_image.url }}') ">
+						</div>
+						
+					{% else %}
+						<div class="picture-grid__entry__image-container" style="background-image: url('{% default_image post.title %}') ">
+						</div>
+					{% endif %}
+					</a>
 						<div class="picture-grid__entry__text-container">
 							{% if post.parent_programs %}
 								<h5 class="picture-grid__entry__description">

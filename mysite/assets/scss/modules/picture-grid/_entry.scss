@@ -123,10 +123,14 @@
 		position: relative;
 		background-color: white;
 		transform: translateY(0%);
-   		transition: transform .35s ease-out;
-   		-webkit-transition: transform .35s ease-out;
-	    -moz-transition: transform .35s ease-out;
-	    -o-transition: transform .35s ease-out;
+   		transition: transform .35s ease-out, height .35s ease-out;
+   		-webkit-transition: transform .35s ease-out, height .35s ease-out;
+	    -moz-transition: transform .35s ease-out, height .35s ease-out;
+	    -o-transition: transform .35s ease-out, height .35s ease-out;
+
+	    &:hover {
+	    	overflow: visible;
+	    }
 	}
 
 	&__text-fadeout {
