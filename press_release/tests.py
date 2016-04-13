@@ -30,7 +30,23 @@ class PressReleaseTests(WagtailPageTests):
             )
         )
         self.program_page_1 = self.home_page.add_child(
-            instance=Program(title='OTI', name='OTI', location=False, depth=3)
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        self.second_program = self.home_page.add_child(
+            instance=Program(
+            title='Education', 
+            name='Education', 
+            slug='education', 
+            description='Education', 
+            location=False, 
+            depth=3
+            )
         )
         self.program_press_releases_page = self.program_page_1\
             .add_child(instance=ProgramPressReleasesPage(
@@ -88,7 +104,7 @@ class PressReleaseTests(WagtailPageTests):
     # Test that pages can be created with POST data
     def test_can_create_all_press_releases_page_under_homepage(self):
         self.assertCanCreate(self.home_page, AllPressReleasesHomePage, {
-            'title': 'New America Press Releases',
+            'title': 'New America Press Releases2',
             }
         )
 
@@ -106,10 +122,8 @@ class PressReleaseTests(WagtailPageTests):
     # Test you can create a press release with two parent Programs
     def test_press_release_has_relationship_to_two_parent_programs(self):
         press_release = PressRelease.objects.first()
-        second_program = Program.objects.create(
-            title='Education', name='Education', location=False, depth=3)
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=second_program, post=press_release)
+            program=self.second_program, post=press_release)
         relationship.save()
         self.assertEqual(
             press_release.parent_programs.filter(
@@ -144,14 +158,8 @@ class PressReleaseTests(WagtailPageTests):
     def test_press_release_with_two_parent_programs_can_be_deleted(self):
         press_release = PressRelease.objects.filter(
             title='Press Release 1').first()
-        program_page_2 = Program.objects.create(
-            title='Education',
-            name='Education',
-            location='False',
-            depth=3
-        )
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=program_page_2,
+            program=self.second_program,
             post=press_release
             )
         if created:
@@ -174,5 +182,5 @@ class PressReleaseTests(WagtailPageTests):
         self.assertEqual(
             PostProgramRelationship.objects.filter(
                 post=press_release,
-                program=program_page_2).first(), None
+                program=self.second_program).first(), None
         )
