@@ -27,15 +27,14 @@ def pluralize(num_items, label):
 	if num_items > 1:
 		return label + "s: "
 	else:
-		return label + ""
+		return label + ": "
 
 @register.simple_tag()
 def get_byline_prefix(post_type, items_list):
 	num_items = len(items_list)
-
 	if str(post_type) == "podcast":
 		return pluralize(num_items, "Host")
-	elif str(post_type) == "blog post" or "weekly article":
+	elif str(post_type) == ("blog post" or "weekly article"):
 		return "By "
 	elif str(post_type) == "In The News Piece":
 		return "In the News: "
@@ -46,7 +45,7 @@ def get_byline_prefix(post_type, items_list):
 def get_author_block_prefix(post_type, items_list):
 	num_items = len(items_list)
 
-	if str(post_type) == "blog post" or "weekly article":
+	if str(post_type) == ("blog post" or "weekly article"):
 		return pluralize(num_items, "Author")
 	else:
 		return get_byline_prefix(post_type, items_list)
@@ -58,7 +57,7 @@ def generate_byline(ptype, authors):
 	num_authors = len(authors)
 	ret_string = ""
 
-	if post_type == "event" or post_type == "press release":
+	if post_type == ("event" or post_type == "press release"):
 		return ret_string
 
 	ret_string += get_byline_prefix(post_type, authors)
