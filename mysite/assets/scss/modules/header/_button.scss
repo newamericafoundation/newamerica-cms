@@ -4,11 +4,9 @@
   display: block;
   background: none;
   color: palette-get(na-black);
-  &:hover,
-  .header__main-nav__item:hover & {
-    background-color: palette-get(na-turquoise);
-    color: palette-get(na-white);
-  }
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
   &--dropdown {
     z-index: 5;
     padding-right: 33px;
@@ -24,20 +22,27 @@
       background-image: url(shape-urls-get(down-arrow-na-black));
       background-size: contain;
     }
-  }
-  &:hover,
-  .header__main-nav__item:hover & {
-    background-color: palette-get(na-white);
-    color: palette-get(na-black);
-    border: 1px solid palette-get(na-black-10);
-    @include standard-shadow;
+  
+    &:hover,
+    .header__main-nav__item:hover & {
+      background-color: palette-get(na-white);
+      color: palette-get(na-black);
+      border: 1px solid palette-get(na-black-10);
+      @include standard-shadow;
+    }
+
+    .header__main-nav__simple-link-group-item:hover & {
+      background-color: palette-get(na-white);
+      color: palette-get(na-black);
+      border: 1px solid palette-get(na-black-10);
+      @include standard-shadow;
+    }
+
   }
 
-  .header__main-nav__simple-link-group-item:hover & {
-    background-color: palette-get(na-white);
+  &.button:hover {
+    background-color: white;
     color: palette-get(na-black);
-    border: 1px solid palette-get(na-black-10);
-    @include standard-shadow;
   }
 
 }
