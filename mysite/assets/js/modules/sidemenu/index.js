@@ -4,7 +4,7 @@ import getJQueryObjects from './../../utilities/get_jquery_objects.js'
 
 function getMobileNavLogo() {
 	var imgSrc = $(".sidemenu .sidemenu__logo").attr("src");
-	$(".mobile-nav__secondary__logo").attr("src", imgSrc);
+	$(".mobile-nav__secondary__logo__image").attr("src", imgSrc);
 }
 
 function highlightActiveLink() {

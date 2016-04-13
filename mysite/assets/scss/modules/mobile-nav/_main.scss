@@ -4,7 +4,7 @@ $mobile-nav-logo-width: 145px;
 .mobile-nav {
   top: 0;
   width: 100%;
-  z-index: 10000;
+  /*z-index: 10000;*/
   position: fixed;
   border-bottom: $thick-border-width solid palette-get(na-turquoise);
   height: $mobile-header-height;
@@ -40,6 +40,7 @@ $mobile-nav-logo-width: 145px;
     @include has-sidemenu {
       display:block;
     }
+
   }
 
   &__logo, &__secondary__logo {
@@ -50,6 +51,15 @@ $mobile-nav-logo-width: 145px;
     top: 50%;
     transform: translateY(-50%);
     left: $mobile-nav-side-padding;
+    background-color: white;
+  }
+
+  &__secondary__logo {
+    width: 159px;
+
+    @include desktop-header {
+      width: $mobile-nav-logo-width;
+    }
   }
 
   &__toggle {
