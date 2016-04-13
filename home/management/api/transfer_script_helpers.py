@@ -4,6 +4,7 @@ import os
 import urllib
 import json
 import datetime
+import django
 
 from wagtail.wagtailimages.models import Image
 
@@ -23,7 +24,7 @@ from person.models import Person
 
 from home.models import PostAuthorRelationship, HomePage
 
-home = HomePage.objects.first()
+home_page = HomePage.objects.first()
 
 # Maps the program id from the old database API to the
 # titles of the programs in the new database
@@ -73,7 +74,7 @@ def get_program(program_id):
             description=old_program,
             depth=3,
         )
-        home.add_child(instance=program)
+        home_page.add_child(instance=program)
         program.save()
     return program
 
@@ -169,11 +170,17 @@ def get_post_authors(post, authors):
                     last_name=author_data['last_name']
                 )
                 if author_object:
-                    relationship = PostAuthorRelationship.objects.get(
-                        author=author_object,
-                        post=post,
-                    )
-                    relationship.save()
+                    try:
+                        PostAuthorRelationship.objects.get(
+                            author=author_object,
+                            post=post,
+                        )
+                    except PostAuthorRelationship.DoesNotExist:
+                        relationship = PostAuthorRelationship.objects.create(
+                            author=author_object,
+                            post=post,
+                        )
+                        relationship.save()
 
 
 def need_to_update_post(modified_date):
