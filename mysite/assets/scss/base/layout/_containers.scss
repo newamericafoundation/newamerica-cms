@@ -55,18 +55,16 @@
 			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
 			  width:         calc(100% - #{$max-sidemenu-width});
 			
-			/*position:relative; */
-			/*margin-left: $max-sidemenu-width;*/
-			/*float:right;*/
-			/*padding-top: 0px;*/
 		}
 	}
 }
 
 .breadcrumb-social-media-container {
-	height: 25px;
-	margin-bottom: 35px;
-	margin-top: 15px;
+	$container-height: 25px;
+	$local-gutter: calc((#{$program-logo-height} - #{$container-height})/2) ;
+	height: $container-height;
+	margin-bottom: $local-gutter;
+	margin-top: $local-gutter;
 	display: none;
 
 	@include desktop-header {

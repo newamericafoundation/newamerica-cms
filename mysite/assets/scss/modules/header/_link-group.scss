@@ -171,8 +171,13 @@ $link-group-header-spacing: 30px;
     opacity: 0.7;
   }
 
-  .social-icons {
-  	float: none;
-  	padding-left: 10px;
+  &__social-icons-container {
+  	height: 25px;
+    width: 100%;
+    padding-left: 10px;
+
+    .social-icons {
+      float: left;
+    }
   }
 }
