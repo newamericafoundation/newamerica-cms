@@ -1,10 +1,5 @@
 import csv
-import os
-import urllib
 import json
-import datetime
-
-from wagtail.wagtailimages.models import Image
 
 from .newamerica_api_client import NAClient
 
@@ -12,10 +7,7 @@ from article.models import Article, ProgramArticlesPage
 
 import django.db.utils
 from django.utils.text import slugify
-from django.core.files.images import ImageFile
 from django.core.exceptions import ObjectDoesNotExist
-
-from programs.models import Program
 
 from weekly.models import Weekly, WeeklyEdition, WeeklyArticle
 
@@ -46,7 +38,8 @@ def load_articles():
     for post, program_id in NAClient().get_articles():
         program_id = str(program_id)
         excluded_programs = ["12", "8", "17"]
-        # Leave out articles from New America DC and New America Weekly Programs
+        # Leave out articles from New America DC 
+        # and New America Weekly Programs
         if program_id not in excluded_programs:
             post_parent_program = get_program(program_id)
             print(post_parent_program)
@@ -93,8 +86,9 @@ def load_articles():
                         )
                         new_article.save()
                         get_post_authors(new_article, post['authors'])
-                    # If the article does exist and has been modified within the
-                    # specified last number of days, it updates the fields 
+                    # If the article does exist and has 
+                    # been modified within the specified 
+                    # last number of days, it updates the fields 
                     elif new_article and article_slug and need_to_update_post(post['modified']):
                         new_article.search_description = ''
                         new_article.seo_title = ''
@@ -187,8 +181,9 @@ def load_weekly_articles():
                     print(new_weekly_article)
                     weekly_edition.add_child(instance=new_weekly_article)
                     new_weekly_article.save()
-                # If the object does exist and has been modified within the
-                # specified last number of days, it updates the fields 
+                    # If the article does exist and has 
+                    # been modified within the specified 
+                    # last number of days, it updates the fields 
                 elif new_weekly_article and weekly_article_slug and need_to_update_post(post['modified']):
                     new_weekly_article.search_description = ''
                     new_weekly_article.seo_title = ''

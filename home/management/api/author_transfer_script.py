@@ -122,7 +122,7 @@ def run():
     # load_authors()
     # load_articles()
     # load_events()
-    # load_weekly_articles()
-    load_books()
+    load_weekly_articles()
+    # load_books()
     # get_author_id()
 
