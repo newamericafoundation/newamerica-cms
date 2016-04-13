@@ -3,8 +3,8 @@ import $ from 'jquery'
 import getJQueryObjects from './../../utilities/get_jquery_objects.js'
 
 function getMobileNavLogo() {
-	var title = $(".sidemenu__program-title__title").text();
-	$(".sidemenu__program-title__title").text(title.toUpperCase());
+	var imgSrc = $(".sidemenu .sidemenu__logo").attr("src");
+	$(".mobile-nav__secondary__logo__image").attr("src", imgSrc);
 }
 
 function highlightActiveLink() {
@@ -33,10 +33,10 @@ function highlightActiveLink() {
 	}
 }
 
-$(getMobileNavLogo)
-$(highlightActiveLink)
-
-
+$( document ).ready(function() {
+	$(highlightActiveLink)
+	$(getMobileNavLogo)
+});
 
 // var clicked = false;
 

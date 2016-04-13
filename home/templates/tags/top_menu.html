@@ -1,11 +1,11 @@
 {% load top_menu wagtailcore_tags static %}
+{% load wagtailimages_tags %}
 
 <div class="mobile-nav">
         <a><div class="mobile-nav__main">
             <div class="mobile-nav__logo">
                 <div class='header__logo'>
                     {% include 'ui_elements/svg/new-america.html' %}
-                    <h1>New America</h1>
                 </div>
             </div>
             <div class="mobile-nav__toggle">
@@ -13,8 +13,8 @@
             </div>
         </div></a>
         <a><div class="mobile-nav__secondary">
-            <div class="mobile-nav__logo">
-                <h1 class="sidemenu__program-title__title"></h1>
+            <div class="mobile-nav__secondary__logo">
+                <img class="mobile-nav__secondary__logo__image">
             </div>
             <div class="mobile-nav__toggle">
                 <div class="mobile-nav__toggle__secondary flip-arrow-white rotate"></div>
@@ -76,7 +76,6 @@
 
         <a class='header__logo' href='/'>
             {% include 'ui_elements/svg/new-america.html' %}
-            <h1>New America</h1>
         </a>
 
         <div class='header__secondary-nav'>

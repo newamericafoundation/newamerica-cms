@@ -1,6 +1,5 @@
 $left-pad: 20px;
 $right-pad: 25px;
-$program-title-width: 163px;
 
 .sidemenu {
   position: relative;
@@ -12,27 +11,10 @@ $program-title-width: 163px;
   border-right: 2px solid palette-get(na-black-10);
   width: $max-sidemenu-width;
 
-  &__program-title {
+  &__logo {
+    width: $program-logo-width;
+    height: $program-logo-height;
     margin-left: $desktop-padding;
-    width: $program-title-width;
-    background-color: palette-get(na-black);
-    padding: 9px;
-    line-height: 105%;
-    height:60px;
-    max-height:60px;
-    color:palette-get(na-white);
-    display:block;
-
-    &__title {
-      position: relative;
-      font-family: "Platform"; 
-      font-style: normal;
-      font-size: 1.2rem; 
-      line-height: 100%;   
-      top: 50%; 
-      transform: translateY(-50%);
-      word-spacing: $program-title-width;
-    }
   }
 
   &__link-group {

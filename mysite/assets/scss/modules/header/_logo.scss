@@ -1,27 +1,40 @@
 .header__logo {
   $mini-mobile-logo-width: 35px;
-  $mobile-logo-width: 40px;
-  $desktop-logo-width: 47px;
-  $expanded-logo-width: 53px;
+  $mobile-logo-width: 120px;
+  $desktop-logo-width: 140px;
+  $expanded-logo-width: 155px;
   display: inline-block;
-  /*@include desktop-header() {
-    display: inline-block;
-  }*/
+  width: $mobile-logo-width;
+    
+  @include desktop-header {
+    width: $desktop-logo-width + 20px;
+  }
+  @include expanded-header {
+    width: $expanded-logo-width;
+  }
+
   & > * {
     display: inline-block;
+    
     vertical-align: top;
     margin: 0;
   }
   svg {
     /*width: $mini-mobile-logo-width;*/
-
+    
     /*@include mobile-header {*/
-      width: $mobile-logo-width;
+    width: $mobile-logo-width;
     
     @include desktop-header {
       width: $desktop-logo-width;
+      position: absolute;
+      top: 50%;
+      transform:translateY(-50%);
     }
     @include expanded-header {
+      position: static;
+      padding-top: 10px;
+      transform: translateY(0);
       width: $expanded-logo-width;
     }
     rect,
