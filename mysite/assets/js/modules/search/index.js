@@ -10,5 +10,16 @@ function addSearchBoxInteraction() {
 			var submit = $(this).siblings(".search-box__submit ");
 			$(submit).children(".search-box__icon ").attr("fill", "#eaeaeb");
 		});
+
+	console.log($('.mobile-nav .search-box'));
+
+	//override to allow mobile menu search bar to be submitted on enter keystroke
+	$('.mobile-header .search-box').keydown(function(e) {
+		var key = e.which;
+		// ASCII code for ENTER key is "13"
+		if (key == 13) {
+			$(this).submit(); // Submit form code
+		}
+	});
 }
 $(addSearchBoxInteraction);
