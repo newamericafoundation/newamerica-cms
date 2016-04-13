@@ -78,9 +78,6 @@
     left: 0;
     transition: none;
     display: none;
-    /*$s: 2px 0 5px 0 rgba(0,0,0,0.16), 2px 0  10px 0 rgba(0,0,0,0.12), 0 9px 0px 0px white, 0 -9px 0px 0px white;
-    -webkit-box-shadow: $s;
-    box-shadow: $s;*/
 
     @include desktop-header() {
       height: 27px;
