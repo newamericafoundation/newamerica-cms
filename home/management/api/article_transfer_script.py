@@ -44,11 +44,12 @@ def load_articles():
     into the new database creating objects of the Article model
     """
     for post, program_id in NAClient().get_articles():
-        excluded_programs = ["12", "8"]
+        program_id = str(program_id)
+        excluded_programs = ["12", "8", "17"]
         # Leave out articles from New America DC and New America Weekly Programs
         if program_id not in excluded_programs:
             post_parent_program = get_program(program_id)
-
+            print(post_parent_program)
             parent_program_articles_homepage = get_content_homepage(
                     post_parent_program, 
                     ProgramArticlesPage,
@@ -68,7 +69,7 @@ def load_articles():
                         new_article = Article(
                             search_description='',
                             seo_title='',
-                            depth=4,
+                            depth=5,
                             show_in_menus=False,
                             slug=article_slug,
                             title=post['title'],
@@ -97,7 +98,7 @@ def load_articles():
                     elif new_article and article_slug and need_to_update_post(post['modified']):
                         new_article.search_description = ''
                         new_article.seo_title = ''
-                        new_article.depth = 4
+                        new_article.depth = 5
                         new_article.show_in_menus = False
                         new_article.slug = article_slug
                         new_article.title = post['title']
