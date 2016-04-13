@@ -1,22 +1,13 @@
-import sys
 import csv
 import os
 import urllib
-import json
 import datetime
-import django
 
 from wagtail.wagtailimages.models import Image
-
-from .newamerica_api_client import NAClient
-
-from article.models import Article, ProgramArticlesPage
 
 from django.utils.text import slugify
 from django.core.files.images import ImageFile
 from django.core.exceptions import ObjectDoesNotExist
-
-from home.models import PostProgramRelationship
 
 from programs.models import Program
 
