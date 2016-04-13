@@ -26,6 +26,9 @@ class EventTests(WagtailPageTests):
         self.home_page = self.root_page.add_child(instance=HomePage(
             title='New America')
         )
+        self.all_events_home_page = self.home_page.add_child(
+            instance=AllEventsHomePage(title="All Events at New America!")
+        )
         self.program_page_1 = self.home_page.add_child(
             instance=Program(
                 title='OTI',
@@ -52,11 +55,10 @@ class EventTests(WagtailPageTests):
             instance=Event(
                 title='Event 1',
                 date='2016-02-10',
-                
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+
             )
-        )
-        self.org_wide_event = self.all_events_home_page.add_child(
-            instance=Event(title="Org Event", date='2016-02-10')
         )
 
     # Test that a child Page can be created under
@@ -91,13 +93,13 @@ class EventTests(WagtailPageTests):
     # Test that pages can be created with POST data
     def test_can_create_all_event_page_under_homepage(self):
         self.assertCanCreate(self.home_page, AllEventsHomePage, {
-            'title': 'All Events at New America',
+            'title': 'All Events at New America2',
             }
         )
 
     def test_can_create_program_events_page(self):
         self.assertCanCreate(self.program_page_1, ProgramEventsPage, {
-            'title': 'Our Program Events',
+            'title': 'Our Program Events2',
             }
         )
 
@@ -107,10 +109,6 @@ class EventTests(WagtailPageTests):
         event = Event.objects.first()
         self.assertEqual(event.parent_programs.all()[0].title, 'OTI')
 
-    # Test relationship between event and all events homepage
-    def test_event_has_relationship_to_all_event_homepage(self):
-        event = Event.objects.filter(title="Org Event")
-        self.assertTrue(event.child_of(self.all_events_home_page))
 
     # Test you can create a event with two parent Programs
     def test_event_has_relationship_to_two_parent_programs(self):
