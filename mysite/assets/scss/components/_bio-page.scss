@@ -1,65 +1,74 @@
 
 .bio-page {
-  $icon-height: 150px;
-  margin: $desktop-padding $mobile-padding;
+ 	$icon-height: 150px;
+ 	margin: $desktop-padding $mobile-padding;
 
-  @include breakpoint(medium) {
-    margin: $desktop-padding;
-  }
+	@include breakpoint(medium) {
+		margin: $desktop-padding;
+	}
 
-  @include desktop-header {
-    width: $max-body-width;
-    margin: 10px auto;
-  }
+	@include desktop-header {
+		width: $max-body-width;
+		margin: 10px auto;
+	}
 
 	&__heading {
 		@include breakpoint(medium) {
 			height: $icon-height;	
 		}
+
+		&__text {
+			position:relative;
+	  		padding-top: 15px;
+
+		  	@include breakpoint(medium) {
+		  		padding-top: 0px;
+		  		top: 50%;
+				transform: translateY(-50%);
+		  	}
+			&__name {
+				@include page-title-text;
+				margin: 0px;
+				line-height: 110%;
+			}
+
+			&__position, &__position > a {
+				@include page-subtitle-text;
+				font-weight: bold;
+				margin: 0px;
+				line-height: 100%;
+			}
+		}
 	}
 
-	&__icon {
-	    background-color: palette-get(na-black-10);
-	    border-radius: 50%;
-	    width: $icon-height;
-	    height: $icon-height;
+	.with-image {
+		.bio-page__heading {
+			&__icon {
+			    background-color: palette-get(na-black-10);
+			    border-radius: 50%;
+			    width: $icon-height;
+			    height: $icon-height;
 
-	    @include breakpoint(medium) {
-	    	float:left;
-	    	margin: 0px;
-	    }
+			    @include breakpoint(medium) {
+			    	float:left;
+			    	margin: 0px;
+			    }
 
-		&__photo {
-			width: $icon-height;
-			height: $icon-height;
-			border-radius: 50%;
-			background-repeat: no-repeat;
-			background-size: cover;
-			box-shadow: inset 0 0 0 100px rgba(0,0,0,.1);
-		}
-  }
+				&__photo {
+					width: $icon-height;
+					height: $icon-height;
+					border-radius: 50%;
+					background-repeat: no-repeat;
+					background-size: cover;
+					box-shadow: inset 0 0 0 100px rgba(0,0,0,.1);
+				}
+		  	}
 
-	&__heading-text {
-		position:relative;
-  		padding-top: 15px;
-
-  	@include breakpoint(medium) {
-  		padding-left: $desktop-padding + $icon-height;
-  		padding-top: 0px;
-  		top: 50%;
-			transform: translateY(-50%);
-  	}
-		&__name {
-			@include page-title-text;
-			margin: 0px;
-			line-height: 110%;
-		}
-
-		&__position, &__position > a {
-			@include page-subtitle-text;
-			font-weight: bold;
-			margin: 0px;
-			line-height: 100%;
+		  	&__text {
+		  		@include breakpoint(medium) {
+		  			padding-left: $desktop-padding + $icon-height;
+		  		}
+		  	}
 		}
 	}
 
@@ -111,10 +120,11 @@
 
     &__title {
       @include page-section-title-text;
-      padding: $desktop-padding $desktop-padding $desktop-padding 0px;
+      padding: $desktop-padding;
+      padding-left: 0px;
 
       @include breakpoint(medium) {
-      	padding: $desktop-padding;
+      	padding-left: 20px;
       }
     }
 

@@ -23,7 +23,7 @@
 							<div class='hero-grid__element__text-bar'>
 
 								<p class='hero-grid__element__text-bar__subheading' href="{{ page.lead_1.url }}">
-								{% for author in page.lead_1.post_author.all %}
+								{% for author in page.lead_1.authors.all %}
 									{{ author }}
 								{% endfor %}
 								</p>
@@ -46,7 +46,7 @@
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
 									<a class='hero-grid__element__text-bar__subheading'>
-									{% for author in other_lead_story.post_author.all %}
+									{% for author in other_lead_story.authors.all %}
 										{{ author}}
 									{% endfor %}
 									</a>

@@ -35,8 +35,8 @@
 								<div class='hero-grid__element__text-bar'>
 									<h5 class="hero-grid__element__text-bar__program"><a href="{{ first_edition.url }}">{{ first_edition.specific.title }}</a></h5>
 									<h1 class='hero-grid__element__text-bar__heading'>{{ first_story.specific.title }}</h1>
-									{% if first_story.specific.post_author.all %}
-										<p class='hero-grid__element__text-bar__subheading' href="{{ first_story.specific.url }}">{% generate_byline first_story.content_type first_story.specific.post_author.all %}</p>
+									{% if first_story.specific.authors.all %}
+										<p class='hero-grid__element__text-bar__subheading' href="{{ first_story.specific.url }}">{% generate_byline first_story.content_type first_story.specific.authors.all %}</p>
 									{% endif %}
 									<p class= "hero-grid__element__text-bar__excerpt">{{ first_story.specific.story_excerpt }}</p>
 								</div>
@@ -54,8 +54,8 @@
 					{% for story in first_edition.get_children.all|slice:"1:6" %}
 						<div class="weekly__lead__text__item">
 							<h3 class="weekly__lead__text__item__name"><a href="{{ story.url }}"> {{ story.title }}</a></h3>
-							{% if story.specific.post_author.all %}
-								<h3 class="weekly__lead__text__item__description">{% generate_byline story.content_type story.specific.post_author.all %}</h3>
+							{% if story.specific.authors.all %}
+								<h3 class="weekly__lead__text__item__description">{% generate_byline story.content_type story.specific.authors.all %}</h3>
 							{% endif %}
 						</div>
 					{% endfor %}

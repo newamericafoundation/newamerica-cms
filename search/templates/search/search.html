@@ -27,27 +27,45 @@
 
             {% if post.specific.content_type|stringformat:"s" == "person"  %}
                 <div class="content-entry">
-                    <div class="post-person">
-                        <a href="{{ post.specific..url }}">
-                            <div class='person__icon'>
-                                {% image post.specific.profile_image original as person_image %}
+                    {% if post.specific.profile_image %}
+                        <div class="post-person with-image">
+                            <a href="{{ post.specific.url }}">
+                                <div class='person__icon'>
+                                    {% image post.specific.profile_image original as person_image %}
                                 <div class='person__icon__photo' style='background: no-repeat center/100% url({{ person_image.url }})'>
                                 </div>
-                            </div>
-                        </a>
-                        <div class="post-person__text">
-                            {% if post.specific.belongs_to_these_programs.all %}
-                                <h5 class="content-entry__text__program">
-                                {% for program in post.specific.belongs_to_these_programs.all %}
-                                    <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
-                                {% endfor %}
-                                PERSON</h5>
-                            {% endif %}
-                            <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
+                                </div>
+                            </a>
+                            <div class="post-person__text">
+                                {% if post.specific.belongs_to_these_programs.all %}
+                                    <h5 class="content-entry__text__program">
+                                    {% for program in post.specific.belongs_to_these_programs.all %}
+                                        <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
+                                    {% endfor %}
+                                    PERSON</h5>
+                                {% endif %}
+                                <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
 
-                            {{ post.specific.short_bio }}
+                                {{ post.specific.short_bio }}
+                            </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <div class="post-person">
+                            <div class="post-person__text">
+                                {% if post.specific.belongs_to_these_programs.all %}
+                                    <h5 class="content-entry__text__program">
+                                    {% for program in post.specific.belongs_to_these_programs.all %}
+                                        <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
+                                    {% endfor %}
+                                    PERSON</h5>
+                                {% endif %}
+                                <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
+
+                                {{ post.specific.short_bio }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
                 </div>
 
             {% else %}
@@ -77,8 +95,8 @@
                             {% endif %}
                             <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
 
-                            {% if post.specific.post_author.all %}
-                                <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.specific.post_author.all %}
+                            {% if post.specific.authors.all %}
+                                <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.specific.authors.all %}
                                 </h5>
                             {% endif %}
 

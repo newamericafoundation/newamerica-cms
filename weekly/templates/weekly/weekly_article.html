@@ -81,8 +81,8 @@
 
 	<div class="post-container">
 
-	    {% if page.post_author.all %}	
-		    <h5 class="post-author">{% generate_byline page.content_type page.post_author.all %}</h5>
+	    {% if page.authors.all %}	
+		    <h5 class="post-author">{% generate_byline page.content_type page.authors.all %}</h5>
 		{% endif %}
 
 		<h5 class="post-date">{{ page.date }}</h5>
@@ -91,19 +91,25 @@
 		    {{ page.body | safe}}
 		</div>
 	    
-	    {% if page.post_author.all %}
-		<h1 class="post-subheading">{% get_byline_prefix page.content_type page.post_author.all %}</h1>
+	    {% if page.authors.all %}
+		<h1 class="post-subheading">{% get_byline_prefix page.content_type page.authors.all %}</h1>
 			{% for author in authors %}
-			<div class="post-person">
-				<a href="{{ author.author.url }}">
-					<div class='person__icon'>
-						{% image author.author.profile_image original as author_image %}
-						<div class='person__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
-						</div>
-					</div>
-				</a>
-				<p class="post-person__text">{{ author.author.short_bio }}</p>
-			</div>
+			{% if author.author.profile_image %}
+				<div class="post-person with-image">
+					<a href="{{ author.author.url }}">
+							<div class='person__icon'>
+								{% image author.author.profile_image original as author_image %}
+								<div class='person__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
+								</div>
+							</div>
+					</a>
+					<p class="post-person__text">{{ author.author.short_bio }}</p>
+				</div>
+			{% else %}
+				<div class="post-person">
+					<p class="post-person__text">{{ author.author.short_bio }}</p>
+				</div>
+			{% endif %}
 			{% endfor %}
 		{% endif %}	
 	</div>

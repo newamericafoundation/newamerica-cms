@@ -8,24 +8,26 @@
 
 {% block content %}
 <div class="bio-page">
-    <div class="bio-page__heading">
-        <div class='bio-page__icon'>
-            {% image page.profile_image original as bio_image %}
-            <div class='bio-page__icon__photo' style='background: no-repeat center/100% url({{ bio_image.url }})'>
+    {% if page.profile_image %}
+        <div class="bio-page__heading with-image">
+            <div class='bio-page__heading__icon'>
+                {% image page.profile_image original as bio_image %}
+                <div class='bio-page__heading__icon__photo' style='background: no-repeat center/100% url({{ bio_image.url }})'>
+                </div>
+            </div>
+            <div class="bio-page__heading__text">
+                <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
+                <h3 class= "bio-page__heading__text__position">{{ page.position_at_new_america }}</h3>
             </div>
         </div>
-        <div class="bio-page__heading-text">
-            <h1 class= "bio-page__heading-text__name">{{ page.first_name }} {{ page.last_name }}</h1>
-            <h3 class= "bio-page__heading-text__position">{{ page.position_at_new_america }}<!--
-                -->{% if page.belongs_to_these_programs %}<!--
-                    -->{% for program in page.belongs_to_these_programs.all %}<!--
-                        -->, <a href="{{ program.url }}">{{ program }}</a>
-                    {% endfor %}
-                {% endif %}
-            </h3>
+    {% else %}
+        <div class="bio-page__heading">
+            <div class="bio-page__heading__text">
+                <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
+                <h3 class= "bio-page__heading__text__position">{{ page.position_at_new_america }}</h3>
+            </div>
         </div>
-    </div>
-
+    {% endif %}
     <div class="bio-page__content">
         {% if page.long_bio %}
             {{ page.long_bio|richtext|linebreaks }}
@@ -33,7 +35,6 @@
     </div>
 
     <div class="bio-page__contact">
-        <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }}</a>
         <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }}</a>
     </div>
 
@@ -68,8 +69,8 @@
                                 {% endif %}
                                 <h5 class= "content-entry__text__title"><a href="{{ item.post.url }}">{{ item.post.title }}</a></h5>
 
-                                {% if item.post.post_author.all %}
-                                    <h5 class= "content-entry__text__author">{% generate_byline item.post.content_type item.post.post_author.all %}</h5>
+                                {% if item.post.authors.all %}
+                                    <h5 class= "content-entry__text__author">{% generate_byline item.post.content_type item.post.authors.all %}</h5>
                                 {% endif %}
                                 <h5 class= "content-entry__text__date-time">{% generate_dateline item.post %}</h5>
                                 <p class= "content-entry__text__excerpt">{{ item.post.story_excerpt }}</p>
