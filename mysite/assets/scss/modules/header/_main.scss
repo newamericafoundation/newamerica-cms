@@ -80,7 +80,7 @@
     display: none;
 
     @include desktop-header() {
-      height: 26px;
+      height: 30px;
     }
 
     @include expanded-header() {
