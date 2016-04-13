@@ -51,7 +51,6 @@ class Person(Page):
     long_bio = RichTextField(blank=True, null=True)
     expert = models.BooleanField(default=False)
     leadership = models.BooleanField(default=False)
-    location = models.CharField(max_length=200)
     profile_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
