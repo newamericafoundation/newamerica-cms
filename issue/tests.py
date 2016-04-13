@@ -23,7 +23,7 @@ class IssueOrTopicTests(WagtailPageTests):
             instance=HomePage(title='New America')
         )
         self.program_page_1 = self.home_page.add_child(
-            instance=Program(title='OTI', name='OTI', location=False, depth=3)
+            instance=Program(title='OTI', name='OTI', description='OTI',location=False, depth=3)
         )
 
     def test_can_create_issue_under_program_issues_page(self):
