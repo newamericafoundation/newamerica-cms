@@ -4,8 +4,10 @@ import urllib
 import datetime
 
 from wagtail.wagtailimages.models import Image
+from wagtail.wagtaildocs.models import Document
 
 from django.utils.text import slugify
+from django.core.files import File
 from django.core.files.images import ImageFile
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -130,6 +132,26 @@ def download_image(url, image_filename):
         )
         image.save()
         return image
+
+
+def download_document(url, document_filename):
+    """
+    Takes the attached document URL from the old database API,
+    retrieves the document, then saves it with a new
+    filename and attaches it to the post
+    """
+    if url:
+        document_location = os.path.join(
+            'home/management/api/documents',
+            document_filename
+        )
+        urllib.urlretrieve(url, document_location)
+        document = Document(
+            title=document_filename,
+            file=File(open(document_location), name=document_filename)
+        )
+        document.save()
+        return document.id
 
 
 def load_users_mapping():
