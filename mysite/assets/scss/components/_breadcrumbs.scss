@@ -24,10 +24,9 @@
     font-weight: 800;
   }
   a {
-    color: palette-get(na-black-40);
+    color: palette-get(na-black-70);
 
     &:hover {
-      /*opacity: 1;*/
       text-decoration: none;
       color: palette-get(na-turquoise);
     }
@@ -38,7 +37,7 @@
     font-family: 'Platform';
     margin: 0 $breadcrumbs-item-margin;
     position: relative;
-    opacity: .4;
+    opacity: .5;
     width:10px;
     height: 10px;
   }

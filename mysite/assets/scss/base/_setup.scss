@@ -18,3 +18,11 @@ li {
 h1 {
 	font-weight: bold;
 }
+
+hr {
+	border-bottom: $standard-border;
+}
+
+select {
+	border: $standard-border;
+}
