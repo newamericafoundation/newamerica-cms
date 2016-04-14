@@ -1,28 +1,29 @@
 .footer {
   $pad: 20px;
   $link-pad: 16px;
-  $opacity: 0.7;
-  max-width: $max-site-width;
+  max-width: $max-site-width - $desktop-padding*2;
   margin: auto;
   padding: $pad;
   @include clearfix;
   background-color: white;
   position:relative;
-  
+  border-top: $standard-border;
+  margin-top: $desktop-padding;
+
   p,
   a {
-    opacity: $opacity;
+    color: palette-get(na-black-70);
   }
   a {
     margin: 0 $link-pad;
     &:first-of-type {
       margin-left: 0;
     }
+    
     &:hover {
       opacity: 1;
     }
   }
-  /*position: relative;*/
   &__main-nav,
   &__info,
   &__social-nav {
@@ -31,8 +32,12 @@
     }
     text-align: center;
   }
+
+  &__info {
+    padding-left: $pad;
+  }
   @include expand-footer {
-    padding: $pad $gutter/2;
+    padding: $pad 0px;
     ul {
       margin: 0;
     }
@@ -41,7 +46,7 @@
       width: $w;
       position: absolute;
       text-align: center;
-      left: calc(50% - #{$w / 2});
+      left: calc(50% - #{$w / 2} + 45px);
       top: $pad + 0;
     }
     &__info {
