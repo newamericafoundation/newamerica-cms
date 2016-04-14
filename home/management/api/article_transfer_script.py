@@ -42,7 +42,6 @@ def load_articles():
         # and New America Weekly Programs
         if program_id not in excluded_programs:
             post_parent_program = get_program(program_id)
-            print(post_parent_program)
             parent_program_articles_homepage = get_content_homepage(
                     post_parent_program, 
                     ProgramArticlesPage,
@@ -79,8 +78,6 @@ def load_articles():
                                 post['title'] + "_image.jpeg"
                             )
                         )
-                        print("Adding new article: ")
-                        print(new_article)
                         parent_program_articles_homepage.add_child(
                             instance=new_article
                         )
@@ -108,8 +105,6 @@ def load_articles():
                                 post['title'] + "_image.jpeg"
                             )
                         new_article.story_excerpt=get_summary(post['summary'])
-                        print("Updating existing article: ")
-                        print(new_article)
                         new_article.save()
                         get_post_authors(new_article, post['authors'])
                 except django.db.utils.IntegrityError:
@@ -177,8 +172,6 @@ def load_weekly_articles():
                             post['title'] + "_image.jpeg"
                         )
                     )
-                    print("Adding new article: ")
-                    print(new_weekly_article)
                     weekly_edition.add_child(instance=new_weekly_article)
                     new_weekly_article.save()
                     # If the article does exist and has 
@@ -207,6 +200,4 @@ def load_weekly_articles():
                             post['cover_image_url'], 
                             post['title'] + "_image.jpeg"
                         )
-                    print("Updating existing article: ")
-                    print(new_weekly_article)
                     new_weekly_article.save()

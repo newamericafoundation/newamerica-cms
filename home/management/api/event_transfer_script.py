@@ -157,8 +157,6 @@ def load_events():
                         ),
                         story_excerpt=get_summary(post['summary']),
                     )
-                    print("Adding new event: ")
-                    print(new_event)
                     parent_program_events_homepage.add_child(
                         instance=new_event
                     )
@@ -189,8 +187,6 @@ def load_events():
                     )
                     new_event.story_excerpt=get_summary(post['summary'])
                     new_event.soundcloud_url=post['soundcloud_url']
-                    print("Updating existing event: ")
-                    print(new_event)
                     new_event.save()
             except django.db.utils.IntegrityError:
                 pass

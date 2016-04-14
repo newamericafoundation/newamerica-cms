@@ -92,8 +92,6 @@ def load_authors():
                     )
                 our_people_page.add_child(instance=db_user)
                 db_user.save()
-                print("Adding new person: ")
-                print(db_user)
             elif db_user and mapped_user_slug:
                 db_user.search_description = ''
                 db_user.seo_title = ''
@@ -114,8 +112,6 @@ def load_authors():
                     mapped_user_slug + "_image.jpeg"
                 )
                 db_user.save()
-                print("Updating existing person: ")
-                print(db_user)
 
 
 def run():

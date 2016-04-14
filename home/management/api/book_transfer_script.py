@@ -58,8 +58,6 @@ def load_books():
                             book_slug + "_image.jpeg"
                         ),
                     )
-                    print("Adding new book: ")
-                    print(new_book)
                     parent_program_books_homepage.add_child(instance=new_book)
                     new_book.save()
                     get_post_authors(new_book, post['authors'])
@@ -86,8 +84,6 @@ def load_books():
                             book_slug + "_image.jpeg"
                     )
                     new_book.subheading=post['sub_headline']
-                    print("Updating existing book: ")
-                    print(new_book)
                     new_book.save()
                     get_post_authors(new_book, post['authors'])
             except django.db.utils.IntegrityError:

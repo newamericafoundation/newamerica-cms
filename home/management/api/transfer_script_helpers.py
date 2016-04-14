@@ -153,7 +153,6 @@ def get_post_authors(post, authors):
     for author in authors:
         author = str(author)
         author_data = author_mapping[author]
-        print(author_data)
         if author_data['first_name']:
             if not author_data['delete'] and not author_data['duplicate']:
                 author_object = Person.objects.get(
