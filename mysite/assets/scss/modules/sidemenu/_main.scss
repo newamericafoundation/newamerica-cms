@@ -21,10 +21,9 @@ $right-pad: 25px;
     padding-top: 10px;
     color: palette-get(na-black);
 
-
     & > ul > li > a {
       padding: 10px $desktop-padding;
-      color: grey;
+      color: palette-get(na-black-70);
     } 
 
     &__title, &__link {

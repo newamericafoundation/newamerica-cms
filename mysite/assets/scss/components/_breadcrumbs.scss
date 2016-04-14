@@ -19,14 +19,14 @@
     float: none;
   }
   
-  li > .active {
-    opacity: .3;
+  li.active {
+    color: palette-get(na-black);
+    font-weight: 800;
   }
   a {
-    opacity: .5;
+    color: palette-get(na-black-70);
 
     &:hover {
-      opacity: 1;
       text-decoration: none;
       color: palette-get(na-turquoise);
     }
@@ -37,7 +37,7 @@
     font-family: 'Platform';
     margin: 0 $breadcrumbs-item-margin;
     position: relative;
-    opacity: .3;
+    opacity: .5;
     width:10px;
     height: 10px;
   }

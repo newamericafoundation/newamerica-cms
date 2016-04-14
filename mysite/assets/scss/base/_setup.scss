@@ -1,5 +1,6 @@
 html, body {
 	background-color: white;
+	color: palette-get(na-black);
 }
 
 ul {
@@ -16,4 +17,12 @@ li {
 
 h1 {
 	font-weight: bold;
+}
+
+hr {
+	border-bottom: $standard-border;
+}
+
+select {
+	border: $standard-border;
 }
