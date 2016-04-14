@@ -52,6 +52,10 @@
 		</div>
 	    <div class="post-body with-dropcap">
 		    {{ page.body }}
+
+		    {% if page.soundcloud_url %}
+		    	<a href='{{ page.soundcloud_url }}'>Listen to this Event</a>
+		    {% endif %}
 		</div>
 	</div>
 
