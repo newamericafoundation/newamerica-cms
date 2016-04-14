@@ -146,7 +146,7 @@ $link-group-header-spacing: 30px;
   &__heading {
     margin-bottom: 0;
     padding-bottom: 10px;
-    border-bottom: 1px solid palette-get(na-black-10);
+    border-bottom: $standard-border;
     font-weight: bold;
     font-size: rem-calc(22);
     margin-right: 10px;

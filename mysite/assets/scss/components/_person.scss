@@ -1,11 +1,9 @@
-
 .person {
-  $border-color: rgba(44, 47, 53, 0.2);
   $info-offset: 26px;
   $nav-offset: 19px;
   $border-panel-content-padding: 16px;
 
-  border: 1px solid $border-color;
+  border: $standard-border;
   padding: $desktop-padding;
   height: 100%;
 
