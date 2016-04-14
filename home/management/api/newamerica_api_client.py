@@ -100,6 +100,19 @@ class NAClient:
 				for post in post_set['results']:
 					yield post, program_id
 
+	def get_policy_papers(self):
+		"""
+		Gets all the content type of Book from the old database API
+		for all programs and creates new objects in the new database 
+		using the Book model
+		"""
+		for program in self.client.get(self.api_url + 'programs').json():
+			program_id = program['id']
+			self.activate_program(program_id)
+			for post_set in self.get_data('policy-papers'):
+				for post in post_set['results']:
+					yield post, program_id
+
 
 	def program_content(self, program_id):
 		"""
