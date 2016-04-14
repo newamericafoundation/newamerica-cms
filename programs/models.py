@@ -132,6 +132,8 @@ class AbstractProgram(Page):
         else:
             context['featured_stories'] = []
 
+        return context
+
     def get_experts(self):
         """ Return a list of experts in a program """
         return self.person_set.filter(expert=True).order_by('-title')
