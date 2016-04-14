@@ -1,10 +1,13 @@
 .social-icons {
-  width: 200px;
-  padding: 0px;
+  width: 194px;
+  padding: 2.5px 0px;
+  height: 100%;
   float: right;
+
   svg {
     opacity: 1;
-
+    margin-right: 7%;
+    height: 100%;
     &:hover {
       opacity: 1;
       -webkit-transition: 0.4s;
@@ -15,35 +18,15 @@
         opacity: 1;
       }
     }
+
+    &#youtube-icon {
+      margin-right: 0px;
+    }
   }
 
   .cls-1 {
     fill: palette-get(na-black-40);
     opacity: 1;
-  }
-
-  svg#facebook-icon {
-    width: 10%;
-    margin-right: 7%;
-  }
-
-  svg#twitter-icon {
-    width: 11%;
-    margin-right: 7%;
-  }
-
-  svg#google-plus-icon {
-    width: 14%;
-    margin-right: 7%;
-  }
-
-  svg#linked-in-icon {
-    width: 10%;
-    margin-right: 7%;
-  }
-
-  svg#youtube-icon {
-    width: 12%;
   }
 
   .st0 {
