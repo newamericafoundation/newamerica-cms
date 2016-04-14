@@ -54,6 +54,10 @@
     font-style: italic;
   }
 
+  a {
+    font-weight: bold;
+  }
+
 }
 
 .post-attachment {
@@ -111,6 +115,7 @@
   margin-top: 8px;
   font-size: 16px;
   font-weight:bold;
+  color: palette-get(na-black);
 }
 
 .post-subscribe {

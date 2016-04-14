@@ -146,7 +146,7 @@ $link-group-header-spacing: 30px;
   &__heading {
     margin-bottom: 0;
     padding-bottom: 10px;
-    border-bottom: 1px solid palette-get(na-black-10);
+    border-bottom: $standard-border;
     font-weight: bold;
     font-size: rem-calc(22);
     margin-right: 10px;
@@ -171,8 +171,13 @@ $link-group-header-spacing: 30px;
     opacity: 0.7;
   }
 
-  .social-icons {
-  	float: none;
-  	padding-left: 10px;
+  &__social-icons-container {
+  	height: 25px;
+    width: 100%;
+    padding-left: 10px;
+
+    .social-icons {
+      float: left;
+    }
   }
 }

@@ -7,31 +7,12 @@
 {% block body_class %}template-programeventspage{% endblock %}
 
 {% block content %}
-	{% image page.story_image original as story_image %}
-
-	{% if story_image %}
-
-	<div class="post-header with-image" style="background-image: linear-gradient(
-	      rgba(0, 0, 0, 0.3),
-	      rgba(0, 0, 0, 0.3)
-	    ), 
-    	url({{ story_image.url }})">
-
-		<div class="post-header__text">
-		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-		</div>
-	</div>
-	{% else %}
 
 	<div class="post-header">
 		<div class="post-header__text">
 		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
 		</div>
 	</div>
-
-	{% endif %}
 
 	<div class="event-post-home-page">
 		<div class="content-grid__controls">
@@ -111,8 +92,9 @@
 							<p class="picture-grid__entry__body">
 								{{ post.story_excerpt }}
 							</p>
+							<div class="picture-grid__entry__text-fadeout"></div>
 						</div>
-						<div class="picture-grid__entry__text-fadeout"></div>
+						
 				</div>
 	
 			{% endfor %}

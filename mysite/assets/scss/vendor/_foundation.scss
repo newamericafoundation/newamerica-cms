@@ -44,6 +44,9 @@
 // Overrides. Use very sparingly - modify Foundation variables instead.
 .button {
   font-weight: bold;
+  $s: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  -webkit-box-shadow: $s;
+  box-shadow: $s;
 }
 
 input[type='text'] {

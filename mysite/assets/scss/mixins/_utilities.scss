@@ -7,7 +7,7 @@
   }
 }
 @mixin standard-shadow {
-  $s: 0 0 15px 0 palette-get(shadow);
+  $s: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
   -webkit-box-shadow: $s;
   box-shadow: $s;
 }

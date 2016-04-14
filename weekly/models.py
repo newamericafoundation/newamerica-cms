@@ -34,8 +34,6 @@ class WeeklyEdition(Page):
     def get_context(self, request):
         context = super(WeeklyEdition, self).get_context(request)
         
-        context['all_posts'] = self.edition_stories
-        
         return context
 
 

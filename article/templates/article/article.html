@@ -19,7 +19,9 @@
 		<div class="post-header__text">
 		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
 		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-		    	<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+		    	{% if page.source_url %}
+		    		<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+		    	{% endif %}
 		</div>
 	</div>
 	{% else %}
@@ -29,7 +31,9 @@
 		<div class="post-header__text">
 		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
 		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-		    	<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+		    	{% if page.source_url %}
+		    		<a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+		    	{% endif %}
 		</div>
 	</div>
 
@@ -38,9 +42,9 @@
 {% endblock %}
 
 {% block post-body %}
-
-	<h5 class="post-source">Media Outlet: {{ page.source }} </h5>
-
+	{% if page.source %}
+		<h5 class="post-source">Media Outlet: {{ page.source }} </h5>
+	{% endif %}
     <div class="post-body with-dropcap">
 	    {{ page.body }}
 	</div>

@@ -1,24 +1,22 @@
 .search-box {
 	$search-offset: 7px;
+	position: relative;
 
 	&__submit {
 		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: $search-offset;
 	    z-index: 10000;
 	    fill: palette-get(na-black-10);
 	    background-color: white;
-
-	    @include desktop-header {
-	    	top: $desktop-padding;
-	    	right: $desktop-padding + $search-offset;
-	    }
-
-	    @include expanded-header {
-	    	top: 11px;
-	    	right: $search-offset;
-	    }
 	}
+		
 
     &__icon {
     	width: 25px;
+    	/*fill: palette-get(na-black-10);*/
     }
+
+
 }

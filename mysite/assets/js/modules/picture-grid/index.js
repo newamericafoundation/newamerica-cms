@@ -11,14 +11,16 @@ function addPictureGridInteraction() {
 			} else {
 				overflow = overflow + 10;
 			}
+			$(this).children(".picture-grid__entry__text-fadeout").hide();
 			
-			$(this).css("transform", "translateY(-" + overflow + "px)").css("overflow", "visible");
+			$(this).css("transform", "translateY(-" + overflow + "px)").css("height", this.scrollHeight - 25);
 		}
 
 	});
 
 	$(".picture-grid__entry__text-container").on("mouseout", function() {
-		$(this).css("transform", "translateY(0)").css("overflow", "hidden");
+		$(this).css("transform", "translateY(0)").css("height", pictureGridTextHeight - 25);
+		$(this).children(".picture-grid__entry__text-fadeout").show();
 	});
 }
 

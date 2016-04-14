@@ -3,12 +3,12 @@ $right-pad: 25px;
 
 .sidemenu {
   position: relative;
-  height:100%;
+  height: calc(100% - #{$desktop-padding});
   top: 0px;
   display:block;
   margin-top: $desktop-padding;
   background-color: palette-get(na-white);
-  border-right: 2px solid palette-get(na-black-10);
+  border-right: $standard-border;
   width: $max-sidemenu-width;
 
   &__logo {
