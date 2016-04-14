@@ -7,7 +7,11 @@
 {% block body_class %}template-programblogpostspage{% endblock %}
 
 {% block content %}
-	<h1 class="content-grid__title"> {{ page.title }} </h1>
+	<div class="post-header">
+		<div class="post-header__text">
+		    <h1 class="post-header__text__heading">{{ page.title }}</h1>
+		</div>
+	</div>
 	{{ page.subheading|richtext }}
 
 	{% if program.get_subprograms|length > 1 %}

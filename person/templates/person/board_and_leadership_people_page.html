@@ -7,8 +7,12 @@
 
 {% block content %}
 
-    <section class='section section--fixed-width'>
-	<h1 class="person-grid__title">{{page.title}}</h1>
+<section class='section section--fixed-width'>
+	<div class="post-header">
+		<div class="post-header__text">
+		    <h1 class="post-header__text__heading">{{ page.title }}</h1>
+		</div>
+	</div>
 
 	<div class="row person-grid__content">
 		{% for person in people %}
