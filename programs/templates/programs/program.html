@@ -65,31 +65,35 @@
 
 </section>
 
-<section class='section section--fixed-width'>
+{% if featured_stories %}
 
-	<div class='row picture-link-container'>
+	<section class='section section--fixed-width'>
 
-		{% for feature_story in featured_stories %}
-		<div class='small-12 large-4 columns'>
-			{% image feature_story.post.story_image original as feature_story_image %}
-			<div class='picture-link'>
-				<a href="{{ feature_story.url }}">
-					<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>
-		
+		<div class='row picture-link-container'>
+
+			{% for feature_story in featured_stories %}
+			<div class='small-12 large-4 columns'>
+				{% image feature_story.post.story_image original as feature_story_image %}
+				<div class='picture-link'>
+					<a href="{{ feature_story.url }}">
+						<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>
+			
+						</div>
+					</a>
+					<div class='picture-link__content'>
+						<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
+						<p>{{ feature_story.post.story_excerpt }}</p>
 					</div>
-				</a>
-				<div class='picture-link__content'>
-					<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
-					<p>{{ feature_story.post.story_excerpt }}</p>
 				</div>
+
 			</div>
+			{% endfor %}
 
 		</div>
-		{% endfor %}
 
-	</div>
+	</section>
 
-</section>
+{% endif %}
 
 <section class='section section--fixed-width'>
 
