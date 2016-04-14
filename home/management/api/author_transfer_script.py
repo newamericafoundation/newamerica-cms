@@ -11,6 +11,8 @@ from transfer_script_helpers import download_image, load_users_mapping
 
 from .article_transfer_script import load_articles, load_weekly_articles
 
+from .policy_paper_transfer_script import load_policy_papers
+
 from .event_transfer_script import load_events
 
 from .book_transfer_script import load_books
@@ -118,7 +120,8 @@ def run():
     # load_authors()
     # load_articles()
     # load_events()
-    load_weekly_articles()
+    # load_weekly_articles()
     # load_books()
     # get_author_id()
+    load_policy_papers()
 
