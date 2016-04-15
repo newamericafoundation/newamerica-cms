@@ -72,7 +72,8 @@ $link-group-header-spacing: 30px;
 
     margin: auto;
 
-    border-bottom: 4px solid palette-get(na-turquoise);
+    border-bottom: 4px solid;
+    @include set-color(border-color);
    
     @include standard-shadow;
     padding: 30px 7px;

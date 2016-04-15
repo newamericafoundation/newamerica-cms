@@ -19,6 +19,20 @@ $_color-palette: (
 	@return map-get($_color-palette, $key);
 }
 
+@mixin set-color ($prop) {
+	#{$prop}: palette-get(na-turquoise);
+	.oti & {
+		#{$prop}: palette-get(oti-blue);
+	}
+}
+
+@mixin primary-background-color {
+	background-color: palette-get(na-turquoise);
+	.oti & {
+		background-color: palette-get(oti-blue);
+	}
+}
+
 /*
  * Color palette usage:
  * background-color: palette-get(cinnabar-red);
