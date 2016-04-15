@@ -121,17 +121,20 @@ def download_image(url, image_filename):
     filename
     """
     if url:
-        image_location = os.path.join(
-            'home/management/api/images',
-            image_filename
-        )
-        urllib.urlretrieve(url, image_location)
-        image = Image(
-            title=image_filename,
-            file=ImageFile(open(image_location), name=image_filename)
-        )
-        image.save()
-        return image
+        try:
+            image_location = os.path.join(
+                'home/management/api/images',
+                image_filename
+            )
+            urllib.urlretrieve(url, image_location)
+            image = Image(
+                title=image_filename,
+                file=ImageFile(open(image_location), name=image_filename)
+            )
+            image.save()
+            return image
+        except django.db.utils.IntegrityError:
+            pass
 
 
 def download_document(url, document_filename):
@@ -156,7 +159,7 @@ def download_document(url, document_filename):
 
 def load_users_mapping():
     csv_data = {}
-    with open('home/management/api/csv_scripts/authors.csv', "r") as csvfile:
+    with open('authors.csv', "r") as csvfile:
         csv_reader = csv.reader(csvfile)
         for row in csv_reader:
             csv_data[str(row[0])] = {
