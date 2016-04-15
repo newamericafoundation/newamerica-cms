@@ -30,6 +30,23 @@ def get_attachments(attachments, title):
         return content
 
 
+def get_attachment_url(attachments):
+    """
+    If there are attachments, it iterates through them
+    and transfer the attachment url into the new database
+    """
+    if attachments:
+        urls = []
+        for attachment in attachments:
+            urls.append(
+                {
+                    'type': 'policy_paper_url',
+                    'value': attachment['attachment_url'],
+                }
+            )
+        return urls
+
+
 def load_policy_papers():
     """
     Transfers all policy papers from the old database API
@@ -71,7 +88,11 @@ def load_policy_papers():
                                 'value': post['content']
                             }
                         ]),
-                        # paper_url=post['']
+                        paper_url=json.dumps(
+                            get_attachment_url(
+                                post['attachments']
+                            )
+                        ),
                         attachment=json.dumps(
                             get_attachments(
                                 post['attachments'],
@@ -86,7 +107,7 @@ def load_policy_papers():
                     )
                     parent_program_policy_papers_homepage.add_child(instance=new_policy_paper)
                     new_policy_paper.save()
-                    # get_post_authors(new_policy_paper, post['authors'])
+                    get_post_authors(new_policy_paper, post['authors'])
                 elif new_policy_paper and policy_paper_slug and need_to_update_post(post['modified']):
                     new_policy_paper.search_description = ''
                     new_policy_paper.seo_title = ''
@@ -107,6 +128,11 @@ def load_policy_papers():
                                 policy_paper_slug
                             )
                         )
+                    new_policy_paper.paper_url=json.dumps(
+                            get_attachment_url(
+                                post['attachments']
+                            )
+                        )
                     new_policy_paper.publication_cover_image = download_image(
                             post['cover_image_url'], 
                             policy_paper_slug + "_cover_image.jpeg"
@@ -117,6 +143,6 @@ def load_policy_papers():
                     )
                     new_policy_paper.subheading=post['sub_headline']
                     new_policy_paper.save()
-                    # get_post_authors(new_policy_paper, post['authors'])
+                    get_post_authors(new_policy_paper, post['authors'])
             except django.db.utils.IntegrityError:
                 pass
