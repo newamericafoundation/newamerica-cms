@@ -73,7 +73,7 @@ $link-group-header-spacing: 30px;
     margin: auto;
 
     border-bottom: 4px solid;
-    @include set-color(border-color);
+    @include set-color(border-bottom-color);
    
     @include standard-shadow;
     padding: 30px 7px;

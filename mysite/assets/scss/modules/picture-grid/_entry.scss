@@ -170,7 +170,7 @@
 	}
 
 	&__description a:hover {
-		color: palette-get(na-turquoise);
+		@include set-color(color);
 	}
 
 	&__date-time {

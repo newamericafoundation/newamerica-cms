@@ -61,7 +61,7 @@
 		float: right;
 		margin-top: 10px;
 		margin-right: 10px;
-		background-color: palette-get(na-turquoise);
+		@include set-color(background-color);
 
 		&:hover {
 			background-color: pallete-get(na-black);
