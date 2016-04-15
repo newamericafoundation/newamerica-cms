@@ -81,24 +81,18 @@
 			padding: $desktop-padding 0px $mobile-padding 0px;
 		}
 
-    /*& > p {
-      &:first-child {
-
-        font-weight: bold;
-      }
-    }*/
 	}
 
 	&__contact {
 
 		& > .button {
-
 			margin: 0px 5px;
-  		&:first-child {
-  			margin-left: 0px;
-  		}
+			
+	  		&:first-child {
+	  			margin-left: 0px;
+	  		}
 
-			background-color: palette-get(na-turquoise);
+			@include set-color(background-color);
 
 			&:hover {
 				background-color: palette-get(na-black);

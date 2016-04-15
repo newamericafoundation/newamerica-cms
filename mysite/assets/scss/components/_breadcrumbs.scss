@@ -28,7 +28,7 @@
 
     &:hover {
       text-decoration: none;
-      color: palette-get(na-turquoise);
+      @include set-color(color);
     }
   }
   li:not(:last-child)::after {
