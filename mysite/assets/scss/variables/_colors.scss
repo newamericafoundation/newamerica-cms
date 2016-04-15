@@ -15,27 +15,27 @@ $_color-palette: (
 	overlay: rgba(0, 0, 0, 0.2)
 );
 
-@function palette-get($key) {
-	@return map-get($_color-palette, $key);
-}
-
-@mixin set-color ($prop) {
-	#{$prop}: palette-get(na-turquoise);
-	.oti & {
-		#{$prop}: palette-get(oti-blue);
-	}
-}
-
-@mixin primary-background-color {
-	background-color: palette-get(na-turquoise);
-	.oti & {
-		background-color: palette-get(oti-blue);
-	}
-}
-
 /*
  * Color palette usage:
  * background-color: palette-get(cinnabar-red);
  *
  *
  */
+
+@function palette-get($key) {
+	@return map-get($_color-palette, $key);
+}
+
+
+/*sets css property passed in to approproate color based on oti exception class
+
+usage: 
+@include set-color(background-color);
+
+*/
+@mixin set-color ($prop) {
+	#{$prop}: palette-get(na-turquoise);
+	.oti & {
+		#{$prop}: palette-get(oti-blue);
+	}
+}
