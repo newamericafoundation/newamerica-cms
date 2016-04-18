@@ -1,0 +1,75 @@
+.date-picker {
+	button {
+		background-color: white;
+		background-image: none;
+
+		& > .ui-button-text {
+			color: palette-get(na-black) !important;
+		}
+	}
+}
+
+/*input box styles*/
+
+.ui-state-default {
+	color: palette-get(na-black-40) !important;
+	font-weight: normal !important;
+	background-color: white !important;
+}
+
+.ui-corner-all {
+	border-radius: 0px !important;
+	border: 2px solid palette-get(na-black-10) !important;
+}
+
+.ui-widget {
+	font-family: Simplon !important;
+}
+
+.ui-button {
+	display: block !important;
+	min-width: 0px !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+
+/* popup picker styles */
+
+.ui-widget-content, .ui-widget-header {
+	background-color: white !important;
+}
+
+.ui-widget-header {
+	border: none !important;
+	* { 
+		color: palette-get(na-black);
+	}
+}
+
+a.ui-state-default {
+	border: none !important;
+	background: none !important;
+	background-color: palette-get(na-black-10) !important;
+	color: white !important;
+	text-align: center !important;
+	height: 35px !important;
+	width: 35px !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	border: none !important;
+	background: none !important;
+	background-color: palette-get(na-turquoise) !important;
+}
+
+.comiseo-daterangepicker-presets {
+	
+	li {
+		display: block;
+	}
+}
+
+.comiseo-daterangepicker-calendar {
+	/*float: right;*/
+}
