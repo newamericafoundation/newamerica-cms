@@ -7,8 +7,17 @@ from .models import HomePage
 
 
 class HomeTests(WagtailPageTests):
-	
-	def test_can_create_homepage(self):
-		parent_page = Page.get_first_root_node()
-		home = HomePage(title='New America')
-		parent_page.add_child(instance=home)
+    """
+    Testing hierarchies between pages and whether it is possible 
+    to create a Homepage and all the allowed subpages 
+    underneath the Homepage.
+    """
+
+    def setUp(self):
+        self.login()
+        self.root_page = Page.objects.get(id=1)
+
+    def test_can_create_homepage(self):
+        parent_page = Page.get_first_root_node()
+        home = HomePage(title='New America')
+        parent_page.add_child(instance=home)
