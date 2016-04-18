@@ -8,7 +8,7 @@ from podcast.models import Podcast, ProgramPodcastsPage
 
 from django.utils.text import slugify
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, download_document
+from transfer_script_helpers import get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage
 
 
 def load_podcasts():
