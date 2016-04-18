@@ -88,7 +88,6 @@
     &__image {
         content: '';
         float:left;
-        /*display: inline-block;*/
         width: 60px;
         height: 60px;
         background-image: url(shape-urls-get(paperclip));
@@ -108,9 +107,11 @@
 }
 
 .post-date {
-  font-size: 15px;
-  color: palette-get(na-off-black);
-  margin-bottom: 0px;
+  color: palette-get(na-black-70);
+  font-size: 14px;
+  line-height: 130%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .post-source {
