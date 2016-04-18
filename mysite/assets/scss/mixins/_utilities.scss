@@ -11,9 +11,3 @@
   -webkit-box-shadow: $s;
   box-shadow: $s;
 }
-
-@mixin is-oti {
-	.oti {
-		@content;
-	}
-}
