@@ -16,8 +16,23 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" async></script>
 
         {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
 
+        <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
+        <script type="text/javascript">
+            function checkOTI() {
+                console.log("checking oti");
+                var url = window.location.href;
+                var urlPieces = url.split('/');
+                for (var i in urlPieces) {
+                    if (urlPieces[i].toLowerCase() === OTIurl) {
+                        $(".wrapper").addClass("oti");
+                    }
+                }
+            }
+            $( document ).ready(function() {
+                $("checkOTI");
+            });
+        </script>
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}

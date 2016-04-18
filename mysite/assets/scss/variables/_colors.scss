@@ -27,12 +27,12 @@ $_color-palette: (
 }
 
 
-/*sets css property passed in to approproate color based on oti exception class
-
-usage: 
-@include set-color(background-color);
-
-*/
+/*
+ * Sets css property passed in to approproate color based on oti exception class
+ * usage: 
+ * @include set-color(background-color);
+ *
+ */
 @mixin set-color ($prop) {
 	#{$prop}: palette-get(na-turquoise);
 	.oti & {
