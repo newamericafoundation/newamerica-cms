@@ -63,7 +63,7 @@
                                 {% endif %}
                                 <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
 
-                                {{ post.specific.short_bio }}
+                                {{ post.specific.short_bio | richtext }}
                             </div>
                         </div>
                     {% else %}
@@ -78,7 +78,7 @@
                                 {% endif %}
                                 <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
 
-                                {{ post.specific.short_bio }}
+                                {{ post.specific.short_bio | richtext }}
                             </div>
                         </div>
                     {% endif %}

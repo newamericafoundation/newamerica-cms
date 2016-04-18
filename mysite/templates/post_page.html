@@ -26,20 +26,24 @@
 		<h1 class="post-subheading">{% get_author_block_prefix page.content_type authors %}</h1>
 			{% for author in authors %}
 			{% if author.author.profile_image %}
-				<div class="post-person with-image">
-					<a href="{{ author.author.url }}">
+				<a href="{{ author.author.url }}">
+					<div class="post-person with-image">
+						<div class="post-person__left">
 							<div class='person__icon'>
 								{% image author.author.profile_image original as author_image %}
 								<div class='person__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
 								</div>
 							</div>
-					</a>
-					<p class="post-person__text">{{ author.author.short_bio }}</p>
-				</div>
+						</div>
+						<div class="post-person__text">{{ author.author.short_bio | richtext }}</div>
+					</div>
+				</a>
 			{% else %}
-				<div class="post-person">
-					<p class="post-person__text">{{ author.author.short_bio }}</p>
-				</div>
+				<a href="{{ author.author.url }}">
+					<div class="post-person">
+						<div class="post-person__text">{{ author.author.short_bio | richtext }}</div>
+					</div>
+				</a>
 			{% endif %}
 			
 			{% endfor %}
