@@ -10,6 +10,7 @@ from django.utils.text import slugify
 
 from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, download_document
 
+
 def load_podcasts():
     """
     Transfers all podcasts from the old database API
@@ -58,43 +59,30 @@ def load_podcasts():
                     parent_program_podcasts_homepage.add_child(
                     	instance=new_podcast
                     )
-                    new_policy_paper.save()
-                    get_post_authors(new_podcast, post['authors'])
-                elif new_policy_paper and policy_paper_slug and need_to_update_post(post['modified']):
-                    new_policy_paper.search_description = ''
-                    new_policy_paper.seo_title = ''
-                    new_policy_paper.depth = 5
-                    new_policy_paper.date = get_post_date(post['publish_at'])
-                    new_policy_paper.show_in_menus = False
-                    new_policy_paper.slug = policy_paper_slug
-                    new_policy_paper.title = post['title']
-                    new_policy_paper.body = json.dumps([
+                    new_podcast.save()
+                    #get_post_authors(new_podcast, post['authors'])
+                elif new_podcast and podcast_slug and need_to_update_post(post['modified']):
+                    new_podcast.search_description = ''
+                    new_podcast.seo_title = ''
+                    new_podcast.depth = 5
+                    new_podcast.date = get_post_date(post['publish_at'])
+                    new_podcast.show_in_menus = False
+                    new_podcast.slug = podcast_slug
+                    new_podcast.title = post['title']
+                    new_podcast.body = json.dumps([
                             {
                                 'type': 'paragraph',
                                 'value': post['content']
                             }
                         ])
-                    new_policy_paper.attachment=json.dumps(
-                            get_attachments(
-                                post['attachments'],
-                                policy_paper_slug
-                            )
-                        )
-                    new_policy_paper.paper_url=json.dumps(
-                            get_attachment_url(
-                                post['attachments']
-                            )
-                        )
-                    new_policy_paper.publication_cover_image = download_image(
-                            post['cover_image_url'], 
-                            policy_paper_slug + "_cover_image.jpeg"
-                        )
-                    new_policy_paper.story_image = download_image(
-                            post['cover_image_url'], 
-                            policy_paper_slug + "_image.jpeg"
-                    )
-                    new_policy_paper.subheading=post['sub_headline']
-                    new_policy_paper.save()
-                    get_post_authors(new_policy_paper, post['authors'])
+                    new_podcast.soundcloud=json.dumps([
+                            {
+                                'type': 'soundcloud_embed',
+                                'value': post['soundcloud_url']
+                            }
+                        ])
+                    new_podcast.subheading=post['sub_headline']
+                    new_podcast.save()
+                    #get_post_authors(new_podcast, post['authors'])
             except django.db.utils.IntegrityError:
                 pass
