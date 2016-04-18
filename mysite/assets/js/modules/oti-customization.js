@@ -13,5 +13,5 @@ function checkOTI() {
 }
 
 $( document ).ready(function() {
-	// $(checkOTI);
+	$(checkOTI);
 });
