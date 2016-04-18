@@ -3,7 +3,7 @@ $book-width: 95px;
 
 .book {
   display: inline-block;
-  box-shadow: 5px 5px 20px #333;
+  box-shadow: 5px 5px 20px #ddd;
   height: $book-height;
   width: $book-width;
 
@@ -55,8 +55,8 @@ $book-width: 95px;
 .csstransforms3d  .book:before {
   width: 100%;
   left: 7.5%;
-  background-color: #5a2d18;
-  box-shadow: 5px 5px 20px #333;
+  background-color: #999;
+  box-shadow: 5px 5px 20px #ddd;
 }
 
 .csstransforms3d  .book:after {
