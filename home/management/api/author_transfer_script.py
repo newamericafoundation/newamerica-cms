@@ -17,6 +17,8 @@ from .event_transfer_script import load_events
 
 from .book_transfer_script import load_books
 
+from .podcast_transfer_script import load_podcasts
+
 our_people_page = OurPeoplePage.objects.first()
 
 if sys.version_info[0] < 3:
@@ -123,5 +125,6 @@ def run():
     # load_weekly_articles()
     # load_books()
     # get_author_id()
-    load_policy_papers()
+    # load_policy_papers()
+    load_podcasts()
 
