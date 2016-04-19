@@ -1,3 +1,4 @@
+import django
 import csv
 import os
 import urllib
