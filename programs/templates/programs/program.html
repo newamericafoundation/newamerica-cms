@@ -147,10 +147,11 @@
 
 	<h1>About {{ page.name }}</h1>
 	<p>{{ page.description }}</p>
-
-	<div class='panel__link'>
-		<a href='' class='button'>Read our story</a>
-	</div>
+	{% if page.about_us_page %}
+		<div class='panel__link'>
+			<a href='{{ page.about_us_page.url }}' class='button'>Read our story</a>
+		</div>
+	{% endif %}
 
 </div>
 

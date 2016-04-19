@@ -31,7 +31,12 @@
 			        </select>
 			    </div>
 			    <div class="column small-12 medium-4 large-4 content-grid__controls__search">
-		      		<input type="search" placeholder="Search Results">
+		      		<form class="search-box" action="" method="get">
+				        <input class="search-box__input" type='text' name='query' placeholder='Search' autocomplete="off"></input>
+				        <button class="search-box__submit" type="submit">
+				            {% include 'ui_elements/svg/magnifying-glass.html' %}
+				        </button>
+				    </form>
 		        </div>
 
 			</div>
@@ -98,6 +103,36 @@
 				</div>
 	
 			{% endfor %}
+		</div>
+
+		<div class="picture-grid__footer">
+			<div class="pagination">
+				{% if all_posts.has_previous %}
+					<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}">
+
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+							<polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
+						</svg>
+
+					</a>
+				{% endif %}
+
+				<span>Page</span>
+				<form class="pagination__form" action="?page=value" method="get">
+					<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
+				</form>
+
+				<span>of</span>
+				<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
+
+				{% if all_posts.has_next %}
+			    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}">
+			    		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+							<polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
+						</svg>
+					</a>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 
