@@ -197,6 +197,7 @@ class ProgramSubprogramRelationship(models.Model):
 
 # Subprograms models which when instantiated can be linked to multiple programs
 class Subprogram(AbstractProgram):
+    parent_page_types = ['programs.Program']
     parent_programs = models.ManyToManyField(
         Program,
         through=ProgramSubprogramRelationship,
