@@ -84,6 +84,14 @@ class AbstractProgram(Page):
         ('page', PageChooserBlock()),
     ], blank=True)
 
+    about_us_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
@@ -111,6 +119,7 @@ class AbstractProgram(Page):
         FieldPanel('name', classname='full title'),
         FieldPanel('location'),
         FieldPanel('description'),
+        PageChooserPanel('about_us_page'),
     ]
 
     def get_context(self, request):
