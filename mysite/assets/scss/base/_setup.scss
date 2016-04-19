@@ -26,3 +26,7 @@ hr {
 select {
 	border: $standard-border;
 }
+
+input, select {
+	height: $default-input-height;
+}

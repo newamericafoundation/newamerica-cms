@@ -4,9 +4,8 @@
 	display: table;
 	margin-top: $desktop-padding;
 
-	.person__icon {
+	&__left {
 		display: table-cell;
-		vertical-align: middle;
 		margin: 0px;
 	}
 

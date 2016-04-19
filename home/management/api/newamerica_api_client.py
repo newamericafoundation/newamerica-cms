@@ -102,14 +102,28 @@ class NAClient:
 
 	def get_policy_papers(self):
 		"""
-		Gets all the content type of Book from the old database API
+		Gets all the content type of policy paper from the old database API
 		for all programs and creates new objects in the new database 
-		using the Book model
+		using the PolicyPaper model
 		"""
 		for program in self.client.get(self.api_url + 'programs').json():
 			program_id = program['id']
 			self.activate_program(program_id)
 			for post_set in self.get_data('policy-papers'):
+				for post in post_set['results']:
+					yield post, program_id
+
+
+	def get_podcasts(self):
+		"""
+		Gets all the content type of podcast from the old database API
+		for all programs and creates new objects in the new database 
+		using the Podcast model
+		"""
+		for program in self.client.get(self.api_url + 'programs').json():
+			program_id = program['id']
+			self.activate_program(program_id)
+			for post_set in self.get_data('podcasts'):
 				for post in post_set['results']:
 					yield post, program_id
 
