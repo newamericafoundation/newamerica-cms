@@ -59,6 +59,11 @@
     padding-bottom: 2px;
   }
 
+  &__first-sentence {
+    font-weight: bold;
+    color: palette-get(na-black);
+  }
+
 }
 
 .post-attachment {

@@ -11,4 +11,16 @@ function checkBodyHeight() {
 	}
 }
 
+function styleFirstLine() {
+	var $first_paragraph = $(".with-dropcap .block-paragraph:first-child p:first-child");
+
+	var sentences = $first_paragraph.text().split('.');
+	
+	sentences[0] = "<span class=post-body__first-sentence>" + sentences[0] + ".</span>";
+	console.log(sentences);
+
+	$first_paragraph.html(sentences.join('.'))
+}
+
 $(checkBodyHeight);
+$(styleFirstLine);
