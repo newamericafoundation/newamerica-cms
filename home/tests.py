@@ -123,3 +123,14 @@ class HomeTests(WagtailPageTests):
         self.home_page.save()
         self.assertEqual(self.home_page.feature_1, self.article)
 
+    def test_adding_story_to_homepage_recent_carousel(self):
+        self.home_page.recent_carousel.stream_data.append(
+            {
+                'type': 'event',
+                'value': self.article.id
+            }
+        )
+        self.assertEqual(
+            self.home_page.recent_carousel.stream_data[0]['value'], 
+            self.article.id
+        )
