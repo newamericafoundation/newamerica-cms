@@ -9,7 +9,7 @@ from programs.models import Program
 
 from weekly.models import Weekly
 
-from article.models import AllArticlesHomePage
+from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 
 from event.models import AllEventsHomePage
 
@@ -40,6 +40,24 @@ class HomeTests(WagtailPageTests):
         self.root_page = Page.objects.get(id=1)
         self.home_page = self.root_page.add_child(instance=HomePage(
             title='New America')
+        )
+        self.program_page = self.home_page.add_child(
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        self.program_articles_page = self.program_page.add_child(
+            instance=ProgramArticlesPage(title='Program Articles')
+        )
+        self.article = self.program_articles_page.add_child(
+            instance=Article(
+                title='Article 1', 
+                date='2016-02-02'
+            )
         )
 
 
@@ -81,12 +99,12 @@ class HomeTests(WagtailPageTests):
             }
         )
 
-    def test_can_create_homepage_under_page(self):
+    def test_can_create_program_under_homepage(self):
         self.assertCanCreate(self.home_page, Program, {
-            'title':'OTI',
-            'name': 'OTI',
-            'description': 'OTI',
-            'slug': 'oti',
+            'title':'OTI2',
+            'name': 'OTI2',
+            'description': 'OTI2',
+            'slug': 'oti-2',
             'depth': 3,
             'feature_carousel-count': 0,
             'sidebar_menu_initiatives_and_projects_pages-count': 0,
@@ -94,3 +112,14 @@ class HomeTests(WagtailPageTests):
             'sidebar_menu_about_us_pages-count': 0,
             }
         )
+
+    def test_adding_lead_story_to_homepage(self):
+        self.home_page.lead_1 = self.article
+        self.home_page.save()
+        self.assertEqual(self.home_page.lead_1, self.article)
+
+    def test_adding_feature_story_to_homepage(self):
+        self.home_page.feature_1 = self.article
+        self.home_page.save()
+        self.assertEqual(self.home_page.feature_1, self.article)
+
