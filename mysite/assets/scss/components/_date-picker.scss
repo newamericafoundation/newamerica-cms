@@ -1,50 +1,26 @@
-.date-picker {
-	button {
-		background-color: white;
-		background-image: none;
-
-		& > .ui-button-text {
-			color: palette-get(na-black);
-		}
-	}
-}
-
 .comiseo-daterangepicker {
-	$small-width: 500px;
+	$small-width: 325px;
 	$medium-width: 515px;
 	$large-width: 800px;
 	padding: 15px;
-
 	position: absolute !important;
-	
 	width: $small-width !important;
 	left: calc(50% - #{$small-width}/2) !important;
-	/*overflow: scroll;*/
+
 	@include breakpoint(medium) {
 		width: $medium-width !important;
 		top: calc(50% - 100px) !important;
 		left: calc(50% - #{$medium-width}/2) !important;
 	}
-
-
-	/*@include breakpoint(medium) {
-		width: $large-width !important;
-		left: calc(50% - #{$large-width}/2) !important;
-	}*/
-	
 }
 
 .comiseo-daterangepicker-main {
 	border-bottom: $standard-border !important;
-	display: block;
 
-	@include breakpoint(medium) {
-		display: table;
-	}
 }
 
-.comiseo-daterangepicker-presets, .comiseo-daterangepicker-calendar {
-	display: block;
+.comiseo-daterangepicker-presets {
+	display: none;
 
 	@include breakpoint(medium) {
 		display: table-cell;
@@ -52,15 +28,17 @@
 }
 
 .comiseo-daterangepicker-calendar {
-	border-bottom: none !important;
-	border-left: $standard-border !important;
+	border: none !important;
+	@include breakpoint(medium) {
+		border-bottom: none !important;
+		border-left: $standard-border !important;
+	}	
 }
 
 .comiseo-daterangepicker-mask {
 	background-color: palette-get(na-black) !important;
 	opacity: .7 !important;
 }
-
 
 
 /*input box styles*/
@@ -165,6 +143,7 @@ a.ui-state-default {
 
 		.ui-button-text {
 			font-weight: bold !important;
+			font-family: Simplon !important;
 		}
 	}
 }
