@@ -10,8 +10,58 @@
 }
 
 .comiseo-daterangepicker {
+	$small-width: 500px;
+	$medium-width: 515px;
+	$large-width: 800px;
+	padding: 15px;
+
+	position: absolute !important;
+	
+	width: $small-width !important;
+	left: calc(50% - #{$small-width}/2) !important;
+	/*overflow: scroll;*/
+	@include breakpoint(medium) {
+		width: $medium-width !important;
+		top: calc(50% - 100px) !important;
+		left: calc(50% - #{$medium-width}/2) !important;
+	}
+
+
+	/*@include breakpoint(medium) {
+		width: $large-width !important;
+		left: calc(50% - #{$large-width}/2) !important;
+	}*/
 	
 }
+
+.comiseo-daterangepicker-main {
+	border-bottom: $standard-border !important;
+	display: block;
+
+	@include breakpoint(medium) {
+		display: table;
+	}
+}
+
+.comiseo-daterangepicker-presets, .comiseo-daterangepicker-calendar {
+	display: block;
+
+	@include breakpoint(medium) {
+		display: table-cell;
+	}
+}
+
+.comiseo-daterangepicker-calendar {
+	border-bottom: none !important;
+	border-left: $standard-border !important;
+}
+
+.comiseo-daterangepicker-mask {
+	background-color: palette-get(na-black) !important;
+	opacity: .7 !important;
+}
+
+
 
 /*input box styles*/
 
@@ -107,6 +157,7 @@ a.ui-state-default {
 		width: 100px;
 		opacity: 1 !important;
 		height: 46px !important;
+		margin-top: 15px !important;
 
 		&:hover {
 			background-color: palette-get(na-turquoise) !important;
@@ -118,13 +169,33 @@ a.ui-state-default {
 	}
 }
 
-.comiseo-daterangepicker-presets {
+.ui-widget-header .ui-state-hover {
+	background-color: white !important;
+	border: none !important;
+	color: palette-get(na-black) !important;
+}
 
+.ui-datepicker-prev, .ui-datepicker-next {
+	background-size: contain !important;
+	border: none;
+	width: 15px !important;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+	top: 2px !important;
+}
+
+.ui-datepicker-prev {
+	background-image: url(shape-urls-get(left-arrow-na-black)) !important;
+	left: 2px !important;
+}
+
+.ui-datepicker-next {
+	background-image: url(shape-urls-get(right-arrow-na-black)) !important;
+	right: 2px !important;
+}
+
+.comiseo-daterangepicker-presets {
 	li {
 		display: block;
 	}
-}
-
-.comiseo-daterangepicker-calendar {
-	/*float: right;*/
 }
