@@ -27,6 +27,7 @@
 		@include breakpoint(medium) {
 			margin-bottom: $desktop-padding;
 		}
+
 		.columns, .column {
 			padding-left: 0px;
 		}
@@ -47,7 +48,7 @@
 			height: 100%;
 			float: right;
 			text-align: center;
-			margin-top: 10px;
+			
 			display: none;
 
 			@include breakpoint(medium) {
