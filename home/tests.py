@@ -1,5 +1,3 @@
-from django.test import TestCase
-
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page
 
@@ -60,18 +58,19 @@ class HomeTests(WagtailPageTests):
             )
         )
 
-
     def test_can_create_homepage_under_root_page(self):
         parent_page = Page.get_first_root_node()
         home = HomePage(title='New America')
         parent_page.add_child(instance=home)
 
-    #Test that a particular child Page type can be created under a parent Page type
-    def test_can_create_program_articles_page_under_program(self):
+    # Test that a particular child Page type 
+    # can be created under a parent Page type
+    def test_homepage_parent_page_type(self):
         self.assertCanCreateAt(Page, HomePage)
 
-    #Test that the only page types that can be created under parent_model are child_models
-    def test_article_subpages(self):
+    # Test that the only page types that can be created 
+    # under parent_model are child_models
+    def test_homepage_subpages(self):
         self.assertAllowedSubpageTypes(HomePage, {
             AllArticlesHomePage,
             AllBooksHomePage,
@@ -90,18 +89,18 @@ class HomeTests(WagtailPageTests):
             Weekly,
             })
 
-    #Test that pages can be created with POST data
+    # Test that pages can be created with POST data
     def test_can_create_homepage_under_page(self):
         self.assertCanCreate(self.root_page, HomePage, {
-            'title':'New America 2',
+            'title': 'New America 2',
             'slug': 'new-america-2',
             'recent_carousel-count': 0,
             }
         )
 
-    def test_can_create_program_under_homepage(self):
+    def test_can_create_program_under_homepage_with_data(self):
         self.assertCanCreate(self.home_page, Program, {
-            'title':'OTI2',
+            'title': 'OTI2',
             'name': 'OTI2',
             'description': 'OTI2',
             'slug': 'oti-2',
