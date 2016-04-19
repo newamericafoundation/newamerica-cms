@@ -4,67 +4,122 @@
 		background-image: none;
 
 		& > .ui-button-text {
-			color: palette-get(na-black) !important;
+			color: palette-get(na-black);
 		}
 	}
+}
+
+.comiseo-daterangepicker {
+	
 }
 
 /*input box styles*/
 
 .ui-state-default {
-	color: palette-get(na-black-40) !important;
-	font-weight: normal !important;
-	background-color: white !important;
+	color: palette-get(na-black-40);
+	font-weight: normal;
+	background-color: white;
 }
 
 .ui-corner-all {
-	border-radius: 0px !important;
-	border: 2px solid palette-get(na-black-10) !important;
+	border-radius: 0px;
+	border: 2px solid palette-get(na-black-10);
 }
 
 .ui-widget {
-	font-family: Simplon !important;
+	font-family: Simplon;
 }
 
 .ui-button {
-	display: block !important;
+	display: block;
 	min-width: 0px !important;
-	width: 100% !important;
-	height: 100% !important;
+	width: 100%;
+	height: 100%;
 }
 
 
 /* popup picker styles */
 
+
 .ui-widget-content, .ui-widget-header {
-	background-color: white !important;
+	background-color: white;
 }
 
 .ui-widget-header {
-	border: none !important;
+	border: none;
 	* { 
 		color: palette-get(na-black);
 	}
 }
 
+.ui-menu-item {
+	background-color: white !important;
+	margin: 0px !important;
+}
+
 a.ui-state-default {
 	border: none !important;
 	background: none !important;
-	background-color: palette-get(na-black-10) !important;
-	color: white !important;
+	/*background-color: palette-get(na-black-10) !important;*/
+	color: palette-get(na-black-40) !important;
 	text-align: center !important;
-	height: 35px !important;
-	width: 35px !important;
+
+	&:hover {
+		background-color: palette-get(na-turquoise) !important;
+		color: white !important;
+	}
 }
 
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+
+.ui-datepicker td {
+	padding: 0px;
+	margin: 1px;
+}
+
+.ui-state-focus, .ui-widget-content .ui-state-focus {
 	border: none !important;
 	background: none !important;
-	background-color: palette-get(na-turquoise) !important;
+	background-color: white !important;
+	color: palette-get(na-black-40) !important;
+
+	a {
+		font-weight: normal !important;
+		color: palette-get(na-turquoise) !important;
+	}
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {
+	border: none;
+	background: none;
+	background-color: palette-get(na-turquoise);
+	a {
+		color: white !important;
+	}
+}
+
+.comiseo-daterangepicker-buttonpanel {
+	button {
+		border: none !important;
+		background: none !important;
+		background-color: palette-get(na-black) !important;
+		color: white !important;
+		display: inline-block !important;
+		width: 100px;
+		opacity: 1 !important;
+		height: 46px !important;
+
+		&:hover {
+			background-color: palette-get(na-turquoise) !important;
+		}
+
+		.ui-button-text {
+			font-weight: bold !important;
+		}
+	}
 }
 
 .comiseo-daterangepicker-presets {
-	
+
 	li {
 		display: block;
 	}

@@ -6,7 +6,18 @@
 
 {% block extra_css %}
 	<script>
-        $(function() { $("#content-grid__controls__date-filter").daterangepicker(); });
+        $(function() { 
+        	$("#content-grid__controls__date-filter").daterangepicker({
+        		applyButtonText: 'Confirm',
+        		clearButtonText: null,
+        		cancelButtonText: null,
+	        	datepickerOptions: {
+	        		numberOfMonths : 2,
+			        minDate: null,
+			        maxDate: null
+			    }
+     		})
+     	});
     </script>
 {% endblock %}
 
