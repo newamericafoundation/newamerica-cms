@@ -13,10 +13,10 @@
 	}
 
 	&__input {
-		height: 30px;
-		width: 30px;
-		margin: 0px;
-		padding:0px;
+		height: $default-input-height;
+		width: $default-input-height;
+		margin: 0px 4px;
+		padding: 0px;
 		text-align: center;
 	}
 
