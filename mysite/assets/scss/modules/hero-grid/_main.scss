@@ -382,6 +382,9 @@
 				font-size: rem-calc(16);
 				margin-bottom: 0;
 
+				@include program-and-content-type-text;
+				color: palette-get(na-black-10);
+
 				& > a {
 					color: palette-get(na-white);
 				}

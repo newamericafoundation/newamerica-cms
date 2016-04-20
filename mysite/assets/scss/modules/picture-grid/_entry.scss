@@ -164,13 +164,7 @@
 	}
 
 	&__description, &__description a {
-		color: palette-get(na-black-70);
-		font-weight: bold;
-		font-size: 15px;
-	}
-
-	&__description a:hover {
-		@include set-color(color);
+		@include program-and-content-type-text;
 	}
 
 	&__date-time {

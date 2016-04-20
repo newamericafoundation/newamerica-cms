@@ -42,26 +42,4 @@
       fill: palette-get(na-black);
     }
   }
-  h1 {
-    width: 80px;
-    @include mobile-header-logo-text;
-    
-    @include mobile-header {
-      
-      width: 100px;
-      @include mobile-header-logo-text;
-    }
-
-    @include desktop-header {
-      width: 110px;
-      @include desktop-header-logo-text;
-    }
-    @include expanded-header {
-      width: 120px;
-      @include expanded-header-logo-text;
-    }
-    padding-left: 5px;
-    padding-top:5px;
-    
-  }
 }
