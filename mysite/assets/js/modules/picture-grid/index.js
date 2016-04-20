@@ -1,19 +1,23 @@
 import $ from 'jquery'
 
 var pictureGridTextHeight = 300;
+var pictureGridEntryHeight = 500;
 
 function addPictureGridInteraction() {
 	$(".picture-grid__entry__text-container").on("mouseover", function() {
 		var overflow = this.scrollHeight - pictureGridTextHeight;
 		if (overflow > 0) {
-			if (overflow > pictureGridTextHeight) {
-				overflow = pictureGridTextHeight;
-			} else {
-				overflow = overflow + 10;
-			}
+			// if (overflow > pictureGridTextHeight) {
+			// 	overflow = pictureGridTextHeight;
+			// } else {
+			// 	overflow = overflow + 10;
+			// }
+			// $(this).children(".picture-grid__entry__text-fadeout").hide();
+			
+			// $(this).css("transform", "translateY(-" + overflow + "px)").css("height", this.scrollHeight - 25);
 			$(this).children(".picture-grid__entry__text-fadeout").hide();
 			
-			$(this).css("transform", "translateY(-" + overflow + "px)").css("height", this.scrollHeight - 25);
+			$(this).css("transform", "translateY(-" + (pictureGridEntryHeight - pictureGridTextHeight) + "px)").css("height", pictureGridEntryHeight - 25);
 		}
 
 	});
