@@ -1,7 +1,7 @@
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page
 
-from .models import HomePage, OrgSimplePage, JobsPage, SubscribePage
+from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage
 
 from programs.models import Program
 
@@ -31,6 +31,8 @@ class HomeTests(WagtailPageTests):
     Testing hierarchies between pages and whether it is possible 
     to create a Homepage and all the allowed subpages 
     underneath the Homepage.
+
+    Testing functionality of OrgSimplePage and ProgramSimplePage.
     """
 
     def setUp(self):
@@ -132,4 +134,34 @@ class HomeTests(WagtailPageTests):
         self.assertEqual(
             self.home_page.recent_carousel.stream_data[0]['value'], 
             self.article.id
+        )
+
+    def test_adding_org_simple_page(self):
+        simple_page = OrgSimplePage(
+            title='Org Simple Page Test'
+        )
+        self.home_page.add_child(instance=simple_page)
+        self.assertEqual(simple_page.content_type, 
+            self.home_page.get_children().filter(
+            title='Org Simple Page Test')[0].content_type
+        )
+
+    def test_adding_excerpt_to_simple_page(self):
+        excerpt = 'This is a cool excerpt!'
+        simple_page = OrgSimplePage(
+            title='Org Simple Page Test',
+            story_excerpt=excerpt
+        )
+        self.home_page.add_child(instance=simple_page)
+        self.assertEqual(excerpt, OrgSimplePage.objects.first().story_excerpt)
+
+
+    def test_adding_program_simple_page(self):
+        program_simple_page = ProgramSimplePage(
+            title='Program Simple Page Test'
+        )
+        self.program_page.add_child(instance=program_simple_page)
+        self.assertEqual(program_simple_page.content_type, 
+            self.program_page.get_children().filter(
+            title='Program Simple Page Test')[0].content_type
         )
