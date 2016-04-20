@@ -54,17 +54,9 @@ $content-entry-text-gutter: 10px;
 		}
 
 		&__program, &__program > a {
-			font-size:16px;
-			font-weight:bold;
-			color: palette-get(na-black-40);
-			line-height: 100%;
+			@include program-and-content-type-text;
 		}
 
-		&__program > a {
-			&:hover {
-				@include set-color(color);
-			}
-		}
 		&__title, &__title > a {
 			font-weight:bold;
 			font-size: 26px;

@@ -1,40 +1,13 @@
-@mixin mini-mobile-header-logo-text {
-  margin: 0;
+@mixin program-and-content-type-text {
+  font-size:16px;
+  font-weight:bold;
+  color: palette-get(na-black-40);
   line-height: 100%;
-  font-family: 'Platform';
-  font-weight: bold;
   text-transform: uppercase;
-  font-size: rem-calc(14);
-  color: palette-get(na-black);
-}
 
-@mixin mobile-header-logo-text {
-  margin: 0;
-  line-height: 100%;
-  font-family: 'Platform';
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: rem-calc(17);
-  color: palette-get(na-black);
-}
-
-@mixin desktop-header-logo-text {
-  margin: 0;
-  line-height: 100%;
-  font-family: 'Platform';
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: rem-calc(20);
-  color: palette-get(na-black);
-}
-@mixin expanded-header-logo-text {
-  margin: 0;
-  line-height: 100%;
-  font-family: 'Platform';
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: rem-calc(23);
-  color: palette-get(na-black);
+  &:hover {
+    @include set-color(color);
+  }
 }
 
 @mixin page-title-text {
@@ -67,8 +40,4 @@
   color: palette-get(na-black);
   font-size: 26px;
   margin-bottom: 0px;
-
-  /*@include breakpoint(medium) {
-    font-size: 26px;
-  }*/
 }
