@@ -6,7 +6,7 @@
   height: 25px;
   width: 100%;
   z-index: 2;
-  background-image:linear-gradient(to right, transparent, transparent 80%, white);
+  background-image:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0) 80%, white);
   pointer-events: none;
 }
 
