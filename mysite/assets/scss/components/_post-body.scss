@@ -1,4 +1,6 @@
 .post-body {
+  $media-padding: 20px;
+  $media-default-aspect: 1;
   padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
   
@@ -55,26 +57,30 @@
     font-style: italic;
   }
 
-
-  .responsive-object {
-    padding-bottom: 0px !important;
-  }
-
   a {
     font-weight: 800;
     border-bottom: $standard-border;
     padding-bottom: 2px;
   } 
 
-  & > .block-video {
-    div {
-      padding-bottom: 0px !important;
+  .block-video {
+    .responsive-object {
+      padding: $media-padding 0px !important;
+    }
+
+    iframe {
+      width: 100% !important;
+      height: 500px !important;
     }
   }
 
   .block-paragraph {
+    p {
+      margin-bottom: 0px;
+    }
+
     img {
-      padding: 20px 25px;
+      padding: $media-padding 25px;
     }
 
     .full-width {
@@ -91,6 +97,12 @@
     .right {
       float: right;
       padding-right: 0px;
+    }
+
+    .responsive-object {
+      padding: $media-padding $media-padding $media-padding 0px !important;
+      width: 100%;
+      float: left;
     }
   }
 
