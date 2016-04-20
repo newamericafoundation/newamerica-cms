@@ -91,7 +91,15 @@
 			}
 		}
 
+		hr {
+			margin-bottom: 0px;
+			border-bottom: $standard-border;
 
+			@include breakpoint(medium) {
+				margin-top: 25px;
+				margin-bottom: 25px;
+			}
+		}
 	}
 
 	&__footer {

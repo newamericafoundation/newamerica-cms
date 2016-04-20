@@ -12,6 +12,7 @@ $content-entry-text-gutter: 10px;
 		height:200px;
 		overflow:hidden;
 		background-size: cover;
+		background-position: 50% 50%; 
 
 		@include breakpoint(medium) {
 			width:$content-entry-desktop-image-container-width;
