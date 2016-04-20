@@ -130,10 +130,7 @@
     margin-bottom: $desktop-padding;
 
     h3 {
-      font-weight: normal;
-      color: palette-get(na-black-40);
-      font-size: 17px;
-      margin-bottom: 5px;
+      @include program-and-content-type-text;
     }
     a {
       font-weight: bold;
@@ -144,6 +141,9 @@
     &__text {
       padding-left: 80px;
       
+      &__item {
+        padding: 10px 0px;
+      }
     }
 
     &__image {

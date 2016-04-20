@@ -2,6 +2,7 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_class %}template-policypaper{% endblock %}
 
@@ -34,8 +35,10 @@
 		<div class="post-attachment">
 			<div class="post-attachment__image"></div>
 			<div class="post-attachment__text">
-				<h3>ATTACHMENT</h3>
-				{{ page.attachment }}
+				<h3>{% pluralize page.attachment.all.length "ATTACHMENT" %}</h3>
+				{% for attachment in page.attachment %}
+					<div class="post-attachment__text__item">{{ attachment }}</div>
+				{% endfor %}
 			</div>
 		</div>
 	{% endif %}
