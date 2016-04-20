@@ -40,8 +40,12 @@
 								<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
+									{% if other_lead_story.specific.rsvp_link %}
+										<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
+									{% endif %}
 									<p class='hero-grid__element__text-bar__subheading'>{{ other_lead_story.content_type }}</p>
 									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>
+									
 								</div>
 							</a>
 						</div>

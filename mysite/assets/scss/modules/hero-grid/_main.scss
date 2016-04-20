@@ -305,8 +305,8 @@
 			z-index: 3;
 			bottom: 0;
 			padding: 15px 20px;
-			pointer-events:none;
 			color: palette-get(na-white);
+			pointer-events: none;
 
 			&__subheading, &__heading {
 				color: palette-get(na-white);
@@ -387,6 +387,18 @@
 
 				& > a {
 					color: palette-get(na-white);
+				}
+			}
+
+			&__button {
+				z-index: 10;
+				background-color: palette-get(na-turquoise);
+				pointer-events: auto;
+				/*display: block;
+				width: 100%;*/
+
+				&:hover {
+					background-color: palette-get(na-black);
 				}
 			}
 
