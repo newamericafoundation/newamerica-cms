@@ -70,7 +70,14 @@
 
     iframe {
       width: 100% !important;
-      height: 500px !important;
+      height: 320px;
+      @include breakpoint(medium) {
+        height: 450px;
+      } 
+
+      @include breakpoint(large) {
+        height: 500px;
+      }
     }
   }
 
@@ -92,11 +99,13 @@
     .left {
       float: left;
       padding-left: 0px;
+      padding-right: $desktop-padding;
     }
 
     .right {
       float: right;
       padding-right: 0px;
+      padding-left: $desktop-padding;
     }
 
     .responsive-object {
