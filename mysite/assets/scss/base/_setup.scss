@@ -34,4 +34,7 @@ a:hover {
 button:hover, a.button:hover:not(.header__button) {
 	@include set-color(background-color);
 	color: palette-get(na-white);
+
+input, select {
+	height: $default-input-height;
 }

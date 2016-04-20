@@ -84,6 +84,14 @@ class AbstractProgram(Page):
         ('page', PageChooserBlock()),
     ], blank=True)
 
+    about_us_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
@@ -111,6 +119,7 @@ class AbstractProgram(Page):
         FieldPanel('name', classname='full title'),
         FieldPanel('location'),
         FieldPanel('description'),
+        PageChooserPanel('about_us_page'),
     ]
 
     def get_context(self, request):
@@ -185,6 +194,9 @@ class Program(AbstractProgram):
         
         return context
 
+    class Meta:
+        ordering = ('title',)
+
 
 # Through relationship for Programs to Subprogram
 class ProgramSubprogramRelationship(models.Model):
@@ -197,6 +209,7 @@ class ProgramSubprogramRelationship(models.Model):
 
 # Subprograms models which when instantiated can be linked to multiple programs
 class Subprogram(AbstractProgram):
+    parent_page_types = ['programs.Program']
     parent_programs = models.ManyToManyField(
         Program,
         through=ProgramSubprogramRelationship,
@@ -211,3 +224,4 @@ class Subprogram(AbstractProgram):
 
     class Meta:
         verbose_name = "Subprogram/Initiative Page"
+        ordering = ('title',)

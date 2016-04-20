@@ -108,7 +108,7 @@ class ArticleTests(WagtailPageTests):
         article = Article.objects.all()[0]
         relationship, created = PostProgramRelationship.objects.get_or_create(program=self.second_program, post=article)
         relationship.save()
-        self.assertEqual(article.parent_programs.all()[1].title, 'Education')
+        self.assertEqual(article.parent_programs.all()[0].title, 'Education')
 
 
     # Test you can delete an article attached to one Program

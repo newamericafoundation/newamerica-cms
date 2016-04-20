@@ -30,12 +30,14 @@
 	    {{ page.paper_url }}
 	</div>
 
-	<div class="post-attachment">
-		<div class="post-attachment__image"> </div>
-		<div class="post-attachment__text">
-			<h3>ATTACHMENT</h3>
-			{{ page.attachment }}
+	{% if page.attachment %}
+		<div class="post-attachment">
+			<div class="post-attachment__image"></div>
+			<div class="post-attachment__text">
+				<h3>ATTACHMENT</h3>
+				{{ page.attachment }}
+			</div>
 		</div>
-	</div>
+	{% endif %}
 
 {% endblock %}

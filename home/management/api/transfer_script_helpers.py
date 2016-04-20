@@ -1,11 +1,14 @@
+import django
 import csv
 import os
 import urllib
 import datetime
 
 from wagtail.wagtailimages.models import Image
+from wagtail.wagtaildocs.models import Document
 
 from django.utils.text import slugify
+from django.core.files import File
 from django.core.files.images import ImageFile
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -119,22 +122,45 @@ def download_image(url, image_filename):
     filename
     """
     if url:
-        image_location = os.path.join(
-            'home/management/api/images',
-            image_filename
+        try:
+            image_location = os.path.join(
+                'home/management/api/images',
+                image_filename
+            )
+            urllib.urlretrieve(url, image_location)
+            image = Image(
+                title=image_filename,
+                file=ImageFile(open(image_location), name=image_filename)
+            )
+            image.save()
+            return image
+        except django.db.utils.IntegrityError:
+            pass
+
+
+def download_document(url, document_filename):
+    """
+    Takes the attached document URL from the old database API,
+    retrieves the document, then saves it with a new
+    filename and attaches it to the post
+    """
+    if url:
+        document_location = os.path.join(
+            'home/management/api/documents',
+            document_filename
         )
-        urllib.urlretrieve(url, image_location)
-        image = Image(
-            title=image_filename,
-            file=ImageFile(open(image_location), name=image_filename)
+        urllib.urlretrieve(url, document_location)
+        document = Document(
+            title=document_filename,
+            file=File(open(document_location), name=document_filename)
         )
-        image.save()
-        return image
+        document.save()
+        return document.id
 
 
 def load_users_mapping():
     csv_data = {}
-    with open('home/management/api/csv_scripts/authors.csv', "r") as csvfile:
+    with open('authors.csv', "r") as csvfile:
         csv_reader = csv.reader(csvfile)
         for row in csv_reader:
             csv_data[str(row[0])] = {

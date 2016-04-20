@@ -1,14 +1,14 @@
 import $ from 'jquery'
 
-// removes dropcap if body height is less than cutoff
-function checkBodyHeight() {
-	var dropcapCutoff = 70;
-	var $post_body = $(".post-body");
-	var bodyHeight = $post_body.height();
-
-	if (bodyHeight < dropcapCutoff) {
-		$post_body.removeClass("with-dropcap");
+// removes dropcap if first paragraph character count is less than cutoff
+function checkDropcap() {
+	var dropcapCutoff = 300;
+	var $first_paragraph = $(".with-dropcap > .block-paragraph:first-child p:first-child");
+	var paragraphLength = $first_paragraph.text().length;
+	
+	if (paragraphLength < dropcapCutoff) {
+		$(".with-dropcap").removeClass("with-dropcap");
 	}
 }
 
-$(checkBodyHeight);
+$(checkDropcap);
