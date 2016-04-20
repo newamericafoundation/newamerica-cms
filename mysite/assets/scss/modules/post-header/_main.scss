@@ -3,7 +3,6 @@ $std-post-header-padding-without-image: 25px;
 
 .post-header {
 	width: 100%;
-/*	height: 100%;*/
 	position:static;
 	margin-bottom: $desktop-padding;
 	margin-top: $desktop-padding;
@@ -46,7 +45,7 @@ $std-post-header-padding-without-image: 25px;
 
 		&__button {
 			margin-top: 45px;
-			background-color: palette-get(na-turquoise);
+			@include set-color(background-color);
 
 			&:hover {
 				background-color: palette-get(na-black);
@@ -56,6 +55,9 @@ $std-post-header-padding-without-image: 25px;
 		.with-image & {
 			color:palette-get(na-white);
 			padding: 50px $desktop-padding;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
 
 			&__button {
 				margin-top: 15px;
@@ -68,6 +70,7 @@ $std-post-header-padding-without-image: 25px;
 		background-size: cover;
 		background-position: 50% 50%;
 		margin-top: 0px;
+		height: 300px;
 	}
 
 }

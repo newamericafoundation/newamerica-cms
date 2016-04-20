@@ -47,4 +47,8 @@
 	    {{ page.body }}
 	</div>
 
+	{% if page.itunes_url %}
+		<a href="{{page.itunes_url}}">Listen on iTunes</a>
+	{% endif %}
+
 {% endblock %}

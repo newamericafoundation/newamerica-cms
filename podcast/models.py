@@ -3,9 +3,11 @@ from home.models import Post
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailembeds.blocks import EmbedBlock
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 
 from mysite.helpers import paginate_results, get_posts_and_programs
+
+from django.db import models
 
 
 class Podcast(Post):
@@ -20,9 +22,11 @@ class Podcast(Post):
         ('soundcloud_embed', EmbedBlock()),
     ])
 
+    itunes_url = models.URLField(blank=True, null=True)
+
     content_panels = Post.content_panels + [
         StreamFieldPanel('soundcloud'),
-
+        FieldPanel('itunes_url'),
     ]
 
 

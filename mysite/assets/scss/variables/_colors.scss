@@ -7,17 +7,13 @@ $_color-palette: (
 	dark-cinnabar-red: #477da3,
 	na-black: #2c2f35,
 	na-off-black: #383b43,
-	na-black-70: #797c82,
-	na-black-40: #abacae,
-	na-black-10: #eaeaeb,
+	na-black-70: rgba(44,47,53,0.7),
+	na-black-40: #6b6d71,
+	na-black-10: #e0e0e1,
 	na-white: #ffffff,
 	shadow: rgba(0, 0, 0, 0.25),
 	overlay: rgba(0, 0, 0, 0.2)
 );
-
-@function palette-get($key) {
-	@return map-get($_color-palette, $key);
-}
 
 /*
  * Color palette usage:
@@ -25,3 +21,21 @@ $_color-palette: (
  *
  *
  */
+
+@function palette-get($key) {
+	@return map-get($_color-palette, $key);
+}
+
+
+/*
+ * Sets css property passed in to approproate color based on oti exception class
+ * usage: 
+ * @include set-color(background-color);
+ *
+ */
+@mixin set-color ($prop) {
+	#{$prop}: palette-get(na-turquoise);
+	.oti & {
+		#{$prop}: palette-get(oti-blue);
+	}
+}

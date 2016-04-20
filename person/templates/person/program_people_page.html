@@ -7,8 +7,12 @@
 
 {% block content %}
 
-    <section class='section section--fixed-width'>
-	<h1 class="person-grid__title">Our People</h1>
+<section class='section section--fixed-width'>
+    <div class="post-header">
+        <div class="post-header__text">
+            <h1 class="post-header__text__heading">{{ page.title }}</h1>
+        </div>
+    </div>
 
 	<div class="row person-grid__controls">
 		<div class="column person-grid__controls__filter">
@@ -22,7 +26,12 @@
 	     
         </div>
         <div class="column person-grid__controls__search">
-        	<input type="search" placeholder="Search Results">
+        	<form class="search-box" action="" method="get">
+		        <input class="search-box__input" type='text' name='query' placeholder='Search' autocomplete="off"></input>
+		        <button class="search-box__submit" type="submit">
+		            {% include 'ui_elements/svg/magnifying-glass.html' %}
+		        </button>
+		    </form>
         </div>
 	</div>
 

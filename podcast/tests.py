@@ -27,7 +27,23 @@ class PodcastTests(WagtailPageTests):
             instance=AllPodcastsHomePage(title="All Podcasts at New America!")
         )
         self.program_page_1 = self.home_page.add_child(
-            instance=Program(title='OTI', name='OTI', location=False, depth=3)
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        self.second_program = self.home_page.add_child(
+            instance=Program(
+            title='Education', 
+            name='Education', 
+            slug='education', 
+            description='Education', 
+            location=False, 
+            depth=3
+            )
         )
         self.program_podcasts_page = self.program_page_1.add_child(
             instance=ProgramPodcastsPage(
@@ -67,7 +83,7 @@ class PodcastTests(WagtailPageTests):
     # Test that pages can be created with POST data
     def test_can_create_all_podcasts_page_under_homepage(self):
         self.assertCanCreate(self.home_page, AllPodcastsHomePage, {
-            'title': 'All Podcasts at New America',
+            'title': 'All Podcasts at New America2',
             }
         )
 
@@ -86,10 +102,8 @@ class PodcastTests(WagtailPageTests):
     # Test you can create a podcast with two parent Programs
     def test_podcast_has_relationship_to_two_parent_programs(self):
         podcast = Podcast.objects.first()
-        second_program = Program.objects.create(
-            title='Education', name='Education', location=False, depth=3)
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=second_program, post=podcast)
+            program=self.second_program, post=podcast)
         relationship.save()
         self.assertEqual(
             podcast.parent_programs.filter(title='Education').first().title,
@@ -123,14 +137,8 @@ class PodcastTests(WagtailPageTests):
     def test_podcast_with_two_parent_programs_can_be_deleted(self):
         podcast = Podcast.objects.filter(
             title='Podcast 1').first()
-        program_page_2 = Program.objects.create(
-            title='Education',
-            name='Education',
-            location='False',
-            depth=3
-        )
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=program_page_2,
+            program=self.second_program,
             post=podcast
             )
         if created:
@@ -153,5 +161,5 @@ class PodcastTests(WagtailPageTests):
         self.assertEqual(
             PostProgramRelationship.objects.filter(
                 post=podcast,
-                program=program_page_2).first(), None
+                program=self.second_program).first(), None
         )

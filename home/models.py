@@ -21,7 +21,6 @@ options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
 
 class HomePage(Page):
-    parent_page_types = ['home.HomePage', ]
     subpage_types = [
     'OrgSimplePage',
     'programs.Program',
@@ -145,9 +144,12 @@ class HomePage(Page):
         if self.lead_4:
             context['other_lead_stories'].append(self.lead_4)
 
-        context['featured_stories'] = [
-            self.feature_1, self.feature_2, self.feature_3
-        ]
+        if self.feature_1 and self.feature_2 and self.feature_3:
+            context['featured_stories'] = [
+                self.feature_1, self.feature_2, self.feature_3
+            ]
+        else:
+            context['featured_stories'] = []
 
         return context
 

@@ -41,6 +41,7 @@
 
 	@include desktop-header {
 		padding: $desktop-padding;
+		padding-bottom: 0px;
 	}
 	@include expanded-header {
 		padding: 0px $desktop-padding;
@@ -55,18 +56,16 @@
 			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
 			  width:         calc(100% - #{$max-sidemenu-width});
 			
-			/*position:relative; */
-			/*margin-left: $max-sidemenu-width;*/
-			/*float:right;*/
-			/*padding-top: 0px;*/
 		}
 	}
 }
 
 .breadcrumb-social-media-container {
-	height: 25px;
-	margin-bottom: 35px;
-	margin-top: 15px;
+	$container-height: 25px;
+	$local-gutter: calc((#{$program-logo-height} - #{$container-height})/2) ;
+	height: $container-height;
+	margin-bottom: $local-gutter;
+	margin-top: $local-gutter;
 	display: none;
 
 	@include desktop-header {
@@ -191,23 +190,22 @@
 }
 
 .post-container {
-	max-width: $max-body-width;
   	padding-top: 0px;
   	padding-left: $mobile-padding;
   	padding-right: $mobile-padding;
   	padding-bottom: $mobile-padding;
 
+  	@include breakpoint(medium) {
+  		padding: 0px $desktop-padding;
+  	}
+
   	@include desktop-header {
-  		padding-top: 0px;
-  		padding-left:0px;
-  		padding-right:0px;
-  		padding-bottom: $desktop-padding;
+  		padding: 0px 0px $desktop-padding 0px;
+  		max-width: $max-body-width;
   	}
   	@include expanded-header {
-  		padding-top: 0px;
-  		padding-left:0px;
-  		padding-right:0px;
-  		padding-bottom: $desktop-padding;
+  		padding: 0px 0px $desktop-padding 0px;
+  		max-width: $max-body-width;
   	}
 }
 

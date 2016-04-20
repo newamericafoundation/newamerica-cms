@@ -27,7 +27,23 @@ class QuotedTests(WagtailPageTests):
             instance=AllQuotedHomePage(title='New America In The News')
         )
         self.program_page_1 = self.home_page.add_child(
-            instance=Program(title='OTI', name='OTI', description='OTI',location=False, depth=3)
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        self.second_program = self.home_page.add_child(
+            instance=Program(
+            title='Education', 
+            name='Education', 
+            slug='education', 
+            description='Education', 
+            location=False, 
+            depth=3
+            )
         )
         self.program_quoted_page = self.program_page_1\
             .add_child(instance=ProgramQuotedPage(
@@ -101,17 +117,8 @@ class QuotedTests(WagtailPageTests):
     # Test you can create a quoted item with two parent Programs
     def test_quoted_has_relationship_to_two_parent_programs(self):
         quoted = Quoted.objects.first()
-        second_program = Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
-            depth=3
-        )
-        self.home_page.add_child(instance=second_program)
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=second_program, post=quoted)
+            program=self.second_program, post=quoted)
         relationship.save()
         self.assertEqual(
             quoted.parent_programs.filter(
@@ -146,17 +153,8 @@ class QuotedTests(WagtailPageTests):
     def test_quoted_with_two_parent_programs_can_be_deleted(self):
         quoted = Quoted.objects.filter(
             title='Quoted 1').first()
-        second_program = Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
-            depth=3
-        )
-        self.home_page.add_child(instance=second_program)
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=second_program,
+            program=self.second_program,
             post=quoted
             )
         if created:
@@ -179,6 +177,6 @@ class QuotedTests(WagtailPageTests):
         self.assertEqual(
             PostProgramRelationship.objects.filter(
                 post=quoted,
-                program=second_program).first(), None
+                program=self.second_program).first(), None
         )
 

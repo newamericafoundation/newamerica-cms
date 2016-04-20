@@ -8,8 +8,11 @@
 
 {% block content %}
 
-	{% block page-title %}
-	{% endblock %}
+	<div class="post-header">
+		<div class="post-header__text">
+		    <h1 class="post-header__text__heading">{{ page.title }}</h1>
+		</div>
+	</div>
 
 	<div class="content-grid__controls">
 		<div class="row content-grid__controls__filters">
@@ -27,7 +30,12 @@
 		        </select>
 		    </div>
 		    <div class="column small-12 medium-4 large-4 content-grid__controls__search">
-	      		<input type="search" placeholder="Search Results">
+	      		<form class="search-box" action="" method="get">
+			        <input class="search-box__input" type='text' name='query' placeholder='Search' autocomplete="off"></input>
+			        <button class="search-box__submit" type="submit">
+			            {% include 'ui_elements/svg/magnifying-glass.html' %}
+			        </button>
+			    </form>
 	        </div>
 
 		</div>

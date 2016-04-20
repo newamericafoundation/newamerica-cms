@@ -1,5 +1,4 @@
 .border-panel {
-  $border-color: palette-get(na-black-10);
   $height: 280px;
   $arrow-size: 30px;
   $nav-and-info-offset: 15px;
@@ -10,7 +9,7 @@
     }
   }
 
-  border: 2px solid $border-color;
+  border: $standard-border;
   height: $height;
   width: 100%;
   @include space-out(medium);

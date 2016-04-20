@@ -27,7 +27,23 @@ class PolicyPaperTests(WagtailPageTests):
             instance=AllPolicyPapersHomePage(title='New America Policy Papers')
         )
         self.program_page_1 = self.home_page.add_child(
-            instance=Program(title='OTI', name='OTI', location=False, depth=3)
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        self.second_program = self.home_page.add_child(
+            instance=Program(
+            title='Education', 
+            name='Education', 
+            slug='education', 
+            description='Education', 
+            location=False, 
+            depth=3
+            )
         )
         self.program_policy_papers_page = self.program_page_1\
             .add_child(instance=ProgramPolicyPapersPage(
@@ -82,7 +98,7 @@ class PolicyPaperTests(WagtailPageTests):
     # Test that pages can be created with POST data
     def test_can_create_all_policy_papers_page_under_homepage(self):
         self.assertCanCreate(self.home_page, AllPolicyPapersHomePage, {
-            'title': 'New America Policy Papers',
+            'title': 'New America Policy Papers2',
             }
         )
 
@@ -100,10 +116,8 @@ class PolicyPaperTests(WagtailPageTests):
     # Test you can create a policy paper with two parent Programs
     def test_policy_paper_has_relationship_to_two_parent_programs(self):
         policy_paper = PolicyPaper.objects.first()
-        second_program = Program.objects.create(
-            title='Education', name='Education', location=False, depth=3)
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=second_program, post=policy_paper)
+            program=self.second_program, post=policy_paper)
         relationship.save()
         self.assertEqual(
             policy_paper.parent_programs.filter(
@@ -138,14 +152,8 @@ class PolicyPaperTests(WagtailPageTests):
     def test_policy_paper_with_two_parent_programs_can_be_deleted(self):
         policy_paper = PolicyPaper.objects.filter(
             title='Policy Paper 1').first()
-        program_page_2 = Program.objects.create(
-            title='Education',
-            name='Education',
-            location='False',
-            depth=3
-        )
         relationship, created = PostProgramRelationship.objects.get_or_create(
-            program=program_page_2,
+            program=self.second_program,
             post=policy_paper
             )
         if created:
@@ -168,5 +176,5 @@ class PolicyPaperTests(WagtailPageTests):
         self.assertEqual(
             PostProgramRelationship.objects.filter(
                 post=policy_paper,
-                program=program_page_2).first(), None
+                program=self.second_program).first(), None
         )

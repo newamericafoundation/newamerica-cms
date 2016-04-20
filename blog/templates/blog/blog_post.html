@@ -41,4 +41,14 @@
 	    {{ page.body | safe}}
 	</div>
 
+	{% if page.attachment %}
+		<div class="post-attachment">
+			<div class="post-attachment__image"></div>
+			<div class="post-attachment__text">
+				<h3>ATTACHMENT</h3>
+				{{ page.attachment }}
+			</div>
+		</div>
+	{% endif %}
+
 {% endblock %}

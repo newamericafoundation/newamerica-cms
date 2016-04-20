@@ -82,7 +82,8 @@
 					&__picture {
 						margin-left: -5px;
 						width: $picture-size + 5px;
-						border-left: 5px solid palette-get(na-turquoise);
+						border-left: 5px solid;
+   							@include set-color(border-color);
 					}
 					h1 {
 						color: palette-get(na-black);

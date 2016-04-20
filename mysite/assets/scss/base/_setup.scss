@@ -1,6 +1,6 @@
 html, body {
-	// overflow: scroll;
-	/*height:100%;*/
+	background-color: white;
+	color: palette-get(na-black);
 }
 
 ul {
@@ -17,4 +17,25 @@ li {
 
 h1 {
 	font-weight: bold;
+}
+
+hr {
+	border-bottom: $standard-border;
+}
+
+select {
+	border: $standard-border;
+}
+
+a:hover {
+	@include set-color(color);
+}
+
+button:hover, a.button:hover:not(.header__button) {
+	@include set-color(background-color);
+	color: palette-get(na-white);
+}
+
+input, select {
+	height: $default-input-height;
 }

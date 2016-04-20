@@ -61,24 +61,26 @@ $content-entry-text-gutter: 10px;
 
 		&__program > a {
 			&:hover {
-				color:palette-get(na-turquoise);
+				@include set-color(color);
 			}
 		}
 		&__title, &__title > a {
 			font-weight:bold;
-			font-size:26px;
+			font-size: 26px;
 		}
 
 		&__author {
 			font-weight:bold;
-			font-size:16px;
+			font-size: 16px;
 			line-height: 130%;
 		}
 
 		&__date-time {
-			color: palette-get(na-black-40);
-			font-size:16px;
+			color: palette-get(na-black-70);
+			font-size: 14px;
 			line-height: 130%;
+			text-transform: uppercase;
+			letter-spacing: 1px;
 			& > p {
 				margin-bottom: 0px;
 			}
@@ -86,7 +88,7 @@ $content-entry-text-gutter: 10px;
 		}
 
 		&__excerpt {
-			color: palette-get(na-black-40);
+			color: palette-get(na-black-70);
 			font-size:16px;
 			line-height: 150%;
 		}
@@ -94,6 +96,8 @@ $content-entry-text-gutter: 10px;
 
 	hr {
 		margin-bottom: 0px;
+		border-bottom: $standard-border;
+
 		@include breakpoint(medium) {
 			margin-top: 25px;
 			margin-bottom: 25px;

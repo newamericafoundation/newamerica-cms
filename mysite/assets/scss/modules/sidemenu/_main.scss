@@ -3,12 +3,12 @@ $right-pad: 25px;
 
 .sidemenu {
   position: relative;
-  height:100%;
+  height: calc(100% - #{$desktop-padding});
   top: 0px;
   display:block;
   margin-top: $desktop-padding;
   background-color: palette-get(na-white);
-  border-right: 2px solid palette-get(na-black-10);
+  border-right: $standard-border;
   width: $max-sidemenu-width;
 
   &__logo {
@@ -21,10 +21,9 @@ $right-pad: 25px;
     padding-top: 10px;
     color: palette-get(na-black);
 
-
     & > ul > li > a {
       padding: 10px $desktop-padding;
-      color: grey;
+      color: palette-get(na-black-70);
     } 
 
     &__title, &__link {
@@ -48,12 +47,12 @@ $right-pad: 25px;
         border-color: palette-get(na-white);
 
         & > a {
-          color: palette-get(na-turquoise);
+          @include set-color(color);
         }        
       }
 
       & > .active {
-        color: palette-get(na-turquoise);
+        @include set-color(color);
       }
     }
 
