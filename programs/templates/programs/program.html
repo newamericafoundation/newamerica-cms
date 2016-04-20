@@ -21,11 +21,7 @@
 							<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
-								<p class='hero-grid__element__text-bar__subheading' href="#">
-								{% for author in page.lead_1.authors.all %}
-									{{ author }}
-								{% endfor %}
-								</p>
+								<p class='hero-grid__element__text-bar__subheading'>{{ page.lead_1.content_type }}</p>
 								<h1 class='hero-grid__element__text-bar__heading'>{{ page.lead_1.title }}</h1>
 							</div>
 						</div>
@@ -44,12 +40,8 @@
 								<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
-									<a class='hero-grid__element__text-bar__subheading' href="#">
-									{% for author in other_lead_story.authors.all %}
-										{{ author}}
-									{% endfor %}
-									</a>
-									<a class='hero-grid__element__text-bar__heading' href="{{ story.url }}">{{ other_lead_story.title }}</a>
+									<p class='hero-grid__element__text-bar__subheading'>{{ other_lead_story.content_type }}</p>
+									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>
 								</div>
 							</a>
 						</div>
