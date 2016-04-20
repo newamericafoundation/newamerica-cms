@@ -9,6 +9,7 @@ $mobile-nav-logo-width: 145px;
   border-bottom: $thick-border-width solid palette-get(na-turquoise);
   height: $mobile-header-height;
 
+
   @include desktop-header {
     display: none;
   }

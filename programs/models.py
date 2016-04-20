@@ -194,6 +194,9 @@ class Program(AbstractProgram):
         
         return context
 
+    class Meta:
+        ordering = ('title',)
+
 
 # Through relationship for Programs to Subprogram
 class ProgramSubprogramRelationship(models.Model):
@@ -221,3 +224,4 @@ class Subprogram(AbstractProgram):
 
     class Meta:
         verbose_name = "Subprogram/Initiative Page"
+        ordering = ('title',)

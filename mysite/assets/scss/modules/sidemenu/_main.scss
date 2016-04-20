@@ -47,12 +47,12 @@ $right-pad: 25px;
         border-color: palette-get(na-white);
 
         & > a {
-          color: palette-get(na-turquoise);
+          @include set-color(color);
         }        
       }
 
       & > .active {
-        color: palette-get(na-turquoise);
+        @include set-color(color);
       }
     }
 
