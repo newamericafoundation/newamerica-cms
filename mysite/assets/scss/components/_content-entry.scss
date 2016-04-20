@@ -95,16 +95,6 @@ $content-entry-text-gutter: 10px;
 		}
 	}
 
-	hr {
-		margin-bottom: 0px;
-		border-bottom: $standard-border;
-
-		@include breakpoint(medium) {
-			margin-top: 25px;
-			margin-bottom: 25px;
-		}
-	}
-
 	.post-person {
 		padding-left:$desktop-padding;
 	}
