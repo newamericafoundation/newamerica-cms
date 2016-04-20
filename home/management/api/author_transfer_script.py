@@ -21,6 +21,8 @@ from .podcast_transfer_script import load_podcasts
 
 from .press_release_transfer_script import load_press_releases
 
+from .in_the_news_transfer_script import load_in_the_news
+
 our_people_page = OurPeoplePage.objects.first()
 
 if sys.version_info[0] < 3:
@@ -129,4 +131,5 @@ def run():
     # get_author_id()
     # load_policy_papers()
     # load_podcasts()
-    load_press_releases()
+    # load_press_releases()
+    load_in_the_news()
