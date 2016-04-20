@@ -4,7 +4,7 @@
   height: 4px;
   width: 0%; // manipulated by JS
   content: '';
-  background-color: palette-get(na-turquoise);
+  @include set-color(background-color);
   display: block;
   @include desktop-header {
     display: block;

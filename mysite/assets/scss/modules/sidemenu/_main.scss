@@ -1,4 +1,7 @@
 .sidemenu {
+  $sidemenu-link-margin-left: 15px;
+  $sidemenu-link-padding-left: 10px;
+
   position: relative;
   height: calc(100% - #{$desktop-padding});
   top: 0px;
@@ -19,8 +22,8 @@
     color: palette-get(na-black);
 
     & > ul > li > a {
-      padding: 10px $desktop-padding 10px 10px;
-      margin-left: 15px;
+      padding: 10px $desktop-padding 10px $sidemenu-link-padding-left;
+      margin-left: $sidemenu-link-margin-left;
       color: palette-get(na-black-70);
     } 
 
@@ -45,13 +48,15 @@
         border-color: palette-get(na-white);
 
         & > a {
-          color: palette-get(na-turquoise);
+          @include set-color(color);
         }        
       }
 
       & > .active {
-        color: palette-get(na-turquoise);
-        border-left: 2px solid palette-get(na-turquoise);
+        @include set-color(color);
+        border-left: 2px solid;
+        @include set-color(border-color);
+        margin-left: $sidemenu-link-margin-left - 2px;
       }
     }
 

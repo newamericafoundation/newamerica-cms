@@ -58,7 +58,7 @@
   }
 
   a:hover {
-    color: palette-get(na-turquoise);
+    @include set-color(color);
   }
 }
 

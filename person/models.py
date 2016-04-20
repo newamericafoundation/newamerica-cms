@@ -69,7 +69,6 @@ class Person(Page):
         Subprogram,
         through=PersonSubprogramRelationship,
         blank=True,
-        null=True
     )
 
     social_media = StreamField([
@@ -186,6 +185,9 @@ class Person(Page):
         context['featured_work'] = featured_work
         
         return context
+
+    class Meta:
+        ordering = ('last_name',)
 
 
 class OurPeoplePage(Page):

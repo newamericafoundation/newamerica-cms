@@ -42,13 +42,14 @@
   @mixin local-hover {
     &:hover {
       opacity: 1;
-      color: palette-get(na-turquoise);
+      @include set-color(color);
     }
   }
   &__content {
     width: 100%;
     margin: auto;
-    border-bottom: 4px solid palette-get(na-turquoise);
+    border-bottom: 4px solid;
+    @include set-color(border-bottom-color);
     @include standard-shadow;
     padding: 10px 7px 7px 7px;
     background-color: palette-get(na-white);

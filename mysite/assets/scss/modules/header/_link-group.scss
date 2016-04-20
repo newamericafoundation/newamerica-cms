@@ -64,7 +64,7 @@ $link-group-header-spacing: 30px;
   @mixin local-hover {
     &:hover {
       opacity: 1;
-      color: palette-get(na-turquoise);
+      @include set-color(color);
     }
   }
   &__content {
@@ -72,7 +72,8 @@ $link-group-header-spacing: 30px;
 
     margin: auto;
 
-    border-bottom: 4px solid palette-get(na-turquoise);
+    border-bottom: 4px solid;
+    @include set-color(border-bottom-color);
    
     @include standard-shadow;
     padding: 30px 7px;

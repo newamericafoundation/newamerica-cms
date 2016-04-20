@@ -49,7 +49,7 @@
       
 
       & > .header__button {
-        background-color: palette-get(na-turquoise);
+        @include set-color(background-color);
         color: palette-get(na-white);
         margin-right: 10px;
         height: 46px;
@@ -60,7 +60,7 @@
            display: inline-block;
         }
         &:hover {
-          background-color: palette-get(na-turquoise);
+          @include set-color(background-color);
           color: palette-get(na-white);
         }
       }
