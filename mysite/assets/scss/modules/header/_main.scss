@@ -2,10 +2,11 @@
 .header {
   top: 0;
   width: 100%;
-  border-bottom: $thick-border-width solid palette-get(na-turquoise);
+  border-bottom: $thick-border-width solid;
+  @include set-color(border-color);
+  background-color: palette-get(na-white);
   display:none;
   z-index: 10000;
-  background-color: palette-get(na-white);
 
   @include desktop-header {
     position: fixed;
