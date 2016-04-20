@@ -118,8 +118,7 @@
 		}
 		text-align: center;
 		overflow:hidden;
-		padding: 15px;
-		padding-bottom: 25px;
+		padding: $desktop-padding;
 		position: relative;
 		background-color: white;
 		transform: translateY(0%);
@@ -177,7 +176,8 @@
 		color: palette-get(na-black);
 		font-weight: bold;
 		font-size: 15px;
-		
+		margin-bottom: 0px;
+
 		p {
 			line-height: 130%;
 			margin:0px;
@@ -185,18 +185,17 @@
 	}
 
 	&__location {
-		color: palette-get(na-black-70);
+		color: palette-get(na-black-30);
 		font-weight: bold;
 		font-size: 15px;
 	}
 
+	&__title, &__title a {
+		@include grid-title-text;
+	}
+
 	&__title {
-		a {
-			color: palette-get(na-black);
-			font-weight: bold;
-			font-size: 22px;
-			font-family: "Platform";
-		}
+		padding: 8px 0px;
 	}
 
 	&__body {
@@ -205,7 +204,7 @@
 		font-size: 17px;
 		font-family: "Simplon";
 		line-height: 130%;
-		margin-bottom: 0px;
+		margin-bottom: $desktop-padding;
 	}
 
 	hr {
@@ -214,6 +213,10 @@
 		width: 30%;
 		color: palette-get(na-black-10);
 		background-color: palette-get(na-black-10);
+	}
+
+	&__button {
+		@include set-color(background-color);
 	}
 }
 
