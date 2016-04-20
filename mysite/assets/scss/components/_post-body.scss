@@ -1,4 +1,6 @@
 .post-body {
+  $media-padding: 20px;
+  $media-default-aspect: 1;
   padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
   
@@ -42,12 +44,6 @@
     }
   }
 
-  & > .block-video {
-    div {
-      padding-bottom: 0px !important;
-    }
-  }
-
   p,
   blockquote {
     font-size: rem-calc(20);
@@ -65,11 +61,64 @@
     font-weight: 800;
     border-bottom: $standard-border;
     padding-bottom: 2px;
+  } 
+
+  .block-video {
+    .responsive-object {
+      padding: $media-padding 0px !important;
+    }
+
+    iframe {
+      width: 100% !important;
+      height: 320px;
+      @include breakpoint(medium) {
+        height: 450px;
+      } 
+
+      @include breakpoint(large) {
+        height: 500px;
+      }
+    }
   }
 
-  &__first-sentence {
-    font-weight: bold;
-    color: palette-get(na-black);
+  .block-paragraph {
+    p {
+      margin-bottom: 0px;
+    }
+
+    img {
+      padding: $media-padding 25px;
+    }
+
+    .full-width {
+      width: 100%;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    .left {
+      float: left;
+      padding-left: 0px;
+      padding-right: $desktop-padding;
+    }
+
+    .right {
+      float: right;
+      padding-right: 0px;
+      padding-left: $desktop-padding;
+    }
+
+    .responsive-object {
+      padding: $media-padding $media-padding $media-padding 0px !important;
+      width: 100%;
+      float: left;
+    }
+  }
+
+  .block-image {
+    img {
+      padding: 20px 0px;
+    }
   }
 
 }
