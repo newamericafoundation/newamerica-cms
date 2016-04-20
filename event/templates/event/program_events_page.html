@@ -4,6 +4,42 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
+{% block extra_scripts %}
+	<script>
+        $(function() { 
+        	$("#content-grid__controls__date-filter").daterangepicker({
+        		applyButtonText: 'Confirm',
+				clearButtonText: null,
+				cancelButtonText: null,
+				initialText: 'Select Dates',
+				presetRanges: [{
+			         text: 'Today',
+			         dateStart: function() { return moment() },
+			         dateEnd: function() { return moment() }
+			    }, {
+			         text: 'Tomorrow',
+			         dateStart: function() { return moment().add('days', 1) },
+			         dateEnd: function() { return moment().add('days', 1) }
+			    }, {
+			         text: 'Next 7 Days',
+			         dateStart: function() { return moment() },
+			         dateEnd: function() { return moment().add('days', 6) }
+			    }, {
+			         text: 'Previous 7 Days',
+			         dateStart: function() { return moment().add('days', -6) },
+			         dateEnd: function() { return moment() }
+			    }],
+				datepickerOptions: {
+					numberOfMonths : 1,
+					defaultDate: +0,
+			        minDate: null,
+			        maxDate: null
+			    }
+     		})
+     	});
+    </script>
+{% endblock %}
+
 {% block body_class %}template-programeventspage{% endblock %}
 
 {% block content %}
@@ -26,9 +62,7 @@
 			        </select>
 			    </div>
 			    <div class="column small-12 medium-4 large-4 content-grid__controls__date-filter">
-					<select>
-						<option value="all">All Dates</option>
-			        </select>
+					<input id="content-grid__controls__date-filter" class="date-picker" name="e1">
 			    </div>
 			    <div class="column small-12 medium-4 large-4 content-grid__controls__search">
 		      		<form class="search-box" action="" method="get">

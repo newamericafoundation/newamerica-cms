@@ -11,4 +11,3 @@ import 'script!foundation-sites/dist/foundation.js'
 $(document).ready(function() {
 	$(document).foundation();
 });
-  console.log("initializing foundation");
