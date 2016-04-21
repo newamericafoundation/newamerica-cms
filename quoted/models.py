@@ -18,7 +18,7 @@ class Quoted(Post):
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
-    source_url = models.URLField(blank=True, null=True)
+    source_url = models.URLField(blank=True, null=True, max_length=500)
 
     content_panels = Post.content_panels + [
         FieldPanel('source'),
