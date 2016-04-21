@@ -45,11 +45,6 @@ $std-post-header-padding-without-image: 25px;
 
 		&__button {
 			margin-top: 45px;
-			@include set-color(background-color);
-
-			&:hover {
-				background-color: palette-get(na-black);
-			}
 		}
 
 		.with-image & {
