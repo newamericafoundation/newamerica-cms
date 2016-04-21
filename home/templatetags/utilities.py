@@ -78,6 +78,7 @@ def generate_dateline(post):
 	
 	if str(post.content_type) == "event":
 		if post.date:
+
 			ret_string += '<p class="date">'
 			ret_string += post.date.strftime(date_format)
 			if post.end_date and (post.end_date != post.date):

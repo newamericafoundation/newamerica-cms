@@ -1,20 +1,24 @@
 
 .bio-page {
  	$icon-height: 150px;
- 	margin: $desktop-padding $mobile-padding;
+ 	margin: 35px 0px $desktop-padding 0px;
 
 	@include breakpoint(medium) {
-		margin: $desktop-padding;
+		margin: 35px $desktop-padding $desktop-padding $desktop-padding;
 	}
 
 	@include desktop-header {
 		width: $max-body-width;
-		margin: 10px auto;
+		margin: 35px auto;
+		margin-bottom: 0px;
 	}
 
 	&__heading {
+		margin-left: $mobile-padding;
+		margin-right: $mobile-padding;
 		@include breakpoint(medium) {
-			height: $icon-height;	
+			height: $icon-height;
+			margin: 0px;	
 		}
 
 		&__text {
@@ -76,14 +80,32 @@
 		max-width: $max-body-width;
 	    color: palette-get(na-black-70);
 	    padding-top: $desktop-padding;
+	    margin-left: $mobile-padding;
+		margin-right: $mobile-padding;
+
+		@include breakpoint(medium) {
+			margin: 0px;	
+		}
 
 		@include desktop-header {
 			padding: $desktop-padding 0px $mobile-padding 0px;
 		}
 
+		@include page-body-text;
+
+		p {
+			@include page-body-text;
+		}
+
 	}
 
 	&__contact {
+		margin: 0px $mobile-padding 45px $mobile-padding;
+
+		@include breakpoint(medium) {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
 
 		& > .button {
 			margin: 0px 5px;
@@ -113,13 +135,16 @@
   	}
 
     &__title {
-      @include page-section-title-text;
-      padding: $desktop-padding;
-      padding-left: 0px;
+		@include page-section-title-text;
+		padding: $desktop-padding;
+		padding-left: 0px;
 
-      @include breakpoint(medium) {
-      	padding-left: 20px;
-      }
+		margin: 0px $mobile-padding;
+
+      	@include breakpoint(medium) {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
     }
 
     hr {
