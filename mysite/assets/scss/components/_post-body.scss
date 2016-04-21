@@ -3,6 +3,8 @@
   $media-default-aspect: 1;
   padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
+
+  @include page-body-text;
   
   & > .block-heading {
     color: palette-get(na-black);
@@ -26,6 +28,7 @@
       height: 55px;
       margin-right: 0px;
       line-height: 70px;
+      font-style: normal;
     }
   }
   &.with-dropcap > .block-paragraph ~ .block-paragraph {
@@ -46,8 +49,7 @@
 
   p,
   blockquote {
-    font-size: rem-calc(20);
-    color: palette-get(na-black-70);
+    @include page-body-text;
   }
   blockquote {
     margin: 20px 0;
@@ -82,9 +84,6 @@
   }
 
   .block-paragraph {
-    p {
-      margin-bottom: 0px;
-    }
 
     img {
       padding: $media-padding 25px;
@@ -130,7 +129,10 @@
     margin-bottom: $desktop-padding;
 
     h3 {
-      @include program-and-content-type-text;
+      font-weight: normal;
+      color: palette-get(na-black-40);
+      font-size: 17px;
+      margin-bottom: 5px;
     }
     a {
       font-weight: bold;
@@ -141,9 +143,6 @@
     &__text {
       padding-left: 80px;
       
-      &__item {
-        padding: 10px 0px;
-      }
     }
 
     &__image {
