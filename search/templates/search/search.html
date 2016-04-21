@@ -51,7 +51,7 @@
                                     {% endfor %}
                                     PERSON</h5>
                                 {% endif %}
-                                <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
+                                <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.first_name }} {{ post.specific.last_name }}</a></h5>
 
                                 {{ post.specific.short_bio | richtext }}
                             </div>
@@ -66,7 +66,7 @@
                                     {% endfor %}
                                     PERSON</h5>
                                 {% endif %}
-                                <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
+                                <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.first_name }} {{ post.specific.last_name }}</a></h5>
 
                                 {{ post.specific.short_bio | richtext }}
                             </div>
