@@ -84,7 +84,7 @@
 						<h5 class="picture-grid__entry__title">
 							<a href="{{ first_story.specific.url }}">{{ first_story.specific.title }}</a>
 						</h5>
-						<hr>
+						<hr class="picture-grid__entry__break">
 						<p class="picture-grid__entry__body">
 							{{ first_story.specific.story_excerpt }}
 						</p>
@@ -94,6 +94,7 @@
 					
 					
 				</div>
+				<hr>
 			{% endwith %}
 		{% endif %}
 	{% endfor %}

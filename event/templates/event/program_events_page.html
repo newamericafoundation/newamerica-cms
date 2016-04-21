@@ -93,7 +93,7 @@
 							<h5 class= "picture-grid__entry__date-time">{% generate_dateline post %}</h5>
 							<h5 class= "picture-grid__entry__location">{{ post.city }}, {{ post.state }}</h5>
 							
-							<hr>
+							<hr class="picture-grid__entry__break">
 							<p class="picture-grid__entry__body">
 								{{ post.story_excerpt }}
 							</p>
@@ -102,6 +102,7 @@
 						</div>
 						
 				</div>
+				<hr>
 	
 			{% endfor %}
 		</div>
