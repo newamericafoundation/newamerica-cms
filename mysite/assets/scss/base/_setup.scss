@@ -31,9 +31,18 @@ a:hover {
 	@include set-color(color);
 }
 
-button:hover, a.button:hover:not(.header__button) {
+.button {
 	@include set-color(background-color);
-	color: palette-get(na-white);
+	&:hover {
+		@include set-light-color(background-color);
+	}
+
+	&.black {
+		background-color: palette-get(na-black);
+		&:hover {
+			background-color: palette-get(na-light-black);
+		}
+	}
 }
 
 input, select {

@@ -2,7 +2,6 @@
   z-index: 3;
   position: relative;
   display: block;
-  background: none;
   color: palette-get(na-black);
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -22,8 +21,7 @@
       background-image: url(shape-urls-get(down-arrow-na-black));
       background-size: contain;
     }
-  
-    &:hover,
+
     .header__main-nav__item:hover & {
       background-color: palette-get(na-white);
       color: palette-get(na-black);
@@ -40,9 +38,9 @@
 
   }
 
-  &.button:hover {
+  .header__main-nav__item &, .header__main-nav__simple-link-group-item &,
+  .header__main-nav__item &:hover, .header__main-nav__simple-link-group-item &:hover {
     background-color: white;
     color: palette-get(na-black);
   }
-
 }
