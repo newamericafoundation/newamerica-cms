@@ -2,9 +2,7 @@
   z-index: 3;
   position: relative;
   display: block;
-  color: palette-get(na-black);
-  -webkit-box-shadow: none;
-  box-shadow: none;
+
 
   &--dropdown {
     z-index: 5;
@@ -38,9 +36,15 @@
 
   }
 
+  .header__main-nav__item &, .header__main-nav__simple-link-group-item & {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
   .header__main-nav__item &, .header__main-nav__simple-link-group-item &,
   .header__main-nav__item &:hover, .header__main-nav__simple-link-group-item &:hover {
     background-color: white;
     color: palette-get(na-black);
+    
   }
 }

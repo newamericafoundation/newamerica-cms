@@ -1,4 +1,3 @@
-
 .bio-page {
  	$icon-height: 150px;
  	margin: $desktop-padding $mobile-padding;
@@ -91,12 +90,6 @@
 	  		&:first-child {
 	  			margin-left: 0px;
 	  		}
-
-			@include set-color(background-color);
-
-			&:hover {
-				background-color: palette-get(na-black);
-			}
 		}
 	}
 

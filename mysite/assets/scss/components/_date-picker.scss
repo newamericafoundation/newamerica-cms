@@ -129,7 +129,7 @@ a.ui-state-default {
 	button {
 		border: none !important;
 		background: none !important;
-		background-color: palette-get(na-black) !important;
+		background-color: palette-get(na-turquoise) !important;
 		color: white !important;
 		display: inline-block !important;
 		width: 100px;
@@ -138,7 +138,7 @@ a.ui-state-default {
 		margin-top: 15px !important;
 
 		&:hover {
-			background-color: palette-get(na-turquoise) !important;
+			background-color: palette-get(na-light-turquoise) !important;
 		}
 
 		.ui-button-text {

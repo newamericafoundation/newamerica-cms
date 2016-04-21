@@ -32,9 +32,13 @@ a:hover {
 }
 
 .button {
+	color: palette-get(na-white);
 	@include set-color(background-color);
+	@include standard-shadow;
+
 	&:hover {
 		@include set-light-color(background-color);
+		@include hover-shadow;
 	}
 
 	&.black {

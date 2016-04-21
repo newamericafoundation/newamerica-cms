@@ -49,20 +49,14 @@
       
 
       & > .header__button {
-        @include set-color(background-color);
-        color: palette-get(na-white);
         margin-right: 10px;
         height: 46px;
         display: none;
-        @include standard-shadow;
 
         @include show-support {
            display: inline-block;
         }
-        &:hover {
-          @include set-color(background-color);
-          color: palette-get(na-white);
-        }
+        
       }
 
       & > form > input {

@@ -61,11 +61,6 @@
 		float: right;
 		margin-top: 10px;
 		margin-right: 10px;
-		@include set-color(background-color);
-
-		&:hover {
-			background-color: pallete-get(na-black);
-		}
 	}
 
 	.tabs, .tabs-content {
