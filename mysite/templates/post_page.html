@@ -35,13 +35,25 @@
 								</div>
 							</div>
 						</div>
-						<div class="post-person__text">{{ author.author.short_bio | richtext }}</div>
+						<div class="post-person__text">
+							{% if author.author.short_bio %}
+								{{ author.author.short_bio | richtext }}
+							{% else %}
+								<h5>{{ author.author.first_name }} {{ author.author.last_name }}</h5>
+							{% endif %}
+						</div>
 					</div>
 				</a>
 			{% else %}
 				<a href="{{ author.author.url }}">
 					<div class="post-person">
-						<div class="post-person__text">{{ author.author.short_bio | richtext }}</div>
+						<div class="post-person__text">
+							{% if author.author.short_bio %}
+								{{ author.author.short_bio | richtext }}
+							{% else %}
+								<h5>{{ author.author.first_name }} {{ author.author.last_name }}</h5>
+							{% endif %}
+						</div>
 					</div>
 				</a>
 			{% endif %}
