@@ -1,5 +1,7 @@
 import $ from 'jquery'
 
+var mediumBreakpoint = 640;
+var largeBreakpoint = 1024;
 var desktopHeaderBreakpoint = 965;
 var expandedHeaderBreakpoint = 775;
 var currHeaderBreakpoint = desktopHeaderBreakpoint;
