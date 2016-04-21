@@ -46,29 +46,21 @@
     overflow: visible;
 
     &__right {
-      
 
       & > .header__button {
-        @include set-color(background-color);
-        color: palette-get(na-white);
         margin-right: 10px;
         height: 46px;
         display: none;
-        @include standard-shadow;
 
         @include show-support {
            display: inline-block;
         }
-        &:hover {
-          @include set-color(background-color);
-          color: palette-get(na-white);
-        }
+        
       }
 
       & > form > input {
         height: 46px;
         margin: 0px;
-        /*padding:0px;*/
         display: inline-block;
       }
     }

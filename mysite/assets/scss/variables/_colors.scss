@@ -1,12 +1,14 @@
 $_color-palette: (
 	na-turquoise: #2ebcb3,
+	na-light-turquoise: #46ccc3,
 	na-dark-turquoise: #2a8e88,
 	oti-blue: #5ba4da,
+	oti-light-blue: #75bef4,
 	dark-oti-blue: #477da3,
 	cinnabar-red: #e75c64,
 	dark-cinnabar-red: #477da3,
 	na-black: #2c2f35,
-	na-off-black: #383b43,
+	na-light-black: #5f6268,
 	na-black-70: rgba(44,47,53,0.7),
 	na-black-40: #6b6d71,
 	na-black-10: #e0e0e1,
@@ -37,5 +39,12 @@ $_color-palette: (
 	#{$prop}: palette-get(na-turquoise);
 	.oti & {
 		#{$prop}: palette-get(oti-blue);
+	}
+}
+
+@mixin set-light-color ($prop) {
+	#{$prop}: palette-get(na-light-turquoise);
+	.oti & {
+		#{$prop}: palette-get(oti-light-blue);
 	}
 }

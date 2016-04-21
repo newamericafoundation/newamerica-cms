@@ -110,7 +110,7 @@
 							<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 						
 							<p>{{ item.value.post.story_excerpt }}</p>
-							<a href="{{ item.value.url }}"><div class='button'>Learn More</div></a>
+							<a href="{{ item.value.url }}"><div class='button black'>Learn More</div></a>
 						</div>
 					</li>
 					{% endfor %}
@@ -128,10 +128,12 @@
 					<li class='border-panel__item'>
 						<div class='border-panel__info'>STAY CONNECTED</div>
 						<div class='border-panel__content'>
-							<div class='border-panel__title'><a href='#'>Subscribe</a></div>
+							<div class='border-panel__title'><a href='/subscribe/'>Subscribe</a></div>
 							<p>Get our weekly digital magazine and events lineup in your inbox</p>
-							<input type='text' placeholder='Your Email' id='border-panel__content__email-field'></input>
-							<button class='button' id='border-panel__content__link'>Sign up</button>
+							<form class="subscribe-form" action="subscribe/">
+								<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
+								<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign up</button>
+							</form>
 						</div>
 							
 					</li>
@@ -148,7 +150,7 @@
 	<p>{{ page.description }}</p>
 	{% if page.about_us_page %}
 		<div class='panel__link'>
-			<a href='{{ page.about_us_page.url }}' class='button'>Read our story</a>
+			<a href='{{ page.about_us_page.url }}' class='button black'>Read our story</a>
 		</div>
 	{% endif %}
 

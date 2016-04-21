@@ -392,15 +392,10 @@
 
 			&__button {
 				z-index: 10;
-				@include set-color(background-color);
 				pointer-events: auto;
 				display: block;
 				width: 70px;
 				margin-bottom: 5px;
-
-				&:hover {
-					background-color: palette-get(na-black);
-				}
 			}
 
 			&__date, &__excerpt {
