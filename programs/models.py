@@ -119,7 +119,7 @@ class AbstractProgram(Page):
         FieldPanel('name', classname='full title'),
         FieldPanel('location'),
         FieldPanel('description'),
-        PageChooserPanel('about_us_page'),
+        PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
     ]
 
     def get_context(self, request):
