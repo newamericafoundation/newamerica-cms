@@ -15,7 +15,7 @@
 			</a>
 		</div>
 		<div class="weekly__header__middle">
-			<p class="weekly__header__middle__text">New America's weekly digital magazine, featuring the big ideas and innovative thinking to confront today's most pressing challenges. <a href="#">Subscribe</a> today to receive the weekly every Thursday.</p>
+			<p class="weekly__header__middle__text">New America's weekly digital magazine, featuring the big ideas and innovative thinking to confront today's most pressing challenges. <a href="/subscribe/">Subscribe</a> today to receive the weekly every Thursday.</p>
 		</div>
 	</div>
 
@@ -84,15 +84,17 @@
 						<h5 class="picture-grid__entry__title">
 							<a href="{{ first_story.specific.url }}">{{ first_story.specific.title }}</a>
 						</h5>
-						<hr>
+						<hr class="picture-grid__entry__break">
 						<p class="picture-grid__entry__body">
 							{{ first_story.specific.story_excerpt }}
 						</p>
+						<a class="picture-grid__entry__button button" href="{{ first_story.specific.url }}">Read More</a>
 						<div class="picture-grid__entry__text-fadeout"></div>
 					</div>
 					
 					
 				</div>
+				<hr>
 			{% endwith %}
 		{% endif %}
 	{% endfor %}

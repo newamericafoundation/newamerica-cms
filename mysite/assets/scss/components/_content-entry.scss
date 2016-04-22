@@ -30,7 +30,6 @@ $content-entry-text-gutter: 10px;
 		min-height: $content-entry-desktop-image-container-height;
 
 		@include breakpoint(medium) {
-			width:100%;
 			padding-top:0px;
 
 			&.has-image {
@@ -45,7 +44,6 @@ $content-entry-text-gutter: 10px;
 
 		a {
 			width: 100%;
-			
 		}
 
 		h5, p {
@@ -58,9 +56,7 @@ $content-entry-text-gutter: 10px;
 		}
 
 		&__title, &__title > a {
-			font-weight:bold;
-			font-size: 26px;
-			line-height: 110%;
+			@include grid-title-text;
 		}
 
 		&__author {

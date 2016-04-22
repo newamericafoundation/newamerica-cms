@@ -49,3 +49,14 @@
   font-size: 26px;
   margin-bottom: 0px;
 }
+
+@mixin grid-title-text {
+  font-weight:bold;
+  font-size: 26px;
+  font-family: Simplon;
+  line-height: 105%;
+
+  &:hover {
+    @include set-color(color);
+  }
+}
