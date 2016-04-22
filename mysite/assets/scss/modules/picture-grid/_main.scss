@@ -2,6 +2,13 @@ $picture-grid-padding: 10px;
 .picture-grid {
 	height: 100%;
 	width: 100%;
+
+	hr {
+		margin: 0px;
+		@include breakpoint(medium) {
+			display: none;
+		}
+	}
 }
 
 .event-post-home-page > .picture-grid {
@@ -13,9 +20,3 @@ $picture-grid-padding: 10px;
 	}
 }
 
-hr {
-	margin: 0px;
-	@include breakpoint(medium) {
-		display: none;
-	}
-}
