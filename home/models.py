@@ -19,6 +19,7 @@ from person.models import Person
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
+from .blocks import MapBlock
 
 class HomePage(Page):
     subpage_types = [
@@ -165,6 +166,7 @@ class AbstractSimplePage(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
+        ('map', MapBlock(icon='cogs'))
     ])
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
