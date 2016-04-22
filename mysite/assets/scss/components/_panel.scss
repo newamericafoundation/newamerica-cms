@@ -27,18 +27,14 @@
     @include breakpoint(medium) {
       font-size: 2rem;
     }
-
-    @include breakpoint(large) {
-      font-size: 2rem;
-    }
   }
   p {
     opacity: 0.7;
-    margin: 20px auto 30px;
+    margin: 20px auto 0px;
     font-size: rem-calc(20);
   }
   &__link {
-    margin-top: 15px;
+    margin-top: $desktop-padding;
     text-align: center;
   }
 }
