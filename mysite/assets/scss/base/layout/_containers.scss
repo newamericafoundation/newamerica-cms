@@ -149,8 +149,8 @@
 			padding-right: 0px;
 
 			@include breakpoint(large) {
-				padding-left: 10px;
-				padding-right: 10px;
+				padding-left: $desktop-padding/2;
+				padding-right: $desktop-padding/2;
 
 				&:first-child {
 					padding-left: 0px;
@@ -169,8 +169,8 @@
 			padding-right: 0px;
 	
 			@include breakpoint(large) {
-				padding-left: 10px;
-				padding-right: 10px;
+				padding-left: $desktop-padding/2;
+				padding-right: $desktop-padding/2;
 
 				&:first-child {
 					padding-left: 0px;
