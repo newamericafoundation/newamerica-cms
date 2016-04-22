@@ -1,3 +1,5 @@
+from django.db import models
+
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
@@ -5,6 +7,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from mysite.helpers import paginate_results, get_posts_and_programs
 
@@ -60,8 +63,26 @@ class ProgramBlogPostsPage(Page):
 
     subheading = RichTextField(blank=True, null=True)
 
+    # Story excerpt and story image fields are to provide information
+    # about the blog if it is featured on a homepage
+    # or program landing page
+    story_excerpt = models.CharField(blank=True, null=True, max_length=500)
+
+    story_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
+    ]
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('story_excerpt'),
+        ImageChooserPanel('story_image'),
     ]
 
     def get_context(self, request):

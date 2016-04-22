@@ -92,7 +92,22 @@ class AbstractProgram(Page):
         related_name='+',
     )
 
+    # Story excerpt and story image fields are to provide information
+    # about the program or subprogram if they are featured on a homepage
+    # or program landing page
+    story_excerpt = models.CharField(blank=True, null=True, max_length=500)
+
+    story_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     promote_panels = Page.promote_panels + [
+        FieldPanel('story_excerpt'),
+        ImageChooserPanel('story_image'),
         MultiFieldPanel(
             [
                 PageChooserPanel('lead_1'),
