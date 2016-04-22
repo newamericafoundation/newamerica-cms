@@ -30,12 +30,12 @@
 	    		height: 60px;
 	    		border: 1px solid palette-get(na-black-10);
 	    		@include inverted {
-					border: 1px solid palette-get(na-off-black);
+					border: 1px solid palette-get(na-black-40);
 				}
 	    		&:hover {
 		    		@include set-color(background-color);
 			    	@include set-color(border-color);
-			      	color: palette-get(na-white);
+			      	color: palette-get(na-white) !important;
 				    @include inverted {
 						color: palette-get(na-white);
 					}
