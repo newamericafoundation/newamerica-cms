@@ -240,3 +240,23 @@ class Subprogram(AbstractProgram):
     class Meta:
         verbose_name = "Subprogram/Initiative Page"
         ordering = ('title',)
+
+    def save(self, *args, **kwargs):
+        """
+        This save method overloads the wagtailcore Page save method in
+        order to ensure that the parent program relationship is
+        captured even if the user does not select it
+        """
+        super(Subprogram, self).save(*args, **kwargs)
+        program_title = self.get_ancestors()[2]
+        program = Program.objects.get(
+            slug=program_title.slug
+        )
+
+        if isinstance(program, AbstractProgram):
+            relationship, created=ProgramSubprogramRelationship.objects.get_or_create(
+                program=program, 
+                subprogram=self
+            )
+            if created:
+                relationship.save()
