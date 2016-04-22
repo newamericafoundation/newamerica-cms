@@ -12,7 +12,6 @@
   border: $standard-border;
   height: $height;
   width: 100%;
-  @include space-out(medium);
   overflow: hidden;
   position: relative;
   &__item {

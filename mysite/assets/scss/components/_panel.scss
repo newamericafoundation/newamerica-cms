@@ -1,7 +1,7 @@
-
-
 .panel {
   padding: 60px 20px;
+  margin-top: $desktop-padding;
+  background-color: palette-get(na-black-10);
 
   @include breakpoint(medium) {
     margin-left: -1000px;
@@ -12,10 +12,7 @@
       margin-right: 0px;
     }
   }
-
-  /*overflow:hidden;*/
-  margin-top: $desktop-padding;
-  background-color: palette-get(na-black-10);
+  
   h1,
   p {
     text-align: center;
@@ -25,22 +22,19 @@
   h1 {
     font-weight: bold;
     color: palette-get(na-black);
-    font-size: 28px;
+    font-size: 1.75rem;
+    line-height: 100%;
     @include breakpoint(medium) {
-      font-size: 36px;
-    }
-
-    @include breakpoint(large) {
-      font-size: 48px;
+      font-size: 2rem;
     }
   }
   p {
     opacity: 0.7;
-    margin: 20px auto 30px;
+    margin: 20px auto 0px;
     font-size: rem-calc(20);
   }
   &__link {
-    margin-top: 15px;
+    margin-top: $desktop-padding;
     text-align: center;
   }
 }
