@@ -1,14 +1,22 @@
+@mixin footer-top-margin {
+  .template-homepage &, .template-person & {
+    margin-top: 0px;
+  }
+  margin-top: $desktop-padding;
+}
+
 .footer {
   $pad: 20px;
   $link-pad: 16px;
   width: 100%;
-  
   
   padding: $pad;
   @include clearfix;
   background-color: white;
   position:relative;
   border-top: $standard-border;
+
+  @include footer-top-margin;
 
   &__content {
     width: 100%;
