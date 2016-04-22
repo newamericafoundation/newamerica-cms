@@ -54,7 +54,7 @@ def side_menu_logo(context, parent, calling_page=None):
 # Retrieves the children of the top menu items for the drop downs
 @register.inclusion_tag('tags/top_menu_children.html', takes_context=True)
 def top_menu_children(context, parent):
-    subprograms = parent.subprogram_set.all()
+    subprograms = parent.get_subprograms
 
     return {
         'parent': parent,

@@ -135,12 +135,8 @@
                                 <div class='header__link-group__main__entry-group'>
                                     {% for program in programs %}
                                         <div class='header__link-group__main__entry'>
-                                            {% if program %}
-                                                <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
-                                                {% top_menu_children parent=program %}
-                                            {% else %}
-                                               padding-top: 15px;
-                                            {% endif %}
+                                            <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
+                                            {% top_menu_children parent=program %}
                                         </div>
                                     {% endfor %}
                                 </div>
