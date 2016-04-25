@@ -123,13 +123,37 @@
 
         </div>
 
-        {% if search_results.has_previous %}
-            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-        {% endif %}
+        <div class="content-grid__footer">
+            <div class="pagination">
+                {% if search_results.has_previous %}
+                    <a class="pagination__arrow" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">
 
-        {% if search_results.has_next %}
-            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-        {% endif %}
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                            <polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
+                        </svg>
+
+                    </a>
+                {% endif %}
+
+                <span>Page</span>
+                <form class="pagination__form" method="get">
+                    <input type="hidden" name="query" value="{{ search_query|urlencode }}">
+                    <input class="pagination__input" type="text" placeholder="{{ search_results.number }}" name="page">
+                </form>
+
+                <span>of</span>
+                <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.paginator.num_pages|get_range|last }}">{{ search_results.paginator.num_pages|get_range|last }}</a>
+
+                {% if search_results.has_next %}
+                    <a class="pagination__arrow" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                            <polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
+                        </svg>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
     {% elif search_query %}
         No results found
     {% endif %}
