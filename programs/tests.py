@@ -52,6 +52,15 @@ class ProgramsTests(WagtailPageTests):
                 depth=3
             )
         )
+        self.subprogram_page = self.program_page.add_child(
+            instance=Subprogram(
+                title='OTI Subprogram',
+                name='OTI Subprogram',
+                description='OTI Subprogram',
+                location=False,
+                depth=4,
+            )
+        )
         self.program_articles_page = self.program_page.add_child(
             instance=ProgramArticlesPage(title='Program Articles')
         )
@@ -127,5 +136,51 @@ class ProgramsTests(WagtailPageTests):
             'sidebar_menu_about_us_pages-count': 0,
             }
         )
+
+    # Test adding lead and feature stories to program and subprogram pages
+    def test_adding_lead_story_to_program(self):
+        self.program_page.lead_1 = self.article
+        self.program_page.save()
+        self.assertEqual(self.program_page.lead_1, self.article)
+
+    def test_adding_lead_story_to_subprogram(self):
+        self.subprogram_page.lead_1 = self.article
+        self.subprogram_page.save()
+        self.assertEqual(self.subprogram_page.lead_1, self.article)
+
+    def test_adding_feature_story_to_program(self):
+        self.program_page.feature_1 = self.article
+        self.program_page.save()
+        self.assertEqual(self.program_page.feature_1, self.article)
+
+    def test_adding_feature_story_to_subprogram(self):
+        self.subprogram_page.feature_1 = self.article
+        self.subprogram_page.save()
+        self.assertEqual(self.subprogram_page.feature_1, self.article)
+
+    def test_adding_story_to_program_feature_carousel(self):
+        self.program_page.feature_carousel.stream_data.append(
+            {
+                'type': 'event',
+                'value': self.article.id
+            }
+        )
+        self.assertEqual(
+            self.program_page.feature_carousel.stream_data[0]['value'], 
+            self.article.id
+        )
+
+    def test_adding_story_to_subprogram_feature_carousel(self):
+        self.subprogram_page.feature_carousel.stream_data.append(
+            {
+                'type': 'event',
+                'value': self.article.id
+            }
+        )
+        self.assertEqual(
+            self.subprogram_page.feature_carousel.stream_data[0]['value'], 
+            self.article.id
+        )
+
 
     
