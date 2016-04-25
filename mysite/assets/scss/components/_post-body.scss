@@ -64,7 +64,19 @@
     font-weight: 800;
     border-bottom: $standard-border;
     padding-bottom: 2px;
-  } 
+  }
+
+  ol li { 
+    display: list-item; 
+    list-style-type: decimal; 
+    margin-left: $desktop-padding; 
+  }
+
+  ul li {
+    display: list-item; 
+    list-style-type: disc; 
+    margin-left: 45px; 
+  }
 
   .block-video {
     .responsive-object {
