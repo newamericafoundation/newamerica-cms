@@ -3,7 +3,7 @@ $picture-grid-padding: 10px;
 	height: 100%;
 	width: 100%;
 
-	hr {
+	&__divider {
 		margin: 0px;
 		@include breakpoint(medium) {
 			display: none;
