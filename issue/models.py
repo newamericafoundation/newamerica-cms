@@ -12,7 +12,7 @@ from programs.models import Program
 
 
 class IssueOrTopic(ProgramSimplePage):
-    parent_page_types = ['programs.Program', 'IssueOrTopic']
+    parent_page_types = ['programs.Program', 'IssueOrTopic', 'programs.Subprogram']
     subpage_types = ['IssueOrTopic']
 
     def get_context(self, request):
