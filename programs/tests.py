@@ -31,10 +31,13 @@ from issue.models import IssueOrTopic
 class ProgramsTests(WagtailPageTests):
     """
     Testing hierarchies between pages and whether it is possible 
-    to create a Homepage and all the allowed subpages 
-    underneath the Homepage.
+    to create a Program and all the allowed subpages 
+    underneath Programs and Subprograms.
 
-    Testing functionality of OrgSimplePage and ProgramSimplePage.
+    Testing functionality of lead, feature, and feature carousels on 
+    the landing page.
+
+    Also testing for Programs adding items the sidebar menu.
     """
 
     def setUp(self):
