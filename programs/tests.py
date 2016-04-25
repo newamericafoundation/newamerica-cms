@@ -9,21 +9,23 @@ from weekly.models import Weekly
 
 from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 
-from event.models import AllEventsHomePage
+from event.models import AllEventsHomePage, ProgramEventsPage
 
-from blog.models import AllBlogPostsHomePage
+from blog.models import AllBlogPostsHomePage, ProgramBlogPostsPage
 
-from book.models import AllBooksHomePage
+from book.models import AllBooksHomePage, ProgramBooksPage
 
-from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage
+from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage, ProgramPeoplePage
 
-from podcast.models import AllPodcastsHomePage
+from podcast.models import AllPodcastsHomePage, ProgramPodcastsPage
 
-from policy_paper.models import AllPolicyPapersHomePage
+from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage
 
-from press_release.models import AllPressReleasesHomePage
+from press_release.models import AllPressReleasesHomePage, ProgramPressReleasesPage
 
-from quoted.models import AllQuotedHomePage
+from quoted.models import AllQuotedHomePage, ProgramQuotedPage
+
+from issue.models import IssueOrTopic
 
 
 class ProgramsTests(WagtailPageTests):
@@ -60,53 +62,65 @@ class ProgramsTests(WagtailPageTests):
             )
         )
 
-    def test_can_create_homepage_under_root_page(self):
-        parent_page = Page.get_first_root_node()
-        home = HomePage(title='New America')
-        parent_page.add_child(instance=home)
-
     # Test that a particular child Page type 
     # can be created under a parent Page type
-    def test_homepage_parent_page_type(self):
-        self.assertCanCreateAt(Page, HomePage)
+    def test_program_parent_page_type(self):
+        self.assertCanCreateAt(HomePage, Program)
+
+    def test_subprogram_parent_page_type(self):
+        self.assertCanCreateAt(Program, Subprogram)
+
+    def test_subprogram_not_parent_page(self):
+        self.assertCanNotCreateAt(HomePage, Subprogram)
 
     # Test that the only page types that can be created 
     # under parent_model are child_models
-    def test_homepage_subpages(self):
-        self.assertAllowedSubpageTypes(HomePage, {
-            AllArticlesHomePage,
-            AllBooksHomePage,
-            AllBlogPostsHomePage,
-            AllEventsHomePage,
-            AllPodcastsHomePage,
-            AllPolicyPapersHomePage,
-            AllPressReleasesHomePage,
-            AllQuotedHomePage,
-            BoardAndLeadershipPeoplePage,
-            JobsPage,
-            OurPeoplePage, 
-            OrgSimplePage,
-            Program,
-            SubscribePage,
-            Weekly,
-            })
-
-    # Test that pages can be created with POST data
-    def test_can_create_homepage_under_page(self):
-        self.assertCanCreate(self.root_page, HomePage, {
-            'title': 'New America 2',
-            'slug': 'new-america-2',
-            'recent_carousel-count': 0,
+    def test_program_subpages(self):
+        self.assertAllowedSubpageTypes(
+            Program, 
+            {
+                ProgramArticlesPage,
+                ProgramBooksPage,
+                ProgramBlogPostsPage,
+                ProgramEventsPage,
+                ProgramPodcastsPage,
+                ProgramPolicyPapersPage,
+                ProgramPressReleasesPage,
+                ProgramQuotedPage,
+                ProgramSimplePage,
+                ProgramPeoplePage,
+                Subprogram,
+                IssueOrTopic,
             }
         )
 
-    def test_can_create_program_under_homepage_with_data(self):
+    def test_subprogram_subpages(self):
+        self.assertAllowedSubpageTypes(
+            Subprogram, 
+            {
+                ProgramArticlesPage,
+                ProgramBooksPage,
+                ProgramBlogPostsPage,
+                ProgramEventsPage,
+                ProgramPodcastsPage,
+                ProgramPolicyPapersPage,
+                ProgramPressReleasesPage,
+                ProgramQuotedPage,
+                ProgramSimplePage,
+                ProgramPeoplePage,
+                IssueOrTopic,
+            }
+        )
+
+    # Test that pages can be created with POST data
+    def test_can_create_program_under_homepage(self):
         self.assertCanCreate(self.home_page, Program, {
-            'title': 'OTI2',
-            'name': 'OTI2',
-            'description': 'OTI2',
-            'slug': 'oti-2',
+            'title': 'Test Program 1',
+            'name': 'Test Program 1',
+            'slug': 'test-program-1',
+            'description': 'Test description',
             'depth': 3,
+            'location': False,
             'feature_carousel-count': 0,
             'sidebar_menu_initiatives_and_projects_pages-count': 0,
             'sidebar_menu_our_work_pages-count': 0,
@@ -114,54 +128,4 @@ class ProgramsTests(WagtailPageTests):
             }
         )
 
-    def test_adding_lead_story_to_homepage(self):
-        self.home_page.lead_1 = self.article
-        self.home_page.save()
-        self.assertEqual(self.home_page.lead_1, self.article)
-
-    def test_adding_feature_story_to_homepage(self):
-        self.home_page.feature_1 = self.article
-        self.home_page.save()
-        self.assertEqual(self.home_page.feature_1, self.article)
-
-    def test_adding_story_to_homepage_recent_carousel(self):
-        self.home_page.recent_carousel.stream_data.append(
-            {
-                'type': 'event',
-                'value': self.article.id
-            }
-        )
-        self.assertEqual(
-            self.home_page.recent_carousel.stream_data[0]['value'], 
-            self.article.id
-        )
-
-    def test_adding_org_simple_page(self):
-        simple_page = OrgSimplePage(
-            title='Org Simple Page Test'
-        )
-        self.home_page.add_child(instance=simple_page)
-        self.assertEqual(simple_page.content_type, 
-            self.home_page.get_children().filter(
-            title='Org Simple Page Test')[0].content_type
-        )
-
-    def test_adding_excerpt_to_simple_page(self):
-        excerpt = 'This is a cool excerpt!'
-        simple_page = OrgSimplePage(
-            title='Org Simple Page Test',
-            story_excerpt=excerpt
-        )
-        self.home_page.add_child(instance=simple_page)
-        self.assertEqual(excerpt, OrgSimplePage.objects.first().story_excerpt)
-
-
-    def test_adding_program_simple_page(self):
-        program_simple_page = ProgramSimplePage(
-            title='Program Simple Page Test'
-        )
-        self.program_page.add_child(instance=program_simple_page)
-        self.assertEqual(program_simple_page.content_type, 
-            self.program_page.get_children().filter(
-            title='Program Simple Page Test')[0].content_type
-        )
+    
