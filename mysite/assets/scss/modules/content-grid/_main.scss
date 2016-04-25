@@ -43,6 +43,10 @@
 				display: inline-block;
 				padding-right: 0px;
 			}
+
+			.search-box {
+				max-width: calc(100% - 40px);
+			}
 		}
 
 		&__right {
