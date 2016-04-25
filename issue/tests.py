@@ -5,7 +5,7 @@ from .models import IssueOrTopic
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program
+from programs.models import Program, Subprogram
 
 
 class IssueOrTopicTests(WagtailPageTests):
@@ -35,7 +35,7 @@ class IssueOrTopicTests(WagtailPageTests):
     # Test allowed parent page types
     def test_issue_parent_page(self):
         self.assertAllowedParentPageTypes(
-            IssueOrTopic, {Program, IssueOrTopic}
+            IssueOrTopic, {Program, IssueOrTopic, Subprogram}
         )
 
     # Test allowed subpage types
