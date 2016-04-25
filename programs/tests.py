@@ -182,5 +182,39 @@ class ProgramsTests(WagtailPageTests):
             self.article.id
         )
 
+    # Test adding pages to the Program sidebar menu 
+    def test_adding_about_us_pages_to_program_sidebar_menu(self):
+        self.program_page.sidebar_menu_about_us_pages.stream_data.append(
+            {
+                'type': 'Item',
+                'value': self.article.id
+            }
+        )
+        self.assertEqual(
+            self.program_page.sidebar_menu_about_us_pages.stream_data[0]['value'], 
+            self.article.id
+        )
 
-    
+    def test_adding_initiatives_and_projects_pages_to_program_sidebar_menu(self):
+        self.program_page.sidebar_menu_initiatives_and_projects_pages.stream_data.append(
+            {
+                'type': 'Item',
+                'value': self.article.id
+            }
+        )
+        self.assertEqual(
+            self.program_page.sidebar_menu_initiatives_and_projects_pages.stream_data[0]['value'], 
+            self.article.id
+        )
+
+    def test_adding_our_work_pages_to_program_sidebar_menu(self):
+        self.program_page.sidebar_menu_our_work_pages.stream_data.append(
+            {
+                'type': 'Item',
+                'value': self.article.id
+            }
+        )
+        self.assertEqual(
+            self.program_page.sidebar_menu_our_work_pages.stream_data[0]['value'], 
+            self.article.id
+        )
