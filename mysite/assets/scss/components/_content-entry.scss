@@ -55,6 +55,10 @@ $content-entry-text-gutter: 10px;
 			@include program-and-content-type-text;
 		}
 
+		&__program > a:hover {
+		    @include set-color(color);
+		}
+
 		&__title, &__title > a {
 			@include grid-title-text;
 		}

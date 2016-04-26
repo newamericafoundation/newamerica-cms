@@ -4,10 +4,6 @@
   color: palette-get(na-black-40);
   line-height: 100%;
   text-transform: uppercase;
-
-  &:hover {
-    @include set-color(color);
-  }
 }
 
 @mixin page-title-text {

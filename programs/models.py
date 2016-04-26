@@ -173,6 +173,20 @@ class AbstractProgram(Page):
 # Programs model which creates programs
 class Program(AbstractProgram):
     parent_page_types = ['home.HomePage']
+    subpage_types = [
+    'article.ProgramArticlesPage',
+    'book.ProgramBooksPage',
+    'blog.ProgramBlogPostsPage',
+    'event.ProgramEventsPage',
+    'podcast.ProgramPodcastsPage',
+    'policy_paper.ProgramPolicyPapersPage',
+    'press_release.ProgramPressReleasesPage',
+    'quoted.ProgramQuotedPage',
+    'home.ProgramSimplePage',
+    'person.ProgramPeoplePage',
+    'Subprogram',
+    'issue.IssueOrTopic',
+    ]
 
     program_logo = models.ForeignKey(
         'wagtailimages.Image',
@@ -225,6 +239,20 @@ class ProgramSubprogramRelationship(models.Model):
 # Subprograms models which when instantiated can be linked to multiple programs
 class Subprogram(AbstractProgram):
     parent_page_types = ['programs.Program']
+    subpage_types = [
+    'article.ProgramArticlesPage',
+    'book.ProgramBooksPage',
+    'blog.ProgramBlogPostsPage',
+    'event.ProgramEventsPage',
+    'podcast.ProgramPodcastsPage',
+    'policy_paper.ProgramPolicyPapersPage',
+    'press_release.ProgramPressReleasesPage',
+    'quoted.ProgramQuotedPage',
+    'home.ProgramSimplePage',
+    'person.ProgramPeoplePage',
+    'issue.IssueOrTopic',
+    ]
+
     parent_programs = models.ManyToManyField(
         Program,
         through=ProgramSubprogramRelationship,
