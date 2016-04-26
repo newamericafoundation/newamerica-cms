@@ -11,6 +11,12 @@
   border-right: $standard-border;
   width: $max-sidemenu-width;
 
+  ul > li > a {
+    padding: 10px $desktop-padding 10px $sidemenu-link-padding-left;
+    margin-left: $sidemenu-link-margin-left;
+    color: palette-get(na-black-70);
+  } 
+
   &__logo {
     width: $program-logo-width;
     height: $program-logo-height;
@@ -20,12 +26,6 @@
   &__link-group {
     padding-top: 10px;
     color: palette-get(na-black);
-
-    & > ul > li > a {
-      padding: 10px $desktop-padding 10px $sidemenu-link-padding-left;
-      margin-left: $sidemenu-link-margin-left;
-      color: palette-get(na-black-70);
-    } 
 
     &__title, &__link {
       height: auto;
@@ -39,18 +39,20 @@
         padding: 0px $desktop-padding 10px $desktop-padding;
       }
     }
+  }
 
-    &__link, &__sub-link {
-      padding: 0px;
-
-      &:hover {
-        background-color: palette-get(na-white);
-        border-color: palette-get(na-white);
-
-        & > a {
-          @include set-color(color);
-        }        
+  &__sub-link-group {
+    display: none;
+    &__sub-link {
+      padding-left: 15px;
+      & > a {
+        padding-left: 25px !important;
       }
+    }
+  }
+
+  &__link-group__link, &__sub-link-group__sub-link {
+      padding: 0px;
 
       & > .active {
         @include set-color(color);
@@ -58,11 +60,5 @@
         @include set-color(border-color);
         margin-left: $sidemenu-link-margin-left - 2px;
       }
-    }
-
-    &__sub-link {
-      padding-left: 15px;
     } 
-   
-  }
 }
