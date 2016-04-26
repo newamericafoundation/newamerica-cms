@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-
 import dj_database_url
+import re
+import os
+import urlparse
+
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -153,3 +155,24 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = "mysite"
 
 WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
+
+
+# Elastic Search setup
+bonsai = os.getenv('ELASTIC_SEARCH_URL')
+if bonsai:
+    ES_URL = urlparse(bonsai)
+    auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
+    es_url = ES_URL.scheme + '://' + ES_URL.hostname + ':80'
+    kwargs = {"http_auth": auth[0] + ':' + auth[1]}
+else:
+    es_url = "http://localhost:9200/"
+    kwargs = {}
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+        'URLS': [es_url],
+        'KWARGS': kwargs,
+    }
+}
+
