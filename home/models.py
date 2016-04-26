@@ -15,9 +15,44 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalKey
 from programs.models import AbstractProgram, Program, Subprogram
 from person.models import Person
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
+
+class CustomImage(AbstractImage):
+    # Add any extra fields to image here
+
+    source = models.CharField(max_length=255, blank=True)
+    caption_alt_text = models.CharField(max_length=255, blank=True)
+
+    admin_form_fields = Image.admin_form_fields + (
+        # Then add the field names here to make them appear in the form:
+        'source',
+        'caption_alt_text'
+    )
+
+class CustomRendition(AbstractRendition):
+    image = models.ForeignKey(CustomImage, related_name='renditions')
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter', 'focal_point_key'),
+        )
+
+
+# Delete the source image file when an image is deleted
+@receiver(pre_delete, sender=CustomImage)
+def image_delete(sender, instance, **kwargs):
+    instance.file.delete(False)
+
+
+# Delete the rendition image file when a rendition is deleted
+@receiver(pre_delete, sender=CustomRendition)
+def rendition_delete(sender, instance, **kwargs):
+    instance.file.delete(False)
 
 
 class HomePage(Page):
