@@ -151,3 +151,5 @@ MEDIA_URL = '/media/'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "mysite"
+
+WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
