@@ -1,13 +1,6 @@
 branch-defaults:
-  issues:
+  staging:
     environment: newamerica-cms-dev
-  master:
-    environment: newamerica-cms-dev
-  s3:
-    environment: newamerica-cms-dev
-  testsite:
-    environment: newamerica-cms-dev
-    group_suffix: null
 global:
   application_name: newamerica-cms
   default_platform: Python 2.7
