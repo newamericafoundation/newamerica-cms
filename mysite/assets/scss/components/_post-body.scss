@@ -78,24 +78,6 @@
     margin-left: 45px; 
   }
 
-  .block-video {
-    .responsive-object {
-      padding: $media-padding 0px !important;
-    }
-
-    iframe {
-      width: 100% !important;
-      height: 320px;
-      @include breakpoint(medium) {
-        height: 450px;
-      } 
-
-      @include breakpoint(large) {
-        height: 500px;
-      }
-    }
-  }
-
   .block-paragraph {
 
     img {
@@ -130,6 +112,27 @@
   .block-image {
     img {
       padding: 20px 0px;
+    }
+  }
+
+  .block-video {
+    iframe {
+      width: 100% !important;
+      height: 320px;
+      @include breakpoint(medium) {
+        height: 450px;
+      } 
+
+      @include breakpoint(large) {
+        height: 500px;
+      }
+    }
+  }
+
+  .responsive-object {
+    padding: $media-padding 0px !important;
+    a[href^="http://www.ustream.tv/"][target=_blank] {
+      display: none !important;
     }
   }
 
