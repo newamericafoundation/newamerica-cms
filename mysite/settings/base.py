@@ -153,3 +153,16 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = "mysite"
 
 WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
+
+
+# Elastic Search setup
+es_url = os.getenv('ELASTIC_SEARCH_URL', "http://localhost:9200/")
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+        'URLS': [es_url],
+        'INDEX': 'elasticsearch',
+        'TIMEOUT': 500,
+    }
+}
