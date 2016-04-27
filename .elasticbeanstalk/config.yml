@@ -1,10 +1,9 @@
 branch-defaults:
-  elasticsearch-2:
-    environment: newamerica-cms-dev
   staging:
     environment: newamerica-cms-dev
 global:
   application_name: newamerica-cms
+  default_ec2_keyname: na-cms3
   default_platform: Python 2.7
   default_region: us-west-2
   profile: eb-cli
