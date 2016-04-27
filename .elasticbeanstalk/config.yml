@@ -1,4 +1,6 @@
 branch-defaults:
+  elasticsearch-2:
+    environment: newamerica-cms-dev
   staging:
     environment: newamerica-cms-dev
 global:
