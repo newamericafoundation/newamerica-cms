@@ -34,7 +34,7 @@
 			height: 49px;
 		}
 
-		&__filters {
+		&__filter-group {
 			width: 100%;
 			padding-right: $mobile-padding;
 			
@@ -49,13 +49,29 @@
 			}
 		}
 
+		&__filter {
+			@include breakpoint(medium) {
+				float: left;
+				display: inline-block;
+				width: calc(100%/2);
+				max-width: 300px;
+				padding-right: 10px;
+			}
+		}
+
 		&__right {
 			width: $pagination-width;
 			height: 100%;
 			float: right;
 			text-align: center;
-			
 			display: none;
+
+			.pagination {
+				padding-right: 10px;
+				@include desktop-header {
+					float: right;
+				}
+			}
 
 			@include breakpoint(medium) {
 				display:block;
