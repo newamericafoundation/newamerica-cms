@@ -71,7 +71,7 @@
 
 			{% for feature_story in featured_stories %}
 			<div class='small-12 large-4 columns'>
-				{% image feature_story.post.story_image original as feature_story_image %}
+				{% image feature_story.post.story_image fill-75x75 as feature_story_image %}
 				<div class='picture-link'>
 					<a href="{{ feature_story.url }}">
 						<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>
