@@ -10,6 +10,7 @@
 
 	<div class="post-header-container">
 		{% if story_image %}
+
 			<div class="post-header with-image" style="background-image: linear-gradient(
 			      rgba(0, 0, 0, 0.3),
 			      rgba(0, 0, 0, 0.3)
@@ -17,10 +18,10 @@
 		    	url({{ story_image.url }})">
 
 				<div class="post-header__text">
-				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-				    	{% if page.subheading %}
-				    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-				    	{% endif %}
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	{% if page.subheading %}
+			    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+			    	{% endif %}
 				</div>
 			</div>
 			{% if story_image.image.source %}
@@ -30,12 +31,11 @@
 		{% else %}
 
 			<div class="post-header">
-
 				<div class="post-header__text">
-				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-				    	{% if page.subheading %}
-				    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-				    	{% endif %}
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	{% if page.subheading %}
+			    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+			    	{% endif %}
 				</div>
 			</div>
 

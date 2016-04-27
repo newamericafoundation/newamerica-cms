@@ -9,32 +9,45 @@
 {% block content %}
 	{% image page.story_image original as story_image %}
 
-	{% if story_image %}
+	<div class="post-header-container">
+		{% if story_image %}
 
-	<div class="post-header with-image" style="background-image: linear-gradient(
-	      rgba(0, 0, 0, 0.3),
-	      rgba(0, 0, 0, 0.3)
-	    ), 
-    	url({{ story_image.url }})">
+			<div class="post-header with-image" style="background-image: linear-gradient(
+			      rgba(0, 0, 0, 0.3),
+			      rgba(0, 0, 0, 0.3)
+			    ), 
+		    	url({{ story_image.url }})">
 
-		<div class="post-header__text">
-		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-		    	<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
-		</div>
+				<div class="post-header__text">
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	{% if page.subheading %}
+			    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+			    	{% endif %}
+			    	{% if page.rsvp_link %}
+			    		<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
+			    	{% endif %}
+				</div>
+			</div>
+			{% if story_image.image.source %}
+				<div class="caption">Photo: {{ story_image.image.source}}</div>
+			{% endif %}
+
+		{% else %}
+
+			<div class="post-header">
+				<div class="post-header__text">
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+			    	{% if page.subheading %}
+			    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+			    	{% endif %}
+			    	{% if page.rsvp_link %}
+			    		<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
+			    	{% endif %}
+				</div>
+			</div>
+
+		{% endif %}
 	</div>
-	{% else %}
-
-	<div class="post-header">
-
-		<div class="post-header__text">
-		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-		    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-		    	<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
-		</div>
-	</div>
-
-	{% endif %}
 
 	<div class="post-container">
 
@@ -63,7 +76,7 @@
 			        {% endif %}
 		   		</div>
 		    {% endfor %}
-		    
+
 		    {% if page.soundcloud_url %}
 		    	<a href='{{ page.soundcloud_url }}'>Listen to this Event</a>
 		    {% endif %}
