@@ -98,7 +98,7 @@ class AbstractProgram(Page):
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
     story_image = models.ForeignKey(
-        'wagtailimages.Image',
+        'home.CustomImage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -189,7 +189,7 @@ class Program(AbstractProgram):
     ]
 
     program_logo = models.ForeignKey(
-        'wagtailimages.Image',
+        'home.CustomImage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
