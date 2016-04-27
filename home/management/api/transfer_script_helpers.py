@@ -16,7 +16,7 @@ from programs.models import Program
 
 from person.models import Person
 
-from home.models import PostAuthorRelationship, HomePage
+from home.models import PostAuthorRelationship, HomePage, PostProgramRelationship
 
 home_page = HomePage.objects.first()
 
@@ -174,6 +174,13 @@ def load_users_mapping():
 
 
 def get_post_authors(post, authors):
+    """
+    Takes the post and author id from the old database API, 
+    checks if the author exists in the new database, 
+    checks the relationship doesn't already exist, 
+    and then creates a new relationship tagging the author 
+    to the post.
+    """
     author_mapping = load_users_mapping()
 
     for author in authors:
@@ -198,6 +205,27 @@ def get_post_authors(post, authors):
                         )
                         relationship.save()
 
+def connect_programs_to_post(post, programs):
+    """
+    Takes the post and program id from the old database API,  
+    checks the relationship doesn't already exist, 
+    and then creates a new relationship tagging the program 
+    to the post.
+    """
+    for program in programs:
+        current_program = get_program(program)
+        try:
+            PostProgramRelationship.objects.get(
+                post=post,
+                program=current_program
+            )
+        except PostProgramRelationship.DoesNotExist:
+            relationship = PostProgramRelationship.objects.create(
+                post=post,
+                program=current_program
+            )
+            print(relationship)
+            relationship.save()
 
 def need_to_update_post(modified_date):
     """
