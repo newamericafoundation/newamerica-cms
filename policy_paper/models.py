@@ -21,7 +21,7 @@ class PolicyPaper(Post):
     subpage_types = []
 
     publication_cover_image = models.ForeignKey(
-        'wagtailimages.Image',
+        'home.CustomImage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

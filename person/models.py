@@ -52,7 +52,7 @@ class Person(Page):
     expert = models.BooleanField(default=False)
     leadership = models.BooleanField(default=False)
     profile_image = models.ForeignKey(
-        'wagtailimages.Image',
+        'home.CustomImage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -201,7 +201,7 @@ class OurPeoplePage(Page):
     page_description = RichTextField(blank=True, null=True)
     
     story_image = models.ForeignKey(
-        'wagtailimages.Image',
+        'home.CustomImage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -244,7 +244,7 @@ class ExpertPage(Page):
     contact_information = RichTextField(blank=True, null=True)
 
     story_image = models.ForeignKey(
-        'wagtailimages.Image',
+        'home.CustomImage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
