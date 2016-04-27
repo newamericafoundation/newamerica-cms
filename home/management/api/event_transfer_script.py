@@ -10,7 +10,7 @@ from .newamerica_api_client import NAClient
 
 from event.models import Event, ProgramEventsPage
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage, connect_programs_to_post
 
 if sys.version_info[0] < 3:
     reload(sys)  # noqa
@@ -161,6 +161,7 @@ def load_events():
                         instance=new_event
                     )
                     new_event.save()
+                    connect_programs_to_post(new_event, post['programs'])
                 elif new_event and event_slug and need_to_update_post(post['modified']):
                     new_event.search_description = ''
                     new_event.seo_title = ''
@@ -188,5 +189,6 @@ def load_events():
                     new_event.story_excerpt=get_summary(post['summary'])
                     new_event.soundcloud_url=post['soundcloud_url']
                     new_event.save()
+                    connect_programs_to_post(new_event, post['programs'])
             except django.db.utils.IntegrityError:
                 pass
