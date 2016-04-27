@@ -53,11 +53,15 @@ class NAClient:
 		and creates new objects in the new database using the Article model
 		"""
 		for program in self.client.get(self.api_url + 'programs').json():
+			excluded_programs = ["12", "8", "17"]
+			
 			program_id = program['id']
-			self.activate_program(program_id)
-			for post_set in self.get_data('articles'):
-				for post in post_set['results']:
-					yield post, program_id
+			
+			if program_id not in excluded_programs:
+				self.activate_program(program_id)
+				for post_set in self.get_data('articles'):
+					for post in post_set['results']:
+						yield post, program_id
 
 
 	def get_weekly_articles(self):
