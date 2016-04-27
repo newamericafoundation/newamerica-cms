@@ -18,7 +18,9 @@
 
 				<div class="post-header__text">
 				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-				    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+				    	{% if page.subheading %}
+				    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+				    	{% endif %}
 				</div>
 			</div>
 			{% if story_image.image.source %}
@@ -31,7 +33,9 @@
 
 				<div class="post-header__text">
 				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-				    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+				    	{% if page.subheading %}
+				    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+				    	{% endif %}
 				</div>
 			</div>
 

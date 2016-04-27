@@ -50,9 +50,20 @@
 				<p>{{ page.city }}, {{ page.state }} {{ page.zipcode }}</p>
 			</div>
 		</div>
-	    <div class="post-body with-dropcap">
-		    {{ page.body }}
-
+	     <div class="post-body with-dropcap">
+		    {% for block in self.body %}
+		    	<div class="block-{{ block.block_type }}">
+			       {% if block.block_type == 'image' %}
+		            	{{ block }}
+		            	{% if block.value.caption or block.value.source %}
+		            		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
+		            	{% endif %}
+			        {% else %}
+			            {{ block }}
+			        {% endif %}
+		   		</div>
+		    {% endfor %}
+		    
 		    {% if page.soundcloud_url %}
 		    	<a href='{{ page.soundcloud_url }}'>Listen to this Event</a>
 		    {% endif %}
