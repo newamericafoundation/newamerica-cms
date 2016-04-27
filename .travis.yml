@@ -20,6 +20,7 @@ install:
 - travis_retry pip install wagtail==1.4.3
 - travis_retry pip install django-storages==1.4
 - travis_retry pip install django-compressor==2.0
+- travis_retry pip install elasticsearch>=1.0.0,<2.0.0
 
 script:
 - python manage.py migrate --noinput --settings=mysite.settings.test
