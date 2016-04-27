@@ -8,7 +8,7 @@ from podcast.models import Podcast, ProgramPodcastsPage
 
 from django.utils.text import slugify
 
-from transfer_script_helpers import get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage
+from transfer_script_helpers import get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, connect_programs_to_post
 
 
 def load_podcasts():
@@ -60,7 +60,8 @@ def load_podcasts():
                     	instance=new_podcast
                     )
                     new_podcast.save()
-                    #get_post_authors(new_podcast, post['authors'])
+                    get_post_authors(new_podcast, post['authors'])
+                    connect_programs_to_post(new_podcast, post['programs'])
                 elif new_podcast and podcast_slug and need_to_update_post(post['modified']):
                     new_podcast.search_description = ''
                     new_podcast.seo_title = ''
@@ -83,6 +84,7 @@ def load_podcasts():
                         ])
                     new_podcast.subheading=post['sub_headline']
                     new_podcast.save()
-                    #get_post_authors(new_podcast, post['authors'])
+                    get_post_authors(new_podcast, post['authors'])
+                    connect_programs_to_post(new_podcast, post['programs'])
             except django.db.utils.IntegrityError:
                 pass
