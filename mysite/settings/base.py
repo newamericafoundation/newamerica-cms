@@ -158,21 +158,13 @@ WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
 
 
 # Elastic Search setup
-bonsai = os.getenv('ELASTIC_SEARCH_URL')
-if bonsai:
-    ES_URL = urlparse(bonsai)
-    auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
-    es_url = ES_URL.scheme + '://' + ES_URL.hostname + ':80'
-    kwargs = {"http_auth": auth[0] + ':' + auth[1]}
-else:
-    es_url = "http://localhost:9200/"
-    kwargs = {}
+es_url = os.getenv('ELASTIC_SEARCH_URL', "http://localhost:9200/")
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
         'URLS': [es_url],
-        'KWARGS': kwargs,
+        'INDEX': 'elasticsearch',
+        'TIMEOUT': 500,
     }
 }
-
