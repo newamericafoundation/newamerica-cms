@@ -30,7 +30,7 @@
 					<div class="post-person with-image">
 						<div class="post-person__left">
 							<div class='person__icon'>
-								{% image author.author.profile_image original as author_image %}
+								{% image author.author.profile_image min-100x100 as author_image %}
 								<div class='person__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
 								</div>
 							</div>

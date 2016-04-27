@@ -11,7 +11,7 @@
     {% if page.profile_image %}
         <div class="bio-page__heading with-image">
             <div class='bio-page__heading__icon'>
-                {% image page.profile_image original as bio_image %}
+                {% image page.profile_image min-150x150 as bio_image %}
                 <div class='bio-page__heading__icon__photo' style='background: no-repeat center/100% url({{ bio_image.url }})'>
                 </div>
             </div>
