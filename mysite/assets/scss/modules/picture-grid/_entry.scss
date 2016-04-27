@@ -20,16 +20,16 @@
 	@include breakpoint(medium) {
 		$num_columns: 2;
 		height: $entry-height;
-		min-width: 300px;
+		min-width: 280px;
 		width: calc((100% - #{$num_columns * $picture-grid-padding})/#{$num_columns});
 		float: left;
 		margin: $picture-grid-padding;
 
-		&:nth-child(odd) {
+		&:nth-of-type(odd) {
 			margin-left: 0px;
 			margin-right: $picture-grid-padding;
 		}
-		&:nth-child(even) {
+		&:nth-of-type(even) {
 			margin-left: $picture-grid-padding;
 			margin-right: 0px;
 		}
@@ -45,15 +45,15 @@
 			$num_columns: 3;
 			width: calc((100% - #{4 * $picture-grid-padding})/#{$num_columns});
 
-			&:nth-child(3n+1) {
+			&:nth-of-type(3n+1) {
 				margin-left: 0px;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(3n+2) {
+			&:nth-of-type(3n+2) {
 				margin-left: $picture-grid-padding;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(3n+0) {
+			&:nth-of-type(3n+0) {
 				margin-left: $picture-grid-padding;
 				margin-right: 0px;
 			}
@@ -66,15 +66,15 @@
 			$num_columns: 3;
 			width: calc((100% - #{4 * $picture-grid-padding})/#{$num_columns});
 
-			&:nth-child(3n+1) {
+			&:nth-of-type(3n+1) {
 				margin-left: 0px;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(3n+2) {
+			&:nth-of-type(3n+2) {
 				margin-left: $picture-grid-padding;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(3n+0) {
+			&:nth-of-type(3n+0) {
 				margin-left: $picture-grid-padding;
 				margin-right: 0px;
 			}
@@ -86,19 +86,19 @@
 			$num_columns: 4;
 			width: calc((100% - #{6 * $picture-grid-padding})/#{$num_columns});
 
-			&:nth-child(4n+1) {
+			&:nth-of-type(4n+1) {
 				margin-left: 0px;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(4n+2) {
+			&:nth-of-type(4n+2) {
 				margin-left: $picture-grid-padding;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(4n+3) {
+			&:nth-of-type(4n+3) {
 				margin-left: $picture-grid-padding;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(4n+0) {
+			&:nth-of-type(4n+0) {
 				margin-left: $picture-grid-padding;
 				margin-right: 0px;
 			}
@@ -241,11 +241,11 @@
 			&:first-child {
 				display: none;
 			}
-			&:nth-child(even) {
+			&:nth-of-type(even) {
 				margin-left: 0px;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(odd) {
+			&:nth-of-type(odd) {
 				margin-left: $picture-grid-padding;
 				margin-right: 0px;
 			}
@@ -254,15 +254,15 @@
 
 		@include breakpoint(large) {
 			
-			&:nth-child(3n+2) {
+			&:nth-of-type(3n+2) {
 				margin-left: 0px;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(3n+0) {
+			&:nth-of-type(3n+0) {
 				margin-left: $picture-grid-padding;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(3n+1) {
+			&:nth-of-type(3n+1) {
 				margin-left: $picture-grid-padding;
 				margin-right: 0px;
 			}
@@ -271,19 +271,19 @@
 	
 		@include breakpoint(xlarge) {
 			
-			&:nth-child(4n+2) {
+			&:nth-of-type(4n+2) {
 				margin-left: 0px;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(4n+3) {
+			&:nth-of-type(4n+3) {
 				margin-left: $picture-grid-padding;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(4n+0) {
+			&:nth-of-type(4n+0) {
 				margin-left: $picture-grid-padding;
 				margin-right: $picture-grid-padding;
 			}
-			&:nth-child(4n+1) {
+			&:nth-of-type(4n+1) {
 				margin-left: $picture-grid-padding;
 				margin-right: 0px;
 			}

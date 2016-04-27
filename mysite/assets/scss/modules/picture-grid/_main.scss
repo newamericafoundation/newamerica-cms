@@ -13,7 +13,7 @@ $picture-grid-padding: 10px;
 
 .event-post-home-page > .picture-grid {
 	@include breakpoint(medium) {
-		padding: 0px $picture-grid-padding;
+		padding: 0px $mobile-padding;
 	}
 	@include desktop-header {
 		padding: 0px;
