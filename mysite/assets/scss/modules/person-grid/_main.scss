@@ -1,6 +1,6 @@
 .person-grid {
 	&__controls, &__content {
-		padding-left: 20px;
+		padding-left: $mobile-padding;
 		@include desktop-header {
 			padding-left: 0px;
 		}
