@@ -29,7 +29,7 @@
 						<div class='hero-grid__element'>
 						<a href="{{ first_story.specific.url }}">
 							<div class='hero-grid__element__wrapper'>
-								{% image first_story.specific.story_image original as edition_image %}
+								{% image first_story.specific.story_image min-1300x500 as edition_image %}
 								<div class='hero-grid__element__background' style='background-image: url({{ edition_image.url }})'></div>
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
@@ -72,7 +72,7 @@
 			{% with first_story=edition.get_children.all.0 %}
 
 				<div class="picture-grid__entry">
-					{% image first_story.specific.story_image original as edition_image %}
+					{% image first_story.specific.story_image min-650x200 as edition_image %}
 					<a href="{{ first_story.specific.url }}">
 						<div class="picture-grid__entry__image-container" style="background-image: url('{{ edition_image.url }}') ">
 						</div>

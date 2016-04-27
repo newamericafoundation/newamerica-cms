@@ -100,7 +100,7 @@
 		<div class="picture-grid with-sidemenu-width">
 			{% for post in all_posts %}
 				<div class="picture-grid__entry">
-						{% image post.story_image original as post_image %}
+						{% image post.story_image min-650x200 as post_image %}
 						<a href="{{ post.url }}">
 							<div class="picture-grid__entry__image-container" style="background-image: url('{{ post_image.url }}') ">
 							</div>

@@ -48,7 +48,7 @@
                 {% if item.title %}
                     <div class="content-entry {{ item.post.get_page_type }}">
                         {% if item.post.story_image %}
-                            {% image item.post.story_image original as post_image %}
+                            {% image item.post.story_image min-650x200 as post_image %}
 
                             <a href="{{ item.post.url }}">
                                 <div class="content-entry__image-container" style="background-image: url('{{ post_image.url }}') ">

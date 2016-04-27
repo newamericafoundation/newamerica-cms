@@ -35,7 +35,7 @@
 					<div class='hero-grid__element'>
 					<a href="{{ post.url }}">
 						<div class='hero-grid__element__wrapper'>
-						{% image post.story_image original as post_image %}
+						{% image post.story_image min-1100x500 as post_image %}
 							<div class='hero-grid__element__background' style='background-image: url({{ post_image.url }})'></div>
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
@@ -67,7 +67,7 @@
 		{% for post in all_posts %}
 			<div class="content-entry blog">
 				{% if post.story_image %}
-					{% image post.story_image original as post_image %}
+					{% image post.story_image min-650x200 as post_image %}
 
 					<div class="content-entry__image-container">
 						<a href="{{ post.url }}"><img class="content-entry__image" src="{{post_image.url}}"></a>
