@@ -8,7 +8,7 @@ from policy_paper.models import PolicyPaper, ProgramPolicyPapersPage
 
 from django.utils.text import slugify
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, download_document
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, download_document, connect_programs_to_post
 
 def get_attachments(attachments, title):
     """
@@ -108,6 +108,7 @@ def load_policy_papers():
                     parent_program_policy_papers_homepage.add_child(instance=new_policy_paper)
                     new_policy_paper.save()
                     get_post_authors(new_policy_paper, post['authors'])
+                    connect_programs_to_post(new_policy_paper, post['programs'])
                 elif new_policy_paper and policy_paper_slug and need_to_update_post(post['modified']):
                     new_policy_paper.search_description = ''
                     new_policy_paper.seo_title = ''
@@ -144,5 +145,6 @@ def load_policy_papers():
                     new_policy_paper.subheading=post['sub_headline']
                     new_policy_paper.save()
                     get_post_authors(new_policy_paper, post['authors'])
+                    connect_programs_to_post(new_policy_paper, post['programs'])
             except django.db.utils.IntegrityError:
                 pass
