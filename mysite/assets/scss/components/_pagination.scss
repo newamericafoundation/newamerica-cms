@@ -1,11 +1,12 @@
 .pagination {
-	/*width: $pagination-width - 30px;*/
+	$pagination-spacing: 7px;
 	display:inline-block;
 	margin: auto;
 	padding:0px;
 
 	span {
 		color: palette-get(na-black);
+		margin-right: 0px;
 	}
 	
 	&__form {
@@ -15,9 +16,13 @@
 	&__input {
 		height: $default-input-height;
 		width: $default-input-height;
-		margin: 0px 4px;
+		margin: 0px $pagination-spacing;
 		padding: 0px;
 		text-align: center;
+	}
+
+	a {
+		margin-left: $pagination-spacing;
 	}
 
 	&__arrow {
