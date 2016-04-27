@@ -218,6 +218,17 @@
 
 .post-header-container {
 	margin-bottom: $desktop-padding;
+	.caption {
+		padding-left: 5px;
+
+		@include desktop-header {
+			padding-left: 0px;
+		}
+		
+		@include expanded-header {
+			padding-left: 0px;
+		}
+	}
 }
 
 .post-container {
