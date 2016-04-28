@@ -117,6 +117,7 @@
 
   &__work {
   	margin-top: $desktop-padding;
+  	margin-bottom: -$desktop-padding;
   	background-color: palette-get(na-white);
 
   	@include breakpoint(medium) {
