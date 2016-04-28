@@ -53,11 +53,12 @@ $mobile-nav-logo-width: 145px;
     top: 50%;
     transform: translateY(-50%);
     left: $mobile-nav-side-padding;
-    background-color: white;
+
   }
 
   &__secondary__logo {
     width: 159px;
+    background-color: white;
 
     @include desktop-header {
       width: $mobile-nav-logo-width;
@@ -70,13 +71,12 @@ $mobile-nav-logo-width: 145px;
     vertical-align: middle;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 1000;
 
     .flip-arrow-black , .flip-arrow-white {
       width: 20px;
       height: 20px;
       @include has-sidemenu {
-        /*width:15px;
-        height:15px;*/
 
         @include mobile-header {
           width:20px;
