@@ -1,6 +1,7 @@
 var path = require('path'),
 	webpack = require('webpack'),
-	AssetsPlugin = require('assets-webpack-plugin');
+	AssetsPlugin = require('assets-webpack-plugin'),
+	autoprefixer = require('autoprefixer');
 
 module.exports = {
 
@@ -37,13 +38,23 @@ module.exports = {
 			{
 				test: /\.jade$/,
 				loaders: [ 'jade' ]
-			}
+			},
+
+			{
+                test:   /\.css$/,
+                loader: "style-loader!css-loader!postcss-loader"
+            }
 
 		]
 	},
-
+	postcss: function() {
+		return [ autoprefixer({ browsers: ['> 1%', 'Chrome >= 46', 'ChromeAndroid >= 46', 'Firefox >= 38', 'FirefoxAndroid >= 38','Safari >= 7', 'iOS >= 7', 'Explorer >= 11', 'ExplorerMobile >= 11', 'last 2 Edge versions', 'last 2 Android versions', 'last 2 Opera versions'] }) ];
+	},
 	plugins: [
 		// new AssetsPlugin({ filename: 'mysite/static/js/rev-manifest.json', fullPath: false })
 	]
 
 }
+
+var info = autoprefixer({ browsers: ['> 1%', 'Chrome >= 46', 'ChromeAndroid >= 46', 'Firefox >= 38', 'FirefoxAndroid >= 38','Safari >= 7', 'iOS >= 7', 'Explorer >= 11', 'ExplorerMobile >= 11', 'last 2 Edge versions', 'last 2 Android versions', 'last 2 Opera versions'] }).info();
+console.log(info);
