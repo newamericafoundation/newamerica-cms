@@ -13,8 +13,9 @@
             </div>
         </div></a>
         <a><div class="mobile-nav__secondary">
+            {% image program_logo min-200x100 as logo %}
             <div class="mobile-nav__secondary__logo">
-                <img class="mobile-nav__secondary__logo__image">
+                <img class="mobile-nav__secondary__logo__image" src="{{ logo.url }}">
             </div>
             <div class="mobile-nav__toggle">
                 <div class="mobile-nav__toggle__secondary flip-arrow-white rotate"></div>
