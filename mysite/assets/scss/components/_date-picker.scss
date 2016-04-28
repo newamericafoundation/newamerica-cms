@@ -6,6 +6,8 @@
 	position: absolute !important;
 	width: $small-width !important;
 	left: calc(50% - #{$small-width}/2) !important;
+	border: none;
+	@include standard-shadow;
 
 	@include breakpoint(medium) {
 		width: $medium-width !important;
@@ -40,6 +42,9 @@
 	opacity: .7 !important;
 }
 
+.ui-front {
+	z-index: 10001;
+}
 
 /*input box styles*/
 
@@ -51,6 +56,10 @@
 
 .ui-corner-all {
 	border-radius: 0px;
+	
+}
+
+.comiseo-daterangepicker-triggerbutton {
 	border: 2px solid palette-get(na-black-10);
 }
 

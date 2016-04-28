@@ -8,37 +8,57 @@
 {% block post-header %}
 	{% image page.story_image original as story_image %}
 
-	{% if story_image %}
+	<div class="post-header-container">
+		{% if story_image %}
 
-		<div class="post-header with-image large" style="background-image: linear-gradient(
-		      rgba(0, 0, 0, 0.3),
-		      rgba(0, 0, 0, 0.3)
-		    ), 
-	    	url({{ story_image.url }})">
+			<div class="post-header with-image large" style="background-image: linear-gradient(
+			      rgba(0, 0, 0, 0.3),
+			      rgba(0, 0, 0, 0.3)
+			    ), 
+		    	url({{ story_image.url }})">
 
-			<div class="post-header__text">
-			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-			    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+				<div class="post-header__text">
+				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+				    	{% if page.subheading %}
+				    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+				    	{% endif %}
+				</div>
 			</div>
-		</div>
+			{% if story_image.image.source %}
+				<div class="caption">Photo: {{ story_image.image.source}}</div>
+			{% endif %}
 
-	{% else %}
+		{% else %}
 
-		<div class="post-header">
-			<div class="post-header__text">
-			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-			    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+			<div class="post-header">
+				<div class="post-header__text">
+				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+				    	{% if page.subheading %}
+				    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+				    	{% endif %}
+				</div>
 			</div>
-		</div>
 
-	{% endif %}
+		{% endif %}
+	</div>
 
 {% endblock %}
 
 {% block post-body %}
 
-    <div class="post-body with-dropcap">
-	    {{ page.body | safe}}
+     <div class="post-body with-dropcap">
+	    {% for block in self.body %}
+	    	<div class="block-{{ block.block_type }}">
+		       {% if block.block_type == 'image' %}
+	            	{{ block }}
+	            	{% if block.value.caption or block.value.source %}
+	            		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
+	            	{% endif %}
+		        {% else %}
+		            {{ block | safe }}
+		        {% endif %}
+	   		</div>
+	    {% endfor %}
 	</div>
 
 	{% if page.attachment %}
