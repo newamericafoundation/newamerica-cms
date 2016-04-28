@@ -188,7 +188,15 @@ class Program(AbstractProgram):
     'issue.IssueOrTopic',
     ]
 
-    program_logo = models.ForeignKey(
+    desktop_program_logo = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    mobile_program_logo = models.ForeignKey(
         'home.CustomImage',
         null=True,
         blank=True,
@@ -209,7 +217,8 @@ class Program(AbstractProgram):
     ], blank=True)
 
     content_panels = AbstractProgram.content_panels + [
-        ImageChooserPanel('program_logo'),
+        ImageChooserPanel('desktop_program_logo'),
+        ImageChooserPanel('mobile_program_logo'),
     ]
 
     promote_panels = AbstractProgram.promote_panels + [
