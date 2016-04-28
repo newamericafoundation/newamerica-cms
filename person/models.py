@@ -161,9 +161,15 @@ class Person(Page):
         ImageChooserPanel('profile_image'),
         MultiFieldPanel(
             [
-                PageChooserPanel('feature_work_1'),
-                PageChooserPanel('feature_work_2'),
-                PageChooserPanel('feature_work_3'),
+                PageChooserPanel(
+                    'feature_work_1', 
+                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
+                PageChooserPanel(
+                    'feature_work_2', 
+                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
+                PageChooserPanel(
+                    'feature_work_3',
+                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
             ],
             heading="Featured Work To Highlight on Bio Page",
             classname="collapsible"
