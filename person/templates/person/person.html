@@ -11,7 +11,7 @@
     {% if page.profile_image %}
         <div class="bio-page__heading with-image">
             <div class='bio-page__heading__icon'>
-                {% image page.profile_image original as bio_image %}
+                {% image page.profile_image min-150x150 as bio_image %}
                 <div class='bio-page__heading__icon__photo' style='background: no-repeat center/100% url({{ bio_image.url }})'>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 {% if item.title %}
                     <div class="content-entry {{ item.post.get_page_type }}">
                         {% if item.post.story_image %}
-                            {% image item.post.story_image original as post_image %}
+                            {% image item.post.story_image min-650x200 as post_image %}
 
                             <a href="{{ item.post.url }}">
                                 <div class="content-entry__image-container" style="background-image: url('{{ post_image.url }}') ">
