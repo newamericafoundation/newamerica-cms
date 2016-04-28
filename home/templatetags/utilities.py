@@ -50,6 +50,19 @@ def get_author_block_prefix(post_type, items_list):
 	else:
 		return get_byline_prefix(post_type, items_list)
 
+@register.simple_tag()
+def generate_content_type_line(post_type):
+	print(post_type)
+	if str(post_type) == ("program simple page"):
+		return ""
+	elif str(post_type) == ("Homepage for all Weekly Editions"):
+		return ""
+	elif str(post_type) == ("issue or topic"):
+		return ""
+	elif str(post_type) == ("Article and Op-Ed"):
+		return "Article"
+	else:
+		return post_type
 
 @register.simple_tag()
 def generate_byline(ptype, authors):
