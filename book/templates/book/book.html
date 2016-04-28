@@ -14,10 +14,14 @@
 			</div>
 		</div>
 	{% endif %}
-	<div class="post-header">
-		<div class="post-header__text">
-	    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-	    	<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+	<div class="post-header-container">
+		<div class="post-header">
+			<div class="post-header__text">
+		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+		    	{% if page.subheading %}
+		    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
+		    	{% endif %}
+			</div>
 		</div>
 	</div>
 
@@ -26,7 +30,18 @@
 {% block post-body %}
 
     <div class="post-body with-dropcap">
-	    {{ page.body }}
+	    {% for block in self.body %}
+	    	<div class="block-{{ block.block_type }}">
+		       {% if block.block_type == 'image' %}
+	            	{{ block }}
+	            	{% if block.value.caption or block.value.source %}
+	            		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
+	            	{% endif %}
+		        {% else %}
+		            {{ block }}
+		        {% endif %}
+	   		</div>
+	    {% endfor %}
 	</div>
 
 {% endblock %}

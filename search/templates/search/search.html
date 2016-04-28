@@ -8,16 +8,18 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
-    <div class="post-header">
-        <div class="post-header__text">
-            {% if search_query %}
-                <h1 class="post-header__text__heading">Search: "{{ search_query }}"</h1>
-            {% else %}
-                <h1 class="post-header__text__heading">Search New America</h1>
-            {% endif %}
-            
+    <div class="post-header-container">
+        <div class="post-header">
+            <div class="post-header__text">
+                {% if search_query %}
+                    <h1 class="post-header__text__heading">Search: "{{ search_query }}"</h1>
+                {% else %}
+                    <h1 class="post-header__text__heading">Search New America</h1>
+                {% endif %}
+            </div>
         </div>
     </div>
+    
     <div class="content-grid__controls">
         <div class="row content-grid__controls__filters">
             <form class="search-box" action="/search/?query=value" method="get">

@@ -32,7 +32,7 @@
 }
 
 @mixin page-body-text {
-  font-size: rem-calc(20);
+  font-size: 1.2rem;
   color: palette-get(na-black-70);
   line-height: 1.65;
   font-family: Simplon;

@@ -8,30 +8,34 @@
 {% block content %}
 	<div class="subscribe-page">
 		{% image page.story_image min-1100x300 as story_image %}
-		
-		{% if story_image %}
-			<div class="post-header with-image" style="background-image: linear-gradient(
-			      rgba(0, 0, 0, 0.3),
-			      rgba(0, 0, 0, 0.3)
-			    ), 
-		    	url({{ story_image.url }})">
 
-				<div class="post-header__text">
-			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-			    	
+		<div class="post-header-container">
+			{% if story_image %}
+
+				<div class="post-header with-image" style="background-image: linear-gradient(
+				      rgba(0, 0, 0, 0.3),
+				      rgba(0, 0, 0, 0.3)
+				    ), 
+			    	url({{ story_image.url }})">
+
+					<div class="post-header__text">
+				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+					</div>
 				</div>
-			</div>
-		{% else %}
+				{% if story_image.image.source %}
+					<div class="caption">Photo: {{ story_image.image.source}}</div>
+				{% endif %}
 
-			<div class="post-header">
+			{% else %}
 
-				<div class="post-header__text">
-				    <h1 class="post-header__text__heading">{{ page.title }}</h1>
-				    
+				<div class="post-header">
+					<div class="post-header__text">
+				    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+					</div>
 				</div>
-			</div>
 
-		{% endif %}
+			{% endif %}
+		</div>
 
 		<p class="subscribe-page__description">{{ page.story_excerpt }}</p>
 

@@ -78,6 +78,32 @@
     margin-left: 45px; 
   }
 
+  h2 {
+    font-size: 1.5rem; 
+    font-weight: 800; 
+    color: rgba(44,47,53,1); 
+    line-height: 1.65; 
+    margin-bottom: 1.25rem; 
+    margin-top:1.25rem 
+  }
+
+  h3 { 
+    font-size: 1.25rem; 
+    font-weight: 800; 
+    margin-bottom: 1.25rem; 
+    margin-top: 1.25rem; 
+    color: rgba(44,47,53,0.4); 
+    font-style: italic; 
+  }
+
+  h4, h5 { 
+    letter-spacing: 1.5px; 
+    font-size: 1.05rem; 
+    margin-top: 1.25rem; 
+    margin-bottom: 1.25rem; 
+    text-transform: uppercase; 
+  }
+
   .block-paragraph {
 
     img {
@@ -110,9 +136,7 @@
   }
 
   .block-image {
-    img {
-      padding: 20px 0px;
-    }
+    padding: 20px 0px;
   }
 
   .block-video {
