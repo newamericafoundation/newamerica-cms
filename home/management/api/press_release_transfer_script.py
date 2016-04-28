@@ -8,7 +8,7 @@ from press_release.models import PressRelease, ProgramPressReleasesPage
 
 from django.utils.text import slugify
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, download_document
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, download_document, connect_programs_to_post
 
 def get_attachments(attachments, title):
     """
@@ -82,6 +82,7 @@ def load_press_releases():
                     parent_program_press_releases_homepage.add_child(instance=new_press_release)
                     new_press_release.save()
                     get_post_authors(new_press_release, post['authors'])
+                    connect_programs_to_post(new_press_release, post['programs'])
                 elif new_press_release and press_release_slug and need_to_update_post(post['modified']):
                     new_press_release.search_description = ''
                     new_press_release.seo_title = ''
@@ -109,5 +110,6 @@ def load_press_releases():
                     new_press_release.subheading=post['sub_headline']
                     new_press_release.save()
                     get_post_authors(new_press_release, post['authors'])
+                    connect_programs_to_post(new_press_release, post['programs'])
             except django.db.utils.IntegrityError:
                 pass

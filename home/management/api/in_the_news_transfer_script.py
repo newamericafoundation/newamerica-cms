@@ -10,7 +10,7 @@ from django.utils.text import slugify
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, connect_programs_to_post
 
 def get_source(source):
     if source:
@@ -74,7 +74,8 @@ def load_in_the_news():
                     )
                     parent_program_quoted_homepage.add_child(instance=new_in_the_news)
                     new_in_the_news.save()
-                    #get_post_authors(new_in_the_news, post['authors'])
+                    get_post_authors(new_in_the_news, post['authors'])
+                    connect_programs_to_post(new_in_the_news, post['programs'])
                 elif new_in_the_news and in_the_news_slug and need_to_update_post(post['modified']):
                     new_in_the_news.search_description = ''
                     new_in_the_news.seo_title = ''
@@ -97,6 +98,7 @@ def load_in_the_news():
                     )
                     new_in_the_news.subheading=post['sub_headline']
                     new_in_the_news.save()
-                    #get_post_authors(new_in_the_news, post['authors'])
+                    get_post_authors(new_in_the_news, post['authors'])
+                    connect_programs_to_post(new_in_the_news, post['programs'])
             except django.db.utils.IntegrityError:
                 pass
