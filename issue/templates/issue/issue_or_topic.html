@@ -8,34 +8,49 @@
 {% block content %}
 	{% image page.story_image original as story_image %}
 
-	{% if story_image %}
+	<div class="post-header-container">
+		{% if story_image %}
 
-		<div class="post-header with-image" style="background-image: linear-gradient(
-		      rgba(0, 0, 0, 0.3),
-		      rgba(0, 0, 0, 0.3)
-		    ), 
-	    	url({{ story_image.url }})">
+			<div class="post-header with-image" style="background-image: linear-gradient(
+			      rgba(0, 0, 0, 0.3),
+			      rgba(0, 0, 0, 0.3)
+			    ), 
+		    	url({{ story_image.url }})">
 
-			<div class="post-header__text">
-			    <h1 class="post-header__text__heading">{{ page.title }}</h1>
+				<div class="post-header__text">
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+				</div>
 			</div>
-		</div>
+			{% if story_image.image.source %}
+				<div class="caption">Photo: {{ story_image.image.source}}</div>
+			{% endif %}
 
-	{% else %}
+		{% else %}
 
-		<div class="post-header">
-
-			<div class="post-header__text">
-			    <h1 class="post-header__text__heading">{{ page.title }}</h1>
+			<div class="post-header">
+				<div class="post-header__text">
+			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
+				</div>
 			</div>
-		</div>
 
-	{% endif %}
+		{% endif %}
+	</div>
 
 	<div class="post-container">
-		<div class="post-body">
-	    	{{ page.body }}
-	    </div>
+		 <div class="post-body">
+		    {% for block in self.body %}
+		    	<div class="block-{{ block.block_type }}">
+			       {% if block.block_type == 'image' %}
+		            	{{ block }}
+		            	{% if block.value.caption or block.value.source %}
+		            		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
+		            	{% endif %}
+			        {% else %}
+			            {{ block }}
+			        {% endif %}
+		   		</div>
+		    {% endfor %}
+		</div>
 
     {% if topics %}
     	<hr>
