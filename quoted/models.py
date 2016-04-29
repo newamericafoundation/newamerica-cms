@@ -5,7 +5,7 @@ from home.models import Post
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from mysite.helpers import paginate_results, get_posts_and_programs
+from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
 
 
 class Quoted(Post):
@@ -39,12 +39,12 @@ class AllQuotedHomePage(Page):
     subpage_types = []
 
     def get_context(self, request):
-        context = super(AllQuotedHomePage, self).get_context(request)
-        all_posts = Quoted.objects.all().order_by("-date")
-
-        context['all_posts'] = paginate_results(request, all_posts)
-
-        return context
+        return get_org_wide_posts(
+            self,
+            request,
+            AllQuotedHomePage,
+            Quoted
+        )
     
     class Meta:
         verbose_name = "Homepage for all In The News Pieces"
