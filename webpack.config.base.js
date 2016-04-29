@@ -47,14 +47,10 @@ module.exports = {
 
 		]
 	},
-	postcss: function() {
-		return [ autoprefixer({ browsers: ['> 1%', 'Chrome >= 46', 'ChromeAndroid >= 46', 'Firefox >= 38', 'FirefoxAndroid >= 38','Safari >= 7', 'iOS >= 7', 'Explorer >= 11', 'ExplorerMobile >= 11', 'last 2 Edge versions', 'last 2 Android versions', 'last 2 Opera versions'] }) ];
-	},
+	postcss: [ autoprefixer({ browsers: ['> 1%', 'Chrome >= 46', 'ChromeAndroid >= 46', 'Firefox >= 38', 'FirefoxAndroid >= 38','Safari >= 7', 'iOS >= 7', 'Explorer >= 11', 'ExplorerMobile >= 11', 'last 2 Edge versions', 'last 2 Android versions', 'last 2 Opera versions'] }) ],
+
 	plugins: [
 		// new AssetsPlugin({ filename: 'mysite/static/js/rev-manifest.json', fullPath: false })
 	]
 
 }
-
-var info = autoprefixer({ browsers: ['> 1%', 'Chrome >= 46', 'ChromeAndroid >= 46', 'Firefox >= 38', 'FirefoxAndroid >= 38','Safari >= 7', 'iOS >= 7', 'Explorer >= 11', 'ExplorerMobile >= 11', 'last 2 Edge versions', 'last 2 Android versions', 'last 2 Opera versions'] }).info();
-console.log(info);
