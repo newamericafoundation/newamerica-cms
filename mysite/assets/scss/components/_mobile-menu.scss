@@ -77,8 +77,9 @@
 		}
 
 		&__submit {
-			right: $icon-right-padding - 6px;
-			height: 30px;
+			right: -5px;
+			height: 50px;
+			width: 60px;
 		}
 
 		&__icon {
