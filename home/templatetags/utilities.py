@@ -50,6 +50,25 @@ def get_author_block_prefix(post_type, items_list):
 	else:
 		return get_byline_prefix(post_type, items_list)
 
+@register.simple_tag()
+def generate_content_type_line(ptype):
+	page_type = str(ptype)
+
+	page_mappings = {
+		"program simple page" : "",
+		"org simple page" : "",
+		"Our People Page for Board of Directors, Central Staff, and Leadership Team" : "",
+		"jobs page" : "",
+		"subscribe page" : "",
+		"Homepage for all Weekly Editions" : "",
+		"issue or topic" : "",
+		"Article and Op-Ed" : "Article",
+	}
+
+	if page_type in page_mappings:
+		return page_mappings[page_type]
+	else:
+		return page_type
 
 @register.simple_tag()
 def generate_byline(ptype, authors):
