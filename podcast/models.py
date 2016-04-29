@@ -5,7 +5,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 
-from mysite.helpers import paginate_results, get_posts_and_programs
+from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
 
 from django.db import models
 
@@ -41,12 +41,12 @@ class AllPodcastsHomePage(Page):
     subpage_types = []
 
     def get_context(self, request):
-        context = super(AllPodcastsHomePage, self).get_context(request)
-        all_posts = Podcast.objects.all().order_by("-date")
-
-        context['all_posts'] = paginate_results(request, all_posts)
-
-        return context
+        return get_org_wide_posts(
+            self,
+            request,
+            AllPodcastsHomePage,
+            Podcast
+        )
 
     class Meta:
         verbose_name = "Homepage for all Podcasts"
