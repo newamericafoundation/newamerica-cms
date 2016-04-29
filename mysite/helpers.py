@@ -16,10 +16,42 @@ def paginate_results(request, all_posts):
     return all_posts
 
 
+def get_org_wide_posts(self, request, page_type, content_model):
+    """
+    Function to return a list of content 
+    for org wide content homepage.
+
+    Also checks if there is a query to filter content by initiatives
+    or by date for programs.
+    """
+    context = super(page_type, self).get_context(request)
+
+    page = request.GET.get('page', 1)
+    search_program = request.GET.get('program_id', None)
+    date = request.GET.get('date', None)
+
+    filter_dict = {}
+
+    if search_program:
+        filter_dict['parent_programs'] = int(search_program)
+    if date:
+        date_range = json.loads(date)
+        filter_dict['date__range'] = (date_range['start'], date_range['end'])   
+
+    all_posts = content_model.objects.filter(**filter_dict)
+    context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
+    context['programs'] = Program.objects.all().order_by('title')
+
+    return context
+
+
 def get_posts_and_programs(self, request, page_type, content_model):
     """
     Function to return a list of content for a program or 
-    subprogram content homepage
+    subprogram content homepage.
+
+    Also checks if there is a query to filter content by initiatives
+    or by date for programs.
     """
     context = super(page_type, self).get_context(request)
 
@@ -39,7 +71,7 @@ def get_posts_and_programs(self, request, page_type, content_model):
             filter_dict['date__range'] = (date_range['start'], date_range['end'])
     
         all_posts = content_model.objects.filter(**filter_dict)
-        context['subprograms'] = program.get_children().type(Subprogram)
+        context['subprograms'] = program.get_children().type(Subprogram).order_by('title')
     else:
         subprogram_title = self.get_ancestors()[3]
         program = Subprogram.objects.get(title=subprogram_title)
@@ -48,6 +80,5 @@ def get_posts_and_programs(self, request, page_type, content_model):
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
 
     context['program'] = program
-    print(all_posts.filter(post_subprogram=program.get_children().type(Subprogram)))
     
     return context
