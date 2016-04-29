@@ -3,15 +3,25 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.models import Query
+from programs.models import Program
 
+from home.models import Post
 
 def search(request):
     search_query = request.GET.get('query', None)
     page = request.GET.get('page', 1)
+    search_program = request.GET.get('program_id', None)
+    programs = Program.objects.all().order_by('title')
 
     # Search
+    filter_dict = {}
+
     if search_query:
-        search_results = Page.objects.live().search(search_query)
+        if search_program:
+            program = Program.objects.get(id=search_program)
+            search_results = Page.objects.live().search(search_query, program)
+        else:
+            search_results = Page.objects.live().search(search_query)
         query = Query.get(search_query)
 
         # Record hit
@@ -31,4 +41,5 @@ def search(request):
     return render(request, 'search/search.html', {
         'search_query': search_query,
         'search_results': search_results,
+        'programs': programs,
     })
