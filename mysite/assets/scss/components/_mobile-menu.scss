@@ -77,7 +77,12 @@
 		}
 
 		&__submit {
-			right: $icon-right-padding;
+			right: $icon-right-padding - 6px;
+			height: 30px;
+		}
+
+		&__icon {
+			width: 30px;
 		}
 	}
 	
