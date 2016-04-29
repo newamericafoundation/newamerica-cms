@@ -155,6 +155,7 @@ WAGTAIL_SITE_NAME = "mysite"
 WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
 
 
+
 # Elastic Search setup
 # es_url = os.getenv('ELASTIC_SEARCH_URL', "http://localhost:9200/")
 
@@ -166,4 +167,5 @@ WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
 #         'TIMEOUT': 500,
 #     }
 # }
+
 
