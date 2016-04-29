@@ -11,7 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from weekly.models import Weekly, WeeklyEdition, WeeklyArticle
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage, get_post_authors
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage, get_post_authors, connect_programs_to_post
 
 
 def load_weekly_mapping():

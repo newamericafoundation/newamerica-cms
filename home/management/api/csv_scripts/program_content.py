@@ -37,6 +37,18 @@ def event_to_csv(content):
             content.get('content'),
     ]
 
+
+def articles_to_csv(content):
+    yield [
+            content.get('id'),
+            content.get('title'),
+            content.get('slug'),
+            content.get('published'),
+            content.get('authors'),
+            content.get('programs'),
+            content.get('tags')
+    ]
+
 def program_posts():
     with open('weekly_content2.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
@@ -59,4 +71,23 @@ def event_addresses():
             idx += 1
 
 
-program_posts()
+def articles():
+    with open('all_articles.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([
+            'id', 
+            'title', 
+            'slug', 
+            'published', 
+            'authors',
+            'programs',
+            'tags'
+        ])
+        idx = 0
+        for content in NAClient().get_articles():
+            writer.writerows(articles_to_csv(content))
+            print(idx)
+            idx += 1
+
+
+articles()

@@ -18,7 +18,7 @@
 					<div class='hero-grid__element'>
 					<a href="{{ page.lead_1.url }}">
 						<div class='hero-grid__element__wrapper'>
-						{% image page.lead_1.post.story_image min-1350x500 as lead1_image %}
+						{% image page.lead_1.specific.story_image min-1350x500 as lead1_image %}
 							<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
@@ -40,7 +40,7 @@
 					{% if other_lead_story %}
 						<div class='hero-grid__element'>
 							<a href="{{ other_lead_story.url }}" class='hero-grid__element__content'>
-							{% image other_lead_story.post.story_image min-650x450 as other_lead_story_image %}
+							{% image other_lead_story.specific.story_image min-650x450 as other_lead_story_image %}
 								<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
@@ -72,7 +72,7 @@
 
 			{% for feature_story in featured_stories %}
 			<div class='small-12 large-4 columns'>
-				{% image feature_story.post.story_image fill-75x75 as feature_story_image %}
+				{% image feature_story.specific.story_image fill-75x75 as feature_story_image %}
 				<div class='picture-link'>
 					<a href="{{ feature_story.url }}">
 						<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>
@@ -81,7 +81,7 @@
 					</a>
 					<div class='picture-link__content'>
 						<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
-						<p>{{ feature_story.post.story_excerpt }}</p>
+						<p>{{ feature_story.specific.story_excerpt }}</p>
 					</div>
 				</div>
 
