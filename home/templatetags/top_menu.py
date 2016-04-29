@@ -30,12 +30,12 @@ def top_menu(context, parent, calling_page=None):
         else:
             programs.append(program)
 
-    # page_depth = context['self'].depth
-    # if page_depth == 3:
-    #     menu_program = context['self']
-    # elif page_depth > 3:
-    #     program_name = context['self'].get_ancestors()[2]
-    #     menu_program = Program.objects.get(title=program_name)
+    page_depth = context['self'].depth
+    if page_depth == 3:
+        menu_program = context['self']
+    elif page_depth > 3:
+        program_name = context['self'].get_ancestors()[2]
+        menu_program = Program.objects.get(title=program_name)
 
     return {
         'calling_page': calling_page,
@@ -43,7 +43,7 @@ def top_menu(context, parent, calling_page=None):
         'location_programs': location_programs,
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
-        # 'program_logo': menu_program.mobile_program_logo
+        'program_logo': menu_program.mobile_program_logo
     }
 
 
