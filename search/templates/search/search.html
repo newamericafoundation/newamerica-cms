@@ -3,6 +3,25 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
+{% block extra_scripts %}
+    <script>
+        $(function() { 
+            $("#content-grid__controls__date-filter").daterangepicker({
+                applyButtonText: 'Confirm',
+                clearButtonText: null,
+                cancelButtonText: null,
+                initialText: 'Select Dates',
+                datepickerOptions: {
+                    numberOfMonths : 1,
+                    defaultDate: +0,
+                    minDate: null,
+                    maxDate: null
+                }
+            })
+        });
+    </script>
+{% endblock %}
+
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}Search{% endblock %}
@@ -19,16 +38,31 @@
             </div>
         </div>
     </div>
-    
+
+
     <div class="content-grid__controls">
-        <div class="row content-grid__controls__filters">
-            <form class="search-box" action="/search/?query=value" method="get">
-                <input class="search-box__input" type='text' name='query' placeholder='Search' autocomplete="off"></input>
+        <form action="{{ pageurl }}" method="get">
+            <div class="content-grid__controls__filter-group">
+                <div class="content-grid__controls__filter">
+                    <select name="program_id">
+                        <option value="">All Programs</option>
+                        {% for program in programs %}
+                        <option value="{{program.id}}">{{program.title}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="content-grid__controls__filter">
+                    <input id="content-grid__controls__date-filter" class="date-picker" name="date">
+                </div>
+                <div class="content-grid__controls__filter">
+                    <input type='text' name='query' placeholder='Search' autocomplete="off"></input>
+                </div>
+            </div>
                 <button class="search-box__submit" type="submit">
                     {% include 'ui_elements/svg/magnifying-glass.html' %}
                 </button>
-            </form>
-        </div>
+        </form>
+
         <div class="content-grid__controls__right">
             <div class="pagination">
                 {% if search_results.has_previous %}
