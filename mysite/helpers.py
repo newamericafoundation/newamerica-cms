@@ -1,7 +1,6 @@
 import json
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from programs.models import Program, Subprogram
-from search.search import content_search
 
 def paginate_results(request, all_posts):
     page = request.GET.get('page')
