@@ -100,6 +100,8 @@
                                         <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
                                     {% endfor %}
                                     PERSON</h5>
+                                {% else %}
+                                    <h5 class="content-entry__text__program">PERSON</h5>
                                 {% endif %}
                                 <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.first_name }} {{ post.specific.last_name }}</a></h5>
 
@@ -131,9 +133,9 @@
                                 {% for program in post.specific.parent_programs.all %}
                                     <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
                                 {% endfor %}
-                                {{ post.specific.content_type | upper }}</h5>
+                                {% generate_content_type_line post.specific.content_type %}</h5>
                             {% else %}
-                                <h5 class="content-entry__text__program">{{ post.specific.content_type | upper }}</h5>
+                                <h5 class="content-entry__text__program">{% generate_content_type_line post.specific.content_type %}</h5>
                             {% endif %}
                             <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.title }}</a></h5>
 
