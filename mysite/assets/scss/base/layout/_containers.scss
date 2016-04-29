@@ -67,6 +67,7 @@
 	margin-bottom: $local-gutter;
 	margin-top: $local-gutter;
 	display: none;
+	max-width: $max-site-width - $max-sidemenu-width - 2*$desktop-padding;
 
 	@include desktop-header {
 		display: block;
@@ -88,9 +89,10 @@
 .breadcrumb-container {
   height: 100%;
   width: calc(100% - 220px);
+  max-width: $max-site-width - $max-sidemenu-width - 2*$desktop-padding - 220px;
   float: left;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  text-overflow: clip;
   overflow: hidden;
 }
 
