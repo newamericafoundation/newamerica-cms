@@ -29,27 +29,23 @@ def top_menu(context, parent, calling_page=None):
             location_programs.append(program)
         else:
             programs.append(program)
-    return {
-        'calling_page': calling_page,
-        'programs': programs,
-        'location_programs': location_programs,
-        # required by the pageurl tag that we want to use within this template
-        'request': context['request'],
-    }
 
-@register.inclusion_tag('tags/top_menu.html', takes_context=True)
-def side_menu_logo(context, parent, calling_page=None):
-    """ Returns the needed data to create the dynamic sidebar """
     page_depth = context['self'].depth
     if page_depth == 3:
         menu_program = context['self']
     elif page_depth > 3:
         program_name = context['self'].get_ancestors()[2]
         menu_program = Program.objects.get(title=program_name)
-    context['side_menu'] = {}
-    context['side_menu']['url'] = menu_program.url
-    context['side_menu']['logo'] = menu_program.program_logo
-    return context
+
+    return {
+        'calling_page': calling_page,
+        'programs': programs,
+        'location_programs': location_programs,
+        # required by the pageurl tag that we want to use within this template
+        'request': context['request'],
+        'program_logo': menu_program.mobile_program_logo
+    }
+
 
 # Retrieves the children of the top menu items for the drop downs
 @register.inclusion_tag('tags/top_menu_children.html', takes_context=True)

@@ -166,3 +166,4 @@ WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
 #         'TIMEOUT': 500,
 #     }
 # }
+

@@ -8,7 +8,7 @@ from book.models import Book, ProgramBooksPage
 
 from django.utils.text import slugify
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, connect_programs_to_post
 
 
 def load_books():
@@ -61,6 +61,7 @@ def load_books():
                     parent_program_books_homepage.add_child(instance=new_book)
                     new_book.save()
                     get_post_authors(new_book, post['authors'])
+                    connect_programs_to_post(new_book, post['programs'])
                 elif new_book and book_slug and need_to_update_post(post['modified']):
                     new_book.search_description = ''
                     new_book.seo_title = ''
@@ -86,5 +87,6 @@ def load_books():
                     new_book.subheading=post['sub_headline']
                     new_book.save()
                     get_post_authors(new_book, post['authors'])
+                    connect_programs_to_post(new_book, post['programs'])
             except django.db.utils.IntegrityError:
                 pass
