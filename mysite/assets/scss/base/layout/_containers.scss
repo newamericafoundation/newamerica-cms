@@ -52,9 +52,9 @@
 		@include desktop-header {
 			padding-top: $desktop-padding;
 			display:table-cell;
-			width: -webkit-calc(100% - #{$max-sidemenu-width)};
-			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
-			  width:         calc(100% - #{$max-sidemenu-width});
+			width: -webkit-calc(100% - #{$max-sidemenu-width});
+		  	width:    -moz-calc(100% - #{$max-sidemenu-width});
+		 	width:         calc(100% - #{$max-sidemenu-width});
 			
 		}
 	}
