@@ -42,6 +42,21 @@
                 <div class="{% block sidemenu_status %}{% endblock %}">
                     {% block menu %}
                         {% get_site_root as site_root %}
+                        <div class="mobile-nav">
+                            <a><div class="mobile-nav__main">
+                                <div class="mobile-nav__logo">
+                                    <div class='header__logo'>
+                                        {% include 'ui_elements/svg/new-america.html' %}
+                                    </div>
+                                </div>
+                                <div class="mobile-nav__toggle">
+                                    <div class="mobile-nav__toggle__main flip-arrow-black rotate"></div>
+                                </div>
+                            </div></a>
+                            {% block mobile_nav_secondary %}
+                            {% endblock %}
+                        </div>
+                        
                         {% top_menu parent=site_root calling_page=self %}
                     {% endblock %}
                 </div>
