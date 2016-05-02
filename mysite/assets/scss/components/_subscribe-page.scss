@@ -120,6 +120,8 @@
 		width: 7px;
 		height: 15px;
 		transform: rotate(45deg);
+		-webkit-transform: rotate(45deg);
+    	-ms-transform: rotate(45deg);
 		border: solid palette-get(na-black);
 		border-width: 0 3px 3px 0;
 	}

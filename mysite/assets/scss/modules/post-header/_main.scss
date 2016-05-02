@@ -52,6 +52,8 @@ $std-post-header-padding-without-image: 25px;
 			position: relative;
 			top: 50%;
 			transform: translateY(-50%);
+			-webkit-transform:translateY(-50%);
+   	 		-ms-transform:translateY(-50%);
 
 			&__button {
 				margin-top: 15px;
@@ -77,6 +79,8 @@ $std-post-header-padding-without-image: 25px;
 			position: relative;
 			top: 50%;
 			transform: translateY(-50%);
+			-webkit-transform:translateY(-50%);
+    		-ms-transform:translateY(-50%);
 		}
 	}
 
@@ -87,6 +91,8 @@ $std-post-header-padding-without-image: 25px;
 			position: relative;
 			top: 50%;
 			transform: translateY(-50%);
+			-webkit-transform:translateY(-50%);
+    		-ms-transform:translateY(-50%);
 		}
 	}
 }
