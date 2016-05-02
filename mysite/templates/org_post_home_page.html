@@ -36,20 +36,21 @@
 
 	<div class="content-grid__controls">
 		<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
-				<div class="content-grid__controls__filter">
-					<select name="program_id">
-						<option value="">All Programs</option>
-						{% for program in programs %}
-						<option value="{{program.id}}">{{program.title}}</option>
-						{% endfor %}
-			        </select>
-			    </div>
-			    <div class="content-grid__controls__filter">
-					<input id="content-grid__controls__date-filter" class="date-picker" name="date">
-			    </div>
-			    <div class="content-grid__controls__buttons">
-			    	<button class="button" type="submit" value="Search">Update Search</button>
-				</div>
+			<div class="content-grid__controls__filter">
+				<select class="content-grid__controls__program-filter" name="program_id">
+					<option value="">All Programs</option>
+					{% for program in programs %}
+					<option value="{{program.id}}">{{program.title}}</option>
+					{% endfor %}
+		        </select>
+		    </div>
+		    <div class="content-grid__controls__filter">
+				<input id="content-grid__controls__date-filter" class="date-picker" name="date">
+		    </div>
+		    <div class="content-grid__controls__buttons">
+		    	<button class="button" type="submit" value="Search">Update Search</button>
+		    	<a href="{{ self.url }}">Set to Defaults</a>
+			</div>
 				
 		</form>
 		<div class="content-grid__controls__right">
