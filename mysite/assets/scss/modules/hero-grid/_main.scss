@@ -379,11 +379,11 @@
 
 			&__subheading {
 				display: inline-block;
-				font-size: rem-calc(16);
 				margin-bottom: 0;
+				padding-bottom: 10px;
 
 				@include program-and-content-type-text;
-				color: palette-get(na-black-10);
+				color: white;
 
 				& > a {
 					color: palette-get(na-white);
