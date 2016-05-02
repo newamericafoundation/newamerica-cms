@@ -62,7 +62,6 @@ function addMenuResponsivity() {
 
 
 	$( document ).ready(function() {
-		console.log($(".is-accordion-submenu-parent"));
 		$(".mobile-menu__link__main a")
 			.on("click", function() {
 				$(this).siblings(".rotate").toggleClass("down");
@@ -91,7 +90,6 @@ function addResizeListener() {
 function WidthChange(mq) {
 
   if (mq.matches) {
-    console.log("width is greater");
 	$(".mobile-nav").css("display", "none");
 	$(".mobile-header").css("display", "none");
 	$(".mobile-sidemenu").css("display", "none");
@@ -102,7 +100,6 @@ function WidthChange(mq) {
 	sideMenuExpanded = false;
 	headerMenuExpanded = false;
   } else {
-    console.log("width is less");
 	$(".mobile-nav").css("display", "block");
 	$(".sidemenu").css("display", "none");
 

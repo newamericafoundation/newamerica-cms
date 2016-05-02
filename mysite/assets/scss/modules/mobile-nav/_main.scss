@@ -46,7 +46,6 @@ $mobile-nav-logo-width: 145px;
   }
 
   &__logo, &__secondary__logo {
-    width: $mobile-nav-logo-width;
     float:left;
     position:absolute;
     z-index: 1000;
@@ -54,16 +53,23 @@ $mobile-nav-logo-width: 145px;
     transform: translateY(-50%);
     -webkit-transform:translateY(-50%);
     -ms-transform:translateY(-50%);
-    left: $mobile-nav-side-padding;
+    
 
   }
 
+  &__logo {
+     width: $mobile-nav-logo-width;
+     left: $mobile-nav-side-padding;
+  }
+
   &__secondary__logo {
-    width: 159px;
+/*    width: 159px;*/
+    height: 60px;
     background-color: white;
 
-    @include desktop-header {
-      width: $mobile-nav-logo-width;
+    img {
+      height: 100%;
+      width: auto;
     }
   }
 
