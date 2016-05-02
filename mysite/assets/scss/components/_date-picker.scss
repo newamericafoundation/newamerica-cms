@@ -74,6 +74,14 @@
 	height: $default-input-height;
 }
 
+.ui-button-text {
+	height: $default-input-height;
+	padding: 12px 15px !important;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
 
 /* popup picker styles */
 
