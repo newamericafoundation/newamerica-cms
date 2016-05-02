@@ -9,6 +9,7 @@
     }
   }
 
+  min-height: 250px;
   border: $standard-border;
   height: $height;
   width: 100%;
@@ -74,27 +75,26 @@
   }
   &__info {
     opacity: 1;
-    position: absolute;
     width: 100%;
     text-align: center;
-    top: $nav-and-info-offset;
-    left: 0px;
     color: palette-get(na-black-40);
+    font-size: 14px;
+    padding-bottom: 10px;
     font-weight: bold;
     text-transform: uppercase;
   }
 
   &__list {
     .border-panel__content {
-      padding: ($nav-and-info-offset + $nav-and-info-height) 30px 10px 30px;
+      padding: 15px 30px 10px 30px;
 
       @include show-circle-nav {
-        padding: 0px 15px;
+        padding: 0px 15px 35px 15px;
       }
     }
     &.has-1-children {
       .border-panel__content {
-        padding: ($nav-and-info-offset + $nav-and-info-height) 15px 15px 15px;
+        padding: 15px;
       }
     }
 
@@ -107,6 +107,7 @@
     display: table-cell;
     vertical-align: middle;
     position: relative;
+    padding: 0px 15px 25px;
     h1,
     p {
       padding: 0;
