@@ -9,7 +9,7 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from mysite.helpers import paginate_results, get_posts_and_programs
+from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
 
 
 class BlogPost(Post):
@@ -39,13 +39,12 @@ class AllBlogPostsHomePage(Page):
     subpage_types = []
 
     def get_context(self, request):
-        context = super(AllBlogPostsHomePage, self).get_context(request)
-        
-        all_posts = BlogPost.objects.all().order_by("-date")
-
-        context['all_posts'] = paginate_results(request, all_posts)
-
-        return context
+        return get_org_wide_posts(
+            self,
+            request,
+            AllBlogPostsHomePage,
+            BlogPost
+        )
 
     class Meta:
         verbose_name = "Homepage for all Blog Posts"

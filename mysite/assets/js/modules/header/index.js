@@ -19,9 +19,9 @@ function addHeaderInteractivity() {
 	var $search = $('.header__search')
 	var $searchIcon = $('.header__search__icon')
 
-	setExpandedState()
-	addSearchClickListener()
-	sizeReadProgressBarOnScroll()
+	setExpandedState();
+	addSearchClickListener();
+	sizeReadProgressBarOnScroll();
 
 	function setExpandedState() {
 		var isExpanded = window.uiState ? window.uiState.isHeaderExpanded : false

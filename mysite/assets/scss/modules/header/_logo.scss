@@ -30,11 +30,17 @@
       position: absolute;
       top: 50%;
       transform:translateY(-50%);
+      -webkit-transform:translateY(-50%);
+      -ms-transform:translateY(-50%);
     }
     @include expanded-header {
       position: static;
       padding-top: 10px;
+      top: 0px;
+      height: 50px;
       transform: translateY(0);
+      -webkit-transform:translateY(0);
+      -ms-transform:translateY(0);
       width: $expanded-logo-width;
     }
     rect,

@@ -43,7 +43,7 @@ def top_menu(context, parent, calling_page=None):
         'location_programs': location_programs,
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
-        'program_logo': menu_program.mobile_program_logo
+        #'program_logo': menu_program.mobile_program_logo
     }
 
 
