@@ -35,8 +35,7 @@
 	</div>
 
 	<div class="content-grid__controls">
-		<form action="{{ pageurl }}" method="get">
-			<div class="content-grid__controls__filter-group">
+		<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
 				<div class="content-grid__controls__filter">
 					<select name="program_id">
 						<option value="">All Programs</option>
@@ -48,8 +47,9 @@
 			    <div class="content-grid__controls__filter">
 					<input id="content-grid__controls__date-filter" class="date-picker" name="date">
 			    </div>
-			    <button class="button" type="submit" value="Search">Search</button>
-			</div>
+			    <div class="content-grid__controls__buttons">
+			    	<button class="button" type="submit" value="Search">Update Search</button>
+				</div>
 				
 		</form>
 		<div class="content-grid__controls__right">

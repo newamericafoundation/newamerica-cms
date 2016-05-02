@@ -54,7 +54,7 @@
 			@include breakpoint(medium) {
 				float: left;
 				display: inline-block;
-				width: calc(100%/2);
+				width: calc((100% - 150px)/2);
 				max-width: 300px;
 				padding-right: 10px;
 			}
@@ -96,6 +96,14 @@
 
 			@include breakpoint(medium) {
 				margin-bottom: 0px;
+			}
+		}
+
+		&__buttons {
+			margin-top: 10px;
+
+			@include breakpoint(medium) {
+				margin-top: 0px;
 			}
 		}
 	}
