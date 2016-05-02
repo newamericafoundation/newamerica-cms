@@ -7,7 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 from django.utils import timezone
 
-from mysite.helpers import paginate_results, get_posts_and_programs
+from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
 
 
 class Event(Post):
@@ -56,12 +56,12 @@ class AllEventsHomePage(Page):
     subpage_types = ['Event']
 
     def get_context(self, request):
-        context = super(AllEventsHomePage, self).get_context(request)
-
-        all_posts = Event.objects.all().order_by("-date")
-        context['all_posts'] = paginate_results(request, all_posts)
-
-        return context
+        return get_org_wide_posts(
+            self,
+            request,
+            AllEventsHomePage,
+            Event
+        )
 
     class Meta:
         verbose_name = "Homepage for all Events"

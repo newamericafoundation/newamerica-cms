@@ -5,7 +5,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
-from mysite.helpers import paginate_results, get_posts_and_programs
+from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
 
 
 class PressRelease(Post):
@@ -35,12 +35,12 @@ class AllPressReleasesHomePage(Page):
     subpage_types = []
 
     def get_context(self, request):
-        context = super(AllPressReleasesHomePage, self).get_context(request)
-        all_posts = PressRelease.objects.all().order_by("-date")
-
-        context['all_posts'] = paginate_results(request, all_posts)
-
-        return context
+        return get_org_wide_posts(
+            self,
+            request,
+            AllPressReleasesHomePage,
+            PressRelease
+        )
 
     class Meta:
         verbose_name = "Homepage for all Press Releases"
