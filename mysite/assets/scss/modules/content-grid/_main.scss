@@ -1,3 +1,11 @@
+$submit-width: 200px;
+
+@mixin show-side-pagination {
+	@media screen and (min-width: 1200px) {
+		@content;
+	}
+}
+
 .content-grid {
 	&__title, &__controls {
 		margin: $mobile-padding;
@@ -38,7 +46,7 @@
 			width: 100%;
 			padding-right: $mobile-padding;
 			
-			@include breakpoint(medium) {
+			@include show-side-pagination {
 				width: calc(100% - #{$pagination-width});
 				display: inline-block;
 				padding-right: 0px;
@@ -54,7 +62,7 @@
 			@include breakpoint(medium) {
 				float: left;
 				display: inline-block;
-				width: calc((100%)/2);
+				width: calc((100% - #{$submit-width})/2);
 				max-width: 290px;
 				padding-right: 10px;
 			}
@@ -74,7 +82,7 @@
 				}
 			}
 
-			@include breakpoint(medium) {
+			@include show-side-pagination {
 				display:block;
 			}
 		}
@@ -104,10 +112,6 @@
 
 		&__buttons {
 			margin: 10px 0px 25px 0px;
-			width: 207px;
-			float: left;
-
-			/*@media screen and (min-width: )*/
 
 			a {
 				margin-left: 10px;
@@ -115,12 +119,12 @@
 			}
 
 			@include breakpoint(medium) {
-				margin-bottom: 0px;
+				margin: 0px;
 			}
 
-			@media screen and (min-width: 1260px) {
+			/*@media screen and (min-width: 1260px) {
 				margin-top: 0px;
-			}
+			}*/
 		}
 	}
 
