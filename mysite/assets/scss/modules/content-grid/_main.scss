@@ -1,7 +1,7 @@
 $submit-width: 200px;
 
 @mixin show-side-pagination {
-	@media screen and (min-width: 1200px) {
+	@media screen and (min-width: 1290px) {
 		@content;
 	}
 }
@@ -62,7 +62,7 @@ $submit-width: 200px;
 			@include breakpoint(medium) {
 				float: left;
 				display: inline-block;
-				width: calc((100% - #{$submit-width})/2);
+				width: calc((100% - #{$submit-width} - 25px)/2);
 				max-width: 290px;
 				padding-right: 10px;
 			}
@@ -120,6 +120,11 @@ $submit-width: 200px;
 
 			@include breakpoint(medium) {
 				margin: 0px;
+				margin-right: $desktop-padding;
+			}
+
+			@include desktop-header {
+				margin-right: 0px;
 			}
 
 			/*@media screen and (min-width: 1260px) {

@@ -20,6 +20,13 @@ function getQueryParams(qs) {
     return params;
 }
 
+function addContentControlsInteraction() {
+    $(".content-grid__controls__program-filter").on("change", function() {
+        $("#content-grid__controls__submit").prop('disabled', false);
+    });
+}
+
 $( document ).ready(function() {
 	$(prepopulateFormFields);
+    $(addContentControlsInteraction);
 });

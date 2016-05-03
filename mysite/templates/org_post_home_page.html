@@ -17,6 +17,9 @@
 					defaultDate: +0,
 			        minDate: null,
 			        maxDate: null
+			    },
+			    onChange: function() { 
+			    	$("#content-grid__controls__submit").prop('disabled', false);
 			    }
      		})
      	});
@@ -48,7 +51,7 @@
 				<input id="content-grid__controls__date-filter" class="date-picker" name="date">
 		    </div>
 		    <div class="content-grid__controls__buttons">
-		    	<button class="button" type="submit" value="Search" disabled>Update Search</button>
+		    	<button id="content-grid__controls__submit" class="button" type="submit" value="Search" disabled>Update Search</button>
 		    	<a href="{{ self.url }}">Reset</a>
 			</div>
 				
