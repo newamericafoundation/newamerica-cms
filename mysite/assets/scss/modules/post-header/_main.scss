@@ -38,27 +38,31 @@ $std-post-header-padding-without-image: 25px;
 			margin-top: 45px;
 		}
 
-		.with-image & {
-			color:palette-get(na-white);
-			padding: 50px $desktop-padding;
-			position: relative;
-			top: 50%;
-			transform: translateY(-50%);
-			-webkit-transform:translateY(-50%);
-   	 		-ms-transform:translateY(-50%);
+		@media screen {
+			.with-image & {
+				color:palette-get(na-white);
+				padding: 50px $desktop-padding;
+				position: relative;
+				top: 50%;
+				transform: translateY(-50%);
+				-webkit-transform:translateY(-50%);
+	   	 		-ms-transform:translateY(-50%);
 
-			&__button {
-				margin-top: 15px;
+				&__button {
+					margin-top: 15px;
+				}
 			}
 		}
 	}
 
-	&.with-image {
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: 50% 50%;
-		margin-top: 0px;
-		height: 300px;
+	@media screen {
+		&.with-image {
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: 50% 50%;
+			margin-top: 0px;
+			height: 300px;
+		}
 	}
 
 }

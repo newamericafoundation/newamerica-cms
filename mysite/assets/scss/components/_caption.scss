@@ -2,4 +2,8 @@
 	margin-top: 7px;
 	color: palette-get(na-black-30);
 	font-size: 16px;
+
+	@media print {
+		display: none;
+	}
 }
