@@ -49,6 +49,7 @@
 
       & > .header__button {
         margin-right: 10px;
+        margin-top: -5px;
         display: none;
 
         @include show-support {
