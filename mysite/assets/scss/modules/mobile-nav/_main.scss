@@ -1,4 +1,4 @@
-$mobile-nav-side-padding: 10px;
+$mobile-nav-side-padding: 18px;
 $mobile-nav-logo-width: 145px;
 
 .mobile-nav {
@@ -42,7 +42,6 @@ $mobile-nav-logo-width: 145px;
     @include has-sidemenu {
       display:block;
     }
-
   }
 
   &__logo, &__secondary__logo {
@@ -53,8 +52,6 @@ $mobile-nav-logo-width: 145px;
     transform: translateY(-50%);
     -webkit-transform:translateY(-50%);
     -ms-transform:translateY(-50%);
-    
-
   }
 
   &__logo {
@@ -64,8 +61,7 @@ $mobile-nav-logo-width: 145px;
 
   &__secondary__logo {
     min-width: 159px;
-    height: 60px;
-    background-color: white;
+    height: 66px;
 
     img {
       height: 100%;
