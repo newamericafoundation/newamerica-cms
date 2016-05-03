@@ -123,8 +123,19 @@
       font-size: rem-calc(16px);
     }
 
+    .button {
+      padding: .85rem .65rem;
+
+      @include breakpoint(medium) {
+        padding: .85rem 1rem;
+      }
+    }
+
     button {
-      margin-top: -5px;
+      margin-top: 10px;
+      @include breakpoint(medium) {
+        margin-top: -5px;
+      }
     }
   }
 
