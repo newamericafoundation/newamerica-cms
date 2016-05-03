@@ -26,7 +26,7 @@
 
 		@include breakpoint(medium) {
 			margin-bottom: $desktop-padding;
-			height: 50px;
+			height: 100%;
 		}
 
 		.columns, .column {
@@ -54,8 +54,8 @@
 			@include breakpoint(medium) {
 				float: left;
 				display: inline-block;
-				width: calc((100% - 150px)/2);
-				max-width: 300px;
+				width: calc((100%)/2);
+				max-width: 290px;
 				padding-right: 10px;
 			}
 		}
@@ -103,13 +103,22 @@
 		}
 
 		&__buttons {
-			margin-top: 10px;
+			margin: 10px 0px 25px 0px;
+			width: 207px;
+			float: left;
+
+			/*@media screen and (min-width: )*/
 
 			a {
 				margin-left: 10px;
+				color: palette-get(na-black-40);
 			}
 
 			@include breakpoint(medium) {
+				margin-bottom: 0px;
+			}
+
+			@media screen and (min-width: 1260px) {
 				margin-top: 0px;
 			}
 		}
