@@ -9,7 +9,7 @@
     }
   }
 
-  min-height: 250px;
+  min-height: 255px;
   border: $standard-border;
   height: $height;
   width: 100%;
@@ -115,7 +115,6 @@
     }
     h1 {
       font-size: rem-calc(24px);
-      margin-bottom: 6px;
       font-weight: bold;
     }
     p {
@@ -123,8 +122,19 @@
       font-size: rem-calc(16px);
     }
 
+    .button {
+      padding: .85rem .65rem;
+
+      @include breakpoint(medium) {
+        padding: .85rem 1rem;
+      }
+    }
+
     button {
-      margin-top: -5px;
+      margin-top: 10px;
+      @include breakpoint(medium) {
+        margin-top: -5px;
+      }
     }
   }
 
@@ -133,7 +143,18 @@
     font-weight: bold;
     font-size: rem-calc(28);
     line-height: 100%;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
+  }
+
+  &__description {
+    display: none;
+    height: 0px;
+    overflow: hidden;
+
+    @include breakpoint(medium) {
+      display: block;
+      height: 100%;
+    }
   }
 
   input {
