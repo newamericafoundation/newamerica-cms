@@ -9,7 +9,7 @@
     }
   }
 
-  min-height: 250px;
+  min-height: 255px;
   border: $standard-border;
   height: $height;
   width: 100%;
@@ -120,11 +120,6 @@
     p {
       margin-top: 0;
       font-size: rem-calc(16px);
-      display: none;
-
-      @include breakpoint(medium) {
-        display: block;
-      }
     }
 
     .button {
@@ -149,6 +144,17 @@
     font-size: rem-calc(28);
     line-height: 100%;
     padding-bottom: 12px;
+  }
+
+  &__description {
+    display: none;
+    height: 0px;
+    overflow: hidden;
+
+    @include breakpoint(medium) {
+      display: block;
+      height: 100%;
+    }
   }
 
   input {
