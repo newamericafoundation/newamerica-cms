@@ -121,7 +121,7 @@ def generate_dateline(post):
 	return mark_safe(ret_string)
 
 @register.simple_tag()
-def get_event_url(tense):
+def get_event_url(level, tense):
 	if (tense == "past"):
 		start_date = (datetime.datetime.now() - datetime.timedelta(days=365)).strftime("%Y-%m-%d")
 		end_date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -129,8 +129,12 @@ def get_event_url(tense):
 		start_date = datetime.datetime.now().strftime("%Y-%m-%d")
 		end_date = (datetime.datetime.now() + datetime.timedelta(days=365)).strftime("%Y-%m-%d")
 	
+	if (level == "org"):
+		ret_string = '/events/?program_id'
+	else:
+		ret_string = 'events/?subprogram_id'
 
-	ret_string = '/events/?program_id=&date=%7B"start"%3A"'
+	ret_string += '=&date=%7B"start"%3A"'
 	ret_string += start_date
 	ret_string += '"%2C"end"%3A"'
 	ret_string += end_date
