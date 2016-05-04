@@ -40,6 +40,7 @@ def get_org_wide_posts(self, request, page_type, content_model):
 
     all_posts = content_model.objects.filter(**filter_dict)
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
+    context['all_events'] = paginate_results(request, all_posts.order_by("date"))
     context['programs'] = Program.objects.all().order_by('title')
 
     return context

@@ -34,6 +34,9 @@
 					defaultDate: +0,
 			        minDate: null,
 			        maxDate: null
+			    },
+			    onChange: function() { 
+			    	$("#content-grid__controls__submit").prop('disabled', false);
 			    }
      		})
      	});
