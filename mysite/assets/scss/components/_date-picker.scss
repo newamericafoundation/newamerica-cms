@@ -59,9 +59,6 @@
 	
 }
 
-.comiseo-daterangepicker-triggerbutton {
-	border: 2px solid palette-get(na-black-10);
-}
 
 .ui-widget {
 	font-family: Simplon;
@@ -72,6 +69,14 @@
 	min-width: 0px !important;
 	width: 100%;
 	height: $default-input-height;
+}
+
+.ui-button-text {
+	height: $default-input-height;
+	padding: 12px 15px !important;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 
@@ -180,6 +185,10 @@ a.ui-state-default {
 .ui-datepicker-next {
 	background-image: url(shape-urls-get(right-arrow-na-black)) !important;
 	right: 2px !important;
+}
+
+.comiseo-daterangepicker-triggerbutton {
+	border: 2px solid palette-get(na-black-10) !important;
 }
 
 .comiseo-daterangepicker-presets {
