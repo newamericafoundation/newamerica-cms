@@ -1,5 +1,6 @@
 {% load top_menu wagtailcore_tags static %}
 {% load wagtailimages_tags %}
+{% load utilities %}
 
 <div class="mobile-header mobile-menu">
     <ul class="vertical menu" data-accordion-menu>
@@ -163,7 +164,7 @@
                 </li>
 
                 <li class='header__main-nav__item'>
-                    <a class='header__button button' href="/events/">Events</a>
+                    <a class='header__button button' href="{% get_event_url future %}">Events</a>
                 </li>
                 <li class='header__main-nav__simple-link-group-item header__has-link-group'>
                     <a class='header__button header__button--dropdown button'>Publications</a>

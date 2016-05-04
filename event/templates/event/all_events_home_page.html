@@ -28,18 +28,26 @@
 			         text: 'Previous 7 Days',
 			         dateStart: function() { return moment().add('days', -6) },
 			         dateEnd: function() { return moment() }
+			    }, {
+			         text: 'All Future',
+			         dateStart: function() { return moment() },
+			         dateEnd: null
 			    }],
+
 				datepickerOptions: {
 					numberOfMonths : 1,
-					defaultDate: +0,
 			        minDate: null,
 			        maxDate: null
 			    },
 			    onChange: function() { 
 			    	$("#content-grid__controls__submit").prop('disabled', false);
-			    }
+			    },
+			    
      		})
      	});
+		$("#content-grid__controls__date-filter").daterangepicker(
+			"setRange", { start: moment(), end: moment()});
+
     </script>
 {% endblock %}
 

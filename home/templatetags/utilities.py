@@ -4,6 +4,8 @@ from django.conf import settings
 from programs.models import Program
 from django.utils.safestring import mark_safe
 
+import datetime
+
 register = template.Library()
 
 @register.filter()
@@ -118,3 +120,20 @@ def generate_dateline(post):
 
 	return mark_safe(ret_string)
 
+@register.simple_tag()
+def get_event_url(tense):
+	if (tense == "past"):
+		start_date = (datetime.datetime.now() - datetime.timedelta(days=365)).strftime("%Y-%m-%d")
+		end_date = datetime.datetime.now().strftime("%Y-%m-%d")
+	else:
+		start_date = datetime.datetime.now().strftime("%Y-%m-%d")
+		end_date = (datetime.datetime.now() + datetime.timedelta(days=365)).strftime("%Y-%m-%d")
+	
+
+	ret_string = '/events/?program_id=&date=%7B"start"%3A"'
+	ret_string += start_date
+	ret_string += '"%2C"end"%3A"'
+	ret_string += end_date
+	ret_string += '"%7D'
+	
+	return ret_string
