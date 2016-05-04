@@ -10,10 +10,10 @@
 <div class='sidemenu-container'>
 	<div class="sidemenu weekly-sidemenu">
 		<div class="weekly-sidemenu__title-block">
-			<a href="/new-america-weekly/"><h1 class="weekly-sidemenu__title">NEW AMERICA WEEKLY<h1></a>
-			<h3 class="weekly-sidemenu__subtitle">{{ self.get_parent }}</h3>
+			<h1 class="weekly-sidemenu__title"><a href="/weekly/">NEW AMERICA WEEKLY</a><h1>
+			<h3 class="weekly-sidemenu__subtitle"><a href="{{ self.get_parent.url }}">{{ self.get_parent }}</a></h3>
 		</div>
-		<h5 class="weekly-sidemenu__subheading">In this Edition</h5>
+		<h5 class="weekly-sidemenu__subheading">In this Edition:</h5>
 
 		<div class="weekly-sidemenu__sibling-list">
 			{% for sibling in siblings %}
@@ -35,10 +35,10 @@
 			{% endfor %}
 		</div>
 
-		<h5 class="weekly-sidemenu__subheading">Subscribe</h5>
+		<h5 class="weekly-sidemenu__subheading"><a href="/subscribe/">Subscribe</a></h5>
 		<h5 class="weekly-sidemenu__subheading">Change Edition</h5>
 		<select onchange="location = this.value;">
-			<option disabled selected value> -- select an edition -- </option>
+			<option disabled selected value>Select an Edition</option>
 			{% for edition in self.get_parent.get_siblings %}
 				{% if edition != self.get_parent and edition.get_children|length > 0 %}
 					<option value="{{ edition.url }}">{{ edition.title }}</option>
