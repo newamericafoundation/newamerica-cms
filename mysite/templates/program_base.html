@@ -1,10 +1,15 @@
 {# Base page for anything that is part of a program #}
 {% extends "base.html" %}
 
+{% load wagtailimages_tags %}
+
 {% block sidemenu_status %}has_sidemenu{% endblock %}
 
-{% load side_menu %}
+{% load side_menu mobile_nav %}
 
+{% block mobile_nav_secondary %}
+	{% mobile_nav_secondary parent=site_root calling_page=self %}
+{% endblock %}
 
 {% block sidebar %}
 <div class='sidemenu-container'>

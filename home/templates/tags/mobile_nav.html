@@ -1,0 +1,12 @@
+{% load side_menu wagtailcore_tags static %}
+{% load wagtailimages_tags %}
+
+<a><div class="mobile-nav__secondary">
+    {% image mobile_logo min-200x100 as logo %}
+    <div class="mobile-nav__secondary__logo">
+        {% image mobile_logo min-200x100 class="mobile-nav__secondary__logo__image" %}
+    </div>
+    <div class="mobile-nav__toggle">
+        <div class="mobile-nav__toggle__secondary flip-arrow-white rotate"></div>
+    </div>
+</div></a>

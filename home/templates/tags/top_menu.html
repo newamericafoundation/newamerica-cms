@@ -1,28 +1,6 @@
 {% load top_menu wagtailcore_tags static %}
 {% load wagtailimages_tags %}
 
-<div class="mobile-nav">
-        <a><div class="mobile-nav__main">
-            <div class="mobile-nav__logo">
-                <div class='header__logo'>
-                    {% include 'ui_elements/svg/new-america.html' %}
-                </div>
-            </div>
-            <div class="mobile-nav__toggle">
-                <div class="mobile-nav__toggle__main flip-arrow-black rotate"></div>
-            </div>
-        </div></a>
-        <a><div class="mobile-nav__secondary">
-            {% image program_logo min-200x100 as logo %}
-            <div class="mobile-nav__secondary__logo">
-                <img class="mobile-nav__secondary__logo__image" src="{{ logo.url }}">
-            </div>
-            <div class="mobile-nav__toggle">
-                <div class="mobile-nav__toggle__secondary flip-arrow-white rotate"></div>
-            </div>
-        </div></a>
-</div>
-
 <div class="mobile-header mobile-menu">
     <ul class="vertical menu" data-accordion-menu>
         <li class="mobile-menu__link__main"><a href="/">Home Page</a></li>
