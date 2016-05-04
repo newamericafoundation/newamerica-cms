@@ -5,6 +5,13 @@
   margin-top: $desktop-padding;
 }
 
+@mixin footer-main-nav-padding {
+   @media screen and (min-width: 510px) {
+      @content;
+   }
+}
+
+
 .footer {
   $pad: 20px;
   $link-pad: 16px;
@@ -23,7 +30,7 @@
     height: 100%;
     max-width: $max-site-width;
     margin: auto;
-    padding: 0px $desktop-padding;
+    padding: 0px;
   }
 
   .columns {
@@ -36,14 +43,12 @@
   }
   a {
     margin: 0 $link-pad;
-    &:first-of-type {
-      margin-left: 0;
-    }
     
     &:hover {
       opacity: 1;
     }
   }
+  
   &__main-nav,
   &__info,
   &__social-nav {
@@ -53,10 +58,73 @@
     text-align: center;
   }
 
-  &__info {
+  &__info p {
+    margin-bottom: 0px;
+
+    @include breakpoint(medium) {
+      margin-bottom: 1rem;
+    }
   }
+
+  &__main-nav, &__social-nav {
+    display: none;
+
+    @include breakpoint(medium) {
+      display: block;
+    }
+    li {
+      &:last-of-type {
+        a {
+          margin-right: 0;
+        }
+      }
+      &:first-of-type {
+        a {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  &__main-nav {
+    li {
+      &:first-of-type {
+        a {
+          margin-left: 0;
+        }
+      }
+
+      &:nth-of-type(3) {
+        a {
+          margin-right: 0px;
+
+          @include footer-main-nav-padding {
+            margin-right: 16px;
+          }
+        }
+      }
+      &:last-of-type {
+        a {
+          margin: 0px;
+          @include footer-main-nav-padding {
+            margin-left: 16px;
+            margin-right: 0;
+          }
+          @media screen and (min-width: 1024px) and (max-width: 1150px) {
+            display: none;
+          }
+        }
+      }
+      
+    }
+  }
+
+
   @include expand-footer {
     padding: $pad 0px;
+    &__content {
+      padding: 0px $desktop-padding;
+    }
     ul {
       margin: 0;
     }
@@ -75,11 +143,7 @@
     &__social-nav {
       float: right;
 
-      li:last-child {
-        a {
-          margin-right: 0;
-        }
-      }
+
     }
   }
 }

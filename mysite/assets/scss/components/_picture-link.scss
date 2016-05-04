@@ -14,7 +14,7 @@
     height: $size;
     background-size: cover;
     background-position: 50% 50%;
-    margin-top: 4px;
+    margin-top: 3px;
 
     &__text {
       width: 10px;
@@ -25,6 +25,8 @@
       position: relative;
       top: 50%;
       transform: translateY(-50%);
+      -webkit-transform:translateY(-50%);
+      -ms-transform:translateY(-50%);
       margin: auto;
     }
   }

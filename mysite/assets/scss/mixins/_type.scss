@@ -1,5 +1,5 @@
 @mixin program-and-content-type-text {
-  font-size:16px;
+  font-size:14px;
   font-weight:bold;
   color: palette-get(na-black-40);
   line-height: 100%;
@@ -16,18 +16,24 @@
   }
 }
 
-@mixin page-subtitle-text {
-  font-weight: normal;
-  color: palette-get(na-black-40);
-  font-size: 25px;
+@mixin page-subheading-text($type) {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 110%;
+  margin-top: 7px;
   margin-bottom: 0px;
-
   @include breakpoint(medium) {
-    font-size: 30px;
+      font-size: 25px;
   }
 
   a:hover {
     @include set-color(color);
+  }
+
+  @if $type == white {
+    color: white;
+  } @else {
+    color: palette-get(na-black-40);
   }
 }
 

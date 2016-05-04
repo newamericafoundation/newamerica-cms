@@ -102,15 +102,18 @@
 
 			<div class='border-panel'>
 
-				<ul class='border-panel__list has-{{ page.recent_carousel|length }}-children'>
+				<ul class='border-panel__list has-{{ page.feature_carousel|length }}-children'>
 					{% for item in page.feature_carousel %}
 					<li class='border-panel__item'>
-						<div class='border-panel__info'>{{ item.value.get_parent }} - {{ item.value.post.date }}</div>
-						<div class='border-panel__content'>
-							<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 						
-							<p>{{ item.value.post.story_excerpt }}</p>
-							<a href="{{ item.value.url }}"><div class='button black'>Learn More</div></a>
+						<div class='border-panel__content'>
+							<div class='border-panel__text'>
+								<div class='border-panel__info'>{{ item.value.get_parent }} - {{ item.value.post.date }}</div>
+								<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
+							
+								<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
+								<a href="{{ item.value.url }}"><div class='button black'>Learn More</div></a>
+							</div>
 						</div>
 					</li>
 					{% endfor %}
@@ -126,14 +129,16 @@
 			<div class='border-panel'>
 				<ul class='border-panel__list has-1-children'>
 					<li class='border-panel__item'>
-						<div class='border-panel__info'>STAY CONNECTED</div>
 						<div class='border-panel__content'>
-							<div class='border-panel__title'><a href='/subscribe/'>Subscribe</a></div>
-							<p>Get our weekly digital magazine and events lineup in your inbox</p>
-							<form class="subscribe-form" action="subscribe/">
-								<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
-								<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
-							</form>
+							<div class='border-panel__text'>
+								<div class='border-panel__info'>STAY CONNECTED</div>
+								<div class='border-panel__title'><a href='/subscribe/'>Subscribe</a></div>
+								<p>Get our weekly digital magazine and events lineup in your inbox</p>
+								<form class="subscribe-form" action="subscribe/">
+									<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
+									<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
+								</form>
+							</div>
 						</div>
 							
 					</li>

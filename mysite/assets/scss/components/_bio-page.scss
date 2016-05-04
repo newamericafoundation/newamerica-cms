@@ -28,6 +28,8 @@
 		  		padding-top: 0px;
 		  		top: 50%;
 				transform: translateY(-50%);
+				-webkit-transform:translateY(-50%);
+    			-ms-transform:translateY(-50%);
 		  	}
 			&__name {
 				@include page-title-text;
@@ -36,7 +38,7 @@
 			}
 
 			&__position, &__position > a {
-				@include page-subtitle-text;
+				@include page-subheading-text(grey);
 				font-weight: bold;
 				margin: 0px;
 				line-height: 100%;

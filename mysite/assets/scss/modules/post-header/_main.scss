@@ -31,15 +31,7 @@ $std-post-header-padding-without-image: 25px;
 		}
 
 		&__subheading {
-			font-size: 20px;
-			font-weight: 600;
-			color: palette-get(na-black-40);
-			line-height: 110%;
-			margin-top: 7px;
-			margin-bottom: 0px;
-			@include breakpoint(medium) {
-			    font-size: 25px;
-			}
+			@include page-subheading-text(white);
 		}
 
 		&__button {
@@ -52,6 +44,8 @@ $std-post-header-padding-without-image: 25px;
 			position: relative;
 			top: 50%;
 			transform: translateY(-50%);
+			-webkit-transform:translateY(-50%);
+   	 		-ms-transform:translateY(-50%);
 
 			&__button {
 				margin-top: 15px;
@@ -77,6 +71,8 @@ $std-post-header-padding-without-image: 25px;
 			position: relative;
 			top: 50%;
 			transform: translateY(-50%);
+			-webkit-transform:translateY(-50%);
+    		-ms-transform:translateY(-50%);
 		}
 	}
 
@@ -87,6 +83,8 @@ $std-post-header-padding-without-image: 25px;
 			position: relative;
 			top: 50%;
 			transform: translateY(-50%);
+			-webkit-transform:translateY(-50%);
+    		-ms-transform:translateY(-50%);
 		}
 	}
 }

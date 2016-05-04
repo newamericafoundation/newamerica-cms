@@ -52,6 +52,8 @@ $mobile-nav-logo-width: 145px;
     z-index: 1000;
     top: 50%;
     transform: translateY(-50%);
+    -webkit-transform:translateY(-50%);
+    -ms-transform:translateY(-50%);
     left: $mobile-nav-side-padding;
 
   }
@@ -71,6 +73,8 @@ $mobile-nav-logo-width: 145px;
     vertical-align: middle;
     top: 50%;
     transform: translateY(-50%);
+    -webkit-transform:translateY(-50%);
+    -ms-transform:translateY(-50%);
     z-index: 1000;
 
     .flip-arrow-black , .flip-arrow-white {

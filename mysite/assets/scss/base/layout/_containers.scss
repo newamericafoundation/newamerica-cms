@@ -52,9 +52,9 @@
 		@include desktop-header {
 			padding-top: $desktop-padding;
 			display:table-cell;
-			width: -webkit-calc(100% - #{$max-sidemenu-width)};
-			  width:    -moz-calc(100% - #{$max-sidemenu-width)});
-			  width:         calc(100% - #{$max-sidemenu-width});
+			width: -webkit-calc(100% - #{$max-sidemenu-width});
+		  	width:    -moz-calc(100% - #{$max-sidemenu-width});
+		 	width:         calc(100% - #{$max-sidemenu-width});
 			
 		}
 	}
@@ -67,6 +67,7 @@
 	margin-bottom: $local-gutter;
 	margin-top: $local-gutter;
 	display: none;
+	max-width: $max-site-width - $max-sidemenu-width - 2*$desktop-padding;
 
 	@include desktop-header {
 		display: block;
@@ -88,9 +89,10 @@
 .breadcrumb-container {
   height: 100%;
   width: calc(100% - 220px);
+  max-width: $max-site-width - $max-sidemenu-width - 2*$desktop-padding - 220px;
   float: left;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  text-overflow: clip;
   overflow: hidden;
 }
 
@@ -103,6 +105,7 @@
 	height: 100%;
 	& > .columns {
 		padding: $mobile-padding;
+		padding-bottom: 0px;
 		&:first-child {
 			padding-top: 0px;
 		}
@@ -116,10 +119,6 @@
 		& > .columns {
 			padding-left: 0px;
 			padding-right: 0px;
-
-			&:first-child {
-				padding-top: 10px;
-			}
 
 			@include breakpoint(large) {
 				padding: 10px;
@@ -139,10 +138,6 @@
 		& > .columns {
 			padding-left: 0px;
 			padding-right: 0px;
-
-			&:first-child {
-				padding-top: 10px;
-			}
 
 			@include breakpoint(large) {
 				padding: 10px;

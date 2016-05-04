@@ -3,9 +3,12 @@
 	position: relative;
 
 	&__submit {
+		height: 30px;
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
+		-webkit-transform:translateY(-50%);
+    	-ms-transform:translateY(-50%);
 		right: $search-offset;
 	    z-index: 1;
 	    fill: palette-get(na-black-10);
