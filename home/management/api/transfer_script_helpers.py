@@ -4,7 +4,6 @@ import os
 import urllib
 import datetime
 
-from wagtail.wagtailimages.models import Image
 from wagtail.wagtaildocs.models import Document
 
 from django.utils.text import slugify
@@ -16,7 +15,7 @@ from programs.models import Program
 
 from person.models import Person
 
-from home.models import PostAuthorRelationship, HomePage, PostProgramRelationship
+from home.models import PostAuthorRelationship, HomePage, PostProgramRelationship, CustomImage
 
 home_page = HomePage.objects.first()
 
@@ -128,7 +127,7 @@ def download_image(url, image_filename):
                 image_filename
             )
             urllib.urlretrieve(url, image_location)
-            image = Image(
+            image = CustomImage(
                 title=image_filename,
                 file=ImageFile(open(image_location), name=image_filename)
             )
