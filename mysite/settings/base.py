@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'issue',
     'weekly',
     'storages',
+    'overextends',
 
+    'wagtailmodeladmin',
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
@@ -80,6 +82,7 @@ MIDDLEWARE_CLASSES = (
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtailmodeladmin.middleware.ModelAdminMiddleware',
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -98,6 +101,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': ['overextends.templatetags.overextends_tags']
         },
     },
 ]
