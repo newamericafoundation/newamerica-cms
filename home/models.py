@@ -12,12 +12,17 @@ from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel)
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailsearch import index
+from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
+
 from modelcluster.fields import ParentalKey
+
 from programs.models import AbstractProgram, Program, Subprogram
+
 from person.models import Person
+
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -353,6 +358,20 @@ class Post(Page):
     ]
 
     is_creatable = False
+
+    search_fields = Page.search_fields + (
+        index.SearchField('body'),
+        
+        index.RelatedFields('parent_programs', [
+            index.SearchField('name'),
+        ]),
+
+        index.RelatedFields('post_author', [
+            index.SearchField('first_name'),
+            index.SearchField('last_name'),
+            index.SearchField('position_at_new_america'),
+        ]),
+    )
 
     def get_context(self, request):
         context = super(Post, self).get_context(request)
