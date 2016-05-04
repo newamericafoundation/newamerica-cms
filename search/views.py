@@ -17,11 +17,7 @@ def search(request):
     filter_dict = {}
 
     if search_query:
-        if search_program:
-            program = Program.objects.get(id=search_program)
-            search_results = Page.objects.live().search(search_query, program)
-        else:
-            search_results = Page.objects.live().search(search_query)
+        search_results = Page.objects.live().search(search_query)
         query = Query.get(search_query)
 
         # Record hit

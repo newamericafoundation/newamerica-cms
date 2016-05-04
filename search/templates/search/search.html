@@ -44,23 +44,12 @@
         <form action="{{ pageurl }}" method="get">
             <div class="content-grid__controls__filter-group">
                 <div class="content-grid__controls__filter">
-                    <select name="program_id">
-                        <option value="">All Programs</option>
-                        {% for program in programs %}
-                        <option value="{{program.id}}">{{program.title}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="content-grid__controls__filter">
-                    <input id="content-grid__controls__date-filter" class="date-picker" name="date">
-                </div>
-                <div class="content-grid__controls__filter">
                     <input type='text' name='query' placeholder='Search' autocomplete="off"></input>
+                    <button class="search-box__submit" type="submit">
+                        {% include 'ui_elements/svg/magnifying-glass.html' %}
+                    </button>
                 </div>
             </div>
-                <button class="search-box__submit" type="submit">
-                    {% include 'ui_elements/svg/magnifying-glass.html' %}
-                </button>
         </form>
 
         <div class="content-grid__controls__right">
