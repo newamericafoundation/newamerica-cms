@@ -92,7 +92,7 @@ def generate_byline(ptype, authors):
 @register.simple_tag()
 def generate_dateline(post):
 	ret_string = ""
-	date_format = '%B %d, %Y'
+	date_format = '%B %-d, %Y'
 	time_format = '%-I:%M %p'
 	
 	if str(post.content_type) == "event":
