@@ -14,8 +14,6 @@ def search(request):
     programs = Program.objects.all().order_by('title')
 
     # Search
-    filter_dict = {}
-
     if search_query:
         search_results = Page.objects.live().search(search_query)
         query = Query.get(search_query)
@@ -37,5 +35,4 @@ def search(request):
     return render(request, 'search/search.html', {
         'search_query': search_query,
         'search_results': search_results,
-        'programs': programs,
     })

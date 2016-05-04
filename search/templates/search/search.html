@@ -3,25 +3,6 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% block extra_scripts %}
-    <script>
-        $(function() { 
-            $("#content-grid__controls__date-filter").daterangepicker({
-                applyButtonText: 'Confirm',
-                clearButtonText: null,
-                cancelButtonText: null,
-                initialText: 'Select Dates',
-                datepickerOptions: {
-                    numberOfMonths : 1,
-                    defaultDate: +0,
-                    minDate: null,
-                    maxDate: null
-                }
-            })
-        });
-    </script>
-{% endblock %}
-
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}Search{% endblock %}
