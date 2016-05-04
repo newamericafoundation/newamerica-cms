@@ -85,8 +85,8 @@
 			{% endif %}
 			<div class="content-grid__controls__right">
 				<div class="pagination">
-						{% if all_posts.has_previous %}
-							<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}">
+						{% if all_events.has_previous %}
+							<a class="pagination__arrow" href="?page={{ all_events.previous_page_number }}">
 
 								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 									<polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
@@ -97,14 +97,14 @@
 
 						<span>Page</span>
 						<form class="pagination__form" action="?page=value" method="get">
-							<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
+							<input class="pagination__input" type="text" placeholder="{{ all_events.number }}" name="page">
 						</form>
 
 						<span>of</span>
-						<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
+						<a href="?page={{ all_events.paginator.num_pages|get_range|last }}">{{ all_events.paginator.num_pages|get_range|last }}</a>
 			
-						{% if all_posts.has_next %}
-					    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}">
+						{% if all_events.has_next %}
+					    	<a class="pagination__arrow" href="?page={{ all_events.next_page_number }}">
 					    		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 									<polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
 								</svg>
@@ -115,7 +115,7 @@
 		</div>
 
 		<div class="picture-grid with-sidemenu-width">
-			{% for post in all_posts %}
+			{% for post in all_events %}
 				<div class="picture-grid__entry">
 						{% image post.story_image min-650x200 as post_image %}
 						<a href="{{ post.url }}">
@@ -152,8 +152,8 @@
 
 		<div class="picture-grid__footer">
 			<div class="pagination">
-				{% if all_posts.has_previous %}
-					<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}">
+				{% if all_events.has_previous %}
+					<a class="pagination__arrow" href="?page={{ all_events.previous_page_number }}">
 
 						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 							<polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
@@ -164,14 +164,14 @@
 
 				<span>Page</span>
 				<form class="pagination__form" action="?page=value" method="get">
-					<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
+					<input class="pagination__input" type="text" placeholder="{{ all_events.number }}" name="page">
 				</form>
 
 				<span>of</span>
-				<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
+				<a href="?page={{ all_events.paginator.num_pages|get_range|last }}">{{ all_events.paginator.num_pages|get_range|last }}</a>
 
-				{% if all_posts.has_next %}
-			    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}">
+				{% if all_events.has_next %}
+			    	<a class="pagination__arrow" href="?page={{ all_events.next_page_number }}">
 			    		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 							<polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
 						</svg>
