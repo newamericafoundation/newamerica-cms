@@ -1,5 +1,5 @@
 .weekly-edition {
-	width: $desktop-header-foldup;
+	max-width: $max-site-width - $max-sidemenu-width - 2*$desktop-padding;
 	margin: auto;
 	padding: 0px;
 	@include breakpoint(medium) {
