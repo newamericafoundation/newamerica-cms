@@ -28,10 +28,17 @@
 			         text: 'Previous 7 Days',
 			         dateStart: function() { return moment().add('days', -6) },
 			         dateEnd: function() { return moment() }
+			    }, {
+			         text: 'Future',
+			         dateStart: function() { return moment() },
+			         dateEnd: function() { return moment().add('days', 365) }
+			    }, {
+			         text: 'Past Year',
+			         dateStart: function() { return moment().add('days', -365) },
+			         dateEnd: function() { return moment() } 
 			    }],
 				datepickerOptions: {
 					numberOfMonths : 1,
-					defaultDate: +0,
 			        minDate: null,
 			        maxDate: null
 			    },

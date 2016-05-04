@@ -29,9 +29,13 @@
 			         dateStart: function() { return moment().add('days', -6) },
 			         dateEnd: function() { return moment() }
 			    }, {
-			         text: 'All Future',
+			         text: 'Future',
 			         dateStart: function() { return moment() },
-			         dateEnd: null
+			         dateEnd: function() { return moment().add('days', 365) }
+			    }, {
+			         text: 'Past Year',
+			         dateStart: function() { return moment().add('days', -365) },
+			         dateEnd: function() { return moment() } 
 			    }],
 
 				datepickerOptions: {
@@ -45,8 +49,6 @@
 			    
      		})
      	});
-		$("#content-grid__controls__date-filter").daterangepicker(
-			"setRange", { start: moment(), end: moment()});
 
     </script>
 {% endblock %}
