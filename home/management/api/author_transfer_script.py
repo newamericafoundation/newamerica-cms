@@ -124,8 +124,8 @@ def load_authors():
 
 def run():
     # load_authors()
-    load_events()
-    # load_weekly_articles()
+    # load_events()
+    load_weekly_articles()
     # load_books()
     # get_author_id()
     # load_policy_papers()
