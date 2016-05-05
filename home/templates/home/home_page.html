@@ -23,7 +23,10 @@
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
 								{% if page.lead_1.specific.rsvp_link %}
-									<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
+									{% is_future page.lead_1.specific.date as is_date_future %}
+			    					{% if is_date_future %}
+										<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
+									{% endif %}
 								{% endif %}
 								<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line page.lead_1.content_type %}</p>
 								<h1 class='hero-grid__element__text-bar__heading'>{{ page.lead_1.title }}</h1>
@@ -45,7 +48,10 @@
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
 									{% if other_lead_story.specific.rsvp_link %}
-										<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
+										{% is_future other_lead_story.specific.date as is_date_future %}
+				    					{% if is_date_future %}
+											<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
+										{% endif %}
 									{% endif %}
 									<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line other_lead_story.content_type %}</p>
 									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>

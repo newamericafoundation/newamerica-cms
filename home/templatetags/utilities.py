@@ -141,3 +141,13 @@ def get_event_url(level, tense):
 	ret_string += '"%7D'
 	
 	return ret_string
+
+@register.simple_tag()
+def is_future(date):
+	
+	if (date >= datetime.date.today()):
+		return 1
+	else:
+		print(date)
+		print(datetime.date.today())
+		return 0
