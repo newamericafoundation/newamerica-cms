@@ -181,28 +181,26 @@ def load_weekly_articles():
                     # been modified within the specified 
                     # last number of days, it updates the fields 
                 elif new_weekly_article and weekly_article_slug and need_to_update_post(post['modified']):
-                    print("skipping existing article")
-                    pass
-                    # new_weekly_article.search_description = ''
-                    # new_weekly_article.seo_title = ''
-                    # new_weekly_article.depth = 5
-                    # new_weekly_article.show_in_menus = False
-                    # new_weekly_article.slug = weekly_article_slug
-                    # new_weekly_article.title = post['title']
-                    # new_weekly_article.story_excerpt=get_summary(
-                    #     post['summary']
-                    # )
-                    # new_weekly_article.date = get_post_date(
-                    #     post['publish_at']
-                    # )
-                    # new_weekly_article.body = json.dumps([
-                    #     {
-                    #         'type': 'paragraph',
-                    #         'value': post['content']
-                    #     }
-                    # ])
-                    # new_weekly_article.story_image = download_image(
-                    #         post['cover_image_url'], 
-                    #         post['title'] + "_image.jpeg"
-                    #     )
-                    # new_weekly_article.save()
+                    new_weekly_article.search_description = ''
+                    new_weekly_article.seo_title = ''
+                    new_weekly_article.depth = 5
+                    new_weekly_article.show_in_menus = False
+                    new_weekly_article.slug = weekly_article_slug
+                    new_weekly_article.title = post['title']
+                    new_weekly_article.story_excerpt=get_summary(
+                        post['summary']
+                    )
+                    new_weekly_article.date = get_post_date(
+                        post['publish_at']
+                    )
+                    new_weekly_article.body = json.dumps([
+                        {
+                            'type': 'paragraph',
+                            'value': post['content']
+                        }
+                    ])
+                    new_weekly_article.story_image = download_image(
+                            post['cover_image_url'], 
+                            post['title'] + "_image.jpeg"
+                        )
+                    new_weekly_article.save()
