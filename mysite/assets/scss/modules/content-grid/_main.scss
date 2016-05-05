@@ -15,15 +15,18 @@ $submit-width: 200px;
 .content-grid {
 	&__title, &__controls {
 		margin: $mobile-padding;
+		padding-right: $mobile-padding;
 
 		@include desktop-header {
 			margin-left: 0px;
 			margin-right: 0px;
+			padding-right: 0px;
 		}
 
 		@include expanded-header {
 			margin-left: 0px;
 			margin-right: 0px;
+			padding-right: 0px;
 		}
 	}
 
@@ -60,12 +63,10 @@ $submit-width: 200px;
 		}
 
 		&__filter, &__search {
-			padding-right: $mobile-padding;
+			padding-right: 0px;
 			@include breakpoint(medium) {
 				float: left;
 				display: inline-block;
-				
-				
 				padding-right: 10px;
 			}
 		}
