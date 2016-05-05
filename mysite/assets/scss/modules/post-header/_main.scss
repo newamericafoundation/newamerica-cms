@@ -31,7 +31,7 @@ $std-post-header-padding-without-image: 25px;
 		}
 
 		&__subheading {
-			@include page-subheading-text(white);
+			@include page-subheading-text(grey);
 		}
 
 		&__button {
@@ -46,6 +46,10 @@ $std-post-header-padding-without-image: 25px;
 			transform: translateY(-50%);
 			-webkit-transform:translateY(-50%);
    	 		-ms-transform:translateY(-50%);
+
+   	 		&__subheading {
+				@include page-subheading-text(white);
+			}
 
 			&__button {
 				margin-top: 15px;
