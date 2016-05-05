@@ -148,6 +148,4 @@ def is_future(date):
 	if (date >= datetime.date.today()):
 		return 1
 	else:
-		print(date)
-		print(datetime.date.today())
 		return 0
