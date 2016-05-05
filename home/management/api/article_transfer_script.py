@@ -87,7 +87,6 @@ def load_articles():
                     # been modified within the specified 
                     # last number of days, it updates the fields 
                     elif new_article and article_slug and need_to_update_post(post['modified']):
-                        pass
                         new_article.search_description = ''
                         new_article.seo_title = ''
                         new_article.depth = 5
