@@ -7,6 +7,7 @@ from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import PageChooserPanel, MultiFieldPanel
+from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
 
@@ -179,6 +180,23 @@ class Person(Page):
 
     parent_page_types = ['OurPeoplePage']
     subpage_types = []
+
+    search_fields = Page.search_fields + (
+        index.SearchField('first_name'),
+        index.SearchField('last_name'),
+        index.SearchField('position_at_new_america'),
+        index.SearchField('long_bio'),
+        index.SearchField('short_bio'),
+        index.SearchField('role'),
+
+        index.RelatedFields('belongs_to_these_programs', [
+            index.SearchField('name'),
+        ]),
+
+        index.RelatedFields('belongs_to_these_subprograms', [
+            index.SearchField('name'),
+        ]),
+    )
 
     def get_context(self, request):
         context = super(Person, self).get_context(request)
