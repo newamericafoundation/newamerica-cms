@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --config webpack.config.development.js --watch",
+    "postinstall": "webpack --config webpack.config.production.js",
     "build": "webpack --config webpack.config.production.js",
     "get-icon-svgs": "node mysite/assets/utilities/icon_parser/index.js",
     "get-dropdown-svg-b64": "node mysite/assets/utilities/b64.js",
