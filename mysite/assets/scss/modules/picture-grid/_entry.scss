@@ -115,7 +115,10 @@
 	&__text-container {
 		@include breakpoint(medium) {
 			width:100%;
-			height:$entry-text-height;
+			height:100%;
+			&.has-image {
+				height:$entry-text-height;
+			}
 		}
 		text-align: center;
 		overflow:hidden;
