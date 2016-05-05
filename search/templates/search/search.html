@@ -61,7 +61,6 @@
             </div>
         </div>
 
-        <br>
         {% if search_results %}
             <div class="content-grid__entries">
 
@@ -192,7 +191,7 @@
             </div>
 
         {% elif search_query %}
-            No results found
+            <div class="search-results-page__no-results">No results found</div>
         {% endif %}
     </div>
 {% endblock %}

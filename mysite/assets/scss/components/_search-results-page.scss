@@ -1,4 +1,13 @@
 .search-results-page {
 	max-width: $desktop-header-foldup;
 	margin: auto;
+
+	&__no-results {
+		@include page-body-text;
+		padding-left: $desktop-padding;
+
+		@include desktop-header {
+			padding-left: 0px;
+		}
+	}
 }
