@@ -1,1 +1,1 @@
-web: npm run build && gunicorn mysite.wsgi --log-file -
+web: gunicorn mysite.wsgi --log-file -
