@@ -174,6 +174,8 @@ def load_weekly_articles():
                     )
                     weekly_edition.add_child(instance=new_weekly_article)
                     new_weekly_article.save()
+                    print(weekly_edition)
+                    print(new_weekly_article)
                     # If the article does exist and has 
                     # been modified within the specified 
                     # last number of days, it updates the fields 
