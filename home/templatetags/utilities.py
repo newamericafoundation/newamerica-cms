@@ -4,6 +4,8 @@ from django.conf import settings
 from programs.models import Program
 from django.utils.safestring import mark_safe
 
+import datetime
+
 register = template.Library()
 
 @register.filter()
@@ -13,6 +15,7 @@ def get_range(num):
 
 		return list_of_numbers
 
+# generates appropriate list separators for list items (no oxford commas :) )
 @register.simple_tag()
 def list_separator(i):
 	if i >= 2:
@@ -22,6 +25,8 @@ def list_separator(i):
 	else:
 		return ""
 
+
+# handles pluralization for content labels across the site
 @register.simple_tag()
 def pluralize(num_items, label):
 	if num_items > 1:
@@ -29,6 +34,8 @@ def pluralize(num_items, label):
 	else:
 		return label + ": "
 
+
+# maps post type to appropriate person prefix for byline, calls pluralize helper function to pluralize if more than one item
 @register.simple_tag()
 def get_byline_prefix(post_type, items_list):
 	num_items = len(items_list)
@@ -41,6 +48,9 @@ def get_byline_prefix(post_type, items_list):
 	else:
 		return pluralize(num_items, "Author")
 
+
+
+# handles exception for blog posts and weekly articles - which have the "by" prefix in the byline, but "author(s)" in the author block
 @register.simple_tag()
 def get_author_block_prefix(post_type, items_list):
 	num_items = len(items_list)
@@ -50,6 +60,31 @@ def get_author_block_prefix(post_type, items_list):
 	else:
 		return get_byline_prefix(post_type, items_list)
 
+
+# generates byline for all post types - calls byline prefix tag to get apporpriate prefix
+@register.simple_tag()
+def generate_byline(ptype, authors):
+	post_type = str(ptype)
+	num_authors = len(authors)
+	ret_string = ""
+
+	# events and press releases have no authors and therefore no byline
+	if post_type == ("event" or post_type == "press release"):
+		return ret_string
+
+	ret_string += get_byline_prefix(post_type, authors)
+
+	# counter is used to determine appropriate list separator
+	counter = 1
+	for author in authors:
+		ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
+		ret_string += list_separator(num_authors - counter)
+		counter += 1
+
+	return mark_safe(ret_string)
+
+
+# maps inernal content types to external content type display
 @register.simple_tag()
 def generate_content_type_line(ptype):
 	page_type = str(ptype)
@@ -70,25 +105,8 @@ def generate_content_type_line(ptype):
 	else:
 		return page_type
 
-@register.simple_tag()
-def generate_byline(ptype, authors):
-	post_type = str(ptype)
-	num_authors = len(authors)
-	ret_string = ""
 
-	if post_type == ("event" or post_type == "press release"):
-		return ret_string
-
-	ret_string += get_byline_prefix(post_type, authors)
-
-	counter = 1
-	for author in authors:
-		ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
-		ret_string += list_separator(num_authors - counter)
-		counter += 1
-
-	return mark_safe(ret_string)
-
+# generates date line for all post types/ datetime line for events
 @register.simple_tag()
 def generate_dateline(post):
 	ret_string = ""
@@ -118,3 +136,39 @@ def generate_dateline(post):
 
 	return mark_safe(ret_string)
 
+
+# generates event url with query parameters
+# 	level: determines whether it is at the org wide or program wide level
+#	tense: determines whether it will return past or future events
+@register.simple_tag()
+def get_event_url(level, tense):
+	datetime_format = "%Y-%m-%d"
+
+	if (tense == "past"):
+		start_date = (datetime.datetime.now() - datetime.timedelta(days=365)).strftime(datetime_format)
+		end_date = datetime.datetime.now().strftime(datetime_format)
+	else:
+		start_date = datetime.datetime.now().strftime(datetime_format)
+		end_date = (datetime.datetime.now() + datetime.timedelta(days=365)).strftime(datetime_format)
+
+	if (level == "org"):
+		ret_string = '/events/?program_id'
+	else:
+		ret_string = 'events/?subprogram_id'
+
+	# generates string uri encoding of query object
+	ret_string += '=&date=%7B"start"%3A"'
+	ret_string += start_date
+	ret_string += '"%2C"end"%3A"'
+	ret_string += end_date
+	ret_string += '"%7D'
+	
+	return ret_string
+
+# compares input date to current date object to determine if date is past or future
+@register.simple_tag()
+def is_future(date):
+	if (date >= datetime.date.today()):
+		return 1
+	else:
+		return 0
