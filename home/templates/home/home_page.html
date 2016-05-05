@@ -109,13 +109,13 @@
 							
 							<div class='border-panel__content'>
 								<div class='border-panel__text'>
-									<div class='border-panel__info'>Event - {{ item.value.post.date }}</div>
+									<div class='border-panel__info'>{{ item.value.content_type }} - {{ item.value.post.date }}</div>
 								
 									<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 								
 									<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
 								
-									<a href="{{ item.value.url }}"><div class='button black'>More About this Event</div></a>
+									<a href="{{ item.value.url }}"><div class='button black'>Read More</div></a>
 								</div>
 							</div>
 						</li>
