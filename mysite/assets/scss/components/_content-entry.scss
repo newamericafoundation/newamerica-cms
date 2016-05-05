@@ -26,7 +26,7 @@ $content-entry-text-gutter: 10px;
 
 	&__text-container {
 		width: 100%;
-		padding: 20px 20px 0px 20px;
+		padding: 20px $desktop-padding 0px $desktop-padding;
 		min-height: $content-entry-desktop-image-container-height;
 
 		@include breakpoint(medium) {
