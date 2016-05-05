@@ -65,6 +65,7 @@ def load_policy_papers():
                 )
 
                 policy_paper_slug = slugify(post['title'])
+                print(post['id'])
 
                 new_policy_paper = PolicyPaper.objects.filter(slug=policy_paper_slug).first()
 
@@ -106,10 +107,14 @@ def load_policy_papers():
                         ),
                     )
                     parent_program_policy_papers_homepage.add_child(instance=new_policy_paper)
+                    print("adding new paper")
+                    print(post['id'])
                     new_policy_paper.save()
                     get_post_authors(new_policy_paper, post['authors'])
                     connect_programs_to_post(new_policy_paper, post['programs'])
                 elif new_policy_paper and policy_paper_slug and need_to_update_post(post['modified']):
+                    print("updating existing paper")
+                    print(post['id'])
                     new_policy_paper.search_description = ''
                     new_policy_paper.seo_title = ''
                     new_policy_paper.depth = 5

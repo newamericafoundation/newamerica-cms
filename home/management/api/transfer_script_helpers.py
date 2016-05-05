@@ -151,7 +151,7 @@ def download_document(url, document_filename):
         urllib.urlretrieve(url, document_location)
         document = Document(
             title=document_filename,
-            file=File(open(document_location), name=document_filename)
+            file=File(open(document_location), name=document_filename[:90]),
         )
         document.save()
         return document.id
