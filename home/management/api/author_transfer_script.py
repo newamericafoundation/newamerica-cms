@@ -74,6 +74,8 @@ def load_authors():
                 mapped_user['first_name'],
                 mapped_user['last_name'])
             mapped_user_slug = slugify(mapped_user_title)
+            print("id is: ")
+            print(user_api['id'])
             db_user = Person.objects.filter(slug=mapped_user_slug).first()
         
             role_info = get_role_info(user_api['roles'])
@@ -100,6 +102,8 @@ def load_authors():
                     )
                 our_people_page.add_child(instance=db_user)
                 db_user.save()
+                print("New user")
+                print(db_user)
             elif db_user and mapped_user_slug:
                 db_user.search_description = ''
                 db_user.seo_title = ''
@@ -117,19 +121,35 @@ def load_authors():
                 db_user.long_bio = user_api['long_bio']
                 db_user.profile_image = download_image(
                     user_api['image'],
-                    mapped_user_slug + "_image.jpeg"
+                    mapped_user_slug + "_person_image.jpeg"
                 )
+                print("Existing user")
+                print(db_user)
                 db_user.save()
 
 
 def run():
-    # load_authors()
-    # load_articles()
-    # load_events()
-    # load_weekly_articles()
-    # load_books()
-    # get_author_id()
-    # load_policy_papers()
-    # load_podcasts()
-    # load_press_releases()
+    print("Starting authors")
+    load_authors()
+    print("Ending authors")
+    print("Starting events")
+    load_events()
+    print("Ending events")
+    print("Starting weekly")
+    load_weekly_articles()
+    print("Ending weekly")
+    print("Starting books")
+    load_books()
+    print("Ending books")
+    print("Starting pp")
+    load_policy_papers()
+    print("Ending pp")
+    print("Starting podcasts")
+    load_podcasts()
+    print("Ending podcasts")
+    print("Starting press releases")
+    load_press_releases()
+    print("Ending press releases")
+    print("Starting in the news")
     load_in_the_news()
+    print("Finished in the news !!!!!!")

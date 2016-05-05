@@ -64,6 +64,7 @@
 	$container-height: 25px;
 	$local-gutter: calc((#{$program-logo-height} - #{$container-height})/2) ;
 	height: $container-height;
+	margin: auto;
 	margin-bottom: $local-gutter;
 	margin-top: $local-gutter;
 	display: none;
