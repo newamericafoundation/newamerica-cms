@@ -59,6 +59,8 @@ def load_podcasts():
                     parent_program_podcasts_homepage.add_child(
                     	instance=new_podcast
                     )
+                    print("new podcast")
+                    print(post['id'])
                     new_podcast.save()
                     get_post_authors(new_podcast, post['authors'])
                     connect_programs_to_post(new_podcast, post['programs'])
@@ -83,6 +85,8 @@ def load_podcasts():
                             }
                         ])
                     new_podcast.subheading=post['sub_headline']
+                    print("updating podcast")
+                    print(post['id'])
                     new_podcast.save()
                     get_post_authors(new_podcast, post['authors'])
                     connect_programs_to_post(new_podcast, post['programs'])
