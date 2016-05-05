@@ -139,6 +139,7 @@ def load_events():
                         show_in_menus=False,
                         slug=event_slug,
                         title=post['title'],
+                        subheading=post['sub_headline'],
                         date=event_data['date'],
                         end_date=event_data['end_date'],
                         start_time=event_data['start_time'],
@@ -179,6 +180,7 @@ def load_events():
                     new_event.show_in_menus = False
                     new_event.slug = event_slug
                     new_event.title = post['title']
+                    new_event.subheading=post['sub_headline']
                     new_event.body = json.dumps(
                         [{'type':'paragraph', 'value':post['content']}]
                     )
