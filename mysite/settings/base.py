@@ -18,6 +18,8 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+ALLOWED_HOSTS = ['*']
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'issue',
     'weekly',
     'storages',
+    'overextends',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -98,6 +101,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': ['overextends.templatetags.overextends_tags']
         },
     },
 ]

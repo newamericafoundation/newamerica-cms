@@ -15,11 +15,12 @@
 		font-family: "Platform";
 	}
 
-	&__title {
+	&__title, &__title > a {
 		color: palette-get(na-black);
+		line-height: 40px;
 	}
 
-	&__subtitle {
+	&__subtitle, &__subtitle > a {
 		color: palette-get(na-black-40);
 	}
 
@@ -100,5 +101,9 @@
 			}
 		}
 		
+	}
+
+	select {
+		background-color: white;
 	}
 }

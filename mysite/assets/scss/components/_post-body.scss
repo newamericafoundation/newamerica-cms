@@ -66,6 +66,10 @@
     padding-bottom: 2px;
   }
 
+  ol, ul {
+    margin-bottom: 20px;
+  }
+
   ol li { 
     display: list-item; 
     list-style-type: decimal; 
@@ -75,7 +79,7 @@
   ul li {
     display: list-item; 
     list-style-type: disc; 
-    margin-left: 45px; 
+    margin-left: 45px;
   }
 
   h2 {

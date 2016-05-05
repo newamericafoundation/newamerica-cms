@@ -1,27 +1,6 @@
 {% load top_menu wagtailcore_tags static %}
 {% load wagtailimages_tags %}
-
-<div class="mobile-nav">
-        <a><div class="mobile-nav__main">
-            <div class="mobile-nav__logo">
-                <div class='header__logo'>
-                    {% include 'ui_elements/svg/new-america.html' %}
-                </div>
-            </div>
-            <div class="mobile-nav__toggle">
-                <div class="mobile-nav__toggle__main flip-arrow-black rotate"></div>
-            </div>
-        </div></a>
-        <a><div class="mobile-nav__secondary">
-            {% image program_logo min-200x100 as logo %}
-            <div class="mobile-nav__secondary__logo">
-                <img class="mobile-nav__secondary__logo__image" src="{{ logo.url }}">
-            </div>
-            <div class="mobile-nav__toggle">
-                <div class="mobile-nav__toggle__secondary flip-arrow-white rotate"></div>
-            </div>
-        </div></a>
-</div>
+{% load utilities %}
 
 <div class="mobile-header mobile-menu">
     <ul class="vertical menu" data-accordion-menu>
@@ -46,6 +25,7 @@
                 <li class="mobile-menu__link__secondary"><a href="#">Context (Medium)</a></li>
             </ul>
         </li>
+        <li class="mobile-menu__link__main"><a href='{% get_event_url "org" "future" %}'>Events</a></li>
         <li class="mobile-menu__link__main"><a href="#">Publications</a>
             <div class="mobile-menu__toggle flip-arrow-black rotate"></div>
             <ul class="vertical menu">
@@ -54,10 +34,11 @@
                 <li class="mobile-menu__link__secondary"><a href="/books/">Books</a></li>
                 <li class="mobile-menu__link__secondary"><a href="/in-the-news/">In the News</a></li>
                 <li class="mobile-menu__link__secondary"><a href="/podcasts/">Podcasts</a></li>
+                <li class="mobile-menu__link__secondary"><a href="/policy-papers/">Policy Papers</a></li>
                 <li class="mobile-menu__link__secondary"><a href="/press-releases/">Press Releases</a></li>
             </ul>
         </li>
-        <li class="mobile-menu__link__main"><a href="/experts/">Experts</a></li>
+        <li class="mobile-menu__link__main"><a href="/our-people/">Experts</a></li>
         <li class="mobile-menu__link__main"><a href="#">About</a>
             <div class="mobile-menu__toggle flip-arrow-black rotate"></div>
             <ul class="vertical menu">
@@ -185,7 +166,7 @@
                 </li>
 
                 <li class='header__main-nav__item'>
-                    <a class='header__button button' href="/events/">Events</a>
+                    <a class='header__button button' href='{% get_event_url "org" "future" %}'>Events</a>
                 </li>
                 <li class='header__main-nav__simple-link-group-item header__has-link-group'>
                     <a class='header__button header__button--dropdown button'>Publications</a>
@@ -205,7 +186,7 @@
                     </div>
                 </li>
                 <li class='header__main-nav__item'>
-                    <a class='header__button button' href="/experts/">Experts</a>
+                    <a class='header__button button' href="/our-people/">Experts</a>
                 </li>
 
                 <li class="header__main-nav__simple-link-group-item header__has-link-group">

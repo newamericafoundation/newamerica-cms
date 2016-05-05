@@ -3,11 +3,15 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.models import Query
+from programs.models import Program
 
+from home.models import Post
 
 def search(request):
     search_query = request.GET.get('query', None)
     page = request.GET.get('page', 1)
+    search_program = request.GET.get('program_id', None)
+    programs = Program.objects.all().order_by('title')
 
     # Search
     if search_query:
