@@ -1,5 +1,6 @@
 {% load side_menu wagtailcore_tags static %}
 {% load wagtailimages_tags %}
+{% load utilities %}
 
 <div class="mobile-sidemenu mobile-menu">
     <ul class="vertical menu" data-accordion-menu>
@@ -14,7 +15,7 @@
             </ul>
           </li>
         {% endif %}
-        <li class="mobile-menu__link__main"><a href="{{ side_menu.url }}events/">Events</a></li>
+        <li class="mobile-menu__link__main"><a href='{{ side_menu.url }}{% get_event_url "program" "future" %}'>Events</a></li>
         {% if side_menu.work_pages %}
           <li class="mobile-menu__link__main"><a href="#">Publications</a>
               <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
@@ -52,7 +53,8 @@
       {% endfor %}
 
       <li class="menu-text sidemenu__link-group__title">Events</li>
-        <li class="sidemenu__link-group__link"><a href="{{ side_menu.url }}events/">View All Events</a></li>
+        <li class="sidemenu__link-group__link"><a href='{{ side_menu.url }}{% get_event_url "program" "future" %}'>Future Events</a></li>
+        <li class="sidemenu__link-group__link"><a href='{{ side_menu.url }}{% get_event_url "program" "past" %}'>Past Events</a></li>
 
       <li class="menu-text sidemenu__link-group__title">Publications</li>
       {% for work_page in side_menu.work_pages %}

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load utilities %}
+
 {% block sidemenu_status %}has_sidemenu simple{% endblock %}
 
 {% block sidebar %}
@@ -8,8 +10,8 @@
 		<div class="sidemenu__link-group">
 			<ul class="menu vertical sidemenu__link-group__content">
 			  <li class="menu-text sidemenu__link-group__title">Events</li>
-			  <li class="sidemenu__link-group__link"><a href='#'>Future Events</a></li>
-			  <li class="sidemenu__link-group__link"><a href='#'>Past Events</a></li>
+			  <li class="sidemenu__link-group__link"><a href='{% get_event_url "org" "future" %}'>Future Events</a></li>
+			  <li class="sidemenu__link-group__link"><a href='{% get_event_url "org" "past" %}'>Past Events</a></li>
 			</ul>
 		</div>
 	</div>
