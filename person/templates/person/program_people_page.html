@@ -2,6 +2,7 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_class %}template-programpeoplepage{% endblock %}
 
@@ -14,17 +15,6 @@
 	            <h1 class="post-header__text__heading">{{ page.title }}</h1>
 	        </div>
 	    </div>
-	</div>
-
-	<div class="row person-grid__controls">
-		<div class="column person-grid__controls__filter">
-			<select>
-				<option value="all">All Subprograms</option>
-			{% for subprogram in program.get_subprograms %}
-				<option value="{{ subprogram }}">{{ subprogram }}</option>
-			{% endfor %}
-			</select>
-        </div>
 	</div>
 
 	<div class="row person-grid__content">
@@ -46,6 +36,36 @@
 				</div>
 			</div>
 		{% endfor %}
+	</div>
+
+	<div class="content-grid__footer">
+		<div class="pagination">
+			{% if people.has_previous %}
+				<a class="pagination__arrow" href="?page={{ people.previous_page_number }}">
+
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+						<polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
+					</svg>
+
+				</a>
+			{% endif %}
+
+			<span>Page</span>
+			<form class="pagination__form" action="?page=value" method="get">
+				<input class="pagination__input" type="text" placeholder="{{ people.number }}" name="page">
+			</form>
+
+			<span>of</span>
+			<a href="?page={{ people.paginator.num_pages|get_range|last }}">{{ people.paginator.num_pages|get_range|last }}</a>
+
+			{% if people.has_next %}
+		    	<a class="pagination__arrow" href="?page={{ people.next_page_number }}">
+		    		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+						<polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
+					</svg>
+				</a>
+			{% endif %}
+		</div>
 	</div>
 </section>
 

@@ -1,5 +1,5 @@
 .person-grid {
-	&__controls, &__content {
+	&__content {
 		padding-left: $mobile-padding;
 		@include desktop-header {
 			padding-left: 0px;
@@ -12,20 +12,6 @@
 			padding-left: 0px;
 		}
 		font-size: 50px;
-	}
-
-	&__controls {
-		& > .columns, .column {
-			padding-left: 0px;
-		}
-
-		&__filter {
-			width: 220px;
-		}
-
-		&__search {
-			width: 220px;
-		}
 	}
 
 	&__content {
