@@ -1,6 +1,12 @@
 $submit-width: 200px;
 
 @mixin show-side-pagination {
+	.search-results & {
+		@include breakpoint(medium) {
+			@content;
+		}
+	}
+
 	@media screen and (min-width: 1290px) {
 		@content;
 	}
@@ -57,14 +63,27 @@ $submit-width: 200px;
 			}
 		}
 
-		&__filter {
+		&__filter, &__search {
 			padding-right: $mobile-padding;
 			@include breakpoint(medium) {
 				float: left;
 				display: inline-block;
+				
+				
+				padding-right: 10px;
+			}
+		}
+
+		&__filter {
+			@include breakpoint(medium) {
 				width: calc((100% - #{$submit-width} - 25px)/2);
 				max-width: 290px;
-				padding-right: 10px;
+			}
+		}
+
+		&__search {
+			@include breakpoint(medium) {
+				width: 100%;
 			}
 		}
 

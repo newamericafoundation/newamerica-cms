@@ -19,20 +19,15 @@
             </div>
         </div>
     </div>
-
-
-    <div class="content-grid__controls">
-        <form action="{{ pageurl }}" method="get">
-            <div class="content-grid__controls__filter-group">
-                <div class="content-grid__controls__filter">
-                    <input type='text' name='query' placeholder='Search' autocomplete="off"></input>
-                    <button class="search-box__submit" type="submit">
-                        {% include 'ui_elements/svg/magnifying-glass.html' %}
-                    </button>
-                </div>
+    <div class="content-grid__controls search-results">
+        <form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
+            <div class="content-grid__controls__search">
+                <input type='text' name='query' placeholder='Search' autocomplete="off"></input>
+                <button class="search-box__submit" type="submit">
+                    {% include 'ui_elements/svg/magnifying-glass.html' %}
+                </button>
             </div>
         </form>
-
         <div class="content-grid__controls__right">
             <div class="pagination">
                 {% if search_results.has_previous %}
