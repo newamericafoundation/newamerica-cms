@@ -117,17 +117,17 @@ def load_authors():
                 db_user.long_bio = user_api['long_bio']
                 db_user.profile_image = download_image(
                     user_api['image'],
-                    mapped_user_slug + "_image.jpeg"
+                    mapped_user_slug + "_person_image.jpeg"
                 )
                 db_user.save()
 
 
 def run():
-    # load_authors()
-    # load_events()
-    # load_weekly_articles()
-    # load_books()
+    load_authors()
+    load_events()
+    load_weekly_articles()
+    load_books()
     load_policy_papers()
-    # load_podcasts()
-    # load_press_releases()
-    # load_in_the_news()
+    load_podcasts()
+    load_press_releases()
+    load_in_the_news()
