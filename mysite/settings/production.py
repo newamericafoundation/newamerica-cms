@@ -27,7 +27,7 @@ except ImportError:
 
 
 # Elastic Search setup
-es_url = os.getenv('ELASTIC_SEARCH_URL', "http://localhost:9200/")
+es_url = os.getenv('SEARCHBOX_URL', "http://localhost:9200/")
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {

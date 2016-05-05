@@ -32,9 +32,7 @@ def event_to_csv(content):
     yield [
             content.get('id'),
             content.get('title'),
-            content.get('address'),
             content.get('location'),
-            content.get('content'),
     ]
 
 
@@ -49,8 +47,15 @@ def articles_to_csv(content):
             content.get('tags')
     ]
 
+
+def user_to_csv(content):
+    yield [
+            content.get('id'),
+            content.get('full_name'),
+    ]
+
 def program_posts():
-    with open('weekly_content2.csv', 'w') as csvfile:
+    with open('weekly_content_5_4_16.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['id', 'title', 'slug', 'url', 'publish_at', 'modified','authors', 'programs', 'type', 'deleted'])
         idx = 0
@@ -61,12 +66,23 @@ def program_posts():
 
 
 def event_addresses():
-    with open('event_addresses.csv', 'w') as csvfile:
+    with open('event_addresses-5-4-16.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['id', 'title', 'address', 'location', 'content'])
+        writer.writerow(['id', 'title', 'location'])
         idx = 0
         for content in NAClient().get_events():
             writer.writerows(event_to_csv(content))
+            print(idx)
+            idx += 1
+
+
+def get_users():
+    with open('users-5-4-16.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['id', 'full_name'])
+        idx = 0
+        for content in NAClient().get_users():
+            writer.writerows(user_to_csv(content))
             print(idx)
             idx += 1
 
@@ -90,4 +106,4 @@ def articles():
             idx += 1
 
 
-articles()
+get_users()
