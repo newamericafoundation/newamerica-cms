@@ -79,6 +79,7 @@ $submit-width: 200px;
 				padding-right: 10px;
 				@include desktop-header {
 					float: right;
+					padding-right: 0px;
 				}
 			}
 
