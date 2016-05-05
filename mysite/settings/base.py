@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'issue',
     'weekly',
     'storages',
+    'overextends',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -100,6 +101,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': ['overextends.templatetags.overextends_tags']
         },
     },
 ]
