@@ -1,5 +1,6 @@
 {% load top_menu wagtailcore_tags static %}
 {% load wagtailimages_tags %}
+{% load utilities %}
 
 <div class="mobile-header mobile-menu">
     <ul class="vertical menu" data-accordion-menu>
@@ -24,6 +25,7 @@
                 <li class="mobile-menu__link__secondary"><a href="#">Context (Medium)</a></li>
             </ul>
         </li>
+        <li class="mobile-menu__link__main"><a href='{% get_event_url "org" "future" %}'>Events</a></li>
         <li class="mobile-menu__link__main"><a href="#">Publications</a>
             <div class="mobile-menu__toggle flip-arrow-black rotate"></div>
             <ul class="vertical menu">
@@ -164,7 +166,7 @@
                 </li>
 
                 <li class='header__main-nav__item'>
-                    <a class='header__button button' href="/events/">Events</a>
+                    <a class='header__button button' href='{% get_event_url "org" "future" %}'>Events</a>
                 </li>
                 <li class='header__main-nav__simple-link-group-item header__has-link-group'>
                     <a class='header__button header__button--dropdown button'>Publications</a>
