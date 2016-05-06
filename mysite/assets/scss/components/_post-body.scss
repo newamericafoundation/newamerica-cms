@@ -13,8 +13,8 @@
   }
 
   /*dropcap styling*/
-  &.with-dropcap > .block-paragraph {
-    p:first-child {
+  &.with-dropcap > .block-paragraph:first-child {
+    & > p:first-child, & > .rich-text > p:first-child {
       font-weight: bold;
       color: palette-get(na-black);
     }
@@ -106,6 +106,12 @@
     margin-top: 1.25rem; 
     margin-bottom: 1.25rem; 
     text-transform: uppercase; 
+  }
+
+  b, strong {
+    font-weight: bold;
+    color: palette-get(na-black);
+    opacity: 1;
   }
 
   .block-paragraph {
