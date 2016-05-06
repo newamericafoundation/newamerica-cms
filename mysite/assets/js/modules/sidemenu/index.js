@@ -5,7 +5,6 @@ import getJQueryObjects from './../../utilities/get_jquery_objects.js'
 function highlightActiveLink() {
 
 	$('.sidemenu__link-group__link').each(function() {
-		console.log(window.location.href.split("?")[0]);
 		if ($(this).children("a").prop('href') == window.location.href.split("?")[0]) {
 			$(this).children("a").addClass('active');
 			
