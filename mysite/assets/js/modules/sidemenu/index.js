@@ -5,8 +5,8 @@ import getJQueryObjects from './../../utilities/get_jquery_objects.js'
 function highlightActiveLink() {
 
 	$('.sidemenu__link-group__link').each(function() {
-		
-		if ($(this).children("a").prop('href') == window.location.href) {
+		console.log(window.location.href.split("?")[0]);
+		if ($(this).children("a").prop('href') == window.location.href.split("?")[0]) {
 			$(this).children("a").addClass('active');
 			
 			if($(this).hasClass('has-sublinks')) {
@@ -17,7 +17,7 @@ function highlightActiveLink() {
 
 	$('.sidemenu__sub-link-group__sub-link').each(function() {
 
-		if ($(this).children("a").prop('href') == window.location.href) {
+		if ($(this).children("a").prop('href') == window.location.href.split("?")[0]) {
 			$(this).children("a").addClass('active');
 			showSublinks($(this).parent(".sidemenu__sub-link-group"));
 		}
