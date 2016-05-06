@@ -4,7 +4,7 @@ from programs.models import Program, Subprogram
 
 def paginate_results(request, all_posts):
     page = request.GET.get('page')
-    paginator = Paginator(all_posts, 10)
+    paginator = Paginator(all_posts, 12)
     
     try:
         all_posts = paginator.page(page)

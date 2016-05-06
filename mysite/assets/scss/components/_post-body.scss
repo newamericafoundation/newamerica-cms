@@ -13,19 +13,19 @@
   }
 
   /*dropcap styling*/
-  &.with-dropcap > .block-paragraph {
-    p:first-child {
+  &.with-dropcap > .block-paragraph:first-child {
+    & > p:first-child, & > .rich-text > p:first-child {
       font-weight: bold;
       color: palette-get(na-black);
     }
     &:first-letter {
-      font-size: 118px;
+      font-size: 105px;
       color: palette-get(na-black);
       font-weight: bold;
       opacity: 1;
       float: left;
-      padding: 20px 10px 5px 0px;
-      height: 55px;
+      padding: 17px 15px 5px 0px;
+      height: 45px;
       margin-right: 0px;
       line-height: 70px;
       font-style: normal;
@@ -64,6 +64,7 @@
     font-weight: 800;
     border-bottom: $standard-border;
     padding-bottom: 2px;
+    opacity: 1;
   }
 
   ol, ul {
@@ -106,6 +107,12 @@
     margin-top: 1.25rem; 
     margin-bottom: 1.25rem; 
     text-transform: uppercase; 
+  }
+
+  b, strong {
+    font-weight: bold;
+    color: palette-get(na-black);
+    opacity: 1;
   }
 
   .block-paragraph {
@@ -167,15 +174,20 @@
 }
 
 .post-attachment {
-    background-color: palette-get(na-black-10);
-    max-width: $max-body-width/2;
-    padding: 40px $desktop-padding;
+    background-color: white;
+    max-width: 400px;
+    padding: $desktop-padding;
     margin-bottom: $desktop-padding;
+    border: $standard-border;
+    overflow: hidden;
+    position: relative;
+
+    @include standard-shadow;
 
     h3 {
-      font-weight: normal;
+      font-weight: 800;
       color: palette-get(na-black-40);
-      font-size: 17px;
+      font-size: 14px;
       margin-bottom: 5px;
       text-transform: uppercase;
     }
@@ -188,6 +200,13 @@
     &__text {
       padding-left: 80px;
       
+      &__item {
+        padding-bottom: $desktop-padding;
+
+        &:last-of-type {
+          padding-bottom: 0px;
+        }
+      }
     }
 
     &__image {
@@ -197,6 +216,7 @@
         height: 60px;
         background-image: url(shape-urls-get(paperclip));
         background-size: contain;
+        background-repeat: no-repeat;
     }
 }
 
