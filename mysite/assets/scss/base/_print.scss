@@ -1,6 +1,6 @@
 @media print {
 	.caption {
-		display: none;
+		display: none !important;
 	}
 
 	.sidemenu {
@@ -41,10 +41,18 @@
 	}
 
 	.content-grid__controls {
-		display: none;
+		display: none !important;
 	}
 
 	.content-entry__image-container {
+		display: none !important;
+	}
+
+	.picture-grid__entry__text-container {
+		text-align: left !important;
+	}
+
+	.picture-grid__entry__image-container {
 		display: none !important;
 	}
 
