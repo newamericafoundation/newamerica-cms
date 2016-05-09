@@ -2,7 +2,7 @@ from .base import *
 
 import os
 
-DEBUG = True
+DEBUG = False
 
 APPEND_SLASH = True
 
