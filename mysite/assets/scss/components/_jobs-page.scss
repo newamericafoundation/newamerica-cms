@@ -53,12 +53,13 @@
 
 /* Buttons */
 .resumator-hide-details { display:inline !important; }
-.resumator-job-view-details, { padding-top:15px !important; padding-bottom:15px !important;}
+.resumator-job-view-details, { padding-top:15px !important; padding-bottom:15px !important; width: 135px !important;}
 .resumator-job-link, .resumator-job-link input[type="button"], input[type="reset"], input[type="submit"] { padding:15px !important; border-bottom-color:none !important;border-bottom-width:0px !important; border-image-width:0px !important; border-right-color:none !important;border-right-width:0px !important;border-left-width:0px !important; border-top-width:0px !important; background-color:#2dbbb3 !important; color:white !important; font-family:"simplon" !important; font-weight:800 !important;}
 .resumator-buttons {     height: 55px !important; }
 
 #resumator-logo { display:none !important;}
 
+.resumator-form-iframe { margin-bottom: $desktop-padding !important;}
 .resumator-job-view-details {
     padding: 17px 0px !important;
 }
