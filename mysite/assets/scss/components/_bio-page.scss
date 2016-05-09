@@ -150,7 +150,7 @@
     hr {
     	width: 100%;
     	@include breakpoint(medium) {
-	  		width: calc(100% - #{$desktop-padding * 2});
+	  		display: none;
 	  	}
     }
   }
