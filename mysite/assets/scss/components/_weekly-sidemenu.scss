@@ -58,6 +58,10 @@
     				-ms-transform:translateY(-50%);
 					margin: auto;
 					text-align: center;
+
+					&.no-image {
+						color: palette-get(na-black);
+					}
 				}
 			    			
 			}
@@ -66,7 +70,14 @@
 				width: calc(100% - #{$picture-size + $local-gutter + 5px});
 			    float:left;
 			    color:palette-get(na-black-40);
-			    
+			    overflow-wrap: break-word;
+				word-wrap: break-word;
+
+				/* for hyphenation in safari, and i.e?, but doesn't work in chrome or firefox
+				-webkit-hyphens: auto;
+				-ms-hyphens: auto;
+				-moz-hyphens: auto;
+				hyphens: auto;*/
 
 			    h1 {
 			      font-weight: bold;
