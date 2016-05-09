@@ -39,14 +39,18 @@ def top_menu(context, parent, calling_page=None):
     }
 
 
-# Retrieves the children of the top menu items for the drop downs
+# Retrieves the children of the top menu items for the drop downs - will only add iniatives where show_in_menus field is set to true
 @register.inclusion_tag('tags/top_menu_children.html', takes_context=True)
 def top_menu_children(context, parent):
-    subprograms = parent.get_subprograms
+    subprograms_list = []
+
+    for subprogram in parent.get_subprograms():
+        if subprogram.show_in_menus:
+            subprograms_list.append(subprogram)
 
     return {
         'parent': parent,
-        'subprograms': subprograms,
+        'subprograms': subprograms_list,
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
     }
