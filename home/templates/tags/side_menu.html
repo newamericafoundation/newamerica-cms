@@ -41,30 +41,41 @@
 </div>
 
 <div class="sidemenu">
-  {% image side_menu.desktop_program_logo min-200x100 as logo %}
+  
   <a href="{{ side_menu.url }}">
-     <img class="sidemenu__logo" src="{{ logo.url }}">
+    {% if side_menu.desktop_program_logo %}
+      {% image side_menu.desktop_program_logo min-200x100 as logo %}
+      <img class="sidemenu__logo" src="{{ logo.url }}">
+    {% else %}
+      <h1 class="sidemenu__logo-fallback">{{ side_menu.title }}</h1>
+    {% endif %}
   </a>
   <div class="sidemenu__link-group">
     <ul class="menu vertical sidemenu__link-group__content">
-      <li class="menu-text sidemenu__link-group__title">Initiatives & Projects</li>
-      {% for initiative in side_menu.initiative_pages %}
-        <li class="sidemenu__link-group__link">{{ initiative }}</li>
-      {% endfor %}
+      {% if side_menu.initiative_pages %}
+        <li class="menu-text sidemenu__link-group__title">Initiatives & Projects</li>
+        {% for initiative in side_menu.initiative_pages %}
+          <li class="sidemenu__link-group__link">{{ initiative }}</li>
+        {% endfor %}
+      {% endif %}
 
       <li class="menu-text sidemenu__link-group__title">Events</li>
         <li class="sidemenu__link-group__link"><a href='{{ side_menu.url }}{% get_event_url "program" "future" %}'>Future Events</a></li>
         <li class="sidemenu__link-group__link"><a href='{{ side_menu.url }}{% get_event_url "program" "past" %}'>Past Events</a></li>
 
-      <li class="menu-text sidemenu__link-group__title">Publications</li>
-      {% for work_page in side_menu.work_pages %}
-        <li class="sidemenu__link-group__link">{{ work_page }}</li>
-      {% endfor %}
+      {% if side_menu.work_pages %}
+        <li class="menu-text sidemenu__link-group__title">Publications</li>
+        {% for work_page in side_menu.work_pages %}
+          <li class="sidemenu__link-group__link">{{ work_page }}</li>
+        {% endfor %}
+      {% endif %}
 
-      <li class="menu-text sidemenu__link-group__title">About</li>
-      {% for about_page in side_menu.about_pages %}
-        <li class="sidemenu__link-group__link">{{ about_page }}</li>
-      {% endfor %}
+      {% if side_menu.about_pages %}
+        <li class="menu-text sidemenu__link-group__title">About</li>
+        {% for about_page in side_menu.about_pages %}
+          <li class="sidemenu__link-group__link">{{ about_page }}</li>
+        {% endfor %}
+      {% endif %}
     </ul>
   </div>
 </div>
