@@ -47,15 +47,16 @@
 		padding: 0px $desktop-padding;
 	}
 
-
-	&.has-sidemenu {
-		@include desktop-header {
-			padding-top: $desktop-padding;
-			display:table-cell;
-			width: -webkit-calc(100% - #{$max-sidemenu-width});
-		  	width:    -moz-calc(100% - #{$max-sidemenu-width});
-		 	width:         calc(100% - #{$max-sidemenu-width});
-			
+	@media screen {
+		&.has-sidemenu {
+			@include desktop-header {
+				padding-top: $desktop-padding;
+				display:table-cell;
+				width: -webkit-calc(100% - #{$max-sidemenu-width});
+			  	width:    -moz-calc(100% - #{$max-sidemenu-width});
+			 	width:         calc(100% - #{$max-sidemenu-width});
+				
+			}
 		}
 	}
 }
