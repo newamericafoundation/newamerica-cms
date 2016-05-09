@@ -24,6 +24,10 @@
 							<div class='weekly-sidemenu__sibling-list__entry__picture' style='background-image: url({{ sibling_image.url }})'>
 								<div class='weekly-sidemenu__sibling-list__entry__picture__label'>{{ forloop.counter }}</div>
 							</div>
+						{% else %}
+							<div class='weekly-sidemenu__sibling-list__entry__picture'>
+								<div class='weekly-sidemenu__sibling-list__entry__picture__label no-image'>{{ forloop.counter }}</div>
+							</div>
 						{% endif %}
 					
 						<div class='weekly-sidemenu__sibling-list__entry__text'>
