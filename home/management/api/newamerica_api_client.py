@@ -61,7 +61,7 @@ class NAClient:
 		for program in self.client.get(self.api_url + 'programs').json():
 			excluded_programs = ["12", "8", "17"]
 			
-			program_id = program['id']
+			program_id = str(program['id'])
 			
 			if program_id not in excluded_programs:
 				self.activate_program(program_id)

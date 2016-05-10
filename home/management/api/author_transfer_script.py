@@ -9,7 +9,7 @@ from .newamerica_api_client import NAClient
 
 from transfer_script_helpers import download_image, load_users_mapping
 
-from .article_transfer_script import load_articles, load_weekly_articles
+from .article_transfer_script import load_articles, load_weekly_articles, load_blogs
 
 from .policy_paper_transfer_script import load_policy_papers
 
@@ -129,27 +129,28 @@ def load_authors():
 
 
 def run():
-    print("Starting authors")
-    load_authors()
-    print("Ending authors")
-    print("Starting events")
-    load_events()
-    print("Ending events")
-    print("Starting weekly")
-    load_weekly_articles()
-    print("Ending weekly")
-    print("Starting books")
-    load_books()
-    print("Ending books")
-    print("Starting pp")
-    load_policy_papers()
-    print("Ending pp")
-    print("Starting podcasts")
-    load_podcasts()
-    print("Ending podcasts")
-    print("Starting press releases")
-    load_press_releases()
-    print("Ending press releases")
-    print("Starting in the news")
-    load_in_the_news()
-    print("Finished in the news !!!!!!")
+    # print("Starting authors")
+    # load_authors()
+    # print("Ending authors")
+    # print("Starting events")
+    # load_events()
+    # print("Ending events")
+    # print("Starting weekly")
+    # load_weekly_articles()
+    # print("Ending weekly")
+    # print("Starting books")
+    # load_books()
+    # print("Ending books")
+    # print("Starting pp")
+    # load_policy_papers()
+    # print("Ending pp")
+    # print("Starting podcasts")
+    # load_podcasts()
+    # print("Ending podcasts")
+    # print("Starting press releases")
+    # load_press_releases()
+    # print("Ending press releases")
+    # print("Starting in the news")
+    # load_in_the_news()
+    # print("Finished in the news !!!!!!")
+    load_blogs()
