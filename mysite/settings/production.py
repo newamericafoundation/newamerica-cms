@@ -1,7 +1,6 @@
 from .base import *
 
 import os
-
 DEBUG = True
 
 APPEND_SLASH = True
@@ -37,3 +36,13 @@ WAGTAILSEARCH_BACKENDS = {
         'TIMEOUT': 500,
     }
 }
+
+
+# Email backend configuration 
+EMAIL_BACKEND = 'postmark.django_backend.EmailBackend'
+POSTMARK_API_KEY = os.getenv("POSTMARK_API_KEY")
+POSTMARK_SENDER = os.getenv("POSTMARK_SENDER")
+POSTMARK_TEST_MODE   = False
+POSTMARK_TRACK_OPENS = False
+DEFAULT_FROM_EMAIL = POSTMARK_SENDER
+SERVER_EMAIL = POSTMARK_SENDER
