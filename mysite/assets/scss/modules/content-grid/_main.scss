@@ -145,9 +145,6 @@ $submit-width: 200px;
 				margin-right: 0px;
 			}
 
-			/*@media screen and (min-width: 1260px) {
-				margin-top: 0px;
-			}*/
 		}
 	}
 
@@ -182,4 +179,9 @@ $submit-width: 200px;
 		text-align: center;
 		padding-top: $desktop-padding;
 	}
+
+	&__no-results {
+		color: palette-get(na-black-70);
+	}
+
 }
