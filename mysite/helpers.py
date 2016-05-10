@@ -2,7 +2,7 @@ import json
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from programs.models import Program, Subprogram
 
-def paginate_results(request, all_posts):
+def paginate_results(request, all_posts, filter_dict):
     page = request.GET.get('page')
     paginator = Paginator(all_posts, 12)
     
@@ -26,7 +26,7 @@ def get_org_wide_posts(self, request, page_type, content_model):
     """
     context = super(page_type, self).get_context(request)
 
-    page = request.GET.get('page', 1)
+    # page = request.GET.get('page', 1)
     search_program = request.GET.get('program_id', None)
     date = request.GET.get('date', None)
 
