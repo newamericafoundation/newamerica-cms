@@ -1,13 +1,23 @@
-import './../scss/mysite.scss'
+import './../scss/mysite.scss';
 
-import 'babel-polyfill'
+import 'babel-polyfill';
 
-import './utilities/index.js'
-import './modules/index.js'
+import './utilities/index.js';
+import modules from './modules/index.js';
 
-import 'script!jquery'
-import 'script!foundation-sites/dist/foundation.js'
+import $ from 'jquery';
+import moment from 'moment';
+
+global.$ = $;
+global.jQuery = $;
+global.moment = moment;
 
 $(document).ready(function() {
+	require('../../static/vendor/jquery-ui.min.js');
+	require('../../static/vendor/jquery.comiseo.daterangepicker.min.js');
+	require('foundation-sites');
 	$(document).foundation();
+	modules.forEach((module) => {
+		module();
+	});
 });

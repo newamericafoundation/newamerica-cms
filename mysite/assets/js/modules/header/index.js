@@ -1,14 +1,13 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
-import getJQueryObjects from './../../utilities/get_jquery_objects.js'
+import getJQueryObjects from './../../utilities/get_jquery_objects.js';
 
 import {
   CONTAINER_CLASS_NAME,
-  LINK_GROUP_CLASS_NAME,
-  LINK_GROUP_CONTENT_CLASS_NAME
-} from './constants.js'
+  LINK_GROUP_CLASS_NAME
+} from './constants.js';
 
-function addHeaderInteractivity() {
+export default function addHeaderInteractivity() {
 
 	var { $body, $window, $wrapper, $header } = getJQueryObjects()
 
@@ -43,7 +42,5 @@ function addHeaderInteractivity() {
 			$readProgressBar.css('width', `${ratio * 100}%`)
 		})
 	}
-	
-}
 
-$(addHeaderInteractivity)
+}

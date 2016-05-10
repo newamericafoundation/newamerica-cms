@@ -1,13 +1,13 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
-import getJQueryObjects from './../../utilities/get_jquery_objects.js'
+import getJQueryObjects from './../../utilities/get_jquery_objects.js';
 
-function highlightActiveLink() {
+export default function highlightActiveLink() {
 
 	$('.sidemenu__link-group__link').each(function() {
 		if ($(this).children("a").prop('href') == window.location.href.split("?")[0]) {
 			$(this).children("a").addClass('active');
-			
+
 			if($(this).hasClass('has-sublinks')) {
 				showSublinks($(this).children(".sidemenu__sub-link-group"));
 			}
@@ -27,10 +27,6 @@ function highlightActiveLink() {
 	}
 }
 
-$( document ).ready(function() {
-	$(highlightActiveLink)
-});
-
 // var clicked = false;
 
 // function addSidemenuInteractivity() {
@@ -45,7 +41,7 @@ $( document ).ready(function() {
 
 // $(addSidemenuInteractivity)
 
-// var $window = $( window ); // so you have a "cached" reference 
+// var $window = $( window ); // so you have a "cached" reference
 // var breakpoint = 640;
 
 // $window.resize ( function () {
@@ -57,12 +53,11 @@ $( document ).ready(function() {
 // 				$(".content-container").css("display", "table-cell");
 // 				$("footer").css("display", "block");
 // 				clicked = false;
-			
+
 // 	  	} else {
 // 	  		if (!clicked) {
 // 	  			$(".sidemenu").css("display", "none");
 // 	  		}
-// 	  	} 
-	
-// });
+// 	  	}
 
+// });

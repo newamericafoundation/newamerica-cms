@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-function addSearchBoxInteraction() {
+export default function addSearchBoxInteraction() {
 	$(".search-box__input")
 		.on("focus", function() {
 			var submit = $(this).siblings(".search-box__submit ");
@@ -11,8 +11,6 @@ function addSearchBoxInteraction() {
 			$(submit).children(".search-box__icon ").attr("fill", "#eaeaeb");
 		});
 
-	console.log($('.mobile-nav .search-box'));
-
 	//override to allow mobile menu search bar to be submitted on enter keystroke
 	$('.mobile-header .search-box').keydown(function(e) {
 		var key = e.which;
@@ -22,4 +20,3 @@ function addSearchBoxInteraction() {
 		}
 	});
 }
-$(addSearchBoxInteraction);

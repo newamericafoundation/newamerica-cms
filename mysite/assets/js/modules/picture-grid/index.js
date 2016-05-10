@@ -7,7 +7,7 @@ var mediumBreakpoint = 640;
 
 var mediumMediaQuery = window.matchMedia("(min-width: " + mediumBreakpoint + "px)");
 
-function addPictureGridInteraction() {
+export default function addPictureGridInteraction() {
 	$(".picture-grid__entry__text-container.has-image").on("mouseover", function() {
 		if (mediumMediaQuery.matches) {
 			var overflow = this.scrollHeight - pictureGridTextHeight;
@@ -25,6 +25,3 @@ function addPictureGridInteraction() {
 		}
 	});
 }
-
-$(addPictureGridInteraction);
-

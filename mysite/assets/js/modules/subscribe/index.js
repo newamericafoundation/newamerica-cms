@@ -1,6 +1,6 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
-function populateEmailField() {
+export default function populateEmailField() {
 	var email = getParameterByName('email');
 	$("#fieldEmail").val(email);
 }
@@ -14,7 +14,3 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
-$( document ).ready( function() {
-	$(populateEmailField);
-});

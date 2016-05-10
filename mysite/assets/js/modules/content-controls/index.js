@@ -1,4 +1,4 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
 function prepopulateFormFields() {
 	var queryParams = getQueryParams(document.location.search);
@@ -26,7 +26,7 @@ function addContentControlsInteraction() {
     });
 }
 
-$( document ).ready(function() {
-	$(prepopulateFormFields);
-    $(addContentControlsInteraction);
-});
+export default function() {
+	prepopulateFormFields();
+  addContentControlsInteraction();
+}

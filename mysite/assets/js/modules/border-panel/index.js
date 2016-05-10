@@ -1,14 +1,19 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
-import addBorderPanelInteractivity from './plugins/index.js'
+import addBorderPanelInteractivity from './plugins/index.js';
 
-function addAllBorderPanelsInteractivity() {
+export default function addAllBorderPanelsInteractivity() {
 	$('.border-panel').each((i, el) => {
 		addBorderPanelInteractivity($(el))
 	})
 
 	var maxHeight = findMaxHeight();
 	setBorderPanelHeight(maxHeight);
+
+	$(window).resize(function(){
+		var maxHeight = findMaxHeight();
+		setBorderPanelHeight(maxHeight);
+	});
 }
 
 function findMaxHeight() {
@@ -36,10 +41,3 @@ function setBorderPanelHeight(maxHeight) {
 		$(".border-panel").height(maxHeight + 10);
 	}
 }
-
-$(addAllBorderPanelsInteractivity)
-
-$(window).resize(function(){
-	var maxHeight = findMaxHeight();
-	setBorderPanelHeight(maxHeight);
-});
