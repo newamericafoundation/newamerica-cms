@@ -23,6 +23,12 @@
     margin-left: $desktop-padding;
   }
 
+  &__logo-fallback {
+    padding: $desktop-padding $desktop-padding 0px;
+    font-family: Simplon;
+    font-size: 26px;
+  }
+
   &__link-group {
     padding-top: 10px;
     color: palette-get(na-black);

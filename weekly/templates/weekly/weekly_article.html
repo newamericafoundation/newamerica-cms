@@ -94,8 +94,8 @@
 
 	<div class="post-container">
 
-	    {% if page.authors.all %}	
-		    <h5 class="post-author">{% generate_byline page.content_type page.authors.all %}</h5>
+	    {% if authors %}	
+		    <h5 class="post-author">{% generate_byline page.content_type authors %}</h5>
 		{% endif %}
 
 		<h5 class="post-date">{{ page.date }}</h5>
@@ -115,8 +115,8 @@
 		    {% endfor %}
 		</div>
 	    
-	    {% if page.authors.all %}
-		<h1 class="post-subheading">{% get_byline_prefix page.content_type page.authors.all %}</h1>
+	    {% if authors %}
+		<h1 class="post-subheading">{% get_byline_prefix page.content_type authors %}</h1>
 			{% for author in authors %}
 				{% if author.author.profile_image %}
 					<a href="{{ author.author.url }}">
