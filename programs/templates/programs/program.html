@@ -117,7 +117,7 @@
 							
 							<div class='border-panel__content'>
 								<div class='border-panel__text'>
-									<div class='border-panel__info'>{{ item.value.content_type }} - {{ item.value.post.date }}</div>
+									<div class='border-panel__info'>{{ item.value.content_type }}{% if item.value.post.date %} - {{ item.value.post.date }}{% endif %}</div>
 									<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 								
 									<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
