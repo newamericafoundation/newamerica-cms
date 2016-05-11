@@ -38,9 +38,13 @@
         {% endif %}
     </div>
 
-    <div class="bio-page__contact">
-        <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }} {{ page.last_name }}</a>
-    </div>
+    {% person_display_contact_info page as display_contact_info %}
+        {% if display_contact_info %}
+            <div class="bio-page__contact">
+                <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }} {{ page.last_name }}</a>
+            </div>
+        {% endif %}
+  
 
     {% if featured_work.0.title %}
     <div class="bio-page__work">
