@@ -42,6 +42,22 @@ $mobile-nav-logo-width: 145px;
     @include has-sidemenu {
       display:block;
     }
+
+    &__logo-fallback {
+      color: white;
+      font-weight: bold;
+      font-size: 17px;
+      font-family: Platform;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      padding-left: 15px;
+      display: none;
+
+      &.always-visible {
+        display: block !important;
+      }
+    }
   }
 
   &__logo, &__secondary__logo {

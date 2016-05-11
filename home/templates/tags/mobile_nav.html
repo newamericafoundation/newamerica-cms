@@ -2,10 +2,14 @@
 {% load wagtailimages_tags %}
 
 <a><div class="mobile-nav__secondary">
-    {% image mobile_logo min-200x100 as logo %}
-    <div class="mobile-nav__secondary__logo">
-        {% image mobile_logo min-200x100 class="mobile-nav__secondary__logo__image" %}
-    </div>
+	{% if mobile_logo %}
+	    <div class="mobile-nav__secondary__logo">
+	        {% image mobile_logo min-200x100 class="mobile-nav__secondary__logo__image" %}
+	    </div>
+	    <div class="mobile-nav__secondary__logo-fallback">{{ program_name | upper }}</div>
+    {% else %}
+    	<div class="mobile-nav__secondary__logo-fallback always-visible">{{ program_name | upper }}</div>
+    {% endif %}
     <div class="mobile-nav__toggle">
         <div class="mobile-nav__toggle__secondary flip-arrow-white rotate"></div>
     </div>
