@@ -30,8 +30,13 @@ module.exports = {
 			},
 
 			{
-				test: /(\.css)|(\.scss)$/,
+				test: /\.scss$/,
 				loaders: [ 'style', 'css', 'postcss', 'sass' ]
+			},
+
+			{
+				test: /\.css$/,
+				loaders: [ 'raw' ]
 			},
 
 			{

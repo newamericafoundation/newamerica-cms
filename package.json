@@ -51,6 +51,8 @@
   "devDependencies": {
     "babel-eslint": "^6.0.4",
     "eslint": "^2.9.0",
-    "eslint-plugin-babel": "^3.2.0"
+    "eslint-plugin-babel": "^3.2.0",
+    "file-loader": "^0.8.5",
+    "raw-loader": "^0.5.1"
   }
 }
