@@ -110,6 +110,9 @@
 		padding-bottom: 0px;
 		&:first-child {
 			padding-top: 0px;
+			@include breakpoint(large) {
+				padding-top: 10px;
+			}
 		}
 
 		&:last-child {
