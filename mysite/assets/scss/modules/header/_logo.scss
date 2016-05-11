@@ -3,9 +3,12 @@
   $mobile-logo-width: 120px;
   $desktop-logo-width: 140px;
   $expanded-logo-width: 155px;
-  display: inline-block;
   width: $mobile-logo-width;
-    
+  display: none;
+
+  @media screen and (min-width: $mini-logo-breakpoint) {
+    display: inline-block;
+  } 
   @include desktop-header {
     width: $desktop-logo-width + 20px;
   }
@@ -20,9 +23,6 @@
     margin: 0;
   }
   svg {
-    /*width: $mini-mobile-logo-width;*/
-    
-    /*@include mobile-header {*/
     width: $mobile-logo-width;
     
     @include desktop-header {
@@ -46,6 +46,16 @@
     rect,
     path {
       fill: palette-get(na-black);
+    }
+  }
+
+  &.mini {
+    display: inline-block;
+    @media screen and (min-width: $mini-logo-breakpoint) {
+      display: none;
+    }
+    & > svg {
+      width: 42px !important;
     }
   }
 }
