@@ -84,6 +84,8 @@
                                             <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
                                         {% endfor %}
                                         PERSON</h5>
+                                    {% else %}
+                                        <h5 class="content-entry__text__program">PERSON</h5>
                                     {% endif %}
                                     <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.first_name }} {{ post.specific.last_name }}</a></h5>
 
