@@ -13,8 +13,8 @@ global.jQuery = $;
 global.moment = moment;
 
 $(document).ready(function() {
-	require('../../static/vendor/jquery-ui.min.js');
-	require('../../static/vendor/jquery.comiseo.daterangepicker.min.js');
+	require('../vendor/jquery-ui.min.js');
+	require('../vendor/jquery.comiseo.daterangepicker.min.js');
 	require('foundation-sites');
 	$(document).foundation();
 	modules.forEach((module) => {
