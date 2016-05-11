@@ -168,8 +168,7 @@ class NAClient:
 	def get_posts(self):
 		"""
 		Gets all the content type of Post from the old database API
-		for all programs and creates new objects in the new database 
-		using the Event model
+		for all programs
 		"""
 		for program in self.client.get(self.api_url + 'programs').json():
 			program_id = program['id']
