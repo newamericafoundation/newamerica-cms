@@ -64,16 +64,17 @@
 
 	<div class="event-post-home-page">
 		<div class="content-grid__controls">
-			{% if subprograms %}
 				<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
-					<div class="content-grid__controls__filter">
-						<select class="content-grid__controls__program-filter" name="subprogram_id">
-							<option value="">All Initiatives</option>
-							{% for subprogram in subprograms %}
-							<option value="{{subprogram.id}}">{{subprogram.title}}</option>
-							{% endfor %}
-				        </select>
-				    </div>
+					{% if subprograms %}
+						<div class="content-grid__controls__filter">
+							<select class="content-grid__controls__program-filter" name="subprogram_id">
+								<option value="">All Initiatives</option>
+								{% for subprogram in subprograms %}
+								<option value="{{subprogram.id}}">{{subprogram.title}}</option>
+								{% endfor %}
+					        </select>
+					    </div>
+					{% endif %}
 				    <div class="content-grid__controls__filter">
 						<input id="content-grid__controls__date-filter" class="date-picker" name="date">
 				    </div>
@@ -82,7 +83,7 @@
 				    	<a href="{{ self.url }}">Reset</a>
 					</div>
 				</form>
-			{% endif %}
+			
 			<div class="content-grid__controls__right">
 				<div class="pagination">
 						{% if all_events.has_previous %}
