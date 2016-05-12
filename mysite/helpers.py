@@ -1,8 +1,11 @@
 import json
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import QueryDict
+
 from programs.models import Program, Subprogram
 
-def paginate_results(request, all_posts, filter_dict):
+def paginate_results(request, all_posts):
     page = request.GET.get('page')
     paginator = Paginator(all_posts, 12)
     
@@ -26,7 +29,6 @@ def get_org_wide_posts(self, request, page_type, content_model):
     """
     context = super(page_type, self).get_context(request)
 
-    # page = request.GET.get('page', 1)
     search_program = request.GET.get('program_id', None)
     date = request.GET.get('date', None)
 
@@ -42,7 +44,7 @@ def get_org_wide_posts(self, request, page_type, content_model):
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
     context['all_events'] = paginate_results(request, all_posts.order_by("date", "start_time"))
     context['programs'] = Program.objects.all().order_by('title')
-
+    context['query_url'] = generate_url(request)
     return context
 
 
@@ -84,3 +86,16 @@ def get_posts_and_programs(self, request, page_type, content_model):
     context['program'] = program
     
     return context
+
+
+def generate_url(request):
+    query = QueryDict(mutable=True)
+    program_id = request.GET.get("program_id")
+    if program_id:
+        query['program_id'] = program_id
+
+    date = request.GET.get('date')
+    if date:
+        query['date'] = date
+
+    return query.urlencode()
