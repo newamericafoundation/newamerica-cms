@@ -2,7 +2,6 @@ $std-post-header-padding-with-image: 70px;
 $std-post-header-padding-without-image: 25px;
 
 .post-header {
-	width: 100%;
 	position:static;
 	margin-top: $desktop-padding;
 
@@ -10,6 +9,11 @@ $std-post-header-padding-without-image: 25px;
 		line-height: 100%;
 		max-width: $max-body-width;
 		color: palette-get(na-black);
+		overflow-wrap: break-word;
+		word-wrap: break-word;
+		-ms-word-break: break-all;
+		word-break: break-all;
+		word-break: break-word;
 
 		padding: 0px $mobile-padding;
 
