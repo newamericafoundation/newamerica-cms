@@ -121,6 +121,7 @@
 			}
 		}
 		text-align: center;
+		overflow: hidden;
 		@include handle-text-overflow;
 		padding: $desktop-padding;
 		position: relative;

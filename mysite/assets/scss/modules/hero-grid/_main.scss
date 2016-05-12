@@ -307,7 +307,6 @@
 			padding: 15px 20px;
 			color: palette-get(na-white);
 			pointer-events: none;
-			width: 100%;
 			@include handle-text-overflow;
 
 			&__subheading, &__heading {
