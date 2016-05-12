@@ -41,6 +41,7 @@ $content-entry-text-gutter: 10px;
 	&__text {
 		font-size:16px;
 		color: palette-get(na-black);
+		@include handle-text-overflow;
 
 		a {
 			width: 100%;

@@ -10,6 +10,7 @@ $std-post-header-padding-without-image: 25px;
 		line-height: 100%;
 		max-width: $max-body-width;
 		color: palette-get(na-black);
+		@include handle-text-overflow;
 
 		padding: 0px $mobile-padding;
 
