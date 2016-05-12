@@ -35,8 +35,8 @@ class NAClient:
 
 	def get_users(self):
 		for post_set in self.get_data('users'):
-					for post in post_set['results']:
-						yield post
+			for post in post_set['results']:
+				yield post
 
 
 	def activate_program(self, program_id):
