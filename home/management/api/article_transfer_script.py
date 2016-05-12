@@ -62,6 +62,71 @@ def load_asset_blog_mapping():
     return csv_data
 
 
+def load_general_blogs():
+    """
+    Used the old database API to retrieve articles 
+    and then using cleaned CSV data, turns the
+    appropriate content items into blog posts
+    """
+    general_blog_mapping = load_general_blog_mapping()
+
+    for post, program_id in NAClient().get_general_blogs():
+        if post['status'] == "published":
+            post_id = str(post['id'])
+            print(post_id)
+            
+            mapped_blog_post = general_blog_mapping.get(post_id, None)
+            
+            if mapped_blog_post:
+                print(post['id'])
+                print("found this id above in the csv - adding blog")
+                
+                mapped_programs = mapped_blog_post['program'].split(',')
+                program_id = str(program_id)
+                print('these are the mapped programs')
+                print(mapped_programs)
+
+                if program_id in mapped_programs:
+                    print(program_id)
+                    print("found program id above in the mapped programs")
+
+                    post_parent = get_program(program_id)
+                    parent_blog_homepage = get_content_homepage(
+                        post_parent, 
+                        ProgramBlogPostsPage,
+                        'Our Blog',
+                    )
+                    general_blog_post_slug = post['slug']
+                    general_blog_post = BlogPost.objects.filter(slug=general_blog_post_slug).first()
+                    if not general_blog_post and general_blog_post_slug:
+                        general_blog_post = BlogPost(
+                            search_description='',
+                            seo_title='',
+                            depth=5,
+                            show_in_menus=False,
+                            slug=general_blog_post_slug,
+                            title=post['title'],
+                            date=get_post_date(post['publish_at']),
+                            subheading=post['sub_headline'],
+                            body=json.dumps([
+                                {
+                                    'type': 'paragraph',
+                                    'value': post['content']
+                                }
+                            ]),
+                            story_excerpt=get_summary(post['summary']),
+                            story_image=download_image(
+                                post['cover_image_url'], 
+                                general_blog_post_slug + "_image.jpeg"
+                            ),
+                        )
+                        parent_blog_homepage.add_child(instance=general_blog_post)
+                        general_blog_post.save()
+                        get_post_authors(general_blog_post, post['authors'])
+                        connect_programs_to_post(general_blog_post, post['programs'])
+                        print("----------------------ADDED NEW BLOG POST------")
+                        print(post_id)
+
 def load_asset_blogs():
     """
     Used the old database API to retrieve Asset Building
