@@ -56,12 +56,8 @@ $mobile-nav-toggle-offset: 35px;
       -webkit-transform:translateY(-50%);
       -ms-transform:translateY(-50%);
       padding-left: 15px;
-      display: none;
+      display: block;
       max-width: $mobile-logo-width;
-
-      &.always-visible {
-        display: block !important;
-      }
     }
   }
 
