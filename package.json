@@ -4,12 +4,11 @@
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --config webpack.config.development.js --watch",
-    "postinstall": "webpack --config webpack.config.production.js",
-    "build": "webpack --config webpack.config.production.js",
+    "dev": "NODE_ENV=development webpack --config webpack.config.js --watch",
+    "postinstall": "NODE_ENV=production webpack --config webpack.config.js",
+    "build": "NODE_ENV=production webpack --config webpack.config.production.js",
     "get-icon-svgs": "node mysite/assets/utilities/icon_parser/index.js",
-    "get-dropdown-svg-b64": "node mysite/assets/utilities/b64.js",
-    "testserver": "node mysite/testserver/app.js"
+    "get-dropdown-svg-b64": "node mysite/assets/utilities/b64.js"
   },
   "repository": {
     "type": "git",
@@ -22,10 +21,6 @@
   },
   "homepage": "https://github.com/newamericafoundation/newamerica-cms#readme",
   "dependencies": {
-    "foundation-sites": "^6.1.1",
-    "jquery": "^2.1.4",
-    "modernizr": "^3.3.1",
-    "normalize.css": "^3.0.3",
     "assets-webpack-plugin": "^3.2.0",
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.3.26",
@@ -37,14 +32,27 @@
     "compression-webpack-plugin": "^0.2.0",
     "css-loader": "^0.23.1",
     "express": "^4.13.4",
+    "foundation-sites": "^6.1.1",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
+    "jquery": "^2.1.4",
+    "jquery-ui": "^1.10.5",
+    "modernizr": "^3.3.1",
+    "moment": "^2.13.0",
     "node-sass": "^3.4.2",
+    "normalize.css": "^3.0.3",
     "postcss-cssnext": "^2.4.0",
     "postcss-loader": "^0.8.2",
     "sass-loader": "^3.1.2",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.0.4",
+    "eslint": "^2.9.0",
+    "eslint-plugin-babel": "^3.2.0",
+    "file-loader": "^0.8.5",
+    "raw-loader": "^0.5.1"
   }
 }

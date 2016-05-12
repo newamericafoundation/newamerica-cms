@@ -182,6 +182,16 @@ $submit-width: 200px;
 
 	&__no-results {
 		color: palette-get(na-black-70);
+		font-size: 16px;
+		padding-left: $desktop-padding;
+
+		@include desktop-header {
+			padding-left: 0px;
+		}
+
+		@include expanded-header {
+			padding-left: 0px;
+		}
 	}
 
 }
