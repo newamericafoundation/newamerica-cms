@@ -172,3 +172,11 @@ def is_future(date):
 		return 1
 	else:
 		return 0
+
+@register.simple_tag()
+def person_display_contact_info(page):
+	if (page.email):
+		if (page.role != "External Author/Former Staff"):
+			return 1
+	
+	return 0

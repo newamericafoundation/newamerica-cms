@@ -87,6 +87,11 @@ $content-entry-text-gutter: 10px;
 			font-size:16px;
 			line-height: 150%;
 		}
+
+		&__person-position {
+			font-weight: bold;
+			line-height: 100%;
+		}
 	}
 
 	.post-person {
