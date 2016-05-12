@@ -12,7 +12,6 @@ var mediumMediaQuery = window.matchMedia("(min-width: " + mediumBreakpoint + "px
 export default function addPictureGridInteraction() {
 	var pictureGridTextHeight = 300;
 	var pictureGridEntryHeight = 500;
-	
 
 	$(".picture-grid__entry__text-container.has-image").on("mouseover", function() {
 		if (mediumMediaQuery.matches) {

@@ -13,7 +13,7 @@ Adds mobile menu interaction
 const desktopHeaderBreakpoint = 965;
 const expandedHeaderBreakpoint = 775;
 
-// tracks which breakppoint to isue in resize function - based on header--expanded body class, default set to desktop header breakpoint
+// tracks which breakppoint to use in resize function - based on header--expanded body class, default set to desktop header breakpoint
 let currHeaderBreakpoint = desktopHeaderBreakpoint;
 
 let headerMenuExpanded = false;
