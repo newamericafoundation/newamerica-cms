@@ -14,6 +14,7 @@
 		vertical-align: middle;
 		height: 100%;
 		color: palette-get(na-black-70);
+		@include handle-text-overflow;
 
 		&__author-name {
 			font-weight: bold;
