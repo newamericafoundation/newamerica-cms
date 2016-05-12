@@ -64,25 +64,60 @@
 
 	<div class="event-post-home-page">
 		<div class="content-grid__controls">
-				<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
-					{% if subprograms %}
-						<div class="content-grid__controls__filter">
-							<select class="content-grid__controls__program-filter" name="subprogram_id">
-								<option value="">All Initiatives</option>
-								{% for subprogram in subprograms %}
-								<option value="{{subprogram.id}}">{{subprogram.title}}</option>
-								{% endfor %}
-					        </select>
-					    </div>
-					{% endif %}
-				    <div class="content-grid__controls__filter">
-						<input id="content-grid__controls__date-filter" class="date-picker" name="date">
+			<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
+				{% if subprograms %}
+					<div class="content-grid__controls__filter">
+						<select class="content-grid__controls__program-filter" name="subprogram_id">
+							<option value="">All Initiatives</option>
+							{% for subprogram in subprograms %}
+							<option value="{{subprogram.id}}">{{subprogram.title}}</option>
+							{% endfor %}
+				        </select>
 				    </div>
-				    <div class="content-grid__controls__buttons">
-				    	<button id="content-grid__controls__submit" class="button" type="submit" value="Search" disabled>Update Search</button>
-				    	<a href="{{ self.url }}">Reset</a>
-					</div>
-				</form>
+				{% endif %}
+			    <div class="content-grid__controls__filter">
+					<input id="content-grid__controls__date-filter" class="date-picker" name="date">
+			    </div>
+			    <div class="content-grid__controls__buttons">
+			    	<button id="content-grid__controls__submit" class="button" type="submit" value="Search" disabled>Update Search</button>
+			    	<a href="{{ self.url }}">Reset</a>
+				</div>
+			</form>
+			<div class="content-grid__controls__right">
+				<div class="pagination">
+					{% if all_events.has_previous %}
+						<a class="pagination__arrow" href="?page={{ all_events.previous_page_number }}&{{ query_url }}">
+
+							<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+								<polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
+							</svg>
+
+						</a>
+					{% endif %}
+
+					<span>Page</span>
+					<form class="pagination__form" action="?page=value" method="get">
+						<input class="pagination__input" type="text" placeholder="{{ all_events.number }}" name="page">
+						{% if request.GET.subprogram_id %}
+							<input type="hidden" value="{{request.GET.subprogram_id}}" name="subprogram_id">
+						{% endif %}
+						{% if request.GET.date %}
+							<input type="hidden" value="{{request.GET.date}}" name="date">
+						{% endif %}					
+					</form>
+
+					<span>of</span>
+					<a href="?page={{ all_events.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ all_events.paginator.num_pages|get_range|last }}</a>
+
+					{% if all_events.has_next %}
+				    	<a class="pagination__arrow" href="?page={{ all_events.next_page_number }}&{{ query_url }}">
+				    		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+								<polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
+							</svg>
+						</a>
+					{% endif %}
+				</div>
+			</div>
 		</div>
 
 	{% if all_events %}
