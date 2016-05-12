@@ -69,6 +69,36 @@ class NAClient:
 					for post in post_set['results']:
 						yield post, program_id
 
+	def get_general_blogs(self):
+		"""
+		Gets all the content type of Article from the old database API
+		and creates new general blog post objects in the new database 
+		using CSV data and the BlogPost model
+		"""
+		for program in self.client.get(self.api_url + 'programs').json():
+			included_programs = ['1', '2', '3', '6', '7', '9', '10', '13', '14', '16', '18', '19', '22', '23']
+			
+			program_id = str(program['id'])
+			
+			if program_id in included_programs:
+				self.activate_program(program_id)
+				for post_set in self.get_data('articles'):
+					for post in post_set['results']:
+						yield post, program_id
+
+
+	def get_asset_blog_posts(self):
+		"""
+		Gets all the content type of Article from the old database API
+		for the Asset Building program and creates new objects in the 
+		new database using the Blog Post model
+		"""
+		program_id = '15'
+		self.activate_program(program_id)
+		for post_set in self.get_data('articles'):
+			for all_post in post_set['results']:
+				yield all_post
+
 
 	def get_weekly_articles(self):
 		"""
