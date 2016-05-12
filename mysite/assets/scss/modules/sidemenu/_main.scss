@@ -10,6 +10,7 @@
   background-color: palette-get(na-white);
   border-right: $standard-border;
   width: $max-sidemenu-width;
+  @include handle-text-overflow;
 
   ul > li > a {
     padding: 10px $desktop-padding 10px $sidemenu-link-padding-left;

@@ -121,7 +121,8 @@
 			}
 		}
 		text-align: center;
-		overflow:hidden;
+		overflow: hidden;
+		@include handle-text-overflow;
 		padding: $desktop-padding;
 		position: relative;
 		background-color: white;
