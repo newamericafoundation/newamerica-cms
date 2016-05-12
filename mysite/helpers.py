@@ -84,18 +84,21 @@ def get_posts_and_programs(self, request, page_type, content_model):
     context['all_events'] = paginate_results(request, all_posts.order_by("date", "start_time"))
 
     context['program'] = program
+    context['query_url'] = generate_url(request)
     
     return context
 
 
 def generate_url(request):
     query = QueryDict(mutable=True)
-    program_id = request.GET.get("program_id")
+    program_id = request.GET.get("program_id", None)
+    subprogram_id = request.GET.get('subprogram_id', None)
+    date = request.GET.get('date', None)
     if program_id:
         query['program_id'] = program_id
-
-    date = request.GET.get('date')
     if date:
         query['date'] = date
+    if subprogram_id:
+        query['subprogram_id'] = subprogram_id
 
     return query.urlencode()
