@@ -9,7 +9,7 @@ from .newamerica_api_client import NAClient
 
 from transfer_script_helpers import download_image, load_users_mapping
 
-from .article_transfer_script import load_articles, load_weekly_articles, load_blogs
+from .article_transfer_script import load_articles, load_weekly_articles, load_blogs, load_asset_blogs
 
 from .policy_paper_transfer_script import load_policy_papers
 
@@ -153,4 +153,5 @@ def run():
     # print("Starting in the news")
     # load_in_the_news()
     # print("Finished in the news !!!!!!")
-    load_blogs()
+    # load_blogs()
+    load_asset_blogs()
