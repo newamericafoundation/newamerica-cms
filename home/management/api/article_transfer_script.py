@@ -63,17 +63,22 @@ def load_asset_blog_mapping():
 
 
 def load_asset_blogs():
+    """
+    Used the old database API to retrieve Asset Building
+    articles and then using cleaned CSV data, turns the
+    appropriate content items into blog posts
+    """
     asset_blog_mapping = load_asset_blog_mapping()
-    # print(asset_blog_mapping)
 
     for post in NAClient().get_asset_blog_posts():
         if post['status'] == "published":
-            try:
-                post_id = str(post['id'])
-                mapped_asset_blog_post = asset_blog_mapping[post_id]
-                if mapped_asset_blog_post['initiative'] not '':
-                    print("-------adding asset iNITIATIVE blog------")
-                    print(post['id'])
+            post_id = str(post['id'])
+            print(post_id)
+            mapped_asset_blog_post = asset_blog_mapping.get(post_id, None)
+            if mapped_asset_blog_post:
+                if mapped_asset_blog_post['initiative']:
+                    print("adding asset initiative blog")
+                    print(mapped_asset_blog_post['initiative'])
                     post_parent = get_subprogram('Asset Building', mapped_asset_blog_post['initiative'])
                     parent_blog_homepage = get_content_homepage(
                         post_parent, 
@@ -99,13 +104,14 @@ def load_asset_blogs():
                                 }
                             ]),
                             story_excerpt=get_summary(post['summary']),
-                            # story_image=download_image(
-                            #     post['cover_image_url'], 
-                            #     blog_post_slug + "_image.jpeg"
-                            # ),
+                            story_image=download_image(
+                                post['cover_image_url'], 
+                                asset_blog_post_slug + "_image.jpeg"
+                            ),
                         )
                         parent_blog_homepage.add_child(instance=new_blog_post)
                         new_blog_post.save()
+                        get_post_authors(new_blog_post, post['authors'])
                 else:
                     print("adding asset blog")
                     print(post['id'])
@@ -134,142 +140,14 @@ def load_asset_blogs():
                                 }
                             ]),
                             story_excerpt=get_summary(post['summary']),
-                            # story_image=download_image(
-                            #     post['cover_image_url'], 
-                            #     blog_post_slug + "_image.jpeg"
-                            # ),
+                            story_image=download_image(
+                                post['cover_image_url'], 
+                                asset_blog_post_slug + "_image.jpeg"
+                            ),
                         )
                         parent_blog_homepage.add_child(instance=new_blog_post)
                         new_blog_post.save()
-            except KeyError:
-                print("asset article not in CSV")
-
-
-def load_blogs():
-    blog_mapping = load_general_blog_mapping()
-
-    for post, program_id in NAClient().get_general_blogs():
-        if post['status'] == "published":
-            try:
-                mapped_blog_post = blog_mapping[str(post['id'])]
-                print(post['id'])
-                mapped_blog_parent_programs = mapped_blog_post['program'].split(',')
-                print("program id is: ")
-                print(program_id)
-                print("mapped program id is: ")
-                print(mapped_blog_parent_programs[0])
-                if program_id == mapped_blog_parent_programs[0]:
-                    print("True they match")
-                    post_parent_program = get_program(program_id)
-                    print(post_parent_program)
-                    parent_program_blog_homepage = get_content_homepage(
-                        post_parent_program, 
-                        ProgramBlogPostsPage,
-                        'Our Blog',
-                    )
-                    print(parent_program_blog_homepage)
-                    blog_post_slug = post['slug']
-
-                    new_blog_post = BlogPost.objects.filter(slug=blog_post_slug).first()
-                    if not new_blog_post and blog_post_slug:
-                        new_blog_post = BlogPost(
-                            search_description='',
-                            seo_title='',
-                            depth=5,
-                            show_in_menus=False,
-                            slug=blog_post_slug,
-                            title=post['title'],
-                            date=get_post_date(post['publish_at']),
-                            subheading=post['sub_headline'],
-                            body=json.dumps([
-                                {
-                                    'type': 'paragraph',
-                                    'value': post['content']
-                                }
-                            ]),
-                            story_excerpt=get_summary(post['summary']),
-                            # story_image=download_image(
-                            #     post['cover_image_url'], 
-                            #     blog_post_slug + "_image.jpeg"
-                            # ),
-                        )
-                        parent_program_blog_homepage.add_child(instance=new_blog_post)
-                        new_blog_post.save()
-                        print("--------------SAVED!!!!!!!!---------------")
-                        print(new_blog_post)
-            except KeyError:
-                print("Key Error - post id not in CSV")
-
-
-# def load_blogs():
-#     """
-#     Transfers program blog posts from the old database API
-#     for all programs into the new database 
-#     creating objects of the BlogPost model
-#     """
-#     blog_mapping = load_blog_mapping()
-
-#     for post, program_id in NAClient().get_articles():
-#         # Only moves over published content
-#         if post['status'] == "published":
-#             try:
-#                 # Gets the mapped blog post from the CSV and its parent programs
-#                 mapped_blog_post = blog_mapping[str(post['id'])]
-#                 print("found it in the csv")
-#                 print(post['id'])
-#                 mapped_blog_parent_programs = mapped_blog_post['program'].split(',')
-#                 if str(program_id) == str(mapped_blog_parent_programs[0]):
-#                     try:
-#                         print("program id is: ")
-#                         print(program_id)
-#                         print("mapped program id is: ")
-#                         print(mapped_blog_parent_programs[0])
-#                         print(post['id'])
-#                         print("we found a match!")
-#                         post_parent_program = get_program(program_id)
-                        
-#                         parent_program_blog_homepage = get_content_homepage(
-#                             post_parent_program, 
-#                             ProgramBlogPostsPage,
-#                             'Our Blog',
-#                         )
-#                         blog_post_slug = slugify(post['title'])
-
-#                         new_blog_post = BlogPost.objects.filter(slug=blog_post_slug).first()
-
-#                         if not new_blog_post and blog_post_slug:
-#                             new_blog_post = BlogPost(
-#                                 search_description='',
-#                                 seo_title='',
-#                                 depth=5,
-#                                 show_in_menus=False,
-#                                 slug=blog_post_slug,
-#                                 title=post['title'],
-#                                 date=get_post_date(post['publish_at']),
-#                                 subheading=post['sub_headline'],
-#                                 body=json.dumps([
-#                                     {
-#                                         'type': 'paragraph',
-#                                         'value': post['content']
-#                                     }
-#                                 ]),
-#                                 story_excerpt=get_summary(post['summary']),
-#                                 story_image=download_image(
-#                                     post['cover_image_url'], 
-#                                     blog_post_slug + "_image.jpeg"
-#                                 ),
-#                             )
-#                             parent_program_blog_homepage.add_child(instance=new_blog_post)
-#                             new_blog_post.save()
-#                             get_post_authors(new_blog_post, post['authors'])
-#                             connect_programs_to_post(new_blog_post, post['programs'])
-#                             print("added blog post")
-#                     except django.db.utils.IntegrityError:
-#                         print("integrity error")
-#                         pass
-#             except KeyError:
-#                 print("didnt find in CSV - skipping")
-#                 pass
+                        get_post_authors(new_blog_post, post['authors'])
 
 def load_weekly_articles():
     """
