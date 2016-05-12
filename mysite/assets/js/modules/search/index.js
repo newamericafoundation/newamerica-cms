@@ -1,6 +1,10 @@
 import $ from 'jquery'
+/*
 
-function addSearchBoxInteraction() {
+Changes fill of search box icon when search box is focused and adds override to ensure mobile search box can be submitted on enter
+
+*/
+export default function addSearchBoxInteraction() {
 	$(".search-box__input")
 		.on("focus", function() {
 			var submit = $(this).siblings(".search-box__submit ");
@@ -11,9 +15,7 @@ function addSearchBoxInteraction() {
 			$(submit).children(".search-box__icon ").attr("fill", "#eaeaeb");
 		});
 
-	console.log($('.mobile-nav .search-box'));
-
-	//override to allow mobile menu search bar to be submitted on enter keystroke
+	// override to allow mobile menu search bar to be submitted on enter keystroke
 	$('.mobile-header .search-box').keydown(function(e) {
 		var key = e.which;
 		// ASCII code for ENTER key is "13"
@@ -22,4 +24,3 @@ function addSearchBoxInteraction() {
 		}
 	});
 }
-$(addSearchBoxInteraction);
