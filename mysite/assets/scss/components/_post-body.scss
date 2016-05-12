@@ -14,10 +14,6 @@
 
   /*dropcap styling*/
   &.with-dropcap > .block-paragraph:first-child {
-    & > p:first-child, & > .rich-text > p:first-child {
-      font-weight: bold;
-      color: palette-get(na-black);
-    }
     &:first-letter {
       font-size: 105px;
       color: palette-get(na-black);
@@ -32,10 +28,6 @@
     }
   }
   &.with-dropcap > .block-paragraph ~ .block-paragraph {
-    p {
-      font-weight: normal;
-      color: palette-get(na-black-70);
-    }
     &:first-letter {
       color: palette-get(na-black-70);
       font-size:1.25rem;
