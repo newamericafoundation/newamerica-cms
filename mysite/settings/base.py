@@ -20,6 +20,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 ALLOWED_HOSTS = ['*']
 
+SECRET_KEY = os.getenv("SECRET_KEY")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/

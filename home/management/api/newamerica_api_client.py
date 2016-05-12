@@ -165,6 +165,18 @@ class NAClient:
 				for post in post_set['results']:
 					yield post, program_id
 
+	def get_posts(self):
+		"""
+		Gets all the content type of Post from the old database API
+		for all programs
+		"""
+		for program in self.client.get(self.api_url + 'programs').json():
+			program_id = program['id']
+			self.activate_program(program_id)
+			for post_set in self.get_data('posts'):
+				for post in post_set['results']:
+					yield post, program_id
+
 
 	def program_content(self, program_id):
 		"""
