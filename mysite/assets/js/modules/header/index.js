@@ -7,40 +7,20 @@ import {
   LINK_GROUP_CLASS_NAME
 } from './constants.js';
 
+/*
+
+Sets expanded body class based on window ui-state
+
+*/
 export default function addHeaderInteractivity() {
 
-	var { $body, $window, $wrapper, $header } = getJQueryObjects()
-
-	var $mainNavItems = $header.find(`.${CONTAINER_CLASS_NAME}`)
-	var $linkGroups = $header.find(`.${LINK_GROUP_CLASS_NAME}`)
-	var $readProgressBar = $header.find(`.header__read-progress-bar`)
-
-	var $search = $('.header__search')
-	var $searchIcon = $('.header__search__icon')
+	var { $body, $window } = getJQueryObjects();
 
 	setExpandedState();
-	addSearchClickListener();
-	sizeReadProgressBarOnScroll();
 
 	function setExpandedState() {
 		var isExpanded = window.uiState ? window.uiState.isHeaderExpanded : false
 		$body.setModifierClass('expanded', isExpanded, 'header')
-	}
-
-	function addSearchClickListener() {
-		$searchIcon.on('click', () => {
-			$search.toggleModifierClass('active', 'header__search')
-		})
-	}
-
-	function sizeReadProgressBarOnScroll() {
-		$window.on('scroll', (e) => {
-			var scrollTop = $body.scrollTop()
-			var totalHeight = $wrapper.height()
-			var windowHeight = $window.height()
-			var ratio = scrollTop / (totalHeight - windowHeight)
-			$readProgressBar.css('width', `${ratio * 100}%`)
-		})
 	}
 
 }

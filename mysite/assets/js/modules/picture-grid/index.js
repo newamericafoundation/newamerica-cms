@@ -1,13 +1,19 @@
 import $ from 'jquery'
+/*
 
-var pictureGridTextHeight = 300;
-var pictureGridEntryHeight = 500;
+Adds hover interaction to shift picture grid text box to full height of grid entry.
+	Only in effect past the medium breakpoint 
+
+*/
 
 var mediumBreakpoint = 640;
-
 var mediumMediaQuery = window.matchMedia("(min-width: " + mediumBreakpoint + "px)");
 
 export default function addPictureGridInteraction() {
+	var pictureGridTextHeight = 300;
+	var pictureGridEntryHeight = 500;
+	
+
 	$(".picture-grid__entry__text-container.has-image").on("mouseover", function() {
 		if (mediumMediaQuery.matches) {
 			var overflow = this.scrollHeight - pictureGridTextHeight;

@@ -1,3 +1,8 @@
+/*
+
+Primary Bundling Entry Point - imports scss files and all js modules and utilities
+
+*/
 import './../scss/mysite.scss';
 
 import 'babel-polyfill';

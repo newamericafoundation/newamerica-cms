@@ -1,5 +1,10 @@
 import $ from 'jquery';
 
+/*
+
+Compares window location url to oti url - if they match adds oti class to content wrapper
+
+*/
 const OTIurl = 'oti';
 
 export default function checkOTI() {

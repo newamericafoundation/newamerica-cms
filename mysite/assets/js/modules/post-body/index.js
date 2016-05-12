@@ -1,6 +1,9 @@
 import $ from 'jquery';
+/*
 
-// removes dropcap if first paragraph character count is less than cutoff
+Removes dropcap if first paragraph character count is less than cutoff character limit
+
+*/
 export default function checkDropcap() {
 	var dropcapCutoff = 300;
 	var $first_paragraph = $(".with-dropcap > .block-paragraph:first-child p:first-child");
