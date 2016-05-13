@@ -39,7 +39,9 @@ def search(request):
         'search_results': search_results,
     })
 
-
+# retrieves final segment of url path from request and initiates search based on this segment as the query 
+#   - handles urls with final slash and without, ignores parameters
+    
 def search404(request):
     search_query = os.path.basename(os.path.normpath(request.path))
     # Search
