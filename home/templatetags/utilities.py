@@ -92,6 +92,8 @@ def generate_content_type_line(ptype):
 	page_mappings = {
 		"program simple page" : "",
 		"org simple page" : "",
+		"Homepage for All People in NAF" : "",
+		"Our People Page for Programs and Subprograms" : "",
 		"Our People Page for Board of Directors, Central Staff, and Leadership Team" : "",
 		"jobs page" : "",
 		"subscribe page" : "",
