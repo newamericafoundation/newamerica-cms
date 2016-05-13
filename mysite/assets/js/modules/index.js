@@ -1,12 +1,19 @@
-import './border-panel/index.js'
-import './header/index.js'
-import './sidemenu/index.js'
-import './weekly-sidemenu/index.js'
-import './post-body/index.js'
-import './mobile-menu-interaction.js'
-import './oti-customization.js'
-import './subscribe.js'
-import './picture-grid/index.js'
-import './search/index.js'
-import './content-controls/index.js'
-import './story-excerpt-ellipsis'
+/*
+
+Exports mapped object of all module functions, called in assets/mysite.js
+
+*/
+export default [
+  'border-panel',
+  'header',
+  'sidemenu',
+  'weekly-sidemenu',
+  'post-body',
+  'mobile-menu',
+  'oti',
+  'subscribe',
+  'picture-grid',
+  'search',
+  'content-controls',
+  'story-excerpt-ellipsis'
+].map((moduleName) => require(`./${moduleName}/index.js`).default);

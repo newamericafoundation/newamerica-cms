@@ -313,15 +313,15 @@ class ProgramPeoplePage(Page):
         if self.depth == 4:
             program_title = self.get_ancestors()[2]
             program = Program.objects.get(title=program_title)
-            all_posts = Person.objects.filter(
-                belongs_to_these_programs=program
-            )
+            all_posts = Person.objects\
+                .filter(belongs_to_these_programs=program)\
+                .order_by('last_name', 'first_name')
         else:
             subprogram_title = self.get_ancestors()[3]
             program = Subprogram.objects.get(title=subprogram_title)
-            all_posts = Person.objects.filter(
-                belongs_to_these_subprograms=program
-            )
+            all_posts = Person.objects\
+                .filter(belongs_to_these_subprograms=program)\
+                .order_by('last_name', 'first_name')
 
         context['people'] = paginate_results(request, all_posts)
 
@@ -361,9 +361,13 @@ class BoardAndLeadershipPeoplePage(Page):
         which_role = self.role_query
 
         if which_role == 'Leadership Team':
-            all_people = Person.objects.filter(leadership=True)
+            all_people = Person.objects\
+                .filter(leadership=True)\
+                .order_by('last_name', 'first_name')
         else:
-            all_people = Person.objects.filter(role=which_role)
+            all_people = Person.objects\
+                .filter(role=which_role)\
+                .order_by('last_name', 'first_name')
 
         context['people'] = paginate_results(request, all_people)
 

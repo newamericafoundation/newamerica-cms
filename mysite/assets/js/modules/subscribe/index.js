@@ -1,10 +1,22 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
-function populateEmailField() {
+/*
+
+Pre-populates subscribe form email field from query parameter in URL string. 
+
+*/
+export default function populateEmailField() {
 	var email = getParameterByName('email');
 	$("#fieldEmail").val(email);
 }
 
+/*
+
+Parses URL, returning value for specified field, returns null if not found
+	parameters: name - name of variable in query string
+				url - url string
+
+*/
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -14,7 +26,3 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
-$( document ).ready( function() {
-	$(populateEmailField);
-});

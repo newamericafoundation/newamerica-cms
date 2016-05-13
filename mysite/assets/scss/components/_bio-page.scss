@@ -24,6 +24,8 @@
 			position:relative;
 	  		padding-top: 15px;
 
+	  		@include handle-text-overflow;
+
 		  	@include breakpoint(medium) {
 		  		padding-top: 0px;
 		  		top: 50%;
@@ -150,7 +152,7 @@
     hr {
     	width: 100%;
     	@include breakpoint(medium) {
-	  		width: calc(100% - #{$desktop-padding * 2});
+	  		display: none;
 	  	}
     }
   }

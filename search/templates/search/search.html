@@ -84,10 +84,16 @@
                                             <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
                                         {% endfor %}
                                         PERSON</h5>
+                                    {% else %}
+                                        <h5 class="content-entry__text__program">PERSON</h5>
                                     {% endif %}
                                     <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.first_name }} {{ post.specific.last_name }}</a></h5>
 
-                                    {{ post.specific.short_bio | richtext }}
+                                    {% if post.specific.short_bio %}
+                                        {{ post.specific.short_bio | richtext }}
+                                    {% elif post.specific.position_at_new_america %}
+                                        <h5 class= "content-entry__text__person-position">{{ post.specific.position_at_new_america }}</h5>
+                                    {% endif %}
                                 </div>
                             </div>
                         {% else %}
@@ -104,7 +110,11 @@
                                     {% endif %}
                                     <h5 class= "content-entry__text__title"><a href="{{ post.specific.url }}">{{ post.specific.first_name }} {{ post.specific.last_name }}</a></h5>
 
-                                    {{ post.specific.short_bio | richtext }}
+                                    {% if post.specific.short_bio %}
+                                        {{ post.specific.short_bio | richtext }}
+                                    {% elif post.specific.position_at_new_america %}
+                                         <h5 class= "content-entry__text__person-position">{{ post.specific.position_at_new_america }}</h5>
+                                    {% endif %}
                                 </div>
                             </div>
                         {% endif %}
