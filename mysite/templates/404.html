@@ -5,28 +5,29 @@
 
 {% block body_class %}template-404{% endblock %}
 
-{% block title %}Search{% endblock %}
+{% block title %}Page Not Found{% endblock %}
 
 {% block content %}
     <div class="search-results-page">
         <div class="post-header-container">
             <div class="post-header">
                 <div class="post-header__text">
-                	<h1>Page not found</h1>
-                	<h2>Sorry, this page could not be found.</h2>
-                    {% if search_query %}
-                        <h1 class="post-header__text__heading">Related Results: "{{ search_query }}"</h1>
-                    {% else %}
-                        <h1 class="post-header__text__heading">Search New America</h1>
-                    {% endif %}
+                	<h1 class="post-header__text__heading">Page not found</h1>
+                	<h2 class="post-header__text__subheading">Sorry, this page could not be found.</h2>
                 </div>
             </div>
         </div>
+        <hr class="search-results-page__page-divider" style="margin: 50px 0px">
+        {% if search_results %}
+            <h1 class="post-header__text__heading">Related Results</h1>
+        {% else %}
+            <h1 class="post-header__text__heading">Search New America</h1>
+        {% endif %}
 
         <div class="content-grid__controls search-results">
             <form class="content-grid__controls__filter-group" action="/search/" method="get">
                 <div class="content-grid__controls__search">
-                    <input type='text' name='query' placeholder='Search' autocomplete="off"></input>
+                    <input type='text' name='query' value='{{ search_query }}' placeholder='Search' autocomplete="off"></input>
                     <button class="search-box__submit" type="submit">
                         {% include 'ui_elements/svg/magnifying-glass.html' %}
                     </button>
@@ -37,7 +38,7 @@
         {% if search_results %}
             <div class="content-grid__entries">
 
-            {% for post in search_results %}
+            {% for post in search_results|slice:":10" %}
 
                 {% if post.specific.content_type|stringformat:"s" == "person"  %}
                     <div class="content-entry">
@@ -131,10 +132,7 @@
             {% endfor %}
 
             </div>
-        </div>
 
-        {% elif search_query %}
-            <div class="search-results-page__no-results">No results found</div>
         {% endif %}
         
     </div>
