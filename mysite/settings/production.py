@@ -33,7 +33,8 @@ WAGTAILSEARCH_BACKENDS = {
         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
         'URLS': [es_url],
         'INDEX': 'elasticsearch',
-        'TIMEOUT': 500,
+        'TIMEOUT': 1500,
+        'AUTO_UPDATE': False,
     }
 }
 
