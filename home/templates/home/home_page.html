@@ -18,7 +18,6 @@
 					<div class='hero-grid__element'>
 					<a href="{{ page.lead_1.url }}">
 						<div class='hero-grid__element__wrapper'>
-						{% image page.lead_1.specific.story_image min-1350x500 as lead1_image %}
 							{% if page.lead_1.specific.story_image %}
 								{% image page.lead_1.specific.story_image min-1350x500 as lead1_image %}
 								<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
