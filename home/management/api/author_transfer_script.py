@@ -23,6 +23,8 @@ from .press_release_transfer_script import load_press_releases
 
 from .in_the_news_transfer_script import load_in_the_news
 
+from .redirect import create_redirects
+
 our_people_page = OurPeoplePage.objects.first()
 
 if sys.version_info[0] < 3:
@@ -153,5 +155,6 @@ def run():
     # print("Starting in the news")
     # load_in_the_news()
     # print("Finished in the news !!!!!!")
-    load_general_blogs()
+    # load_general_blogs()
     # load_asset_blogs()
+    create_redirects()
