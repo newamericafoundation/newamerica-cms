@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'', include(wagtail_urls)),
 ]
 
+handler404 = 'search.views.search404'
 
 if settings.DEBUG:
     from django.conf.urls.static import static
