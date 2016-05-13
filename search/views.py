@@ -41,8 +41,6 @@ def search(request):
 
 
 def search404(request):
-    print(request.path)
-
     search_query = os.path.basename(os.path.normpath(request.path))
     # Search
     if search_query:
@@ -53,8 +51,6 @@ def search404(request):
         query.add_hit()
     else:
         search_results = Page.objects.none()
-
-   
 
     return render(request, '404.html', {
         'search_query': search_query,
