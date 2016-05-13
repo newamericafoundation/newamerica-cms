@@ -14,8 +14,9 @@
 		vertical-align: middle;
 		height: 100%;
 		color: palette-get(na-black-70);
+		@include handle-text-overflow;
 
-		h5 {
+		&__author-name {
 			font-weight: bold;
 			font-size: 16px;
 		}

@@ -1,1 +1,1 @@
-import './jquery_base_plugins.js'
+import './jquery_base_plugins.js';

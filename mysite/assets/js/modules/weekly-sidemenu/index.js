@@ -1,15 +1,15 @@
-import $ from 'jquery'
+import $ from 'jquery';
+/*
 
-import getJQueryObjects from './../../utilities/get_jquery_objects.js'
+Highlights active link in the sidemenu on weekly article pages by comparing the current window location url to all
+	hrefs in the weekly sidemenu sibling list
 
-function weeklyHighlightActiveLink() {
+*/
+export default function weeklyHighlightActiveLink() {
 	$('.weekly-sidemenu__sibling-list__link').each(function() {
-		var link = $(this).prop('href');
-
-		if (link == window.location.href) {
+		const link = $(this).prop('href');
+		if (link === window.location.href) {
 			$(this).addClass('active');
 		}
 	});
 }
-
-$(weeklyHighlightActiveLink)

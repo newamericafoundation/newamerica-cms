@@ -36,6 +36,8 @@
     margin-left: $local-gutter;
     line-height: 120%;
 
+    @include handle-text-overflow;
+    
     h1,
     p {
       width: 100%;

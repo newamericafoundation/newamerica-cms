@@ -1,7 +1,7 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
 // Cache result so no further DOM search is required.
-var jQueryObjectCache = null
+let jQueryObjectCache = null;
 
 export default function getJQueryObjects() {
 
@@ -15,6 +15,6 @@ export default function getJQueryObjects() {
     jQueryObjectCache = jQueryObjects
   }
 
-  return jQueryObjectCache
+  return jQueryObjectCache;
 
 }

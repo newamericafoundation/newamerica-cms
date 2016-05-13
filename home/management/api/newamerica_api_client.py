@@ -35,8 +35,8 @@ class NAClient:
 
 	def get_users(self):
 		for post_set in self.get_data('users'):
-					for post in post_set['results']:
-						yield post
+			for post in post_set['results']:
+				yield post
 
 
 	def activate_program(self, program_id):
@@ -61,13 +61,43 @@ class NAClient:
 		for program in self.client.get(self.api_url + 'programs').json():
 			excluded_programs = ["12", "8", "17"]
 			
-			program_id = program['id']
+			program_id = str(program['id'])
 			
 			if program_id not in excluded_programs:
 				self.activate_program(program_id)
 				for post_set in self.get_data('articles'):
 					for post in post_set['results']:
 						yield post, program_id
+
+	def get_general_blogs(self):
+		"""
+		Gets all the content type of Article from the old database API
+		and creates new general blog post objects in the new database 
+		using CSV data and the BlogPost model
+		"""
+		for program in self.client.get(self.api_url + 'programs').json():
+			included_programs = ['1', '2', '3', '6', '7', '9', '10', '13', '14', '16', '18', '19', '22', '23']
+			
+			program_id = str(program['id'])
+			
+			if program_id in included_programs:
+				self.activate_program(program_id)
+				for post_set in self.get_data('articles'):
+					for post in post_set['results']:
+						yield post, program_id
+
+
+	def get_asset_blog_posts(self):
+		"""
+		Gets all the content type of Article from the old database API
+		for the Asset Building program and creates new objects in the 
+		new database using the Blog Post model
+		"""
+		program_id = '15'
+		self.activate_program(program_id)
+		for post_set in self.get_data('articles'):
+			for all_post in post_set['results']:
+				yield all_post
 
 
 	def get_weekly_articles(self):
@@ -162,6 +192,18 @@ class NAClient:
 			program_id = program['id']
 			self.activate_program(program_id)
 			for post_set in self.get_data('in-the-news'):
+				for post in post_set['results']:
+					yield post, program_id
+
+	def get_posts(self):
+		"""
+		Gets all the content type of Post from the old database API
+		for all programs
+		"""
+		for program in self.client.get(self.api_url + 'programs').json():
+			program_id = program['id']
+			self.activate_program(program_id)
+			for post_set in self.get_data('posts'):
 				for post in post_set['results']:
 					yield post, program_id
 

@@ -24,6 +24,8 @@
 			position:relative;
 	  		padding-top: 15px;
 
+	  		@include handle-text-overflow;
+
 		  	@include breakpoint(medium) {
 		  		padding-top: 0px;
 		  		top: 50%;

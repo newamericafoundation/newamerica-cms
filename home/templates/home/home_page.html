@@ -115,7 +115,7 @@
 								
 								<div class='border-panel__content'>
 									<div class='border-panel__text'>
-										<div class='border-panel__info'>{{ item.value.content_type }} - {{ item.value.post.date }}</div>
+										<div class='border-panel__info'>{{ item.value.content_type }}{% if item.value.post.date %} - {{ item.value.post.date }}{% endif %}</div>
 									
 										<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 									
@@ -142,7 +142,7 @@
 							<div class='border-panel__content'>
 								<div class='border-panel__text'>
 									<div class='border-panel__info'>STAY CONNECTED</div>
-									<div class='border-panel__title'><a href='#'>Subscribe to New America Weekly</a></div>
+									<div class='border-panel__title'><a href='/subscribe/'>Subscribe to New America Weekly</a></div>
 									<p>Get our weekly digital magazine and events lineup in your inbox</p>
 									<form class="subscribe-form" action="subscribe/">
 										<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
