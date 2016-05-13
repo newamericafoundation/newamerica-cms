@@ -127,7 +127,7 @@
 								
 								<div class='border-panel__content'>
 									<div class='border-panel__text'>
-										<div class='border-panel__info'>{{ item.value.content_type }}{% if item.value.post.date %} - {{ item.value.post.date }}{% endif %}</div>
+										<div class='border-panel__info'>{% generate_content_type_line item.value.content_type %}{% if item.value.post.date %} - {{ item.value.post.date }}{% endif %}</div>
 									
 										<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 									

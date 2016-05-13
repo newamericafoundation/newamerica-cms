@@ -32,7 +32,7 @@
 										<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
 									{% endif %}
 								{% endif %}
-								<p class='hero-grid__element__text-bar__subheading'>{{ page.lead_1.content_type }}</p>
+								<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line page.lead_1.content_type %}</p>
 								<h1 class='hero-grid__element__text-bar__heading'>{{ page.lead_1.title }}</h1>
 							</div>
 						</div>
@@ -61,7 +61,7 @@
 											<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
 										{% endif %}
 									{% endif %}
-									<p class='hero-grid__element__text-bar__subheading'>{{ other_lead_story.content_type }}</p>
+									<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line other_lead_story.content_type %}</p>
 									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>
 									
 								</div>
@@ -128,7 +128,7 @@
 							
 							<div class='border-panel__content'>
 								<div class='border-panel__text'>
-									<div class='border-panel__info'>{{ item.value.content_type }}{% if item.value.post.date %} - {{ item.value.post.date }}{% endif %}</div>
+									<div class='border-panel__info'>{% generate_content_type_line item.value.content_type %}{% if item.value.post.date %} - {{ item.value.post.date }}{% endif %}</div>
 									<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 								
 									<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
