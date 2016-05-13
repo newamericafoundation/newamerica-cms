@@ -19,7 +19,12 @@
 					<a href="{{ page.lead_1.url }}">
 						<div class='hero-grid__element__wrapper'>
 						{% image page.lead_1.specific.story_image min-1350x500 as lead1_image %}
-							<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
+							{% if page.lead_1.specific.story_image %}
+								{% image page.lead_1.specific.story_image min-1350x500 as lead1_image %}
+								<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
+							{% else %}
+								<div class='hero-grid__element__background'></div>
+							{% endif %}
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
 								{% if page.lead_1.specific.rsvp_link %}
@@ -43,8 +48,12 @@
 					{% if other_lead_story %}
 						<div class='hero-grid__element'>
 							<a href="{{ other_lead_story.url }}" class='hero-grid__element__content'>
-							{% image other_lead_story.specific.story_image min-650x450 as other_lead_story_image %}
-								<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
+								{% if other_lead_story.specific.story_image %}
+									{% image other_lead_story.specific.story_image min-650x450 as other_lead_story_image %}
+									<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
+								{% else %}
+									<div class='hero-grid__element__background'></div>
+								{% endif %}
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
 									{% if other_lead_story.specific.rsvp_link %}
@@ -78,12 +87,15 @@
 
 			{% for feature_story in featured_stories %}
 			<div class='small-12 large-4 columns'>
-				{% image feature_story.specific.story_image fill-75x75 as feature_story_image %}
+				
 				<div class='picture-link'>
 					<a href="{{ feature_story.url }}">
-						<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'>
-							
-						</div>
+						{% if feature_story.specific.story_image %}
+							{% image feature_story.specific.story_image fill-75x75 as feature_story_image %}
+							<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'></div>
+						{% else %}
+							<div class='picture-link__picture'></div>
+						{% endif %}
 					</a>
 					<div class='picture-link__content'>
 						<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
@@ -143,7 +155,7 @@
 								<div class='border-panel__text'>
 									<div class='border-panel__info'>STAY CONNECTED</div>
 									<div class='border-panel__title'><a href='/subscribe/'>Subscribe to New America Weekly</a></div>
-									<p>Get our weekly digital magazine and events lineup in your inbox</p>
+									<p>Get our weekly digital magazine, program newsletters, and events lineups in your inbox.</p>
 									<form class="subscribe-form" action="subscribe/">
 										<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
 										<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
