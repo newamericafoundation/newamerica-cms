@@ -74,7 +74,6 @@ def get_posts_and_programs(self, request, page_type, content_model):
             filter_dict['date__range'] = (date_range['start'], date_range['end'])
     
         all_posts = content_model.objects.live().filter(**filter_dict)
-        all_posts = content_model.objects.filter(**filter_dict)
         context['subprograms'] = program.get_children().type(Subprogram).live().in_menu().order_by('title')
     else:
         subprogram_title = self.get_ancestors()[3]
