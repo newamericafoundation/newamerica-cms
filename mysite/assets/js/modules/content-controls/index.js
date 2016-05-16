@@ -8,6 +8,7 @@ Pre-populates content control filters based on url query parameters
 function prepopulateFormFields() {
 	var queryParams = getQueryParams(document.location.search);
 	$(".content-grid__controls__program-filter").val(queryParams.program_id);
+    $(".content-grid__controls__subprogram-filter").val(queryParams.subprogram_id);
 	$("#content-grid__controls__date-filter").val(queryParams.date);
 }
 
@@ -37,6 +38,9 @@ Enables submit button when content control filter is changed
 */
 function addContentControlsInteraction() {
     $(".content-grid__controls__program-filter").on("change", function() {
+        $("#content-grid__controls__submit").prop('disabled', false);
+    });
+    $(".content-grid__controls__subprogram-filter").on("change", function() {
         $("#content-grid__controls__submit").prop('disabled', false);
     });
 }
