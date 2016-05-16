@@ -3,7 +3,7 @@ from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = False
 
 for template_engine in TEMPLATES:
     template_engine['OPTIONS']['debug'] = True
