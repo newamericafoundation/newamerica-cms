@@ -81,7 +81,7 @@ def get_posts_and_programs(self, request, page_type, content_model):
         all_posts = content_model.objects.live().filter(post_subprogram=program)
 
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
-    context['all_events'] = paginate_results(request, all_posts.order_by("date", "start_time"))
+    context['all_events'] = paginate_results(request, all_posts.live().order_by("date", "start_time"))
 
     context['program'] = program
     context['query_url'] = generate_url(request)
