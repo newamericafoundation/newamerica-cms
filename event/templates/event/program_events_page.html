@@ -67,7 +67,7 @@
 			<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
 				{% if subprograms %}
 					<div class="content-grid__controls__filter">
-						<select class="content-grid__controls__program-filter" name="subprogram_id">
+						<select class="content-grid__controls__subprogram-filter" name="subprogram_id">
 							<option value="">All Initiatives</option>
 							{% for subprogram in subprograms %}
 							<option value="{{subprogram.id}}">{{subprogram.title}}</option>

@@ -105,7 +105,7 @@ $submit-width: 200px;
 			}
 		}
 
-		&__program-filter {
+		&__program-filter, &__subprogram-filter {
 			@include breakpoint(medium) {
 				padding-left: 0px;
 			}
