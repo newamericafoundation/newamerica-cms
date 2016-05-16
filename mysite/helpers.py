@@ -41,8 +41,8 @@ def get_org_wide_posts(self, request, page_type, content_model):
         filter_dict['date__range'] = (date_range['start'], date_range['end'])   
 
     all_posts = content_model.objects.filter(**filter_dict)
-    context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
-    context['all_events'] = paginate_results(request, all_posts.order_by("date", "start_time"))
+    context['all_posts'] = paginate_results(request, all_posts.live().order_by("-date"))
+    context['all_events'] = paginate_results(request, all_posts.live().order_by("date", "start_time"))
     context['programs'] = Program.objects.all().order_by('title')
     context['query_url'] = generate_url(request)
     return context
@@ -73,15 +73,15 @@ def get_posts_and_programs(self, request, page_type, content_model):
             date_range = json.loads(date)
             filter_dict['date__range'] = (date_range['start'], date_range['end'])
     
-        all_posts = content_model.objects.filter(**filter_dict)
+        all_posts = content_model.objects.live().filter(**filter_dict)
         context['subprograms'] = program.get_children().type(Subprogram).order_by('title')
     else:
         subprogram_title = self.get_ancestors()[3]
         program = Subprogram.objects.get(title=subprogram_title)
-        all_posts = content_model.objects.filter(post_subprogram=program)
+        all_posts = content_model.objects.live().filter(post_subprogram=program)
 
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
-    context['all_events'] = paginate_results(request, all_posts.order_by("date", "start_time"))
+    context['all_events'] = paginate_results(request, all_posts.live().order_by("date", "start_time"))
 
     context['program'] = program
     context['query_url'] = generate_url(request)
