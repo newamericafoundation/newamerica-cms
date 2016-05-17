@@ -3,6 +3,7 @@
   $media-default-aspect: 1;
   padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
+  @include handle-text-overflow;
 
   @include page-body-text;
   
