@@ -131,7 +131,7 @@
     }
 
     .responsive-object {
-      padding: $media-padding $media-padding $media-padding 0px !important;
+      padding: $media-padding 0px !important;
       width: 100%;
       float: left;
     }
@@ -139,6 +139,14 @@
 
   .block-image {
     padding: 20px 0px;
+  }
+
+  iframe {
+    width: 100%;
+
+    @include breakpoint(medium) {
+      width: 480px;
+    }
   }
 
   .block-video {
