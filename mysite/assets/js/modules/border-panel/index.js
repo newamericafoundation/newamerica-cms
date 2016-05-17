@@ -17,8 +17,10 @@ export default function addAllBorderPanelsInteractivity() {
 		addBorderPanelInteractivity($(el))
 	})
 
-	var maxHeight = findMaxHeight();
-	setBorderPanelHeight(maxHeight);
+	$(document).ready(function(){
+		var maxHeight = findMaxHeight();
+		setBorderPanelHeight(maxHeight);
+	});
 
 	$(window).resize(function(){
 		var maxHeight = findMaxHeight();
@@ -35,7 +37,6 @@ function findMaxHeight() {
 	var maxHeight = 0;
 	$.each($('.border-panel__item'), function() {
 		var height = $(this).find(".border-panel__text").height();
-
 		// if border panel has circle nav ( > 1 child) adds extra padding to account for added height
 		if (!$(this).parent(".border-panel__list").hasClass("has-1-children")) {
 			height = height + 40;
