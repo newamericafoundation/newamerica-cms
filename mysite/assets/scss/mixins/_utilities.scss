@@ -20,10 +20,14 @@
 
 @mixin handle-text-overflow {
   -webkit-word-break: break-word;
-  -webkit-word-wrap: break-word;
   word-break: break-word;
+  -webkit-word-wrap: break-word;
   word-wrap: break-word;
-  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+  /*Moz and IE hyphenation fallbacks due to lack of "word-break:break-word" support
+   and word-wrap only working on fixed width containers*/
   -moz-hyphens: auto;
-  hyphens: auto;
+  -ms-hyphens: auto;
+/*  -webkit-hyphens: auto;
+   hyphens: auto;*/
 }
