@@ -35,7 +35,6 @@ WAGTAILSEARCH_BACKENDS = {
         'URLS': [es_url],
         'INDEX': 'elasticsearch',
         'TIMEOUT': 1500,
-        'AUTO_UPDATE': False,
     }
 }
 

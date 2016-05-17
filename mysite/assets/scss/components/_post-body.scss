@@ -89,8 +89,7 @@
     font-weight: 800; 
     margin-bottom: 1.25rem; 
     margin-top: 1.25rem; 
-    color: rgba(44,47,53,0.4); 
-    font-style: italic; 
+    color: palette-get(na-black-40);
   }
 
   h4, h5 { 
