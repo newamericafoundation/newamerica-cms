@@ -1,5 +1,6 @@
-$mobile-nav-side-padding: 18px;
+$mobile-nav-side-padding: 17px;
 $mobile-nav-logo-width: 145px;
+$mobile-nav-toggle-offset: 35px;
 
 .mobile-nav {
   top: 0;
@@ -42,6 +43,22 @@ $mobile-nav-logo-width: 145px;
     @include has-sidemenu {
       display:block;
     }
+
+    &__logo-fallback {
+      color: white;
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 100%;
+      font-family: Platform;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      -webkit-transform:translateY(-50%);
+      -ms-transform:translateY(-50%);
+      padding-left: 15px;
+      display: block;
+      max-width: $mobile-logo-width;
+    }
   }
 
   &__logo, &__secondary__logo {
@@ -55,8 +72,8 @@ $mobile-nav-logo-width: 145px;
   }
 
   &__logo {
-     width: $mobile-nav-logo-width;
-     left: $mobile-nav-side-padding;
+    width: calc(100% - #{$mobile-nav-toggle-offset} - #{$mobile-nav-side-padding} * 2);
+    left: $mobile-nav-side-padding;
   }
 
   &__secondary__logo {

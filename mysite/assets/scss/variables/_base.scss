@@ -13,6 +13,11 @@ $mobile-padding: 25px;
 $mobile-menu-item-padding: 20px;
 $mobile-menu-item-height: 60px;
 
+$mini-mobile-logo-width: 47px;
+$mobile-logo-width: 135px;
+$desktop-logo-width: 140px;
+$expanded-logo-width: 155px;
+
 $desktop-padding: 25px;
 
 $standard-border: 2px solid palette-get(na-black-10);
@@ -27,6 +32,7 @@ $expanded-show-support: 867px;
 
 $home-border-panel-foldup: 400px;
 
+$mini-logo-breakpoint: 385px;
 
 /*posts*/
 
@@ -35,7 +41,7 @@ $std-post-header-height: 250px;
 /* misc */
 
 $program-logo-width: 165px;
-$program-logo-height: 62px;
+$program-logo-height: 68px;
 
 /*content-grid*/
 

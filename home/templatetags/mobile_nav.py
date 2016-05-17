@@ -17,5 +17,6 @@ def mobile_nav_secondary(context, parent, calling_page=None):
         menu_program = Program.objects.get(title=program_name)
 
     context['mobile_logo'] = menu_program.mobile_program_logo
+    context['program_name'] = menu_program.title
 
     return context
