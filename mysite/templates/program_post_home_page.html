@@ -41,7 +41,7 @@
 		<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
 			{% if subprograms %}
 				<div class="content-grid__controls__filter">
-					<select class="content-grid__controls__program-filter" name="subprogram_id">
+					<select class="content-grid__controls__subprogram-filter" name="subprogram_id">
 						<option value="">All Initiatives</option>
 						{% for subprogram in subprograms %}
 						<option value="{{subprogram.id}}">{{subprogram.title}}</option>
@@ -57,11 +57,10 @@
 		    	<a href="{{ self.url }}">Reset</a>
 			</div>
 		</form>
-	
 		<div class="content-grid__controls__right">
 			<div class="pagination">
 				{% if all_posts.has_previous %}
-					<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}">
+					<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}&{{ query_url }}">
 
 						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 							<polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
@@ -73,13 +72,19 @@
 				<span>Page</span>
 				<form class="pagination__form" action="?page=value" method="get">
 					<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
+					{% if request.GET.subprogram_id %}
+						<input type="hidden" value="{{request.GET.subprogram_id}}" name="subprogram_id">
+					{% endif %}
+					{% if request.GET.date %}
+						<input type="hidden" value="{{request.GET.date}}" name="date">
+					{% endif %}
 				</form>
 
 				<span>of</span>
-				<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
-	
+				<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
+
 				{% if all_posts.has_next %}
-			    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}">
+			    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}&{{ query_url }}">
 			    		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 							<polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
 						</svg>
@@ -132,7 +137,7 @@
 	<div class="content-grid__footer">
 		<div class="pagination">
 			{% if all_posts.has_previous %}
-				<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}">
+				<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}&{{ query_url }}">
 
 					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 						<polygon points="66.688,5.188 22.168,49.998 66.688,94.812 77.83,83.595 44.965,50.51 77.832,16.405 "/>
@@ -144,13 +149,19 @@
 			<span>Page</span>
 			<form class="pagination__form" action="?page=value" method="get">
 				<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
+				{% if request.GET.subprogram_id %}
+					<input type="hidden" value="{{request.GET.subprogram_id}}" name="subprogram_id">
+				{% endif %}
+				{% if request.GET.date %}
+					<input type="hidden" value="{{request.GET.date}}" name="date">
+				{% endif %}
 			</form>
 
 			<span>of</span>
-			<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
+			<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
 
 			{% if all_posts.has_next %}
-		    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}">
+		    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}&{{ query_url }}">
 		    		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 						<polygon points="33.312,94.812 77.832,50.002 33.312,5.188 22.17,16.405 55.035,49.49 22.168,83.595 "/>
 					</svg>

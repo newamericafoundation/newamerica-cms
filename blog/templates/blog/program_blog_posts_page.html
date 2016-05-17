@@ -17,21 +17,7 @@
 			</div>
 		</div>
 	</div>
-
-	{% if program.get_subprograms|length > 1 %}
-	<div class="tags-container">
-		<div class="tags">
-			<ul class="tags__taglist">
-				<li class="tags__title">Topics</h3>
-				{% for subprogram in program.get_subprograms %}
-					<li class="label"><a>{{ subprogram }}</a></li>
-				{% endfor %}
-			</ul>
-		</div>
-	</div>
-	{% endif %}
 	
-
 	{% with post=all_posts|first %}
 		<div class='blog-lead-story'>
 			<div class='hero-grid has-1-children'>

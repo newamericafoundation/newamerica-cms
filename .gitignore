@@ -20,6 +20,9 @@ venv
 *.log
 
 *.csv
+*.crt
+*.key
+*.csr
 
 home/management/api/article_images/
 home/management/api/images/

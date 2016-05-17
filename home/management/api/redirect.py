@@ -39,7 +39,7 @@ mapped_programs = {
 
 # runs the redirect commands
 def create_redirects():
-    post_redirect()
+    # post_redirect()
     user_redirects()
 
 
@@ -59,14 +59,14 @@ def user_redirects():
                 mapped_user['last_name'])
             mapped_user_slug = slugify(mapped_user_title)
             old_path = "/experts/" + mapped_user_slug
-
+            print(old_path)
             new_page = Person.objects.filter(slug=mapped_user_slug).first()
             if new_page:
                 new_redirect, created = Redirect.objects.get_or_create(
                     old_path=old_path
                 )
                 new_redirect.redirect_page = new_page
-
+                print(new_redirect)
                 new_redirect.save()
 
 
@@ -79,6 +79,7 @@ def post_redirect():
     """
     for post, _ in NAClient().get_posts():
         post_slug = post['slug']
+        print(post_slug)
         new_page = Page.objects.filter(slug=post_slug).first()
         if new_page:
             for program in post['programs']:
@@ -89,5 +90,6 @@ def post_redirect():
                     old_path=old_path
                 )
                 new_redirect.redirect_page = new_page
+                print(new_redirect)
                 new_redirect.save()
                 print(old_path)

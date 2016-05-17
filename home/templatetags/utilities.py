@@ -92,6 +92,8 @@ def generate_content_type_line(ptype):
 	page_mappings = {
 		"program simple page" : "",
 		"org simple page" : "",
+		"Homepage for All People in NAF" : "",
+		"Our People Page for Programs and Subprograms" : "",
 		"Our People Page for Board of Directors, Central Staff, and Leadership Team" : "",
 		"jobs page" : "",
 		"subscribe page" : "",
@@ -172,3 +174,11 @@ def is_future(date):
 		return 1
 	else:
 		return 0
+
+@register.simple_tag()
+def person_display_contact_info(page):
+	if (page.email):
+		if (page.role != "External Author/Former Staff"):
+			return 1
+	
+	return 0

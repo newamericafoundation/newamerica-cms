@@ -11,7 +11,7 @@ from django.core.files import File
 from django.core.files.images import ImageFile
 from django.core.exceptions import ObjectDoesNotExist
 
-from programs.models import Program
+from programs.models import Program, Subprogram
 
 from person.models import Person
 
@@ -72,11 +72,34 @@ def get_program(program_id):
     return program
 
 
+def get_subprogram(parent_program, subprogram_title):
+    """
+    Gets the subprogram from the new database
+    or creates one if necessary
+    """
+    parent_program = Program.objects.get(title=parent_program)
+    try:
+        subprogram = Subprogram.objects.get(title=subprogram_title)
+    except ObjectDoesNotExist:
+        subprogram = Subprogram(
+            name=subprogram_title,
+            title=subprogram_title,
+            slug=slugify(subprogram_title),
+            description=subprogram_title,
+            depth=4,
+        )
+        parent_program.add_child(instance=subprogram)
+        subprogram.save()
+    return subprogram
+
+
 def get_content_homepage(program, content_homepage_type, page_title):
     content_homepage = program.get_children().type(content_homepage_type).first()
     if content_homepage:
+        print("found existing content homepage")
         return content_homepage
     else:
+        print("creating new content homepage")
         content_homepage = content_homepage_type(
             title=page_title,
             slug=slugify(page_title),

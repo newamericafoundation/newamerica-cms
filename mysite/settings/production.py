@@ -1,7 +1,8 @@
 from .base import *
 
 import os
-DEBUG = True
+
+DEBUG = False
 
 APPEND_SLASH = True
 
@@ -33,7 +34,7 @@ WAGTAILSEARCH_BACKENDS = {
         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
         'URLS': [es_url],
         'INDEX': 'elasticsearch',
-        'TIMEOUT': 500,
+        'TIMEOUT': 1500,
     }
 }
 
