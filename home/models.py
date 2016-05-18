@@ -200,6 +200,7 @@ class AbstractSimplePage(Page):
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
+        ('pull_quote', blocks.TextBlock(icon='openquote')),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
     ])
@@ -320,6 +321,7 @@ class Post(Page):
     body = StreamField([
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
+        ('pull_quote', blocks.TextBlock(icon='openquote')),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
     ])
