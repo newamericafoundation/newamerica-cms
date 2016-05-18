@@ -1,17 +1,17 @@
 @font-face {
     font-family: 'Simplon';
-    src: url('/static/fonts/simplon/SimplonNorm-Regular-WebS.eot');
-    src: url('/static/fonts/simplon/SimplonNorm-Regular-WebS.eot?#iefix') format('embedded-opentype'),
-         url('/static/fonts/simplon/SimplonNorm-Regular-WebS.woff') format('woff');
+    src: url('#{$font-url}/fonts/simplon/SimplonNorm-Regular-WebS.eot');
+    src: url('#{$font-url}/fonts/simplon/SimplonNorm-Regular-WebS.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-url}/fonts/simplon/SimplonNorm-Regular-WebS.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Simplon';
-    src: url('/static/fonts/simplon/SimplonNorm-Bold-WebS.eot');
-    src: url('/static/fonts/simplon/SimplonNorm-Bold-WebS.eot?#iefix') format('embedded-opentype'),
-         url('/static/fonts/simplon/SimplonNorm-Bold-WebS.woff') format('woff');
+    src: url('#{$font-url}/fonts/simplon/SimplonNorm-Bold-WebS.eot');
+    src: url('#{$font-url}/fonts/simplon/SimplonNorm-Bold-WebS.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-url}/fonts/simplon/SimplonNorm-Bold-WebS.woff') format('woff');
     font-weight: bold;
     font-style: normal;
 }
