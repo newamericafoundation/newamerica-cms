@@ -14,11 +14,23 @@ ALLOWED_HOSTS = ['*']
 # s3 bucket settings
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# media file settings
+MEDIA_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+S3_MEDIA_DOMAIN = '%s.s3.amazonaws.com' % MEDIA_BUCKET_NAME
+
+MEDIA_LOCATION='media'
+MEDIA_STORAGE = 'custom_storages.MediaStorage'
+MEDIA_URL = "https://%s/" % S3_MEDIA_DOMAIN
+
+# static file settings
+STATIC_BUCKET_NAME = os.getenv('STATIC_S3_BUCKET_NAME')
+S3_STATIC_DOMAIN = '%s.s3.amazonaws.com' % STATIC_BUCKET_NAME
+
+STATICFILES_LOCATION='static'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+STATIC_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
+
 
 try:
     from .local import *
