@@ -58,7 +58,7 @@
 									{% if other_lead_story.specific.rsvp_link %}
 										{% is_future other_lead_story.specific.date as is_date_future %}
 				    					{% if is_date_future %}
-											<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
+											<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
 										{% endif %}
 									{% endif %}
 									<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line other_lead_story.content_type %}</p>
