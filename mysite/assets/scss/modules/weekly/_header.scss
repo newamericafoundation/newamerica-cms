@@ -50,11 +50,12 @@
 				font-weight: bold;
 			}
 		}
-		&__title {
+		&__title,  &__title > a{
 			font-size: 35px;
 			margin-bottom: 0px;
 			font-family:"Simplon";
 			color:palette-get(na-black-40);
+			line-height: 110%;
 		}
 	}
 
