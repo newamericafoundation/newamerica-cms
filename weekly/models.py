@@ -44,6 +44,8 @@ class WeeklyArticle(Post):
 
     def get_context(self, request):
         context = super(WeeklyArticle, self).get_context(request)
+
+        print(self.pk)
         
         context['siblings'] = self.get_siblings(inclusive=True)
         

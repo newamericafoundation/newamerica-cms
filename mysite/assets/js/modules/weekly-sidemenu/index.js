@@ -6,7 +6,7 @@ Highlights active link in the sidemenu on weekly article pages by comparing the 
 
 */
 export default function weeklyHighlightActiveLink() {
-	$('.weekly-sidemenu__sibling-list__link').each(function() {
+	$('.weekly__sidemenu__sibling-list__link').each(function() {
 		const link = $(this).prop('href');
 		if (link === window.location.href) {
 			$(this).addClass('active');
