@@ -37,13 +37,15 @@ def pluralize(num_items, label):
 
 # maps post type to appropriate person prefix for byline, calls pluralize helper function to pluralize if more than one item
 @register.simple_tag()
-def get_byline_prefix(post_type, items_list):
+def get_byline_prefix(ptype, items_list):
 	num_items = len(items_list)
-	if str(post_type) == "podcast":
+	post_type = str(ptype)
+
+	if post_type == "podcast":
 		return pluralize(num_items, "Host")
-	elif str(post_type) == ("blog post" or "weekly article"):
+	elif (post_type == "blog post" or post_type == "weekly article"):
 		return "By "
-	elif str(post_type) == "In The News Piece":
+	elif post_type == "In The News Piece":
 		return "In the News: "
 	else:
 		return pluralize(num_items, "Author")
@@ -52,10 +54,11 @@ def get_byline_prefix(post_type, items_list):
 
 # handles exception for blog posts and weekly articles - which have the "by" prefix in the byline, but "author(s)" in the author block
 @register.simple_tag()
-def get_author_block_prefix(post_type, items_list):
+def get_author_block_prefix(ptype, items_list):
 	num_items = len(items_list)
+	post_type = str(ptype)
 
-	if str(post_type) == ("blog post" or "weekly article"):
+	if (post_type == "blog post" or post_type == "weekly article"):
 		return pluralize(num_items, "Author")
 	else:
 		return get_byline_prefix(post_type, items_list)
@@ -68,8 +71,9 @@ def generate_byline(ptype, authors):
 	num_authors = len(authors)
 	ret_string = ""
 
+
 	# events and press releases have no authors and therefore no byline
-	if post_type == ("event" or post_type == "press release"):
+	if post_type == "event" or post_type == "press release":
 		return ret_string
 
 	ret_string += get_byline_prefix(post_type, authors)
