@@ -46,11 +46,9 @@
 
 			<div class="weekly__lead__text">
 				<div class="weekly__lead__text__content">
-					{% with first_edition.get_children.all|length as num_children %}
-						{% if num_children > 1 %}
-							<h3 class="weekly__lead__text__title">Also in this Edition</h3>
-						{% endif %}
-					{% endwith %}
+					{% if first_edition.get_children.all|length > 1 %}
+						<h3 class="weekly__lead__text__title">Also in this Edition</h3>
+					{% endif %}
 
 					{% for story in first_edition.get_children.all|slice:"1:6" %}
 						<div class="weekly__lead__text__item">
