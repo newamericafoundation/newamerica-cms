@@ -138,6 +138,17 @@
     }
   }
 
+  .block-pull_quote {
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    line-height: 2.1rem; 
+    margin: $desktop-padding 0px $desktop-padding 45px; 
+    border-left: 4px solid;
+    @include set-color(border-color);
+    @include set-color(color);
+    padding: 20px 0px 20px $desktop-padding;
+  }
+
   .block-image {
     padding: 20px 0px;
   }
