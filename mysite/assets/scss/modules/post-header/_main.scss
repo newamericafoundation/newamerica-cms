@@ -75,6 +75,7 @@ $std-post-header-padding-without-image: 25px;
 }
 
 .post-header.with-image.large {
+	height: 350px;
 	@include desktop-header {
 		height: 600px;
 
