@@ -6,5 +6,4 @@ class StaticStorage(S3BotoStorage):
     bucket_name = settings.STATIC_BUCKET_NAME
 
 class MediaStorage(S3BotoStorage):
-    location = settings.MEDIA_LOCATION
     bucket_name = settings.MEDIA_BUCKET_NAME
