@@ -1,4 +1,4 @@
-.weekly-sidemenu {
+.weekly__sidemenu {
 	$picture-size: 60px;
 	$local-gutter: 15px;
 	$active-link-border-width: 5px;
@@ -12,16 +12,19 @@
 	&__title, &__subtitle {
 		line-height: 100%;
 		font-weight: bold;
-		font-family: "Platform";
+		
 	}
 
 	&__title, &__title > a {
 		color: palette-get(na-black);
 		line-height: 40px;
+		font-family: "Platform";
 	}
 
 	&__subtitle, &__subtitle > a {
 		color: palette-get(na-black-40);
+		font-family: "Simplon";
+		font-size: 1.7rem;
 	}
 
 	&__subheading {
@@ -91,7 +94,7 @@
 
 		&__link {
 			&.active {
-				.weekly-sidemenu__sibling-list__entry {
+				.weekly__sidemenu__sibling-list__entry {
 
 					&__picture {
 						margin-left: -5px;

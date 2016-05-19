@@ -1,0 +1,10 @@
+.weekly__article {
+	.weekly__header {
+		display: table;
+		padding: $desktop-padding;
+
+		@include desktop-header {
+			display: none;
+		}
+	}
+}

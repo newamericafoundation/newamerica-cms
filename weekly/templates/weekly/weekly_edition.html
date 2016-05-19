@@ -7,7 +7,7 @@
 {% block body_class %}template-weeklyeditionpage{% endblock %}
 
 {% block content %}
-    <div class="weekly-edition">
+    <div class="weekly__edition">
     	<div class="weekly__header">
 			<div class="weekly__header__left">
 				<a href="/weekly/">
@@ -18,19 +18,6 @@
 				<h1 class="weekly__header__middle__title">{{ page.title }}</h1>
 			</div>
 		</div>
-
-		{% if program.get_subprograms|length > 1 %}
-		<div class="tags-container">
-			<div class="tags">
-				<ul class="tags__taglist">
-					<li class="tags__title">Topics</h3>
-					{% for subprogram in program.get_subprograms %}
-						<li class="label"><a>{{ subprogram }}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-		{% endif %}
 		
 		{% with post=self.get_children.first.specific %}
 			<div class='blog-lead-story'>
