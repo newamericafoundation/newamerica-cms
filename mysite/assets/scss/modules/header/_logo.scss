@@ -1,10 +1,18 @@
+@mixin show-mini-logo {
+  .has_sidemenu & {
+    @media screen and (max-width: $mini-logo-breakpoint) {
+      @content;
+    }
+  }
+}
+
 .header__logo {
   width: $mobile-logo-width;
-  display: none;
-
-  @media screen and (min-width: $mini-logo-breakpoint) {
-    display: inline-block;
-  } 
+  display: inline-block;
+  
+  @include show-mini-logo {
+    display: none;
+  }
   @include desktop-header {
     width: $desktop-logo-width + 20px;
   }
@@ -47,16 +55,18 @@
   }
 
   &.mini {
-    display: inline-block;
+    display: none;
     width: 42px;
     left: 50%;
     transform: translateX(-50%);
     -webkit-transform:translateX(-50%);
     -ms-transform:translateX(-50%);
     position: relative;
-    @media screen and (min-width: $mini-logo-breakpoint) {
-      display: none;
+
+    @include show-mini-logo {
+      display: inline-block;
     }
+
     & > svg {
       width: $mini-mobile-logo-width !important;
     }
