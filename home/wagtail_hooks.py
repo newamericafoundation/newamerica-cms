@@ -7,7 +7,6 @@ from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_witho
 @hooks.register('construct_whitelister_element_rules')
 def whitelister_element_rules():
     return {
-    'a': attribute_rule({'href': check_url, 'target': True}),
         'blockquote': attribute_rule({'class': True}),
     }
 
