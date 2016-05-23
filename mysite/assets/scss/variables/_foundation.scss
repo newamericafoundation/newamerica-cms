@@ -27,7 +27,7 @@ $grid-column-align-edge: false;
 
 $gutter: 20px;
 
-$grid-column-responsive-gutter: (
+$grid-column-gutter: (
   small: $gutter,
   medium: $gutter,
 );
@@ -70,10 +70,6 @@ $anchor-color: palette-get(na-black);
 
 $paragraph-lineheight: 1.65;
 $paragraph-color: palette-get(na-black);
-
-$blockquote-color: palette-get(na-black);
-// $blockquote-padding: rem-calc(9 20 0 19);
-$blockquote-border: 4px solid palette-get(na-black);
 
 $primary-color: palette-get(na-black);
 $secondary-color: palette-get(na-turquoise);
