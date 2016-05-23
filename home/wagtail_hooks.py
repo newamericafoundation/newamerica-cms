@@ -7,6 +7,7 @@ from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_witho
 @hooks.register('construct_whitelister_element_rules')
 def whitelister_element_rules():
     return {
+    'a': attribute_rule({'href': check_url, 'target': True}),
         'blockquote': attribute_rule({'class': True}),
     }
 
@@ -27,4 +28,7 @@ def editor_js():
         </script>
         """
     )
- 
+
+@hooks.register('insert_editor_css')
+def editor_css():
+    return format_html('<link rel="stylesheet" href="'+ settings.STATIC_URL + 'css/font-awesome.min.css" type="text/css">')
