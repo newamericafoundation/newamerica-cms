@@ -193,7 +193,7 @@ class NAClient:
 			self.activate_program(program_id)
 			for post_set in self.get_data('in-the-news'):
 				for post in post_set['results']:
-					yield post, program_id
+					yield post
 
 	def get_posts(self):
 		"""

@@ -48,6 +48,19 @@ def articles_to_csv(content):
     ]
 
 
+def in_the_news_to_csv(content):
+    yield [
+            content.get('id'),
+            content.get('publish_at'),
+            content.get('title'),
+            content.get('slug'),
+            content.get('published'),
+            content.get('authors'),
+            content.get('programs'),
+            #content.get('content')
+    ]
+
+
 def user_to_csv(content):
     yield [
             content.get('id'),
@@ -106,4 +119,25 @@ def articles():
             idx += 1
 
 
-get_users()
+def get_in_the_news():
+    with open('all_in_the_news.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([
+            'id', 
+            'publish_at',
+            'title', 
+            'slug', 
+            'published', 
+            'authors',
+            'programs',
+            #'content'
+        ])
+        idx = 0
+        for content in NAClient().get_in_the_news():
+            writer.writerows(in_the_news_to_csv(content))
+            print(idx)
+            idx += 1
+
+
+
+get_in_the_news()
