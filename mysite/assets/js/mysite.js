@@ -13,13 +13,15 @@ import modules from './modules/index.js';
 import $ from 'jquery';
 import moment from 'moment';
 
+
 global.$ = $;
 global.jQuery = $;
 global.moment = moment;
 
+require('../vendor/jssocials.min.js');
+
 $(document).ready(function() {
 	require('../vendor/jquery-ui.min.js');
-	require('../vendor/jssocials.min.js');
 	require('../vendor/jquery.comiseo.daterangepicker.min.js');
 	require('foundation-sites');
 	$(document).foundation();
