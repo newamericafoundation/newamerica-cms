@@ -74,10 +74,10 @@
     }
   }
   &__info {
-    opacity: 1;
+    opacity: .4;
     width: 100%;
     text-align: center;
-    color: palette-get(na-black-40);
+    color: palette-get(na-black);
     font-size: 14px;
     padding-bottom: 10px;
     font-weight: bold;
@@ -86,7 +86,7 @@
     &__content-type, &__date {
       display: inline-block;
       font-size: 14px;
-      color: palette-get(na-black-40);
+      color: palette-get(na-black);
       text-transform: uppercase;
     }
 
