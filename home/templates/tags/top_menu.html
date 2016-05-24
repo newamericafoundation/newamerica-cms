@@ -117,7 +117,11 @@
                                     {% for program in programs %}
                                         <div class='header__link-group__main__entry'>
                                             {% if program %}
-                                                <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
+                                                {% if program.url == "/opportunity-at-work/" %}
+                                                    <a class="header__link-group__main-element" href="http://www.opportunityatwork.org/">{{ program.title }}</a>
+                                                {% else %}
+                                                    <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
+                                                {% endif %}
                                                 {% top_menu_children parent=program %}
                                             {% endif %}
                                         </div>
