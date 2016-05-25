@@ -1,7 +1,10 @@
+from django.test import TestCase
+from django.test import Client
+
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page
 
-from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage
+from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
 
 from programs.models import Program
 
@@ -89,6 +92,7 @@ class HomeTests(WagtailPageTests):
             Program,
             SubscribePage,
             Weekly,
+            RedirectPage,
             })
 
     # Test that pages can be created with POST data
@@ -165,3 +169,15 @@ class HomeTests(WagtailPageTests):
             self.program_page.get_children().filter(
             title='Program Simple Page Test')[0].content_type
         )
+
+    def test_redirect_page(self):
+        redirect_page = RedirectPage(
+            title='Google',
+            slug='google',
+            redirect_url = 'http://www.google.com',
+            depth=3,
+        )
+        self.home_page.add_child(instance=redirect_page)
+        c = Client()
+        response = c.get('http://127.0.0.1:8000/google')
+        self.assertEqual(response.status_code, 301)
