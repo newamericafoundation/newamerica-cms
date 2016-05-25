@@ -2,6 +2,8 @@
 {% load wagtailuserbar  %}
 {% load top_menu %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load static %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -10,14 +12,32 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <link rel="icon"
           type="image/png"
           href="/../static/favicon.png">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        
+        <meta property="og:site_name" content="New America" />
+
+        <link rel="canonical" href="{{ self.url }}" />
+        <meta property="og:url" content="{{ self.url }}">
+        <meta name="twitter:url" content="{{ self.url }}">
+        
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-        <meta name="description" content="New America is a nonprofit, nonpartisan public policy institute that invests in new thinkers and new ideas to address the next generation of challenges facing the United States." />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+        <meta name="twitter:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+        
+        <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
+        <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
+        <meta name="twitter:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
+
+        {% if self.story_image %}
+            {% image self.story_image original as story_image %}
+            <meta property="og:image" content='{{ story_image.url }}' />
+            <meta name="twitter:image" content='{{ story_image.url }}' />
+        {% endif %}
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" async></script>
 
