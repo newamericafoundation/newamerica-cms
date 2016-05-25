@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.shortcuts import redirect
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
@@ -76,6 +77,7 @@ class HomePage(Page):
     'quoted.AllQuotedHomePage',
     'JobsPage',
     'SubscribePage',
+    'RedirectPage',
     ]
 
     # Up to four lead stories can be featured on the homepage.
@@ -226,12 +228,42 @@ class AbstractSimplePage(Page):
         abstract = True
 
 
+class RedirectPage(Page):
+    """
+    Redirect page class that inherits from the Page model and
+    overrides the serve method to allow for external redirects
+    """
+
+    story_excerpt = models.CharField(blank=True, null=True, max_length=140)
+
+    story_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    redirect_url = models.URLField(blank=True, null=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('redirect_url'),
+    ]
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('story_excerpt'),
+        ImageChooserPanel('story_image'),
+    ]
+
+    def serve(self, request):
+        return redirect(self.redirect_url, permanent=True)
+
+
 class OrgSimplePage(AbstractSimplePage):
     """
     Simple Page at the organization level
     """
     parent_page_types = ['home.HomePage', 'OrgSimplePage']
-    subpage_types = ['OrgSimplePage']
+    subpage_types = ['OrgSimplePage', 'home.RedirectPage']
 
 
 
@@ -240,7 +272,7 @@ class ProgramSimplePage(AbstractSimplePage):
     Simple Page at the Program level
     """
     parent_page_types = ['programs.Program', 'ProgramSimplePage', 'programs.Subprogram']
-    subpage_types = ['ProgramSimplePage']
+    subpage_types = ['ProgramSimplePage', 'home.RedirectPage']
 
 
 class JobsPage(OrgSimplePage):
