@@ -104,6 +104,7 @@ def generate_content_type_line(ptype):
 		"Homepage for all Weekly Editions" : "",
 		"issue or topic" : "",
 		"Article and Op-Ed" : "Article",
+		"redirect page": "",
 	}
 
 	if page_type in page_mappings:
