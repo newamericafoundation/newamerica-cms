@@ -1,12 +1,13 @@
 from django.test import TestCase
 from django.test import Client
+from django.http import HttpResponsePermanentRedirect
 
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page
 
 from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
 
-from programs.models import Program
+from programs.models import Program, Subprogram
 
 from weekly.models import Weekly
 
@@ -170,14 +171,52 @@ class HomeTests(WagtailPageTests):
             title='Program Simple Page Test')[0].content_type
         )
 
-    def test_redirect_page(self):
+    def test_redirect_page_under_home_page(self):
         redirect_page = RedirectPage(
             title='Google',
-            slug='google',
-            redirect_url = 'http://www.google.com',
-            depth=3,
+            redirect_url = 'https://www.google.com',
         )
         self.home_page.add_child(instance=redirect_page)
         c = Client()
-        response = c.get('http://127.0.0.1:8000/google')
-        self.assertEqual(response.status_code, 301)
+        response = c.get('http://localhost:8000/google')
+        self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
+
+    def test_adding_redirect_page_under_program_page(self):
+        redirect_page = RedirectPage(
+            title='Google',
+            redirect_url = 'https://www.google.com',
+        )
+        self.program_page.add_child(instance=redirect_page)
+        c = Client()
+        response = c.get('http://localhost:8000/oti/google')
+        self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
+
+    def test_adding_redirect_page_under_subprogram_page(self):
+        subprogram = Subprogram(
+            title='Test',
+            name='Test',
+            description='Test',
+        )
+        self.program_page.add_child(instance=subprogram)
+        redirect_page = RedirectPage(
+            title='Google',
+            redirect_url = 'https://www.google.com',
+        )
+        subprogram.add_child(instance=redirect_page)
+        c = Client()
+        response = c.get('http://localhost:8000/oti/test/google')
+        self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
+
+    def test_adding_redirect_page_under_simple_page(self):
+        simple_page = OrgSimplePage(
+            title='Simple'
+        )
+        self.home_page.add_child(instance=simple_page)
+        redirect_page = RedirectPage(
+            title='Google',
+            redirect_url = 'https://www.google.com',
+        )
+        simple_page.add_child(instance=redirect_page)
+        c = Client()
+        response = c.get('http://localhost:8000/simple/google')
+        self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
