@@ -186,6 +186,7 @@ class Program(AbstractProgram):
     'person.ProgramPeoplePage',
     'Subprogram',
     'issue.IssueOrTopic',
+    'home.RedirectPage',
     ]
 
     desktop_program_logo = models.ForeignKey(
@@ -260,6 +261,7 @@ class Subprogram(AbstractProgram):
     'home.ProgramSimplePage',
     'person.ProgramPeoplePage',
     'issue.IssueOrTopic',
+    'home.RedirectPage',
     ]
 
     parent_programs = models.ManyToManyField(
