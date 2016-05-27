@@ -1,8 +1,9 @@
 .weekly__header {
-	display: table;
+	display: block;
 	padding: $desktop-padding $mobile-padding;
 
 	@include breakpoint(medium) {
+		display: table;
 		padding: $desktop-padding 0px 0px 0px;
 	}
 	@include desktop-header {
@@ -10,11 +11,12 @@
 	}
 
 	&__left {
-		border-right: 2px solid palette-get(na-black-10);
 		padding-right: $desktop-padding;
 		margin-bottom: 0px;
+		display: block;
 		@include breakpoint(medium) {
 			display: table-cell;
+			border-right: 2px solid palette-get(na-black-10);
 			width: 200px;
 			padding: 0px;
 		}
@@ -30,10 +32,15 @@
 
 	&__middle {
 		max-width: $max-body-width;
-		display: table-cell;
+		display: block;
 		vertical-align: middle;
-		padding-left: $desktop-padding;
-		padding-right: $desktop-padding;
+		padding: 15px 0px 0px;
+
+		@include breakpoint(medium) {
+			display: table-cell;
+			padding: 0px $desktop-padding;
+		}
+		
 
 		&__text {
 			height: 100%;
@@ -56,18 +63,6 @@
 			font-family:"Simplon";
 			color:palette-get(na-black-40);
 			line-height: 110%;
-		}
-	}
-
-	&__right {
-		display: table-cell;
-		width: 100px;
-		margin-left: $desktop-padding;
-		.pagination {
-			top: 0px;
-			left: 0px;
-			right: 0px;
-			width: 100%;
 		}
 	}
 
