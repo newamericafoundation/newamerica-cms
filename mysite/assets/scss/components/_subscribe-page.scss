@@ -1,10 +1,15 @@
 .subscribe-page {
-	max-width: $max-body-width;
-	margin: auto;
+	margin: 0px $mobile-padding;
+	@include desktop-header {
+		max-width: $max-body-width;
+		margin: auto;
+	}
 
 	.post-header {
-		@include desktop-header {
-			margin-left: 10px;
+		margin-left: 10px;
+
+		&__text {
+			padding-left: 0px;
 		}
 	}
 
