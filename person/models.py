@@ -315,12 +315,14 @@ class ProgramPeoplePage(Page):
             program = Program.objects.get(title=program_title)
             all_posts = Person.objects\
                 .filter(belongs_to_these_programs=program)\
+                .exclude(role='External Author/Former Staff')\
                 .order_by('last_name', 'first_name')
         else:
             subprogram_title = self.get_ancestors()[3]
             program = Subprogram.objects.get(title=subprogram_title)
             all_posts = Person.objects\
                 .filter(belongs_to_these_subprograms=program)\
+                .exclude(role='External Author/Former Staff')\
                 .order_by('last_name', 'first_name')
 
         context['people'] = paginate_results(request, all_posts)
