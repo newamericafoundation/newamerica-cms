@@ -164,7 +164,7 @@ class AbstractProgram(Page):
 
     def get_subprograms(self):
         """ Return a list of subprograms in a program """
-        return self.get_children().type(Subprogram)
+        return self.get_children().type(Subprogram).live().in_menu()
 
     class Meta:
         abstract = True
