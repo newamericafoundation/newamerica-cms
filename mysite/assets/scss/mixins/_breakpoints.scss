@@ -35,3 +35,11 @@
     @content;
   }
 }
+
+@mixin show-mini-logo {
+  .has_sidemenu & {
+    @media screen and (max-width: $mini-logo-breakpoint) {
+      @content;
+    }
+  }
+}

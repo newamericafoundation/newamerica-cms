@@ -1,11 +1,3 @@
-@mixin show-mini-logo {
-  .has_sidemenu & {
-    @media screen and (max-width: $mini-logo-breakpoint) {
-      @content;
-    }
-  }
-}
-
 .header__logo {
   width: $mobile-logo-width;
   display: inline-block;
