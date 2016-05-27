@@ -13,8 +13,7 @@ npm-debug.log
 media/
 static/
 
-mysite/static/js
-mysite/assets/vendor
+mysite/static/js/
 
 
 venv
