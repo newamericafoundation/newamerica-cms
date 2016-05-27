@@ -33,9 +33,11 @@
         </div>
     {% endif %}
     <div class="bio-page__content">
-        {% if page.long_bio %}
-            {{ page.long_bio|richtext|linebreaks }}
-        {% endif %}
+        <div class="post-body">
+            {% if page.long_bio %}
+                {{ page.long_bio|richtext|linebreaks }}
+            {% endif %}
+        </div>
     </div>
 
     {% person_display_contact_info page as display_contact_info %}

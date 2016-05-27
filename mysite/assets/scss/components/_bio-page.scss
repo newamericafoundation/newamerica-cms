@@ -82,7 +82,6 @@
 	&__content {
 		max-width: $max-body-width;
 	    color: palette-get(na-black-70);
-	    padding-top: $desktop-padding;
 	    margin-left: $mobile-padding;
 		margin-right: $mobile-padding;
 
@@ -91,7 +90,8 @@
 		}
 
 		@include desktop-header {
-			padding: $desktop-padding 0px $mobile-padding 0px;
+			padding: 0px;
+			padding-bottom: $desktop-padding;
 		}
 
 		@include page-body-text;
