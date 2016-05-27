@@ -74,7 +74,7 @@ def get_posts_and_programs(self, request, page_type, content_model):
             filter_dict['date__range'] = (date_range['start'], date_range['end'])
     
         all_posts = content_model.objects.live().filter(**filter_dict)
-        context['subprograms'] = program.get_children().type(Subprogram).live().in_menu().order_by('title')
+        context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
     else:
         subprogram_title = self.get_ancestors()[3]
         program = Subprogram.objects.get(title=subprogram_title)
@@ -87,7 +87,6 @@ def get_posts_and_programs(self, request, page_type, content_model):
     context['query_url'] = generate_url(request)
     
     return context
-
 
 def generate_url(request):
     query = QueryDict(mutable=True)
