@@ -22,6 +22,17 @@
 		{% block post-body %}
 		{% endblock %}
 
+		<div id="share"></div>
+		<script>
+	        $("#share").jsSocials({
+	        	showCount: true,
+    			showLabel: true,
+    			text: "{{ page.title | safe }}",
+    			shareIn: "popup",
+	            shares: ["email", "twitter", "facebook"]
+	        });
+	    </script>
+
 		{% if authors %}
 		<h1 class="post-subheading">{% get_author_block_prefix page.content_type authors %}</h1>
 			{% for author in authors %}
