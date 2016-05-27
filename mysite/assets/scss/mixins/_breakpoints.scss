@@ -37,7 +37,7 @@
 }
 
 @mixin show-mini-logo {
-  .has_sidemenu & {
+  @include has-sidemenu {
     @media screen and (max-width: $mini-logo-breakpoint) {
       @content;
     }
