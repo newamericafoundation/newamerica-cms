@@ -18,6 +18,6 @@ class IssueOrTopic(ProgramSimplePage):
     def get_context(self, request):
         context = super(IssueOrTopic, self).get_context(request)
 
-        context['topics'] = self.get_children()
+        context['topics'] = self.get_children().live()
 
         return context
