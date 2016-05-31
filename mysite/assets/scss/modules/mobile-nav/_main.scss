@@ -30,6 +30,11 @@ $mobile-nav-toggle-offset: 35px;
       width: 50%;
       float:left;
     }
+
+    @include show-mini-logo {
+      width: 35% !important;
+    }
+    
   }
 
   &__secondary {
@@ -42,6 +47,10 @@ $mobile-nav-toggle-offset: 35px;
 
     @include has-sidemenu {
       display:block;
+    }
+
+    @include show-mini-logo {
+      width: 65%;
     }
 
     &__logo-fallback {
