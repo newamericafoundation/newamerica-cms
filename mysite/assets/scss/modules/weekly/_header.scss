@@ -1,10 +1,9 @@
 .weekly__header {
-	display: block;
+	display: table;
 	padding: $desktop-padding $mobile-padding;
 	width: 100%;
 
 	@include breakpoint(medium) {
-		display: table;
 		padding: $desktop-padding 0px 0px 0px;
 	}
 	@include desktop-header {
