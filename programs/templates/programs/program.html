@@ -128,10 +128,12 @@
 							
 							<div class='border-panel__content'>
 								<div class='border-panel__text'>
-									<h5 class='border-panel__info__content-type'>{% generate_content_type_line item.value.content_type %}</h5>
-									{% if item.value.post.date %}
-										<h5 class='border-panel__info__date'>&nbsp;&nbsp;{{ item.value.post.date }}</h5>
-									{% endif %}
+									<div class='border-panel__info'>
+										<h5 class='border-panel__info__content-type'>{% generate_content_type_line item.value.content_type %}</h5>
+										{% if item.value.post.date %}
+											<h5 class='border-panel__info__date'>{{ item.value.post.date }}</h5>
+										{% endif %}
+									</div>
 									<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 								
 									<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
