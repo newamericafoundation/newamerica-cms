@@ -1,6 +1,7 @@
 .weekly__header {
 	display: block;
 	padding: $desktop-padding $mobile-padding;
+	width: 100%;
 
 	@include breakpoint(medium) {
 		display: table;
@@ -13,33 +14,32 @@
 	&__left {
 		padding-right: $desktop-padding;
 		margin-bottom: 0px;
-		display: block;
+		display: table-cell;
+		border-right: 2px solid palette-get(na-black-10);
+		width: 150px;
+
 		@include breakpoint(medium) {
-			display: table-cell;
-			border-right: 2px solid palette-get(na-black-10);
 			width: 200px;
-			padding: 0px;
 		}
 
 		&__text {
 			font-family:"Platform";
 			color:palette-get(na-black);
 			line-height: 90%;
-			font-size: 40px;
 			margin-bottom: 0px;
+			font-size: 30px;
+
+			@include breakpoint(medium) {
+				font-size: 40px;
+			}
 		}
 	}
 
 	&__middle {
 		max-width: $max-body-width;
-		display: block;
 		vertical-align: middle;
-		padding: 15px 0px 0px;
-
-		@include breakpoint(medium) {
-			display: table-cell;
-			padding: 0px $desktop-padding;
-		}
+		display: table-cell;
+		padding: 0px $desktop-padding;
 		
 
 		&__text {
@@ -58,11 +58,15 @@
 			}
 		}
 		&__title,  &__title > a{
-			font-size: 35px;
+			font-size: 25px;
 			margin-bottom: 0px;
 			font-family:"Simplon";
 			color:palette-get(na-black-40);
 			line-height: 110%;
+
+			@include breakpoint(medium) {
+				font-size: 35px;
+			}
 		}
 	}
 
