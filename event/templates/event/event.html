@@ -24,7 +24,7 @@
 			    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
 			    	{% endif %}
 			    	{% if page.rsvp_link %}
-			    		{% is_future page.date as is_date_future %}
+			    		{% is_future page as is_date_future %}
 			    		{% if is_date_future %}
 			    			<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
 			    		{% endif %}
@@ -44,7 +44,7 @@
 			    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
 			    	{% endif %}
 			    	{% if page.rsvp_link %}
-			    		{% is_future page.date as is_date_future %}
+			    		{% is_future page as is_date_future %}
 			    		{% if is_date_future %}
 			    			<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
 			    		{% endif %}

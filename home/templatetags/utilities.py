@@ -1,10 +1,10 @@
-from datetime import date
+from datetime import datetime, timedelta
+from pytz import timezone
 from django import template
 from django.conf import settings
 from programs.models import Program
 from django.utils.safestring import mark_safe
 
-import datetime
 
 register = template.Library()
 
@@ -152,11 +152,11 @@ def get_event_url(level, tense):
 	datetime_format = "%Y-%m-%d"
 
 	if (tense == "past"):
-		start_date = (datetime.datetime.now() - datetime.timedelta(days=365)).strftime(datetime_format)
-		end_date = datetime.datetime.now().strftime(datetime_format)
+		start_date = (datetime.now() - timedelta(days=365)).strftime(datetime_format)
+		end_date = datetime.now().strftime(datetime_format)
 	else:
-		start_date = datetime.datetime.now().strftime(datetime_format)
-		end_date = (datetime.datetime.now() + datetime.timedelta(days=365)).strftime(datetime_format)
+		start_date = datetime.now().strftime(datetime_format)
+		end_date = (datetime.now() + timedelta(days=365)).strftime(datetime_format)
 
 	if (level == "org"):
 		ret_string = '/events/?program_id'
@@ -172,13 +172,42 @@ def get_event_url(level, tense):
 	
 	return ret_string
 
-# compares input date to current date object to determine if date is past or future
+# calls helper function to determine if date/time are future or past, depending if event is single day or multi-day
+# 	- single day events are considered past at the start time on the day of the event (start_date + start_time)
+# 	- multi-day events are considered past at the start time on the final day of the event (end_date + start_time)
 @register.simple_tag()
-def is_future(date):
-	if (date >= datetime.date.today()):
-		return 1
+def is_future(item):
+	start_time = item.start_time
+	start_date = item.date
+	end_date = item.end_date
+
+	if (end_date):
+		return is_datetime_future(start_time, end_date)
 	else:
+		return is_datetime_future(start_time, start_date)
+
+
+# helper function that compares date/time to current date/ttime to determine if event is past or future
+def is_datetime_future(start_time, date):
+	eastern = timezone('US/Eastern')
+	curr_time = datetime.now(eastern).time()
+	curr_date = datetime.now(eastern).date()
+
+	if (date > curr_date):
+		# date is future
+		return 1
+	elif (date == curr_date):
+		# date is today, checking start time
+		if (start_time >= curr_time):
+			# start time is future
+			return 1
+		else:
+			# start time is past
+			return 0
+	else:
+		# date is past
 		return 0
+
 
 @register.simple_tag()
 def person_display_contact_info(page):
