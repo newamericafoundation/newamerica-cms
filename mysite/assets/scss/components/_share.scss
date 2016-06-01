@@ -7,7 +7,7 @@
 }
 
 .jssocials-share {
-	margin-right: 10px;
+	margin-right: 12px;
 
 	&-label {
 		font-size: 1rem; 
@@ -16,5 +16,24 @@
 		opacity: 1; 
 		text-decoration: none; 
 		line-height: inherit; 
+	}
+
+	&-email {
+		.jssocials-share-label {
+			padding-left: 7px;
+		}
+	}
+
+	&-twitter {
+		.jssocials-share-label {
+			padding-left: 5px;
+		}
+	}
+
+	&-facebook {
+		margin-left: 0px;
+		.jssocials-share-label {
+			padding-left: 2px;
+		}
 	}
 }

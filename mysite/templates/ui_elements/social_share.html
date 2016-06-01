@@ -6,7 +6,12 @@
 		text: "{{ page.title | safe }}",
 		shareIn: "popup",
         shares: [
-        	"email", "twitter", 
+        	{
+        		share: "email",
+	        	label: "Email",
+			    logo: "fa fa-envelope",
+			}, 
+			"twitter",
 			{
 				share: "facebook",
 			    label: "Share",
