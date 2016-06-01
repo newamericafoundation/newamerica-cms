@@ -150,13 +150,14 @@ def generate_dateline(post):
 @register.simple_tag()
 def get_event_url(level, tense):
 	datetime_format = "%Y-%m-%d"
+	eastern = timezone('US/Eastern')
 
 	if (tense == "past"):
-		start_date = (datetime.now() - timedelta(days=365)).strftime(datetime_format)
-		end_date = datetime.now().strftime(datetime_format)
+		start_date = (datetime.now(eastern) - timedelta(days=365)).strftime(datetime_format)
+		end_date = datetime.now(eastern).strftime(datetime_format)
 	else:
-		start_date = datetime.now().strftime(datetime_format)
-		end_date = (datetime.now() + timedelta(days=365)).strftime(datetime_format)
+		start_date = datetime.now(eastern).strftime(datetime_format)
+		end_date = (datetime.now(eastern) + timedelta(days=365)).strftime(datetime_format)
 
 	if (level == "org"):
 		ret_string = '/events/?program_id'
@@ -187,7 +188,7 @@ def is_future(item):
 		return is_datetime_future(start_time, start_date)
 
 
-# helper function that compares date/time to current date/ttime to determine if event is past or future
+# helper function that compares date/time to current date/time to determine if event is past or future
 def is_datetime_future(start_time, date):
 	eastern = timezone('US/Eastern')
 	curr_time = datetime.now(eastern).time()
