@@ -6,12 +6,6 @@
   @include handle-text-overflow;
 
   @include page-body-text;
-  
-  & > .block-heading {
-    color: palette-get(na-black);
-    font-size:1.50rem;
-    font-weight: bold;
-  }
 
   /*dropcap styling*/
   &.with-dropcap > .block-paragraph:first-child {
@@ -91,6 +85,12 @@
     display: list-item; 
     list-style-type: disc; 
     margin-left: 45px;
+  }
+
+  & > .block-heading {
+    color: palette-get(na-black);
+    font-size: 1.5rem;
+    font-weight: bold;
   }
 
   h2 {
