@@ -5,3 +5,16 @@
 .fa {
 	font-size: 18px;
 }
+
+.jssocials-share {
+	margin-right: 10px;
+
+	&-label {
+		font-size: 1rem; 
+		font-family: Simplon; 
+		font-weight: 700; 
+		opacity: 1; 
+		text-decoration: none; 
+		line-height: inherit; 
+	}
+}

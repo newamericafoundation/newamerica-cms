@@ -5,6 +5,12 @@
 		showLabel: true,
 		text: "{{ page.title | safe }}",
 		shareIn: "popup",
-        shares: ["email", "twitter", "facebook"]
+        shares: [
+        	"email", "twitter", 
+			{
+				share: "facebook",
+			    label: "Share",
+			    logo: "fa fa-facebook"
+			}]
     });
 </script>
