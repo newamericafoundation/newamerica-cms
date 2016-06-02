@@ -24,7 +24,7 @@
         <div class="content-grid__controls search-results">
             <form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
                 <div class="content-grid__controls__search">
-                    <input type='text' name='query' value='{{ search_query }}' placeholder='Search' autocomplete="off"></input>
+                    <input class="search-box__input" type='text' name='query' value='{{ search_query }}' placeholder='Search' autocomplete="off"></input>
                     <button class="search-box__submit" type="submit">
                         {% include 'ui_elements/svg/magnifying-glass.html' %}
                     </button>
