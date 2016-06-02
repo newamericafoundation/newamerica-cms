@@ -64,10 +64,10 @@
 		        {% endif %}
 	   		</div>
 	    {% endfor %}
+	
+		{% if page.itunes_url %}
+			<a href="{{ page.itunes_url }}">Listen on iTunes</a>
+		{% endif %}
 	</div>
-
-	{% if page.itunes_url %}
-		<a href="{{page.itunes_url}}">Listen on iTunes</a>
-	{% endif %}
 
 {% endblock %}

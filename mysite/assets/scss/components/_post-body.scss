@@ -6,12 +6,6 @@
   @include handle-text-overflow;
 
   @include page-body-text;
-  
-  & > .block-heading {
-    color: palette-get(na-black);
-    font-size:1.50rem;
-    font-weight: bold;
-  }
 
   /*dropcap styling*/
   &.with-dropcap > .block-paragraph:first-child {
@@ -93,21 +87,28 @@
     margin-left: 45px;
   }
 
+  & > .block-heading {
+    color: palette-get(na-black);
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
   h2 {
-    font-size: 1.5rem; 
+    font-size: 1.8rem; 
     font-weight: 800; 
-    color: rgba(44,47,53,1); 
+    color: palette-get(na-black);
     line-height: 1.65; 
-    margin-bottom: 1.25rem; 
-    margin-top:1.25rem 
+    margin-bottom: 1.8rem; 
+    margin-top: 1.8rem 
   }
 
   h3 { 
-    font-size: 1.25rem; 
-    font-weight: 800; 
-    margin-bottom: 1.25rem; 
-    margin-top: 1.25rem; 
+    font-size: 1.5rem; 
+    font-weight: 800;
+    margin-bottom: 1.5rem; 
+    margin-top: 1.5rem; 
     color: palette-get(na-black-40);
+    opacity: .5;
   }
 
   h4, h5 { 
