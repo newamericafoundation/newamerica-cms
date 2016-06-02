@@ -59,9 +59,10 @@
 				{% if post.story_image %}
 					{% image post.story_image min-650x200 as post_image %}
 
-					<div class="content-entry__image-container">
-						<a href="{{ post.url }}"><img class="content-entry__image" src="{{post_image.url}}"></a>
-					</div>
+					<a href="{{ post.url }}">
+						<div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
+						</div>
+					</a>
 				<div class="content-entry__text-container has-image">
 				
 				{% else %}
@@ -85,11 +86,9 @@
 						
 					</div>
 				</div>
-			<hr>
 			</div>
-			
+			<hr>
 		{% endfor %}
-
 	</div>
 
 	<div class="content-grid__footer">
