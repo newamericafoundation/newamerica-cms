@@ -53,10 +53,15 @@
 					<h3>{% pluralize num_attachments "ATTACHMENT" %}</h3>
 					{% for attachment in page.attachment %}
 						<div class="post-attachment__text__item">{{ attachment }}</div>
+						<!-- {% for link in attachment_links %}
+							{{ link }}
+						{% endfor %} -->
+						<p>'hello'</p>
 					{% endfor %}
 				{% endwith %}
 			</div>
 		</div>
 	{% endif %}
+	{{ message }}
 
 {% endblock %}
