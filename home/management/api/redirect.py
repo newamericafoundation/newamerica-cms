@@ -1,5 +1,17 @@
-# coding=utf-8
-from .newamerica_api_client import NAClient
+#coding=utf-8
+#!/usr/bin/python
+import sys
+
+import csv
+import json
+import os
+
+# Allow imports from above
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
+
+from newamerica_api_client import NAClient
 from transfer_script_helpers import load_users_mapping
 
 from wagtail.wagtailredirects.models import Redirect
@@ -7,6 +19,7 @@ from wagtail.wagtailcore.models import Page
 
 from person.models import Person
 from django.utils.text import slugify
+
 
 # Mappping of program ids to slugs of programs on the current site
 mapped_programs = {
