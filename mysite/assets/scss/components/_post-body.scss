@@ -1,3 +1,5 @@
+
+
 .post-body {
   $media-padding: 20px;
   $media-default-aspect: 1;
@@ -125,7 +127,6 @@
   }
 
   .block-paragraph {
-
     img {
       padding: $media-padding 25px;
     }
@@ -153,6 +154,35 @@
       width: 100%;
       float: left;
     }
+  }
+
+  .block-table {
+    margin-top: $desktop-padding;
+    margin-bottom: $desktop-padding;
+  }
+
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(44, 47, 53, 0.05);
+  }
+
+  th, td {
+    padding: 10px;
+    vertical-align: top;
+    text-align: left;
+    line-height: 1.3;
+    border-left: $standard-border;
+    border-right: $standard-border;
+
+    &:first-of-type {
+      border-left: none;
+    }
+    &:last-of-type {
+      border-right: none;
+    }
+  }
+
+  th {
+    color: palette-get(na-black);
   }
 
   .block-image {
