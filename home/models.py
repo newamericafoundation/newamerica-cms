@@ -9,6 +9,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import PageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel)
@@ -354,6 +355,7 @@ class Post(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
+        ('table'), TableBlock(),
     ])
 
     parent_programs = models.ManyToManyField(
