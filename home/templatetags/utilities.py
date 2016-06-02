@@ -153,7 +153,7 @@ def get_event_url(level, tense):
 	eastern = timezone('US/Eastern')
 
 	if (tense == "past"):
-		start_date = (datetime.now(eastern) - timedelta(days=365)).strftime(datetime_format)
+		start_date = (datetime.now(eastern) - timedelta(days=7)).strftime(datetime_format)
 		end_date = datetime.now(eastern).strftime(datetime_format)
 	else:
 		start_date = datetime.now(eastern).strftime(datetime_format)
