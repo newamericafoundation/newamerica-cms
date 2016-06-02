@@ -176,7 +176,7 @@ def get_event_url(level, tense):
 # calls helper function to determine if date/time are future or past, depending if event is single day or multi-day
 # 	- single day events are considered past at the start time on the day of the event (start_date + start_time)
 # 	- multi-day events are considered past at the start time on the final day of the event (end_date + start_time)
-@register.simple_tag()
+@register.filter
 def is_future(item):
 	start_time = item.start_time
 	start_date = item.date
