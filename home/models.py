@@ -205,6 +205,7 @@ class AbstractSimplePage(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
+        ('table', TableBlock()),
     ])
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
@@ -355,7 +356,7 @@ class Post(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
-        ('table'), TableBlock(),
+        ('table', TableBlock()),
     ])
 
     parent_programs = models.ManyToManyField(
