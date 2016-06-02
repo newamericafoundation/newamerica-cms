@@ -152,7 +152,7 @@ def get_event_url(level, tense):
 	datetime_format = "%Y-%m-%d"
 
 	if (tense == "past"):
-		start_date = (datetime.datetime.now() - datetime.timedelta(days=365)).strftime(datetime_format)
+		start_date = (datetime.datetime.now() - datetime.timedelta(days=7)).strftime(datetime_format)
 		end_date = datetime.datetime.now().strftime(datetime_format)
 	else:
 		start_date = datetime.datetime.now().strftime(datetime_format)
