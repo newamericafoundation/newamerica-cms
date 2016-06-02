@@ -1,0 +1,21 @@
+<div id="share"></div>
+<script>
+    $("#share").jsSocials({
+    	showCount: true,
+		showLabel: true,
+		text: "{{ page.title | safe }}",
+		shareIn: "popup",
+        shares: [
+        	{
+        		share: "email",
+	        	label: "Email",
+			    logo: "fa fa-envelope",
+			}, 
+			"twitter",
+			{
+				share: "facebook",
+			    label: "Share",
+			    logo: "fa fa-facebook"
+			}]
+    });
+</script>

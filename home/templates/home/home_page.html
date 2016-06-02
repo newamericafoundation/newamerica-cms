@@ -32,7 +32,13 @@
 										<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
 									{% endif %}
 								{% endif %}
-								<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line page.lead_1.content_type %}</p>
+								<p class='hero-grid__element__text-bar__subheading'>
+										{% if page.lead_1.specific.parent_programs %}
+											{% for program in page.lead_1.specific.parent_programs.all %}
+	                                          	{{ program }}{% list_separator forloop.revcounter0 %}
+	                                        {% endfor %}
+	                                    {% endif %}
+                                        {% generate_content_type_line page.lead_1.content_type %}</p>
 								<h1 class='hero-grid__element__text-bar__heading'>{{ page.lead_1.title }}</h1>
 							</div>
 						</div>
@@ -61,7 +67,13 @@
 											<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
 										{% endif %}
 									{% endif %}
-									<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line other_lead_story.content_type %}</p>
+									<p class='hero-grid__element__text-bar__subheading'>
+										{% if other_lead_story.specific.parent_programs %}
+											{% for program in other_lead_story.specific.parent_programs.all %}
+	                                          	{{ program }}{% list_separator forloop.revcounter0 %}
+	                                        {% endfor %}
+	                                    {% endif %}
+                                        {% generate_content_type_line other_lead_story.content_type %}</p>
 									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>
 								</div>
 							</a>
@@ -127,9 +139,16 @@
 								<div class='border-panel__content'>
 									<div class='border-panel__text'>
 										<div class='border-panel__info'>
-											<h5 class='border-panel__info__content-type'>{% generate_content_type_line item.value.content_type %}</h5>
+											<h5 class='border-panel__info__content-type'>
+												{% if item.value.post.parent_programs %}
+													{% for program in item.value.post.parent_programs.all %}
+			                                          	{{ program }}{% list_separator forloop.revcounter0 %}
+			                                        {% endfor %}
+			                                    {% endif %}
+		                                        {% generate_content_type_line item.value.content_type %}
+		                                    </h5>
 											{% if item.value.post.date %}
-												<h5 class='border-panel__info__date'>&nbsp;&nbsp;{{ item.value.post.date }}</h5>
+												<h5 class='border-panel__info__date'>{{ item.value.post.date }}</h5>
 											{% endif %}
 										</div>
 									
