@@ -174,10 +174,10 @@
     border-left: $standard-border;
     border-right: $standard-border;
 
-    &:first-of-type {
+    &:first-child {
       border-left: none;
     }
-    &:last-of-type {
+    &:last-child {
       border-right: none;
     }
   }
