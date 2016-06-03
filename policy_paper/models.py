@@ -2,7 +2,6 @@ from django.db import models
 
 from home.models import Post
 
-from wagtail.wagtaildocs.models import Document
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
