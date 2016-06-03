@@ -43,23 +43,6 @@ class PolicyPaper(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
-    def context(self, request):
-        context = super(PolicyPaper, self).get_context(request)
-        print('we are here 1')
-        attachment_links = []
-        
-        for attach in attachment:
-            print('we are here 2')
-            attach_id = attach.stream_data[0]['value']
-            print(attach_id)
-            doc = Document.objects.get(id=attach_id)
-            attachment_links.append(doc.file.url)
-        
-        context['attachment_links'] = attachment_links
-        context['message'] = 'MESSAGE!!!!'
-        
-        return context
-
 class AllPolicyPapersHomePage(Page):
     """
     A page which inherits from the abstract Page model and
