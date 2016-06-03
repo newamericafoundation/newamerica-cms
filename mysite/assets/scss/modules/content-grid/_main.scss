@@ -160,6 +160,12 @@ $submit-width: 200px;
 					display: none;
 				}
 			}
+
+			@include breakpoint(medium) {
+				hr:first-of-type {
+					display: none;
+				}
+			}
 		}
 
 		hr {
