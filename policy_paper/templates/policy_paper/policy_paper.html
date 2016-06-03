@@ -51,12 +51,10 @@
 			<div class="post-attachment__text">
 				{% with page.attachment|length as num_attachments %}
 					<h3>{% pluralize num_attachments "ATTACHMENT" %}</h3>
-					{% for attachment in page.attachment %}
-						<div class="post-attachment__text__item">{{ attachment }}</div>
-						<!-- {% for link in attachment_links %}
-							{{ link }}
-						{% endfor %} -->
-						<p>'hello'</p>
+					{% for block in page.attachment %}
+						{% if block.block_type == 'attachment' %}
+							<div class="post-attachment__text__item"><a href='{{ block.value.file.url }}'>{{ page.title }}</a></div>
+						{% endif %}
 					{% endfor %}
 				{% endwith %}
 			</div>
