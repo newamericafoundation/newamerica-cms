@@ -3,7 +3,7 @@
     $("#share").jsSocials({
     	showCount: true,
 		showLabel: true,
-		text: "{{ page.title | safe }}",
+		text: "{{ page.title|safe|escapejs }}",
 		shareIn: "popup",
         shares: [
         	{
