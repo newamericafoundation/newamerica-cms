@@ -395,6 +395,7 @@
 			&__subheading {
 				display: inline-block;
 				margin-bottom: 0;
+				padding-top: 15px;
 				padding-bottom: 10px;
 
 				@include program-and-content-type-text;
@@ -410,7 +411,6 @@
 				pointer-events: auto;
 				display: block;
 				width: 70px;
-				margin-bottom: 5px;
 				padding-left: .75rem;
 				padding-right: .75rem;
 			}
