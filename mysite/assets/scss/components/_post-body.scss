@@ -66,11 +66,21 @@
     }
   }
 
-  a {
+  a:not(.button) {
     font-weight: 800;
     border-bottom: $standard-border;
     padding-bottom: 2px;
     opacity: 1;
+  }
+
+  .button {
+    margin-bottom: 1rem;
+
+    &.center-aligned {
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   ol, ul {
@@ -184,6 +194,10 @@
 
   th {
     color: palette-get(na-black);
+  }
+
+  .block-button {
+
   }
 
   .block-image {
