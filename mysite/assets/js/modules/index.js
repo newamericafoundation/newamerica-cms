@@ -3,6 +3,7 @@
 Exports mapped object of all module functions, called in assets/mysite.js
 
 */
+
 export default [
   'border-panel',
   'header',

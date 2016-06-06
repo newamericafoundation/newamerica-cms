@@ -1,5 +1,4 @@
 import $ from 'jquery';
-
 /*
 
 Adds mobile menu interaction 
@@ -9,12 +8,6 @@ Adds mobile menu interaction
 	- calls function to ensure that mobile menu toggle arrows rotate when menu is toggled
 
 */
-
-const desktopHeaderBreakpoint = 965;
-const expandedHeaderBreakpoint = 775;
-
-// tracks which breakppoint to use in resize function - based on header--expanded body class, default set to desktop header breakpoint
-let currHeaderBreakpoint = desktopHeaderBreakpoint;
 
 let headerMenuExpanded = false;
 let sideMenuExpanded = false;
@@ -67,9 +60,6 @@ export default function addMenuResponsivity() {
 		}
 	});
 
-	// set which breakpoint to use in window resize function
-	currHeaderBreakpoint = $('body').hasClass('header--expanded') ? expandedHeaderBreakpoint : desktopHeaderBreakpoint;
-
 	addResizeListener();
 
 	addMobileMenuArrowInteraction()
@@ -83,7 +73,9 @@ Resize listener to ensure that if window is resized while mobile menus are displ
 
 */
 function addResizeListener() {
-	const resizeMediaQuery = window.matchMedia('(min-width: ' + currHeaderBreakpoint + 'px)');
+	// tracks which breakpoint to use in resize function - based on header--expanded body class
+	var whichHeaderBreakpoint = $('body').hasClass('header--expanded') ? global.headerBreakpoints.expandedHeader : global.headerBreakpoints.desktopHeader;
+	const resizeMediaQuery = window.matchMedia(whichHeaderBreakpoint);
 		resizeMediaQuery.addListener(WidthChange);
 		WidthChange(resizeMediaQuery);
 }

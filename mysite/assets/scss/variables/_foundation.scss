@@ -8,6 +8,9 @@ $breakpoints: (
   large: 1024px,
   xlarge: 1320px,
   xxlarge: 1440px,
+  
+  desktop-header: $desktop-header-foldup,
+  expanded-header: $expanded-header-foldup,
 );
 
 $button-background: palette-get(na-turquoise);
