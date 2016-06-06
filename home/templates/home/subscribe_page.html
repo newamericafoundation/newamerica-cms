@@ -44,8 +44,8 @@
 
 			<div class="row">
 				<div class="medium-5 columns">
-					<label>Full Name*
-						<input id="fieldName" name="cm-name" type="text" required>
+					<label>First &amp; Last Name*
+						<input id="fieldName" name="cm-name" type="text" pattern=".+[\s].+" required oninvalid="this.setCustomValidity('Please enter a valid first and last name combination')" oninput="setCustomValidity('')">
 					</label>
 				</div>
 				<div class="medium-5 columns">
