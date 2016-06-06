@@ -208,6 +208,7 @@ class AbstractSimplePage(Page):
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
         ('table', TableBlock()),
+        ('button', ButtonBlock()),
     ])
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
