@@ -7,7 +7,7 @@ from person.models import OurPeoplePage, Person
 
 from .newamerica_api_client import NAClient
 
-from transfer_script_helpers import download_image, load_users_mapping
+from .transfer_script_helpers import download_image, load_users_mapping
 
 from .article_transfer_script import load_weekly_articles, load_general_blogs, load_asset_blogs
 
