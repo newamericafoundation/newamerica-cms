@@ -1,4 +1,7 @@
 @media print {
+	ul, ol, img {
+	   page-break-inside: avoid;
+	}
 	.caption {
 		display: none !important;
 	}
@@ -23,6 +26,10 @@
 		display: block !important;
 	}
 
+	.mobile-nav {
+		display: none !important;
+	}
+
 	a[href]:after {
 	    content: none !important;
 	}
@@ -40,6 +47,10 @@
 		display: none !important;
 	}
 
+	.picture-link__picture {
+		display: none !important;
+	}
+
 	.content-grid__controls {
 		display: none !important;
 	}
@@ -50,6 +61,7 @@
 
 	.picture-grid__entry__text-container {
 		text-align: left !important;
+		height: 100% !important;
 	}
 
 	.picture-grid__entry__image-container {
@@ -64,8 +76,54 @@
 		display: none !important;
 	}
 
+	.post-person {
+		min-height: 0px !important;
+		&__left {
+			display: none !important;
+		}
+		&__text {
+			padding-left: 0px !important;
+		}
+	}
+
+	.person {
+		&__icon {
+			display: none !important;
+		}
+	}
+
+	.person-grid__content {
+		& > .small-12 {
+			width: 50% !important;
+		}
+	}
+
+	.post-header {
+		height: 100% !important;
+	}
+
 	a {
 		text-decoration: none !important;
 	}
 
+	.button {
+		display: none !important;
+	}
+
+	.weekly__header {
+		&__left {
+			border-right: 2px solid palette-get(na-black-10) !important;
+		}
+		&__middle__text {
+			display: table-cell !important;
+		}
+	}
+
+	.resumator-job-link {
+		display: none !important;
+	}
+
+	.resumator-job-experience, .resumator-job-department {
+		padding-left: $desktop-padding !important;
+	}
 }
