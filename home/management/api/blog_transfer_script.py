@@ -1,5 +1,7 @@
+# coding=utf-8
 import csv
 import json
+import io
 
 from .newamerica_api_client import NAClient
 
@@ -13,35 +15,20 @@ from weekly.models import Weekly, WeeklyEdition, WeeklyArticle
 
 from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage, get_post_authors, connect_programs_to_post, get_subprogram, get_edcentral_date
 
-
-def load_weekly_mapping():
-    """
-    Opens the CSV of weekly content data and then
-    loads and returns the necessary mapped fields
-    """
-    csv_data = {}
-    with open('weekly_content.csv', "r") as csvfile:
-        csv_reader = csv.reader(csvfile)
-        for row in csv_reader:
-            csv_data[str(row[0])] = {
-                'edition_number': row[10],
-            }
-    return csv_data
-
-
 def edcentral_blog_mapping():
     all_data = []
     csv_data = {}
     print("GOT HERE!")
-    with open('edcentral3.csv', "r") as csvfile:
+    with io.open('edcentral8.csv', "r", encoding="utf-8") as csvfile:
         csv_reader = csv.reader(csvfile)
         for row in csv_reader:
             csv_data[str(row[0])] = {
                 'title': row[0],
-                'link': row[1],
-                'date': row[2],
                 'author': row[3],
-                'content': row[5]
+                'categories': row[4],
+                'content': row[6],
+                'real_date': row[9],
+                'slug': row[11],
             }
             all_data.append(csv_data[str(row[0])])
     return all_data
@@ -58,13 +45,14 @@ def load_education_blog_posts():
         if post['title'] == 'title':
             pass
         else:
+            print(post['title'])
             post_parent = get_program('5')
             parent_blog_homepage = get_content_homepage(
                 post_parent, 
                 ProgramBlogPostsPage,
                 'EdCentral',
             )
-            ed_blog_post_slug = slugify(post['title'])
+            ed_blog_post_slug = post['slug']
             new_blog_post = BlogPost.objects.filter(slug=ed_blog_post_slug).first()
             
             if not new_blog_post and ed_blog_post_slug:
@@ -75,7 +63,7 @@ def load_education_blog_posts():
                     show_in_menus=False,
                     slug=ed_blog_post_slug,
                     title=post['title'],
-                    date=get_edcentral_date(post['date']),
+                    date=post['real_date'],
                     subheading='',
                     body=json.dumps([
                         {
@@ -87,7 +75,7 @@ def load_education_blog_posts():
                 parent_blog_homepage.add_child(instance=new_blog_post)
                 new_blog_post.save()
                 print("-------------------ADDED NEW EDCENTRAL POST----------------------")
-                get_post_authors(new_blog_post, post['author'])
+                #get_post_authors(new_blog_post, post['author'])
 
 def load_weekly_articles():
     """
