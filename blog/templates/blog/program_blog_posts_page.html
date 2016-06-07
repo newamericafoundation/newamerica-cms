@@ -41,7 +41,9 @@
 									<p class='hero-grid__element__text-bar__subheading' href="{{ post.url }}">{% generate_byline post.content_type post.authors.all %}</p>
 								{% endif %}
 								<h5 class= "hero-grid__element__text-bar__date">{{ post.date }} </h5>
-								<p class= "hero-grid__element__text-bar__excerpt">{{ post.story_excerpt }}</p>
+								{% if post.story_excerpt %}
+									<p class= "hero-grid__element__text-bar__excerpt">{{ post.story_excerpt }}</p>
+								{% endif %}
 							</div>
 						</div>
 					</a>
@@ -82,7 +84,9 @@
 							<h5 class= "content-entry__text__author">{% generate_byline post.content_type post.authors.all %}</h5>
 						{% endif %}
 						<h5 class= "content-entry__text__date-time">{% generate_dateline post %}</h5>
-						<p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
+						{% if post.story_excerpt %}
+							<p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
+						{% endif %}
 						
 					</div>
 				</div>
