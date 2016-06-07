@@ -15,7 +15,7 @@ from programs.models import Program, Subprogram
 
 from person.models import Person
 
-from home.models import PostAuthorRelationship, HomePage, PostProgramRelationship, CustomImage
+from home.models import PostAuthorRelationship, HomePage, PostProgramRelationship, CustomImage, PostSubprogramRelationship
 
 home_page = HomePage.objects.first()
 
@@ -253,6 +253,29 @@ def connect_programs_to_post(post, programs):
             )
             print(relationship)
             relationship.save()
+
+def connect_subprograms_to_post(post, subprograms):
+    """
+    Takes in post and list of subprograms,  
+    checks the relationship doesn't already exist, 
+    and then creates a new relationship tagging the subprogram 
+    to the post.
+    """
+    for subprogram in subprograms:
+        current_subprogram = get_subprogram('Education Policy', subprogram)
+        try:
+            PostSubprogramRelationship.objects.get(
+                post=post,
+                subprogram=current_subprogram
+            )
+        except PostSubprogramRelationship.DoesNotExist:
+            relationship = PostSubprogramRelationship.objects.create(
+                post=post,
+                subprogram=current_subprogram
+            )
+            print(relationship)
+            relationship.save()
+
 
 def need_to_update_post(modified_date):
     """
