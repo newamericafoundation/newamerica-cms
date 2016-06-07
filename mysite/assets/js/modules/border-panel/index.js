@@ -10,7 +10,6 @@ Iterates through border panel elements calling add interactivity function
 	- adds resize listener to change border panel heights to adapt for text wrapping
 
 */
-var mediumBreakpoint = 640;
 
 export default function addAllBorderPanelsInteractivity() {
 	$('.border-panel').each((i, el) => {
