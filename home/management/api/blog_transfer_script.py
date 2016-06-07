@@ -19,7 +19,7 @@ def edcentral_blog_mapping():
     all_data = []
     csv_data = {}
     print("GOT HERE!")
-    with io.open('edcentral8.csv', "r", encoding="utf-8") as csvfile:
+    with io.open('edcentral9.csv', "r", encoding="utf-8") as csvfile:
         csv_reader = csv.reader(csvfile)
         for row in csv_reader:
             csv_data[str(row[0])] = {
