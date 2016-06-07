@@ -243,7 +243,7 @@ class OurPeoplePage(Page):
     def get_context(self, request):
         context = super(OurPeoplePage, self).get_context(request)
 
-        context['people'] = Person.objects.all().exclude(
+        context['people'] = Person.objects.all().live().exclude(
             role='External Author/Former Staff')
 
         context['all_programs'] = Program.objects.all()
@@ -288,6 +288,7 @@ class ExpertPage(Page):
         context = super(ExpertPage, self).get_context(request)
 
         context['non_program_experts'] = Person.objects\
+            .live()\
             .filter(belongs_to_these_programs=None)\
             .filter(expert=True)\
             .order_by('-title')
@@ -314,6 +315,7 @@ class ProgramPeoplePage(Page):
             program_title = self.get_ancestors()[2]
             program = Program.objects.get(title=program_title)
             all_posts = Person.objects\
+                .live()\
                 .filter(belongs_to_these_programs=program)\
                 .exclude(role='External Author/Former Staff')\
                 .order_by('last_name', 'first_name')
@@ -321,6 +323,7 @@ class ProgramPeoplePage(Page):
             subprogram_title = self.get_ancestors()[3]
             program = Subprogram.objects.get(title=subprogram_title)
             all_posts = Person.objects\
+                .live()\
                 .filter(belongs_to_these_subprograms=program)\
                 .exclude(role='External Author/Former Staff')\
                 .order_by('last_name', 'first_name')
@@ -364,10 +367,12 @@ class BoardAndLeadershipPeoplePage(Page):
 
         if which_role == 'Leadership Team':
             all_people = Person.objects\
+                .live()\
                 .filter(leadership=True)\
                 .order_by('last_name', 'first_name')
         else:
             all_people = Person.objects\
+                .live()\
                 .filter(role=which_role)\
                 .order_by('last_name', 'first_name')
 
