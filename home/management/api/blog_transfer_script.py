@@ -13,7 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from weekly.models import Weekly, WeeklyEdition, WeeklyArticle
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage, get_post_authors, connect_programs_to_post, get_subprogram, get_edcentral_date
+from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage, get_post_authors, connect_programs_to_post, get_subprogram, get_edcentral_date, connect_subprograms_to_post
 
 def edcentral_blog_mapping():
     all_data = []
@@ -33,6 +33,24 @@ def edcentral_blog_mapping():
             all_data.append(csv_data[str(row[0])])
     return all_data
 
+def clean_subprograms_for_ed(subprograms):
+    """ 
+    Cleans up and transforms format of subprograms 
+    from the CSV to be able to attach posts to
+    the subprograms 
+    """
+    subprograms = subprograms.split(",")
+    print('split array is below')
+    print(subprograms)
+
+    all_subprograms = []
+    
+    for subprogram in subprograms:
+        all_subprograms.append(subprogram.strip())
+    print('these are all subprograms below')
+    print(all_subprograms)
+    return all_subprograms
+    
 
 def load_education_blog_posts():
     """
@@ -53,6 +71,7 @@ def load_education_blog_posts():
                 'EdCentral',
             )
             ed_blog_post_slug = post['slug']
+            print(ed_blog_post_slug)
             new_blog_post = BlogPost.objects.filter(slug=ed_blog_post_slug).first()
             
             if not new_blog_post and ed_blog_post_slug:
@@ -64,7 +83,6 @@ def load_education_blog_posts():
                     slug=ed_blog_post_slug,
                     title=post['title'],
                     date=post['real_date'],
-                    subheading='',
                     body=json.dumps([
                         {
                             'type': 'paragraph',
@@ -76,6 +94,25 @@ def load_education_blog_posts():
                 new_blog_post.save()
                 print("-------------------ADDED NEW EDCENTRAL POST----------------------")
                 #get_post_authors(new_blog_post, post['author'])
+                connect_subprograms_to_post(new_blog_post, clean_subprograms_for_ed(post['categories']))
+            elif new_blog_post and ed_blog_post_slug:
+                new_blog_post.search_description = ''
+                new_blog_post.seo_title = ''
+                new_blog_post.depth = 5
+                new_blog_post.show_in_menus = False
+                new_blog_post.slug = ed_blog_post_slug
+                new_blog_post.title = post['title']
+                new_blog_post.date = post['real_date']
+                new_blog_post.body = json.dumps([
+                        {
+                            'type': 'paragraph',
+                            'value': post['content']
+                        }
+                ])
+                #get_post_authors(new_blog_post, post['author'])
+                connect_subprograms_to_post(new_blog_post, clean_subprograms_for_ed(post['categories']))
+                print("-------------------UPDATED EXISTING EDCENTRAL POST----------------------")
+                new_blog_post.save()
 
 def load_weekly_articles():
     """
