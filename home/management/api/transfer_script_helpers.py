@@ -118,8 +118,6 @@ def get_summary(old_summary):
     """
     if old_summary:
         return old_summary[:140]
-    else:
-        return "Summary goes here"
 
 
 def get_post_date(original_date):
