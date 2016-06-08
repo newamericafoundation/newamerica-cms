@@ -3,15 +3,12 @@ import csv
 import json
 import io
 
-from .newamerica_api_client import NAClient
-
 from blog.models import BlogPost, ProgramBlogPostsPage
 
-import django.db.utils
-from django.utils.text import slugify
 from django.core.exceptions import ObjectDoesNotExist
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_program, get_content_homepage, get_post_authors, connect_programs_to_post, get_subprogram, connect_subprograms_to_post, get_education_authors
+from transfer_script_helpers import get_summary, get_program, get_content_homepage, connect_subprograms_to_post, get_education_authors
+
 
 def edcentral_blog_mapping():
     all_data = []
@@ -30,6 +27,7 @@ def edcentral_blog_mapping():
             }
             all_data.append(csv_data[str(row[0])])
     return all_data
+
 
 def clean_subprograms_for_ed(subprograms):
     """ 
