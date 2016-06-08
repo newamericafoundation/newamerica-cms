@@ -64,17 +64,11 @@ def get_org_wide_events(self, request, page_type, content_model, tense):
     search_program = request.GET.get('program_id', None)
     date = request.GET.get('date', None)
 
-    date_query = Q()
     program_query = Q()
+    date_query = set_events_date_query(date, tense)
     
     if search_program:
         program_query = Q(parent_programs__exact=int(search_program))
-    
-    if date:
-        date_range = json.loads(date)
-        date_query = Q(date__range=(date_range['start'], date_range['end']))
-    else:
-        date_query = set_default_date_query(tense)
     
     all_events = content_model.objects.filter(date_query & program_query)
     if (tense == "future"):
@@ -109,9 +103,6 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
         filter_dict = {'parent_programs': program}
         if search_subprogram:
             filter_dict['post_subprogram'] = int(search_subprogram)
-        if date:
-            date_range = json.loads(date)
-            filter_dict['date__range'] = (date_range['start'], date_range['end'])
     
         all_posts = content_model.objects.live().filter(**filter_dict)
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
@@ -120,6 +111,10 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
         subprogram_title = self.get_ancestors()[3]
         program = Subprogram.objects.get(title=subprogram_title)
         all_posts = content_model.objects.live().filter(post_subprogram=program)
+
+    if date:
+        date_range = json.loads(date)
+        filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
     context['all_events'] = paginate_results(request, all_posts.live().order_by("date", "start_time"))
@@ -144,9 +139,9 @@ def get_program_and_subprogram_events(self, request, page_type, content_model, t
     search_subprogram = request.GET.get('subprogram_id', None)
     date = request.GET.get('date', None)
 
-    date_query = Q()
     program_query = Q()
     subprogram_query = Q()
+    date_query = set_events_date_query(date, tense)
 
     # if program grid
     if self.depth == 4:
@@ -158,41 +153,41 @@ def get_program_and_subprogram_events(self, request, page_type, content_model, t
             subprogram_query = Q(post_subprogram__exact=int(search_subprogram))
 
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
+        context['program'] = program
     # if subprogram grid
     else:
         subprogram_title = self.get_ancestors()[3]
-        program = Subprogram.objects.get(title=subprogram_title)
+        subprogram = Subprogram.objects.get(title=subprogram_title)
+        subprogram_query = Q(post_subprogram__exact=subprogram)
 
-        subprogram_query = Q(post_subprogram__exact=int(search_subprogram))
-
-    if date:
-        date_range = json.loads(date)
-        date_query = Q(date__range=(date_range['start'], date_range['end']))
-    else:
-        date_query = set_default_date_query(tense)
+        context['program'] = subprogram
 
     all_events = content_model.objects.live().filter(date_query & program_query & subprogram_query)
-    print("here!")
-    print(all_events)
+    
     if (tense == "future"):
         context['all_events'] = paginate_results(request, all_events.live().order_by("date", "start_time"))
     else:
         context['all_events'] = paginate_results(request, all_events.live().order_by("-date", "-start_time"))
 
-    context['program'] = program
     context['query_url'] = generate_url(request)
     
     return context
 
-def set_default_date_query(tense):
+def set_events_date_query(date, tense):
     datetime_format = "%Y-%m-%d"
     eastern = timezone('US/Eastern')
     curr_date = datetime.now(eastern).date().strftime(datetime_format)
 
-    if (tense == "future"):
-        return Q(date__gte=curr_date) | Q(end_date__gte=curr_date)
+    if date:
+        date_range = json.loads(date)
+        date_query = Q(date__range=(date_range['start'], date_range['end']))
     else:
-        return Q(date__lt=curr_date) & (Q(end_date__isnull=True) | Q(end_date__lt=curr_date))
+        if (tense == "future"):
+            date_query = Q(date__gte=curr_date) | Q(end_date__gte=curr_date)
+        else:
+            date_query = Q(date__lt=curr_date) & (Q(end_date__isnull=True) | Q(end_date__lt=curr_date))
+
+    return date_query
 
 def generate_url(request):
     query = QueryDict(mutable=True)
