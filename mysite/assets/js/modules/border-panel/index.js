@@ -18,12 +18,12 @@ export default function addAllBorderPanelsInteractivity() {
 
 	$(document).ready(function(){
 		var maxHeight = findMaxHeight();
-		setBorderPanelHeight(maxHeight);
+		$(".border-panel").height(maxHeight + 50);
 	});
 
 	$(window).resize(function(){
 		var maxHeight = findMaxHeight();
-		setBorderPanelHeight(maxHeight);
+		$(".border-panel").height(maxHeight + 50);
 	});
 }
 
@@ -48,20 +48,4 @@ function findMaxHeight() {
 	});
 
 	return maxHeight;
-}
-
-/*
-
-Given a maxheight as input, sets border panel heights to that maxheight
-
-*/
-function setBorderPanelHeight(maxHeight) {
-	var withCircleNavPadding = 50;
-	var withoutCircleNavPadding = 10;
-
-	if (Foundation.MediaQuery.atLeast('medium')) {
-		$(".border-panel").height(maxHeight + withCircleNavPadding);
-	} else {
-		$(".border-panel").height(maxHeight + withoutCircleNavPadding);
-	}
 }
