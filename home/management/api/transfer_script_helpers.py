@@ -134,12 +134,6 @@ def get_post_date(original_date):
 
     return new_date
 
-def get_edcentral_date(original_date):
-    print(original_date)
-    if original_date:
-        new_date = original_date.split(',')[1].split('+')[0][:12].strip()
-        return new_date
-
 def download_image(url, image_filename):
     """
     Takes the image URL from the old database API,
