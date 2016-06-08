@@ -16,7 +16,13 @@
             </ul>
           </li>
         {% endif %}
-        <li class="mobile-menu__link__main"><a href='{{ side_menu.url }}{% get_event_url "program" "future" %}'>Events</a></li>
+         <li class="mobile-menu__link__main"><a href="#">Events</a>
+              <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
+              <ul class="vertical menu">
+                <li class="mobile-menu__link__secondary"><a href="{{ side_menu.url }}events/">Future Events</a></li>
+                <li class="mobile-menu__link__secondary"><a href="{{ side_menu.url }}events/past/">Past Events</a></li>
+              </ul>
+          </li>
         {% if side_menu.work_pages %}
           <li class="mobile-menu__link__main"><a href="#">Publications</a>
               <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
@@ -61,8 +67,8 @@
       {% endif %}
 
       <li class="menu-text sidemenu__link-group__title">Events</li>
-        <li class="sidemenu__link-group__link"><a href='{{ side_menu.url }}{% get_event_url "program" "future" %}'>Future Events</a></li>
-        <li class="sidemenu__link-group__link"><a href='{{ side_menu.url }}{% get_event_url "program" "past" %}'>Past Events</a></li>
+        <li class="sidemenu__link-group__link"><a href='{{ side_menu.url }}events/'>Future Events</a></li>
+        <li class="sidemenu__link-group__link"><a href='{{ side_menu.url }}events/past/'>Past Events</a></li>
 
       {% if side_menu.work_pages %}
         <li class="menu-text sidemenu__link-group__title">Publications</li>

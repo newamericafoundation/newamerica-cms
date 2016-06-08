@@ -3,11 +3,13 @@ from django.db import models
 from home.models import Post
 
 from wagtail.wagtailcore.models import Page
+from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
+from django.template.response import TemplateResponse
 from django.utils import timezone
 
-from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
+from mysite.helpers import paginate_results, get_program_and_subprogram_events, get_org_wide_events
 
 
 class Event(Post):
@@ -47,7 +49,7 @@ class Event(Post):
     ]
 
 
-class AllEventsHomePage(Page):
+class AllEventsHomePage(RoutablePageMixin, Page):
     """
     Page which inherits from abstract Page model and returns every
     Event in the Event model for the Events homepage
@@ -55,19 +57,29 @@ class AllEventsHomePage(Page):
     parent_page_types = ['home.HomePage']
     subpage_types = ['Event']
 
-    def get_context(self, request):
-        return get_org_wide_posts(
-            self,
+    @route(r'^$')
+    def future_events(self, request):
+        self.title = "Future " + self.title
+        return TemplateResponse(
             request,
-            AllEventsHomePage,
-            Event
+            self.get_template(request),
+            get_org_wide_events(self, request, AllEventsHomePage, Event, "future")
+        )
+
+    @route(r'^past/$')
+    def past_events(self, request):
+        self.title = "Past " + self.title
+        return TemplateResponse(
+            request,
+            self.get_template(request),
+            get_org_wide_events(self, request, AllEventsHomePage, Event, "past")
         )
 
     class Meta:
         verbose_name = "Homepage for all Events"
 
 
-class ProgramEventsPage(Page):
+class ProgramEventsPage(RoutablePageMixin, Page):
     """
     Page which inherits from abstract Page model and returns every
     Event associated with a specific Program or Subprogram
@@ -75,8 +87,23 @@ class ProgramEventsPage(Page):
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Event']
 
-    def get_context(self, request):
-        return get_posts_and_programs(self, request, ProgramEventsPage, Event)
+    @route(r'^$')
+    def future_events(self, request):
+        self.title = "Future " + self.title
+        return TemplateResponse(
+            request,
+            self.get_template(request),
+            get_program_and_subprogram_events(self, request, ProgramEventsPage, Event, "future")
+        )
+
+    @route(r'^past/$')
+    def past_events(self, request):
+        self.title = "Past " + self.title
+        return TemplateResponse(
+            request,
+            self.get_template(request),
+            get_program_and_subprogram_events(self, request, ProgramEventsPage, Event, "past")
+        )
 
     class Meta:
         verbose_name = "Events Homepage for Program and Subprograms"

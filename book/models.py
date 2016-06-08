@@ -5,7 +5,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from home.models import Post
 
-from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
+from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class Book(Post):
@@ -58,7 +58,7 @@ class ProgramBooksPage(Page):
     subpage_types = ['Book']
     
     def get_context(self, request):
-        return get_posts_and_programs(self, request, ProgramBooksPage, Book)
+        return get_program_and_subprogram_posts(self, request, ProgramBooksPage, Book)
 
     class Meta:
         verbose_name = "Books Homepage for Program and Subprogram"
