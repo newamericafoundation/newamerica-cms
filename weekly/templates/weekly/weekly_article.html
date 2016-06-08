@@ -39,7 +39,11 @@
 			{% endfor %}
 		</div>
 
-		<h5 class="weekly__sidemenu__subheading"><a href="/subscribe/">Subscribe</a></h5>
+		<h5 class="weekly__sidemenu__subheading">Subscribe</h5>
+		<form class="subscribe-form" action="/subscribe/">
+			<input type='text' placeholder='Your Email' name='email' class='weekly__sidemenu__subscribe__input'></input>
+			<button class='button black weekly__sidemenu__subscribe__submit' type="submit" value="Submit">{% include 'ui_elements/svg/arrow-right.html' %}</button>
+		</form>
 		<h5 class="weekly__sidemenu__subheading">Change Edition</h5>
 		<select onchange="location = this.value;">
 			<option disabled selected value>Select an Edition</option>
