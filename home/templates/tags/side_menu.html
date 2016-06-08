@@ -16,7 +16,13 @@
             </ul>
           </li>
         {% endif %}
-        <li class="mobile-menu__link__main"><a href='{{ side_menu.url }}events/'>Events</a></li>
+         <li class="mobile-menu__link__main"><a href="#">Events</a>
+              <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
+              <ul class="vertical menu">
+                <li class="mobile-menu__link__secondary"><a href="{{ side_menu.url }}events/">Future Events</a></li>
+                <li class="mobile-menu__link__secondary"><a href="{{ side_menu.url }}events/past/">Past Events</a></li>
+              </ul>
+          </li>
         {% if side_menu.work_pages %}
           <li class="mobile-menu__link__main"><a href="#">Publications</a>
               <div class="mobile-menu__toggle flip-arrow-white rotate"></div>

@@ -71,6 +71,7 @@ class AllEventsHomePage(RoutablePageMixin, Page):
 
     @route(r'^past/$')
     def past_events(self, request):
+        self.title = "Past " + self.title
         return TemplateResponse(
             request,
             self.get_template(request),
@@ -99,6 +100,8 @@ class ProgramEventsPage(RoutablePageMixin, Page):
 
     @route(r'^past/$')
     def past_events(self, request):
+        self.title = "Past " + self.title
+        
         return TemplateResponse(
             request,
             self.get_template(request),

@@ -95,7 +95,7 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
     search_subprogram = request.GET.get('subprogram_id', None)
     date = request.GET.get('date', None)
 
-    # program grid
+    # if program
     if self.depth == 4:
         program_title = self.get_ancestors()[2]
         program = Program.objects.get(title=program_title)
@@ -106,20 +106,19 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
     
         all_posts = content_model.objects.live().filter(**filter_dict)
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
-    # subprogram_grid
+        context['program'] = program
+    # if subprogram
     else:
         subprogram_title = self.get_ancestors()[3]
-        program = Subprogram.objects.get(title=subprogram_title)
-        all_posts = content_model.objects.live().filter(post_subprogram=program)
+        subprogram = Subprogram.objects.get(title=subprogram_title)
+        all_posts = content_model.objects.live().filter(post_subprogram=subprogram)
+        context['program'] = subprogram
 
     if date:
         date_range = json.loads(date)
         filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
-    context['all_events'] = paginate_results(request, all_posts.live().order_by("date", "start_time"))
-
-    context['program'] = program
     context['query_url'] = generate_url(request)
     
     return context
@@ -143,7 +142,7 @@ def get_program_and_subprogram_events(self, request, page_type, content_model, t
     subprogram_query = Q()
     date_query = set_events_date_query(date, tense)
 
-    # if program grid
+    # if program
     if self.depth == 4:
         program_title = self.get_ancestors()[2]
         program = Program.objects.get(title=program_title)
@@ -154,12 +153,11 @@ def get_program_and_subprogram_events(self, request, page_type, content_model, t
 
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
         context['program'] = program
-    # if subprogram grid
+    # if subprogram
     else:
         subprogram_title = self.get_ancestors()[3]
         subprogram = Subprogram.objects.get(title=subprogram_title)
         subprogram_query = Q(post_subprogram__exact=subprogram)
-
         context['program'] = subprogram
 
     all_events = content_model.objects.live().filter(date_query & program_query & subprogram_query)
@@ -168,7 +166,6 @@ def get_program_and_subprogram_events(self, request, page_type, content_model, t
         context['all_events'] = paginate_results(request, all_events.live().order_by("date", "start_time"))
     else:
         context['all_events'] = paginate_results(request, all_events.live().order_by("-date", "-start_time"))
-
     context['query_url'] = generate_url(request)
     
     return context
