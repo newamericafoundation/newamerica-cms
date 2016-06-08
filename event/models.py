@@ -6,14 +6,10 @@ from wagtail.wagtailcore.models import Page
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from django.http import HttpResponse
 from django.template.response import TemplateResponse
-from datetime import datetime
-from pytz import timezone
-
 from django.utils import timezone
 
-from mysite.helpers import paginate_results, get_org_wide_events, get_program_and_subprogram_events
+from mysite.helpers import paginate_results, get_program_and_subprogram_events, get_org_wide_events
 
 
 class Event(Post):
@@ -63,6 +59,7 @@ class AllEventsHomePage(RoutablePageMixin, Page):
 
     @route(r'^$')
     def future_events(self, request):
+        self.title = "Future " + self.title
         return TemplateResponse(
             request,
             self.get_template(request),
@@ -92,6 +89,7 @@ class ProgramEventsPage(RoutablePageMixin, Page):
 
     @route(r'^$')
     def future_events(self, request):
+        self.title = "Future " + self.title
         return TemplateResponse(
             request,
             self.get_template(request),
@@ -101,7 +99,6 @@ class ProgramEventsPage(RoutablePageMixin, Page):
     @route(r'^past/$')
     def past_events(self, request):
         self.title = "Past " + self.title
-        
         return TemplateResponse(
             request,
             self.get_template(request),
