@@ -230,6 +230,31 @@ def get_post_authors(post, authors):
                         )
                         relationship.save()
 
+
+def get_education_authors(post, author):
+    """
+    Takes the post and the post author from the EdCentral CSV, 
+    checks if the author exists, 
+    checks the relationship doesn't already exist, 
+    and then creates a new relationship tagging the author 
+    to the post.
+    """
+    author_object = Person.objects.filter(title=author)
+    if author_object:
+        try:
+            PostAuthorRelationship.objects.get(
+                author=author_object.first(),
+                post=post,
+            )
+        except PostAuthorRelationship.DoesNotExist:
+            relationship = PostAuthorRelationship.objects.create(
+                author=author_object.first(),
+                post=post,
+            )
+            relationship.save()
+    else:
+        print('did not find %s in the database' % author)
+
 def connect_programs_to_post(post, programs):
     """
     Takes the post and program id from the old database API,  
