@@ -143,36 +143,6 @@ def generate_dateline(post):
 
 	return mark_safe(ret_string)
 
-
-# generates event url with query parameters
-# 	level: determines whether it is at the org wide or program wide level
-#	tense: determines whether it will return past or future events
-@register.simple_tag()
-def get_event_url(level, tense):
-	datetime_format = "%Y-%m-%d"
-	eastern = timezone('US/Eastern')
-
-	if (tense == "past"):
-		start_date = (datetime.now(eastern) - timedelta(days=7)).strftime(datetime_format)
-		end_date = datetime.now(eastern).strftime(datetime_format)
-	else:
-		start_date = datetime.now(eastern).strftime(datetime_format)
-		end_date = (datetime.now(eastern) + timedelta(days=365)).strftime(datetime_format)
-
-	if (level == "org"):
-		ret_string = '/events/?program_id'
-	else:
-		ret_string = 'events/?subprogram_id'
-
-	# generates string uri encoding of query object
-	ret_string += '=&date=%7B"start"%3A"'
-	ret_string += start_date
-	ret_string += '"%2C"end"%3A"'
-	ret_string += end_date
-	ret_string += '"%7D'
-	
-	return ret_string
-
 # calls helper function to determine if date/time are future or past, depending if event is single day or multi-day
 # 	- single day events are considered past at the start time on the day of the event (start_date + start_time)
 # 	- multi-day events are considered past at the start time on the final day of the event (end_date + start_time)
