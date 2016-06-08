@@ -5,7 +5,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
-from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
+from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class PressRelease(Post):
@@ -56,7 +56,7 @@ class ProgramPressReleasesPage(Page):
     subpage_types = ['PressRelease']
 
     def get_context(self, request):
-        return get_posts_and_programs(
+        return get_program_and_subprogram_posts(
             self,
             request,
             ProgramPressReleasesPage,
