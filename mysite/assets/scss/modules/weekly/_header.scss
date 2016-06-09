@@ -35,7 +35,6 @@
 	}
 
 	&__middle {
-		max-width: $max-body-width;
 		vertical-align: middle;
 		display: table-cell;
 		padding: 0px $desktop-padding;
@@ -47,6 +46,7 @@
 			font-family:"Simplon";
 			color:palette-get(na-black-40);
 			margin-bottom: 0px;
+			max-width: $max-body-width;
 			display: none;
 
 			@include breakpoint(medium) {
