@@ -217,3 +217,12 @@ def person_display_contact_info(page):
 			return 1
 	
 	return 0
+
+@register.simple_tag()
+def check_oti(path):
+	path_pieces = path.split("/")
+
+	if (path_pieces[1] == "oti"):
+		return "oti"
+	
+	return ""

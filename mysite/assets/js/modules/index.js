@@ -9,7 +9,6 @@ export default [
   'weekly-sidemenu',
   'post-body',
   'mobile-menu',
-  'oti',
   'subscribe',
   'picture-grid',
   'search',
