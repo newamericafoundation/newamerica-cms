@@ -243,11 +243,9 @@
 
   	@include desktop-header {
   		padding: 0px 0px $desktop-padding 0px;
-  		max-width: $max-body-width;
   	}
   	@include expanded-header {
   		padding: 0px 0px $desktop-padding 0px;
-  		max-width: $max-body-width;
   	}
 }
 

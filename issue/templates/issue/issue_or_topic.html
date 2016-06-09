@@ -53,9 +53,10 @@
 		</div>
 
     {% if topics %}
-    	<hr>
-
+  
     	<div class="row issue-grid">
+    		<hr>
+
 		    {% for topic in topics %}
 		    	{% if forloop.counter0|divisibleby:2 %}
 		    		<div class="row">

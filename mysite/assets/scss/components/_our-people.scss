@@ -1,7 +1,7 @@
 .our-people {
 	&__body {
 		padding-top: $desktop-padding;
-		/*max-width: $max-body-width;*/
+		max-width: $max-body-width;
 
     	@include desktop-header {
     		padding-left: 0px;

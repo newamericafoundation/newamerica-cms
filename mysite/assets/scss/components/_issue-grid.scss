@@ -1,4 +1,5 @@
 .issue-grid {
+	max-width: $max-body-width;
 	p {
 		margin-bottom: 0px;
 		color: palette-get(na-black-70);

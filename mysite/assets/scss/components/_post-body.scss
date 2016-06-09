@@ -7,6 +7,10 @@
 
   @include page-body-text;
 
+  & > *:not(.block-video) {
+    max-width: $max-body-width;
+  }
+
   /*dropcap styling*/
   &.with-dropcap > .block-paragraph:first-child {
     &:first-letter {
