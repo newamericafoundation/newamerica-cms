@@ -80,7 +80,7 @@ $link-group-header-spacing: 30px;
    
     @include standard-shadow;
     padding: 30px 7px;
-
+    overflow: scroll;
 
     background-color: palette-get(na-white);
     border-left: 1px solid palette-get(na-black-10);
