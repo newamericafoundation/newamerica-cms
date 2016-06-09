@@ -1,13 +1,160 @@
 from django.test import TestCase
+from datetime import date, timedelta
+from django.test import Client
 
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 
 from .models import Event, AllEventsHomePage, ProgramEventsPage
 
 from home.models import HomePage, PostProgramRelationship
 
 from programs.models import Program, Subprogram
+
+
+class EventPageViewTests(WagtailPageTests):
+    """
+    Testing the split views for past
+    and future Event pages. Includes tests for
+    all event page, and program/subprogram
+    event pages.
+
+    """
+    def setUp(self):
+        self.login()
+        site = Site.objects.get()
+        page = Page.get_first_root_node()
+        home = HomePage(title='New America')
+        home_page = page.add_child(instance=home)
+
+        site.root_page = home
+        site.save()
+
+        all_events_home_page = home_page.add_child(
+            instance=AllEventsHomePage(title="Events")
+        )
+        program_page_1 = home_page.add_child(
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                slug='oti',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        program_page_1.save()
+        second_program = home_page.add_child(
+            instance=Program(
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
+            depth=3
+            )
+        )
+        second_program.save()
+        program_events_page = program_page_1.add_child(
+            instance=ProgramEventsPage(title='OTI Events', slug='oti-events')
+        )
+        program_events_page.save()
+        second_program_events_page = second_program.add_child(
+            instance=ProgramEventsPage(title='Education Events', slug='education-events')
+        )
+        second_program_events_page.save()
+        today_event = program_events_page.add_child(
+            instance=Event(
+                title='Today Event' ,
+                date=str(date.today()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+
+            )
+        )
+        today_event.save()
+        future_event = program_events_page.add_child(
+            instance=Event(
+                title='Future Event' ,
+                date=str(date.today()+timedelta(days=5)),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+
+            )
+        )
+        future_event.save()
+        past_event = program_events_page.add_child(
+            instance=Event(
+                title='Past Event',
+                date=str(date.today()-timedelta(days=5)),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+
+            )
+        )
+        past_event.save()
+
+        second_today_event = second_program_events_page.add_child(
+            instance=Event(
+                title='Today Event' ,
+                date=str(date.today()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+
+            )
+        )
+        second_today_event.save()
+        second_future_event = second_program_events_page.add_child(
+            instance=Event(
+                title='Future Event' ,
+                date=str(date.today()+timedelta(days=5)),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+
+            )
+        )
+        second_future_event.save()
+        second_past_event = second_program_events_page.add_child(
+            instance=Event(
+                title='Past Event',
+                date=str(date.today()-timedelta(days=5)),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+
+            )
+        )
+        second_past_event.save()
+
+    # Testing that current day's event and future events
+    # show up on the main events page for the program
+    def test_program_events_page(self):
+        c = Client()
+        response = c.get('/oti/oti-events/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['all_events']), 2)
+
+    # Testing past events show up on /past route for program events page
+    def test_past_program_events_page(self):
+        c = Client()
+        response = c.get('/oti/oti-events/past', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['all_events']), 1)
+
+
+    # Testing that current day's event and future events
+    # show up on the org wide events page
+    def test_org_wide_events_page(self):
+        c = Client()
+        response = c.get('/events/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['all_events']), 4)
+
+    # Testing past events show up on /past route for program events page
+    def test_org_wide_past_events_page(self):
+        c = Client()
+        response = c.get('/events/past/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['all_events']), 2)
 
 
 class EventTests(WagtailPageTests):
@@ -40,11 +187,11 @@ class EventTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
             depth=3
             )
         )
