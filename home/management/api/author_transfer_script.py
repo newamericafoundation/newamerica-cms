@@ -7,7 +7,7 @@ from person.models import OurPeoplePage, Person
 
 from .newamerica_api_client import NAClient
 
-from transfer_script_helpers import download_image, load_users_mapping
+from .transfer_script_helpers import download_image, load_users_mapping
 
 from .article_transfer_script import load_weekly_articles, load_general_blogs, load_asset_blogs
 
@@ -24,6 +24,8 @@ from .press_release_transfer_script import load_press_releases
 from .in_the_news_transfer_script import load_in_the_news
 
 from .redirect import create_redirects
+
+from .blog_transfer_script import load_education_blog_posts
 
 our_people_page = OurPeoplePage.objects.first()
 
@@ -157,4 +159,6 @@ def run():
     # print("Finished in the news !!!!!!")
     # load_general_blogs()
     # load_asset_blogs()
-    create_redirects()
+    # create_redirects()
+    print("about to start!")
+    load_education_blog_posts()

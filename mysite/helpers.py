@@ -2,6 +2,11 @@ import json
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import QueryDict
+<<<<<<< HEAD
+=======
+from django.db.models import Q
+
+>>>>>>> origin/staging
 from programs.models import Program, Subprogram
 
 
@@ -42,7 +47,7 @@ def get_org_wide_posts(self, request, page_type, content_model):
 
     all_posts = content_model.objects.filter(**filter_dict)
     context['all_posts'] = paginate_results(request, all_posts.live().order_by("-date"))
-    context['programs'] = Program.objects.all().live().in_menu().order_by('title')
+    context['programs'] = Program.objects.filter(Q(live=True), Q(show_in_menus=True)| Q(location=True)).order_by('title')
     context['query_url'] = generate_url(request)
 
     return context
