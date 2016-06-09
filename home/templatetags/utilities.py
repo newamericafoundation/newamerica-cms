@@ -224,3 +224,5 @@ def check_oti(path):
 
 	if (path_pieces[1] == "oti"):
 		return "oti"
+	
+	return ""
