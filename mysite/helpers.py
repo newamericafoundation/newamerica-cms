@@ -2,11 +2,9 @@ import json
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import QueryDict
-<<<<<<< HEAD
-=======
+
 from django.db.models import Q
 
->>>>>>> origin/staging
 from programs.models import Program, Subprogram
 
 
