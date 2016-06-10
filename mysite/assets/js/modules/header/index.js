@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 /* 
- * Function to dynamically size program dropdown height to avoid cutoff - only necessary for non-unexpanded fixed header
+ * Function to dynamically size program dropdown height to avoid cutoff - only necessary for fixed header
  *
  */
 export default function setProgramDropdownHeight() {
