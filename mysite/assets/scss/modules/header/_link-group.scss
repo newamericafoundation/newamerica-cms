@@ -8,6 +8,7 @@ $link-group-header-spacing: 30px;
     }
   }
   display: none;
+  overflow: scroll;
   @include is-active {
     display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
     display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -88,13 +89,15 @@ $link-group-header-spacing: 30px;
 
   &__fadeout {
     $gradient: white 1%, rgba(255, 255, 255, 0) 9%, rgba(255, 255, 255, 0) 91%, white 99%;
-    width: calc(100% - 25px);
-    height: calc(100% - 9px);
+    width: calc(100% - 33px);
+    height: calc(100% - 10px);
     background-image: -webkit-linear-gradient($gradient); /* For Chrome 25 and Safari 6, iOS 6.1, Android 4.3 */
     background-image:    -moz-linear-gradient($gradient); /* For Firefox (3.6 to 15) */
     background-image:      -o-linear-gradient($gradient); /* For old Opera (11.1 to 12.0) */ 
     background-image:         linear-gradient($gradient); /* Standard syntax; must be last */
     position: absolute;
+    margin-left: 1px;
+    margin-top: 1px;
     z-index: 100;
     pointer-events: none;
   }

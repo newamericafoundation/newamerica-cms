@@ -13,13 +13,13 @@ export default function setProgramDropdownHeight() {
 
 			if (progDropdownScrollHeight > progDropdownHeight) {
 				console.log("overflow!");
-				$("#program-dropdown-content").height("auto");
+				$("#program-dropdown-content").height("auto").css("overflow-y", "none");
 				progDropdownHeight = $("#program-dropdown-content").height();
 			}
 
 			if (progDropdownHeight > windowHeightMinusHeader) {
 				console.log("prog dropdown height is greater!");
-				$("#program-dropdown-content").height(windowHeightMinusHeader - 15).css("overflowY", "scroll");
+				$("#program-dropdown-content").height(windowHeightMinusHeader - 15).css("overflow-y", "scroll");
 
 			}
 
