@@ -72,15 +72,13 @@ $link-group-header-spacing: 30px;
   }
   &__content {
     width: 100%;
-    position: relative;
     margin: auto;
 
     border-bottom: 4px solid;
     @include set-color(border-bottom-color);
    
     @include standard-shadow;
-    padding: 30px 7px;
-    overflow: scroll;
+    padding: 0px 7px;
 
     background-color: palette-get(na-white);
     border-left: 1px solid palette-get(na-black-10);
@@ -103,6 +101,8 @@ $link-group-header-spacing: 30px;
 
   &__main {
   	float: left;
+    padding-top: 30px;
+    padding-bottom: 30px;
 
     @include breakpoint(medium) {
       width: 66.6%;
@@ -136,6 +136,8 @@ $link-group-header-spacing: 30px;
 
   &__secondary {
   	float: left;
+    padding-top: 30px;
+    padding-bottom: 30px;
 
     @include breakpoint(medium) {
       width: 33.3%;
