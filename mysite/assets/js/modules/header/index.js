@@ -1,28 +1,29 @@
 import $ from 'jquery';
 
+/* 
+ * Function to dynamically size program dropdown height to avoid cutoff - only necessary for non-unexpanded fixed header
+ *
+ */
 export default function setProgramDropdownHeight() {
 	if (!$("body").hasClass("header--expanded")) {
+		const $programDropdownContent = $("#program-dropdown-content");
+		const headerHeight = 72;
+
 		$("#program-dropdown-toggle").on("mouseover", function() {
-			var windowHeightMinusHeader = $(window).height() - 72;
-			var progDropdownHeight = $("#program-dropdown-content").height();
-			var progDropdownScrollHeight = $("#program-dropdown-content").prop("scrollHeight");
+			var windowHeightMinusHeader = $(window).height() - headerHeight;
+			var progDropdownHeight = $programDropdownContent.height();
+			var progDropdownScrollHeight = $programDropdownContent.prop("scrollHeight");
 
-			console.log("window height: " + windowHeightMinusHeader);
-			console.log("prog dropdown height: " + progDropdownHeight);
-			console.log("prog dropdown scroll height: " + progDropdownScrollHeight);
-
+			// checks for existing overflow and resets height to auto - handles case where previous height caused overflow, but future height might be tall enough to fit full content
 			if (progDropdownScrollHeight > progDropdownHeight) {
-				console.log("overflow!");
-				$("#program-dropdown-content").height("auto").css("overflow-y", "none");
-				progDropdownHeight = $("#program-dropdown-content").height();
+				$programDropdownContent.height("auto").css("overflow-y", "none");
+				progDropdownHeight = $programDropdownContent.height();
 			}
 
+			// if dropdown content height is greater than window height, sets dropdown height and overflow
 			if (progDropdownHeight > windowHeightMinusHeader) {
-				console.log("prog dropdown height is greater!");
-				$("#program-dropdown-content").height(windowHeightMinusHeader - 15).css("overflow-y", "scroll");
-
+				$programDropdownContent.height(windowHeightMinusHeader - 15).css("overflow-y", "scroll");
 			}
-
 		})
 	}
 	
