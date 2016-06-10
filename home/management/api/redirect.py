@@ -110,7 +110,15 @@ def post_redirect():
 
 
 def downloads_redirect():
+    """
+    Using list of 404 links from the old downloads folder
+    if the old site's s3 bucket, the script determines 
+    the old and new URLS for pages and then using the Wagtail 
+    Redirect model creates objects mapping the 
+    two together to handle the redirect
+    """
     for link in links:
+        # Using the old link from the 25th index onward because we only need the relative path that starts from "/downloads..."
         print(link[25:])
         new_link = link.replace("http://", "https://s3.amazonaws.com/")
 
