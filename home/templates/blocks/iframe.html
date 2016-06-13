@@ -1,1 +1,4 @@
-<iframe src="{{ self.source_url }}" width="{{ self.width }}" height="{{ self.height }}"></iframe>
+<div class="block-iframe__container" style="max-width:{{ self.width }}px; max-height:{{ self.height }}px;">
+	<iframe src="{{ self.source_url }}" width="100%" height="100%" allowfullscreen frameborder="0">
+	</iframe>
+</div>

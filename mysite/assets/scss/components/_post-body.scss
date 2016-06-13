@@ -198,7 +198,8 @@
     padding: 20px 0px;
   }
 
-  iframe {
+  /* styling for media objects embedded through wysiwyg editor panel */
+  .block-paragraph iframe {
     width: 100%;
 
     @include breakpoint(medium) {
@@ -206,17 +207,27 @@
     }
   }
 
-  .block-video {
-    iframe {
-      width: 100% !important;
-      height: 320px;
-      @include breakpoint(medium) {
-        height: 450px;
-      } 
+  /* styling for media objects embedded through streamfield video block */
+  .block-video iframe {
+    width: 100% !important;
+    height: 320px;
+    @include breakpoint(medium) {
+      height: 450px;
+    } 
 
-      @include breakpoint(large) {
-        height: 500px;
-      }
+    @include breakpoint(large) {
+      height: 500px;
+    }
+  }
+
+  /* styling for media objects embedded through streamfield iframe block */
+  .block-iframe__container {
+    width: 100%;
+    height: 1000px;
+
+    iframe {
+      width: 100%;
+      height: 100%;
     }
   }
 
