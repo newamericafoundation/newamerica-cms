@@ -8,6 +8,7 @@ $link-group-header-spacing: 30px;
     }
   }
   display: none;
+  overflow: scroll;
   @include is-active {
     display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
     display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -72,15 +73,13 @@ $link-group-header-spacing: 30px;
   }
   &__content {
     width: 100%;
-
     margin: auto;
 
     border-bottom: 4px solid;
     @include set-color(border-bottom-color);
    
     @include standard-shadow;
-    padding: 30px 7px;
-
+    padding: 0px 7px;
 
     background-color: palette-get(na-white);
     border-left: 1px solid palette-get(na-black-10);
@@ -88,8 +87,25 @@ $link-group-header-spacing: 30px;
     border-top: 1px solid palette-get(na-black-10);
   }
 
+  &__fadeout {
+    $gradient: white 1%, rgba(255, 255, 255, 0) 9%, rgba(255, 255, 255, 0) 91%, white 99%;
+    width: calc(100% - 33px);
+    height: calc(100% - 10px);
+    background-image: -webkit-linear-gradient($gradient); /* For Chrome 25 and Safari 6, iOS 6.1, Android 4.3 */
+    background-image:    -moz-linear-gradient($gradient); /* For Firefox (3.6 to 15) */
+    background-image:      -o-linear-gradient($gradient); /* For old Opera (11.1 to 12.0) */ 
+    background-image:         linear-gradient($gradient); /* Standard syntax; must be last */
+    position: absolute;
+    margin-left: 1px;
+    margin-top: 1px;
+    z-index: 100;
+    pointer-events: none;
+  }
+
   &__main {
   	float: left;
+    padding-top: 30px;
+    padding-bottom: 30px;
 
     @include breakpoint(medium) {
       width: 66.6%;
@@ -123,6 +139,8 @@ $link-group-header-spacing: 30px;
 
   &__secondary {
   	float: left;
+    padding-top: 30px;
+    padding-bottom: 30px;
 
     @include breakpoint(medium) {
       width: 33.3%;

@@ -12,6 +12,7 @@ export default [
   'subscribe',
   'picture-grid',
   'search',
+  'header',
   'content-controls',
   'story-excerpt-ellipsis'
 ].map((moduleName) => require(`./${moduleName}/index.js`).default);
