@@ -1,12 +1,26 @@
-from .newamerica_api_client import NAClient
-from transfer_script_helpers import load_users_mapping
+#coding=utf-8
+#!/usr/bin/python
+import sys
 
+import csv
+import json
+import os
+
+# Allow imports from above
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
+from newamerica_api_client import NAClient
+from transfer_script_helpers import load_users_mapping
 
 from wagtail.wagtailredirects.models import Redirect
 from wagtail.wagtailcore.models import Page
 
 from person.models import Person
 from django.utils.text import slugify
+
+from links import links
+
 
 # Mappping of program ids to slugs of programs on the current site
 mapped_programs = {
@@ -93,3 +107,22 @@ def post_redirect():
                 print(new_redirect)
                 new_redirect.save()
                 print(old_path)
+
+
+def downloads_redirect():
+    """
+    Using list of 404 links from the old downloads folder
+    if the old site's s3 bucket, the script determines 
+    the old and new URLS for pages and then using the Wagtail 
+    Redirect model creates objects mapping the 
+    two together to handle the redirect
+    """
+    for link in links:
+        # Using the old link from the 25th index onward because we only need the relative path that starts from "/downloads..."
+        print(link[25:])
+        new_link = link.replace("http://", "https://s3.amazonaws.com/")
+
+        new_redirect, created = Redirect.objects.get_or_create(old_path=link[25:])
+        new_redirect.redirect_link = new_link
+        print(new_redirect)
+        new_redirect.save()
