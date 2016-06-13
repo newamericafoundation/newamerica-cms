@@ -4,7 +4,7 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% block body_class %}template-homepage header--expanded{% endblock %}
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
@@ -27,8 +27,7 @@
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
 								{% if page.lead_1.specific.rsvp_link %}
-									{% is_future page.lead_1.specific.date as is_date_future %}
-			    					{% if is_date_future %}
+			    					{% if page.lead_1.specific|is_future %}
 										<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
 									{% endif %}
 								{% endif %}
@@ -62,8 +61,7 @@
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
 									{% if other_lead_story.specific.rsvp_link %}
-										{% is_future other_lead_story.specific.date as is_date_future %}
-				    					{% if is_date_future %}
+				    					{% if other_lead_story.specific|is_future %}
 											<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
 										{% endif %}
 									{% endif %}
@@ -179,11 +177,11 @@
 									<div class='border-panel__info'>STAY CONNECTED</div>
 									<div class='border-panel__title'><a href='/subscribe/'>Subscribe to New America Weekly</a></div>
 									<p>Get our weekly digital magazine, program newsletters, and events lineups in your inbox.</p>
-									<form class="subscribe-form" action="subscribe/">
+									<form class="subscribe-form" action="/subscribe/">
 										<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
 										<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
 									</form>
-								
+								</div>
 							</div>
 								
 						</li>
@@ -207,9 +205,5 @@
 	</div>
 
 </div>
-
-<script type='text/javascript'>
-	window.uiState = { isHeaderExpanded: true };
-</script>
 
 {% endblock %}

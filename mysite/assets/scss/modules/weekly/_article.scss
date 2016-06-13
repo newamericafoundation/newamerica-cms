@@ -7,4 +7,19 @@
 			display: none;
 		}
 	}
+
+	.border-panel {
+		margin-top: 2*$desktop-padding;
+		margin-left: $desktop-padding;
+		margin-right: $desktop-padding;
+
+		@include desktop-header {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
+	}
+
+	.post-container {
+		padding-bottom: 0px;
+	}
 }

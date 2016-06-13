@@ -15,7 +15,7 @@ from programs.models import Program, Subprogram
 
 from person.models import Person
 
-from home.models import PostAuthorRelationship, HomePage, PostProgramRelationship, CustomImage
+from home.models import PostAuthorRelationship, HomePage, PostProgramRelationship, CustomImage, PostSubprogramRelationship
 
 home_page = HomePage.objects.first()
 
@@ -118,8 +118,6 @@ def get_summary(old_summary):
     """
     if old_summary:
         return old_summary[:140]
-    else:
-        return "Summary goes here"
 
 
 def get_post_date(original_date):
@@ -135,7 +133,6 @@ def get_post_date(original_date):
         new_date = '2016-03-21'
 
     return new_date
-
 
 def download_image(url, image_filename):
     """
@@ -227,6 +224,31 @@ def get_post_authors(post, authors):
                         )
                         relationship.save()
 
+
+def get_education_authors(post, author):
+    """
+    Takes the post and the post author from the EdCentral CSV, 
+    checks if the author exists, 
+    checks the relationship doesn't already exist, 
+    and then creates a new relationship tagging the author 
+    to the post.
+    """
+    author_object = Person.objects.filter(title=author)
+    if author_object:
+        try:
+            PostAuthorRelationship.objects.get(
+                author=author_object.first(),
+                post=post,
+            )
+        except PostAuthorRelationship.DoesNotExist:
+            relationship = PostAuthorRelationship.objects.create(
+                author=author_object.first(),
+                post=post,
+            )
+            relationship.save()
+    else:
+        print('did not find %s in the database' % author)
+
 def connect_programs_to_post(post, programs):
     """
     Takes the post and program id from the old database API,  
@@ -248,6 +270,29 @@ def connect_programs_to_post(post, programs):
             )
             print(relationship)
             relationship.save()
+
+def connect_subprograms_to_post(post, subprograms):
+    """
+    Takes in post and list of subprograms,  
+    checks the relationship doesn't already exist, 
+    and then creates a new relationship tagging the subprogram 
+    to the post.
+    """
+    for subprogram in subprograms:
+        current_subprogram = get_subprogram('Education Policy', subprogram)
+        try:
+            PostSubprogramRelationship.objects.get(
+                post=post,
+                subprogram=current_subprogram
+            )
+        except PostSubprogramRelationship.DoesNotExist:
+            relationship = PostSubprogramRelationship.objects.create(
+                post=post,
+                subprogram=current_subprogram
+            )
+            print(relationship)
+            relationship.save()
+
 
 def need_to_update_post(modified_date):
     """

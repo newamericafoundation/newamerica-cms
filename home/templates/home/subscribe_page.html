@@ -44,8 +44,8 @@
 
 			<div class="row">
 				<div class="medium-5 columns">
-					<label>Full Name*
-						<input id="fieldName" name="cm-name" type="text" required>
+					<label>First &amp; Last Name*
+						<input id="fieldName" name="cm-name" type="text" pattern=".+[\s].+" required oninvalid="this.setCustomValidity('Please enter a valid first and last name combination')" oninput="setCustomValidity('')">
 					</label>
 				</div>
 				<div class="medium-5 columns">
@@ -97,7 +97,7 @@
 						<div class="small-12 medium-6 large-4 columns">
 							<div class="subscribe-page__list__entry">
 								<label class="control control--checkbox">
-									<input id="listkjhtji" class="subscribe-page__list__entry__checkbox" name="cm-ol-kjhtji" type="checkbox" />
+									<input id="listkjhtji" class="subscribe-page__list__entry__checkbox" name="cm-ol-kjhtji" type="checkbox" checked/>
 									<div class="control__indicator"></div>
 									<h5 class="subscribe-page__list__entry__title">The Week Ahead</h5>
 									<p class="subscribe-page__list__entry__description">Our Monday digest of what's happening this week at New America.</p>

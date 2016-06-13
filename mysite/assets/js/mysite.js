@@ -25,7 +25,15 @@ $(document).ready(function() {
 	require('../vendor/jquery.comiseo.daterangepicker.min.js');
 	require('foundation-sites');
 	$(document).foundation();
+	getHeaderBreakpoints();
 	modules.forEach((module) => {
 		module();
 	});
 });
+
+function getHeaderBreakpoints() {
+	global.headerBreakpoints = {
+		desktopHeader: Foundation.MediaQuery.get('desktop-header'),
+		expandedHeader: Foundation.MediaQuery.get('expanded-header'),
+	}
+}

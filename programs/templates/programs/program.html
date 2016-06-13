@@ -27,8 +27,7 @@
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
 								{% if page.lead_1.specific.rsvp_link %}
-									{% is_future page.lead_1.specific.date as is_date_future %}
-			    					{% if is_date_future %}
+			    					{% if page.lead_1.specific|is_future %}
 										<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
 									{% endif %}
 								{% endif %}
@@ -56,8 +55,7 @@
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
 									{% if other_lead_story.specific.rsvp_link %}
-										{% is_future other_lead_story.specific.date as is_date_future %}
-				    					{% if is_date_future %}
+				    					{% if other_lead_story.specific|is_future %}
 											<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
 										{% endif %}
 									{% endif %}

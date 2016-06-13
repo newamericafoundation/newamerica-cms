@@ -8,6 +8,10 @@ $breakpoints: (
   large: 1024px,
   xlarge: 1320px,
   xxlarge: 1440px,
+
+  /* header breakpoints stored in foundation's breakpoint object for use in JS functions */
+  desktop-header: $desktop-header-foldup,
+  expanded-header: $expanded-header-foldup,
 );
 
 $button-background: palette-get(na-turquoise);

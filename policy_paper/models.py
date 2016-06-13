@@ -42,7 +42,6 @@ class PolicyPaper(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
-
 class AllPolicyPapersHomePage(Page):
     """
     A page which inherits from the abstract Page model and

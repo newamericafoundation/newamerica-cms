@@ -1,26 +1,30 @@
 import $ from 'jquery';
 
-import getJQueryObjects from './../../utilities/get_jquery_objects.js';
+/* 
+ * Function to dynamically size program dropdown height to avoid cutoff - only necessary for fixed header
+ *
+ */
+export default function setProgramDropdownHeight() {
+	if (!$("body").hasClass("header--expanded")) {
+		const $programDropdownContent = $("#program-dropdown-content");
+		const headerHeight = 72;
 
-import {
-  CONTAINER_CLASS_NAME,
-  LINK_GROUP_CLASS_NAME
-} from './constants.js';
+		$("#program-dropdown-toggle").on("mouseover", function() {
+			var windowHeightMinusHeader = $(window).height() - headerHeight;
+			var progDropdownHeight = $programDropdownContent.height();
+			var progDropdownScrollHeight = $programDropdownContent.prop("scrollHeight");
 
-/*
+			// checks for existing overflow and resets height to auto - handles case where previous height caused overflow, but future height might be tall enough to fit full content
+			if (progDropdownScrollHeight > progDropdownHeight) {
+				$programDropdownContent.height("auto").css("overflow-y", "none");
+				progDropdownHeight = $programDropdownContent.height();
+			}
 
-Sets expanded body class based on window ui-state
-
-*/
-export default function addHeaderInteractivity() {
-
-	var { $body, $window } = getJQueryObjects();
-
-	setExpandedState();
-
-	function setExpandedState() {
-		var isExpanded = window.uiState ? window.uiState.isHeaderExpanded : false
-		$body.setModifierClass('expanded', isExpanded, 'header')
+			// if dropdown content height is greater than window height, sets dropdown height and overflow
+			if (progDropdownHeight > windowHeightMinusHeader) {
+				$programDropdownContent.height(windowHeightMinusHeader - 15).css("overflow-y", "scroll");
+			}
+		})
 	}
-
+	
 }

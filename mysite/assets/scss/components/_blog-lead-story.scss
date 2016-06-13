@@ -4,6 +4,10 @@
 	height: 225px;
 	display: none;
 
+	.hero-grid__element__text-bar {
+		max-height: none;
+	}
+
 	@include breakpoint(medium) {
 		display: block;
 		height: 450px;
