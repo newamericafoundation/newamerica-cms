@@ -20,7 +20,7 @@ class ButtonBlock(blocks.StructBlock):
 		label = 'Button'
 
 class IframeBlock(blocks.StructBlock):
-	source_url = EmbedBlock(required=True)
+	source_url = blocks.URLBlock(required=True)
 	width = blocks.CharBlock(max_length=5)
 	height = blocks.CharBlock(max_length=5)
 	preserve_aspect = blocks.BooleanBlock(default=True, label="Preserve Aspect Ratio?", help_text="If checked, will preserve width-height ratio on smaller width screens, otherwise will maintain original height regardless of screen width")
