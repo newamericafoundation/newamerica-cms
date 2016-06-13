@@ -119,7 +119,9 @@
 						{% endif %}
 
 						<h5 class= "content-entry__text__date-time">{% generate_dateline post %}</h5>
-						<p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
+						{% if post.story_excerpt %}
+							<p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
+						{% endif %}
 						
 					</div>
 				</div>

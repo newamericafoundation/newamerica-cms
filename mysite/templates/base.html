@@ -3,6 +3,7 @@
 {% load top_menu %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load utilities %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -61,7 +62,7 @@
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
-        <div class='wrapper'>
+        <div class='wrapper {% check_oti request.path %}'>
 
             <div class='wrapper__clear-header'>
 

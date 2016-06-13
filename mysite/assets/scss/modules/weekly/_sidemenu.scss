@@ -2,6 +2,7 @@
 	$picture-size: 60px;
 	$local-gutter: 15px;
 	$active-link-border-width: 5px;
+	$submit-width: 37px;
 	padding-left: $desktop-padding;
 	padding-right: $desktop-padding;
 
@@ -117,6 +118,28 @@
 			}
 		}
 		
+	}
+
+	&__subscribe {
+		&__input {
+			display: inline-block;
+			width: calc(100% - #{$submit-width} - 5px);
+		}
+
+		&__submit {
+			display: inline-block;
+			padding-left: 10px;
+			padding-right: 10px;
+			position: relative;
+			top: 1px;
+			margin-top: 2px;
+			width: 37px;
+			height: 46px;
+			& > svg {
+				fill: white;
+				width: 15px;
+			}
+		}
 	}
 
 	select {
