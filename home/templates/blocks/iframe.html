@@ -1,4 +1,8 @@
-<div class="block-iframe__container" style="max-width:{{ self.width }}px; max-height:{{ self.height }}px;">
-	<iframe src="{{ self.source_url }}" width="100%" height="100%" allowfullscreen frameborder="0">
-	</iframe>
+{% load wagtailcore_tags %}
+
+{% widthratio self.height self.width 100 as height_width_ratio %}
+<div class="block-iframe__max-bounds-container" style="max-width:{{ self.width }}px; max-height:{{ self.height }}px;">
+	<div class="block-iframe__responsive-container" style="padding-bottom: {{ height_width_ratio }}%">
+		<iframe src="{{ self.source_url }}" allowfullscreen frameborder="0"></iframe>
+	</div>
 </div>

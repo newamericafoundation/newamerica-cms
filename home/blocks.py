@@ -6,6 +6,13 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailembeds.blocks import EmbedBlock
 
 
+class IntegerBlock(blocks.FieldBlock):
+	def __init__(self, required=True, help_text=None, max_value=None, min_value=None, **kwargs):
+        self.field = forms.IntegerField(required=required, help_text=help_text, max_value=max_value,
+                                        min_value=min_value)
+        super(IntegerBlock, self).__init__(**kwargs)
+
+
 class ButtonBlock(blocks.StructBlock):
 	button_text = blocks.CharBlock(required=True, max_length=50)
 	button_link = blocks.URLBlock(required=True, default="https://www.")

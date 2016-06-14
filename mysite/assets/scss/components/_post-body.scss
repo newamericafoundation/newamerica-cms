@@ -221,15 +221,22 @@
   }
 
   /* styling for media objects embedded through streamfield iframe block */
-  .block-iframe__container {
-    width: 100%;
-    height: 1000px;
+  .block-iframe {
+    &__responsive-container {
+      position: relative;
+      height: 0px;
+      overflow: hidden;
 
-    iframe {
-      width: 100%;
-      height: 100%;
+      iframe {
+        position: absolute;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
+  
 
   .responsive-object {
     padding: $media-padding 0px !important;
