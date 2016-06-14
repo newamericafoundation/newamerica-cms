@@ -222,6 +222,7 @@
 
   /* styling for media objects embedded through streamfield iframe block */
   .block-iframe {
+    margin-bottom: $desktop-padding;
     &__responsive-container {
       position: relative;
       height: 0px;

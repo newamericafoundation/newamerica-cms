@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
@@ -7,10 +8,9 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 
 
 class IntegerBlock(blocks.FieldBlock):
-	def __init__(self, required=True, help_text=None, max_value=None, min_value=None, **kwargs):
-        self.field = forms.IntegerField(required=required, help_text=help_text, max_value=max_value,
-                                        min_value=min_value)
-        super(IntegerBlock, self).__init__(**kwargs)
+	def __init__(self, required=True, help_text=None, max_value=None, min_value=1, **kwargs):
+		self.field = forms.IntegerField(required=required, help_text=help_text, max_value=max_value, min_value=min_value)
+		super(IntegerBlock, self).__init__(**kwargs)
 
 
 class ButtonBlock(blocks.StructBlock):
@@ -28,11 +28,11 @@ class ButtonBlock(blocks.StructBlock):
 
 class IframeBlock(blocks.StructBlock):
 	source_url = blocks.URLBlock(required=True)
-	width = blocks.CharBlock(max_length=5)
-	height = blocks.CharBlock(max_length=5)
-	preserve_aspect = blocks.BooleanBlock(default=True, label="Preserve Aspect Ratio?", help_text="If checked, will preserve width-height ratio on smaller width screens, otherwise will maintain original height regardless of screen width")
+	width = IntegerBlock(max_value=1050, help_text="The maximum possible iframe width is 1050")
+	height = IntegerBlock()
 
 	class Meta:
 		template = './blocks/iframe.html'
 		icon = 'form'
 		label = 'Iframe'
+		help_text= "Specifiy maximum width and height dimensions for the iframe. On smaller screens, width-to-height ratio will be preserved."
