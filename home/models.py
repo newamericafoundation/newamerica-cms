@@ -9,6 +9,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.blocks import PageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel)
@@ -24,6 +25,8 @@ from person.models import Person
 
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+
+from .blocks import ButtonBlock
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -204,6 +207,8 @@ class AbstractSimplePage(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
+        ('table', TableBlock()),
+        ('button', ButtonBlock()),
     ])
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
@@ -354,6 +359,8 @@ class Post(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
+        ('table', TableBlock()),
+        ('button', ButtonBlock()),
     ])
 
     parent_programs = models.ManyToManyField(
