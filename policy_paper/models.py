@@ -9,7 +9,7 @@ from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
+from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class PolicyPaper(Post):
@@ -73,7 +73,7 @@ class ProgramPolicyPapersPage(Page):
     subpage_types = ['PolicyPaper']
 
     def get_context(self, request):
-        return get_posts_and_programs(
+        return get_program_and_subprogram_posts(
             self,
             request,
             ProgramPolicyPapersPage,

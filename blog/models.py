@@ -9,7 +9,7 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
+from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class BlogPost(Post):
@@ -85,7 +85,7 @@ class ProgramBlogPostsPage(Page):
     ]
 
     def get_context(self, request):
-        return get_posts_and_programs(
+        return get_program_and_subprogram_posts(
             self,
             request,
             ProgramBlogPostsPage,
