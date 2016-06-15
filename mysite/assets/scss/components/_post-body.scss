@@ -158,6 +158,7 @@
       padding-left: $desktop-padding;
     }
 
+    /* styling for media objects embedded through wysiwyg editor panel - responsive up to medium breakpoint, then fixed width/height */
     .responsive-object {
       margin-bottom: 20px;
       @include responsive-iframe(60%);
@@ -213,15 +214,6 @@
     padding: 20px 0px;
   }
 
-  /* styling for media objects embedded through wysiwyg editor panel */
-  .block-paragraph iframe {
-    width: 100%;
-
-    @include breakpoint(medium) {
-      width: 480px;
-    }
-  }
-
   /* styling for media objects embedded through streamfield video block */
   .block-video {
     margin-bottom: $desktop-padding;
@@ -237,7 +229,7 @@
     }
   }
   
-
+  /* removes ustream link from all embedded videos */
   .responsive-object {
     a[href^="http://www.ustream.tv/"][target=_blank] {
       display: none !important;
