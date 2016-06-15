@@ -29,6 +29,14 @@ from press_release.models import AllPressReleasesHomePage
 
 from quoted.models import AllQuotedHomePage
 
+class TemplateTagTests(WagtailPageTests):
+    """
+    Testing functionality of the various template tags 
+    used across the site. 
+    
+    """
+    
+
 
 class HomeTests(WagtailPageTests):
     """
