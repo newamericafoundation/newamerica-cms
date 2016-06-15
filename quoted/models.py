@@ -5,7 +5,7 @@ from home.models import Post
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from mysite.helpers import paginate_results, get_posts_and_programs, get_org_wide_posts
+from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class Quoted(Post):
@@ -60,7 +60,7 @@ class ProgramQuotedPage(Page):
     subpage_types = ['Quoted']
 
     def get_context(self, request):
-        return get_posts_and_programs(
+        return get_program_and_subprogram_posts(
             self,
             request,
             ProgramQuotedPage,

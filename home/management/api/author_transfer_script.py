@@ -23,7 +23,7 @@ from .press_release_transfer_script import load_press_releases
 
 from .in_the_news_transfer_script import load_in_the_news
 
-from .redirect import create_redirects
+from .redirect import create_redirects, downloads_redirect
 
 from .blog_transfer_script import load_education_blog_posts
 
@@ -161,4 +161,5 @@ def run():
     # load_asset_blogs()
     # create_redirects()
     print("about to start!")
-    load_education_blog_posts()
+    # load_education_blog_posts()
+    downloads_redirect()

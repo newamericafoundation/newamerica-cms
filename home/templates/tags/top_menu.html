@@ -28,7 +28,13 @@
                 <li class="mobile-menu__link__secondary"><a href="http://www.slate.com/articles/technology/future_tense.html">Future Tense on Slate</a></li>
             </ul>
         </li>
-        <li class="mobile-menu__link__main"><a href='{% get_event_url "org" "future" %}'>Events</a></li>
+        <li class="mobile-menu__link__main"><a href="#">Events</a>
+            <div class="mobile-menu__toggle flip-arrow-black rotate"></div>
+            <ul class="vertical menu">
+                <li class="mobile-menu__link__secondary"><a href="/events/">Future Events</a></li>
+                <li class="mobile-menu__link__secondary"><a href="/events/past/">Past Events</a></li>
+            </ul>
+        </li>
         <li class="mobile-menu__link__main"><a href="#">Publications</a>
             <div class="mobile-menu__toggle flip-arrow-black rotate"></div>
             <ul class="vertical menu">
@@ -95,14 +101,14 @@
             <ul class='header__main-nav__left'>
                 <li class='header__main-nav__item header__has-link-group'>
 
-                    <a class='header__button header__button--dropdown button'>Programs</a>
+                    <a class='header__button header__button--dropdown button' id="program-dropdown-toggle">Programs</a>
 
                     <div class='header__cover-bottom-shadow'></div>
 
                     <div class='header__link-group'>
-
-                        <div class='header__link-group__content'>
-
+                        <div class='header__link-group__fadeout'></div>
+                        <div class='header__link-group__content' id="program-dropdown-content">
+                            
                             <div class='header__link-group__main'>
                                 <div class='header__link-group__heading-container'>
                                     <h1 class='header__link-group__heading'>Programs and Initiatives</h1>
@@ -145,14 +151,12 @@
                                 </div>
                             </div>
                             
-
                         </div>
-
                     </div>
                 </li>
 
                 <li class='header__main-nav__item'>
-                    <a class='header__button button' href='{% get_event_url "org" "future" %}'>Events</a>
+                    <a class='header__button button' href='/events/'>Events</a>
                 </li>
                 <li class='header__main-nav__simple-link-group-item header__has-link-group'>
                     <a class='header__button header__button--dropdown button'>Publications</a>
