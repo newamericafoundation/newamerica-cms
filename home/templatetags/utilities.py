@@ -80,7 +80,7 @@ def generate_byline(ptype, authors):
 
 	# counter is used to determine appropriate list separator
 	counter = 1
-	for author in authors:
+	for author in authors.order_by('pk'):
 		ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
 		ret_string += list_separator(num_authors - counter)
 		counter += 1
