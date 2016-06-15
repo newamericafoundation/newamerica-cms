@@ -7,7 +7,9 @@ from datetime import date, timedelta
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page, Site
 
-from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
+from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, PostAuthorRelationship
+
+from .templatetags.utilities import generate_byline
 
 from programs.models import Program, Subprogram
 
@@ -15,13 +17,17 @@ from weekly.models import Weekly
 
 from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 
+<<<<<<< HEAD
 from event.models import Event, AllEventsHomePage, ProgramEventsPage
+=======
+from event.models import AllEventsHomePage, ProgramEventsPage, Event
+>>>>>>> Progress on author order tests
 
 from blog.models import AllBlogPostsHomePage
 
 from book.models import AllBooksHomePage
 
-from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage
+from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage, Person
 
 from podcast.models import AllPodcastsHomePage
 
@@ -47,6 +53,8 @@ class TemplateTagTests(WagtailPageTests):
         site.root_page = home
         site.save()
 
+        # People objects to test template tags 
+        # that create byline and determine author order
         program_page_1 = home_page.add_child(
             instance=Program(
                 title='OTI',
@@ -58,6 +66,44 @@ class TemplateTagTests(WagtailPageTests):
             )
         )
         program_page_1.save()
+
+        our_people_page = home_page.add_child(
+            instance=OurPeoplePage(
+                title='Our People',
+                depth=3,
+            )
+        )
+        our_people_page.save()
+
+        first_person = Person(
+            title='First Person',
+            slug='first-person',
+            first_name='first',
+            last_name='person',
+            role='Central Staff',
+            depth=4,
+        )
+        our_people_page.add_child(instance=first_person)
+
+        second_person = Person(
+            title='Second Person',
+            slug='second-person',
+            first_name='Second',
+            last_name='Person',
+            role='Central Staff',
+            depth=4,
+        )
+        our_people_page.add_child(instance=second_person)
+
+        third_person = Person(
+            title='Third Person',
+            slug='thid-person',
+            first_name='Third',
+            last_name='Person',
+            role='Central Staff',
+            depth=4,
+        )
+        our_people_page.add_child(instance=third_person)
 
         # Events require a separate set of tests since they 
         # operate differently than other posts
@@ -71,8 +117,8 @@ class TemplateTagTests(WagtailPageTests):
 
         future_event = program_events_page.add_child(
             instance=Event(
-                title='Future Event' ,
-                date=str(date.today()+timedelta(days=5)),
+                title='Event' ,
+                date='2016-06-15',
                 rsvp_link='http://www.newamerica.org',
                 soundcloud_url='http://www.newamerica.org'
 
@@ -88,16 +134,39 @@ class TemplateTagTests(WagtailPageTests):
         program_policy_papers_page = program_page_1.add_child(
             instance=ProgramPolicyPapersPage(title='OTI Policy Papers', slug='oti-policy-papers')
         )
-        policy_paper = PolicyPaper(
+        self.policy_paper = PolicyPaper(
             title='Policy Paper 1',
             slug='policy-paper-1',
-            date='2016-02-10',
+            date='2016-06-15',
             depth=5
         )
         program_policy_papers_page.add_child(
-            instance=policy_paper)
-        policy_paper.save()
+            instance=self.policy_paper)
+        self.policy_paper.save()
+        relationship, created = PostAuthorRelationship.objects.get_or_create(
+            author=third_person, post=self.policy_paper)
+        relationship.save()
+        relationship, created = PostAuthorRelationship.objects.get_or_create(
+            author=second_person, post=self.policy_paper)
+        relationship.save()
+        relationship, created = PostAuthorRelationship.objects.get_or_create(
+            author=first_person, post=self.policy_paper)
+        relationship.save()
 
+
+    def test_generate_byline_on_event_page(self):
+        byline = generate_byline("event", [])
+        self.assertEqual(byline, "")
+
+    def test_generate_byline_on_policy_paper_page(self):
+        byline = generate_byline(self.policy_paper.content_type, self.policy_paper.authors.all())
+        c = Client()
+        response = c.get('/oti/oti-policy-papers/policy-paper-1', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(byline in response.content)
+        # print(byline)
+        # print(response.context['authors'])
+        # print(response.content)
 
 
 class HomeTests(WagtailPageTests):
