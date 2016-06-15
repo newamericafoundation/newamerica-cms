@@ -159,9 +159,22 @@
     }
 
     .responsive-object {
-      padding: $media-padding 0px !important;
-      width: 100%;
-      float: left;
+      @include responsive-iframe(60%);
+
+      @include breakpoint(medium) {
+        float: left;
+        position: static;
+        height: auto;
+        width: 100%;
+        padding-bottom: 0px !important;
+
+        iframe {
+          position: static;
+          width: 480px !important;
+          height: 350px !important;
+        }
+      } 
+      
     }
   }
 
@@ -210,35 +223,15 @@
   /* styling for media objects embedded through streamfield video block */
   .block-video {
     margin-bottom: $desktop-padding;
-    position: relative;
-    height: 0px;
-    overflow: hidden;
-    padding-bottom: 60%;
-
-    iframe {
-      position: absolute;
-      top:0;
-      left: 0;
-      width: 100% !important;
-      height: 100% !important;
-    }
+    @include responsive-iframe(60%);
   }
 
   /* styling for media objects embedded through streamfield iframe block */
   .block-iframe {
     margin-bottom: $desktop-padding;
     &__responsive-container {
-      position: relative;
-      height: 0px;
-      overflow: hidden;
-
-      iframe {
-        position: absolute;
-        top:0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
+      /* 100% set as default aspect ratio -> true aspect ratio set inline by user input height and width */
+      @include responsive-iframe(null);
     }
   }
   
