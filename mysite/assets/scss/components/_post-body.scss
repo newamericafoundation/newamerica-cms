@@ -7,10 +7,6 @@
 
   @include page-body-text;
 
-  & > *:not(.block-iframe) {
-    max-width: $max-body-width;
-  }
-
   /*dropcap styling*/
   &.with-dropcap > .block-paragraph:first-child {
     &:first-letter {
@@ -101,7 +97,8 @@
     margin-left: 45px;
   }
 
-  & > .block-heading {
+  .block-heading {
+    max-width: $max-body-width;
     color: palette-get(na-black);
     font-size: 1.5rem;
     font-weight: bold;
@@ -140,6 +137,9 @@
   }
 
   .block-paragraph {
+    .rich-text > *:not(.pullquote) {
+      max-width: $max-body-width;
+    }
     img {
       padding: $media-padding 25px;
     }
@@ -200,6 +200,7 @@
 
   .block-image {
     padding: 20px 0px;
+    max-width: $max-body-width;
   }
 
   iframe {
@@ -211,6 +212,7 @@
   }
 
   .block-video {
+    max-width: $max-body-width;
     iframe {
       width: 100% !important;
       height: 320px;
@@ -234,6 +236,7 @@
 }
 
 .post-attachment {
+    max-width: $max-body-width;
     background-color: white;
     max-width: 400px;
     padding: $desktop-padding;
