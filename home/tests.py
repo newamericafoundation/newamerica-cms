@@ -23,7 +23,7 @@ from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage
 
 from podcast.models import AllPodcastsHomePage
 
-from policy_paper.models import AllPolicyPapersHomePage
+from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage, PolicyPaper
 
 from press_release.models import AllPressReleasesHomePage
 
@@ -35,7 +35,67 @@ class TemplateTagTests(WagtailPageTests):
     used across the site. 
     
     """
+    def setUp(self):
+        self.login()
+        site = Site.objects.get()
+        page = Page.get_first_root_node()
+        home = HomePage(title='New America')
+        home_page = page.add_child(instance=home)
+
+        site.root_page = home
+        site.save()
+
+        program_page_1 = home_page.add_child(
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                slug='oti',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        program_page_1.save()
+
+        # Events require a separate set of tests since they 
+        # operate differently than other posts
+        all_events_home_page = home_page.add_child(
+            instance=AllEventsHomePage(title="Events")
+        )
     
+        program_events_page = program_page_1.add_child(
+            instance=ProgramEventsPage(title='OTI Events', slug='oti-events')
+        )
+
+        future_event = program_events_page.add_child(
+            instance=Event(
+                title='Future Event' ,
+                date=str(date.today()+timedelta(days=5)),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+
+            )
+        )
+        future_event.save()        
+
+        # Using policy papers to test the other post types
+        all_policy_papers_home_page = home_page.add_child(
+            instance=AllPolicyPapersHomePage(title="Policy Papers")
+        )
+    
+        program_policy_papers_page = program_page_1.add_child(
+            instance=ProgramPolicyPapersPage(title='OTI Policy Papers', slug='oti-policy-papers')
+        )
+        policy_paper = PolicyPaper(
+            title='Policy Paper 1',
+            slug='policy-paper-1',
+            date='2016-02-10',
+            depth=5
+        )
+        program_policy_papers_page.add_child(
+            instance=policy_paper)
+        policy_paper.save()
+
 
 
 class HomeTests(WagtailPageTests):
