@@ -7,7 +7,7 @@
 
   @include page-body-text;
 
-  & > *:not(.block-video) {
+  & > *:not(.block-iframe) {
     max-width: $max-body-width;
   }
 

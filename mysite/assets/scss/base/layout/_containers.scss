@@ -266,7 +266,11 @@
 	}
 }
 
-.tags-container {
-	margin-bottom: $desktop-padding;
+.issue-grid-container {
+	max-width: $max-body-width;
+}
+
+.post-person-container {
+	max-width: $max-body-width;
 }
 
