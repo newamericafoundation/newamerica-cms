@@ -71,13 +71,16 @@
     opacity: 1;
   }
 
-  .button {
-    margin-bottom: 1rem;
+  .block-button {
+    @include limit-body-width;
+    .button {
+      margin-bottom: 1rem;
 
-    &.center-aligned {
-      display: table;
-      margin-left: auto;
-      margin-right: auto;
+      &.center-aligned {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   }
 
@@ -98,7 +101,7 @@
   }
 
   .block-heading {
-    max-width: $max-body-width;
+    @include limit-body-width;
     color: palette-get(na-black);
     font-size: 1.5rem;
     font-weight: bold;
@@ -138,7 +141,7 @@
 
   .block-paragraph {
     .rich-text > *:not(.pullquote) {
-      max-width: $max-body-width;
+      @include limit-body-width;
     }
     img {
       padding: $media-padding 25px;
@@ -199,8 +202,8 @@
   }
 
   .block-image {
+    @include limit-body-width;
     padding: 20px 0px;
-    max-width: $max-body-width;
   }
 
   iframe {
@@ -212,7 +215,7 @@
   }
 
   .block-video {
-    max-width: $max-body-width;
+    @include limit-body-width;
     iframe {
       width: 100% !important;
       height: 320px;
@@ -236,7 +239,6 @@
 }
 
 .post-attachment {
-    max-width: $max-body-width;
     background-color: white;
     max-width: 400px;
     padding: $desktop-padding;

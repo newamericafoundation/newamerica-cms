@@ -267,10 +267,10 @@
 }
 
 .issue-grid-container {
-	max-width: $max-body-width;
+	@include limit-body-width;
 }
 
 .post-person-container {
-	max-width: $max-body-width;
+	@include limit-body-width;
 }
 

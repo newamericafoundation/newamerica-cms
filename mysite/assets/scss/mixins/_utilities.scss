@@ -31,3 +31,13 @@
 /*  -webkit-hyphens: auto;
    hyphens: auto;*/
 }
+
+@mixin limit-body-width {
+  @include desktop-header {
+    max-width: $max-body-width;
+  }
+
+  @include expanded-header {
+    max-width: $max-body-width;
+  }
+}
