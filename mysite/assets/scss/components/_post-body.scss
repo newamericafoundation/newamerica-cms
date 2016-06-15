@@ -159,19 +159,21 @@
     }
 
     .responsive-object {
+      margin-bottom: 20px;
       @include responsive-iframe(60%);
 
       @include breakpoint(medium) {
+        $default-height: 325px;
         float: left;
         position: static;
-        height: auto;
+        height: $default-height;
         width: 100%;
         padding-bottom: 0px !important;
 
         iframe {
           position: static;
-          width: 480px !important;
-          height: 350px !important;
+          width: 475px !important;
+          height: $default-height !important;
         }
       } 
       
@@ -230,14 +232,13 @@
   .block-iframe {
     margin-bottom: $desktop-padding;
     &__responsive-container {
-      /* 100% set as default aspect ratio -> true aspect ratio set inline by user input height and width */
+      /* aspect ratio set inline by user input height and width */
       @include responsive-iframe(null);
     }
   }
   
 
   .responsive-object {
-    padding: $media-padding 0px !important;
     a[href^="http://www.ustream.tv/"][target=_blank] {
       display: none !important;
     }
