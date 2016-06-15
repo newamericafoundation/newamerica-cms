@@ -208,15 +208,19 @@
   }
 
   /* styling for media objects embedded through streamfield video block */
-  .block-video iframe {
-    width: 100% !important;
-    height: 320px;
-    @include breakpoint(medium) {
-      height: 450px;
-    } 
+  .block-video {
+    margin-bottom: $desktop-padding;
+    position: relative;
+    height: 0px;
+    overflow: hidden;
+    padding-bottom: 60%;
 
-    @include breakpoint(large) {
-      height: 500px;
+    iframe {
+      position: absolute;
+      top:0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
     }
   }
 
