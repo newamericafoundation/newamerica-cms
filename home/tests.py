@@ -33,9 +33,9 @@ from quoted.models import AllQuotedHomePage
 
 class TemplateTagTests(WagtailPageTests):
     """
-    Testing functionality of the various template tags 
-    used across the site. 
-    
+    Testing functionality of the various template tags
+    used across the site.
+
     """
     def setUp(self):
         self.login()
@@ -47,7 +47,7 @@ class TemplateTagTests(WagtailPageTests):
         site.root_page = home
         site.save()
 
-        # People objects to test template tags 
+        # People objects to test template tags
         # that create byline and determine author order
         program_page_1 = home_page.add_child(
             instance=Program(
@@ -69,7 +69,7 @@ class TemplateTagTests(WagtailPageTests):
         )
         our_people_page.save()
 
-        first_person = Person(
+        self.first_person = Person(
             title='First Person',
             slug='first-person',
             first_name='first',
@@ -77,9 +77,9 @@ class TemplateTagTests(WagtailPageTests):
             role='Central Staff',
             depth=4,
         )
-        our_people_page.add_child(instance=first_person)
+        our_people_page.add_child(instance=self.first_person)
 
-        second_person = Person(
+        self.second_person = Person(
             title='Second Person',
             slug='second-person',
             first_name='Second',
@@ -87,9 +87,9 @@ class TemplateTagTests(WagtailPageTests):
             role='Central Staff',
             depth=4,
         )
-        our_people_page.add_child(instance=second_person)
+        our_people_page.add_child(instance=self.second_person)
 
-        third_person = Person(
+        self.third_person = Person(
             title='Third Person',
             slug='thid-person',
             first_name='Third',
@@ -97,14 +97,14 @@ class TemplateTagTests(WagtailPageTests):
             role='Central Staff',
             depth=4,
         )
-        our_people_page.add_child(instance=third_person)
+        our_people_page.add_child(instance=self.third_person)
 
-        # Events require a separate set of tests since they 
+        # Events require a separate set of tests since they
         # operate differently than other posts
         all_events_home_page = home_page.add_child(
             instance=AllEventsHomePage(title="Events")
         )
-    
+
         program_events_page = program_page_1.add_child(
             instance=ProgramEventsPage(title='OTI Events', slug='oti-events')
         )
@@ -118,13 +118,13 @@ class TemplateTagTests(WagtailPageTests):
 
             )
         )
-        future_event.save()        
+        future_event.save()
 
         # Using policy papers to test the other post types
         all_policy_papers_home_page = home_page.add_child(
             instance=AllPolicyPapersHomePage(title="Policy Papers")
         )
-    
+
         program_policy_papers_page = program_page_1.add_child(
             instance=ProgramPolicyPapersPage(title='OTI Policy Papers', slug='oti-policy-papers')
         )
@@ -137,15 +137,33 @@ class TemplateTagTests(WagtailPageTests):
         program_policy_papers_page.add_child(
             instance=self.policy_paper)
         self.policy_paper.save()
-        relationship, created = PostAuthorRelationship.objects.get_or_create(
-            author=third_person, post=self.policy_paper)
-        relationship.save()
-        relationship, created = PostAuthorRelationship.objects.get_or_create(
-            author=second_person, post=self.policy_paper)
-        relationship.save()
-        relationship, created = PostAuthorRelationship.objects.get_or_create(
-            author=first_person, post=self.policy_paper)
-        relationship.save()
+        self.relationship_1, created = PostAuthorRelationship.objects.get_or_create(
+            author=self.third_person, post=self.policy_paper)
+        self.relationship_1.save()
+        self.relationship_2, created = PostAuthorRelationship.objects.get_or_create(
+            author=self.second_person, post=self.policy_paper)
+        self.relationship_2.save()
+        self.relationship_3, created = PostAuthorRelationship.objects.get_or_create(
+            author=self.first_person, post=self.policy_paper)
+        self.relationship_3.save()
+
+    def test_generate_byline_order(self):
+        byline_1 = generate_byline(self.policy_paper.content_type, self.policy_paper.authors.all())
+        self.relationship_1.delete()
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+        byline_2 = generate_byline(self.policy_paper.content_type, self.policy_paper.authors.all())
+        self.assertNotEqual(byline_1, byline_2)
+
+    def test_2_authors_contain_and(self):
+        byline = generate_byline(self.policy_paper.content_type, self.policy_paper.authors.all())
+        self.relationship_1.delete()
+        self.assertTrue(" and " in byline)
+        self.assertFalse("," in byline)
+
+    def test_3_or_more_contain_comma_and_and(self):
+        byline = generate_byline(self.policy_paper.content_type, self.policy_paper.authors.all())
+        self.assertTrue(" and " in byline)
+        self.assertTrue("," in byline)
 
 
     def test_generate_byline_on_event_page(self):
@@ -156,17 +174,14 @@ class TemplateTagTests(WagtailPageTests):
         byline = generate_byline(self.policy_paper.content_type, self.policy_paper.authors.all())
         c = Client()
         response = c.get('/oti/oti-policy-papers/policy-paper-1', follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(byline in response.content)
-        # print(byline)
-        # print(response.context['authors'])
-        # print(response.content)
+        self.assertContains(response, byline)
+
 
 
 class HomeTests(WagtailPageTests):
     """
-    Testing hierarchies between pages and whether it is possible 
-    to create a Homepage and all the allowed subpages 
+    Testing hierarchies between pages and whether it is possible
+    to create a Homepage and all the allowed subpages
     underneath the Homepage.
 
     Testing functionality of OrgSimplePage and ProgramSimplePage.
@@ -192,7 +207,7 @@ class HomeTests(WagtailPageTests):
         )
         self.article = self.program_articles_page.add_child(
             instance=Article(
-                title='Article 1', 
+                title='Article 1',
                 date='2016-02-02'
             )
         )
@@ -202,12 +217,12 @@ class HomeTests(WagtailPageTests):
         home = HomePage(title='New America')
         parent_page.add_child(instance=home)
 
-    # Test that a particular child Page type 
+    # Test that a particular child Page type
     # can be created under a parent Page type
     def test_homepage_parent_page_type(self):
         self.assertCanCreateAt(Page, HomePage)
 
-    # Test that the only page types that can be created 
+    # Test that the only page types that can be created
     # under parent_model are child_models
     def test_homepage_subpages(self):
         self.assertAllowedSubpageTypes(HomePage, {
@@ -221,7 +236,7 @@ class HomeTests(WagtailPageTests):
             AllQuotedHomePage,
             BoardAndLeadershipPeoplePage,
             JobsPage,
-            OurPeoplePage, 
+            OurPeoplePage,
             OrgSimplePage,
             Program,
             SubscribePage,
@@ -270,7 +285,7 @@ class HomeTests(WagtailPageTests):
             }
         )
         self.assertEqual(
-            self.home_page.recent_carousel.stream_data[0]['value'], 
+            self.home_page.recent_carousel.stream_data[0]['value'],
             self.article.id
         )
 
@@ -279,7 +294,7 @@ class HomeTests(WagtailPageTests):
             title='Org Simple Page Test'
         )
         self.home_page.add_child(instance=simple_page)
-        self.assertEqual(simple_page.content_type, 
+        self.assertEqual(simple_page.content_type,
             self.home_page.get_children().filter(
             title='Org Simple Page Test')[0].content_type
         )
@@ -299,7 +314,7 @@ class HomeTests(WagtailPageTests):
             title='Program Simple Page Test'
         )
         self.program_page.add_child(instance=program_simple_page)
-        self.assertEqual(program_simple_page.content_type, 
+        self.assertEqual(program_simple_page.content_type,
             self.program_page.get_children().filter(
             title='Program Simple Page Test')[0].content_type
         )
