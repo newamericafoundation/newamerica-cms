@@ -64,6 +64,10 @@ def get_author_block_prefix(ptype, items_list):
 		return get_byline_prefix(post_type, items_list)
 
 
+def get_author_url(author):
+	return '<a href="' + author.author.url + '">' + author.author.title + '</a>'
+
+
 # generates byline for all post types - calls byline prefix tag to get apporpriate prefix
 @register.simple_tag()
 def generate_byline(ptype, authors):
@@ -79,13 +83,29 @@ def generate_byline(ptype, authors):
 	ret_string += get_byline_prefix(post_type, authors)
 
 	# counter is used to determine appropriate list separator
-	counter = 1
-	for author in authors.order_by('pk'):
-		ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
-		ret_string += list_separator(num_authors - counter)
-		counter += 1
+	#counter = 1
+	# for author in authors.order_by('pk'):
+	# 	ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
+	# 	ret_string += list_separator(num_authors - counter)
+	# 	counter += 1
 
-	return mark_safe(ret_string)
+	# return mark_safe(ret_string)
+
+	# needs to separate authors with commas
+	# last author in list should have "and" before
+	# for author in authors.order_by('pk'):
+	# 	{{ author }}
+	#'<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
+
+	author_list = [get_author_url(author) for author in authors.order_by('pk')]
+	if len(author_list) > 1:
+		author_list.insert(-1, 'and')
+
+	if len(author_list) > 3:
+		return  mark_safe(", ".join(author_list[:-2]) + " " + " ".join(author_list[-2:]))
+
+	return mark_safe(" ".join(author_list))
+
 
 
 # maps inernal content types to external content type display
@@ -120,7 +140,7 @@ def generate_dateline(post):
 	ret_string = ""
 	date_format = '%B %-d, %Y'
 	time_format = '%-I:%M %p'
-	
+
 	if str(post.content_type) == "event":
 		if post.date:
 
@@ -187,7 +207,7 @@ def person_display_contact_info(page):
 	if (page.email):
 		if (page.role != "External Author/Former Staff"):
 			return 1
-	
+
 	return 0
 
 @register.simple_tag()
@@ -196,5 +216,5 @@ def check_oti(path):
 
 	if (path_pieces[1] == "oti"):
 		return "oti"
-	
+
 	return ""
