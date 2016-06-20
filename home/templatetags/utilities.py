@@ -42,7 +42,7 @@ def get_byline_prefix(ptype, items_list):
 	post_type = str(ptype)
 
 	if post_type == "podcast":
-		return pluralize(num_items, "Host")
+		return pluralize(num_items, "Contributor")
 	elif (post_type == "blog post" or post_type == "weekly article"):
 		return "By "
 	elif post_type == "In The News Piece":
