@@ -207,7 +207,8 @@ class Person(Page):
         ]
 
         context['featured_work'] = featured_work
-        
+        context['posts'] = self.post_set.all()
+                
         return context
 
     class Meta:
