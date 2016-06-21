@@ -1,7 +1,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.apps import apps
 from django.shortcuts import redirect
+from django.utils.timezone import localtime, now
+from django.db.models import Q
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
@@ -194,6 +197,13 @@ class HomePage(Page):
             ]
         else:
             context['featured_stories'] = []
+
+        Event = apps.get_model('event', 'Event')
+
+        curr_date = localtime(now()).date()
+        date_filter = Q(date__gte=curr_date) | Q(end_date__gte=curr_date)
+
+        context['upcoming_events'] = Event.objects.live().filter(date_filter).order_by("date", "start_time")[:5]
 
         return context
 
