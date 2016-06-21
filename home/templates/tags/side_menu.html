@@ -6,6 +6,16 @@
 <div class="mobile-sidemenu mobile-menu">
     <ul class="vertical menu" data-accordion-menu>
         <li class="mobile-menu__link__main"><a href="{{ side_menu.url }}">{{ side_menu.title }} Home Page</a></li>
+        {% if side_menu.about_pages %}
+          <li class="mobile-menu__link__main"><a href="#">About</a>
+              <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
+              <ul class="vertical menu">
+                {% for about_page in side_menu.about_pages %}
+                    <li class="mobile-menu__link__secondary">{{ about_page }}</li>
+                {% endfor %}
+              </ul>
+          </li>
+        {% endif %}
         {% if side_menu.initiative_pages %}
           <li class="mobile-menu__link__main"><a href="#">Initiatives & Projects</a>
             <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
@@ -33,16 +43,7 @@
               </ul>
           </li>
         {% endif %}
-        {% if side_menu.about_pages %}
-          <li class="mobile-menu__link__main"><a href="#">About</a>
-              <div class="mobile-menu__toggle flip-arrow-white rotate"></div>
-              <ul class="vertical menu">
-                {% for about_page in side_menu.about_pages %}
-                    <li class="mobile-menu__link__secondary">{{ about_page }}</li>
-                {% endfor %}
-              </ul>
-          </li>
-        {% endif %}
+        
     </ul>    
 
 </div>
@@ -59,6 +60,12 @@
   </a>
   <div class="sidemenu__link-group">
     <ul class="menu vertical sidemenu__link-group__content">
+      {% if side_menu.about_pages %}
+        <li class="menu-text sidemenu__link-group__title">About</li>
+        {% for about_page in side_menu.about_pages %}
+          <li class="sidemenu__link-group__link">{{ about_page }}</li>
+        {% endfor %}
+      {% endif %}
       {% if side_menu.initiative_pages %}
         <li class="menu-text sidemenu__link-group__title">Initiatives & Projects</li>
         {% for initiative in side_menu.initiative_pages %}
@@ -74,13 +81,6 @@
         <li class="menu-text sidemenu__link-group__title">Publications</li>
         {% for work_page in side_menu.work_pages %}
           <li class="sidemenu__link-group__link">{{ work_page }}</li>
-        {% endfor %}
-      {% endif %}
-
-      {% if side_menu.about_pages %}
-        <li class="menu-text sidemenu__link-group__title">About</li>
-        {% for about_page in side_menu.about_pages %}
-          <li class="sidemenu__link-group__link">{{ about_page }}</li>
         {% endfor %}
       {% endif %}
     </ul>
