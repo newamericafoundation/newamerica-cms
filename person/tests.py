@@ -1,11 +1,13 @@
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
+
+from django.test import Client
 
 from .models import Person, OurPeoplePage, PersonProgramRelationship, PersonSubprogramRelationship
 
 from article.models import ProgramArticlesPage, Article
 
-from home.models import HomePage
+from home.models import HomePage, PostAuthorRelationship
 
 from programs.models import Program, Subprogram
 
@@ -17,13 +19,17 @@ class PersonTests(WagtailPageTests):
     """
     def setUp(self):
         self.login()
-        self.root_page = Page.objects.get(id=1)
-        self.home_page = self.root_page.add_child(instance=HomePage(
-            title='New America')
-        )
+        site = Site.objects.get()
+        page = Page.get_first_root_node()
+        home = HomePage(title='New America')
+        self.home_page = page.add_child(instance=home)
+
+        site.root_page = home
+        site.save()
+
         self.our_people_page = self.home_page.add_child(
             instance=OurPeoplePage(
-                title='New America People',
+                title='Our People',
                 depth=3
             )
         )
@@ -67,18 +73,6 @@ class PersonTests(WagtailPageTests):
         self.program_articles_page = self.program_page.add_child(
             instance=ProgramArticlesPage(title='Program Articles')
         )
-        self.article = self.program_articles_page.add_child(
-            instance=Article(
-                title='Article 1', 
-                date='2016-02-02'
-            )
-        )
-        self.article_2 = self.program_articles_page.add_child(
-            instance=Article(
-                title='Article 2', 
-                date='2016-02-02'
-            )
-        )
         self.test_person = Person(
             title='Sana Javed',
             slug='sana-javed',
@@ -88,6 +82,24 @@ class PersonTests(WagtailPageTests):
             depth=4,
         )
         self.our_people_page.add_child(instance=self.test_person)
+        self.test_person.save()
+
+        self.article = self.program_articles_page.add_child(
+            instance=Article(
+                title='Article 1', 
+                date='2016-02-02'
+            )
+        )
+        PostAuthorRelationship(author=self.test_person, post=self.article).save()
+
+        self.article_2 = self.program_articles_page.add_child(
+            instance=Article(
+                title='Article 2', 
+                date='2016-02-02'
+            )
+        )
+        PostAuthorRelationship(author=self.test_person, post=self.article).save()
+
 
     # Test that a particular child Page type can be created under a 
     # parent Page type
@@ -243,3 +255,23 @@ class PersonTests(WagtailPageTests):
         self.test_person.role = 'Program Staff'
         self.assertEqual('Program Staff', self.test_person.role)
         self.assertNotEqual('Central Staff', self.test_person.role)
+
+    # Test a person page has their conent
+    def test_person_page_has_their_conent(self):
+        c = Client()
+        response = c.get('/our-people/sana-javed/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        #import pdb; pdb.set_trace()
+        self.assertEqual(len(response.context['posts']), 2)
+
+    # Test a person page has content ordered by date
+    def test_person_page_has_content_ordered_by_date(self):
+        pass
+
+
+    # Test that the second page of the person bio page has no bio and only content results 
+    def test_second_person_page_of_bio_has_no_bio_only_content_results(self):
+        pass
+
+
+
