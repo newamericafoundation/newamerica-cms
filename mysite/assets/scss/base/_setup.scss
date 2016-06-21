@@ -27,13 +27,7 @@ select {
 	border: $standard-border;
 	cursor: pointer;
 	background: url(shape-urls-get(down-arrow-na-black)) no-repeat;
-	background-position-y: center;
 	background-size: 12px 12px;
-	background-position-x: 97%;
-
-	@include breakpoint(medium) {
-		background-position-x: 95%;
-	}
 }
 	
 
