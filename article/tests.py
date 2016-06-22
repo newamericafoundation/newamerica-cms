@@ -133,4 +133,5 @@ class ArticleTests(WagtailPageTests):
         self.assertEqual(PostProgramRelationship.objects.filter(post=article, program=self.program_page).first(), None)
         self.assertEqual(PostProgramRelationship.objects.filter(post=article, program=self.second_program).first(), None)
 
-    def test_by_lines_work_on_article_page
+    def test_by_lines_work_on_article_page(self):
+        pass
