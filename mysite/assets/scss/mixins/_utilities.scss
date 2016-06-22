@@ -31,3 +31,20 @@
 /*  -webkit-hyphens: auto;
    hyphens: auto;*/
 }
+
+@mixin responsive-iframe($height-width-ratio) {
+  @if $height-width-ratio {
+    padding-bottom: $height-width-ratio !important;
+  }
+  position: relative;
+  height: 0px;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
