@@ -223,9 +223,9 @@ class Program(AbstractProgram):
     ]
 
     promote_panels = AbstractProgram.promote_panels + [
+        StreamFieldPanel('sidebar_menu_about_us_pages'),
         StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
         StreamFieldPanel('sidebar_menu_our_work_pages'),
-        StreamFieldPanel('sidebar_menu_about_us_pages'),
     ]
 
     def get_context(self, request):
