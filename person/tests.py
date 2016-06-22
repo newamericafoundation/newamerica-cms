@@ -95,10 +95,10 @@ class PersonTests(WagtailPageTests):
         self.article_2 = self.program_articles_page.add_child(
             instance=Article(
                 title='Article 2', 
-                date='2016-02-02'
+                date='2016-05-02'
             )
         )
-        PostAuthorRelationship(author=self.test_person, post=self.article).save()
+        PostAuthorRelationship(author=self.test_person, post=self.article_2).save()
 
 
     # Test that a particular child Page type can be created under a 
@@ -261,13 +261,17 @@ class PersonTests(WagtailPageTests):
         c = Client()
         response = c.get('/our-people/sana-javed/', follow=True)
         self.assertEqual(response.status_code, 200)
-        #import pdb; pdb.set_trace()
         self.assertEqual(len(response.context['posts']), 2)
 
     # Test a person page has content ordered by date
     def test_person_page_has_content_ordered_by_date(self):
-        pass
-
+        c = Client()
+        response = c.get('/our-people/sana-javed/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        post_titles = []
+        for post in response.context['posts']:
+            post_titles.append(post.title)
+        self.assertEqual(post_titles, ['Article 2', 'Article 1'])
 
     # Test that the second page of the person bio page has no bio and only content results 
     def test_second_person_page_of_bio_has_no_bio_only_content_results(self):

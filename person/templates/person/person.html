@@ -89,16 +89,59 @@
                                 
                             </div>
                         </div>
-                    </div>
-                    <hr>
+                        </div>
+                        <hr>
                 {% endif %}
             {% endfor %} 
+                    </div>
         </div>
-        
-        
     </div>
     {% endif %}
 
-</div>
+    {% if posts %}
+    <div>
+        <div class="content-grid__entries">
+            {% for post in posts %}
+                    <div class="content-entry {{ post.get_page_type }}">
+                        {% if post.story_image %}
+                            {% image post.story_image min-650x200 as post_image %}
+
+                            <a href="{{ post.url }}">
+                                <div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
+                                </div>
+                            </a>
+                        <div class="content-entry__text-container has-image">
+                        {% else %}
+                        <div class="content-entry__text-container">
+                        {% endif %}
+                            <div class="content-entry__text">
+                                {% if post.parent_programs.all %}
+                                    <h5 class="content-entry__text__program">
+                                    {% for program in post.parent_programs.all %}
+                                        <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
+                                    {% endfor %}
+                                    </h5>
+                                {% endif %}
+
+                                <h5 class= "content-entry__text__title"><a href="{{ post.url }}">{{ post.title }}</a></h5>
+                                
+                                {% if post.authors.all %}
+                                    <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.authors.all %}</h5>
+                                {% endif %}
+
+                                <h5 class= "content-entry__text__date-time">{% generate_dateline post %}</h5>
+                                {% if post.story_excerpt %}
+                                    <p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
 
 {% endblock %}
