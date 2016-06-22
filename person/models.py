@@ -207,7 +207,7 @@ class Person(Page):
         ]
 
         context['featured_work'] = featured_work
-        context['posts'] = self.post_set.all().order_by("-date")
+        context['posts'] = paginate_results(request,self.post_set.all().order_by("-date"))
                 
         return context
 
