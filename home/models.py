@@ -148,14 +148,6 @@ class HomePage(Page):
 
     featured_stories = [feature_1, feature_2, feature_3]
 
-    #Up to three recent items that are below the
-    #featured stories banner that circle through a carousel
-    recent_carousel = StreamField([
-        ('event', PageChooserBlock()),
-        ('policy_paper', PageChooserBlock()),
-    ], blank=True)
-
-
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
@@ -176,7 +168,6 @@ class HomePage(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
-        StreamFieldPanel('recent_carousel'),
     ]
 
     def get_context(self, request):
