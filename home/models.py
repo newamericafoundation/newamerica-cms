@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.apps import apps
 from django.shortcuts import redirect
-from django.utils.timezone import localtime, now
+from datetime import datetime
+from pytz import timezone
 from django.db.models import Q
 
 from wagtail.wagtailcore.models import Page
@@ -191,8 +192,11 @@ class HomePage(Page):
 
         Event = apps.get_model('event', 'Event')
 
-        curr_date = localtime(now()).date()
-        date_filter = Q(date__gte=curr_date) | Q(end_date__gte=curr_date)
+        eastern = timezone('US/Eastern')
+        curr_time = datetime.now(eastern).time()
+        curr_date = datetime.now(eastern).date()
+        print(curr_time)
+        date_filter = Q(date__gt=curr_date) | (Q(date=curr_date) & Q(start_time__gte=curr_time))
 
         context['upcoming_events'] = Event.objects.live().filter(date_filter).order_by("date", "start_time")[:5]
 
