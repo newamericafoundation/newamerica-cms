@@ -33,7 +33,7 @@ class Event(Post):
     city = models.TextField(default='Washington')
     state = models.TextField(default='D.C.')
     zipcode = models.TextField(default='20005')
-    rsvp_link = models.URLField(default='http://www.')
+    rsvp_link = models.URLField(blank=True)
     soundcloud_url = models.URLField(blank=True, null=True)
 
     content_panels = Post.content_panels + [
