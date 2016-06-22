@@ -9,6 +9,7 @@ from home.models import HomePage, PostProgramRelationship
 
 from programs.models import Program, Subprogram
 
+
 class ArticleTests(WagtailPageTests):
     """
     Testing hierarchies between pages and whether it is possible 
@@ -131,3 +132,5 @@ class ArticleTests(WagtailPageTests):
         self.assertNotIn(article, ProgramArticlesPage.objects.filter(title='Program Articles').first().get_children())
         self.assertEqual(PostProgramRelationship.objects.filter(post=article, program=self.program_page).first(), None)
         self.assertEqual(PostProgramRelationship.objects.filter(post=article, program=self.second_program).first(), None)
+
+    def test_by_lines_work_on_article_page
