@@ -7,6 +7,7 @@ import $ from 'jquery';
 export default function setProgramDropdownHeight() {
 	if (!$("body").hasClass("header--expanded")) {
 		const $programDropdownContent = $("#program-dropdown-content");
+		const $headerLinkGroupFadeout = $(".header__link-group__fadeout");
 		const headerHeight = 72;
 
 		$("#program-dropdown-toggle").on("mouseover", function() {
@@ -18,11 +19,13 @@ export default function setProgramDropdownHeight() {
 			if (progDropdownScrollHeight > progDropdownHeight) {
 				$programDropdownContent.height("auto").css("overflow-y", "none");
 				progDropdownHeight = $programDropdownContent.height();
+				$headerLinkGroupFadeout.hide();
 			}
 
 			// if dropdown content height is greater than window height, sets dropdown height and overflow
 			if (progDropdownHeight > windowHeightMinusHeader) {
 				$programDropdownContent.height(windowHeightMinusHeader - 15).css("overflow-y", "scroll");
+				$headerLinkGroupFadeout.show();
 			}
 		})
 	}

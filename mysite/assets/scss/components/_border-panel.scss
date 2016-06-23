@@ -154,10 +154,6 @@
     }
   }
 
-  &__text {
-    @include handle-text-overflow;
-  }
-
   &__title {
     color: palette-get(na-black);
     font-weight: bold;
