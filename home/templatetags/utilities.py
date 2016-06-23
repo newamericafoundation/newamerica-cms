@@ -126,8 +126,9 @@ def generate_dateline(post):
 
 			ret_string += '<p class="date">'
 			ret_string += post.date.strftime(date_format)
-			if post.end_date and (post.end_date != post.date):
-				ret_string += ' - ' + post.end_date.strftime(date_format)
+			if post.end_date:
+				if post.end_date != post.date:
+					ret_string += ' - ' + post.end_date.strftime(date_format)
 			ret_string += '</p>'
 
 		if post.start_time:
