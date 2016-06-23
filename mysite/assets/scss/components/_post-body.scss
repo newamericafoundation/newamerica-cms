@@ -107,7 +107,7 @@
     font-size: 1.8rem; 
     font-weight: 800; 
     color: palette-get(na-black);
-    line-height: 1.65; 
+    line-height: 2.35rem; 
     margin-bottom: 1.8rem; 
     margin-top: 1.8rem 
   }
@@ -158,10 +158,26 @@
       padding-left: $desktop-padding;
     }
 
+    /* styling for media objects embedded through wysiwyg editor panel - responsive up to medium breakpoint, then fixed width/height */
     .responsive-object {
-      padding: $media-padding 0px !important;
-      width: 100%;
-      float: left;
+      margin-bottom: 20px;
+      @include responsive-iframe(60%);
+
+      @include breakpoint(medium) {
+        $default-height: 325px;
+        float: left;
+        position: static;
+        height: $default-height;
+        width: 100%;
+        padding-bottom: 0px !important;
+
+        iframe {
+          position: static;
+          width: 475px !important;
+          height: $default-height !important;
+        }
+      } 
+      
     }
   }
 
@@ -198,30 +214,23 @@
     padding: 20px 0px;
   }
 
-  iframe {
-    width: 100%;
-
-    @include breakpoint(medium) {
-      width: 480px;
-    }
-  }
-
+  /* styling for media objects embedded through streamfield video block */
   .block-video {
-    iframe {
-      width: 100% !important;
-      height: 320px;
-      @include breakpoint(medium) {
-        height: 450px;
-      } 
-
-      @include breakpoint(large) {
-        height: 500px;
-      }
-    }
+    margin-bottom: $desktop-padding;
+    @include responsive-iframe(60%);
   }
 
+  /* styling for media objects embedded through streamfield iframe block */
+  .block-iframe {
+    margin-bottom: $desktop-padding;
+    &__responsive-container {
+      /* aspect ratio set inline by user input height and width */
+      @include responsive-iframe(null);
+    }
+  }
+  
+  /* removes ustream link from all embedded videos */
   .responsive-object {
-    padding: $media-padding 0px !important;
     a[href^="http://www.ustream.tv/"][target=_blank] {
       display: none !important;
     }

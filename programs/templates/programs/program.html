@@ -110,69 +110,68 @@
 
 {% endif %}
 
-{% if page.feature_carousel %}
+<section class='section section--fixed-width'>
 
-	<section class='section section--fixed-width'>
+	<div class='row border-panel-container'>
 
-		<div class='row border-panel-container'>
+	{% if page.feature_carousel %}
+		<div class='small-12 large-6 columns'>
 
-			<div class='small-12 large-6 columns'>
+			<div class='border-panel'>
 
-				<div class='border-panel'>
 
-					<ul class='border-panel__list has-{{ page.feature_carousel|length }}-children'>
-						{% for item in page.feature_carousel %}
-						<li class='border-panel__item'>
+				<ul class='border-panel__list has-{{ page.feature_carousel|length }}-children'>
+					{% for item in page.feature_carousel %}
+					<li class='border-panel__item'>
+						
+						<div class='border-panel__content'>
+							<div class='border-panel__text'>
+								<div class='border-panel__info'>
+									<h5 class='border-panel__info__content-type'>{% generate_content_type_line item.value.content_type %}</h5>
+									{% if item.value.post.date %}
+										<h5 class='border-panel__info__date'>{{ item.value.post.date }}</h5>
+									{% endif %}
+								</div>
+								<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
 							
-							<div class='border-panel__content'>
-								<div class='border-panel__text'>
-									<div class='border-panel__info'>
-										<h5 class='border-panel__info__content-type'>{% generate_content_type_line item.value.content_type %}</h5>
-										{% if item.value.post.date %}
-											<h5 class='border-panel__info__date'>{{ item.value.post.date }}</h5>
-										{% endif %}
-									</div>
-									<div class='border-panel__title'><a href="{{ item.value.url }}">{% if item.value.seo_title %}{{ item.value.seo_title }}{% else %}{{ item.value.title }}{% endif %}</a></div>
-								
-									<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
-									<a href="{{ item.value.url }}"><div class='button black'>Read More</div></a>
-								</div>
+								<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
+								<a href="{{ item.value.url }}"><div class='button black'>Read More</div></a>
 							</div>
-						</li>
-						{% endfor %}
+						</div>
+					</li>
+					{% endfor %}
 
-					</ul>
-
-				</div>
+				</ul>
 
 			</div>
 
-			<div class='small-12 large-6 columns'>
-		
-				<div class='border-panel'>
-					<ul class='border-panel__list has-1-children'>
-						<li class='border-panel__item'>
-							<div class='border-panel__content'>
-								<div class='border-panel__text'>
-									<div class='border-panel__info'>STAY CONNECTED</div>
-									<div class='border-panel__title'><a href='/subscribe/'>Subscribe</a></div>
-									<p>Get our weekly digital magazine and events lineup in your inbox.</p>
-									<form class="subscribe-form" action="/subscribe/">
-										<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
-										<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
-									</form>
-								</div>
+		</div>
+
+		<div class='small-12 large-6 columns'>
+	{% else %}
+		<div class='small-12 large-12 columns'>
+	{% endif %}
+			<div class='border-panel'>
+				<ul class='border-panel__list has-1-children'>
+					<li class='border-panel__item'>
+						<div class='border-panel__content'>
+							<div class='border-panel__text'>
+								<div class='border-panel__info'>STAY CONNECTED</div>
+								<div class='border-panel__title'><a href='/subscribe/'>Subscribe</a></div>
+								<p>Get our weekly digital magazine and events lineup in your inbox.</p>
+								<form class="subscribe-form" action="/subscribe/">
+									<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
+									<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
+								</form>
 							</div>
-								
-						</li>
-					</ul>
-				</div>
-
+						</div>	
+					</li>
+				</ul>
 			</div>
+		</div>
+	</div>
 
-	</section>
-
-{% endif %}
+</section>
 
 <div class='panel'>
 

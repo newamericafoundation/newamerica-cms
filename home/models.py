@@ -26,7 +26,7 @@ from person.models import Person
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from .blocks import ButtonBlock
+from .blocks import ButtonBlock, IframeBlock
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -209,6 +209,7 @@ class AbstractSimplePage(Page):
         ('video', EmbedBlock(icon='media')),
         ('table', TableBlock()),
         ('button', ButtonBlock()),
+        ('iframe', IframeBlock()),
     ])
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
@@ -361,6 +362,7 @@ class Post(Page):
         ('video', EmbedBlock(icon='media')),
         ('table', TableBlock()),
         ('button', ButtonBlock()),
+        ('iframe', IframeBlock()),
     ])
 
     parent_programs = models.ManyToManyField(

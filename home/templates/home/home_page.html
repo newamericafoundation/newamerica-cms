@@ -121,79 +121,81 @@
 
 {% endif %}
 
-{% if page.recent_carousel %}
-	<section class='section section--fixed-width'>
+<section class='section section--fixed-width'>
 
-		<div class='row border-panel-container'>
+	<div class='row border-panel-container'>
 
-			<div class='small-12 large-6 columns'>
+	{% if page.recent_carousel %}
+		<div class='small-12 large-6 columns'>
 
-				<div class='border-panel'>
+			<div class='border-panel'>
 
-					<ul class='border-panel__list has-{{ page.recent_carousel|length }}-children'>
-						{% for item in page.recent_carousel %}
-							<li class='border-panel__item'>
-								
-								<div class='border-panel__content'>
-									<div class='border-panel__text'>
-										<div class='border-panel__info'>
-											<h5 class='border-panel__info__content-type'>
-												{% if item.value.post.parent_programs %}
-													{% for program in item.value.post.parent_programs.all %}
-			                                          	{{ program }}{% list_separator forloop.revcounter0 %}
-			                                        {% endfor %}
-			                                    {% endif %}
-		                                        {% generate_content_type_line item.value.content_type %}
-		                                    </h5>
-											{% if item.value.post.date %}
-												<h5 class='border-panel__info__date'>{{ item.value.post.date }}</h5>
-											{% endif %}
-										</div>
-									
-										<div class='border-panel__title'><a href="{{ item.value.url }}">{% if item.value.seo_title %}{{ item.value.seo_title }}{% else %}{{ item.value.title }}{% endif %}</a></div>
-									
-										<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
-									
-										<a href="{{ item.value.url }}"><div class='button black'>Read More</div></a>
-									</div>
-								</div>
-							</li>
-						{% endfor %}
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class='small-12 large-6 columns'>
-		
-				<div class='border-panel'>
-					<ul class='border-panel__list has-1-children'>
+				<ul class='border-panel__list has-{{ page.recent_carousel|length }}-children'>
+					{% for item in page.recent_carousel %}
 						<li class='border-panel__item'>
 							
 							<div class='border-panel__content'>
 								<div class='border-panel__text'>
-									<div class='border-panel__info'>STAY CONNECTED</div>
-									<div class='border-panel__title'><a href='/subscribe/'>Subscribe to New America Weekly</a></div>
-									<p>Get our weekly digital magazine, program newsletters, and events lineups in your inbox.</p>
-									<form class="subscribe-form" action="/subscribe/">
-										<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
-										<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
-									</form>
+									<div class='border-panel__info'>
+										<h5 class='border-panel__info__content-type'>
+											{% if item.value.post.parent_programs %}
+												{% for program in item.value.post.parent_programs.all %}
+		                                          	{{ program }}{% list_separator forloop.revcounter0 %}
+		                                        {% endfor %}
+		                                    {% endif %}
+	                                        {% generate_content_type_line item.value.content_type %}
+	                                    </h5>
+										{% if item.value.post.date %}
+											<h5 class='border-panel__info__date'>{{ item.value.post.date }}</h5>
+										{% endif %}
+									</div>
+								
+									<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
+								
+									<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
+								
+									<a href="{{ item.value.url }}"><div class='button black'>Read More</div></a>
 								</div>
 							</div>
-								
 						</li>
-					</ul>
-				</div>
+					{% endfor %}
+
+				</ul>
 
 			</div>
 
 		</div>
 
-	</section>
-{% endif %}
+		<div class='small-12 large-6 columns'>
+	{% else %}
+		<div class='small-12 large-12 columns'>
+	{% endif %}
+		
+			<div class='border-panel'>
+				<ul class='border-panel__list has-1-children'>
+					<li class='border-panel__item'>
+						
+						<div class='border-panel__content'>
+							<div class='border-panel__text'>
+								<div class='border-panel__info'>STAY CONNECTED</div>
+								<div class='border-panel__title'><a href='/subscribe/'>Subscribe to New America Weekly</a></div>
+								<p>Get our weekly digital magazine, program newsletters, and events lineups in your inbox.</p>
+								<form class="subscribe-form" action="/subscribe/">
+									<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
+									<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
+								</form>
+							</div>
+						</div>
+							
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
 
 <div class='panel'>
 
