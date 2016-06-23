@@ -32,7 +32,7 @@
 									{% endif %}
 								{% endif %}
 								<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line page.lead_1.content_type %}</p>
-								<h1 class='hero-grid__element__text-bar__heading'>{{ page.lead_1.title }}</h1>
+								<h1 class='hero-grid__element__text-bar__heading'>{% if page.lead_1.seo_title %}{{ page.lead_1.seo_title }}{% else %}{{ page.lead_1.title }}{% endif %}</h1>
 							</div>
 						</div>
 					</a>
@@ -60,7 +60,7 @@
 										{% endif %}
 									{% endif %}
 									<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line other_lead_story.content_type %}</p>
-									<h1 class='hero-grid__element__text-bar__heading'>{{ other_lead_story.title }}</h1>
+									<h1 class='hero-grid__element__text-bar__heading'>{% if other_lead_story.seo_title %}{{ other_lead_story.seo_title }}{% else %}{{ other_lead_story.title }}{% endif %}</h1>
 									
 								</div>
 							</a>
@@ -96,7 +96,7 @@
 						{% endif %}
 					</a>
 					<div class='picture-link__content'>
-						<h1><a href="{{ feature_story.url }}">{{ feature_story.title }}</a></h1>
+						<h1><a href="{{ feature_story.url }}">{% if feature_story.seo_title %}{{ feature_story.seo_title }}{% else %}{{ feature_story.title }}{% endif %}</a></h1>
 						<p>{{ feature_story.specific.story_excerpt }}</p>
 					</div>
 				</div>
