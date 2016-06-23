@@ -46,16 +46,13 @@
                 <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }} {{ page.last_name }}</a>
             </div>
         {% endif %}
-  
-
-    {% if featured_work.0.title %}
+    
     <div class="bio-page__work">
-        <h3 class="bio-page__work__title">Featured Work</h3>
+        {% if featured_work.0.title %}
+            <h3 class="bio-page__work__title">Featured Work</h3>
 
-        <div class="content-grid__entries">
-
-            {% for item in featured_work %}
-                {% if item.title %}
+            <div class="content-grid__entries">
+                {% for item in featured_work %}
                     <div class="content-entry {{ item.post.get_page_type }}">
                         {% if item.post.story_image %}
                             {% image item.post.story_image min-650x200 as post_image %}
@@ -89,19 +86,16 @@
                                 
                             </div>
                         </div>
-                        </div>
-                        <hr>
-                {% endif %}
-            {% endfor %} 
                     </div>
-        </div>
-    </div>
-    {% endif %}
+                    <hr>
+                {% endfor %}
+            </div>
 
-    {% if posts %}
-    <div>
-        <div class="content-grid__entries">
-            {% for post in posts %}
+        {% endif %}
+        {% if posts %}
+            <h3 class="bio-page__work__title">Other Work</h3>
+            <div class="content-grid__entries">
+                {% for post in posts %}
                     <div class="content-entry {{ post.get_page_type }}">
                         {% if post.story_image %}
                             {% image post.story_image min-650x200 as post_image %}
@@ -138,39 +132,41 @@
                         </div>
                     </div>
                     <hr>
-                    </div>
-            {% endfor %}
-        <div class="content-grid__footer">
-            <div class="pagination">
-                {% if posts.has_previous %}
-                    <a class="pagination__arrow" href="?page={{ posts.previous_page_number }}&{{ query_url }}">
-                        {% include 'ui_elements/svg/arrow-left.html' %}
-                    </a>
-                {% endif %}
-
-                <span>Page</span>
-                <form class="pagination__form" action="?page=value" method="get">
-                    <input class="pagination__input" type="text" placeholder="{{ posts.number }}" name="page">
-                    {% if request.GET.program_id %}
-                        <input type="hidden" value="{{request.GET.program_id}}" name="program_id">
-                    {% endif %}
-                    {% if request.GET.date %}
-                        <input type="hidden" value="{{request.GET.date}}" name="date">
-                    {% endif %}
-                </form>
-
-                <span>of</span>
-                <a href="?page={{ posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ posts.paginator.num_pages|get_range|last }}</a>
-
-                {% if posts.has_next %}
-                    <a class="pagination__arrow" href="?page={{ posts.next_page_number }}&{{ query_url }}">
-                        {% include 'ui_elements/svg/arrow-right.html' %}
-                    </a>
-                {% endif %}
+                {% endfor %}
             </div>
-        </div>
+
+            <div class="content-grid__footer">
+                <div class="pagination">
+                    {% if posts.has_previous %}
+                        <a class="pagination__arrow" href="?page={{ posts.previous_page_number }}&{{ query_url }}">
+                            {% include 'ui_elements/svg/arrow-left.html' %}
+                        </a>
+                    {% endif %}
+
+                    <span>Page</span>
+                    <form class="pagination__form" action="?page=value" method="get">
+                        <input class="pagination__input" type="text" placeholder="{{ posts.number }}" name="page">
+                        {% if request.GET.program_id %}
+                            <input type="hidden" value="{{request.GET.program_id}}" name="program_id">
+                        {% endif %}
+                        {% if request.GET.date %}
+                            <input type="hidden" value="{{request.GET.date}}" name="date">
+                        {% endif %}
+                    </form>
+
+                    <span>of</span>
+                    <a href="?page={{ posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ posts.paginator.num_pages|get_range|last }}</a>
+
+                    {% if posts.has_next %}
+                        <a class="pagination__arrow" href="?page={{ posts.next_page_number }}&{{ query_url }}">
+                            {% include 'ui_elements/svg/arrow-right.html' %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         {% endif %}
-        </div>
     </div>
+</div>
+
 
 {% endblock %}
