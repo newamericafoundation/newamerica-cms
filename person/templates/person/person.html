@@ -49,119 +49,125 @@
     
     <div class="bio-page__work">
         {% if featured_work.0.title %}
-            <h3 class="bio-page__work__title">Featured Work</h3>
+            <div class="bio-page__work__featured">
+                <h3 class="bio-page__work__title">Featured Work</h3>
 
-            <div class="content-grid__entries">
-                {% for item in featured_work %}
-                    <div class="content-entry {{ item.post.get_page_type }}">
-                        {% if item.post.story_image %}
-                            {% image item.post.story_image min-650x200 as post_image %}
+                <div class="content-grid__entries">
+                    {% for item in featured_work %}
+                        {% if item.title %}
+                            <div class="content-entry {{ item.post.get_page_type }}">
+                                {% if item.post.story_image %}
+                                    {% image item.post.story_image min-650x200 as post_image %}
 
-                            <a href="{{ item.post.url }}">
-                                <div class="content-entry__image-container" style="background-image: url('{{ post_image.url }}') ">
-                                </div>
-                            </a>
-                        <div class="content-entry__text-container has-image">
-                        
-                        {% else %}
-                        <div class="content-entry__text-container">
-                        {% endif %}
-                            <div class="content-entry__text">
-                                {% if item.post.specific.parent_programs.all %}
-                                    <h5 class="content-entry__text__program">
-                                    {% for program in item.post.specific.parent_programs.all %}
-                                        <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
-                                    {% endfor %}
-                                    {% generate_content_type_line item.post.specific.content_type %}</h5>
-                                {% else %}
-                                    <h5 class="content-entry__text__program">{% generate_content_type_line item.post.specific.content_type %}</h5>
-                                {% endif %}
-                                <h5 class= "content-entry__text__title"><a href="{{ item.post.url }}">{{ item.post.title }}</a></h5>
-
-                                {% if item.post.authors.all %}
-                                    <h5 class= "content-entry__text__author">{% generate_byline item.post.content_type item.post.authors.all %}</h5>
-                                {% endif %}
-                                <h5 class= "content-entry__text__date-time">{% generate_dateline item.post.specific %}</h5>
-                                <p class= "content-entry__text__excerpt">{{ item.post.story_excerpt }}</p>
+                                    <a href="{{ item.post.url }}">
+                                        <div class="content-entry__image-container" style="background-image: url('{{ post_image.url }}') ">
+                                        </div>
+                                    </a>
+                                <div class="content-entry__text-container has-image">
                                 
+                                {% else %}
+                                <div class="content-entry__text-container">
+                                {% endif %}
+                                    <div class="content-entry__text">
+                                        {% if item.post.specific.parent_programs.all %}
+                                            <h5 class="content-entry__text__program">
+                                            {% for program in item.post.specific.parent_programs.all %}
+                                                <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
+                                            {% endfor %}
+                                            {% generate_content_type_line item.post.specific.content_type %}</h5>
+                                        {% else %}
+                                            <h5 class="content-entry__text__program">{% generate_content_type_line item.post.specific.content_type %}</h5>
+                                        {% endif %}
+                                        <h5 class= "content-entry__text__title"><a href="{{ item.post.url }}">{{ item.post.title }}</a></h5>
+
+                                        {% if item.post.authors.all %}
+                                            <h5 class= "content-entry__text__author">{% generate_byline item.post.content_type item.post.authors.all %}</h5>
+                                        {% endif %}
+                                        <h5 class= "content-entry__text__date-time">{% generate_dateline item.post.specific %}</h5>
+                                        <p class= "content-entry__text__excerpt">{{ item.post.story_excerpt }}</p>
+                                        
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <hr>
-                {% endfor %}
+                            <hr>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
 
         {% endif %}
         {% if posts %}
-            <h3 class="bio-page__work__title">Other Work</h3>
-            <div class="content-grid__entries">
-                {% for post in posts %}
-                    <div class="content-entry {{ post.get_page_type }}">
-                        {% if post.story_image %}
-                            {% image post.story_image min-650x200 as post_image %}
+            <div class="bio-page__work__stream">
+                <h3 class="bio-page__work__title">Other Work</h3>
+                <div class="content-grid__entries">
+                    {% for post in posts %}
+                        <div class="content-entry {{ post.get_page_type }}">
+                            {% if post.story_image %}
+                                {% image post.story_image min-650x200 as post_image %}
 
-                            <a href="{{ post.url }}">
-                                <div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
+                                <a href="{{ post.url }}">
+                                    <div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
+                                    </div>
+                                </a>
+                            <div class="content-entry__text-container has-image">
+                            {% else %}
+                            <div class="content-entry__text-container">
+                            {% endif %}
+                                <div class="content-entry__text">
+                                    {% if post.parent_programs.all %}
+                                        <h5 class="content-entry__text__program">
+                                        {% for program in post.parent_programs.all %}
+                                            <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
+                                        {% endfor %}
+                                        </h5>
+                                    {% endif %}
+
+                                    <h5 class= "content-entry__text__title"><a href="{{ post.url }}">{{ post.title }}</a></h5>
+                                    
+                                    {% if post.authors.all %}
+                                        <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.authors.all %}</h5>
+                                    {% endif %}
+
+                                    <h5 class= "content-entry__text__date-time">{% generate_dateline post %}</h5>
+                                    {% if post.story_excerpt %}
+                                        <p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
+                                    {% endif %}
+                                    
                                 </div>
-                            </a>
-                        <div class="content-entry__text-container has-image">
-                        {% else %}
-                        <div class="content-entry__text-container">
-                        {% endif %}
-                            <div class="content-entry__text">
-                                {% if post.parent_programs.all %}
-                                    <h5 class="content-entry__text__program">
-                                    {% for program in post.parent_programs.all %}
-                                        <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
-                                    {% endfor %}
-                                    </h5>
-                                {% endif %}
-
-                                <h5 class= "content-entry__text__title"><a href="{{ post.url }}">{{ post.title }}</a></h5>
-                                
-                                {% if post.authors.all %}
-                                    <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.authors.all %}</h5>
-                                {% endif %}
-
-                                <h5 class= "content-entry__text__date-time">{% generate_dateline post %}</h5>
-                                {% if post.story_excerpt %}
-                                    <p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
-                                {% endif %}
-                                
                             </div>
                         </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+
+                <div class="content-grid__footer">
+                    <div class="pagination">
+                        {% if posts.has_previous %}
+                            <a class="pagination__arrow" href="?page={{ posts.previous_page_number }}&{{ query_url }}">
+                                {% include 'ui_elements/svg/arrow-left.html' %}
+                            </a>
+                        {% endif %}
+
+                        <span>Page</span>
+                        <form class="pagination__form" action="?page=value" method="get">
+                            <input class="pagination__input" type="text" placeholder="{{ posts.number }}" name="page">
+                            {% if request.GET.program_id %}
+                                <input type="hidden" value="{{request.GET.program_id}}" name="program_id">
+                            {% endif %}
+                            {% if request.GET.date %}
+                                <input type="hidden" value="{{request.GET.date}}" name="date">
+                            {% endif %}
+                        </form>
+
+                        <span>of</span>
+                        <a href="?page={{ posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ posts.paginator.num_pages|get_range|last }}</a>
+
+                        {% if posts.has_next %}
+                            <a class="pagination__arrow" href="?page={{ posts.next_page_number }}&{{ query_url }}">
+                                {% include 'ui_elements/svg/arrow-right.html' %}
+                            </a>
+                        {% endif %}
                     </div>
-                    <hr>
-                {% endfor %}
-            </div>
-
-            <div class="content-grid__footer">
-                <div class="pagination">
-                    {% if posts.has_previous %}
-                        <a class="pagination__arrow" href="?page={{ posts.previous_page_number }}&{{ query_url }}">
-                            {% include 'ui_elements/svg/arrow-left.html' %}
-                        </a>
-                    {% endif %}
-
-                    <span>Page</span>
-                    <form class="pagination__form" action="?page=value" method="get">
-                        <input class="pagination__input" type="text" placeholder="{{ posts.number }}" name="page">
-                        {% if request.GET.program_id %}
-                            <input type="hidden" value="{{request.GET.program_id}}" name="program_id">
-                        {% endif %}
-                        {% if request.GET.date %}
-                            <input type="hidden" value="{{request.GET.date}}" name="date">
-                        {% endif %}
-                    </form>
-
-                    <span>of</span>
-                    <a href="?page={{ posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ posts.paginator.num_pages|get_range|last }}</a>
-
-                    {% if posts.has_next %}
-                        <a class="pagination__arrow" href="?page={{ posts.next_page_number }}&{{ query_url }}">
-                            {% include 'ui_elements/svg/arrow-right.html' %}
-                        </a>
-                    {% endif %}
                 </div>
             </div>
         {% endif %}
