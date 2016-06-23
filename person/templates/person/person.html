@@ -128,7 +128,7 @@
                                         <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.authors.all %}</h5>
                                     {% endif %}
 
-                                    <h5 class= "content-entry__text__date-time">{% generate_dateline post %}</h5>
+                                    <h5 class= "content-entry__text__date-time">{% generate_dateline post.specific %}</h5>
                                     {% if post.story_excerpt %}
                                         <p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
                                     {% endif %}
