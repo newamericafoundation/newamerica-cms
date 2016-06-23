@@ -9,7 +9,6 @@
 	@include desktop-header {
 		width: $max-body-width;
 		margin: 35px auto;
-		margin-bottom: 0px;
 	}
 
 	&__heading {
@@ -91,7 +90,7 @@
 
 		@include desktop-header {
 			padding: 0px;
-			padding-bottom: $desktop-padding;
+			/*padding-bottom: $desktop-padding;*/
 		}
 
 		@include page-body-text;
@@ -120,22 +119,31 @@
 	}
 
   &__work {
-  	margin-top: $desktop-padding;
-  	margin-bottom: -$desktop-padding;
-  	background-color: palette-get(na-white);
+  	&__featured {
+	  	margin-top: $desktop-padding;
+	  	padding-bottom: 35px;
+	  	background-color: palette-get(na-black-10);
 
-  	@include breakpoint(medium) {
-  		background-color: palette-get(na-black-10);
-  		margin-left:-1000px;
-    	margin-right:-1000px;
-    	padding-left: 1000px;
-    	padding-right: 1000px;
-  	}
+	  	@include breakpoint(medium) {
+	  		margin-left:-1000px;
+	    	margin-right:-1000px;
+	    	padding-left: 1000px;
+	    	padding-right: 1000px;
+	    	
+	  	}
+
+	  	.content-grid__entries hr {
+    		width: 100%;
+    		border-color: palette-get(na-black-30);
+    		&:last-of-type {
+    			display: none;
+    		}
+    	}
+	}
 
     &__title {
 		@include page-section-title-text;
-		padding: $desktop-padding;
-		padding-left: 0px;
+		padding: 35px 0px;
 
 		margin: 0px $mobile-padding;
 
@@ -145,16 +153,12 @@
 		}
     }
 
-    .content-entry {
-    	padding-bottom: $desktop-padding;
+    .content-entry:first-child {
+    	.content-entry__text-container:not(.has-image) {
+    		padding-top: 0px;
+    	}
     }
 
-    hr {
-    	width: 100%;
-    	@include breakpoint(medium) {
-	  		display: none;
-	  	}
-    }
   }
 
 }

@@ -9,13 +9,14 @@
 	}
 
 	.border-panel {
-		margin-top: 2*$desktop-padding;
+		margin-top: $desktop-padding + 10px;
 		margin-left: $desktop-padding;
 		margin-right: $desktop-padding;
-
+		
 		@include desktop-header {
 			margin-left: 0px;
 			margin-right: 0px;
+			max-width: $max-body-width;
 		}
 	}
 

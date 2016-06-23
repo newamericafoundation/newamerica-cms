@@ -2,10 +2,24 @@ import $ from 'jquery';
 
 /*
 
+Prohibits subscribe form submission when hidden input field has been filled (Honeypot Anti-spam Technique)
+
+*/
+function addSpamCheck() {
+    $('#subForm').submit(function(){    
+        if ($('#subscribe-page__antispam__input').val().length != 0) {
+            alert("Unauthorized Submission!");
+            return false;
+        } 
+    });
+}
+
+/*
+
 Pre-populates subscribe form email field from query parameter in URL string. 
 
 */
-export default function populateEmailField() {
+function populateEmailField() {
 	var email = getParameterByName('email');
 	$("#fieldEmail").val(email);
 }
@@ -25,4 +39,9 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+export default function() {
+    addSpamCheck();
+    populateEmailField();
 }

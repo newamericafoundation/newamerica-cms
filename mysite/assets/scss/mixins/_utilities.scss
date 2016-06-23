@@ -32,6 +32,7 @@
    hyphens: auto;*/
 }
 
+
 @mixin limit-body-width {
   @include desktop-header {
     max-width: $max-body-width;
@@ -39,5 +40,22 @@
 
   @include expanded-header {
     max-width: $max-body-width;
+  }
+}
+
+@mixin responsive-iframe($height-width-ratio) {
+  @if $height-width-ratio {
+    padding-bottom: $height-width-ratio !important;
+  }
+  position: relative;
+  height: 0px;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
   }
 }
