@@ -1,9 +1,11 @@
 from django.test import TestCase
 from django.test import Client
 from django.http import HttpResponsePermanentRedirect
+import datetime
+from datetime import date, timedelta
 
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 
 from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
 
@@ -13,7 +15,7 @@ from weekly.models import Weekly
 
 from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 
-from event.models import AllEventsHomePage
+from event.models import Event, AllEventsHomePage, ProgramEventsPage
 
 from blog.models import AllBlogPostsHomePage
 
@@ -41,10 +43,19 @@ class HomeTests(WagtailPageTests):
 
     def setUp(self):
         self.login()
+        site = Site.objects.get()
+        page = Page.get_first_root_node()
+        home = HomePage(title='New America')
+        self.home_page = page.add_child(instance=home)
         self.root_page = Page.objects.get(id=1)
-        self.home_page = self.root_page.add_child(instance=HomePage(
-            title='New America')
+
+        site.root_page = home
+        site.save()
+
+        all_events_home_page = self.home_page.add_child(
+            instance=AllEventsHomePage(title="Events")
         )
+
         self.program_page = self.home_page.add_child(
             instance=Program(
                 title='OTI',
@@ -63,6 +74,63 @@ class HomeTests(WagtailPageTests):
                 date='2016-02-02'
             )
         )
+
+        self.program_events_page = self.program_page.add_child(
+            instance=ProgramEventsPage(title='OTI Events', slug='oti-events')
+        )
+        self.today_event = self.program_events_page.add_child(
+            instance=Event(
+                title='Today Event' ,
+                date=str(date.today()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )      
+        self.future_event_morning = self.program_events_page.add_child(
+            instance=Event(
+                title='Future Event' ,
+                date=str(date.today()+timedelta(days=5)),
+                start_time=str((datetime.datetime.now()-timedelta(hours=5)).time()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+        self.future_event_afternoon = self.program_events_page.add_child(
+            instance=Event(
+                title='Future Event' ,
+                date=str(date.today()+timedelta(days=5)),
+                start_time=str((datetime.datetime.now()+timedelta(hours=5)).time()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+        self.past_event = self.program_events_page.add_child(
+            instance=Event(
+                title='Past Event',
+                date=str(date.today()-timedelta(days=5)),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+        self.today_early_morning_event = self.program_events_page.add_child(
+            instance=Event(
+                title='Early Morning Event',
+                date=str(date.today()),
+                start_time=str((datetime.datetime.now()-timedelta(hours=5)).time()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+        self.multiday_event_ending_today = self.program_events_page.add_child(
+            instance=Event(
+                title='Early Morning Event',
+                date=str(date.today()-timedelta(days=5)),
+                end_date=str(date.today()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+
 
     def test_can_create_homepage_under_root_page(self):
         parent_page = Page.get_first_root_node()
@@ -208,3 +276,24 @@ class HomeTests(WagtailPageTests):
         c = Client()
         response = c.get('http://localhost:8000/simple/google')
         self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
+
+    def test_correct_number_of_events_in_carousel(self):
+        c = Client()
+        response = c.get('/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['upcoming_events']), 3)
+
+    def test_order_of_events_in_carousel(self):
+        c = Client()
+        response = c.get('/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        events = response.context['upcoming_events']
+
+        for i in range(1, len(events)):
+            curr_event = events[i]
+            prev_event = events[i-1]
+            if (prev_event.date == curr_event.date):
+                self.assertTrue(prev_event.start_time <= curr_event.start_time)
+            else:
+                self.assertTrue(prev_event.date <= curr_event.date)
+        
