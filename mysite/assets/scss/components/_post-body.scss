@@ -140,7 +140,7 @@
   }
 
   .block-paragraph {
-    .rich-text > *:not(.pullquote) {
+    .rich-text {
       @include limit-body-width;
     }
     img {
