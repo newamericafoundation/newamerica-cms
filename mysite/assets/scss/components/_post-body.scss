@@ -224,9 +224,11 @@
 
   /* styling for media objects embedded through streamfield video block */
   .block-video {
-    @include limit-body-width;
-    @include responsive-iframe(60%);
     margin-bottom: $desktop-padding;
+    @include limit-body-width;
+    .responsive-object {
+      @include responsive-iframe(60%);
+    }
   }
 
   /* styling for media objects embedded through streamfield iframe block */
