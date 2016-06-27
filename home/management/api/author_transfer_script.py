@@ -27,6 +27,8 @@ from .redirect import create_redirects, downloads_redirect
 
 from .blog_transfer_script import load_education_blog_posts
 
+from .transform_to_article import transform_itn_to_articles
+
 our_people_page = OurPeoplePage.objects.first()
 
 if sys.version_info[0] < 3:
@@ -162,4 +164,5 @@ def run():
     # create_redirects()
     print("about to start!")
     # load_education_blog_posts()
-    downloads_redirect()
+    # downloads_redirect()
+    transform_itn_to_articles()
