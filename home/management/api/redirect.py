@@ -19,9 +19,6 @@ from wagtail.wagtailcore.models import Page
 from person.models import Person
 from django.utils.text import slugify
 
-from links import links
-
-
 # Mappping of program ids to slugs of programs on the current site
 mapped_programs = {
     '15': 'asset-building',
