@@ -195,7 +195,6 @@ class HomePage(Page):
         eastern = timezone('US/Eastern')
         curr_time = datetime.now(eastern).time()
         curr_date = datetime.now(eastern).date()
-        print(curr_time)
         date_filter = Q(date__gt=curr_date) | (Q(date=curr_date) & Q(start_time__gte=curr_time))
 
         context['upcoming_events'] = Event.objects.live().filter(date_filter).order_by("date", "start_time")[:5]
