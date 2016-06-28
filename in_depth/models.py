@@ -42,7 +42,7 @@ class InDepthSection(Page):
     subpage_types = []
 
     subheading = RichTextField(blank=True, null=True)
-    show_title_panel = models.BooleanField(default=False, help_text="Will create title panel as first panel (with title, subheading, and story image as background) if checked")
+    show_title_panel = models.BooleanField(default=False, help_text="Will create title panel as first panel if checked")
 
     panels = StreamField([
         ('panel', 
@@ -98,6 +98,9 @@ class InDepthProject(Post):
     content_panels = Post.content_panels + [
     	StreamFieldPanel('buttons'),
     ]
+
+    def save(self, *args, **kwargs):
+        super(Post, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "In-Depth Project"
