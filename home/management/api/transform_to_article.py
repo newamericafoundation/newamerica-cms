@@ -1,29 +1,18 @@
 # coding=utf-8
 import django.db.utils
 
-import simplejson as json
-
 import csv
-import json
-import io
-
-from blog.models import BlogPost, ProgramBlogPostsPage
-
-from django.core.exceptions import ObjectDoesNotExist
 
 from django.utils.text import slugify
-
-from .newamerica_api_client import NAClient
 
 from article.models import Article, ProgramArticlesPage
 
-from quoted.models import Quoted, ProgramQuotedPage
+from quoted.models import Quoted
 
-from django.utils.text import slugify
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
-from transfer_script_helpers import download_image, get_post_date, get_summary, need_to_update_post, get_post_authors, get_program, get_content_homepage, connect_programs_to_post
+from transfer_script_helpers import get_content_homepage 
 
 def inthenews_to_article_mapping():
     csv_data = {}
@@ -39,23 +28,17 @@ def inthenews_to_article_mapping():
             }
     return csv_data
 
-
-def get_source(source):
-    if source:
-        return source
-
-
-def get_source_url(source_url):
-    validate = URLValidator()
-    if source_url:
-        try:
-            validate(source_url)
-            return source_url
-        except ValidationError:
-            pass
-
-# using production database to find old in the news posts and create 
+# This script varies from other database transfer scripts because it is 
+# using the production database to find and transform the specific in the news posts 
+# that were identified in a CSV to be turned into article post types. It does 
+# not use the old website API.
 def transform_itn_to_articles():
+    """
+    Reads a CSV of in the news posts that have been identified 
+    to be transformed into article post types. 
+    In order to preserve any edits or cleanup that has been done,
+    this uses the new production database to get the content not the API.
+    """
     article_mapping = inthenews_to_article_mapping()
 
     for item in article_mapping:
@@ -112,6 +95,12 @@ def transform_itn_to_articles():
 
 
 def delete_old_itn_pieces():
+    """
+    Reads a CSV of in the news posts that have been identified 
+    to be transformed into article post types.
+    This function deletes those miscategorized pieces of 
+    in the news content once they have been turned into articles.
+    """
     article_mapping = inthenews_to_article_mapping()
 
     for item in article_mapping:

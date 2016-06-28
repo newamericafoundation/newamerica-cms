@@ -130,14 +130,9 @@ def get_in_the_news():
             'published', 
             'authors',
             'programs',
-            #'content'
         ])
         idx = 0
         for content in NAClient().get_in_the_news():
             writer.writerows(in_the_news_to_csv(content))
             print(idx)
             idx += 1
-
-
-
-get_in_the_news()
