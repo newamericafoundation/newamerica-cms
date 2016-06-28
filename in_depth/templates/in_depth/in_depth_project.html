@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% block body_class %}template-allindepthproject{% endblock %}
+{% block sidemenu_status %}no_sidemenu{% endblock %}
+
+{% block content %}
+	{{ self.get_children }}
+{% endblock %}
