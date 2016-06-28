@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'quoted',
     'issue',
     'weekly',
+    'in_depth',
     'storages',
     'overextends',
 
