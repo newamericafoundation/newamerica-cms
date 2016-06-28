@@ -16,8 +16,9 @@
                     <li class="mobile-menu__link__secondary"><a href="{{ program.url }}">{{ program.title }}</a></li>
                 {% endif %}
             {% endfor %}
-                <li class="mobile-menu__link__secondary"><a href="/nyc/">New America NYC</a></li>
-                <li class="mobile-menu__link__secondary"><a href="/ca/">New America CA</a></li>
+            {% for location in location_programs %}
+                <li class="mobile-menu__link__secondary"><a href="{{ location.url }}">{{ location.title }}</a></li>
+            {% endfor %}
             </ul>
         </li>
         <li class="mobile-menu__link__main"><a href="#">Channels</a>
@@ -134,8 +135,9 @@
                                     <h1 class='header__link-group__heading'>By Location</h1>
                                 </div>
                                 <div class='header__link-group__secondary__entry-group'>
-                                    <a class="header__link-group__main-element" href="/nyc/">New America NYC</a>
-                                    <a class="header__link-group__main-element" href="/ca/">New America CA</a>
+                                    {% for location in location_programs %}
+                                        <a class="header__link-group__main-element" href="{{ location.url }}">{{ location.title }}</a>
+                                    {% endfor %}
                                 </div>
                                        
                                 <div class='header__link-group__heading-container'>
