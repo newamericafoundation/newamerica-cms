@@ -77,21 +77,50 @@ def transform_itn_to_articles():
                     date=old_post.date,
                     slug=old_post.slug,
                     body=old_post.body,
-                    depth=5,
+                    depth=old_post.depth,
                     programs=old_post.programs.all(),
                     source=old_post.source,
                     source_url=old_post.source_url,
                     authors=old_post.authors.all(),
+                    story_excerpt=old_post.story_excerpt,
+                    story_image=old_post.story_image,
                 )
                 parent_program_articles_homepage.add_child(instance=new_post)
                 new_post.save()
                 print("saved new post")
-                old_post.delete()
-                print("deleted old post")
-            except django.db.utils.IntegrityError:
-                pass
+                # old_post.delete()
+                # print("deleted old post")
+            except django.core.exceptions.ValidationError:
+                existing_article = Article.objects.filter(slug=slug).first()
+                if existing_article:
+                    print("found in the news that already was turned into an article - going to update it now")
+                    existing_article.title=old_post.title
+                    existing_article.date=old_post.date
+                    existing_article.slug=old_post.slug
+                    existing_article.body=old_post.body
+                    existing_article.depth=old_post.depth
+                    existing_article.programs=old_post.programs.all()
+                    existing_article.source=old_post.source
+                    existing_article.source_url=old_post.source_url
+                    existing_article.authors=old_post.authors.all()
+                    existing_article.story_excerpt=old_post.story_excerpt
+                    existing_article.story_image=old_post.story_image
+                    existing_article.save()
+                    print('existing article has been updated!')
         else:
             print('did not find post here')
+
+
+def delete_old_itn_pieces():
+    article_mapping = inthenews_to_article_mapping()
+
+    for item in article_mapping:
+        print article_mapping[item]['id']
+        slug = slugify(article_mapping[item]['title'])
+        print(slug)
+        old_post = Quoted.objects.filter(slug=slug).first()
+        if old_post:
+            old_post.delete()
 
 
 def get_parent_for_itn(parent):

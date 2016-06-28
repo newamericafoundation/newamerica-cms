@@ -27,7 +27,7 @@ from .redirect import create_redirects, downloads_redirect
 
 from .blog_transfer_script import load_education_blog_posts
 
-from .transform_to_article import transform_itn_to_articles
+from .transform_to_article import transform_itn_to_articles, delete_old_itn_pieces
 
 our_people_page = OurPeoplePage.objects.first()
 
@@ -165,4 +165,5 @@ def run():
     print("about to start!")
     # load_education_blog_posts()
     # downloads_redirect()
-    transform_itn_to_articles()
+    # transform_itn_to_articles()
+    delete_old_itn_pieces()
