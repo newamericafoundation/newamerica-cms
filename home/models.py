@@ -78,6 +78,7 @@ class HomePage(Page):
     'policy_paper.AllPolicyPapersHomePage',
     'press_release.AllPressReleasesHomePage',
     'quoted.AllQuotedHomePage',
+    'in_depth.AllInDepthHomePage',
     'JobsPage',
     'SubscribePage',
     'RedirectPage',
