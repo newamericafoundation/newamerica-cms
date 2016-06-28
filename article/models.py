@@ -17,7 +17,7 @@ class Article(Post):
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
-    source_url = models.URLField(blank=True, null=True)
+    source_url = models.URLField(max_length=1000, blank=True, null=True)
 
     content_panels = Post.content_panels + [
         FieldPanel('source'),
