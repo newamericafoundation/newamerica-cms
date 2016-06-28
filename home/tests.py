@@ -86,6 +86,7 @@ class HomeTests(WagtailPageTests):
             AllPolicyPapersHomePage,
             AllPressReleasesHomePage,
             AllQuotedHomePage,
+            AllInDepthHomePage,
             BoardAndLeadershipPeoplePage,
             JobsPage,
             OurPeoplePage, 

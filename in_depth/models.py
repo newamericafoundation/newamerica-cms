@@ -42,7 +42,7 @@ class InDepthSection(Page):
     subpage_types = []
 
     subheading = RichTextField(blank=True, null=True)
-    show_title_panel = models.BooleanField(default=False, help_text="Will create title panel as first panel if checked")
+    generate_title_panel = models.BooleanField(default=False, help_text="Will create a title panel before the first panel if checked")
 
     panels = StreamField([
         ('panel', 
@@ -66,7 +66,7 @@ class InDepthSection(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
-        FieldPanel('show_title_panel'),
+        FieldPanel('generate_title_panel'),
         StreamFieldPanel('panels'),
     ]
 
