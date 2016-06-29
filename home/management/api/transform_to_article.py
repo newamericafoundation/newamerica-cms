@@ -70,9 +70,7 @@ def transform_itn_to_articles():
                 )
                 parent_program_articles_homepage.add_child(instance=new_post)
                 new_post.save()
-                print("saved new post")
-                # old_post.delete()
-                # print("deleted old post")
+                print("--------saved new post--------")
             except django.core.exceptions.ValidationError:
                 existing_article = Article.objects.filter(slug=slug).first()
                 if existing_article:
@@ -91,6 +89,8 @@ def transform_itn_to_articles():
                     existing_article.save()
                     print('existing article has been updated!')
         else:
+            with open("missing_itn_pieces.txt", "a") as myfile:
+                myfile.write(article_mapping[item]['id'] + " " + slug + "\n")
             print('did not find the old post here')
 
 
@@ -110,3 +110,4 @@ def delete_old_itn_pieces():
         old_post = Quoted.objects.filter(slug=slug).first()
         if old_post:
             old_post.delete()
+            print('found and deleted the old in the news piece')
