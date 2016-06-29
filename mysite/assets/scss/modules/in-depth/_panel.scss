@@ -1,5 +1,20 @@
 .in-depth__panel {
 	padding: $desktop-padding;
+	/*text-align: center;*/
+
+	@include breakpoint(medium) {
+		margin-left: -1000px;
+   	 	margin-right: -1000px;
+   	 	padding-left: 1000px;
+   	 	padding-right: 1000px;
+	}
+	
+   &__inner-wrapper {
+    	max-width: $max-site-width;
+    	margin: auto;
+    	width: 100%;
+    }
+
 	&.white {
 		background-color: white;
 	}
