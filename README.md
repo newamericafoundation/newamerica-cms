@@ -5,9 +5,9 @@ Custom Content Management System (CMS) built for New America
 
 - Install and create your virtual environment. One option: (http://virtualenvwrapper.readthedocs.org/en/latest/index.html)
 
-- Clone github repo
+- Clone the github repo and change into the repo directory
 
-- Get a sample .env file from dev team and create your own environment variables file in your root directory (as in, where the manage.py file lives) and copy paste contents from sample file here. You will need to customize the DATABASE_URL to match the database you will create shortly below.
+- Once inside the repo and your virtual environment, get a sample environment variables file from dev team and create your own environment variables file in your root directory (as in, where the manage.py file lives). Name of this file is usually ".env". Copy paste contents from sample file here. You will need to customize the DATABASE_URL to match the database you will create shortly below.
 
 - Install pip if you don't have it: (https://pip.pypa.io/en/stable/installing/)
 
@@ -29,12 +29,12 @@ createdb newamerica
 psql -d newamerica -c "CREATE USER newamerica WITH PASSWORD '<<PASSWORD>>';"
 ```
 
-- Update the DATABASE_URL in your environment variable file with the Postgres URL indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
+- Update the DATABASE_URL in your environment variables file with the Postgres URL indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
 
 
 - Load your environment variables:
 ```bash
-source *name of your environment variable file*
+source fake_env_file_name.env
 ```
 
 - Migrate your database:
@@ -68,7 +68,7 @@ python manage.py loaddata fixture.json
 python manage.py runserver
 ```
 
-- In your browser, go to the site at (127.0.0.1:8000/admin) and log in with username: admin and password: admin
+- In your browser, go to the site at (127.0.0.1:8000/admin) and log in with username: admin and password: admin. These are the default credentials provided through the fixture.
 
 
 
