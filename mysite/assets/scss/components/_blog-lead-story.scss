@@ -6,6 +6,12 @@
 
 	.hero-grid__element__text-bar {
 		max-height: none;
+		max-width: 950px;
+		* {
+			color: white;
+			margin-bottom: 10px;
+		}
+
 	}
 
 	@include breakpoint(medium) {
