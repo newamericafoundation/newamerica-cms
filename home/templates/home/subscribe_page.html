@@ -84,7 +84,7 @@
 
 					<!-- The newsletter ID appears after the word 'list' in the input id, and after the letters 'cm-ol-' in the input name -->
 					<div class="row">
-						{% for subscription in self.newsletter_subscriptions %}
+						{% for subscription in page.newsletter_subscriptions %}
 						<div class="small-12 medium-6 large-4 columns">
 							<div class="subscribe-page__list__entry">
 								<label class="control control--checkbox">
@@ -101,7 +101,7 @@
 				</div>
 				<div class="tabs-panel" id="panel2">
 					<div class="row">
-						{% for subscription in self.event_subscriptions %}
+						{% for subscription in page.event_subscriptions %}
 						<div class="small-12 medium-6 large-4 columns">
 							<div class="subscribe-page__list__entry">
 								<label class="control control--checkbox">
