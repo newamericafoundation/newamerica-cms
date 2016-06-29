@@ -9,4 +9,10 @@
 
 {% block content %}
 
+	{% for panel in page.panels %}
+		<div class="in-depth__panel {{ panel.value.panel_color_theme }}">
+			<h1 class="in-depth__panel__title">{{ panel.value.panel_title }}</h1>
+			<div class="in-depth__panel__body">{{ panel.value.panel_body }}</div>
+		</div>
+	{% endfor %}
 {% endblock %}

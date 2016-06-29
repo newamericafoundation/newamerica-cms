@@ -1,0 +1,13 @@
+.in-depth__panel {
+	padding: $desktop-padding;
+	&.white {
+		background-color: white;
+	}
+	&.grey {
+		background-color: palette-get(na-black-10);
+	}
+	&.black {
+		background-color: palette-get(na-black);
+		color: white;
+	}
+}
