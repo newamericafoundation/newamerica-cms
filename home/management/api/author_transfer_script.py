@@ -165,5 +165,5 @@ def run():
     print("about to start!")
     # load_education_blog_posts()
     # downloads_redirect()
-    # transform_itn_to_articles()
-    delete_old_itn_pieces()
+    transform_itn_to_articles()
+    # delete_old_itn_pieces()
