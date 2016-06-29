@@ -64,6 +64,10 @@ def rendition_delete(sender, instance, **kwargs):
     instance.file.delete(False)
 
 class HomePage(Page):
+    """
+    Model for the homepage for the website. In Wagtail's parent
+    child structure, this is the most parent page. 
+    """
     subpage_types = [
     'OrgSimplePage',
     'programs.Program',
@@ -179,8 +183,12 @@ class HomePage(Page):
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
 
+        # In order to apply different styling to main lead story
+        # versus the other lead stories, we needed to separate them out
         context['other_lead_stories'] = []
 
+        # Solution to account for null values for the stories 
+        # so that the div in the template wouldn't attempt to add styling to nothing
         if self.lead_2:
             context['other_lead_stories'].append(self.lead_2)
         if self.lead_3:
@@ -188,6 +196,8 @@ class HomePage(Page):
         if self.lead_4:
             context['other_lead_stories'].append(self.lead_4)
 
+        # In order to preserve style, minimum and maximum of feature stories is 3
+        # If there are less than 3 feature stories - none show up even if they're added.
         if self.feature_1 and self.feature_2 and self.feature_3:
             context['featured_stories'] = [
                 self.feature_1, self.feature_2, self.feature_3
@@ -237,7 +247,8 @@ class AbstractSimplePage(Page):
 class RedirectPage(Page):
     """
     Redirect page class that inherits from the Page model and
-    overrides the serve method to allow for external redirects
+    overrides the serve method to allow for redirects to pages
+    external to the site.
     """
 
     story_excerpt = models.CharField(blank=True, null=True, max_length=140)
@@ -427,6 +438,7 @@ class Post(Page):
         captured even if the user does not select it.
         """
         super(Post, self).save(*args, **kwargs)
+        
         program_title = self.get_ancestors()[2]
         program = Program.objects.get(
             slug=program_title.slug
