@@ -178,7 +178,7 @@ class BylineTemplateTagTests(WagtailPageTests):
 
         authors = self.policy_paper.authors.all()
         actual_response = generate_byline("podcast", authors) 
-        expected_response = mark_safe('Host(s): <a href="/our-people/third-person/">Third Person</a>')
+        expected_response = mark_safe('Contributor(s): <a href="/our-people/third-person/">Third Person</a>')
         self.assertEqual(actual_response, expected_response)
 
     def test_inthenews_byline(self):
