@@ -29,12 +29,12 @@ createdb newamerica
 psql -d newamerica -c "CREATE USER newamerica WITH PASSWORD '<<PASSWORD>>';"
 ```
 
-- Updated the DATABASE_URL in the .env file with the Postgres URL indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
+- Update the DATABASE_URL in your environment variable file with the Postgres URL indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
 
 
 - Load your environment variables:
 ```bash
-source .env
+source *name of your environment variable file*
 ```
 
 - Migrate your database:
@@ -107,7 +107,7 @@ The build procedure above allows client-side scripts to be built in CommonJS mod
 
 ### Images
 
-The ``./mysite/assets/images`` folder contains images in development.
+The ``./mysite/assets/images`` folder contains images in development. In staging and proudction environments they are stored in s3 buckets on AWS.
 
 #### Icons
 
