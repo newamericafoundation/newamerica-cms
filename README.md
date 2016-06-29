@@ -7,7 +7,7 @@ Custom Content Management System (CMS) built for New America
 
 - Clone github repo
 
-- Get the requirements.txt and .env files from one of the developers and add both to your root directory of the CMS - as in, where the manage.py file lives
+- Get a sample .env file from dev team and create your own environment variables file in your root directory (as in, where the manage.py file lives) and copy paste contents from sample file here. You will need to customize the DATABASE_URL to match the database you will create shortly below.
 
 - Install pip if you don't have it: (https://pip.pypa.io/en/stable/installing/)
 
@@ -29,14 +29,13 @@ createdb newamerica
 psql -d newamerica -c "CREATE USER newamerica WITH PASSWORD '<<PASSWORD>>';"
 ```
 
-- Updated the DATABASE_URL in the .env file with the Postgres url indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
+- Updated the DATABASE_URL in the .env file with the Postgres URL indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
 
 
 - Load your environment variables:
 ```bash
 source .env
 ```
-
 
 - Migrate your database:
 ```bash
@@ -93,13 +92,6 @@ To compile front-end assets in production, run the one-time command:
 
 Note: ``npm run ...`` commands are shorthands for more complex commands mapped under the ``scripts`` key of ``package.json``.
 
-### Frontend test server
-
-There is a separate, tiny Express server used solely to test HTML and CSS without the need to have Python, Django or Postgres configured. Run it by simply typing:
-
-	npm run testserver
-
-Its code is under ``/mysite/testserver``.
 
 ### Stylesheets
 
