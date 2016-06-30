@@ -22,6 +22,17 @@
 	</nav>
 	<a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
 
+	{% if page.generate_title_panel %}
+		<section class="in-depth__panel title-panel" style="background-image: linear-gradient(
+			      rgba(0, 0, 0, 0),
+			      rgba(0, 0, 0, 0.15)
+			    ), 
+		    	url({{ story_image.url }})">
+			<h1 class="in-depth__panel__title">{{ page.title }}</h1>
+			<h3 class="in-depth__panel__subheading">{{ page.subheading|richtext }}</h3>
+		</section>
+	{% endif %}
+
 	{% for panel in page.panels %}
 		<!-- <a name="{{ panel.value.panel_title|slugify }}"></a> -->
 		<section id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel {{ panel.value.panel_color_theme }}">
