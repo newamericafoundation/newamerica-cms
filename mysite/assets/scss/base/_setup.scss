@@ -28,6 +28,14 @@ select {
 	cursor: pointer;
 	background: url(shape-urls-get(down-arrow-na-black)) no-repeat;
 	background-size: 12px 12px;
+	padding-right: 30px;
+	background-position-y: center;
+	background-position-x: 97%;
+
+	@include breakpoint(medium) {
+		background-position-x: 95%;
+	}
+		
 }
 	
 
