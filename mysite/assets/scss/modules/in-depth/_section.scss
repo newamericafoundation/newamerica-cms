@@ -1,0 +1,41 @@
+.in-depth__section {
+	&__header {
+		min-height: 120px;
+		height: 100%;
+		margin-left: -1000px;
+   	 	margin-right: -1000px;
+   	 	padding-left: 1000px;
+   	 	padding-right: 1000px;
+   	 	background-color: palette-get(na-black);
+   	 	color: white;
+
+   	 	&__title {
+   	 		display: inline-block;
+   	 		width: 500px;
+   	 	}
+
+   	 	&__item-container {
+   	 		float: right;
+   	 		width: calc(100% - 500px);
+   	 		height: 120px;
+   	 	}
+   	 	&__item {
+   	 		width: 30%;
+   	 		display: inline-block;
+   	 		position: relative;
+   	 		top: 50%;
+   	 		transform: translateY(-50%);
+   	 		&__text {
+   	 			margin-bottom: 0px;
+   	 			padding: 10px;
+   	 			a {
+	   	 			color: white;
+	   	 			font-weight: bold;
+	   	 			font-size: 1.3rem;
+	   	 			line-height: 100%;
+	   	 			
+   	 			}
+   	 		}
+   	 	}
+	}
+}

@@ -22,6 +22,18 @@
 	</nav>
 	<a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
 
+	<div class="in-depth__section__header">
+		<h1 class="in-depth__section__header__title">{{ page.title }}</h1>
+		{% if siblings|length > 1 %}
+			<div class="in-depth__section__header__item-container">
+				{% for sibling in siblings %}
+					<div class="in-depth__section__header__item">
+						<h5 class="in-depth__section__header__item__text"><a href="{{ sibling.url }}">{{ sibling.title }}</a></h5>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
 	{% if page.generate_title_panel %}
 		<section class="in-depth__panel title-panel" style="background-image: linear-gradient(
 			      rgba(0, 0, 0, 0),

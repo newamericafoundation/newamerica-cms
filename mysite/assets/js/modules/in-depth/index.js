@@ -4,7 +4,35 @@ import $ from 'jquery'
 
 */
 
-export default function inDepthPanelScroll() {
+export default function() {
+	resizeTitlePanelBackground()
+	inDepthPanelScroll();
+
+}
+
+function resizeTitlePanelBackground() {
+	
+	$(document).ready(function(){
+		setTitlePanelBackgroundOverflow();
+	});
+
+	$(window).resize(function(){
+		setTitlePanelBackgroundOverflow();
+	});
+}
+
+function setTitlePanelBackgroundOverflow() {
+	var maxSiteWidth = 1350;
+
+	var $windowWidth = $(window).width();
+	if ($windowWidth > maxSiteWidth) {
+		var overflow = ($windowWidth - maxSiteWidth)/2 + 25;
+		console.log(overflow);
+		$(".title-panel").css("margin-left", overflow * -1).css("margin-right", overflow * -1).css("padding-left", overflow).css("padding-right", overflow);
+	}
+}
+
+function inDepthPanelScroll() {
 	var contentSections = $('.in-depth__panel'),
 		navigationItems = $('#cd-vertical-nav a');
 	updateNavigation();

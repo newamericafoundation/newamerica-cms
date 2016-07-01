@@ -75,6 +75,15 @@ class InDepthSection(Page):
         ImageChooserPanel('story_image'),
     ]
 
+    def get_context(self, request):
+        context = super(InDepthSection, self).get_context(request)
+        
+        # parent_program = self.get_parent().parent_programs
+        # context['program_logo'] = 
+        context['siblings'] = self.get_siblings(inclusive=True)
+        
+        return context
+
     class Meta:
         verbose_name = "In-Depth Project Section"
 
