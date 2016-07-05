@@ -80,6 +80,8 @@ class InDepthSection(Page):
         
         # parent_program = self.get_parent().parent_programs
         # context['program_logo'] = 
+
+        context['project_root'] = self.get_parent()
         context['siblings'] = self.get_siblings(inclusive=True)
         
         return context

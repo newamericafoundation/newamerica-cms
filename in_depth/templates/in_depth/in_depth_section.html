@@ -23,7 +23,10 @@
 	<a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
 
 	<div class="in-depth__section__header">
-		<h1 class="in-depth__section__header__title">{{ page.title }}</h1>
+		<!-- <a href="">
+		    <img class="sidemenu__logo" src="{{ logo.url }}">
+		</a> -->
+		<h1 class="in-depth__section__header__title"><a href="{{ project_root.url }}">{{ project_root }}</a></h1>
 		{% if siblings|length > 1 %}
 			<div class="in-depth__section__header__item-container">
 				{% for sibling in siblings %}
@@ -36,12 +39,14 @@
 	</div>
 	{% if page.generate_title_panel %}
 		<section class="in-depth__panel title-panel" style="background-image: linear-gradient(
-			      rgba(0, 0, 0, 0),
-			      rgba(0, 0, 0, 0.15)
-			    ), 
-		    	url({{ story_image.url }})">
-			<h1 class="in-depth__panel__title">{{ page.title }}</h1>
-			<h3 class="in-depth__panel__subheading">{{ page.subheading|richtext }}</h3>
+		      rgba(0, 0, 0, 0),
+		      rgba(0, 0, 0, 0.3)
+		    ), 
+	    	url({{ story_image.url }})">
+		    <div class="title-panel__text-box">
+				<h1 class="title-panel__title">{{ page.title }}</h1>
+				<h3 class="title-panel__subheading">{{ page.subheading|richtext }}</h3>
+			</div>
 		</section>
 	{% endif %}
 

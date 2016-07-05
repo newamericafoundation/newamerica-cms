@@ -61,7 +61,7 @@
 }
 
 @mixin is-in-depth-template {
-  .template-indepthsection &, .template-allindepthproject & {
+  .template-indepthsection &, .template-indepthproject & {
     @content;
   }
 }

@@ -4,9 +4,43 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% block body_class %}template-allindepthproject{% endblock %}
+{% block body_class %}template-indepthproject{% endblock %}
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
-	{{ self.get_children }}
+	<section class="in-depth__panel title-panel" style="background-image: linear-gradient(
+	      rgba(0, 0, 0, 0),
+	      rgba(0, 0, 0, 0.3)
+	    ), 
+    	url({{ story_image.url }})">
+	    <div class="title-panel__text-box">
+			<h1 class="title-panel__title">{{ page.title }}</h1>
+			<h3 class="title-panel__subheading">{{ page.subheading }}</h3>
+			{% if page.buttons %}
+				<div class="title-panel__button-container">
+					{% for button in page.buttons %}
+						<a class="button" href="{{ button.value.button_url }}">{{ button.value.button_text }}</a>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</section>
+	<section class="in-depth__panel">
+		<div class="in-depth__panel__body post-body">
+			{{ page.body }}
+		</div>
+	</section>
+	<section class="in-depth__panel contents-panel grey">
+		<h3 class="contents-panel__heading">Contents</h3>
+		{% if page.get_children|length > 1 %}
+			<div class="contents-panel__item-container">
+				{% for section in page.get_children.specific %}
+					<div class="contents-panel__item">
+						<h5 class="contents-panel__item__title"><a href="{{ section.url }}">{{ section.title }}</a></h5>
+						<p class="contents-panel__item__description">{{ section.story_excerpt }}</p>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</section>
 {% endblock %}

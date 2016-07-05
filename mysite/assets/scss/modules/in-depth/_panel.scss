@@ -2,7 +2,7 @@
 	padding: $desktop-padding;
 	/*text-align: center;*/
 
-	@include breakpoint(medium) {
+	@include desktop-header {
 		margin-left: -1000px;
    	 	margin-right: -1000px;
    	 	padding-left: 1000px;
@@ -26,13 +26,92 @@
 		color: white;
 	}
 
-	&.title-panel {
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: 50% 50%;
-		margin-top: 0px;
+	&__body {
+		max-width: $max-body-width;
+		margin: auto;	
+	}
+}
+
+.title-panel {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+	height: 100%;
+	margin-left: -$desktop-padding;
+	margin-right: -$desktop-padding;
+	padding: 0px $desktop-padding;
+	text-align: center;
+
+	@include breakpoint(medium) {
 		height: 700px;
-		margin:0px;
-		padding:0px;
+	}
+
+	&__text-box {
+		color: white;
+		text-align: center;
+		max-width: 1000px;
+		margin: auto;
+		padding: 3*$desktop-padding $desktop-padding;
+		
+		@include breakpoint(medium) {
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+			padding: 0px $desktop-padding;
+		}
+		
+	}
+
+	&__title {
+		font-weight: bold;
+		font-size: 3rem;
+	}
+
+	&__subheading {
+		font-weight: normal;
+		font-size: 1.3rem;
+		
+	}
+
+	&__button-container {
+		padding-top: 15px;
+		.button {
+			margin: 5px 3px;
+
+
+			&:not(:first-child) {
+				background-color: white;
+				color: palette-get(na-black);
+			}
+		}
+	}
+}
+
+.contents-panel {
+	&__heading {
+		@include page-subheading-text(grey);
+		padding-bottom: $desktop-padding;
+	}
+
+	&__item-container {
+		@include breakpoint(medium) {
+		  	-moz-column-count:2; 
+  			-webkit-column-count:2; 
+  			column-count:2;
+		}
+	}
+
+	&__item {
+		padding-right: $desktop-padding;
+		display: inline-block;
+
+		&__title {
+			font-weight: bold;
+			font-size: 18px;
+		}
+		&__description {
+			font-size: 14px;
+			color: palette-get(na-black-40);
+		}
 	}
 }
