@@ -1,5 +1,3 @@
-from django.test import TestCase
-
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page, Site
 
@@ -93,9 +91,8 @@ class BylineTemplateTagTests(WagtailPageTests):
         )
         our_people_page.add_child(instance=self.fourth_person)
 
-
         # Using policy papers to test the other post types
-        all_policy_papers_home_page = home_page.add_child(
+        home_page.add_child(
             instance=AllPolicyPapersHomePage(title="Policy Papers")
         )
 
@@ -111,7 +108,6 @@ class BylineTemplateTagTests(WagtailPageTests):
         program_policy_papers_page.add_child(
             instance=self.policy_paper)
         self.policy_paper.save()
-
 
     def test_zero_authors_byline(self):
         authors = self.policy_paper.authors.all()
@@ -172,7 +168,6 @@ class BylineTemplateTagTests(WagtailPageTests):
         expected_response = mark_safe('By <a href="/our-people/second-person/">Second Person</a> and <a href="/our-people/third-person/">Third Person</a>')
         self.assertEqual(actual_response, expected_response)
 
-
     def test_podcasts_byline_with_one_author(self):
         PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
 
@@ -180,7 +175,6 @@ class BylineTemplateTagTests(WagtailPageTests):
         actual_response = generate_byline("podcast", authors)
         expected_response = mark_safe('Contributor: <a href="/our-people/third-person/">Third Person</a>')
         self.assertEqual(actual_response, expected_response)
-
 
     def test_podcasts_byline_with_multiple_authors(self):
         PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
@@ -233,12 +227,12 @@ class PersonTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education',
-            name='Education',
-            slug='education',
-            description='Education',
-            location=False,
-            depth=3
+                title='Education',
+                name='Education',
+                slug='education',
+                description='Education',
+                location=False,
+                depth=3
             )
         )
         self.subprogram_page = self.program_page.add_child(
@@ -288,7 +282,6 @@ class PersonTests(WagtailPageTests):
             )
         )
         PostAuthorRelationship(author=self.test_person, post=self.article_2).save()
-
 
     # Test that a particular child Page type can be created under a
     # parent Page type
