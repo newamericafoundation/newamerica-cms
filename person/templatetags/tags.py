@@ -3,9 +3,11 @@ from django.utils.safestring import mark_safe
 def get_author_url(author):
 	return '<a href="' + author.author.url + '">' + author.author.title + '</a>'
 
-def get_byline_prefix(content_type):
+def get_byline_prefix(content_type, plural=False):
 	if content_type == 'podcast':
-		return "Contributor(s): "
+		if plural:
+			return "Contributors: "
+		return  "Contributor: "
 	elif content_type == "In The News Piece":
 		return "In the News: "
 	else:
@@ -33,7 +35,9 @@ def generate_author_string(authors):
 
 def generate_byline(content_type, authors):
 	if authors:
-		return mark_safe(get_byline_prefix(content_type) + generate_author_string(authors))
+		return mark_safe(
+			get_byline_prefix(content_type, len(authors) > 1) + generate_author_string(authors)
+		)
 	else:
 		return ""
-	
+
