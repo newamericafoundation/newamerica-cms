@@ -70,43 +70,6 @@ $L:     1170px;
 
 /* -------------------------------- 
 
-Primary style
-
--------------------------------- */
-
-html * {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-*, *:after, *:before {
-	@include box-sizing(border-box);
-}
-
-body {
-	font: {
-		size: 100%;
-		family: $primary-font; // variables inside partials > _variables.scss
-	}
-	color: $color-1;
-	background-color: $color-4;
-}
-
-body, html {
-	height: 100%;
-}
-
-a {
-	color: $color-1;
-	text-decoration: none;
-}
-
-img {
-	max-width: 100%;
-}
-
-/* -------------------------------- 
-
 Modules - reusable parts of our design
 
 -------------------------------- */
