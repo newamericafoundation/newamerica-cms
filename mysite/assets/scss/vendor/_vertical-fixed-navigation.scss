@@ -193,12 +193,13 @@ Main components
 
 .no-touch #cd-vertical-nav {
 	position: fixed;
-	right: 40px;
+	right: 15px;
 	@include center(y); // see partials > _mixins.scss
 	z-index: 1;
 
 	li {
 		text-align: right;
+		width: 100%;
 	}
 
 	a {
@@ -223,7 +224,7 @@ Main components
 		}
 
 		&.is-selected .cd-dot {
-			background-color: $color-4;
+			background-color: palette-get(na-turquoise);
 		}
 	} 
 
@@ -231,10 +232,10 @@ Main components
 		position: relative;
 		/* we set a top value in order to align the dot with the label. If you change label's font, you may need to change this top value*/
 		top: 8px;
-		height: 12px;
-		width: 12px;
+		height: 18px;
+		width: 18px;
 		border-radius: 50%;
-		background-color: $color-3;
+		background-color: palette-get(na-black-40);
 		-webkit-transition: -webkit-transform 0.2s, background-color 0.5s;
 		-moz-transition: -moz-transform 0.2s, background-color 0.5s;
 		transition: transform 0.2s, background-color 0.5s;
@@ -244,8 +245,9 @@ Main components
 	.cd-label {
 		position: relative;
 		margin-right: 10px;
+		background-color: white;
 		padding: .4em .5em;
-		color: $color-4;
+		color: palette-get(na-black-40);
 		@include font-size(14px);
 
 		-webkit-transition: -webkit-transform 0.2s, opacity 0.2s;

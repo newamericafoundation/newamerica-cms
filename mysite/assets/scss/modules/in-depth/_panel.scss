@@ -24,7 +24,10 @@
 	}
 	&.black {
 		background-color: palette-get(na-black);
-		color: white;
+		h1, p {
+			color: white;
+		}
+		
 	}
 	&__title {
 		text-align: center;
