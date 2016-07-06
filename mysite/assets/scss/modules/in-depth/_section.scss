@@ -1,7 +1,7 @@
 .in-depth__section {
+	$section-header-height: 140px;
 	&__header {
-		min-height: 120px;
-		height: 100%;
+		height: $section-header-height;
 		margin-left: -1000px;
    	 	margin-right: -1000px;
    	 	padding-left: 1000px;
@@ -9,19 +9,41 @@
    	 	background-color: palette-get(na-black);
    	 	color: white;
 
-   	 	&__title {
+   	 	&__left {
    	 		display: inline-block;
    	 		width: 500px;
+   	 		padding-left: 200px;
+   	 		position: relative;
+   	 		top: 50%;
+   	 		transform: translateY(-50%);
+   	 		color: white;
+
+   	 		&__prefix {
+   	 			font-weight: bold;
+   	 			font-size: 16px;
+   	 			margin-bottom: 0px;
+   	 		}
+   	 		&__title {
+   	 			font-size: 28px;
+   	 			font-weight: bold;
+   	 			margin-bottom: 0px;
+   	 			a {
+   	 				color: white;
+   	 			}
+   	 		}
+   	 		
+   	 		
    	 	}
 
    	 	&__item-container {
    	 		float: right;
    	 		width: calc(100% - 500px);
-   	 		height: 120px;
+   	 		height: 100%;
    	 	}
    	 	&__item {
    	 		width: 30%;
-   	 		display: inline-block;
+   	 		float: left;
+   	 		/*display: inline-block;*/
    	 		position: relative;
    	 		top: 50%;
    	 		transform: translateY(-50%);
@@ -31,7 +53,7 @@
    	 			a {
 	   	 			color: white;
 	   	 			font-weight: bold;
-	   	 			font-size: 1.3rem;
+	   	 			font-size: 1.2rem;
 	   	 			line-height: 100%;
 	   	 			
    	 			}
