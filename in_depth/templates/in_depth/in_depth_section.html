@@ -8,7 +8,7 @@
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
-	<!-- <nav id="cd-vertical-nav">
+	<nav id="cd-vertical-nav">
 		<ul>
 			{% for panel in page.panels %}
 				<li>
@@ -20,10 +20,10 @@
 			{% endfor %}
 		</ul>
 	</nav>
-	<a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a> -->
+	<a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
 
 	<div class="in-depth__section__header">
-		<div class="in-depth__section__header__max-width-wrapper">
+		<div class="in-depth__panel__max-width-wrapper">
 			<!-- <a href="">
 			    <img class="sidemenu__logo" src="{{ logo.url }}">
 			</a> -->
@@ -62,7 +62,7 @@
 	{% for panel in page.panels %}
 		<!-- <a name="{{ panel.value.panel_title|slugify }}"></a> -->
 		<section id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel {{ panel.value.panel_color_theme }}">
-			<div class="in-depth__panel__inner-wrapper">
+			<div class="in-depth__panel__max-width-wrapper">
 				<h1 class="in-depth__panel__title">{{ panel.value.panel_title }}</h1>
 				<div class="in-depth__panel__body post-body">{{ panel.value.panel_body }}</div>
 			</div>

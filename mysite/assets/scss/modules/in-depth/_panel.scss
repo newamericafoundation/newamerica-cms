@@ -9,10 +9,11 @@
    	 	padding-right: 1000px;
 	}
 	
-   &__inner-wrapper {
+   &__max-width-wrapper {
     	max-width: $max-site-width;
     	margin: auto;
     	width: 100%;
+    	padding: 0px $desktop-padding;
     }
 
 	&.white {
@@ -24,6 +25,9 @@
 	&.black {
 		background-color: palette-get(na-black);
 		color: white;
+	}
+	&__title {
+		text-align: center;
 	}
 
 	&__body {
@@ -102,6 +106,7 @@
 	}
 
 	&__item {
+		width: 100%;
 		padding-right: $desktop-padding;
 		display: inline-block;
 
