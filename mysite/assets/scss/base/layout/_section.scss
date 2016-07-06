@@ -16,11 +16,6 @@
 		margin-right: auto;
 		@include is-in-depth-template {
 			max-width: 100%;
-
-			.content-container {
-				padding-left: 0px;
-				padding-right: 0px;
-			}
 		}
 	}
 

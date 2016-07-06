@@ -6,42 +6,52 @@ import $ from 'jquery'
 
 export default function() {
 	addSectionHeaderInteraction();
-
 	inDepthPanelScroll();
 
 }
 
 function addSectionHeaderInteraction() {
+	Foundation.MediaQuery.get('desktop-header')
 	$(document).ready(function(){
 		$('.in-depth__section__header__item-container').slick({
 			prevArrow: ".in-depth__section__header__arrow__previous",
 			nextArrow: ".in-depth__section__header__arrow__next",
 			infinite: false,
 			swipeToSlide: true,
-			// slidesPerRow: 3,
-			slidesToShow: 3
+			slidesToShow: 1,
+			mobileFirst: true,
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 2,
+					}
+			    },
+			    {
+					breakpoint: 1200,
+					settings: {
+						slidesToShow: 3,
+					}
+			    }
+			]
 		}).on('afterChange', toggleArrowDisplay);
+
+		//
 		toggleArrowDisplay();
 	});
 }
 
 function toggleArrowDisplay() {
-	console.log("calling toggle arrow display");
 	var $firstChild = $(".in-depth__section__header__item:first-child");
 	var $lastChild = $(".in-depth__section__header__item:last-child");
 
-	console.log($firstChild);
-	console.log($lastChild);
-
 	if ($firstChild.hasClass("slick-active")) {
-		console.log("at first!");
 		$(".in-depth__section__header__arrow__previous").hide();
 	} else {
 		$(".in-depth__section__header__arrow__previous").show();
 	}
 
 	if ($lastChild.hasClass("slick-active")) {
-		console.log("at first!");
 		$(".in-depth__section__header__arrow__next").hide();
 	} else {
 		$(".in-depth__section__header__arrow__next").show();

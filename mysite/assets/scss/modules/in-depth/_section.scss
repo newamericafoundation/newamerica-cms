@@ -9,13 +9,13 @@
    	 	&__max-width-wrapper {
    	 		height: $section-header-height;
    	 		width: 100%;
-   	 		max-width: $max-site-width - 2*$desktop-padding;
+   	 		max-width: $max-site-width;
+   	 		padding: 0px $desktop-padding;
    	 		margin: auto;
    	 	}
 
    	 	&__left {
    	 		display: inline-block;
-   	 		width: 500px;
    	 		padding-left: 200px;
    	 		position: relative;
    	 		top: 50%;
@@ -41,31 +41,40 @@
 
    	 	&__right {
    	 		float: right;
-   	 		width: 800px;
    	 		height: $section-header-height;
    	 		overflow: hidden;
    	 		position: relative;
+   	 		width: 350px;
+
+   	 		@include breakpoint(large) {
+   	 			width: 500px;
+   	 		}
+
+   	 		@media screen and (min-width: 1200px) {
+   	 			width: 750px;
+   	 		}
+   	 		
    	 	}
 
    	 	&__item-container {
-   	 		
-   	 		width: 700px;
+   	 		height: $section-header-height;
+   	 		width: 100%;
+   	 		padding: 0px 35px;
    	 		margin: auto;
    	 	}
 
    	 	&__item {
-   	 		/*width: 30%;
-   	 		float: left;
-   	 		position: relative;
-   	 		top: 50%;
-   	 		transform: translateY(-50%);*/
+   	 		height: $section-header-height;
    	 		&__text {
    	 			margin-bottom: 0px;
-   	 			padding: 10px;
+   	 			padding: 10px 15px;
+   	 			position: relative;
+   	 			top: 50%;
+   	 			transform: translateY(-50%);
    	 			a {
    	 				color: palette-get(na-black-40);
 	   	 			font-weight: bold;
-	   	 			font-size: 1.2rem;
+	   	 			font-size: 1.1rem;
 	   	 			line-height: 100%;
 	   	 			
 	   	 			.active & {
@@ -80,6 +89,7 @@
    	 		width: 20px;
    	 		position: absolute;
    	 		cursor: pointer;
+   	 		z-index: 10;
    	 		svg {
    	 			fill: white;
    	 		}
