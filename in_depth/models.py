@@ -82,8 +82,9 @@ class InDepthSection(Page):
         # context['program_logo'] = 
 
         context['project_root'] = self.get_parent()
-        context['siblings'] = self.get_siblings(inclusive=True)
-        
+        siblings = self.get_siblings(inclusive=True).order_by('pk')
+        context['index'] = siblings.filter(pk__lt = self.pk).count()
+        context['siblings'] = siblings
         return context
 
     class Meta:

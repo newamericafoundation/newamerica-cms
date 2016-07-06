@@ -23,22 +23,29 @@
 	<a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a> -->
 
 	<div class="in-depth__section__header">
-		<!-- <a href="">
-		    <img class="sidemenu__logo" src="{{ logo.url }}">
-		</a> -->
-		<div class="in-depth__section__header__left">
-			<h5 class="in-depth__section__header__left__prefix">In Depth</h5>
-			<h3 class="in-depth__section__header__left__title"><a href="{{ project_root.url }}">{{ project_root }}</a></h3>
-		</div>
-		{% if siblings|length > 1 %}
-			<div class="in-depth__section__header__item-container">
-				{% for sibling in siblings %}
-					<div class="in-depth__section__header__item">
-						<h5 class="in-depth__section__header__item__text"><a href="{{ sibling.url }}">{{ sibling.title }}</a></h5>
-					</div>
-				{% endfor %}
+		<div class="in-depth__section__header__max-width-wrapper">
+			<!-- <a href="">
+			    <img class="sidemenu__logo" src="{{ logo.url }}">
+			</a> -->
+			<div class="in-depth__section__header__left">
+				<h5 class="in-depth__section__header__left__prefix">In Depth</h5>
+				<h3 class="in-depth__section__header__left__title"><a href="{{ project_root.url }}">{{ project_root }}</a></h3>
 			</div>
-		{% endif %}
+			
+			{% if siblings|length > 1 %}
+				<div class="in-depth__section__header__right">
+					<div class="in-depth__section__header__arrow__previous">{% include 'ui_elements/svg/arrow-left.html' %}</div>
+					<div class="in-depth__section__header__item-container" data-slick='{"initialSlide":	{{ index }}}'>
+						{% for sibling in siblings %}
+							<div class="in-depth__section__header__item {% if sibling.pk == page.pk %}active{% endif %}">
+								<h5 class="in-depth__section__header__item__text"><a href="{{ sibling.url }}">{{ sibling.title }}</a></h5>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="in-depth__section__header__arrow__next">{% include 'ui_elements/svg/arrow-right.html' %}</div>
+				</div>
+			{% endif %}
+		</div>
 	</div>
 	{% if page.generate_title_panel %}
 		<section class="in-depth__panel title-panel" style="background-image: linear-gradient(
@@ -52,7 +59,6 @@
 			</div>
 		</section>
 	{% endif %}
-
 	{% for panel in page.panels %}
 		<!-- <a name="{{ panel.value.panel_title|slugify }}"></a> -->
 		<section id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel {{ panel.value.panel_color_theme }}">
@@ -62,5 +68,4 @@
 			</div>
 		</section>
 	{% endfor %}
-
 {% endblock %}

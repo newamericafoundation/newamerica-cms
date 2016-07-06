@@ -5,9 +5,21 @@ import $ from 'jquery'
 */
 
 export default function() {
-	resizeTitlePanelBackground()
+	addSectionHeaderInteraction();
 	inDepthPanelScroll();
 
+}
+
+function addSectionHeaderInteraction() {
+	$(document).ready(function(){
+		$('.in-depth__section__header__item-container').slick({
+			prevArrow: ".in-depth__section__header__arrow__previous",
+			nextArrow: ".in-depth__section__header__arrow__next",
+			infinite: false,
+			// slidesPerRow: 3,
+			slidesToShow: 3
+		});
+	});
 }
 
 function resizeTitlePanelBackground() {
