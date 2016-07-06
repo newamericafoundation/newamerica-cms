@@ -6,6 +6,7 @@ import $ from 'jquery'
 
 export default function() {
 	addSectionHeaderInteraction();
+
 	inDepthPanelScroll();
 
 }
@@ -16,10 +17,35 @@ function addSectionHeaderInteraction() {
 			prevArrow: ".in-depth__section__header__arrow__previous",
 			nextArrow: ".in-depth__section__header__arrow__next",
 			infinite: false,
+			swipeToSlide: true,
 			// slidesPerRow: 3,
 			slidesToShow: 3
-		});
+		}).on('afterChange', toggleArrowDisplay);
+		toggleArrowDisplay();
 	});
+}
+
+function toggleArrowDisplay() {
+	console.log("calling toggle arrow display");
+	var $firstChild = $(".in-depth__section__header__item:first-child");
+	var $lastChild = $(".in-depth__section__header__item:last-child");
+
+	console.log($firstChild);
+	console.log($lastChild);
+
+	if ($firstChild.hasClass("slick-active")) {
+		console.log("at first!");
+		$(".in-depth__section__header__arrow__previous").hide();
+	} else {
+		$(".in-depth__section__header__arrow__previous").show();
+	}
+
+	if ($lastChild.hasClass("slick-active")) {
+		console.log("at first!");
+		$(".in-depth__section__header__arrow__next").hide();
+	} else {
+		$(".in-depth__section__header__arrow__next").show();
+	}
 }
 
 function resizeTitlePanelBackground() {
