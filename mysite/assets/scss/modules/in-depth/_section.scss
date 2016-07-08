@@ -1,5 +1,10 @@
 .in-depth__section {
-	$section-header-height: 140px;
+	$section-header-height: 120px;
+   $header-right-width: (
+      small: 350px,
+      medium: 500px,
+      large: 750px,
+   );
 	width: 100%;
 	&__header {
 		height: $section-header-height;
@@ -11,12 +16,25 @@
    	 	}
 
    	 	&__left {
-   	 		display: inline-block;
+   	 		display: table-cell;
    	 		padding-left: 200px;
    	 		position: relative;
    	 		top: 50%;
    	 		transform: translateY(-50%);
    	 		color: white;
+            width: 100%;
+
+            /*@media screen and (min-width: 800px) {
+               width: 60%;
+            }*/
+
+            @include breakpoint(medium) {
+               width: 65%;
+            }
+
+            @include breakpoint(large) {
+               width: 50%;
+            }
 
    	 		&__prefix {
    	 			font-weight: bold;
@@ -40,15 +58,22 @@
    	 		height: $section-header-height;
    	 		overflow: hidden;
    	 		position: relative;
-   	 		width: 350px;
+   	 		display: none;
 
-   	 		@include breakpoint(large) {
-   	 			width: 500px;
-   	 		}
+            /*@media screen and (min-width: 800px) {
+               display: inline-block;
+               width: 40%;
+            }*/
 
-   	 		@media screen and (min-width: 1200px) {
-   	 			width: 750px;
-   	 		}
+            @include breakpoint(medium) {
+               display: inline-block;
+               width: 35%;
+            }
+
+            @include breakpoint(large) {
+               
+               width: 50%;
+            }
    	 		
    	 	}
 
@@ -63,7 +88,7 @@
    	 		height: $section-header-height;
    	 		&__text {
    	 			margin-bottom: 0px;
-   	 			padding: 10px 15px;
+   	 			padding: 10px 13px;
    	 			position: relative;
    	 			top: 50%;
    	 			transform: translateY(-50%);

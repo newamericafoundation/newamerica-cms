@@ -1,5 +1,5 @@
 .in-depth__panel {
-	padding: $desktop-padding;
+	padding: 2*$desktop-padding $desktop-padding;
 	/*text-align: center;*/
 
 	@include desktop-header {
