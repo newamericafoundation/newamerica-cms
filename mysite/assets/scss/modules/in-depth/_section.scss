@@ -1,130 +1,135 @@
 .in-depth__section {
-	$section-header-height: 120px;
+	$section-header-height: 130px;
    $header-right-width: (
-      small: 350px,
-      medium: 500px,
-      large: 750px,
+      small: 300px,
+      medium: 450px,
+      large: 600px,
    );
 	width: 100%;
 	&__header {
-		height: $section-header-height;
-   	 	background-color: palette-get(na-black);
-   	 	color: white;
+      height: 100%;
+	 	background-color: palette-get(na-black);
+	 	color: white;
+	 	padding: $desktop-padding 0px;
 
-   	 	.in-depth__panel__max-width-wrapper {
-   	 		height: $section-header-height;
-   	 	}
+      @include desktop-header {
+         height: $section-header-height;
+         padding: 0px;
 
-   	 	&__left {
-   	 		display: table-cell;
-   	 		padding-left: 200px;
-   	 		position: relative;
-   	 		top: 50%;
-   	 		transform: translateY(-50%);
-   	 		color: white;
-            width: 100%;
+         .in-depth__panel__max-width-wrapper {
+            height: $section-header-height;
+         }
+      }
 
-            /*@media screen and (min-width: 800px) {
-               width: 60%;
-            }*/
+	 	&__left {
+	 		display: inline-block;
+	 		padding-left: 200px;
+	 		
+	 		color: white;
+         width: 100%;
+         @include desktop-header {
+            width: calc(100% - #{map-get($header-right-width, small)});
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+         }
 
-            @include breakpoint(medium) {
-               width: 65%;
-            }
+         @include breakpoint(large) {
+            width:  calc(100% - #{map-get($header-right-width, medium)});
+         }
 
-            @include breakpoint(large) {
-               width: 50%;
-            }
+         @media screen and (min-width: 1200px) {
+            width:  calc(100% - #{map-get($header-right-width, large)});
+         }
 
-   	 		&__prefix {
+	 		&__prefix {
+	 			font-weight: bold;
+	 			font-size: 16px;
+	 			margin-bottom: 0px;
+	 		}
+	 		&__title {
+	 			font-size: 28px;
+	 			font-weight: bold;
+	 			margin-bottom: 0px;
+            line-height: 1.2;
+	 			a {
+	 				color: white;
+	 			}
+	 		}
+	 		
+	 		
+	 	}
+
+	 	&__right {
+	 		float: right;
+	 		height: $section-header-height;
+	 		overflow: hidden;
+	 		position: relative;
+         display: none;
+         padding-left: $desktop-padding;
+         @include desktop-header {
+            display: inline-block;
+	 		   width: map-get($header-right-width, small);
+         }
+	 		@include breakpoint(large) {
+	 			width: map-get($header-right-width, medium);
+	 		}
+
+	 		@media screen and (min-width: 1200px) {
+	 			width: map-get($header-right-width, large);
+	 		}
+	 		
+	 	}
+
+	 	&__item-container {
+	 		height: $section-header-height;
+	 		width: 100%;
+	 		padding: 0px 35px;
+	 		margin: auto;
+	 	}
+
+	 	&__item {
+	 		height: $section-header-height;
+	 		&__text {
+	 			margin-bottom: 0px;
+	 			padding: 10px 10px;
+	 			position: relative;
+	 			top: 50%;
+	 			transform: translateY(-50%);
+	 			line-height: 110%;
+            text-align: center;
+	 			a {
+	 				color: palette-get(na-black-40);
    	 			font-weight: bold;
-   	 			font-size: 16px;
-   	 			margin-bottom: 0px;
-   	 		}
-   	 		&__title {
-   	 			font-size: 28px;
-   	 			font-weight: bold;
-   	 			margin-bottom: 0px;
-   	 			a {
+   	 			font-size: 1.1rem;
+   	 			
+   	 			
+   	 			.active & {
    	 				color: white;
    	 			}
-   	 		}
-   	 		
-   	 		
-   	 	}
+	 			}
+	 		}
+	 	}
 
-   	 	&__right {
-   	 		float: right;
-   	 		height: $section-header-height;
-   	 		overflow: hidden;
-   	 		position: relative;
-   	 		display: none;
+	 	&__arrow__previous, &__arrow__next {
+	 		height: 20px;
+	 		width: 20px;
+	 		position: absolute;
+	 		cursor: pointer;
+	 		z-index: 10;
+	 		svg {
+	 			fill: white;
+	 		}
+	 	}
+	 	&__arrow__previous {
+	 		top: 50%;
+	 		transform: translateY(-50%);
+	 	}
 
-            /*@media screen and (min-width: 800px) {
-               display: inline-block;
-               width: 40%;
-            }*/
-
-            @include breakpoint(medium) {
-               display: inline-block;
-               width: 35%;
-            }
-
-            @include breakpoint(large) {
-               
-               width: 50%;
-            }
-   	 		
-   	 	}
-
-   	 	&__item-container {
-   	 		height: $section-header-height;
-   	 		width: 100%;
-   	 		padding: 0px 35px;
-   	 		margin: auto;
-   	 	}
-
-   	 	&__item {
-   	 		height: $section-header-height;
-   	 		&__text {
-   	 			margin-bottom: 0px;
-   	 			padding: 10px 13px;
-   	 			position: relative;
-   	 			top: 50%;
-   	 			transform: translateY(-50%);
-   	 			line-height: 110%;
-   	 			a {
-   	 				color: palette-get(na-black-40);
-	   	 			font-weight: bold;
-	   	 			font-size: 1.1rem;
-	   	 			
-	   	 			
-	   	 			.active & {
-	   	 				color: white;
-	   	 			}
-   	 			}
-   	 		}
-   	 	}
-
-   	 	&__arrow__previous, &__arrow__next {
-   	 		height: 20px;
-   	 		width: 20px;
-   	 		position: absolute;
-   	 		cursor: pointer;
-   	 		z-index: 10;
-   	 		svg {
-   	 			fill: white;
-   	 		}
-   	 	}
-   	 	&__arrow__previous {
-   	 		top: 50%;
-   	 		transform: translateY(-50%);
-   	 	}
-
-   	 	&__arrow__next {
-   	 		right: 0;
-   	 		top: 50%;
-   	 		transform: translateY(-50%);
-   	 	}
+	 	&__arrow__next {
+	 		right: 0;
+	 		top: 50%;
+	 		transform: translateY(-50%);
+	 	}
 	}
 }
