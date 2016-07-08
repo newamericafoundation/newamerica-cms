@@ -9,8 +9,11 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalKey
 
 
-# Abstract Program class that inherits from Page and provides template
 class AbstractProgram(Page):
+    """
+    Abstract Program class that inherits from Page and is inherited
+    by Program and Subprogram models
+    """
     name = models.CharField(max_length=100, help_text='Name of Program')
     location = models.NullBooleanField(
         help_text='Select if location based program i.e. New America NYC'
@@ -140,8 +143,12 @@ class AbstractProgram(Page):
     def get_context(self, request):
         context = super(AbstractProgram, self).get_context(request)
 
+        # In order to apply different styling to main lead story
+        # versus the other lead stories, we needed to separate them out
         context['other_lead_stories'] = []
 
+        # Solution to account for null values for the stories 
+        # so that the div in the template wouldn't attempt to add styling to nothing
         if self.lead_2:
             context['other_lead_stories'].append(self.lead_2)
         if self.lead_3:
@@ -149,6 +156,8 @@ class AbstractProgram(Page):
         if self.lead_4:
             context['other_lead_stories'].append(self.lead_4)
 
+        # In order to preserve style, minimum and maximum of feature stories is 3
+        # If there are less than 3 feature stories - none show up even if they're added.
         if self.feature_1 and self.feature_2 and self.feature_3:
             context['featured_stories'] = [
                 self.feature_1, self.feature_2, self.feature_3
@@ -159,19 +168,28 @@ class AbstractProgram(Page):
         return context
 
     def get_experts(self):
-        """ Return a list of experts in a program """
+        """ 
+        Method for the Program and Subprogram models to be able to access
+        people from Person model who have been marked as experts  
+        """
         return self.person_set.filter(expert=True).order_by('-title')
 
     def get_subprograms(self):
-        """ Return a list of subprograms in a program """
+        """ 
+        Method that returns the subprograms that live underneath
+        a particular program 
+        """
         return self.get_children().type(Subprogram).live().in_menu()
 
     class Meta:
         abstract = True
 
 
-# Programs model which creates programs
 class Program(AbstractProgram):
+    """
+    Program model which creates the parent program pages 
+    that live under the homepage. 
+    """
     parent_page_types = ['home.HomePage']
     subpage_types = [
     'article.ProgramArticlesPage',
@@ -246,8 +264,12 @@ class ProgramSubprogramRelationship(models.Model):
     ]
 
 
-# Subprograms models which when instantiated can be linked to multiple programs
 class Subprogram(AbstractProgram):
+    """
+    Subprograms model which can be created under programs and 
+    also be connected to multiple programs. Can also create content homepages
+    underneath subprograms in the same way they can be created under programs.
+    """
     parent_page_types = ['programs.Program']
     subpage_types = [
     'article.ProgramArticlesPage',

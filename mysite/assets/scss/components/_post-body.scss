@@ -297,6 +297,7 @@
 }
 
 .post-author {
+  @include limit-body-width;
   color: palette-get(na-black);
   font-size: 16px;
   font-weight:bold;
@@ -308,6 +309,7 @@
 }
 
 .post-date {
+  @include limit-body-width;
   color: palette-get(na-black-70);
   font-size: 14px;
   line-height: 130%;
@@ -316,6 +318,7 @@
 }
 
 .post-source {
+  @include limit-body-width;
   margin-top: 8px;
   font-size: 16px;
   font-weight:bold;

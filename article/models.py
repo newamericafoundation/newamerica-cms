@@ -5,7 +5,7 @@ from home.models import Post
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from mysite.helpers import get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class Article(Post):
@@ -17,7 +17,7 @@ class Article(Post):
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
-    source_url = models.URLField(blank=True, null=True)
+    source_url = models.URLField(max_length=1000, blank=True, null=True)
 
     content_panels = Post.content_panels + [
         FieldPanel('source'),

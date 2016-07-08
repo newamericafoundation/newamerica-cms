@@ -1,5 +1,3 @@
-from django.test import TestCase
-
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page
 
@@ -8,6 +6,7 @@ from .models import Article, ProgramArticlesPage, AllArticlesHomePage
 from home.models import HomePage, PostProgramRelationship
 
 from programs.models import Program, Subprogram
+
 
 class ArticleTests(WagtailPageTests):
     """

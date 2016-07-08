@@ -11,6 +11,9 @@ for template_engine in TEMPLATES:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
+# Timezone settings
+TIME_ZONE = 'America/New_York'
+USE_TZ = True
 
 try:
     from .local import *

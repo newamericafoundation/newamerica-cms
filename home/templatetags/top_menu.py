@@ -21,10 +21,12 @@ def has_menu_children(page):
 @register.inclusion_tag('tags/top_menu.html', takes_context=True)
 def top_menu(context, parent, calling_page=None):
     all_programs = Program.objects.in_menu().order_by("title").exclude(location=True)
+    locations = Program.objects.in_menu().order_by("title").filter(location=True)
 
     return {
         'calling_page': calling_page,
         'programs': all_programs,
+        'location_programs': locations,
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
     }

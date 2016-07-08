@@ -39,6 +39,20 @@ class NAClient:
 				yield post
 
 
+	def get_one_in_the_news_piece(self, post_id):
+		# data_url = self.api_url + '/in-the-news/' + post_id
+
+		# while data_url:
+		# 	response = self.client.get(data_url).json
+
+		# return response
+		endpoint = '/in-the-news/' + post_id
+		for post_set in self.get_data(endpoint):
+			return post_set
+			# for post in post_set['results']:
+			# 	return post
+
+
 	def activate_program(self, program_id):
 		programs_url = self.api_url + 'programs'
 		self.client.get(programs_url)
@@ -193,7 +207,8 @@ class NAClient:
 			self.activate_program(program_id)
 			for post_set in self.get_data('in-the-news'):
 				for post in post_set['results']:
-					yield post, program_id
+					yield post
+
 
 	def get_posts(self):
 		"""
