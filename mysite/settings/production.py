@@ -14,7 +14,7 @@ APPEND_SLASH = True
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Will be changed to final host url
-ALLOWED_HOSTS = ['na-staging.herokuapp.com', 'newamerica.org']
+ALLOWED_HOSTS = ['*']
 
 AWS_QUERYSTRING_AUTH = False
 
