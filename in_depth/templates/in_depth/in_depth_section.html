@@ -47,6 +47,15 @@
 			{% endif %}
 		</div>
 	</div>
+	<div class="in-depth__section__mobile-selector">
+		{% if siblings|length > 1 %}
+			<select class="in-depth__section__mobile-selector__select">
+				{% for sibling in siblings %}
+					<option value="">{{ sibling.title }}</option>
+				{% endfor %}
+			</select>
+		{% endif %}
+	</div>
 	{% if page.generate_title_panel %}
 		<section class="in-depth__panel title-panel" style="background-image: linear-gradient(
 		      rgba(0, 0, 0, 0),

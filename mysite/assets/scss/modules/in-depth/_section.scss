@@ -11,6 +11,7 @@
 	 	background-color: palette-get(na-black);
 	 	color: white;
 	 	padding: $desktop-padding 0px;
+      z-index: 15;
 
       @include desktop-header {
          height: $section-header-height;
@@ -132,4 +133,27 @@
 	 		transform: translateY(-50%);
 	 	}
 	}
+
+   &__mobile-selector {
+      background-color: palette-get(na-black);
+      padding: 0px $desktop-padding $desktop-padding;
+      z-index: 15;
+
+      @include desktop-header {
+         display: none;
+      }
+
+      select {
+         border: 2px solid palette-get(na-black-40);
+         background: url(shape-urls-get(down-arrow-na-white)) no-repeat;
+         background-size: 12px 12px;
+         padding-right: 30px;
+         background-position-y: center;
+         background-position-x: 97%;
+         margin-bottom: 0px;
+         color: white;
+         padding: 0px 15px;
+      }
+      
+   }
 }
