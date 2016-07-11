@@ -77,12 +77,9 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
     # if subprogram
     else:
-        filter_dict = {}
         subprogram_title = self.get_ancestors()[3]
         program = Subprogram.objects.get(title=subprogram_title)
         filter_dict['post_subprogram'] = program
-        # all_posts = content_model.objects.live().filter(post_subprogram=program)
-
 
     if date:
         date_range = json.loads(date)
