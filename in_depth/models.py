@@ -77,9 +77,6 @@ class InDepthSection(Page):
 
     def get_context(self, request):
         context = super(InDepthSection, self).get_context(request)
-        
-        # parent_program = self.get_parent().parent_programs
-        # context['program_logo'] = 
 
         context['project_root'] = self.get_parent()
         siblings = self.get_siblings(inclusive=True).order_by('pk')
@@ -107,8 +104,17 @@ class InDepthProject(Post):
         )
     ], null=True, blank=True)
 
+    project_logo = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     content_panels = Post.content_panels + [
     	StreamFieldPanel('buttons'),
+        ImageChooserPanel('project_logo'),
     ]
 
     def save(self, *args, **kwargs):
