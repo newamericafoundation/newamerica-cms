@@ -64,28 +64,28 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
     search_subprogram = request.GET.get('subprogram_id', None)
     date = request.GET.get('date', None)
 
+    filter_dict = {}
     # if program
     if self.depth == 4:
         program_title = self.get_ancestors()[2]
         program = Program.objects.get(title=program_title)
 
-        filter_dict = {'parent_programs': program}
+        filter_dict['parent_programs'] = program
         if search_subprogram:
             filter_dict['post_subprogram'] = int(search_subprogram)
 
-        all_posts = content_model.objects.live().filter(**filter_dict)
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
     # if subprogram
     else:
         subprogram_title = self.get_ancestors()[3]
         program = Subprogram.objects.get(title=subprogram_title)
-        all_posts = content_model.objects.live().filter(post_subprogram=program)
-
+        filter_dict['post_subprogram'] = program
 
     if date:
         date_range = json.loads(date)
         filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
+    all_posts = content_model.objects.live().filter(**filter_dict)
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
     context['query_url'] = generate_url(request)
     context['program'] = program
