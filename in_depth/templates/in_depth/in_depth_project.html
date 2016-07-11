@@ -25,24 +25,30 @@
 			{% endif %}
 		</div>
 	</section>
-	<section class="in-depth__panel">
-		<div class="in-depth__panel__body post-body">
-			{{ page.body }}
-		</div>
-	</section>
-	<section class="in-depth__panel contents-panel grey">
-		<div class="in-depth__panel__max-width-wrapper">
-			<h3 class="contents-panel__heading">Contents</h3>
-			{% if page.get_children|length > 1 %}
-				<div class="contents-panel__item-container">
-					{% for section in page.get_children.specific %}
-						<div class="contents-panel__item">
-							<h5 class="contents-panel__item__title"><a href="{{ section.url }}">{{ section.title }}</a></h5>
-							<p class="contents-panel__item__description">{{ section.story_excerpt }}</p>
-						</div>
-					{% endfor %}
-				</div>
-			{% endif %}
-		</div>
-	</section>
+
+	{% if page.body %}
+		<section class="in-depth__panel">
+			<div class="in-depth__panel__body post-body">
+				{{ page.body }}
+			</div>
+		</section>
+	{% endif %}
+
+	{% if page.get_children|length > 1 %}
+		<section class="in-depth__panel contents-panel grey">
+			<div class="in-depth__panel__max-width-wrapper">
+				<h3 class="contents-panel__heading">Contents</h3>
+				
+					<div class="contents-panel__item-container">
+						{% for section in page.get_children.specific %}
+							<div class="contents-panel__item">
+								<h5 class="contents-panel__item__title"><a href="{{ section.url }}">{{ section.title }}</a></h5>
+								<p class="contents-panel__item__description">{{ section.story_excerpt }}</p>
+							</div>
+						{% endfor %}
+					</div>
+				
+			</div>
+		</section>
+	{% endif %}
 {% endblock %}

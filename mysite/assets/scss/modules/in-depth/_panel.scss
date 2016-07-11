@@ -48,6 +48,8 @@
 	margin-right: -$desktop-padding;
 	padding: 0px $desktop-padding;
 	text-align: center;
+	position: relative;
+	z-index: 15;
 
 	@include breakpoint(medium) {
 		height: 700px;

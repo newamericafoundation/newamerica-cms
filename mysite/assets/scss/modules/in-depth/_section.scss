@@ -12,6 +12,7 @@
 	 	color: white;
 	 	padding: $desktop-padding 0px;
       z-index: 15;
+      position: relative;
 
       @include desktop-header {
          height: $section-header-height;
@@ -22,12 +23,16 @@
          }
       }
 
-	 	&__left {
+	 	&__middle {
 	 		display: inline-block;
-	 		padding-left: 200px;
 	 		
 	 		color: white;
          width: 100%;
+
+         @include breakpoint(medium) {
+            padding-left: 200px;
+         }
+
          @include desktop-header {
             width: calc(100% - #{map-get($header-right-width, small)});
             position: relative;
@@ -138,6 +143,7 @@
       background-color: palette-get(na-black);
       padding: 0px $desktop-padding $desktop-padding;
       z-index: 15;
+      position: relative;
 
       @include desktop-header {
          display: none;
