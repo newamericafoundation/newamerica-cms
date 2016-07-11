@@ -7,7 +7,7 @@ import $ from 'jquery'
 export default function() {
 	addSectionHeaderInteraction();
 	inDepthPanelScroll();
-
+	// changeHashOnScroll();
 }
 
 function addSectionHeaderInteraction() {
@@ -58,27 +58,46 @@ function toggleArrowDisplay() {
 	}
 }
 
-function resizeTitlePanelBackground() {
+// function changeHashOnScroll() {
+// 	console.log("calling function to add hash on scroll");
+//     $(document).scroll( function() {
+// 	    $('.in-depth__panel').each(function(){
+// 	    	console.log($(this).attr('id'));
+// 	    	console.log($(this).offset().top);
+// 	        if (
+// 	           $(this).offset().top < window.pageYOffset + 10
+// 	//begins before top
+// 	        && $(this).offset().top + $(this).height() > window.pageYOffset + 10
+// 	//but ends in visible area
+// 	//+ 10 allows you to change hash before it hits the top border
+// 	        ) {
+// 	            window.location.hash = $(this).attr('id');
+// 	        }
+// 	    });
+// 	});
+// }
+
+// function resizeTitlePanelBackground() {
 	
-	$(document).ready(function(){
-		setTitlePanelBackgroundOverflow();
-	});
+// 	$(document).ready(function(){
+// 		setTitlePanelBackgroundOverflow();
+// 	});
 
-	$(window).resize(function(){
-		setTitlePanelBackgroundOverflow();
-	});
-}
+// 	$(window).resize(function(){
+// 		setTitlePanelBackgroundOverflow();
+// 	});
+// }
 
-function setTitlePanelBackgroundOverflow() {
-	var maxSiteWidth = 1350;
+// function setTitlePanelBackgroundOverflow() {
+// 	var maxSiteWidth = 1350;
 
-	var $windowWidth = $(window).width();
-	if ($windowWidth > maxSiteWidth) {
-		var overflow = ($windowWidth - maxSiteWidth)/2 + 25;
-		console.log(overflow);
-		$(".title-panel").css("margin-left", overflow * -1).css("margin-right", overflow * -1).css("padding-left", overflow).css("padding-right", overflow);
-	}
-}
+// 	var $windowWidth = $(window).width();
+// 	if ($windowWidth > maxSiteWidth) {
+// 		var overflow = ($windowWidth - maxSiteWidth)/2 + 25;
+// 		console.log(overflow);
+// 		$(".title-panel").css("margin-left", overflow * -1).css("margin-right", overflow * -1).css("padding-left", overflow).css("padding-right", overflow);
+// 	}
+// }
 
 function inDepthPanelScroll() {
 	var contentSections = $('.in-depth__panel'),
@@ -112,10 +131,11 @@ function inDepthPanelScroll() {
 	function updateNavigation() {
 		contentSections.each(function(){
 			var $this = $(this);
-			var activeSection = $('#cd-vertical-nav a[href="#'+$this.attr('id')+'"]').data('number') - 1;
+			var activeSection = $('#cd-vertical-nav a[href="#'+$this.attr('id')+'"]').data('number');
 			if ( ( $this.offset().top - $(window).height()/2 < $(window).scrollTop() ) && ( $this.offset().top + $this.height() - $(window).height()/2 > $(window).scrollTop() ) ) {
 				navigationItems.eq(activeSection).addClass('is-selected');
-			}else {
+				// window.location.hash = $this.attr('id');
+			} else {
 				navigationItems.eq(activeSection).removeClass('is-selected');
 			}
 		});
@@ -123,7 +143,7 @@ function inDepthPanelScroll() {
 
 	function smoothScroll(target) {
         $('body,html').animate(
-        	{'scrollTop':target.offset().top},
+        	{'scrollTop':target.offset().top - 70},
         	600
         );
 	}

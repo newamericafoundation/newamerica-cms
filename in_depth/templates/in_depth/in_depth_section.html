@@ -10,9 +10,18 @@
 {% block content %}
 	<nav id="cd-vertical-nav">
 		<ul>
+			{% if page.generate_title_panel %}
+				<li>
+					<a href="#title-panel" data-number="0">
+						<span class="cd-dot"></span>
+						<span class="cd-label">Title Panel</span>
+					</a>
+				</li>
+			{% endif %}
+
 			{% for panel in page.panels %}
 				<li>
-					<a href="#{{ panel.value.panel_title|slugify }}" data-number="{{ forloop.counter }}">
+					<a href="#{{ panel.value.panel_title|slugify }}" data-number="{% if page.generate_title_panel %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %} ">
 						<span class="cd-dot"></span>
 						<span class="cd-label">{{ panel.value.panel_title }}</span>
 					</a>
@@ -57,7 +66,7 @@
 		{% endif %}
 	</div>
 	{% if page.generate_title_panel %}
-		<section class="in-depth__panel title-panel" style="background-image: linear-gradient(
+		<section id="title-panel" class="in-depth__panel title-panel" style="background-image: linear-gradient(
 		      rgba(0, 0, 0, 0),
 		      rgba(0, 0, 0, 0.3)
 		    ), 
