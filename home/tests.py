@@ -235,21 +235,3 @@ class HomeTests(WagtailPageTests):
             self.home_page.get_children().filter(
             title='Subscribe Page Test')[0].content_type
         )
-
-    def test_adding_newsletter_to_subscribe_page(self):
-        newsletter = {
-                'type':'subscription',
-                'value': {
-                    'title':'First Newsletter',
-                    'description':'This is the description',
-                    'id':'sdfhie',
-                    'checked_by_default':'False'
-                }
-            }
-
-        subscribe_page = SubscribePage(
-            title='Subscribe Page Test',
-            newsletter_subscriptions=newsletter
-        )
-        
-        self.home_page.add_child(instance=subscribe_page)
