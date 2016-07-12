@@ -156,9 +156,13 @@ Main components
 
 .no-touch #cd-vertical-nav {
 	position: fixed;
-	right: 15px;
 	@include center(y); // see partials > _mixins.scss
 	z-index: 1;
+	right: 15px;
+
+	@include breakpoint(large) {
+		right: 30px;
+	}
 
 	li {
 		text-align: right;

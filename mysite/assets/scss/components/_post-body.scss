@@ -140,9 +140,9 @@
   }
 
   .block-paragraph {
-    .rich-text {
+    /*.rich-text {*/
       @include limit-body-width;
-    }
+    /*}*/
     img {
       padding: $media-padding 25px;
     }

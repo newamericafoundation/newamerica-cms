@@ -13,12 +13,12 @@
 	padding: 2*$desktop-padding $desktop-padding;
 	/*text-align: center;*/
 
-	@include desktop-header {
+	/*@include desktop-header {
 		margin-left: -1000px;
    	 	margin-right: -1000px;
    	 	padding-left: 1000px;
    	 	padding-right: 1000px;
-	}
+	}*/
 	
    &__max-width-wrapper {
     	max-width: $max-site-width;
@@ -46,9 +46,11 @@
 		margin: auto;
 	}
 
-	&__body {
-		max-width: $max-body-width;
-		margin: auto;	
+	&__body > *, .block-iframe__max-bounds-container {
+		margin-left: auto;
+		margin-right: auto;
+
+
 	}
 }
 
@@ -108,6 +110,7 @@
 }
 
 .contents-panel {
+
 	&__heading {
 		@include page-subheading-text(grey);
 		padding-bottom: $desktop-padding;
