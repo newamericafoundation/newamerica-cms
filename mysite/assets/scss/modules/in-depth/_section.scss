@@ -9,16 +9,16 @@
 
 	width: 100%;
 	&__header {
-      height: 100%;
 	 	background-color: palette-get(na-black);
 	 	color: white;
-	 	padding: $desktop-padding 0px;
+	 	padding: $desktop-padding;
       z-index: 15;
       position: relative;
 
       @include desktop-header {
          height: $section-header-height;
-         padding: 0px;
+         padding-top: 0px;
+         padding-bottom: 0px;
 
          .in-depth__panel__max-width-wrapper {
             height: $section-header-height;
@@ -47,11 +47,13 @@
          &__logo {
             width: $header-logo-width;
             padding-bottom: $desktop-padding;
+            float: left;
+            padding-bottom: 0px;
+            margin-right: $desktop-padding;
+            display: none;
 
             @include breakpoint(medium) {
-               float: left;
-               padding-bottom: 0px;
-               margin-right: $desktop-padding;
+               display: inline-block;
             }
 
             @include desktop-header {

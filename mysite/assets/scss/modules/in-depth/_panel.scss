@@ -1,3 +1,14 @@
+@mixin panel-title-text {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2rem;
+	line-height: 1.2;
+
+	@include breakpoint(medium) {
+		font-size: 3rem;
+	}
+}
+
 .in-depth__panel {
 	padding: 2*$desktop-padding $desktop-padding;
 	/*text-align: center;*/
@@ -13,7 +24,7 @@
     	max-width: $max-site-width;
     	margin: auto;
     	width: 100%;
-    	padding: 0px $desktop-padding;
+    	padding: 0px;
     }
 
 	&.white {
@@ -30,7 +41,9 @@
 		
 	}
 	&__title {
-		text-align: center;
+		@include panel-title-text;
+		max-width: $max-body-width;
+		margin: auto;
 	}
 
 	&__body {
@@ -43,7 +56,6 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 50% 50%;
-	height: 100%;
 	margin-left: -$desktop-padding;
 	margin-right: -$desktop-padding;
 	padding: 0px $desktop-padding;
@@ -72,14 +84,13 @@
 	}
 
 	&__title {
-		font-weight: bold;
-		font-size: 3rem;
+		@include panel-title-text;
 	}
 
 	&__subheading {
 		font-weight: normal;
 		font-size: 1.3rem;
-		
+		line-height: 1.2;
 	}
 
 	&__button-container {
