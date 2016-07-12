@@ -84,284 +84,35 @@
 
 					<!-- The newsletter ID appears after the word 'list' in the input id, and after the letters 'cm-ol-' in the input name -->
 					<div class="row">
+						{% for subscription in page.newsletter_subscriptions %}
 						<div class="small-12 medium-6 large-4 columns">
 							<div class="subscribe-page__list__entry">
 								<label class="control control--checkbox">
-									<input id="listtkthhd" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthhd" type="checkbox" checked/>
+									<input id="list{{ subscription.value.id }}" class="subscribe-page__list__entry__checkbox" name="cm-ol-{{ subscription.value.id }}" type="checkbox" {% if subscription.value.checked_by_default %}checked{% endif %}/>
 									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">New America Weekly</h5>
-									<p class="subscribe-page__list__entry__description">New America's weekly digital magazine, distributed Thursdays, featuring our big ideas and innovative thinking.</p>
+									<h5 class="subscribe-page__list__entry__title">{{ subscription.value.title }}</h5>
+									<p class="subscribe-page__list__entry__description">{{ subscription.value.description }}</p>
 							   	</label>
 							</div>
 						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listkjhtji" class="subscribe-page__list__entry__checkbox" name="cm-ol-kjhtji" type="checkbox" checked/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">The Week Ahead</h5>
-									<p class="subscribe-page__list__entry__description">Our Monday digest of what's happening this week at New America.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthyk" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthyk" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Assets Update</h5>
-									<p class="subscribe-page__list__entry__description">Occasional updates on new papers, events, and articles from New America's Asset Building Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthtl" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtl" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Your Life, Better</h5>
-									<p class="subscribe-page__list__entry__description">Our weekly newsletter on making your life better at work and home, plus Better Life Lab event updates.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listikjhuh" class="subscribe-page__list__entry__checkbox" name="cm-ol-ikjhuh" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Global Cyber Quarterly Update</h5>
-									<p class="subscribe-page__list__entry__description">Our quarterly newsletter on the Cybersecurity Initiative.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listirluv" class="subscribe-page__list__entry__checkbox" name="cm-ol-irluv" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">DLL National Work Group Newsletter</h5>
-									<p class="subscribe-page__list__entry__description">Our newsletter on dual language learners, distributed every Monday.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthtd" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtd" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Early &amp; Elementary Ed Update</h5>
-									<p class="subscribe-page__list__entry__description">Our weekly newsletter on early and elementary education, distributed every Tuesday.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthtt" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtt" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Education Weekly &amp; Highlights</h5>
-									<p class="subscribe-page__list__entry__description">Our Education Weekly and Highlights newsletters, plus Education Policy event updates.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listkhjjid" class="subscribe-page__list__entry__checkbox" name="cm-ol-khjjid" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Fresh Press</h5>
-									<p class="subscribe-page__list__entry__description">Our monthly newsletter updating you on the latest and greatest coming out of New America CA, plus event updates.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listdyjtn" class="subscribe-page__list__entry__checkbox" name="cm-ol-dyjtn" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Food and Farming</h5>
-									<p class="subscribe-page__list__entry__description">Our newsletter on Food and Farming.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listjdjrz" class="subscribe-page__list__entry__checkbox" name="cm-ol-jdjrz" type="checkbox" />
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Natural Security</h5>
-									<p class="subscribe-page__list__entry__description">Blogging at the corner of national security and natural resources.</p>
-							   	</label>
-							</div>
-						</div>
-						
+						{% endfor %}
 					</div>
 
 				</div>
 				<div class="tabs-panel" id="panel2">
 					<div class="row">
+						{% for subscription in page.event_subscriptions %}
 						<div class="small-12 medium-6 large-4 columns">
 							<div class="subscribe-page__list__entry">
 								<label class="control control--checkbox">
-									<input id="listtkthyk" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthyk" type="checkbox"/>
+									<input id="list{{ subscription.value.id }}" class="subscribe-page__list__entry__checkbox" name="cm-ol-{{ subscription.value.id }}" type="checkbox" {% if subscription.value.checked_by_default %}checked{% endif %}/>
 									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Asset Building</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Asset Building Program.</p>
+									<h5 class="subscribe-page__list__entry__title">{{ subscription.value.title }}</h5>
+									<p class="subscribe-page__list__entry__description">{{ subscription.value.description }}</p>
 							   	</label>
 							</div>
 						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthtl" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtl" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Better Life Lab</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Better Life Lab.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listiudktd" class="subscribe-page__list__entry__checkbox" name="cm-ol-iudktd" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Bretton Woods II</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Bretton Woods II Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listikjyut" class="subscribe-page__list__entry__checkbox" name="cm-ol-ikjyut" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Cybersecurity</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Cybersecurity Initiative.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthtt" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtt" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Education Policy</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Education Policy Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthtu" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthtu" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Fellows</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Fellows Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthiy" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthiy" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Future Tense</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Future Tense Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthii" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthii" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">International Security</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our International Security Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listkhjjid" class="subscribe-page__list__entry__checkbox" name="cm-ol-khjjid" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">New America CA</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from New America CA.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthiu" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthiu" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">New America NYC</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from New America NYC.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthdr" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthdr" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Open Markets</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Open Markets Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthdt" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthdt" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Open Technology Institute</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Open Technology Institute.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listtkthdh" class="subscribe-page__list__entry__checkbox" name="cm-ol-tkthdh" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Political Reform</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Political Reform Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listijcm" class="subscribe-page__list__entry__checkbox" name="cm-ol-ijcm" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Profits and Purpose</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Profits and Purpose Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listdybti" class="subscribe-page__list__entry__checkbox" name="cm-ol-dybti" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Resilient Communities</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Resilient Communities Program.</p>
-							   	</label>
-							</div>
-						</div>
-						<div class="small-12 medium-6 large-4 columns">
-							<div class="subscribe-page__list__entry">
-								<label class="control control--checkbox">
-									<input id="listkyvjk" class="subscribe-page__list__entry__checkbox" name="cm-ol-kyvjk" type="checkbox"/>
-									<div class="control__indicator"></div>
-									<h5 class="subscribe-page__list__entry__title">Resource Security</h5>
-									<p class="subscribe-page__list__entry__description">Events updates from our Resource Security Program.</p>
-							   	</label>
-							</div>
-						</div>
-
-						
+						{% endfor %}
 					</div>
 				</div>
 			</div>
@@ -370,10 +121,6 @@
 
 			<button class="button" type="submit" value="Submit">Submit</button>
 		</form>
-
-		
-
-
 
 	</div>
 
