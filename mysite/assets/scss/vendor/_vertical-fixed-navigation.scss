@@ -225,20 +225,21 @@ Main components
 
 .touch .cd-nav-trigger {
 	display: block;
-	z-index: 2;
+	z-index: 100;
 	position: fixed;
 	bottom: 30px;
 	right: 5%;
 	height: 44px;
 	width: 44px;
 	@include border-radius;
-	background: rgba($color-4, .9);
+	background: white;
+	box-shadow: 0 0 1px 0 palette-get(na-turquoise), 0 1px 10px 0 rgba(48, 188, 179, .5);
 
 	span {
 		position: absolute;
 		height: 4px;
 		width: 4px;
-		background-color: $color-1;
+		background-color: grey;
 		border-radius: 50%;
 		@include center;
 
@@ -264,7 +265,7 @@ Main components
 
 .touch #cd-vertical-nav {
 	position: fixed;
-	z-index: 1;
+	z-index: 100;
 	right: 5%;
 	bottom: 30px;
 	width: 90%;
@@ -277,7 +278,12 @@ Main components
 	@include transition-property(transform);
 	@include transition-duration(.2s);
 	@include border-radius;
-	background-color: rgba($color-4, .9);
+	background-color: rgba($color-4, .95);
+	box-shadow: 0 0 1px 0 palette-get(na-turquoise), 0 1px 10px 0 rgba(48, 188, 179, .5);
+
+	li {
+		width: 100%;
+	}
 
 	a {
 		display: block;
@@ -289,7 +295,7 @@ Main components
 		}
 
 		&.is-selected span:last-child {
-			color: $color-3;
+			color: palette-get(na-turquoise);
 		}
 	}
 	

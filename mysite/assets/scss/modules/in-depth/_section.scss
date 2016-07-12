@@ -109,6 +109,7 @@
 	 		position: relative;
          display: none;
          padding-left: $desktop-padding;
+
          @include desktop-header {
             display: inline-block;
 	 		   width: map-get($header-right-width, small);
