@@ -1,5 +1,5 @@
 .in-depth__section {
-	$section-header-height: 130px;
+	$section-header-height: 140px;
    $header-right-width: (
       small: 300px,
       medium: 450px,
@@ -33,9 +33,7 @@
 
          @include desktop-header {
             width: calc(100% - #{map-get($header-right-width, small)});
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
+            height: $section-header-height;
          }
 
          @include breakpoint(large) {
@@ -56,6 +54,12 @@
                margin-right: $desktop-padding;
             }
 
+            @include desktop-header {
+               position: relative;
+               top: 50%;
+               transform: translateY(-50%);
+            }
+
             .sidemenu__logo {
                margin: 0px;
             }
@@ -68,6 +72,12 @@
 
             @include breakpoint(medium) {
                width: calc(100% - #{$header-logo-width} - #{$desktop-padding});
+            }
+
+            @include desktop-header {
+               position: relative;
+               top: 50%;
+               transform: translateY(-50%);
             }
          }
 
