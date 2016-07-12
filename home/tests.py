@@ -3,7 +3,7 @@ from django.test import Client
 from django.http import HttpResponsePermanentRedirect
 
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 
 from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
 
@@ -41,10 +41,15 @@ class HomeTests(WagtailPageTests):
 
     def setUp(self):
         self.login()
+        site = Site.objects.get()
+        page = Page.get_first_root_node()
+        home = HomePage(title='New America')
+        self.home_page = page.add_child(instance=home)
         self.root_page = Page.objects.get(id=1)
-        self.home_page = self.root_page.add_child(instance=HomePage(
-            title='New America')
-        )
+
+        site.root_page = home
+        site.save()
+
         self.program_page = self.home_page.add_child(
             instance=Program(
                 title='OTI',
@@ -221,3 +226,13 @@ class HomeTests(WagtailPageTests):
         c = Client()
         response = c.get('http://localhost:8000/simple/google')
         self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
+
+    def test_adding_subscribe_page(self):
+        subscribe_page = SubscribePage(
+            title='Subscribe Page Test'
+        )
+        self.home_page.add_child(instance=subscribe_page)
+        self.assertEqual(subscribe_page.content_type, 
+            self.home_page.get_children().filter(
+            title='Subscribe Page Test')[0].content_type
+        )

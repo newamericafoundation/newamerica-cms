@@ -306,6 +306,29 @@ class SubscribePage(OrgSimplePage):
     """
     parent_page_types = ['home.HomePage']
 
+    newsletter_subscriptions = StreamField([
+        ('subscription', blocks.StructBlock([
+            ('title', blocks.CharBlock(required=True)),
+            ('description', blocks.CharBlock(required=False, max_length=120)),
+            ('id', blocks.CharBlock(required=True, max_length=6, help_text="Enter the unique campaign monitor ID")),
+            ('checked_by_default', blocks.BooleanBlock(default=False, required=False, help_text="Controls whether subscription is checked by default on the Subscribe Page"))
+        ], icon='placeholder'))
+    ], null=True, blank=True)
+
+    event_subscriptions = StreamField([
+        ('subscription', blocks.StructBlock([
+            ('title', blocks.CharBlock(required=True)),
+            ('description', blocks.CharBlock(required=False, max_length=120)),
+            ('id', blocks.CharBlock(required=True, max_length=6, help_text="Enter the unique campaign monitor ID")),
+            ('checked_by_default', blocks.BooleanBlock(default=False, required=False, help_text="Controls whether subscription is checked by default on the Subscribe Page"))
+        ], icon='placeholder'))
+    ], null=True, blank=True)
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('newsletter_subscriptions'),
+        StreamFieldPanel('event_subscriptions')
+    ]
+
 
 class PostAuthorRelationship(models.Model):
     """
