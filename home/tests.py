@@ -19,6 +19,8 @@ from blog.models import AllBlogPostsHomePage
 
 from book.models import AllBooksHomePage
 
+from in_depth.models import AllInDepthHomePage
+
 from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage
 
 from podcast.models import AllPodcastsHomePage
