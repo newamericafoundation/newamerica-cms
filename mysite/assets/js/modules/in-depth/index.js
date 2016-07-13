@@ -1,17 +1,22 @@
 import $ from 'jquery'
 /*
-
+	in-depth/index.js - adds in-depth section header interaction, 
+		- implements slick carousel - documentation: http://kenwheeler.github.io/slick/
 
 */
 
 export default function() {
 	addSectionHeaderInteraction();
 	inDepthPanelScroll();
-	// changeHashOnScroll();
 }
 
+/*
+
+	Implements slick carousel for in-depth section header, adds event listener and calls initially 
+		helper function to toggle carousel arrows on scroll
+
+*/
 function addSectionHeaderInteraction() {
-	Foundation.MediaQuery.get('desktop-header')
 	$(document).ready(function(){
 		$('.in-depth__section__header__item-container').slick({
 			prevArrow: ".in-depth__section__header__arrow__previous",
@@ -36,11 +41,16 @@ function addSectionHeaderInteraction() {
 			]
 		}).on('afterChange', toggleArrowDisplay);
 
-		//
+		// calls helper function on page load to show/hide scroll arrows
 		toggleArrowDisplay();
 	});
 }
 
+/*
+
+	Helper function that shows/hides carousel arrows if at either end of carousel options
+
+*/
 function toggleArrowDisplay() {
 	var $firstChild = $(".in-depth__section__header__item:first-child");
 	var $lastChild = $(".in-depth__section__header__item:last-child");
@@ -58,46 +68,12 @@ function toggleArrowDisplay() {
 	}
 }
 
-// function changeHashOnScroll() {
-// 	console.log("calling function to add hash on scroll");
-//     $(document).scroll( function() {
-// 	    $('.in-depth__panel').each(function(){
-// 	    	console.log($(this).attr('id'));
-// 	    	console.log($(this).offset().top);
-// 	        if (
-// 	           $(this).offset().top < window.pageYOffset + 10
-// 	//begins before top
-// 	        && $(this).offset().top + $(this).height() > window.pageYOffset + 10
-// 	//but ends in visible area
-// 	//+ 10 allows you to change hash before it hits the top border
-// 	        ) {
-// 	            window.location.hash = $(this).attr('id');
-// 	        }
-// 	    });
-// 	});
-// }
+/*
 
-// function resizeTitlePanelBackground() {
-	
-// 	$(document).ready(function(){
-// 		setTitlePanelBackgroundOverflow();
-// 	});
+	Implements vertical fixed navigation interaction on scroll - using code from/based off of example 
+		found here: https://codyhouse.co/gem/vertical-fixed-navigation/
 
-// 	$(window).resize(function(){
-// 		setTitlePanelBackgroundOverflow();
-// 	});
-// }
-
-// function setTitlePanelBackgroundOverflow() {
-// 	var maxSiteWidth = 1350;
-
-// 	var $windowWidth = $(window).width();
-// 	if ($windowWidth > maxSiteWidth) {
-// 		var overflow = ($windowWidth - maxSiteWidth)/2 + 25;
-// 		console.log(overflow);
-// 		$(".title-panel").css("margin-left", overflow * -1).css("margin-right", overflow * -1).css("padding-left", overflow).css("padding-right", overflow);
-// 	}
-// }
+*/
 
 function inDepthPanelScroll() {
 	var contentSections = $('.in-depth__panel'),
@@ -112,18 +88,12 @@ function inDepthPanelScroll() {
         event.preventDefault();
         smoothScroll($(this.hash));
     });
-    //smooth scroll to second section
-    $('.cd-scroll-down').on('click', function(event){
-        event.preventDefault();
-        smoothScroll($(this.hash));
-    });
 
     //open-close navigation on touch devices
     $('.touch .cd-nav-trigger').on('click', function(){
     	$('.touch #cd-vertical-nav').toggleClass('open');
-  
     });
-    //close navigation on touch devices when selectin an elemnt from the list
+    //close navigation on touch devices when selecting an element from the list
     $('.touch #cd-vertical-nav a').on('click', function(){
     	$('.touch #cd-vertical-nav').removeClass('open');
     });
@@ -134,7 +104,6 @@ function inDepthPanelScroll() {
 			var activeSection = $('#cd-vertical-nav a[href="#'+$this.attr('id')+'"]').data('number');
 			if ( ( $this.offset().top - $(window).height()/2 < $(window).scrollTop() ) && ( $this.offset().top + $this.height() - $(window).height()/2 > $(window).scrollTop() ) ) {
 				navigationItems.eq(activeSection).addClass('is-selected');
-				// window.location.hash = $this.attr('id');
 			} else {
 				navigationItems.eq(activeSection).removeClass('is-selected');
 			}
