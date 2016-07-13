@@ -71,6 +71,7 @@ def generate_byline(ptype, authors):
 	num_authors = len(authors)
 	ret_string = ""
 
+	sorted_authors = sorted(authors, key=lambda author: author.pk)
 
 	# events and press releases have no authors and therefore no byline
 	if post_type == "event" or post_type == "press release":
@@ -80,7 +81,7 @@ def generate_byline(ptype, authors):
 
 	# counter is used to determine appropriate list separator
 	counter = 1
-	for author in authors:
+	for author in sorted_authors:
 		ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
 		ret_string += list_separator(num_authors - counter)
 		counter += 1
