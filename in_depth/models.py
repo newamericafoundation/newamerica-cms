@@ -79,7 +79,7 @@ class InDepthSection(Page):
         context = super(InDepthSection, self).get_context(request)
 
         context['project_root'] = self.get_parent()
-        siblings = self.get_siblings(inclusive=True).order_by('pk')
+        siblings = self.get_siblings(inclusive=True).live().order_by('pk')
         context['index'] = siblings.filter(pk__lt = self.pk).count()
         context['siblings'] = siblings
         return context
