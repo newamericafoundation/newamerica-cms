@@ -200,6 +200,7 @@ class HomePage(Page):
         else:
             context['featured_stories'] = []
 
+        # uses get_model instead of traditional import to avoid circular import
         Event = apps.get_model('event', 'Event')
 
         eastern = timezone('US/Eastern')
