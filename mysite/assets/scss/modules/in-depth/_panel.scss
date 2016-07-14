@@ -13,10 +13,9 @@
 	padding: 2*$desktop-padding $desktop-padding;
 	
    &__max-width-wrapper {
-    	max-width: $max-site-width;
+    	max-width: $max-site-width - 2*$desktop-padding;
     	margin: auto;
     	width: 100%;
-    	padding: 0px;
     }
 
 	&.white {

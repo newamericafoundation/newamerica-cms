@@ -72,8 +72,10 @@
             display: inline-block;
             width: 100%;
 
-            @include breakpoint(medium) {
-               width: calc(100% - #{$header-logo-width} - #{$desktop-padding});
+            &.has-logo {
+               @include breakpoint(medium) {
+                  width: calc(100% - #{$header-logo-width} - #{$desktop-padding});
+               }
             }
 
             @include desktop-header {
