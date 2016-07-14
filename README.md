@@ -5,9 +5,9 @@ Custom Content Management System (CMS) built for New America
 
 - Install and create your virtual environment. One option: (http://virtualenvwrapper.readthedocs.org/en/latest/index.html)
 
-- Clone github repo
+- Clone the github repo and change into the repo directory
 
-- Get the requirements.txt and .env files from one of the developers and add both to your root directory of the CMS - as in, where the manage.py file lives
+- Once inside the repo and your virtual environment, get a sample environment variables file from dev team and create your own environment variables file in your root directory (as in, where the manage.py file lives). Name of this file is usually ".env". Copy paste contents from sample file here. You will need to customize the DATABASE_URL to match the database you will create shortly below.
 
 - Install pip if you don't have it: (https://pip.pypa.io/en/stable/installing/)
 
@@ -29,14 +29,13 @@ createdb newamerica
 psql -d newamerica -c "CREATE USER newamerica WITH PASSWORD '<<PASSWORD>>';"
 ```
 
-- Updated the DATABASE_URL in the .env file with the Postgres url indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
+- Update the DATABASE_URL in your environment variables file with the Postgres URL indicating the password you set. Format for URL is postgres://USER:PASSWORD@HOST:PORT/NAME
 
 
 - Load your environment variables:
 ```bash
-source .env
+source fake_env_file_name.env
 ```
-
 
 - Migrate your database:
 ```bash
@@ -69,7 +68,7 @@ python manage.py loaddata fixture.json
 python manage.py runserver
 ```
 
-- In your browser, go to the site at (127.0.0.1:8000/admin) and log in with username: admin and password: admin
+- In your browser, go to the site at (127.0.0.1:8000/admin) and log in with username: admin and password: admin. These are the default credentials provided through the fixture.
 
 
 
@@ -93,13 +92,6 @@ To compile front-end assets in production, run the one-time command:
 
 Note: ``npm run ...`` commands are shorthands for more complex commands mapped under the ``scripts`` key of ``package.json``.
 
-### Frontend test server
-
-There is a separate, tiny Express server used solely to test HTML and CSS without the need to have Python, Django or Postgres configured. Run it by simply typing:
-
-	npm run testserver
-
-Its code is under ``/mysite/testserver``.
 
 ### Stylesheets
 
@@ -115,7 +107,7 @@ The build procedure above allows client-side scripts to be built in CommonJS mod
 
 ### Images
 
-The ``./mysite/assets/images`` folder contains images in development.
+The ``./mysite/assets/images`` folder contains images in development. In staging and proudction environments they are stored in s3 buckets on AWS.
 
 #### Icons
 

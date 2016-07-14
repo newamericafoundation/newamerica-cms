@@ -53,36 +53,36 @@
 		</div>
 
     {% if topics %}
-    	<hr>
+    	<div class="issue-grid-container">
+	  		<hr>
+	    	<div class="row issue-grid">
+			    {% for topic in topics %}
+			    	{% if forloop.counter0|divisibleby:2 %}
+			    		<div class="row">
+			    	{% endif %}
+					    	<div class="small-12 medium-6 column issue-grid__entry">
+						    	<h5 class="issue-grid__entry__title"><a href="{{ topic.url }}">{{ topic.title }}</a></h5>
+						    	<p class="issue-grid__entry__text">{{ topic.specific.story_excerpt }}</p>
 
-    	<div class="row issue-grid">
-		    {% for topic in topics %}
-		    	{% if forloop.counter0|divisibleby:2 %}
-		    		<div class="row">
-		    	{% endif %}
-				    	<div class="small-12 medium-6 column issue-grid__entry">
-					    	<h5 class="issue-grid__entry__title"><a href="{{ topic.url }}">{{ topic.title }}</a></h5>
-					    	<p class="issue-grid__entry__text">{{ topic.specific.story_excerpt }}</p>
-
-					    	{% if topic.get_children %}
-					    		<p>Topics:
-						    		<ul class="issue-grid__entry__child-list">
-							    		{% for child_topic in topic.get_children %}
-							    			<li class="issue-grid__entry__child">&bull;<!--
-							    			--><a class="issue-grid__entry__child__link" href="{{ child_topic.url }}">{{ child_topic.title }}</a>
-							    			</li>
-							    		{% endfor %}
-						    		</ul>
-					    		</p>
-					    	{% endif %}
-					    </div>
-			    {% if forloop.counter|divisibleby:2 %}
-		    		</div>
-		    	{% endif %}
-			    
-		    {% endfor %}
+						    	{% if topic.get_children %}
+						    		<p>Topics:
+							    		<ul class="issue-grid__entry__child-list">
+								    		{% for child_topic in topic.get_children %}
+								    			<li class="issue-grid__entry__child">&bull;<!--
+								    			--><a class="issue-grid__entry__child__link" href="{{ child_topic.url }}">{{ child_topic.title }}</a>
+								    			</li>
+								    		{% endfor %}
+							    		</ul>
+						    		</p>
+						    	{% endif %}
+						    </div>
+				    {% if forloop.counter|divisibleby:2 %}
+			    		</div>
+			    	{% endif %}
+				    
+			    {% endfor %}
+			</div>
 		</div>
-
 	{% endif %}
 	</div>
 {% endblock %}

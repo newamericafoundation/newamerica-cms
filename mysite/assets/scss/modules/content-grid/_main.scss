@@ -128,16 +128,6 @@ $submit-width: 200px;
 			}
 		}
 
-		select {
-			padding-right: 30px;
-			background-position-y: center;
-			background-position-x: 97%;
-
-			@include breakpoint(medium) {
-				background-position-x: 95%;
-			}
-		}
-
 		&__buttons {
 			margin: 10px 0px 25px 0px;
 

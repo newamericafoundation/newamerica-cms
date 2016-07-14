@@ -1,3 +1,9 @@
+.jobs-page {
+  .post-container {
+    @include limit-body-width;
+  }
+}
+
 .resumator-job-title {
   font-weight: bold !important;
   font-size: 26px !important;

@@ -134,6 +134,7 @@
 	    
 	    {% if authors %}
 		<h1 class="post-subheading">{% get_author_block_prefix page.content_type authors %}</h1>
+		<div class="post-person-container">
 			{% for author in authors %}
 				{% if author.author.profile_image %}
 					<a href="{{ author.author.url }}">
@@ -169,7 +170,7 @@
 				{% endif %}
 			
 			{% endfor %}
-
+		</div>
 		{% endif %}	
 		
 	</div>

@@ -1,11 +1,16 @@
 .blog-lead-story {
 	width: 100%;
-	margin-top: $desktop-padding;
+	margin-top: -15px;
 	height: 225px;
 	display: none;
 
 	.hero-grid__element__text-bar {
 		max-height: none;
+		max-width: 950px;
+		* {
+			color: white;
+			margin-bottom: 10px;
+		}
 	}
 
 	@include breakpoint(medium) {

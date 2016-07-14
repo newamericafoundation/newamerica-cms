@@ -2,6 +2,11 @@ from .base import *
 
 import os
 
+# Timezone settings
+TIME_ZONE = 'America/New_York'
+USE_TZ = True
+
+
 DEBUG = False
 
 APPEND_SLASH = True
@@ -46,7 +51,7 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 
-# Email backend configuration 
+# Email backend configuration
 EMAIL_BACKEND = 'postmark.django_backend.EmailBackend'
 POSTMARK_API_KEY = os.getenv("POSTMARK_API_KEY")
 POSTMARK_SENDER = os.getenv("POSTMARK_SENDER")

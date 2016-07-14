@@ -33,6 +33,10 @@ $std-post-header-padding-without-image: 25px;
 
 		&__subheading {
 			@include page-subheading-text(grey);
+			.rich-text * {
+				padding-top: 10px;
+				line-height: 1.3;
+			}
 		}
 
 		&__button {

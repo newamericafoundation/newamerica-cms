@@ -71,13 +71,16 @@
     opacity: 1;
   }
 
-  .button {
-    margin-bottom: 1rem;
+  .block-button {
+    @include limit-body-width;
+    .button {
+      margin-bottom: 1rem;
 
-    &.center-aligned {
-      display: table;
-      margin-left: auto;
-      margin-right: auto;
+      &.center-aligned {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   }
 
@@ -97,7 +100,8 @@
     margin-left: 45px;
   }
 
-  & > .block-heading {
+  .block-heading {
+    @include limit-body-width;
     color: palette-get(na-black);
     font-size: 1.5rem;
     font-weight: bold;
@@ -107,7 +111,7 @@
     font-size: 1.8rem; 
     font-weight: 800; 
     color: palette-get(na-black);
-    line-height: 1.65; 
+    line-height: 2.35rem; 
     margin-bottom: 1.8rem; 
     margin-top: 1.8rem 
   }
@@ -136,6 +140,9 @@
   }
 
   .block-paragraph {
+    .rich-text {
+      @include limit-body-width;
+    }
     img {
       padding: $media-padding 25px;
     }
@@ -211,13 +218,17 @@
   }
 
   .block-image {
+    @include limit-body-width;
     padding: 20px 0px;
   }
 
   /* styling for media objects embedded through streamfield video block */
   .block-video {
     margin-bottom: $desktop-padding;
-    @include responsive-iframe(60%);
+    @include limit-body-width;
+    .responsive-object {
+      @include responsive-iframe(60%);
+    }
   }
 
   /* styling for media objects embedded through streamfield iframe block */
@@ -286,6 +297,7 @@
 }
 
 .post-author {
+  @include limit-body-width;
   color: palette-get(na-black);
   font-size: 16px;
   font-weight:bold;
@@ -297,6 +309,7 @@
 }
 
 .post-date {
+  @include limit-body-width;
   color: palette-get(na-black-70);
   font-size: 14px;
   line-height: 130%;
@@ -305,6 +318,7 @@
 }
 
 .post-source {
+  @include limit-body-width;
   margin-top: 8px;
   font-size: 16px;
   font-weight:bold;

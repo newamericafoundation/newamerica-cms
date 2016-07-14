@@ -7,3 +7,4 @@ class StaticStorage(S3BotoStorage):
 
 class MediaStorage(S3BotoStorage):
     bucket_name = settings.MEDIA_BUCKET_NAME
+    file_overwrite = False

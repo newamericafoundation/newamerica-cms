@@ -297,3 +297,12 @@ class HomeTests(WagtailPageTests):
             else:
                 self.assertTrue(prev_event.date <= curr_event.date)
         
+    def test_adding_subscribe_page(self):
+        subscribe_page = SubscribePage(
+            title='Subscribe Page Test'
+        )
+        self.home_page.add_child(instance=subscribe_page)
+        self.assertEqual(subscribe_page.content_type, 
+            self.home_page.get_children().filter(
+            title='Subscribe Page Test')[0].content_type
+        )

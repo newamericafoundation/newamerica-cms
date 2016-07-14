@@ -88,6 +88,7 @@ $link-group-header-spacing: 30px;
   }
 
   &__fadeout {
+    display: none;
     $gradient: white 1%, rgba(255, 255, 255, 0) 9%, rgba(255, 255, 255, 0) 91%, white 99%;
     width: calc(100% - 33px);
     height: calc(100% - 10px);
