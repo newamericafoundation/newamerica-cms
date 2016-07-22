@@ -24,11 +24,12 @@
 			{% endif %}
 		</div>
 
-		<a class="title-panel__scroll-down" href={% if page.body %}"#body"{% else %}"#contents"{% endif %}>{% include 'ui_elements/svg/arrow-down.html' %}</a>
+		<a class="title-panel__scroll-down" href={% if page.body %}"#body"{% else %}"#contents"{% endif %}9>{% include 'ui_elements/svg/arrow-down.html' %}</a>
 	</section>
 
 	{% if page.body %}
-		<section id="body" class="in-depth__panel">
+		<a id="body" class="in-depth__panel__anchor"></a>
+		<section class="in-depth__panel">
 			<div class="in-depth__panel__body post-body">
 				{{ page.body }}
 			</div>
@@ -36,7 +37,8 @@
 	{% endif %}
 
 	{% if page.get_children|length > 1 %}
-		<section id="contents" class="in-depth__panel contents-panel grey">
+		<a id="contents" class="in-depth__panel__anchor"></a>
+		<section class="in-depth__panel contents-panel grey">
 			<div class="in-depth__panel__max-width-wrapper">
 				<h3 class="contents-panel__heading">Contents</h3>
 				<div class="contents-panel__item-container">
