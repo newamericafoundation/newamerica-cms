@@ -52,9 +52,12 @@
 	padding: 0px $desktop-padding;
 	text-align: center;
 	position: relative;
-	z-index: 15;
 
 	@include breakpoint(medium) {
+		height: 500px;
+	}
+
+	@include breakpoint(large) {
 		height: 700px;
 	}
 
@@ -63,8 +66,8 @@
 		text-align: center;
 		max-width: 1000px;
 		margin: auto;
-		padding: 3*$desktop-padding $desktop-padding;
-		
+		padding: 5*$desktop-padding $desktop-padding;
+
 		@include breakpoint(medium) {
 			position: relative;
 			top: 50%;
@@ -93,6 +96,24 @@
 			&:not(:first-child) {
 				background-color: white;
 				color: palette-get(na-black);
+			}
+		}
+	}
+
+	&__scroll-down {
+		position: absolute;
+		bottom: 25px;
+
+		@inlcude breakpoint(medium) {
+			bottom: 50px;
+		}
+		
+		svg {
+			fill: white;
+			height: 25px;
+			transition: all .2s ease-in-out;
+			&:hover {
+				transform: scale(1.2);
 			}
 		}
 	}

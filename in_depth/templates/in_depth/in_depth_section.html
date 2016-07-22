@@ -72,15 +72,16 @@
 			{% endif %}
 		</div>
 	</div>
+	{% if siblings|length > 1 %}
 	<div class="in-depth__section__mobile-selector">
-		{% if siblings|length > 1 %}
+		
 			<select class="in-depth__section__mobile-selector__select" onchange="location = this.value;">
 				{% for sibling in siblings %}
 					<option value="{{ sibling.url }}" {% if sibling.pk == page.pk %}selected{% endif %}>{{ sibling.title }}</option>
 				{% endfor %}
 			</select>
-		{% endif %}
 	</div>
+	{% endif %}
 
 	<!-- page content -->
 
@@ -93,6 +94,9 @@
 				<h1 class="title-panel__title">{{ page.title }}</h1>
 				<h3 class="title-panel__subheading">{{ page.subheading|richtext }}</h3>
 			</div>
+			{% if page.panels %}
+				<a class="title-panel__scroll-down" href="#{{ page.panels.0.value.panel_title|slugify }}">{% include 'ui_elements/svg/arrow-down.html' %}</a>
+			{% endif %}
 		</section>
 	{% endif %}
 	{% for panel in page.panels %}

@@ -98,6 +98,11 @@ function inDepthPanelScroll() {
     	$('.touch #cd-vertical-nav').removeClass('open');
     });
 
+    $('.title-panel__scroll-down').on('click', function(event){
+        event.preventDefault();
+        smoothScroll($(this.hash));
+    });
+
 	function updateNavigation() {
 		contentSections.each(function(){
 			var $this = $(this);
