@@ -117,7 +117,7 @@ function inDepthPanelScroll() {
 
 	function smoothScroll(target) {
         $('body,html').animate(
-        	{'scrollTop':target.offset().top - 70},
+        	{'scrollTop':target.offset().top},
         	600
         );
 	}
