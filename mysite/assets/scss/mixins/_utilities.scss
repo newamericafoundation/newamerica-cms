@@ -71,6 +71,12 @@
   }
 }
 
+@mixin is-in-depth-homepage {
+  .template-allindepthhomepage & {
+    @content;
+  }
+}
+
 @mixin is-in-depth-template {
   .template-indepthsection &, .template-indepthproject & {
     @content;

@@ -8,6 +8,34 @@
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
-	<h1>This Template is Awaiting Design</h1>
-	{{ self.get_children }}
+
+	{% if self.get_children %}
+		<div class="picture-grid full-width">
+			{% for project in self.get_children %}
+				{% image project.specific.story_image min-650x200 as project_image %}
+				<div class="picture-grid__full-image-entry" style="background-image: url('{{ project_image.url }}') ">
+					<a href="{{ project.specific.url }}">
+						<div class="picture-grid__full-image-entry__wrapper">
+							<div class="picture-grid__full-image-entry__text">
+								
+								{% if project.specific.parent_programs %}
+									<h5 class="picture-grid__entry__description">
+									{% for program in project.specific.parent_programs.all %}
+										{{ program | upper }}{% list_separator forloop.revcounter0 %}
+									{% endfor %}
+									</h5>
+								{% endif %}
+								<h5 class="picture-grid__entry__title">{{ project.specific.title }}</h5>
+								<p class="picture-grid__entry__body">
+									{{ project.specific.story_excerpt }}
+								</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<hr class="picture-grid__divider">
+			{% endfor %}
+		</div>
+	{% endif %}
+
 {% endblock %}
