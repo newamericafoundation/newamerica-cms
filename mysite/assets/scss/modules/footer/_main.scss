@@ -1,5 +1,8 @@
 @mixin footer-top-margin {
-  .template-homepage &, .template-person &, .template-indepthproject &, .template-indepthsection & {
+  .template-homepage &, .template-person & {
+    margin-top: 0px;
+  }
+  @include is-in-depth-template {
     margin-top: 0px;
   }
   .template-programhomepage & {

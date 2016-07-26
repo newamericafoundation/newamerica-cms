@@ -15,6 +15,8 @@ from home.blocks import ButtonBlock, IframeBlock
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
+from mysite.helpers import paginate_results, get_org_wide_posts
+
 
 class PanelColorThemes(blocks.ChoiceBlock):
 	choices = [
@@ -146,6 +148,14 @@ class AllInDepthHomePage(Page):
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
     ]
+
+    def get_context(self, request):
+        return get_org_wide_posts(
+            self,
+            request,
+            AllInDepthHomePage,
+            InDepthProject
+        )
 
     class Meta:
         verbose_name = "Homepage for all In-Depth Projects"

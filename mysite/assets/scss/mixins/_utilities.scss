@@ -78,7 +78,7 @@
 }
 
 @mixin is-in-depth-template {
-  .template-indepthsection &, .template-indepthproject & {
+  .template-indepthsection &, .template-indepthproject &, .template-allindepthhomepage & {
     @content;
   }
 }

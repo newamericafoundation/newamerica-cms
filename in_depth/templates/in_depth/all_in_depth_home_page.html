@@ -8,34 +8,93 @@
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
-
-	{% if self.get_children %}
-		<div class="picture-grid full-width">
-			{% for project in self.get_children %}
-				{% image project.specific.story_image min-650x200 as project_image %}
-				<div class="picture-grid__full-image-entry" style="background-image: url('{{ project_image.url }}') ">
-					<a href="{{ project.specific.url }}">
-						<div class="picture-grid__full-image-entry__wrapper">
-							<div class="picture-grid__full-image-entry__text">
-								
-								{% if project.specific.parent_programs %}
-									<h5 class="picture-grid__entry__description">
-									{% for program in project.specific.parent_programs.all %}
-										{{ program | upper }}{% list_separator forloop.revcounter0 %}
-									{% endfor %}
-									</h5>
-								{% endif %}
-								<h5 class="picture-grid__entry__title">{{ project.specific.title }}</h5>
-								<p class="picture-grid__entry__body">
-									{{ project.specific.story_excerpt }}
-								</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<hr class="picture-grid__divider">
-			{% endfor %}
+	<div class="in-depth__home-page">
+		<div class="in-depth__home-page__header">
+			<div class="in-depth__home-page__header__text">
+				<h1 class="post-header__text__heading">{{ page.title }}</h1>
+		    	{% if page.story_excerpt %}
+		    		<h2 class="post-header__text__subheading">{{ page.story_excerpt }}</h2>
+		    	{% endif %}
+		    </div>
 		</div>
-	{% endif %}
+		<div class="in-depth__home-page__content">
 
+			<div class="content-grid__controls">
+				<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
+					<div class="content-grid__controls__filter single-filter">
+						<select class="content-grid__controls__program-filter" name="program_id">
+							<option value="">All Programs</option>
+							{% for program in programs %}
+							<option value="{{ program.id }}">{{ program.title }}</option>
+							{% endfor %}
+				        </select>
+				    </div>
+				    <div class="content-grid__controls__buttons">
+				    	<button id="content-grid__controls__submit" class="button" type="submit" value="Search" disabled>Update Search</button>
+				    	<a href="{{ self.url }}">Reset</a>
+					</div>
+				</form>
+				<div class="content-grid__controls__right">
+					<div class="pagination">
+						{% if all_posts.has_previous %}
+							<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}&{{ query_url }}">
+								{% include 'ui_elements/svg/arrow-left.html' %}
+							</a>
+						{% endif %}
+
+						<span>Page</span>
+						<form class="pagination__form" action="?page=value" method="get">
+							<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
+							{% if request.GET.program_id %}
+								<input type="hidden" value="{{request.GET.program_id}}" name="program_id">
+							{% endif %}
+						</form>
+
+						<span>of</span>
+						<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
+
+						{% if all_posts.has_next %}
+					    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}&{{ query_url }}">
+					    		{% include 'ui_elements/svg/arrow-right.html' %}
+							</a>
+						{% endif %}
+					</div>
+				</div>
+				
+			</div>
+
+			{% if all_posts %}
+				<div class="picture-grid full-width">
+					{% for project in all_posts %}
+						{% if project.specific.story_image %}
+							{% image project.specific.story_image min-650x500 as project_image %}
+							<div class="picture-grid__full-image-entry" style="background-image: url('{{ project_image.url }}') ">
+						{% else %}
+							<div class="picture-grid__full-image-entry">
+						{% endif %}
+								<a href="{{ project.specific.url }}">
+									<div class="picture-grid__full-image-entry__wrapper">
+										<div class="picture-grid__full-image-entry__text">
+											
+											{% if project.specific.parent_programs %}
+												<h5 class="picture-grid__entry__description">
+												{% for program in project.specific.parent_programs.all %}
+													{{ program | upper }}{% list_separator forloop.revcounter0 %}
+												{% endfor %}
+												</h5>
+											{% endif %}
+											<h5 class="picture-grid__entry__title">{{ project.specific.title }}</h5>
+											<p class="picture-grid__entry__body">
+												{{ project.specific.story_excerpt }}
+											</p>
+										</div>
+									</div>
+								</a>
+							</div>
+							<hr class="picture-grid__divider">
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}

@@ -254,6 +254,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 50% 50%;
+	background-color: palette-get(na-turquoise);
 
 	&__wrapper {
 		position: relative;
@@ -274,7 +275,7 @@
 		padding: $desktop-padding;
 
 		* {
-			color: white;
+			color: white !important;
 			display: block;
 		}
 	}
