@@ -15,5 +15,6 @@ export default [
   'header',
   'content-controls',
   'story-excerpt-ellipsis',
-  'in-depth'
+  'in-depth',
+  'fixed-banner',
 ].map((moduleName) => require(`./${moduleName}/index.js`).default);
