@@ -419,6 +419,8 @@ class Post(Page):
         related_name='+'
     )
 
+    data_project_external_script = models.CharField(blank=True, null=True, max_length=140)
+
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
         FieldPanel('date'),
@@ -431,6 +433,10 @@ class Post(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('data_project_external_script'),
     ]
 
     is_creatable = False
