@@ -199,21 +199,6 @@ class HomeTests(WagtailPageTests):
         self.home_page.save()
         self.assertEqual(self.home_page.feature_1, self.article)
 
-<<<<<<< HEAD
-=======
-    def test_adding_story_to_homepage_recent_carousel(self):
-        self.home_page.recent_carousel.stream_data.append(
-            {
-                'type': 'event',
-                'value': self.article.id
-            }
-        )
-        self.assertEqual(
-            self.home_page.recent_carousel.stream_data[0]['value'],
-            self.article.id
-        )
-
->>>>>>> Refactoring and writing tests for template tags
     def test_adding_org_simple_page(self):
         simple_page = OrgSimplePage(
             title='Org Simple Page Test'
