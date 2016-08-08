@@ -5,15 +5,198 @@ from django.test import Client
 
 from .models import Person, OurPeoplePage, PersonProgramRelationship, PersonSubprogramRelationship
 
+from .templatetags.tags import generate_byline
+
 from article.models import ProgramArticlesPage, Article
 
 from home.models import HomePage, PostAuthorRelationship
 
 from programs.models import Program, Subprogram
 
+from django.utils.safestring import mark_safe
+
+from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage, PolicyPaper
+
+
+class BylineTemplateTagTests(WagtailPageTests):
+    def setUp(self):
+        self.login()
+        site = Site.objects.get()
+        page = Page.get_first_root_node()
+        home = HomePage(title='New America')
+        home_page = page.add_child(instance=home)
+
+        site.root_page = home
+        site.save()
+
+        # People objects to test template tags
+        # that create byline and determine author order
+        program_page_1 = home_page.add_child(
+            instance=Program(
+                title='OTI',
+                name='OTI',
+                slug='oti',
+                description='OTI',
+                location=False,
+                depth=3
+            )
+        )
+        program_page_1.save()
+
+        our_people_page = home_page.add_child(
+            instance=OurPeoplePage(
+                title='Our People',
+                depth=3,
+            )
+        )
+        our_people_page.save()
+
+        self.first_person = Person(
+            title='First Person',
+            slug='first-person',
+            first_name='first',
+            last_name='person',
+            role='Central Staff',
+            depth=4,
+        )
+        our_people_page.add_child(instance=self.first_person)
+
+        self.second_person = Person(
+            title='Second Person',
+            slug='second-person',
+            first_name='Second',
+            last_name='Person',
+            role='Central Staff',
+            depth=4,
+        )
+        our_people_page.add_child(instance=self.second_person)
+
+        self.third_person = Person(
+            title='Third Person',
+            slug='third-person',
+            first_name='Third',
+            last_name='Person',
+            role='Central Staff',
+            depth=4,
+        )
+        our_people_page.add_child(instance=self.third_person)
+
+        self.fourth_person = Person(
+            title='Fourth Person',
+            slug='fourth-person',
+            first_name='Fourth',
+            last_name='Person',
+            role='Central Staff',
+            depth=4,
+        )
+        our_people_page.add_child(instance=self.fourth_person)
+
+        # Using policy papers to test the other post types
+        home_page.add_child(
+            instance=AllPolicyPapersHomePage(title="Policy Papers")
+        )
+
+        program_policy_papers_page = program_page_1.add_child(
+            instance=ProgramPolicyPapersPage(title='OTI Policy Papers', slug='oti-policy-papers')
+        )
+        self.policy_paper = PolicyPaper(
+            title='Policy Paper 1',
+            slug='policy-paper-1',
+            date='2016-06-15',
+            depth=5
+        )
+        program_policy_papers_page.add_child(
+            instance=self.policy_paper)
+        self.policy_paper.save()
+
+    def test_zero_authors_byline(self):
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline(self.policy_paper.content_type, authors)
+        expected_response = mark_safe('')
+        self.assertEqual(actual_response, expected_response)
+
+    def test_one_author_byline(self):
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline(self.policy_paper.content_type, authors)
+        expected_response = mark_safe('By <a href="/our-people/third-person/">Third Person</a>')
+        self.assertEqual(actual_response, expected_response)
+
+    def test_two_authors_byline(self):
+        # adding second author relationship to post
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+        PostAuthorRelationship(author=self.second_person, post=self.policy_paper).save()
+
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline(self.policy_paper.content_type, authors)
+        expected_response = mark_safe('By <a href="/our-people/third-person/">Third Person</a> and <a href="/our-people/second-person/">Second Person</a>')
+        self.assertEqual(actual_response, expected_response)
+
+    def test_three_authors_byline(self):
+        # adding second and third author relationship to post
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+        PostAuthorRelationship(author=self.second_person, post=self.policy_paper).save()
+        PostAuthorRelationship(author=self.first_person, post=self.policy_paper).save()
+
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline(self.policy_paper.content_type, authors)
+        expected_response = mark_safe('By <a href="/our-people/third-person/">Third Person</a>, <a href="/our-people/second-person/">Second Person</a> and <a href="/our-people/first-person/">First Person</a>')
+        self.assertEqual(actual_response, expected_response)
+
+    def test_four_authors_byline(self):
+        # adding second and third author relationship to post
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+        PostAuthorRelationship(author=self.second_person, post=self.policy_paper).save()
+        PostAuthorRelationship(author=self.first_person, post=self.policy_paper).save()
+        PostAuthorRelationship(author=self.fourth_person, post=self.policy_paper).save()
+
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline(self.policy_paper.content_type, authors)
+        expected_response = mark_safe('By <a href="/our-people/third-person/">Third Person</a>, <a href="/our-people/second-person/">Second Person</a>, <a href="/our-people/first-person/">First Person</a> and <a href="/our-people/fourth-person/">Fourth Person</a>')
+        self.assertEqual(actual_response, expected_response)
+
+    def test_two_authors_byline_order(self):
+        # adding second author relationship to post
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+        PostAuthorRelationship(author=self.second_person, post=self.policy_paper).save()
+        PostAuthorRelationship.objects.get(author=self.third_person, post=self.policy_paper).delete()
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline(self.policy_paper.content_type, authors)
+        expected_response = mark_safe('By <a href="/our-people/second-person/">Second Person</a> and <a href="/our-people/third-person/">Third Person</a>')
+        self.assertEqual(actual_response, expected_response)
+
+    def test_podcasts_byline_with_one_author(self):
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline("podcast", authors)
+        expected_response = mark_safe('Contributor: <a href="/our-people/third-person/">Third Person</a>')
+        self.assertEqual(actual_response, expected_response)
+
+    def test_podcasts_byline_with_multiple_authors(self):
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+        PostAuthorRelationship(author=self.fourth_person, post=self.policy_paper).save()
+
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline("podcast", authors)
+        expected_response = mark_safe('Contributors: <a href="/our-people/third-person/">Third Person</a> and <a href="/our-people/fourth-person/">Fourth Person</a>')
+        self.assertEqual(actual_response, expected_response)
+
+    def test_inthenews_byline(self):
+        PostAuthorRelationship(author=self.third_person, post=self.policy_paper).save()
+
+        authors = self.policy_paper.authors.all()
+        actual_response = generate_byline("In The News Piece", authors)
+        expected_response = mark_safe('In the News: <a href="/our-people/third-person/">Third Person</a>')
+        self.assertEqual(actual_response, expected_response)
+
+
 class PersonTests(WagtailPageTests):
     """
-    Testing functionality of the Person model, 
+    Testing functionality of the Person model,
     including features to associate a Person with
     multiple programs and subprograms,
     """
@@ -44,12 +227,12 @@ class PersonTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
-            depth=3
+                title='Education',
+                name='Education',
+                slug='education',
+                description='Education',
+                location=False,
+                depth=3
             )
         )
         self.subprogram_page = self.program_page.add_child(
@@ -86,7 +269,7 @@ class PersonTests(WagtailPageTests):
 
         self.article = self.program_articles_page.add_child(
             instance=Article(
-                title='Article 1', 
+                title='Article 1',
                 date='2016-02-02'
             )
         )
@@ -94,44 +277,43 @@ class PersonTests(WagtailPageTests):
 
         self.article_2 = self.program_articles_page.add_child(
             instance=Article(
-                title='Article 2', 
+                title='Article 2',
                 date='2016-05-02'
             )
         )
         PostAuthorRelationship(author=self.test_person, post=self.article_2).save()
 
-
-    # Test that a particular child Page type can be created under a 
+    # Test that a particular child Page type can be created under a
     # parent Page type
     def test_can_create_person_under_correct_parent_page(self):
         self.assertCanCreateAt(
-            OurPeoplePage, 
+            OurPeoplePage,
             Person
         )
 
     def test_can_create_our_people_page_under_correct_parent_page(self):
         self.assertCanCreateAt(
-            HomePage, 
+            HomePage,
             OurPeoplePage
         )
 
     def test_cannot_create_person_under_wrong_parent_page(self):
         self.assertCanNotCreateAt(
-            HomePage, 
+            HomePage,
             Person
         )
 
-    # Test that the only page types that child model can be created 
+    # Test that the only page types that child model can be created
     # under are parent_models
     def test_person_parent_page(self):
         self.assertAllowedParentPageTypes(
-            Person, 
+            Person,
             {OurPeoplePage}
         )
 
     def test_our_people_page_parent_page(self):
         self.assertAllowedParentPageTypes(
-            OurPeoplePage, 
+            OurPeoplePage,
             {HomePage}
         )
 
@@ -155,7 +337,7 @@ class PersonTests(WagtailPageTests):
         )
         self.our_people_page.add_child(instance=person)
         self.assertTrue(
-            person.get_parent(), 
+            person.get_parent(),
             self.our_people_page
         )
 
@@ -231,7 +413,7 @@ class PersonTests(WagtailPageTests):
     def test_adding_feature_work_item_to_person_bio(self):
         self.test_person.feature_work_1 = self.article
         self.assertEqual(self.article, self.test_person.feature_work_1)
-        
+
         self.test_person.feature_work_1 = self.article_2
         self.assertEqual(self.article_2, self.test_person.feature_work_1)
 
@@ -273,7 +455,7 @@ class PersonTests(WagtailPageTests):
             post_titles.append(post.title)
         self.assertEqual(post_titles, ['Article 2', 'Article 1'])
 
-    # Test that the second page of the person bio page has no bio and only content results 
+    # Test that the second page of the person bio page has no bio and only content results
     def test_second_person_page_of_bio_has_no_bio_only_content_results(self):
         pass
 
