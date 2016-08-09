@@ -11,8 +11,6 @@ from .models import PolicyPaper, AllPolicyPapersHomePage, ProgramPolicyPapersPag
 
 from person.models import Person, OurPeoplePage
 
-from person.templatetags.tags import generate_byline
-
 
 class PolicyPaperHierarchiesTests(WagtailPageTests):
     """
@@ -252,30 +250,3 @@ class PolicyPaperIntegrationTests(WagtailPageTests):
         self.policy_paper.save()
         PostAuthorRelationship(author=self.first_person, post=self.policy_paper).save()
         all_policy_papers_home_page.save()
-
-    def test_generate_byline_on_policy_paper_page(self):
-        byline = generate_byline(
-            self.policy_paper.content_type, 
-            self.policy_paper.authors.all()
-        )
-        c = Client()
-        response = c.get('/oti/oti-policy-papers/policy-paper-1', follow=True)
-        self.assertContains(response, byline)
-
-    def test_generate_byline_on_program_policy_papers_page(self):
-        byline = generate_byline(
-            self.policy_paper.content_type, 
-            self.policy_paper.authors.all()
-        )
-        c = Client()
-        response = c.get('/oti/oti-policy-papers/', follow=True)
-        self.assertContains(response, byline)
-
-    def test_generate_byline_on_all_policy_papers_page(self):
-        byline = generate_byline(
-            self.policy_paper.content_type, 
-            self.policy_paper.authors.all()
-        )
-        c = Client()
-        response = c.get('/policy-papers/', follow=True)
-        self.assertContains(response, byline)
