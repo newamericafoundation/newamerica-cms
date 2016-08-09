@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development webpack --config webpack.config.js --watch",
     "postinstall": "NODE_ENV=production webpack --config webpack.config.js",
-    "build": "NODE_ENV=production webpack --config webpack.config.production.js",
+    "build": "NODE_ENV=production webpack --config webpack.config.js",
     "get-icon-svgs": "node mysite/assets/utilities/icon_parser/index.js",
     "get-dropdown-svg-b64": "node mysite/assets/utilities/b64.js"
   },
