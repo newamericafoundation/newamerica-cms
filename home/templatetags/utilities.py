@@ -5,6 +5,8 @@ from django.conf import settings
 from programs.models import Program
 from django.utils.safestring import mark_safe
 
+from person.templatetags import tags as person_tags
+
 
 register = template.Library()
 
@@ -35,57 +37,10 @@ def pluralize(num_items, label):
 		return label + ": "
 
 
-# maps post type to appropriate person prefix for byline, calls pluralize helper function to pluralize if more than one item
-@register.simple_tag()
-def get_byline_prefix(ptype, items_list):
-	num_items = len(items_list)
-	post_type = str(ptype)
-
-	if post_type == "podcast":
-		return pluralize(num_items, "Contributor")
-	elif (post_type == "blog post" or post_type == "weekly article"):
-		return "By "
-	elif post_type == "In The News Piece":
-		return "In the News: "
-	else:
-		return pluralize(num_items, "Author")
-
-
-
-# handles exception for blog posts and weekly articles - which have the "by" prefix in the byline, but "author(s)" in the author block
-@register.simple_tag()
-def get_author_block_prefix(ptype, items_list):
-	num_items = len(items_list)
-	post_type = str(ptype)
-
-	if (post_type == "blog post" or post_type == "weekly article"):
-		return pluralize(num_items, "Author")
-	else:
-		return get_byline_prefix(post_type, items_list)
-
-
 # generates byline for all post types - calls byline prefix tag to get apporpriate prefix
 @register.simple_tag()
-def generate_byline(ptype, authors):
-	post_type = str(ptype)
-	num_authors = len(authors)
-	ret_string = ""
-
-
-	# events and press releases have no authors and therefore no byline
-	if post_type == "event" or post_type == "press release":
-		return ret_string
-
-	ret_string += get_byline_prefix(post_type, authors)
-
-	# counter is used to determine appropriate list separator
-	counter = 1
-	for author in authors:
-		ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
-		ret_string += list_separator(num_authors - counter)
-		counter += 1
-
-	return mark_safe(ret_string)
+def generate_byline(content_type, authors):
+	return person_tags.generate_byline(content_type, authors)
 
 
 # maps inernal content types to external content type display
@@ -120,7 +75,7 @@ def generate_dateline(post):
 	ret_string = ""
 	date_format = '%B %-d, %Y'
 	time_format = '%-I:%M %p'
-	
+
 	if str(post.content_type) == "event":
 		if post.date:
 
@@ -187,7 +142,7 @@ def person_display_contact_info(page):
 	if (page.email):
 		if (page.role != "External Author/Former Staff"):
 			return 1
-	
+
 	return 0
 
 @register.simple_tag()
@@ -196,5 +151,5 @@ def check_oti(path):
 
 	if (path_pieces[1] == "oti"):
 		return "oti"
-	
+
 	return ""

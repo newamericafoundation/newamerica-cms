@@ -7,7 +7,9 @@ from datetime import date, timedelta
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page, Site
 
-from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
+from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, PostAuthorRelationship
+
+from .templatetags.utilities import generate_byline
 
 from programs.models import Program, Subprogram
 
@@ -15,7 +17,7 @@ from weekly.models import Weekly
 
 from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 
-from event.models import Event, AllEventsHomePage, ProgramEventsPage
+from event.models import AllEventsHomePage, ProgramEventsPage, Event
 
 from blog.models import AllBlogPostsHomePage
 
@@ -23,11 +25,11 @@ from book.models import AllBooksHomePage
 
 from in_depth.models import AllInDepthHomePage
 
-from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage
+from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage, Person
 
 from podcast.models import AllPodcastsHomePage
 
-from policy_paper.models import AllPolicyPapersHomePage
+from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage, PolicyPaper
 
 from press_release.models import AllPressReleasesHomePage
 
@@ -36,8 +38,8 @@ from quoted.models import AllQuotedHomePage
 
 class HomeTests(WagtailPageTests):
     """
-    Testing hierarchies between pages and whether it is possible 
-    to create a Homepage and all the allowed subpages 
+    Testing hierarchies between pages and whether it is possible
+    to create a Homepage and all the allowed subpages
     underneath the Homepage.
 
     Testing functionality of OrgSimplePage and ProgramSimplePage.
@@ -72,7 +74,7 @@ class HomeTests(WagtailPageTests):
         )
         self.article = self.program_articles_page.add_child(
             instance=Article(
-                title='Article 1', 
+                title='Article 1',
                 date='2016-02-02'
             )
         )
@@ -139,12 +141,12 @@ class HomeTests(WagtailPageTests):
         home = HomePage(title='New America')
         parent_page.add_child(instance=home)
 
-    # Test that a particular child Page type 
+    # Test that a particular child Page type
     # can be created under a parent Page type
     def test_homepage_parent_page_type(self):
         self.assertCanCreateAt(Page, HomePage)
 
-    # Test that the only page types that can be created 
+    # Test that the only page types that can be created
     # under parent_model are child_models
     def test_homepage_subpages(self):
         self.assertAllowedSubpageTypes(HomePage, {
@@ -159,7 +161,7 @@ class HomeTests(WagtailPageTests):
             AllInDepthHomePage,
             BoardAndLeadershipPeoplePage,
             JobsPage,
-            OurPeoplePage, 
+            OurPeoplePage,
             OrgSimplePage,
             Program,
             SubscribePage,
@@ -205,7 +207,7 @@ class HomeTests(WagtailPageTests):
             title='Org Simple Page Test'
         )
         self.home_page.add_child(instance=simple_page)
-        self.assertEqual(simple_page.content_type, 
+        self.assertEqual(simple_page.content_type,
             self.home_page.get_children().filter(
             title='Org Simple Page Test')[0].content_type
         )
@@ -225,7 +227,7 @@ class HomeTests(WagtailPageTests):
             title='Program Simple Page Test'
         )
         self.program_page.add_child(instance=program_simple_page)
-        self.assertEqual(program_simple_page.content_type, 
+        self.assertEqual(program_simple_page.content_type,
             self.program_page.get_children().filter(
             title='Program Simple Page Test')[0].content_type
         )
