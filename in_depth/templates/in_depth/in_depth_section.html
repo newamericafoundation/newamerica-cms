@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% block body_class %}template-indepthsection{% endblock %}
+{% block sidemenu_status %}no_sidemenu{% endblock %}
+
+{% block content %}
+
+	<!-- side navigation -->
+
+	{% if page.panels|length > 1 %}
+		<a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
+		<nav id="cd-vertical-nav">
+			<ul>
+				{% if page.generate_title_panel %}
+					<li>
+						<a href="#title-panel" data-number="0">
+							<span class="cd-dot"></span>
+							<span class="cd-label">Title Panel</span>
+						</a>
+					</li>
+				{% endif %}
+
+				{% for panel in page.panels %}
+					<li>
+						<a href="#{{ panel.value.panel_title|slugify }}" data-number="{% if page.generate_title_panel %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %} ">
+							<span class="cd-dot"></span>
+							<span class="cd-label">{{ panel.value.panel_title }}</span>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	{% endif %}
+
+	<!-- header navigation -->
+
+	<div class="in-depth__section__header">
+		<div class="in-depth__panel__max-width-wrapper">
+			<div class="in-depth__section__header__left">
+				{% if project_root.specific.project_logo %}
+					{% image project_root.specific.project_logo min-200x100 as logo %}
+					<div class="in-depth__section__header__left__logo">
+						<a href="">				      
+						    <img class="sidemenu__logo" src="{{ logo.url }}">
+	  					</a>
+					</div>
+					<div class="in-depth__section__header__left__text has-logo">
+				{% else %}
+					<div class="in-depth__section__header__left__text">
+				{% endif %}
+						<h5 class="in-depth__section__header__left__prefix">In Depth</h5>
+						<h3 class="in-depth__section__header__left__title"><a href="{{ project_root.url }}">{{ project_root }}</a></h3>
+					</div>
+			</div>
+			
+			{% if siblings|length > 1 %}
+				<div class="in-depth__section__header__right">
+					<div class="in-depth__section__header__arrow__previous">{% include 'ui_elements/svg/arrow-left.html' %}</div>
+					<div class="in-depth__section__header__item-container" data-slick='{"initialSlide":	{{ index }}}'>
+						{% for sibling in siblings %}
+							<div class="in-depth__section__header__item {% if sibling.pk == page.pk %}active{% endif %}">
+								<h5 class="in-depth__section__header__item__text"><a href="{{ sibling.url }}">{{ sibling.title }}</a></h5>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="in-depth__section__header__arrow__next">{% include 'ui_elements/svg/arrow-right.html' %}</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	{% if siblings|length > 1 %}
+	<div class="in-depth__section__mobile-selector">
+		<select class="in-depth__section__mobile-selector__select" onchange="location = this.value;">
+			{% for sibling in siblings %}
+				<option value="{{ sibling.url }}" {% if sibling.pk == page.pk %}selected{% endif %}>{{ sibling.title }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	{% endif %}
+
+	<!-- page content -->
+
+	{% if page.generate_title_panel %}
+		<a id="title-panel" class="in-depth__panel__anchor"></a>
+		<section id="title-panel" class="in-depth__panel title-panel" style="background-image: linear-gradient(
+		      rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) 30%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0)
+		    ), 
+	    	url({{ story_image.url }})">
+		    <div class="title-panel__text-box">
+				<h1 class="title-panel__title">{{ page.title }}</h1>
+				<h3 class="title-panel__subheading">{{ page.subheading|richtext }}</h3>
+			</div>
+			{% if page.panels %}
+				<a class="title-panel__scroll-down" href="#{{ page.panels.0.value.panel_title|slugify }}">{% include 'ui_elements/svg/arrow-down.html' %}</a>
+			{% endif %}
+		</section>
+	{% endif %}
+	{% for panel in page.panels %}
+		<a id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel__anchor"></a>
+		<section id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel {{ panel.value.panel_color_theme }}">
+			<div class="in-depth__panel__max-width-wrapper">
+				<h1 class="in-depth__panel__title">{{ panel.value.panel_title }}</h1>
+				<div class="in-depth__panel__body post-body">{{ panel.value.panel_body }}</div>
+			</div>
+		</section>
+	{% endfor %}
+{% endblock %}
