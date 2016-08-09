@@ -14,12 +14,7 @@
 		max-width: $max-site-width;
 		margin-left: auto;
 		margin-right: auto;
-		@include is-in-depth-template {
-			max-width: 100%;
-		}
 	}
-
-
 
 	.columns {
 		margin: $gutter 0;
