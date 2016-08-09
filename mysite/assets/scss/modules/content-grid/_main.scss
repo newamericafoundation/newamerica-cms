@@ -1,7 +1,7 @@
 $submit-width: 200px;
 
 @mixin show-side-pagination {
-	.search-results &, .in-depth__home-page & {
+	.search-results & {
 		@include breakpoint(medium) {
 			@content;
 		}
@@ -75,10 +75,6 @@ $submit-width: 200px;
 			@include breakpoint(medium) {
 				width: calc((100% - #{$submit-width} - 25px)/2);
 				max-width: 290px;
-
-				&.single-filter {
-					width: calc(100% - #{$submit-width} - 25px);
-				}
 			}
 		}
 

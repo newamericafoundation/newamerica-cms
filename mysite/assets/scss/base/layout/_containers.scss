@@ -59,18 +59,6 @@
 			}
 		}
 	}
-
-	@include is-in-depth-homepage {
-		@include breakpoint(medium) {
-			padding: $desktop-padding;
-		}
-	}
-
-	@include is-in-depth-template {
-		padding-top: 0px;
-		padding-left: 0px;
-		padding-right: 0px;
-	}
 }
 
 .breadcrumb-social-media-container {
@@ -97,9 +85,6 @@
 
 	.social-icons {
 		float:right;
-	}
-	@include is-in-depth-template {
-		display: none;
 	}
 }
 
