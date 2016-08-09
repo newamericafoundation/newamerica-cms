@@ -116,6 +116,8 @@
 	&__scroll-down {
 		position: absolute;
 		bottom: 25px;
+		left: 45%;
+		right: 45%;
 
 		@include breakpoint(medium) {
 			bottom: 50px;

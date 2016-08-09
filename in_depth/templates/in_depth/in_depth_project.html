@@ -23,8 +23,11 @@
 				</div>
 			{% endif %}
 		</div>
-
-		<a class="title-panel__scroll-down" href={% if page.body %}"#body"{% else %}"#contents"{% endif %}9>{% include 'ui_elements/svg/arrow-down.html' %}</a>
+		{% if page.body %}
+			<a class="title-panel__scroll-down" href="#body">{% include 'ui_elements/svg/arrow-down.html' %}</a>
+		{% elif page.get_children|length > 1 %}
+			<a class="title-panel__scroll-down" href="#contents">{% include 'ui_elements/svg/arrow-down.html' %}</a>
+		{% endif %}
 	</section>
 
 	{% if page.body %}
