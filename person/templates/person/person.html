@@ -9,12 +9,15 @@
 {% block content %}
 <div class="bio-page">
     {% if page.profile_image %}
+        {% image page.profile_image original as large_bio_image %}
+        {% image page.profile_image min-150x150 as small_bio_image %}
         <div class="bio-page__heading with-image">
-            <div class='bio-page__heading__icon'>
-                {% image page.profile_image min-150x150 as bio_image %}
-                <div class='bio-page__heading__icon__photo' style='background: no-repeat center/100% url({{ bio_image.url }})'>
+            <a class="bio-page__heading__icon-link" href="{{ large_bio_image.url }}">
+                <div class='bio-page__heading__icon'>
+                    <div class='bio-page__heading__icon__photo' style='background: no-repeat center/100% url({{ small_bio_image.url }})'>
+                    </div>
                 </div>
-            </div>
+            </a>
             <div class="bio-page__heading__text">
                 <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
                 {% if page.position_at_new_america %}

@@ -49,6 +49,7 @@
 
 	.with-image {
 		.bio-page__heading {
+			pointer-events: none;
 			&__icon {
 			    background-color: palette-get(na-black-10);
 			    border-radius: 50%;
@@ -72,7 +73,7 @@
 
 		  	&__text {
 		  		@include breakpoint(medium) {
-		  			padding-left: $desktop-padding + $icon-height;
+		  			margin-left: $desktop-padding + $icon-height;
 		  		}
 		  	}
 		}
