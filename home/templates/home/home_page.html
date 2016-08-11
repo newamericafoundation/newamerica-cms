@@ -125,36 +125,36 @@
 
 	<div class='row border-panel-container'>
 
-	{% if page.recent_carousel %}
+	{% if upcoming_events %}
 		<div class='small-12 large-6 columns'>
 
 			<div class='border-panel'>
 
-				<ul class='border-panel__list has-{{ page.recent_carousel|length }}-children'>
-					{% for item in page.recent_carousel %}
+				<ul class='border-panel__list has-{{ upcoming_events|length }}-children'>
+					{% for item in upcoming_events %}
 						<li class='border-panel__item'>
 							
 							<div class='border-panel__content'>
 								<div class='border-panel__text'>
 									<div class='border-panel__info'>
 										<h5 class='border-panel__info__content-type'>
-											{% if item.value.post.parent_programs %}
-												{% for program in item.value.post.parent_programs.all %}
+											{% if item.parent_programs %}
+												{% for program in item.parent_programs.all %}
 		                                          	{{ program }}{% list_separator forloop.revcounter0 %}
 		                                        {% endfor %}
 		                                    {% endif %}
-	                                        {% generate_content_type_line item.value.content_type %}
+	                                        {% generate_content_type_line item.content_type %}
 	                                    </h5>
-										{% if item.value.post.date %}
-											<h5 class='border-panel__info__date'>{{ item.value.post.date }}</h5>
+										{% if item.date %}
+											<h5 class='border-panel__info__date'>{{ item.date }}</h5>
 										{% endif %}
 									</div>
 								
-									<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
+									<div class='border-panel__title'><a href="{{ item.url }}">{{ item.title }}</a></div>
 								
-									<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
+									<p class='border-panel__description'>{{ item.story_excerpt }}</p>
 								
-									<a href="{{ item.value.url }}"><div class='button black'>Read More</div></a>
+									<a href="{{ item.url }}"><div class='button black'>Read More</div></a>
 								</div>
 							</div>
 						</li>

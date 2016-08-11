@@ -11,9 +11,14 @@ from home.models import HomePage, PostAuthorRelationship
 
 from programs.models import Program, Subprogram
 
+from django.utils.safestring import mark_safe
+
+from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage, PolicyPaper
+
+
 class PersonTests(WagtailPageTests):
     """
-    Testing functionality of the Person model, 
+    Testing functionality of the Person model,
     including features to associate a Person with
     multiple programs and subprograms,
     """
@@ -44,12 +49,12 @@ class PersonTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
-            depth=3
+                title='Education',
+                name='Education',
+                slug='education',
+                description='Education',
+                location=False,
+                depth=3
             )
         )
         self.subprogram_page = self.program_page.add_child(
@@ -86,7 +91,7 @@ class PersonTests(WagtailPageTests):
 
         self.article = self.program_articles_page.add_child(
             instance=Article(
-                title='Article 1', 
+                title='Article 1',
                 date='2016-02-02'
             )
         )
@@ -94,44 +99,43 @@ class PersonTests(WagtailPageTests):
 
         self.article_2 = self.program_articles_page.add_child(
             instance=Article(
-                title='Article 2', 
+                title='Article 2',
                 date='2016-05-02'
             )
         )
         PostAuthorRelationship(author=self.test_person, post=self.article_2).save()
 
-
-    # Test that a particular child Page type can be created under a 
+    # Test that a particular child Page type can be created under a
     # parent Page type
     def test_can_create_person_under_correct_parent_page(self):
         self.assertCanCreateAt(
-            OurPeoplePage, 
+            OurPeoplePage,
             Person
         )
 
     def test_can_create_our_people_page_under_correct_parent_page(self):
         self.assertCanCreateAt(
-            HomePage, 
+            HomePage,
             OurPeoplePage
         )
 
     def test_cannot_create_person_under_wrong_parent_page(self):
         self.assertCanNotCreateAt(
-            HomePage, 
+            HomePage,
             Person
         )
 
-    # Test that the only page types that child model can be created 
+    # Test that the only page types that child model can be created
     # under are parent_models
     def test_person_parent_page(self):
         self.assertAllowedParentPageTypes(
-            Person, 
+            Person,
             {OurPeoplePage}
         )
 
     def test_our_people_page_parent_page(self):
         self.assertAllowedParentPageTypes(
-            OurPeoplePage, 
+            OurPeoplePage,
             {HomePage}
         )
 
@@ -155,7 +159,7 @@ class PersonTests(WagtailPageTests):
         )
         self.our_people_page.add_child(instance=person)
         self.assertTrue(
-            person.get_parent(), 
+            person.get_parent(),
             self.our_people_page
         )
 
@@ -231,7 +235,7 @@ class PersonTests(WagtailPageTests):
     def test_adding_feature_work_item_to_person_bio(self):
         self.test_person.feature_work_1 = self.article
         self.assertEqual(self.article, self.test_person.feature_work_1)
-        
+
         self.test_person.feature_work_1 = self.article_2
         self.assertEqual(self.article_2, self.test_person.feature_work_1)
 
@@ -273,7 +277,7 @@ class PersonTests(WagtailPageTests):
             post_titles.append(post.title)
         self.assertEqual(post_titles, ['Article 2', 'Article 1'])
 
-    # Test that the second page of the person bio page has no bio and only content results 
+    # Test that the second page of the person bio page has no bio and only content results
     def test_second_person_page_of_bio_has_no_bio_only_content_results(self):
         pass
 

@@ -1,7 +1,11 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.apps import apps
 from django.shortcuts import redirect
+from datetime import datetime
+from pytz import timezone
+from django.db.models import Q
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
@@ -149,14 +153,6 @@ class HomePage(Page):
 
     featured_stories = [feature_1, feature_2, feature_3]
 
-    #Up to three recent items that are below the
-    #featured stories banner that circle through a carousel
-    recent_carousel = StreamField([
-        ('event', PageChooserBlock()),
-        ('policy_paper', PageChooserBlock()),
-    ], blank=True)
-
-
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
@@ -177,7 +173,6 @@ class HomePage(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
-        StreamFieldPanel('recent_carousel'),
     ]
 
     def get_context(self, request):
@@ -204,6 +199,16 @@ class HomePage(Page):
             ]
         else:
             context['featured_stories'] = []
+
+        # uses get_model instead of traditional import to avoid circular import
+        Event = apps.get_model('event', 'Event')
+
+        eastern = timezone('US/Eastern')
+        curr_time = datetime.now(eastern).time()
+        curr_date = datetime.now(eastern).date()
+        date_filter = Q(date__gt=curr_date) | (Q(date=curr_date) & Q(start_time__gte=curr_time))
+
+        context['upcoming_events'] = Event.objects.live().filter(date_filter).order_by("date", "start_time")[:5]
 
         return context
 

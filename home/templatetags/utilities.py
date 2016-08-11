@@ -67,10 +67,10 @@ def get_author_block_prefix(ptype, items_list):
 # generates byline for all post types - calls byline prefix tag to get apporpriate prefix
 @register.simple_tag()
 def generate_byline(ptype, authors):
+	authors = authors.order_by('pk')
 	post_type = str(ptype)
 	num_authors = len(authors)
 	ret_string = ""
-
 
 	# events and press releases have no authors and therefore no byline
 	if post_type == "event" or post_type == "press release":
@@ -120,7 +120,7 @@ def generate_dateline(post):
 	ret_string = ""
 	date_format = '%B %-d, %Y'
 	time_format = '%-I:%M %p'
-	
+
 	if str(post.content_type) == "event":
 		if post.date:
 
@@ -187,7 +187,7 @@ def person_display_contact_info(page):
 	if (page.email):
 		if (page.role != "External Author/Former Staff"):
 			return 1
-	
+
 	return 0
 
 @register.simple_tag()
@@ -196,5 +196,5 @@ def check_oti(path):
 
 	if (path_pieces[1] == "oti"):
 		return "oti"
-	
+
 	return ""

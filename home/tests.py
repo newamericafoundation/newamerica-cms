@@ -1,11 +1,15 @@
 from django.test import TestCase
 from django.test import Client
 from django.http import HttpResponsePermanentRedirect
+import datetime
+from datetime import date, timedelta
 
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.wagtailcore.models import Page, Site
 
-from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
+from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, PostAuthorRelationship
+
+from .templatetags.utilities import generate_byline
 
 from programs.models import Program, Subprogram
 
@@ -13,17 +17,17 @@ from weekly.models import Weekly
 
 from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 
-from event.models import AllEventsHomePage
+from event.models import AllEventsHomePage, ProgramEventsPage, Event
 
 from blog.models import AllBlogPostsHomePage
 
 from book.models import AllBooksHomePage
 
-from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage
+from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage, Person
 
 from podcast.models import AllPodcastsHomePage
 
-from policy_paper.models import AllPolicyPapersHomePage
+from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage, PolicyPaper
 
 from press_release.models import AllPressReleasesHomePage
 
@@ -32,8 +36,8 @@ from quoted.models import AllQuotedHomePage
 
 class HomeTests(WagtailPageTests):
     """
-    Testing hierarchies between pages and whether it is possible 
-    to create a Homepage and all the allowed subpages 
+    Testing hierarchies between pages and whether it is possible
+    to create a Homepage and all the allowed subpages
     underneath the Homepage.
 
     Testing functionality of OrgSimplePage and ProgramSimplePage.
@@ -50,6 +54,10 @@ class HomeTests(WagtailPageTests):
         site.root_page = home
         site.save()
 
+        all_events_home_page = self.home_page.add_child(
+            instance=AllEventsHomePage(title="Events")
+        )
+
         self.program_page = self.home_page.add_child(
             instance=Program(
                 title='OTI',
@@ -64,22 +72,79 @@ class HomeTests(WagtailPageTests):
         )
         self.article = self.program_articles_page.add_child(
             instance=Article(
-                title='Article 1', 
+                title='Article 1',
                 date='2016-02-02'
             )
         )
+
+        self.program_events_page = self.program_page.add_child(
+            instance=ProgramEventsPage(title='OTI Events', slug='oti-events')
+        )
+        self.today_event = self.program_events_page.add_child(
+            instance=Event(
+                title='Today Event' ,
+                date=str(date.today()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )      
+        self.future_event_morning = self.program_events_page.add_child(
+            instance=Event(
+                title='Future Event' ,
+                date=str(date.today()+timedelta(days=5)),
+                start_time=str((datetime.datetime.now()-timedelta(hours=5)).time()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+        self.future_event_afternoon = self.program_events_page.add_child(
+            instance=Event(
+                title='Future Event' ,
+                date=str(date.today()+timedelta(days=5)),
+                start_time=str((datetime.datetime.now()+timedelta(hours=5)).time()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+        self.past_event = self.program_events_page.add_child(
+            instance=Event(
+                title='Past Event',
+                date=str(date.today()-timedelta(days=5)),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+        self.today_early_morning_event = self.program_events_page.add_child(
+            instance=Event(
+                title='Early Morning Event',
+                date=str(date.today()),
+                start_time=str((datetime.datetime.now()-timedelta(hours=5)).time()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+        self.multiday_event_ending_today = self.program_events_page.add_child(
+            instance=Event(
+                title='Early Morning Event',
+                date=str(date.today()-timedelta(days=5)),
+                end_date=str(date.today()),
+                rsvp_link='http://www.newamerica.org',
+                soundcloud_url='http://www.newamerica.org'
+            )
+        )
+
 
     def test_can_create_homepage_under_root_page(self):
         parent_page = Page.get_first_root_node()
         home = HomePage(title='New America')
         parent_page.add_child(instance=home)
 
-    # Test that a particular child Page type 
+    # Test that a particular child Page type
     # can be created under a parent Page type
     def test_homepage_parent_page_type(self):
         self.assertCanCreateAt(Page, HomePage)
 
-    # Test that the only page types that can be created 
+    # Test that the only page types that can be created
     # under parent_model are child_models
     def test_homepage_subpages(self):
         self.assertAllowedSubpageTypes(HomePage, {
@@ -93,7 +158,7 @@ class HomeTests(WagtailPageTests):
             AllQuotedHomePage,
             BoardAndLeadershipPeoplePage,
             JobsPage,
-            OurPeoplePage, 
+            OurPeoplePage,
             OrgSimplePage,
             Program,
             SubscribePage,
@@ -134,24 +199,12 @@ class HomeTests(WagtailPageTests):
         self.home_page.save()
         self.assertEqual(self.home_page.feature_1, self.article)
 
-    def test_adding_story_to_homepage_recent_carousel(self):
-        self.home_page.recent_carousel.stream_data.append(
-            {
-                'type': 'event',
-                'value': self.article.id
-            }
-        )
-        self.assertEqual(
-            self.home_page.recent_carousel.stream_data[0]['value'], 
-            self.article.id
-        )
-
     def test_adding_org_simple_page(self):
         simple_page = OrgSimplePage(
             title='Org Simple Page Test'
         )
         self.home_page.add_child(instance=simple_page)
-        self.assertEqual(simple_page.content_type, 
+        self.assertEqual(simple_page.content_type,
             self.home_page.get_children().filter(
             title='Org Simple Page Test')[0].content_type
         )
@@ -171,7 +224,7 @@ class HomeTests(WagtailPageTests):
             title='Program Simple Page Test'
         )
         self.program_page.add_child(instance=program_simple_page)
-        self.assertEqual(program_simple_page.content_type, 
+        self.assertEqual(program_simple_page.content_type,
             self.program_page.get_children().filter(
             title='Program Simple Page Test')[0].content_type
         )
@@ -226,6 +279,26 @@ class HomeTests(WagtailPageTests):
         response = c.get('http://localhost:8000/simple/google')
         self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
 
+    def test_correct_number_of_events_in_carousel(self):
+        c = Client()
+        response = c.get('/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['upcoming_events']), 3)
+
+    def test_order_of_events_in_carousel(self):
+        c = Client()
+        response = c.get('/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        events = response.context['upcoming_events']
+
+        for i in range(1, len(events)):
+            curr_event = events[i]
+            prev_event = events[i-1]
+            if (prev_event.date == curr_event.date):
+                self.assertTrue(prev_event.start_time <= curr_event.start_time)
+            else:
+                self.assertTrue(prev_event.date <= curr_event.date)
+        
     def test_adding_subscribe_page(self):
         subscribe_page = SubscribePage(
             title='Subscribe Page Test'
