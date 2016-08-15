@@ -108,4 +108,16 @@
 			</div>
 		</section>
 	{% endfor %}
+
+	<!-- footer -->
+
+	<div class="in-depth__section__footer">
+		{% if previous_sibling %}
+			{{ previous_sibling }}
+		{% endif %}
+		{% if next_sibling %}
+			{{ next_sibling }}
+		{% endif %}
+	</div>
+
 {% endblock %}

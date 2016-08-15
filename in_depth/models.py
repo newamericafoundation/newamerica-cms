@@ -82,8 +82,14 @@ class InDepthSection(Page):
 
         context['project_root'] = self.get_parent()
         siblings = self.get_siblings(inclusive=True).live().order_by('pk')
-        context['index'] = siblings.filter(pk__lt = self.pk).count()
+        index = siblings.filter(pk__lt = self.pk).count()
+        context['index'] = index
         context['siblings'] = siblings
+        if (index != 0):
+            context['previous_sibling'] = siblings[(index - 1)]
+        if (index != len(siblings) - 1):
+            context['next_sibling'] = siblings[(index + 1)]
+
         return context
 
     class Meta:
