@@ -79,8 +79,9 @@ class InDepthSection(Page):
 
     def get_context(self, request):
         context = super(InDepthSection, self).get_context(request)
-
-        context['project_root'] = self.get_parent()
+        project_root = self.get_parent()
+        context['project_root'] = project_root
+        context['authors'] = project_root.specific.authors.order_by('pk')
         siblings = self.get_siblings(inclusive=True).live().order_by('pk')
         index = siblings.filter(pk__lt = self.pk).count()
         context['index'] = index

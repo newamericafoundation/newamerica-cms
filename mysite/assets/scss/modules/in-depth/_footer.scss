@@ -8,6 +8,7 @@
 		padding: $desktop-padding 0px;
 		width: 100%;
 		margin: auto;
+
 		display: table;
 
 		&__prev, &__next {
@@ -33,24 +34,65 @@
 			}
 		}
 
-		&__heading {
-			font-weight: bold;
-			font-size: 16px;
-			margin-bottom: 3px;
-			line-height: 1.4;
-		}
+		
+	}
 
-		&__text {
-			font-size: 28px;
-			font-weight: bold;
-			margin-bottom: 0px;
-			line-height: 1.2;
+	&__title-block {
+		padding: 0px $desktop-padding;
+	}
 
-			a {
-				color: white;
+	&__main {
+		border-top: 2px solid palette-get(na-black-40);
+		padding: $desktop-padding 0px;
+
+		&__content {
+			display: table;
+			width: 100%;
+
+			.in-depth__navigation-subheading {
+				margin: $desktop-padding 0px;
 			}
 		}
 
+		&__left, &__right {
+			padding-left: $desktop-padding;
+	    	padding-right: $desktop-padding;
 
+			@include desktop-header {
+				display: table-cell;
+				width: 50%;
+	    	}
+		}
+
+		.post-person {
+			margin-top: 0px;
+			&__text {
+				color: palette-get(na-black-10);
+
+				b, strong {
+					color: white;
+				}
+			}
+		}
+
+		&__directory {
+			&__item {
+				width: 100%;
+				margin-bottom: 3px;
+				
+				&__text {
+					margin-bottom: 0px;
+
+					a {
+						color: palette-get(na-black-10);
+						.active & {
+							font-weight: bold;
+							color: white;
+						}
+					}
+				}
+			}
+		}
+		
 	}
 }

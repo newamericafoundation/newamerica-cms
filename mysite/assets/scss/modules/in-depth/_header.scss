@@ -40,6 +40,17 @@
 	        width:  calc(100% - #{map-get($header-right-width, large)});
 	    }
 
+	    .in-depth__title-block {
+	    	&__logo, &__text {
+	    		@include desktop-header {
+		           position: relative;
+		           top: 50%;
+		           transform: translateY(-50%);
+		        }
+	    	}
+
+	    }
+
 	}
 
 	&__right {

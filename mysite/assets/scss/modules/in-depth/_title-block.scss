@@ -12,12 +12,6 @@
            display: inline-block;
         }
 
-        @include desktop-header {
-           position: relative;
-           top: 50%;
-           transform: translateY(-50%);
-        }
-
         .sidemenu__logo {
            margin: 0px;
         }
@@ -33,29 +27,18 @@
               width: calc(100% - #{$logo-width} - #{$desktop-padding});
            }
         }
-
-        @include desktop-header {
-           position: relative;
-           top: 50%;
-           transform: translateY(-50%);
-        }
     }
 
- 	&__prefix {
-			font-weight: bold;
-			font-size: 16px;
-			margin-bottom: 0px;
-		}
-		&__title {
-			font-size: 28px;
-			font-weight: bold;
-			margin-bottom: 0px;
-    	line-height: 1.2;
-			a {
-				color: white;
-       		@include desktop-header {
-          		@include line-clamp(2, 1.3);
-          	}
-       	}
+	&__title {
+		font-size: 28px;
+		font-weight: bold;
+		margin-bottom: 0px;
+  	line-height: 1.2;
+		a {
+			color: white;
+     		@include desktop-header {
+        		@include line-clamp(2, 1.3);
+        	}
+     	}
 	}
 }
