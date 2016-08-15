@@ -112,12 +112,20 @@
 	<!-- footer -->
 
 	<div class="in-depth__section__footer">
-		{% if previous_sibling %}
-			{{ previous_sibling }}
-		{% endif %}
-		{% if next_sibling %}
-			{{ next_sibling }}
-		{% endif %}
+		<div class="in-depth__section__footer__next-prev">
+			{% if previous_sibling %}
+				<div class="in-depth__section__footer__next-prev__prev">
+					<h5 class="in-depth__section__footer__next-prev__heading">Previous Section</h5>
+					<h5 class="in-depth__section__footer__next-prev__text"><a href="{{ previous_sibling.specific.url }}">{{ previous_sibling }}</a></h5>
+				</div>
+			{% endif %}
+			{% if next_sibling %}
+				<div class="in-depth__section__footer__next-prev__next">
+					<h5 class="in-depth__section__footer__next-prev__heading">Next Section</h5>
+					<h5 class="in-depth__section__footer__next-prev__text"><a href="{{ next_sibling.specific.url }}">{{ next_sibling }}</a></h5>
+				</div>
+			{% endif %}
+		</div>
 	</div>
 
 {% endblock %}
