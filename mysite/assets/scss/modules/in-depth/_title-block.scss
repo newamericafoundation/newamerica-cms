@@ -1,0 +1,61 @@
+.in-depth__title-block {
+	$logo-width: 180px;
+	&__logo {
+        width: $logo-width;
+        padding-bottom: $desktop-padding;
+        float: left;
+        padding-bottom: 0px;
+        margin-right: $desktop-padding;
+        display: none;
+
+        @include breakpoint(medium) {
+           display: inline-block;
+        }
+
+        @include desktop-header {
+           position: relative;
+           top: 50%;
+           transform: translateY(-50%);
+        }
+
+        .sidemenu__logo {
+           margin: 0px;
+        }
+        
+    }
+
+    &__text {
+        display: inline-block;
+        width: 100%;
+
+        &.has-logo {
+           @include breakpoint(medium) {
+              width: calc(100% - #{$logo-width} - #{$desktop-padding});
+           }
+        }
+
+        @include desktop-header {
+           position: relative;
+           top: 50%;
+           transform: translateY(-50%);
+        }
+    }
+
+ 	&__prefix {
+			font-weight: bold;
+			font-size: 16px;
+			margin-bottom: 0px;
+		}
+		&__title {
+			font-size: 28px;
+			font-weight: bold;
+			margin-bottom: 0px;
+    	line-height: 1.2;
+			a {
+				color: white;
+       		@include desktop-header {
+          		@include line-clamp(2, 1.3);
+          	}
+       	}
+	}
+}

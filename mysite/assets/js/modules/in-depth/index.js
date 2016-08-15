@@ -18,9 +18,9 @@ export default function() {
 */
 function addSectionHeaderInteraction() {
 	$(document).ready(function(){
-		$('.in-depth__section__header__item-container').slick({
-			prevArrow: ".in-depth__section__header__arrow__previous",
-			nextArrow: ".in-depth__section__header__arrow__next",
+		$('.in-depth__header__item-container').slick({
+			prevArrow: ".in-depth__header__arrow__previous",
+			nextArrow: ".in-depth__header__arrow__next",
 			infinite: false,
 			swipeToSlide: true,
 			slidesToShow: 1,
@@ -52,19 +52,19 @@ function addSectionHeaderInteraction() {
 
 */
 function toggleArrowDisplay() {
-	var $firstChild = $(".in-depth__section__header__item:first-child");
-	var $lastChild = $(".in-depth__section__header__item:last-child");
+	var $firstChild = $(".in-depth__header__item:first-child");
+	var $lastChild = $(".in-depth__header__item:last-child");
 
 	if ($firstChild.hasClass("slick-active")) {
-		$(".in-depth__section__header__arrow__previous").hide();
+		$(".in-depth__header__arrow__previous").hide();
 	} else {
-		$(".in-depth__section__header__arrow__previous").show();
+		$(".in-depth__header__arrow__previous").show();
 	}
 
 	if ($lastChild.hasClass("slick-active")) {
-		$(".in-depth__section__header__arrow__next").hide();
+		$(".in-depth__header__arrow__next").hide();
 	} else {
-		$(".in-depth__section__header__arrow__next").show();
+		$(".in-depth__header__arrow__next").show();
 	}
 }
 

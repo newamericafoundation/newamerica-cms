@@ -38,36 +38,36 @@
 
 	<!-- header navigation -->
 
-	<div class="in-depth__section__header">
+	<div class="in-depth__header">
 		<div class="in-depth__panel__max-width-wrapper">
-			<div class="in-depth__section__header__left">
+			<div class="in-depth__header__left">
 				{% if project_root.specific.project_logo %}
 					{% image project_root.specific.project_logo min-200x100 as logo %}
-					<div class="in-depth__section__header__left__logo">
+					<div class="in-depth__title-block__logo">
 						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">				      
 						    <img class="sidemenu__logo" src="{{ logo.url }}">
 	  					</a>
 					</div>
-					<div class="in-depth__section__header__left__text has-logo">
+					<div class="in-depth__title-block__text has-logo">
 				{% else %}
-					<div class="in-depth__section__header__left__text">
+					<div class="in-depth__title-block__text">
 				{% endif %}
-						<h5 class="in-depth__section__header__left__prefix">In Depth</h5>
-						<h3 class="in-depth__section__header__left__title"><a href="{{ project_root.url }}">{{ project_root }}</a></h3>
+						<h5 class="in-depth__title-block__prefix">In Depth</h5>
+						<h3 class="in-depth__title-block__title"><a href="{{ project_root.url }}">{{ project_root }}</a></h3>
 					</div>
 			</div>
 			
 			{% if siblings|length > 1 %}
-				<div class="in-depth__section__header__right">
-					<div class="in-depth__section__header__arrow__previous">{% include 'ui_elements/svg/arrow-left.html' %}</div>
-					<div class="in-depth__section__header__item-container" data-slick='{"initialSlide":	{{ index }}}'>
+				<div class="in-depth__header__right">
+					<div class="in-depth__header__arrow__previous">{% include 'ui_elements/svg/arrow-left.html' %}</div>
+					<div class="in-depth__header__item-container" data-slick='{"initialSlide":	{{ index }}}'>
 						{% for sibling in siblings %}
-							<div class="in-depth__section__header__item {% if sibling.pk == page.pk %}active{% endif %}">
-								<h5 class="in-depth__section__header__item__text"><a href="{{ sibling.url }}">{{ sibling.title }}</a></h5>
+							<div class="in-depth__header__item {% if sibling.pk == page.pk %}active{% endif %}">
+								<h5 class="in-depth__header__item__text"><a href="{{ sibling.url }}">{{ sibling.title }}</a></h5>
 							</div>
 						{% endfor %}
 					</div>
-					<div class="in-depth__section__header__arrow__next">{% include 'ui_elements/svg/arrow-right.html' %}</div>
+					<div class="in-depth__header__arrow__next">{% include 'ui_elements/svg/arrow-right.html' %}</div>
 				</div>
 			{% endif %}
 		</div>
@@ -111,20 +111,38 @@
 
 	<!-- footer -->
 
-	<div class="in-depth__section__footer">
-		<div class="in-depth__section__footer__next-prev">
+	<div class="in-depth__footer">
+		<div class="in-depth__footer__next-prev">
 			{% if previous_sibling %}
-				<div class="in-depth__section__footer__next-prev__prev">
-					<h5 class="in-depth__section__footer__next-prev__heading">Previous Section</h5>
-					<h5 class="in-depth__section__footer__next-prev__text"><a href="{{ previous_sibling.specific.url }}">{{ previous_sibling }}</a></h5>
+				<div class="in-depth__footer__next-prev__prev">
+					<h5 class="in-depth__footer__next-prev__heading">Previous Section</h5>
+					<h5 class="in-depth__footer__next-prev__text"><a href="{{ previous_sibling.specific.url }}">{{ previous_sibling }}</a></h5>
 				</div>
 			{% endif %}
 			{% if next_sibling %}
-				<div class="in-depth__section__footer__next-prev__next">
-					<h5 class="in-depth__section__footer__next-prev__heading">Next Section</h5>
-					<h5 class="in-depth__section__footer__next-prev__text"><a href="{{ next_sibling.specific.url }}">{{ next_sibling }}</a></h5>
+				<div class="in-depth__footer__next-prev__next">
+					<h5 class="in-depth__footer__next-prev__heading">Next Section</h5>
+					<h5 class="in-depth__footer__next-prev__text"><a href="{{ next_sibling.specific.url }}">{{ next_sibling }}</a></h5>
 				</div>
 			{% endif %}
+		</div>
+		<div class="in-depth__footer__main">
+			<div class="in-depth__title-block">
+				{% if project_root.specific.project_logo %}
+					{% image project_root.specific.project_logo min-200x100 as logo %}
+					<div class="in-depth__title-block__logo">
+						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">				      
+						    <img class="sidemenu__logo" src="{{ logo.url }}">
+	  					</a>
+					</div>
+					<div class="in-depth__title-block__text has-logo">
+				{% else %}
+					<div class="in-depth__title-block__text">
+				{% endif %}
+						<h5 class="in-depth__title-block__prefix">In Depth</h5>
+						<h3 class="in-depth__title-block__title"><a href="{{ project_root.url }}">{{ project_root }}</a></h3>
+					</div>
+			</div>
 		</div>
 	</div>
 
