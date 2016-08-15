@@ -44,7 +44,7 @@
 				{% if project_root.specific.project_logo %}
 					{% image project_root.specific.project_logo min-200x100 as logo %}
 					<div class="in-depth__section__header__left__logo">
-						<a href="">				      
+						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">				      
 						    <img class="sidemenu__logo" src="{{ logo.url }}">
 	  					</a>
 					</div>
