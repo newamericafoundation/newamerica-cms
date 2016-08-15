@@ -12,6 +12,18 @@
 	      rgba(0, 0, 0, 0),
 	      rgba(0, 0, 0, 0.3)
 	    ), url({{ story_image.url }})">
+
+	    {% if page.project_logo %}
+			{% image page.project_logo min-200x100 as logo %}
+			<div class="title-panel__logo-wrapper">
+				<div class="title-panel__logo">
+					<a href="">				      
+					    <img class="sidemenu__logo" src="{{ logo.url }}">
+					</a>
+				</div>
+			</div>
+		{% endif %}
+
 	    <div class="title-panel__text-box">
 			<h1 class="title-panel__title">{{ page.title }}</h1>
 			<h3 class="title-panel__subheading">{{ page.subheading }}</h3>

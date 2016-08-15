@@ -74,6 +74,36 @@
 		height: 700px;
 	}
 
+	&__logo-wrapper {
+		position: relative;
+		width: 100%;
+		max-width: $max-site-width;
+		margin: auto;
+		display: none;
+
+		@include breakpoint(medium) {
+			display: block;
+		}
+		
+	}
+
+	&__logo {
+		position: absolute;
+		top: 15px;
+
+		.sidemenu__logo {
+			margin-left: 15px;
+		}
+
+		@include desktop-header {
+			top: $desktop-padding;
+
+			.sidemenu__logo {
+				margin-left: $desktop-padding;
+			}
+		}
+	}
+
 	&__text-box {
 		color: white;
 		text-align: center;
