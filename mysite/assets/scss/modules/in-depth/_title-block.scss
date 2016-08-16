@@ -1,0 +1,44 @@
+.in-depth__title-block {
+	$logo-width: 180px;
+	&__logo {
+        width: $logo-width;
+        padding-bottom: $desktop-padding;
+        float: left;
+        padding-bottom: 0px;
+        margin-right: $desktop-padding;
+        display: none;
+
+        @include breakpoint(medium) {
+           display: inline-block;
+        }
+
+        .sidemenu__logo {
+           margin: 0px;
+        }
+        
+    }
+
+    &__text {
+        display: inline-block;
+        width: 100%;
+
+        &.has-logo {
+           @include breakpoint(medium) {
+              width: calc(100% - #{$logo-width} - #{$desktop-padding});
+           }
+        }
+    }
+
+	&__title {
+		font-size: 28px;
+		font-weight: bold;
+		margin-bottom: 0px;
+  	line-height: 1.2;
+		a {
+			color: white;
+     		@include desktop-header {
+        		@include line-clamp(2, 1.3);
+        	}
+     	}
+	}
+}

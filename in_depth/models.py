@@ -79,11 +79,18 @@ class InDepthSection(Page):
 
     def get_context(self, request):
         context = super(InDepthSection, self).get_context(request)
-
-        context['project_root'] = self.get_parent()
+        project_root = self.get_parent()
+        context['project_root'] = project_root
+        context['authors'] = project_root.specific.authors.order_by('pk')
         siblings = self.get_siblings(inclusive=True).live().order_by('pk')
-        context['index'] = siblings.filter(pk__lt = self.pk).count()
+        index = siblings.filter(pk__lt = self.pk).count()
+        context['index'] = index
         context['siblings'] = siblings
+        if (index != 0):
+            context['previous_sibling'] = siblings[(index - 1)]
+        if (index != len(siblings) - 1):
+            context['next_sibling'] = siblings[(index + 1)]
+
         return context
 
     class Meta:
@@ -114,9 +121,12 @@ class InDepthProject(Post):
         related_name='+',
     )
 
+    project_logo_link = models.URLField(blank=True, null=True, max_length=140)
+
     content_panels = Post.content_panels + [
     	StreamFieldPanel('buttons'),
         ImageChooserPanel('project_logo'),
+        FieldPanel('project_logo_link'),
     ]
 
     def save(self, *args, **kwargs):
