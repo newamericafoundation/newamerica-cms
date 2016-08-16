@@ -1,5 +1,8 @@
 @import 'normalize';
 @import 'foundation';
+@import '~bourbon/app/assets/stylesheets/bourbon';
+@import 'vertical-fixed-navigation';
+@import 'slick-carousel';
 
 @import '../vendor/jquery-ui.min.css';
 @import '../vendor/jssocials.css';

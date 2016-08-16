@@ -2,6 +2,9 @@
   .template-homepage &, .template-person & {
     margin-top: 0px;
   }
+  @include is-in-depth-template {
+    margin-top: 0px;
+  }
   .template-programhomepage & {
     margin-top: 0px;
     @include desktop-header {

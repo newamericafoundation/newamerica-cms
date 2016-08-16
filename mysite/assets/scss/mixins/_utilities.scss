@@ -32,6 +32,17 @@
    hyphens: auto;*/
 }
 
+@mixin line-clamp($num-lines, $default-line-height) {
+  /* to handle overflow - http://stackoverflow.com/questions/3922739/limit-text-length-to-n-lines-using-css*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num-lines; /* number of lines to show */
+  line-height: $default-line-height;        /* fallback */
+  max-height: calc(#{$num-lines}*#{$default-line-height});
+}
+
 
 @mixin limit-body-width {
   @include desktop-header {
@@ -57,5 +68,17 @@
     left: 0;
     width: 100% !important;
     height: 100% !important;
+  }
+}
+
+@mixin is-in-depth-homepage {
+  .template-allindepthhomepage & {
+    @content;
+  }
+}
+
+@mixin is-in-depth-template {
+  .template-indepthsection &, .template-indepthproject &, .template-allindepthhomepage & {
+    @content;
   }
 }
