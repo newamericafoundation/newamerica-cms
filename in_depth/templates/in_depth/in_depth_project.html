@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% block body_class %}template-indepthproject{% endblock %}
+{% block sidemenu_status %}no_sidemenu{% endblock %}
+
+{% block content %}
+	<section class="in-depth__panel title-panel" style="background-image: linear-gradient(
+	      rgba(0, 0, 0, 0),
+	      rgba(0, 0, 0, 0.3)
+	    ), url({{ story_image.url }})">
+	    <div class="title-panel__text-box">
+			<h1 class="title-panel__title">{{ page.title }}</h1>
+			<h3 class="title-panel__subheading">{{ page.subheading }}</h3>
+			{% if page.buttons %}
+				<div class="title-panel__button-container">
+					{% for button in page.buttons %}
+						<a class="button" href="{{ button.value.button_url }}">{{ button.value.button_text }}</a>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+		{% if page.body %}
+			<a class="title-panel__scroll-down" href="#body">{% include 'ui_elements/svg/arrow-down.html' %}</a>
+		{% elif page.get_children|length > 1 %}
+			<a class="title-panel__scroll-down" href="#contents">{% include 'ui_elements/svg/arrow-down.html' %}</a>
+		{% endif %}
+	</section>
+
+	{% if page.body %}
+		<a id="body" class="in-depth__panel__anchor"></a>
+		<section class="in-depth__panel">
+			<div class="in-depth__panel__body post-body">
+				{{ page.body }}
+			</div>
+		</section>
+	{% endif %}
+
+	{% if page.get_children|length > 1 %}
+		<a id="contents" class="in-depth__panel__anchor"></a>
+		<section class="in-depth__panel contents-panel grey">
+			<div class="in-depth__panel__max-width-wrapper">
+				<h3 class="contents-panel__heading">Contents</h3>
+				<div class="contents-panel__item-container">
+					{% for section in page.get_children.specific %}
+						<div class="contents-panel__item">
+							<h5 class="contents-panel__item__title"><a href="{{ section.url }}">{{ section.title }}</a></h5>
+							<p class="contents-panel__item__description">{{ section.story_excerpt }}</p>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
+{% endblock %}

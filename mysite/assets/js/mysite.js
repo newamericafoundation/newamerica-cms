@@ -24,6 +24,7 @@ $(document).ready(function() {
 	require('../vendor/jquery-ui.min.js');
 	require('../vendor/jquery.comiseo.daterangepicker.min.js');
 	require('foundation-sites');
+	require('slick-carousel');
 	$(document).foundation();
 	getHeaderBreakpoints();
 	modules.forEach((module) => {
