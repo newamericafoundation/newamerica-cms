@@ -112,6 +112,7 @@
 	<!-- footer -->
 
 	<div class="in-depth__footer">
+		{% if previous_sibling or next_sibling %}
 		<div class="in-depth__footer__next-prev">
 			{% if previous_sibling %}
 				<div class="in-depth__footer__next-prev__prev">
@@ -126,6 +127,7 @@
 				</div>
 			{% endif %}
 		</div>
+		{% endif %}
 		<div class="in-depth__footer__main">
 			<div class="in-depth__max-width-wrapper">
 				<div class="in-depth__footer__title-block">
@@ -185,8 +187,6 @@
 								{% endfor %}
 							</div>
 						{% endif %}
-
-						<h5 class="in-depth__navigation-subheading">Dataset</h5>
 						
 					</div>
 					<div class="in-depth__footer__main__right">
@@ -201,6 +201,8 @@
 								</li>
 							{% endfor %}
 						</ul>
+
+						<h5 class="in-depth__navigation-subheading">Dataset</h5>
 					</div>
 				</div>
 			</div>

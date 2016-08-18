@@ -5,7 +5,7 @@
 
 	&__next-prev {
 		max-width: $max-site-width;
-		padding: $desktop-padding 0px;
+		padding: 2*$desktop-padding 0px;
 		width: 100%;
 		margin: auto;
 
@@ -43,7 +43,7 @@
 
 	&__main {
 		border-top: 2px solid palette-get(na-black-40);
-		padding: $desktop-padding 0px;
+		padding: 2*$desktop-padding 0px;
 
 		&__content {
 			display: table;
@@ -65,7 +65,6 @@
 		}
 
 		.post-person {
-			margin-top: 0px;
 			&__text {
 				color: palette-get(na-black-10);
 
