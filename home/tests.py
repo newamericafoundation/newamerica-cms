@@ -23,6 +23,8 @@ from blog.models import AllBlogPostsHomePage
 
 from book.models import AllBooksHomePage
 
+from in_depth.models import AllInDepthHomePage
+
 from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage, Person
 
 from podcast.models import AllPodcastsHomePage
@@ -156,6 +158,7 @@ class HomeTests(WagtailPageTests):
             AllPolicyPapersHomePage,
             AllPressReleasesHomePage,
             AllQuotedHomePage,
+            AllInDepthHomePage,
             BoardAndLeadershipPeoplePage,
             JobsPage,
             OurPeoplePage,
