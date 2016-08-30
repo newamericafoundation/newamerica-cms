@@ -1,1 +1,5 @@
-<div class="dataviz" id="{{ self.container_id }}"></div>
+	<div class="dataviz" style="max-width: {{ self.max_width }}px">	
+		<h3 class="dataviz__title">{{ self.title }}</h3>
+		<p class="dataviz__subheading">{{ self.subheading }}</p>
+		<div class="dataviz__chart-area" id="{{ self.container_id }}"></div>
+	</div>

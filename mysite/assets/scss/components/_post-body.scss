@@ -1,4 +1,4 @@
-.post-body:not(".dataviz") {
+.post-body:not(".dataviz__chart-area") {
   $media-padding: 20px;
   $media-default-aspect: 1;
   padding-top:$desktop-padding;
