@@ -1,4 +1,4 @@
-.post-body {
+.post-body:not(".dataviz") {
   $media-padding: 20px;
   $media-default-aspect: 1;
   padding-top:$desktop-padding;
