@@ -23,7 +23,19 @@ function convertToHttps() {
 		
 }
 
+function addDatavizDownloadInteractivity() {
+	$(".dataviz__download-link")
+		.on("click", function() {
+			$(this).siblings(".dataviz__download-popup").show();
+		});
+
+	$(".dataviz__download-popup").on("mouseleave", function() {
+		$(this).hide();
+	});
+}
+
 export default function() {
 	checkDropcap();
 	convertToHttps();
+	addDatavizDownloadInteractivity();
 }
