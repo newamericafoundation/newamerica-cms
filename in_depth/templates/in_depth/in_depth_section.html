@@ -148,8 +148,13 @@
 				</div>
 				<div class="in-depth__footer__main__content">
 					<div class="in-depth__footer__main__left">
-						<h5 class="in-depth__navigation-subheading">Authors</h5>
+						{% if project_root.specific.about_the_project %}
+							<h5 class="in-depth__navigation-subheading">About this Project</h5>
+							<p>{{ project_root.specific.about_the_project | richtext }}</p>
+						{% endif %}
 						{% if authors %}
+							<h5 class="in-depth__navigation-subheading">Authors</h5>
+						
 							<div class="post-person-container">
 								{% for author in authors %}
 									{% if author.author.profile_image %}
@@ -193,7 +198,7 @@
 						<h5 class="in-depth__navigation-subheading">Data Project Outline</h5>
 						<ul class="in-depth__footer__main__directory">
 								<li class="in-depth__footer__main__directory__item">
-										<p class="in-depth__footer__main__directory__item__text"><a href="{{ project_root.url }}">{{ project_root.title }} Home Page</a></p>
+									<p class="in-depth__footer__main__directory__item__text"><a href="{{ project_root.url }}">{{ project_root.title }} Home Page</a></p>
 								</li>
 							{% for sibling in siblings %}
 								<li class="in-depth__footer__main__directory__item {% if sibling.pk == page.pk %}active{% endif %}">
