@@ -3,6 +3,7 @@
 	color: white;
 	border-top: 2px solid palette-get(na-black-40);
 
+
 	&__next-prev {
 		max-width: $max-site-width;
 		padding: 2*$desktop-padding 0px;
@@ -93,5 +94,24 @@
 			}
 		}
 		
+	}
+
+	&__about {
+		color: palette-get(na-black-10);
+
+		b {
+			color: white;
+		}
+		a:not(.button) {
+			color: white;
+		    font-weight: 800;
+		    border-bottom: $standard-border;
+		    padding-bottom: 2px;
+		    opacity: 1;
+		}
+
+		a:not(.button):hover {
+			@include set-color(color);
+		}
 	}
 }

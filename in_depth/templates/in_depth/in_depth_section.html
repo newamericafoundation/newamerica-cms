@@ -150,7 +150,7 @@
 					<div class="in-depth__footer__main__left">
 						{% if project_root.specific.about_the_project %}
 							<h5 class="in-depth__navigation-subheading">About this Project</h5>
-							<p>{{ project_root.specific.about_the_project | richtext }}</p>
+							<div class="in-depth__footer__about">{{ project_root.specific.about_the_project | richtext }}</div>
 						{% endif %}
 						{% if authors %}
 							<h5 class="in-depth__navigation-subheading">Authors</h5>
