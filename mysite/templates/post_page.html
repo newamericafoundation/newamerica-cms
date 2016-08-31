@@ -4,6 +4,12 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
+{% block extra_js %}
+	{% if page.data_project_external_script %}
+		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
+	{% endif %}
+{% endblock %}
+
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}

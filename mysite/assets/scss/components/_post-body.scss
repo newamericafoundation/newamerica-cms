@@ -1,4 +1,4 @@
-.post-body {
+.post-body:not(".dataviz__chart-area") {
   $media-padding: 20px;
   $media-default-aspect: 1;
   padding-top:$desktop-padding;
@@ -185,6 +185,11 @@
       } 
       
     }
+  }
+
+  .block-dataviz {
+    padding-top: $desktop-padding;
+    padding-bottom: $desktop-padding;
   }
 
   .block-table {

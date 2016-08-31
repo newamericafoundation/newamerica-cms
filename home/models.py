@@ -30,7 +30,7 @@ from person.models import Person
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from .blocks import ButtonBlock, IframeBlock
+from .blocks import ButtonBlock, IframeBlock, DatavizBlock
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -403,6 +403,7 @@ class Post(Page):
         ('table', TableBlock()),
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
+        ('dataviz', DatavizBlock()),
     ])
 
     parent_programs = models.ManyToManyField(
@@ -424,6 +425,8 @@ class Post(Page):
         related_name='+'
     )
 
+    data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
+
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
         FieldPanel('date'),
@@ -436,6 +439,10 @@ class Post(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('data_project_external_script'),
     ]
 
     is_creatable = False

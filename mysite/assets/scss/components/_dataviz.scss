@@ -1,0 +1,69 @@
+.dataviz {
+	position: relative;
+	margin: auto;
+	overflowX: scroll;
+	&__title {
+		font-weight: bold;
+		font-size: 28px;
+		margin-bottom: 0px;
+	}
+
+	&__subheading {
+		color: palette-get(na-black-40);
+		max-width: $max-body-width;
+	}
+
+	&__download-link {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		display: none;
+
+		@include breakpoint(medium) {
+			display: block;
+		}
+
+		svg {
+			margin-top: 10px;
+			width: 18px;
+			fill: palette-get(na-black-30);
+		}
+	}
+
+	&__download-popup {
+		display: none;
+		position: absolute;
+		z-index: 10;
+		top: 0px;
+		right: 0px;
+		background-color: white;
+		@include standard-shadow;
+		padding: 20px;
+
+		&__title, &__item {
+			width: 100%;
+			display: block;
+			padding-top: 3px;
+			padding-bottom: 3px;
+		}
+
+		&__title {
+			font-weight: bold;
+		}
+
+		&__item {
+			padding-left: 7px;
+			color: palette-get(na-black-40);
+
+			&:hover {
+				background-color: palette-get(na-black);
+				color: white;
+			}
+		}
+	}
+}
+
+.block-dataviz {
+    margin-top: $desktop-padding;
+    margin-bottom: $desktop-padding;
+}
