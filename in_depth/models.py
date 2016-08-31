@@ -104,6 +104,8 @@ class InDepthProject(Post):
     parent_page_types = ['AllInDepthHomePage']
     subpage_types = ['InDepthSection']
 
+    about_the_project = RichTextField(blank=True, null=True)
+
     buttons = StreamField([
         ('button', 
             blocks.StructBlock([
@@ -124,6 +126,7 @@ class InDepthProject(Post):
     project_logo_link = models.URLField(blank=True, null=True, max_length=140)
 
     content_panels = Post.content_panels + [
+        FieldPanel('about_the_project'),
     	StreamFieldPanel('buttons'),
         ImageChooserPanel('project_logo'),
         FieldPanel('project_logo_link'),
