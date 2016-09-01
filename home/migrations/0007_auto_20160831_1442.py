@@ -18,10 +18,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='homepage',
-            name='recent_carousel',
-        ),
         migrations.AddField(
             model_name='post',
             name='data_project_external_script',
