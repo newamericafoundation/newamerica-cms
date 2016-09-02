@@ -1,7 +1,6 @@
 .dataviz {
 	position: relative;
 	margin: auto;
-	overflowX: scroll;
 	&__title {
 		font-weight: bold;
 		font-size: 28px;
@@ -61,6 +60,16 @@
 			}
 		}
 	}
+
+	&__chart-area {
+		/*overflow-x: scroll;*/
+	}
+
+	
+}
+
+.chart-wrapper {
+	overflow-x: scroll;
 }
 
 .block-dataviz {
