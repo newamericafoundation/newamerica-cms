@@ -14,7 +14,7 @@ import wagtail.wagtailimages.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0006_auto_20160627_2120'),
+        ('home', '0007_remove_homepage_recent_carousel'),
     ]
 
     operations = [

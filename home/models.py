@@ -403,7 +403,7 @@ class Post(Page):
         ('table', TableBlock()),
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
-        # ('dataviz', DatavizBlock()),
+        ('dataviz', DatavizBlock()),
     ])
 
     parent_programs = models.ManyToManyField(
@@ -425,7 +425,7 @@ class Post(Page):
         related_name='+'
     )
 
-    # data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
+    data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
 
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
@@ -441,9 +441,9 @@ class Post(Page):
         ImageChooserPanel('story_image'),
     ]
 
-    # settings_panels = Page.settings_panels + [
-    #     FieldPanel('data_project_external_script'),
-    # ]
+    settings_panels = Page.settings_panels + [
+        FieldPanel('data_project_external_script'),
+    ]
 
     is_creatable = False
 
