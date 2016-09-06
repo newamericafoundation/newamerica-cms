@@ -1,16 +1,18 @@
 	<div class="dataviz" style="max-width: {{ self.max_width }}px">
-		<a class="dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'ui_elements/svg/download.html' %}</a>
-		<div class="dataviz__download-popup">
-			<ul>
-				<li class="dataviz__download-popup__title">Download Options:</li>
-				<li class="dataviz__download-popup__item">
-					<a id="{{ self.container_id }}__download-svg">Download as SVG</a>
-				</li>
-				<li class="dataviz__download-popup__item">
-					<a id="{{ self.container_id }}__download-png">Download as PNG</a>
-				</li>
-			</ul>
-		</div>
+		{% if self.show_download_link %}
+			<a class="dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'ui_elements/svg/download.html' %}</a>
+			<div class="dataviz__download-popup">
+				<ul>
+					<li class="dataviz__download-popup__title">Download Options:</li>
+					<li class="dataviz__download-popup__item">
+						<a id="{{ self.container_id }}__download-svg">Download as SVG</a>
+					</li>
+					<li class="dataviz__download-popup__item">
+						<a id="{{ self.container_id }}__download-png">Download as PNG</a>
+					</li>
+				</ul>
+			</div>
+		{% endif %}
 		<h3 class="dataviz__title">{{ self.title }}</h3>
 		<div class="dataviz__subheading">{{ self.subheading }}</div>
 		<div class="dataviz__chart-area" id="{{ self.container_id }}"></div>

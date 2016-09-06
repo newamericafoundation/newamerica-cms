@@ -38,9 +38,10 @@ class IframeBlock(blocks.StructBlock):
 		help_text= "Specifiy maximum width and height dimensions for the iframe. On smaller screens, width-to-height ratio will be preserved."
 
 class DatavizBlock(blocks.StructBlock):
-	title = blocks.CharBlock()
-	subheading = blocks.RichTextBlock()
+	title = blocks.CharBlock(required=False)
+	subheading = blocks.RichTextBlock(required=False)
 	max_width = IntegerBlock()
+	show_download_link = blocks.BooleanBlock(default=False, required=False)
 	container_id = blocks.CharBlock(required=True)
 
 	class Meta:
