@@ -3,13 +3,14 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load utilities %}
+{% load static %}
 
 {% block body_class %}template-allindepthhomepage{% endblock %}
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
 	<div class="in-depth__home-page">
-		<div class="in-depth__home-page__header">
+		<div class="in-depth__home-page__header" style= "background-image:url({% static 'images/in-depth-home-page-background.png' %})">
 			<div class="in-depth__home-page__header__text">
 				<h1 class="post-header__text__heading">{{ page.title }}</h1>
 		    	{% if page.story_excerpt %}
