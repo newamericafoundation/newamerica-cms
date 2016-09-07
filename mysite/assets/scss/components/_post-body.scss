@@ -35,7 +35,12 @@
     }
   }
 
-  
+  a:not(.button) {
+    font-weight: 800;
+    border-bottom: $standard-border;
+    padding-bottom: 2px;
+    opacity: 1;
+  }
 
   .block-button {
     @include limit-body-width;
@@ -56,8 +61,6 @@
     font-size: 1.5rem;
     font-weight: bold;
   }
-
-  
 
   .block-paragraph {
     @include limit-body-width;
@@ -132,11 +135,8 @@
       margin-left: 45px;
     }
 
-    p,
     blockquote {
       @include page-body-text;
-    }
-    blockquote {
       margin: 15px 5px;
       padding: 0 20px;
       border: none;
@@ -161,14 +161,7 @@
       }
     }
 
-    a:not(.button) {
-      font-weight: 800;
-      border-bottom: $standard-border;
-      padding-bottom: 2px;
-      opacity: 1;
-    }
-
-    /* styling for media objects embedded through wysiwyg editor panel - responsive up to medium breakpoint, then fixed width/height */
+     /* styling for media objects embedded through wysiwyg editor panel - responsive up to medium breakpoint, then fixed width/height */
     .responsive-object {
       margin-bottom: 20px;
       @include responsive-iframe(60%);
