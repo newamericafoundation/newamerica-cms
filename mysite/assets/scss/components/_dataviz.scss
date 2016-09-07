@@ -1,7 +1,9 @@
 .dataviz {
 	position: relative;
-	margin: auto;
 	&__title {
+		@include limit-body-width;
+		margin-left: auto;
+		margin-right: auto;
 		color: palette-get(na-black);
 		font-weight: bold;
 		font-size: 28px;
@@ -9,6 +11,9 @@
 	}
 
 	&__subheading {
+		@include limit-body-width;
+		margin-left: auto;
+		margin-right: auto;
 		color: palette-get(na-black-40);
 		max-width: $max-body-width;
 		margin-bottom: 10px
@@ -64,6 +69,7 @@
 	}
 
 	&__chart-area {
+		margin: auto;
 		/*overflow-x: scroll;*/
 	}
 
@@ -72,6 +78,11 @@
 
 .chart-wrapper {
 	overflow-x: scroll;
+	& > svg {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 .block-dataviz {

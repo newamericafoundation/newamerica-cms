@@ -1,4 +1,4 @@
-	<div class="dataviz" style="max-width: {{ self.max_width }}px">
+	<div class="dataviz">
 		{% if self.show_download_link %}
 			<a class="dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'ui_elements/svg/download.html' %}</a>
 			<div class="dataviz__download-popup">
@@ -15,5 +15,5 @@
 		{% endif %}
 		<h3 class="dataviz__title">{{ self.title }}</h3>
 		<div class="dataviz__subheading">{{ self.subheading }}</div>
-		<div class="dataviz__chart-area" id="{{ self.container_id }}"></div>
+		<div class="dataviz__chart-area" id="{{ self.container_id }}" style="max-width: {{ self.max_width }}px"></div>
 	</div>
