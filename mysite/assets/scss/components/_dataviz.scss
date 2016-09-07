@@ -1,7 +1,9 @@
 .dataviz {
 	position: relative;
-	margin: auto;
 	&__title {
+		@include limit-body-width;
+		margin-left: auto;
+		margin-right: auto;
 		color: palette-get(na-black);
 		font-weight: bold;
 		font-size: 28px;
@@ -9,6 +11,9 @@
 	}
 
 	&__subheading {
+		@include limit-body-width;
+		margin-left: auto;
+		margin-right: auto;
 		color: palette-get(na-black-40);
 		max-width: $max-body-width;
 		margin-bottom: 10px
@@ -64,6 +69,7 @@
 	}
 
 	&__chart-area {
+		margin: auto;
 		/*overflow-x: scroll;*/
 	}
 
@@ -72,6 +78,28 @@
 
 .chart-wrapper {
 	overflow-x: scroll;
+	padding-bottom: 15px;
+
+	&::-webkit-scrollbar {
+    	-webkit-appearance: none; 
+    	width: 7px; 
+    	height: 7px;
+	}
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+	    border-radius: 10px; 
+		background-color: rgba(0,0,0,.2); 
+		-webkit-box-shadow: 0 0 1px rgba(255,255,255,.2);
+	}
+	&::-webkit-scrollbar-thumb:window-inactive {
+		background-color: rgba(0,0,0,.2); 
+		-webkit-box-shadow: 0 0 1px rgba(255,255,255,.2);
+	}
+	& > svg {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 .block-dataviz {
