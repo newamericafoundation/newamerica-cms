@@ -2,14 +2,16 @@
 	position: relative;
 	margin: auto;
 	&__title {
+		color: palette-get(na-black);
 		font-weight: bold;
 		font-size: 28px;
-		margin-bottom: 0px;
+		margin-bottom: 10px;
 	}
 
 	&__subheading {
 		color: palette-get(na-black-40);
 		max-width: $max-body-width;
+		margin-bottom: 10px
 	}
 
 	&__download-link {
