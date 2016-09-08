@@ -123,6 +123,12 @@
 
 	&__title {
 		@include panel-title-text;
+
+		padding: 0px;
+
+		@include breakpoint(medium) {
+			font-size: 3rem;
+		}
 	}
 
 	&__subheading {
