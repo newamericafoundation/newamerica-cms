@@ -104,6 +104,9 @@
 				<a class="title-panel__scroll-down" href="#{{ page.panels.0.value.panel_title|slugify }}">{% include 'ui_elements/svg/arrow-down.html' %}</a>
 			{% endif %}
 		</section>
+		{% if story_image.image.source %}
+			<div class="caption" style="padding-left:10px">Photo: {{ story_image.image.source}}</div>
+		{% endif %}
 	{% endif %}
 	{% for panel in page.panels %}
 		<a id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel__anchor"></a>
@@ -111,7 +114,20 @@
 			<div class="in-depth__panel__max-width-wrapper">
 				<h5 class="in-depth__panel__title-label">{{ page.title }}</h5>
 				<h1 class="in-depth__panel__title">{{ panel.value.panel_title }}</h1>
-				<div class="in-depth__panel__body post-body">{{ panel.value.panel_body }}</div>
+				<div class="in-depth__panel__body post-body">
+					{% for block in panel.value.panel_body %}
+				    	<div class="block-{{ block.block_type }}">
+					       {% if block.block_type == 'image' %}
+				            	{{ block }}
+				            	{% if block.value.caption or block.value.source %}
+				            		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
+				            	{% endif %}
+					        {% else %}
+					            {{ block }}
+					        {% endif %}
+				   		</div>
+				    {% endfor %}
+				</div>
 			</div>
 		</section>
 	{% endfor %}
