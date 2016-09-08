@@ -1,4 +1,5 @@
 .in-depth__header {
+	$section-header-height-medium: 100px;
 	$section-header-height: 140px;
     $header-right-width: (
 		small: 300px,
@@ -27,9 +28,13 @@
  		color: white;
 		width: 100%;
 
+		@include breakpoint(medium) {
+			height: $section-header-height-medium;
+		}
+
 	    @include desktop-header {
 	        width: calc(100% - #{map-get($header-right-width, small)});
-	        height: $section-header-height;
+	       	height: $section-header-height;
 	    }
 
 	    @include breakpoint(large) {
@@ -41,13 +46,13 @@
 	    }
 
 	    .in-depth__title-block {
-	    	&__logo, &__text {
+	    	/*&__logo, &__text {
 	    		@include desktop-header {
 		           position: relative;
 		           top: 50%;
 		           transform: translateY(-50%);
 		        }
-	    	}
+	    	}*/
 
 	    }
 
