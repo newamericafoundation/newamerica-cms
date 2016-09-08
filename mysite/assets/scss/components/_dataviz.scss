@@ -5,9 +5,9 @@
 		margin-left: auto;
 		margin-right: auto;
 		color: palette-get(na-black);
-		font-weight: bold;
-		font-size: 28px;
-		margin-bottom: 10px;
+		font-weight: 700;
+		font-size: 1.4rem;
+		line-height: 130%;
 	}
 
 	&__subheading {
@@ -16,7 +16,15 @@
 		margin-right: auto;
 		color: palette-get(na-black-40);
 		max-width: $max-body-width;
-		margin-bottom: 10px
+		margin-bottom: 10px;
+
+		p {
+			border-left: $standard-border;
+		    padding-left: 15px;
+		    margin-left: 1px;
+		    font-size: 16px;
+		    line-height: 140%;
+		}
 	}
 
 	&__download-link {
