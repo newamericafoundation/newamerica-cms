@@ -83,7 +83,7 @@ class InDepthSection(Page):
         project_root = self.get_parent()
         context['project_root'] = project_root
         context['authors'] = project_root.specific.authors.order_by('pk')
-        siblings = self.get_siblings(inclusive=True).live().order_by('pk')
+        siblings = self.get_siblings(inclusive=True).live()
         index = siblings.filter(pk__lt = self.pk).count()
         context['index'] = index
         context['siblings'] = siblings
