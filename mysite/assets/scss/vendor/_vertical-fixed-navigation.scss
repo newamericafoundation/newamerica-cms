@@ -44,6 +44,7 @@ Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertic
 
 .no-touch #cd-vertical-nav {
 	position: fixed;
+	pointer-events: none;
 	@include center(y); // see partials > _mixins.scss
 	z-index: 1;
 	right: 15px;
@@ -84,6 +85,7 @@ Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertic
 	} 
 
 	.cd-dot {
+		pointer-events: auto;
 		position: relative;
 		/* top value is set in order to align the dot with the label. If you change label's font, you may need to change this top value*/
 		top: 8px;
