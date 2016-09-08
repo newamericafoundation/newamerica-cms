@@ -40,6 +40,10 @@
 
 	&__title-block {
 		padding: 0px $desktop-padding;
+
+		@include breakpoint(medium) {
+			height: 85px;
+		}
 	}
 
 	&__main {
@@ -51,7 +55,7 @@
 			width: 100%;
 
 			.in-depth__navigation-subheading {
-				margin: $desktop-padding 0px;
+				margin: $desktop-padding 0px 15px 0px;
 			}
 		}
 

@@ -1,5 +1,12 @@
 .in-depth__title-block {
 	$logo-width: 180px;
+  &__logo, &__text {
+    @include breakpoint(medium) {
+         position: relative;
+         top: 50%;
+         transform: translateY(-50%);
+      }
+  }
 	&__logo {
         width: $logo-width;
         padding-bottom: $desktop-padding;
