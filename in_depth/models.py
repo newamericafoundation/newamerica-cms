@@ -84,7 +84,11 @@ class InDepthSection(Page):
         context['project_root'] = project_root
         context['authors'] = project_root.specific.authors.order_by('pk')
         siblings = self.get_siblings(inclusive=True).live()
-        index = siblings.filter(pk__lt = self.pk).count()
+        index = 0
+        for i, item in enumerate(siblings):
+            if (item.title == self.title):
+                index = i
+
         context['index'] = index
         context['siblings'] = siblings
         if (index != 0):
