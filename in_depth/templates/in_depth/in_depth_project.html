@@ -47,12 +47,26 @@
 			<a class="title-panel__scroll-down" href="#contents">{% include 'ui_elements/svg/arrow-down.html' %}</a>
 		{% endif %}
 	</section>
+	{% if story_image.image.source %}
+		<div class="caption" style="padding-left:10px">Photo: {{ story_image.image.source}}</div>
+	{% endif %}
 
 	{% if page.body %}
 		<a id="body" class="in-depth__panel__anchor"></a>
 		<section class="in-depth__panel">
 			<div class="in-depth__panel__body post-body">
-				{{ page.body }}
+				{% for block in page.body %}
+			    	<div class="block-{{ block.block_type }}">
+				       {% if block.block_type == 'image' %}
+			            	{{ block }}
+			            	{% if block.value.caption or block.value.source %}
+			            		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
+			            	{% endif %}
+				        {% else %}
+				            {{ block }}
+				        {% endif %}
+			   		</div>
+			    {% endfor %}
 			</div>
 		</section>
 	{% endif %}
