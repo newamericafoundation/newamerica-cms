@@ -3,7 +3,6 @@
 	font-weight: bold;
 	font-size: 2rem;
 	line-height: 1.2;
-	padding: 35px 0px;
 
 	@include breakpoint(medium) {
 		font-size: 2.35rem;
@@ -33,10 +32,23 @@
 			color: white;
 		}
 	}
+
+	&__title-label {
+		text-align: center;
+		font-weight: bold;
+		color: palette-get(na-black-40);
+		opacity: .8;
+		font-size: 1rem;
+		line-height: 1;
+		padding: 35px 0px 0px 0px;
+		margin-bottom: 5px;
+	}
+
 	&__title {
 		@include panel-title-text;
 		max-width: $max-body-width;
 		margin: auto;
+		padding: 0px 0px 35px 0px;
 	}
 
 	/* centers all body content + iframes */
