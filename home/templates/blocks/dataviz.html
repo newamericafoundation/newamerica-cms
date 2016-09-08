@@ -13,7 +13,11 @@
 				</ul>
 			</div>
 		{% endif %}
-		<h3 class="dataviz__title">{{ self.title }}</h3>
-		<div class="dataviz__subheading">{{ self.subheading }}</div>
+		{% if self.title %}
+			<h3 class="dataviz__title">{{ self.title }}</h3>
+		{% endif %}
+		{% if self.subheading %}
+			<div class="dataviz__subheading">{{ self.subheading }}</div>
+		{% endif %}
 		<div class="dataviz__chart-area" id="{{ self.container_id }}" style="max-width: {{ self.max_width }}px"></div>
 	</div>

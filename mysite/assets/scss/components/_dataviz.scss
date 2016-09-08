@@ -12,11 +12,14 @@
 
 	&__subheading {
 		@include limit-body-width;
-		margin-left: auto;
-		margin-right: auto;
 		color: palette-get(na-black-40);
 		max-width: $max-body-width;
 		margin-bottom: 10px;
+
+		@include desktop-header {
+			margin-left: auto;
+			margin-right: auto;
+		}
 
 		p {
 			border-left: $standard-border;
