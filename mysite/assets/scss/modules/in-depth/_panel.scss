@@ -28,8 +28,25 @@
 	}
 	&.black {
 		background-color: palette-get(na-black);
-		h1, p {
+
+		.post-body {
 			color: white;
+		}
+		
+		h1, p, a, b, strong {
+			color: white;
+		}
+
+		blockquote:not(.pullquote) {
+			color: white;
+		}
+
+		a:not(.button):hover {
+			color: palette-get(na-turquoise);
+		}
+
+		.in-depth__panel__title-label {
+			color: palette-get(na-black-10);
 		}
 	}
 
