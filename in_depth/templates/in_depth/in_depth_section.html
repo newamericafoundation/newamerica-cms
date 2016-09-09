@@ -221,16 +221,24 @@
 						<h5 class="in-depth__navigation-subheading">Data Project Outline</h5>
 						<ul class="in-depth__footer__main__directory">
 								<li class="in-depth__footer__main__directory__item">
-									<p class="in-depth__footer__main__directory__item__text"><a href="{{ project_root.url }}">{{ project_root.title }} Home Page</a></p>
+									<a href="{{ project_root.url }}">{{ project_root.title }} Home Page</a>
 								</li>
 							{% for sibling in siblings %}
-								<li class="in-depth__footer__main__directory__item {% if sibling.pk == page.pk %}active{% endif %}">
-									<p class="in-depth__footer__main__directory__item__text"><a href="{{ sibling.url }}">{{ sibling.title }}</a></p>
+								<li class="in-depth__footer__main__directory__item">
+									<a {% if sibling.pk == page.pk %}class="active"{% endif %} href="{{ sibling.url }}">{{ sibling.title }}</a>
 								</li>
 							{% endfor %}
 						</ul>
 
 						<h5 class="in-depth__navigation-subheading">Dataset</h5>
+						<ul class="in-depth__footer__main__directory">
+							<li class="in-depth__footer__main__directory__item">
+								<a id="in-depth__download__xls">Download as Spreadsheet</a>
+							</li>
+							<li class="in-depth__footer__main__directory__item">
+								<a id="in-depth__download__json">Download as JSON</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
