@@ -83,18 +83,14 @@
 			&__item {
 				width: 100%;
 				margin-bottom: 3px;
-				
-				&__text {
-					margin-bottom: 0px;
-
 					a {
 						color: palette-get(na-black-10);
-						.active & {
-							font-weight: bold;
-							color: white;
-						}
 					}
-				}
+
+					a.active {
+						font-weight: bold;
+						color: white;
+					}
 			}
 		}
 		
