@@ -10,11 +10,14 @@
 }
 
 .in-depth__panel {
-	$panel-vertical-padding: 2*$desktop-padding;
+	$panel-padding: 2*$desktop-padding;
 
-	padding: $panel-vertical-padding $desktop-padding;
+	padding: $panel-padding $desktop-padding;
+	@include breakpoint(medium) {
+		padding: $panel-padding;
+	}
 	
-   &__max-width-wrapper {
+   	&__max-width-wrapper {
     	max-width: $max-site-width - 2*$desktop-padding;
     	margin: auto;
     	width: 100%;

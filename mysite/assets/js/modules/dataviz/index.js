@@ -7,7 +7,7 @@ export default function detectOverflow() {
 
 function setChartAreaWidth() {
 	var bodyWidth = $("body").width();
-	$(".chart-wrapper").css("max-width", bodyWidth - 50);
+	$(".chart-wrapper").css("max-width", bodyWidth - 100);
 }
 
 function setOverflowPadding() {
