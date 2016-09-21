@@ -11,18 +11,6 @@
 }
 
 @font-face {
-  font-family: 'Platform Hairline';
-  src: url('#{$font-url}/fonts/platform_hairline/Platform-Hairline.eot');
-  src: url('#{$font-url}/fonts/platform_hairline/Platform-Hairline.eot?#iefix') format('embedded-opentype'),
-       url('#{$font-url}/fonts/platform_hairline/Platform-Hairline.woff') format('woff'),
-       url('#{$font-url}/fonts/platform_hairline/Platform-Hairline.ttf') format('truetype'),
-       url('#{$font-url}/fonts/platform_hairline/Platform-Hairline.svg') format('svg');
-  font-style:   normal;
-  font-weight: normal;
-  font-stretch: normal;
-}
-
-@font-face {
   font-family: 'Platform';
   src: url('#{$font-url}/fonts/platform_light/Platform-Light.otf');
   font-style:   normal;
