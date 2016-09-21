@@ -7,7 +7,11 @@ export default function detectOverflow() {
 
 function setChartAreaWidth() {
 	var bodyWidth = $("body").width();
-	$(".chart-wrapper").css("max-width", bodyWidth - 100);
+	if (bodyWidth >= 640 ) {
+		$(".chart-wrapper").css("max-width", bodyWidth - 100);
+	} else {
+		$(".chart-wrapper").css("max-width", bodyWidth - 50);
+	}
 }
 
 function setOverflowPadding() {
