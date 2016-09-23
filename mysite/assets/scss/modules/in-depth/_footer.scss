@@ -5,24 +5,25 @@
 
 
 	&__next-prev {
-		max-width: $max-site-width;
-		padding: 2*$desktop-padding 0px;
+		
 		width: 100%;
-		margin: auto;
 
 		display: table;
 
-		&__prev, &__next {
-			padding: 0px $desktop-padding;
+		&__wrapper {
+			padding: 2*$desktop-padding 0px;
+			background-repeat: no-repeat;
+		    background-size: cover;
+		    background-position: 50% 50%;
+
+		    .in-depth__footer__next-prev__prev, .in-depth__footer__next-prev__next {
+
+		    }
 
 			&:nth-child(2) {
 				border-top: 2px solid palette-get(na-black-40);
-				padding-top: $desktop-padding;
-				margin-top: $desktop-padding;
 
 				@include breakpoint(medium) {
-					padding-top: 0px;
-					margin-top: 0px;
 					border-top: none;
 					border-left: 2px solid palette-get(na-black-40);
 				}
@@ -31,11 +32,27 @@
 			@include breakpoint(medium) {
 				display: table-cell;
 				width: 50%;
-
 			}
 		}
 
-		
+		&__prev, &__next {
+			width: 100%;
+			max-width: $max-site-width;
+			margin: auto;
+			padding: 0px $desktop-padding;
+			.has-both & {
+				max-width: $max-site-width/2;
+				margin: 0px;
+			}
+		}
+
+		&__prev {
+			.has-both & {
+				@media screen and (min-width: 1350px) {
+					margin-left: calc(100% - #{$max-site-width}/2);
+				}
+			}
+		}
 	}
 
 	&__title-block {
