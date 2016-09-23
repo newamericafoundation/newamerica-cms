@@ -24,18 +24,30 @@ function convertToHttps() {
 }
 
 function addDatavizDownloadInteractivity() {
-	$(".dataviz__download-link")
-		.on("click", function() {
-			$(this).siblings(".dataviz__download-popup").show();
-		});
+	// $(".dataviz__download-link")
+	// 	.on("click", function() {
+	// 		$(this).siblings(".dataviz__download-popup").show();
+	// 	});
 
-	$(".dataviz__download-popup").on("mouseleave", function() {
-		$(this).hide();
-	});
+	// $(".dataviz__download-popup").on("mouseleave", function() {
+	// 	$(this).hide();
+	// });
+}
+
+function resizeTableBlock() {
+	$(document).ready(setTableWidth);
+	$(window).resize(setTableWidth);
+
+	function setTableWidth() {
+		var bodyWidth = $("body").width();
+		console.log(bodyWidth);
+		$(".block-table").width(bodyWidth - 50);
+	}
 }
 
 export default function() {
 	checkDropcap();
 	convertToHttps();
 	addDatavizDownloadInteractivity();
+	resizeTableBlock();
 }

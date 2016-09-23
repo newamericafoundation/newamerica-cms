@@ -195,6 +195,7 @@
   .block-table {
     margin-top: $desktop-padding;
     margin-bottom: $desktop-padding;
+    overflow-x: scroll;
 
     tbody tr:nth-of-type(odd) {
       background-color: rgba(44, 47, 53, 0.05);
@@ -202,6 +203,7 @@
 
     th, td {
       padding: 10px;
+      min-width: 130px;
       vertical-align: top;
       text-align: left;
       line-height: 1.3;
