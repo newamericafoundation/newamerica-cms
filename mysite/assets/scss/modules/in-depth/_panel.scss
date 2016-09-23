@@ -167,6 +167,19 @@
 		font-weight: normal;
 		font-size: 1.3rem;
 		line-height: 1.2;
+
+		a {
+			color: white;
+			font-weight: 800;
+		    border-bottom: $standard-border;
+		    border-color: white;
+		    padding-bottom: 2px;
+		    opacity: 1;
+
+		    &:hover {
+		    	color: turquoise;
+		    }
+		}
 	}
 
 	&__button-container {
