@@ -40,7 +40,6 @@ function resizeTableBlock() {
 
 	function setTableWidth() {
 		var bodyWidth = $("body").width();
-		console.log(bodyWidth);
 		$(".block-table").width(bodyWidth - 50);
 	}
 }
