@@ -1,3 +1,5 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
 <div class="block-{{ block.block_type }}">
    {% if block.block_type == 'image' %}
     	{% image block.value min-800x800 %}
