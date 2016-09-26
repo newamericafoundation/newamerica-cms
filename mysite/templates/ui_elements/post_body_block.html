@@ -1,0 +1,10 @@
+<div class="block-{{ block.block_type }}">
+   {% if block.block_type == 'image' %}
+    	{% image block.value min-800x800 %}
+    	{% if block.value.caption or block.value.source %}
+    		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
+    	{% endif %}
+    {% else %}
+        {{ block }}
+    {% endif %}
+</div>
