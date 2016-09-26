@@ -39,8 +39,17 @@ function resizeTableBlock() {
 	$(window).resize(setTableWidth);
 
 	function setTableWidth() {
-		var bodyWidth = $("body").width();
-		$(".block-table").width(bodyWidth - 50);
+		var $contentContainer = $(".content-container");
+		var $body = $("body")
+		var bodyWidth = $body.width();
+
+		if ($contentContainer.hasClass("has-sidemenu") && (bodyWidth > 965)) {
+			$(".block-table").width(bodyWidth - 300);
+		} else if ($body.hasClass("template-indepthsection") || $body.hasClass("template-indepthproject")) {
+			$(".block-table").width(bodyWidth - 100);
+		} else {
+			$(".block-table").width(bodyWidth - 50);
+		}
 	}
 }
 

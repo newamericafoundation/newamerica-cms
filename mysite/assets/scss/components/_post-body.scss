@@ -193,6 +193,7 @@
   }
 
   .block-table {
+    max-width: $max-site-width - 50 - $max-sidemenu-width;
     margin-top: $desktop-padding;
     margin-bottom: $desktop-padding;
     overflow-x: scroll;
