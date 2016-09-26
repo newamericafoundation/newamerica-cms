@@ -10,7 +10,7 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
-from home.blocks import ButtonBlock, IframeBlock, DatavizBlock
+from home.blocks import ButtonBlock, IframeBlock, DatavizBlock, CollapsibleBlock
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
@@ -35,6 +35,7 @@ class PanelBody(blocks.StreamBlock):
 	button = ButtonBlock()
 	iframe = IframeBlock()
 	dataviz = DatavizBlock()
+	collapsible = CollapsibleBlock()
 
 
 class InDepthSection(Page):

@@ -1,0 +1,20 @@
+<div class="block-button">
+	<a class="button transparent post-body__read-more center-aligned">Read More {% include 'ui_elements/svg/arrow-down.html' %}</a>
+</div>
+<div class="post-body__hidden">
+{% for block in self.hidden_by_default %}
+	<div class="block-{{ block.block_type }}">
+       {% if block.block_type == 'image' %}
+        	{{ block }}
+        	{% if block.value.caption or block.value.source %}
+        		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
+        	{% endif %}
+        {% else %}
+            {{ block }}
+        {% endif %}
+		</div>
+{% endfor %}
+</div>
+<div class="block-button">
+	<a class="button transparent post-body__read-less center-aligned">Read Less {% include 'ui_elements/svg/arrow-up.html' %}</a>
+</div>

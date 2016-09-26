@@ -5,6 +5,9 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.contrib.table_block.blocks import TableBlock
 
 
 class IntegerBlock(blocks.FieldBlock):
@@ -48,4 +51,21 @@ class DatavizBlock(blocks.StructBlock):
 		template = './blocks/dataviz.html'
 		icon = 'site'
 		label = 'Dataviz'
-		
+
+class CollapsibleBody(blocks.StreamBlock):
+	heading = blocks.CharBlock(classname='full title')
+	paragraph = blocks.RichTextBlock()
+	image = ImageChooserBlock(icon='image')
+	video = EmbedBlock(icon='media')
+	table = TableBlock()
+	button = ButtonBlock()
+	iframe = IframeBlock()
+	dataviz = DatavizBlock()
+
+class CollapsibleBlock(blocks.StructBlock):
+	hidden_by_default = CollapsibleBody()
+
+	class Meta:
+		template = './blocks/collapsible.html'
+		icon = 'arrow-down'
+		label = 'Collapsible'

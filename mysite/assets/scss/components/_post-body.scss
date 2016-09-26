@@ -81,7 +81,25 @@
         margin-left: auto;
         margin-right: auto;
       }
+
+      &.post-body__read-less {
+        display: none;
+      }
     }
+  }
+
+  &__read-more, &__read-less {
+    svg {
+      height: 15px;
+      margin-left: 7px;
+      position: relative;
+      top: 1px;
+      fill: palette-get(na-black);
+    }
+  }
+
+  &__hidden {
+    display: none;
   }
 
   .block-heading {
@@ -224,7 +242,9 @@
     }
   }
 
-  
+  .block-collapsible {
+    @include limit-body-width;
+  }
 
   .block-image {
     @include limit-body-width;

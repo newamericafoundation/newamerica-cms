@@ -53,9 +53,27 @@ function resizeTableBlock() {
 	}
 }
 
+function readMoreInteraction() {
+	var $postBodyHidden = $(".post-body__hidden");
+	$(".post-body__read-more").click( function() {
+		$postBodyHidden.show();
+		$(".post-body__read-less").css("display", "table");
+		$(".post-body__read-more").hide();
+	});
+
+	$(".post-body__read-less").click( function() {
+		$postBodyHidden.hide();
+		$(".post-body__read-less").hide();
+		$(".post-body__read-more").css("display", "table");
+		var scrollTo = $(".post-body__read-more").offset().top - $(window).height()/2;
+		$(window).scrollTop(scrollTo);
+	});
+}
+
 export default function() {
 	checkDropcap();
 	convertToHttps();
 	addDatavizDownloadInteractivity();
 	resizeTableBlock();
+	readMoreInteraction();
 }
