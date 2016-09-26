@@ -40,16 +40,7 @@
 		<div class="post-container">
 		    <div class="post-body">
 		    {% for block in self.body %}
-		    	<div class="block-{{ block.block_type }}">
-			       {% if block.block_type == 'image' %}
-		            	{{ block }}
-		            	{% if block.value.caption or block.value.source %}
-		            		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
-		            	{% endif %}
-			        {% else %}
-			            {{ block }}
-			        {% endif %}
-		   		</div>
+		    	{% include 'ui_elements/post_body_block.html' %}
 		    {% endfor %}
 			</div>
 
