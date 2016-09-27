@@ -1,7 +1,7 @@
 .in-depth__footer {
 	background-color: palette-get(na-black);
 	color: white;
-	border-top: 2px solid palette-get(na-black-40);
+	/*border-top: 2px solid palette-get(na-black-40);*/
 
 
 	&__next-prev {
@@ -11,27 +11,19 @@
 		display: table;
 
 		&__wrapper {
-			padding: 2*$desktop-padding 0px;
+			
 			background-repeat: no-repeat;
 		    background-size: cover;
 		    background-position: 50% 50%;
 
-		    .in-depth__footer__next-prev__prev, .in-depth__footer__next-prev__next {
-
-		    }
-
-			&:nth-child(2) {
-				border-top: 2px solid palette-get(na-black-40);
-
-				@include breakpoint(medium) {
-					border-top: none;
-					border-left: 2px solid palette-get(na-black-40);
-				}
-			}
-
 			@include breakpoint(medium) {
 				display: table-cell;
 				width: 50%;
+			}
+
+			&.no-image {
+				border-top: 2px solid palette-get(na-black-40);
+				border-bottom: 2px solid palette-get(na-black-40);
 			}
 		}
 
@@ -39,7 +31,7 @@
 			width: 100%;
 			max-width: $max-site-width;
 			margin: auto;
-			padding: 0px $desktop-padding;
+			padding: 95px $desktop-padding;
 			.has-both & {
 				max-width: $max-site-width/2;
 				margin: 0px;
@@ -64,7 +56,6 @@
 	}
 
 	&__main {
-		border-top: 2px solid palette-get(na-black-40);
 		padding: 2*$desktop-padding 0px;
 
 		&__content {
