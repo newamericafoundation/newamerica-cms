@@ -131,4 +131,9 @@
 			@include set-color(color);
 		}
 	}
+
+	&__subordinate-text {
+		padding-top: 10px;
+		color: palette-get(na-black-10);
+	}
 }
