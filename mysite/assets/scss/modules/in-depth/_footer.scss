@@ -125,6 +125,10 @@
 
 	&__subordinate-text {
 		padding-top: 10px;
-		color: palette-get(na-black-10);
+		color: palette-get(na-black-40); 
+		font-size: 12px; 
+		width: 60%; 
+		line-height: 130%;
+		margin-bottom: 0px;
 	}
 }
