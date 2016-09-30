@@ -99,8 +99,6 @@ Development stylesheets are found under ``/mysite/assets/scss``.
 
 Basic styling, grid and smaller UI elements are handled by Foundation 6, built from SASS by appropriately overriding Foundation's variables and only including the Foundation styles that the project needs. Normalize.css is used to work out differences between browsers' default styles. Both of these libraries are imported and/or customized in the ``/vendor`` subfolder.
 
-Higher-level UI elements are called modules and have their custom styling. These custom styles follow [BEM naming conventions](http://getbem.com/introduction/), and the organization is largely inspired by [SMACSS](https://smacss.com/). For the most part, selectors are simple class names, and nesting is avoided unless it clearly expresses design intent (all ``.button`` elements within ``.header`` should have this override), or if it would result in too long class names (``.section__image__attribution__close-button``). If the latter comes up, it is best to factor out a sub-element into its own module.
-
 ### Client-side JavaScript
 
 The build procedure above allows client-side scripts to be built in CommonJS modules, which makes things easier to write, debug and test. It also allows ES6 features which allows us to skip semicolons and maintain scope while keeping code airy and pretty.
