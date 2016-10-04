@@ -19,9 +19,18 @@ Tip: Select the configuration to launch Postgres automatically so you don't have
 pip install -r requirements.txt
 ```
 
+- Initialize postgres database if you haven't already
+```bash
+initdb -D /usr/local/var/postgres
+```
+
 - Create a database called newamerica:
 ```bash
 createdb newamerica
+```
+if you get an error about a missing port, make sure postgres is running in the background
+```bash
+postgres -D /usr/local/var/postgres
 ```
 
 - Create a user called newamerica with some password:
