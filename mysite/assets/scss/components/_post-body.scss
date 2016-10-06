@@ -10,7 +10,7 @@
 
   /*dropcap styling*/
   &.with-dropcap > .block-paragraph:first-child,
-  &.with-dropcap > *:not(.block-paragraph):first-child + .block-paragraph:nth-child(2) {
+  &.with-dropcap > *:not(.block-paragraph) + .block-paragraph:nth-child(2) {
     &:first-letter {
       font-size: 105px;
       color: palette-get(na-black);
@@ -111,7 +111,8 @@
     font-weight: bold;
   }
 
-  .block-paragraph {
+  .block-paragraph,
+  .block-introduction {
     @include limit-body-width;
 
     img {
@@ -207,7 +208,7 @@
     }
   }
   .block-introduction {
-    @include limit-body-width;
+    @include clearfix;
     background: palette-get(na-black-10);
     margin: 0 0 25px 0;
     padding: $desktop-padding;
