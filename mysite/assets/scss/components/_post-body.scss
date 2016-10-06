@@ -8,8 +8,8 @@
   @include page-body-text;
 
   /*dropcap styling*/
-  &.with-dropcap > .block-paragraph:first-child,  
-  &.with-dropcap > [class^="block-"] + .block-paragraph:nth-child(2) {
+  &.with-dropcap > .block-paragraph:first-child,
+  &.with-dropcap > .block-paragraph:nth-child(2){
     &:first-letter {
       font-size: 105px;
       color: palette-get(na-black);
