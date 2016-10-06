@@ -3,13 +3,14 @@
   $media-default-aspect: 1;
   padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
+
   @include handle-text-overflow;
 
   @include page-body-text;
 
   /*dropcap styling*/
   &.with-dropcap > .block-paragraph:first-child,
-  &.with-dropcap > .block-paragraph:nth-child(2){
+  &.with-dropcap > *:not(.block-paragraph):first-child + .block-paragraph:nth-child(2) {
     &:first-letter {
       font-size: 105px;
       color: palette-get(na-black);
