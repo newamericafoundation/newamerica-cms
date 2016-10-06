@@ -8,7 +8,8 @@
   @include page-body-text;
 
   /*dropcap styling*/
-  &.with-dropcap > .block-paragraph:first-child {
+  &.with-dropcap > .block-paragraph:first-child:not(.block-introduction),  /* exception for .block-introduction that extends .block-paragraph */
+  &.with-dropcap > [class^="block-"] + .block-paragraph:nth-child(2) {
     &:first-letter {
       font-size: 105px;
       color: palette-get(na-black);
@@ -210,7 +211,7 @@
     margin: 0 0 25px 0;
     padding: $desktop-padding;
   }
- // .block-body p adds 1rem margin-bottom. override that for even padding. 
+ // .block-body p adds 1rem margin-bottom. override that for even padding.
   .block-introduction p:last-child{
     margin-bottom: 0;
   }
