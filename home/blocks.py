@@ -69,3 +69,28 @@ class CollapsibleBlock(blocks.StructBlock):
 		template = './blocks/collapsible.html'
 		icon = 'arrow-down'
 		label = 'Collapsible'
+
+class DataReferenceBlock(blocks.StructBlock):
+	display_type = blocks.ChoiceBlock(choices=[
+		('in-text', 'In-Text'),
+		('fact-box', 'Fact-Box'),
+		('list', 'List'),
+	])
+
+	display_fields = blocks.ListBlock(blocks.StructBlock([
+		('field_name', blocks.CharBlock(required=True)),
+    	('format', blocks.ChoiceBlock(choices=[
+    		('date', 'Date'),
+    		('list', 'List'),
+    		('number', 'Number(with thousands-place comma)'),
+    		('percent', 'Percent'),
+    		('plain_text', 'Plain-text'),
+    		('price', 'Price'),
+			('rank', 'Rank'),
+    	])),
+	]))
+
+	class Meta:
+		template = './blocks/datareference.html'
+		icon = 'cogs'
+		label = 'Data Reference'

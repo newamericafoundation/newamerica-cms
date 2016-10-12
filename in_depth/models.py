@@ -10,7 +10,7 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
-from home.blocks import ButtonBlock, IframeBlock, DatavizBlock, CollapsibleBlock
+from home.blocks import ButtonBlock, IframeBlock, DatavizBlock, CollapsibleBlock, DataReferenceBlock
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
@@ -178,3 +178,37 @@ class AllInDepthHomePage(Page):
 
     class Meta:
         verbose_name = "Homepage for all In-Depth Projects"
+
+class InDepthProfile(Page):
+    parent_page_types = ['InDepthProject']
+    subpage_types = []
+
+    subheading = RichTextField(blank=True, null=True)
+
+    lookup_field = models.CharField(max_length=150, help_text="The name of the field where the query value will be found")
+
+    body = StreamField([
+        ('introduction', blocks.RichTextBlock()),
+        ('heading', blocks.CharBlock(classname='full title')),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock(icon='image')),
+        ('video', EmbedBlock(icon='media')),
+        ('table', TableBlock()),
+        ('button', ButtonBlock()),
+        ('iframe', IframeBlock()),
+        ('dataviz', DatavizBlock()),
+        ('collapsible', CollapsibleBlock()),
+        ('data_reference', DataReferenceBlock())
+    ])
+
+    data_profile_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
+
+    content_panels = Page.content_panels + [
+        FieldPanel('subheading'),
+        StreamFieldPanel('body'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('data_profile_external_script'),
+        FieldPanel('lookup_field'),
+    ]
