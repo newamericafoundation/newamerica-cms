@@ -6,6 +6,8 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
+from rss_feed.feeds import PostsFeed
+
 
 urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
@@ -14,8 +16,11 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', 'search.views.search', name='search'),
+    url(r'^feed/(?P<content_type>[a-zA-z\-]*)/$', PostsFeed()),
+    url(r'^feed/(?P<content_type>.*)/(?P<programorauthor>[a-zA-z\-]*)/$', PostsFeed()),
 
     url(r'', include(wagtail_urls)),
+
 ]
 
 if settings.DEBUG:
