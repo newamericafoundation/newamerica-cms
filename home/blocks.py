@@ -75,22 +75,25 @@ class DataReferenceBlock(blocks.StructBlock):
 		('in-text', 'In-Text'),
 		('fact-box', 'Fact-Box'),
 		('list', 'List'),
+		('image', 'Image'),
 	])
 
-	display_fields = blocks.ListBlock(blocks.StructBlock([
+	fields_to_display = blocks.ListBlock(blocks.StructBlock([
 		('field_name', blocks.CharBlock(required=True)),
+		('label', blocks.CharBlock(required=False)),
     	('format', blocks.ChoiceBlock(choices=[
     		('date', 'Date'),
+    		('image', 'Image'),
     		('list', 'List'),
-    		('number', 'Number(with thousands-place comma)'),
+    		('number', 'Number (with thousands-place comma)'),
     		('percent', 'Percent'),
     		('plain_text', 'Plain-text'),
     		('price', 'Price'),
 			('rank', 'Rank'),
     	])),
-	]))
+	]), help_text="Specify the field(s) where values to display will be found.  References of type 'in-text' and 'image' can only display one field, 'list' and 'fact-box' can display multiple fields.")
 
 	class Meta:
-		template = './blocks/datareference.html'
+		template = './blocks/data_reference.html'
 		icon = 'cogs'
 		label = 'Data Reference'

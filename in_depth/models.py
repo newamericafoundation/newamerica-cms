@@ -84,7 +84,7 @@ class InDepthSection(Page):
         project_root = self.get_parent()
         context['project_root'] = project_root
         context['authors'] = project_root.specific.authors.order_by('pk')
-        siblings = self.get_siblings(inclusive=True).live()
+        siblings = self.get_siblings(inclusive=True).live().type(InDepthSection)
         index = 0
         for i, item in enumerate(siblings):
             if (item.title == self.title):
@@ -108,7 +108,7 @@ class InDepthProject(Post):
    
     """
     parent_page_types = ['AllInDepthHomePage']
-    subpage_types = ['InDepthSection']
+    subpage_types = ['InDepthSection', 'InDepthProfile']
 
     about_the_project = RichTextField(blank=True, null=True)
 
@@ -137,6 +137,13 @@ class InDepthProject(Post):
         ImageChooserPanel('project_logo'),
         FieldPanel('project_logo_link'),
     ]
+
+    def get_context(self, request):
+        context = super(InDepthProject, self).get_context(request)
+
+        context['project_sections'] = self.get_children().live().type(InDepthSection)
+
+        return context
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
@@ -185,6 +192,8 @@ class InDepthProfile(Page):
 
     subheading = RichTextField(blank=True, null=True)
 
+    datasheet_name = models.CharField(max_length=150, help_text="The name of the data sheet where the lookup field and query value will be found.")
+
     lookup_field = models.CharField(max_length=150, help_text="The name of the field where the query value will be found")
 
     body = StreamField([
@@ -201,14 +210,21 @@ class InDepthProfile(Page):
         ('data_reference', DataReferenceBlock())
     ])
 
-    data_profile_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
-
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
         StreamFieldPanel('body'),
     ]
 
     settings_panels = Page.settings_panels + [
-        FieldPanel('data_profile_external_script'),
+        FieldPanel('datasheet_name'),
         FieldPanel('lookup_field'),
     ]
+
+    def get_context(self, request):
+        context = super(InDepthProfile, self).get_context(request)
+        project_root = self.get_parent()
+
+        return context
+
+    class Meta:
+        verbose_name = "In-Depth Profile Page"
