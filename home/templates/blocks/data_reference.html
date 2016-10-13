@@ -1,3 +1,5 @@
 {% for field in self.fields_to_display %}
-	<div class="data-reference__value" data-field-name="{{ field.field_name }}" data-field-format="{{ field.format }}"></div>
+	<div class="data-reference {{ self.display_type }}">
+		<div class="data-reference__value" data-field-name="{{ field.field_name }}" data-field-format="{{ field.format }}"></div>
+	</div>
 {% endfor %}
