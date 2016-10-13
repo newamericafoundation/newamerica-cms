@@ -222,7 +222,7 @@ class InDepthProfile(Page):
 
     def get_context(self, request):
         context = super(InDepthProfile, self).get_context(request)
-        project_root = self.get_parent()
+        context["project_root"] = self.get_parent()
 
         return context
 

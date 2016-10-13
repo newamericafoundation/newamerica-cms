@@ -72,7 +72,7 @@ class CollapsibleBlock(blocks.StructBlock):
 
 class DataReferenceBlock(blocks.StructBlock):
 	display_type = blocks.ChoiceBlock(choices=[
-		('in-text', 'In-Text'),
+		('simple', 'Simple'),
 		('fact-box', 'Fact-Box'),
 		('list', 'List'),
 		('image', 'Image'),
@@ -82,12 +82,10 @@ class DataReferenceBlock(blocks.StructBlock):
 		('field_name', blocks.CharBlock(required=True)),
 		('label', blocks.CharBlock(required=False)),
     	('format', blocks.ChoiceBlock(choices=[
-    		('date', 'Date'),
-    		('image', 'Image'),
-    		('list', 'List'),
+    		('string', 'Image'),
     		('number', 'Number (with thousands-place comma)'),
     		('percent', 'Percent'),
-    		('plain_text', 'Plain-text'),
+    		('string', 'Plain-text'),
     		('price', 'Price'),
 			('rank', 'Rank'),
     	])),
