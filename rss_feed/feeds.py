@@ -4,10 +4,12 @@ from django.http import Http404
 from wagtail.wagtailcore.models import Page
 
 from home.models import Post
+from person.models import Person
+from programs.models import Program, Subprogram
 
 # "issueortopic", "quoted","weeklyedition", "indepthproject"
 acceptable_content_types = [
-    None, "program","subprogram","person","book","article","blogpost",
+    "book","article","blogpost",
     "event","podcast","policypaper","pressrelease",
     "weeklyarticle","indepthsection",
 ]
@@ -21,49 +23,12 @@ acceptable_programs = [
     "opportunity-at-work",
 ]
 
-class PostsFeed(Feed):
-
-    def get_object(self, request, content_type=None, programorauthor=None):
-        if content_type not in acceptable_content_types:
-            raise Http404
-
-        # content_type, author, program, and subprogram serve as filters
-        # page gives title, description, and link to homepage
-        obj = {
-            "content_type": content_type,
-            "program": programorauthor,
-            "subprogram": None,
-            "author": None,
-            "page": None
+class GenericFeed(Feed):
+    def get_object(self,request):
+        return {
+            # page data is used for title, description and link tags at top level of rss channel
+            "page": Page.objects.live().filter(content_type__model="homepage").first()
         }
-
-        # do not filter by program when filtering by author
-        if content_type == "person":
-            obj["author"] = programorauthor
-            obj["program"] = None
-            obj["page"] = Page.objects.live().filter(content_type__model="person",slug=programorauthor).first()
-        # filter for all content types when filtering by program
-        # throw 404 if not in program list
-        elif content_type == "program":
-            if programorauthor not in acceptable_programs:
-                raise Http404
-            obj["content_type"] = None
-            obj["page"] = Page.objects.live().filter(content_type__model="program",slug=programorauthor).first()
-        # filter for all content types and programs when filtering by subprogram
-        elif content_type == "subprogram":
-            obj["content_type"] = None
-            obj["program"] = None
-            obj["subprogram"] = programorauthor
-            obj["page"] = Page.objects.live().filter(content_type__model="subprogram",slug=programorauthor).first()
-        else:
-            if content_type == "indepthsection":
-                obj["page"] = Page.objects.live().filter(content_type__model="allindepthhomepage").first()
-            elif content_type == "weeklyarticle":
-                obj["page"] = Page.objects.live().filter(content_type__model="weekly").first()
-            else:
-                obj["page"] = Page.objects.live().filter(content_type__model="all"+content_type+"shomepage").first()
-
-        return obj
 
     def title(self, obj):
         return obj["page"].title
@@ -75,21 +40,7 @@ class PostsFeed(Feed):
         return obj["page"].full_url
 
     def items(self, obj):
-        # get everything then pare it down. Performant?
-        posts = Post.objects.live().order_by('-date')
-
-        # apply applicable filters and return the first 10 results
-        if obj["content_type"] is not None:
-            posts = posts.filter(content_type__model=obj["content_type"])
-
-        if obj["program"] is not None:
-            return posts.filter(parent_programs__slug=obj["program"])[:10]
-        elif obj["subprogram"] is not None:
-            return posts.filter(subprogram__slug=obj["subprogram"])[:10]
-        elif obj["author"] is not None:
-            return posts.filter(post_author__slug=obj["author"])[:10]
-        else:
-            return posts[:10]
+        return Post.objects.live().order_by("-date")[:10]
 
     def item_title(self, item):
         return item.title
@@ -97,8 +48,66 @@ class PostsFeed(Feed):
     def item_description(self, item):
         return item.search_description
 
+    def item_pubdate(self, item):
+        return item.first_published_at
+
     def item_link(self, item):
         return item.full_url
 
-    def item_pubdate(self, item):
-        return item.first_published_at
+class ProgramFeed(GenericFeed):
+    def get_object(self, request, program):
+        return {
+            "program": program,
+            "page": Program.objects.live().filter(slug=program).first()
+        }
+
+    def items(self, obj):
+        return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:10]
+
+class SubprogramFeed(GenericFeed):
+    def get_object(self, request, subprogram):
+        return {
+            "subprogram": subprogram,
+            "page": Subprogram.objects.live().filter(slug=subprogram).first()
+        }
+
+    def items(self, obj):
+        return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:10]
+
+class AuthorFeed(GenericFeed):
+    def get_object(self, request, author):
+        return {
+            "author": author,
+            "page": Person.objects.live().filter(slug=author).first()
+        }
+
+    def items(self, obj):
+        return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:10]
+
+class ContentFeed(GenericFeed):
+    def get_object(self, request, content_type, program=None):
+        if content_type not in acceptable_content_types:
+            raise Http404
+
+        # page exceptions for indepth and weekly content types
+        if content_type == "indepthsection":
+            content_type_model = "allindepthhomepage"
+        elif content_type == "weeklyarticle":
+            content_type_model == "weekly"
+        else:
+            content_type_model = "all"+content_type+"shomepage"
+
+        return {
+            "content_type": content_type,
+            "program": program,
+            "page": Page.objects.live().filter(content_type__model=content_type_model).first()
+        }
+
+    def items(self, obj):
+        posts = Post.objects.live().filter(content_type__model=obj["content_type"]).order_by("-date")
+        if obj["program"] is not None:
+            if obj["program"] not in acceptable_programs:
+                raise Http404
+            return posts.filter(parent_programs__slug=obj["program"])[:10]
+
+        return posts[:10]
