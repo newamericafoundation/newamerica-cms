@@ -223,6 +223,7 @@ class InDepthProfile(Page):
     def get_context(self, request):
         context = super(InDepthProfile, self).get_context(request)
         context["project_root"] = self.get_parent()
+        context["query_string"] = request.GET.urlencode().replace("%2F", "").replace("=", "").replace("_"," ").title()
 
         return context
 

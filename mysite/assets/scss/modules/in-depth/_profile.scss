@@ -1,0 +1,8 @@
+.in-depth__profile {
+	padding-left: $desktop-padding;
+	padding-right: $desktop-padding;
+
+	& > .content-grid__controls__filter {
+		float: none;
+	}
+}

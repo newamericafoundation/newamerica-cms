@@ -5,7 +5,6 @@
 {% load utilities %}
 
 {% block extra_js %}
-
 	{% if project_root.specific.data_project_external_script %}
 		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ project_root.specific.data_project_external_script }}"></script>
 	{% endif %}
@@ -15,9 +14,18 @@
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
-	{{ page.project_root }}
-	<div class="in-depth__max-width-wrapper">
-		<div class="in-depth__profile post-body" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}">
+	<div class="in-depth__profile in-depth__max-width-wrapper">
+		<div class="post-header-container">
+			<div class="post-header">
+			   	<h1 class="post-header__text__heading">{{ query_string }}</h1>
+			</div>
+		</div>
+		<div class="content-grid__controls__filter">
+			<select class="in-depth__profile__other-value-selector" onchange="document.location = '?' + this.value;">
+                <option value="" disabled selected>Select Another Value</option>
+            </select>
+		</div>
+		<div class="in-depth__profile__body post-body" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}">
 			{% for block in page.body %}
 		    	{% include 'ui_elements/post_body_block.html' %}
 		    {% endfor %}
