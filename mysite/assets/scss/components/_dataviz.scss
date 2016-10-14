@@ -34,7 +34,7 @@
 		}
 	}
 
-	&__download-link, &__print-link {
+	&__download-link, &__print-link, &__share-link {
 		position: absolute;
 		top: 0px;
 		
@@ -79,7 +79,7 @@
 		}
 	}
 
-	&__download-popup {
+	&__share-popup {
 		display: none;
 		position: absolute;
 		z-index: 10;

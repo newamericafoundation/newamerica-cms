@@ -1,8 +1,15 @@
+	<a id="testanchor" class="in-depth__panel__anchor"></a>
 	<div class="dataviz">
 		<div class="dataviz__title-container">
 			{% if self.show_download_link %}
 				<a class="dataviz__print-link" id="{{ self.container_id }}__print-link">{% include 'ui_elements/svg/print.html' %}</a>
 				<a class="dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'ui_elements/svg/download.html' %}</a>
+				<a class="dataviz__share-link" id="{{ self.container_id }}__share-link">{% include 'ui_elements/svg/download.html' %}</a>
+				<div class="dataviz__share-popup">
+					<div class="dataviz__share-popup__icons"></div>
+
+				</div>
+
 			{% endif %}
 			{% if self.title %}
 				<h3 class="dataviz__title">{{ self.title }}</h3>
