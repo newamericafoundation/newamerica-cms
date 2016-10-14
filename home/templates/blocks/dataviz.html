@@ -6,6 +6,7 @@
 			{% else %}
 				<a id="chart-{{ self.container_id }}" class="in-depth__panel__anchor"></a>
 			{% endif %}
+
 			<div class="dataviz__icon">{% include 'ui_elements/svg/new-america-mini.html' %}</div>
 			{% if self.show_download_link %}
 				<a class="dataviz__icon dataviz__print-link" id="{{ self.container_id }}__print-link">{% include 'ui_elements/svg/print.html' %}</a>
@@ -15,6 +16,7 @@
 					<div class="dataviz__share-popup__icons"></div>
 				</div>
 			{% endif %}
+			
 			{% if self.title %}
 				<h3 class="dataviz__title">{{ self.title }}</h3>
 			{% endif %}

@@ -11,26 +11,24 @@
 		position: relative;
 		min-height: 35px;
 	}
-	&__title {
-		color: palette-get(na-black);
-		font-weight: 700;
-		font-size: 1.4rem;
-		line-height: 130%;
 
+	&__title, &__subheading {
 		@include breakpoint(medium) {
 			margin-right: 3*$icon-horizontal-spacing;
 			margin-left: $icon-horizontal-spacing;
 		}
 	}
 
+	&__title {
+		color: palette-get(na-black);
+		font-weight: 700;
+		font-size: 1.4rem;
+		line-height: 130%;
+	}
+
 	&__subheading {
 		color: palette-get(na-black-40);
 		margin-bottom: 10px;
-
-		@include desktop-header {
-			margin-left: auto;
-			margin-right: auto;
-		}
 
 		p {
 			border-left: 2px solid rgba(169, 169, 169, 0.47);
