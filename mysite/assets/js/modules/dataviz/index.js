@@ -29,15 +29,14 @@ function setOverflowPadding() {
 
 function addSharePopupInteractivity() {
 	$(".dataviz__share-link").each(function(index, item) {
-		console.log(item);
+		// console.log(item);
 		var popup = $(item).siblings(".dataviz__share-popup");
 		$(item).on("click", function() {
 			popup.toggle();
 		})
 
 		$('body').click(function(evt){
-			console.log(evt.target);  
-			if(evt.target.class == "dataviz__share-popup" || evt.target.class == "dataviz__share-link")
+			if(evt.target.class == "dataviz__share-popup" || evt.target.class == ".dataviz__share-link")
 				return;
 			// excepts descendents of share link and share popup
 			if($(evt.target).closest('.dataviz__share-popup').length || $(evt.target).closest('.dataviz__share-link').length)
@@ -52,16 +51,16 @@ function addSharePopupInteractivity() {
 }
 
 function addShareIcons(popup) {
-	var sectionId = $(popup).closest("section")[0].id;
 	var urlPieces = window.location.href.split("#");
 	var currUrl = urlPieces[0];
-	console.log(currUrl);
+	var title = $(popup).siblings(".dataviz__title").text();
+	var anchor = $(popup).siblings(".in-depth__panel__anchor").attr("id");
 
 	$(popup).jsSocials({
-		url: currUrl + "#" + sectionId,
+		url: currUrl + "#" + anchor,
     	showCount: true,
 		showLabel: true,
-		text: "",
+		text: title,
 		shareIn: "popup",
         shares: [
         	{

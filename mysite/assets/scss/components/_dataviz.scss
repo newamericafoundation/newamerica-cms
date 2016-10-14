@@ -1,4 +1,7 @@
 .dataviz {
+	$icon-horizontal-spacing: 37px;
+	$icon-vertical-spacing: 30px;
+	$icon-horizontal-padding: 20px;
 	position: relative;
 
 	&__title-container {
@@ -10,10 +13,14 @@
 	}
 	&__title {
 		color: palette-get(na-black);
-		margin-right: 30px;
 		font-weight: 700;
 		font-size: 1.4rem;
 		line-height: 130%;
+
+		@include breakpoint(medium) {
+			margin-right: 3*$icon-horizontal-spacing;
+			margin-left: $icon-horizontal-spacing;
+		}
 	}
 
 	&__subheading {
@@ -34,12 +41,10 @@
 		}
 	}
 
-	&__download-link, &__print-link, &__share-link {
+	&__icon {
 		position: absolute;
-		top: 0px;
-		
-		display: none;
 		border: none !important;
+		display: none;
 
 		@include breakpoint(medium) {
 			display: block;
@@ -54,20 +59,28 @@
 				stroke: palette-get(na-black-30);
 				stroke-width: 5px;
 			}
+		}
+	}
 
-			&:hover {
-				fill: palette-get(na-black);
-			}
+	&__share-link {
+		top: 0px;
+		right: 0px;
+		svg:hover {
+			fill: palette-get(na-black);
 		}
 	}
 
 	&__download-link {
-		right: 0px;
+		top: 0px;
+		right: $icon-horizontal-spacing;	
+		svg:hover {
+			fill: palette-get(na-black);
+		}
 	}
 
 	&__print-link {
-		right: 32px;
-
+		top: 0px;
+		right: 2*$icon-horizontal-spacing;
 		svg {
 			height: 25px;
 
@@ -87,7 +100,7 @@
 		right: 30px;
 		background-color: white;
 		@include standard-shadow;
-		padding: 20px;
+		padding: 10px 20px;
 
 		&__title, &__item {
 			width: 100%;
