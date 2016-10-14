@@ -1,19 +1,23 @@
 .dataviz {
 	position: relative;
-	&__title {
+
+	&__title-container {
 		@include limit-body-width;
 		margin-left: auto;
 		margin-right: auto;
+		position: relative;
+		min-height: 35px;
+	}
+	&__title {
 		color: palette-get(na-black);
+		margin-right: 30px;
 		font-weight: 700;
 		font-size: 1.4rem;
 		line-height: 130%;
 	}
 
 	&__subheading {
-		@include limit-body-width;
 		color: palette-get(na-black-40);
-		max-width: $max-body-width;
 		margin-bottom: 10px;
 
 		@include desktop-header {
@@ -30,20 +34,48 @@
 		}
 	}
 
-	&__download-link {
+	&__download-link, &__print-link {
 		position: absolute;
 		top: 0px;
-		right: 0px;
+		
 		display: none;
+		border: none !important;
 
 		@include breakpoint(medium) {
 			display: block;
 		}
 
 		svg {
-			margin-top: 10px;
-			width: 18px;
+			margin-top: 3px;
+			width: 21px;
 			fill: palette-get(na-black-30);
+
+			& > path, & > line {
+				stroke: palette-get(na-black-30);
+				stroke-width: 5px;
+			}
+
+			&:hover {
+				fill: palette-get(na-black);
+			}
+		}
+	}
+
+	&__download-link {
+		right: 0px;
+	}
+
+	&__print-link {
+		right: 32px;
+
+		svg {
+			height: 25px;
+
+			&:hover {
+				& > path, & > line {
+					stroke: palette-get(na-black);
+				}
+			}
 		}
 	}
 
@@ -52,7 +84,7 @@
 		position: absolute;
 		z-index: 10;
 		top: 0px;
-		right: 0px;
+		right: 30px;
 		background-color: white;
 		@include standard-shadow;
 		padding: 20px;
@@ -73,8 +105,7 @@
 			color: palette-get(na-black-40);
 
 			&:hover {
-				background-color: palette-get(na-black);
-				color: white;
+				color: palette-get(na-turquoise);
 			}
 		}
 	}
