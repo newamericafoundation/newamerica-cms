@@ -8,7 +8,10 @@ export default function() {
 		addShareInteractivity(); 
 		hideDownloadLinks();
 	});
-	$(window).resize(function() { setChartWrapperWidth(); setChartWrapperOverflowPadding(); });
+	$(window).resize(function() { 
+		setChartWrapperWidth(); 
+		setChartWrapperOverflowPadding(); 
+	});
 }
 
 function setChartWrapperWidth() {
@@ -42,9 +45,9 @@ function hideDownloadLinks() {
 	}
 }
 
+// adds click toggle handlers to share popup 
 function addShareInteractivity() {
 	$(".dataviz__share-link").each(function(index, item) {
-		// console.log(item);
 		var popup = $(item).siblings(".dataviz__share-popup");
 		$(item).on("click", function() {
 			popup.toggle();
@@ -59,9 +62,7 @@ function addShareInteractivity() {
 
 			$(".dataviz__share-popup").hide();
 		});
-
 		addShareIcons(popup);
-
 	})
 }
 
