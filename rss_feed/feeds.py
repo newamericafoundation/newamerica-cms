@@ -31,13 +31,22 @@ class GenericFeed(Feed):
         }
 
     def title(self, obj):
-        return obj["page"].title
+        if obj["page"]:
+            return obj["page"].title
+        else:
+            raise Http404
 
     def description(self, obj):
-        return obj["page"].search_description
+        if obj["page"]:
+            return obj["page"].search_description
+        else:
+            raise Http404
 
     def link(self, obj):
-        return obj["page"].full_url
+        if obj["page"]:
+            return obj["page"].full_url
+        else:
+            raise Http404
 
     def items(self, obj):
         return Post.objects.live().order_by("-date")[:10]
