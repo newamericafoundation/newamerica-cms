@@ -59,9 +59,14 @@
 			}
 		}
 	}
+	&__download-link, &__print-link {
+		svg {
+			margin-top: 6px;
+		}
+	}
 
 	&__share-link {
-		top: 0px;
+		top: 4px;
 		right: 0px;
 		svg:hover {
 			fill: palette-get(na-black);
