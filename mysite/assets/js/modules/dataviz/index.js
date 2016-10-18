@@ -3,8 +3,11 @@ import $ from 'jquery';
 var browser = require('detect-browser');
 
 export default function() {
-	$(document).ready(setChartWrapperWidth());
-	$(document).ready(addShareInteractivity);
+	$(document).ready(function() {
+		setChartWrapperWidth(); 
+		addShareInteractivity(); 
+		hideDownloadLinks();
+	});
 	$(window).resize(function() { setChartWrapperWidth(); setChartWrapperOverflowPadding(); });
 }
 
@@ -26,6 +29,17 @@ function setChartWrapperOverflowPadding() {
 			$chartWrapper.css("padding-bottom", "0px");
 		}
 	});
+}
+
+// hides download links on Internet Explorer and shows alternative download data message
+function hideDownloadLinks() {
+	if (browser.name == "ie") {
+		$(".dataviz__download-link").hide();
+		$(".dataviz__print-link").hide();
+		$(".in-depth__footer__download-data-message").show();
+	} else if (browser.name == "safari") {
+		$(".in-depth__footer__download-data-message").show();
+	}
 }
 
 function addShareInteractivity() {
