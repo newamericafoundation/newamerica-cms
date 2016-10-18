@@ -121,11 +121,14 @@
 		}
 	}
 
-	&__chart-area {
+	&__chart-container {
 		margin: auto;
 		position: relative;
 	}
 
+	&__chart-area {
+		position: relative;
+	}
 	
 }
 

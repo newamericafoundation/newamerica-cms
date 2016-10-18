@@ -1,12 +1,14 @@
 import $ from 'jquery';
 
-export default function detectOverflow() {
-	$(document).ready(setChartAreaWidth);
-	$(document).ready(addSharePopupInteractivity);
-	$(window).resize(function() { setChartAreaWidth(); setOverflowPadding(); });
+var browser = require('detect-browser');
+
+export default function() {
+	$(document).ready(setChartWrapperWidth());
+	$(document).ready(addShareInteractivity);
+	$(window).resize(function() { setChartWrapperWidth(); setChartWrapperOverflowPadding(); });
 }
 
-function setChartAreaWidth() {
+function setChartWrapperWidth() {
 	var bodyWidth = $("body").width();
 	if (bodyWidth >= 640 ) {
 		$(".chart-wrapper").css("max-width", bodyWidth - 100);
@@ -15,7 +17,7 @@ function setChartAreaWidth() {
 	}
 }
 
-function setOverflowPadding() {
+function setChartWrapperOverflowPadding() {
 	$(".chart-wrapper").each( function() {
 		var $chartWrapper = $(this);
 		if ($chartWrapper.prop("offsetWidth") < $chartWrapper.prop("scrollWidth")) {
@@ -24,10 +26,9 @@ function setOverflowPadding() {
 			$chartWrapper.css("padding-bottom", "0px");
 		}
 	});
-	
 }
 
-function addSharePopupInteractivity() {
+function addShareInteractivity() {
 	$(".dataviz__share-link").each(function(index, item) {
 		// console.log(item);
 		var popup = $(item).siblings(".dataviz__share-popup");

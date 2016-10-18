@@ -16,7 +16,7 @@
 					<div class="dataviz__share-popup__icons"></div>
 				</div>
 			{% endif %}
-			
+
 			{% if self.title %}
 				<h3 class="dataviz__title">{{ self.title }}</h3>
 			{% endif %}
@@ -24,5 +24,7 @@
 				<div class="dataviz__subheading">{{ self.subheading }}</div>
 			{% endif %}
 		</div>
-		<div class="dataviz__chart-area" id="{{ self.container_id }}" style="max-width: {{ self.max_width }}px"></div>
+		<div class="dataviz__chart-container" style="max-width: {{ self.max_width }}px">
+			<div class="dataviz__chart-area" id="{{ self.container_id }}"></div>
+		</div>
 	</div>
