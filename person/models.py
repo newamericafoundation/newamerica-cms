@@ -181,7 +181,7 @@ class Person(Page):
     parent_page_types = ['OurPeoplePage']
     subpage_types = []
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('first_name'),
         index.SearchField('last_name'),
         index.SearchField('position_at_new_america'),
@@ -196,7 +196,7 @@ class Person(Page):
         index.RelatedFields('belongs_to_these_subprograms', [
             index.SearchField('name'),
         ]),
-    )
+    ]
 
     def get_context(self, request):
         context = super(Person, self).get_context(request)

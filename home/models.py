@@ -447,7 +447,7 @@ class Post(Page):
 
     is_creatable = False
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('body'),
         
         index.RelatedFields('parent_programs', [
@@ -459,7 +459,7 @@ class Post(Page):
             index.SearchField('last_name'),
             index.SearchField('position_at_new_america'),
         ]),
-    )
+    ]
 
     def get_context(self, request):
         context = super(Post, self).get_context(request)
