@@ -1,6 +1,6 @@
 	
 	<div class="dataviz">
-		<div class="dataviz__title-container">
+		<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}">
 			{% if self.title %}	
 				<a id="{{ self.title|slugify }}" class="in-depth__panel__anchor"></a>
 			{% else %}
@@ -8,7 +8,7 @@
 			{% endif %}
 
 			<div class="dataviz__icon">{% include 'ui_elements/svg/new-america-mini.html' %}</div>
-			{% if self.show_download_link %}
+			{% if self.show_chart_buttons %}
 				<a class="dataviz__icon dataviz__print-link" id="{{ self.container_id }}__print-link">{% include 'ui_elements/svg/print.html' %}</a>
 				<a class="dataviz__icon dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'ui_elements/svg/download.html' %}</a>
 				<a class="dataviz__icon dataviz__share-link" id="{{ self.container_id }}__share-link">{% include 'ui_elements/svg/share.html' %}</a>
