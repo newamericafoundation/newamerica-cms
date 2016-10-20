@@ -17,7 +17,6 @@ acceptable_content_types = [
 programs = Program.objects.live()
 acceptable_programs = [p.slug for p in programs]
 
-
 class GenericFeed(Feed):
     def get_object(self,request):
         return {
@@ -50,7 +49,7 @@ class GenericFeed(Feed):
         return item.title
 
     def item_description(self, item):
-        return item.search_description
+        return item.story_excerpt
 
     def item_pubdate(self, item):
         return item.first_published_at
@@ -65,6 +64,12 @@ class ProgramFeed(GenericFeed):
             "page": Program.objects.live().filter(slug=program).first()
         }
 
+    def description(self, obj):
+        if obj["page"]:
+            return obj["page"].description
+        else:
+            raise Http404
+
     def items(self, obj):
         return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:10]
 
@@ -75,6 +80,12 @@ class SubprogramFeed(GenericFeed):
             "page": Subprogram.objects.live().filter(slug=subprogram).first()
         }
 
+    def description(self, obj):
+        if obj["page"]:
+            return obj["page"].description
+        else:
+            raise Http404
+
     def items(self, obj):
         return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:10]
 
@@ -84,6 +95,12 @@ class AuthorFeed(GenericFeed):
             "author": author,
             "page": Person.objects.live().filter(slug=author).first()
         }
+
+    def description(self, obj):
+        if obj["page"]:
+            return obj["page"].short_bio
+        else:
+            raise Http404
 
     def items(self, obj):
         return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:10]
