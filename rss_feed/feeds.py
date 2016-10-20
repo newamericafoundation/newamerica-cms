@@ -7,7 +7,6 @@ from home.models import Post
 from person.models import Person
 from programs.models import Program, Subprogram
 
-# "issueortopic", "quoted","weeklyedition", "indepthproject"
 acceptable_content_types = [
     "book","article","blogpost",
     "event","podcast","policypaper","pressrelease",
@@ -16,6 +15,8 @@ acceptable_content_types = [
 
 programs = Program.objects.live()
 acceptable_programs = [p.slug for p in programs]
+
+limit = 20
 
 class GenericFeed(Feed):
     def get_object(self,request):
@@ -43,7 +44,7 @@ class GenericFeed(Feed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().order_by("-date")[:10]
+        return Post.objects.live().order_by("-date")[:limit]
 
     def item_title(self, item):
         return item.title
@@ -71,7 +72,7 @@ class ProgramFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:10]
+        return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:limit]
 
 class SubprogramFeed(GenericFeed):
     def get_object(self, request, subprogram):
@@ -87,7 +88,7 @@ class SubprogramFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:10]
+        return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:limit]
 
 class AuthorFeed(GenericFeed):
     def get_object(self, request, author):
@@ -103,7 +104,7 @@ class AuthorFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:10]
+        return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:limit]
 
 class ContentFeed(GenericFeed):
     def get_object(self, request, content_type, program=None):
@@ -129,6 +130,6 @@ class ContentFeed(GenericFeed):
         if obj["program"] is not None:
             if obj["program"] not in acceptable_programs:
                 raise Http404
-            return posts.filter(parent_programs__slug=obj["program"])[:10]
+            return posts.filter(parent_programs__slug=obj["program"])[:limit]
 
-        return posts[:10]
+        return posts[:limit]
