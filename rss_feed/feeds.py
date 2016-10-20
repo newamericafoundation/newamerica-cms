@@ -14,14 +14,9 @@ acceptable_content_types = [
     "weeklyarticle","indepthsection",
 ]
 
-#"fellows","new-america-weekly",
-acceptable_programs = [
-    "asset-building","better-life-lab","cybersecurity-initiative",
-    "economic-growth","education-policy","future-tense",
-    "international-security","open-technology-institute",
-    "political-reform","open-markets","resilient-communities",
-    "opportunity-at-work",
-]
+programs = Program.objects.live()
+acceptable_programs = [p.slug for p in programs]
+
 
 class GenericFeed(Feed):
     def get_object(self,request):
@@ -102,7 +97,7 @@ class ContentFeed(GenericFeed):
         if content_type == "indepthsection":
             content_type_model = "allindepthhomepage"
         elif content_type == "weeklyarticle":
-            content_type_model == "weekly"
+            content_type_model = "weekly"
         else:
             content_type_model = "all"+content_type+"shomepage"
 
