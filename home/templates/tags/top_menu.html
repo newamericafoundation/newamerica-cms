@@ -12,6 +12,8 @@
             {% for program in programs %}
                 {% if program.url == "/opportunity-at-work/" %}
                     <li class="mobile-menu__link__secondary"><a href="http://www.opportunityatwork.org/">{{ program.title }}</a></li>
+                {% elif program.url == "/international-reporting-project/" %}
+                    <li class="mobile-menu__link__secondary"><a href="https://internationalreportingproject.org">{{ program.title }}</a></li>
                 {% else %}
                     <li class="mobile-menu__link__secondary"><a href="{{ program.url }}">{{ program.title }}</a></li>
                 {% endif %}
@@ -121,6 +123,8 @@
                                             {% if program %}
                                                 {% if program.url == "/opportunity-at-work/" %}
                                                     <a class="header__link-group__main-element" href="http://www.opportunityatwork.org/">{{ program.title }}</a>
+                                                {% elif program.url == "/international-reporting-project/" %}
+                                                    <a class="header__link-group__main-element" href="https://internationalreportingproject.org">{{ program.title }}</a>
                                                 {% else %}
                                                     <a class="header__link-group__main-element" href="{{ program.url }}">{{ program.title }}</a>
                                                 {% endif %}
