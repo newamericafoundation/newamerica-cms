@@ -348,6 +348,13 @@
     margin: 0px;
     display:inline-block;
   }
+
+  a:not(.button) {
+    font-weight: 800;
+    border-bottom: $standard-border;
+    padding-bottom: 2px;
+    opacity: 1;
+  }
 }
 
 .post-date {
