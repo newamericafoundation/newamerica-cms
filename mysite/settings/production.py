@@ -13,6 +13,8 @@ APPEND_SLASH = True
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
+ADMINS = [('Kirk', 'jackson@newamerica.org'), ('Andrew', 'lomax@newamerica.org')]
+
 # Will be changed to final host url
 ALLOWED_HOSTS = ['*']
 
