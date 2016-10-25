@@ -269,7 +269,7 @@
     margin-bottom: $desktop-padding;
     @include limit-body-width;
     .responsive-object {
-      @include responsive-iframe(60%);
+      @include responsive-iframe(56%);
     }
   }
 
