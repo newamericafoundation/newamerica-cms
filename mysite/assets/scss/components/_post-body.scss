@@ -24,18 +24,6 @@
       font-style: normal;
     }
   }
-  &.with-dropcap > .block-paragraph ~ .block-paragraph {
-    &:first-letter {
-      color: palette-get(na-black-70);
-      font-size:1.25rem;
-      font-weight:initial;
-      float: initial;
-      padding: initial;
-      height: initial;
-      line-height: initial;
-      font-style: inherit;
-    }
-  }
 
   p,
   blockquote {
