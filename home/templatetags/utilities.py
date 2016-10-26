@@ -198,3 +198,17 @@ def check_oti(path):
 		return "oti"
 
 	return ""
+
+@register.filter
+def noShowTableauHome(src):
+        is_tableau = src.find('tableausoftware.com') != -1
+        if is_tableau:
+                has_showHome = src.find(':showVizHome=no') != -1
+                if not has_showHome:
+                        qryIndex = src.find('?')
+                        if qryIndex == -1: qryIndex = len(src)
+                        return src[:qryIndex] + "?:showVizHome=no&" + src[qryIndex+1:]
+                else:
+                        return src
+
+        return src
