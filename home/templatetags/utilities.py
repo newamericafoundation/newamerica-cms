@@ -203,7 +203,7 @@ def check_oti(path):
 def noShowTableauHome(src):
         is_tableau = src.find('tableausoftware.com') != -1
         if is_tableau:
-                has_showHome = src.find(':showVizHome=no') != -1
+                has_showHome = src.find(':showVizHome=') != -1
                 if not has_showHome:
                         qryIndex = src.find('?')
                         if qryIndex == -1: qryIndex = len(src)
