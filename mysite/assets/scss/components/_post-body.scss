@@ -114,15 +114,27 @@
     }
 
     .left {
-      float: left;
-      padding-left: 0px;
-      padding-right: $desktop-padding;
+      max-width: 100%;
+      margin: 0 auto;
+
+      @include breakpoint(medium) {
+        float: left;
+        max-width: 60%;
+        padding-left: 0px;
+        padding-right: $desktop-padding;
+      }
     }
 
     .right {
-      float: right;
-      padding-right: 0px;
-      padding-left: $desktop-padding;
+      max-width: 100%;
+      margin: 0 auto;
+
+      @include breakpoint(medium) {
+        float: right;
+        max-width: 60%;
+        padding-right: 0px;
+        padding-left: $desktop-padding;
+      }
     }
 
     ol, ul {
