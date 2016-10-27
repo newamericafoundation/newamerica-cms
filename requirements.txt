@@ -101,4 +101,4 @@ webassets==0.10.1
 websocket-client==0.37.0
 Werkzeug==0.10.1
 whitenoise==3.0
-Willow==0.3
+Willow==0.4
