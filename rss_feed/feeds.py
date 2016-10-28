@@ -210,14 +210,12 @@ class EventFeed(GenericFeed):
                  posts.order_by("-date","-start_time")
         else:
             posts.order_by("-date","-state_time")
-        print "EVENT"
         return posts[:limit]
 
 class EventProgramFeed(GenericFeed):
     feed_type = CustomFeedType
 
     def get_object(self, request, program=None, tense=None):
-        print 'EVENTPROGRAM'
         return {
             "tense": tense,
             "program": program,
@@ -236,7 +234,7 @@ class EventProgramFeed(GenericFeed):
                  posts.order_by("-date","-start_time")
         else:
              posts.order_by("-date","-state_time")
-    
+
         if obj["program"] is not None:
             if obj["program"] not in acceptable_programs:
                 raise Http404
