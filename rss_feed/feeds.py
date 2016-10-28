@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.conf import settings
 from django.contrib.syndication.views import Feed
@@ -8,6 +10,7 @@ from wagtail.wagtailcore.models import Page
 from home.models import Post
 from person.models import Person
 from programs.models import Program, Subprogram
+from event.models import Event
 
 acceptable_content_types = [
     "book","article","blogpost",
@@ -124,7 +127,7 @@ class ProgramFeed(GenericFeed):
 
 class SubprogramFeed(GenericFeed):
     feed_type = CustomFeedType
-    
+
     def get_object(self, request, subprogram):
         return {
             "subprogram": subprogram,
@@ -170,25 +173,85 @@ class ContentFeed(GenericFeed):
         if content_type not in acceptable_content_types:
             raise Http404
 
-        # page exceptions for indepth and weekly content types
-        if content_type == "indepthsection":
-            content_type_model = "allindepthhomepage"
-        elif content_type == "weeklyarticle":
-            content_type_model = "weekly"
-        else:
-            content_type_model = "all"+content_type+"shomepage"
-
         return {
             "content_type": content_type,
             "program": program,
-            "page": Page.objects.live().filter(content_type__model=content_type_model).first()
+            "page": Page.objects.live().filter(content_type__model=content_type_model(content_type)).first()
         }
 
     def items(self, obj):
-        posts = Post.objects.live().filter(content_type__model=obj["content_type"]).order_by("-date")
+        posts = Post.objects.live().filter(content_type__model=obj["content_type"]).order_by('-date')
+
         if obj["program"] is not None:
             if obj["program"] not in acceptable_programs:
                 raise Http404
             return posts.filter(parent_programs__slug=obj["program"])[:limit]
 
         return posts[:limit]
+
+class EventFeed(GenericFeed):
+    feed_type = CustomFeedType
+
+    def get_object(self, request, tense=None):
+        return {
+            "tense": tense,
+            "page": Page.objects.live().filter(content_type__model='alleventshomepage').first()
+        }
+
+    def items(self,obj):
+        posts = Event.objects.live()
+        if obj['tense']:
+            today = datetime.now().date()
+            if obj['tense'] == 'future':
+                posts.filter(date__gte=today).order_by("date","start_time")
+            elif obj['tense'] == 'past':
+                posts.filter(date__lt=today).order_by("-date","-start_time")
+            else:
+                 posts.order_by("-date","-start_time")
+        else:
+            posts.order_by("-date","-state_time")
+        print "EVENT"
+        return posts[:limit]
+
+class EventProgramFeed(GenericFeed):
+    feed_type = CustomFeedType
+
+    def get_object(self, request, program=None, tense=None):
+        print 'EVENTPROGRAM'
+        return {
+            "tense": tense,
+            "program": program,
+            "page": Page.objects.live().filter(content_type__model='alleventshomepage').first()
+        }
+
+    def items(self,obj):
+        posts = Event.objects.live()
+        if obj['tense']:
+            today = datetime.now().date()
+            if obj['tense'] == 'future':
+                posts.filter(date__gte=today).order_by("date", "start_time")
+            elif obj['tense'] == 'past':
+                posts.filter(date__lt=today).order_by("-date","-start_time")
+            else:
+                 posts.order_by("-date","-start_time")
+        else:
+             posts.order_by("-date","-state_time")
+    
+        if obj["program"] is not None:
+            if obj["program"] not in acceptable_programs:
+                raise Http404
+            return posts.filter(parent_programs__slug=obj["program"])[:limit]
+
+        return posts[:limit]
+
+
+def content_type_model(content_type):
+    # page exceptions for indepth and weekly content types
+    if content_type == "indepthsection":
+        content_type_model = "allindepthhomepage"
+    elif content_type == "weeklyarticle":
+        content_type_model = "weekly"
+    else:
+        content_type_model = "all"+content_type+"shomepage"
+
+    return content_type_model
