@@ -158,8 +158,8 @@ class AuthorFeed(GenericFeed):
         return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:limit]
 
     def item_media_content_url(self,item):
-        if item.bio_image is not None:
-            return settings.MEDIA_URL + item.bio_image.file.url
+        if item.profile_image is not None:
+            return settings.MEDIA_URL + item.profile_image.file.url
         return ''
 
 class ContentFeed(GenericFeed):
