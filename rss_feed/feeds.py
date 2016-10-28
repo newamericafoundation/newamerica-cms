@@ -1,5 +1,7 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.syndication.views import Feed
+from django.utils.feedgenerator import Rss201rev2Feed, Atom1Feed
 from django.http import Http404
 from wagtail.wagtailcore.models import Page
 
@@ -18,7 +20,45 @@ acceptable_programs = [p.slug for p in programs]
 
 limit = 20
 
+
+class CustomFeedType(Rss201rev2Feed):
+    # change mime type for browser formatting
+    content_type = 'application/xml; charset=utf-8'
+
+    def rss_attributes(self):
+        attrs = super(CustomFeedType, self).rss_attributes()
+        attrs['xmlns:dc'] = "http://purl.org/dc/elements/1.1/"
+        attrs['xmlns:media'] = 'http://search.yahoo.com/mrss/'
+        return attrs
+
+    def add_root_elements(self,handler):
+        super(CustomFeedType,self).add_root_elements(handler)
+        handler.startElement(u'image', {})
+        handler.addQuickElement(u"url", u'https://na-production.s3.amazonaws.com/images/newamericalogo_1.original.png')
+        handler.addQuickElement(u"title", u'New America')
+        handler.addQuickElement(u"link", u'http://newamerica.org/')
+        handler.endElement(u"image")
+
+    def add_item_elements(self, handler, item):
+        super(CustomFeedType, self).add_item_elements(handler, item)
+        media_content = {
+            'url': item['media_content_url'],
+            'media': 'image'
+        }
+
+        handler.addQuickElement(u"media:content", '', media_content )
+        handler.addQuickElement(u"media:description", item['description'])
+
+
 class GenericFeed(Feed):
+    feed_type = CustomFeedType
+
+    def item_extra_kwargs(self, item):
+        extra = super(GenericFeed, self).item_extra_kwargs(item)
+        extra.update({'media_content_url': self.item_media_content_url(item) })
+        return extra
+
+
     def get_object(self,request):
         return {
             # page data is used for title, description and link tags at top level of rss channel
@@ -58,7 +98,15 @@ class GenericFeed(Feed):
     def item_link(self, item):
         return item.full_url
 
+    def item_media_content_url(self, item):
+        if item.story_image is not None:
+            return settings.MEDIA_URL + item.story_image.file.url
+        return ''
+
+
 class ProgramFeed(GenericFeed):
+    feed_type = CustomFeedType
+
     def get_object(self, request, program):
         return {
             "program": program,
@@ -75,6 +123,8 @@ class ProgramFeed(GenericFeed):
         return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:limit]
 
 class SubprogramFeed(GenericFeed):
+    feed_type = CustomFeedType
+    
     def get_object(self, request, subprogram):
         return {
             "subprogram": subprogram,
@@ -91,6 +141,8 @@ class SubprogramFeed(GenericFeed):
         return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:limit]
 
 class AuthorFeed(GenericFeed):
+    feed_type = CustomFeedType
+
     def get_object(self, request, author):
         return {
             "author": author,
@@ -106,7 +158,14 @@ class AuthorFeed(GenericFeed):
     def items(self, obj):
         return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:limit]
 
+    def item_media_content_url(self,item):
+        if item.bio_image is not None:
+            return settings.MEDIA_URL + item.bio_image.file.url
+        return ''
+
 class ContentFeed(GenericFeed):
+    feed_type = CustomFeedType
+
     def get_object(self, request, content_type, program=None):
         if content_type not in acceptable_content_types:
             raise Http404
