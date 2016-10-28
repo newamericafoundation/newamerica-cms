@@ -54,7 +54,9 @@ class CustomFeedType(Rss201rev2Feed):
 
 
 class GenericFeed(Feed):
-    feed_type = CustomFeedType
+    def __init__(self):
+        super(GenericFeed, self).__init__()
+        self.feed_type = CustomFeedType
 
     def item_extra_kwargs(self, item):
         extra = super(GenericFeed, self).item_extra_kwargs(item)
@@ -108,8 +110,6 @@ class GenericFeed(Feed):
 
 
 class ProgramFeed(GenericFeed):
-    feed_type = CustomFeedType
-
     def get_object(self, request, program):
         return {
             "program": program,
@@ -126,8 +126,6 @@ class ProgramFeed(GenericFeed):
         return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:limit]
 
 class SubprogramFeed(GenericFeed):
-    feed_type = CustomFeedType
-
     def get_object(self, request, subprogram):
         return {
             "subprogram": subprogram,
@@ -144,8 +142,6 @@ class SubprogramFeed(GenericFeed):
         return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:limit]
 
 class AuthorFeed(GenericFeed):
-    feed_type = CustomFeedType
-
     def get_object(self, request, author):
         return {
             "author": author,
@@ -167,8 +163,6 @@ class AuthorFeed(GenericFeed):
         return ''
 
 class ContentFeed(GenericFeed):
-    feed_type = CustomFeedType
-
     def get_object(self, request, content_type, program=None):
         if content_type not in acceptable_content_types:
             raise Http404
@@ -190,8 +184,6 @@ class ContentFeed(GenericFeed):
         return posts[:limit]
 
 class EventFeed(GenericFeed):
-    feed_type = CustomFeedType
-
     def get_object(self, request, tense=None):
         return {
             "tense": tense,
@@ -213,8 +205,6 @@ class EventFeed(GenericFeed):
         return posts[:limit]
 
 class EventProgramFeed(GenericFeed):
-    feed_type = CustomFeedType
-
     def get_object(self, request, program=None, tense=None):
         return {
             "tense": tense,
