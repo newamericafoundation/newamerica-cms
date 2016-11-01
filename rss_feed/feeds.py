@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time
 
 from django.db import models
 from django.conf import settings
@@ -98,7 +98,7 @@ class GenericFeed(Feed):
         return item.story_excerpt
 
     def item_pubdate(self, item):
-        return item.first_published_at
+         return datetime.combine(item.date, time())
 
     def item_link(self, item):
         return item.full_url
