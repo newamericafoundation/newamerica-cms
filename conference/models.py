@@ -6,7 +6,8 @@ from django.utils import timezone
 from django.utils.timezone import localtime, now
 from home.models import Post
 from programs.models import Program, Subprogram
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
 from wagtail.wagtailcore.models import Page, Orderable
 from modelcluster.fields import ParentalKey
 
@@ -34,7 +35,7 @@ class Conference(Post):
 
     rsvp_link = models.URLField(blank=True)
 
-    date = models.DateField("Start Date",required=True)
+    # date = models.DateField("Start Date")
     end_date = models.DateField(blank=True, null=True)
     start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(default=timezone.now, blank=True, null=True)
@@ -48,7 +49,7 @@ class Conference(Post):
         [
             FieldRowPanel(['date','end_date']),
             FieldRowPanel(['start_time','end_time'])
-        ]
+        ],
         heading="Conference Days and Time"
     )
     address = MultiFieldPanel(
@@ -59,7 +60,7 @@ class Conference(Post):
         heading="Conference Location"
     )
 
-    content_panels = Post.content_panels + [
+    content_panels = [
         time,
         address,
         InlinePanel('session', label="Sessions"),
@@ -80,13 +81,13 @@ SESSION_TYPES = (
 # Sessions are a separate model
 # to allow fo querying and adding content to sessions separately
 # e.g adding video or audio links.
-class Session(model.Models):
-    name = models.TextField(required=True)
-    session_type = models.TextField(required=True,choices=SESSION_TYPES)
+class Session(models.Model):
+    name = models.TextField()
+    session_type = models.CharField(choices=SESSION_TYPES)
     day = IntegerBlock(help_text="What day of the conference is this on?")
-    description = models.RichTextField()
-    start_time = models.TimeField(required=True)
-    end_time = models.TimeField(required=True)
+    description = models.TextField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     speakers = StreamField([
         ('speaker', SessionSpeakerBlock())
     ])
