@@ -4,19 +4,61 @@ from django.db import models
 from django.template.response import TemplateResponse
 from django.utils import timezone
 from django.utils.timezone import localtime, now
-from home.models import Post
-from programs.models import Program, Subprogram
+from modelcluster.fields import ParentalKey
+
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
 from wagtail.wagtailcore.models import Page, Orderable
-from modelcluster.fields import ParentalKey
+from wagtail.wagtailcore.rich_text import RichText
 
+from home.models import Post
 from blocks import SessionSpeakerBlock
 from home.blocks import IntegerBlock
 
+SESSION_TYPES = (
+    ('panel', 'Panel'),
+    ('speaker', 'Speaker'),
+    ('break', 'Break'),
+    ('meal', 'Meal'),
+    ('reception','Reception'),
+    ('registration', 'Registration'),
+)
+
+# Sessions are a separate model
+# to allow fo querying and adding content to sessions separately
+# e.g adding video or audio links.
+class Session(models.Model):
+    name = models.TextField()
+    session_type = models.TextField(choices=SESSION_TYPES)
+    day = IntegerBlock(help_text="What day of the conference is this on?")
+    description = models.TextField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    speakers = StreamField([
+        ('speaker', SessionSpeakerBlock())
+    ])
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('session_type'),
+        FieldPanel('day'),
+        FieldPanel('description'),
+        FieldRowPanel(['start_time','end_time']),
+        StreamFieldPanel('speakers')
+    ]
+
+    class Meta:
+        abstract = True
+
+# Makes session model available in editor
+# before new Conference is saved
+class ConferenceSession(Orderable,Session):
+    conference = ParentalKey('Conference', related_name='conference_sessions')
+
+
 class AllConferencesHomePage(Page):
     parent_page_types = ['home.HomePage']
-    subpage_types = ['Post']
+    subpage_types = ['Conference']
 
     class Meta:
         verbose_name = "Homepage for all Conferences"
@@ -47,15 +89,25 @@ class Conference(Post):
 
     time = MultiFieldPanel(
         [
-            FieldRowPanel(['date','end_date']),
-            FieldRowPanel(['start_time','end_time'])
+            FieldRowPanel([
+                FieldPanel('date'),
+                FieldPanel('end_date')
+            ]),
+            FieldRowPanel([
+                FieldPanel('start_time'),
+                FieldPanel('end_time')
+            ])
         ],
         heading="Conference Days and Time"
     )
     address = MultiFieldPanel(
         [
             FieldPanel('street'),
-            FieldRowPanel(['city','state','zipcode'])
+            FieldRowPanel([
+                FieldPanel('city'),
+                FieldPanel('state'),
+                FieldPanel('zipcode')
+            ])
         ],
         heading="Conference Location"
     )
@@ -63,48 +115,7 @@ class Conference(Post):
     content_panels = [
         time,
         address,
-        InlinePanel('session', label="Sessions"),
+    #    InlinePanel('conference_sessions', label='Sessions'),
         FieldPanel('rsvp_link'),
         FieldPanel('host_organization')
     ]
-
-
-SESSION_TYPES = (
-    ('panel', 'Panel'),
-    ('speaker', 'Speaker'),
-    ('break', 'Break'),
-    ('meal', 'Meal'),
-    ('reception','Reception'),
-    ('registration', 'Registration'),
-)
-
-# Sessions are a separate model
-# to allow fo querying and adding content to sessions separately
-# e.g adding video or audio links.
-class Session(models.Model):
-    name = models.TextField()
-    session_type = models.CharField(choices=SESSION_TYPES)
-    day = IntegerBlock(help_text="What day of the conference is this on?")
-    description = models.TextField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    speakers = StreamField([
-        ('speaker', SessionSpeakerBlock())
-    ])
-
-    panels = [
-        FieldPanel('name'),
-        FieldPanel('session_type'),
-        FieldPanel('day'),
-        FieldPanel('description'),
-        FieldRowPanel(['start_time','end_time']),
-        StreamFieldPanel('speakers')
-    ]
-
-    class Meta:
-        abstract = True
-
-# Makes session model available in editor
-# before new Conference is saved
-class ConferenceSessions(Orderable,Session):
-    conference = ParentalKey(Conference, related_name='session')
