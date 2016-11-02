@@ -90,6 +90,7 @@ class HomePage(Page):
     'JobsPage',
     'SubscribePage',
     'RedirectPage',
+    'conference.AllConferencesHomePage',
     ]
 
     # Up to four lead stories can be featured on the homepage.
