@@ -27,7 +27,7 @@ class Conference(Post):
     parent_page_types = ['AllConferencesHomePage']
     subpage_types = []
 
-    description = RichTextField(help_text="This will be the ABOUT text")
+    description = RichTextField(help_text="This will be the ABOUT text", blank=True, null=True)
     host_organization = models.TextField(
         default='New America',
         blank=True,
