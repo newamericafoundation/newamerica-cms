@@ -6,7 +6,7 @@
       <ul class="nav nav-schedule">
         {% for day in value %}
           <li class="active">
-            <a href="#day1" data-toggle="tab">
+            <a href="#day{{forloop.counter}}" data-toggle="tab">
               <h5 class="highlight">Day {{forloop.counter}}</h5>
               <!-- <p class="text-alt">08/10/2016</p> -->
             </a>
@@ -19,7 +19,7 @@
         {% for day in value %}
         {% with day.value as d %}
 
-        <div id="day1" class="tab-pane fade active in">
+        <div id="day{{forloop.counter}}" class="tab-pane fade active in">
           <div class="tab-content tab-content-schedule">
             <div id="day1_auditorium1" class="tab-pane fade active in">
               <div class="panel-group" id="day1_auditorium1_timeline">

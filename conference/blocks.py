@@ -102,6 +102,9 @@ class DirectionBlock(blocks.StructBlock):
 class DirectionsBlock(blocks.StreamBlock):
     direction = DirectionBlock()
 
+    class Meta:
+        template = 'blocks/directions.html'
+
 class VenueBlock(blocks.StreamBlock):
     paragraph = blocks.RichTextBlock()
     columns = TwoColumnBlock()
