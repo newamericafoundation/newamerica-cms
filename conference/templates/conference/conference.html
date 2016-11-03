@@ -1,61 +1,69 @@
+{% extends 'conference/base.html' %}
+
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% include 'conference/intro.html' %}
-{% include 'conference/nav.html' %}
-{% include 'conference/about.html' %}
+{% block body_class %}conference-template{% endblock %}
 
-<section id="speakers" class="section align-center">
-  <div class="container">
-    <span class="icon section-icon icon-faces-users-04"></span>
-    <h3>Speakers</h3>
-    <p class="text-alt">Meet our <span class="highlight">professonals</span></p>
-    <br />
-    <br />
-  </div>
-  {{ page.speakers }}
+{%block content %}
 
-</section>
+  {% include 'conference/intro.html' %}
+  {% include 'conference/nav.html' %}
+  {% include 'conference/about.html' %}
 
-<section id="schedule" class="section schedule-section align-center">
-  <div class="container">
-    <span class="icon section-icon icon-office-21"></span>
-    <h3>Schedule</h3>
-    <p class="text-alt">Vast number of different speeches<br/> and <span class="highlight">activities</span></p>
-    <br />
-    <br />
-  </div>
-  {{ page.sessions }}
-</section>
+  <section id="speakers" class="section align-center">
+    <div class="container">
+      <span class="icon section-icon icon-faces-users-04"></span>
+      <h3>Speakers</h3>
+      <p class="text-alt">Meet our <span class="highlight">professonals</span></p>
+      <br />
+      <br />
+    </div>
+    {{ page.speakers }}
 
-<section id="sponsors" class="section align-center">
-  <div class="container">
-    <span class="icon section-icon icon-documents-bookmarks-12"></span>
-    <h3>General sponsors</h3>
-    <p class="text-alt">companies that <span class="highlight">support</span> us</p>
-    <br/>
-    <br/>
-  </div>
-  {{ page.partners }}
-</section>
+  </section>
 
-<section id="venue" class="section align-center">
-  <div class="container">
-    <span class="icon section-icon icon-documents-bookmarks-12"></span>
-    <h3>Venue & Travel</h3>
-    <!-- <p class="text-alt"></p> -->
-    <br/>
-    <br/>
-  </div>
-  {{ page.venue }}
-  <div class="container">
-    <span class="icon section-icon icon-documents-bookmarks-12"></span>
-    <h3>Directions</h3>
-    <!-- <p class="text-alt"></p> -->
-    <br/>
-    <br/>
-  </div>
-  {{ page.directions }}
-</section>
+  <section id="schedule" class="section schedule-section align-center">
+    <div class="container">
+      <span class="icon section-icon icon-office-21"></span>
+      <h3>Schedule</h3>
+      <p class="text-alt">Vast number of different speeches<br/> and <span class="highlight">activities</span></p>
+      <br />
+      <br />
+    </div>
+    {{ page.sessions }}
+  </section>
 
-{% include 'conference/footer.html' %}
+  <section id="sponsors" class="section align-center">
+    <div class="container">
+      <span class="icon section-icon icon-documents-bookmarks-12"></span>
+      <h3>General sponsors</h3>
+      <p class="text-alt">companies that <span class="highlight">support</span> us</p>
+      <br/>
+      <br/>
+    </div>
+    {{ page.partners }}
+  </section>
+
+  <section id="venue" class="section align-center">
+    <div class="container">
+      <span class="icon section-icon icon-documents-bookmarks-12"></span>
+      <h3>Venue & Travel</h3>
+      <!-- <p class="text-alt"></p> -->
+      <br/>
+      <br/>
+    </div>
+    {{ page.venue }}
+    <div class="container">
+      <span class="icon section-icon icon-documents-bookmarks-12"></span>
+      <h3>Directions</h3>
+      <!-- <p class="text-alt"></p> -->
+      <br/>
+      <br/>
+    </div>
+    {{ page.directions }}
+  </section>
+
+  {% include 'conference/footer.html' %}
+
+{% endblock %}
