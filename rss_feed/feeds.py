@@ -12,18 +12,6 @@ from person.models import Person
 from programs.models import Program, Subprogram
 from event.models import Event
 
-acceptable_content_types = [
-    "book","article","blogpost",
-    "event","podcast","policypaper","pressrelease",
-    "weeklyarticle","indepthsection",
-]
-
-programs = Program.objects.live()
-acceptable_programs = [p.slug for p in programs]
-
-limit = 20
-
-
 class CustomFeedType(Rss201rev2Feed):
     # change mime type for browser formatting
     content_type = 'application/xml; charset=utf-8'
@@ -57,6 +45,16 @@ class GenericFeed(Feed):
     def __init__(self):
         super(GenericFeed, self).__init__()
         self.feed_type = CustomFeedType
+        self.limit = 20
+        self.acceptable_content_types = [
+            "book","article","blogpost",
+            "event","podcast","policypaper","pressrelease",
+            "weeklyarticle","indepthsection",
+        ]
+
+        programs = Program.objects.live()
+        self.acceptable_programs = [p.slug for p in programs]
+
 
     def item_extra_kwargs(self, item):
         extra = super(GenericFeed, self).item_extra_kwargs(item)
@@ -89,7 +87,7 @@ class GenericFeed(Feed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().order_by("-date")[:limit]
+        return Post.objects.live().order_by("-date")[:self.limit]
 
     def item_title(self, item):
         return item.title
@@ -123,7 +121,7 @@ class ProgramFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:limit]
+        return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:self.limit]
 
 class SubprogramFeed(GenericFeed):
     def get_object(self, request, subprogram):
@@ -139,7 +137,7 @@ class SubprogramFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:limit]
+        return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:self.limit]
 
 class AuthorFeed(GenericFeed):
     def get_object(self, request, author):
@@ -155,12 +153,12 @@ class AuthorFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:limit]
+        return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:self.limit]
 
 
 class ContentFeed(GenericFeed):
     def get_object(self, request, content_type, program=None):
-        if content_type not in acceptable_content_types:
+        if content_type not in self.acceptable_content_types:
             raise Http404
 
         return {
@@ -173,11 +171,11 @@ class ContentFeed(GenericFeed):
         posts = Post.objects.live().filter(content_type__model=obj["content_type"]).order_by('-date')
 
         if obj["program"] is not None:
-            if obj["program"] not in acceptable_programs:
+            if obj["program"] not in self.acceptable_programs:
                 raise Http404
-            return posts.filter(parent_programs__slug=obj["program"])[:limit]
+            return posts.filter(parent_programs__slug=obj["program"])[:self.limit]
 
-        return posts[:limit]
+        return posts[:self.limit]
 
 class EventFeed(GenericFeed):
     def get_object(self, request, tense=None):
@@ -198,7 +196,7 @@ class EventFeed(GenericFeed):
                  posts.order_by("-date","-start_time")
         else:
             posts.order_by("-date","-state_time")
-        return posts[:limit]
+        return posts[:self.limit]
 
 class EventProgramFeed(GenericFeed):
     def get_object(self, request, program=None, tense=None):
@@ -222,11 +220,11 @@ class EventProgramFeed(GenericFeed):
              posts.order_by("-date","-state_time")
 
         if obj["program"] is not None:
-            if obj["program"] not in acceptable_programs:
+            if obj["program"] not in self.acceptable_programs:
                 raise Http404
-            return posts.filter(parent_programs__slug=obj["program"])[:limit]
+            return posts.filter(parent_programs__slug=obj["program"])[:self.limit]
 
-        return posts[:limit]
+        return posts[:self.limit]
 
 
 def content_type_model(content_type):
