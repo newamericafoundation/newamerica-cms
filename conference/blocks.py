@@ -88,6 +88,9 @@ class PartnerBlock(blocks.StructBlock):
 class PartnersBlock(blocks.StreamBlock):
     partner = PartnerBlock()
 
+    class Meta:
+        template = 'blocks/partners.html'
+
 class TwoColumnBlock(blocks.StructBlock):
     left_column = blocks.RichTextBlock()
     right_column = blocks.RichTextBlock()
