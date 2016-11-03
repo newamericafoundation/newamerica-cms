@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from django.db import models
 from django.template.response import TemplateResponse
@@ -8,6 +9,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailcore.fields import StreamField, RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Orderable
 
 from home.models import Post
@@ -21,21 +23,34 @@ class AllConferencesHomePage(Page):
     class Meta:
         verbose_name = "Homepage for all Conferences"
 
-class Conference(Post):
+class Conference(Page):
     """
     """
     parent_page_types = ['AllConferencesHomePage']
     subpage_types = []
 
     description = RichTextField(help_text="This will be the ABOUT text")
+    subheading = models.TextField(blank=True, null=True)
+    story_excerpt = models.CharField("excerpt", blank=True, null=True, max_length=140)
+
+    story_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="Cover Image"
+    )
+
     host_organization = models.TextField(
         default='New America',
         blank=True,
         null=True
     )
+
     rsvp_link = models.URLField(blank=True, null=True)
 
-    # date = models.DateField("Start Date")
+    date = models.DateField("Start Date", default=timezone.now)
     end_date = models.DateField(blank=True, null=True)
     start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(default=timezone.now, blank=True, null=True)
@@ -51,6 +66,7 @@ class Conference(Post):
             FieldPanel('subheading'),
             FieldPanel('host_organization'),
             FieldPanel('description'),
+            ImageChooserPanel('story_image'),
             FieldPanel('rsvp_link')
         ],
         heading="About"
