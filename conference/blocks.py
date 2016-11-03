@@ -37,7 +37,7 @@ class IntegerChoiceBlock(blocks.ChoiceBlock):
 class SessionTypesBlock(blocks.ChoiceBlock):
     choices = (
         ('panel', 'Panel'),
-        ('speaker', 'Speaker'),
+        ('lecture', 'Lecture'),
         ('break', 'Break'),
         ('meal', 'Meal'),
         ('reception','Reception'),
@@ -49,7 +49,7 @@ class SessionSpeakerBlock(blocks.StructBlock):
     title = blocks.TextBlock()
 
 class SessionBlock(blocks.StructBlock):
-    day = IntegerChoiceBlock(help_text="What day of the conference is this session on?")
+    #day = IntegerChoiceBlock(help_text="What day of the conference is this session on?")
     name = blocks.TextBlock()
     session_type = SessionTypesBlock()
     description = blocks.RichTextBlock()
@@ -60,8 +60,17 @@ class SessionBlock(blocks.StructBlock):
     ])
     archived_video_link = blocks.URLBlock(help_text="Enter youtube link after conference")
 
+class SessionDayBlock(blocks.StructBlock):
+    day = IntegerChoiceBlock(help_text="What day of the conference is this session on?")
+    sessions = blocks.StreamBlock([
+        ('session', SessionBlock())
+    ])
+
 class SessionsBlock(blocks.StreamBlock):
-    session = SessionBlock()
+    days = SessionDayBlock()
+
+    class Meta:
+        template = 'blocks/schedule.html'
 
 class PartnerTypeBlock(blocks.ChoiceBlock):
     choices = (
