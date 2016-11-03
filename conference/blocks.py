@@ -21,6 +21,9 @@ class PersonBlock(blocks.StructBlock):
 class PeopleBlock(blocks.StreamBlock):
     person = PersonBlock();
 
+    class Meta:
+        template = 'conference/templates/people.html'
+
 class IntegerChoiceBlock(blocks.ChoiceBlock):
     choices = (
         ('1', '1'),
