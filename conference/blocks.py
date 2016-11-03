@@ -22,7 +22,7 @@ class PeopleBlock(blocks.StreamBlock):
     person = PersonBlock();
 
     class Meta:
-        template = 'conference/templates/people.html'
+        template = 'blocks/people.html'
 
 class IntegerChoiceBlock(blocks.ChoiceBlock):
     choices = (
