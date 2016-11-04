@@ -16,7 +16,7 @@ class PersonBlock(blocks.StructBlock):
     title = blocks.TextBlock()
     description = blocks.RichTextBlock()
     image = ImageChooserBlock(icon='image')
-    twitter = blocks.URLBlock()
+    twitter = blocks.URLBlock(required=False)
 
 class PeopleBlock(blocks.StreamBlock):
     person = PersonBlock();
@@ -54,14 +54,16 @@ class SessionBlock(blocks.StructBlock):
     session_type = SessionTypesBlock()
     description = blocks.RichTextBlock()
     start_time = blocks.TimeBlock()
-    end_time = blocks.TimeBlock()
+    end_time = blocks.TimeBlock(required=False)
     speakers = blocks.StreamBlock([
         ('speaker', SessionSpeakerBlock())
     ])
-    archived_video_link = blocks.URLBlock(help_text="Enter youtube link after conference")
+    archived_video_link = blocks.URLBlock(help_text="Enter youtube link after conference", required=False)
 
 class SessionDayBlock(blocks.StructBlock):
     day = IntegerChoiceBlock(help_text="What day of the conference is this session on?")
+    start_time = blocks.TimeBlock()
+    end_time = blocks.TimeBlock()
     sessions = blocks.StreamBlock([
         ('session', SessionBlock())
     ])
@@ -82,8 +84,8 @@ class PartnerTypeBlock(blocks.ChoiceBlock):
 
 class PartnerBlock(blocks.StructBlock):
     name = blocks.TextBlock()
-    logo = ImageChooserBlock(icon='image')
     type = PartnerTypeBlock()
+    logo = ImageChooserBlock(icon='image')
 
 class PartnersBlock(blocks.StreamBlock):
     partner = PartnerBlock()

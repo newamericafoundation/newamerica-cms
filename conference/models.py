@@ -42,6 +42,15 @@ class Conference(Page):
         verbose_name="Cover Image"
     )
 
+    about_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="About Image"
+    )
+
     host_organization = models.TextField(
         default='New America',
         blank=True,
@@ -52,9 +61,8 @@ class Conference(Page):
 
     date = models.DateField("Start Date", default=timezone.now)
     end_date = models.DateField(blank=True, null=True)
-    start_time = models.TimeField(default=timezone.now)
-    end_time = models.TimeField(default=timezone.now, blank=True, null=True)
 
+    location_name = models.TextField(help_text='Name of building (e.g. the Kennedy Center)', blank=True, null=True)
     street = models.TextField(default='740 15th St NW #900', blank=True, null=True)
     city = models.TextField(default='Washington', blank=True, null=True)
     state = models.TextField(default='D.C.', blank=True, null=True)
@@ -65,29 +73,21 @@ class Conference(Page):
             FieldPanel('title'),
             FieldPanel('subheading'),
             FieldPanel('host_organization'),
-            FieldPanel('description'),
+            FieldRowPanel([
+                FieldPanel('date', classname="col6"),
+                FieldPanel('end_date', classname="col6")
+            ]),
             ImageChooserPanel('story_image'),
+            ImageChooserPanel('about_image'),
+            FieldPanel('description'),
             FieldPanel('rsvp_link')
         ],
         heading="About"
     )
 
-    time = MultiFieldPanel(
-        [
-            FieldRowPanel([
-                FieldPanel('date', classname="col6"),
-                FieldPanel('end_date', classname="col6")
-            ]),
-            FieldRowPanel([
-                FieldPanel('start_time', classname="col6"),
-                FieldPanel('end_time', classname="col6")
-            ])
-        ],
-        heading="Conference Days and Time"
-    )
-
     address = MultiFieldPanel(
         [
+            FieldPanel('location_name'),
             FieldPanel('street'),
             FieldPanel('city'),
             FieldRowPanel([
@@ -106,51 +106,12 @@ class Conference(Page):
 
     content_panels = [
         about,
-        time,
         address,
         StreamFieldPanel('venue'),
         StreamFieldPanel('directions'),
         StreamFieldPanel('speakers'),
         StreamFieldPanel('partners'),
         StreamFieldPanel('sessions')
-        #InlinePanel('conference_sessions', label='Sessions'),
     ]
 
     promote_panels = Page.promote_panels
-
-
-# # Sessions are a separate model
-# # to allow fo querying and adding content to sessions separately
-# # e.g adding video or audio links.
-# class Session(models.Model):
-#     name = models.TextField()
-#     session_type = StreamField(SessionTypesBlock())
-#     day = StreamField(IntegerChoiceBlock(help_text="What day of the conference is this session on?"))
-#     description = RichTextField(blank=True,null=True)
-#     start_time = models.TimeField()
-#     end_time = models.TimeField()
-#     speakers = StreamField([
-#         ('speaker', SessionSpeakerBlock())
-#     ])
-#
-#     panels = [
-#         FieldRowPanel([
-#             FieldPanel('day', classname="col6"),
-#         ]),
-#         FieldPanel('name'),
-#         FieldPanel('session_type'),
-#         FieldPanel('description'),
-#         FieldRowPanel([
-#             FieldPanel('start_time', classname="col6"),
-#             FieldPanel('end_time', classname="col6")
-#         ])
-#         #StreamFieldPanel('speakers')
-#     ]
-#
-#     class Meta:
-#         abstract = True
-#
-# # Makes session model available in editor
-# # before new Conference is saved
-# class ConferenceSession(Orderable,Session):
-#     conference = ParentalKey('Conference', related_name='conference_sessions')
