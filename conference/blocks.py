@@ -52,7 +52,7 @@ class SessionBlock(blocks.StructBlock):
     #day = IntegerChoiceBlock(help_text="What day of the conference is this session on?")
     name = blocks.TextBlock()
     session_type = SessionTypesBlock()
-    description = blocks.RichTextBlock()
+    description = blocks.RichTextBlock(required=False)
     start_time = blocks.TimeBlock()
     end_time = blocks.TimeBlock(required=False)
     speakers = blocks.StreamBlock([
