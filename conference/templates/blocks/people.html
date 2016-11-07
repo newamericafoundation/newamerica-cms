@@ -1,15 +1,15 @@
 {% load wagtailimages_tags %}
 
-<div class="container">
+<div class="container row">
   {% for person in value %}
     {% with person.value as p %}
     {% image p.image width-400 as photo %}
-    <div class="col-sm-3">
+    <div class="medium-12 large-4 columns">
       <div class="speaker">
         <div class="photo-wrapper rounded"><img src="{{photo.url}}" alt="{{photo.alt}}" class="img-responsive"></div>
         <h3 class="name">{{p.name}}</h3>
         <p class="text-alt"><small>{{p.title}}</small></p>
-        <p class="about">{{p.description}}</p>
+        {{p.description}}
         <ul class="speaker-socials">
           <li><a href="{{p.twitter}}"><span class="fa fa-twitter"></span></a></li>
         </ul>

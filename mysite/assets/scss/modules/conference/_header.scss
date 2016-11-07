@@ -2,73 +2,70 @@
     Header
 ---------------------------------------------------------------------------- */
 
+$header-height: 75px;
+
 .header {
     position: relative;
     line-height: 1.5625;
     z-index: 1000;
 
-    &.header-black {
-        .header-wrapper {
-          //  .box-shadow(none);
+    .header-wrapper {
+        background: rgba(palette-get(na-turquoise),0.8);
+        height: $header-height;
 
-            background-color: $gray-darker;
-        }
 
-        .navigation-link {
-            color: $text-white;
-
-            &:hover,
-            &:active,
-            &:focus,
-            &.active {
-                @extend .base-clr-txt;
-            }
-        }
-
-        .dropdown-menu {
-            //.box-shadow(none);
-
-            background-color: $gray-darker;
-        }
     }
 
-    &.header-color {
-        .header-wrapper {
-            @extend .base-clr-bg ;
+    .navigation-header {
+        display: inline-block;
+        height: $header-height;
+        z-index: 0;
+        position: relative;
 
-          //  .box-shadow(none);
+        .logo {
+            display: inline-block;
+            font-family: $font-family-heading;
+            font-size: 23px;
+            font-weight: $bold-weight;
+            text-transform: uppercase;
+            text-decoration: none;
+            width: 400px;
+            position: absolute;
+            top: 50%;
+            transform: translate(-35%,-50%);
+
         }
 
-        .navigation-header {
-            .logo {
-                color: $text-white;
-            }
-
-            .buy-btn {
-              //  @extend .btn.btn-outline; //all);
-              //  @extend .btn.btn-outline.btn-sm ;
-            }
-        }
-
-        .navbar-toggle .icon-bar {
-            background-color: $white;
-        }
-
-        .dropdown-menu {
-            @extend .base-clr-bg ;
-
-            //.box-shadow(none);
-        }
-
-        .navigation-link.active {
-            border-color: $white;
-        }
     }
 
-    &:not(.header-color):not(.header-black) {
-        .navbar-collapse {
-            @extend .base-clr-bg;
-        }
+    .navigation-container {
+      z-index: 100;
+      position: relative;
+    }
+
+    .register{
+      height: $header-height;
+      line-height: $header-height;
+      padding-top: 0;
+      padding-bottom: 0;
+      box-shadow: none !important;
+
+    }
+
+    .dropdown-menu {
+        @extend .base-clr-bg ;
+    }
+
+    .navbar-toggle .icon-bar {
+        background-color: $white;
+    }
+
+    a.navigation-link {
+      &:hover,
+      &.active {
+        color: $white;
+        border-color: $white;
+      }
     }
 
     &.fixed .header-wrapper {
@@ -77,18 +74,6 @@
         right: 0;
         left: 0;
         z-index: 1000;
-    }
-
-    .fade-in-on-stick {
-        display: none;
-    }
-
-    .buy-btn {
-      //  @extend .btn;
-      //  @extend .btn.btn-outline-clr; // all;
-      //  @extend .btn.btn-outline-clr.btn-sm;
-
-        margin: 29px 0 0;
     }
 }
 
@@ -101,26 +86,7 @@
     background-color: $white;
 }
 
-.navigation-header {
-    //.clearfix();
 
-    display: inline-block;
-    padding: 29px 0 0;
-
-    .logo {
-        display: inline-block;
-        padding: 3px 0;
-        font-family: $font-family-heading;
-        font-size: 23px;
-        font-weight: $bold-weight;
-        text-transform: uppercase;
-        text-decoration: none;
-    }
-
-    .buy-btn {
-        margin: 9px 0 0;
-    }
-}
 
 .navbar-toggle {
     border: none;
@@ -148,12 +114,16 @@
 
 .navigation-list {
     text-align: left;
+    margin-bottom: 0px;
+    height: $header-height;
 }
 
 .navigation-item {
     margin-left: 21px;
+    margin-top: 25px;
+    margin-bottom: 0px !important;
     display: inline-block;
-    padding: 34px 0 16px;
+    //padding: 34px 0 16px;
 
     &:first-child {
         margin-left: 0;
@@ -240,7 +210,7 @@
     //.transition(~"color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease");
 
     display: inline-block;
-    padding: 7px 0;
+  //  padding: 7px 0;
     font-family: $font-family-heading;
     font-size: $font-size-thin;
     font-weight: $bold-weight;
@@ -248,7 +218,7 @@
     letter-spacing: 0.26em;
     color: $text-gray-dark;
     border-style: solid;
-    border-width: 0 0 2px;
+    border-width: 0 0 3px;
     border-color: transparent;
     cursor: pointer;
 
@@ -260,7 +230,6 @@
     &:active,
     &:focus,
     &.active {
-        @extend .base-clr-txt;
 
         text-decoration: none;
     }

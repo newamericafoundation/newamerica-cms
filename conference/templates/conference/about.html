@@ -1,18 +1,16 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <section id="about" class="section align-center">
   <div class="container">
-    <span class="icon section-icon icon-multimedia-12"></span>
+    <span class="line-icon section-icon line-icon-multimedia-12"></span>
     <h3>About the Event</h3>
-    <!-- <p class="text-alt"></p> -->
-    <br />
-    <br />
-
-
-    <div class="col-sm-5 img-column">
-      <img src="assets/img/imac-371x412.png" alt="" class="img-responsive" />
-    </div>
-    <div class="col-sm-7 align-left">
-      {{ page.description|richtext }}
+    <div class="row">
+      <div class="small-12 medium-5 columns">
+        {% image page.about_image original as about_image %}
+        <img src="{{about_image.url}}" alt="{{about_image.alt}}" class="img-responsive" />
+      </div>
+      <div class="small-12 medium-7 columns">
+        {{ page.description|richtext }}
+      </div>
     </div>
 
   </div>

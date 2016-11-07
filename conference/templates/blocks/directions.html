@@ -1,11 +1,13 @@
+
 <div class="panel-group">
   {% for item in value %}
   {% with item.value as i %}
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4 class="panel-title">
+        <h5 class="panel-title">
           <a data-toggle="collapse" href="#collapse{{forloop.counter}}">{{i.transportation_type}}</a>
-        </h4>
+          <i class="line-icon line-icon-arrows-06"></i>
+        </h5>
       </div>
       <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
         {{i.directions}}

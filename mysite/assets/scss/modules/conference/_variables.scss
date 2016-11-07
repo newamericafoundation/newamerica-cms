@@ -4,18 +4,18 @@
 
 
 //== Base Colors
-$base-color:        #39c8b7;
+$base-color:        palette-get(na-turquoise);
 
-$black:                     #000;
+$black:                     palette-get(na-black);
 $black-alt:                 #1f2125;
-$white:                     #fff;
+$white:                     palette-get(na-white);
 $white-alt:                 #f3f5f6;
-$gray:                      #8d93a0;
-$gray-dark:                 #51545b;
-$gray-darker:               #262627;
+$gray:                      palette-get(na-black-30);
+$gray-dark:                 palette-get(na-black-40);
+$gray-darker:               palette-get(na-black-70);
 $gray-blue:                 #eff1f5;
-$gray-light:                #babfcc;
-$gray-lighter:              #e9e9e9;
+$gray-light:                palette-get(na-black-30);
+$gray-lighter:              palette-get(na-black-10);
 
 $green:                     #91d539;
 $blue:                      #1ac6ff;

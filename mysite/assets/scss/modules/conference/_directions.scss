@@ -1,0 +1,46 @@
+.conference-template {
+  #directions {
+    h5 {
+      font-weight: 600;
+    }
+
+    ul {
+      list-style-position: inside;
+      margin: initial;
+      padding: initial;
+      margin-top: 22px;
+
+      li {
+        list-style-type: initial;
+        display: list-item;
+        font-size: 1.15em;
+        color: palette-get(na-black-70);
+      }
+    }
+
+    .panel {
+      overflow: hidden;
+      max-height: 40px;
+
+      &:hover{
+        max-height: 500px;
+      }
+    }
+
+    .panel-title {
+      border-bottom: 1px solid $gray-blue;
+      cursor: pointer;
+      position: relative;
+      padding: 5px;
+
+      .line-icon {
+        position: absolute;
+        right: 10px;
+        bottom: 11px;
+        font-size: $font-size-small;
+        color: $text-gray;
+      }
+
+    }
+  }
+}

@@ -5,10 +5,16 @@
       {% if value|length > 1 %}
       <ul class="nav nav-schedule">
         {% for day in value %}
-          <li class="active">
+          <li class="{% if forloop.counter == 1 %}active{% endif %}">
             <a href="#day{{forloop.counter}}" data-toggle="tab">
               <h5 class="highlight">Day {{forloop.counter}}</h5>
-              <!-- <p class="text-alt">08/10/2016</p> -->
+              {% comment %}
+                we do not have access to main template's context in this template
+                to use / format conference dates
+                ...when we upgrade to wagtail 1.7 we can use 'include_block' tag which will
+                give us access to parent template's context
+              {% endcomment %}
+              <!--<p class="text-alt">08/10/2016</p>-->
             </a>
           </li>
         {% endfor %}
@@ -19,7 +25,7 @@
         {% for day in value %}
         {% with day.value as d %}
 
-        <div id="day{{forloop.counter}}" class="tab-pane fade active in">
+        <div id="day{{forloop.counter}}" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}">
           <div class="tab-content tab-content-schedule">
             <div id="day1_auditorium1" class="tab-pane fade active in">
               <div class="panel-group" id="day1_auditorium1_timeline">
@@ -28,25 +34,30 @@
                 {% with session.value as s %}
                 <div class="panel schedule-item">
                   <div class="lecture-icon-wrapper">
-                    <span class="fa fa-{{s.session_type}}"></span>
+                    <span class="fa fa-microphone"></span>
                   </div>
                   <a data-toggle="collapse" data-parent="#day1_auditorium1_timeline" href="#day1_auditorium1_time1" class="schedule-item-toggle">
-                    <strong class="time highlight"><span class="icon icon-office-24"></span>{{s.start_time}} - {{s.end_time}}</strong>
-                    <h6 class="title">{{s.name}}<i class="icon icon-arrows-06"></i></h6>
+                    <strong class="time highlight"><span class="line-icon line-icon-office-24"></span>{{s.start_time|date:"g:i A"}} &ndash; {{s.end_time|date:"g:i A"}}</strong>
+                    <h5 class="title">{{s.name}}<i class="line-icon line-icon-arrows-06"></i></h5>
                   </a>
                   <div id="day1_auditorium1_time1" class="panel-collapse collapse in schedule-item-body">
                     <article>
+                      {% if s.description != "" and s.description != '' and s.description != None %}
                       <div class="description">{{s.description}}</div>
+                      {% endif %}
+
+                      {% if s.speakers %}
                       <div class="session-speakers">
 
                         {% for speaker in s.speakers %}
                           <div class="text-alt speaker-wrapper">
                             <strong class="highlight speaker-name">{{speaker.value.name}}</strong>
                             <span>{{speaker.value.title}}</span>
-                          <div>
+                          </div>
                         {% endfor %}
 
                       </div>
+                      {% endif %}
                     </article>
                   </div>
                 </div>

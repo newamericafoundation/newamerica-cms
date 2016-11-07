@@ -3,22 +3,27 @@
 ---------------------------------------------------------------------------- */
 
 
-.sponsors {
+#sponsors {
     font-size: 0;
     line-height: 0;
+
 }
 
 .sponsor {
     margin: 15px;
-    display: inline-block;
+    margin: 0 auto;
+    //display: inline-block;
 
     &:not(.inline) {
         position: relative;
         vertical-align: top;
-        border: 2px solid $gray-lighter;
+        border: 1px solid $gray-blue;
 
         img {
-          //  .transform(~"translateX(-50%) translateY(-50%)");
+           transform: translate(-50%,-50%);
+           -webkit-transform: translate(-50%,-50%);
+           -moz-transform: translate(-50%,-50%);
+           -o-transform: translate(-50%,-50%);
 
             position: absolute;
             top: 50%;
@@ -35,8 +40,8 @@
     }
 
     &.big {
-        width: 255px;
-        height: 255px;
+        width: 325px;
+        height: 325px;
     }
 
     &.inline {
