@@ -52,9 +52,6 @@ class GenericFeed(Feed):
             "weeklyarticle","indepthsection",
         ]
 
-        programs = Program.objects.live()
-        self.acceptable_programs = [p.slug for p in programs]
-
 
     def item_extra_kwargs(self, item):
         extra = super(GenericFeed, self).item_extra_kwargs(item)
@@ -171,7 +168,10 @@ class ContentFeed(GenericFeed):
         posts = Post.objects.live().filter(content_type__model=obj["content_type"]).order_by('-date')
 
         if obj["program"] is not None:
-            if obj["program"] not in self.acceptable_programs:
+            programs = Program.objects.live()
+            acceptable_programs = [p.slug for p in programs]
+
+            if obj["program"] not in acceptable_programs:
                 raise Http404
             return posts.filter(parent_programs__slug=obj["program"])[:self.limit]
 
@@ -220,7 +220,10 @@ class EventProgramFeed(GenericFeed):
              posts.order_by("-date","-state_time")
 
         if obj["program"] is not None:
-            if obj["program"] not in self.acceptable_programs:
+            programs = Program.objects.live()
+            acceptable_programs = [p.slug for p in programs]
+            
+            if obj["program"] not in acceptable_programs:
                 raise Http404
             return posts.filter(parent_programs__slug=obj["program"])[:self.limit]
 
