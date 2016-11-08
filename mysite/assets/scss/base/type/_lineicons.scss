@@ -4,11 +4,11 @@
 
 @font-face {
   font-family: "line-icons";
-  src:url("/static/fonts/lineicons/line-icons.eot");
-  src:url("/static/fonts/lineicons/line-icons.eot?#iefix") format("embedded-opentype"),
-    url("/static/fonts/lineicons/line-icons.woff") format("woff"),
-    url("/static/fonts/lineicons/line-icons.ttf") format("truetype"),
-    url("/static/fonts/lineicons/line-icons.svg#line-icons") format("svg");
+  src:url("#{$font-url}fonts/lineicons/line-icons.eot");
+  src:url("#{$font-url}/fonts/lineicons/line-icons.eot?#iefix") format("embedded-opentype"),
+    url("#{$font-url}/fonts/lineicons/line-icons.woff") format("woff"),
+    url("#{$font-url}/fonts/lineicons/line-icons.ttf") format("truetype"),
+    url("#{$font-url}/fonts/lineicons/line-icons.svg#line-icons") format("svg");
   font-weight: normal;
   font-style: normal;
 }
