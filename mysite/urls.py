@@ -6,7 +6,7 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
-from rss_feed.feeds import GenericFeed, ContentFeed, AuthorFeed, ProgramFeed, SubprogramFeed
+from rss_feed.feeds import GenericFeed, ContentFeed, AuthorFeed, ProgramFeed, SubprogramFeed, EventFeed, EventProgramFeed
 
 
 urlpatterns = [
@@ -21,6 +21,9 @@ urlpatterns = [
     url(r'^feed/program/(?P<program>[a-zA-z\-]*)/$', ProgramFeed()),
     url(r'^feed/subprogram/(?P<subprogram>[a-zA-z\-]*)/$', SubprogramFeed()),
     url(r'^feed/author/(?P<author>[a-zA-z\-]*)/$', AuthorFeed()),
+    url(r'^feed/event/(?P<tense>future|past)/$', EventFeed()),
+    url(r'^feed/event/(?P<program>[a-zA-z\-]*)/$', EventProgramFeed()),
+    url(r'^feed/event/(?P<program>[a-zA-z\-]*)/(?P<tense>future|past)/$', EventProgramFeed()),
     url(r'^feed/(?P<content_type>[a-zA-z]*)/$', ContentFeed()),
     url(r'^feed/(?P<content_type>[a-zA-z]*)/(?P<program>[a-zA-z\-]*)/$', ContentFeed()),
 
