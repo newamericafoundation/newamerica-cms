@@ -52,6 +52,24 @@
     }
 
   }
+
+  #venue{
+    h3 {
+      margin-bottom: 10px !important;
+    }
+
+    .location-info{
+      text-align: center;
+      font-size: 1.2em;
+      line-height: 2em;
+      margin-bottom: 50px;
+    }
+
+    p {
+      line-height: 2em;
+      color: palette-get(na-light-black);
+    }
+  }
 // INTRO
   #hero {
     min-height: 100vh;

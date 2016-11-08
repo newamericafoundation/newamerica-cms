@@ -49,12 +49,12 @@ img {
 
 ::selection {
     color: $text-white;
-  //  background-color: fade(@base-color, 85%);
+    background-color: rgba($base-color,0.85);
 }
 
 ::-moz-selection {
     color: $text-white;
-  //  background-color: fade(@base-color, 85%);
+    background-color: rgba($base-color,0.85);
 }
 
 .fa,

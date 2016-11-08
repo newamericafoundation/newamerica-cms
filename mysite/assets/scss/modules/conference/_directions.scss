@@ -1,9 +1,5 @@
 .conference-template {
   #directions {
-    h5 {
-      font-weight: 600;
-    }
-
     ul {
       list-style-position: inside;
       margin: initial;
@@ -14,13 +10,13 @@
         list-style-type: initial;
         display: list-item;
         font-size: 1.15em;
-        color: palette-get(na-black-70);
+        color: palette-get(na-light-black);
       }
     }
 
     .panel {
       overflow: hidden;
-      max-height: 40px;
+      max-height: 50px;
 
       &:hover{
         max-height: 500px;
