@@ -97,6 +97,9 @@ class TwoColumnBlock(blocks.StructBlock):
     left_column = blocks.RichTextBlock()
     right_column = blocks.RichTextBlock()
 
+    class Meta:
+        template = 'blocks/two-column.html'
+
 class DirectionBlock(blocks.StructBlock):
     transportation_type = blocks.CharBlock(help_text="e.g car, metro, taxi")
     directions = blocks.RichTextBlock()
