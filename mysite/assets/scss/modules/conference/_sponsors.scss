@@ -4,15 +4,21 @@
 
 
 #sponsors {
-    font-size: 0;
-    line-height: 0;
 
+    .sponsors {
+      text-align: center
+    }
+
+    h4 {
+      font-weight: 600;
+      margin: 50px 0 10px 0;
+    }
 }
+
 
 .sponsor {
     margin: 15px;
-    margin: 0 auto;
-    //display: inline-block;
+    display: inline-block;
 
     &:not(.inline) {
         position: relative;
@@ -32,7 +38,10 @@
             max-width: 80%;
             max-height: 80%;
         }
+
     }
+
+
 
     &:not(.inline):not(.big) {
         width: 160px;

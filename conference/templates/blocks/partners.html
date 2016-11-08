@@ -1,67 +1,53 @@
 {% load wagtailimages_tags %}
 
-<div class="container row">
-  <div class="medium-7 columns">
-    <div class="row">
-    {% for partner in value %}
-    {% with partner.value as p %}
-      {% if p.type == "premier_sponsor" %}
-      {% image p.logo width-400 as logo %}
-      <div class="small-6 columns">
-        <div class="sponsor big"><img src="{{logo.url}}" alt=""></div>
-      </div>
-      {% endif %}
-    {% endwith %}
-    {% endfor %}
+<div class="container">
+  <div class="sponsors">
+    <div class="sponsor-row">
+      <h4>Premier Sponsors</h4>
+      {% for partner in value %}
+      {% with partner.value as p %}
+        {% if p.type == "premier_sponsor" %}
+        {% image p.logo width-400 as logo %}
+          <div class="sponsor big"><img src="{{logo.url}}" alt=""></div>
+        {% endif %}
+      {% endwith %}
+      {% endfor %}
     </div>
+
+      <div class="sponsor-row">
+        <h4>Premier Sponsors</h4>
+        {% for partner in value %}
+        {% with partner.value as p %}
+          {% if p.type == "sponsor" %}
+          {% image p.logo width-400 as logo %}
+            <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+          {% endif %}
+        {% endwith %}
+        {% endfor %}
+      </div>
+
+      <div class="sponsor-row">
+        <h4>Premier Sponsors</h4>
+        {% for partner in value %}
+        {% with partner.value as p %}
+          {% if p.type == "media_partner" %}
+          {% image p.logo width-400 as logo %}
+            <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+          {% endif %}
+        {% endwith %}
+        {% endfor %}
+      </div>
+
+      <div class="sponsor-row">
+        <h4>Premier Sponsors</h4>
+        {% for partner in value %}
+        {% with partner.value as p %}
+          {% if p.type == "partner" %}
+          {% image p.logo width-400 as logo %}
+            <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+          {% endif %}
+        {% endwith %}
+        {% endfor %}
+      </div>
   </div>
-
-  <div class="medium-5 columns">
-    <div class="row">
-    <div class="small-12 columns">
-      <div class="row">
-      {% for partner in value %}
-      {% with partner.value as p %}
-        {% if p.type == "sponsor" %}
-        {% image p.logo width-400 as logo %}
-        <div class="small-6 columns">
-          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
-        </div>
-        {% endif %}
-      {% endwith %}
-      {% endfor %}
-      </div>
-    </div>
-
-    <div class="small-12 columns">
-      <div class="row">
-      {% for partner in value %}
-      {% with partner.value as p %}
-        {% if p.type == "media_partner" %}
-        {% image p.logo width-400 as logo %}
-        <div class="small-6 columns">
-          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
-        </div>
-        {% endif %}
-      {% endwith %}
-      {% endfor %}
-      </div>
-    </div>
-
-    <div class="small-12 columns">
-      <div class="row">
-      {% for partner in value %}
-      {% with partner.value as p %}
-        {% if p.type == "partner" %}
-        {% image p.logo width-400 as logo %}
-        <div class="small-6 columns">
-          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
-        </div>
-        {% endif %}
-      {% endwith %}
-      {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
 </div>
