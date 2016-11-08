@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'article',
     'blog',
     'event',
+    'conference',
     'podcast',
     'policy_paper',
     'press_release',

@@ -1,0 +1,137 @@
+.conference-template {
+  .panel {
+    margin-left: 0;
+    margin-right: 0;
+    background-color: initial;
+    padding: 0;
+  }
+
+  .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 100%;
+    height: auto;
+
+    > h3 {
+      font-family: "Platform", Arial, Helvetica, sans-serif;
+      font-size: 3em;
+      font-weight: 300;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 5px 0 60px 0;
+    }
+
+    .section-icon{
+      color: palette-get(na-turquoise);
+      font-weight: 600;
+      text-align: center;
+      font-size: 4em;
+      margin-bottom: 0;
+      line-height: 0.75em;
+    }
+
+    @include breakpoint(large) {
+      width: 970px;
+    }
+
+    @include breakpoint(xlarge) {
+      width: 1170px;
+    }
+  }
+
+  #about {
+    .columns{
+      @include grid-column-uncollapse(50);
+      p {
+        color: palette-get(na-black-70);
+        font-size: 1.05em;
+        line-height: 2em;
+      }
+    }
+
+  }
+
+  #venue{
+    h3 {
+      margin-bottom: 10px !important;
+    }
+
+    .location-info{
+      text-align: center;
+      font-size: 1.2em;
+      line-height: 2em;
+      margin-bottom: 50px;
+    }
+
+    p {
+      line-height: 2em;
+      color: palette-get(na-light-black);
+    }
+  }
+// INTRO
+  #hero {
+    min-height: 100vh;
+    padding-top: 150px;
+    position: relative;
+
+    .heading-block{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      -webkit-transform: translate(-50%,-50%);
+      -moz-transform: translate(-50%,-50%);
+      -o-transform: translate(-50%,-50%);
+    }
+
+    h1,h2,h3,h4,h5,h6{
+      color: palette-get(na-white);
+      text-align: center;
+    }
+
+    h1,h2{
+      font-family: "Platform", Arial, Helvetica, sans-serif;
+      line-height: 0.95em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 6.5em;
+      margin-bottom: 0;
+      margin-top: 22px;
+    }
+
+    h2 {
+      font-size: 5em;
+      margin-bottom: 22px;
+    }
+
+    h5.heading-alt{
+      text-transform: uppercase;
+      font-size: 19px;
+      line-height: 1.7;
+      letter-spacing: 0.5em;
+      font-weight: 700;
+    }
+
+    h6{
+      font-size: 1.2em;
+    }
+
+    .na-logo{
+      width: 400px;
+      margin: 0 auto 50px auto;
+    }
+
+    .btns-container{
+      width: 250px;
+      margin: 44px auto;
+
+      .button {
+        width: 100%;
+      }
+    }
+  }
+}
