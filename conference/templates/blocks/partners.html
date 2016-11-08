@@ -15,7 +15,7 @@
     </div>
 
       <div class="sponsor-row">
-        <h4>Premier Sponsors</h4>
+        <h4>Conference Sponsors</h4>
         {% for partner in value %}
         {% with partner.value as p %}
           {% if p.type == "sponsor" %}
@@ -27,7 +27,7 @@
       </div>
 
       <div class="sponsor-row">
-        <h4>Premier Sponsors</h4>
+        <h4>Media Partners</h4>
         {% for partner in value %}
         {% with partner.value as p %}
           {% if p.type == "media_partner" %}
@@ -39,10 +39,10 @@
       </div>
 
       <div class="sponsor-row">
-        <h4>Premier Sponsors</h4>
+        <p><i>With special recognition and gratitude to the foundations supporting New America's vision to reinvent the think tank:</i></p>
         {% for partner in value %}
         {% with partner.value as p %}
-          {% if p.type == "partner" %}
+          {% if p.type == "recognized_partner" %}
           {% image p.logo width-400 as logo %}
             <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
           {% endif %}
