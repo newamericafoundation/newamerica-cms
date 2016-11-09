@@ -25,9 +25,9 @@ class Scrollr {
     return Object.keys(this.triggers).length;
   }
 
-  addTrigger(selector, events){
+  addTrigger(selector, configs){
     let i = this.triggersSize() + 1;
-    this.triggers[i] = new Trigger(selector,events)
+    this.triggers[i] = new Trigger(selector, configs)
     if(!this.isActive) this.start();
     return this;
   }
@@ -44,10 +44,12 @@ class Trigger {
     onEnter=()=>{},
     onLeave=()=>{},
     onLeaveForward=()=>{},
-    onLeaveReverse=()=>{}
+    onLeaveReverse=()=>{},
+    offset=0
   }){
     this.selector = selector;
     this.element = $(selector);
+    this.offset = offset;
     this.events = {
       onEnter: ()=>{ onEnter(this.element, this)},
       onLeave: ()=>{ onLeave(this.element, this)},
@@ -62,9 +64,8 @@ class Trigger {
         hasEntered = this.hasEntered(),
         isBefore = this.isBefore();
 
-    if(hasLeft && this.isActive){
+    if((hasLeft || isBefore) && this.isActive){
       this.isActive=false;
-      this.events.onLeaveForward();
       this.events.onLeave();
     } else if(hasEntered && !hasLeft && !this.isActive){
       this.isActive=true;
@@ -73,7 +74,7 @@ class Trigger {
   }
 
   scrollTop(){
-    return this.element.offset().top;
+    return this.element.offset().top + this.offset;
   }
 
   isBefore(){

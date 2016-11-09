@@ -11,12 +11,22 @@ export default function() {
 
       scrollr.addTrigger(this,{
         onEnter: function(el,trigger){
-          console.log(trigger);
           navItems.removeClass('active')
           navItem.addClass('active');
-        }
+        },
+        offset: -25
       });
 
     });
+
+    scrollr.addTrigger('#hero',{
+      onLeave: function(el,trigger){
+          $('body').addClass('fixed');
+      },
+      onEnter: function(el,trigger){
+        $('body').removeClass('fixed');
+      }
+    });
+
   });
 }
