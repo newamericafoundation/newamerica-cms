@@ -5,6 +5,11 @@ export default function() {
   $(document).ready(function(){
     let navItems = $('.conference-template .navigation-item a');
 
+    navItems.click(function(){
+      let id = $(this).attr('href');
+      scrollr.smoothScroll(id,-75);
+    });
+
     $('.conference-template section.section').each(function(){
       let id = `${this.getAttribute('id')}`;
       let navItem = $(`.navigation-item [href^="#${id}"]`);
@@ -14,7 +19,7 @@ export default function() {
           navItems.removeClass('active')
           navItem.addClass('active');
         },
-        offset: -25
+        offset: -75
       });
 
     });
@@ -24,7 +29,8 @@ export default function() {
           $('body').addClass('fixed');
       },
       onEnter: function(el,trigger){
-        $('body').removeClass('fixed');
+        if(trigger.window.direction === "REVERSE")
+          $('body').removeClass('fixed');
       }
     });
 

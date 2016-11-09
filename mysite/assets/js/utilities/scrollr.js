@@ -4,6 +4,13 @@ class Scrollr {
   constructor(){
     this.triggers = {};
     this.isActive = false;
+
+    this.window = {
+      lastPosition: 0,
+      currentPosition: 0,
+      speed: 0,
+      direction: false
+    }
   }
 
   start(){
@@ -17,8 +24,13 @@ class Scrollr {
   }
 
   fire = ()=>{
+    this.window.lastPosition = this.window.currentPosition;
+    this.window.currentPosition = $(window).scrollTop();
+    this.window.speed = this.window.currentPosition - this.window.lastPosition;
+    this.window.direction = this.window.speed > 0 ? 'FORWARD' : 'REVERSE'
+
     for(let k in this.triggers)
-      this.triggers[k].fire();
+      this.triggers[k].fire(this.window);
   }
 
   triggersSize() {
@@ -37,29 +49,39 @@ class Scrollr {
     if(this.triggersSize()===0) this.stop();
     return this;
   }
+
+  smoothScroll(selector,offset=0) {
+    let target = $(selector);
+    $('body,html').animate(
+    	{'scrollTop':target.offset().top+offset},
+    	600
+    );
+    return this;
+	}
 }
 
 class Trigger {
   constructor(selector, {
     onEnter=()=>{},
     onLeave=()=>{},
-    onLeaveForward=()=>{},
-    onLeaveReverse=()=>{},
     offset=0
   }){
     this.selector = selector;
     this.element = $(selector);
     this.offset = offset;
+
+    this.isActive = false;
+    this.window = {};
+
     this.events = {
       onEnter: ()=>{ onEnter(this.element, this)},
-      onLeave: ()=>{ onLeave(this.element, this)},
-      onLeaveForward: ()=>{ onLeaveForward(this.element, this)},
-      onLeaveReverse: ()=>{ onLeaveReverse(this.element, this)}
+      onLeave: ()=>{ onLeave(this.element, this)}
     }
-    this.isActive = false;
   }
 
-  fire(){
+  fire(_window){
+    this.window = _window;
+
     let hasLeft = this.hasLeft(),
         hasEntered = this.hasEntered(),
         isBefore = this.isBefore();
@@ -78,15 +100,15 @@ class Trigger {
   }
 
   isBefore(){
-    return $(window).scrollTop() < this.scrollTop();
+    return this.window.currentPosition < this.scrollTop();
   }
 
   hasEntered(){
-    return $(window).scrollTop() >= this.scrollTop();
+    return this.window.currentPosition >= this.scrollTop();
   }
 
   hasLeft(){
-    return $(window).scrollTop() >= this.scrollTop() + this.element.outerHeight();
+    return this.window.currentPosition >= this.scrollTop() + this.element.outerHeight();
   }
 }
 
