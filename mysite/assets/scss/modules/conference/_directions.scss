@@ -13,20 +13,16 @@
       }
     }
 
-    .panel {
-      overflow: hidden;
-      max-height: 50px;
-
-      &:hover{
-        max-height: 500px;
-      }
-    }
 
     .panel-title {
       border-bottom: 1px solid $gray-blue;
       cursor: pointer;
       position: relative;
       padding: 5px;
+
+      .direction-toggle {
+        display: block;
+      }
 
       .line-icon {
         position: absolute;
