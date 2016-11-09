@@ -16,8 +16,10 @@ export default function() {
 
       scrollr.addTrigger(this,{
         onEnter: function(el,trigger){
-          navItems.removeClass('active')
-          navItem.addClass('active');
+          if(!navItem.hasClass('active')){
+            navItems.removeClass('active')
+            navItem.addClass('active');
+          }
         },
         offset: -75
       });
