@@ -11,6 +11,7 @@ $header-height: 75px;
       right: 0;
       left: 0;
       z-index: 1000;
+      background-color: rgba(255,255,255,0.75);
     }
 
     header + section {
@@ -220,7 +221,7 @@ $header-height: 75px;
     -webkit-transition: color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease;
     -moz-transition: color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease;
     -o-transition: color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease;
-    
+
     display: inline-block;
   //  padding: 7px 0;
     font-family: $font-family-heading;
