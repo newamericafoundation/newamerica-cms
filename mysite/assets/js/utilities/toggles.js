@@ -13,7 +13,11 @@ class Toggles {
     this.toggleElements =
       element.hasAttribute('data-target') ?
       this.parent :
-      this.parent.children('[data-target]');
+      (
+        element.hasAttribute('data-toggle-child') ?
+        this.parent.find(element.getAttribute('data-toggle-child')) :
+        this.parent.children('[data-target]')
+      );
 
     this.toggles = [];
 
@@ -30,10 +34,13 @@ class Toggles {
   }
 
   show(index) {
-    for(let t of this.toggles)
-      t.hide();
-
     this.toggles[index].show();
+
+    for(let t of this.toggles){
+      if(t==this.toggles[index]) continue;
+      t.hide();
+    }
+
   }
 }
 
@@ -43,6 +50,8 @@ class Toggle {
     this.type = type;
     this.target = $(this.element.attr('data-target'));
     this.active = false;
+
+    if(this.type=='collapse') this.hide();
   }
 
   show() {
@@ -51,17 +60,26 @@ class Toggle {
         this.hide();
         return;
       }
+
+      this.target[0].style.height = 0;
+      this.target[0].style.height = `${this.target[0].scrollHeight}px`;
     }
 
-    if(this.type=='tab') this.target.show();
+    if(this.type=='tab')this.target.show();
 
-    this.element.addClass('active');
     this.target.addClass('active');
+    this.element.addClass('active');
 
     this.active = true;
   }
 
   hide() {
+
+    if(this.type=='collapse'){
+      this.target[0].style.height = `${this.target[0].offsetHeight}px`;
+      this.target[0].style.height = '';
+    }
+
     if(this.type=='tab') this.target.hide();
 
     this.element.removeClass('active');
@@ -69,5 +87,4 @@ class Toggle {
 
     this.active = false;
   }
-
 }
