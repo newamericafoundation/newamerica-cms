@@ -25,7 +25,7 @@ export default function() {
     });
 
     scrollr.addTrigger('#hero',{
-      onLeave: function(el,trigger){
+      hasLeft: function(el,trigger){
           $('body').addClass('fixed');
       },
       onEnter: function(el,trigger){

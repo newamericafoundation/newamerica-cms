@@ -62,6 +62,8 @@ class Scrollr {
 
 class Trigger {
   constructor(selector, {
+    hasEntered=()=>{},
+    hasLeft=()=>{},
     onEnter=()=>{},
     onLeave=()=>{},
     offset=0
@@ -74,8 +76,10 @@ class Trigger {
     this.window = {};
 
     this.events = {
-      onEnter: ()=>{ onEnter(this.element, this)},
-      onLeave: ()=>{ onLeave(this.element, this)}
+      hasEntered: ()=>{ hasEntered(this.element, this); },
+      hasLeft: ()=>{ hasLeft(this.element, this); },
+      onEnter: ()=>{ onEnter(this.element, this); },
+      onLeave: ()=>{ onLeave(this.element, this); }
     }
   }
 
@@ -86,6 +90,8 @@ class Trigger {
         hasEntered = this.hasEntered(),
         isBefore = this.isBefore();
 
+    if(hasEntered) this.events.hasEntered();
+    if(hasLeft) this.events.hasLeft();
     if((hasLeft || isBefore) && this.isActive){
       this.isActive=false;
       this.events.onLeave();
