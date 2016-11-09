@@ -24,8 +24,9 @@
       <div class="tab-content">
         {% for day in value %}
         {% with day.value as d %}
+        {% with forloop.counter as i %}
 
-        <div id="day{{forloop.counter}}" class="tab-pane">
+        <div id="day{{i}}" class="tab-pane">
           <div class="tab-content tab-content-schedule">
             <div class="tab-pane fade active in">
               <div class="panel-group" data-toggle="collapse" data-toggle-child=".schedule-item-toggle">
@@ -33,14 +34,14 @@
                 {% for session in d.sessions %}
                 {% with session.value as s %}
                 <div class="panel schedule-item">
-                  <a class="schedule-item-toggle" data-target="#session-{{forloop.counter}}">
+                  <a class="schedule-item-toggle" data-target="#day-{{i}}_session-{{forloop.counter}}">
                     <div class="lecture-icon-wrapper">
                       <span class="fa fa-microphone"></span>
                     </div>
                     <strong class="time highlight"><span class="line-icon line-icon-office-24"></span>{{s.start_time|date:"g:i A"}} &ndash; {{s.end_time|date:"g:i A"}}</strong>
                     <h5 class="title">{{s.name}}<i class="line-icon line-icon-arrows-06"></i></h5>
                   </a>
-                  <div id="session-{{forloop.counter}}" class="panel-collapse collapse schedule-item-body">
+                  <div id="day-{{i}}_session-{{forloop.counter}}" class="panel-collapse collapse schedule-item-body">
                     <article>
                       {% if s.description != "" and s.description != '' and s.description != None %}
                       <div class="description">{{s.description}}</div>
@@ -68,7 +69,7 @@
             </div>
           </div>
         </div>
-
+        {% endwith %}
         {% endwith %}
         {% endfor %}
       </div>
