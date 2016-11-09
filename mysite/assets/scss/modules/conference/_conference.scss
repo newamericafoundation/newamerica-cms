@@ -11,6 +11,7 @@
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 0;
     max-width: 100%;
     height: auto;
 
@@ -80,6 +81,7 @@
       position: absolute;
       left: 50%;
       top: 50%;
+      width: 80%;
       transform: translate(-50%,-50%);
       -webkit-transform: translate(-50%,-50%);
       -moz-transform: translate(-50%,-50%);
@@ -95,25 +97,68 @@
       font-family: "Platform", Arial, Helvetica, sans-serif;
       line-height: 0.95em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     h1 {
-      font-size: 6.5em;
+
       margin-bottom: 0;
       margin-top: 22px;
+
+      font-size: 2em;
+
+      @include breakpoint(medium){
+        font-size: 3.8em;
+      }
+
+      @include breakpoint(large){
+        font-size: 5em;
+      }
+
+      @include breakpoint(xlarge){
+        font-size: 6em;
+      }
     }
 
     h2 {
-      font-size: 5em;
       margin-bottom: 22px;
+      font-size: 1.8em;
+
+      @include breakpoint(medium){
+        font-size: 3.2em;
+      }
+      @include breakpoint(large){
+        font-size: 4em;
+      }
+
+      @include breakpoint(xlarge){
+        font-size: 5em;
+      }
     }
 
     h5.heading-alt{
       text-transform: uppercase;
-      font-size: 19px;
+      font-size: 0.8em;
       line-height: 1.7;
       letter-spacing: 0.5em;
       font-weight: 700;
+
+      @include breakpoint(large){
+        font-size: 19px;
+      }
+    }
+
+    .base-font{
+      font-size: 1em;
+
+        @include breakpoint(medium){
+          font-size: 1.2em;
+        }
+
+        @include breakpoint(large){
+          font-size: 19px;
+        }
+
     }
 
     h6{
