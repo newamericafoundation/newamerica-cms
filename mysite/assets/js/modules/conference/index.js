@@ -23,18 +23,18 @@ export default function() {
         },
         offset: -75
       });
-
     });
 
-    scrollr.addTrigger('#hero',{
-      hasLeft: function(el,trigger){
-          $('body').addClass('fixed');
-      },
-      onEnter: function(el,trigger){
-        if(trigger.window.direction === "REVERSE")
-          $('body').removeClass('fixed');
-      }
-    });
-
+    if($('body').hasClass('conference-template')){
+      scrollr.addTrigger('#hero',{
+        hasLeft: function(el,trigger){
+            $('body').addClass('fixed');
+        },
+        onEnter: function(el,trigger){
+          if(trigger.window.direction === "REVERSE")
+            $('body').removeClass('fixed');
+        }
+      });
+    }
   });
 }
