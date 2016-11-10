@@ -38,7 +38,7 @@ class Toggles {
 
     for(let t of this.toggles){
       if(t==this.toggles[index]) continue;
-      t.hide();
+      if(t.active) t.hide();
     }
 
   }
@@ -63,9 +63,12 @@ class Toggle {
 
       this.target[0].style.height = 0;
       this.target[0].style.height = `${this.target[0].scrollHeight}px`;
+      this.target.one('transitionend', ()=>{
+        this.target[0].style.height = '';
+      });
     }
 
-    if(this.type=='tab')this.target.show();
+    if(this.type=='tab') this.target.show();
 
     this.target.addClass('active');
     this.element.addClass('active');
@@ -76,8 +79,9 @@ class Toggle {
   hide() {
 
     if(this.type=='collapse'){
-      this.target[0].style.height = `${this.target[0].offsetHeight}px`;
-      this.target[0].style.height = '';
+      this.target[0].style.height = `${this.target[0].scrollHeight}px`;
+      reflow(this.target[0]);
+      this.target[0].style.height = 0;
     }
 
     if(this.type=='tab') this.target.hide();
@@ -87,4 +91,8 @@ class Toggle {
 
     this.active = false;
   }
+}
+
+function reflow(el){
+  return new Function('rf', 'return rf')(el.offsetHeight);
 }
