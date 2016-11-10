@@ -1,15 +1,15 @@
 
-<div class="panel-group">
+<div class="panel-group" data-toggle="collapse" data-toggle-child=".direction-toggle">
   {% for item in value %}
   {% with item.value as i %}
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" href="#collapse{{forloop.counter}}">{{i.transportation_type}}</a>
+          <a class="direction-toggle" data-target="#direction-{{forloop.counter}}">{{i.transportation_type}}</a>
           <i class="line-icon line-icon-arrows-06"></i>
         </h4>
       </div>
-      <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
+      <div id="direction-{{forloop.counter}}" class="panel-collapse collapse">
         {{i.directions}}
       </div>
     </div>

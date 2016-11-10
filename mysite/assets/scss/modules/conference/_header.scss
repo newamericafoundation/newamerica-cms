@@ -3,6 +3,22 @@
 ---------------------------------------------------------------------------- */
 
 $header-height: 75px;
+.conference-template {
+  &.fixed {
+    header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1000;
+      background-color: rgba(255,255,255,0.75);
+    }
+
+    header + section {
+      margin-top: 100px;
+    }
+
+  }
 
 .header {
     position: relative;
@@ -12,7 +28,6 @@ $header-height: 75px;
     .header-wrapper {
         background: rgba(palette-get(na-turquoise),0.8);
         height: $header-height;
-
 
     }
 
@@ -69,13 +84,7 @@ $header-height: 75px;
       }
     }
 
-    &.fixed .header-wrapper {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1000;
-    }
+
 }
 
 .header-wrapper {
@@ -208,7 +217,10 @@ $header-height: 75px;
 }
 
 .navigation-link {
-    //.transition(~"color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease");
+    transition: color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease;
+    -webkit-transition: color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease;
+    -moz-transition: color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease;
+    -o-transition: color 0.15s ease, background 0.15s ease, border 0.15s ease, opacity 0.15s ease;
 
     display: inline-block;
   //  padding: 7px 0;
@@ -488,4 +500,5 @@ $header-height: 75px;
     .header .buy-btn {
         display: inline-block;
     }
+}
 }

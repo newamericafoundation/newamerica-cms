@@ -4,7 +4,7 @@
   {% for person in value %}
     {% with person.value as p %}
     {% image p.image width-400 as photo %}
-    <div class="medium-12 large-4 columns">
+    <div class="medium-4 small-12 columns">
       <div class="speaker">
         <div class="photo-wrapper rounded"><img src="{{photo.url}}" alt="{{photo.alt}}" class="img-responsive"></div>
         <h3 class="name">{{p.name}}</h3>

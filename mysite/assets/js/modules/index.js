@@ -17,5 +17,6 @@ export default [
   'story-excerpt-ellipsis',
   'in-depth',
   'fixed-banner',
-  'dataviz'
+  'dataviz',
+  'conference'
 ].map((moduleName) => require(`./${moduleName}/index.js`).default);
