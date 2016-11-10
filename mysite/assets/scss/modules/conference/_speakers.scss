@@ -1,11 +1,38 @@
 /* ----------------------------------------------------------------------------
     Speakers
 ---------------------------------------------------------------------------- */
+#speakers .speaker-list {
+  position: relative;
 
+  .expander {
+    transition: all 0.35s ease;
+    -webkit-transition: all 0.35s ease;
+    -moz-transition: all 0.35s ease;
+    height: 0px;
+    display: block;
+    background: #efefef;
+    position: relative;
+    top: -15px;
+  }
+}
 
 .speaker {
     margin-bottom: 40px;
     text-align: center;
+    transition: all 0.35s ease;
+    -webkit-transition: all 0.35s ease;
+    -moz-transition: all 0.35s ease;
+    cursor: pointer;
+    padding-top: 10px;
+
+    &:hover{
+        
+      box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.15);
+    }
+
+    > * {
+      z-index: 100;
+    }
 
     .photo-wrapper {
         margin: 0 auto 20px;
@@ -57,24 +84,69 @@
         padding: 0 15px;
     }
 
-    .rich-text {
+
+    .description{
       color: $gray-darker;
       font-weight: 500;
-      padding: 0 10px 0 10px;
-      height: 80px;
-      overflow: hidden;
-      margin-bottom: 22px;
-      position: relative;
+      margin-top: 65px;
+      padding: 25px;
+      overflow: visible;
+      transition: all 0.35s ease;
+      -webkit-transition: all 0.35s ease;
+      -moz-transition: all 0.35s ease;
+      // -webkit-transition-delay: 0.35s;
+      // transition-delay: 0.35s;
+      // -moz-transition-delay: 0.35s;
 
-      &:after {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      z-index: 0 !important;
+      opacity: 0;
+      vertical-align: middle;
+
+      .rich-text {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .arrow{
         display: block;
-        content: ' ';
         position: absolute;
-        background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
-        bottom: 0px;
-        height: 50px;
-        width: 100%;
-        z-index: 100;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        height: 25px;
+        width: 25px;
+        top: -12.5px;
+        left: 15px;
+        background: #efefef;
+        border-top: rgba(0,0,0,0.1);
+        border-left: rgba(0,0,0,0.1);
+      }
+
+      // &:after {
+      //   display: block;
+      //   content: ' ';
+      //   position: absolute;
+      //   background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
+      //   bottom: 0px;
+      //   height: 50px;
+      //   width: 100%;
+      //   z-index: 100;
+      // }
+    }
+
+    &.active {
+      .description{
+        opacity: 1;
+        z-index: 200 !important;
+      //  box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.1);
+        //background: #efefef;
+
+        &:after{
+          display: none;
+        }
       }
     }
 
@@ -114,6 +186,12 @@
             border-radius: 50%;
             border: 2px solid;
         }
+    }
+
+    &:hover{
+      .discription{
+
+      }
     }
 }
 
