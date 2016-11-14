@@ -238,7 +238,6 @@ $header-medium-height: 65px;
 
         &:hover,
         &:active,
-        &:focus,
         &.active {
 
           color: palette-get(na-turquoise);
@@ -332,7 +331,6 @@ $header-medium-height: 65px;
         border: none;
 
         &:hover,
-        &:focus,
         &:active {
             @extend .base-clr-txt;
 
