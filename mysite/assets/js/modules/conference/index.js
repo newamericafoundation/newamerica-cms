@@ -1,8 +1,10 @@
 import $ from 'jquery';
 import scrollr from '../../utilities/scrollr.js';
+import expand from './speaker-expand.js';
 
 export default function() {
   $(document).ready(function(){
+    expand();
     let navItems = $('.conference-template .navigation-item a');
 
     navItems.click(function(){

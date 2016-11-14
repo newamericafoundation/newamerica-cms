@@ -318,9 +318,6 @@ li {
 }
 
 @media (max-width: $screen-xs-max) {
-    body {
-        padding-top: 91px;
-    }
 
     .fullwidth-section-bg {
         position: relative;
@@ -343,21 +340,17 @@ li {
         background-attachment: scroll;
     }
 
-    // .heading-block {
-    //     padding: 40px 0;
+    // .hero-heading-top {
+    //     position: relative;
+    //     top: auto;
+    //     margin-top: 30px;
     // }
-
-    .hero-heading-top {
-        position: relative;
-        top: auto;
-        margin-top: 30px;
-    }
-
-    .hero-heading-bottom {
-        position: relative;
-        bottom: auto;
-        margin-bottom: 30px;
-    }
+    //
+    // .hero-heading-bottom {
+    //     position: relative;
+    //     bottom: auto;
+    //     margin-bottom: 30px;
+    // }
 }
 
 @media (max-width: $screen-xs-min) {
