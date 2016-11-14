@@ -59,22 +59,32 @@
         font-weight: $bold-weight;
         text-transform: uppercase;
         line-height: 1em;
+        height: 26px;
         letter-spacing: 0.3em;
 
         & + p {
           position: relative;
-          height: 35px;
+          height: 40px;
+
+          @include breakpoint(medium){
+            height: 35px;
+          }
           small {
-              font-size: 0.9em;
+              font-size: 1em;
               line-height: 1.15em;
               color: $gray;
               width: 100%;
               display: inline-block;
-              position: relative;
-              top: 50%;
-              transform: translateY(-50%);
+
+              @include breakpoint(medium){
+                font-size: 0.8em;
+              }
 
               @include breakpoint(large){
+                font-size: 9em;
+              }
+
+              @include breakpoint(xlarge){
                 font-size: 1em;
               }
           }
