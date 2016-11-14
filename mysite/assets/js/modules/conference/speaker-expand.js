@@ -7,7 +7,7 @@ export default function(){
     let $t = $(this);
     let position = i+1;
 
-    $t.data('grid', {
+    $t.data({
       active: false,
       index: i,
       position: position,
@@ -16,7 +16,7 @@ export default function(){
     });
   }).click(function(){
     let $t = $(this);
-    let d = $t.data().grid;
+    let d = $t.data();
     let afterIndex = d.index+3-d.column;
     if(afterIndex>$speakers.length-1) afterIndex = $speakers.length-1;
 
@@ -26,10 +26,12 @@ export default function(){
 
     $t.find('.arrow').css('left',center-12.5);
 
-    $('.speaker.active').removeClass('active')
+    $('.speaker.active').not($t).removeClass('active')
+    $speakers.not($t).data('active', false);
 
     if(d.active){
       expander.hide();
+      $t.removeClass('active');
       d.active = false;
       return;
     }
