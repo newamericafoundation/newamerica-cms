@@ -7,7 +7,8 @@ export default function() {
     expand();
     let navItems = $('.conference-template .navigation-item a');
 
-    navItems.click(function(){
+    navItems.click(function(e){
+      e.preventDefault();
       let id = $(this).attr('href');
       scrollr.smoothScroll(id,-75);
     });
