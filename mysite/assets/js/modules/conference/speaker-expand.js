@@ -1,7 +1,11 @@
+const breakpoint = 640;
+const cols = 3;
+
 export default function(){
 
   let expander = new Expander();
   let $speakers = $('.speaker');
+  let $window = $(window);
 
   $speakers.each(function(i){
     let $t = $(this);
@@ -11,14 +15,15 @@ export default function(){
       active: false,
       index: i,
       position: position,
-      row: Math.ceil(position/3),
-      column: position%3 === 0 ? 3 : position%3
+      row: Math.ceil(position/cols),
+      column: position%cols === 0 ? cols : position%cols
     });
   }).click(function(){
     let $t = $(this);
     let d = $t.data();
-    let afterIndex = d.index+3-d.column;
+    let afterIndex = d.index+cols-d.column;
     if(afterIndex>$speakers.length-1) afterIndex = $speakers.length-1;
+    if($window.width() < breakpoint) afterIndex = d.index;
 
     let expandAfter = $speakers[afterIndex];
     let descriptionHeight = $t.find('.description').outerHeight();
@@ -39,7 +44,7 @@ export default function(){
     d.active = true;
 
     expander.setRow(d.row+1);
-
+  
     if(expander.willChange() && expander.active){
       expander.el.one('transitionend webkitTransitionEnd',function(){
         expander.insertAfter(expandAfter, descriptionHeight);
@@ -50,6 +55,14 @@ export default function(){
       expander.insertAfter(expandAfter, descriptionHeight);
       $t.addClass('active');
     }
+  });
+
+  $window.resize(function(){
+    $speakers.each(function(){
+      let $t = $(this);
+      let d = $t.data();
+      if(d.active) $t.click();
+    })
   });
 
 }
@@ -71,6 +84,7 @@ class Expander {
   }
 
   willChange(){
+    if($(window).width() < breakpoint) return true;
     return this.oldRow !== this.row;
   }
 
