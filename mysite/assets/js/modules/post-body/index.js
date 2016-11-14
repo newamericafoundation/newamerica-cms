@@ -6,8 +6,9 @@ Removes dropcap if first paragraph character count is less than cutoff character
 */
 function checkDropcap() {
 	var dropcapCutoff = 300;
-	var $first_paragraph = $(".with-dropcap > .block-paragraph:first-child p:first-child");
-	var paragraphLength = $first_paragraph.text().length;
+	var $paragraphs = $(".with-dropcap > .block-paragraph p:first-child");
+	if($paragraphs.length === 0) return;
+	var paragraphLength = $paragraphs.first().text().length;
 
 	if (paragraphLength < dropcapCutoff) {
 		$(".with-dropcap").removeClass("with-dropcap");
@@ -20,7 +21,7 @@ function convertToHttps() {
 		var newSource = source.replace('http:', 'https:');
 		$(this).prop('src', newSource);
 	});
-		
+
 }
 
 function addDatavizDownloadInteractivity() {

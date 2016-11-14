@@ -1,23 +1,30 @@
+	
 	<div class="dataviz">
-		{% if self.show_download_link %}
-			<a class="dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'ui_elements/svg/download.html' %}</a>
-			<div class="dataviz__download-popup">
-				<ul>
-					<li class="dataviz__download-popup__title">Download Options:</li>
-					<li class="dataviz__download-popup__item">
-						<a id="{{ self.container_id }}__download-svg">Download as SVG</a>
-					</li>
-					<li class="dataviz__download-popup__item">
-						<a id="{{ self.container_id }}__download-png">Download as PNG</a>
-					</li>
-				</ul>
-			</div>
-		{% endif %}
-		{% if self.title %}
-			<h3 class="dataviz__title">{{ self.title }}</h3>
-		{% endif %}
-		{% if self.subheading %}
-			<div class="dataviz__subheading">{{ self.subheading }}</div>
-		{% endif %}
-		<div class="dataviz__chart-area" id="{{ self.container_id }}" style="max-width: {{ self.max_width }}px"></div>
+		<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}">
+			{% if self.title %}	
+				<a id="{{ self.title|slugify }}" class="in-depth__panel__anchor"></a>
+			{% else %}
+				<a id="chart-{{ self.container_id }}" class="in-depth__panel__anchor"></a>
+			{% endif %}
+
+			<div class="dataviz__icon">{% include 'ui_elements/svg/new-america-mini.html' %}</div>
+			{% if self.show_chart_buttons %}
+				<a class="dataviz__icon dataviz__print-link" id="{{ self.container_id }}__print-link">{% include 'ui_elements/svg/print.html' %}</a>
+				<a class="dataviz__icon dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'ui_elements/svg/download.html' %}</a>
+				<a class="dataviz__icon dataviz__share-link" id="{{ self.container_id }}__share-link">{% include 'ui_elements/svg/share.html' %}</a>
+				<div class="dataviz__share-popup">
+					<div class="dataviz__share-popup__icons"></div>
+				</div>
+			{% endif %}
+
+			{% if self.title %}
+				<h3 class="dataviz__title">{{ self.title }}</h3>
+			{% endif %}
+			{% if self.subheading %}
+				<div class="dataviz__subheading">{{ self.subheading }}</div>
+			{% endif %}
+		</div>
+		<div class="dataviz__chart-container" style="max-width: {{ self.max_width }}px">
+			<div class="dataviz__chart-area" id="{{ self.container_id }}"></div>
+		</div>
 	</div>

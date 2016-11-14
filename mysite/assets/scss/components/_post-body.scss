@@ -3,12 +3,14 @@
   $media-default-aspect: 1;
   padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
+
   @include handle-text-overflow;
 
   @include page-body-text;
 
   /*dropcap styling*/
-  &.with-dropcap > .block-paragraph:first-child {
+  &.with-dropcap > .block-paragraph:first-child,
+  &.with-dropcap > *:not(.block-paragraph) + .block-paragraph:nth-child(2) {
     &:first-letter {
       font-size: 105px;
       color: palette-get(na-black);
@@ -49,16 +51,16 @@
     }
 
     &.pullquote {
-      font-weight: 800; 
-      margin-left: 20px; 
-      font-size: 1.3rem; 
+      font-weight: 800;
+      margin-left: 20px;
+      font-size: 1.3rem;
       line-height: 2rem;
-      border-left: 4px solid; 
+      border-left: 4px solid;
       @include set-color(border-color);
       @include set-color(color);
 
       @include breakpoint(medium) {
-        font-size: 1.5rem; 
+        font-size: 1.5rem;
         line-height: 2.3rem;
       }
     }
@@ -109,9 +111,10 @@
     font-weight: bold;
   }
 
-  .block-paragraph {
+  .block-paragraph,
+  .block-introduction {
     @include limit-body-width;
-    
+
     img {
       padding: $media-padding 25px;
     }
@@ -138,42 +141,42 @@
       margin-bottom: 20px;
     }
 
-    ol li { 
-      display: list-item; 
-      list-style-type: decimal; 
-      margin-left: $desktop-padding; 
+    ol li {
+      display: list-item;
+      list-style-type: decimal;
+      margin-left: $desktop-padding;
     }
 
     ul li {
-      display: list-item; 
-      list-style-type: disc; 
+      display: list-item;
+      list-style-type: disc;
       margin-left: 45px;
     }
 
     h2 {
-      font-size: 1.8rem; 
-      font-weight: 800; 
+      font-size: 1.8rem;
+      font-weight: 800;
       color: palette-get(na-black);
-      line-height: 2.35rem; 
-      margin-bottom: 1.8rem; 
-      margin-top: 1.8rem 
+      line-height: 2.35rem;
+      margin-bottom: 1.8rem;
+      margin-top: 1.8rem
     }
 
-    h3 { 
-      font-size: 1.5rem; 
+    h3 {
+      font-size: 1.5rem;
       font-weight: 800;
-      margin-bottom: 1.5rem; 
-      margin-top: 1.5rem; 
+      margin-bottom: 1.5rem;
+      margin-top: 1.5rem;
       color: palette-get(na-black-40);
       opacity: .5;
     }
 
-    h4, h5 { 
-      letter-spacing: 1.5px; 
-      font-size: 1.05rem; 
-      margin-top: 1.25rem; 
-      margin-bottom: 1.25rem; 
-      text-transform: uppercase; 
+    h4, h5 {
+      letter-spacing: 1.5px;
+      font-size: 1.05rem;
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
     }
 
     b, strong {
@@ -200,9 +203,19 @@
           width: 475px !important;
           height: $default-height !important;
         }
-      } 
-      
+      }
+
     }
+  }
+  .block-introduction {
+    @include clearfix;
+    background: palette-get(na-black-10);
+    margin: 0 0 25px 0;
+    padding: $desktop-padding;
+  }
+ // .block-body p adds 1rem margin-bottom. override that for even padding.
+  .block-introduction p:last-child{
+    margin-bottom: 0;
   }
 
   .block-dataviz {
@@ -211,7 +224,7 @@
   }
 
   .block-table {
-    max-width: 100%;
+    max-width: $max-site-width - $max-sidemenu-width;
     margin-top: $desktop-padding;
     margin-bottom: $desktop-padding;
     overflow-x: scroll;
@@ -256,7 +269,7 @@
     margin-bottom: $desktop-padding;
     @include limit-body-width;
     .responsive-object {
-      @include responsive-iframe(60%);
+      @include responsive-iframe(56%);
     }
   }
 
@@ -268,7 +281,7 @@
       @include responsive-iframe(null);
     }
   }
-  
+
   /* removes ustream link from all embedded videos */
   .responsive-object {
     a[href^="http://www.ustream.tv/"][target=_blank] {
@@ -304,7 +317,7 @@
 
     &__text {
       padding-left: 80px;
-      
+
       &__item {
         padding-bottom: $desktop-padding;
 

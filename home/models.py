@@ -70,7 +70,7 @@ def rendition_delete(sender, instance, **kwargs):
 class HomePage(Page):
     """
     Model for the homepage for the website. In Wagtail's parent
-    child structure, this is the most parent page. 
+    child structure, this is the most parent page.
     """
     subpage_types = [
     'OrgSimplePage',
@@ -183,7 +183,7 @@ class HomePage(Page):
         # versus the other lead stories, we needed to separate them out
         context['other_lead_stories'] = []
 
-        # Solution to account for null values for the stories 
+        # Solution to account for null values for the stories
         # so that the div in the template wouldn't attempt to add styling to nothing
         if self.lead_2:
             context['other_lead_stories'].append(self.lead_2)
@@ -219,6 +219,7 @@ class AbstractSimplePage(Page):
     creates simple, generic pages.
     """
     body = StreamField([
+        ('introduction', blocks.RichTextBlock()),
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
@@ -392,10 +393,11 @@ class Post(Page):
     """
 
     subheading = models.TextField(blank=True, null=True)
-    
+
     date = models.DateField("Post date")
 
     body = StreamField([
+        ('introduction', blocks.RichTextBlock()),
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
@@ -449,7 +451,7 @@ class Post(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField('body'),
-        
+
         index.RelatedFields('parent_programs', [
             index.SearchField('name'),
         ]),
@@ -474,7 +476,7 @@ class Post(Page):
         captured even if the user does not select it.
         """
         super(Post, self).save(*args, **kwargs)
-        
+
         program_title = self.get_ancestors()[2]
         program = Program.objects.get(
             slug=program_title.slug

@@ -4,6 +4,8 @@
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
   "scripts": {
+    "start": "source .env & ./manage.py runserver",
+    "open": "open https://localhost:8000/",
     "dev": "NODE_ENV=development webpack --config webpack.config.js --watch",
     "postinstall": "NODE_ENV=production webpack --config webpack.config.js",
     "build": "NODE_ENV=production webpack --config webpack.config.js",
@@ -32,6 +34,8 @@
     "cheerio": "^0.19.0",
     "compression-webpack-plugin": "^0.2.0",
     "css-loader": "^0.23.1",
+    "detect-browser": "^1.5.0",
+    "dom-to-image": "^2.5.2",
     "express": "^4.13.4",
     "foundation-sites": "^6.1.1",
     "jade": "^1.11.0",

@@ -39,7 +39,7 @@ class DatavizBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=False)
 	subheading = blocks.RichTextBlock(required=False)
 	max_width = IntegerBlock()
-	show_download_link = blocks.BooleanBlock(default=False, required=False)
+	show_chart_buttons = blocks.BooleanBlock(default=False, required=False)
 	container_id = blocks.CharBlock(required=True)
 
 	class Meta:
