@@ -38,7 +38,11 @@
     .photo-wrapper {
         margin: 0 auto 20px;
         display: inline-block;
-        max-width: 75%;
+        max-width: 60%;
+
+        @include breakpoint(640px){
+          max-width: 75%;
+        }
 
         &.rounded {
             border-radius: 100%;

@@ -31,8 +31,9 @@ export default function(){
 
     $t.find('.arrow').css('left',center-12.5);
 
-    $('.speaker.active').not($t).removeClass('active')
-    $speakers.not($t).data('active', false);
+    $speakers.not($t)
+      .removeClass('active')
+      .data('active', false);
 
     if(d.active){
       expander.hide();
@@ -44,7 +45,7 @@ export default function(){
     d.active = true;
 
     expander.setRow(d.row+1);
-  
+
     if(expander.willChange() && expander.active){
       expander.el.one('transitionend webkitTransitionEnd',function(){
         expander.insertAfter(expandAfter, descriptionHeight);

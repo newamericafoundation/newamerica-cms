@@ -82,7 +82,7 @@
   }
 // INTRO
   #hero {
-    min-height: 100vh;
+    
     padding-top: 150px;
     position: relative;
 
@@ -110,7 +110,6 @@
       font-family: "Platform", Arial, Helvetica, sans-serif;
       line-height: 0.95em;
       text-transform: uppercase;
-      white-space: nowrap;
     }
 
     h1 {
@@ -158,6 +157,15 @@
 
       @include breakpoint(large){
         font-size: 19px;
+      }
+
+      > span {
+        display: block;
+        margin-bottom: 5px;
+        text-align: center;
+        @include breakpoint(640px){
+          display: inline;
+        }
       }
     }
 
