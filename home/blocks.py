@@ -8,12 +8,7 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
-
-
-class IntegerBlock(blocks.FieldBlock):
-	def __init__(self, required=True, help_text=None, max_value=None, min_value=1, **kwargs):
-		self.field = forms.IntegerField(required=required, help_text=help_text, max_value=max_value, min_value=min_value)
-		super(IntegerBlock, self).__init__(**kwargs)
+from wagtail.wagtailcore.blocks import IntegerBlock
 
 
 class ButtonBlock(blocks.StructBlock):
