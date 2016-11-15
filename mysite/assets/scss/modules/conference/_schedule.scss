@@ -54,7 +54,7 @@
     }
 
     &:after {
-        @extend .base-clr-bd;
+        border-color: $base-color;
 
       //  .transition(~"opacity 0.15s ease");
 
@@ -104,8 +104,8 @@
 }
 
 .nav.nav-schedule > li.active {
-    @extend .base-clr-bg;
-    @extend .base-clr-bd;
+    background-color: $base-color;
+    border-color: $base-color;
 
     &:after {
         opacity: 1;
@@ -168,13 +168,13 @@
         }
 
         & > li.active {
-            @extend .base-clr-bd;
+            border-color: $base-color;
             background-color: transparent;
 
             & > a:not(:hover):not(:active),
             & > a:hover,
             & > a:focus {
-                @extend .base-clr-txt;
+                color: $text-base-color;
             }
         }
     }
@@ -230,7 +230,7 @@
     }
 
     .lecture-icon-wrapper {
-        @extend .base-clr-bd;
+        border-color: $base-color;
 
         position: absolute;
         vertical-align: middle;
@@ -255,7 +255,7 @@
         color: $text-black;
 
         &.collapsed .title .line-icon {
-            @extend .base-clr-txt;
+            color: $text-base-color;
         }
 
         .time {
@@ -321,7 +321,7 @@
         }
 
         .speaker-name {
-            @extend .base-clr-txt;
+            color: $text-base-color;
 
             display: inline-block;
             font-size: $font-size-thin;
@@ -346,8 +346,8 @@
 
     &:hover,
     &:focus {
-        @extend .base-clr-bg;
-        @extend .base-clr-bd;
+        background-color: $base-color;
+        border-color: $base-color;
 
         color: $text-white;
         text-decoration: none;
@@ -374,7 +374,7 @@
     }
 
     .nav.nav-schedule {
-        @extend .base-clr-bd;
+        border-color: $base-color;
 
         border-style: solid;
         border-width: 1px;
@@ -382,7 +382,7 @@
     }
 
     .nav.nav-schedule > li {
-        @extend .base-clr-bg;
+        background-color: $base-color;
 
         border-width: 0 1px;
         border-color: transparent $white;
@@ -415,13 +415,13 @@
         a:hover,
         a:focus {
             &, * {
-                @extend .base-clr-txt;
+                color: $text-base-color;
             }
         }
     }
 
     .tab-content {
-        @extend .base-clr-bd;
+        border-color: $base-color;
 
         padding: 60px;
     }
@@ -446,7 +446,7 @@
             }
 
             .lecture-icon-wrapper {
-                //@extend .base-clr-bg;
+                //background-color: $base-color;
 
                 margin: 0 40px;
                 position: absolute;
@@ -473,7 +473,7 @@
             margin: 0 0 0 47%;
 
             .speaker-name {
-              //  @extend .base-clr-txt;
+              //  color: $text-base-color;
 
                 display: inline-block;
                 font-size: $font-size-thin;
@@ -538,7 +538,7 @@
             }
 
             .lecture-icon-wrapper {
-              //  @extend .base-clr-bg;
+              //  background-color: $base-color;
 
                 position: absolute;
                 top: 30px;

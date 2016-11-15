@@ -1,37 +1,36 @@
-.conference-template {
-  #directions {
-    ul {
-      padding-left: 15px;
-      margin-top: 22px;
-      margin-left: 5px;
 
-      li {
-        list-style-type: initial;
-        display: list-item;
-        font-size: 1.15em;
-        color: palette-get(na-light-black);
-      }
+#directions {
+  ul {
+    padding-left: 15px;
+    margin-top: 22px;
+    margin-left: 5px;
+
+    li {
+      list-style-type: initial;
+      display: list-item;
+      font-size: 1.15em;
+      color: palette-get(na-light-black);
+    }
+  }
+
+
+  .panel-title {
+    border-bottom: 1px solid $gray-blue;
+    cursor: pointer;
+    position: relative;
+    padding: 5px;
+
+    .direction-toggle {
+      display: block;
     }
 
-
-    .panel-title {
-      border-bottom: 1px solid $gray-blue;
-      cursor: pointer;
-      position: relative;
-      padding: 5px;
-
-      .direction-toggle {
-        display: block;
-      }
-
-      .line-icon {
-        position: absolute;
-        right: 10px;
-        bottom: 11px;
-        font-size: $font-size-small;
-        color: $text-gray;
-      }
-
+    .line-icon {
+      position: absolute;
+      right: 10px;
+      bottom: 11px;
+      font-size: $font-size-small;
+      color: $text-gray;
     }
+
   }
 }
