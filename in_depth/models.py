@@ -196,6 +196,8 @@ class InDepthProfile(Page):
 
     lookup_field = models.CharField(max_length=150, help_text="The name of the field where the query value will be found")
 
+    image_field = models.CharField(max_length=150, blank=True, null=True, help_text="The name of the field where the an image for each profile will be found")
+
     body = StreamField([
         ('introduction', blocks.RichTextBlock()),
         ('heading', blocks.CharBlock(classname='full title')),
@@ -211,6 +213,7 @@ class InDepthProfile(Page):
     ])
 
     content_panels = Page.content_panels + [
+        FieldPanel('image_field'),
         FieldPanel('subheading'),
         StreamFieldPanel('body'),
     ]

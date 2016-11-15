@@ -1,0 +1,10 @@
+.data-reference {
+	&__value, &__label {
+		display: inline;
+	}
+
+	&__label {
+		font-weight: bold;
+		color: palette-get(na-black);
+	}
+}

@@ -71,17 +71,11 @@ class CollapsibleBlock(blocks.StructBlock):
 		label = 'Collapsible'
 
 class DataReferenceBlock(blocks.StructBlock):
-	display_type = blocks.ChoiceBlock(choices=[
-		('simple', 'Simple'),
-		('fact-box', 'Fact-Box'),
-		('list', 'List'),
-		('image', 'Image'),
-	])
-
 	fields_to_display = blocks.ListBlock(blocks.StructBlock([
 		('field_name', blocks.CharBlock(required=True)),
 		('label', blocks.CharBlock(required=False)),
     	('format', blocks.ChoiceBlock(choices=[
+    		('date', 'Date'),
     		('string', 'Image'),
     		('number', 'Number (with thousands-place comma)'),
     		('percent', 'Percent'),
