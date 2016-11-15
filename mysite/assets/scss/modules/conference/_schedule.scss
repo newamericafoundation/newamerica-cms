@@ -253,6 +253,11 @@
         display: block;
         text-decoration: none;
         color: $text-black;
+        cursor: default;
+
+        &.schedule-item-toggle-active{
+          cursor: pointer;
+        }
 
         &.collapsed .title .line-icon {
             color: $text-base-color;
@@ -262,7 +267,7 @@
             margin-bottom: 10px;
             font-size: $font-size-base;
 
-            .line-icon {
+            .line-icon{
                 margin-right: 8px;
                 vertical-align: middle;
                 color: $text-gray-light;
@@ -276,16 +281,25 @@
             border-bottom: 1px solid $gray-blue;
             font-weight: 600;
 
-            .line-icon {
-              //  .transition(~"transform 0.3s ease");
-
+            .line-icon, .fa {
                 position: absolute;
                 right: 10px;
-                bottom: 11px;
-                font-size: $font-size-small;
-                color: $text-gray;
+                bottom: 13px;
+                -webkit-transition: color 0.35s ease;
+                -moz-transition: color 0.35s ease;
+                -o-transition: color 0.35s ease;
+                transition: color 0.35s ease;
+                font-size: 25px;
+              //  font-size: $font-size-small;
+                color: palette-get(na-black-10) !important;
             }
         }
+      &.active,
+      &:hover {
+        .fa{
+          color: palette-get(na-turquoise) !important;
+        }
+      }
     }
 
     .schedule-item-body {
