@@ -14,7 +14,7 @@ export default function() {
     });
 
     $('.conference-template section.section').each(function(){
-      let id = `${this.getAttribute('id')}`;
+      let id = this.getAttribute('id');
       let navItem = $(`.navigation-item [href^="#${id}"]`);
 
       scrollr.addTrigger(this,{
