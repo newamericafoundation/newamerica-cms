@@ -50,11 +50,11 @@ class Scrollr {
     return this;
   }
 
-  smoothScroll(selector,offset=0) {
+  smoothScroll(selector,offset=0, onComplete=()=>{}) {
     let target = $(selector);
     $('body,html').animate(
     	{'scrollTop':target.offset().top+offset},
-    	600
+    	600, onComplete
     );
     return this;
 	}
