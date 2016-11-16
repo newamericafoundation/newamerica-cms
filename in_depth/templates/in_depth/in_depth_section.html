@@ -113,7 +113,7 @@
 		<section id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel {{ panel.value.panel_color_theme }}">
 			<div class="in-depth__panel__max-width-wrapper">
 				<h5 class="in-depth__panel__title-label">{{ page.title }}</h5>
-				<h1 class="in-depth__panel__title">{{ panel.value.panel_title }}</h1>
+				<h1 class="in-depth__panel__title">{{ panel.value.panel_title }}<a class="in-depth__panel__title-link" href="#{{ panel.value.panel_title|slugify }}" title="Link to this Heading">{% include 'ui_elements/svg/link.html' %}</a></h1>
 				<div class="in-depth__panel__body post-body">
 					{% for block in panel.value.panel_body %}
 				    	{% include 'ui_elements/post_body_block.html' %}
