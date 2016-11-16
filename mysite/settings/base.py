@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'weekly',
     'in_depth',
     'storages',
-    'overextends',
     'rss_feed',
 
     'wagtail.wagtailforms',
