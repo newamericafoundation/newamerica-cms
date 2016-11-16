@@ -69,6 +69,12 @@
 		max-width: $max-body-width;
 		margin: auto;
 		padding: 0px 0px 35px 0px;
+
+		&:hover {
+			.in-depth__panel__title-link {
+				display: inline;
+			}
+		}
 	}
 
 	/* centers all body content + iframes */
@@ -86,6 +92,25 @@
 	    @include desktop-header {
 	    	top: -$desktop-header-height;
 	    }
+	}
+
+	&__title-link {
+		display: none;
+		position: absolute;
+		padding-left: 10px;
+
+		& > svg {
+			width: 20px;
+			height: 20px;
+			fill: palette-get(na-black-40);
+			opacity: .8;
+			position: relative;
+			top: -4px;
+
+			&:hover {
+				fill: palette-get(na-turquoise);
+			}
+		}
 	}
 }
 

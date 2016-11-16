@@ -5,7 +5,10 @@ from django.contrib import admin
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.wagtailimages import urls as wagtailimages_urls
 
+
+from search.views import search as search_view
 from rss_feed.feeds import GenericFeed, ContentFeed, AuthorFeed, ProgramFeed, SubprogramFeed, EventFeed, EventProgramFeed
 
 
@@ -14,8 +17,9 @@ urlpatterns = [
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
+    url(r'^images/', include(wagtailimages_urls)),
 
-    url(r'^search/$', 'search.views.search', name='search'),
+    url(r'^search/$', search_view, name='search'),
 
     url(r'^feed/$', GenericFeed()),
     url(r'^feed/program/(?P<program>[a-zA-z\-]*)/$', ProgramFeed()),
