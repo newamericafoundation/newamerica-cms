@@ -28,11 +28,14 @@ class BlogPost(Post):
         StreamFieldPanel('attachment'),
     ]
 
+    class Meta:
+        verbose_name = 'Blog Post'
+
 
 class AllBlogPostsHomePage(Page):
     """
-    A page which inherits from the abstract Page model and 
-    returns every Blog post in the BlogPost model for the 
+    A page which inherits from the abstract Page model and
+    returns every Blog post in the BlogPost model for the
     Blog posts homepage
     """
     parent_page_types = ['home.HomePage', ]
@@ -53,7 +56,7 @@ class AllBlogPostsHomePage(Page):
 class ProgramBlogPostsPage(Page):
     """
     A page which inherits from the abstract Page model and returns
-    all Blog Posts associated with a specific Program or 
+    all Blog Posts associated with a specific Program or
     Subprogram
     """
 
@@ -90,6 +93,6 @@ class ProgramBlogPostsPage(Page):
             request,
             ProgramBlogPostsPage,
             BlogPost)
-        
+
     class Meta:
         verbose_name = "Blog Homepage for Program and Subprograms"
