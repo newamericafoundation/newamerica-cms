@@ -6,7 +6,7 @@
       <ul class="nav nav-schedule" data-toggle="tab">
         {% for day in value %}
           <li data-target="#day{{forloop.counter}}">
-            <a>
+            <span>
               <h5 class="highlight">Day {{forloop.counter}}</h5>
               {% comment %}
                 we do not have access to main template's context in this template
@@ -15,7 +15,7 @@
                 give us access to parent template's context
               {% endcomment %}
               <!--<p class="text-alt">08/10/2016</p>-->
-            </a>
+            </span>
           </li>
         {% endfor %}
       </ul>
@@ -35,7 +35,7 @@
                 {% with s=session.value desc=session.value.description.source %}
 
                 <div class="panel schedule-item">
-                  <a class="schedule-item-toggle {% if desc|length > 12 or s.speakers|length > 0 %}schedule-item-toggle-active{% endif %}" data-target="#day-{{i}}_session-{{forloop.counter}}">
+                  <span class="schedule-item-toggle {% if desc|length > 12 or s.speakers|length > 0 %}schedule-item-toggle-active{% endif %}" data-target="#day-{{i}}_session-{{forloop.counter}}">
                     <div class="lecture-icon-wrapper">
                       <span class="fa fa-microphone"></span>
                     </div>
@@ -47,7 +47,7 @@
                         <i class="fa fa-chevron-circle-down"></i>
                       {% endif %}
                     </h5>
-                  </a>
+                  </span>
                   <div id="day-{{i}}_session-{{forloop.counter}}" class="panel-collapse collapse schedule-item-body">
                     {% if desc|length > 12 or s.speakers|length > 0 %}
                     <article>

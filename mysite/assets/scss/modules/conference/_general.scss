@@ -2,6 +2,19 @@ li {
   margin-bottom: 7px;
 }
 
+
+p a {
+  font-weight: 800;
+  border-bottom: 2px solid #e0e0e1;
+  padding-bottom: 2px;
+  opacity: 1;
+}
+
+.icon {
+  font-weight: normal;
+  border-bottom: none;
+}
+
 section{
   padding: 70px 0;
 }
