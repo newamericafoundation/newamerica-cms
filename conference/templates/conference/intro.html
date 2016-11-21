@@ -22,17 +22,17 @@
       <h1 class="extra-heading">{{page.title}}</h1>
       <h2 class="sub-heading">{{ page.subheading }}</h2>
       <h6 class="thin base-font">{{page.search_description}}</h6>
-      <div class="btns-container row">
+      <div class="btns-container row {%if page.invitation_only %}invite-only{% endif %}">
         <div class="columns small-6">
           {% if page.rsvp_link %}
-            <a href="{{page.rsvp_link}}" target="_blank" class="pull-right button register">Register</a>
+            <a href="{{page.rsvp_link}}" target="_blank" class="button">Register</a>
           {% endif %}
           {% if page.invitation_only %}
-            <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="pull-right button register">Request Invitation</a>
+            <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button">Request Invitation</a>
           {% endif %}
         </div>
         <div class="columns small-6">
-          <a href="#about" class="button">About</a>
+          <a href="#about" class="button" >About </a>
         </div>
       </div>
     </div>

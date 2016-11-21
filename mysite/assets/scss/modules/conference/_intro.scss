@@ -157,8 +157,22 @@
     width: 250px;
     margin: 44px auto;
 
+    &.invite-only{
+      .columns{
+        height: 62px;
+        display: table;
+
+        .button {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+    }
+
     .button {
       width: 100%;
+      height: 100%;
+
     }
   }
 }
