@@ -2,10 +2,16 @@
 #hero {
   position: relative;
   height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
   background-size: cover;
-  background-attachment: fixed;
-  background-origin: center;
+  background-attachment: scroll;
+  background-position: center;
   background-repeat: no-repeat;
+
+  @include breakpoint(640px){
+    background-attachment: fixed;
+  }
 
   .heading-block{
     position: absolute;
@@ -38,7 +44,11 @@
     margin-bottom: 0;
     margin-top: 22px;
 
-    font-size: 2em;
+    font-size: 1.75em;
+
+    @include breakpoint(350px){
+      font-size: 2em;
+    }
 
     @include breakpoint(medium){
       font-size: 3.8em;
@@ -55,7 +65,11 @@
 
   h2 {
     margin-bottom: 22px;
-    font-size: 1.8em;
+    font-size: 1.3em;
+
+    @include breakpoint(350px){
+      font-size: 1.8em;
+    }
 
     @include breakpoint(medium){
       font-size: 3.2em;
@@ -71,13 +85,17 @@
 
   h5.heading-alt{
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 0.6em !important;
     line-height: 1.7;
     letter-spacing: 0.5em;
     font-weight: 700;
 
+    @include breakpoint(350px){
+      font-size: 0.8em;
+    }
+
     @include breakpoint(large){
-      font-size: 19px;
+      font-size: 19px !important;
     }
 
     > span {
@@ -86,12 +104,24 @@
       text-align: center;
       @include breakpoint(640px){
         display: inline;
+        width: auto;
+      }
+    }
+
+    .fa {
+      font-size: 14px;
+      @include breakpoint(350px){
+        font-size: 18px;
       }
     }
   }
 
   .base-font{
-    font-size: 1em;
+    font-size: 0.8em;
+
+    @include breakpoint(350px){
+      font-size: 1em;
+    }
 
       @include breakpoint(medium){
         font-size: 1.2em;
@@ -108,8 +138,19 @@
   }
 
   .na-logo{
-    width: 160px;
-    margin: 0 auto 50px auto;
+    width: 90px;
+    margin: 0 auto 25px auto;
+
+
+    @include breakpoint(350px){
+      width: 120px;
+      margin: 0 auto 35px auto;
+    }
+
+    @include breakpoint(640px){
+      width: 160px;
+      margin: 0 auto 50px auto;
+    }
   }
 
   .btns-container{
