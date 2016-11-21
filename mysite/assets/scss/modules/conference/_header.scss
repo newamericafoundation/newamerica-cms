@@ -128,15 +128,17 @@ $header-medium-height: 65px;
       right: 0;
       padding-top: 0;
       padding-bottom: 0;
-      height: ($header-medium-height - 3px);
+      z-index: 1000;
+      height: $header-medium-height;
       box-shadow: none !important;
       line-height: $header-medium-height;
+      background-color: rgba(0,0,0,0.3) !important;
 
       @include breakpoint(medium){
         height: $header-height;
         line-height: $header-height;
         top: 0;
-        background-color: #2ebcb3 !important;
+
       }
 
     }
