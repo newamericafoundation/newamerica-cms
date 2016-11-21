@@ -33,6 +33,8 @@
         <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
         <meta name="twitter:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
 
+        <meta name="format-detection" content="telephone=no">
+
         {% if self.story_image %}
             {% image self.story_image original as story_image %}
             <meta property="og:image" content='{{ story_image.url }}' />
