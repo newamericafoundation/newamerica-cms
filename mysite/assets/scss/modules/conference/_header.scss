@@ -26,7 +26,7 @@ $header-medium-height: 65px;
       }
     }
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       .navigation-list{
         border: none;
         box-shadow: none;
@@ -54,12 +54,40 @@ $header-medium-height: 65px;
     .navigation-container{
       max-width: 100%;
       overflow: hidden;
+      position: relative;
       height: 50px;
-      @include breakpoint(640px){
+
+      @media (max-width:$mobile-break){
+        &:after, &:before{
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: block;
+          content: ' ';
+          height: calc(100% - 1px);
+          width: 20px;
+          background: -moz-linear-gradient(left, rgba(30,87,153,0) 0%, rgba(255,255,255,0.01) 1%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+          background: -webkit-linear-gradient(left, rgba(30,87,153,0) 0%,rgba(255,255,255,0.01) 1%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+          background: linear-gradient(to right, rgba(30,87,153,0) 0%,rgba(255,255,255,0.01) 1%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#ffffff',GradientType=1 );
+        }
+
+        &:before{
+          left: 0;
+          background: -moz-linear-gradient(right, rgba(30,87,153,0) 0%, rgba(255,255,255,0.01) 1%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+          background: -webkit-linear-gradient(right, rgba(30,87,153,0) 0%,rgba(255,255,255,0.01) 1%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+          background: linear-gradient(to left, rgba(30,87,153,0) 0%,rgba(255,255,255,0.01) 1%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#001e5799',GradientType=1 );
+        }
+      }
+
+      @include breakpoint($mobile-break){
         max-width: calc(100% - 140px);
+        width: 83.33333%;
         padding: 0 0 0 30px;
         height: auto;
       }
+
     }
 
     .navbar{
@@ -68,8 +96,9 @@ $header-medium-height: 65px;
       overflow-x: scroll;
       overflow-y: hidden;
 
-      @include breakpoint(640px){
-        height: auto;
+      @include breakpoint($mobile-break){
+        overflow-x: hidden;
+        overflow-y: hidden;
       }
 
       &::-webkit-scrollbar {
@@ -105,7 +134,7 @@ $header-medium-height: 65px;
         }
     }
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       height: $header-height;
 
       .header-wrapper {
@@ -128,15 +157,17 @@ $header-medium-height: 65px;
       right: 0;
       padding-top: 0;
       padding-bottom: 0;
-      height: ($header-medium-height - 3px);
+      z-index: 1000;
+      height: $header-medium-height;
       box-shadow: none !important;
       line-height: $header-medium-height;
+      background-color: rgba(0,0,0,0.3) !important;
 
-      @include breakpoint(medium){
+      @include breakpoint($mobile-break){
         height: $header-height;
         line-height: $header-height;
         top: 0;
-        background-color: #2ebcb3 !important;
+
       }
 
     }
@@ -197,7 +228,7 @@ $header-medium-height: 65px;
       font-size: 1em;
     }
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       height: $header-height;
       background-color: transparent;
       border: none;
@@ -220,7 +251,7 @@ $header-medium-height: 65px;
         margin-left: 0;
     }
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       margin-top: 25px;
     }
 
@@ -258,7 +289,7 @@ $header-medium-height: 65px;
             border-color: $base-color;
         }
 
-        @include breakpoint(medium){
+        @include breakpoint($mobile-break){
           margin-top: 0;
           letter-spacing: 0.26em;
           &.active,

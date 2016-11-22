@@ -1,5 +1,24 @@
+
+@media (max-width:350px){
+  font-size: 0.8em;
+}
+
+
 li {
   margin-bottom: 7px;
+}
+
+
+p a {
+  font-weight: 800;
+  border-bottom: 2px solid #e0e0e1;
+  padding-bottom: 2px;
+  opacity: 1;
+}
+
+.icon {
+  font-weight: normal;
+  border-bottom: none;
 }
 
 section{
@@ -35,6 +54,7 @@ footer {
     font-family: "Platform", Arial, Helvetica, sans-serif;
     font-size: 3em;
     font-weight: 300;
+    line-height: 0.92em;
     text-transform: uppercase;
     text-align: center;
     margin: 5px 0 60px 0;

@@ -7,12 +7,12 @@
   <div class="heading-block centered-block align-center">
     <div class="container">
       <div class="na-logo">
-        {% include 'ui_elements/svg/new-america-white.html' %}
+        <a href="//newamerica.org/" target="_blank">{% include 'ui_elements/svg/new-america-white.html' %}</a>
     	</div>
       <h5 class="heading-alt" style="margin-bottom: 8px;">
         <span>
           <span class="fa fa-calendar-o base-clr-txt"></span>
-          {{ page.date|date:'F' }} {{ page.date|date:'d' }}&ndash;{{ page.end_date|date:'d' }} {{ page.date|date:'Y' }}
+          {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
         </span>
         <span>
           <span class="fa fa-map-marker base-clr-txt" style="margin-left: 14px;"></span>
@@ -22,12 +22,17 @@
       <h1 class="extra-heading">{{page.title}}</h1>
       <h2 class="sub-heading">{{ page.subheading }}</h2>
       <h6 class="thin base-font">{{page.search_description}}</h6>
-      <div class="btns-container row">
+      <div class="btns-container row {%if page.invitation_only %}invite-only{% endif %}">
         <div class="columns small-6">
-          <a href="#" class="button" data-modal-link="email-ticket">Register</a>
+          {% if page.rsvp_link %}
+            <a href="{{page.rsvp_link}}" target="_blank" class="button">Register</a>
+          {% endif %}
+          {% if page.invitation_only %}
+            <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button">Request Invitation</a>
+          {% endif %}
         </div>
         <div class="columns small-6">
-          <a href="#about" class="button" data-modal-link="email-ticket">About</a>
+          <a href="#about" class="button" >About </a>
         </div>
       </div>
     </div>

@@ -2,12 +2,12 @@
   <div class="header-wrapper">
     <div class="container row">
       <div class="small-12 medium-2 columns navigation-header">
-        <a href="http://newamerica.org" class="logo">
+        <a href="http://newamerica.org" target="_blank" class="logo">
           {% include 'ui_elements/svg/new-america-white.html' %}
         </a>
       </div>
 
-      <div class="medium-10 small-12 columns navigation-container">
+      <div class="medium-12 large-10 columns navigation-container">
         <div class="navbar">
           <ul class="navigation-list pull-left light-text">
             <li class="navigation-item active"><a href="#about" class="navigation-link">About</a></li>
@@ -18,7 +18,12 @@
           </ul>
         </div>
       </div>
-      <a href="#" class="pull-right button register">Register</a>
+      {% if page.rsvp_link %}
+      <a href="{{page.rsvp_link}}" target="_blank" class="pull-right button register">Register</a>
+      {% endif %}
+      {% if page.invitation_only %}
+      <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="pull-right button register">Request Invitation</a>
+      {% endif %}
     </div>
   </div>
 </header>

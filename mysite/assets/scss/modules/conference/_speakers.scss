@@ -40,7 +40,7 @@
         display: inline-block;
         max-width: 60%;
 
-        @include breakpoint(640px){
+        @include breakpoint($mobile-break){
           max-width: 75%;
         }
 
@@ -70,7 +70,7 @@
           position: relative;
           height: 40px;
 
-          @include breakpoint(medium){
+          @include breakpoint($mobile-break){
             height: 35px;
           }
           small {
@@ -80,7 +80,7 @@
               width: 100%;
               display: inline-block;
 
-              @include breakpoint(medium){
+              @include breakpoint($mobile-break){
                 font-size: 0.8em;
               }
 

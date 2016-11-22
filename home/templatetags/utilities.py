@@ -4,7 +4,7 @@ from django import template
 from django.conf import settings
 from programs.models import Program
 from django.utils.safestring import mark_safe
-
+from wagtail.wagtailcore.blocks import StreamValue
 
 register = template.Library()
 
@@ -198,3 +198,21 @@ def check_oti(path):
 		return "oti"
 
 	return ""
+
+@register.simple_tag()
+def group_by(key, items):
+	groups = {}
+
+	for item in items:
+
+		if isinstance(item, StreamValue.StreamChild):
+			i = item.value
+		else:
+			i = item
+
+		if i[key] not in groups:
+			groups[i[key]] = []
+
+		groups[i[key]].append(item)
+
+	return groups

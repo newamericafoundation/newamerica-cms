@@ -1,11 +1,11 @@
 #about {
   .columns{
     margin-top: 20px;
-    @include breakpoint(640px){
+    @include breakpoint($mobile-break){
         margin-top: 0px;
+        @include grid-column-uncollapse(50);
     }
 
-    @include grid-column-uncollapse(50);
     p {
       color: palette-get(na-black-70);
       font-size: 1.05em;

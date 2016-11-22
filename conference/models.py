@@ -58,6 +58,7 @@ class Conference(Page):
     )
 
     rsvp_link = models.URLField(blank=True, null=True)
+    invitation_only = models.BooleanField(default=False)
 
     date = models.DateField("Start Date", default=timezone.now)
     end_date = models.DateField(blank=True, null=True)
@@ -80,7 +81,8 @@ class Conference(Page):
             ImageChooserPanel('story_image'),
             ImageChooserPanel('about_image'),
             FieldPanel('description'),
-            FieldPanel('rsvp_link')
+            FieldPanel('rsvp_link'),
+            FieldPanel('invitation_only')
         ],
         heading="About"
     )
