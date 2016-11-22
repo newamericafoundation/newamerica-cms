@@ -26,7 +26,7 @@ $header-medium-height: 65px;
       }
     }
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       .navigation-list{
         border: none;
         box-shadow: none;
@@ -55,11 +55,14 @@ $header-medium-height: 65px;
       max-width: 100%;
       overflow: hidden;
       height: 50px;
-      @include breakpoint(640px){
+
+      @include breakpoint($mobile-break){
         max-width: calc(100% - 140px);
+        width: 83.33333%;
         padding: 0 0 0 30px;
         height: auto;
       }
+
     }
 
     .navbar{
@@ -68,7 +71,7 @@ $header-medium-height: 65px;
       overflow-x: scroll;
       overflow-y: hidden;
 
-      @include breakpoint(640px){
+      @include breakpoint($mobile-break){
         height: auto;
       }
 
@@ -105,7 +108,7 @@ $header-medium-height: 65px;
         }
     }
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       height: $header-height;
 
       .header-wrapper {
@@ -134,7 +137,7 @@ $header-medium-height: 65px;
       line-height: $header-medium-height;
       background-color: rgba(0,0,0,0.3) !important;
 
-      @include breakpoint(medium){
+      @include breakpoint($mobile-break){
         height: $header-height;
         line-height: $header-height;
         top: 0;
@@ -199,7 +202,7 @@ $header-medium-height: 65px;
       font-size: 1em;
     }
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       height: $header-height;
       background-color: transparent;
       border: none;
@@ -222,7 +225,7 @@ $header-medium-height: 65px;
         margin-left: 0;
     }
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       margin-top: 25px;
     }
 
@@ -260,7 +263,7 @@ $header-medium-height: 65px;
             border-color: $base-color;
         }
 
-        @include breakpoint(medium){
+        @include breakpoint($mobile-break){
           margin-top: 0;
           letter-spacing: 0.26em;
           &.active,

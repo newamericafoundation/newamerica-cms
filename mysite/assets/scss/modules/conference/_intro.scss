@@ -9,7 +9,7 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  @include breakpoint(640px){
+  @include breakpoint($mobile-break){
     background-attachment: fixed;
   }
 
@@ -47,7 +47,7 @@
     font-size: 2em;
 
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       font-size: 3.8em;
     }
 
@@ -64,7 +64,7 @@
     margin-bottom: 22px;
     font-size: 1.8em;
 
-    @include breakpoint(medium){
+    @include breakpoint($mobile-break){
       font-size: 3.2em;
     }
     @include breakpoint(large){
@@ -95,7 +95,7 @@
       display: block;
       margin-bottom: 5px;
       text-align: center;
-      @include breakpoint(640px){
+      @include breakpoint($mobile-break){
         display: inline;
         width: auto;
       }
@@ -112,7 +112,7 @@
   .base-font{
     font-size: 1em;
 
-      @include breakpoint(medium){
+      @include breakpoint($mobile-break){
         font-size: 1.2em;
       }
 
@@ -136,7 +136,7 @@
       margin: 0 auto 35px auto;
     }
 
-    @include breakpoint(640px){
+    @include breakpoint($mobile-break){
       width: 160px;
       margin: 0 auto 50px auto;
     }

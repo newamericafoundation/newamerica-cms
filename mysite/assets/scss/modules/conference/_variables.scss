@@ -6,6 +6,8 @@
 //== Base Colors
 $base-color:        palette-get(na-turquoise);
 
+$mobile-break: 750px;
+
 $black:                     palette-get(na-black);
 $black-alt:                 #1f2125;
 $white:                     palette-get(na-white);
