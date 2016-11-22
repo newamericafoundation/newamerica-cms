@@ -26,6 +26,39 @@
     .highlight {
       color: $base-color;
     }
+
+    .fa-registration:before {
+      //@extend .fa-check-square-o;
+      content: "\f046";
+    }
+
+    .fa-panel:before {
+      //@extend .fa-users;
+      content: "\f0c0";
+      content: "\f130";
+    }
+
+    .fa-lecture:before {
+      //@extend .fa-microphone;
+      content: "\f130";
+    }
+
+    .fa-break:before {
+      //@extend .fa-comments-o;
+      content: "\f0e6";
+    }
+
+    .fa-meal:before {
+      //@extend .fa-cutlery;
+      content: "\f0f5";
+
+    }
+
+    .fa-reception:before {
+      //@extend .fa-glass;
+      content: "\f000";
+    }
+
 }
 
 .nav.nav-schedule {

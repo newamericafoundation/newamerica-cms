@@ -37,7 +37,7 @@
                 <div class="panel schedule-item">
                   <span class="schedule-item-toggle {% if desc|length > 12 or s.speakers|length > 0 %}schedule-item-toggle-active{% endif %}" data-target="#day-{{i}}_session-{{forloop.counter}}">
                     <div class="lecture-icon-wrapper">
-                      <span class="fa fa-microphone"></span>
+                      <span class="fa fa-{{s.session_type}}"></span>
                     </div>
                     <strong class="time highlight"><span class="line-icon line-icon-office-24"></span>{{s.start_time|date:"g:i A"}} &ndash; {{s.end_time|date:"g:i A"}}</strong>
                     <h5 class="title">
