@@ -72,7 +72,8 @@ $header-medium-height: 65px;
       overflow-y: hidden;
 
       @include breakpoint($mobile-break){
-        height: auto;
+        overflow-x: hidden;
+        overflow-y: hidden;
       }
 
       &::-webkit-scrollbar {
