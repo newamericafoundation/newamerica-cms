@@ -57,7 +57,7 @@ $header-medium-height: 65px;
       position: relative;
       height: 50px;
 
-      @media (max-width:$mobile-break){
+      @media (max-width:749px){
         &:after, &:before{
           position: absolute;
           right: 0;
