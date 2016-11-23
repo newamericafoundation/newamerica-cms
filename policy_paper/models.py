@@ -42,6 +42,9 @@ class PolicyPaper(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
+    class Meta:
+        verbose_name = 'Policy Paper'
+
 class AllPolicyPapersHomePage(Page):
     """
     A page which inherits from the abstract Page model and
