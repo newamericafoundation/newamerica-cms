@@ -26,10 +26,7 @@ export default function(){
     if($window.width() < breakpoint) afterIndex = d.index;
 
     let expandAfter = $speakers[afterIndex];
-    let descriptionHeight = $t.find('.description').outerHeight();
-    let center = $t.parent().position().left + $t.parent().outerWidth()/2;
-
-    $t.find('.arrow').css('left',center-12.5);
+    expander.setCurrent($t);
 
     $speakers.not($t)
       .removeClass('active')
@@ -48,12 +45,12 @@ export default function(){
 
     if(expander.willChange() && expander.active){
       expander.el.one('transitionend webkitTransitionEnd',function(){
-        expander.insertAfter(expandAfter, descriptionHeight);
+        expander.insertAfter(expandAfter);
         $t.addClass('active');
       });
       expander.hide();
     } else {
-      expander.insertAfter(expandAfter, descriptionHeight);
+      expander.insertAfter(expandAfter);
       $t.addClass('active');
     }
   });
@@ -70,12 +67,28 @@ export default function(){
 
 class Expander {
   constructor(){
-    this.el = $('<div class="expander large-12 columns"></div>');
+    this.el = $('<div class="expander large-12 columns"><span class="arrow" style="display:none;"></span><p></p></div>');
+    this.text = this.el.find('p');
+    this.arrow = this.el.find('.arrow');
+    this.current = null;
+    this.currentDescription = null;
     this.oldRow = -1;
     this.row = -1;
     this.active = false;
 
     this.el.appendTo($('.speaker-list'));
+  }
+
+  setCurrent($el){
+    this.current = $el;
+    this.currentDescription = $el.find('.description');
+    return this;
+  }
+
+  centerArrow(){
+    let center = this.current.parent().position().left + this.current.parent().outerWidth()/2;
+    this.arrow.css('left',center-25);
+    return this;
   }
 
   setRow(r){
@@ -89,24 +102,28 @@ class Expander {
     return this.oldRow !== this.row;
   }
 
-  insertAfter(el,height){
+  insertAfter(el){
     this.el.insertAfter($(el).parent());
-    if(height!==null) this.show(height);
-
+    this.show();
+    this.centerArrow();
     return this;
   }
 
-  show(height){
+  show(){
     this.el[0].style.height = `${this.el[0].scrollHeight}px`
-    this.el[0].style.height = `${height}px`;
+    this.el[0].style.height = `${this.currentDescription.outerHeight()}px`;
+    this.text.html(this.currentDescription.html())[0].style.opacity = '1';
     reflow(this.el[0]);
+    this.arrow.show();
     this.active = true;
     return this;
   }
 
   hide(){
     this.el[0].style.height = '';
+    this.text.html('')[0].style.opacity = '0';
     reflow(this.el[0]);
+    this.arrow.hide();
     this.active = false;
     return this;
   }
