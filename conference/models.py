@@ -112,8 +112,8 @@ class Conference(Page):
         StreamFieldPanel('venue'),
         StreamFieldPanel('directions'),
         StreamFieldPanel('speakers'),
-        StreamFieldPanel('partners'),
-        StreamFieldPanel('sessions')
+        StreamFieldPanel('sessions'),
+        StreamFieldPanel('partners')
     ]
 
     promote_panels = Page.promote_panels
