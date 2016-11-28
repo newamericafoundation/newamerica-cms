@@ -7,7 +7,7 @@
   <div class="heading-block centered-block align-center">
     <div class="container">
       <div class="na-logo">
-        <a href="//newamerica.org/" target="_blank">{% include 'ui_elements/svg/new-america-white.html' %}</a>
+        <a href="http://newamerica.org/" target="_blank">{% include 'ui_elements/svg/new-america-white.html' %}</a>
     	</div>
       <h5 class="heading-alt" style="margin-bottom: 8px;">
         <span>
@@ -26,8 +26,7 @@
         <div class="columns small-6">
           {% if page.rsvp_link %}
             <a href="{{page.rsvp_link}}" target="_blank" class="button">Register</a>
-          {% endif %}
-          {% if page.invitation_only %}
+          {% elif page.invitation_only %}
             <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button">Request Invitation</a>
           {% endif %}
         </div>
