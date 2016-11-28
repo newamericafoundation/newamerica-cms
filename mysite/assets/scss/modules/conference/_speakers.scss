@@ -116,9 +116,9 @@
       margin-top: 65px;
       padding: 25px;
       overflow: visible;
-      transition: all 0.35s ease;
-      -webkit-transition: all 0.35s ease;
-      -moz-transition: all 0.35s ease;
+      transition: opacity 0.35s ease;
+      -webkit-transition: opacity 0.35s ease;
+      -moz-transition: opacity 0.35s ease;
       user-select: none;
       -moz-user-select: none;
       -webkit-user-select: none;
@@ -127,7 +127,7 @@
 
       position: absolute;
       width: 100%;
-      left: 0;
+      left: -100vw;
       z-index: 0 !important;
       opacity: 0;
       vertical-align: middle;
@@ -162,6 +162,7 @@
         -webkit-user-select: text;
         -o-user-select: text;
         -ms-user-select: text;
+        left: 0;
         &:after{
           display: none;
         }
