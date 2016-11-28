@@ -119,9 +119,11 @@
       transition: all 0.35s ease;
       -webkit-transition: all 0.35s ease;
       -moz-transition: all 0.35s ease;
-      // -webkit-transition-delay: 0.35s;
-      // transition-delay: 0.35s;
-      // -moz-transition-delay: 0.35s;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -o-user-select: none;
+      -ms-user-select: none;
 
       position: absolute;
       width: 100%;
@@ -155,6 +157,11 @@
       .description{
         opacity: 1;
         z-index: 200 !important;
+        user-select: text;
+        -moz-user-select: text;
+        -webkit-user-select: text;
+        -o-user-select: text;
+        -ms-user-select: text;
         &:after{
           display: none;
         }
