@@ -1,6 +1,3 @@
-import json
-import datetime
-
 from django.db import models
 from django.template.response import TemplateResponse
 from django.utils import timezone
