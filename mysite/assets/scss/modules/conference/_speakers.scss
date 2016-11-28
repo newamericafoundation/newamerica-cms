@@ -24,6 +24,16 @@
     -moz-transition: all 0.35s ease;
     cursor: pointer;
     padding-top: 10px;
+    min-height: 100%;
+    min-width: 100%;
+
+    &.no-photo{
+      padding-top: 50%;
+
+      .text-alt{
+        margin-bottom: 43.5%;
+      }
+    }
 
     &:hover{
 
