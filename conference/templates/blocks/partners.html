@@ -1,0 +1,58 @@
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% group_by "type" value as partner_groups %}
+
+<div class="container">
+  <div class="sponsors">
+
+    {% if partner_groups.premier_sponsor %}
+      <div class="sponsor-row">
+        <h4>Premier Sponsors</h4>
+        {% for partner in partner_groups.premier_sponsor %}
+        {% with partner.value as p %}
+          {% image p.logo width-400 as logo %}
+          <div class="sponsor big"><img src="{{logo.url}}" alt=""></div>
+        {% endwith %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if partner_groups.sponsor %}
+      <div class="sponsor-row">
+        <h4>Conference Sponsors</h4>
+        {% for partner in partner_groups.sponsor %}
+        {% with partner.value as p %}
+          {% image p.logo width-400 as logo %}
+          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+        {% endwith %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if partner_groups.media_partner %}
+      <div class="sponsor-row">
+        <h4>Media Partners</h4>
+        {% for partner in partner_groups.media_partner %}
+        {% with partner.value as p %}
+          {% image p.logo width-400 as logo %}
+          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+        {% endwith %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if partner_groups.recognized_partner %}
+      <div class="sponsor-row">
+        <p><i>With special recognition and gratitude to</i></p>
+        {% for partner in partner_groups.recognized_partner %}
+        {% with partner.value as p %}
+          {% image p.logo width-400 as logo %}
+          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+        {% endwith %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</div>

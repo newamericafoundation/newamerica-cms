@@ -78,6 +78,7 @@ class HomePage(Page):
     'article.AllArticlesHomePage',
     'weekly.Weekly',
     'event.AllEventsHomePage',
+    'conference.AllConferencesHomePage',
     'blog.AllBlogPostsHomePage',
     'book.AllBooksHomePage',
     'person.OurPeoplePage',
