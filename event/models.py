@@ -50,6 +50,9 @@ class Event(Post):
         FieldPanel('soundcloud_url'),
     ]
 
+    class Meta:
+        verbose_name = 'Event'
+
 
 class AllEventsHomePage(RoutablePageMixin, Page):
     """

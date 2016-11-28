@@ -37,8 +37,8 @@ export default function(){
 
     if(d.active){
       expander.hide();
-      $t.removeClass('active');
-      d.active = false;
+      $t.removeClass('active')
+        .data('active', false);
       return;
     }
 

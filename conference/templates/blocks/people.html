@@ -1,12 +1,16 @@
 {% load wagtailimages_tags %}
 
-<div class="container row speaker-list" data-toggle-child=".speaker">
+<div class="container row speaker-list" data-equalizer data-toggle-child=".speaker">
   {% for person in value %}
     {% with person.value as p %}
     {% image p.image width-400 as photo %}
-    <div class="medium-4 small-12 columns">
-      <div class="speaker" data-target="#description-{{forloop.counter}}">
-        <div class="photo-wrapper rounded"><img src="{{photo.url}}" alt="{{photo.alt}}" class="img-responsive"></div>
+    <div class="medium-4 small-12 columns" data-equalizer-watch>
+      <div class="speaker{% if not photo %} no-photo {% endif %}" data-target="#description-{{forloop.counter}}">
+        {% if photo %}
+        <div class="photo-wrapper rounded">
+          <img src="{{photo.url}}" alt="{{photo.alt}}" class="img-responsive">
+        </div>
+        {% endif %}
         <h3 class="name">{{p.name}}</h3>
         <p class="text-alt"><small>{{p.title}}</small></p>
         <div id="description-{{forloop.counter}}" class="description collapse">
@@ -14,7 +18,9 @@
           {{p.description}}
         </div>
         <ul class="speaker-socials">
-          <li><a href="{{p.twitter}}"><span class="fa fa-twitter"></span></a></li>
+          {% if p.twitter %}
+          <li><a class="icon" href="{{p.twitter}}"><span class="fa fa-twitter"></span></a></li>
+          {% endif %}
         </ul>
       </div>
     </div>

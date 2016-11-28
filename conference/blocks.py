@@ -15,7 +15,7 @@ class PersonBlock(blocks.StructBlock):
     name = blocks.TextBlock(required=True)
     title = blocks.TextBlock()
     description = blocks.RichTextBlock()
-    image = ImageChooserBlock(icon='image')
+    image = ImageChooserBlock(icon='image', required=False)
     twitter = blocks.URLBlock(required=False)
 
 class PeopleBlock(blocks.StreamBlock):

@@ -33,7 +33,7 @@ class WeeklyEdition(Page):
 
     def get_context(self, request):
         context = super(WeeklyEdition, self).get_context(request)
-        
+
         return context
 
 
@@ -44,11 +44,13 @@ class WeeklyArticle(Post):
 
     def get_context(self, request):
         context = super(WeeklyArticle, self).get_context(request)
-        
+
         context['siblings'] = self.get_siblings(inclusive=True)
-        
+
         return context
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = 'Weekly Article'

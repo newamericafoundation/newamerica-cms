@@ -100,7 +100,7 @@ class GenericFeed(Feed):
 
     def item_media_content_url(self, item):
         if item.story_image is not None:
-            return settings.MEDIA_URL + item.story_image.file.url
+            return item.story_image.file.url
         return ''
 
 
@@ -222,7 +222,7 @@ class EventProgramFeed(GenericFeed):
         if obj["program"] is not None:
             programs = Program.objects.live()
             acceptable_programs = [p.slug for p in programs]
-            
+
             if obj["program"] not in acceptable_programs:
                 raise Http404
             return posts.filter(parent_programs__slug=obj["program"])[:self.limit]

@@ -29,6 +29,9 @@ class Podcast(Post):
         FieldPanel('itunes_url'),
     ]
 
+    class Meta:
+        verbose_name = 'Podcast'
+
 
 class AllPodcastsHomePage(Page):
     """

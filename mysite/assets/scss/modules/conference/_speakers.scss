@@ -24,6 +24,16 @@
     -moz-transition: all 0.35s ease;
     cursor: pointer;
     padding-top: 10px;
+    min-height: 100%;
+    min-width: 100%;
+
+    &.no-photo{
+      padding-top: 50%;
+
+      .text-alt{
+        margin-bottom: 43.5%;
+      }
+    }
 
     &:hover{
 
@@ -40,7 +50,7 @@
         display: inline-block;
         max-width: 60%;
 
-        @include breakpoint(640px){
+        @include breakpoint($mobile-break){
           max-width: 75%;
         }
 
@@ -70,7 +80,7 @@
           position: relative;
           height: 40px;
 
-          @include breakpoint(medium){
+          @include breakpoint($mobile-break){
             height: 35px;
           }
           small {
@@ -80,7 +90,7 @@
               width: 100%;
               display: inline-block;
 
-              @include breakpoint(medium){
+              @include breakpoint($mobile-break){
                 font-size: 0.8em;
               }
 
@@ -106,16 +116,18 @@
       margin-top: 65px;
       padding: 25px;
       overflow: visible;
-      transition: all 0.35s ease;
-      -webkit-transition: all 0.35s ease;
-      -moz-transition: all 0.35s ease;
-      // -webkit-transition-delay: 0.35s;
-      // transition-delay: 0.35s;
-      // -moz-transition-delay: 0.35s;
+      transition: opacity 0.35s ease;
+      -webkit-transition: opacity 0.35s ease;
+      -moz-transition: opacity 0.35s ease;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -o-user-select: none;
+      -ms-user-select: none;
 
       position: absolute;
       width: 100%;
-      left: 0;
+      left: -100vw;
       z-index: 0 !important;
       opacity: 0;
       vertical-align: middle;
@@ -145,6 +157,12 @@
       .description{
         opacity: 1;
         z-index: 200 !important;
+        user-select: text;
+        -moz-user-select: text;
+        -webkit-user-select: text;
+        -o-user-select: text;
+        -ms-user-select: text;
+        left: 0;
         &:after{
           display: none;
         }

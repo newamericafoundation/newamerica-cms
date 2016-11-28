@@ -28,10 +28,13 @@ class Book(Post):
     parent_page_types = ['ProgramBooksPage', ]
     subpage_types = []
 
+    class Meta:
+        verbose_name = 'Book'
+
 
 class AllBooksHomePage(Page):
     """
-    A page which inherits from the abstract Page model and 
+    A page which inherits from the abstract Page model and
     returns every Book in the Book model
     """
     parent_page_types = ['home.HomePage', ]
@@ -51,12 +54,12 @@ class AllBooksHomePage(Page):
 
 class ProgramBooksPage(Page):
     """
-    A page which inherits from the abstract Page model and 
+    A page which inherits from the abstract Page model and
     returns all Books associated with a specific program or Subprogram
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Book']
-    
+
     def get_context(self, request):
         return get_program_and_subprogram_posts(self, request, ProgramBooksPage, Book)
 
