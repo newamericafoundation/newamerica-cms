@@ -258,6 +258,24 @@
     }
 }
 
+//override styles for just 1 day
+
+.all-1-days{
+  li {
+    &:after, h5{
+      display: none;
+    }
+
+    span{
+      padding: 5px !important;
+    }
+  }
+
+  .tab-content-schedule{
+    padding-top: 55px;
+  }
+}
+
 .schedule .schedule-item {
     & + .schedule-item {
         margin-top: 0;

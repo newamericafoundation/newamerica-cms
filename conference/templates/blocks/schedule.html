@@ -1,8 +1,8 @@
 <div class="container">
     <!-- Schedule start -->
-    <div class="schedule">
+    <div class="schedule all-{{value|length}}-days">
 
-      {% if value|length > 1 %}
+      {% if value|length > 0 %}
       <ul class="nav nav-schedule" data-toggle="tab">
         {% for day in value %}
           <li data-target="#day{{forloop.counter}}">

@@ -19,7 +19,7 @@ export default function() {
       });
     });
 
-    $('.conference-template section.section').each(function(){
+    $('.conference-template section.section-nav').each(function(){
       let id = this.getAttribute('id');
       let navItem = $(`.navigation-item [href^="#${id}"]`);
 

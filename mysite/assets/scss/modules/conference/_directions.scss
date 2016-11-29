@@ -13,6 +13,11 @@
     }
   }
 
+  .panel p{
+    max-width: none;
+    text-align: left;
+  }
+
 
   .panel-title {
     border-bottom: 1px solid $gray-blue;
