@@ -24,18 +24,6 @@
       font-style: normal;
     }
   }
-  &.with-dropcap > .block-paragraph ~ .block-paragraph {
-    &:first-letter {
-      color: palette-get(na-black-70);
-      font-size:1.25rem;
-      font-weight:initial;
-      float: initial;
-      padding: initial;
-      height: initial;
-      line-height: initial;
-      font-style: inherit;
-    }
-  }
 
   p,
   blockquote {
@@ -126,15 +114,27 @@
     }
 
     .left {
-      float: left;
-      padding-left: 0px;
-      padding-right: $desktop-padding;
+      max-width: 100%;
+      margin: 0 auto;
+
+      @include breakpoint(medium) {
+        float: left;
+        max-width: 60%;
+        padding-left: 0px;
+        padding-right: $desktop-padding;
+      }
     }
 
     .right {
-      float: right;
-      padding-right: 0px;
-      padding-left: $desktop-padding;
+      max-width: 100%;
+      margin: 0 auto;
+
+      @include breakpoint(medium) {
+        float: right;
+        max-width: 60%;
+        padding-right: 0px;
+        padding-left: $desktop-padding;
+      }
     }
 
     ol, ul {
@@ -181,7 +181,6 @@
 
     b, strong {
       font-weight: bold;
-      color: palette-get(na-black);
       opacity: 1;
     }
 
@@ -347,6 +346,13 @@
   p {
     margin: 0px;
     display:inline-block;
+  }
+
+  a:not(.button) {
+    font-weight: 800;
+    border-bottom: $standard-border;
+    padding-bottom: 2px;
+    opacity: 1;
   }
 }
 

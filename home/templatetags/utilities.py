@@ -199,6 +199,21 @@ def check_oti(path):
 
 	return ""
 
+<<<<<<< HEAD
+@register.filter
+def noShowTableauHome(src):
+        is_tableau = src.find('tableausoftware.com') != -1
+        if is_tableau:
+                has_showHome = src.find(':showVizHome=') != -1
+                if not has_showHome:
+                        qryIndex = src.find('?')
+                        if qryIndex == -1: qryIndex = len(src)
+                        return src[:qryIndex] + "?:showVizHome=no&" + src[qryIndex+1:]
+                else:
+                        return src
+
+        return src
+=======
 @register.simple_tag()
 def group_by(key, items):
 	groups = {}
@@ -216,3 +231,4 @@ def group_by(key, items):
 		groups[i[key]].append(item)
 
 	return groups
+>>>>>>> staging
