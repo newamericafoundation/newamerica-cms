@@ -1,0 +1,19 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section id="about" class="section align-center">
+  <div class="container">
+    <span class="line-icon section-icon line-icon-multimedia-12"></span>
+    <h3>About the Event</h3>
+    <div class="row">
+      {% image page.about_image original as about_image %}
+      {% if about_image %}
+      <div class="small-12 medium-5 columns">
+        <img src="{{about_image.url}}" alt="{{about_image.alt}}" class="img-responsive" />
+      </div>
+      {% endif %}
+      <div class="small-12{% if not about_image %} medium-12 {% else %} medium-7 {% endif %} columns">
+        {{ page.description|richtext }}
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -50,7 +50,7 @@
 						<h3 class="weekly__lead__text__title">Also in this Edition</h3>
 					{% endif %}
 
-					{% for story in first_edition.get_children.all|slice:"1:6" %}
+					{% for story in first_edition.get_children.all|slice:"1:5" %}
 						<div class="weekly__lead__text__item">
 							<h3 class="weekly__lead__text__item__name"><a href="{{ story.url }}"> {{ story.title }}</a></h3>
 							{% if story.specific.authors.all %}

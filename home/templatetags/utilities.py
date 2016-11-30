@@ -4,7 +4,7 @@ from django import template
 from django.conf import settings
 from programs.models import Program
 from django.utils.safestring import mark_safe
-
+from wagtail.wagtailcore.blocks import StreamValue
 
 register = template.Library()
 
@@ -41,9 +41,9 @@ def get_byline_prefix(ptype, items_list):
 	num_items = len(items_list)
 	post_type = str(ptype)
 
-	if post_type == "podcast":
+	if post_type == "Podcast":
 		return pluralize(num_items, "Contributor")
-	elif (post_type == "blog post" or post_type == "weekly article"):
+	elif (post_type == "Blog Post" or post_type == "Weekly Article"):
 		return "By "
 	elif post_type == "In The News Piece":
 		return "In the News: "
@@ -58,7 +58,7 @@ def get_author_block_prefix(ptype, items_list):
 	num_items = len(items_list)
 	post_type = str(ptype)
 
-	if (post_type == "blog post" or post_type == "weekly article"):
+	if (post_type == "Blog Post" or post_type == "Weekly Article"):
 		return pluralize(num_items, "Author")
 	else:
 		return get_byline_prefix(post_type, items_list)
@@ -73,7 +73,7 @@ def generate_byline(ptype, authors):
 	ret_string = ""
 
 	# events and press releases have no authors and therefore no byline
-	if post_type == "event" or post_type == "press release":
+	if post_type == "Event" or post_type == "Press Release":
 		return ret_string
 
 	ret_string += get_byline_prefix(post_type, authors)
@@ -121,7 +121,7 @@ def generate_dateline(post):
 	date_format = '%B %-d, %Y'
 	time_format = '%-I:%M %p'
 
-	if str(post.content_type) == "event":
+	if str(post.content_type) == "Event":
 		if post.date:
 
 			ret_string += '<p class="date">'
@@ -199,6 +199,7 @@ def check_oti(path):
 
 	return ""
 
+<<<<<<< HEAD
 @register.filter
 def noShowTableauHome(src):
         is_tableau = src.find('tableausoftware.com') != -1
@@ -212,3 +213,22 @@ def noShowTableauHome(src):
                         return src
 
         return src
+=======
+@register.simple_tag()
+def group_by(key, items):
+	groups = {}
+
+	for item in items:
+
+		if isinstance(item, StreamValue.StreamChild):
+			i = item.value
+		else:
+			i = item
+
+		if i[key] not in groups:
+			groups[i[key]] = []
+
+		groups[i[key]].append(item)
+
+	return groups
+>>>>>>> staging

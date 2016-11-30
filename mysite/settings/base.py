@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'article',
     'blog',
     'event',
+    'conference',
     'podcast',
     'policy_paper',
     'press_release',
@@ -36,7 +37,7 @@ INSTALLED_APPS = [
     'weekly',
     'in_depth',
     'storages',
-    'overextends',
+    'rss_feed',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,7 +77,7 @@ MIDDLEWARE_CLASSES = (
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-)
+]
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -93,8 +94,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
-            'builtins': ['overextends.templatetags.overextends_tags']
+            ]
         },
     },
 ]

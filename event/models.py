@@ -5,13 +5,14 @@ from django.db.models import Q
 from django.template.response import TemplateResponse
 from django.utils import timezone
 from django.utils.timezone import localtime, now
-from home.models import Post
-from mysite.helpers import paginate_results, generate_url
+
 from programs.models import Program, Subprogram
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailcore.models import Page
 
+from home.models import Post
+from mysite.helpers import paginate_results, generate_url
 
 class Event(Post):
     """
@@ -48,6 +49,9 @@ class Event(Post):
         FieldPanel('zipcode'),
         FieldPanel('soundcloud_url'),
     ]
+
+    class Meta:
+        verbose_name = 'Event'
 
 
 class AllEventsHomePage(RoutablePageMixin, Page):

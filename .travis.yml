@@ -28,7 +28,6 @@ install:
 - travis_retry pip install django-storages==1.4
 - travis_retry pip install django-compressor==2.0
 - travis_retry pip install elasticsearch==1.9.0
-- travis_retry pip install -U django-overextends
 
 script:
 - python manage.py migrate --noinput --settings=mysite.settings.test

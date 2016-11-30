@@ -24,6 +24,9 @@ class PressRelease(Post):
         StreamFieldPanel('attachment'),
     ]
 
+    class Meta:
+        verbose_name = 'Press Release'
+
 
 class AllPressReleasesHomePage(Page):
     """
