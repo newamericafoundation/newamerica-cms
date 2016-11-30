@@ -199,7 +199,7 @@ def check_oti(path):
 
 	return ""
 
-<<<<<<< HEAD
+
 @register.filter
 def noShowTableauHome(src):
         is_tableau = src.find('tableausoftware.com') != -1
@@ -213,7 +213,7 @@ def noShowTableauHome(src):
                         return src
 
         return src
-=======
+
 @register.simple_tag()
 def group_by(key, items):
 	groups = {}
@@ -231,4 +231,3 @@ def group_by(key, items):
 		groups[i[key]].append(item)
 
 	return groups
->>>>>>> staging
