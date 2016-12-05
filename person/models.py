@@ -73,10 +73,10 @@ class Person(Page):
     )
 
     social_media = StreamField([
-        ('twitter', 
+        ('twitter',
             URLBlock(
-                required=False, 
-                help_text='Twitter Profile Link', 
+                required=False,
+                help_text='Twitter Profile Link',
                 icon='user'
             )),
         ('facebook',
@@ -163,10 +163,10 @@ class Person(Page):
         MultiFieldPanel(
             [
                 PageChooserPanel(
-                    'feature_work_1', 
+                    'feature_work_1',
                     ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
                 PageChooserPanel(
-                    'feature_work_2', 
+                    'feature_work_2',
                     ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
                 PageChooserPanel(
                     'feature_work_3',
@@ -201,16 +201,16 @@ class Person(Page):
     def get_context(self, request):
         context = super(Person, self).get_context(request)
         featured_work = [
-            self.feature_work_1, 
-            self.feature_work_2, 
+            self.feature_work_1,
+            self.feature_work_2,
             self.feature_work_3
         ]
 
         context['featured_work'] = featured_work
-        
+
         # Returns posts that the person has authored ordered by date
-        context['posts'] = paginate_results(request, self.post_set.all().filter(live=True).order_by("-date"))
-                
+        context['posts'] = paginate_results(request, self.post_set.live().order_by("-date"))
+
         return context
 
     class Meta:
@@ -226,7 +226,7 @@ class OurPeoplePage(Page):
     subpage_types = ['Person']
 
     page_description = RichTextField(blank=True, null=True)
-    
+
     story_image = models.ForeignKey(
         'home.CustomImage',
         null=True,
@@ -246,12 +246,12 @@ class OurPeoplePage(Page):
     def get_context(self, request):
         context = super(OurPeoplePage, self).get_context(request)
 
-        context['people'] = Person.objects.all().live().exclude(
+        context['people'] = Person.objects.live().exclude(
             role='External Author/Former Staff')
 
-        context['all_programs'] = Program.objects.all()
+        context['all_programs'] = Program.objects.live()
 
-        context['all_our_people_pages'] = ProgramPeoplePage.objects.all()
+        context['all_our_people_pages'] = ProgramPeoplePage.objects.live()
 
         return context
 
@@ -286,7 +286,7 @@ class ExpertPage(Page):
     promote_panels = Page.promote_panels + [
         ImageChooserPanel('story_image'),
     ]
-    
+
     def get_context(self, request):
         context = super(ExpertPage, self).get_context(request)
 
@@ -296,9 +296,9 @@ class ExpertPage(Page):
             .filter(expert=True)\
             .order_by('-title')
 
-        context['all_programs'] = Program.objects.all()
+        context['all_programs'] = Program.objects.live()
 
-        context['all_our_people_pages'] = ProgramPeoplePage.objects.all()
+        context['all_our_people_pages'] = ProgramPeoplePage.objects.live()
 
         return context
 
