@@ -14,7 +14,7 @@ from home.blocks import IntegerBlock
 class PersonBlock(blocks.StructBlock):
     name = blocks.TextBlock(required=True)
     title = blocks.TextBlock(required=False)
-    description = blocks.RichTextBlock(reqired=False)
+    description = blocks.RichTextBlock()
     image = ImageChooserBlock(icon='image', required=False)
     twitter = blocks.URLBlock(required=False)
 
