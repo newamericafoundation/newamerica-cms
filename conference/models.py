@@ -55,7 +55,9 @@ class Conference(Page):
     )
 
     rsvp_link = models.URLField(blank=True, null=True)
-    invitation_only = models.BooleanField(default=False)
+    invitation_only = models.BooleanField(default=False, help_text="This will override the RSVP link and replace it with an request for invitation")
+    publish_speakers = models.BooleanField(default=False, help_text="Speakers list will not show up until this is checked.")
+    publish_sessions = models.BooleanField(default=False, help_text="Sessions list will not show up until this is checked.")
 
     date = models.DateField("Start Date", default=timezone.now)
     end_date = models.DateField(blank=True, null=True)
@@ -77,12 +79,21 @@ class Conference(Page):
             ]),
             ImageChooserPanel('story_image'),
             ImageChooserPanel('about_image'),
-            FieldPanel('description'),
-            FieldPanel('rsvp_link'),
-            FieldPanel('invitation_only')
+            FieldPanel('description')
         ],
         heading="About"
     )
+
+    setup = MultiFieldPanel([
+        FieldRowPanel([
+            FieldPanel('rsvp_link', classname="col6"),
+            FieldPanel('invitation_only', classname="col6"),
+        ]),
+        FieldRowPanel([
+            FieldPanel('publish_speakers', classname="col6"),
+            FieldPanel('publish_sessions', classname="col6")
+        ])
+    ], heading="Setup")
 
     address = MultiFieldPanel(
         [
@@ -105,6 +116,7 @@ class Conference(Page):
 
     content_panels = [
         about,
+        setup,
         address,
         StreamFieldPanel('venue'),
         StreamFieldPanel('directions'),
