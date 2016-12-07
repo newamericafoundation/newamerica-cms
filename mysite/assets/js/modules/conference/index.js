@@ -6,7 +6,7 @@ export default function() {
   $(document).ready(function(){
 
     expand();
-    let navItems = $('.conference-template .navigation-item a');
+    let navItems = $('.conference-template .navigation-item a, .conference-template .go-to-about');
     let isScrolling = false;
 
     navItems.click(function(e){

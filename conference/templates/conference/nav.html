@@ -13,7 +13,9 @@
             <li class="navigation-item active"><a href="#about" class="navigation-link">About</a></li>
             <li class="navigation-item"><a href="#speakers" class="navigation-link">Speakers</a></li>
             <li class="navigation-item"><a href="#schedule" class="navigation-link">Schedule</a></li>
-            <li class="navigation-item"><a href="#sponsors" class="navigation-link">Sponsors</a></li>
+            {% if page.partners|length > 0 %}
+              <li class="navigation-item"><a href="#sponsors" class="navigation-link">Sponsors</a></li>
+            {% endif %}
             <li class="navigation-item"><a href="#venue" class="navigation-link">Venue</a></li>
           </ul>
         </div>

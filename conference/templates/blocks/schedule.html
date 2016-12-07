@@ -39,7 +39,15 @@
                     <div class="lecture-icon-wrapper">
                       <span class="fa fa-{{s.session_type}}"></span>
                     </div>
-                    <strong class="time highlight"><span class="line-icon line-icon-office-24"></span>{{s.start_time|date:"g:i A"}} &ndash; {{s.end_time|date:"g:i A"}}</strong>
+
+                      <strong class="time highlight">
+                        {% if s.start_time %}
+                        <span class="line-icon line-icon-office-24"></span>{{s.start_time|date:"g:i A"}} {% if s.end_time %}&ndash; {{s.end_time|date:"g:i A"}}{% endif %}
+                        {% else %}
+                        <span style="opacity:0;">To be announced.</span>
+                        {% endif %}
+                      </strong>
+
                     <h5 class="title">
                       {{s.name}}
                       {% if desc|length > 12 or s.speakers|length > 0 %}

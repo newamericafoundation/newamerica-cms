@@ -13,7 +13,7 @@ from home.blocks import IntegerBlock
 
 class PersonBlock(blocks.StructBlock):
     name = blocks.TextBlock(required=True)
-    title = blocks.TextBlock()
+    title = blocks.TextBlock(required=False)
     description = blocks.RichTextBlock()
     image = ImageChooserBlock(icon='image', required=False)
     twitter = blocks.URLBlock(required=False)
@@ -46,14 +46,13 @@ class SessionTypesBlock(blocks.ChoiceBlock):
 
 class SessionSpeakerBlock(blocks.StructBlock):
     name = blocks.TextBlock(required=True)
-    title = blocks.TextBlock()
+    title = blocks.TextBlock(required=False)
 
 class SessionBlock(blocks.StructBlock):
-    #day = IntegerChoiceBlock(help_text="What day of the conference is this session on?")
     name = blocks.TextBlock()
     session_type = SessionTypesBlock()
     description = blocks.RichTextBlock(required=False)
-    start_time = blocks.TimeBlock()
+    start_time = blocks.TimeBlock(required=False)
     end_time = blocks.TimeBlock(required=False)
     speakers = blocks.StreamBlock([
         ('speaker', SessionSpeakerBlock())
@@ -61,9 +60,9 @@ class SessionBlock(blocks.StructBlock):
     archived_video_link = blocks.URLBlock(help_text="Enter youtube link after conference", required=False)
 
 class SessionDayBlock(blocks.StructBlock):
-    day = IntegerChoiceBlock(help_text="What day of the conference is this session on?")
-    start_time = blocks.TimeBlock()
-    end_time = blocks.TimeBlock()
+    day = IntegerChoiceBlock(help_text="What day of the conference is this session on?", required=False)
+    start_time = blocks.TimeBlock(required=False)
+    end_time = blocks.TimeBlock(required=False)
     sessions = blocks.StreamBlock([
         ('session', SessionBlock())
     ])
@@ -85,7 +84,7 @@ class PartnerTypeBlock(blocks.ChoiceBlock):
 class PartnerBlock(blocks.StructBlock):
     name = blocks.TextBlock()
     type = PartnerTypeBlock()
-    logo = ImageChooserBlock(icon='image')
+    logo = ImageChooserBlock(icon='image', required=False)
 
 class PartnersBlock(blocks.StreamBlock):
     partner = PartnerBlock()
