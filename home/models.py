@@ -418,7 +418,7 @@ class Post(Page):
     post_author = models.ManyToManyField(
         Person, through=PostAuthorRelationship, blank=True)
 
-    story_excerpt = models.CharField(blank=True, null=True, max_length=140)
+    story_excerpt = models.CharField(blank=True, null=True, max_length=140, help_text="140 character limit. This populates the post summary that shows up on search results on newamerica.org and is indexed by google")
 
     story_image = models.ForeignKey(
         'home.CustomImage',
