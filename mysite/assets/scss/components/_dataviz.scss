@@ -143,6 +143,13 @@
 		position: relative;
 	}
 	
+	&__loading-gif {
+		position: absolute; 
+		width: 100%; 
+		height: 100%;
+		z-index: 1000;
+		background: url(shape-urls-get(spinner)) no-repeat center center;
+	}
 }
 
 .chart-wrapper {
