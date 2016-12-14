@@ -31,6 +31,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
 from .blocks import ButtonBlock, IframeBlock, DatavizBlock
+from mysite.blocks import GoogleMapBlock
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -407,6 +408,7 @@ class Post(Page):
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
         ('dataviz', DatavizBlock()),
+        ('google_map', GoogleMapBlock())
     ])
 
     parent_programs = models.ManyToManyField(
