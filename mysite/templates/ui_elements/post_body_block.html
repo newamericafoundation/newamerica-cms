@@ -7,6 +7,6 @@
     		<div class="caption">{{ block.value.caption }} {% if block.value.source %}({{ block.value.source }}){% endif %}</div>
     	{% endif %}
     {% else %}
-        {{ block }}
+      {% include_block block %}
     {% endif %}
 </div>
