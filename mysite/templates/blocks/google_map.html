@@ -1,0 +1,16 @@
+<div class="block-google-map">
+  {% if location %}
+    {# You can pass a location object to the template manually #}
+    <iframe src="//www.google.com/maps/embed/v1/place?q={% firstof location.street location.street_address location.address %} {{ location.city }},{{ location.state }} {% firstof location.zipcode location.zip_code location.zip %}&zoom=17&key=AIzaSyDMSQPdSAK-SrB9YUIrt3P8pl3zUChwkoI"></iframe>
+  {% elif value.use_page_address %}
+    {# Or use the data from the page...probably only on events pages #}
+    {% with location=page %}
+      <iframe src="//www.google.com/maps/embed/v1/place?q={% firstof location.street location.street_address location.address %} {{ location.city }},{{ location.state }} {% firstof location.zipcode location.zip_code location.zip %}&zoom=17&key=AIzaSyDMSQPdSAK-SrB9YUIrt3P8pl3zUChwkoI"></iframe>
+    {% endwith %}
+  {% else %}
+    {# Or use the data from the block #}
+    {% with location=value %}
+        <iframe src="//www.google.com/maps/embed/v1/place?q={% firstof location.street location.street_address location.address %} {{ location.city }},{{ location.state }} {% firstof location.zipcode location.zip_code location.zip %}&zoom=17&key=AIzaSyDMSQPdSAK-SrB9YUIrt3P8pl3zUChwkoI"></iframe>
+    {% endwith %}
+  {% endif %}
+ </div>
