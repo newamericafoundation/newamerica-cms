@@ -11,7 +11,7 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from home.blocks import IntegerBlock
 
 class GoogleMapBlock(blocks.StructBlock):
-    use_page_address = blocks.BooleanBlock(default=False, required=False, help_text="If selected, map will use the address already defined for this page.")
+    use_page_address = blocks.BooleanBlock(default=False, required=False, help_text="If selected, map will use the address already defined for this page, if applicable. For most posts besides events, this should be left unchecked and the form below should be completed.")
     street = blocks.TextBlock(required=False)
     city = blocks.TextBlock(required=False, default='Washington')
     state = blocks.TextBlock(required=False, default='D.C.')
