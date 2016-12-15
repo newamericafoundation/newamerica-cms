@@ -6,8 +6,8 @@
   {% image value min-800x800 as img %}
 {% endif %}
 
-<div class="block-custom_image__wrapper {{value.align}}"
-  style="{% if value.width %}width:{{value.width}};{% endif %}">
+<div class="block-custom_image__wrapper {% firstof value.align 'no-alignment' %}"
+  style="{% if value.width %}max-width:{{value.width}};{% endif %}">
   <img {{ img.attrs }}/>
   {% if value.caption or value.source or value.image.caption or value.image.source %}
     <div class="caption">

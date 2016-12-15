@@ -262,18 +262,35 @@
   .block-image {
     @include limit-body-width;
     padding: 40px 0px;
+
+    .block-custom_image__wrapper{
+      padding: 0;
+    }
   }
 
   .block-custom_image {
+    text-align: center;
+
     img {
       padding: 0;
       width: 100%;
       height: auto;
+
+      @include breakpoint(medium){
+        width: 100%;
+      }
     }
 
-    &__wrapper{
+    .block-custom_image__wrapper{
       display: inline-block;
+      text-align: left;
+      margin: 0 auto;
       @include clearfix;
+
+      @include breakpoint(medium){
+        display: inline-block;
+        margin: 0;
+      }
     }
   }
 
