@@ -100,7 +100,8 @@
   }
 
   .block-paragraph,
-  .block-introduction {
+  .block-introduction,
+  .block-custom_image{
     @include limit-body-width;
 
     img {

@@ -6,7 +6,9 @@
   {% image value min-800x800 as img %}
 {% endif %}
 
-<img {{ img.attrs }} class="{{value.align}}" />
+<img {{ img.attrs }}
+  class="{{value.align}}"
+  style="{% if value.width %}max-width:{{value.width}};{% endif %}"/>
 {% if value.caption or value.source or value.image.caption or value.image.source %}
   <div class="caption">
     {% firstof value.caption value.image.caption %}
