@@ -1,0 +1,6 @@
+{% load wagtailimages_tags %}
+
+{% image value min-800x800 %}
+{% if value.caption or value.source %}
+  <div class="caption">{{ value.caption }} {% if value.source %}({{ value.source }}){% endif %}</div>
+{% endif %}
