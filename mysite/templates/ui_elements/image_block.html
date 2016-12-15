@@ -7,7 +7,7 @@
 {% endif %}
 
 <div class="block-custom_image__wrapper {% firstof value.align 'no-alignment' %}"
-  style="{% if value.width %}max-width:{{value.width}};{% endif %}">
+  style="{% if value.width and value.width != 'initial' %}width:{{value.width}};{% endif %}">
   <img {{ img.attrs }}/>
   {% if value.caption or value.source or value.image.caption or value.image.source %}
     <div class="caption">
