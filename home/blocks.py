@@ -79,6 +79,8 @@ class CustomImageBlock(blocks.StructBlock):
 		('33.333%', '33%'),
 		('25%', '25%')
 	], default="auto", required=True)
+	caption = blocks.TextBlock(required=False)
+	source = blocks.TextBlock(required=False)
 
 	class Meta:
 		template = 'ui_elements/image_block.html'
