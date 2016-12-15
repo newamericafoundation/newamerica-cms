@@ -104,7 +104,7 @@
   .block-custom_image{
     @include limit-body-width;
 
-    img {
+    img, &__wrapper {
       padding: $media-padding 25px;
     }
 
@@ -262,6 +262,19 @@
   .block-image {
     @include limit-body-width;
     padding: 40px 0px;
+  }
+
+  .block-custom_image {
+    img {
+      padding: 0;
+      width: 100%;
+      height: auto;
+    }
+
+    &__wrapper{
+      display: inline-block;
+      @include clearfix;
+    }
   }
 
   /* styling for media objects embedded through streamfield video block */

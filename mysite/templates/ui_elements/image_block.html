@@ -6,14 +6,15 @@
   {% image value min-800x800 as img %}
 {% endif %}
 
-<img {{ img.attrs }}
-  class="{{value.align}}"
-  style="{% if value.width %}max-width:{{value.width}};{% endif %}"/>
-{% if value.caption or value.source or value.image.caption or value.image.source %}
-  <div class="caption">
-    {% firstof value.caption value.image.caption %}
-    {% if value.source or value.image.source %}
-      ({% firstof value.source value.image.source %})
-    {% endif %}
-  </div>
-{% endif %}
+<div class="block-custom_image__wrapper {{value.align}}"
+  style="{% if value.width %}width:{{value.width}};{% endif %}">
+  <img {{ img.attrs }}/>
+  {% if value.caption or value.source or value.image.caption or value.image.source %}
+    <div class="caption">
+      {% firstof value.caption value.image.caption %}
+      {% if value.source or value.image.source %}
+        ({% firstof value.source value.image.source %})
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
