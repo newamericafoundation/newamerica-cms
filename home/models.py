@@ -401,7 +401,7 @@ class Post(Page):
         ('introduction', blocks.RichTextBlock()),
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock(icon='image')),
+        ('image', ImageChooserBlock(icon='image', template='ui_elements/image_block.html')),
         ('video', EmbedBlock(icon='media')),
         ('table', TableBlock()),
         ('button', ButtonBlock()),
