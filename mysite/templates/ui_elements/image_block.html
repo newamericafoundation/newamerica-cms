@@ -1,6 +1,17 @@
 {% load wagtailimages_tags %}
 
-{% image value min-800x800 %}
-{% if value.caption or value.source %}
-  <div class="caption">{{ value.caption }} {% if value.source %}({{ value.source }}){% endif %}</div>
+{% if value.image %}
+  {% image value.image min-800x800 as img %}
+{% else %}
+  {% image value min-800x800 as img %}
+{% endif %}
+
+<img {{ img.attrs }} class="{{value.align}}" />
+{% if value.caption or value.source or value.image.caption or value.image.source %}
+  <div class="caption">
+    {% firstof value.caption value.image.caption %}
+    {% if value.source or value.image.source %}
+      ({% firstof value.source value.image.source %})
+    {% endif %}
+  </div>
 {% endif %}
