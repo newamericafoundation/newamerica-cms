@@ -73,12 +73,12 @@ class CustomImageBlock(blocks.StructBlock):
 		('full-width', 'Full Width')
 	], required=True)
 	width = blocks.ChoiceBlock([
-		('auto', 'Auto'),
+		('initial', 'Auto'),
 		('60%', '60%'),
 		('50%', '50%'),
 		('33.333%', '33%'),
 		('25%', '25%')
-	], default="auto", required=True)
+	], default="initial", required=True)
 
 	class Meta:
 		template = 'ui_elements/image_block.html'
