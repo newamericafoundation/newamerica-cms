@@ -231,3 +231,12 @@ def group_by(key, items):
 		groups[i[key]].append(item)
 
 	return groups
+
+# for google maps template, get location from the `location` object, Page data or GoogleMapBlock data
+@register.simple_tag()
+def get_location_data(passed_location,value,page):
+	if passed_location:
+		return passed_location
+	if value.get('use_page_address', None):
+		return page
+	return value
