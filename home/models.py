@@ -408,7 +408,7 @@ class Post(Page):
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
         ('dataviz', DatavizBlock()),
-        ('google_map', GoogleMapBlock())
+        ('google_map', GoogleMapBlock()),
         ('image', ImageChooserBlock(icon='image', template='ui_elements/image_block.html')),
     ])
 
