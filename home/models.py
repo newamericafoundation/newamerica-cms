@@ -30,7 +30,7 @@ from person.models import Person
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from .blocks import ButtonBlock, IframeBlock, DatavizBlock
+from .blocks import ButtonBlock, IframeBlock, DatavizBlock, CustomImageBlock
 from mysite.blocks import GoogleMapBlock
 
 import django.db.models.options as options
@@ -402,13 +402,14 @@ class Post(Page):
         ('introduction', blocks.RichTextBlock()),
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock(icon='image')),
+        ('custom_image', CustomImageBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
         ('table', TableBlock()),
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
         ('dataviz', DatavizBlock()),
         ('google_map', GoogleMapBlock())
+        ('image', ImageChooserBlock(icon='image', template='ui_elements/image_block.html')),
     ])
 
     parent_programs = models.ManyToManyField(

@@ -64,3 +64,21 @@ class CollapsibleBlock(blocks.StructBlock):
 		template = './blocks/collapsible.html'
 		icon = 'arrow-down'
 		label = 'Collapsible'
+
+class CustomImageBlock(blocks.StructBlock):
+	image = ImageChooserBlock(icon="image", required=True)
+	align = blocks.ChoiceBlock(choices=[
+		('left', 'Left'),
+		('right', 'Right'),
+		('full-width', 'Full Width')
+	], required=True)
+	width = blocks.ChoiceBlock([
+		('initial', 'Auto'),
+		('60%', '60%'),
+		('50%', '50%'),
+		('33.333%', '33%'),
+		('25%', '25%')
+	], default="initial", required=True)
+
+	class Meta:
+		template = 'ui_elements/image_block.html'
