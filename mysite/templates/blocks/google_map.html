@@ -1,6 +1,9 @@
 {% load utilities %}
 
 <div class="block-google-map">
+  {# You can pass a location object to the template manually `{% include 'blocks/google_map.html' with location=location_object`
+     Or use the data from the Page...probably only on events pages when GoogleMapBlock.use_page_address == True
+     Or use the data from the GoogleMapBlock #}
   {% get_location_data location value page as loc %}
   <iframe src="//www.google.com/maps/embed/v1/place?key=AIzaSyDMSQPdSAK-SrB9YUIrt3P8pl3zUChwkoI&q={% firstof loc.street loc.street_address loc.address %} {{ loc.city }},{{ loc.state }} {% firstof loc.zipcode loc.zip_code loc.zip %}&zoom=14"></iframe>
  </div>
