@@ -13,7 +13,7 @@
 	&__title, &__subtitle {
 		line-height: 100%;
 		font-weight: bold;
-		
+
 	}
 
 	&__title, &__title > a {
@@ -61,14 +61,14 @@
     				-ms-transform:translateY(-50%);
 					margin: auto;
 					text-align: center;
-					text-shadow: 1px 0 30px rgba(0,0,0,0.7); 
+					text-shadow: 1px 0 30px rgba(0,0,0,0.7);
 
 					&.no-image {
 						color: palette-get(na-black);
-						text-shadow: none; 
+						text-shadow: none;
 					}
 				}
-			    			
+
 			}
 
 			&__text {
@@ -89,8 +89,10 @@
 			      margin: 0px;
 			      font-size: rem-calc(17);
 			      line-height: 120%;
+						font-size: 0.96rem;
+						line-height: 115%;
 			    }
-			    
+
 			}
 		}
 
@@ -107,7 +109,7 @@
 					h1 {
 						color: palette-get(na-black);
 					}
-				}		
+				}
 			}
 
 			:hover {
@@ -116,7 +118,7 @@
 				}
 			}
 		}
-		
+
 	}
 
 	&__subscribe {
