@@ -3,9 +3,9 @@
 <div class="container row speaker-list" data-equalizer data-toggle-child=".speaker">
   {% for person in value %}
     {% with person.value as p %}
-    {% image p.image width-400 as photo %}
+    {% image p.image fill-400x400 as photo %}
     <div class="medium-4 small-12 columns" data-equalizer-watch>
-      <div class="speaker{% if not photo %} no-photo {% endif %}" data-target="#description-{{forloop.counter}}">
+      <div class="speaker{% if not photo %} no-photo{% endif %}{% if not p.description %} no-description{% endif %}" data-target="#description-{{forloop.counter}}">
         {% if photo %}
         <div class="photo-wrapper rounded">
           <img src="{{photo.url}}" alt="{{photo.alt}}" class="img-responsive">

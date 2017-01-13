@@ -63,6 +63,7 @@
 
       .text-alt{
         margin-bottom: 43.5%;
+        padding: 0px 5px;
       }
     }
 
@@ -106,13 +107,14 @@
         line-height: 1em;
         height: 26px;
         letter-spacing: 0.3em;
+        padding: 0 5px;
 
         & + p {
           position: relative;
-          height: 40px;
+          height: 35px;
 
           @include breakpoint($mobile-break){
-            height: 35px;
+            height: 40px;
           }
           small {
               font-size: 1em;
@@ -120,6 +122,7 @@
               color: $gray;
               width: 100%;
               display: inline-block;
+              padding: 0 5px;
 
               @include breakpoint($mobile-break){
                 font-size: 0.8em;
