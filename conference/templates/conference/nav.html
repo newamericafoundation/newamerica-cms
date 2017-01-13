@@ -20,10 +20,10 @@
           </ul>
         </div>
       </div>
-      {% if page.rsvp_link %}
-      <a href="{{page.rsvp_link}}" target="_blank" class="pull-right button register">Register</a>
-      {% elif page.invitation_only %}
+      {% if page.invitation_only %}
       <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="pull-right button register">Request Invitation</a>
+      {% elif page.rsvp_link %}
+      <a href="{{page.rsvp_link}}" target="_blank" class="pull-right button register">Register</a>
       {% endif %}
     </div>
   </div>
