@@ -4,7 +4,7 @@ const cols = 3;
 export default function(){
 
   let expander = new Expander();
-  let $speakers = $('.speaker');
+  let $speakers = $('.speaker:not(.no-description)');
   let $window = $(window);
 
   $speakers.each(function(i){

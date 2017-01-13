@@ -28,10 +28,10 @@
       <h6 class="thin base-font">{{page.search_description}}</h6>
       <div class="btns-container row {%if page.invitation_only %}invite-only{% endif %}">
         <div class="columns small-6">
-          {% if page.rsvp_link %}
-            <a href="{{page.rsvp_link}}" target="_blank" class="button">Register</a>
-          {% elif page.invitation_only %}
+          {% if page.invitation_only %}
             <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button">Request Invitation</a>
+          {% elif page.rsvp_link %}
+            <a href="{{page.rsvp_link}}" target="_blank" class="button">Register</a>
           {% endif %}
         </div>
         <div class="columns small-6">
