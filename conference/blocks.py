@@ -13,7 +13,7 @@ from home.blocks import IntegerBlock
 
 class PersonBlock(blocks.StructBlock):
     name = blocks.TextBlock(required=True)
-    title = blocks.TextBlock(required=False, max_length=95, help_text="95 character limit")
+    title = blocks.TextBlock(required=False, max_length=125, help_text="125 character limit")
     description = blocks.RichTextBlock(required=False)
     image = ImageChooserBlock(icon='image', required=False)
     twitter = blocks.URLBlock(required=False)

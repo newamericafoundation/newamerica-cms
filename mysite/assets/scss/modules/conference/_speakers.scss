@@ -112,6 +112,7 @@
         & + p {
           position: relative;
           height: 35px;
+          margin-bottom: 2em;
 
           @include breakpoint($mobile-break){
             height: 40px;
@@ -124,7 +125,7 @@
               display: inline-block;
               padding: 0 5px;
 
-              @include breakpoint($mobile-break){
+              @include breakpoint(640px){
                 font-size: 0.8em;
               }
 
