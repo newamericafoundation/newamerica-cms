@@ -8,70 +8,7 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
-from home.blocks import IntegerBlock
-
-
-class PersonBlock(blocks.StructBlock):
-    name = blocks.TextBlock(required=True)
-    title = blocks.TextBlock(required=False, max_length=125, help_text="125 character limit")
-    description = blocks.RichTextBlock(required=False)
-    image = ImageChooserBlock(icon='image', required=False)
-    twitter = blocks.URLBlock(required=False)
-
-class PeopleBlock(blocks.StreamBlock):
-    person = PersonBlock();
-
-    class Meta:
-        template = 'blocks/people.html'
-
-class IntegerChoiceBlock(blocks.ChoiceBlock):
-    choices = (
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5','5'),
-        ('6', '6')
-    )
-
-class SessionTypesBlock(blocks.ChoiceBlock):
-    choices = (
-        ('panel', 'Panel'),
-        ('lecture', 'Lecture'),
-        ('break', 'Break'),
-        ('meal', 'Meal'),
-        ('reception','Reception'),
-        ('registration', 'Registration')
-    )
-
-class SessionSpeakerBlock(blocks.StructBlock):
-    name = blocks.TextBlock(required=True)
-    title = blocks.TextBlock(required=False)
-
-class SessionBlock(blocks.StructBlock):
-    name = blocks.TextBlock()
-    session_type = SessionTypesBlock()
-    description = blocks.RichTextBlock(required=False)
-    start_time = blocks.TimeBlock(required=False)
-    end_time = blocks.TimeBlock(required=False)
-    speakers = blocks.StreamBlock([
-        ('speaker', SessionSpeakerBlock())
-    ])
-    archived_video_link = blocks.URLBlock(help_text="Enter youtube link after conference", required=False)
-
-class SessionDayBlock(blocks.StructBlock):
-    day = IntegerChoiceBlock(help_text="What day of the conference is this session on?", required=False)
-    start_time = blocks.TimeBlock(required=False)
-    end_time = blocks.TimeBlock(required=False)
-    sessions = blocks.StreamBlock([
-        ('session', SessionBlock())
-    ])
-
-class SessionsBlock(blocks.StreamBlock):
-    days = SessionDayBlock()
-
-    class Meta:
-        template = 'blocks/schedule.html'
+from mysite.blocks import IntegerBlock, TwoColumnBlock
 
 class PartnerTypeBlock(blocks.ChoiceBlock):
     choices = (
@@ -92,12 +29,6 @@ class PartnersBlock(blocks.StreamBlock):
     class Meta:
         template = 'blocks/partners.html'
 
-class TwoColumnBlock(blocks.StructBlock):
-    left_column = blocks.RichTextBlock()
-    right_column = blocks.RichTextBlock()
-
-    class Meta:
-        template = 'blocks/two-column.html'
 
 class DirectionBlock(blocks.StructBlock):
     transportation_type = blocks.CharBlock(help_text="e.g car, metro, taxi")
