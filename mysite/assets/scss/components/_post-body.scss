@@ -101,7 +101,7 @@
 
   .block-paragraph,
   .block-introduction,
-  .block-custom_image{
+  .block-inline_image{
     @include limit-body-width;
 
     img, &__wrapper {
@@ -263,12 +263,12 @@
     @include limit-body-width;
     padding: 40px 0px;
 
-    .block-custom_image__wrapper{
+    .block-inline_image__wrapper{
       padding: 0;
     }
   }
 
-  .block-custom_image {
+  .block-inline_image {
     text-align: center;
 
     img {
@@ -277,7 +277,7 @@
       height: auto;
     }
 
-    .block-custom_image__wrapper{
+    .block-inline_image__wrapper{
       display: inline-block;
       text-align: left;
       @include clearfix;

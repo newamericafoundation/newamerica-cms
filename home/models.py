@@ -402,14 +402,14 @@ class Post(Page):
         ('introduction', blocks.RichTextBlock()),
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
-        ('custom_image', CustomImageBlock(icon='image')),
+        ('inline_image', CustomImageBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
         ('table', TableBlock()),
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
         ('dataviz', DatavizBlock()),
         ('google_map', GoogleMapBlock()),
-        ('image', ImageChooserBlock(icon='image', template='ui_elements/image_block.html')),
+        ('image', ImageChooserBlock(template='ui_elements/image_block.html', help_text='Legacy option. Consider using Inline Image instead.')),
     ])
 
     parent_programs = models.ManyToManyField(
