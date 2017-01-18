@@ -136,25 +136,23 @@ class SessionDayBlock(blocks.StructBlock):
     ])
 
 class SessionsBlock(blocks.StreamBlock):
+	expanded_by_default = blocks.BooleanBlock(help_text="check to have to all sessions expanded by default")
     days = SessionDayBlock()
 
     class Meta:
         template = 'blocks/schedule.html'
 
 class BodyBlock(blocks.StreamBlock):
-    introduction = blocks.RichTextBlock()
-    heading = blocks.CharBlock(classname='full title')
-    paragraph = blocks.RichTextBlock()
-    inline_image = CustomImageBlock(icon='image')
-    video = EmbedBlock(icon='media')
-    table = TableBlock()
-    button = ButtonBlock()
-    iframe = IframeBlock()
-    dataviz = DatavizBlock()
-    google_map = GoogleMapBlock()
-    image = ImageChooserBlock(template='blocks/image_block.html', help_text='Legacy option. Consider using Inline Image instead.')
-
-
-class EventBodyBlock(BodyBlock):
-    schedule = SessionsBlock()
-    speakers = PeopleBlock()
+	introduction = blocks.RichTextBlock()
+	heading = blocks.CharBlock(classname='full title')
+	paragraph = blocks.RichTextBlock()
+	inline_image = CustomImageBlock(icon='image')
+	video = EmbedBlock(icon='media')
+	table = TableBlock()
+	button = ButtonBlock()
+	iframe = IframeBlock()
+	dataviz = DatavizBlock()
+	google_map = GoogleMapBlock()
+	schedule = SessionsBlock(help_text="1 to 2 day schedule of events")
+	people = PeopleBlock(help_text="Grid of people with short bios that appear on click")
+	image = ImageChooserBlock(template='blocks/image_block.html', help_text='Legacy option. Consider using Inline Image instead.')
