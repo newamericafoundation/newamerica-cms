@@ -376,7 +376,7 @@ class PostSubprogramRelationship(models.Model):
     class meta:
         unique_together = (("subprogram", "post"),)
 
-class AbstractPost(Page):
+class Post(Page):
     """
     Abstract Post class that inherits from Page
     and provides a model template for other content
@@ -443,12 +443,7 @@ class AbstractPost(Page):
             index.SearchField('position_at_new_america'),
         ]),
     ]
-
-    class Meta:
-        abstract = True
-
-class Post(AbstractPost):
-
+    
     def get_context(self, request):
         context = super(Post, self).get_context(request)
         context['authors'] = self.authors.order_by('pk')
