@@ -5,13 +5,13 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.wagtailadmin.taggable
+
 import wagtail.wagtailcore.blocks
 import wagtail.wagtailcore.fields
 import wagtail.wagtailembeds.blocks
 import wagtail.wagtailimages.blocks
 import wagtail.wagtailimages.models
-
+import wagtail.wagtailsearch.index
 
 class Migration(migrations.Migration):
 
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
         migrations.CreateModel(
             name='CustomRendition',
