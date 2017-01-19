@@ -128,19 +128,18 @@ class SessionBlock(blocks.StructBlock):
     archived_video_link = blocks.URLBlock(help_text="Enter youtube link after conference", required=False)
 
 class SessionDayBlock(blocks.StructBlock):
-    day = IntegerChoiceBlock(help_text="What day of the conference is this session on?", required=False)
-    start_time = blocks.TimeBlock(required=False)
-    end_time = blocks.TimeBlock(required=False)
-    sessions = blocks.StreamBlock([
+	collapsible = blocks.BooleanBlock(help_text="Allow schedule sessions to expand and collapse", required=False, default=True)
+	day = IntegerChoiceBlock(help_text="What day of the conference is this session on?", required=False, default=1)
+	start_time = blocks.TimeBlock(required=False)
+	end_time = blocks.TimeBlock(required=False)
+	sessions = blocks.StreamBlock([
         ('session', SessionBlock())
     ])
 
 class SessionsBlock(blocks.StreamBlock):
-	expanded_by_default = blocks.BooleanBlock(help_text="check to have to all sessions expanded by default")
-    days = SessionDayBlock()
-
-    class Meta:
-        template = 'blocks/schedule.html'
+	days = SessionDayBlock()
+	class Meta:
+		template = 'blocks/schedule.html'
 
 class BodyBlock(blocks.StreamBlock):
 	introduction = blocks.RichTextBlock()
