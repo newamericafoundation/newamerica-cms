@@ -2,67 +2,69 @@ const breakpoint = 640;
 const cols = 3;
 
 export default function(){
-
-  let expander = new Expander();
-  let $speakers = $('.speaker:not(.no-description)');
   let $window = $(window);
 
-  $speakers.each(function(i){
-    let $t = $(this);
-    let position = i+1;
+  $('.speaker-list').each(function(){
+    let expander = new Expander();
+    let $speakers = $(this).find('.speaker');
 
-    $t.data({
-      active: false,
-      index: i,
-      position: position,
-      row: Math.ceil(position/cols),
-      column: position%cols === 0 ? cols : position%cols
-    });
-  }).click(function(){
-    let $t = $(this);
-    let d = $t.data();
-    let afterIndex = d.index+cols-d.column;
-    if(afterIndex>$speakers.length-1) afterIndex = $speakers.length-1;
-    if($window.width() < breakpoint) afterIndex = d.index;
+    $speakers.each(function(i){
+      let $t = $(this);
+      let position = i+1;
 
-    let expandAfter = $speakers[afterIndex];
-    expander.setCurrent($t);
+      $t.data({
+        active: false,
+        index: i,
+        position: position,
+        row: Math.ceil(position/cols),
+        column: position%cols === 0 ? cols : position%cols
+      });
+    }).click(function(){
+      let $t = $(this);
+      if($t.hasClass('no-description')) return;
+      let d = $t.data();
+      let afterIndex = d.index+cols-d.column;
+      if(afterIndex>$speakers.length-1) afterIndex = $speakers.length-1;
+      if($window.width() < breakpoint) afterIndex = d.index;
 
-    $speakers.not($t)
-      .removeClass('active')
-      .data('active', false);
+      let expandAfter = $speakers[afterIndex];
+      expander.setCurrent($t);
 
-    if(d.active){
-      expander.hide();
-      $t.removeClass('active')
+      $speakers.not($t)
+        .removeClass('active')
         .data('active', false);
-      return;
-    }
 
-    d.active = true;
+      if(d.active){
+        expander.hide();
+        $t.removeClass('active')
+          .data('active', false);
+        return;
+      }
 
-    expander.setRow(d.row+1);
+      d.active = true;
 
-    if(expander.willChange() && expander.active){
-      expander.el.one('transitionend webkitTransitionEnd',function(){
+      expander.setRow(d.row+1);
+
+      if(expander.willChange() && expander.active){
+        expander.el.one('transitionend webkitTransitionEnd',function(){
+          expander.insertAfter(expandAfter);
+          $t.addClass('active');
+        });
+        expander.hide();
+      } else {
         expander.insertAfter(expandAfter);
         $t.addClass('active');
-      });
-      expander.hide();
-    } else {
-      expander.insertAfter(expandAfter);
-      $t.addClass('active');
-    }
-  });
+      }
+    });
 
-  $window.resize(function(){
-    $speakers.each(function(){
-      let $t = $(this);
-      let d = $t.data();
-      if(d.active) $t.click();
-    })
+    $window.resize(function(){
+      $speakers.each(function(){
+        let $t = $(this);
+        let d = $t.data();
+        if(d.active) $t.click();
+      })
+    });
   });
-
 }
 
 class Expander {
@@ -86,8 +88,9 @@ class Expander {
   }
 
   centerArrow(){
-    let center = this.current.parent().position().left + this.current.parent().outerWidth()/2;
-    this.arrow.css('left',center-25);
+    let center = this.current.parent().position().left + this.current.parent().outerWidth(true)/2;
+    let offset = $('body').hasClass('conference-template') ? 25 : 12.5;
+    this.arrow.css('left',center-offset);
     return this;
   }
 
