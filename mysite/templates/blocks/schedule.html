@@ -28,7 +28,7 @@
         <div id="day{{i}}" class="tab-pane">
           <div class="tab-content tab-content-schedule">
             <div class="tab-pane fade active in">
-              <div class="panel-group" {% if d.collapsible %}data-toggle="collapse" {% endif %}data-toggle-child=".schedule-item-toggle-active">
+              <div class="panel-group"{% if d.collapsible %} data-toggle="collapse" data-toggle-child=".schedule-item-toggle-active" {% endif %}>
 
                 {% for session in d.sessions %}
                 {% with s=session.value desc=session.value.description.source %}
