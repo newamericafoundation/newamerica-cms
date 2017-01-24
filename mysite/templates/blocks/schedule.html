@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container schedule-container">
     <!-- Schedule start -->
     <div class="schedule all-{{value|length}}-days">
 
@@ -14,7 +14,6 @@
                 ...when we upgrade to wagtail 1.7 we can use 'include_block' tag which will
                 give us access to parent template's context
               {% endcomment %}
-              <!--<p class="text-alt">08/10/2016</p>-->
             </span>
           </li>
         {% endfor %}
@@ -29,7 +28,7 @@
         <div id="day{{i}}" class="tab-pane">
           <div class="tab-content tab-content-schedule">
             <div class="tab-pane fade active in">
-              <div class="panel-group" data-toggle="collapse" data-toggle-child=".schedule-item-toggle-active">
+              <div class="panel-group"{% if d.collapsible %} data-toggle="collapse" data-toggle-child=".schedule-item-toggle-active" {% endif %}>
 
                 {% for session in d.sessions %}
                 {% with s=session.value desc=session.value.description.source %}
@@ -39,7 +38,6 @@
                     <div class="lecture-icon-wrapper">
                       <span class="fa fa-{{s.session_type}}"></span>
                     </div>
-
                       <strong class="time highlight">
                         {% if s.start_time %}
                         <span class="line-icon line-icon-office-24"></span>{{s.start_time|date:"g:i A"}} {% if s.end_time %}&ndash; {{s.end_time|date:"g:i A"}}{% endif %}
@@ -51,8 +49,7 @@
                     <h5 class="title">
                       {{s.name}}
                       {% if desc|length > 12 or s.speakers|length > 0 %}
-                      <!-- <i class="line-icon line-icon-arrows-06"></i> -->
-                        <i class="fa fa-chevron-circle-down"></i>
+                      {% if d.collapsible %}  <i class="fa fa-chevron-circle-down"></i> {% endif %}
                       {% endif %}
                     </h5>
                   </span>

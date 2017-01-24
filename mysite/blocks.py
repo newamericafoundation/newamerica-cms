@@ -128,33 +128,30 @@ class SessionBlock(blocks.StructBlock):
     archived_video_link = blocks.URLBlock(help_text="Enter youtube link after conference", required=False)
 
 class SessionDayBlock(blocks.StructBlock):
-    day = IntegerChoiceBlock(help_text="What day of the conference is this session on?", required=False)
-    start_time = blocks.TimeBlock(required=False)
-    end_time = blocks.TimeBlock(required=False)
-    sessions = blocks.StreamBlock([
+	collapsible = blocks.BooleanBlock(help_text="Allow schedule sessions to expand and collapse", required=False, default=True)
+	day = IntegerChoiceBlock(help_text="What day of the conference is this session on?", required=False, default=1)
+	start_time = blocks.TimeBlock(required=False)
+	end_time = blocks.TimeBlock(required=False)
+	sessions = blocks.StreamBlock([
         ('session', SessionBlock())
     ])
 
 class SessionsBlock(blocks.StreamBlock):
-    days = SessionDayBlock()
-
-    class Meta:
-        template = 'blocks/schedule.html'
+	days = SessionDayBlock()
+	class Meta:
+		template = 'blocks/schedule.html'
 
 class BodyBlock(blocks.StreamBlock):
-    introduction = blocks.RichTextBlock()
-    heading = blocks.CharBlock(classname='full title')
-    paragraph = blocks.RichTextBlock()
-    inline_image = CustomImageBlock(icon='image')
-    video = EmbedBlock(icon='media')
-    table = TableBlock()
-    button = ButtonBlock()
-    iframe = IframeBlock()
-    dataviz = DatavizBlock()
-    google_map = GoogleMapBlock()
-    image = ImageChooserBlock(template='blocks/image_block.html', help_text='Legacy option. Consider using Inline Image instead.')
-
-
-class EventBodyBlock(BodyBlock):
-    schedule = SessionsBlock()
-    speakers = PeopleBlock()
+	introduction = blocks.RichTextBlock()
+	heading = blocks.CharBlock(classname='full title')
+	paragraph = blocks.RichTextBlock()
+	inline_image = CustomImageBlock(icon='image')
+	video = EmbedBlock(icon='media')
+	table = TableBlock()
+	button = ButtonBlock()
+	iframe = IframeBlock()
+	dataviz = DatavizBlock()
+	google_map = GoogleMapBlock()
+	schedule = SessionsBlock(help_text="1 to 2 day schedule of events")
+	people = PeopleBlock(help_text="Grid of people with short bios that appear on click")
+	image = ImageChooserBlock(template='blocks/image_block.html', help_text='Legacy option. Consider using Inline Image instead.')
