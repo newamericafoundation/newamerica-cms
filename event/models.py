@@ -8,7 +8,7 @@ from django.utils.timezone import localtime, now
 
 from programs.models import Program, Subprogram
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.wagtailcore.models import Page
 
 from home.models import Post
@@ -43,10 +43,14 @@ class Event(Post):
         FieldPanel('end_time'),
         FieldPanel('rsvp_link'),
         FieldPanel('host_organization'),
-        FieldPanel('street_address'),
-        FieldPanel('city'),
-        FieldPanel('state'),
-        FieldPanel('zipcode'),
+        MultiFieldPanel([
+            FieldPanel('street_address'),
+            FieldPanel('city'),
+            FieldRowPanel([
+                FieldPanel('state', classname='col6'),
+                FieldPanel('zipcode', classname='col6')
+            ])
+        ], heading='Location'),
         FieldPanel('soundcloud_url'),
     ]
 

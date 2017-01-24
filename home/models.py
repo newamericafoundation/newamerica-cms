@@ -30,7 +30,8 @@ from person.models import Person
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from .blocks import ButtonBlock, IframeBlock, DatavizBlock
+from .blocks import ButtonBlock, IframeBlock, DatavizBlock, CustomImageBlock
+from mysite.blocks import GoogleMapBlock
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -52,7 +53,7 @@ class CustomRendition(AbstractRendition):
 
     class Meta:
         unique_together = (
-            ('image', 'filter', 'focal_point_key'),
+            ('image', 'filter_spec', 'focal_point_key'),
         )
 
 
@@ -401,12 +402,14 @@ class Post(Page):
         ('introduction', blocks.RichTextBlock()),
         ('heading', blocks.CharBlock(classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock(icon='image')),
+        ('inline_image', CustomImageBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
         ('table', TableBlock()),
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
         ('dataviz', DatavizBlock()),
+        ('google_map', GoogleMapBlock()),
+        ('image', ImageChooserBlock(template='ui_elements/image_block.html', help_text='Legacy option. Consider using Inline Image instead.')),
     ])
 
     parent_programs = models.ManyToManyField(

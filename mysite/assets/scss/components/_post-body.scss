@@ -100,10 +100,11 @@
   }
 
   .block-paragraph,
-  .block-introduction {
+  .block-introduction,
+  .block-inline_image{
     @include limit-body-width;
 
-    img {
+    img, &__wrapper {
       padding: $media-padding 25px;
     }
 
@@ -261,6 +262,26 @@
   .block-image {
     @include limit-body-width;
     padding: 40px 0px;
+
+    .block-inline_image__wrapper{
+      padding: 0;
+    }
+  }
+
+  .block-inline_image {
+    text-align: center;
+
+    img {
+      padding: 0;
+      width: 100%;
+      height: auto;
+    }
+
+    .block-inline_image__wrapper{
+      display: inline-block;
+      text-align: left;
+      @include clearfix;
+    }
   }
 
   /* styling for media objects embedded through streamfield video block */
