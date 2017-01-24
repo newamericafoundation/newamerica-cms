@@ -30,8 +30,7 @@ from person.models import Person
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from .blocks import ButtonBlock, IframeBlock, DatavizBlock, CustomImageBlock
-from mysite.blocks import GoogleMapBlock
+from mysite.blocks import BodyBlock
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -220,16 +219,7 @@ class AbstractSimplePage(Page):
     Abstract Simple page class that inherits from the Page model and
     creates simple, generic pages.
     """
-    body = StreamField([
-        ('introduction', blocks.RichTextBlock()),
-        ('heading', blocks.CharBlock(classname='full title')),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock(icon='image')),
-        ('video', EmbedBlock(icon='media')),
-        ('table', TableBlock()),
-        ('button', ButtonBlock()),
-        ('iframe', IframeBlock()),
-    ])
+    body = StreamField(BodyBlock())
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
     story_image = models.ForeignKey(
@@ -386,7 +376,6 @@ class PostSubprogramRelationship(models.Model):
     class meta:
         unique_together = (("subprogram", "post"),)
 
-
 class Post(Page):
     """
     Abstract Post class that inherits from Page
@@ -398,19 +387,7 @@ class Post(Page):
 
     date = models.DateField("Post date")
 
-    body = StreamField([
-        ('introduction', blocks.RichTextBlock()),
-        ('heading', blocks.CharBlock(classname='full title')),
-        ('paragraph', blocks.RichTextBlock()),
-        ('inline_image', CustomImageBlock(icon='image')),
-        ('video', EmbedBlock(icon='media')),
-        ('table', TableBlock()),
-        ('button', ButtonBlock()),
-        ('iframe', IframeBlock()),
-        ('dataviz', DatavizBlock()),
-        ('google_map', GoogleMapBlock()),
-        ('image', ImageChooserBlock(template='ui_elements/image_block.html', help_text='Legacy option. Consider using Inline Image instead.')),
-    ])
+    body = StreamField(BodyBlock())
 
     parent_programs = models.ManyToManyField(
         Program, through=PostProgramRelationship, blank=True)
@@ -466,7 +443,7 @@ class Post(Page):
             index.SearchField('position_at_new_america'),
         ]),
     ]
-
+    
     def get_context(self, request):
         context = super(Post, self).get_context(request)
         context['authors'] = self.authors.order_by('pk')

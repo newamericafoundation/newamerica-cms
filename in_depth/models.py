@@ -10,33 +10,13 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
-from home.blocks import ButtonBlock, IframeBlock, DatavizBlock, CollapsibleBlock
+from mysite.blocks import ButtonBlock, IframeBlock, DatavizBlock
+from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from mysite.helpers import paginate_results, get_org_wide_posts
-
-
-class PanelColorThemes(blocks.ChoiceBlock):
-	choices = [
-		('white', 'White'),
-	    ('grey', 'Grey'),
-	    ('black', 'Black')
-	]
-
-
-class PanelBody(blocks.StreamBlock):
-	heading = blocks.CharBlock(classname='full title')
-	paragraph = blocks.RichTextBlock()
-	image = ImageChooserBlock(icon='image')
-	video = EmbedBlock(icon='media')
-	table = TableBlock()
-	button = ButtonBlock()
-	iframe = IframeBlock()
-	dataviz = DatavizBlock()
-	collapsible = CollapsibleBlock()
-
 
 class InDepthSection(Page):
     """
@@ -49,7 +29,7 @@ class InDepthSection(Page):
     generate_title_panel = models.BooleanField(default=False, help_text="Will create a title panel before the first panel if checked")
 
     panels = StreamField([
-        ('panel', 
+        ('panel',
             blocks.StructBlock([
             	('panel_title', blocks.CharBlock(required=True)),
             	('panel_color_theme', PanelColorThemes()),
@@ -105,7 +85,7 @@ class InDepthSection(Page):
 
 class InDepthProject(Post):
     """
-   
+
     """
     parent_page_types = ['AllInDepthHomePage']
     subpage_types = ['InDepthSection']
@@ -113,7 +93,7 @@ class InDepthProject(Post):
     about_the_project = RichTextField(blank=True, null=True)
 
     buttons = StreamField([
-        ('button', 
+        ('button',
             blocks.StructBlock([
             	('button_text', blocks.CharBlock(required=True, max_length=50)),
             	('button_url', blocks.URLBlock(required=True, default="https://www.")),

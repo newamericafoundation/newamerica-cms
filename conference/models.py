@@ -9,9 +9,8 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Inli
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Orderable
 
-from home.models import Post
-from blocks import PeopleBlock, SessionsBlock, VenueBlock, DirectionsBlock, PartnersBlock
-from home.blocks import IntegerBlock
+from blocks import VenueBlock, DirectionsBlock, PartnersBlock
+from mysite.blocks import IntegerBlock, PeopleBlock, SessionsBlock
 
 class AllConferencesHomePage(Page):
     parent_page_types = ['home.HomePage']
