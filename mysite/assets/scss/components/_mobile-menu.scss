@@ -145,6 +145,7 @@
   .sidemenu-container{
     display: table-cell;
   }
+
   @include breakpoint(desktop-header){
     .sidemenu-container,
     .content-container{
@@ -157,6 +158,42 @@
 
     .mobile-sidemenu{
       display: none;
+    }
+  }
+}
+
+.header--expanded{
+  &.mobile-menu--expanded{
+    @include breakpoint(expanded-header){
+      .sidemenu-container,
+      .content-container{
+        display: table-cell;
+      }
+
+      footer{
+        display: block;
+      }
+
+      .mobile-header{
+        display: none;
+      }
+    }
+  }
+
+  &.secondary-menu--expanded{
+    @include breakpoint(expanded-header){
+      .sidemenu-container,
+      .content-container{
+        display: table-cell;
+      }
+
+      footer{
+        display: block;
+      }
+
+      .mobile-sidemenu{
+        display: none;
+      }
     }
   }
 }
