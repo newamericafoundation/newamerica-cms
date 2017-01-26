@@ -20,7 +20,7 @@ export default function menuToggle(){
 	});
 
 	$('.mobile-menu__link__main a').click(function() {
-		$(this).toggleClass('active-nav');
+		$(this).parent().toggleClass('active-nav');
 	});
 
 }
