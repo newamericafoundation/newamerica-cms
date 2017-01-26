@@ -16,7 +16,7 @@
     padding: 10px $desktop-padding 10px $sidemenu-link-padding-left;
     margin-left: $sidemenu-link-margin-left;
     color: palette-get(na-black-70);
-  } 
+  }
 
   &__logo {
     width: auto;
@@ -67,5 +67,5 @@
         @include set-color(border-color);
         margin-left: $sidemenu-link-margin-left - 2px;
       }
-    } 
+    }
 }
