@@ -49,7 +49,7 @@
         {% block extra_scripts %}
             {# Override this in templates to add extra scripts and stylesheets #}
         {% endblock %}
-        
+
         <!-- Google Tag Manager -->
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -73,7 +73,7 @@
                     {% block menu %}
                         {% get_site_root as site_root %}
                         <div class="mobile-nav">
-                            <a><div class="mobile-nav__main">
+                            <div class="mobile-nav__main">
                                 <div class="mobile-nav__logo">
                                     <div class='header__logo mini'>
                                         {% include 'ui_elements/svg/new-america-mini.html' %}
@@ -85,7 +85,7 @@
                                 <div class="mobile-nav__toggle">
                                     <div class="mobile-nav__toggle__main flip-arrow-black rotate"></div>
                                 </div>
-                            </div></a>
+                            </div>
                             {% block mobile_nav_secondary %}
                             {% endblock %}
                         </div>

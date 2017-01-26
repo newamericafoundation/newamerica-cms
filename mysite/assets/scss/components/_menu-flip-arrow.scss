@@ -1,15 +1,19 @@
-.flip-arrow-black { 
-	width: 20px; 
-	height: 20px; 
+.flip-arrow-black {
+	width: 20px;
+	height: 20px;
 	background-image: url(shape-urls-get(down-arrow-na-black));
-	background-size: contain; 
+	background-size: contain;
 }
 
-.flip-arrow-white { 
-	width: 20px; 
-	height: 20px; 
+li:hover > .flip-arrow-black{
 	background-image: url(shape-urls-get(down-arrow-na-white));
-	background-size: contain; 
+}
+
+.flip-arrow-white {
+	width: 20px;
+	height: 20px;
+	background-image: url(shape-urls-get(down-arrow-na-white));
+	background-size: contain;
 }
 
 .rotate {
@@ -20,8 +24,11 @@
     -webkit-transform:rotate(0deg);
     transform:rotate(0deg);
 }
-.rotate.down {
-    -moz-transform:rotate(180deg);
+
+.active-nav{
+	.rotate{
+		-moz-transform:rotate(180deg);
     -webkit-transform:rotate(180deg);
     transform:rotate(180deg);
+	}
 }
