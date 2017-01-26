@@ -20,6 +20,10 @@ $mobile-nav-toggle-offset: 35px;
     display: none;
   }
 
+  & > * {
+    cursor: pointer;
+  }
+
   &__main {
     background-color: palette-get(na-white);
     width:100%;
@@ -34,7 +38,7 @@ $mobile-nav-toggle-offset: 35px;
     @include show-mini-logo {
       width: 35% !important;
     }
-    
+
   }
 
   &__secondary {
