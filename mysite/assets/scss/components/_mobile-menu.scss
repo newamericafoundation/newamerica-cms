@@ -86,13 +86,13 @@
 			width: 30px;
 		}
 	}
-	
+
 }
 
 .mobile-header {
 	display: none;
 	top: $mobile-header-height;
-    position: relative;
+  position: relative;
 	background-color: palette-get(na-white);
 
 	@include desktop-sidemenu {
@@ -104,4 +104,30 @@
 	display: none;
 	background-color: palette-get(na-black);
 }
-	
+
+.mobile-menu--expanded{
+  .sidemenu-container,
+  .content-container,
+  footer {
+    display: none;
+  }
+
+  .mobile-header{
+    display: block;
+  }
+}
+
+.secondary-menu--expanded{
+  .content-container,
+  .mobile-header,
+  .sidemenu,
+  footer {
+    display: none;
+  }
+  .mobile-sidemenu{
+    display: block;
+  }
+  .sidemenu-container{
+    display: table-cell;
+  }
+}
