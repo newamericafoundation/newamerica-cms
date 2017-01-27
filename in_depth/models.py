@@ -111,11 +111,14 @@ class InDepthProject(Post):
 
     project_logo_link = models.URLField(blank=True, null=True, max_length=140)
 
+    show_data_download_links = models.BooleanField(default=True)
+
     content_panels = Post.content_panels + [
         FieldPanel('about_the_project'),
     	StreamFieldPanel('buttons'),
         ImageChooserPanel('project_logo'),
         FieldPanel('project_logo_link'),
+        FieldPanel('show_data_download_links'),
     ]
 
     def save(self, *args, **kwargs):
