@@ -7,7 +7,8 @@ var maxLength = 140;
 //
 export default function addAllStoryExcerptEllipsis() {
 	function addEllipsis() {
-		var text = $(this).text();
+		var text = $(this).text().trim();
+
 		if (text.length >= maxLength) {
 			var finalChar = text[maxLength - 1];
 			if (finalChar != '.' && finalChar != '!' && finalChar != '?') {
