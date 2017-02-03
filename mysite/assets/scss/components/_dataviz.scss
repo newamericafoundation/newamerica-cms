@@ -6,8 +6,11 @@
 
 	&__title-container {
 		@include limit-body-width;
-		margin-left: auto;
-		margin-right: auto;
+
+		@include is-in-depth-template {
+			margin-left: auto;
+			margin-right: auto;
+		}
 		position: relative;
 		min-height: 35px;
 
@@ -135,8 +138,12 @@
 	}
 
 	&__chart-container {
-		margin: auto;
+		@include is-in-depth-template {
+			margin: auto;
+		}
+		padding-top: $desktop-padding 0px;
 		position: relative;
+		overflow: auto;
 	}
 
 	&__chart-area {
