@@ -221,6 +221,7 @@
   .block-dataviz {
     padding-top: $desktop-padding;
     padding-bottom: $desktop-padding;
+    overflow: auto;
   }
 
   .block-table {
