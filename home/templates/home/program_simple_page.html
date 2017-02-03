@@ -5,6 +5,12 @@
 
 {% block body_class %}template-programsimplepage{% endblock %}
 
+{% block extra_js %}
+	{% if page.data_project_external_script %}
+		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
+	{% endif %}
+{% endblock %}
+
 {% block content %}
 	{% image page.story_image min-1100x300 as story_image %}
 
