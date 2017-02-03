@@ -141,7 +141,7 @@
 		@include is-in-depth-template {
 			margin: auto;
 		}
-		padding-top: $desktop-padding 0px;
+		padding-top: $desktop-padding;
 		position: relative;
 		overflow: auto;
 	}
