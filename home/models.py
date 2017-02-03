@@ -230,6 +230,8 @@ class AbstractSimplePage(Page):
         related_name='+'
     )
 
+    data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body')
     ]
@@ -237,6 +239,10 @@ class AbstractSimplePage(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('data_project_external_script'),
     ]
 
     class Meta:
