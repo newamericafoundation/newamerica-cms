@@ -140,12 +140,13 @@
 		@include is-in-depth-template {
 			margin: auto;
 		}
-		visibility: hidden;
 		position: relative;
 	}
 
 	&__chart-area {
 		position: relative;
+		visibility: hidden;
+		min-height: 300px;
 	}
 	
 	&__loading-gif {
