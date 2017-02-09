@@ -17,7 +17,7 @@ class Weekly(Page):
     def get_context(self, request):
         context = super(Weekly, self).get_context(request)
 
-        all_posts = WeeklyEdition.objects.all()
+        all_posts = WeeklyEdition.objects.all().live()
 
         context['all_posts'] = paginate_results(request, all_posts)
 
