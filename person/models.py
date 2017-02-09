@@ -256,7 +256,7 @@ class OurPeoplePage(Page):
     def get_context(self, request):
         context = super(OurPeoplePage, self).get_context(request)
 
-        context['people'] = Person.objects.live().exclude(
+        context['people'] = Person.objects.live().filter(former=False).exclude(
             role='External Author/Former Staff')
 
         context['all_programs'] = Program.objects.live()
@@ -329,16 +329,16 @@ class ProgramPeoplePage(Page):
             program = Program.objects.get(title=program_title)
             all_posts = Person.objects\
                 .live()\
-                .filter(belongs_to_these_programs=program)\
-                .exclude(role='External Author/Former Staff')\
+                .filter(belongs_to_these_programs=program, former=False)\
+                .exclude(role__icontains='External Author')\
                 .order_by('last_name', 'first_name')
         else:
             subprogram_title = self.get_ancestors()[3]
             program = Subprogram.objects.get(title=subprogram_title)
             all_posts = Person.objects\
                 .live()\
-                .filter(belongs_to_these_subprograms=program)\
-                .exclude(role='External Author/Former Staff')\
+                .filter(belongs_to_these_subprograms=program, former=False)\
+                .exclude(role__icontains='External Author')\
                 .order_by('last_name', 'first_name')
 
         context['people'] = paginate_results(request, all_posts)
@@ -367,27 +367,28 @@ class BoardAndLeadershipPeoplePage(Page):
         ('Central Staff', 'Central Staff'),
     )
     role_query = models.CharField(choices=QUERY_OPTIONS, max_length=50, default='Board Members')
+    former_query = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
         FieldPanel('page_description'),
         FieldPanel('role_query'),
+        FieldPanel('former_query')
     ]
 
     def get_context(self, request):
         context = super(BoardAndLeadershipPeoplePage, self).get_context(request)
 
         which_role = self.role_query
+        is_former = self.former_query
+
+        all_people = Person.objects.live()\
+            .filter(former=is_former)\
+            .order_by('last_name', 'first_name')
 
         if which_role == 'Leadership Team':
-            all_people = Person.objects\
-                .live()\
-                .filter(leadership=True)\
-                .order_by('last_name', 'first_name')
+            all_people = all_people.filter(leadership=True)
         else:
-            all_people = Person.objects\
-                .live()\
-                .filter(role=which_role)\
-                .order_by('last_name', 'first_name')
+            all_people = all_people.filter(role=which_role)
 
         context['people'] = paginate_results(request, all_people)
 
