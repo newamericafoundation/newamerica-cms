@@ -47,6 +47,16 @@ class Conference(Page):
         verbose_name="About Image"
     )
 
+    alternate_logo = models.ForeignKey(
+        'home.CustomImage',
+        help_text="This will replace the New America logo at the top of the introduction / cover image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="Alternate Logo"
+    )
+
     host_organization = models.TextField(
         default='New America',
         blank=True,
@@ -72,6 +82,7 @@ class Conference(Page):
             FieldPanel('title'),
             FieldPanel('subheading'),
             FieldPanel('host_organization'),
+            ImageChooserPanel('alternate_logo'),
             FieldRowPanel([
                 FieldPanel('date', classname="col6"),
                 FieldPanel('end_date', classname="col6")
