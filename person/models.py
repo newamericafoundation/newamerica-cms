@@ -2,7 +2,7 @@ from django.db import models
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
 from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.fields import RichTextField
@@ -116,9 +116,11 @@ class Person(Page):
         ('Fellow', 'Fellow'),
         ('Central Staff', 'Central Staff'),
         ('Program Staff', 'Program Staff'),
+        ('External Author', 'External Author'),
         ('External Author/Former Staff', 'External Author/Former Staff'),
     )
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
+    former = models.BooleanField(default=False, help_text="Select if person no longer serves above role. Do not use \"External Author/Former Staff\" role")
 
     # Up to three featured work pages to appear on bio page
     feature_work_1 = models.ForeignKey(
@@ -146,36 +148,44 @@ class Person(Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('first_name'),
-        FieldPanel('last_name'),
-        FieldPanel('position_at_new_america'),
-        FieldPanel('email'),
-        FieldPanel('short_bio'),
-        FieldPanel('long_bio', classname="full"),
+        MultiFieldPanel([
+            FieldPanel('first_name'),
+            FieldPanel('last_name'),
+            ImageChooserPanel('profile_image'),
+            FieldPanel('short_bio'),
+            FieldPanel('long_bio', classname="full")
+        ], heading="About"),
+
+        MultiFieldPanel([
+            FieldPanel('position_at_new_america'),
+                FieldPanel('role'),
+                FieldPanel('former'),
+                FieldPanel('expert'),
+                FieldPanel('leadership')
+        ], heading="Role"),
+
         InlinePanel('programs',
             label=("Belongs to these Programs")),
         InlinePanel('subprograms',
             label=("Belongs to these Subprograms/Initiatives")),
-        FieldPanel('role'),
-        FieldPanel('expert'),
-        FieldPanel('leadership'),
-        ImageChooserPanel('profile_image'),
-        MultiFieldPanel(
-            [
-                PageChooserPanel(
-                    'feature_work_1',
-                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
-                PageChooserPanel(
-                    'feature_work_2',
-                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
-                PageChooserPanel(
-                    'feature_work_3',
-                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
-            ],
-            heading="Featured Work To Highlight on Bio Page",
-            classname="collapsible"
-        ),
-        StreamFieldPanel('social_media'),
+
+        MultiFieldPanel([
+            FieldPanel('email'),
+            StreamFieldPanel('social_media')
+        ], heading="Contact"),
+
+
+        MultiFieldPanel([
+            PageChooserPanel(
+                'feature_work_1',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
+            PageChooserPanel(
+                'feature_work_2',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
+            PageChooserPanel(
+                'feature_work_3',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
+        ], heading="Featured Work To Highlight on Bio Page", classname="collapsible"),
     ]
 
     parent_page_types = ['OurPeoplePage']
