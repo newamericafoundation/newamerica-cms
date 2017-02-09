@@ -7,7 +7,13 @@
   <div class="heading-block centered-block align-center">
     <div class="container">
       <div class="na-logo">
-        <a href="http://newamerica.org/" target="_blank">{% include 'ui_elements/svg/new-america-white.html' %}</a>
+        <a href="http://newamerica.org/" target="_blank">
+        {% if page.alternate_logo %}
+          {% image page.alternate_logo max-400x100 %}
+        {% else %}
+          {% include 'ui_elements/svg/new-america-white.html' %}
+        {% endif %}
+        </a>
     	</div>
       <h5 class="heading-alt" style="margin-bottom: 8px;">
         <span>
