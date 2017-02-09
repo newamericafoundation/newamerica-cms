@@ -12,6 +12,7 @@ from mysite.blocks import IntegerBlock, TwoColumnBlock
 
 class PartnerTypeBlock(blocks.ChoiceBlock):
     choices = (
+        ('no_type', 'None'),
         ('premier_sponsor', 'Premier Sponsor'),
         ('sponsor', 'Sponsor'),
         ('media_partner', 'Media Partner'),
