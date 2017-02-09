@@ -12,7 +12,6 @@
 			margin-right: auto;
 		}
 		position: relative;
-		min-height: 35px;
 
 		&.with-buttons {
 			.dataviz__title, .dataviz__subheading {
@@ -141,12 +140,13 @@
 		@include is-in-depth-template {
 			margin: auto;
 		}
-		padding-top: $desktop-padding;
 		position: relative;
 	}
 
 	&__chart-area {
 		position: relative;
+		visibility: hidden;
+		min-height: 300px;
 	}
 	
 	&__loading-gif {
