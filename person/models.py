@@ -116,11 +116,10 @@ class Person(Page):
         ('Fellow', 'Fellow'),
         ('Central Staff', 'Central Staff'),
         ('Program Staff', 'Program Staff'),
-        ('External Author', 'External Author'),
-        ('External Author/Former Staff', 'External Author/Former Staff'),
+        ('External Author/Former Staff', 'External Author')
     )
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
-    former = models.BooleanField(default=False, help_text="Select if person no longer serves above role. Do not use \"External Author/Former Staff\" role")
+    former = models.BooleanField(default=False, help_text="Select if person no longer serves above role.")
 
     # Up to three featured work pages to appear on bio page
     feature_work_1 = models.ForeignKey(
