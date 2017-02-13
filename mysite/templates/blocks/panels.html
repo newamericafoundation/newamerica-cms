@@ -18,8 +18,10 @@
     {% for panel in value %}
       <section id="{{ panel.value.title|slugify }}" class="panel-section">
         <h3 class="panel-title">
-          <a href="#{{panel.value.title|slugify}}" class="panel-anchor-link">{{ panel.value.title }}</a>
-          <i class="fa fa-link"></i>
+          <a href="#{{panel.value.title|slugify}}" class="panel-anchor-link">
+            {{ panel.value.title }}
+            <i class="fa fa-link"></i>
+          </a>
         </h3>
         <div class="panel-body-block">
           {% for block in panel.value.body %}
