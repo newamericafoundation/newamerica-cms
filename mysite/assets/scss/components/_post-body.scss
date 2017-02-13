@@ -304,6 +304,28 @@
     }
   }
 
+  .panel-section{
+    &:not(:first-child){
+      margin: 75px 0;
+    }
+    .panel-title{
+      a { border: none };
+      margin-bottom: 25px;
+      position: relative;
+
+      .fa-link{
+        display: none;
+      }
+
+      &:hover{
+        .fa-link{
+          display: inline-block;
+        }
+      }
+
+    }
+  }
+
 }
 
 .post-attachment {

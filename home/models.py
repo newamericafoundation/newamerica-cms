@@ -449,7 +449,7 @@ class Post(Page):
             index.SearchField('position_at_new_america'),
         ]),
     ]
-    
+
     def get_context(self, request):
         context = super(Post, self).get_context(request)
         context['authors'] = self.authors.order_by('pk')

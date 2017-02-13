@@ -1,18 +1,32 @@
 {% load wagtailcore_tags %}
-
-<ul class="panel-menu">
-  {% for panel in value %}
-    <li><a href="#{{ panel.value.title|slugify }}">{{ panel.value.title }}</a></li>
-  {% endfor %}
-</ul>
-
-{% for panel in value %}
-  <section id="{{ panel.value.title|slugify }}">
-    <h1><a href="#{{panel.value.title|slugify}}" class="panel-link">{{ panel.value.title }}</a></h1>
-    <div class="panel-body-block">
-      {% for block in panel.value.body %}
-        {% include 'ui_elements/post_body_block.html' %}
+<div class="panel-group">
+  <nav id="cd-vertical-nav" class="panel-nav">
+    <ul>
+      {% for panel in value %}
+        <li>
+          <a href="#{{ panel.value.title|slugify }}"
+            id="nav-{{ panel.value.title|slugify }}"
+            style="border:none;">
+            <span class="cd-dot"></span>
+            <span class="cd-label">{{ panel.value.title }}</span>
+          </a>
+        </li>
       {% endfor %}
-    </div>
-  </section>
-{% endfor %}
+    </ul>
+  </nav>
+  <div class="panel-sections">
+    {% for panel in value %}
+      <section id="{{ panel.value.title|slugify }}" class="panel-section">
+        <h3 class="panel-title">
+          <a href="#{{panel.value.title|slugify}}" class="panel-anchor-link">{{ panel.value.title }}</a>
+          <i class="fa fa-link"></i>
+        </h3>
+        <div class="panel-body-block">
+          {% for block in panel.value.body %}
+            {% include 'ui_elements/post_body_block.html' %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+</div>
