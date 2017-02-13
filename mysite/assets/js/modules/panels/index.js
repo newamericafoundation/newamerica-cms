@@ -1,13 +1,13 @@
 import $ from 'jquery';
 import scrollr from '../../utilities/scrollr.js';
 
-
 export default function(){
   if($('body').hasClass('template-indepthsection')) return;
 
   let navItems = $('.panel-nav a');
   let anchors = $('.panel-anchor-link');
   let panels = $('.panel-section');
+  let panelGroups = $('.panel-group');
 
   if(!navItems) return;
 
@@ -26,6 +26,19 @@ export default function(){
     });
   });
 
+  panelGroups.each(function(){
+    let $t = $(this);
+    scrollr.addTrigger(this,{
+      onEnter: function(){
+        panelGroups.removeClass('active');
+        $t.addClass('active');
+      },
+      onLeave: function(){
+        $t.removeClass('active');
+      },
+      offset: -150
+    });
+  });
 
 }
 
