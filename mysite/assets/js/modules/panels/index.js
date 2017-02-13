@@ -8,28 +8,24 @@ export default function(){
   let anchors = $('.panel-anchor-link');
   let panels = $('.panel-section');
   let panelGroups = $('.panel-group');
+  let header = $('.post-header-container');
 
   if(!navItems) return;
+  showContents();
 
   navItems.click(anchorClick);
   anchors.click(anchorClick);
 
-  panels.each(function(){
-    let id = this.getAttribute('id');
-    scrollr.addTrigger(this,{
-      onEnter: function(el){
-        navItems.removeClass('is-selected');
-        $(`#nav-${id}`).addClass('is-selected');
-        history.pushState(null,null,'#'+id);
-      },
-      offset: -175
-    });
+  scrollr.addTrigger(header[0],{
+    onEnter: showContents,
+    offset: -250
   });
 
   panelGroups.each(function(){
     let $t = $(this);
     scrollr.addTrigger(this,{
       onEnter: function(){
+        $('.panel-nav').removeClass('active');
         panelGroups.removeClass('active');
         $t.addClass('active');
       },
@@ -40,6 +36,23 @@ export default function(){
     });
   });
 
+    panels.each(function(){
+      let id = this.getAttribute('id');
+      scrollr.addTrigger(this,{
+        onEnter: function(el){
+          navItems.removeClass('is-selected');
+          $(`#nav-${id}`).addClass('is-selected');
+          history.pushState(null,null,'#'+id);
+        },
+        offset: -175
+      });
+    });
+
+}
+
+function showContents(){
+  $('.panel-nav').first().addClass('active');
+  $('.panel-group').first().addClass('active');
 }
 
 function anchorClick(e){
