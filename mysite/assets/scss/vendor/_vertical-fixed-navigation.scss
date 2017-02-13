@@ -116,6 +116,8 @@ Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertic
 	}
 
   &.active{
+    pointer-events: all;
+    
     .cd-label{
       opacity: 1;
     }
