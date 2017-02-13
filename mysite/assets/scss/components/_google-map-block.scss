@@ -1,0 +1,15 @@
+.post-body{
+  .block-google_map{
+    max-width: 800px;
+  }
+}
+
+.block-google_map{
+  &__iframe{
+    border: none;
+    display: block;
+    width: 100%;
+    min-height: 350px;
+    margin: 25px auto;
+  }
+}

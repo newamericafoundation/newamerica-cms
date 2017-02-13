@@ -9,9 +9,8 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Inli
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Orderable
 
-from home.models import Post
-from blocks import PeopleBlock, SessionsBlock, VenueBlock, DirectionsBlock, PartnersBlock
-from home.blocks import IntegerBlock
+from blocks import VenueBlock, DirectionsBlock, PartnersBlock
+from mysite.blocks import IntegerBlock, PeopleBlock, SessionsBlock
 
 class AllConferencesHomePage(Page):
     parent_page_types = ['home.HomePage']
@@ -48,6 +47,16 @@ class Conference(Page):
         verbose_name="About Image"
     )
 
+    alternate_logo = models.ForeignKey(
+        'home.CustomImage',
+        help_text="This will replace the New America logo at the top of the introduction / cover image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="Alternate Logo"
+    )
+
     host_organization = models.TextField(
         default='New America',
         blank=True,
@@ -55,7 +64,9 @@ class Conference(Page):
     )
 
     rsvp_link = models.URLField(blank=True, null=True)
-    invitation_only = models.BooleanField(default=False)
+    invitation_only = models.BooleanField(default=False, help_text="This will override the RSVP link and replace it with an request for invitation")
+    publish_speakers = models.BooleanField(default=False, help_text="Speakers list will not show up until this is checked.")
+    publish_sessions = models.BooleanField(default=False, help_text="Sessions list will not show up until this is checked.")
 
     date = models.DateField("Start Date", default=timezone.now)
     end_date = models.DateField(blank=True, null=True)
@@ -71,18 +82,28 @@ class Conference(Page):
             FieldPanel('title'),
             FieldPanel('subheading'),
             FieldPanel('host_organization'),
+            ImageChooserPanel('alternate_logo'),
             FieldRowPanel([
                 FieldPanel('date', classname="col6"),
                 FieldPanel('end_date', classname="col6")
             ]),
             ImageChooserPanel('story_image'),
             ImageChooserPanel('about_image'),
-            FieldPanel('description'),
-            FieldPanel('rsvp_link'),
-            FieldPanel('invitation_only')
+            FieldPanel('description')
         ],
         heading="About"
     )
+
+    setup = MultiFieldPanel([
+        FieldRowPanel([
+            FieldPanel('rsvp_link', classname="col6"),
+            FieldPanel('invitation_only', classname="col6"),
+        ]),
+        FieldRowPanel([
+            FieldPanel('publish_speakers', classname="col6"),
+            FieldPanel('publish_sessions', classname="col6")
+        ])
+    ], heading="Setup")
 
     address = MultiFieldPanel(
         [
@@ -105,6 +126,7 @@ class Conference(Page):
 
     content_panels = [
         about,
+        setup,
         address,
         StreamFieldPanel('venue'),
         StreamFieldPanel('directions'),

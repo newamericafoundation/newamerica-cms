@@ -127,18 +127,29 @@
   }
 
   .na-logo{
-    width: 90px;
+    max-width: 250px;
     margin: 0 auto 25px auto;
 
+    svg{
+      width: 90px;
+      display: block;
+      margin: 0 auto;
+    }
 
     @include breakpoint(350px){
-      width: 120px;
+      max-width: 300px;
       margin: 0 auto 35px auto;
+      svg{
+        width: 120px;
+      }
     }
 
     @include breakpoint($mobile-break){
-      width: 160px;
+      max-width: 400px;
       margin: 0 auto 50px auto;
+      svg{
+        width: 160px;
+      }
     }
   }
 

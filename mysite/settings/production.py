@@ -18,6 +18,9 @@ ADMINS = [('Kirk', 'jackson@newamerica.org'), ('Andrew', 'lomax@newamerica.org')
 # Will be changed to final host url
 ALLOWED_HOSTS = ['*']
 
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 AWS_QUERYSTRING_AUTH = False
 
 # s3 bucket settings

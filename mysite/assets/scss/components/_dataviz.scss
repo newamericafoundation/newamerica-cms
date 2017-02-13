@@ -6,10 +6,12 @@
 
 	&__title-container {
 		@include limit-body-width;
-		margin-left: auto;
-		margin-right: auto;
+
+		@include is-in-depth-template {
+			margin-left: auto;
+			margin-right: auto;
+		}
 		position: relative;
-		min-height: 35px;
 
 		&.with-buttons {
 			.dataviz__title, .dataviz__subheading {
@@ -135,14 +137,25 @@
 	}
 
 	&__chart-container {
-		margin: auto;
+		@include is-in-depth-template {
+			margin: auto;
+		}
 		position: relative;
 	}
 
 	&__chart-area {
 		position: relative;
+		visibility: hidden;
+		min-height: 300px;
 	}
 	
+	&__loading-gif {
+		position: absolute; 
+		width: 100%; 
+		height: 100%;
+		z-index: 1000;
+		background: url(shape-urls-get(spinner)) no-repeat center center;
+	}
 }
 
 .chart-wrapper {

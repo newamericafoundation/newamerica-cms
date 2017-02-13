@@ -19,17 +19,17 @@
           href="/../static/favicon.png">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
-        
+
         <meta property="og:site_name" content="New America" />
 
         <link rel="canonical" href="{{ self.url }}" />
         <meta property="og:url" content="{{ self.url }}">
         <meta name="twitter:url" content="{{ self.url }}">
-        
+
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
         <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
         <meta name="twitter:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-        
+
         <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
         <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
         <meta name="twitter:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
@@ -38,30 +38,34 @@
             {% image self.story_image original as story_image %}
             <meta property="og:image" content='{{ story_image.url }}' />
             <meta name="twitter:image" content='{{ story_image.url }}' />
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:site" content="@NewAmerica">
         {% endif %}
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" async></script>
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
-        
+
 
         {% block extra_scripts %}
             {# Override this in templates to add extra scripts and stylesheets #}
         {% endblock %}
 
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-368921-34', 'auto');
-            ga('send', 'pageview');
-        </script>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MMGT6BG');</script>
+        <!-- End Google Tag Manager -->
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMGT6BG"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
         {% wagtailuserbar %}
         <div class='wrapper {% check_oti request.path %}'>
 
@@ -71,7 +75,7 @@
                     {% block menu %}
                         {% get_site_root as site_root %}
                         <div class="mobile-nav">
-                            <a><div class="mobile-nav__main">
+                            <div class="mobile-nav__main">
                                 <div class="mobile-nav__logo">
                                     <div class='header__logo mini'>
                                         {% include 'ui_elements/svg/new-america-mini.html' %}
@@ -83,7 +87,7 @@
                                 <div class="mobile-nav__toggle">
                                     <div class="mobile-nav__toggle__main flip-arrow-black rotate"></div>
                                 </div>
-                            </div></a>
+                            </div>
                             {% block mobile_nav_secondary %}
                             {% endblock %}
                         </div>

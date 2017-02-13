@@ -93,7 +93,7 @@ texttable==0.8.4
 traitlets==4.1.0
 Unidecode==0.4.19
 urllib3==1.15.1
-wagtail==1.6.3
+wagtail==1.8
 waitress==0.9.0
 wcwidth==0.1.6
 webassets==0.10.1
@@ -101,3 +101,4 @@ websocket-client==0.37.0
 Werkzeug==0.10.1
 whitenoise==3.0
 Willow==0.4
+Wand==0.4.4

@@ -1,0 +1,289 @@
+
+.speaker-list {
+  position: relative;
+  padding-top: 0px;
+
+  .expander {
+    transition: all 0.35s ease;
+    -webkit-transition: all 0.35s ease;
+    -moz-transition: all 0.35s ease;
+    height: 0px;
+    background: #efefef;
+    position: relative;
+    top: -15px;
+
+    .arrow{
+      display: block;
+      position: absolute;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      height: 25px;
+      width: 25px;
+      top: -12.5px;
+      left: 15px;
+      background: #efefef;
+      border-top: rgba(0,0,0,0.1);
+      border-left: rgba(0,0,0,0.1);
+    }
+
+    & > p {
+      max-width: calc(100% - 50px);
+      margin: 0 auto;
+      opacity: 0;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      transition: opacity 0.7s ease;
+      -webkit-transition: opacity 0.7s ease;
+      -moz-transition: opacity 0.7s ease;
+      -o-transition: opacity 0.7s ease;
+      transition-delay: 0.35s;
+      -webkit-transition-delay: 0.35s;
+      -moz-transition-delay: 0.35s;
+      -o-transition-delay: 0.35s;
+    }
+  }
+}
+
+.speaker {
+    margin-bottom: 40px;
+    text-align: center;
+    transition: all 0.35s ease;
+    -webkit-transition: all 0.35s ease;
+    -moz-transition: all 0.35s ease;
+    padding-top: 10px;
+    min-height: 100%;
+    min-width: 100%;
+
+    &.no-photo{
+      padding-top: 50%;
+
+      .text-alt{
+        margin-bottom: 43.5%;
+        padding: 0px 5px;
+      }
+    }
+
+    &:not(.no-description):hover{
+      box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+
+    > * {
+      z-index: 100;
+      position: relative;
+    }
+
+    .photo-wrapper {
+        margin: 0 auto 20px;
+        display: inline-block;
+        max-width: 60%;
+
+        @include breakpoint($mobile-break){
+          max-width: 75%;
+        }
+
+        &.rounded {
+            border-radius: 100%;
+            overflow: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+    }
+
+
+    .name {
+        color: $text-base-color;
+
+        font-size: $font-size-small;
+        font-weight: $bold-weight;
+        text-transform: uppercase;
+        line-height: 1em;
+        height: 26px;
+        letter-spacing: 0.3em;
+        padding: 0 5px;
+
+        & + p {
+          position: relative;
+          height: 35px;
+          margin-bottom: 2em;
+
+          @include breakpoint($mobile-break){
+            height: 40px;
+          }
+          small {
+              font-size: 1em;
+              line-height: 1.15em;
+              color: $gray;
+              width: 100%;
+              display: inline-block;
+              padding: 0 5px;
+
+              @include breakpoint(640px){
+                font-size: 0.8em;
+              }
+
+              @include breakpoint(large){
+                font-size: .9em;
+              }
+
+              @include breakpoint(xlarge){
+                font-size: 1em;
+              }
+          }
+        }
+    }
+
+    .about {
+        padding: 0 15px;
+    }
+
+
+    .description{
+      color: $gray-darker;
+      font-weight: 500;
+      margin-top: 65px;
+      padding: 25px;
+      overflow: visible;
+      transition: opacity 0.35s ease;
+      -webkit-transition: opacity 0.35s ease;
+      -moz-transition: opacity 0.35s ease;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -o-user-select: none;
+      -ms-user-select: none;
+
+      position: absolute;
+      width: 100%;
+      left: -100vw;
+      z-index: 0 !important;
+      opacity: 0;
+      vertical-align: middle;
+
+      .rich-text {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+
+    }
+
+    .speaker-socials > li {
+        padding: 0 10px;
+        display: inline-block;
+        text-align: center;
+
+        a {
+            display: inline-block;
+            border-bottom: none;
+
+            &:not(:hover):not(:focus):not(:active) .fa {
+                background-color: transparent;
+                border-color: $gray-lighter;
+            }
+
+            &:hover,
+            &:focus,
+            &:active {
+                .fa {
+                    color: $text-white;
+                }
+            }
+        }
+
+        .fa {
+            background-color: $base-color;
+            border-color: $base-color;
+            width: 30px;
+            height: 30px;
+            line-height: 27px;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+    }
+}
+
+.speakers.masonry {
+    &.width720 .masonry-item {
+        width: 49.5%;
+        padding: 15px 15px;
+    }
+
+    &.width400 .masonry-item {
+        width: 100%;
+        padding: 15px 0;
+    }
+
+    .masonry-item {
+        vertical-align: top;
+        padding: 10px 15px;
+        text-align: left;
+    }
+
+    .speaker-top {
+        position: relative;
+        margin-bottom: 15px;
+        padding-left: 85px;
+        min-height: 70px;
+
+        .speaker-title {
+            vertical-align: bottom;
+            display: table-cell;
+            height: 45px;
+            padding-bottom: 2px;
+        }
+
+        .name {
+            margin: 0;
+
+            & + p {
+                margin: 0;
+                line-height: 16px;
+            }
+        }
+
+        .photo-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 70px;
+        }
+
+        .speaker-socials > li {
+            padding: 0 10px 0 0;
+
+            .fa {
+                width: 20px;
+                height: 20px;
+                font-size: 11px;
+                line-height: 18px;
+            }
+        }
+    }
+
+    .about {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media (max-width: $screen-xs-min) {
+    .speakers.masonry {
+        .speaker-top {
+            padding-left: 60px;
+            min-height: 50px;
+
+            .photo-wrapper {
+                top: 5px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+}

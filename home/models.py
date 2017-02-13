@@ -30,7 +30,7 @@ from person.models import Person
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from .blocks import ButtonBlock, IframeBlock, DatavizBlock
+from mysite.blocks import BodyBlock
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -52,7 +52,7 @@ class CustomRendition(AbstractRendition):
 
     class Meta:
         unique_together = (
-            ('image', 'filter', 'focal_point_key'),
+            ('image', 'filter_spec', 'focal_point_key'),
         )
 
 
@@ -219,16 +219,7 @@ class AbstractSimplePage(Page):
     Abstract Simple page class that inherits from the Page model and
     creates simple, generic pages.
     """
-    body = StreamField([
-        ('introduction', blocks.RichTextBlock()),
-        ('heading', blocks.CharBlock(classname='full title')),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock(icon='image')),
-        ('video', EmbedBlock(icon='media')),
-        ('table', TableBlock()),
-        ('button', ButtonBlock()),
-        ('iframe', IframeBlock()),
-    ])
+    body = StreamField(BodyBlock())
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
 
     story_image = models.ForeignKey(
@@ -239,6 +230,8 @@ class AbstractSimplePage(Page):
         related_name='+'
     )
 
+    data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body')
     ]
@@ -246,6 +239,10 @@ class AbstractSimplePage(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('data_project_external_script'),
     ]
 
     class Meta:
@@ -385,7 +382,6 @@ class PostSubprogramRelationship(models.Model):
     class meta:
         unique_together = (("subprogram", "post"),)
 
-
 class Post(Page):
     """
     Abstract Post class that inherits from Page
@@ -397,17 +393,7 @@ class Post(Page):
 
     date = models.DateField("Post date")
 
-    body = StreamField([
-        ('introduction', blocks.RichTextBlock()),
-        ('heading', blocks.CharBlock(classname='full title')),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock(icon='image')),
-        ('video', EmbedBlock(icon='media')),
-        ('table', TableBlock()),
-        ('button', ButtonBlock()),
-        ('iframe', IframeBlock()),
-        ('dataviz', DatavizBlock()),
-    ])
+    body = StreamField(BodyBlock())
 
     parent_programs = models.ManyToManyField(
         Program, through=PostProgramRelationship, blank=True)

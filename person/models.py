@@ -2,7 +2,7 @@ from django.db import models
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
 from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.fields import RichTextField
@@ -73,10 +73,10 @@ class Person(Page):
     )
 
     social_media = StreamField([
-        ('twitter', 
+        ('twitter',
             URLBlock(
-                required=False, 
-                help_text='Twitter Profile Link', 
+                required=False,
+                help_text='Twitter Profile Link',
                 icon='user'
             )),
         ('facebook',
@@ -116,9 +116,10 @@ class Person(Page):
         ('Fellow', 'Fellow'),
         ('Central Staff', 'Central Staff'),
         ('Program Staff', 'Program Staff'),
-        ('External Author/Former Staff', 'External Author/Former Staff'),
+        ('External Author/Former Staff', 'External Author')
     )
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
+    former = models.BooleanField(default=False, help_text="Select if person no longer serves above role.")
 
     # Up to three featured work pages to appear on bio page
     feature_work_1 = models.ForeignKey(
@@ -146,36 +147,44 @@ class Person(Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('first_name'),
-        FieldPanel('last_name'),
-        FieldPanel('position_at_new_america'),
-        FieldPanel('email'),
-        FieldPanel('short_bio'),
-        FieldPanel('long_bio', classname="full"),
+        MultiFieldPanel([
+            FieldPanel('first_name'),
+            FieldPanel('last_name'),
+            ImageChooserPanel('profile_image'),
+            FieldPanel('short_bio'),
+            FieldPanel('long_bio', classname="full")
+        ], heading="About"),
+
+        MultiFieldPanel([
+            FieldPanel('position_at_new_america'),
+                FieldPanel('role'),
+                FieldPanel('former'),
+                FieldPanel('expert'),
+                FieldPanel('leadership')
+        ], heading="Role"),
+
         InlinePanel('programs',
             label=("Belongs to these Programs")),
         InlinePanel('subprograms',
             label=("Belongs to these Subprograms/Initiatives")),
-        FieldPanel('role'),
-        FieldPanel('expert'),
-        FieldPanel('leadership'),
-        ImageChooserPanel('profile_image'),
-        MultiFieldPanel(
-            [
-                PageChooserPanel(
-                    'feature_work_1', 
-                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
-                PageChooserPanel(
-                    'feature_work_2', 
-                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
-                PageChooserPanel(
-                    'feature_work_3',
-                    ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
-            ],
-            heading="Featured Work To Highlight on Bio Page",
-            classname="collapsible"
-        ),
-        StreamFieldPanel('social_media'),
+
+        MultiFieldPanel([
+            FieldPanel('email'),
+            StreamFieldPanel('social_media')
+        ], heading="Contact"),
+
+
+        MultiFieldPanel([
+            PageChooserPanel(
+                'feature_work_1',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
+            PageChooserPanel(
+                'feature_work_2',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
+            PageChooserPanel(
+                'feature_work_3',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle']),
+        ], heading="Featured Work To Highlight on Bio Page", classname="collapsible"),
     ]
 
     parent_page_types = ['OurPeoplePage']
@@ -201,16 +210,16 @@ class Person(Page):
     def get_context(self, request):
         context = super(Person, self).get_context(request)
         featured_work = [
-            self.feature_work_1, 
-            self.feature_work_2, 
+            self.feature_work_1,
+            self.feature_work_2,
             self.feature_work_3
         ]
 
         context['featured_work'] = featured_work
-        
+
         # Returns posts that the person has authored ordered by date
-        context['posts'] = paginate_results(request, self.post_set.all().filter(live=True).order_by("-date"))
-                
+        context['posts'] = paginate_results(request, self.post_set.live().order_by("-date"))
+
         return context
 
     class Meta:
@@ -226,7 +235,7 @@ class OurPeoplePage(Page):
     subpage_types = ['Person']
 
     page_description = RichTextField(blank=True, null=True)
-    
+
     story_image = models.ForeignKey(
         'home.CustomImage',
         null=True,
@@ -246,12 +255,12 @@ class OurPeoplePage(Page):
     def get_context(self, request):
         context = super(OurPeoplePage, self).get_context(request)
 
-        context['people'] = Person.objects.all().live().exclude(
+        context['people'] = Person.objects.live().filter(former=False).exclude(
             role='External Author/Former Staff')
 
-        context['all_programs'] = Program.objects.all()
+        context['all_programs'] = Program.objects.live()
 
-        context['all_our_people_pages'] = ProgramPeoplePage.objects.all()
+        context['all_our_people_pages'] = ProgramPeoplePage.objects.live()
 
         return context
 
@@ -286,7 +295,7 @@ class ExpertPage(Page):
     promote_panels = Page.promote_panels + [
         ImageChooserPanel('story_image'),
     ]
-    
+
     def get_context(self, request):
         context = super(ExpertPage, self).get_context(request)
 
@@ -296,9 +305,9 @@ class ExpertPage(Page):
             .filter(expert=True)\
             .order_by('-title')
 
-        context['all_programs'] = Program.objects.all()
+        context['all_programs'] = Program.objects.live()
 
-        context['all_our_people_pages'] = ProgramPeoplePage.objects.all()
+        context['all_our_people_pages'] = ProgramPeoplePage.objects.live()
 
         return context
 
@@ -319,16 +328,16 @@ class ProgramPeoplePage(Page):
             program = Program.objects.get(title=program_title)
             all_posts = Person.objects\
                 .live()\
-                .filter(belongs_to_these_programs=program)\
-                .exclude(role='External Author/Former Staff')\
+                .filter(belongs_to_these_programs=program, former=False)\
+                .exclude(role__icontains='External Author')\
                 .order_by('last_name', 'first_name')
         else:
             subprogram_title = self.get_ancestors()[3]
             program = Subprogram.objects.get(title=subprogram_title)
             all_posts = Person.objects\
                 .live()\
-                .filter(belongs_to_these_subprograms=program)\
-                .exclude(role='External Author/Former Staff')\
+                .filter(belongs_to_these_subprograms=program, former=False)\
+                .exclude(role__icontains='External Author')\
                 .order_by('last_name', 'first_name')
 
         context['people'] = paginate_results(request, all_posts)
@@ -357,27 +366,28 @@ class BoardAndLeadershipPeoplePage(Page):
         ('Central Staff', 'Central Staff'),
     )
     role_query = models.CharField(choices=QUERY_OPTIONS, max_length=50, default='Board Members')
+    former_query = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
         FieldPanel('page_description'),
         FieldPanel('role_query'),
+        FieldPanel('former_query')
     ]
 
     def get_context(self, request):
         context = super(BoardAndLeadershipPeoplePage, self).get_context(request)
 
         which_role = self.role_query
+        is_former = self.former_query
+
+        all_people = Person.objects.live()\
+            .filter(former=is_former)\
+            .order_by('last_name', 'first_name')
 
         if which_role == 'Leadership Team':
-            all_people = Person.objects\
-                .live()\
-                .filter(leadership=True)\
-                .order_by('last_name', 'first_name')
+            all_people = all_people.filter(leadership=True)
         else:
-            all_people = Person.objects\
-                .live()\
-                .filter(role=which_role)\
-                .order_by('last_name', 'first_name')
+            all_people = all_people.filter(role=which_role)
 
         context['people'] = paginate_results(request, all_people)
 

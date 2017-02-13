@@ -11,23 +11,31 @@
 	@include expanded-header {
 		padding-top:0px;
 	}
-	
+
 }
 
 .sidemenu-container {
 	background-color: palette-get(na-white);
 	width:100%;
 	vertical-align:top;
-	/*padding-top:$mobile-header-height;*/
+	display: none;
+	height:100%;
+	width: $max-sidemenu-width;
+	top:0;
+	bottom:0;
+	left:0;
 
-	@include desktop-header {
-		height:100%;
+	@include breakpoint(desktop-header) {
 		display: table-cell;
-		width: $max-sidemenu-width;
-		top:0;
-		bottom:0;
-		left:0;
 	}
+}
+
+.header--expanded{
+  .sidemenu-container {
+    @include breakpoint(expanded-header){
+      display: table-cell;
+    }
+  }
 }
 
 .content-container {
@@ -55,7 +63,7 @@
 				width: -webkit-calc(100% - #{$max-sidemenu-width});
 			  	width:    -moz-calc(100% - #{$max-sidemenu-width});
 			 	width:         calc(100% - #{$max-sidemenu-width});
-				
+
 			}
 		}
 	}
@@ -210,7 +218,7 @@
 		& > .columns {
 			padding-left: 0px;
 			padding-right: 0px;
-	
+
 			@include breakpoint(large) {
 				padding: 0px $desktop-padding/2;
 
@@ -225,7 +233,7 @@
 		}
 	}
 }
-	
+
 .hero-grid-container {
 	padding-left: 0px;
 	padding-right: 0px;
@@ -239,7 +247,7 @@
 		@include desktop-header {
 			padding-left: 0px;
 		}
-		
+
 		@include expanded-header {
 			padding-left: 0px;
 		}
@@ -288,4 +296,3 @@
 .post-person-container {
 	@include limit-body-width;
 }
-

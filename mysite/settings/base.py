@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'modelcluster',
     'compressor',
     'taggit',
+    'wand',
+    'willow',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -150,3 +152,6 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = "mysite"
 
 WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
+
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True

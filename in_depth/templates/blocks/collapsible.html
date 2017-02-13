@@ -1,0 +1,11 @@
+<div class="block-button">
+	<a class="button transparent post-body__read-more center-aligned">Read More {% include 'ui_elements/svg/arrow-down.html' %}</a>
+</div>
+<div class="post-body__hidden">
+{% for block in self.hidden_by_default %}
+	{% include 'ui_elements/post_body_block.html' %}
+{% endfor %}
+</div>
+<div class="block-button">
+	<a class="button transparent post-body__read-less center-aligned">Read Less {% include 'ui_elements/svg/arrow-up.html' %}</a>
+</div>

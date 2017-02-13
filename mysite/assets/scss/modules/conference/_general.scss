@@ -14,6 +14,7 @@ Override base
 .section--fixed-width{
 
   padding: 0 !important;
+  max-width: none !important;
 
   & > .container{
     padding: 0 !important;
@@ -43,6 +44,17 @@ End Override base
 
 li {
   margin-bottom: 7px;
+}
+
+.rich-text ul{
+  list-style: initial;
+  margin-left: 40px;
+  color: rgba(44, 47, 53, 0.7);
+
+  li {
+    display: list-item;
+    list-style-type: initial;
+  }
 }
 
 
@@ -75,6 +87,11 @@ footer {
 .icon-bar,
 .fa {
   color: palette-get(na-turquoise);
+}
+
+.tba{
+  text-align: center;
+  color: rgba(0,0,0,0.55);
 }
 
 .container {

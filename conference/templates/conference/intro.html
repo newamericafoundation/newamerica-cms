@@ -7,12 +7,22 @@
   <div class="heading-block centered-block align-center">
     <div class="container">
       <div class="na-logo">
-        <a href="http://newamerica.org/" target="_blank">{% include 'ui_elements/svg/new-america-white.html' %}</a>
+        <a href="http://newamerica.org/" target="_blank">
+        {% if page.alternate_logo %}
+          {% image page.alternate_logo max-400x100 %}
+        {% else %}
+          {% include 'ui_elements/svg/new-america-white.html' %}
+        {% endif %}
+        </a>
     	</div>
       <h5 class="heading-alt" style="margin-bottom: 8px;">
         <span>
           <span class="fa fa-calendar-o base-clr-txt"></span>
-          {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
+          {% if page.end_date %}
+            {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
+          {% else %}
+            {{ page.date|date:'F' }} {{ page.date|date:'j' }}, {{ page.date|date:'Y' }}
+          {% endif %}
         </span>
         <span>
           <span class="fa fa-map-marker base-clr-txt" style="margin-left: 14px;"></span>
@@ -24,14 +34,14 @@
       <h6 class="thin base-font">{{page.search_description}}</h6>
       <div class="btns-container row {%if page.invitation_only %}invite-only{% endif %}">
         <div class="columns small-6">
-          {% if page.rsvp_link %}
-            <a href="{{page.rsvp_link}}" target="_blank" class="button">Register</a>
-          {% elif page.invitation_only %}
+          {% if page.invitation_only %}
             <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button">Request Invitation</a>
+          {% elif page.rsvp_link %}
+            <a href="{{page.rsvp_link}}" target="_blank" class="button">Register</a>
           {% endif %}
         </div>
         <div class="columns small-6">
-          <a href="#about" class="button" >About </a>
+          <a href="#about" class="button go-to-about" >About </a>
         </div>
       </div>
     </div>

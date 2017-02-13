@@ -6,7 +6,7 @@ export default function() {
   $(document).ready(function(){
 
     expand();
-    let navItems = $('.conference-template .navigation-item a');
+    let navItems = $('.conference-template .navigation-item a, .conference-template .go-to-about');
     let isScrolling = false;
 
     navItems.click(function(e){
@@ -19,7 +19,7 @@ export default function() {
       });
     });
 
-    $('.conference-template section.section').each(function(){
+    $('.conference-template section.section-nav').each(function(){
       let id = this.getAttribute('id');
       let navItem = $(`.navigation-item [href^="#${id}"]`);
 

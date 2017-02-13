@@ -1,5 +1,3 @@
-@import 'variables';
-
 .conference-template{
   @import 'general';
   @import 'intro';
@@ -7,8 +5,5 @@
   @import 'about';
   @import 'venue';
   @import 'directions';
+  @import 'sponsors';
 }
-
-@import 'speakers';
-@import 'sponsors';
-@import 'schedule';
