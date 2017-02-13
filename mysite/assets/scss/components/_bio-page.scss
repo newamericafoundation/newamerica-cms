@@ -40,7 +40,7 @@
 	}
 
 	.with-image {
-    pointer-events: none;
+
     @include breakpoint(medium) {
       height: $icon-height;
     }
