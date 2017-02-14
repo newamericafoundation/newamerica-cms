@@ -9,7 +9,8 @@ class Scrollr {
       lastPosition: 0,
       currentPosition: 0,
       speed: 0,
-      direction: false
+      direction: false,
+      isScrolling: false
     }
   }
 
@@ -56,9 +57,10 @@ class Scrollr {
 
   smoothScroll(selector,offset=0, onComplete=()=>{}) {
     let target = $(selector);
+    this.window.isScrolling = true;
     $('body,html').animate(
     	{'scrollTop':target.offset().top+offset},
-    	600, onComplete
+    	600, ()=>{ this.window.isScrolling=false; onComplete(); }
     );
     return this;
 	}

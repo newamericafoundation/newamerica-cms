@@ -9,22 +9,18 @@ export default function() {
   if(!$('body').hasClass('conference-template')) return;
 
   let navItems = $('.conference-template .navigation-item a, .conference-template .go-to-about');
-  let isScrolling = false;
 
   navItems.click(function(e){
     e.preventDefault();
-    isScrolling = true;
-    let id = $(this).attr('href');
-    scrollr.smoothScroll(id,-75, ()=>{
-      isScrolling=false;
+    scrollr.smoothScroll($(this).attr('href'), -75, ()=>{
       activeNav($(this));
     });
   });
 
   scrollr
     .addTrigger('.conference-template section.section-nav', {
-      onEnter: function($el){
-        if(isScrolling) return;
+      onEnter: function($el,triggerEl){
+        if(triggerEl.window.isScrolling) return;
 
         let id = $el.attr('id');
         let navItem = $(`.navigation-item [href^="#${id}"]`);
@@ -36,14 +32,14 @@ export default function() {
       hasLeft: function(){
           $('body').addClass('fixed');
       },
-      onEnter: function($el,trigger){
-        if(trigger.window.direction === "REVERSE")
+      onEnter: function($el,triggerEl){
+        if(triggerEl.window.direction === "REVERSE")
           $('body').removeClass('fixed');
       }
     });
 
   function activeNav($nav){
-    navItems.removeClass('active')
+    navItems.removeClass('active');
     $nav.addClass('active');
     $('.navbar').stop().animate(
       {'scrollLeft':$nav.offset().left-15},
