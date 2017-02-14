@@ -6,9 +6,6 @@ export default function(){
 
   let navItems = $('.panel-nav a');
   let anchors = $('.panel-anchor-link');
-  let panels = $('.panel-section');
-  let panelGroups = $('.panel-group');
-  let header = $('.post-header-container');
 
   if(!navItems) return;
   showContents();
@@ -16,43 +13,37 @@ export default function(){
   navItems.click(anchorClick);
   anchors.click(anchorClick);
 
-  scrollr.addTrigger(header[0],{
-    onEnter: showContents,
-    offset: -250
-  });
-
-  panelGroups.each(function(){
-    let $t = $(this);
-    scrollr.addTrigger(this,{
-      onEnter: function(){
+  scrollr
+    .addTrigger('.post-header-container',{
+      onEnter: showContents,
+      offset: -250
+    })
+    .addTrigger('.panel-group',{
+      onEnter: function($el, triggerEl, trigger){
         $('.panel-nav').removeClass('active');
-        panelGroups.removeClass('active');
-        $t.addClass('active');
+        trigger.$elements.removeClass('active');
+        $el.addClass('active');
       },
-      onLeave: function(){
-        $t.removeClass('active');
+      onLeave: function($el){
+        $el.removeClass('active');
       },
       offset: -150
+    })
+    .addTrigger('.panel-section',{
+      onEnter: function($el){
+        let id = $el.attr('id');
+        navItems.removeClass('is-selected');
+        $(`#nav-${id}`).addClass('is-selected');
+        history.pushState(null,null,'#'+id);
+      },
+      offset: -175
     });
-  });
-
-    panels.each(function(){
-      let id = this.getAttribute('id');
-      scrollr.addTrigger(this,{
-        onEnter: function(el){
-          navItems.removeClass('is-selected');
-          $(`#nav-${id}`).addClass('is-selected');
-          history.pushState(null,null,'#'+id);
-        },
-        offset: -175
-      });
-    });
-
 }
 
 function showContents(){
   $('.panel-nav').first().addClass('active');
   $('.panel-group').first().addClass('active');
+  history.pushState(null,null,'#');
 }
 
 function anchorClick(e){
