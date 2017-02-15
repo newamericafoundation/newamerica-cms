@@ -8,11 +8,17 @@ export default function(){
   let anchors = $('.panel-anchor-link');
 
   if(!navItems) return;
-  showContents();
+  //showContents();
 
   navItems.click(anchorClick);
   anchors.click(anchorClick);
-
+  $('.touch .cd-nav-trigger').click(function(){
+    $('.touch #cd-vertical-nav').toggleClass('open');
+  });
+  $('.touch #cd-vertical-nav a').click(function(){
+    $('.touch #cd-vertical-nav').removeClass('open');
+  });
+  
   scrollr
     .addTrigger('.post-header-container',{
       onEnter: showContents,
@@ -41,8 +47,8 @@ export default function(){
 }
 
 function showContents(){
-  $('.panel-nav').first().addClass('active');
-  $('.panel-group').first().addClass('active');
+  //$('.panel-nav').first().addClass('active');
+  //$('.panel-group').first().addClass('active');
   history.pushState(null,null,'#');
 }
 

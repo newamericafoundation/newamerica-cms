@@ -305,7 +305,7 @@
   }
 
   .block-panels:not(:first-child){
-    margin-top: 75px;
+    margin-top: 125px;
   }
 
   .panel-group {
@@ -325,8 +325,11 @@
   }
 
   .panel-section{
+
+    margin: 50px 0;
+
     &:not(:first-child){
-      margin: 75px 0;
+      margin: 125px 0;
     }
 
     .panel-title{
