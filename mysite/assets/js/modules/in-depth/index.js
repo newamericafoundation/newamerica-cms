@@ -1,18 +1,20 @@
 import $ from 'jquery'
 /*
-	in-depth/index.js - adds in-depth section header interaction, 
+	in-depth/index.js - adds in-depth section header interaction,
 		- implements slick carousel - documentation: http://kenwheeler.github.io/slick/
 
 */
 
 export default function() {
-	addSectionHeaderInteraction();
-	inDepthPanelScroll();
+	if( $('body').hasClass('template-indepthsection') ){
+		addSectionHeaderInteraction();
+		inDepthPanelScroll();
+	}	
 }
 
 /*
 
-	Implements slick carousel for in-depth section header, adds event listener and calls initially 
+	Implements slick carousel for in-depth section header, adds event listener and calls initially
 		helper function to toggle carousel arrows on scroll
 
 */
@@ -70,7 +72,7 @@ function toggleArrowDisplay() {
 
 /*
 
-	Implements vertical fixed navigation interaction on scroll - using code from/based off of example 
+	Implements vertical fixed navigation interaction on scroll - using code from/based off of example
 		found here: https://codyhouse.co/gem/vertical-fixed-navigation/
 
 */

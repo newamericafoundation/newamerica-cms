@@ -1,6 +1,6 @@
-/* 
+/*
 
-Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertical-fixed-navigation/ 
+Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertical-fixed-navigation/
 
 */
 
@@ -64,25 +64,25 @@ Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertic
 
 		/* prevent weird movements on hover when you use a CSS3 transformation - webkit browsers */
 		@include backface-visibility(hidden);
-		
+
 		span {
 			float: right;
 			display: inline-block;
 			@include transform(scale(.6));
 		}
 
-		&:hover span {
-			@include transform(scale(1)); 
+		&:hover span{
+			@include transform(scale(1));
 		}
 
-		&:hover .cd-label {
-			opacity: 1;
+		&:hover .cd-label{
+			opacity: 1 !important;
 		}
 
 		&.is-selected .cd-dot {
 			background-color: palette-get(na-turquoise);
 		}
-	} 
+	}
 
 	.cd-dot {
 		pointer-events: auto;
@@ -97,7 +97,7 @@ Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertic
 		-webkit-transition: -webkit-transform 0.2s, background-color 0.5s;
 		-moz-transition: -moz-transform 0.2s, background-color 0.5s;
 		transition: transform 0.2s, background-color 0.5s;
-		@include transform-origin(50% 50%);	
+		@include transform-origin(50% 50%);
 	}
 
 	.cd-label {
@@ -114,6 +114,17 @@ Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertic
 		opacity: 0;
 		@include transform-origin(100% 50%);
 	}
+
+  &.active{
+    pointer-events: all;
+    
+    .cd-label{
+      opacity: 1;
+    }
+    a span{
+      @include transform(scale(1));
+    }
+  }
 }
 
 /* Touch devices */
@@ -193,16 +204,16 @@ Vertical Fixed Navigation Styling - adapted from https://codyhouse.co/gem/vertic
 			color: palette-get(na-turquoise);
 		}
 	}
-	
+
 	&.open {
 		@include transform(scale(1));
 	}
 
 	&.open + .cd-nav-trigger {
 		background-color: transparent;
-		
+
 		span {
-			background-color: rgba(palette-get(na-turquoise), 0);	
+			background-color: rgba(palette-get(na-turquoise), 0);
 		}
 
 		span::before, span::after {

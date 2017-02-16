@@ -71,10 +71,24 @@ function readMoreInteraction() {
 	});
 }
 
+// hack to use smaller soundcloud embed
+//...wagtail uses oembed call that is not customizable
+function swapSoundCloudEmbed() {
+	let sc = $('.block-soundcloud_embed').find('iframe');
+	if( sc.attr('src') ){
+		let src = sc.attr('src');
+		if( src.match( /.*(soundcloud).*(visual=true)/ ))
+			sc.attr('src', src.replace( 'visual=true', '' ));
+	}
+	// give DOM half a beat to reload soundcloud src
+	setTimeout( function(){ sc.addClass('loaded'); }, 50 );
+}
+
 export default function() {
 	checkDropcap();
 	convertToHttps();
 	addDatavizDownloadInteractivity();
 	resizeTableBlock();
 	readMoreInteraction();
+	swapSoundCloudEmbed()
 }

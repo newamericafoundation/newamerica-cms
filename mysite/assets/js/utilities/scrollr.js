@@ -9,7 +9,8 @@ class Scrollr {
       lastPosition: 0,
       currentPosition: 0,
       speed: 0,
-      direction: false
+      direction: false,
+      isScrolling: false
     }
   }
 
@@ -38,8 +39,12 @@ class Scrollr {
   }
 
   addTrigger(selector, configs){
-    let i = this.triggersSize() + 1;
-    this.triggers[i] = new Trigger(selector, configs)
+    let name = configs.name ? configs.name :
+    (typeof(selector) == 'string' ? selector : selector.nodeName);
+
+    name = this.uniqueName(name);
+
+    this.triggers[name] = new Trigger(selector, configs)
     if(!this.isActive) this.start();
     return this;
   }
@@ -52,12 +57,23 @@ class Scrollr {
 
   smoothScroll(selector,offset=0, onComplete=()=>{}) {
     let target = $(selector);
+    this.window.isScrolling = true;
     $('body,html').animate(
     	{'scrollTop':target.offset().top+offset},
-    	600, onComplete
+    	600, ()=>{ this.window.isScrolling=false; onComplete(); }
     );
     return this;
 	}
+
+  uniqueName(name){
+    if(this.triggers[name]){
+      let r = /[0-9]+$/;
+      let i = name.match(r) ? +name.match(r)[0] + 1 : 1;
+      return this.uniqueName(`${name}${i}`);
+    } else {
+      return name;
+    }
+  }
 }
 
 class Trigger {
@@ -69,36 +85,52 @@ class Trigger {
     offset=0
   }){
     this.selector = selector;
-    this.element = $(selector);
-    this.offset = offset;
+    this.$elements = $(selector);
+    this.triggerElements = [];
 
-    this.isActive = false;
-    this.window = {};
+    this.$elements.each((i, el)=>{
+      this.triggerElements.push(new TriggerElement(el, offset));
+    });
 
     this.events = {
-      hasEntered: ()=>{ hasEntered(this.element, this); },
-      hasLeft: ()=>{ hasLeft(this.element, this); },
-      onEnter: ()=>{ onEnter(this.element, this); },
-      onLeave: ()=>{ onLeave(this.element, this); }
+      hasEntered: (el)=>{ hasEntered(el.element, el, this); },
+      hasLeft: (el)=>{ hasLeft(el.element, el, this); },
+      onEnter: (el)=>{ onEnter(el.element, el, this); },
+      onLeave: (el)=>{ onLeave(el.element, el, this); }
     }
   }
 
-  fire(_window){
-    this.window = _window;
+  fire(window){
+    for(let el of this.triggerElements){
+      el.setWindow(window)
 
-    let hasLeft = this.hasLeft(),
-        hasEntered = this.hasEntered(),
-        isBefore = this.isBefore();
+      let hasLeft = el.hasLeft(),
+          hasEntered = el.hasEntered(),
+          isBefore = el.isBefore();
 
-    if(hasEntered) this.events.hasEntered();
-    if(hasLeft) this.events.hasLeft();
-    if((hasLeft || isBefore) && this.isActive){
-      this.isActive=false;
-      this.events.onLeave();
-    } else if(hasEntered && !hasLeft && !this.isActive){
-      this.isActive=true;
-      this.events.onEnter();
+      if(hasEntered) this.events.hasEntered(el);
+      if(hasLeft) this.events.hasLeft(el);
+      if((hasLeft || isBefore) && el.isActive){
+        el.isActive=false;
+        this.events.onLeave(el);
+      } else if(hasEntered && !hasLeft && !el.isActive){
+        el.isActive=true;
+        this.events.onEnter(el);
+      }
     }
+  }
+}
+
+class TriggerElement {
+  constructor(el, offset=0){
+    this.el = el;
+    this.element = $(el);
+    this.offset = offset;
+    this.isActive = false;
+  }
+
+  setWindow(window){
+    this.window = window;
   }
 
   scrollTop(){
