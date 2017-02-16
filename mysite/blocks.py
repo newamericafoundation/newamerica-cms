@@ -141,17 +141,30 @@ class SessionsBlock(blocks.StreamBlock):
 	class Meta:
 		template = 'blocks/schedule.html'
 
-class BodyBlock(blocks.StreamBlock):
-	introduction = blocks.RichTextBlock()
-	heading = blocks.CharBlock(classname='full title')
+class Body(blocks.StreamBlock):
+	introduction = blocks.RichTextBlock(icon="openquote")
+	heading = blocks.CharBlock(classname='full title', icon="title")
 	paragraph = blocks.RichTextBlock()
 	inline_image = CustomImageBlock(icon='image')
 	video = EmbedBlock(icon='media')
 	table = TableBlock()
 	button = ButtonBlock()
-	iframe = IframeBlock()
-	dataviz = DatavizBlock()
-	google_map = GoogleMapBlock()
-	schedule = SessionsBlock(help_text="1 to 2 day schedule of events")
-	people = PeopleBlock(help_text="Grid of people with short bios that appear on click")
-	image = ImageChooserBlock(template='blocks/image_block.html', help_text='Legacy option. Consider using Inline Image instead.')
+	iframe = IframeBlock(icon="link")
+	dataviz = DatavizBlock(icon="code")
+	google_map = GoogleMapBlock(icon="site")
+
+class PanelBlock(blocks.StructBlock):
+	title = blocks.TextBlock()
+	body = Body()
+
+class PanelsBlock(blocks.StreamBlock):
+	panel = PanelBlock(icon="doc-empty-inverse")
+
+	class Meta:
+		template='blocks/panels.html'
+
+class BodyBlock(Body):
+	schedule = SessionsBlock(help_text="1 to 2 day schedule of events", icon="date")
+	people = PeopleBlock(help_text="Grid of people with short bios that appear on click", icon="group")
+	panels = PanelsBlock(icon="list-ul")
+	image = ImageChooserBlock(template='blocks/image_block.html', help_text='Legacy option. Consider using Inline Image instead.', icon="placeholder")
