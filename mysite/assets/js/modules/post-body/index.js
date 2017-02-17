@@ -81,7 +81,7 @@ function swapSoundCloudEmbed() {
 			sc.attr('src', src.replace( 'visual=true', '' ));
 	}
 	// give DOM half a beat to reload soundcloud src
-	setTimeout( function(){ sc.addClass('loaded'); }, 50 );
+	setTimeout( function(){ sc.addClass('loaded'); }, 150 );
 }
 
 export default function() {
