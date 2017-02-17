@@ -8,7 +8,7 @@ export default function(){
   let anchors = $('.panel-anchor-link');
   if(!navItems) return;
 
-  //If user adds link to section in richtext editor,
+  // If user adds link to section in richtext editor,
   // add smoothscroll
   $('.panel-section').each(function(){
     let id = '#' + $(this).attr('id');
