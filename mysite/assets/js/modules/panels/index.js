@@ -6,19 +6,27 @@ export default function(){
 
   let navItems = $('.panel-nav a');
   let anchors = $('.panel-anchor-link');
-
   if(!navItems) return;
-  //showContents();
+
+  //If user adds link to section in richtext editor,
+  // add smoothscroll
+  $('.panel-section').each(function(){
+    let id = '#' + $(this).attr('id');
+    $(`a[href*="/${id}"]`).each(function(){
+      $(this).attr('href', id );
+    }).click(anchorClick);
+  });
 
   navItems.click(anchorClick);
   anchors.click(anchorClick);
+
   $('.touch .cd-nav-trigger').click(function(){
     $('.touch #cd-vertical-nav').toggleClass('open');
   });
   $('.touch #cd-vertical-nav a').click(function(){
     $('.touch #cd-vertical-nav').removeClass('open');
   });
-  
+
   scrollr
     .addTrigger('.post-header-container',{
       onEnter: showContents,
