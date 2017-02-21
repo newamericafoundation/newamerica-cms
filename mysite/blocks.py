@@ -17,7 +17,6 @@ class CustomImageBlock(blocks.StructBlock):
 	], required=True)
 	width = blocks.ChoiceBlock([
 		('initial', 'Auto'),
-		('100%', '100%')
 		('60%', '60%'),
 		('50%', '50%'),
 		('33.333%', '33%'),
