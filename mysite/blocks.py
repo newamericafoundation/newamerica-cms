@@ -22,6 +22,7 @@ class CustomImageBlock(blocks.StructBlock):
 		('33.333%', '33%'),
 		('25%', '25%')
 	], default="initial", required=True)
+	open_image_on_click = blocks.BooleanBlock(default=False, required=False)
 
 	class Meta:
 		template = 'blocks/image_block.html'
