@@ -14,7 +14,7 @@
 			<div class="post-header with-image" style="background-image: linear-gradient(
 			      rgba(0, 0, 0, 0),
 			      rgba(0, 0, 0, 0.15)
-			    ), 
+			    ),
 		    	url({{ story_image.url }})">
 
 				<div class="post-header__text">
@@ -55,7 +55,7 @@
 	    {% for block in self.body %}
 	    	{% include 'ui_elements/post_body_block.html' %}
 	    {% endfor %}
-	
+
 		{% if page.itunes_url %}
 			<a href="{{ page.itunes_url }}">Listen on iTunes</a>
 		{% endif %}
