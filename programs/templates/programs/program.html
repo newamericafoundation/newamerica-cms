@@ -26,10 +26,11 @@
 							{% endif %}
 							<div class='hero-grid__element__overlay'></div>
 							<div class='hero-grid__element__text-bar'>
-								{% if page.lead_1.specific.rsvp_link %}
-			    					{% if page.lead_1.specific|is_future %}
+
+								{% if page.lead_1.specific.rsvp_link and page.lead_1.specific.start_time %}
+										{% if page.lead_1.specific|is_future %}
 										<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
-									{% endif %}
+										{% endif %}
 								{% endif %}
 								<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line page.lead_1.content_type %}</p>
 								<h1 class='hero-grid__element__text-bar__heading'>{% if page.lead_1.seo_title %}{{ page.lead_1.seo_title }}{% else %}{{ page.lead_1.title }}{% endif %}</h1>
@@ -55,13 +56,13 @@
 								<div class='hero-grid__element__overlay'></div>
 								<div class='hero-grid__element__text-bar'>
 									{% if other_lead_story.specific.rsvp_link %}
-				    					{% if other_lead_story.specific|is_future %}
+				    					{% if other_lead_story.specific|is_future  and page.lead_1.specific.start_time %}
 											<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
 										{% endif %}
 									{% endif %}
 									<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line other_lead_story.content_type %}</p>
 									<h1 class='hero-grid__element__text-bar__heading'>{% if other_lead_story.seo_title %}{{ other_lead_story.seo_title }}{% else %}{{ other_lead_story.title }}{% endif %}</h1>
-									
+
 								</div>
 							</a>
 						</div>
@@ -69,7 +70,7 @@
 				{% endfor %}
 				</div>
 				{% endif %}
-				
+
 			</div>
 
 		</div>
@@ -85,7 +86,7 @@
 
 			{% for feature_story in featured_stories %}
 			<div class='small-12 large-4 columns'>
-				
+
 				<div class='picture-link'>
 					<a href="{{ feature_story.url }}">
 						{% if feature_story.specific.story_image %}
@@ -122,7 +123,7 @@
 				<ul class='border-panel__list has-{{ page.feature_carousel|length }}-children'>
 					{% for item in page.feature_carousel %}
 					<li class='border-panel__item'>
-						
+
 						<div class='border-panel__content'>
 							<div class='border-panel__text'>
 								<div class='border-panel__info'>
@@ -132,7 +133,7 @@
 									{% endif %}
 								</div>
 								<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
-							
+
 								<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
 								<a href="{{ item.value.url }}"><div class='button black'>Read More</div></a>
 							</div>
@@ -163,7 +164,7 @@
 									<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
 								</form>
 							</div>
-						</div>	
+						</div>
 					</li>
 				</ul>
 			</div>
