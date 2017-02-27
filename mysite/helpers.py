@@ -8,7 +8,7 @@ from django.db.models import Q
 from programs.models import Program, Subprogram
 
 def is_int(n):
-     try:
+    try:
         int(s)
         return True
     except ValueError:
@@ -51,12 +51,12 @@ def get_org_wide_posts(self, request, page_type, content_model):
     filter_dict = {}
 
     if search_program:
-        if(is_int(search_program))
+        if is_int(search_program):
             filter_dict['parent_programs'] = int(search_program)
     if date:
-
-        date_range = json.loads(date)
-        filter_dict['date__range'] = (date_range['start'], date_range['end'])
+        if is_json(date):
+            date_range = json.loads(date)
+            filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
     all_posts = content_model.objects.filter(**filter_dict)
     context['all_posts'] = paginate_results(request, all_posts.live().order_by("-date"))
