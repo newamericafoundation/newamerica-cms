@@ -16,7 +16,7 @@ def is_int(n):
 
 def is_json(v):
     try:
-        json.loads(date)
+        json.loads(v)
         return True
     except ValueError:
         return False

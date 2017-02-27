@@ -12,7 +12,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Fiel
 from wagtail.wagtailcore.models import Page
 
 from home.models import Post
-from mysite.helpers import paginate_results, generate_url
+from mysite.helpers import paginate_results, generate_url, is_json
 
 class Event(Post):
     """
@@ -203,8 +203,11 @@ def set_events_date_query(user_date_query, tense):
     curr_date = localtime(now()).date()
 
     if user_date_query:
-        date_range = json.loads(user_date_query)
-        date_query = Q(date__range=(date_range['start'], date_range['end']))
+        if is_json(user_date_query):
+            date_range = json.loads(user_date_query)
+            date_query = Q(date__range=(date_range['start'], date_range['end']))
+        else:
+            date_query = Q(date__isnull=True)
     else:
         if tense == "future":
             # ensures that multi-day events are displayed on future events page until their end date has passed
