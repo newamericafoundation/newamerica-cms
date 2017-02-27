@@ -9,7 +9,7 @@ from programs.models import Program, Subprogram
 
 def is_int(n):
     try:
-        int(s)
+        int(n)
         return True
     except ValueError:
         return False
@@ -87,7 +87,8 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
 
         filter_dict['parent_programs'] = program
         if search_subprogram:
-            filter_dict['post_subprogram'] = int(search_subprogram)
+            if is_int(search_subprogram):
+                filter_dict['post_subprogram'] = int(search_subprogram)
 
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
     # if subprogram
