@@ -7,6 +7,19 @@ from django.db.models import Q
 
 from programs.models import Program, Subprogram
 
+def is_int(n):
+    try:
+        int(n)
+        return True
+    except ValueError:
+        return False
+
+def is_json(v):
+    try:
+        json.loads(v)
+        return True
+    except ValueError:
+        return False
 
 def paginate_results(request, all_posts):
     page = request.GET.get('page')
@@ -38,10 +51,12 @@ def get_org_wide_posts(self, request, page_type, content_model):
     filter_dict = {}
 
     if search_program:
-        filter_dict['parent_programs'] = int(search_program)
+        if is_int(search_program):
+            filter_dict['parent_programs'] = int(search_program)
     if date:
-        date_range = json.loads(date)
-        filter_dict['date__range'] = (date_range['start'], date_range['end'])
+        if is_json(date):
+            date_range = json.loads(date)
+            filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
     all_posts = content_model.objects.filter(**filter_dict)
     context['all_posts'] = paginate_results(request, all_posts.live().order_by("-date"))
@@ -72,7 +87,8 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
 
         filter_dict['parent_programs'] = program
         if search_subprogram:
-            filter_dict['post_subprogram'] = int(search_subprogram)
+            if is_int(search_subprogram):
+                filter_dict['post_subprogram'] = int(search_subprogram)
 
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
     # if subprogram
@@ -82,8 +98,9 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
         filter_dict['post_subprogram'] = program
 
     if date:
-        date_range = json.loads(date)
-        filter_dict['date__range'] = (date_range['start'], date_range['end'])
+        if is_json(date):
+            date_range = json.loads(date)
+            filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
     all_posts = content_model.objects.live().filter(**filter_dict)
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
