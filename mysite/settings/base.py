@@ -79,6 +79,8 @@ MIDDLEWARE = [
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+
+    'mysite.log_handlers.LogDNAMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
