@@ -57,7 +57,7 @@ export default function(){
 function showContents(){
   //$('.panel-nav').first().addClass('active');
   //$('.panel-group').first().addClass('active');
-  history.replaceState(null,null,null);
+  history.replaceState(null,null,'#');
 }
 
 function anchorClick(e){
