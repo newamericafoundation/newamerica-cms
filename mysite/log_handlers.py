@@ -1,4 +1,5 @@
-import logging, traceback, os, sys
+import logging, traceback, os, sys, json
+from mysite.helpers import is_json
 from logdna import LogDNAHandler as LogDNA
 
 class LogDNAMiddleware(object):
@@ -34,8 +35,11 @@ class LogDNAMiddleware(object):
         context = {
             'traceback': traceback.format_tb(exc_tb),
             'method': request.method,
-            'path': request.path,
-            'meta': request.META
+            'path': request.path
         }
+
+        for k,v in request.META.iteritems():
+            if isinstance(v, str):
+                context[k] = v;
 
         self.log.error(error, {'context':context})
