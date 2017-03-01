@@ -116,7 +116,6 @@ def generate_content_type_line(ptype):
 # generates date line for all post types/ datetime line for events
 @register.simple_tag()
 def generate_dateline(post):
-	print(post)
 	ret_string = ""
 	date_format = '%B %-d, %Y'
 	time_format = '%-I:%M %p'
