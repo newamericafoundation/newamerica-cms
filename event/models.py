@@ -12,7 +12,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Fiel
 from wagtail.wagtailcore.models import Page
 
 from home.models import Post
-from mysite.helpers import paginate_results, generate_url, is_json
+from mysite.helpers import paginate_results, generate_url, is_json, is_int
 
 class Event(Post):
     """
@@ -135,7 +135,10 @@ def get_org_wide_events(self, request, tense):
     date_query = set_events_date_query(date, tense)
 
     if search_program:
-        program_query = Q(parent_programs=int(search_program))
+        if is_int(search_program):
+            program_query = Q(parent_programs=int(search_program))
+        else:
+            program_query = Q(id__isnull=True)
 
     all_events = Event.objects.filter(date_query & program_query)
 
@@ -174,7 +177,10 @@ def get_program_and_subprogram_events(self, request, tense):
         program = Program.objects.get(title=program_title)
         program_query = Q(parent_programs=program)
         if search_subprogram:
-            subprogram_query = Q(post_subprogram=int(search_subprogram))
+            if is_int(search_subprogram):
+                subprogram_query = Q(post_subprogram=int(search_subprogram))
+            else:
+                subprogram_query = Q(id__isnull=True)
 
         context['subprograms'] = program.get_children().type(Subprogram).live().order_by('title')
     # if subprogram
@@ -207,7 +213,7 @@ def set_events_date_query(user_date_query, tense):
             date_range = json.loads(user_date_query)
             date_query = Q(date__range=(date_range['start'], date_range['end']))
         else:
-            date_query = Q(date__isnull=True)
+            date_query = Q(id__isnull=True)
     else:
         if tense == "future":
             # ensures that multi-day events are displayed on future events page until their end date has passed
