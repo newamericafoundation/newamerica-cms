@@ -45,7 +45,7 @@ class GenericFeed(Feed):
     def __init__(self):
         super(GenericFeed, self).__init__()
         self.feed_type = CustomFeedType
-        self.limit = 20
+        self.limit = 25
         self.acceptable_content_types = [
             "book","article","blogpost",
             "event","podcast","policypaper","pressrelease",
@@ -79,7 +79,7 @@ class GenericFeed(Feed):
 
     def link(self, obj):
         if obj["page"]:
-            return obj["page"].full_url
+            return obj["page"].relative_url(obj["page"].get_site())
         else:
             raise Http404
 
@@ -96,7 +96,7 @@ class GenericFeed(Feed):
          return datetime.combine(item.date, time())
 
     def item_link(self, item):
-        return item.full_url
+        return item.relative_url(item.get_site())
 
     def item_media_content_url(self, item):
         if item.story_image is not None:
