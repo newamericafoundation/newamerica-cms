@@ -6,7 +6,7 @@ export default function(){
 
   let navItems = $('.panel-nav a');
   let anchors = $('.panel-anchor-link');
-  if(!navItems) return;
+  if(navItems.length===0) return;
 
   // If user adds link to section in richtext editor,
   // add smoothscroll
@@ -48,7 +48,7 @@ export default function(){
         let id = $el.attr('id');
         navItems.removeClass('is-selected');
         $(`#nav-${id}`).addClass('is-selected');
-        history.pushState(null,null,'#'+id);
+        history.replaceState(null,null,'#'+id);
       },
       offset: -175
     });
@@ -57,12 +57,12 @@ export default function(){
 function showContents(){
   //$('.panel-nav').first().addClass('active');
   //$('.panel-group').first().addClass('active');
-  history.pushState(null,null,'#');
+  history.replaceState(null,null,null);
 }
 
 function anchorClick(e){
   e.preventDefault();
   let href = $(this).attr('href');
   scrollr.smoothScroll(href, -150 );
-  history.pushState(null,null,href)
+  history.replaceState(null,null,href)
 }
