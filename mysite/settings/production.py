@@ -65,28 +65,6 @@ POSTMARK_TRACK_OPENS = False
 DEFAULT_FROM_EMAIL = POSTMARK_SENDER
 SERVER_EMAIL = POSTMARK_SENDER
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse',
-        },
-    },
-    'handlers': {
-        'logdna': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'mysite.log_handlers.LogDNAHandler'
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['logdna'],
-        }
-    }
-}
-
 try:
     from .local import *
 except ImportError:
