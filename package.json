@@ -8,7 +8,7 @@
     "open": "open https://localhost:8000/",
     "dev": "NODE_ENV=development webpack --config webpack.config.js --watch",
     "postinstall": "NODE_ENV=production webpack --config webpack.config.js",
-    "build": "NODE_ENV=production webpack --config webpack.config.js",
+    "build": "NODE_ENV=production webpack --config webpack.config.js --optimize-minimize",
     "get-icon-svgs": "node mysite/assets/utilities/icon_parser/index.js",
     "get-dropdown-svg-b64": "node mysite/assets/utilities/b64.js"
   },
@@ -42,6 +42,7 @@
     "jade-loader": "^0.8.0",
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
+    "loader-utils": "^0.2.16",
     "modernizr": "^3.3.1",
     "moment": "^2.13.0",
     "node-sass": "^3.4.2",
@@ -52,13 +53,14 @@
     "script-loader": "^0.6.1",
     "slick-carousel": "^1.6.0",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.9"
+    "webpack": "^2.2.1"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
     "eslint": "^2.9.0",
     "eslint-plugin-babel": "^3.2.0",
     "file-loader": "^0.8.5",
-    "raw-loader": "^0.5.1"
+    "raw-loader": "^0.5.1",
+    "webpack": "^2.2.1"
   }
 }

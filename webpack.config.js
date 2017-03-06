@@ -13,13 +13,8 @@ module.exports = {
 		sourceMapFilename: 'mysite.js.map'
 	},
 
-	resolve: {
-		modulesDirectories: [ 'node_modules' ]
-	},
-
 	module: {
-		loaders: [
-
+		rules: [
 			{
 				test: /(\.js)|(\.jsx)$/,
 				loader: 'babel-loader',
@@ -28,32 +23,45 @@ module.exports = {
 					presets: [ 'es2015', 'stage-0' ]
 				}
 			},
-
 			{
 				test: /\.scss$/,
-				loaders: [ 'style', 'css', 'postcss', 'sass' ]
+				use: [ 
+					{
+						loader:'style-loader'
+					},
+					{
+						loader: 'css-loader'
+					},
+					{
+						loader: 'postcss-loader',
+						options: {
+							autoprefixer: {
+								browsers: ['> 1%', 'Chrome >= 46', 'ChromeAndroid >= 46', 'Firefox >= 38', 'FirefoxAndroid >= 38','Safari >= 7', 'iOS >= 7', 'Explorer >= 11', 'ExplorerMobile >= 11', 'last 2 Edge versions', 'last 2 Android versions', 'last 2 Opera versions']
+							}
+						}
+					},
+					{
+						loader: 'sass-loader'
+					}
+				]
 			},
-
 			{
 				test: /\.css$/,
-				loaders: [ 'raw' ]
+				loader: 'raw-loader'
 			},
-
 			{
 				test: /\.jade$/,
-				loaders: [ 'jade' ]
+				loader: 'jade-loader'
 			}
-
 		]
 	},
-	postcss: [
-		autoprefixer({
-			browsers: ['> 1%', 'Chrome >= 46', 'ChromeAndroid >= 46', 'Firefox >= 38', 'FirefoxAndroid >= 38','Safari >= 7', 'iOS >= 7', 'Explorer >= 11', 'ExplorerMobile >= 11', 'last 2 Edge versions', 'last 2 Android versions', 'last 2 Opera versions']
-		})
-	],
-	devtool: (process.env.NODE_ENV === 'development') ? 'source-map' : null,
+	devtool: (process.env.NODE_ENV === 'development') ? 'source-map' : false,
 	plugins: (process.env.NODE_ENV === 'development') ? [] : [
 		new webpack.optimize.UglifyJsPlugin({
+			sourceMap: true,
+			compress: {
+       			warnings: true
+     		},
 			mangle: {
 				except: [ '$super', '$', 'exports', 'require' ]
 			}
