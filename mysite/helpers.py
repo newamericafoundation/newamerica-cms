@@ -100,7 +100,9 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
     if date:
         if is_json(date):
             date_range = json.loads(date)
-            filter_dict['date__range'] = (date_range['start'], date_range['end'])
+            if isinstance(date_range, dict):
+                if 'start' in date_range and 'end' in date_range:
+                    filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
     all_posts = content_model.objects.live().filter(**filter_dict)
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))

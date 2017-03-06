@@ -211,7 +211,13 @@ def set_events_date_query(user_date_query, tense):
     if user_date_query:
         if is_json(user_date_query):
             date_range = json.loads(user_date_query)
-            date_query = Q(date__range=(date_range['start'], date_range['end']))
+            if isinstance(date_range, dict):
+                if 'start' in date_range and 'end' in date_range:
+                    date_query = Q(date__range=(date_range['start'], date_range['end']))
+                else:
+                    date_query = Q(id__isnull=True)
+            else:
+                date_query = Q(id__isnull=True)
         else:
             date_query = Q(id__isnull=True)
     else:
