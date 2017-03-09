@@ -1,3 +1,36 @@
-<div class="timeline">
+<script type="text/javascript">
+	var timeScale = {{ self.event_scale }},
+		eventCategories = {{ self.event_categories }},
+		eventList = {{ self.event_list }};
+</script>
+<script type="text/javascript" src="../../assets/js/modules/timeline/index.js"></script>
 
+<div class="timeline">
+	<div class="timeline__nav">
+
+	</div>
+	<div class="timeline__content">
+		{% for event in self.event_list %}
+			<div class="timeline__event">
+				{% if event.image or event.video %}
+					<div class="timeline__event__media">
+
+					</div>
+					<div class="timeline__event__text has-media">
+				{% else %}
+					<div class="timeline__event__text">
+				{% endif %}
+						{% if event.end_date %}
+							<div class="timeline__event__date">{{ event.start_date }} - {{ event.end_date }}</div>
+						{% else %}
+							<div class="timeline__event__date">{{ event.start_date }}</div>
+						{% endif %}
+						<div class="timeline__event__title">{{ event.title }}</div>
+						{% if event.description %}
+							<div class="timeline__event__description">{{ event.description }}</div>
+						{% endif %}
+					</div>
+			</div>
+		{% endfor %}
+	</div>
 </div>
