@@ -62,6 +62,32 @@ class DatavizBlock(blocks.StructBlock):
 		icon = 'site'
 		label = 'Dataviz'
 
+class TimelineEventBlock(blocks.StructBlock):
+	title = blocks.CharBlock(required=True)
+	description = blocks.RichTextBlock(required=False)
+	category = blocks.CharBlock(required=False)
+	start_date = blocks.DateBlock(required=True)
+	end_date = blocks.DateBlock(required=False)
+	image = ImageChooserBlock(required=False, help_text="If both image and video are entered, will display video - image will be hidden")
+	video = EmbedBlock(required=False)
+	
+
+class TimelineBlock(blocks.StructBlock):
+	title = blocks.CharBlock(required=False)
+	subheading = blocks.RichTextBlock(required=False)
+	time_scale = blocks.ChoiceBlock([
+		('years', 'Years'),
+		('months', 'Months'),
+		('days', 'Days'),
+	])
+	event_categories = blocks.ListBlock(blocks.CharBlock(), required=False)
+	event_list = blocks.ListBlock(TimelineEventBlock())
+
+	class Meta:
+		template = 'blocks/timeline.html'
+		icon = 'site'
+		label = 'Timeline'
+
 class TwoColumnBlock(blocks.StructBlock):
     left_column = blocks.RichTextBlock()
     right_column = blocks.RichTextBlock()
@@ -151,6 +177,7 @@ class Body(blocks.StreamBlock):
 	button = ButtonBlock()
 	iframe = IframeBlock(icon="link")
 	dataviz = DatavizBlock(icon="code")
+	timeline = TimelineBlock(icon="arrows-up-down")
 	google_map = GoogleMapBlock(icon="site")
 
 class PanelBlock(blocks.StructBlock):
