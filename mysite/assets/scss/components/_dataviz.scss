@@ -1,5 +1,5 @@
 .dataviz {
-	$icon-horizontal-spacing: 37px;
+	$icon-horizontal-spacing: 32px;
 	$icon-vertical-spacing: 30px;
 	$icon-horizontal-padding: 20px;
 	position: relative;
@@ -69,43 +69,78 @@
 			}
 		}
 	}
-	&__download-link, &__print-link {
-		svg {
-			margin-top: 6px;
-		}
+
+	&__share-link, &__share-link-label {
+		right: -2px;
 	}
 
 	&__share-link {
 		top: 4px;
-		right: 0px;
-		svg:hover {
-			fill: palette-get(na-black);
-		}
-	}
 
-	&__download-link {
-		top: 0px;
-		right: $icon-horizontal-spacing;	
-		svg:hover {
-			fill: palette-get(na-black);
+		&:hover + .dataviz__share-link-label {
+			display: block;
 		}
-	}
-
-	&__print-link {
-		top: 0px;
-		right: 2*$icon-horizontal-spacing;
+		
 		svg {
 			height: 25px;
+			width: 23px;
 
 			&:hover {
-				& > path, & > line {
-					stroke: palette-get(na-black);
-				}
+				fill: palette-get(na-black);
 			}
 		}
 	}
 
-	&__share-popup {
+	&__download-link, &__download-link-label {
+		right: 2*$icon-horizontal-spacing;	
+	}
+
+	&__download-link {
+		top: 0px;
+
+		&:hover + .dataviz__download-link-label {
+			display: block;
+		}
+		
+		svg {
+			margin-top: 6px;
+			width: 20px;
+			&:hover {
+				fill: 2*palette-get(na-black);
+			}
+		}
+	}
+
+	&__embed-link, &__embed-link-label {
+		right: $icon-horizontal-spacing;
+	}
+
+	&__embed-link {
+		top: 4px;
+		&:hover + .dataviz__embed-link-label {
+			display: block;
+		}
+		
+		svg {
+			height: 25px;
+
+			&:hover {
+				fill: palette-get(na-black);
+			}
+		}
+	}
+
+	&__icon-label {
+		position: absolute;
+		top: -6px;
+		font-size: 11px;
+		line-height: 1;
+		display: none;
+		text-align: center;
+		color: palette-get(na-black);
+	}
+
+	&__share-popup, &__embed-popup {
 		display: none;
 		position: absolute;
 		z-index: 10;
@@ -133,6 +168,20 @@
 			&:hover {
 				color: palette-get(na-turquoise);
 			}
+		}
+	}
+
+	&__embed-popup {
+		padding: 12px;
+		&__content {
+			/*-webkit-box-shadow: inset 0px 0px 3px 1px rgba(192,193,195,0.75);
+			-moz-box-shadow: inset 0px 0px 3px 1px rgba(192,193,195,0.75);
+			box-shadow: inset 0px 0px 3px 1px rgba(192,193,195,0.75);*/
+			border: 2px solid palette-get(na-black-10);
+			padding: 12px;
+			line-height: 1.3;
+			font-size: 13px;
+			max-width: 400px;
 		}
 	}
 
