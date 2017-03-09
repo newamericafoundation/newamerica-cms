@@ -173,12 +173,8 @@
 
 	&__embed-popup {
 		padding: 12px;
+		right: 60px;
 		&__content {
-			/*-webkit-box-shadow: inset 0px 0px 3px 1px rgba(192,193,195,0.75);
-			-moz-box-shadow: inset 0px 0px 3px 1px rgba(192,193,195,0.75);
-			box-shadow: inset 0px 0px 3px 1px rgba(192,193,195,0.75);*/
-			border: 2px solid palette-get(na-black-10);
-			padding: 12px;
 			line-height: 1.3;
 			font-size: 13px;
 			max-width: 400px;
