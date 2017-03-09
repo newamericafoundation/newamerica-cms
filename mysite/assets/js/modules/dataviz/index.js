@@ -40,12 +40,12 @@ function setChartWrapperOverflowPadding() {
 function addChartButtonInteractivity() {
 	$(".dataviz").each(function(index, item) {
 		var $item = $(item);
-		var chartArea = $item.find(".dataviz__chart-area")[0];
-		var downloadLink = $item.find(".dataviz__download-link");
-		var embedLink = $item.find(".dataviz__embed-link");
-		var shareLink = $item.find(".dataviz__share-link");
-		var embedPopup = $item.find(".dataviz__embed-popup");
-		var sharePopup = $item.find(".dataviz__share-popup");
+		var chartArea = $item.find(".dataviz__chart-area")[0],
+			downloadLink = $item.find(".dataviz__download-link"),
+			embedLink = $item.find(".dataviz__embed-link"),
+			shareLink = $item.find(".dataviz__share-link"),
+			embedPopup = $item.find(".dataviz__embed-popup"),
+			sharePopup = $item.find(".dataviz__share-popup");
 		
 		downloadLink.click(function() { handleDownloadClickEvent(chartArea) });
 		embedLink.click(function() { embedPopup.toggle(); });
@@ -67,8 +67,6 @@ function addChartButtonInteractivity() {
 		// hides download links on Internet Explorer
 		hideDownloadLink(downloadLink);
 
-		// addEmbedInteractivity(embedLink, chartArea);
-		// addShareInteractivity(shareLink, chartArea);
 	});
 }
 
@@ -98,23 +96,6 @@ function hideDownloadLink(downloadLink) {
 		$(".in-depth__footer__download-data-message").show();
 	}
 }
-
-// adds click toggle handlers to share popup 
-// function addShareInteractivity(shareLink, chartArea) {
-// 	var popup = $(shareLink).siblings(".dataviz__share-popup");
-// 	$(shareLink).click(function() { popup.toggle(); });
-
-// 	$('body').click(function(evt){
-// 		if(evt.target.class == "dataviz__share-popup" || evt.target.class == ".dataviz__share-link")
-// 			return;
-// 		// excepts descendents of share link and share popup
-// 		if($(evt.target).closest('.dataviz__share-popup').length || $(evt.target).closest('.dataviz__share-link').length)
-// 			return; 
-
-// 		$(".dataviz__share-popup").hide();
-// 	});
-// 	addShareIcons(popup);
-// }
 
 
 function addShareIcons(popup) {
