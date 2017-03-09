@@ -1,6 +1,7 @@
 <script type="text/javascript">
 	var timeScale = {{ self.event_scale }},
 		eventCategories = {{ self.event_categories }},
+		eventEras = {{ self.event_eras }},
 		eventList = {{ self.event_list }};
 </script>
 <script type="text/javascript" src="../../assets/js/modules/timeline/index.js"></script>
@@ -14,7 +15,11 @@
 			<div class="timeline__event">
 				{% if event.image or event.video %}
 					<div class="timeline__event__media">
-
+						{% if event.video %}
+							{{ event.video }}
+						{% else %}
+							{{ event.image }}
+						{% endif %}
 					</div>
 					<div class="timeline__event__text has-media">
 				{% else %}
