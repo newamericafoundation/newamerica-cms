@@ -19,5 +19,6 @@ export default [
   'fixed-banner',
   'dataviz',
   'conference',
-  'panels'
+  'panels',
+  'timeline'
 ].map((moduleName) => require(`./${moduleName}/index.js`).default);

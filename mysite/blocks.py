@@ -8,6 +8,8 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailcore.blocks import IntegerBlock
 
+import json
+
 class CustomImageBlock(blocks.StructBlock):
 	image = ImageChooserBlock(icon="image", required=True)
 	align = blocks.ChoiceBlock(choices=[
@@ -70,6 +72,8 @@ class TimelineEventBlock(blocks.StructBlock):
 	end_date = blocks.DateBlock(required=False)
 	image = ImageChooserBlock(required=False, help_text="If both image and video are entered, will display video - image will be hidden")
 	video = EmbedBlock(required=False)
+
+	
 	
 
 class TimelineBlock(blocks.StructBlock):
@@ -82,6 +86,22 @@ class TimelineBlock(blocks.StructBlock):
 	])
 	event_categories = blocks.ListBlock(blocks.CharBlock(), required=False)
 	event_list = blocks.ListBlock(TimelineEventBlock())
+
+	def get_context(self, value):
+		context = super(TimelineBlock, self).get_context(value)
+		retList = []
+
+		for i, item in enumerate(value['event_list']):
+			curr_item = {}
+			curr_item['title'] = item['title']
+			curr_item['start_date'] = item['start_date'].isoformat()
+			curr_item['end_date'] = item['end_date'].isoformat()
+			retList.append(curr_item)
+
+		context["event_list_json"] = json.dumps(retList)
+		
+		print(json.dumps(retList))
+		return context
 
 	class Meta:
 		template = 'blocks/timeline.html'

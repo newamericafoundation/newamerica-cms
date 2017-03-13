@@ -1,14 +1,17 @@
+{% load utilities %}
+
 <script type="text/javascript">
-	var timeScale = {{ self.event_scale }},
-		eventCategories = {{ self.event_categories }},
-		eventEras = {{ self.event_eras }},
-		eventList = {{ self.event_list }};
+	var test = "five";
+	
+	var eventList = {{ event_list_json|safe }};
+
+	console.log(eventList);
 </script>
-<script type="text/javascript" src="../../assets/js/modules/timeline/index.js"></script>
+
 
 <div class="timeline">
 	<div class="timeline__nav">
-
+		{{ event_list_json }}
 	</div>
 	<div class="timeline__content">
 		{% for event in self.event_list %}
