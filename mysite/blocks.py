@@ -96,7 +96,8 @@ class TimelineBlock(blocks.StructBlock):
 			curr_item = {}
 			curr_item['title'] = item['title']
 			curr_item['start_date'] = item['start_date'].isoformat()
-			curr_item['end_date'] = item['end_date'].isoformat()
+			if (item['end_date']):
+				curr_item['end_date'] = item['end_date'].isoformat()
 			retList.append(curr_item)
 
 		context["event_list_json"] = json.dumps(retList)
