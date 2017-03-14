@@ -102,14 +102,34 @@ class Timeline {
 
 	setDataNest() {
 		let maxLength = 0;
+
+		this.yOffsets = {};
+
+		for (let bin of this.xScale.range()) {
+			console.log(bin);
+			this.yOffsets[bin] = 0;
+		}
+
 		this.dataNest = nest()
-			.key((d) => { return this.xScale(new Date(d.start_date)); })
+			.key((d) => { 
+				let startX = this.xScale(new Date(d.start_date));
+				if (d.end_date) {
+					let endX = this.xScale(new Date(d.end_date));
+					for (let bin of this.xScale.range()) {
+						if (bin > startX && bin <= endX) {
+							this.yOffsets[bin]++;
+						}
+					}
+				}
+				return startX; 
+			})
 			.sortValues(ascending)
 			.rollup((d) => { maxLength = Math.max(maxLength, d.length); return d; })
 			.entries(eventList);
 
 		this.numRows = maxLength;
 		console.log(this.dataNest);
+		console.log(this.yOffsets);
 	}
 
 	setCircles() {
@@ -118,7 +138,7 @@ class Timeline {
 			for (let value of column.value) {
 				this.g.append("rect")
 				    .attr("x", Number(column.key) - dotRadius)
-				    .attr("y", () => { console.log(i, this.yScale(i)); return this.yScale(i) - dotRadius; })
+				    .attr("y", () => { console.log(i, this.yScale(i)); return this.yScale(i + this.yOffsets[column.key]) - dotRadius; })
 				    .attr("height", dotRadius*2)
 				    .attr("width", value.end_date ? this.xScale(new Date(value.end_date)) - Number(column.key) - dotOffset : dotRadius*2)
 				    .attr("rx", dotRadius)
