@@ -6,6 +6,8 @@ from programs.models import Program
 from django.utils.safestring import mark_safe
 from wagtail.wagtailcore.blocks import StreamValue
 
+import json
+
 register = template.Library()
 
 @register.filter()

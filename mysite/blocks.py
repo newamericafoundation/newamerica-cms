@@ -8,6 +8,8 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailcore.blocks import IntegerBlock
 
+import json
+
 class CustomImageBlock(blocks.StructBlock):
 	image = ImageChooserBlock(icon="image", required=True)
 	align = blocks.ChoiceBlock(choices=[
@@ -62,6 +64,50 @@ class DatavizBlock(blocks.StructBlock):
 		template = 'blocks/dataviz.html'
 		icon = 'site'
 		label = 'Dataviz'
+
+class TimelineEventBlock(blocks.StructBlock):
+	title = blocks.CharBlock(required=True)
+	description = blocks.RichTextBlock(required=False)
+	category = blocks.CharBlock(required=False)
+	start_date = blocks.DateBlock(required=True)
+	end_date = blocks.DateBlock(required=False)
+	image = ImageChooserBlock(required=False, help_text="If both image and video are entered, will display video - image will be hidden")
+	video = EmbedBlock(required=False)
+
+	
+	
+
+class TimelineBlock(blocks.StructBlock):
+	title = blocks.CharBlock(required=False)
+	subheading = blocks.RichTextBlock(required=False)
+	time_scale = blocks.ChoiceBlock([
+		('years', 'Years'),
+		('months', 'Months'),
+		('days', 'Days'),
+	])
+	event_categories = blocks.ListBlock(blocks.CharBlock(), required=False)
+	event_list = blocks.ListBlock(TimelineEventBlock())
+
+	def get_context(self, value):
+		context = super(TimelineBlock, self).get_context(value)
+		retList = []
+
+		for i, item in enumerate(value['event_list']):
+			curr_item = {}
+			curr_item['title'] = item['title']
+			curr_item['start_date'] = item['start_date'].isoformat()
+			curr_item['end_date'] = item['end_date'].isoformat()
+			retList.append(curr_item)
+
+		context["event_list_json"] = json.dumps(retList)
+		
+		print(json.dumps(retList))
+		return context
+
+	class Meta:
+		template = 'blocks/timeline.html'
+		icon = 'site'
+		label = 'Timeline'
 
 class TwoColumnBlock(blocks.StructBlock):
     left_column = blocks.RichTextBlock()
@@ -152,6 +198,7 @@ class Body(blocks.StreamBlock):
 	button = ButtonBlock()
 	iframe = IframeBlock(icon="link")
 	dataviz = DatavizBlock(icon="code")
+	timeline = TimelineBlock(icon="arrows-up-down")
 	google_map = GoogleMapBlock(icon="site")
 
 class PanelBlock(blocks.StructBlock):
