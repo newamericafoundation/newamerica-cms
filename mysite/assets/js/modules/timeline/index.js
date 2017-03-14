@@ -120,7 +120,7 @@ class Timeline {
 				    .attr("x", Number(column.key) - dotRadius)
 				    .attr("y", () => { console.log(i, this.yScale(i)); return this.yScale(i) - dotRadius; })
 				    .attr("height", dotRadius*2)
-				    .attr("width", value.end_date ? this.xScale(new Date(value.end_date)) - Number(column.key) : dotRadius*2)
+				    .attr("width", value.end_date ? this.xScale(new Date(value.end_date)) - Number(column.key) - dotOffset : dotRadius*2)
 				    .attr("rx", dotRadius)
 				    .attr("ry", dotRadius)
 				    .attr("class", "timeline__nav__dot")
