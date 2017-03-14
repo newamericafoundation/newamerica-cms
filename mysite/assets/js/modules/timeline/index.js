@@ -1,13 +1,16 @@
 import $ from 'jquery';
 
+import { axisBottom } from 'd3-axis';
 import { scaleLinear, scalePoint, scaleQuantize } from 'd3-scale';
 import { extent, ascending } from 'd3-array';
 import { select, selectAll } from 'd3-selection';
 import { nest } from 'd3-collection';
+import { timeFormat } from 'd3-time-format';
+import { timeDay, timeMonth, timeYear } from 'd3-time';
 
-const dotRadius = 10,
+const dotRadius = 8,
 	dotOffset = 5,
-	margin = { left: dotRadius, right: dotRadius, top: dotRadius, bottom: dotRadius};
+	margin = { left: dotRadius, right: dotRadius, top: dotRadius, bottom: 50};
 
 class Timeline {
 	constructor() {
@@ -21,6 +24,11 @@ class Timeline {
 		this.xScale = scaleQuantize()
 			.domain(extent(eventList, (d) => { return new Date(d.start_date) }));
 		this.yScale = scaleLinear();
+
+		this.xAxis = this.svg.append("g")
+			.attr("class", "axis axis-x");
+		
+		this.setTimeFormat();
 
 		this.render();
 
@@ -51,10 +59,10 @@ class Timeline {
 
 		this.g
 			.attr("height", this.h);
-	}
 
-	setXDomain() {
-		this.xScale
+		this.xAxis
+			.attr("transform", "translate(" + margin.left + "," + (this.h + margin.top + dotRadius + dotOffset) + ")")
+			.call(axisBottom(this.xScale).tickPadding(10).tickSizeOuter(0).tickFormat(this.timeFormat));
 	}
 
 	setXRange() {
@@ -91,7 +99,6 @@ class Timeline {
 		console.log(this.dataNest);
 	}
 
-
 	setCircles() {
 		for (let column of this.dataNest) {
 			let i = 0;
@@ -100,13 +107,23 @@ class Timeline {
 					.attr("r", dotRadius)
 				    .attr("cx", Number(column.key))
 				    .attr("cy", () => { console.log(i, this.yScale(i)); return this.yScale(i); })
-				    .attr("fill", (d) => {
-				    	return "#eeeeee"
-				    });
+				    .attr("fill", "#fff")
+				    .attr("stroke", "grey");
 				i++;
 			}
 		}
+	}
 
+	setTimeFormat() {
+		const [minTime, maxTime] = this.xScale.domain();
+
+		if (timeMonth.count(minTime, maxTime) < 6) {
+			this.timeFormat = timeFormat("%B %d, %Y");
+		} else if (timeMonth.count(maxTime - minTime) < 18) {
+			this.timeFormat = timeFormat("%B %Y");
+		} else {
+			this.timeFormat = timeFormat("%Y");
+		}
 	}
 
 	resize() {
@@ -114,15 +131,8 @@ class Timeline {
 
 		this.g.selectAll("circle").remove();
 
-		this.setWidth();
-		this.setXRange();
-		this.setDataNest();
-		this.setHeight();
-		this.setYScale();
-		this.updateCircles();
+		this.render()
 	}
-
-	
 }
 
 export default function() {
