@@ -10,12 +10,10 @@
 
 
 <div class="timeline">
-	<div class="timeline__nav">
-		{{ event_list_json }}
-	</div>
+	<div class="timeline__nav"></div>
 	<div class="timeline__content">
-		{% for event in self.event_list %}
-			<div class="timeline__event">
+		{% for event in sorted_event_list %}
+			<div class="timeline__event" id="event-{{ forloop.counter0 }}">
 				{% if event.image or event.video %}
 					<div class="timeline__event__media">
 						{% if event.video %}

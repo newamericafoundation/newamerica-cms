@@ -10,12 +10,17 @@ import { timeDay, timeMonth, timeYear } from 'd3-time';
 
 const dotRadius = 8,
 	dotOffset = 5,
-	margin = { left: dotRadius, right: dotRadius, top: dotRadius, bottom: 50};
+	margin = { left: dotRadius, right: dotRadius, top: 20, bottom: 50},
+	strokeColor = "#c0c1c3",
+	strokeSelectedColor = "#2c2f35",
+	fillColor = "#fff",
+	fillSelectedColor = "#2c2f35";
 
 class Timeline {
 	constructor() {
 		this.svg = select(".timeline__nav")
 				.append("svg")
+				.attr("class", "timeline__nav__container")
 				.attr("width", "100%"); 
 
 		this.g = this.svg.append("g")
@@ -26,9 +31,17 @@ class Timeline {
 		this.yScale = scaleLinear();
 
 		this.xAxis = this.svg.append("g")
+			.attr("class", "timeline__nav__axis")
 			.attr("class", "axis axis-x");
+
+		this.hoverInfo = this.svg.append("g")
+			.attr("class", "timeline__nav__hover-info")
+			.classed("hidden", true);
+		this.hoverInfoText = this.hoverInfo.append("text");
 		
 		this.setTimeFormat();
+		this.currSelected = 0;
+		select("#event-0").classed("visible", true);
 
 		this.render();
 
@@ -107,8 +120,11 @@ class Timeline {
 					.attr("r", dotRadius)
 				    .attr("cx", Number(column.key))
 				    .attr("cy", () => { console.log(i, this.yScale(i)); return this.yScale(i); })
-				    .attr("fill", "#fff")
-				    .attr("stroke", "grey");
+				    .attr("class", "timeline__nav__dot")
+				    .classed("selected", value.id == this.currSelected)
+				    .on("mouseover", (d, index, paths) => { return this.mouseover(value, paths[index]); })
+				    .on("mouseout", (d, index, paths) => { return this.mouseout(paths[index]); })
+				    .on("click", (d, index, paths) => { return this.clicked(value, paths[index]); });
 				i++;
 			}
 		}
@@ -132,6 +148,32 @@ class Timeline {
 		this.g.selectAll("circle").remove();
 
 		this.render()
+	}
+
+	mouseover(datum, path) {
+		let elem = select(path);
+		elem.classed("hovered", true);
+
+		this.hoverInfo
+			.classed("hidden", false)
+			.attr("transform", "translate(" + elem.attr("cx") + "," + 10 + ")");
+
+		this.hoverInfoText.text(datum.title);
+	}
+
+	mouseout(path) {
+		select(path).classed("hovered", false);
+
+		this.hoverInfo.classed("hidden", true);
+	}
+
+	clicked(datum, path) {
+		const { id } = datum;
+		select("#event-" + this.currSelected).classed("visible", false);
+		select(".timeline__nav__dot.selected").classed("selected", false);
+		this.currSelected = id;
+		select("#event-" + id).classed("visible", true);
+		select(path).classed("selected", true);
 	}
 }
 

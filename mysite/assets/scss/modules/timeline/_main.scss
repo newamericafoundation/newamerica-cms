@@ -1,0 +1,34 @@
+.timeline {
+	&__nav {
+		&__dot {
+			cursor: pointer;
+			fill: white;
+			stroke: palette-get(na-black-30);
+
+			&.selected {
+				fill: palette-get(na-black) !important;
+				stroke: none !important;
+			}
+			&.hovered {
+				stroke: palette-get(na-black) !important;
+			}
+		}
+
+		&__hover-info {
+			display: block;
+			&.hidden {
+				display: none;
+			}
+		}
+	}
+	&__content {
+
+	}
+
+	&__event {
+		display: none;
+		&.visible {
+			display: block;
+		}
+	}
+}

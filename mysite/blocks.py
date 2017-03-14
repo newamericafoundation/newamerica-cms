@@ -8,6 +8,8 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailcore.blocks import IntegerBlock
 
+
+from operator import itemgetter, attrgetter
 import json
 
 class CustomImageBlock(blocks.StructBlock):
@@ -90,16 +92,20 @@ class TimelineBlock(blocks.StructBlock):
 
 	def get_context(self, value):
 		context = super(TimelineBlock, self).get_context(value)
+		sortedList = sorted(value['event_list'], key=lambda member: member['start_date'])
+
 		retList = []
 
-		for i, item in enumerate(value['event_list']):
+		for i, item in enumerate(sortedList):
 			curr_item = {}
+			curr_item['id'] = i
 			curr_item['title'] = item['title']
 			curr_item['start_date'] = item['start_date'].isoformat()
 			if (item['end_date']):
 				curr_item['end_date'] = item['end_date'].isoformat()
 			retList.append(curr_item)
 
+		context["sorted_event_list"] = sortedList
 		context["event_list_json"] = json.dumps(retList)
 		
 		print(json.dumps(retList))
