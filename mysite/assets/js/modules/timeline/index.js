@@ -10,7 +10,7 @@ import { timeDay, timeMonth, timeYear } from 'd3-time';
 
 const dotRadius = 8,
 	dotOffset = 5,
-	margin = { left: dotRadius, right: dotRadius, top: 20, bottom: 50},
+	margin = { left: 15, right: 15, top: 20, bottom: 50},
 	strokeColor = "#c0c1c3",
 	strokeSelectedColor = "#2c2f35",
 	fillColor = "#fff",
@@ -116,10 +116,13 @@ class Timeline {
 		for (let column of this.dataNest) {
 			let i = 0;
 			for (let value of column.value) {
-				this.g.append("circle")
-					.attr("r", dotRadius)
-				    .attr("cx", Number(column.key))
-				    .attr("cy", () => { console.log(i, this.yScale(i)); return this.yScale(i); })
+				this.g.append("rect")
+				    .attr("x", Number(column.key) - dotRadius)
+				    .attr("y", () => { console.log(i, this.yScale(i)); return this.yScale(i) - dotRadius; })
+				    .attr("height", dotRadius*2)
+				    .attr("width", value.end_date ? this.xScale(new Date(value.end_date)) - Number(column.key) : dotRadius*2)
+				    .attr("rx", dotRadius)
+				    .attr("ry", dotRadius)
 				    .attr("class", "timeline__nav__dot")
 				    .classed("selected", value.id == this.currSelected)
 				    .on("mouseover", (d, index, paths) => { return this.mouseover(value, paths[index]); })
@@ -145,7 +148,7 @@ class Timeline {
 	resize() {
 		console.log("resizing");
 
-		this.g.selectAll("circle").remove();
+		this.g.selectAll("rect").remove();
 
 		this.render()
 	}
@@ -156,7 +159,7 @@ class Timeline {
 
 		this.hoverInfo
 			.classed("hidden", false)
-			.attr("transform", "translate(" + elem.attr("cx") + "," + 10 + ")");
+			.attr("transform", "translate(" + elem.attr("x") + "," + 10 + ")");
 
 		this.hoverInfoText.text(datum.title);
 	}
