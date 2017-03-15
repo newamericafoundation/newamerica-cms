@@ -101,56 +101,53 @@ class Timeline {
 	}
 
 	setDataNest() {
-		let maxLength = 0;
-
-		this.yOffsets = {};
+		let startXPos, endXPos, yIndex;
+		let yOffsets = {},
+			maxY = 0;
 
 		for (let bin of this.xScale.range()) {
-			console.log(bin);
-			this.yOffsets[bin] = 0;
+			yOffsets[bin] = 0;
 		}
 
-		this.dataNest = nest()
-			.key((d) => { 
-				let startX = this.xScale(new Date(d.start_date));
-				if (d.end_date) {
-					let endX = this.xScale(new Date(d.end_date));
-					for (let bin of this.xScale.range()) {
-						if (bin > startX && bin <= endX) {
-							this.yOffsets[bin]++;
-						}
+		eventList.map((d) => {
+			startXPos = this.xScale(new Date(d.start_date));
+			endXPos = d.end_date ? this.xScale(new Date(d.start_date)) : null;
+
+			yIndex = yOffsets[startXPos];
+			yOffsets[startXPos]++;
+
+			if (endXPos) {
+				for (let bin of this.xScale.range()) {
+					if (bin > startXPos && bin <= endXPos) {
+						yOffsets[bin]++;
 					}
 				}
-				return startX; 
-			})
-			.sortValues(ascending)
-			.rollup((d) => { maxLength = Math.max(maxLength, d.length); return d; })
-			.entries(eventList);
+			}
 
-		this.numRows = maxLength;
-		console.log(this.dataNest);
-		console.log(this.yOffsets);
+			d.yIndex = yIndex;
+			d.startXPos = startXPos;
+		})
+
+		this.numRows = 5;
+
+		
 	}
 
 	setCircles() {
-		for (let column of this.dataNest) {
-			let i = 0;
-			for (let value of column.value) {
-				this.g.append("rect")
-				    .attr("x", Number(column.key) - dotRadius)
-				    .attr("y", () => { console.log(i, this.yScale(i)); return this.yScale(i + this.yOffsets[column.key]) - dotRadius; })
-				    .attr("height", dotRadius*2)
-				    .attr("width", value.end_date ? this.xScale(new Date(value.end_date)) - Number(column.key) - dotOffset : dotRadius*2)
-				    .attr("rx", dotRadius)
-				    .attr("ry", dotRadius)
-				    .attr("class", "timeline__nav__dot")
-				    .classed("selected", value.id == this.currSelected)
-				    .on("mouseover", (d, index, paths) => { return this.mouseover(value, paths[index]); })
-				    .on("mouseout", (d, index, paths) => { return this.mouseout(paths[index]); })
-				    .on("click", (d, index, paths) => { return this.clicked(value, paths[index]); });
-				i++;
-			}
-		}
+		this.g.selectAll("rect")
+			.data(eventList)
+			.enter().append("rect")
+		    .attr("x", (d) => { return d.xPos - dotOffset; })
+		    .attr("y", (d) => { return this.yScale(d.yIndex) - dotOffset; })
+		    .attr("height", dotRadius*2)
+		    .attr("width", (d) => { return d.end_date ? this.xScale(new Date(d.end_date)) - this.xScale(new Date(d.start_date)) - dotOffset : dotRadius*2; })
+		    .attr("rx", dotRadius)
+		    .attr("ry", dotRadius)
+		    .attr("class", "timeline__nav__dot")
+		    .classed("selected", (d) => { return d.id == this.currSelected })
+		    .on("mouseover", (d, index, paths) => { return this.mouseover(d, paths[index]); })
+		    .on("mouseout", (d, index, paths) => { return this.mouseout(paths[index]); })
+		    .on("click", (d, index, paths) => { return this.clicked(d, paths[index]); });
 	}
 
 	setTimeFormat() {
