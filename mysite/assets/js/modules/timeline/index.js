@@ -30,7 +30,7 @@ class Timeline {
 		let maxDate = max(eventList, (d) => { return d.end_date ? new Date(d.end_date) : new Date(d.start_date) });
 
 		console.log(minDate, maxDate)
-		this.xScale = scaleQuantize()
+		this.xScale = scaleLinear()
 			.domain([minDate, maxDate]);
 
 		this.yScale = scaleLinear();
@@ -85,18 +85,8 @@ class Timeline {
 	}
 
 	setXRange() {
-		const numCols = Math.floor(this.w/(2*dotRadius + dotOffset));
-		let colBins = [];
 
-		let linearXScale = scaleLinear()
-			.domain([0, numCols])
-			.range([0, this.w]);
-
-		for (let i = 0; i < numCols; i++) {
-			colBins[i] = linearXScale(i);
-		}
-
-		this.xScale.range(colBins).nice();
+		this.xScale.range([0, this.w]).nice();
 	}
 
 	setYScale() {
@@ -107,38 +97,50 @@ class Timeline {
 
 	setDataNest() {
 		let startXPos, endXPos, yIndex;
-		let yOffsets = {},
-			maxY = 0;
-
-		for (let bin of this.xScale.range()) {
-			yOffsets[bin] = 0;
-		}
+		this.rows = [];
+		this.rows[0] = [];
 
 		eventList.map((d) => {
 			startXPos = this.xScale(new Date(d.start_date));
-			
-			endXPos = d.end_date ? this.xScale(new Date(d.end_date)) : null;
+			endXPos = d.end_date ? this.xScale(new Date(d.end_date)) : startXPos;
 
-
-			yIndex = yOffsets[startXPos];
-			yOffsets[startXPos]++;
-
-			if (endXPos) {
-				for (let bin of this.xScale.range()) {
-					if (bin > startXPos && bin <= endXPos) {
-						yOffsets[bin]++;
-					}
-				}
-			}
-
-			d.yIndex = yIndex;
+			d.yIndex = this.calcYIndex(startXPos - dotRadius, endXPos + dotRadius);
 			d.startXPos = startXPos;
 			d.endXPos = endXPos;
+			console.log(this.rows);
+			console.log(d.yIndex);
 		})
 
 		this.numRows = 5;
 
 		
+	}
+
+	calcYIndex(startXPos, endXPos) {	
+		let i = 0;
+
+		for (let row of this.rows) {
+			let foundOverlap = false;
+			// loop through all intervals stored within row
+			for (let rowInterval of row) {
+				// check if start or end position overlaps with interval
+				if ((startXPos >= rowInterval.start && startXPos <= rowInterval.end) || 
+					(endXPos >= rowInterval.start && endXPos <= rowInterval.end)) {
+					// if overlap, breaks loop, moves to next row
+					foundOverlap = true;
+					break;
+				}
+			}
+			// no overlap found, adding to current row
+			if (!foundOverlap) {
+				row.push({start:startXPos, end:endXPos});
+				return i;
+			}
+			i++;
+		}
+		// could not place in current rows, adding new row
+		this.rows.push([{start:startXPos, end:endXPos}]);
+		return i;
 	}
 
 	setCircles() {
@@ -165,7 +167,8 @@ class Timeline {
 
 		let tickFormat;
 		let numTicks = Math.floor(this.w/100);
-		let yearVals = [minTime].concat(timeYear.range(minTime, maxTime));
+		let monthVals = timeMonth.range(minTime, maxTime, 3)
+		let yearVals = timeYear.range(minTime, maxTime);
 		console.log(yearVals);
 		let dayMonthAxis = axisBottom(this.xScale).tickPadding(10).tickSizeOuter(0);
 		let yearAxis = axisBottom(this.xScale).tickPadding(0).tickSizeOuter(0).tickSizeInner(0).tickValues(yearVals).tickFormat(timeFormat("%Y"));
@@ -177,7 +180,7 @@ class Timeline {
 		if (numDays/numTicks < 30) {
 			dayMonthAxis.tickFormat(timeFormat("%B %d"));
 		} else if (numDays/numTicks < 270) {
-			dayMonthAxis.tickFormat(timeFormat("%B"));
+			dayMonthAxis.tickFormat(timeFormat("%B")).tickValues(monthVals);
 		} else {
 			dayMonthAxis.tickFormat(timeFormat(""));
 		}
