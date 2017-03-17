@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 import { axisBottom } from 'd3-axis';
 import { scaleLinear, scalePoint, scaleQuantize } from 'd3-scale';
-import { extent, ascending } from 'd3-array';
+import { extent, ascending, min, max } from 'd3-array';
 import { select, selectAll } from 'd3-selection';
 import { nest } from 'd3-collection';
 import { timeFormat } from 'd3-time-format';
@@ -26,8 +26,14 @@ class Timeline {
 		this.g = this.svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+		console.log(min);
+		let minDate = min(eventList, (d) => { return new Date(d.start_date); });
+		let maxDate = max(eventList, (d) => { return d.end_date ? new Date(d.end_date) : new Date(d.start_date) });
+
+		console.log(minDate, maxDate)
 		this.xScale = scaleQuantize()
-			.domain(extent(eventList, (d) => { return new Date(d.start_date) }));
+			.domain([minDate, maxDate]);
+
 		this.yScale = scaleLinear();
 
 		this.xAxis = this.svg.append("g")
@@ -94,7 +100,6 @@ class Timeline {
 	}
 
 	setYScale() {
-		console.log(this.numRows, this.h)
 		this.yScale
 			.domain([0, this.numRows])
 			.range([this.h, 0]);
@@ -111,7 +116,10 @@ class Timeline {
 
 		eventList.map((d) => {
 			startXPos = this.xScale(new Date(d.start_date));
-			endXPos = d.end_date ? this.xScale(new Date(d.start_date)) : null;
+			
+			endXPos = d.end_date ? this.xScale(new Date(d.end_date)) : null;
+
+			console.log(startXPos, endXPos);
 
 			yIndex = yOffsets[startXPos];
 			yOffsets[startXPos]++;
@@ -126,6 +134,7 @@ class Timeline {
 
 			d.yIndex = yIndex;
 			d.startXPos = startXPos;
+			d.endXPos = endXPos;
 		})
 
 		this.numRows = 5;
@@ -137,10 +146,10 @@ class Timeline {
 		this.g.selectAll("rect")
 			.data(eventList)
 			.enter().append("rect")
-		    .attr("x", (d) => { return d.xPos - dotOffset; })
-		    .attr("y", (d) => { return this.yScale(d.yIndex) - dotOffset; })
+		    .attr("x", (d) => { return d.startXPos - dotOffset; })
+		    .attr("y", (d) => { console.log(d.start_date, d.yIndex); return this.yScale(d.yIndex) - dotOffset; })
 		    .attr("height", dotRadius*2)
-		    .attr("width", (d) => { return d.end_date ? this.xScale(new Date(d.end_date)) - this.xScale(new Date(d.start_date)) - dotOffset : dotRadius*2; })
+		    .attr("width", (d) => { console.log(d.startXPos, d.endXPos);  return d.endXPos && (d.endXPos != d.startXPos) ? d.endXPos - d.startXPos + dotRadius*2 : dotRadius*2; })
 		    .attr("rx", dotRadius)
 		    .attr("ry", dotRadius)
 		    .attr("class", "timeline__nav__dot")
