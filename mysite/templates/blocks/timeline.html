@@ -1,11 +1,12 @@
 {% load utilities %}
 
 <script type="text/javascript">
-	var test = "five";
-	
-	var eventList = {{ event_list_json|safe }};
+	if (!window.timelineEventLists) {
+		var timelineEventLists = [];
+	}
+	timelineEventLists.push({{ event_list_json|safe }});
 
-	console.log(eventList);
+	console.log(timelineEventLists);
 </script>
 
 

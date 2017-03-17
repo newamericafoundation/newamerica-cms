@@ -17,8 +17,10 @@ const dotRadius = 8,
 	fillSelectedColor = "#2c2f35";
 
 class Timeline {
-	constructor() {
-		this.svg = select(".timeline__nav")
+	constructor(eventList, container) {
+		this.eventList = eventList;
+		console.log(eventList)
+		this.svg = select(container)
 				.append("svg")
 				.attr("class", "timeline__nav__container")
 				.attr("width", "100%"); 
@@ -100,7 +102,7 @@ class Timeline {
 		this.rows = [];
 		this.rows[0] = [];
 
-		eventList.map((d) => {
+		this.eventList.map((d) => {
 			startXPos = this.xScale(new Date(d.start_date));
 			endXPos = d.end_date ? this.xScale(new Date(d.end_date)) : startXPos;
 
@@ -145,7 +147,7 @@ class Timeline {
 
 	setCircles() {
 		this.g.selectAll("rect")
-			.data(eventList)
+			.data(this.eventList)
 			.enter().append("rect")
 		    .attr("x", (d) => { return d.startXPos - dotOffset; })
 		    .attr("y", (d) => { return this.yScale(d.yIndex) - dotOffset; })
@@ -236,8 +238,15 @@ class Timeline {
 
 export default function() {
 	console.log("loaded script!");
-	console.log(eventList);
-	const timeline = new Timeline();
+	console.log(timelineEventLists);
+	let timelineNavDivs = $(".timeline__nav");
+	let i = 0;
+	for (let eventList of timelineEventLists) {
+		new Timeline(eventList, timelineNavDivs[i]);
+		i++;
+	}
+	
+	
 
 	
 }
