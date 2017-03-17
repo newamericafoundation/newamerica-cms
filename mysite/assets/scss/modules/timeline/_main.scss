@@ -20,6 +20,14 @@
 				display: none;
 			}
 		}
+
+		&__axis {
+			&.year-axis {
+				path {
+					display: none;
+				}
+			}
+		}
 	}
 	&__content {
 

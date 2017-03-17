@@ -26,7 +26,6 @@ class Timeline {
 		this.g = this.svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		console.log(min);
 		let minDate = min(eventList, (d) => { return new Date(d.start_date); });
 		let maxDate = max(eventList, (d) => { return d.end_date ? new Date(d.end_date) : new Date(d.start_date) });
 
@@ -36,16 +35,17 @@ class Timeline {
 
 		this.yScale = scaleLinear();
 
-		this.xAxis = this.svg.append("g")
-			.attr("class", "timeline__nav__axis")
-			.attr("class", "axis axis-x");
+		this.dayMonthAxis = this.svg.append("g")
+			.attr("class", "timeline__nav__axis axis axis-x day-month-axis");
+
+		this.yearAxis = this.svg.append("g")
+			.attr("class", "timeline__nav__axis axis axis-x year-axis");
 
 		this.hoverInfo = this.svg.append("g")
 			.attr("class", "timeline__nav__hover-info")
 			.classed("hidden", true);
 		this.hoverInfoText = this.hoverInfo.append("text");
-		
-		this.setTimeFormat();
+
 		this.currSelected = 0;
 		select("#event-0").classed("visible", true);
 
@@ -79,9 +79,9 @@ class Timeline {
 		this.g
 			.attr("height", this.h);
 
-		this.xAxis
-			.attr("transform", "translate(" + margin.left + "," + (this.h + margin.top + dotRadius + dotOffset) + ")")
-			.call(axisBottom(this.xScale).tickPadding(10).tickSizeOuter(0).tickFormat(this.timeFormat));
+		this.setXAxis();
+
+		
 	}
 
 	setXRange() {
@@ -96,7 +96,7 @@ class Timeline {
 			colBins[i] = linearXScale(i);
 		}
 
-		this.xScale.range(colBins);
+		this.xScale.range(colBins).nice();
 	}
 
 	setYScale() {
@@ -119,7 +119,6 @@ class Timeline {
 			
 			endXPos = d.end_date ? this.xScale(new Date(d.end_date)) : null;
 
-			console.log(startXPos, endXPos);
 
 			yIndex = yOffsets[startXPos];
 			yOffsets[startXPos]++;
@@ -147,9 +146,9 @@ class Timeline {
 			.data(eventList)
 			.enter().append("rect")
 		    .attr("x", (d) => { return d.startXPos - dotOffset; })
-		    .attr("y", (d) => { console.log(d.start_date, d.yIndex); return this.yScale(d.yIndex) - dotOffset; })
+		    .attr("y", (d) => { return this.yScale(d.yIndex) - dotOffset; })
 		    .attr("height", dotRadius*2)
-		    .attr("width", (d) => { console.log(d.startXPos, d.endXPos);  return d.endXPos && (d.endXPos != d.startXPos) ? d.endXPos - d.startXPos + dotRadius*2 : dotRadius*2; })
+		    .attr("width", (d) => { return d.endXPos && (d.endXPos != d.startXPos) ? d.endXPos - d.startXPos + dotRadius*2 : dotRadius*2; })
 		    .attr("rx", dotRadius)
 		    .attr("ry", dotRadius)
 		    .attr("class", "timeline__nav__dot")
@@ -159,16 +158,42 @@ class Timeline {
 		    .on("click", (d, index, paths) => { return this.clicked(d, paths[index]); });
 	}
 
-	setTimeFormat() {
+	setXAxis() {
 		const [minTime, maxTime] = this.xScale.domain();
+		let numDays = timeDay.count(minTime, maxTime);
+		let numYears = timeYear.count(minTime, maxTime);
 
-		if (timeMonth.count(minTime, maxTime) < 6) {
-			this.timeFormat = timeFormat("%B %d, %Y");
-		} else if (timeMonth.count(maxTime - minTime) < 18) {
-			this.timeFormat = timeFormat("%B %Y");
+		let tickFormat;
+		let numTicks = Math.floor(this.w/100);
+		let yearVals = [minTime].concat(timeYear.range(minTime, maxTime));
+		console.log(yearVals);
+		let dayMonthAxis = axisBottom(this.xScale).tickPadding(10).tickSizeOuter(0);
+		let yearAxis = axisBottom(this.xScale).tickPadding(0).tickSizeOuter(0).tickSizeInner(0).tickValues(yearVals).tickFormat(timeFormat("%Y"));
+	
+		console.log(numDays, numYears);
+		
+		console.log(numTicks);
+
+		if (numDays/numTicks < 30) {
+			dayMonthAxis.tickFormat(timeFormat("%B %d"));
+		} else if (numDays/numTicks < 270) {
+			dayMonthAxis.tickFormat(timeFormat("%B"));
 		} else {
-			this.timeFormat = timeFormat("%Y");
+			dayMonthAxis.tickFormat(timeFormat(""));
 		}
+		
+		if (dayMonthAxis) {
+			this.dayMonthAxis
+				.attr("transform", "translate(" + margin.left + "," + (this.h + margin.top + dotRadius + dotOffset) + ")")
+				.call(dayMonthAxis)
+			// .selectAll('text') // `text` has already been created
+			// .attr("fill", (d) => { console.log(tickFormat(d)); return "blue";})
+		}
+
+		this.yearAxis
+			.attr("transform", "translate(" + margin.left + "," + (this.h + margin.top + dotRadius + dotOffset + 30) + ")")
+			.call(yearAxis);
+
 	}
 
 	resize() {
