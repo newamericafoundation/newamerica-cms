@@ -19,7 +19,6 @@ const dotRadius = 8,
 class Timeline {
 	constructor(eventList, container) {
 		this.eventList = eventList;
-		console.log(eventList)
 		this.svg = select(container)
 				.append("svg")
 				.attr("class", "timeline__nav__container")
@@ -31,7 +30,6 @@ class Timeline {
 		let minDate = min(eventList, (d) => { return new Date(d.start_date); });
 		let maxDate = max(eventList, (d) => { return d.end_date ? new Date(d.end_date) : new Date(d.start_date) });
 
-		console.log(minDate, maxDate)
 		this.xScale = scaleLinear()
 			.domain([minDate, maxDate]);
 
@@ -109,8 +107,7 @@ class Timeline {
 			d.yIndex = this.calcYIndex(startXPos - dotRadius, endXPos + dotRadius);
 			d.startXPos = startXPos;
 			d.endXPos = endXPos;
-			console.log(this.rows);
-			console.log(d.yIndex);
+			
 		})
 
 		this.numRows = 5;
@@ -164,42 +161,124 @@ class Timeline {
 
 	setXAxis() {
 		const [minTime, maxTime] = this.xScale.domain();
-		let numDays = timeDay.count(minTime, maxTime);
-		let numYears = timeYear.count(minTime, maxTime);
+		let baseTopTransform = this.h + margin.top + dotRadius + dotOffset;
 
-		let tickFormat;
-		let numTicks = Math.floor(this.w/100);
-		let monthVals = timeMonth.range(minTime, maxTime, 3)
-		let yearVals = timeYear.range(minTime, maxTime);
-		console.log(yearVals);
-		let dayMonthAxis = axisBottom(this.xScale).tickPadding(10).tickSizeOuter(0);
-		let yearAxis = axisBottom(this.xScale).tickPadding(0).tickSizeOuter(0).tickSizeInner(0).tickValues(yearVals).tickFormat(timeFormat("%Y"));
-	
-		console.log(numDays, numYears);
+		let numTicks = this.w/100;
+		let numDays = timeDay.count(minTime, maxTime),
+			numMonths = timeMonth.count(minTime, maxTime),
+			numYears = timeYear.count(minTime, maxTime);
 		
-		console.log(numTicks);
+		let tickDayInterval = numDays/numTicks;
 
-		if (numDays/numTicks < 30) {
-			dayMonthAxis.tickFormat(timeFormat("%B %d"));
-		} else if (numDays/numTicks < 270) {
-			dayMonthAxis.tickFormat(timeFormat("%B")).tickValues(monthVals);
+		let dayMonth = {
+			topTransform: baseTopTransform,
+			tickSizeInner: 10,
+		};
+		
+		let year = {
+			topTransform: baseTopTransform + 20,
+			tickValues: [minTime].concat(timeYear.range(minTime, maxTime)),
+			tickFormat: timeFormat("%Y"),
+			tickSizeInner: 0,
+		};
+
+		console.log(tickDayInterval)
+		if (tickDayInterval < 30) {
+			dayMonth.valueFunction = timeDay.range(minTime, maxTime, tickDayInterval)
+			dayMonth.tickFormat = timeFormat("%B %d")
+		} else if (tickDayInterval < 365) {
+			dayMonth.valueFunction = timeMonth.range(minTime, maxTime, numMonths/numTicks)
+			dayMonth.tickFormat = timeFormat("%B");
 		} else {
-			dayMonthAxis.tickFormat(timeFormat(""));
+			dayMonth.hidden = true;
+			year.topTransform = baseTopTransform;
+			year.tickSizeInner = 10;
+			year.tickValues = timeYear.range(minTime, maxTime, numYears/numTicks)
 		}
+
 		
-		if (dayMonthAxis) {
-			this.dayMonthAxis
-				.attr("transform", "translate(" + margin.left + "," + (this.h + margin.top + dotRadius + dotOffset) + ")")
-				.call(dayMonthAxis)
-			// .selectAll('text') // `text` has already been created
-			// .attr("fill", (d) => { console.log(tickFormat(d)); return "blue";})
-		}
+		
 
-		this.yearAxis
-			.attr("transform", "translate(" + margin.left + "," + (this.h + margin.top + dotRadius + dotOffset + 30) + ")")
-			.call(yearAxis);
+		// if (numDays > )
 
+		// if (tickDayInterval < 30) {
+		// 	dayMonth.tickFormat = timeFormat("%B %d");
+		// } else if (tickDayInterval < 365) {
+		// 	dayMonth.tickFormat = timeFormat("%B");
+		// } else {
+		// 	dayMonth.hidden = true;
+		// 	year.topTransform = baseTopTransform;
+		// 	year.tickSizeInner = 10;
+		// }
+		this.renderAxis("day_month", dayMonth);
+		this.renderAxis("year", year);
+		
 	}
+
+	renderAxis(whichAxis, settings) {
+		let {topTransform, tickValues, tickFormat, tickSizeInner, hidden, ticks} = settings;
+		let axis = whichAxis == "year" ? this.yearAxis : this.dayMonthAxis;
+
+		let axisFunc = axisBottom(this.xScale)
+			.tickPadding(10)
+			.tickSizeOuter(0)
+			.tickSizeInner(tickSizeInner)
+			.tickFormat(tickFormat)
+			.tickValues(tickValues);
+
+		 // if (tickValues) {
+		 // 	axisFunc.tickValues(tickValues);
+		 // }
+
+		axis.style("display", hidden ? "none" : "block")
+			.attr("transform", "translate(" + margin.left + "," + topTransform + ")")
+			.call(axisFunc);
+	}
+
+	// calcLabelType(interval) {
+	// 	if (interval < 5) {
+	// 		valFunction = timeDay.filter((d) => { return d.getDay()% == 0; }).range(minTime, maxTime)
+	// 	}
+	// }
+
+	// setXAxis() {
+	// 	const [minTime, maxTime] = this.xScale.domain();
+	// 	let numDays = timeDay.count(minTime, maxTime);
+	// 	let numYears = timeYear.count(minTime, maxTime);
+
+	// 	let tickFormat;
+	// 	let numTicks = Math.floor(this.w/100);
+	// 	let monthVals = timeMonth.range(minTime, maxTime, 3)
+	// 	let yearVals = timeYear.range(minTime, maxTime);
+	// 	console.log(yearVals);
+	// 	let dayMonthAxis = axisBottom(this.xScale).tickPadding(10).tickSizeOuter(0);
+	// 	let yearAxis = axisBottom(this.xScale).tickPadding(0).tickSizeOuter(0).tickSizeInner(0).tickValues(yearVals).tickFormat(timeFormat("%Y"));
+	
+	// 	console.log(numDays, numYears);
+		
+	// 	console.log(numTicks);
+
+	// 	if (numDays/numTicks < 30) {
+	// 		dayMonthAxis.tickFormat(timeFormat("%B %d"));
+	// 	} else if (numDays/numTicks < 270) {
+	// 		dayMonthAxis.tickFormat(timeFormat("%B")).tickValues(monthVals);
+	// 	} else {
+	// 		dayMonthAxis.tickFormat(timeFormat(""));
+	// 	}
+		
+	// 	if (dayMonthAxis) {
+	// 		this.dayMonthAxis
+	// 			.attr("transform", "translate(" + margin.left + "," + (this.h + margin.top + dotRadius + dotOffset) + ")")
+	// 			.call(dayMonthAxis)
+	// 		// .selectAll('text') // `text` has already been created
+	// 		// .attr("fill", (d) => { console.log(tickFormat(d)); return "blue";})
+	// 	}
+
+	// 	this.yearAxis
+	// 		.attr("transform", "translate(" + margin.left + "," + (this.h + margin.top + dotRadius + dotOffset + 30) + ")")
+	// 		.call(yearAxis);
+
+	// }
 
 	resize() {
 		console.log("resizing");
