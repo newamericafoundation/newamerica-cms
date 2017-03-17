@@ -6,7 +6,7 @@
 
 {% block extra_scripts %}
 	<script>
-        $(function() { 
+        $(function() {
         	$("#content-grid__controls__date-filter").daterangepicker({
         		applyButtonText: 'Confirm',
 				clearButtonText: null,
@@ -35,7 +35,7 @@
 			    }, {
 			         text: 'Past Year',
 			         dateStart: function() { return moment().add('days', -365) },
-			         dateEnd: function() { return moment() } 
+			         dateEnd: function() { return moment() }
 			    }],
 
 				datepickerOptions: {
@@ -43,10 +43,10 @@
 			        minDate: null,
 			        maxDate: null
 			    },
-			    onChange: function() { 
+			    onChange: function() {
 			    	$("#content-grid__controls__submit").prop('disabled', false);
 			    },
-			    
+
      		})
      	});
 
@@ -118,39 +118,11 @@
 
 		<div class="picture-grid with-sidemenu-width">
 			{% for post in all_events %}
-				<div class="picture-grid__entry">
-					{% if post.story_image %}
-						{% image post.story_image min-650x200 as post_image %}
-						<a href="{{ post.url }}">
-							<div class="picture-grid__entry__image-container" style="background-image: url('{{ post_image.url }}') ">
-							</div>
-						</a>
-						<div class="picture-grid__entry__text-container has-image">
-					{% else %}				
-						<div class="picture-grid__entry__text-container">
-					{% endif %}
-							{% if post.parent_programs %}
-								<h5 class="picture-grid__entry__description">
-								{% for program in post.parent_programs.all %}
-									<a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
-								{% endfor %}
-								</h5>
-							{% endif %}
-							<h5 class="picture-grid__entry__title">
-								<a href="{{ post.url }}">{{ post.title }}</a>
-							</h5>
-							<h5 class= "picture-grid__entry__date-time">{% generate_dateline post %}</h5>
-							<h5 class= "picture-grid__entry__location">{{ post.city }}, {{ post.state }}</h5>
-							
-							<hr class="picture-grid__entry__break">
-							<p class="picture-grid__entry__body">{{ post.story_excerpt }}</p>
-							<a class="picture-grid__entry__button button" href="{{ post.url }}">Read More</a>
-							<div class="picture-grid__entry__text-fadeout"></div>
-						</div>
-						
-				</div>
-				<hr class="picture-grid__divider">
-	
+				{% if post.related_conference %}
+					{% include "./event_item.html" with value=post.related_conference.page %}
+				{% else %}
+					{% include "./event_item.html" with value=post %}
+				{% endif %}
 			{% endfor %}
 		</div>
 
