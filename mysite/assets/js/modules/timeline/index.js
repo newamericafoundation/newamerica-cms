@@ -31,7 +31,7 @@ class Timeline {
 		let maxDate = max(eventList, (d) => { return d.end_date ? new Date(d.end_date) : new Date(d.start_date) });
 
 		this.xScale = scaleLinear()
-			.domain([minDate, maxDate]);
+			.domain([minDate, maxDate]).nice();
 
 		this.yScale = scaleLinear();
 
@@ -184,18 +184,19 @@ class Timeline {
 
 		console.log(tickDayInterval)
 		if (tickDayInterval < 15) {
-			dayMonth.valueFunction = timeDay.range(minTime, maxTime, tickDayInterval)
+			dayMonth.tickValues = timeDay.range(minTime, maxTime, numDays/numTicks > 1 ? numDays/numTicks : 1 )
 			dayMonth.tickFormat = timeFormat("%B %d")
 		} else if (tickDayInterval < 180) {
 			console.log(numMonths, numTicks)
-			console.log(timeMonth.range(minTime, maxTime, 5))
-			dayMonth.valueFunction = timeMonth.every(numMonths/numTicks).range(minTime, maxTime)
+			console.log(numMonths/numTicks)
+			dayMonth.tickValues = timeMonth.range(minTime, maxTime, numMonths/numTicks > 1 ? numMonths/numTicks : 1 )
 			dayMonth.tickFormat = timeFormat("%B");
 		} else {
+			console.log("IN ELSE!", tickDayInterval)
 			dayMonth.hidden = true;
 			year.topTransform = baseTopTransform;
 			year.tickSizeInner = 10;
-			year.tickValues = timeYear.range(minTime, maxTime, numYears/numTicks)
+			year.tickValues = timeYear.range(minTime, maxTime, numYears/numTicks > 1 ? numYears/numTicks : 1 )
 		}
 
 		
@@ -221,6 +222,7 @@ class Timeline {
 		let {topTransform, tickValues, tickFormat, tickSizeInner, hidden, ticks} = settings;
 		let axis = whichAxis == "year" ? this.yearAxis : this.dayMonthAxis;
 
+		console.log(tickValues);
 		let axisFunc = axisBottom(this.xScale)
 			.tickPadding(10)
 			.tickSizeOuter(0)
