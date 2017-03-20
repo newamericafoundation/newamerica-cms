@@ -239,3 +239,27 @@ def get_location_data(passed_location,value,page):
 	if value.get('use_page_address', None):
 		return page
 	return value
+
+from django.template.loader import render_to_string
+from wagtail.wagtailembeds import embeds
+from wagtail.wagtailembeds.exceptions import EmbedException
+
+@register.simple_tag()
+def oembed(url):
+    try:
+        embed = embeds.get_embed(url)
+
+        # Work out ratio
+        if embed.width and embed.height:
+            ratio = str(embed.height / embed.width * 100) + "%"
+        else:
+            ratio = "0"
+
+        # Render template
+        return render_to_string('wagtailembeds/embed_frontend.html', {
+            'embed': embed,
+            'ratio': ratio,
+        })
+    except EmbedException:
+        # silently ignore failed embeds, rather than letting them crash the page
+        return ''

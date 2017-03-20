@@ -8,6 +8,7 @@ from wagtail.wagtailcore.fields import StreamField, RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailembeds.blocks import EmbedBlock
 
 from blocks import VenueBlock, DirectionsBlock, PartnersBlock
 from mysite.blocks import IntegerBlock, PeopleBlock, SessionsBlock
@@ -63,6 +64,7 @@ class Conference(Page):
         null=True
     )
 
+    live_stream = models.URLField(blank=True, null=True)
     rsvp_link = models.URLField(blank=True, null=True)
     invitation_only = models.BooleanField(default=False, help_text="This will override the RSVP link and replace it with an request for invitation")
     publish_speakers = models.BooleanField(default=False, help_text="Speakers list will not show up until this is checked.")
@@ -89,6 +91,7 @@ class Conference(Page):
             ]),
             ImageChooserPanel('story_image'),
             ImageChooserPanel('about_image'),
+            FieldPanel('live_stream'),
             FieldPanel('description')
         ],
         heading="About"
@@ -136,3 +139,6 @@ class Conference(Page):
     ]
 
     promote_panels = Page.promote_panels
+
+    class Meta:
+        verbose_name = 'Conference'
