@@ -17,9 +17,12 @@ const dotRadius = 8,
 	fillSelectedColor = "#2c2f35";
 
 class Timeline {
-	constructor(eventList, container) {
+	constructor(eventList, navContainerId, contentContainerId) {
 		this.eventList = eventList;
-		this.svg = select(container)
+		this.navContainer = select(navContainerId);
+		this.contentContainer = select(contentContainerId);
+
+		this.svg = this.navContainer
 				.append("svg")
 				.attr("class", "timeline__nav__container")
 				.attr("width", "100%"); 
@@ -47,7 +50,8 @@ class Timeline {
 		this.hoverInfoText = this.hoverInfo.append("text");
 
 		this.currSelected = 0;
-		select("#event-0").classed("visible", true);
+
+		this.contentContainer.select("#event-0").classed("visible", true);
 
 		this.render();
 
@@ -167,8 +171,6 @@ class Timeline {
 		let numDays = timeDay.count(minTime, maxTime),
 			numMonths = timeMonth.count(minTime, maxTime),
 			numYears = timeYear.count(minTime, maxTime);
-		
-		let tickDayInterval = numDays/numTicks;
 
 		let dayMonth = {
 			topTransform: baseTopTransform,
@@ -182,17 +184,15 @@ class Timeline {
 			tickSizeInner: 0,
 		};
 
-		console.log(tickDayInterval)
-		if (tickDayInterval < 15) {
+		if (numDays/numTicks < 15) {
 			dayMonth.tickValues = timeDay.range(minTime, maxTime, numDays/numTicks > 1 ? numDays/numTicks : 1 )
 			dayMonth.tickFormat = timeFormat("%B %d")
-		} else if (tickDayInterval < 180) {
+		} else if (numDays/numTicks < 180) {
 			console.log(numMonths, numTicks)
 			console.log(numMonths/numTicks)
 			dayMonth.tickValues = timeMonth.range(minTime, maxTime, numMonths/numTicks > 1 ? numMonths/numTicks : 1 )
 			dayMonth.tickFormat = timeFormat("%B");
 		} else {
-			console.log("IN ELSE!", tickDayInterval)
 			dayMonth.hidden = true;
 			year.topTransform = baseTopTransform;
 			year.tickSizeInner = 10;
@@ -311,10 +311,13 @@ class Timeline {
 
 	clicked(datum, path) {
 		const { id } = datum;
-		select("#event-" + this.currSelected).classed("visible", false);
-		select(".timeline__nav__dot.selected").classed("selected", false);
+		console.log("clicked!");
+		this.contentContainer.select("#event-" + this.currSelected).classed("visible", false);
+		// console.log(this.navContainer.select("#event-" + this.currSelected));
+		this.navContainer.select(".timeline__nav__dot.selected").classed("selected", false);
+		// console.log(this.navContainer.select(".timeline__nav__dot.selected"))
 		this.currSelected = id;
-		select("#event-" + id).classed("visible", true);
+		this.contentContainer.select("#event-" + id).classed("visible", true);
 		select(path).classed("selected", true);
 	}
 }
@@ -322,10 +325,16 @@ class Timeline {
 export default function() {
 	console.log("loaded script!");
 	console.log(timelineEventLists);
-	let timelineNavDivs = $(".timeline__nav");
+	let timelineDivs = $(".timeline");
+	// let navContainers = timelineDivs.children(".timeline__nav"),
+	// 	contentContainers = timelineDivs.children(".timeline__content");
+	console.log(timelineDivs)
 	let i = 0;
 	for (let eventList of timelineEventLists) {
-		new Timeline(eventList, timelineNavDivs[i]);
+		let navContainer = $(timelineDivs[i]).children(".timeline__nav")[0],
+			contentContainer = $(timelineDivs[i]).children(".timeline__content")[0];
+		console.log(navContainer, contentContainer)
+		new Timeline(eventList, navContainer, contentContainer);
 		i++;
 	}
 	
