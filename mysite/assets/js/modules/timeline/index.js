@@ -183,11 +183,13 @@ class Timeline {
 		};
 
 		console.log(tickDayInterval)
-		if (tickDayInterval < 30) {
+		if (tickDayInterval < 15) {
 			dayMonth.valueFunction = timeDay.range(minTime, maxTime, tickDayInterval)
 			dayMonth.tickFormat = timeFormat("%B %d")
-		} else if (tickDayInterval < 365) {
-			dayMonth.valueFunction = timeMonth.range(minTime, maxTime, numMonths/numTicks)
+		} else if (tickDayInterval < 180) {
+			console.log(numMonths, numTicks)
+			console.log(timeMonth.range(minTime, maxTime, 5))
+			dayMonth.valueFunction = timeMonth.every(numMonths/numTicks).range(minTime, maxTime)
 			dayMonth.tickFormat = timeFormat("%B");
 		} else {
 			dayMonth.hidden = true;
