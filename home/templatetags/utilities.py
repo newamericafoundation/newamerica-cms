@@ -149,9 +149,14 @@ def generate_dateline(post):
 # 	- multi-day events are considered past at the start time on the final day of the event (end_date + start_time)
 @register.filter
 def is_future(item):
-	start_time = item.start_time
+	if getattr(item, 'start_time', None):
+		start_time = item.start_time
+	else:
+		start_time = datetime.min.time()
+
 	start_date = item.date
 	end_date = item.end_date
+
 
 	if (end_date):
 		return is_datetime_future(start_time, end_date)
