@@ -119,9 +119,9 @@
 		<div class="picture-grid with-sidemenu-width">
 			{% for post in all_events %}
 				{% if post.related_conference %}
-					{% include "./event_item.html" with value=post.related_conference.page %}
+					{% include './event_item.html' with value=post.related_conference %}
 				{% else %}
-					{% include "./event_item.html" with value=post %}
+					{% include './event_item.html' with value=post %}
 				{% endif %}
 			{% endfor %}
 		</div>

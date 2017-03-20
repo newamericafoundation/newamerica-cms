@@ -139,3 +139,6 @@ class Conference(Page):
     ]
 
     promote_panels = Page.promote_panels
+
+    class Meta:
+        verbose_name = 'Conference'

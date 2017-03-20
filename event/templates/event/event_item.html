@@ -27,8 +27,8 @@
       <h5 class= "picture-grid__entry__location">{{ value.city }}, {{ value.state }}</h5>
 
       <hr class="picture-grid__entry__break">
-      <p class="picture-grid__entry__body">{{ value.story_excerpt }}</p>
-      <a class="picture-grid__entry__button button" href="{{ post.url }}">Read More</a>
+      <p class="picture-grid__entry__body">{% if value.story_excerpt %}{{ value.story_excerpt }}{% endif %}</p>
+      <a class="picture-grid__entry__button button" href="{{ value.url }}">Read More</a>
       <div class="picture-grid__entry__text-fadeout"></div>
     </div>
 

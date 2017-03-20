@@ -24,7 +24,7 @@ class Event(Post):
     subpage_types = []
 
     related_conference = models.ForeignKey(
-        'wagtailcore.Page',
+        Conference,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
