@@ -5,7 +5,7 @@
       <div class="block-video">
       {% if 'youtube.com/embed/' in page.live_stream %}
         <div>
-          <iframe src="{{page.live_stream}}" frameborder="0" />
+          <iframe src="{{page.live_stream}}" frameborder="0"></iframe>
         </div>
       {% else %}
           {% oembed page.live_stream %}
