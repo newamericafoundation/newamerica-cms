@@ -67,48 +67,58 @@ class DatavizBlock(blocks.StructBlock):
 		icon = 'site'
 		label = 'Dataviz'
 
+def getJSCompatibleList(input_list):
+	sortedList = sorted(input_list, key=lambda member: member['start_date'])
+
+	retList = []
+	for i, item in enumerate(sortedList):
+		curr_item = {}
+		curr_item['id'] = i
+		curr_item['title'] = item['title']
+		curr_item['start_date'] = item['start_date'].isoformat()
+		if (item['end_date']):
+			curr_item['end_date'] = item['end_date'].isoformat()
+		retList.append(curr_item)
+
+	return retList
+
 class TimelineEventBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=True)
 	description = blocks.RichTextBlock(required=False)
-	category = blocks.CharBlock(required=False)
+	category = blocks.CharBlock(required=False,)
 	start_date = blocks.DateBlock(required=True)
 	end_date = blocks.DateBlock(required=False)
+	date_display_type = blocks.ChoiceBlock([
+		('year', 'Year'),
+		('month', 'Month'),
+		('day', 'Day'),
+	], default='year', help_text="Controls how specific the date is displayed")
 	image = ImageChooserBlock(required=False, help_text="If both image and video are entered, will display video - image will be hidden")
 	video = EmbedBlock(required=False)
 
-	
-	
+class TimelineEraBlock(blocks.StructBlock):
+	title = blocks.CharBlock(required=True)
+	start_date = blocks.DateBlock(required=True)
+	end_date = blocks.DateBlock(required=False)
+	date_display_type = blocks.ChoiceBlock([
+		('year', 'Year'),
+		('month', 'Month'),
+		('day', 'Day'),
+	], default='year', help_text="Controls how specific the date is displayed")
 
 class TimelineBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=False)
 	subheading = blocks.RichTextBlock(required=False)
-	time_scale = blocks.ChoiceBlock([
-		('years', 'Years'),
-		('months', 'Months'),
-		('days', 'Days'),
-	])
-	event_categories = blocks.ListBlock(blocks.CharBlock(), required=False)
+	event_eras = blocks.ListBlock(TimelineEraBlock(), default='', required=False)
+	event_categories = blocks.ListBlock(blocks.CharBlock(), default='', required=False)
 	event_list = blocks.ListBlock(TimelineEventBlock())
 
 	def get_context(self, value):
 		context = super(TimelineBlock, self).get_context(value)
-		sortedList = sorted(value['event_list'], key=lambda member: member['start_date'])
 
-		retList = []
-
-		for i, item in enumerate(sortedList):
-			curr_item = {}
-			curr_item['id'] = i
-			curr_item['title'] = item['title']
-			curr_item['start_date'] = item['start_date'].isoformat()
-			if (item['end_date']):
-				curr_item['end_date'] = item['end_date'].isoformat()
-			retList.append(curr_item)
-
-		context["sorted_event_list"] = sortedList
-		context["event_list_json"] = json.dumps(retList)
+		context["sorted_event_list"] = sorted(value["event_list"], key=lambda member: member['start_date'])
+		context["settings_json"] = json.dumps({"event_list":getJSCompatibleList(value["event_list"]), "era_list":getJSCompatibleList(value["event_eras"])})
 		
-		print(json.dumps(retList))
 		return context
 
 	class Meta:

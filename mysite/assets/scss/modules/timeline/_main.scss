@@ -1,9 +1,17 @@
+$subtext-size: .8rem;
+$sub-color: rgba(138, 138, 138, 0.7);
+@mixin timeline-subtext {
+	color: $sub-color;
+	font-size: $subtext-size;
+}
+
+
 .timeline {
 	&__nav {
 		&__dot {
 			cursor: pointer;
 			fill: white;
-			stroke: palette-get(na-black-30);
+			stroke: $sub-color;
 
 			&.selected {
 				fill: palette-get(na-black) !important;
@@ -16,6 +24,9 @@
 
 		&__hover-info {
 			display: block;
+			font-size: $subtext-size;
+			color: palette-get(na-black);
+
 			&.hidden {
 				display: none;
 			}
@@ -23,11 +34,42 @@
 
 		&__axis {
 			&.year-axis {
-				path {
+				/*path {
 					display: none;
+				}*/
+			}
+			path {
+				stroke: $sub-color;
+				stroke-width: .7px;
+			}
+			.tick {
+				text {
+					font-family: Simplon;
+					fill: $sub-color;
+					font-size: $subtext-size;
+					line-height: .7;
+				}
+				line {
+					stroke: $sub-color;
+					stroke-width: .7px;
 				}
 			}
+
 		}
+
+		&__era-container {
+
+		}
+		&__era-divider {
+			stroke: $sub-color;
+		}
+		&__era-text {
+			font-family: Simplon;
+			fill: $sub-color;
+			font-size: $subtext-size;
+			line-height: .7;
+		}
+
 	}
 	&__content {
 
@@ -35,8 +77,35 @@
 
 	&__event {
 		display: none;
+		max-width: 700px;
+		margin: auto;
 		&.visible {
 			display: block;
+		}
+
+		&__date {
+			@include timeline-subtext;
+		}
+
+		&__title {
+			font-size: 20px;
+			color: palette-get(na-black);
+			font-weight: bold;
+			padding-bottom: 10px;
+		}
+
+		&__description {
+			padding-top: 0px;
+			& p {
+				font-size: .9rem;
+				color: palette-get(na-black) !important;
+			}
+		}
+
+		&__media {
+			&__image {
+				width: 100%;
+			}
 		}
 	}
 }

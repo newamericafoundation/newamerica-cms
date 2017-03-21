@@ -1,12 +1,13 @@
 {% load utilities %}
+{% load wagtailimages_tags %}
 
 <script type="text/javascript">
 	if (!window.timelineEventLists) {
-		var timelineEventLists = [];
+		var timelineEventSettings = [];
 	}
-	timelineEventLists.push({{ event_list_json|safe }});
+	timelineEventSettings.push({{ settings_json|safe }});
 
-	console.log(timelineEventLists);
+	console.log(timelineEventSettings);
 </script>
 
 
@@ -15,28 +16,27 @@
 	<div class="timeline__content">
 		{% for event in sorted_event_list %}
 			<div class="timeline__event" id="event-{{ forloop.counter0 }}">
+				<div class="timeline__event__text">
+					{% if event.end_date %}
+						<div class="timeline__event__date">{{ event.start_date }} - {{ event.end_date }}</div>
+					{% else %}
+						<div class="timeline__event__date">{{ event.start_date }}</div>
+					{% endif %}
+					<div class="timeline__event__title">{{ event.title }}</div>
+					{% if event.description %}
+						<div class="timeline__event__description post-body">{{ event.description }}</div>
+					{% endif %}
+				</div>
 				{% if event.image or event.video %}
 					<div class="timeline__event__media">
 						{% if event.video %}
 							{{ event.video }}
 						{% else %}
-							{{ event.image }}
+							{% image event.image min-800x800 as img %}
+							<img class="timeline__event__media__image" {{ img.attrs }}/>
 						{% endif %}
 					</div>
-					<div class="timeline__event__text has-media">
-				{% else %}
-					<div class="timeline__event__text">
 				{% endif %}
-						{% if event.end_date %}
-							<div class="timeline__event__date">{{ event.start_date }} - {{ event.end_date }}</div>
-						{% else %}
-							<div class="timeline__event__date">{{ event.start_date }}</div>
-						{% endif %}
-						<div class="timeline__event__title">{{ event.title }}</div>
-						{% if event.description %}
-							<div class="timeline__event__description">{{ event.description }}</div>
-						{% endif %}
-					</div>
 			</div>
 		{% endfor %}
 	</div>
