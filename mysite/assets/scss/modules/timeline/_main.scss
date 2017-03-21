@@ -57,17 +57,19 @@ $sub-color: rgba(138, 138, 138, 0.7);
 
 		}
 
-		&__era-container {
+		&__era-section {
 
 		}
 		&__era-divider {
 			stroke: $sub-color;
+			stroke-dasharray: 4, 4;
 		}
 		&__era-text {
 			font-family: Simplon;
 			fill: $sub-color;
 			font-size: $subtext-size;
 			line-height: .7;
+			text-anchor: middle;
 		}
 
 	}

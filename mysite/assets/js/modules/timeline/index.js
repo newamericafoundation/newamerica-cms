@@ -8,8 +8,9 @@ import { nest } from 'd3-collection';
 import { timeFormat } from 'd3-time-format';
 import { timeDay, timeMonth, timeYear } from 'd3-time';
 
-const dotRadius = 8,
-	dotOffset = 5,
+const dotRadius = 7,
+	dotOffset = 1.5,
+	rowHeight = 2*(dotRadius + dotOffset),
 	margin = { left: 15, right: 15, top: 20, bottom: 50},
 	strokeColor = "#c0c1c3",
 	strokeSelectedColor = "#2c2f35",
@@ -18,11 +19,23 @@ const dotRadius = 8,
 
 class Timeline {
 	constructor(settingsObject, navContainerId, contentContainerId) {
-		console.log(settingsObject);
-		this.eventList = settingsObject.event_list;
-		this.eraList = settingsObject.era_list;
+		Object.assign(this, settingsObject);
 
-		console.log(this.eventList, this.eraList);
+		console.log(this.eventList);
+
+		this.appendContainers(navContainerId, contentContainerId);
+		this.appendAxes();
+		this.initializeScales();
+
+		this.currSelected = 0;
+		this.contentContainer.select("#event-0").classed("visible", true);
+
+		this.render();
+
+		window.addEventListener('resize', this.resize.bind(this));
+	}
+
+	appendContainers(navContainerId, contentContainerId) {
 		this.navContainer = select(navContainerId);
 		this.contentContainer = select(contentContainerId);
 
@@ -31,44 +44,14 @@ class Timeline {
 				.attr("class", "timeline__nav__container")
 				.attr("width", "100%"); 
 
-		let content = this.svg.append("g")
+		this.g = this.svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		this.eraContainer = content.append("g")
-			.attr("width", "100%");
-		this.hoverInfoContainer = content.append("g")
-			.attr("width", "100%"); 
-		this.dotContainer = content.append("g")
-			.attr("width", "100%"); 
-		
-		let minDate = min(this.eventList, (d) => { return new Date(d.start_date); });
-		let maxDate = max(this.eventList, (d) => { return d.end_date ? new Date(d.end_date) : new Date(d.start_date) });
-
-		this.xScale = scaleLinear()
-			.domain([minDate, maxDate]);
-
-		this.yScale = scaleLinear();
-
-		this.dayMonthAxis = this.svg.append("g")
-			.attr("class", "timeline__nav__axis axis axis-x day-month-axis");
-
-		this.yearAxis = this.svg.append("g")
-			.attr("class", "timeline__nav__axis axis axis-x year-axis");
-
-		this.hoverInfo = this.svg.append("g")
-			.attr("class", "timeline__nav__hover-info")
-			.classed("hidden", true);
-		this.hoverInfoText = this.hoverInfo.append("text");
-
-		// if (this.eraList) {
-		console.log("CHANGED!!");
-		console.log(this.eraList);
+		if (this.eraList) {
 			this.eraContainers = this.g.selectAll("g.timeline__nav__era-container")
 				.data(this.eraList)
 				.enter().append("g")
 				.attr("class", "timeline__nav__era-container");
-
-			console.log(this.eraContainers)
 
 			this.eraDividers = this.eraContainers.append("line")
 				.attr("class", "timeline__nav__era-divider")
@@ -79,27 +62,49 @@ class Timeline {
 			this.eraText = this.eraContainers.append("text")
 				.attr("class", "timeline__nav__era-text")
 				.text((d) => { console.log(d); return d.title; });
+		}
 
-		// }
+		let hoverInfoContainer = this.g.append("g")
+			.attr("width", "100%")
+			.attr("height", rowHeight)
+			.attr("transform", this.eraList ? "translate(0," + rowHeight + ")" : "none");
 
-		this.currSelected = 0;
+		this.hoverInfo = hoverInfoContainer.append("text")
+			.attr("class", "timeline__nav__hover-info")
+			.classed("hidden", true);
 
-		this.contentContainer.select("#event-0").classed("visible", true);
+		this.dotContainer = this.g.append("g")
+			.attr("width", "100%")
+			.attr("transform", this.eraList ? "translate(0," + rowHeight/2 + ")" : "translate(0," + rowHeight/2 + ")"); 
+	}
 
-		this.render();
+	appendAxes() {
+		this.dayMonthAxis = this.g.append("g")
+			.attr("class", "timeline__nav__axis axis axis-x day-month-axis");
 
-		window.addEventListener('resize', this.resize.bind(this));
+		this.yearAxis = this.g.append("g")
+			.attr("class", "timeline__nav__axis axis axis-x year-axis");
 
+	}
+
+	initializeScales() {
+		let minDate = min(this.eventList, (d) => { return new Date(d.start_date); });
+		let maxDate = max(this.eventList, (d) => { return d.end_date ? new Date(d.end_date) : new Date(d.start_date) });
+
+		this.xScale = scaleLinear()
+			.domain([minDate, maxDate]);
+
+		this.yScale = scaleLinear();
 	}
 
 	render() {
 		this.setWidth();
-		this.setXRange();
-		this.setDataNest();
+		this.setXScaleRange();
+		this.setDotRows();
 		this.setHeight();
-		this.setYScale();
 		this.setCircles();
-		this.setEraContainers();
+		this.setEraContainerXCoords();
+		this.setXAxis();
 	}
 
 	setWidth() {
@@ -109,29 +114,11 @@ class Timeline {
 			.attr("width", this.w);
 	}
 
-	setHeight() {
-		this.h = this.numRows * (dotRadius*2 + dotOffset);
-		this.svg
-			.attr("height", this.h + margin.top + margin.bottom);
-
-		this.g
-			.attr("height", this.h);
-
-		this.setXAxis();
+	setXScaleRange() {
+		this.xScale.range([0, this.w]);
 	}
 
-	setXRange() {
-
-		this.xScale.range([0, this.w]).nice();
-	}
-
-	setYScale() {
-		this.yScale
-			.domain([0, this.numRows])
-			.range([this.h, 0]);
-	}
-
-	setDataNest() {
+	setDotRows() {
 		let startXPos, endXPos, yIndex;
 		this.rows = [];
 		this.rows[0] = [];
@@ -143,10 +130,13 @@ class Timeline {
 			d.yIndex = this.calcYIndex(startXPos - dotRadius, endXPos + dotRadius);
 			d.startXPos = startXPos;
 			d.endXPos = endXPos;
-			
 		})
 
-		this.numRows = this.rows.length;
+		this.numDotRows = this.rows.length;
+
+		this.yScale
+			.domain([0, this.numDotRows])
+			.range([this.numDotRows * rowHeight, 0]);
 	}
 
 	calcYIndex(startXPos, endXPos) {	
@@ -176,8 +166,31 @@ class Timeline {
 		return i;
 	}
 
+	setHeight() {
+		let dotContainerHeight = this.numDotRows * rowHeight,
+			gHeight = dotContainerHeight + rowHeight/2;
+
+		gHeight += this.eraList ? rowHeight : 0;
+
+		this.dotContainer.attr("height", dotContainerHeight);
+
+		this.g.attr("height", gHeight);
+
+		this.svg.attr("height", gHeight + margin.top + margin.bottom);
+
+		this.dayMonthAxis.attr("transform", "translate(0," + gHeight + ")");
+		this.yearAxis.attr("transform", "translate(0," + gHeight + ")");
+
+		if (this.eraList) {
+			this.eraContainers.attr("height", gHeight)
+				
+			this.eraDividers.attr("height", gHeight)
+				.attr("y2", gHeight);
+		}
+	}
+
 	setCircles() {
-		this.g.selectAll("rect")
+		this.dotContainer.selectAll("rect")
 			.data(this.eventList)
 			.enter().append("rect")
 		    .attr("x", (d) => { return d.startXPos - dotOffset; })
@@ -193,20 +206,19 @@ class Timeline {
 		    .on("click", (d, index, paths) => { return this.clicked(d, paths[index]); });
 	}
 
-	setEraContainers() {
+	setEraContainerXCoords() {
+		let startX = 
 		this.eraContainers
-			.attr("height", this.h + 2*(2*dotRadius + dotOffset))
-			.attr("transform", (d) => { console.log(d); return "translate(" + this.xScale(new Date(d.start_date)) + ")"; });
+			.attr("transform", (d) => { console.log(d); return "translate(" + this.xScale(new Date(d.start_date)) + ")"; })
+			.attr("width", (d) => { console.log(d); return this.xScale(new Date(d.end_date)) - this.xScale(new Date(d.start_date)); });
 
-		this.eraDividers
-			.attr("height", 2*(2*dotRadius + dotOffset))
-			.attr("y2", 2*(2*dotRadius + dotOffset))
-			
+		this.eraText
+			.attr("x", (d) => { return (this.xScale(new Date(d.end_date)) - this.xScale(new Date(d.start_date)))/2 })
 	}
 
 	setXAxis() {
 		const [minTime, maxTime] = this.xScale.domain();
-		let baseTopTransform = this.h + margin.top + dotRadius + dotOffset;
+		let baseTopTransform = this.numRows;
 
 		let numTicks = this.w/100;
 		let numDays = timeDay.count(minTime, maxTime),
@@ -214,12 +226,12 @@ class Timeline {
 			numYears = timeYear.count(minTime, maxTime);
 
 		let dayMonth = {
-			topTransform: baseTopTransform,
+			topTransform: 0,
 			tickSizeInner: 5,
 		};
 		
 		let year = {
-			topTransform: baseTopTransform + 20,
+			topTransform: 20,
 			tickValues: [minTime].concat(timeYear.range(minTime, maxTime)),
 			tickFormat: timeFormat("%Y"),
 			tickSizeInner: 0,
@@ -257,7 +269,6 @@ class Timeline {
 			.tickValues(tickValues);
 
 		axis.style("display", hidden ? "none" : "block")
-			.attr("transform", "translate(" + margin.left + "," + topTransform + ")")
 			.call(axisFunc);
 	}
 
@@ -270,15 +281,14 @@ class Timeline {
 	}
 
 	mouseover(datum, path) {
-		console.log(this.numRows);
+		console.log(this.numDotRows);
 		let elem = select(path);
 		elem.classed("hovered", true);
 
 		this.hoverInfo
 			.classed("hidden", false)
-			.attr("transform", "translate(" + (elem.attr("x") + 30) + "," + this.yScale(this.numRows - 1) + ")");
-
-		this.hoverInfoText.text(datum.title);
+			.attr("transform", "translate(" + elem.attr("x") + ")")
+			.text(datum.title);
 	}
 
 	mouseout(path) {
