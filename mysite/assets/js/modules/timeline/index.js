@@ -220,7 +220,7 @@ class Timeline {
 		this.circles = this.dotContainer.selectAll("rect")
 			.data(this.eventList)
 			.enter().append("rect")
-		    .attr("x", (d) => { return d.startXPos - dotOffset; })
+		    .attr("x", (d) => { return d.startXPos - dotRadius; })
 		    .attr("y", (d) => { return this.yScale(d.yIndex) - dotOffset; })
 		    .attr("height", dotRadius*2)
 		    .attr("width", (d) => { return d.endXPos && (d.endXPos != d.startXPos) ? d.endXPos - d.startXPos + dotRadius*2 : dotRadius*2; })
