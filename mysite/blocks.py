@@ -80,7 +80,6 @@ def getJSCompatibleList(input_list):
 		if (item['end_date']):
 			curr_item['end_date'] = item['end_date'].isoformat()
 
-		print(item['start_date'].isoformat())
 		retList.append(curr_item)
 
 	return retList

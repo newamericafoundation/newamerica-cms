@@ -1,4 +1,5 @@
 {% load utilities %}
+{% load timeline %}
 {% load wagtailimages_tags %}
 
 <script type="text/javascript">
@@ -17,11 +18,7 @@
 		{% for event in sorted_event_list %}
 			<div class="timeline__event" id="event-{{ forloop.counter0 }}">
 				<div class="timeline__event__text">
-					{% if event.end_date %}
-						<div class="timeline__event__date">{{ event.start_date }} - {{ event.end_date }}</div>
-					{% else %}
-						<div class="timeline__event__date">{{ event.start_date }}</div>
-					{% endif %}
+					<div class="timeline__event__date">{% timeline_format_date event.start_date event.end_date event.date_display_type %}</div>
 					<div class="timeline__event__title">{{ event.title }}</div>
 					{% if event.description %}
 						<div class="timeline__event__description post-body">{{ event.description }}</div>
