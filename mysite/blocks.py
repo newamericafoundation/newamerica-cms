@@ -76,8 +76,11 @@ def getJSCompatibleList(input_list):
 		curr_item['id'] = i
 		curr_item['title'] = item['title']
 		curr_item['start_date'] = item['start_date'].isoformat()
+		curr_item['date_display_type'] = item['date_display_type']
 		if (item['end_date']):
 			curr_item['end_date'] = item['end_date'].isoformat()
+
+		print(item['start_date'].isoformat())
 		retList.append(curr_item)
 
 	return retList

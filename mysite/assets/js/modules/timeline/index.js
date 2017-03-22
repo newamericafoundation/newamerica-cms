@@ -8,6 +8,17 @@ import { nest } from 'd3-collection';
 import { timeFormat } from 'd3-time-format';
 import { timeDay, timeMonth, timeYear } from 'd3-time';
 
+const formatDate = {
+	day: timeFormat("%B %d, %Y"),
+	month: timeFormat("%B %Y"),
+	year: timeFormat("%Y")
+}
+
+const parseDate = (date) => {
+	let convertedDate = new Date(date)
+    return new Date(convertedDate.getUTCFullYear(), convertedDate.getUTCMonth(), convertedDate.getUTCDate()); 
+}
+
 const dotRadius = 7,
 	dotOffset = 1.5,
 	rowHeight = 2*(dotRadius + dotOffset),
@@ -19,6 +30,7 @@ const dotRadius = 7,
 
 class Timeline {
 	constructor(settingsObject, navContainerId, contentContainerId) {
+		console.log("This is happening!!!");
 		Object.assign(this, settingsObject);
 
 		console.log(this.eventList);
@@ -33,12 +45,27 @@ class Timeline {
 		this.render();
 
 		window.addEventListener('resize', this.resize.bind(this));
+
+		this.keyListener = this.keyPressed.bind(this);
+
+		this.nextContainer = this.contentContainer.select(".timeline__next");
+		this.prevContainer = this.contentContainer.select(".timeline__prev");
+
+		console.log(this.nextContainer);
+		console.log(this.prevContainer);
+
+		this.setNextPrev();
 	}
 
 	appendContainers(navContainerId, contentContainerId) {
-		this.navContainer = select(navContainerId);
-		this.contentContainer = select(contentContainerId);
+		this.navContainer = select(navContainerId)
+			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
+			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
 
+		this.contentContainer = select(contentContainerId)
+			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
+			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
+			
 		this.svg = this.navContainer
 				.append("svg")
 				.attr("class", "timeline__nav__container")
@@ -88,8 +115,8 @@ class Timeline {
 	}
 
 	initializeScales() {
-		let minDate = min(this.eventList, (d) => { return new Date(d.start_date); });
-		let maxDate = max(this.eventList, (d) => { return d.end_date ? new Date(d.end_date) : new Date(d.start_date) });
+		let minDate = min(this.eventList, (d) => { return parseDate(d.start_date); });
+		let maxDate = max(this.eventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
 
 		this.xScale = scaleLinear()
 			.domain([minDate, maxDate]);
@@ -124,8 +151,8 @@ class Timeline {
 		this.rows[0] = [];
 
 		this.eventList.map((d) => {
-			startXPos = this.xScale(new Date(d.start_date));
-			endXPos = d.end_date ? this.xScale(new Date(d.end_date)) : startXPos;
+			startXPos = this.xScale(parseDate(d.start_date));
+			endXPos = d.end_date ? this.xScale(parseDate(d.end_date)) : startXPos;
 
 			d.yIndex = this.calcYIndex(startXPos - dotRadius, endXPos + dotRadius);
 			d.startXPos = startXPos;
@@ -190,7 +217,7 @@ class Timeline {
 	}
 
 	setCircles() {
-		this.dotContainer.selectAll("rect")
+		this.circles = this.dotContainer.selectAll("rect")
 			.data(this.eventList)
 			.enter().append("rect")
 		    .attr("x", (d) => { return d.startXPos - dotOffset; })
@@ -209,11 +236,11 @@ class Timeline {
 	setEraContainerXCoords() {
 		let startX = 
 		this.eraContainers
-			.attr("transform", (d) => { console.log(d); return "translate(" + this.xScale(new Date(d.start_date)) + ")"; })
-			.attr("width", (d) => { console.log(d); return this.xScale(new Date(d.end_date)) - this.xScale(new Date(d.start_date)); });
+			.attr("transform", (d) => { console.log(d); return "translate(" + this.xScale(parseDate(d.start_date)) + ")"; })
+			.attr("width", (d) => { console.log(d); return this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)); });
 
 		this.eraText
-			.attr("x", (d) => { return (this.xScale(new Date(d.end_date)) - this.xScale(new Date(d.start_date)))/2 })
+			.attr("x", (d) => { return (this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)))/2 })
 	}
 
 	setXAxis() {
@@ -299,14 +326,76 @@ class Timeline {
 
 	clicked(datum, path) {
 		const { id } = datum;
-		console.log("clicked!");
+		this.setNewSelected(id);
+	}
+
+	setNewSelected(id) {
+		console.log(this.currSelected);
+		console.log(id);
+		if (id < 0) {
+			id = this.eventList.length-1;
+		} else if (id > this.eventList.length-1) {
+			id = 0;
+		}
 		this.contentContainer.select("#event-" + this.currSelected).classed("visible", false);
-		// console.log(this.navContainer.select("#event-" + this.currSelected));
-		this.navContainer.select(".timeline__nav__dot.selected").classed("selected", false);
-		// console.log(this.navContainer.select(".timeline__nav__dot.selected"))
 		this.currSelected = id;
 		this.contentContainer.select("#event-" + id).classed("visible", true);
-		select(path).classed("selected", true);
+		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
+
+		this.setNextPrev();
+	}
+
+	keyPressed(eventInfo) {
+		if (eventInfo.keyCode == 37) {
+			this.setNewSelected(this.currSelected - 1);
+		} else if (eventInfo.keyCode == 39) {
+			this.setNewSelected(this.currSelected + 1)
+		}
+	}
+
+	setNextPrev() {
+		console.log("setting next prev");
+		if (this.currSelected == 0) {
+			this.prevContainer.classed("hidden", true);
+			this.setNext();
+			return;
+		} 
+
+		if (this.currSelected == this.eventList.length-1) {
+			this.nextContainer.classed("hidden", true);
+			this.setPrev();
+			return;
+		} 
+
+		this.setNext();
+		this.setPrev();
+	}
+
+	setNext() {
+		const nextEvent = this.eventList[this.currSelected + 1];
+		this.nextContainer.classed("hidden", false);
+		this.nextContainer.select(".timeline__next-prev__date").text(this.formatDateLine(nextEvent));
+		this.nextContainer.select(".timeline__next-prev__title").text(nextEvent.title);
+	}
+
+	setPrev() {
+		const prevEvent = this.eventList[this.currSelected - 1];
+		this.prevContainer.classed("hidden", false);
+		this.prevContainer.select(".timeline__next-prev__date").text(this.formatDateLine(prevEvent));
+		this.prevContainer.select(".timeline__next-prev__title").text(prevEvent.title);
+	}
+
+	formatDateLine(eventObject) {
+		const { start_date, end_date, date_display_type } = eventObject;
+		console.log(start_date);
+
+		let retString = formatDate[date_display_type](parseDate(start_date));
+		if (end_date) {
+			let formattedEndString = formatDate[date_display_type](parseDate(end_date))
+			retString += formattedEndString != retString ? " - " + formattedEndString : "";
+		}
+
+		return retString;
 	}
 }
 
