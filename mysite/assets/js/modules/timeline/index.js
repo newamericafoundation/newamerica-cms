@@ -309,6 +309,9 @@ class Timeline {
 		this.eventContentVisibleWidth = this.contentContainer.select(".timeline__visible-event-window").style("width");
 		console.log(this.eventContentVisibleWidth);
 		this.contentContainer.selectAll(".timeline__event").style("width", this.eventContentVisibleWidth);
+		this.contentContainer.select(".timeline__full-event-container")
+			.style("transform", "translate(-" + (this.currSelected*this.eventContentVisibleWidth.replace("px", "")) + "px)");
+		
 
 		this.render()
 	}
@@ -345,8 +348,10 @@ class Timeline {
 		}
 
 		this.currSelected = id;
-		console.log(this.eventContentVisibleWidth);
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
+		// let currEventHeight = this.contentContainer.select("#event-" + id).style("height");
+		// console.log(currEventHeight);
+		// this.contentContainer.style("height", currEventHeight);
 		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
 
 		this.setNextPrev();
