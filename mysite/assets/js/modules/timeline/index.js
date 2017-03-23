@@ -48,8 +48,10 @@ class Timeline {
 
 		this.keyListener = this.keyPressed.bind(this);
 
-		this.nextContainer = this.contentContainer.select(".timeline__next");
-		this.prevContainer = this.contentContainer.select(".timeline__prev");
+		this.nextContainer = this.contentContainer.select(".timeline__next")
+			.on("click", () => { return this.setNewSelected(this.currSelected + 1); });
+		this.prevContainer = this.contentContainer.select(".timeline__prev")
+			.on("click", () => { return this.setNewSelected(this.currSelected - 1); });
 
 		console.log(this.nextContainer);
 		console.log(this.prevContainer);

@@ -129,9 +129,9 @@ $desktop-next-prev-width: 120px;
 			@include breakpoint(medium) {
 				display: block;
 				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-
+				/*top: 50%;
+				transform: translateY(-50%);*/
+				top: 0px;
 			}
 		}
 		&__date {
@@ -140,7 +140,7 @@ $desktop-next-prev-width: 120px;
 		}
 		&__title {
 			@include timeline-subtext;
-			color: palette-get(na-black);
+			color: $sub-color;
 			font-weight: bold;
 			margin-bottom: 0px;
 		}
@@ -148,31 +148,53 @@ $desktop-next-prev-width: 120px;
 	&__next, &__prev {
 		display: table-cell;
 		width: 50%;
-		padding: 0px;
+		cursor: pointer;
 
 		@include breakpoint(medium) {
 			display: block;
 			position: absolute;
 			width: $desktop-next-prev-width;
-			top: -50%;
+			top: 0px;
 		}
 
 		&.hidden {
 			display: none;
 		}
+		&:hover {
+			* {
+				fill: palette-get(na-black);
+				color: palette-get(na-black);
+			}
+		}
 	}
 	&__next {
-		text-align: right;
-		padding-left: 20px;
+		padding-left: 25px;
 		@include breakpoint(medium) {
 			right: 0px;
 		}
+
+		svg {
+			width: 20px;
+			fill: $sub-color;
+			transform: rotate(90deg);
+			/*left: 17px;
+			top: -28px;*/
+		}
 	}
 	&__prev {
-		text-align: left;
-		padding-right: 20px;
+		padding-right: 25px;
+
+		text-align: right;
 		@include breakpoint(medium) {
 			left: 0px;
+		}
+
+		svg {
+			width: 20px;
+			fill: $sub-color;
+			transform: rotate(-90deg);
+			/*right: 15px;
+			top: -28px;*/
 		}
 	}
 }
