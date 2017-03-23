@@ -15,27 +15,31 @@
 <div class="timeline">
 	<div class="timeline__nav"></div>
 	<div class="timeline__content">
-		{% for event in sorted_event_list %}
-			<div class="timeline__event" id="event-{{ forloop.counter0 }}">
-				<div class="timeline__event__text">
-					<div class="timeline__event__date">{% timeline_format_date event.start_date event.end_date event.date_display_type %}</div>
-					<div class="timeline__event__title">{{ event.title }}</div>
-					{% if event.description %}
-						<div class="timeline__event__description post-body">{{ event.description }}</div>
-					{% endif %}
-				</div>
-				{% if event.image or event.video %}
-					<div class="timeline__event__media">
-						{% if event.video %}
-							{{ event.video }}
-						{% else %}
-							{% image event.image min-800x800 as img %}
-							<img class="timeline__event__media__image" {{ img.attrs }}/>
+		<div class="timeline__visible-event-window">
+			<div class="timeline__full-event-container">
+				{% for event in sorted_event_list %}
+					<div class="timeline__event" id="event-{{ forloop.counter0 }}">
+						<div class="timeline__event__text">
+							<div class="timeline__event__date">{% timeline_format_date event.start_date event.end_date event.date_display_type %}</div>
+							<div class="timeline__event__title">{{ event.title }}</div>
+							{% if event.description %}
+								<div class="timeline__event__description post-body">{{ event.description }}</div>
+							{% endif %}
+						</div>
+						{% if event.image or event.video %}
+							<div class="timeline__event__media">
+								{% if event.video %}
+									{{ event.video }}
+								{% else %}
+									{% image event.image min-800x800 as img %}
+									<img class="timeline__event__media__image" {{ img.attrs }}/>
+								{% endif %}
+							</div>
 						{% endif %}
 					</div>
-				{% endif %}
+				{% endfor %}
 			</div>
-		{% endfor %}
+		</div>
 
 		<div class="timeline__next-prev-container">
 			<div class="timeline__prev">

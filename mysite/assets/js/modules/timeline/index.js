@@ -53,8 +53,8 @@ class Timeline {
 		this.prevContainer = this.contentContainer.select(".timeline__prev")
 			.on("click", () => { return this.setNewSelected(this.currSelected - 1); });
 
-		console.log(this.nextContainer);
-		console.log(this.prevContainer);
+		this.eventContentVisibleWidth = this.contentContainer.select(".timeline__visible-event-window").style("width");
+		this.contentContainer.selectAll(".timeline__event").style("width", this.eventContentVisibleWidth);
 
 		this.setNextPrev();
 	}
@@ -80,13 +80,14 @@ class Timeline {
 			this.eraContainers = this.g.selectAll("g.timeline__nav__era-container")
 				.data(this.eraList)
 				.enter().append("g")
-				.attr("class", "timeline__nav__era-container");
+				.attr("class", "timeline__nav__era-container")
+				.on("mouseover", (d) => { console.log("mousing over!", d);});
 
 			this.eraDividers = this.eraContainers.append("line")
 				.attr("class", "timeline__nav__era-divider")
 				.attr("x1", 0)
 				.attr("x2", 0)
-				.attr("y1", 0);
+				.attr("y1", -9);
 
 			this.eraText = this.eraContainers.append("text")
 				.attr("class", "timeline__nav__era-text")
@@ -238,8 +239,8 @@ class Timeline {
 	setEraContainerXCoords() {
 		let startX = 
 		this.eraContainers
-			.attr("transform", (d) => { console.log(d); return "translate(" + this.xScale(parseDate(d.start_date)) + ")"; })
-			.attr("width", (d) => { console.log(d); return this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)); });
+			.attr("transform", (d) => { return "translate(" + this.xScale(parseDate(d.start_date)) + ")"; })
+			.attr("width", (d) => { return this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)); });
 
 		this.eraText
 			.attr("x", (d) => { return (this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)))/2 })
@@ -289,7 +290,6 @@ class Timeline {
 		let {topTransform, tickValues, tickFormat, tickSizeInner, hidden, ticks} = settings;
 		let axis = whichAxis == "year" ? this.yearAxis : this.dayMonthAxis;
 
-		console.log(tickValues);
 		let axisFunc = axisBottom(this.xScale)
 			.tickPadding(5)
 			.tickSizeOuter(0)
@@ -305,6 +305,10 @@ class Timeline {
 		console.log("resizing");
 
 		this.g.selectAll("rect").remove();
+
+		this.eventContentVisibleWidth = this.contentContainer.select(".timeline__visible-event-window").style("width");
+		console.log(this.eventContentVisibleWidth);
+		this.contentContainer.selectAll(".timeline__event").style("width", this.eventContentVisibleWidth);
 
 		this.render()
 	}
@@ -339,9 +343,10 @@ class Timeline {
 		} else if (id > this.eventList.length-1) {
 			id = 0;
 		}
-		this.contentContainer.select("#event-" + this.currSelected).classed("visible", false);
+
 		this.currSelected = id;
-		this.contentContainer.select("#event-" + id).classed("visible", true);
+		console.log(this.eventContentVisibleWidth);
+		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
 		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
 
 		this.setNextPrev();

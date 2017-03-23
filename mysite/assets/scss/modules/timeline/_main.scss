@@ -77,20 +77,35 @@ $desktop-next-prev-width: 120px;
 	}
 	&__content {
 		position: relative;
+		height: 700px;
+	}
+
+	&__visible-event-window {
+		max-width: 700px;
+		height: 700px;
+		width: calc(100% - #{2*$desktop-next-prev-width});
+		overflow: hidden;
+		margin: auto;
+		position: relative;
+	}
+
+	&__full-event-container {
+		$transition: transform 500ms ease-in-out;
+		width: 10000%;
+		position: absolute;
+		-webkit-transition: $transition;
+	    -moz-transition: $transition;
+	    -o-transition: $transition;
+	    transition: $transition;
 	}
 
 	&__event {
-		display: none;
+		float: left;
+		/*display: none;*/
 
 		@include breakpoint(medium) {
 			max-width: 700px;
 			min-height: 100px;
-			margin: auto;
-			width: calc(100% - #{2*$desktop-next-prev-width});
-		}
-
-		&.visible {
-			display: block;
 		}
 
 		&__date {
