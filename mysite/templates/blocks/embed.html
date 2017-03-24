@@ -1,0 +1,9 @@
+{% load utilities %}
+
+{% if 'youtube.com/embed/' in value %}
+  <div>
+    <iframe src="{{value}}" frameborder="0" />
+  </div>
+{% else %}
+    {% oembed value %}
+{% endif %}

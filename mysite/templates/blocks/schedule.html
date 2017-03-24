@@ -73,6 +73,11 @@
 
                       </div>
                       {% endif %}
+                      {% if s.archived_video_link %}
+                        <div class="archived-video">
+                          {% include 'blocks/embed.html' with value=s.archived_video_link %}
+                        </div>
+                      {% endif %}
                     </article>
                     {% endif %}
                   </div>
