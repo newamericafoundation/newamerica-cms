@@ -8,8 +8,37 @@ $desktop-next-prev-width: 120px;
 
 
 .timeline {
-	padding-bottom: $desktop-padding;
+	padding: 2*$desktop-padding $desktop-padding;
+	margin: $desktop-padding 0px;
+	border: 2px solid palette-get(na-black-10);
+	position: relative;
+
+	&__see-all-button {
+		border-left: 2px solid palette-get(na-black-10);
+		border-bottom: 2px solid palette-get(na-black-10);
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		@include timeline-subtext
+		cursor: pointer;
+		padding: 3px 4px;
+
+		&:hover {
+			color: palette-get(na-black);
+		}
+
+		&:after {
+			content: "Show all Events";
+			.show-all & {
+				content: "Return to Interactive Version";
+			}
+		}
+	}
+
 	&__nav {
+		.show-all & {
+			display: none !important;
+		}
 		&__dot {
 			cursor: pointer;
 			fill: white;
@@ -76,34 +105,56 @@ $desktop-next-prev-width: 120px;
 
 	}
 	&__content {
+		$transition: height 100ms linear;
 		position: relative;
+
+		-webkit-transition: $transition;
+	    -moz-transition: $transition;
+	    -o-transition: $transition;
+	    transition: $transition;
+
 	}
 
 	&__visible-event-window {
 		max-width: 700px;
-		width: calc(100vw - 50px);
+		width: calc(100vw - 125px);
 		overflow: hidden;
 		margin: auto;
 		position: relative;
 
+
 		@include breakpoint(medium) {
 			width: calc(100% - #{2*$desktop-next-prev-width});
+
+			.show-all & {
+				width: 100%;
+			}
 		}
+
+
 	}
 
 	&__full-event-container {
 		$transition: transform 500ms ease-in-out;
 		width: 10000%;
 		position: relative;
-		/*-webkit-transition: $transition;
+		-webkit-transition: $transition;
 	    -moz-transition: $transition;
-	    -o-transition: $transition;*/
+	    -o-transition: $transition;
 	    transition: $transition;
+
+	    .show-all & {
+			transform: translateX(0) !important;
+		}
 	}
 
 	&__event {
 		float: left;
-		/*display: none;*/
+		
+		.show-all & {
+			float: none;
+			padding-bottom: $desktop-padding;
+		}
 
 		@include breakpoint(medium) {
 			max-width: 700px;
@@ -146,9 +197,13 @@ $desktop-next-prev-width: 120px;
 			@include breakpoint(medium) {
 				display: block;
 				position: absolute;
-				/*top: 50%;
-				transform: translateY(-50%);*/
-				top: 0px;
+				top: 50%;
+				transform: translateY(-50%);
+				/*top: 0px;*/
+			}
+
+			.show-all & {
+				display: none;
 			}
 		}
 		&__date {

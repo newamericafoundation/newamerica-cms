@@ -29,7 +29,7 @@ const dotRadius = 7,
 	fillSelectedColor = "#2c2f35";
 
 class Timeline {
-	constructor(settingsObject, navContainerId, contentContainerId) {
+	constructor(settingsObject, fullContainerId, navContainerId, contentContainerId, showAllToggle) {
 		console.log("This is happening!!!");
 		Object.assign(this, settingsObject);
 
@@ -52,6 +52,20 @@ class Timeline {
 			.on("click", () => { return this.setNewSelected(this.currSelected + 1); });
 		this.prevContainer = this.contentContainer.select(".timeline__prev")
 			.on("click", () => { return this.setNewSelected(this.currSelected - 1); });
+
+		this.showingAll = false;
+		select(showAllToggle)
+			.on("click", () => {
+				console.log()
+				if (this.showingAll) {
+					select(fullContainerId).classed("show-all", false);
+					this.showingAll = !this.showingAll;
+				} else {
+					select(fullContainerId).classed("show-all", true);
+					this.showingAll = !this.showingAll;
+				}
+			});
+
 
 		this.eventContentVisibleWidth = this.contentContainer.select(".timeline__visible-event-window").style("width");
 		this.contentContainer.selectAll(".timeline__event").style("width", this.eventContentVisibleWidth);
@@ -307,11 +321,13 @@ class Timeline {
 		this.g.selectAll("rect").remove();
 
 		this.eventContentVisibleWidth = this.contentContainer.select(".timeline__visible-event-window").style("width");
-		console.log(this.eventContentVisibleWidth);
 		this.contentContainer.selectAll(".timeline__event").style("width", this.eventContentVisibleWidth);
 		this.contentContainer.select(".timeline__full-event-container")
 			.style("transform", "translate(-" + (this.currSelected*this.eventContentVisibleWidth.replace("px", "")) + "px)");
 		
+		// let currEventHeight = this.contentContainer.select("#event-" + this.currSelected).style("height");
+		// this.contentContainer.style("height", currEventHeight);
+		console.log();
 
 		this.render()
 	}
@@ -346,13 +362,30 @@ class Timeline {
 		} else if (id > this.eventList.length-1) {
 			id = 0;
 		}
+		// let currEventHeight = this.contentContainer.select("#event-" + this.currSelected).style("height");
+		// let nextEventHeight = this.contentContainer.select("#event-" + id).style("height");
 
 		this.currSelected = id;
+
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
-		// let currEventHeight = this.contentContainer.select("#event-" + id).style("height");
-		// console.log(currEventHeight);
-		// this.contentContainer.style("height", currEventHeight);
+		
+
+		// if (currEventHeight > nextEventHeight) {
+		// 	this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
+		// 	setTimeout(() => { 
+		// 		this.contentContainer.style("height", nextEventHeight); 
+		// 	}, 500);
+		// } else {
+		// 	this.contentContainer.style("height", nextEventHeight);
+		// 	setTimeout(() => { 
+		// 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
+		// 	}, 500);
+		// }
+
 		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
+		
+		// console.log(currEventHeight);
+		
 
 		this.setNextPrev();
 	}
@@ -420,10 +453,11 @@ export default function() {
 	console.log(timelineDivs)
 	let i = 0;
 	for (let settingsObject of timelineEventSettings) {
-		let navContainer = $(timelineDivs[i]).children(".timeline__nav")[0],
+		let showAllToggle = $(timelineDivs[i]).children(".timeline__see-all-button")[0],
+			navContainer = $(timelineDivs[i]).children(".timeline__nav")[0],
 			contentContainer = $(timelineDivs[i]).children(".timeline__content")[0];
 		console.log(settingsObject)
-		new Timeline(settingsObject, navContainer, contentContainer);
+		new Timeline(settingsObject, timelineDivs[i], navContainer, contentContainer, showAllToggle);
 		i++;
 	}
 	
