@@ -35,7 +35,9 @@
 							<div class="timeline__event__date">{% timeline_format_date event.start_date event.end_date event.date_display_type %}</div>
 							<div class="timeline__event__title">{{ event.title }}</div>
 							{% if event.description %}
-								<div class="timeline__event__description post-body">{{ event.description }}</div>
+								<div class="timeline__event__description post-body">
+									<div class="block-paragraph">{{ event.description }}</div>
+								</div>
 							{% endif %}
 						</div>
 						{% if event.image or event.video %}

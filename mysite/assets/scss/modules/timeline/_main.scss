@@ -209,11 +209,18 @@ $desktop-next-prev-width: 120px;
 				font-size: .9rem;
 				color: palette-get(na-black) !important;
 			}
+
+			img {
+			
+			}
 		}
 
 		&__media {
+			text-align: center;
 			&__image {
-				width: 100%;
+				max-height: 400px;
+				width: auto;
+				margin: auto;
 			}
 		}
 	}

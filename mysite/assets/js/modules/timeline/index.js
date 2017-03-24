@@ -45,21 +45,12 @@ class Timeline {
 
 		let swipeHandler = new Hammer(contentContainerId);
 
-		swipeHandler.on("swipeleft", (ev) => {
-			console.log(ev);
-			console.log("left");
-			this.setNewSelected(this.currSelected + 1, false);
-		    // myElement.textContent = ev.type +" gesture detected.";
-		});
-
-		swipeHandler.on("swiperight", (ev) => {
-			console.log(ev);
-			console.log("right");
-			this.setNewSelected(this.currSelected - 1, false);
-		    // myElement.textContent = ev.type +" gesture detected.";
-		});
-
-		
+		swipeHandler
+			.on("swipeleft", (ev) => {
+				this.setNewSelected(this.currSelected + 1, false);
+			}).on("swiperight", (ev) => {
+				this.setNewSelected(this.currSelected - 1, false);
+			});
 
 		this.contentContainer.select("#event-0").classed("visible", true);
 		
