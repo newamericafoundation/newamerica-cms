@@ -34,7 +34,7 @@
                 {% with s=session.value desc=session.value.description.source %}
 
                 <div class="panel schedule-item">
-                  <span class="schedule-item-toggle {% if desc|length > 12 or s.speakers|length > 0 %}schedule-item-toggle-active{% endif %}" data-target="#day-{{i}}_session-{{forloop.counter}}">
+                  <span class="schedule-item-toggle {% if desc|length > 12 or s.speakers|length > 0 or s.archived_video_link%}schedule-item-toggle-active{% endif %}" data-target="#day-{{i}}_session-{{forloop.counter}}">
                     <div class="lecture-icon-wrapper">
                       <span class="fa fa-{{s.session_type}}"></span>
                     </div>
@@ -48,15 +48,14 @@
 
                     <h5 class="title">
                       {{s.name}}
-                      {% if desc|length > 12 or s.speakers|length > 0 %}
+                      {% if desc|length > 12 or s.speakers|length > 0 or s.archived_video_link %}
                       {% if d.collapsible %}  <i class="fa fa-chevron-circle-down"></i> {% endif %}
                       {% endif %}
                     </h5>
                   </span>
                   <div id="day-{{i}}_session-{{forloop.counter}}" class="panel-collapse collapse schedule-item-body">
-                    {% if desc|length > 12 or s.speakers|length > 0 %}
+                    {% if desc|length > 12 or s.speakers|length > 0 or s.archived_video_link %}
                     <article>
-
                       {% if desc|length > 12 %}
                       <div class="description">{{s.description}}</div>
                       {% endif %}
