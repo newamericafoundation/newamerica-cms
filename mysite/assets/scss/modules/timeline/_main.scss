@@ -125,6 +125,13 @@ $desktop-next-prev-width: 120px;
 			font-size: $subtext-size;
 			line-height: .7;
 			text-anchor: middle;
+			display: none;
+
+			&.visible {
+				display: block;
+			}
+
+
 		}
 
 	}

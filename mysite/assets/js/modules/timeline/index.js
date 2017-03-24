@@ -35,13 +35,14 @@ class Timeline {
 
 		console.log(this.eventList);
 
+		this.currSelected = 0;
+
 		this.appendContainers(navContainerId, contentContainerId);
 		this.appendAxes();
 		this.initializeScales();
 
-		this.currSelected = 0;
 		this.contentContainer.select("#event-0").classed("visible", true);
-
+		
 		this.render();
 
 		window.addEventListener('resize', this.resize.bind(this));
@@ -101,11 +102,18 @@ class Timeline {
 				.attr("class", "timeline__nav__era-divider")
 				.attr("x1", 0)
 				.attr("x2", 0)
-				.attr("y1", 0);
+				.attr("y1", 5);
 
 			this.eraText = this.eraContainers.append("text")
 				.attr("class", "timeline__nav__era-text")
-				.text((d) => { console.log(d); return d.title; });
+				.text((d) => { console.log(d); return d.title; })
+				.classed("visible", (d) => { 
+					console.log(this.eventList[this.currSelected]);
+					if (d.end_date && this.eventList[this.currSelected].start_date > d.end_date) {
+						return false;
+					}
+					return this.eventList[this.currSelected].start_date > d.start_date;
+				});
 		}
 
 		let hoverInfoContainer = this.g.append("g")
@@ -383,6 +391,15 @@ class Timeline {
 		// }
 
 		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
+
+		this.eraText
+			.classed("visible", (d) => { 
+				console.log(this.eventList[this.currSelected].start_date > d.start_date);
+				if (d.end_date && this.eventList[this.currSelected].start_date > d.end_date) {
+					return false;
+				}
+				return this.eventList[this.currSelected].start_date >= d.start_date;
+			});
 		
 		// console.log(currEventHeight);
 		
