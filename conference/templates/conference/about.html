@@ -3,13 +3,7 @@
   <div class="container">
     {% if page.live_stream %}
       <div class="block-video">
-      {% if 'youtube.com/embed/' in page.live_stream %}
-        <div>
-          <iframe src="{{page.live_stream}}" frameborder="0" />
-        </div>
-      {% else %}
-          {% oembed page.live_stream %}
-      {% endif %}
+      {% include 'blocks/embed.html' with value=page.live_stream %}
       </div>
     {% endif %}
     <span class="line-icon section-icon line-icon-multimedia-12"></span>
