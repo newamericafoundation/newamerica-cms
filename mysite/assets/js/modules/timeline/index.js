@@ -101,7 +101,7 @@ class Timeline {
 				.attr("class", "timeline__nav__era-divider")
 				.attr("x1", 0)
 				.attr("x2", 0)
-				.attr("y1", -9);
+				.attr("y1", 0);
 
 			this.eraText = this.eraContainers.append("text")
 				.attr("class", "timeline__nav__era-text")

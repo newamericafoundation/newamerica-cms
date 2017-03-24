@@ -1,4 +1,4 @@
-$subtext-size: .8rem;
+$subtext-size: .9rem;
 $sub-color: rgba(138, 138, 138, 0.7);
 $desktop-next-prev-width: 120px;
 @mixin timeline-subtext {
@@ -12,6 +12,7 @@ $desktop-next-prev-width: 120px;
 	margin: $desktop-padding 0px;
 	border: 2px solid palette-get(na-black-10);
 	position: relative;
+	max-width: $max-site-width;
 
 	&__see-all-button {
 		border-left: 2px solid palette-get(na-black-10);
@@ -21,7 +22,7 @@ $desktop-next-prev-width: 120px;
 		right: 0px;
 		@include timeline-subtext
 		cursor: pointer;
-		padding: 3px 4px;
+		padding: 3px 5px;
 
 		&:hover {
 			color: palette-get(na-black);
@@ -32,6 +33,29 @@ $desktop-next-prev-width: 120px;
 			.show-all & {
 				content: "Return to Interactive Version";
 			}
+		}
+	}
+
+	&__title-block {
+		max-width: $max-body-width;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 35px;
+
+		&__pre-text {
+			@include timeline-subtext;
+			margin-bottom: 0px;
+		}
+
+		&__title {
+			color: palette-get(na-black);
+			font-size: 26px;
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+		&__subheading {
+			font-size: .9rem;
+			color: palette-get(na-black) !important;
 		}
 	}
 
@@ -116,7 +140,7 @@ $desktop-next-prev-width: 120px;
 	}
 
 	&__visible-event-window {
-		max-width: 700px;
+		max-width: $max-body-width;
 		width: calc(100vw - 125px);
 		overflow: hidden;
 		margin: auto;
@@ -157,7 +181,7 @@ $desktop-next-prev-width: 120px;
 		}
 
 		@include breakpoint(medium) {
-			max-width: 700px;
+			max-width: $max-body-width;
 			min-height: 100px;
 		}
 

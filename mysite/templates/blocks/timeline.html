@@ -13,7 +13,18 @@
 
 
 <div class="timeline">
+
 	<div class="timeline__see-all-button"></div>
+
+	<div class="timeline__title-block">
+		{% if self.title %}
+			<h5 class="timeline__title-block__pre-text">Timeline</h5>
+			<h5 class="timeline__title-block__title">{{ self.title }}</h5>
+			{% if self.subheading %}
+				<h5 class="timeline__title-block__subheading">{{ self.subheading }}</h5>
+			{% endif %}
+		{% endif %}
+	</div>
 	<div class="timeline__nav"></div>
 	<div class="timeline__content">
 		<div class="timeline__visible-event-window">

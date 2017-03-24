@@ -110,7 +110,7 @@ class TimelineEraBlock(blocks.StructBlock):
 
 class TimelineBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=False)
-	subheading = blocks.RichTextBlock(required=False)
+	subheading = blocks.CharBlock(required=False)
 	event_eras = blocks.ListBlock(TimelineEraBlock(), default='', required=False)
 	event_categories = blocks.ListBlock(blocks.CharBlock(), default='', required=False)
 	event_list = blocks.ListBlock(TimelineEventBlock())
