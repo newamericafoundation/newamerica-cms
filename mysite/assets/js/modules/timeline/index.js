@@ -3,10 +3,11 @@ import $ from 'jquery';
 import { axisBottom } from 'd3-axis';
 import { scaleLinear, scalePoint, scaleQuantize } from 'd3-scale';
 import { extent, ascending, min, max } from 'd3-array';
-import { select, selectAll } from 'd3-selection';
+import { select, selectAll, event } from 'd3-selection';
 import { nest } from 'd3-collection';
 import { timeFormat } from 'd3-time-format';
 import { timeDay, timeMonth, timeYear } from 'd3-time';
+let Hammer = require('hammerjs');
 
 const formatDate = {
 	day: timeFormat("%B %d, %Y"),
@@ -31,6 +32,7 @@ const dotRadius = 7,
 class Timeline {
 	constructor(settingsObject, fullContainerId, navContainerId, contentContainerId, showAllToggle) {
 		console.log("This is happening!!!");
+		console.log(Hammer);
 		Object.assign(this, settingsObject);
 
 		console.log(this.eventList);
@@ -41,6 +43,24 @@ class Timeline {
 		this.appendAxes();
 		this.initializeScales();
 
+		let swipeHandler = new Hammer(contentContainerId);
+
+		swipeHandler.on("swipeleft", (ev) => {
+			console.log(ev);
+			console.log("left");
+			this.setNewSelected(this.currSelected + 1, false);
+		    // myElement.textContent = ev.type +" gesture detected.";
+		});
+
+		swipeHandler.on("swiperight", (ev) => {
+			console.log(ev);
+			console.log("right");
+			this.setNewSelected(this.currSelected - 1, false);
+		    // myElement.textContent = ev.type +" gesture detected.";
+		});
+
+		
+
 		this.contentContainer.select("#event-0").classed("visible", true);
 		
 		this.render();
@@ -50,9 +70,9 @@ class Timeline {
 		this.keyListener = this.keyPressed.bind(this);
 
 		this.nextContainer = this.contentContainer.select(".timeline__next")
-			.on("click", () => { return this.setNewSelected(this.currSelected + 1); });
+			.on("click", () => { return this.setNewSelected(this.currSelected + 1, false); });
 		this.prevContainer = this.contentContainer.select(".timeline__prev")
-			.on("click", () => { return this.setNewSelected(this.currSelected - 1); });
+			.on("click", () => { return this.setNewSelected(this.currSelected - 1, false); });
 
 		this.showingAll = false;
 		select(showAllToggle)
@@ -78,10 +98,15 @@ class Timeline {
 		this.navContainer = select(navContainerId)
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
 			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
+		    
 
 		this.contentContainer = select(contentContainerId)
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
 			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
+			// .on("touchstart",() => { console.log(event); this.touchStartCoords = event.touches[0]; })
+			// .on("touchmove", (a, b, c, d) => { console.log(this.touchStartCoords); })
+			// .on("touchend", () => { this.touchStartCoords = null; })
+
 			
 		this.svg = this.navContainer
 				.append("svg")
@@ -359,16 +384,16 @@ class Timeline {
 
 	clicked(datum, path) {
 		const { id } = datum;
-		this.setNewSelected(id);
+		this.setNewSelected(id, false);
 	}
 
-	setNewSelected(id) {
+	setNewSelected(id, wrapAround) {
 		console.log(this.currSelected);
 		console.log(id);
 		if (id < 0) {
-			id = this.eventList.length-1;
+			id = wrapAround ? this.eventList.length-1 : 0;
 		} else if (id > this.eventList.length-1) {
-			id = 0;
+			id = wrapAround ? 0 : this.eventList.length-1;
 		}
 		// let currEventHeight = this.contentContainer.select("#event-" + this.currSelected).style("height");
 		// let nextEventHeight = this.contentContainer.select("#event-" + id).style("height");
@@ -409,9 +434,9 @@ class Timeline {
 
 	keyPressed(eventInfo) {
 		if (eventInfo.keyCode == 37) {
-			this.setNewSelected(this.currSelected - 1);
+			this.setNewSelected(this.currSelected - 1, true);
 		} else if (eventInfo.keyCode == 39) {
-			this.setNewSelected(this.currSelected + 1)
+			this.setNewSelected(this.currSelected + 1, true);
 		}
 	}
 
