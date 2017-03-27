@@ -1,0 +1,100 @@
+.timeline__nav {
+	.show-all & {
+		display: none !important;
+	}
+	&__dot {
+		cursor: pointer;
+		/*fill: white;*/
+		/*stroke: $sub-color;*/
+
+		&:not(.selected)  {
+			&:not(.hovered) {
+				fill: white !important;
+			}
+			/*stroke: none !important;*/
+		}
+		/*&:not(.hovered) {
+			fill: white !important;
+			stroke: palette-get(na-black) !important;
+		}*/
+	}
+
+	&__hover-info {
+		display: block;
+		font-size: $subtext-size;
+		/*color: palette-get(na-black);*/
+
+		&.hidden {
+			display: none;
+		}
+	}
+
+	&__axis {
+		&.year-axis {
+			/*path {
+				display: none;
+			}*/
+		}
+		path {
+			stroke: $sub-color;
+			stroke-width: .7px;
+		}
+		.tick {
+			text {
+				font-family: Simplon;
+				fill: $sub-color;
+				font-size: $subtext-size;
+				line-height: .7;
+			}
+			line {
+				stroke: $sub-color;
+				stroke-width: .7px;
+			}
+		}
+
+	}
+
+	&__era-section {
+
+	}
+	&__era-divider {
+		stroke: $sub-color;
+		stroke-dasharray: 4, 4;
+	}
+	&__era-text {
+		font-family: Simplon;
+		fill: $sub-color;
+		font-size: $subtext-size;
+		line-height: .7;
+		text-anchor: middle;
+		display: none;
+
+		&.visible {
+			display: block;
+		}
+
+
+	}
+	&__category-legend {
+		text-align: center;
+
+		&__item {
+			padding: 0px 10px;
+			position: relative;
+		}
+
+		&__color-swatch-container, &__text {
+			float: left;
+		}
+
+		&__color-swatch-container {
+			position: relative;
+		}
+
+		&__text {
+			padding-left: 5px;
+			@include timeline-subtext;
+		}
+	}
+
+}

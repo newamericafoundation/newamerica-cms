@@ -1,0 +1,51 @@
+.timeline__event {
+	float: left;
+	padding: 0px 10px;
+	
+	.show-all & {
+		float: none;
+		padding-bottom: $desktop-padding;
+	}
+
+	@include breakpoint(medium) {
+		max-width: $max-body-width;
+		min-height: 100px;
+	}
+
+	&__date {
+		@include timeline-subtext;
+	}
+
+	&__title {
+		font-size: 20px;
+		color: palette-get(na-black);
+		font-weight: bold;
+		padding-bottom: 10px;
+	}
+
+	&__description {
+		padding-top: 0px;
+		& p {
+			font-size: .9rem;
+			color: palette-get(na-black) !important;
+		}
+
+		img {
+			@media screen and (max-width: 600px) {
+		        width: 100% !important;
+		        padding-left: 0px !important;
+		        padding-right: 0px !important;
+		    }
+			
+		}
+	}
+
+	&__media {
+		text-align: center;
+		&__image {
+			max-height: 400px;
+			width: auto;
+			margin: auto;
+		}
+	}
+}

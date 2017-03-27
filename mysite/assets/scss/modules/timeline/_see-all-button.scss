@@ -1,0 +1,21 @@
+.timeline__see-all-button {
+	border-left: 2px solid palette-get(na-black-10);
+	border-bottom: 2px solid palette-get(na-black-10);
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	@include timeline-subtext
+	cursor: pointer;
+	padding: 3px 5px;
+
+	&:hover {
+		color: palette-get(na-black);
+	}
+
+	&:after {
+		content: "Show all Events";
+		.show-all & {
+			content: "Return to Interactive Version";
+		}
+	}
+}
