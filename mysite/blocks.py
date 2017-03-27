@@ -67,7 +67,7 @@ class DatavizBlock(blocks.StructBlock):
 		icon = 'site'
 		label = 'Dataviz'
 
-def getJSCompatibleList(input_list):
+def getJSCompatibleList(input_list, has_category):
 	sortedList = sorted(input_list, key=lambda member: member['start_date'])
 
 	retList = []
@@ -79,6 +79,8 @@ def getJSCompatibleList(input_list):
 		curr_item['date_display_type'] = item['date_display_type']
 		if (item['end_date']):
 			curr_item['end_date'] = item['end_date'].isoformat()
+		if (has_category and item['category']):
+			curr_item['category'] = item['category']
 
 		retList.append(curr_item)
 
@@ -119,7 +121,7 @@ class TimelineBlock(blocks.StructBlock):
 		context = super(TimelineBlock, self).get_context(value)
 
 		context["sorted_event_list"] = sorted(value["event_list"], key=lambda member: member['start_date'])
-		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"]), "eraList":getJSCompatibleList(value["event_eras"])})
+		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"], True), "eraList":getJSCompatibleList(value["event_eras"], False), "categoryList":value["event_categories"]})
 		
 		return context
 

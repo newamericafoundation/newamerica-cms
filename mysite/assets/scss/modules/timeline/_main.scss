@@ -8,7 +8,7 @@ $desktop-next-prev-width: 120px;
 
 
 .timeline {
-	padding: 2*$desktop-padding $desktop-padding;
+	padding: 2*$desktop-padding $desktop-padding $desktop-padding $desktop-padding;
 	margin: $desktop-padding 0px;
 	border: 2px solid palette-get(na-black-10);
 	position: relative;
@@ -65,22 +65,25 @@ $desktop-next-prev-width: 120px;
 		}
 		&__dot {
 			cursor: pointer;
-			fill: white;
-			stroke: $sub-color;
+			/*fill: white;*/
+			/*stroke: $sub-color;*/
 
-			&.selected {
-				fill: palette-get(na-black) !important;
-				stroke: none !important;
+			&:not(.selected)  {
+				&:not(.hovered) {
+					fill: white !important;
+				}
+				/*stroke: none !important;*/
 			}
-			&.hovered {
+			/*&:not(.hovered) {
+				fill: white !important;
 				stroke: palette-get(na-black) !important;
-			}
+			}*/
 		}
 
 		&__hover-info {
 			display: block;
 			font-size: $subtext-size;
-			color: palette-get(na-black);
+			/*color: palette-get(na-black);*/
 
 			&.hidden {
 				display: none;
@@ -132,6 +135,27 @@ $desktop-next-prev-width: 120px;
 			}
 
 
+		}
+		&__category-legend {
+			text-align: center;
+
+			&__item {
+				padding: 0px 10px;
+				position: relative;
+			}
+
+			&__color-swatch-container, &__text {
+				float: left;
+			}
+
+			&__color-swatch-container {
+				position: relative;
+			}
+
+			&__text {
+				padding-left: 5px;
+				@include timeline-subtext;
+			}
 		}
 
 	}
@@ -211,7 +235,7 @@ $desktop-next-prev-width: 120px;
 			}
 
 			img {
-			
+
 			}
 		}
 
@@ -230,7 +254,6 @@ $desktop-next-prev-width: 120px;
 			width: 100%;
 			display: table;
 			margin: auto;
-			padding-top: $desktop-padding;
 
 			@include breakpoint(medium) {
 				display: block;
@@ -264,7 +287,8 @@ $desktop-next-prev-width: 120px;
 			display: block;
 			position: absolute;
 			width: $desktop-next-prev-width;
-			top: 0px;
+			top: 50%;
+		    transform: translateY(-50%);
 		}
 
 		&.hidden {
@@ -279,8 +303,10 @@ $desktop-next-prev-width: 120px;
 	}
 	&__next {
 		padding-left: 25px;
+		text-align: right;
 		@include breakpoint(medium) {
 			right: 0px;
+			text-align: left;
 		}
 
 		svg {
@@ -294,9 +320,10 @@ $desktop-next-prev-width: 120px;
 	&__prev {
 		padding-right: 25px;
 
-		text-align: right;
+		text-align: left;
 		@include breakpoint(medium) {
 			left: 0px;
+			text-align: right;
 		}
 
 		svg {

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import { axisBottom } from 'd3-axis';
-import { scaleLinear, scalePoint, scaleQuantize } from 'd3-scale';
+import { scaleLinear, scalePoint, scaleQuantize, scaleOrdinal } from 'd3-scale';
 import { extent, ascending, min, max } from 'd3-array';
 import { select, selectAll, event } from 'd3-selection';
 import { nest } from 'd3-collection';
@@ -23,7 +23,7 @@ const parseDate = (date) => {
 const dotRadius = 7,
 	dotOffset = 1.5,
 	rowHeight = 2*(dotRadius + dotOffset),
-	margin = { left: 15, right: 15, top: 20, bottom: 50},
+	margin = { left: 15, right: 15, top: 20, bottom: 25},
 	strokeColor = "#c0c1c3",
 	strokeSelectedColor = "#2c2f35",
 	fillColor = "#fff",
@@ -42,6 +42,10 @@ class Timeline {
 		this.appendContainers(navContainerId, contentContainerId);
 		this.appendAxes();
 		this.initializeScales();
+
+		if (this.categoryList) {
+			this.appendCategoryLegend();
+		}
 
 		let swipeHandler = new Hammer(contentContainerId);
 
@@ -88,16 +92,11 @@ class Timeline {
 	appendContainers(navContainerId, contentContainerId) {
 		this.navContainer = select(navContainerId)
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
-			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
-		    
+			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
 
 		this.contentContainer = select(contentContainerId)
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
 			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
-			// .on("touchstart",() => { console.log(event); this.touchStartCoords = event.touches[0]; })
-			// .on("touchmove", (a, b, c, d) => { console.log(this.touchStartCoords); })
-			// .on("touchend", () => { this.touchStartCoords = null; })
-
 			
 		this.svg = this.navContainer
 				.append("svg")
@@ -111,8 +110,7 @@ class Timeline {
 			this.eraContainers = this.g.selectAll("g.timeline__nav__era-container")
 				.data(this.eraList)
 				.enter().append("g")
-				.attr("class", "timeline__nav__era-container")
-				.on("mouseover", (d) => { console.log("mousing over!", d);});
+				.attr("class", "timeline__nav__era-container");
 
 			this.eraDividers = this.eraContainers.append("line")
 				.attr("class", "timeline__nav__era-divider")
@@ -144,6 +142,37 @@ class Timeline {
 		this.dotContainer = this.g.append("g")
 			.attr("width", "100%")
 			.attr("transform", this.eraList ? "translate(0," + rowHeight/2 + ")" : "translate(0," + rowHeight/2 + ")"); 
+
+		
+	}
+
+	appendCategoryLegend() {
+		let categoryLegend = this.navContainer.append("ul")
+			.attr("class", "timeline__nav__category-legend");
+
+		let categoryLegendItems = categoryLegend.selectAll("li")
+			.data(this.categoryList)
+			.enter().append("li")
+			.attr("class", "timeline__nav__category-legend__item");
+
+		categoryLegendItems
+		   .append("svg")
+			.attr("class", "timeline__nav__category-legend__color-swatch-container")
+			.attr("height", dotRadius*2 + 2)
+			.attr("width", dotRadius*2 + 2)
+		   .append("circle")
+			.attr("class", "timeline__nav__category-legend__color-swatch")
+			.attr("cx", dotRadius + 1)
+			.attr("cy", dotRadius + 1)
+			.attr("r", dotRadius)
+			.attr("stroke", (d) => { console.log(d); return this.setColor({"category": d}); })
+			.attr("fill", "white");
+
+		categoryLegendItems
+		   .append("h5")
+			.attr("class", "timeline__nav__category-legend__text")
+			.text((d) => { return d; });
+
 	}
 
 	appendAxes() {
@@ -163,6 +192,14 @@ class Timeline {
 			.domain([minDate, maxDate]);
 
 		this.yScale = scaleLinear();
+
+		if (this.categoryList) {
+			this.colorScale = scaleOrdinal()
+				.domain(this.categoryList)
+				.range(["#2ebcb3", "#5ba4da", "#692025", "#2a8e88", "#477da3"]);
+		}
+
+		console.log(this.colorScale.domain());
 	}
 
 	render() {
@@ -267,6 +304,8 @@ class Timeline {
 		    .attr("width", (d) => { return d.endXPos && (d.endXPos != d.startXPos) ? d.endXPos - d.startXPos + dotRadius*2 : dotRadius*2; })
 		    .attr("rx", dotRadius)
 		    .attr("ry", dotRadius)
+		    .attr("stroke", (d) => { return this.setColor(d); })
+		    .attr("fill", (d) => { return this.setColor(d); })
 		    .attr("class", "timeline__nav__dot")
 		    .classed("selected", (d) => { return d.id == this.currSelected })
 		    .on("mouseover", (d, index, paths) => { return this.mouseover(d, paths[index]); })
@@ -360,11 +399,24 @@ class Timeline {
 		console.log(this.numDotRows);
 		let elem = select(path);
 		elem.classed("hovered", true);
+		let elemX = elem.attr("x");
 
 		this.hoverInfo
 			.classed("hidden", false)
-			.attr("transform", "translate(" + elem.attr("x") + ")")
+			.attr("fill", this.setColor(datum))
 			.text(datum.title);
+
+		console.log(this.hoverInfo._groups[0][0].getBBox().width);
+		let textWidth = this.hoverInfo._groups[0][0].getBBox().width;
+
+		console.log(elemX, textWidth, this.w);
+		if (Number(elemX) + textWidth > this.w) {
+			console.log("over!")
+			elemX = this.w - textWidth + margin.left;
+		} 
+			
+		this.hoverInfo.attr("transform", "translate(" + elemX + ")")
+		
 	}
 
 	mouseout(path) {
@@ -474,6 +526,16 @@ class Timeline {
 		}
 
 		return retString;
+	}
+
+	setColor(d) {
+		console.log(d);
+    	if (this.colorScale && d.category) {
+    		console.log("using color scale")
+    		return this.colorScale(d.category);
+    	} else {
+    		return "#2c2f35";
+    	}
 	}
 }
 
