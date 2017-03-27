@@ -97,8 +97,6 @@ class TimelineEventBlock(blocks.StructBlock):
 		('month', 'Month'),
 		('day', 'Day'),
 	], default='year', help_text="Controls how specific the date is displayed")
-	image = ImageChooserBlock(required=False, help_text="If both image and video are entered, will display video - image will be hidden")
-	video = EmbedBlock(required=False)
 
 class TimelineEraBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=True)
@@ -119,10 +117,8 @@ class TimelineBlock(blocks.StructBlock):
 
 	def get_context(self, value):
 		context = super(TimelineBlock, self).get_context(value)
-
 		context["sorted_event_list"] = sorted(value["event_list"], key=lambda member: member['start_date'])
 		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"], True), "eraList":getJSCompatibleList(value["event_eras"], False), "categoryList":value["event_categories"]})
-		
 		return context
 
 	class Meta:

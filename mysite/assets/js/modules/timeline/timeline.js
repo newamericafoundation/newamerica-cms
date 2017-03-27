@@ -22,7 +22,7 @@ export class Timeline {
 		this.appendAxes();
 		this.initializeScales();
 		this.categoryList ? this.appendCategoryLegend() : null;
-		this.addListeners(contentContainerId, showAllToggle);
+		this.addListeners(contentContainerId, showAllToggle, fullContainerId);
 
 		this.contentContainer.select("#event-0").classed("visible", true);
 		
@@ -144,7 +144,7 @@ export class Timeline {
 			});
 	}
 
-	addListeners(contentContainerId, showAllToggle) {
+	addListeners(contentContainerId, showAllToggle, fullContainerId) {
 		let swipeHandler = new Hammer(contentContainerId)
 			.on("swipeleft", (ev) => {
 				this.setNewSelected(this.currSelected + 1, false);
@@ -310,15 +310,15 @@ export class Timeline {
 			numYears = timeYear.count(minTime, maxTime);
 
 		let dayMonth = {
-			topTransform: 0,
 			tickSizeInner: 5,
+			tickPadding: 5
 		};
 		
 		let year = {
-			topTransform: 20,
 			tickValues: [minTime].concat(timeYear.range(minTime, maxTime)),
 			tickFormat: timeFormat("%Y"),
 			tickSizeInner: 0,
+			tickPadding: 25
 		};
 
 		if (numDays/numTicks < 15) {
@@ -329,9 +329,9 @@ export class Timeline {
 			dayMonth.tickFormat = timeFormat("%B");
 		} else {
 			dayMonth.hidden = true;
-			year.topTransform = baseTopTransform;
+			year.tickPadding = 5;
 			year.tickSizeInner = 5;
-			year.tickValues = timeYear.range(minTime, maxTime, numYears/numTicks > 1 ? numYears/numTicks : 1 )
+			year.tickValues = timeYear.range(minTime, maxTime, numYears/numTicks > 1 ? numYears/numTicks : 1 );
 		}
 
 		this.renderAxis("day_month", dayMonth);
@@ -339,11 +339,11 @@ export class Timeline {
 	}
 
 	renderAxis(whichAxis, settings) {
-		let {topTransform, tickValues, tickFormat, tickSizeInner, hidden, ticks} = settings;
+		let {tickValues, tickFormat, tickSizeInner, tickPadding, hidden, ticks} = settings;
 		let axis = whichAxis == "year" ? this.yearAxis : this.dayMonthAxis;
 
 		let axisFunc = axisBottom(this.xScale)
-			.tickPadding(5)
+			.tickPadding(tickPadding)
 			.tickSizeOuter(0)
 			.tickSizeInner(tickSizeInner)
 			.tickFormat(tickFormat)

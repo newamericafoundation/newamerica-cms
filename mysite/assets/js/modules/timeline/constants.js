@@ -10,7 +10,7 @@ export const parseDate = (date) => {
     return new Date(convertedDate.getUTCFullYear(), convertedDate.getUTCMonth(), convertedDate.getUTCDate()); 
 }
 
-export const margin = { left: 15, right: 15, top: 20, bottom: 25};
+export const margin = { left: 15, right: 15, top: 20, bottom: 35};
 
 export const dimensions = {
 	dotRadius : 7,
