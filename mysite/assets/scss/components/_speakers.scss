@@ -78,10 +78,11 @@
     .photo-wrapper {
         margin: 0 auto 20px;
         display: inline-block;
-        max-width: 60%;
+        width: 60%;
+
 
         @include breakpoint($mobile-break){
-          max-width: 75%;
+          width: 75%;
         }
 
         &.rounded {
@@ -91,7 +92,7 @@
 
         img {
             display: block;
-            max-width: 100%;
+            width: 100%;
         }
     }
 

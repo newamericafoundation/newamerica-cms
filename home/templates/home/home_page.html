@@ -80,7 +80,7 @@
 				{% endfor %}
 				</div>
 				{% endif %}
-				
+
 			</div>
 
 		</div>
@@ -96,7 +96,7 @@
 
 			{% for feature_story in featured_stories %}
 			<div class='small-12 large-4 columns'>
-				
+
 				<div class='picture-link'>
 					<a href="{{ feature_story.url }}">
 						{% if feature_story.specific.story_image %}
@@ -133,7 +133,7 @@
 				<ul class='border-panel__list has-{{ upcoming_events|length }}-children'>
 					{% for item in upcoming_events %}
 						<li class='border-panel__item'>
-							
+
 							<div class='border-panel__content'>
 								<div class='border-panel__text'>
 									<div class='border-panel__info'>
@@ -149,11 +149,11 @@
 											<h5 class='border-panel__info__date'>{{ item.date }}</h5>
 										{% endif %}
 									</div>
-								
+
 									<div class='border-panel__title'><a href="{{ item.url }}">{{ item.title }}</a></div>
-								
+
 									<p class='border-panel__description'>{{ item.story_excerpt }}</p>
-								
+
 									<a href="{{ item.url }}"><div class='button black'>Read More</div></a>
 								</div>
 							</div>
@@ -170,11 +170,11 @@
 	{% else %}
 		<div class='small-12 large-12 columns'>
 	{% endif %}
-		
+
 			<div class='border-panel'>
 				<ul class='border-panel__list has-1-children'>
 					<li class='border-panel__item'>
-						
+
 						<div class='border-panel__content'>
 							<div class='border-panel__text'>
 								<div class='border-panel__info'>STAY CONNECTED</div>
@@ -186,7 +186,7 @@
 								</form>
 							</div>
 						</div>
-							
+
 					</li>
 				</ul>
 			</div>

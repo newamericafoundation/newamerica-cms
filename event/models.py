@@ -8,10 +8,11 @@ from django.utils.timezone import localtime, now
 
 from programs.models import Program, Subprogram
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
 from wagtail.wagtailcore.models import Page
 
 from home.models import Post
+from conference.models import Conference
 from mysite.helpers import paginate_results, generate_url, is_json, is_int
 
 class Event(Post):
@@ -22,6 +23,13 @@ class Event(Post):
     parent_page_types = ['ProgramEventsPage']
     subpage_types = []
 
+    related_conference = models.ForeignKey(
+        Conference,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='+'
+    )
     end_date = models.DateField(blank=True, null=True)
     start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(default=timezone.now, blank=True, null=True)
@@ -38,6 +46,7 @@ class Event(Post):
     soundcloud_url = models.URLField(blank=True, null=True)
 
     content_panels = Post.content_panels + [
+        PageChooserPanel('related_conference', ['conference.Conference']),
         FieldPanel('end_date'),
         FieldPanel('start_time'),
         FieldPanel('end_time'),

@@ -12,4 +12,23 @@
       line-height: 2em;
     }
   }
+
+  .block-video{
+    margin-bottom: 50px;
+  }
+
+  .block-video > div {
+    padding-bottom: 56%!important;
+    position: relative;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .block-video iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%!important;
+    height: 100%!important;
+  }
 }

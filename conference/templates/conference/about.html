@@ -1,6 +1,11 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags utilities %}
 <section id="about" class="section section-nav align-center">
   <div class="container">
+    {% if page.live_stream %}
+      <div class="block-video">
+      {% include 'blocks/embed.html' with value=page.live_stream %}
+      </div>
+    {% endif %}
     <span class="line-icon section-icon line-icon-multimedia-12"></span>
     <h3>About the Event</h3>
     <div class="row">

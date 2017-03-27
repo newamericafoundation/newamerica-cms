@@ -17,6 +17,23 @@
       }
     }
 
+    .archived-video > div{
+          margin: 30px 0;
+          padding-bottom: 56% !important;
+          position: relative;
+          height: 0;
+          overflow: hidden;
+
+          iframe{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+
+          }
+    }
+
     .tab-content .nav-current {
         background-color: $gray-blue;
         border-color: $gray-lighter;

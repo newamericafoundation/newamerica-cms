@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
+  "engines": {
+    "node": "6.9.1"
+  },
   "scripts": {
     "start": "source .env & ./manage.py runserver",
     "open": "open https://localhost:8000/",
