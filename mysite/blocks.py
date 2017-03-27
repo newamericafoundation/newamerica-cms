@@ -77,7 +77,7 @@ def getJSCompatibleList(input_list, has_category):
 		curr_item['title'] = item['title']
 		curr_item['start_date'] = item['start_date'].isoformat()
 		curr_item['date_display_type'] = item['date_display_type']
-		if (item['end_date']):
+		if (item['end_date'] and item['end_date'] > item['start_date']):
 			curr_item['end_date'] = item['end_date'].isoformat()
 		if (has_category and item['category']):
 			curr_item['category'] = item['category']

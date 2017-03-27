@@ -4,7 +4,7 @@ from time import strptime
 
 register = template.Library()
 
-month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+month_array = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 def get_date_display(date, datetype):
 	if datetype == 'day':
@@ -13,8 +13,6 @@ def get_date_display(date, datetype):
 		return month_array[date.month] + " " + str(date.year)
 	else:
 		return str(date.year)
-
-
 
 @register.simple_tag()
 def timeline_format_date(start_date, end_date, date_display_type):

@@ -124,9 +124,10 @@ class Timeline {
 				.classed("visible", (d) => { 
 					console.log(this.eventList[this.currSelected]);
 					if (d.end_date && this.eventList[this.currSelected].start_date > d.end_date) {
+						console.log("has end date!");
 						return false;
 					}
-					return this.eventList[this.currSelected].start_date > d.start_date;
+					return this.eventList[this.currSelected].start_date >= d.start_date;
 				});
 		}
 
@@ -196,7 +197,7 @@ class Timeline {
 		if (this.categoryList) {
 			this.colorScale = scaleOrdinal()
 				.domain(this.categoryList)
-				.range(["#2ebcb3", "#5ba4da", "#692025", "#2a8e88", "#477da3"]);
+				.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
 		}
 
 		console.log(this.colorScale.domain());
@@ -317,10 +318,10 @@ class Timeline {
 		let startX = 
 		this.eraContainers
 			.attr("transform", (d) => { return "translate(" + this.xScale(parseDate(d.start_date)) + ")"; })
-			.attr("width", (d) => { return this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)); });
+			.attr("width", (d) => { return d.end_date ? this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)) : this.xScale.range()[1] - this.xScale(parseDate(d.start_date)); });
 
 		this.eraText
-			.attr("x", (d) => { return (this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)))/2 })
+			.attr("x", (d) => { return d.end_date ? (this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)))/2 : (this.xScale.range()[1] - this.xScale(parseDate(d.start_date)))/2; })
 	}
 
 	setXAxis() {
