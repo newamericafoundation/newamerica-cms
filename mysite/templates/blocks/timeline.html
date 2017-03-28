@@ -3,7 +3,7 @@
 {% load wagtailimages_tags %}
 
 <script type="text/javascript">
-	$(document).ready(() => {
+	$(document).ready(function(){
 		new window.Timeline({{ settings_json|safe }}, "{{ self.title|slugify }}");
 	});
 </script>
