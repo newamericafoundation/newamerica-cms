@@ -3,13 +3,12 @@
 {% load wagtailimages_tags %}
 
 <script type="text/javascript">
-	if (!window.timelineEventLists) {
-		var timelineEventSettings = [];
-	}
-	timelineEventSettings.push({{ settings_json|safe }});
+	$(document).ready(() => {
+		new window.Timeline({{ settings_json|safe }}, "{{ self.title|slugify }}");
+	});
 </script>
 
-<div class="timeline">
+<div class="timeline" id="{{ self.title|slugify }}">
 
 	<div class="timeline__see-all-button"></div>
 

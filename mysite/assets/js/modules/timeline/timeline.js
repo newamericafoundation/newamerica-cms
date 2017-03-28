@@ -13,16 +13,16 @@ import { dimensions, margin, parseDate } from './constants';
 import { formatDateLine, setColor } from './utilities';
 
 export class Timeline {
-	constructor(settingsObject, fullContainerId, navContainerId, contentContainerId, showAllToggle) {
+	constructor(settingsObject, containerId) {
 		Object.assign(this, settingsObject);
 		this.currSelected = 0;
 		this.showingAll = false;
 
-		this.appendContainers(navContainerId, contentContainerId);
+		this.appendContainers(containerId);
 		this.appendAxes();
 		this.initializeScales();
 		this.categoryList ? this.appendCategoryLegend() : null;
-		this.addListeners(contentContainerId, showAllToggle, fullContainerId);
+		this.addListeners(containerId);
 
 		this.contentContainer.select("#event-0").classed("visible", true);
 		
@@ -34,16 +34,16 @@ export class Timeline {
 	// initialization functions - called on first load
 	//
 
-	appendContainers(navContainerId, contentContainerId) {
+	appendContainers(containerId) {
 		// adds arrow key listeners only when user is hovered over nav or content containers
-		this.navContainer = select(navContainerId)
+		this.navContainer = select("#" + containerId + " .timeline__nav")
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
 			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
 
-		this.contentContainer = select(contentContainerId)
+		this.contentContainer = select("#" + containerId + " .timeline__content")
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
 			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
-			
+
 		this.svg = this.navContainer
 			.append("svg")
 			.attr("class", "timeline__nav__container")
@@ -144,8 +144,8 @@ export class Timeline {
 			});
 	}
 
-	addListeners(contentContainerId, showAllToggle, fullContainerId) {
-		let swipeHandler = new Hammer(contentContainerId)
+	addListeners(containerId) {
+		let swipeHandler = new Hammer($("#" + containerId + " .timeline__content")[0])
 			.on("swipeleft", (ev) => {
 				this.setNewSelected(this.currSelected + 1, false);
 			}).on("swiperight", (ev) => {
@@ -161,13 +161,13 @@ export class Timeline {
 		this.prevContainer = this.contentContainer.select(".timeline__prev")
 			.on("click", () => { return this.setNewSelected(this.currSelected - 1, false); });
 
-		select(showAllToggle)
+		select("#" + containerId + " .timeline__see-all-button")
 			.on("click", () => {
 				if (this.showingAll) {
-					select(fullContainerId).classed("show-all", false);
+					select("#" + containerId).classed("show-all", false);
 					this.showingAll = !this.showingAll;
 				} else {
-					select(fullContainerId).classed("show-all", true);
+					select("#" + containerId).classed("show-all", true);
 					this.showingAll = !this.showingAll;
 				}
 			});
@@ -399,6 +399,9 @@ export class Timeline {
 	}
 
 	setNext() {
+		if (this.eventList.length <= 1) {
+			return;
+		}
 		const nextEvent = this.eventList[this.currSelected + 1];
 		this.nextContainer.classed("hidden", false);
 		this.nextContainer.select(".timeline__next-prev__date").text(formatDateLine(nextEvent));
@@ -460,3 +463,5 @@ export class Timeline {
 		}
 	}
 }
+
+global.Timeline = Timeline;

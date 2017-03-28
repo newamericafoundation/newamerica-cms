@@ -109,7 +109,7 @@ class TimelineEraBlock(blocks.StructBlock):
 	], default='year', help_text="Controls how specific the date is displayed")
 
 class TimelineBlock(blocks.StructBlock):
-	title = blocks.CharBlock(required=False)
+	title = blocks.CharBlock(required=True)
 	subheading = blocks.CharBlock(required=False)
 	event_eras = blocks.ListBlock(TimelineEraBlock(), default='', required=False)
 	event_categories = blocks.ListBlock(blocks.CharBlock(), default='', required=False)
@@ -119,6 +119,7 @@ class TimelineBlock(blocks.StructBlock):
 		context = super(TimelineBlock, self).get_context(value)
 		context["sorted_event_list"] = sorted(value["event_list"], key=lambda member: member['start_date'])
 		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"], True), "eraList":getJSCompatibleList(value["event_eras"], False), "categoryList":value["event_categories"]})
+		
 		return context
 
 	class Meta:
