@@ -1,0 +1,50 @@
+.timeline {
+	padding: 45px $desktop-padding $desktop-padding $desktop-padding;
+	margin: $desktop-padding 0px;
+	border: 2px solid palette-get(na-black-10);
+	position: relative;
+	max-width: $max-site-width;
+
+	&__content {
+		$transition: height 100ms linear;
+		position: relative;
+
+		-webkit-transition: $transition;
+	    -moz-transition: $transition;
+	    -o-transition: $transition;
+	    transition: $transition;
+
+	}
+
+	&__visible-event-window {
+		max-width: $max-body-width;
+		width: calc(100vw - 125px);
+		overflow: hidden;
+		margin: auto;
+		position: relative;
+
+
+		@include breakpoint(medium) {
+			width: calc(100% - #{2*$desktop-next-prev-width});
+
+			.show-all & {
+				width: 100%;
+			}
+		}
+
+	}
+
+	&__full-event-container {
+		$transition: transform 500ms ease-in-out;
+		width: 10000%;
+		position: relative;
+		-webkit-transition: $transition;
+	    -moz-transition: $transition;
+	    -o-transition: $transition;
+	    transition: $transition;
+
+	    .show-all & {
+			transform: translateX(0) !important;
+		}
+	}
+}

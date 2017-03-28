@@ -1,0 +1,88 @@
+.timeline__next-prev {
+	&-container {
+		width: 100%;
+		display: table;
+		margin: auto;
+
+		@include breakpoint(medium) {
+			display: block;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			/*top: 0px;*/
+		}
+
+		.show-all & {
+			display: none;
+		}
+	}
+	&__date {
+		@include timeline-subtext;
+		margin-bottom: 0px;
+	}
+	&__title {
+		@include timeline-subtext;
+		color: $sub-color;
+		font-weight: bold;
+		margin-bottom: 0px;
+	}
+}
+
+.timeline__next, .timeline__prev {
+	display: table-cell;
+	width: 50%;
+	cursor: pointer;
+
+	@include breakpoint(medium) {
+		display: block;
+		position: absolute;
+		width: $desktop-next-prev-width;
+		top: 50%;
+	    transform: translateY(-50%);
+	}
+
+	&.hidden {
+		display: none;
+	}
+	&:hover {
+		* {
+			fill: palette-get(na-black);
+			color: palette-get(na-black);
+		}
+	}
+}
+
+.timeline__next {
+	padding-left: 25px;
+	text-align: right;
+	@include breakpoint(medium) {
+		right: 0px;
+		text-align: left;
+	}
+
+	svg {
+		width: 20px;
+		fill: $sub-color;
+		transform: rotate(90deg);
+		/*left: 17px;
+		top: -28px;*/
+	}
+}
+
+.timeline__prev {
+	padding-right: 25px;
+
+	text-align: left;
+	@include breakpoint(medium) {
+		left: 0px;
+		text-align: right;
+	}
+
+	svg {
+		width: 20px;
+		fill: $sub-color;
+		transform: rotate(-90deg);
+		/*right: 15px;
+		top: -28px;*/
+	}
+}

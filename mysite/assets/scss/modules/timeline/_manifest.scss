@@ -1,0 +1,14 @@
+$subtext-size: .9rem;
+$sub-color: rgba(138, 138, 138, 0.7);
+$desktop-next-prev-width: 120px;
+@mixin timeline-subtext {
+	color: $sub-color;
+	font-size: $subtext-size;
+}
+
+@import 'main';
+@import 'event';
+@import 'nav';
+@import 'next-prev';
+@import 'title-block';
+@import 'see-all-button';
