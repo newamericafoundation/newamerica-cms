@@ -19,3 +19,9 @@ export const setColor = (d, colorScale) => {
 		return "rgba(138, 138, 138, 0.7)";
 	}
 }
+
+// no way to reliably detect touch screen (http://www.stucox.com/blog/you-cant-detect-a-touchscreen/), but this covers most cases
+export const isTouchDevice = () => {
+	return 'ontouchstart' in window || navigator.msMaxTouchPoints;
+}
+

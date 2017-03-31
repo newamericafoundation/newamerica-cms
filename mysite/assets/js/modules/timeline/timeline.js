@@ -1,3 +1,4 @@
+
 import $ from 'jquery';
 
 import { axisBottom } from 'd3-axis';
@@ -10,7 +11,7 @@ import { timeDay, timeMonth, timeYear } from 'd3-time';
 const Hammer = require('hammerjs');
 
 import { dimensions, margin, parseDate } from './constants';
-import { formatDateLine, setColor } from './utilities';
+import { formatDateLine, setColor, isTouchDevice } from './utilities';
 
 export class Timeline {
 	constructor(settingsObject, containerId) {
@@ -35,14 +36,8 @@ export class Timeline {
 	//
 
 	appendContainers(containerId) {
-		// adds arrow key listeners only when user is hovered over nav or content containers
-		this.navContainer = select("#" + containerId + " .timeline__nav")
-			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
-			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
-
-		this.contentContainer = select("#" + containerId + " .timeline__content")
-			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
-			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
+		this.navContainer = select("#" + containerId + " .timeline__nav");
+		this.contentContainer = select("#" + containerId + " .timeline__content");
 
 		this.svg = this.navContainer
 			.append("svg")
@@ -145,7 +140,13 @@ export class Timeline {
 	}
 
 	addListeners(containerId) {
-		let swipeHandler = new Hammer($("#" + containerId + " .timeline__content")[0])
+		// adds arrow key listeners only when user is hovered over nav or content containers
+		select("#" + containerId)
+			.classed("touch", isTouchDevice())
+			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
+			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
+
+		let swipeHandler = new Hammer($("#" + containerId)[0])
 			.on("swipeleft", (ev) => {
 				this.setNewSelected(this.currSelected + 1, false);
 			}).on("swiperight", (ev) => {
