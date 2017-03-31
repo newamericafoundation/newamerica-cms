@@ -58,9 +58,9 @@
 		font-size: 10px;
 
 		&__content:after {
-			content: "Swipe to Explore";
-			@include breakpoint(medium) {
-				content: "Use Arrow Keys to Explore";
+			content: "Use Arrow Keys to Explore";
+			.touch & {
+				content: "Swipe to Explore";
 			}
 		}
 	}

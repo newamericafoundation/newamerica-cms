@@ -16,7 +16,7 @@ export const setColor = (d, colorScale) => {
 	if (colorScale && d.category) {
 		return colorScale(d.category);
 	} else {
-		return "rgba(138, 138, 138, 0.7)";
+		return "#b1b1b4";
 	}
 }
 
