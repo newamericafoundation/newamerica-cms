@@ -1,0 +1,8 @@
+{% for field in self.fields_to_display %}
+	<div class="data-reference">
+		{% if field.label %}
+			<h5 class="data-reference__label">{{ field.label }}:</h5>
+		{% endif %}
+		<h5 class="data-reference__value" data-field-name="{{ field.field_name }}" data-field-format="{{ field.format }}"></h5>
+	</div>
+{% endfor %}
