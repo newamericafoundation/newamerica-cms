@@ -21,10 +21,6 @@ class PanelBody(BodyBlock):
 
 class DataReferenceBlock(blocks.StructBlock):
 	fields_to_display = blocks.ListBlock(blocks.StructBlock([
-		('type', blocks.ChoiceBlock(choices=[
-    		('simple', 'Simple'),
-    		('table', 'Table'),
-    	], default='simple')), 
 		('field_name', blocks.CharBlock(required=True)),
 		('label', blocks.CharBlock(required=False)),
     	('format', blocks.ChoiceBlock(choices=[
@@ -36,6 +32,7 @@ class DataReferenceBlock(blocks.StructBlock):
     		('price', 'Price'),
 			('rank', 'Rank'),
     	])),
+    	('footnote_field', blocks.CharBlock(required=False))
 	]), help_text="Specify the field(s) where values to display will be found.  References of type 'in-text' and 'image' can only display one field, 'list' and 'fact-box' can display multiple fields.")
 
 	class Meta:

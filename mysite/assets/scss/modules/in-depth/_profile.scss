@@ -10,7 +10,7 @@
 
 	&__title-block-container {
 		display: table;
-		padding: 45px 0px;
+		padding: 45px 0px 35px 0px;
 		width: 100%;
 	}
 
@@ -26,6 +26,7 @@
 			margin-bottom: 0px;
 			color: palette-get(na-black-40);
 			font-size: 14px;
+			line-height: 1;
 		}
 		&__title {
 			margin-bottom: 0px;

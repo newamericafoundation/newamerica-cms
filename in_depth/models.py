@@ -175,9 +175,9 @@ class InDepthProfile(Page):
 
     subheading = RichTextField(blank=True, null=True)
 
-    datasheet_name = models.CharField(required=True, max_length=150, help_text="The name of the data sheet where the lookup field and query value will be found.")
+    datasheet_name = models.CharField(null=False, max_length=150, help_text="The name of the data sheet where the lookup field and query value will be found.")
 
-    lookup_field = models.CharField(required=True, max_length=150, help_text="The name of the field where the query value will be found")
+    lookup_field = models.CharField(null=False, max_length=150, help_text="The name of the field where the query value will be found")
 
     image_field = models.CharField(max_length=150, blank=True, null=True, help_text="The name of the field where the an image for each profile will be found")
 
