@@ -11,7 +11,7 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
 from mysite.blocks import ButtonBlock, IframeBlock, DatavizBlock
-from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody
+from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
@@ -168,8 +168,6 @@ class AllInDepthHomePage(Page):
 
     class Meta:
         verbose_name = "Homepage for all In-Depth Projects"
-<<<<<<< HEAD
-=======
 
 class InDepthProfile(Page):
     parent_page_types = ['InDepthProject']
@@ -177,9 +175,9 @@ class InDepthProfile(Page):
 
     subheading = RichTextField(blank=True, null=True)
 
-    datasheet_name = models.CharField(max_length=150, help_text="The name of the data sheet where the lookup field and query value will be found.")
+    datasheet_name = models.CharField(required=True, max_length=150, help_text="The name of the data sheet where the lookup field and query value will be found.")
 
-    lookup_field = models.CharField(max_length=150, help_text="The name of the field where the query value will be found")
+    lookup_field = models.CharField(required=True, max_length=150, help_text="The name of the field where the query value will be found")
 
     image_field = models.CharField(max_length=150, blank=True, null=True, help_text="The name of the field where the an image for each profile will be found")
 
@@ -192,7 +190,6 @@ class InDepthProfile(Page):
         ('table', TableBlock()),
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
-        ('dataviz', DatavizBlock()),
         ('collapsible', CollapsibleBlock()),
         ('data_reference', DataReferenceBlock())
     ])
@@ -217,4 +214,3 @@ class InDepthProfile(Page):
 
     class Meta:
         verbose_name = "In-Depth Profile Page"
->>>>>>> 9682b640a5090e763c2aacbdbb8529ec4dcf3ad7

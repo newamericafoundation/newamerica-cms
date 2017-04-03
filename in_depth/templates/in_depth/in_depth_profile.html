@@ -35,19 +35,20 @@
 		</div>
 	</div>
 
-	<div class="in-depth__profile in-depth__max-width-wrapper">
-		<div class="post-header-container">
-			<div class="post-header">
+	<div class="in-depth__profile">
+		<div class="in-depth__profile__title-block-container">
+			<div class="in-depth__profile__title-block">
 				{% if page.image_field %}
-					<div class="in-depth__profile__header-image" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}" data-image-field="{{ page.image_field }}">
+					<div class="in-depth__profile__title-block__image" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}" data-image-field="{{ page.image_field }}"></div>
 				{% endif %}
-			   	<h1 class="post-header__text__heading">{{ query_string }}</h1>
+				<h5 class="in-depth__profile__title-block__subheading">{{ page.title }}</h5>
+			   	<h1 class="in-depth__profile__title-block__title">{{ query_string }}</h1>
 			</div>
-		</div>
-		<div class="content-grid__controls__filter">
-			<select class="in-depth__profile__other-value-selector" onchange="document.location = '?' + this.value;">
-                <option value="" disabled selected>Select Another Value</option>
-            </select>
+			<div class="in-depth__profile__other-value-selector-container">
+				<select class="in-depth__profile__other-value-selector" onchange="document.location = '?' + this.value;">
+	                <option value="" disabled selected>Select Another {{ page.title }}</option>
+	            </select>
+			</div>
 		</div>
 		<div class="in-depth__profile__body post-body" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}">
 			{% for block in page.body %}

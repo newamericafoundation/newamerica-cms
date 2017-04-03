@@ -18,3 +18,27 @@ class PanelColorThemes(blocks.ChoiceBlock):
 
 class PanelBody(BodyBlock):
 	collapsible = CollapsibleBlock()
+
+class DataReferenceBlock(blocks.StructBlock):
+	fields_to_display = blocks.ListBlock(blocks.StructBlock([
+		('type', blocks.ChoiceBlock(choices=[
+    		('simple', 'Simple'),
+    		('table', 'Table'),
+    	], default='simple')), 
+		('field_name', blocks.CharBlock(required=True)),
+		('label', blocks.CharBlock(required=False)),
+    	('format', blocks.ChoiceBlock(choices=[
+    		('date', 'Date'),
+    		('string', 'Image'),
+    		('number', 'Number (with thousands-place comma)'),
+    		('percent', 'Percent'),
+    		('string', 'Plain-text'),
+    		('price', 'Price'),
+			('rank', 'Rank'),
+    	])),
+	]), help_text="Specify the field(s) where values to display will be found.  References of type 'in-text' and 'image' can only display one field, 'list' and 'fact-box' can display multiple fields.")
+
+	class Meta:
+		template = './blocks/data_reference.html'
+		icon = 'cogs'
+		label = 'Data Reference'
