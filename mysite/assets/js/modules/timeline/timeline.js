@@ -162,9 +162,11 @@ export class Timeline {
 				if (this.showingAll) {
 					select("#" + containerId).classed("show-all", false);
 					this.showingAll = !this.showingAll;
+					this.resize();
 				} else {
 					select("#" + containerId).classed("show-all", true);
 					this.showingAll = !this.showingAll;
+					this.resize();
 				}
 			});
 	}
