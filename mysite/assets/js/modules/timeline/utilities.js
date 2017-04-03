@@ -1,12 +1,14 @@
 import { formatDate, parseDate } from "./constants";
 
-export const formatDateLine = (eventObject) => {
+export const formatDateLine = (eventObject, leaveOpenEnded) => {
 	const { start_date, end_date, date_display_type } = eventObject;
 
 	let retString = formatDate[date_display_type](parseDate(start_date));
 	if (end_date) {
 		let formattedEndString = formatDate[date_display_type](parseDate(end_date))
 		retString += formattedEndString != retString ? " - " + formattedEndString : "";
+	} else if (leaveOpenEnded) {
+		retString += "-";
 	}
 
 	return retString;
