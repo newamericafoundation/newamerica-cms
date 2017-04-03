@@ -1,4 +1,3 @@
-
 import $ from 'jquery';
 
 import { axisBottom } from 'd3-axis';
@@ -196,7 +195,6 @@ export class Timeline {
 		this.setCircles();
 		this.eraList ? this.setEraContainerXCoords() : null;
 		this.setXAxis();
-
 	}
 
 	setWidth() {
@@ -421,11 +419,7 @@ export class Timeline {
 		this.currSelected = id;
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
 		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
-
-		if (this.eraList) {
-			this.setEraText();
-		}
-		
+		this.eraList ? this.setEraText() : null;
 		this.setNextPrev();
 	}
 
