@@ -10,7 +10,7 @@ import { timeDay, timeMonth, timeYear } from 'd3-time';
 const Hammer = require('hammerjs');
 
 import { dimensions, margin, parseDate } from './constants';
-import { formatDateLine, setColor } from './utilities';
+import { formatDateLine, setColor, isTouchDevice } from './utilities';
 
 export class Timeline {
 	constructor(settingsObject, containerId) {
@@ -35,14 +35,8 @@ export class Timeline {
 	//
 
 	appendContainers(containerId) {
-		// adds arrow key listeners only when user is hovered over nav or content containers
-		this.navContainer = select("#" + containerId + " .timeline__nav")
-			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
-			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
-
-		this.contentContainer = select("#" + containerId + " .timeline__content")
-			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
-			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
+		this.navContainer = select("#" + containerId + " .timeline__nav");
+		this.contentContainer = select("#" + containerId + " .timeline__content");
 
 		this.svg = this.navContainer
 			.append("svg")
@@ -133,19 +127,20 @@ export class Timeline {
 			.attr("x2", 0)
 			.attr("y1", 5);
 
-		this.eraText = this.eraContainers.append("text")
-			.attr("class", "timeline__nav__era-text")
-			.text((d) => { return d.title; })
-			.classed("visible", (d) => { 
-				if (d.end_date && this.eventList[this.currSelected].start_date > d.end_date) {
-					return false;
-				}
-				return this.eventList[this.currSelected].start_date >= d.start_date;
-			});
+		this.eraText = this.g.append("text")
+			.attr("class", "timeline__nav__era-text");
+
+		this.addShowAllEraHeaders();
 	}
 
 	addListeners(containerId) {
-		let swipeHandler = new Hammer($("#" + containerId + " .timeline__content")[0])
+		// adds arrow key listeners only when user is hovered over nav or content containers
+		select("#" + containerId)
+			.classed("touch", isTouchDevice())
+			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
+			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
+
+		let swipeHandler = new Hammer($("#" + containerId)[0])
 			.on("swipeleft", (ev) => {
 				this.setNewSelected(this.currSelected + 1, false);
 			}).on("swiperight", (ev) => {
@@ -166,11 +161,27 @@ export class Timeline {
 				if (this.showingAll) {
 					select("#" + containerId).classed("show-all", false);
 					this.showingAll = !this.showingAll;
+					this.resize();
 				} else {
 					select("#" + containerId).classed("show-all", true);
 					this.showingAll = !this.showingAll;
+					this.resize();
 				}
 			});
+	}
+
+	addShowAllEraHeaders() {
+		let eventDivs = this.contentContainer.selectAll(".timeline__event")._groups[0];
+
+		for (let era of this.eraList) {
+			for (let i = 0; i < this.eventList.length; i++) {
+				if (parseDate(this.eventList[i].start_date) >= parseDate(era.start_date)) {
+					$("<h5 class='timeline__event__show-all-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
+						.insertBefore(eventDivs[i]);
+					break;
+				}
+			}
+		}
 	}
 
 	//
@@ -296,8 +307,7 @@ export class Timeline {
 			.attr("transform", (d) => { return "translate(" + this.xScale(parseDate(d.start_date)) + ")"; })
 			.attr("width", (d) => { return d.end_date ? this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)) : this.xScale.range()[1] - this.xScale(parseDate(d.start_date)); });
 
-		this.eraText
-			.attr("x", (d) => { return d.end_date ? (this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)))/2 : (this.xScale.range()[1] - this.xScale(parseDate(d.start_date)))/2; })
+		this.setEraText();
 	}
 
 	setXAxis() {
@@ -353,6 +363,46 @@ export class Timeline {
 			.call(axisFunc);
 	}
 
+	setEraText() {
+		let currSelectedEvent = this.eventList[this.currSelected];
+		let currEra = this.whichEra(currSelectedEvent);
+
+		if (currEra) {
+			this.eraText
+				.classed("visible", true)
+				.text(currEra.title + " (" + formatDateLine(currEra, true) + ")");
+			
+			// handles case where eratext goes off right edge of viewport
+			let textWidth = this.eraText._groups[0][0].getBBox().width;
+			let xCoord = currEra.end_date ? this.xScale(parseDate(currEra.start_date)) + (this.xScale(parseDate(currEra.end_date)) - this.xScale(parseDate(currEra.start_date)))/2 : this.xScale(parseDate(currEra.start_date)) + (this.xScale.range()[1] - this.xScale(parseDate(currEra.start_date)))/2;
+			if ((Number(xCoord) + textWidth/2) > this.w) {
+				console.log("greater than!");
+				xCoord = this.w - textWidth/2 + margin.left;
+			}
+			this.eraText.attr("x", xCoord);
+		} else {
+			this.eraText.classed("visible", false);
+		}
+	}
+
+	whichEra(eventObject) {
+		let retEra;
+		for (let era of this.eraList) {
+			if (parseDate(eventObject.start_date) >= parseDate(era.start_date)) {
+				if (era.end_date) {
+					if (parseDate(eventObject.start_date) <= parseDate(era.end_date)) {
+						retEra = era;
+						break;
+					}
+				} else {
+					retEra = era;
+					break;
+				}
+			}
+		}
+		return retEra;
+	}
+
 	//
 	// navigation functions
 	//
@@ -369,15 +419,7 @@ export class Timeline {
 		this.currSelected = id;
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
 		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
-
-		this.eraText
-			.classed("visible", (d) => { 
-				if (d.end_date && this.eventList[this.currSelected].start_date > d.end_date) {
-					return false;
-				}
-				return this.eventList[this.currSelected].start_date >= d.start_date;
-			});
-		
+		this.eraList ? this.setEraText() : null;
 		this.setNextPrev();
 	}
 

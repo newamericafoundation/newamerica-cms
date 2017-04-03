@@ -47,4 +47,25 @@
 			transform: translateX(0) !important;
 		}
 	}
+
+	&__navigation-prompt {
+		position: relative;
+		margin: auto;
+		top: 0px;
+		right: 0px;
+		text-align: center;
+		@include timeline-subtext;
+		font-size: 10px;
+
+		&__content:after {
+			content: "Use Arrow Keys to Explore";
+			.touch & {
+				content: "Swipe to Explore";
+			}
+		}
+
+		.show-all & {
+			display: none;
+		}
+	}
 }

@@ -7,9 +7,7 @@
 		@include breakpoint(medium) {
 			display: block;
 			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-			/*top: 0px;*/
+			top: 0px;
 		}
 
 		.show-all & {
@@ -37,8 +35,6 @@
 		display: block;
 		position: absolute;
 		width: $desktop-next-prev-width;
-		top: 50%;
-	    transform: translateY(-50%);
 	}
 
 	&.hidden {

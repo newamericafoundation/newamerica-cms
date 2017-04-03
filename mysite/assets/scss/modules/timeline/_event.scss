@@ -48,4 +48,22 @@
 			margin: auto;
 		}
 	}
+
+	&__show-all-era-header {
+		font-weight: bold;
+		font-size: 22px;
+		margin: 10px;
+		color: $sub-color;
+		display: none;
+
+		.show-all & {
+			display: block;
+		}
+	}
+
+	&::after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
 }
