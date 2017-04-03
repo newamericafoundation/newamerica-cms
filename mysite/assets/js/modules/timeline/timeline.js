@@ -130,6 +130,8 @@ export class Timeline {
 
 		this.eraText = this.g.append("text")
 			.attr("class", "timeline__nav__era-text");
+
+		this.addShowAllEraHeaders();
 	}
 
 	addListeners(containerId) {
@@ -165,6 +167,20 @@ export class Timeline {
 					this.showingAll = !this.showingAll;
 				}
 			});
+	}
+
+	addShowAllEraHeaders() {
+		let eventDivs = this.contentContainer.selectAll(".timeline__event")._groups[0];
+
+		for (let era of this.eraList) {
+			for (let i = 0; i < this.eventList.length; i++) {
+				if (parseDate(this.eventList[i].start_date) >= parseDate(era.start_date)) {
+					$("<h5 class='timeline__event__show-all-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
+						.insertBefore(eventDivs[i]);
+					break;
+				}
+			}
+		}
 	}
 
 	//
@@ -347,6 +363,46 @@ export class Timeline {
 			.call(axisFunc);
 	}
 
+	setEraText() {
+		let currSelectedEvent = this.eventList[this.currSelected];
+		let currEra = this.whichEra(currSelectedEvent);
+
+		if (currEra) {
+			this.eraText
+				.classed("visible", true)
+				.text(currEra.title + " (" + formatDateLine(currEra, true) + ")");
+			
+			// handles case where eratext goes off right edge of viewport
+			let textWidth = this.eraText._groups[0][0].getBBox().width;
+			let xCoord = currEra.end_date ? this.xScale(parseDate(currEra.start_date)) + (this.xScale(parseDate(currEra.end_date)) - this.xScale(parseDate(currEra.start_date)))/2 : this.xScale(parseDate(currEra.start_date)) + (this.xScale.range()[1] - this.xScale(parseDate(currEra.start_date)))/2;
+			if ((Number(xCoord) + textWidth/2) > this.w) {
+				console.log("greater than!");
+				xCoord = this.w - textWidth/2 + margin.left;
+			}
+			this.eraText.attr("x", xCoord);
+		} else {
+			this.eraText.classed("visible", false);
+		}
+	}
+
+	whichEra(eventObject) {
+		let retEra;
+		for (let era of this.eraList) {
+			if (parseDate(eventObject.start_date) >= parseDate(era.start_date)) {
+				if (era.end_date) {
+					if (parseDate(eventObject.start_date) <= parseDate(era.end_date)) {
+						retEra = era;
+						break;
+					}
+				} else {
+					retEra = era;
+					break;
+				}
+			}
+		}
+		return retEra;
+	}
+
 	//
 	// navigation functions
 	//
@@ -403,46 +459,6 @@ export class Timeline {
 		this.prevContainer.classed("hidden", false);
 		this.prevContainer.select(".timeline__next-prev__date").text(formatDateLine(prevEvent));
 		this.prevContainer.select(".timeline__next-prev__title").text(prevEvent.title);
-	}
-
-	setEraText() {
-		let currSelectedEvent = this.eventList[this.currSelected];
-		let currEra = this.whichEra(currSelectedEvent);
-
-		if (currEra) {
-			this.eraText
-				.classed("visible", true)
-				.text(currEra.title + " (" + formatDateLine(currEra, true) + ")");
-			
-			// handles case where eratext goes off right edge of viewport
-			let textWidth = this.eraText._groups[0][0].getBBox().width;
-			let xCoord = currEra.end_date ? this.xScale(parseDate(currEra.start_date)) + (this.xScale(parseDate(currEra.end_date)) - this.xScale(parseDate(currEra.start_date)))/2 : this.xScale(parseDate(currEra.start_date)) + (this.xScale.range()[1] - this.xScale(parseDate(currEra.start_date)))/2;
-			if ((Number(xCoord) + textWidth/2) > this.w) {
-				console.log("greater than!");
-				xCoord = this.w - textWidth/2 + margin.left;
-			}
-			this.eraText.attr("x", xCoord);
-		} else {
-			this.eraText.classed("visible", false);
-		}
-	}
-
-	whichEra(eventObject) {
-		let retEra;
-		for (let era of this.eraList) {
-			if (parseDate(eventObject.start_date) >= parseDate(era.start_date)) {
-				if (era.end_date) {
-					if (parseDate(eventObject.start_date) <= parseDate(era.end_date)) {
-						retEra = era;
-						break;
-					}
-				} else {
-					retEra = era;
-					break;
-				}
-			}
-		}
-		return retEra;
 	}
 
 	//

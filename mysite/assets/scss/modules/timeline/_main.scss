@@ -63,5 +63,9 @@
 				content: "Swipe to Explore";
 			}
 		}
+
+		.show-all & {
+			display: none;
+		}
 	}
 }
