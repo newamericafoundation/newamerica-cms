@@ -16,7 +16,13 @@
             {% if page.partners|length > 0 %}
               <li class="navigation-item"><a href="#sponsors" class="navigation-link">Sponsors</a></li>
             {% endif %}
-            <li class="navigation-item"><a href="#venue" class="navigation-link">Venue</a></li>
+            {% if page.venue_details %}
+              {% if page.hotel_details %}
+                <li class="navigation-item"><a href="#venue" class="navigation-link">Venue & Hotel</a></li>
+              {% else %}
+                <li class="navigation-item"><a href="#venue" class="navigation-link">Venue</a></li>
+              {% endif %}
+            {% endif %}
           </ul>
         </div>
       </div>
