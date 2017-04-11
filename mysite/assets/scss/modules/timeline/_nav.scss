@@ -79,6 +79,13 @@
 		&__item {
 			padding: 0px 10px;
 			position: relative;
+			cursor: pointer;
+
+			
+
+			&:not(.active) > * {
+				
+			}
 		}
 
 		&__color-swatch-container, &__text {
@@ -92,6 +99,10 @@
 		&__text {
 			padding-left: 5px;
 			@include timeline-subtext;
+
+			.active & {
+				font-weight: bold;
+			}
 		}
 	}
 

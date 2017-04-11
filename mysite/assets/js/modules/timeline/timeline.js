@@ -15,6 +15,8 @@ import { formatDateLine, setColor, isTouchDevice } from './utilities';
 export class Timeline {
 	constructor(settingsObject, containerId) {
 		Object.assign(this, settingsObject);
+		this.fullEventList = this.eventList;
+		this.currEventList = this.eventList;
 		this.currSelected = 0;
 		this.showingAll = false;
 
@@ -71,8 +73,8 @@ export class Timeline {
 	}
 
 	initializeScales() {
-		let minDate = min(this.eventList, (d) => { return parseDate(d.start_date); });
-		let maxDate = max(this.eventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
+		let minDate = min(this.fullEventList, (d) => { return parseDate(d.start_date); });
+		let maxDate = max(this.fullEventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
 
 		this.xScale = scaleLinear()
 			.domain([minDate, maxDate]);
@@ -91,12 +93,13 @@ export class Timeline {
 		let categoryLegend = this.navContainer.append("ul")
 			.attr("class", "timeline__nav__category-legend");
 
-		let categoryLegendItems = categoryLegend.selectAll("li")
+		this.categoryLegendItems = categoryLegend.selectAll("li")
 			.data(this.categoryList)
 			.enter().append("li")
-			.attr("class", "timeline__nav__category-legend__item");
+			.attr("class", "timeline__nav__category-legend__item active")
+			.on("click", (category, index, paths) => { return this.changeCategoryFilter(category, index, paths);  });
 
-		categoryLegendItems
+		this.categoryLegendCircles = this.categoryLegendItems
 		   .append("svg")
 			.attr("class", "timeline__nav__category-legend__color-swatch-container")
 			.attr("height", 2*(dimensions.dotRadius + strokeWidth))
@@ -109,7 +112,7 @@ export class Timeline {
 			.attr("stroke", (d) => { return setColor({"category": d}, this.colorScale); })
 			.attr("fill", "white");
 
-		categoryLegendItems
+		this.categoryLegendText = this.categoryLegendItems
 		   .append("h5")
 			.attr("class", "timeline__nav__category-legend__text")
 			.text((d) => { return d; });
@@ -174,8 +177,8 @@ export class Timeline {
 		let eventDivs = this.contentContainer.selectAll(".timeline__event")._groups[0];
 
 		for (let era of this.eraList) {
-			for (let i = 0; i < this.eventList.length; i++) {
-				if (parseDate(this.eventList[i].start_date) >= parseDate(era.start_date)) {
+			for (let i = 0; i < this.fullEventList.length; i++) {
+				if (parseDate(this.fullEventList[i].start_date) >= parseDate(era.start_date)) {
 					$("<h5 class='timeline__event__show-all-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
 						.insertBefore(eventDivs[i]);
 					break;
@@ -218,7 +221,7 @@ export class Timeline {
 		this.rows = [];
 		this.rows[0] = [];
 
-		this.eventList.map((d) => {
+		this.currEventList.map((d) => {
 			startXPos = this.xScale(parseDate(d.start_date));
 			endXPos = d.end_date ? this.xScale(parseDate(d.end_date)) : startXPos;
 
@@ -285,7 +288,7 @@ export class Timeline {
 
 	setCircles() {
 		this.circles = this.dotContainer.selectAll("rect")
-			.data(this.eventList)
+			.data(this.currEventList)
 			.enter().append("rect")
 		    .attr("x", (d) => { return d.startXPos - dimensions.dotRadius; })
 		    .attr("y", (d) => { return this.yScale(d.yIndex) - dimensions.dotOffset; })
@@ -364,7 +367,7 @@ export class Timeline {
 	}
 
 	setEraText() {
-		let currSelectedEvent = this.eventList[this.currSelected];
+		let currSelectedEvent = this.currEventList[this.currSelected];
 		let currEra = this.whichEra(currSelectedEvent);
 
 		if (currEra) {
@@ -411,9 +414,9 @@ export class Timeline {
 	//		only arrow key events allow wraparound
 	setNewSelected(id, wrapAround) {
 		if (id < 0) {
-			id = wrapAround ? this.eventList.length-1 : 0;
-		} else if (id > this.eventList.length-1) {
-			id = wrapAround ? 0 : this.eventList.length-1;
+			id = wrapAround ? this.currEventList.length-1 : 0;
+		} else if (id > this.currEventList.length-1) {
+			id = wrapAround ? 0 : this.currEventList.length-1;
 		}
 
 		this.currSelected = id;
@@ -430,7 +433,7 @@ export class Timeline {
 			return;
 		} 
 
-		if (this.currSelected == this.eventList.length-1) {
+		if (this.currSelected == this.currEventList.length-1) {
 			this.nextContainer.classed("hidden", true);
 			this.setPrev();
 			return;
@@ -441,17 +444,17 @@ export class Timeline {
 	}
 
 	setNext() {
-		if (this.eventList.length <= 1) {
+		if (this.currEventList.length <= 1) {
 			return;
 		}
-		const nextEvent = this.eventList[this.currSelected + 1];
+		const nextEvent = this.currEventList[this.currSelected + 1];
 		this.nextContainer.classed("hidden", false);
 		this.nextContainer.select(".timeline__next-prev__date").text(formatDateLine(nextEvent));
 		this.nextContainer.select(".timeline__next-prev__title").text(nextEvent.title);
 	}
 
 	setPrev() {
-		const prevEvent = this.eventList[this.currSelected - 1];
+		const prevEvent = this.currEventList[this.currSelected - 1];
 		this.prevContainer.classed("hidden", false);
 		this.prevContainer.select(".timeline__next-prev__date").text(formatDateLine(prevEvent));
 		this.prevContainer.select(".timeline__next-prev__title").text(prevEvent.title);
@@ -503,6 +506,33 @@ export class Timeline {
 		} else if (eventInfo.keyCode == 39) {
 			this.setNewSelected(this.currSelected + 1, true);
 		}
+	}
+
+	changeCategoryFilter(newCategory, pathIndex, paths) {
+		console.log("changing category filter!");
+		console.log(pathIndex, paths)
+		let elem = select(paths[pathIndex]);
+
+		console.log(elem.classed("active"));
+
+		// filter is already toggled
+		if (this.currEventList.length != this.fullEventList.length && elem.classed("active")) {
+			this.currEventList = this.fullEventList;
+			this.categoryLegendItems.classed("active", true);
+			this.categoryLegendCircles.attr("r", dimensions.dotRadius);
+		} else {
+			this.currEventList = this.fullEventList.filter((d) => { return d.category && d.category == newCategory; });
+			this.categoryLegendItems.classed("active", false);
+			elem.classed("active", true);
+			this.categoryLegendCircles.attr("r", (d) => { console.log(d); return d == newCategory ? dimensions.dotRadius : 1 })
+			this.categoryLegendText.attr("fill", (d) => { console.log(d); return d == newCategory ? this.colorScale(d) : "grey" } )
+		}
+
+		
+		console.log(this.currEventList.length);
+
+		this.g.selectAll("rect").remove();
+		this.render();
 	}
 }
 
