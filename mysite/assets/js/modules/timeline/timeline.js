@@ -469,14 +469,18 @@ export class Timeline {
 		const nextEvent = this.currEventList[this.currSelected + 1];
 		this.nextContainer.classed("hidden", false);
 		this.nextContainer.select(".timeline__next-prev__date").text(formatDateLine(nextEvent));
-		this.nextContainer.select(".timeline__next-prev__title").text(nextEvent.title);
+		this.nextContainer.select(".timeline__next-prev__title")
+			.classed("italicize", nextEvent.italicize_title)
+			.text(nextEvent.title);
 	}
 
 	setPrev() {
 		const prevEvent = this.currEventList[this.currSelected - 1];
 		this.prevContainer.classed("hidden", false);
 		this.prevContainer.select(".timeline__next-prev__date").text(formatDateLine(prevEvent));
-		this.prevContainer.select(".timeline__next-prev__title").text(prevEvent.title);
+		this.prevContainer.select(".timeline__next-prev__title")
+			.classed("italicize", prevEvent.italicize_title)
+			.text(prevEvent.title);
 	}
 
 	//
@@ -493,8 +497,11 @@ export class Timeline {
 		elem.classed("hovered", true);
 		let elemX = elem.attr("x");
 
+		console.log(datum);
+
 		this.hoverInfo
 			.classed("hidden", false)
+			.classed("italicize", datum.italicize_title)
 			.attr("fill", setColor(datum, this.colorScale))
 			.text(datum.title);
 

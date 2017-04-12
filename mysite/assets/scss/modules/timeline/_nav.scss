@@ -27,6 +27,10 @@
 		&.hidden {
 			display: none;
 		}
+
+		&.italicize {
+			font-style: italic;
+		}
 	}
 
 	&__axis {

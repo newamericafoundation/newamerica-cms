@@ -67,7 +67,7 @@ class DatavizBlock(blocks.StructBlock):
 		icon = 'site'
 		label = 'Dataviz'
 
-def getJSCompatibleList(input_list, has_category):
+def getJSCompatibleList(input_list, is_era):
 	sortedList = sorted(input_list, key=lambda member: member['start_date'])
 
 	retList = []
@@ -75,11 +75,13 @@ def getJSCompatibleList(input_list, has_category):
 		curr_item = {}
 		curr_item['id'] = i
 		curr_item['title'] = item['title']
+		if (not(is_era)):
+			curr_item['italicize_title'] = item['italicize_title']
 		curr_item['start_date'] = item['start_date'].isoformat()
 		curr_item['date_display_type'] = item['date_display_type']
 		if (item['end_date'] and item['end_date'] > item['start_date']):
 			curr_item['end_date'] = item['end_date'].isoformat()
-		if (has_category and item['category']):
+		if (not(is_era) and item['category']):
 			curr_item['category'] = item['category']
 
 		retList.append(curr_item)
@@ -88,6 +90,7 @@ def getJSCompatibleList(input_list, has_category):
 
 class TimelineEventBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=True)
+	italicize_title = blocks.BooleanBlock(default=False, required=False)
 	description = blocks.RichTextBlock(required=False)
 	category = blocks.CharBlock(required=False,)
 	start_date = blocks.DateBlock(required=True)
@@ -111,6 +114,7 @@ class TimelineEraBlock(blocks.StructBlock):
 class TimelineBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=True)
 	subheading = blocks.CharBlock(required=False)
+	major_timeline_splits = blocks.ListBlock(TimelineEraBlock(), default='', required=False)
 	event_eras = blocks.ListBlock(TimelineEraBlock(), default='', required=False)
 	event_categories = blocks.ListBlock(blocks.CharBlock(), default='', required=False)
 	event_list = blocks.ListBlock(TimelineEventBlock())
@@ -118,7 +122,7 @@ class TimelineBlock(blocks.StructBlock):
 	def get_context(self, value):
 		context = super(TimelineBlock, self).get_context(value)
 		context["sorted_event_list"] = sorted(value["event_list"], key=lambda member: member['start_date'])
-		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"], True), "eraList":getJSCompatibleList(value["event_eras"], False), "categoryList":value["event_categories"]})
+		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"], False), "eraList":getJSCompatibleList(value["event_eras"], True), "splitList":getJSCompatibleList(value["major_timeline_splits"], True), "categoryList":value["event_categories"]})
 		
 		return context
 

@@ -31,7 +31,7 @@
 					<div class="timeline__event {{ event.category|slugify }}" id="event-{{ forloop.counter0 }}">
 						<div class="timeline__event__text">
 							<div class="timeline__event__date">{% timeline_format_date event.start_date event.end_date event.date_display_type %}</div>
-							<div class="timeline__event__title">{{ event.title }}</div>
+							<div class="timeline__event__title {% if event.italicize_title %}italicize{% endif %}">{{ event.title }}</div>
 							{% if event.description %}
 								<div class="timeline__event__description post-body">
 									<div class="block-paragraph">{{ event.description }}</div>

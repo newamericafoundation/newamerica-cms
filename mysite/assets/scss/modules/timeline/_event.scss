@@ -21,6 +21,10 @@
 		color: palette-get(na-black);
 		font-weight: bold;
 		padding-bottom: 10px;
+
+		&.italicize {
+			font-style: italic;
+		}
 	}
 
 	&__description {
