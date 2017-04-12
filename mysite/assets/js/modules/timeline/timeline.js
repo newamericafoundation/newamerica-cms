@@ -21,15 +21,25 @@ export class Timeline {
 		this.fullEventList = this.eventList;
 		this.currEventList = this.eventList;
 		this.currSelected = 0;
-		this.showingAll = false;
+		this.listView = false;
+		this.currCategoryShown = "all";
+		this.currSplitShown = "all";
 
 		this.appendContainers(containerId);
-		this.appendAxes();
-		this.initializeXYScales();
+
+		if (this.splitList) {
+			this.appendSplitButtons();
+			this.currSplitShown = this.splitList[0];
+		}
 		if (this.categoryList) { 
 			this.initializeColorScale();
 			this.appendCategoryLegend();
 		}
+
+		this.filterEventList();
+		this.appendAxes();
+		this.initializeXYScales();
+
 		this.addListeners(containerId);
 
 		this.contentContainer.select("#event-0").classed("visible", true);
@@ -46,6 +56,8 @@ export class Timeline {
 		this.navContainer = select("#" + containerId + " .timeline__nav");
 		this.categoryLegendContainer = select("#" + containerId + " .timeline__category-legend");
 		this.contentContainer = select("#" + containerId + " .timeline__content");
+		this.splitButtonContainer = select("#" + containerId + " .timeline__split-button-container");
+		this.eventDivs = selectAll("#" + containerId + " .timeline__event");
 
 		this.svg = this.navContainer
 			.append("svg")
@@ -93,6 +105,20 @@ export class Timeline {
 		this.colorScale = scaleOrdinal()
 			.domain(this.categoryList)
 			.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
+	}
+
+	appendSplitButtons() {
+		let buttonList = this.splitButtonContainer.append("ul")
+			.attr("class", "timeline__split-button-list");
+
+		this.splitButtons = buttonList.selectAll("li")
+			.data(this.splitList)
+			.enter().append("li")
+			.attr("class", "split-button")
+			.on("click", (d) => { this.changeSplitShown(d); this.eventListChangedReRender();});
+
+		this.splitButtons.append("h5")
+			.text((d) => { return d.title; });
 	}
 
 	appendCategoryLegend() {
@@ -172,14 +198,14 @@ export class Timeline {
 
 		select("#" + containerId + " .timeline__see-all-button")
 			.on("click", () => {
-				if (this.showingAll) {
+				if (this.listView) {
 					select("#" + containerId).classed("loading", true).classed("show-all", false);
-					this.showingAll = !this.showingAll;
+					this.listView = !this.listView;
 					this.resize();
 					select("#" + containerId).classed("loading", false);
 				} else {
 					select("#" + containerId).classed("loading", true).classed("show-all", true);
-					this.showingAll = !this.showingAll;
+					this.listView = !this.listView;
 					this.resize();
 					select("#" + containerId).classed("loading", false);
 				}
@@ -440,7 +466,7 @@ export class Timeline {
 
 		this.currSelected = id;
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
-		this.circles.classed("selected", (d, i) => { console.log(d.id); return i == this.currSelected });
+		this.circles.classed("selected", (d, i) => { return i == this.currSelected });
 		this.eraList ? this.setEraText() : null;
 		this.setNextPrev();
 	}
@@ -542,30 +568,65 @@ export class Timeline {
 		console.log(elem.classed("active"));
 
 		// filter is already toggled
-		if (this.currEventList.length != this.fullEventList.length && elem.classed("active")) {
-			this.currEventList = this.fullEventList;
-			this.categoryLegendItems.classed("active", true);
-			this.categoryLegendCircles.attr("r", dimensions.dotRadius);
-			this.categoryLegendText
-				.style("color", (d) => { return setColor({"category": d}, this.colorScale); } )
-			selectAll(".timeline__event").style("display", "block");
-		} else {
-			this.currEventList = this.fullEventList.filter((d) => { return d.category && d.category == newCategory; });
+		if (this.currCategoryShown == "all") {
+			this.currCategoryShown = newCategory;
 			this.categoryLegendItems.classed("active", false);
 			elem.classed("active", true);
 			this.categoryLegendCircles
 				.attr("r", (d) => { return d == newCategory ? dimensions.dotRadius : 0 })
 			this.categoryLegendText
 				.style("color", (d) => { return d == newCategory ? setColor({"category": d}, this.colorScale) : subColor } )
-			selectAll(".timeline__event").style("display", "none");
-			selectAll(".timeline__event." + newCategory.toLowerCase().replace(" ", "-")).style("display", "block");
+		} else {
+			this.currCategoryShown = "all";
+			this.categoryLegendItems.classed("active", true);
+			this.categoryLegendCircles.attr("r", dimensions.dotRadius);
+			this.categoryLegendText
+				.style("color", (d) => { return setColor({"category": d}, this.colorScale); } )
 		}
 
+		console.log(this.eventDivs);
+
+		this.filterEventList();
+		this.eventListChangedReRender();
+	}
+
+	changeSplitShown(newSplit) {
+		this.currSplitShown = newSplit;
+		this.filterEventList();
+		this.eventListChangedReRender();
+	}
+
+	eventListChangedReRender() {
 		this.g.selectAll("rect").remove();
 		this.currSelected = 0;
 		this.initializeXYScales();
 		this.render(true);
 		this.setNewSelected(0, false);
+
+		this.eventDivs
+			.style("display", (d, i) => { return this.shouldShowEvent(this.fullEventList[i]) ? "block" : "none"; })
+	}
+
+	filterEventList() {
+		this.currEventList = this.fullEventList.filter((d) => { 
+			return this.shouldShowEvent(d);
+		})
+	}
+
+	shouldShowEvent(eventObject) {
+		if (this.currCategoryShown == "all" || eventObject.category == this.currCategoryShown) {
+			if (this.currSplitShown == "all") {
+				return true;
+			} else {
+				if (this.currSplitShown.end_date && eventObject.start_date > this.currSplitShown.end_date) {
+					return false;
+				}
+				if (eventObject.start_date >= this.currSplitShown.start_date) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
 
