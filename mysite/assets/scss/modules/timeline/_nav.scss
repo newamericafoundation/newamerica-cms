@@ -83,9 +83,7 @@
 
 			
 
-			&:not(.active) > * {
-				
-			}
+			
 		}
 
 		&__color-swatch-container, &__text {
@@ -98,11 +96,11 @@
 
 		&__text {
 			padding-left: 5px;
-			@include timeline-subtext;
+			font-size: $subtext-size;
 
-			.active & {
+			/*.active & {
 				font-weight: bold;
-			}
+			}*/
 		}
 	}
 

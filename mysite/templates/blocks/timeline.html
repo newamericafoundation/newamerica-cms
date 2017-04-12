@@ -27,7 +27,7 @@
 		<div class="timeline__visible-event-window">
 			<div class="timeline__full-event-container">
 				{% for event in sorted_event_list %}
-					<div class="timeline__event" id="event-{{ forloop.counter0 }}">
+					<div class="timeline__event {{ event.category|slugify }}" id="event-{{ forloop.counter0 }}">
 						<div class="timeline__event__text">
 							<div class="timeline__event__date">{% timeline_format_date event.start_date event.end_date event.date_display_type %}</div>
 							<div class="timeline__event__title">{{ event.title }}</div>

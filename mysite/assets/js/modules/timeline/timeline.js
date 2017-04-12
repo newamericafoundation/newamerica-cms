@@ -12,6 +12,8 @@ const Hammer = require('hammerjs');
 import { dimensions, margin, parseDate } from './constants';
 import { formatDateLine, setColor, isTouchDevice } from './utilities';
 
+const subColor = "#b1b1b4";
+
 export class Timeline {
 	constructor(settingsObject, containerId) {
 		Object.assign(this, settingsObject);
@@ -22,8 +24,11 @@ export class Timeline {
 
 		this.appendContainers(containerId);
 		this.appendAxes();
-		this.initializeScales();
-		this.categoryList ? this.appendCategoryLegend() : null;
+		this.initializeXYScales();
+		if (this.categoryList) { 
+			this.initializeColorScale();
+			this.appendCategoryLegend();
+		}
 		this.addListeners(containerId);
 
 		this.contentContainer.select("#event-0").classed("visible", true);
@@ -72,7 +77,7 @@ export class Timeline {
 			.attr("class", "timeline__nav__axis axis axis-x year-axis");
 	}
 
-	initializeScales() {
+	initializeXYScales() {
 		let minDate = min(this.fullEventList, (d) => { return parseDate(d.start_date); });
 		let maxDate = max(this.fullEventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
 
@@ -80,12 +85,12 @@ export class Timeline {
 			.domain([minDate, maxDate]);
 
 		this.yScale = scaleLinear();
+	}
 
-		if (this.categoryList) {
-			this.colorScale = scaleOrdinal()
-				.domain(this.categoryList)
-				.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
-		}
+	initializeColorScale() {
+		this.colorScale = scaleOrdinal()
+			.domain(this.categoryList)
+			.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
 	}
 
 	appendCategoryLegend() {
@@ -115,6 +120,7 @@ export class Timeline {
 		this.categoryLegendText = this.categoryLegendItems
 		   .append("h5")
 			.attr("class", "timeline__nav__category-legend__text")
+			.style("color", (d) => { return setColor({"category": d}, this.colorScale); })
 			.text((d) => { return d; });
 	}
 
@@ -421,7 +427,7 @@ export class Timeline {
 
 		this.currSelected = id;
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
-		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
+		this.circles.classed("selected", (d, i) => { console.log(d.id); return i == this.currSelected });
 		this.eraList ? this.setEraText() : null;
 		this.setNextPrev();
 	}
@@ -520,19 +526,30 @@ export class Timeline {
 			this.currEventList = this.fullEventList;
 			this.categoryLegendItems.classed("active", true);
 			this.categoryLegendCircles.attr("r", dimensions.dotRadius);
+			this.categoryLegendText
+				.style("color", (d) => { return setColor({"category": d}, this.colorScale); } )
+			selectAll(".timeline__event").style("display", "block");
 		} else {
 			this.currEventList = this.fullEventList.filter((d) => { return d.category && d.category == newCategory; });
 			this.categoryLegendItems.classed("active", false);
 			elem.classed("active", true);
-			this.categoryLegendCircles.attr("r", (d) => { console.log(d); return d == newCategory ? dimensions.dotRadius : 1 })
-			this.categoryLegendText.attr("fill", (d) => { console.log(d); return d == newCategory ? this.colorScale(d) : "grey" } )
+			this.categoryLegendCircles
+				.attr("r", (d) => { return d == newCategory ? dimensions.dotRadius : 0 })
+			this.categoryLegendText
+				.style("color", (d) => { console.log(this.colorScale(d)); return d == newCategory ? setColor({"category": d}, this.colorScale) : subColor } )
+			selectAll(".timeline__event").style("display", "none");
+			selectAll(".timeline__event." + newCategory.toLowerCase().replace(" ", "-")).style("display", "block");
+
 		}
 
 		
 		console.log(this.currEventList.length);
 
 		this.g.selectAll("rect").remove();
+		this.currSelected = 0;
+		this.initializeXYScales();
 		this.render();
+		this.setNewSelected(0, false);
 	}
 }
 
