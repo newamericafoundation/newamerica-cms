@@ -151,12 +151,15 @@ export class Timeline {
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
 			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
 
-		let swipeHandler = new Hammer($("#" + containerId)[0])
-			.on("swipeleft", (ev) => {
-				this.setNewSelected(this.currSelected + 1, false);
-			}).on("swiperight", (ev) => {
-				this.setNewSelected(this.currSelected - 1, false);
-			});
+		if (select("#" + containerId).classed("touch")) {
+			console.log("this is a touch screen!");
+			let swipeHandler = new Hammer($("#" + containerId)[0])
+				.on("swipeleft", (ev) => {
+					this.setNewSelected(this.currSelected + 1, false);
+				}).on("swiperight", (ev) => {
+					this.setNewSelected(this.currSelected - 1, false);
+				});
+		}
 
 		window.addEventListener('resize', this.resize.bind(this));
 
