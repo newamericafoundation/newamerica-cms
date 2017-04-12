@@ -43,6 +43,7 @@ export class Timeline {
 
 	appendContainers(containerId) {
 		this.navContainer = select("#" + containerId + " .timeline__nav");
+		this.categoryLegendContainer = select("#" + containerId + " .timeline__category-legend");
 		this.contentContainer = select("#" + containerId + " .timeline__content");
 
 		this.svg = this.navContainer
@@ -95,7 +96,7 @@ export class Timeline {
 
 	appendCategoryLegend() {
 		const strokeWidth = 1;
-		let categoryLegend = this.navContainer.append("ul")
+		let categoryLegend = this.categoryLegendContainer.append("ul")
 			.attr("class", "timeline__nav__category-legend");
 
 		this.categoryLegendItems = categoryLegend.selectAll("li")
@@ -536,14 +537,10 @@ export class Timeline {
 			this.categoryLegendCircles
 				.attr("r", (d) => { return d == newCategory ? dimensions.dotRadius : 0 })
 			this.categoryLegendText
-				.style("color", (d) => { console.log(this.colorScale(d)); return d == newCategory ? setColor({"category": d}, this.colorScale) : subColor } )
+				.style("color", (d) => { return d == newCategory ? setColor({"category": d}, this.colorScale) : subColor } )
 			selectAll(".timeline__event").style("display", "none");
 			selectAll(".timeline__event." + newCategory.toLowerCase().replace(" ", "-")).style("display", "block");
-
 		}
-
-		
-		console.log(this.currEventList.length);
 
 		this.g.selectAll("rect").remove();
 		this.currSelected = 0;
