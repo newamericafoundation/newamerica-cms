@@ -4,6 +4,11 @@
 	border: 2px solid palette-get(na-black-10);
 	position: relative;
 	max-width: $max-site-width;
+	cursor: auto;
+
+	&.loading {
+		cursor: wait !important;
+	}
 
 	&__content {
 		$transition: height 100ms linear;
@@ -56,6 +61,7 @@
 		text-align: center;
 		@include timeline-subtext;
 		font-size: 10px;
+		padding-bottom: 3px;
 
 		&__content:after {
 			content: "Use Arrow Keys to Explore";

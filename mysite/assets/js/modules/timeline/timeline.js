@@ -7,6 +7,7 @@ import { select, selectAll, event } from 'd3-selection';
 import { nest } from 'd3-collection';
 import { timeFormat } from 'd3-time-format';
 import { timeDay, timeMonth, timeYear } from 'd3-time';
+import { transition } from 'd3-transition';
 const Hammer = require('hammerjs');
 
 import { dimensions, margin, parseDate } from './constants';
@@ -33,7 +34,7 @@ export class Timeline {
 
 		this.contentContainer.select("#event-0").classed("visible", true);
 		
-		this.render();
+		this.render(true);
 		this.setNextPrev();
 	}
 
@@ -79,8 +80,8 @@ export class Timeline {
 	}
 
 	initializeXYScales() {
-		let minDate = min(this.fullEventList, (d) => { return parseDate(d.start_date); });
-		let maxDate = max(this.fullEventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
+		let minDate = min(this.currEventList, (d) => { return parseDate(d.start_date); });
+		let maxDate = max(this.currEventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
 
 		this.xScale = scaleLinear()
 			.domain([minDate, maxDate]);
@@ -97,21 +98,21 @@ export class Timeline {
 	appendCategoryLegend() {
 		const strokeWidth = 1;
 		let categoryLegend = this.categoryLegendContainer.append("ul")
-			.attr("class", "timeline__nav__category-legend");
+			.attr("class", "timeline__category-legend");
 
 		this.categoryLegendItems = categoryLegend.selectAll("li")
 			.data(this.categoryList)
 			.enter().append("li")
-			.attr("class", "timeline__nav__category-legend__item active")
+			.attr("class", "timeline__category-legend__item active")
 			.on("click", (category, index, paths) => { return this.changeCategoryFilter(category, index, paths);  });
 
 		this.categoryLegendCircles = this.categoryLegendItems
 		   .append("svg")
-			.attr("class", "timeline__nav__category-legend__color-swatch-container")
+			.attr("class", "timeline__category-legend__color-swatch-container")
 			.attr("height", 2*(dimensions.dotRadius + strokeWidth))
 			.attr("width", 2*(dimensions.dotRadius + strokeWidth))
 		   .append("circle")
-			.attr("class", "timeline__nav__category-legend__color-swatch")
+			.attr("class", "timeline__category-legend__color-swatch")
 			.attr("cx", dimensions.dotRadius + strokeWidth)
 			.attr("cy", dimensions.dotRadius + strokeWidth)
 			.attr("r", dimensions.dotRadius)
@@ -120,7 +121,7 @@ export class Timeline {
 
 		this.categoryLegendText = this.categoryLegendItems
 		   .append("h5")
-			.attr("class", "timeline__nav__category-legend__text")
+			.attr("class", "timeline__category-legend__text")
 			.style("color", (d) => { return setColor({"category": d}, this.colorScale); })
 			.text((d) => { return d; });
 	}
@@ -169,13 +170,15 @@ export class Timeline {
 		select("#" + containerId + " .timeline__see-all-button")
 			.on("click", () => {
 				if (this.showingAll) {
-					select("#" + containerId).classed("show-all", false);
+					select("#" + containerId).classed("loading", true).classed("show-all", false);
 					this.showingAll = !this.showingAll;
 					this.resize();
+					select("#" + containerId).classed("loading", false);
 				} else {
-					select("#" + containerId).classed("show-all", true);
+					select("#" + containerId).classed("loading", true).classed("show-all", true);
 					this.showingAll = !this.showingAll;
 					this.resize();
+					select("#" + containerId).classed("loading", false);
 				}
 			});
 	}
@@ -198,13 +201,13 @@ export class Timeline {
 	// rendering functions - called on initialization and resize
 	//
 
-	render() {
+	render(shouldTransition) {
 		this.setWidth();
 		this.setDotRows();
 		this.setHeight();
 		this.setCircles();
 		this.eraList ? this.setEraContainerXCoords() : null;
-		this.setXAxis();
+		this.setXAxis(shouldTransition);
 	}
 
 	setWidth() {
@@ -320,7 +323,7 @@ export class Timeline {
 		this.setEraText();
 	}
 
-	setXAxis() {
+	setXAxis(shouldTransition) {
 		const [minTime, maxTime] = this.xScale.domain();
 		let baseTopTransform = this.numRows;
 
@@ -354,11 +357,11 @@ export class Timeline {
 			year.tickValues = timeYear.range(minTime, maxTime, numYears/numTicks > 1 ? numYears/numTicks : 1 );
 		}
 
-		this.renderAxis("day_month", dayMonth);
-		this.renderAxis("year", year);
+		this.renderAxis("day_month", dayMonth, shouldTransition);
+		this.renderAxis("year", year, shouldTransition);
 	}
 
-	renderAxis(whichAxis, settings) {
+	renderAxis(whichAxis, settings, shouldTransition) {
 		let {tickValues, tickFormat, tickSizeInner, tickPadding, hidden, ticks} = settings;
 		let axis = whichAxis == "year" ? this.yearAxis : this.dayMonthAxis;
 
@@ -369,8 +372,14 @@ export class Timeline {
 			.tickFormat(tickFormat)
 			.tickValues(tickValues);
 
-		axis.style("display", hidden ? "none" : "block")
-			.call(axisFunc);
+		if (shouldTransition) {
+			axis.style("display", hidden ? "none" : "block")
+	            .transition().duration(1150)
+				.call(axisFunc);
+		} else {
+			axis.style("display", hidden ? "none" : "block")
+				.call(axisFunc);
+		}
 	}
 
 	setEraText() {
@@ -473,7 +482,7 @@ export class Timeline {
 
 	resize() {
 		this.g.selectAll("rect").remove();
-		this.render();
+		this.render(false);
 	}
 
 	mouseover(datum, path) {
@@ -545,7 +554,7 @@ export class Timeline {
 		this.g.selectAll("rect").remove();
 		this.currSelected = 0;
 		this.initializeXYScales();
-		this.render();
+		this.render(true);
 		this.setNewSelected(0, false);
 	}
 }

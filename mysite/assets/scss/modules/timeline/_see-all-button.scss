@@ -13,9 +13,9 @@
 	}
 
 	&:after {
-		content: "Show all Events";
+		content: "See List View";
 		.show-all & {
-			content: "Return to Interactive Version";
+			content: "Return to Interactive View";
 		}
 	}
 }

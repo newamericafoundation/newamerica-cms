@@ -1,0 +1,26 @@
+.timeline__category-legend {
+	text-align: center;
+
+	&__item {
+		padding: 0px 10px;
+		position: relative;
+		cursor: pointer;
+	}
+
+	&__color-swatch-container, &__text {
+		float: left;
+	}
+
+	&__color-swatch-container {
+		position: relative;
+	}
+
+	&__text {
+		padding-left: 5px;
+		font-size: $subtext-size;
+		margin-bottom: 0px;
+		/*.active & {
+			font-weight: bold;
+		}*/
+	}
+}
