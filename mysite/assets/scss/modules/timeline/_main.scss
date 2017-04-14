@@ -19,6 +19,8 @@
 	    -o-transition: $transition;
 	    transition: $transition;
 
+	    margin: 0px $desktop-padding;
+
 	}
 
 	&__visible-event-window {

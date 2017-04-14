@@ -37,8 +37,9 @@
 .timeline__category-legend-container {
 	.list-view & {
 		margin: 20px 0px;
-		max-width: $max-body-width;
+		max-width: $max-body-width + 2*$desktop-padding;
 		margin-left: auto;
 		margin-right: auto;
+		padding: 0px 15px;
 	}
 }

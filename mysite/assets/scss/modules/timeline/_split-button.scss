@@ -30,8 +30,12 @@
 }
 
 .timeline__split-button-container {
-	max-width: $max-body-width;
+	max-width: $max-body-width + 2*$desktop-padding;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 0px $desktop-padding 15px;
+
+	.list-view & {
+		padding-bottom: 0px;
+	}
 }

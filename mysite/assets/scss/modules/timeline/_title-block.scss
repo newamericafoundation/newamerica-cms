@@ -1,5 +1,5 @@
 .timeline__title-block {
-	max-width: $max-body-width;
+	max-width: $max-body-width + 2*$desktop-padding;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: $desktop-padding;

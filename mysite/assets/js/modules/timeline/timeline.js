@@ -341,7 +341,7 @@ export class Timeline {
 		    .classed("selected", (d) => { return d.id == this.currSelected })
 		    .on("mouseover", (d, index, paths) => { return this.mouseover(d, paths[index]); })
 		    .on("mouseout", (d, index, paths) => { return this.mouseout(paths[index]); })
-		    .on("click", (d, index, paths) => { return this.clicked(d, paths[index]); });
+		    .on("click", (d, index) => { return this.clicked(index); });
 	}
 
 	setEraContainerXCoords() {
@@ -482,6 +482,7 @@ export class Timeline {
 	// wrapAround indicators whether should wrap to first event when at end of list, vice-versa.
 	//		only arrow key events allow wraparound
 	setNewSelected(id, wrapAround) {
+		console.log("selected id is: " + id);
 		if (id < 0) {
 			id = wrapAround ? this.currEventList.length-1 : 0;
 		} else if (id > this.currEventList.length-1) {
@@ -490,7 +491,7 @@ export class Timeline {
 
 		this.currSelected = id;
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
-		this.circles.classed("selected", (d, i) => { return i == this.currSelected });
+		this.circles.classed("selected", (d, i) => { console.log(i); console.log(d); return i == this.currSelected });
 		this.eraList ? this.setEraText() : null;
 		this.setNextPrev();
 	}
@@ -571,9 +572,8 @@ export class Timeline {
 		this.hoverInfo.classed("hidden", true);
 	}
 
-	clicked(datum, path) {
-		const { id } = datum;
-		this.setNewSelected(id, false);
+	clicked(index) {
+		this.setNewSelected(index, false);
 	}
 
 	keyPressed(eventInfo) {
