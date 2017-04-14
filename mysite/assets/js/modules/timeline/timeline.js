@@ -26,14 +26,14 @@ export class Timeline {
 
 		// if specific event id in url hash, sets that event as default
 		let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
-		this.currSelected = hashString && !isNaN(hashString) ? Number(hashString) : 0;
+		this.currSelected = hashString && !isNaN(hashString) && Number(hashString) < this.fullEventList.length ? Number(hashString) : 0;
 
 		this.cacheDOMSelections(containerId);
 		this.appendContainers();
 
 		if (this.splitList) {
 			// if specific event id in url hash, finds correct split to show, then filters events accordingly and finds curr event index in new list
-			if (hashString) {
+			if (this.currSelected != 0) {
 				this.currSplitShown = whichEraOrSplit(this.fullEventList[this.currSelected], this.splitList);
 				this.filterEventList();
 				this.currSelected = this.findNewEventIndex(this.currSelected);
@@ -45,8 +45,6 @@ export class Timeline {
 			}
 			this.appendSplitButtons();
 		}
-
-		this.eraList ? this.appendEraContainers() : null;
 
 		if (this.categoryList) { 
 			this.initializeColorScale();
@@ -81,6 +79,8 @@ export class Timeline {
 
 		this.g = this.svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		this.eraList ? this.appendEraContainers() : null;
 
 		let hoverInfoContainer = this.g.append("g")
 			.attr("width", "100%")
