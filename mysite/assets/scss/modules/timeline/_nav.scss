@@ -1,5 +1,5 @@
 .timeline__nav {
-	.show-all & {
+	.list-view & {
 		display: none !important;
 	}
 	&__dot {
@@ -26,6 +26,10 @@
 
 		&.hidden {
 			display: none;
+		}
+
+		&.italicize {
+			font-style: italic;
 		}
 	}
 
@@ -73,26 +77,4 @@
 			display: block;
 		}
 	}
-	&__category-legend {
-		text-align: center;
-
-		&__item {
-			padding: 0px 10px;
-			position: relative;
-		}
-
-		&__color-swatch-container, &__text {
-			float: left;
-		}
-
-		&__color-swatch-container {
-			position: relative;
-		}
-
-		&__text {
-			padding-left: 5px;
-			@include timeline-subtext;
-		}
-	}
-
 }

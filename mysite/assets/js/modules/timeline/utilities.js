@@ -22,6 +22,21 @@ export const setColor = (d, colorScale) => {
 	}
 }
 
+export const whichEraOrSplit = (eventObject, eraOrSplitList) => {
+	for (let eraOrSplit of eraOrSplitList) {
+		if (parseDate(eventObject.start_date) >= parseDate(eraOrSplit.start_date)) {
+			if (eraOrSplit.end_date) {
+				if (parseDate(eventObject.start_date) <= parseDate(eraOrSplit.end_date)) {
+					return eraOrSplit;
+				}
+			} else {
+				return eraOrSplit;
+			}
+		}
+	}
+	return null;
+}
+
 // no way to reliably detect touch screen (http://www.stucox.com/blog/you-cant-detect-a-touchscreen/), but this covers most cases
 export const isTouchDevice = () => {
 	return 'ontouchstart' in window || navigator.msMaxTouchPoints;
