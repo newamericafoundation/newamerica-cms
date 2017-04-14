@@ -11,7 +11,7 @@ import { transition } from 'd3-transition';
 const Hammer = require('hammerjs');
 
 import { dimensions, margin, parseDate } from './constants';
-import { formatDateLine, setColor, isTouchDevice } from './utilities';
+import { formatDateLine, setColor, whichEraOrSplit, isTouchDevice } from './utilities';
 
 const subColor = "#b1b1b4";
 
@@ -20,19 +20,21 @@ export class Timeline {
 		Object.assign(this, settingsObject);
 		this.fullEventList = this.eventList;
 		this.currEventList = this.eventList;
-		let queryString = window.location.hash ? window.location.hash.replace("#", "") : null;
-		this.currSelected = queryString && !isNaN(queryString) ? Number(queryString) : 0;
 		this.listView = false;
 		this.currCategoryShown = "all";
 		this.currSplitShown = "all";
 
-		console.log(window.location);
+		// if specific event id in url hash, sets that event as default
+		let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
+		this.currSelected = hashString && !isNaN(hashString) ? Number(hashString) : 0;
 
-		this.appendContainers(containerId);
+		this.cacheDOMSelections(containerId);
+		this.appendContainers();
 
 		if (this.splitList) {
-			if (queryString) {
-				this.currSplitShown = this.whichEraOrSplit(this.fullEventList[this.currSelected], this.splitList);
+			// if specific event id in url hash, finds correct split to show, then filters events accordingly and finds curr event index in new list
+			if (hashString) {
+				this.currSplitShown = whichEraOrSplit(this.fullEventList[this.currSelected], this.splitList);
 				this.filterEventList();
 				this.currSelected = this.findNewEventIndex(this.currSelected);
 				this.eventDivs
@@ -43,6 +45,9 @@ export class Timeline {
 			}
 			this.appendSplitButtons();
 		}
+
+		this.eraList ? this.appendEraContainers() : null;
+
 		if (this.categoryList) { 
 			this.initializeColorScale();
 			this.appendCategoryLegend();
@@ -51,11 +56,7 @@ export class Timeline {
 		this.filterEventList();
 		this.appendAxes();
 		this.initializeXYScales();
-
 		this.addListeners(containerId);
-
-		// this.contentContainer.select("#event-0").classed("visible", true);
-		
 		this.render(true);
 		this.setNextPrev();
 	}
@@ -64,13 +65,15 @@ export class Timeline {
 	// initialization functions - called on first load
 	//
 
-	appendContainers(containerId) {
+	cacheDOMSelections(containerId) {
 		this.navContainer = select("#" + containerId + " .timeline__nav");
 		this.categoryLegendContainer = select("#" + containerId + " .timeline__category-legend-container");
 		this.contentContainer = select("#" + containerId + " .timeline__content");
 		this.splitButtonContainer = select("#" + containerId + " .timeline__split-button-container");
 		this.eventDivs = selectAll("#" + containerId + " .timeline__event");
+	}
 
+	appendContainers() {
 		this.svg = this.navContainer
 			.append("svg")
 			.attr("class", "timeline__nav__container")
@@ -78,8 +81,6 @@ export class Timeline {
 
 		this.g = this.svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-		this.eraList ? this.appendEraContainers() : null;
 
 		let hoverInfoContainer = this.g.append("g")
 			.attr("width", "100%")
@@ -95,30 +96,6 @@ export class Timeline {
 			.attr("transform", this.eraList ? "translate(0," + dimensions.rowHeight/2 + ")" : "translate(0," + dimensions.rowHeight/2 + ")"); 
 	}
 
-	appendAxes() {
-		this.dayMonthAxis = this.g.append("g")
-			.attr("class", "timeline__nav__axis axis axis-x day-month-axis");
-
-		this.yearAxis = this.g.append("g")
-			.attr("class", "timeline__nav__axis axis axis-x year-axis");
-	}
-
-	initializeXYScales() {
-		let minDate = min(this.currEventList, (d) => { return parseDate(d.start_date); });
-		let maxDate = max(this.currEventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
-
-		this.xScale = scaleLinear()
-			.domain([minDate, maxDate]);
-
-		this.yScale = scaleLinear();
-	}
-
-	initializeColorScale() {
-		this.colorScale = scaleOrdinal()
-			.domain(this.categoryList)
-			.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
-	}
-
 	appendSplitButtons() {
 		let buttonList = this.splitButtonContainer.append("ul")
 			.attr("class", "timeline__split-button-list");
@@ -129,8 +106,39 @@ export class Timeline {
 			.attr("class", "timeline__split-button")
 			.classed("active", (d, i) => { return d == this.currSplitShown; })
 			.on("click", (d, index, paths) => { this.changeSplitShown(d, index, paths); this.eventListChangedReRender();})
-			.text((d) => { return d.title; });
-			
+			.text((d) => { return d.title; });	
+	}
+
+	appendEraContainers() {
+		this.eraContainers = this.g.selectAll("g.timeline__nav__era-container")
+			.data(this.eraList)
+			.enter().append("g")
+			.attr("class", "timeline__nav__era-container");
+
+		this.eraDividers = this.eraContainers.append("line")
+			.attr("class", "timeline__nav__era-divider")
+			.attr("x1", 0)
+			.attr("x2", 0)
+			.attr("y1", 5);
+
+		this.eraText = this.g.append("text")
+			.attr("class", "timeline__nav__era-text");
+
+		this.addShowAllEraHeaders();
+	}
+
+	addShowAllEraHeaders() {
+		let eventDivs = this.contentContainer.selectAll(".timeline__event")._groups[0];
+
+		for (let era of this.eraList) {
+			for (let i = 0; i < this.fullEventList.length; i++) {
+				if (parseDate(this.fullEventList[i].start_date) >= parseDate(era.start_date)) {
+					$("<h5 class='timeline__event__list-view-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
+						.insertBefore(eventDivs[i]);
+					break;
+				}
+			}
+		}
 	}
 
 	appendCategoryLegend() {
@@ -164,24 +172,30 @@ export class Timeline {
 			.text((d) => { return d; });
 	}
 
-	appendEraContainers() {
-		this.eraContainers = this.g.selectAll("g.timeline__nav__era-container")
-			.data(this.eraList)
-			.enter().append("g")
-			.attr("class", "timeline__nav__era-container");
+	appendAxes() {
+		this.dayMonthAxis = this.g.append("g")
+			.attr("class", "timeline__nav__axis axis axis-x day-month-axis");
 
-		this.eraDividers = this.eraContainers.append("line")
-			.attr("class", "timeline__nav__era-divider")
-			.attr("x1", 0)
-			.attr("x2", 0)
-			.attr("y1", 5);
-
-		this.eraText = this.g.append("text")
-			.attr("class", "timeline__nav__era-text");
-
-		this.addShowAllEraHeaders();
+		this.yearAxis = this.g.append("g")
+			.attr("class", "timeline__nav__axis axis axis-x year-axis");
 	}
 
+	initializeXYScales() {
+		let minDate = min(this.currEventList, (d) => { return parseDate(d.start_date); });
+		let maxDate = max(this.currEventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
+
+		this.xScale = scaleLinear()
+			.domain([minDate, maxDate]);
+
+		this.yScale = scaleLinear();
+	}
+
+	initializeColorScale() {
+		this.colorScale = scaleOrdinal()
+			.domain(this.categoryList)
+			.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
+	}
+	
 	addListeners(containerId) {
 		// adds arrow key listeners only when user is hovered over nav or content containers
 		select("#" + containerId)
@@ -222,20 +236,6 @@ export class Timeline {
 					select("#" + containerId).classed("loading", false);
 				}
 			});
-	}
-
-	addShowAllEraHeaders() {
-		let eventDivs = this.contentContainer.selectAll(".timeline__event")._groups[0];
-
-		for (let era of this.eraList) {
-			for (let i = 0; i < this.fullEventList.length; i++) {
-				if (parseDate(this.fullEventList[i].start_date) >= parseDate(era.start_date)) {
-					$("<h5 class='timeline__event__list-view-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
-						.insertBefore(eventDivs[i]);
-					break;
-				}
-			}
-		}
 	}
 
 	//
@@ -323,8 +323,13 @@ export class Timeline {
 
 		this.dotContainer.attr("height", dotContainerHeight);
 
-		this.g.attr("height", gHeight);
-		this.svg.attr("height", gHeight + margin.top + margin.bottom);
+		this.svg
+			.transition().duration(1150)
+			.attr("height", gHeight + margin.top + margin.bottom);
+
+		this.g
+			.transition().duration(1150)
+			.attr("height", gHeight);
 
 		this.dayMonthAxis.attr("transform", "translate(0," + gHeight + ")");
 		this.yearAxis.attr("transform", "translate(0," + gHeight + ")");
@@ -384,6 +389,31 @@ export class Timeline {
 		return end - start;
 	}
 
+	setEraText() {
+		let currSelectedEvent = this.currEventList[this.currSelected];
+		let currEra = whichEraOrSplit(currSelectedEvent, this.eraList);
+
+		// if current event is within an era, show era text
+		if (currEra) {
+			this.eraText
+				.classed("visible", true)
+				.text(currEra.title + " (" + formatDateLine(currEra, true) + ")");
+			
+			// handles case where eratext goes off edge of viewport
+			let textWidth = this.eraText._groups[0][0].getBBox().width;
+			let xCoord = this.setEraStart(currEra) + this.setEraWidth(currEra)/2;
+
+			if ((Number(xCoord) + textWidth/2) > this.w) {
+				xCoord = this.w - textWidth/2 + 5;
+			} else if ((Number(xCoord) - textWidth/2) < 0) {
+				xCoord = textWidth/2;
+			}
+			this.eraText.attr("x", xCoord);
+		} else {
+			this.eraText.classed("visible", false);
+		}
+	}
+
 	setXAxis(shouldTransition) {
 		const [minTime, maxTime] = this.xScale.domain();
 		let baseTopTransform = this.numRows;
@@ -393,11 +423,8 @@ export class Timeline {
 			numMonths = timeMonth.count(minTime, maxTime),
 			numYears = timeYear.count(minTime, maxTime);
 
-		let dayMonth = {
-			tickSizeInner: 5,
-			tickPadding: 5
-		};
-		
+		// defaults for daymonth and year axes
+		let dayMonth = { tickSizeInner: 5,  tickPadding: 5};
 		let year = {
 			tickValues: [minTime].concat(timeYear.range(minTime, maxTime)),
 			tickFormat: timeFormat("%Y"),
@@ -405,6 +432,7 @@ export class Timeline {
 			tickPadding: 25
 		};
 
+		// sets ticks and display of daymonth and year axes based on number of days per tick
 		if (numDays/numTicks < 15) {
 			dayMonth.tickValues = timeDay.range(minTime, maxTime, numDays/numTicks > 1 ? numDays/numTicks : 1 )
 			dayMonth.tickFormat = timeFormat("%B %d")
@@ -418,6 +446,7 @@ export class Timeline {
 			year.tickValues = timeYear.range(minTime, maxTime, numYears/numTicks > 1 ? numYears/numTicks : 1 );
 		}
 
+		// renders both axes
 		this.renderAxis("day_month", dayMonth, shouldTransition);
 		this.renderAxis("year", year, shouldTransition);
 	}
@@ -443,49 +472,6 @@ export class Timeline {
 		}
 	}
 
-	setEraText() {
-		let currSelectedEvent = this.currEventList[this.currSelected];
-		let currEra = this.whichEraOrSplit(currSelectedEvent, this.eraList);
-
-		if (currEra) {
-			this.eraText
-				.classed("visible", true)
-				.text(currEra.title + " (" + formatDateLine(currEra, true) + ")");
-			
-			// handles case where eratext goes off right edge of viewport
-			let textWidth = this.eraText._groups[0][0].getBBox().width;
-			let xCoord = this.setEraStart(currEra) + this.setEraWidth(currEra)/2;
-
-			if ((Number(xCoord) + textWidth/2) > this.w) {
-				console.log("greater than!")
-				xCoord = this.w - textWidth/2 + 5;
-			} else if ((Number(xCoord) - textWidth/2) < 0) {
-				console.log("less than!!!")
-				xCoord = textWidth/2;
-			}
-			this.eraText.attr("x", xCoord);
-		} else {
-			this.eraText.classed("visible", false);
-		}
-	}
-
-	whichEraOrSplit(eventObject, eraOrSplitList) {
-		for (let eraOrSplit of eraOrSplitList) {
-			if (parseDate(eventObject.start_date) >= parseDate(eraOrSplit.start_date)) {
-				if (eraOrSplit.end_date) {
-					if (parseDate(eventObject.start_date) <= parseDate(eraOrSplit.end_date)) {
-						return eraOrSplit;
-						break;
-					}
-				} else {
-					return eraOrSplit;
-					
-				}
-			}
-		}
-		return null;
-	}
-
 	//
 	// navigation functions
 	//
@@ -493,7 +479,6 @@ export class Timeline {
 	// wrapAround indicators whether should wrap to first event when at end of list, vice-versa.
 	//		only arrow key events allow wraparound
 	setNewSelected(newIndex, wrapAround) {
-		console.log("selected newIndex is: " + newIndex);
 		if (newIndex < 0) {
 			newIndex = wrapAround ? this.currEventList.length-1 : 0;
 		} else if (newIndex > this.currEventList.length-1) {
@@ -501,6 +486,7 @@ export class Timeline {
 		}
 
 		this.currSelected = newIndex;
+		// transforms event container to show current event within viewport
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (newIndex*this.eventContentVisibleWidth.replace("px", "")) + "px)");
 		this.circles.classed("selected", (d, i) => { console.log(i); console.log(d); return i == this.currSelected });
 		this.eraList ? this.setEraText() : null;
@@ -514,24 +500,17 @@ export class Timeline {
 			this.setNext();
 			return;
 		} 
-
 		if (this.currSelected == this.currEventList.length-1) {
 			this.nextContainer.classed("hidden", true);
 			this.setPrev();
 			return;
 		} 
-
 		this.setNext();
 		this.setPrev();
 	}
 
 	setNext() {
-		if (this.currEventList.length <= 1) {
-			return;
-		}
-		console.log(this.currEventList);
-		console.log(this.currSelected + 1)
-		console.log(this.currEventList[this.currSelected + 1]);
+		if (this.currEventList.length <= 1) { return; }
 
 		const nextEvent = this.currEventList[this.currSelected + 1];
 		this.nextContainer.classed("hidden", false);
@@ -564,8 +543,6 @@ export class Timeline {
 		elem.classed("hovered", true);
 		let elemX = elem.attr("x");
 
-		console.log(datum);
-
 		this.hoverInfo
 			.classed("hidden", false)
 			.classed("italicize", datum.italicize_title)
@@ -574,17 +551,16 @@ export class Timeline {
 
 		let textWidth = this.hoverInfo._groups[0][0].getBBox().width;
 
+		// ensures hover text doesn't overflow off right edge of screen
 		if (Number(elemX) + textWidth > this.w) {
 			elemX = this.w - textWidth + 5;
 		} 
 			
 		this.hoverInfo.attr("transform", "translate(" + elemX + ")")
-		
 	}
 
 	mouseout(path) {
 		select(path).classed("hovered", false);
-
 		this.hoverInfo.classed("hidden", true);
 	}
 
@@ -592,6 +568,7 @@ export class Timeline {
 		this.setNewSelected(index, false);
 	}
 
+	// handles arrow key interaction
 	keyPressed(eventInfo) {
 		if (eventInfo.keyCode == 37) {
 			this.setNewSelected(this.currSelected - 1, true);
@@ -601,14 +578,15 @@ export class Timeline {
 	}
 
 	changeCategoryFilter(newCategory, pathIndex, paths) {
-		console.log("changing category filter!");
-		console.log(pathIndex, paths)
 		let elem = select(paths[pathIndex]);
 
-		console.log(elem.classed("active"));
-
-		// filter is already toggled
-		if (this.currCategoryShown == "all") {
+		if (this.currCategoryShown == newCategory) {
+			this.currCategoryShown = "all";
+			this.categoryLegendItems.classed("active", true);
+			this.categoryLegendCircles.attr("r", dimensions.dotRadius);
+			this.categoryLegendText
+				.style("color", (d) => { return setColor({"category": d}, this.colorScale); } )
+		} else {
 			this.currCategoryShown = newCategory;
 			this.categoryLegendItems.classed("active", false);
 			elem.classed("active", true);
@@ -616,15 +594,7 @@ export class Timeline {
 				.attr("r", (d) => { return d == newCategory ? dimensions.dotRadius : 0 })
 			this.categoryLegendText
 				.style("color", (d) => { return d == newCategory ? setColor({"category": d}, this.colorScale) : subColor } )
-		} else {
-			this.currCategoryShown = "all";
-			this.categoryLegendItems.classed("active", true);
-			this.categoryLegendCircles.attr("r", dimensions.dotRadius);
-			this.categoryLegendText
-				.style("color", (d) => { return setColor({"category": d}, this.colorScale); } )
 		}
-
-		console.log(this.eventDivs);
 
 		this.filterEventList();
 		this.eventListChangedReRender();
@@ -640,6 +610,12 @@ export class Timeline {
 		this.filterEventList();
 	}
 
+	filterEventList() {
+		this.currEventList = this.fullEventList.filter((d) => { 
+			return this.shouldShowEvent(d);
+		})
+	}
+
 	eventListChangedReRender() {
 		this.g.selectAll("rect").remove();
 		this.currSelected = 0;
@@ -649,12 +625,6 @@ export class Timeline {
 
 		this.eventDivs
 			.style("display", (d, i) => { return this.shouldShowEvent(this.fullEventList[i]) ? "block" : "none"; })
-	}
-
-	filterEventList() {
-		this.currEventList = this.fullEventList.filter((d) => { 
-			return this.shouldShowEvent(d);
-		})
 	}
 
 	shouldShowEvent(eventObject) {
@@ -677,7 +647,6 @@ export class Timeline {
 		let newIndex = 0;
 		for (let eventObject of this.currEventList) {
 			if (eventObject.id == currIndex) {
-				console.log(newIndex);
 				return newIndex;
 			}
 			newIndex++;
