@@ -21,7 +21,9 @@
 			{% endif %}
 		{% endif %}
 	</div>
-	<div class="timeline__split-button-container"></div>
+	{% if self.major_timeline_splits %}
+		<div class="timeline__split-button-container"></div>
+	{% endif %}
 	<div class="timeline__nav"></div>
 	<div class="timeline__category-legend-container"></div>
 	<div class="timeline__navigation-prompt">&larr;<span class="timeline__navigation-prompt__content"></span>&rarr;</div>

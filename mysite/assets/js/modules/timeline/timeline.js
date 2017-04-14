@@ -31,7 +31,7 @@ export class Timeline {
 		this.cacheDOMSelections(containerId);
 		this.appendContainers();
 
-		if (this.splitList) {
+		if (this.splitList && this.splitList.length > 0) {
 			// if specific event id in url hash, finds correct split to show, then filters events accordingly and finds curr event index in new list
 			if (this.currSelected != 0) {
 				this.currSplitShown = whichEraOrSplit(this.fullEventList[this.currSelected], this.splitList);
@@ -46,7 +46,7 @@ export class Timeline {
 			this.appendSplitButtons();
 		}
 
-		if (this.categoryList) { 
+		if (this.categoryList && this.categoryList.length > 0) { 
 			this.initializeColorScale();
 			this.appendCategoryLegend();
 		}
@@ -80,12 +80,12 @@ export class Timeline {
 		this.g = this.svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		this.eraList ? this.appendEraContainers() : null;
+		this.eraList && this.eraList.length > 0 ? this.appendEraContainers() : null;
 
 		let hoverInfoContainer = this.g.append("g")
 			.attr("width", "100%")
 			.attr("height", dimensions.rowHeight)
-			.attr("transform", this.eraList ? "translate(0," + dimensions.rowHeight + ")" : "none");
+			.attr("transform", this.eraList && this.eraList.length > 0 ? "translate(0," + dimensions.rowHeight + ")" : "translate(0)");
 
 		this.hoverInfo = hoverInfoContainer.append("text")
 			.attr("class", "timeline__nav__hover-info")
@@ -93,7 +93,7 @@ export class Timeline {
 
 		this.dotContainer = this.g.append("g")
 			.attr("width", "100%")
-			.attr("transform", this.eraList ? "translate(0," + dimensions.rowHeight/2 + ")" : "translate(0," + dimensions.rowHeight/2 + ")"); 
+			.attr("transform", this.eraList && this.eraList.length > 0 ? "translate(0," + dimensions.rowHeight/2 + ")" : "translate(0," + -dimensions.rowHeight/2 + ")"); 
 	}
 
 	appendSplitButtons() {
@@ -247,7 +247,7 @@ export class Timeline {
 		this.setDotRows();
 		this.setHeight();
 		this.setCircles();
-		this.eraList ? this.setEraContainerXCoords() : null;
+		this.eraList && this.eraList.length > 0 ? this.setEraContainerXCoords() : null;
 		this.setXAxis(shouldTransition);
 	}
 
@@ -319,7 +319,9 @@ export class Timeline {
 		let dotContainerHeight = this.numDotRows * dimensions.rowHeight,
 			gHeight = dotContainerHeight + dimensions.rowHeight/2;
 
-		gHeight += this.eraList ? dimensions.rowHeight : 0;
+		console.log(gHeight);
+		gHeight += this.eraList && this.eraList.length > 0 ? dimensions.rowHeight : 0;
+		console.log(gHeight);
 
 		this.dotContainer.attr("height", dotContainerHeight);
 
@@ -334,7 +336,7 @@ export class Timeline {
 		this.dayMonthAxis.attr("transform", "translate(0," + gHeight + ")");
 		this.yearAxis.attr("transform", "translate(0," + gHeight + ")");
 
-		if (this.eraList) {
+		if (this.eraList && this.eraList.length > 0) {
 			this.eraContainers.attr("height", gHeight)
 				
 			this.eraDividers.attr("height", gHeight)
@@ -489,7 +491,7 @@ export class Timeline {
 		// transforms event container to show current event within viewport
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (newIndex*this.eventContentVisibleWidth.replace("px", "")) + "px)");
 		this.circles.classed("selected", (d, i) => { console.log(i); console.log(d); return i == this.currSelected });
-		this.eraList ? this.setEraText() : null;
+		this.eraList && this.eraList.length > 0 ? this.setEraText() : null;
 		this.setNextPrev();
 		window.location.hash = this.currEventList[newIndex].id;
 	}
