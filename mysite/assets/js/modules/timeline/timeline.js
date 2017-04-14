@@ -54,7 +54,7 @@ export class Timeline {
 
 	appendContainers(containerId) {
 		this.navContainer = select("#" + containerId + " .timeline__nav");
-		this.categoryLegendContainer = select("#" + containerId + " .timeline__category-legend");
+		this.categoryLegendContainer = select("#" + containerId + " .timeline__category-legend-container");
 		this.contentContainer = select("#" + containerId + " .timeline__content");
 		this.splitButtonContainer = select("#" + containerId + " .timeline__split-button-container");
 		this.eventDivs = selectAll("#" + containerId + " .timeline__event");
@@ -114,11 +114,11 @@ export class Timeline {
 		this.splitButtons = buttonList.selectAll("li")
 			.data(this.splitList)
 			.enter().append("li")
-			.attr("class", "split-button")
-			.on("click", (d) => { this.changeSplitShown(d); this.eventListChangedReRender();});
-
-		this.splitButtons.append("h5")
+			.attr("class", "timeline__split-button")
+			.classed("active", (d, i) => { return i == 0; })
+			.on("click", (d, index, paths) => { this.changeSplitShown(d, index, paths); this.eventListChangedReRender();})
 			.text((d) => { return d.title; });
+			
 	}
 
 	appendCategoryLegend() {
@@ -199,12 +199,12 @@ export class Timeline {
 		select("#" + containerId + " .timeline__see-all-button")
 			.on("click", () => {
 				if (this.listView) {
-					select("#" + containerId).classed("loading", true).classed("show-all", false);
+					select("#" + containerId).classed("loading", true).classed("list-view", false);
 					this.listView = !this.listView;
 					this.resize();
 					select("#" + containerId).classed("loading", false);
 				} else {
-					select("#" + containerId).classed("loading", true).classed("show-all", true);
+					select("#" + containerId).classed("loading", true).classed("list-view", true);
 					this.listView = !this.listView;
 					this.resize();
 					select("#" + containerId).classed("loading", false);
@@ -218,7 +218,7 @@ export class Timeline {
 		for (let era of this.eraList) {
 			for (let i = 0; i < this.fullEventList.length; i++) {
 				if (parseDate(this.fullEventList[i].start_date) >= parseDate(era.start_date)) {
-					$("<h5 class='timeline__event__show-all-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
+					$("<h5 class='timeline__event__list-view-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
 						.insertBefore(eventDivs[i]);
 					break;
 				}
@@ -426,6 +426,8 @@ export class Timeline {
 			if ((Number(xCoord) + textWidth/2) > this.w) {
 				console.log("greater than!");
 				xCoord = this.w - textWidth/2 + margin.left;
+			} else if ((Number(xCoord) - textWidth/2) < 0) {
+				xCoord = textWidth/2 + margin.left;
 			}
 			this.eraText.attr("x", xCoord);
 		} else {
@@ -590,10 +592,16 @@ export class Timeline {
 		this.eventListChangedReRender();
 	}
 
-	changeSplitShown(newSplit) {
+	changeSplitShown(newSplit, pathIndex, paths) {
+		console.log("changing split shown");
+		console.log(newSplit);
+		let elem = select(paths[pathIndex]);
+
+		this.splitButtons.classed("active", false);
+		elem.classed("active", true);
+
 		this.currSplitShown = newSplit;
 		this.filterEventList();
-		this.eventListChangedReRender();
 	}
 
 	eventListChangedReRender() {

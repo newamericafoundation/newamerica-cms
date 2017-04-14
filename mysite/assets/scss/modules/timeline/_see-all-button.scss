@@ -14,7 +14,7 @@
 
 	&:after {
 		content: "See List View";
-		.show-all & {
+		.list-view & {
 			content: "Return to Interactive View";
 		}
 	}
