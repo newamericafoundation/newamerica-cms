@@ -20,16 +20,28 @@ export class Timeline {
 		Object.assign(this, settingsObject);
 		this.fullEventList = this.eventList;
 		this.currEventList = this.eventList;
-		this.currSelected = 0;
+		let queryString = window.location.hash ? window.location.hash.replace("#", "") : null;
+		this.currSelected = queryString && !isNaN(queryString) ? Number(queryString) : 0;
 		this.listView = false;
 		this.currCategoryShown = "all";
 		this.currSplitShown = "all";
 
+		console.log(window.location);
+
 		this.appendContainers(containerId);
 
 		if (this.splitList) {
+			if (queryString) {
+				this.currSplitShown = this.whichEraOrSplit(this.fullEventList[this.currSelected], this.splitList);
+				this.filterEventList();
+				this.currSelected = this.findNewEventIndex(this.currSelected);
+				this.eventDivs
+					.style("display", (d, i) => { return this.shouldShowEvent(this.fullEventList[i]) ? "block" : "none"; })
+	
+			} else {
+				this.currSplitShown = this.splitList[0];
+			}
 			this.appendSplitButtons();
-			this.currSplitShown = this.splitList[0];
 		}
 		if (this.categoryList) { 
 			this.initializeColorScale();
@@ -42,7 +54,7 @@ export class Timeline {
 
 		this.addListeners(containerId);
 
-		this.contentContainer.select("#event-0").classed("visible", true);
+		// this.contentContainer.select("#event-0").classed("visible", true);
 		
 		this.render(true);
 		this.setNextPrev();
@@ -115,7 +127,7 @@ export class Timeline {
 			.data(this.splitList)
 			.enter().append("li")
 			.attr("class", "timeline__split-button")
-			.classed("active", (d, i) => { return i == 0; })
+			.classed("active", (d, i) => { return d == this.currSplitShown; })
 			.on("click", (d, index, paths) => { this.changeSplitShown(d, index, paths); this.eventListChangedReRender();})
 			.text((d) => { return d.title; });
 			
@@ -338,7 +350,7 @@ export class Timeline {
 		    .attr("stroke", (d) => { return setColor(d, this.colorScale); })
 		    .attr("fill", (d) => { return setColor(d, this.colorScale); })
 		    .attr("class", "timeline__nav__dot")
-		    .classed("selected", (d) => { return d.id == this.currSelected })
+		    .classed("selected", (d, i) => { return i == this.currSelected })
 		    .on("mouseover", (d, index, paths) => { return this.mouseover(d, paths[index]); })
 		    .on("mouseout", (d, index, paths) => { return this.mouseout(paths[index]); })
 		    .on("click", (d, index) => { return this.clicked(index); });
@@ -433,7 +445,7 @@ export class Timeline {
 
 	setEraText() {
 		let currSelectedEvent = this.currEventList[this.currSelected];
-		let currEra = this.whichEra(currSelectedEvent);
+		let currEra = this.whichEraOrSplit(currSelectedEvent, this.eraList);
 
 		if (currEra) {
 			this.eraText
@@ -457,22 +469,21 @@ export class Timeline {
 		}
 	}
 
-	whichEra(eventObject) {
-		let retEra;
-		for (let era of this.eraList) {
-			if (parseDate(eventObject.start_date) >= parseDate(era.start_date)) {
-				if (era.end_date) {
-					if (parseDate(eventObject.start_date) <= parseDate(era.end_date)) {
-						retEra = era;
+	whichEraOrSplit(eventObject, eraOrSplitList) {
+		for (let eraOrSplit of eraOrSplitList) {
+			if (parseDate(eventObject.start_date) >= parseDate(eraOrSplit.start_date)) {
+				if (eraOrSplit.end_date) {
+					if (parseDate(eventObject.start_date) <= parseDate(eraOrSplit.end_date)) {
+						return eraOrSplit;
 						break;
 					}
 				} else {
-					retEra = era;
-					break;
+					return eraOrSplit;
+					
 				}
 			}
 		}
-		return retEra;
+		return null;
 	}
 
 	//
@@ -481,19 +492,20 @@ export class Timeline {
 
 	// wrapAround indicators whether should wrap to first event when at end of list, vice-versa.
 	//		only arrow key events allow wraparound
-	setNewSelected(id, wrapAround) {
-		console.log("selected id is: " + id);
-		if (id < 0) {
-			id = wrapAround ? this.currEventList.length-1 : 0;
-		} else if (id > this.currEventList.length-1) {
-			id = wrapAround ? 0 : this.currEventList.length-1;
+	setNewSelected(newIndex, wrapAround) {
+		console.log("selected newIndex is: " + newIndex);
+		if (newIndex < 0) {
+			newIndex = wrapAround ? this.currEventList.length-1 : 0;
+		} else if (newIndex > this.currEventList.length-1) {
+			newIndex = wrapAround ? 0 : this.currEventList.length-1;
 		}
 
-		this.currSelected = id;
-		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
+		this.currSelected = newIndex;
+		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (newIndex*this.eventContentVisibleWidth.replace("px", "")) + "px)");
 		this.circles.classed("selected", (d, i) => { console.log(i); console.log(d); return i == this.currSelected });
 		this.eraList ? this.setEraText() : null;
 		this.setNextPrev();
+		window.location.hash = this.currEventList[newIndex].id;
 	}
 
 	setNextPrev() {
@@ -517,6 +529,10 @@ export class Timeline {
 		if (this.currEventList.length <= 1) {
 			return;
 		}
+		console.log(this.currEventList);
+		console.log(this.currSelected + 1)
+		console.log(this.currEventList[this.currSelected + 1]);
+
 		const nextEvent = this.currEventList[this.currSelected + 1];
 		this.nextContainer.classed("hidden", false);
 		this.nextContainer.select(".timeline__next-prev__date").text(formatDateLine(nextEvent));
@@ -615,8 +631,6 @@ export class Timeline {
 	}
 
 	changeSplitShown(newSplit, pathIndex, paths) {
-		console.log("changing split shown");
-		console.log(newSplit);
 		let elem = select(paths[pathIndex]);
 
 		this.splitButtons.classed("active", false);
@@ -657,6 +671,18 @@ export class Timeline {
 			}
 		}
 		return false;
+	}
+
+	findNewEventIndex(currIndex) {
+		let newIndex = 0;
+		for (let eventObject of this.currEventList) {
+			if (eventObject.id == currIndex) {
+				console.log(newIndex);
+				return newIndex;
+			}
+			newIndex++;
+		}
+		return currIndex;
 	}
 }
 
