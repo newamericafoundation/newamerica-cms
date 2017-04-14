@@ -346,10 +346,30 @@ export class Timeline {
 
 	setEraContainerXCoords() {
 		this.eraContainers
-			.attr("transform", (d) => { return "translate(" + this.xScale(parseDate(d.start_date)) + ")"; })
-			.attr("width", (d) => { return d.end_date ? this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)) : this.xScale.range()[1] - this.xScale(parseDate(d.start_date)); });
+			.attr("transform", (d) => { 
+				return "translate(" + this.setEraStart(d) + ")";
+			})
+			.attr("width", (d) => {
+				return this.setEraWidth(d);
+			});
 
 		this.setEraText();
+	}
+
+	setEraStart(d) {
+		let start = this.xScale(parseDate(d.start_date));
+		if (start < 0) { start = 0; }
+		return start; 
+	}
+
+	setEraWidth(d) {
+		let start = this.xScale(parseDate(d.start_date));
+		let end = d.end_date ? this.xScale(parseDate(d.end_date)) : this.xScale.range()[1];
+
+		if (start < 0) { start = 0; }
+		if (end > this.xScale.range()[1]) { end = this.xScale.range()[1]; }
+
+		return end - start;
 	}
 
 	setXAxis(shouldTransition) {
@@ -422,12 +442,14 @@ export class Timeline {
 			
 			// handles case where eratext goes off right edge of viewport
 			let textWidth = this.eraText._groups[0][0].getBBox().width;
-			let xCoord = currEra.end_date ? this.xScale(parseDate(currEra.start_date)) + (this.xScale(parseDate(currEra.end_date)) - this.xScale(parseDate(currEra.start_date)))/2 : this.xScale(parseDate(currEra.start_date)) + (this.xScale.range()[1] - this.xScale(parseDate(currEra.start_date)))/2;
+			let xCoord = this.setEraStart(currEra) + this.setEraWidth(currEra)/2;
+
 			if ((Number(xCoord) + textWidth/2) > this.w) {
-				console.log("greater than!");
-				xCoord = this.w - textWidth/2 + margin.left;
+				console.log("greater than!")
+				xCoord = this.w - textWidth/2 + 5;
 			} else if ((Number(xCoord) - textWidth/2) < 0) {
-				xCoord = textWidth/2 + margin.left;
+				console.log("less than!!!")
+				xCoord = textWidth/2;
 			}
 			this.eraText.attr("x", xCoord);
 		} else {
@@ -536,7 +558,7 @@ export class Timeline {
 		let textWidth = this.hoverInfo._groups[0][0].getBBox().width;
 
 		if (Number(elemX) + textWidth > this.w) {
-			elemX = this.w - textWidth + margin.left;
+			elemX = this.w - textWidth + 5;
 		} 
 			
 		this.hoverInfo.attr("transform", "translate(" + elemX + ")")

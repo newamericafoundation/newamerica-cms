@@ -3,6 +3,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: $desktop-padding;
+	padding: 0px $desktop-padding;
 
 	&__pre-text {
 		@include timeline-subtext;
