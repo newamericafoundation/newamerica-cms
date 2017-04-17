@@ -45,22 +45,11 @@
   </section>
   {% endif %}
 
+  {% if page.venue_details %}
   <section id="venue" class="section section-nav align-center">
-    <div class="container">
-      <span class="line-icon section-icon line-icon-seo-icons-34"></span>
-      <h3>Venue & Travel</h3>
-      <p class="location-info">
-        {{page.location_name}}
-        <br/>
-        {{page.street}}
-        <br/>
-        {{page.city}}, {{page.state}} {{page.zipcode}}
-      </p>
-    </div>
-    <div class="container">
-      {{ page.venue }}
-    </div>
+    {% include './venue_and_hotel.html' %}
   </section>
+  {% endif %}
 
   <section id="directions" class="section align-center">
     <div class="container">
