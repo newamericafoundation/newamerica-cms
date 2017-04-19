@@ -10,13 +10,13 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
-from mysite.blocks import ButtonBlock, IframeBlock, DatavizBlock
+from newamericadotorg.blocks import ButtonBlock, IframeBlock, DatavizBlock
 from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from mysite.helpers import paginate_results, get_org_wide_posts
+from newamericadotorg.helpers import paginate_results, get_org_wide_posts
 
 class InDepthSection(Page):
     """
