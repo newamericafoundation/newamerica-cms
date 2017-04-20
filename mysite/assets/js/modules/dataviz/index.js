@@ -46,6 +46,8 @@ function addChartButtonInteractivity() {
 			shareLink = $item.find(".dataviz__share-link"),
 			embedPopup = $item.find(".dataviz__embed-popup"),
 			sharePopup = $item.find(".dataviz__share-popup");
+
+		console.log(downloadLink);
 		
 		downloadLink.click(function() { handleDownloadClickEvent(chartArea) });
 		embedLink.click(function() { embedPopup.toggle(); });
@@ -71,6 +73,8 @@ function addChartButtonInteractivity() {
 }
 
 function handleDownloadClickEvent(chartArea) {
+	console.log("clicked!")
+	$(chartArea).css("background-color", "white");
 	domtoimage.toPng(chartArea)
 	    .then((dataUrl) => {
 	    	var id = $(chartArea).attr("id");
@@ -79,6 +83,7 @@ function handleDownloadClickEvent(chartArea) {
 		    link.href = dataUrl;
 		    link.click();
 		    link.remove();
+		    $(chartArea).css("background-color", "none");
 	    })
 	    .catch(function (error) {
 	        console.error('oops, something went wrong!', error);

@@ -12,6 +12,7 @@
 			margin-right: auto;
 		}
 		position: relative;
+		z-index: 20;
 
 		&.with-buttons {
 			.dataviz__title, .dataviz__subheading {
