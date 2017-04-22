@@ -74,7 +74,7 @@ class InDepthSection(Page):
         context['siblings'] = siblings
         if (index != 0):
             context['previous_sibling'] = siblings[(index - 1)]
-        if (index != len(siblings) - 1):
+        if (index != len(siblings) - 2):
             context['next_sibling'] = siblings[(index + 1)]
 
         return context
