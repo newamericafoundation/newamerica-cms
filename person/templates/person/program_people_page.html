@@ -34,34 +34,14 @@
 						<a href="{{ person.url }}">{{ person.first_name }} {{ person.last_name }}</a>
 					</h5>
 					<h5 class='person__position'>{{ person.position_at_new_america }}</h5>
-					
+
 				</div>
 			</div>
 		{% endfor %}
 	</div>
 
 	<div class="content-grid__footer">
-		<div class="pagination">
-			{% if people.has_previous %}
-				<a class="pagination__arrow" href="?page={{ people.previous_page_number }}">
-					{% include 'components/svg/arrow-left.html' %}
-				</a>
-			{% endif %}
-
-			<span>Page</span>
-			<form class="pagination__form" action="?page=value" method="get">
-				<input class="pagination__input" type="text" placeholder="{{ people.number }}" name="page">
-			</form>
-
-			<span>of</span>
-			<a href="?page={{ people.paginator.num_pages|get_range|last }}">{{ people.paginator.num_pages|get_range|last }}</a>
-
-			{% if people.has_next %}
-		    	<a class="pagination__arrow" href="?page={{ people.next_page_number }}">
-		    		{% include 'components/svg/arrow-right.html' %}
-				</a>
-			{% endif %}
-		</div>
+		{% include 'components/pagination.html' with all_content=people %}
 	</div>
 </section>
 

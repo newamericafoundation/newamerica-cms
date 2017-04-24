@@ -1,0 +1,27 @@
+<div class="pagination">
+  {% if all_content.has_previous %}
+    <a class="pagination__arrow" href="?page={{ all_content.previous_page_number }}&{{ query_url }}">
+      {% include 'components/svg/arrow-left.html' %}
+    </a>
+  {% endif %}
+
+  <span>Page</span>
+  <form class="pagination__form" action="?page=value" method="get">
+    <input class="pagination__input" type="text" placeholder="{{ all_content.number }}" name="page">
+    {% if request.GET.subprogram_id %}
+      <input type="hidden" value="{{request.GET.subprogram_id}}" name="subprogram_id">
+    {% endif %}
+    {% if request.GET.date %}
+      <input type="hidden" value="{{request.GET.date}}" name="date">
+    {% endif %}
+  </form>
+
+  <span>of</span>
+  <a href="?page={{ all_content.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ all_content.paginator.num_pages|get_range|last }}</a>
+
+  {% if all_content.has_next %}
+      <a class="pagination__arrow" href="?page={{ all_content.next_page_number }}&{{ query_url }}">
+        {% include 'components/svg/arrow-right.html' %}
+    </a>
+  {% endif %}
+</div>
