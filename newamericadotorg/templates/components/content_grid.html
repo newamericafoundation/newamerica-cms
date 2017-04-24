@@ -1,17 +1,18 @@
+{% load wagtailcore_tags wagtailimages_tags utilities %}
+
 <div class="content-grid__entries blog">
   {% for post in all_content %}
     <div class="content-entry blog">
       {% if post.story_image %}
         {% image post.story_image min-650x200 as post_image %}
 
-        <a href="{{ post.url }}">
-          <div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
-          </div>
-        </a>
+      <a href="{{ post.url }}">
+        <div class="content-entry__image-container" style="background-image: url('{{post_image.url}}')"></div>
+      </a>
       <div class="content-entry__text-container has-image">
 
       {% else %}
-      <div class="content-entry__text-container">
+        <div class="content-entry__text-container">
       {% endif %}
         <div class="content-entry__text">
           {% if post.post_subprogram.all %}
@@ -34,6 +35,6 @@
         </div>
       </div>
     </div>
-    <hr>
+    <hr/>
   {% endfor %}
 </div>

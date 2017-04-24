@@ -1,3 +1,6 @@
+{% load wagtailcore_tags %}
+{% load utilities %}
+
 <div class="pagination">
   {% if all_content.has_previous %}
     <a class="pagination__arrow" href="?page={{ all_content.previous_page_number }}&{{ query_url }}">
