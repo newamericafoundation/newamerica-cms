@@ -26,7 +26,9 @@
         </h3>
         <div class="panel-body-block">
           {% for block in panel.value.body %}
-            {% include 'components/post_body.html' %}
+            <div class="block-{{ block.block_type }}">
+                {% include_block block %}
+            </div>
           {% endfor %}
         </div>
       </section>
