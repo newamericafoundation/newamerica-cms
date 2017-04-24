@@ -107,7 +107,7 @@
 		<div class="pagination">
 			{% if all_posts.has_previous %}
 				<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}">
-					{% include 'ui_elements/svg/arrow-left.html' %}
+					{% include 'components/svg/arrow-left.html' %}
 				</a>
 			{% endif %}
 
@@ -121,7 +121,7 @@
 
 			{% if all_posts.has_next %}
 		    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}">
-		    		{% include 'ui_elements/svg/arrow-right.html' %}
+		    		{% include 'components/svg/arrow-right.html' %}
 				</a>
 			{% endif %}
 		</div>

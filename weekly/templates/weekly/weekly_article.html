@@ -42,7 +42,7 @@
 		<h5 class="weekly__sidemenu__subheading">Subscribe</h5>
 		<form class="subscribe-form" action="/subscribe/">
 			<input type='text' placeholder='Your Email' name='email' class='weekly__sidemenu__subscribe__input'></input>
-			<button class='button black weekly__sidemenu__subscribe__submit' type="submit" value="Submit">{% include 'ui_elements/svg/arrow-right.html' %}</button>
+			<button class='button black weekly__sidemenu__subscribe__submit' type="submit" value="Submit">{% include 'components/svg/arrow-right.html' %}</button>
 		</form>
 		<h5 class="weekly__sidemenu__subheading">Change Edition</h5>
 		<select onchange="location = this.value;">
@@ -117,11 +117,11 @@
 
 	     <div class="post-body with-dropcap">
 		    {% for block in self.body %}
-		    	{% include 'ui_elements/post_body_block.html' %}
+		    	{% include 'components/post_body_block.html' %}
 		    {% endfor %}
 		</div>
 	    
-	    {% include 'ui_elements/social_share.html' %}
+	    {% include 'components/social_share.html' %}
 	    
 	    {% if authors %}
 		<h1 class="post-subheading">{% get_author_block_prefix page.content_type authors %}</h1>

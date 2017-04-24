@@ -3,17 +3,17 @@
 		<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}">
 			{% if self.title %}	
 				<a id="{{ self.title|slugify }}" class="in-depth__panel__anchor"></a>
-				<div class="dataviz__icon">{% include 'ui_elements/svg/new-america-mini.html' %}</div>
+				<div class="dataviz__icon">{% include 'components/svg/new-america-mini.html' %}</div>
 			{% else %}
 				<a id="chart-{{ self.container_id }}" class="in-depth__panel__anchor"></a>
 			{% endif %}
 
 			{% if self.show_chart_buttons %}
-				<a class="dataviz__icon dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'ui_elements/svg/download.html' %}</a>
+				<a class="dataviz__icon dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'components/svg/download.html' %}</a>
 				<h5 class="dataviz__icon-label dataviz__download-link-label" id="{{ self.container_id }}__download-link">Download PNG</h5>
-				<a class="dataviz__icon dataviz__embed-link" id="{{ self.container_id }}__embed-link">{% include 'ui_elements/svg/embed.html' %}</a>
+				<a class="dataviz__icon dataviz__embed-link" id="{{ self.container_id }}__embed-link">{% include 'components/svg/embed.html' %}</a>
 				<h5 class="dataviz__icon-label dataviz__embed-link-label" id="{{ self.container_id }}__embed-link">Embed</h5>
-				<a class="dataviz__icon dataviz__share-link" id="{{ self.container_id }}__share-link">{% include 'ui_elements/svg/share.html' %}</a>
+				<a class="dataviz__icon dataviz__share-link" id="{{ self.container_id }}__share-link">{% include 'components/svg/share.html' %}</a>
 				<h5 class="dataviz__icon-label dataviz__share-link-label" id="{{ self.container_id }}__share-link">Share</h5>
 
 				<div class="dataviz__share-popup">
