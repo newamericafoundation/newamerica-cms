@@ -1,0 +1,11 @@
+<div class="post-attachment">
+  <div class="post-attachment__image"></div>
+  <div class="post-attachment__text">
+    {% with page.attachment|length as num_attachments %}
+      <h3>{% pluralize num_attachments "ATTACHMENT" %}</h3>
+      {% for block in page.attachment %}
+        <div class="post-attachment__text__item"><a href='{{ block.value.file.url }}'>{{ block.value.title }}</a></div>
+      {% endfor %}
+    {% endwith %}
+  </div>
+</div>
