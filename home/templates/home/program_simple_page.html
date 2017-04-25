@@ -16,11 +16,11 @@
 
 	<div class="post-header-container">
 		{% if story_image %}
-		
+
 			<div class="post-header with-image" style="background-image: linear-gradient(
 			      rgba(0, 0, 0, 0),
 			      rgba(0, 0, 0, 0.15)
-			    ), 
+			    ),
 		    	url({{ story_image.url }})">
 
 				<div class="post-header__text">
@@ -43,10 +43,8 @@
 	</div>
 
 	<div class="post-container">
-	    <div class="post-body">
-		    {% for block in self.body %}
-		    	{% include 'components/post_body_block.html' %}
-		    {% endfor %}
+	  <div class="post-body">
+			{% include 'components/post_body.html' %}
 		</div>
 	</div>
 
