@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <a href="{{ author.author.url }}">
-  <div class="post-person {{ author.author.profile_image|yesno 'with-image,' }}">
+  <div class="post-person {{ author.author.profile_image|yesno:"with-image," }}">
     {% if author.author.profile_image %}
     <div class="post-person__left">
       <div class='person__icon'>

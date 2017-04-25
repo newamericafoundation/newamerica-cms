@@ -31,9 +31,8 @@
           {% endif %}
         {% endif %}
     </div>
-    {% if story_image.image.source %}
-      <div class="caption">Photo: {{ story_image.image.source}}</div>
-    {% endif %}
-
   </div>
+  {% if story_image.image.source %}
+    <div class="caption">Photo: {{ story_image.image.source}}</div>
+  {% endif %}
 </div>
