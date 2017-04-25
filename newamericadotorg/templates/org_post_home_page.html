@@ -1,4 +1,4 @@
-{% extends "our_work_sidemenu.html" %}
+{% extends "base.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
@@ -6,7 +6,7 @@
 
 {% block extra_scripts %}
 	<script>
-        $(function() { 
+        $(function() {
         	$("#content-grid__controls__date-filter").daterangepicker({
         		applyButtonText: 'Confirm',
 				clearButtonText: null,
@@ -18,7 +18,7 @@
 			        minDate: null,
 			        maxDate: null
 			    },
-			    onChange: function() { 
+			    onChange: function() {
 			    	$("#content-grid__controls__submit").prop('disabled', false);
 			    }
      		})
@@ -27,6 +27,10 @@
 {% endblock %}
 
 {% block body_class %}template-postpage{% endblock %}
+{% block sidemenu_status %}has_sidemenu simple{% endblock %}
+{% block sidebar %}
+	{% include 'components/sidemenu_our_work.html' %}
+{% endblock %}
 
 {% block content %}
 	<div class="post-header-container">
@@ -38,126 +42,19 @@
 	</div>
 
 	<div class="content-grid__controls">
-		<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
-			<div class="content-grid__controls__filter">
-				<select class="content-grid__controls__program-filter" name="program_id">
-					<option value="">All Programs</option>
-					{% for program in programs %}
-					<option value="{{program.id}}">{{program.title}}</option>
-					{% endfor %}
-		        </select>
-		    </div>
-		    <div class="content-grid__controls__filter">
-				<input id="content-grid__controls__date-filter" class="date-picker" name="date">
-		    </div>
-		    <div class="content-grid__controls__buttons">
-		    	<button id="content-grid__controls__submit" class="button" type="submit" value="Search" disabled>Update Search</button>
-		    	<a href="{{ self.url }}">Reset</a>
-			</div>	
-		</form>
+		{% include 'components/content_controls.html' %}
 		<div class="content-grid__controls__right">
-			<div class="pagination">
-				{% if all_posts.has_previous %}
-					<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}&{{ query_url }}">
-						{% include 'components/svg/arrow-left.html' %}
-					</a>
-				{% endif %}
-
-				<span>Page</span>
-				<form class="pagination__form" action="?page=value" method="get">
-					<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
-					{% if request.GET.program_id %}
-						<input type="hidden" value="{{request.GET.program_id}}" name="program_id">
-					{% endif %}
-					{% if request.GET.date %}
-						<input type="hidden" value="{{request.GET.date}}" name="date">
-					{% endif %}
-				</form>
-
-				<span>of</span>
-				<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
-
-				{% if all_posts.has_next %}
-			    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}&{{ query_url }}">
-			    		{% include 'components/svg/arrow-right.html' %}
-					</a>
-				{% endif %}
-			</div>
+			{% include 'components/pagination.html' with all_content=all_posts %}
 		</div>
 	</div>
 
 {% if all_posts %}
 
 	<div class="content-grid__entries">
-
-		{% for post in all_posts %}
-			<div class="content-entry {{ post.get_page_type }}">
-				{% if post.story_image %}
-					{% image post.story_image min-650x200 as post_image %}
-
-					<a href="{{ post.url }}">
-						<div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
-						</div>
-					</a>
-				<div class="content-entry__text-container has-image">
-				{% else %}
-				<div class="content-entry__text-container">
-				{% endif %}
-					<div class="content-entry__text">
-						{% if post.parent_programs.all %}
-							<h5 class="content-entry__text__program">
-							{% for program in post.parent_programs.all %}
-								<a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
-							{% endfor %}
-							</h5>
-						{% endif %}
-
-						<h5 class= "content-entry__text__title"><a href="{{ post.url }}">{{ post.title }}</a></h5>
-						
-						{% if post.authors.all %}
-							<h5 class= "content-entry__text__author">{% generate_byline post.content_type post.authors.all %}</h5>
-						{% endif %}
-
-						<h5 class= "content-entry__text__date-time">{% generate_dateline post %}</h5>
-						{% if post.story_excerpt %}
-							<p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
-						{% endif %}
-						
-					</div>
-				</div>
-			</div>
-			<hr>
-		{% endfor %}
-
+		{% include 'components/content_grid.html' with all_content=all_posts %}
 	</div>
 	<div class="content-grid__footer">
-		<div class="pagination">
-			{% if all_posts.has_previous %}
-				<a class="pagination__arrow" href="?page={{ all_posts.previous_page_number }}&{{ query_url }}">
-					{% include 'components/svg/arrow-left.html' %}
-				</a>
-			{% endif %}
-
-			<span>Page</span>
-			<form class="pagination__form" action="?page=value" method="get">
-				<input class="pagination__input" type="text" placeholder="{{ all_posts.number }}" name="page">
-				{% if request.GET.program_id %}
-					<input type="hidden" value="{{request.GET.program_id}}" name="program_id">
-				{% endif %}
-				{% if request.GET.date %}
-					<input type="hidden" value="{{request.GET.date}}" name="date">
-				{% endif %}
-			</form>
-
-			<span>of</span>
-			<a href="?page={{ all_posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ all_posts.paginator.num_pages|get_range|last }}</a>
-
-			{% if all_posts.has_next %}
-		    	<a class="pagination__arrow" href="?page={{ all_posts.next_page_number }}&{{ query_url }}">
-		    		{% include 'components/svg/arrow-right.html' %}
-				</a>
-			{% endif %}
-		</div>
+		{% include 'components/pagination.html' with all_content=all_posts %}
 	</div>
 
 {% else %}
