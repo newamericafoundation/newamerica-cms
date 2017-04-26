@@ -1,0 +1,22 @@
+{% load wagtailimages_tags %}
+
+<div class='row picture-link-container'>
+  {% for story in stories %}
+  <div class='small-12 large-4 columns'>
+    <div class='picture-link'>
+      <a href="{{ story.url }}">
+        {% if story.specific.story_image %}
+          {% image story.specific.story_image fill-75x75 as story_image %}
+          <div class='picture-link__picture' style='background-image: url({{ story_image.url }})'></div>
+        {% else %}
+          <div class='picture-link__picture'></div>
+        {% endif %}
+      </a>
+      <div class='picture-link__content'>
+        <h1><a href="{{ story.url }}">{% if story.seo_title %}{{ story.seo_title }}{% else %}{{ story.title }}{% endif %}</a></h1>
+        <p>{{ story.specific.story_excerpt }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
