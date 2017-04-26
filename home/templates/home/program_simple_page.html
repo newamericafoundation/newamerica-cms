@@ -12,36 +12,7 @@
 {% endblock %}
 
 {% block content %}
-	{% image page.story_image min-1100x300 as story_image %}
-
-	<div class="post-header-container">
-		{% if story_image %}
-
-			<div class="post-header with-image" style="background-image: linear-gradient(
-			      rgba(0, 0, 0, 0),
-			      rgba(0, 0, 0, 0.15)
-			    ),
-		    	url({{ story_image.url }})">
-
-				<div class="post-header__text">
-			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-				</div>
-			</div>
-			{% if story_image.image.source %}
-				<div class="caption">Photo: {{ story_image.image.source}}</div>
-			{% endif %}
-
-		{% else %}
-
-			<div class="post-header">
-				<div class="post-header__text">
-			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-				</div>
-			</div>
-
-		{% endif %}
-	</div>
-
+	{% include 'components/post_header.html' %}
 	<div class="post-container">
 	  <div class="post-body">
 			{% include 'components/post_body.html' %}
