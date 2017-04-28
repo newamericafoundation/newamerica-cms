@@ -35,6 +35,7 @@ from press_release.models import AllPressReleasesHomePage
 
 from quoted.models import AllQuotedHomePage
 
+from conference.models import AllConferencesHomePage
 
 class HomeTests(WagtailPageTests):
     """
@@ -89,7 +90,7 @@ class HomeTests(WagtailPageTests):
                 rsvp_link='http://www.newamerica.org',
                 soundcloud_url='http://www.newamerica.org'
             )
-        )      
+        )
         self.future_event_morning = self.program_events_page.add_child(
             instance=Event(
                 title='Future Event' ,
@@ -159,6 +160,7 @@ class HomeTests(WagtailPageTests):
             AllPressReleasesHomePage,
             AllQuotedHomePage,
             AllInDepthHomePage,
+            AllConferencesHomePage,
             BoardAndLeadershipPeoplePage,
             JobsPage,
             OurPeoplePage,
@@ -301,13 +303,13 @@ class HomeTests(WagtailPageTests):
                 self.assertTrue(prev_event.start_time <= curr_event.start_time)
             else:
                 self.assertTrue(prev_event.date <= curr_event.date)
-        
+
     def test_adding_subscribe_page(self):
         subscribe_page = SubscribePage(
             title='Subscribe Page Test'
         )
         self.home_page.add_child(instance=subscribe_page)
-        self.assertEqual(subscribe_page.content_type, 
+        self.assertEqual(subscribe_page.content_type,
             self.home_page.get_children().filter(
             title='Subscribe Page Test')[0].content_type
         )
