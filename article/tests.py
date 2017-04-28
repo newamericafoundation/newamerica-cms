@@ -10,14 +10,14 @@ from programs.models import Program, Subprogram
 
 class ArticleTests(WagtailPageTests):
     """
-    Testing hierarchies between pages and whether it is possible 
-    to create an All Articles Homepage under the Homepage, 
-    a Program Articles Page under Program pages, Articles under 
-    Program Articles Pages. 
+    Testing hierarchies between pages and whether it is possible
+    to create an All Articles Homepage under the Homepage,
+    a Program Articles Page under Program pages, Articles under
+    Program Articles Pages.
 
-    Testing the many to many relationships between Programs and Articles. 
+    Testing the many to many relationships between Programs and Articles.
     """
-    
+
     def setUp(self):
         self.login()
         self.root_page = Page.objects.get(id=1)
@@ -35,11 +35,11 @@ class ArticleTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
             depth=3
             )
         )
@@ -107,7 +107,7 @@ class ArticleTests(WagtailPageTests):
         article = Article.objects.all()[0]
         relationship, created = PostProgramRelationship.objects.get_or_create(program=self.second_program, post=article)
         relationship.save()
-        self.assertEqual(article.parent_programs.all()[0].title, 'Education')
+        self.assertEqual(article.parent_programs.all()[1].title, 'Education')
 
 
     # Test you can delete an article attached to one Program
