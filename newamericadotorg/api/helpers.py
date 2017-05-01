@@ -1,18 +1,23 @@
-def get_content_types(parent_model):
-    root_pages = parent_model.clean_subpage_models()
+from home.models import Post
 
+def get_content_types():
+    subposts = Post.__subclasses__()
     content_types = []
 
-    for model in root_pages:
-        page = model.objects.first()
-        if page:
-            if getattr(page, 'related_content_type', None):
-                content = page.related_content_type._meta
-                content_types.append({
-                    'api_name': content.model_name,
-                    'name': content.verbose_name,
-                    'plural_name': content.verbose_name_plural,
-                    'slug': page.slug
-                })
+    for model in subposts:
+        content = model._meta
+        content_types.append({
+            'api_name': content.model_name,
+            'name': content.verbose_name
+        })
 
     return content_types
+
+def generate_image_url(image, filter_spec=None):
+    if not filter_spec:
+        return image.file.url
+
+    signature = generate_signature(image.id, filter_spec)
+    url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
+
+    return url

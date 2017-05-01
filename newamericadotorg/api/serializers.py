@@ -9,7 +9,7 @@ from person.models import Person
 from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.utils import generate_signature
 
-from helpers import get_content_types
+from helpers import get_content_types, generate_image_url
 
 class ProgramSubprogramSerializer(ModelSerializer):
     name = SerializerMethodField()
@@ -191,13 +191,3 @@ class HomeSerializer(ModelSerializer):
             if getattr(obj,f,None):
                 features.append(getattr(obj,f).id)
         return features
-
-
-def generate_image_url(image, filter_spec=None):
-    if not filter_spec:
-        return image.file.url
-
-    signature = generate_signature(image.id, filter_spec)
-    url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
-
-    return url
