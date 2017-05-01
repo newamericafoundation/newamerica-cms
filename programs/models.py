@@ -147,7 +147,7 @@ class AbstractProgram(Page):
         # versus the other lead stories, we needed to separate them out
         context['other_lead_stories'] = []
 
-        # Solution to account for null values for the stories 
+        # Solution to account for null values for the stories
         # so that the div in the template wouldn't attempt to add styling to nothing
         if self.lead_2:
             context['other_lead_stories'].append(self.lead_2)
@@ -168,16 +168,16 @@ class AbstractProgram(Page):
         return context
 
     def get_experts(self):
-        """ 
+        """
         Method for the Program and Subprogram models to be able to access
-        people from Person model who have been marked as experts  
+        people from Person model who have been marked as experts
         """
         return self.person_set.filter(expert=True).order_by('-title')
 
     def get_subprograms(self):
-        """ 
+        """
         Method that returns the subprograms that live underneath
-        a particular program 
+        a particular program
         """
         return self.get_children().type(Subprogram).live().in_menu()
 
@@ -187,8 +187,8 @@ class AbstractProgram(Page):
 
 class Program(AbstractProgram):
     """
-    Program model which creates the parent program pages 
-    that live under the homepage. 
+    Program model which creates the parent program pages
+    that live under the homepage.
     """
     parent_page_types = ['home.HomePage']
     subpage_types = [
@@ -248,7 +248,7 @@ class Program(AbstractProgram):
 
     def get_context(self, request):
         context = super(Program, self).get_context(request)
-        
+
         return context
 
     class Meta:
@@ -266,7 +266,7 @@ class ProgramSubprogramRelationship(models.Model):
 
 class Subprogram(AbstractProgram):
     """
-    Subprograms model which can be created under programs and 
+    Subprograms model which can be created under programs and
     also be connected to multiple programs. Can also create content homepages
     underneath subprograms in the same way they can be created under programs.
     """
@@ -316,8 +316,26 @@ class Subprogram(AbstractProgram):
 
         if isinstance(program, AbstractProgram):
             relationship, created=ProgramSubprogramRelationship.objects.get_or_create(
-                program=program, 
+                program=program,
                 subprogram=self
             )
             if created:
                 relationship.save()
+
+class ProgramContentHomePage(Page):
+    """
+    A page which inherits from the abstract Page model and
+    returns all Content associated with a specific program or Subprogram
+    """
+    parent_program = models.ForeignKey(Program, on_delete=models.SET_NULL, blank=True, null=True)
+    parent_subprogram = models.ForeignKey(Subprogram, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def save(self,*args,**kwargs):
+        super(ProgramContentHomePage, self).save(*args,**kwargs)
+        program = self.get_ancestors()[2]
+        if isinstance(program, Program):
+            self.parent_program = program
+        elif isinstance(program, Subprogram):
+            self.parent_subprogram = program
+
+        self.save()
