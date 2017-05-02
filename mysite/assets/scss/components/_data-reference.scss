@@ -1,7 +1,9 @@
 .data-reference {
+
+	padding: 20px 0px;
 	&__table, &__table tr, &__table td {
-		border: 2px solid palette-get(na-black-10);
-		border-collapse: collapse;
+		/*border: 2px solid palette-get(na-black-10);
+		border-collapse: collapse;*/
 	}
 
 	&__table {
@@ -12,18 +14,16 @@
 
 		td {
 			padding: 5px 10px;
-
-			
-		}
-
-		tr + tr.data-reference__table__footnote-row {
-			border-bottom: none !important;
 		}
 
 		tr:hover + tr.data-reference__table__footnote-row, tr.data-reference__table__footnote-row:hover {
 			.data-reference__table__footnote__inner-wrapper {
 				max-height: 100px;
 			}
+		}
+
+		&__row {
+
 		}
 
 		&__footnote {
@@ -37,18 +37,18 @@
 			}
 
 			&__inner-wrapper {
+				padding-left: 5px;
 				height: auto;
 				max-height: 0;
-				transition: max-height .5s linear;
+				transition: max-height .5s ease-in-out;
 				overflow: hidden ;
-				
-
 			}
 		}
 	}
 
 	&__value, &__label {
 		display: inline;
+		font-size: 14px;
 	}
 
 	&__label {

@@ -31,9 +31,9 @@ class DataReferenceBlock(blocks.StructBlock):
     		('string', 'Plain-text'),
     		('price', 'Price'),
 			('rank', 'Rank'),
-    	])),
+    	], default='string')),
     	('footnote_field', blocks.CharBlock(required=False))
-	]), help_text="Specify the field(s) where values to display will be found.  References of type 'in-text' and 'image' can only display one field, 'list' and 'fact-box' can display multiple fields.")
+	]), help_text="Specify the field where values to display will be found.")
 
 	class Meta:
 		template = './blocks/data_reference.html'

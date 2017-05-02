@@ -2,13 +2,15 @@
 	{% if self.fields_to_display|length > 1 %}
 		<table class="data-reference__table">
 			{% for field in self.fields_to_display %}
-				<tr>
-					<td class="data-reference__label">{{ field.label }}</td>
+				<tr class="data-reference__table__row">
+					<td class="data-reference__label">{{ field.label }}:</td>
 					<td class="data-reference__value" data-field-name="{{ field.field_name }}" data-field-format="{{ field.format }}"></td>
 				</tr>
 				{% if field.footnote_field %}
 				<tr class="data-reference__table__footnote-row">
-					<td colspan="2" class="data-reference__table__footnote" data-field-name="{{ field.footnote_field }}"><div class="data-reference__table__footnote__inner-wrapper">This is Dummy Text that will be removed later but could be quite long and even keep going onto the next line but will it expand the box too?</div></td>
+					<td colspan="2" class="data-reference__table__footnote">
+						<div class="data-reference__table__footnote__inner-wrapper" data-field-name="{{ field.footnote_field }}"></div>
+					</td>
 				</tr>
 				{% endif %}
 			{% endfor %}
