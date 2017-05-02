@@ -1,0 +1,47 @@
+{% load wagtailcore_tags %}
+<div class="container">
+  <span class="line-icon section-icon line-icon-seo-icons-34"></span>
+  {% if page.hotel_details %}
+    <h3>Venue & Hotel</h3>
+  {% else %}
+    <h3>Venue</h3>
+  {% endif %}
+</div>
+<div class="container">
+  {% if page.hotel_details %}
+    <div class="row">
+      <div class="columns small-12 medium-6">
+        <h3>Venue Information</h3>
+        {% include './location.html' %}
+        {% include_block page.venue_details %}
+        <div class="block-google-map">
+          <iframe class="block-google_map__iframe" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMSQPdSAK-SrB9YUIrt3P8pl3zUChwkoI&q={{ page.street }} {{ page.city }},{{ page.state }} {{ page.zipcode }}&zoom=14"></iframe>
+        </div>
+      </div>
+      <div class="columns small-12 medium-6">
+        <h3>Hotel Information</h3>
+        <p class="location-info">
+          <b>{{page.hotel_location_name}}</b>
+          <br/>
+          {{page.hotel_street}}
+          <br/>
+          {{page.hotel_city}}, {{page.hotel_state}} {{page.hotel_zipcode}}
+        </p>
+        {% include_block page.hotel_details %}
+        <div class="block-google-map">
+          <iframe class="block-google_map__iframe" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMSQPdSAK-SrB9YUIrt3P8pl3zUChwkoI&q={{ page.hotel_street }} {{ page.hotel_city }},{{ page.hotel_state }} {{ page.hotel_zipcode }}&zoom=14"></iframe>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="columns small-12">
+      {% include './location.html' %}
+      <span style="text-align:center;">
+      {% include_block page.venue_details %}
+      </span>
+      <div class="block-google-map">
+        <iframe class="block-google_map__iframe" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMSQPdSAK-SrB9YUIrt3P8pl3zUChwkoI&q={{ page.street }} {{ page.city }},{{ page.state }} {{ page.zipcode }}&zoom=14"></iframe>
+      </div>
+    </div>
+  {% endif %}
+</div>

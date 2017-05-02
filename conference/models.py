@@ -78,6 +78,7 @@ class Conference(Page):
     city = models.TextField(default='Washington', blank=True, null=True)
     state = models.TextField(default='D.C.', blank=True, null=True)
     zipcode = models.TextField(default='20005', blank=True, null=True)
+    venue_details = RichTextField(null=True, blank=True)
 
     about = MultiFieldPanel(
         [
@@ -116,11 +117,34 @@ class Conference(Page):
             FieldRowPanel([
                 FieldPanel('state', classname="col6"),
                 FieldPanel('zipcode', classname="col6")
-            ])
+            ]),
+            FieldPanel('venue_details'),
         ],
         heading="Conference Location"
     )
 
+    hotel_location_name = models.TextField(help_text='Name of building (e.g. the Kennedy Center)', blank=True, null=True)
+    hotel_street = models.TextField(default='740 15th St NW #900', blank=True, null=True)
+    hotel_city = models.TextField(default='Washington', blank=True, null=True)
+    hotel_state = models.TextField(default='D.C.', blank=True, null=True)
+    hotel_zipcode = models.TextField(default='20005', blank=True, null=True)
+    hotel_details = RichTextField(null=True, blank=True, help_text='must be filled for header and section to appear')
+
+    hotel_address = MultiFieldPanel(
+        [
+            FieldPanel('hotel_location_name'),
+            FieldPanel('hotel_street'),
+            FieldPanel('hotel_city'),
+            FieldRowPanel([
+                FieldPanel('hotel_state', classname="col6"),
+                FieldPanel('hotel_zipcode', classname="col6")
+            ]),
+            FieldPanel('hotel_details')
+        ],
+        heading="Hotel Location"
+    )
+
+    # to be deleted after transfer
     venue = StreamField(VenueBlock(), null=True, blank=True)
     directions = StreamField(DirectionsBlock(), null=True, blank=True)
     speakers = StreamField(PeopleBlock(), null=True, blank=True)
@@ -131,7 +155,7 @@ class Conference(Page):
         about,
         setup,
         address,
-        StreamFieldPanel('venue'),
+        hotel_address,
         StreamFieldPanel('directions'),
         StreamFieldPanel('speakers'),
         StreamFieldPanel('sessions'),

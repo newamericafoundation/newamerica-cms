@@ -1,9 +1,14 @@
 .timeline {
-	padding: 45px $desktop-padding $desktop-padding $desktop-padding;
+	padding: 45px 0px $desktop-padding 0px;
 	margin: $desktop-padding 0px;
 	border: 2px solid palette-get(na-black-10);
 	position: relative;
 	max-width: $max-site-width;
+	cursor: auto;
+
+	&.loading {
+		cursor: wait !important;
+	}
 
 	&__content {
 		$transition: height 100ms linear;
@@ -13,6 +18,8 @@
 	    -moz-transition: $transition;
 	    -o-transition: $transition;
 	    transition: $transition;
+
+	    margin: 0px $desktop-padding;
 
 	}
 
@@ -27,7 +34,7 @@
 		@include breakpoint(medium) {
 			width: calc(100% - #{2*$desktop-next-prev-width});
 
-			.show-all & {
+			.list-view & {
 				width: 100%;
 			}
 		}
@@ -43,7 +50,7 @@
 	    -o-transition: $transition;
 	    transition: $transition;
 
-	    .show-all & {
+	    .list-view & {
 			transform: translateX(0) !important;
 		}
 	}
@@ -56,6 +63,7 @@
 		text-align: center;
 		@include timeline-subtext;
 		font-size: 10px;
+		padding-bottom: 3px;
 
 		&__content:after {
 			content: "Use Arrow Keys to Explore";
@@ -64,7 +72,7 @@
 			}
 		}
 
-		.show-all & {
+		.list-view & {
 			display: none;
 		}
 	}

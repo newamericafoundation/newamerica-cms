@@ -71,6 +71,7 @@ function addChartButtonInteractivity() {
 }
 
 function handleDownloadClickEvent(chartArea) {
+	$(chartArea).css("background-color", "white");
 	domtoimage.toPng(chartArea)
 	    .then((dataUrl) => {
 	    	var id = $(chartArea).attr("id");
@@ -79,6 +80,7 @@ function handleDownloadClickEvent(chartArea) {
 		    link.href = dataUrl;
 		    link.click();
 		    link.remove();
+		    $(chartArea).css("background-color", "none");
 	    })
 	    .catch(function (error) {
 	        console.error('oops, something went wrong!', error);

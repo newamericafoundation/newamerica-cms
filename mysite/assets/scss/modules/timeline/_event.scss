@@ -2,7 +2,7 @@
 	float: left;
 	padding: 0px 10px;
 	
-	.show-all & {
+	.list-view & {
 		float: none;
 		padding-bottom: $desktop-padding;
 	}
@@ -21,6 +21,10 @@
 		color: palette-get(na-black);
 		font-weight: bold;
 		padding-bottom: 10px;
+
+		&.italicize {
+			font-style: italic;
+		}
 	}
 
 	&__description {
@@ -49,14 +53,14 @@
 		}
 	}
 
-	&__show-all-era-header {
+	&__list-view-era-header {
 		font-weight: bold;
 		font-size: 22px;
 		margin: 10px;
 		color: $sub-color;
 		display: none;
 
-		.show-all & {
+		.list-view & {
 			display: block;
 		}
 	}

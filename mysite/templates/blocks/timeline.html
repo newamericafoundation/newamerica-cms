@@ -21,16 +21,20 @@
 			{% endif %}
 		{% endif %}
 	</div>
+	{% if self.major_timeline_splits %}
+		<div class="timeline__split-button-container"></div>
+	{% endif %}
 	<div class="timeline__nav"></div>
+	<div class="timeline__category-legend-container"></div>
 	<div class="timeline__navigation-prompt">&larr;<span class="timeline__navigation-prompt__content"></span>&rarr;</div>
 	<div class="timeline__content">
 		<div class="timeline__visible-event-window">
 			<div class="timeline__full-event-container">
 				{% for event in sorted_event_list %}
-					<div class="timeline__event" id="event-{{ forloop.counter0 }}">
+					<div class="timeline__event {{ event.category|slugify }}" id="event-{{ forloop.counter0 }}">
 						<div class="timeline__event__text">
 							<div class="timeline__event__date">{% timeline_format_date event.start_date event.end_date event.date_display_type %}</div>
-							<div class="timeline__event__title">{{ event.title }}</div>
+							<div class="timeline__event__title {% if event.italicize_title %}italicize{% endif %}">{{ event.title }}</div>
 							{% if event.description %}
 								<div class="timeline__event__description post-body">
 									<div class="block-paragraph">{{ event.description }}</div>

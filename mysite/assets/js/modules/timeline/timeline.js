@@ -7,26 +7,55 @@ import { select, selectAll, event } from 'd3-selection';
 import { nest } from 'd3-collection';
 import { timeFormat } from 'd3-time-format';
 import { timeDay, timeMonth, timeYear } from 'd3-time';
+import { transition } from 'd3-transition';
 const Hammer = require('hammerjs');
 
 import { dimensions, margin, parseDate } from './constants';
-import { formatDateLine, setColor, isTouchDevice } from './utilities';
+import { formatDateLine, setColor, whichEraOrSplit, isTouchDevice } from './utilities';
+
+const subColor = "#b1b1b4";
 
 export class Timeline {
 	constructor(settingsObject, containerId) {
 		Object.assign(this, settingsObject);
-		this.currSelected = 0;
-		this.showingAll = false;
+		this.fullEventList = this.eventList;
+		this.currEventList = this.eventList;
+		this.listView = false;
+		this.currCategoryShown = "all";
+		this.currSplitShown = "all";
 
-		this.appendContainers(containerId);
+		// if specific event id in url hash, sets that event as default
+		let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
+		this.currSelected = hashString && !isNaN(hashString) && Number(hashString) < this.fullEventList.length ? Number(hashString) : 0;
+
+		this.cacheDOMSelections(containerId);
+		this.appendContainers();
+
+		if (this.splitList && this.splitList.length > 0) {
+			// if specific event id in url hash, finds correct split to show, then filters events accordingly and finds curr event index in new list
+			if (this.currSelected != 0) {
+				this.currSplitShown = whichEraOrSplit(this.fullEventList[this.currSelected], this.splitList);
+				this.filterEventList();
+				this.currSelected = this.findNewEventIndex(this.currSelected);
+				this.eventDivs
+					.style("display", (d, i) => { return this.shouldShowEvent(this.fullEventList[i]) ? "block" : "none"; })
+	
+			} else {
+				this.currSplitShown = this.splitList[0];
+			}
+			this.appendSplitButtons();
+		}
+
+		if (this.categoryList && this.categoryList.length > 0) { 
+			this.initializeColorScale();
+			this.appendCategoryLegend();
+		}
+
+		this.filterEventList();
 		this.appendAxes();
-		this.initializeScales();
-		this.categoryList ? this.appendCategoryLegend() : null;
+		this.initializeXYScales();
 		this.addListeners(containerId);
-
-		this.contentContainer.select("#event-0").classed("visible", true);
-		
-		this.render();
+		this.render(true);
 		this.setNextPrev();
 	}
 
@@ -34,10 +63,15 @@ export class Timeline {
 	// initialization functions - called on first load
 	//
 
-	appendContainers(containerId) {
+	cacheDOMSelections(containerId) {
 		this.navContainer = select("#" + containerId + " .timeline__nav");
+		this.categoryLegendContainer = select("#" + containerId + " .timeline__category-legend-container");
 		this.contentContainer = select("#" + containerId + " .timeline__content");
+		this.splitButtonContainer = select("#" + containerId + " .timeline__split-button-container");
+		this.eventDivs = selectAll("#" + containerId + " .timeline__event");
+	}
 
+	appendContainers() {
 		this.svg = this.navContainer
 			.append("svg")
 			.attr("class", "timeline__nav__container")
@@ -46,12 +80,12 @@ export class Timeline {
 		this.g = this.svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		this.eraList ? this.appendEraContainers() : null;
+		this.eraList && this.eraList.length > 0 ? this.appendEraContainers() : null;
 
 		let hoverInfoContainer = this.g.append("g")
 			.attr("width", "100%")
 			.attr("height", dimensions.rowHeight)
-			.attr("transform", this.eraList ? "translate(0," + dimensions.rowHeight + ")" : "none");
+			.attr("transform", this.eraList && this.eraList.length > 0 ? "translate(0," + dimensions.rowHeight + ")" : "translate(0)");
 
 		this.hoverInfo = hoverInfoContainer.append("text")
 			.attr("class", "timeline__nav__hover-info")
@@ -59,60 +93,20 @@ export class Timeline {
 
 		this.dotContainer = this.g.append("g")
 			.attr("width", "100%")
-			.attr("transform", this.eraList ? "translate(0," + dimensions.rowHeight/2 + ")" : "translate(0," + dimensions.rowHeight/2 + ")"); 
+			.attr("transform", this.eraList && this.eraList.length > 0 ? "translate(0," + dimensions.rowHeight/2 + ")" : "translate(0," + -dimensions.rowHeight/2 + ")"); 
 	}
 
-	appendAxes() {
-		this.dayMonthAxis = this.g.append("g")
-			.attr("class", "timeline__nav__axis axis axis-x day-month-axis");
+	appendSplitButtons() {
+		let buttonList = this.splitButtonContainer.append("ul")
+			.attr("class", "timeline__split-button-list");
 
-		this.yearAxis = this.g.append("g")
-			.attr("class", "timeline__nav__axis axis axis-x year-axis");
-	}
-
-	initializeScales() {
-		let minDate = min(this.eventList, (d) => { return parseDate(d.start_date); });
-		let maxDate = max(this.eventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
-
-		this.xScale = scaleLinear()
-			.domain([minDate, maxDate]);
-
-		this.yScale = scaleLinear();
-
-		if (this.categoryList) {
-			this.colorScale = scaleOrdinal()
-				.domain(this.categoryList)
-				.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
-		}
-	}
-
-	appendCategoryLegend() {
-		const strokeWidth = 1;
-		let categoryLegend = this.navContainer.append("ul")
-			.attr("class", "timeline__nav__category-legend");
-
-		let categoryLegendItems = categoryLegend.selectAll("li")
-			.data(this.categoryList)
+		this.splitButtons = buttonList.selectAll("li")
+			.data(this.splitList)
 			.enter().append("li")
-			.attr("class", "timeline__nav__category-legend__item");
-
-		categoryLegendItems
-		   .append("svg")
-			.attr("class", "timeline__nav__category-legend__color-swatch-container")
-			.attr("height", 2*(dimensions.dotRadius + strokeWidth))
-			.attr("width", 2*(dimensions.dotRadius + strokeWidth))
-		   .append("circle")
-			.attr("class", "timeline__nav__category-legend__color-swatch")
-			.attr("cx", dimensions.dotRadius + strokeWidth)
-			.attr("cy", dimensions.dotRadius + strokeWidth)
-			.attr("r", dimensions.dotRadius)
-			.attr("stroke", (d) => { return setColor({"category": d}, this.colorScale); })
-			.attr("fill", "white");
-
-		categoryLegendItems
-		   .append("h5")
-			.attr("class", "timeline__nav__category-legend__text")
-			.text((d) => { return d; });
+			.attr("class", "timeline__split-button")
+			.classed("active", (d, i) => { return d == this.currSplitShown; })
+			.on("click", (d, index, paths) => { this.changeSplitShown(d, index, paths); this.eventListChangedReRender();})
+			.text((d) => { return d.title; });	
 	}
 
 	appendEraContainers() {
@@ -133,6 +127,75 @@ export class Timeline {
 		this.addShowAllEraHeaders();
 	}
 
+	addShowAllEraHeaders() {
+		let eventDivs = this.contentContainer.selectAll(".timeline__event")._groups[0];
+
+		for (let era of this.eraList) {
+			for (let i = 0; i < this.fullEventList.length; i++) {
+				if (parseDate(this.fullEventList[i].start_date) >= parseDate(era.start_date)) {
+					$("<h5 class='timeline__event__list-view-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
+						.insertBefore(eventDivs[i]);
+					break;
+				}
+			}
+		}
+	}
+
+	appendCategoryLegend() {
+		const strokeWidth = 1;
+		let categoryLegend = this.categoryLegendContainer.append("ul")
+			.attr("class", "timeline__category-legend");
+
+		this.categoryLegendItems = categoryLegend.selectAll("li")
+			.data(this.categoryList)
+			.enter().append("li")
+			.attr("class", "timeline__category-legend__item active")
+			.on("click", (category, index, paths) => { return this.changeCategoryFilter(category, index, paths);  });
+
+		this.categoryLegendCircles = this.categoryLegendItems
+		   .append("svg")
+			.attr("class", "timeline__category-legend__color-swatch-container")
+			.attr("height", 2*(dimensions.dotRadius + strokeWidth))
+			.attr("width", 2*(dimensions.dotRadius + strokeWidth))
+		   .append("circle")
+			.attr("class", "timeline__category-legend__color-swatch")
+			.attr("cx", dimensions.dotRadius + strokeWidth)
+			.attr("cy", dimensions.dotRadius + strokeWidth)
+			.attr("r", dimensions.dotRadius)
+			.attr("stroke", (d) => { return setColor({"category": d}, this.colorScale); })
+			.attr("fill", "white");
+
+		this.categoryLegendText = this.categoryLegendItems
+		   .append("h5")
+			.attr("class", "timeline__category-legend__text")
+			.style("color", (d) => { return setColor({"category": d}, this.colorScale); })
+			.text((d) => { return d; });
+	}
+
+	appendAxes() {
+		this.dayMonthAxis = this.g.append("g")
+			.attr("class", "timeline__nav__axis axis axis-x day-month-axis");
+
+		this.yearAxis = this.g.append("g")
+			.attr("class", "timeline__nav__axis axis axis-x year-axis");
+	}
+
+	initializeXYScales() {
+		let minDate = min(this.currEventList, (d) => { return parseDate(d.start_date); });
+		let maxDate = max(this.currEventList, (d) => { return d.end_date ? parseDate(d.end_date) : parseDate(d.start_date) });
+
+		this.xScale = scaleLinear()
+			.domain([minDate, maxDate]);
+
+		this.yScale = scaleLinear();
+	}
+
+	initializeColorScale() {
+		this.colorScale = scaleOrdinal()
+			.domain(this.categoryList)
+			.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
+	}
+	
 	addListeners(containerId) {
 		// adds arrow key listeners only when user is hovered over nav or content containers
 		select("#" + containerId)
@@ -140,12 +203,15 @@ export class Timeline {
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
 			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
 
-		let swipeHandler = new Hammer($("#" + containerId)[0])
-			.on("swipeleft", (ev) => {
-				this.setNewSelected(this.currSelected + 1, false);
-			}).on("swiperight", (ev) => {
-				this.setNewSelected(this.currSelected - 1, false);
-			});
+		if (select("#" + containerId).classed("touch")) {
+			console.log("this is a touch screen!");
+			let swipeHandler = new Hammer($("#" + containerId)[0])
+				.on("swipeleft", (ev) => {
+					this.setNewSelected(this.currSelected + 1, false);
+				}).on("swiperight", (ev) => {
+					this.setNewSelected(this.currSelected - 1, false);
+				});
+		}
 
 		window.addEventListener('resize', this.resize.bind(this));
 
@@ -158,43 +224,31 @@ export class Timeline {
 
 		select("#" + containerId + " .timeline__see-all-button")
 			.on("click", () => {
-				if (this.showingAll) {
-					select("#" + containerId).classed("show-all", false);
-					this.showingAll = !this.showingAll;
+				if (this.listView) {
+					select("#" + containerId).classed("loading", true).classed("list-view", false);
+					this.listView = !this.listView;
 					this.resize();
+					select("#" + containerId).classed("loading", false);
 				} else {
-					select("#" + containerId).classed("show-all", true);
-					this.showingAll = !this.showingAll;
+					select("#" + containerId).classed("loading", true).classed("list-view", true);
+					this.listView = !this.listView;
 					this.resize();
+					select("#" + containerId).classed("loading", false);
 				}
 			});
-	}
-
-	addShowAllEraHeaders() {
-		let eventDivs = this.contentContainer.selectAll(".timeline__event")._groups[0];
-
-		for (let era of this.eraList) {
-			for (let i = 0; i < this.eventList.length; i++) {
-				if (parseDate(this.eventList[i].start_date) >= parseDate(era.start_date)) {
-					$("<h5 class='timeline__event__show-all-era-header'>" + era.title + " (" + formatDateLine(era, true) + ")</h5>")
-						.insertBefore(eventDivs[i]);
-					break;
-				}
-			}
-		}
 	}
 
 	//
 	// rendering functions - called on initialization and resize
 	//
 
-	render() {
+	render(shouldTransition) {
 		this.setWidth();
 		this.setDotRows();
 		this.setHeight();
 		this.setCircles();
-		this.eraList ? this.setEraContainerXCoords() : null;
-		this.setXAxis();
+		this.eraList && this.eraList.length > 0 ? this.setEraContainerXCoords() : null;
+		this.setXAxis(shouldTransition);
 	}
 
 	setWidth() {
@@ -218,7 +272,7 @@ export class Timeline {
 		this.rows = [];
 		this.rows[0] = [];
 
-		this.eventList.map((d) => {
+		this.currEventList.map((d) => {
 			startXPos = this.xScale(parseDate(d.start_date));
 			endXPos = d.end_date ? this.xScale(parseDate(d.end_date)) : startXPos;
 
@@ -265,17 +319,24 @@ export class Timeline {
 		let dotContainerHeight = this.numDotRows * dimensions.rowHeight,
 			gHeight = dotContainerHeight + dimensions.rowHeight/2;
 
-		gHeight += this.eraList ? dimensions.rowHeight : 0;
+		console.log(gHeight);
+		gHeight += this.eraList && this.eraList.length > 0 ? dimensions.rowHeight : 0;
+		console.log(gHeight);
 
 		this.dotContainer.attr("height", dotContainerHeight);
 
-		this.g.attr("height", gHeight);
-		this.svg.attr("height", gHeight + margin.top + margin.bottom);
+		this.svg
+			.transition().duration(1150)
+			.attr("height", gHeight + margin.top + margin.bottom);
+
+		this.g
+			.transition().duration(1150)
+			.attr("height", gHeight);
 
 		this.dayMonthAxis.attr("transform", "translate(0," + gHeight + ")");
 		this.yearAxis.attr("transform", "translate(0," + gHeight + ")");
 
-		if (this.eraList) {
+		if (this.eraList && this.eraList.length > 0) {
 			this.eraContainers.attr("height", gHeight)
 				
 			this.eraDividers.attr("height", gHeight)
@@ -285,7 +346,7 @@ export class Timeline {
 
 	setCircles() {
 		this.circles = this.dotContainer.selectAll("rect")
-			.data(this.eventList)
+			.data(this.currEventList)
 			.enter().append("rect")
 		    .attr("x", (d) => { return d.startXPos - dimensions.dotRadius; })
 		    .attr("y", (d) => { return this.yScale(d.yIndex) - dimensions.dotOffset; })
@@ -296,21 +357,66 @@ export class Timeline {
 		    .attr("stroke", (d) => { return setColor(d, this.colorScale); })
 		    .attr("fill", (d) => { return setColor(d, this.colorScale); })
 		    .attr("class", "timeline__nav__dot")
-		    .classed("selected", (d) => { return d.id == this.currSelected })
+		    .classed("selected", (d, i) => { return i == this.currSelected })
 		    .on("mouseover", (d, index, paths) => { return this.mouseover(d, paths[index]); })
 		    .on("mouseout", (d, index, paths) => { return this.mouseout(paths[index]); })
-		    .on("click", (d, index, paths) => { return this.clicked(d, paths[index]); });
+		    .on("click", (d, index) => { return this.clicked(index); });
 	}
 
 	setEraContainerXCoords() {
 		this.eraContainers
-			.attr("transform", (d) => { return "translate(" + this.xScale(parseDate(d.start_date)) + ")"; })
-			.attr("width", (d) => { return d.end_date ? this.xScale(parseDate(d.end_date)) - this.xScale(parseDate(d.start_date)) : this.xScale.range()[1] - this.xScale(parseDate(d.start_date)); });
+			.attr("transform", (d) => { 
+				return "translate(" + this.setEraStart(d) + ")";
+			})
+			.attr("width", (d) => {
+				return this.setEraWidth(d);
+			});
 
 		this.setEraText();
 	}
 
-	setXAxis() {
+	setEraStart(d) {
+		let start = this.xScale(parseDate(d.start_date));
+		if (start < 0) { start = 0; }
+		return start; 
+	}
+
+	setEraWidth(d) {
+		let start = this.xScale(parseDate(d.start_date));
+		let end = d.end_date ? this.xScale(parseDate(d.end_date)) : this.xScale.range()[1];
+
+		if (start < 0) { start = 0; }
+		if (end > this.xScale.range()[1]) { end = this.xScale.range()[1]; }
+
+		return end - start;
+	}
+
+	setEraText() {
+		let currSelectedEvent = this.currEventList[this.currSelected];
+		let currEra = whichEraOrSplit(currSelectedEvent, this.eraList);
+
+		// if current event is within an era, show era text
+		if (currEra) {
+			this.eraText
+				.classed("visible", true)
+				.text(currEra.title + " (" + formatDateLine(currEra, true) + ")");
+			
+			// handles case where eratext goes off edge of viewport
+			let textWidth = this.eraText._groups[0][0].getBBox().width;
+			let xCoord = this.setEraStart(currEra) + this.setEraWidth(currEra)/2;
+
+			if ((Number(xCoord) + textWidth/2) > this.w) {
+				xCoord = this.w - textWidth/2 + 5;
+			} else if ((Number(xCoord) - textWidth/2) < 0) {
+				xCoord = textWidth/2;
+			}
+			this.eraText.attr("x", xCoord);
+		} else {
+			this.eraText.classed("visible", false);
+		}
+	}
+
+	setXAxis(shouldTransition) {
 		const [minTime, maxTime] = this.xScale.domain();
 		let baseTopTransform = this.numRows;
 
@@ -319,11 +425,8 @@ export class Timeline {
 			numMonths = timeMonth.count(minTime, maxTime),
 			numYears = timeYear.count(minTime, maxTime);
 
-		let dayMonth = {
-			tickSizeInner: 5,
-			tickPadding: 5
-		};
-		
+		// defaults for daymonth and year axes
+		let dayMonth = { tickSizeInner: 5,  tickPadding: 5};
 		let year = {
 			tickValues: [minTime].concat(timeYear.range(minTime, maxTime)),
 			tickFormat: timeFormat("%Y"),
@@ -331,6 +434,7 @@ export class Timeline {
 			tickPadding: 25
 		};
 
+		// sets ticks and display of daymonth and year axes based on number of days per tick
 		if (numDays/numTicks < 15) {
 			dayMonth.tickValues = timeDay.range(minTime, maxTime, numDays/numTicks > 1 ? numDays/numTicks : 1 )
 			dayMonth.tickFormat = timeFormat("%B %d")
@@ -344,11 +448,12 @@ export class Timeline {
 			year.tickValues = timeYear.range(minTime, maxTime, numYears/numTicks > 1 ? numYears/numTicks : 1 );
 		}
 
-		this.renderAxis("day_month", dayMonth);
-		this.renderAxis("year", year);
+		// renders both axes
+		this.renderAxis("day_month", dayMonth, shouldTransition);
+		this.renderAxis("year", year, shouldTransition);
 	}
 
-	renderAxis(whichAxis, settings) {
+	renderAxis(whichAxis, settings, shouldTransition) {
 		let {tickValues, tickFormat, tickSizeInner, tickPadding, hidden, ticks} = settings;
 		let axis = whichAxis == "year" ? this.yearAxis : this.dayMonthAxis;
 
@@ -359,48 +464,14 @@ export class Timeline {
 			.tickFormat(tickFormat)
 			.tickValues(tickValues);
 
-		axis.style("display", hidden ? "none" : "block")
-			.call(axisFunc);
-	}
-
-	setEraText() {
-		let currSelectedEvent = this.eventList[this.currSelected];
-		let currEra = this.whichEra(currSelectedEvent);
-
-		if (currEra) {
-			this.eraText
-				.classed("visible", true)
-				.text(currEra.title + " (" + formatDateLine(currEra, true) + ")");
-			
-			// handles case where eratext goes off right edge of viewport
-			let textWidth = this.eraText._groups[0][0].getBBox().width;
-			let xCoord = currEra.end_date ? this.xScale(parseDate(currEra.start_date)) + (this.xScale(parseDate(currEra.end_date)) - this.xScale(parseDate(currEra.start_date)))/2 : this.xScale(parseDate(currEra.start_date)) + (this.xScale.range()[1] - this.xScale(parseDate(currEra.start_date)))/2;
-			if ((Number(xCoord) + textWidth/2) > this.w) {
-				console.log("greater than!");
-				xCoord = this.w - textWidth/2 + margin.left;
-			}
-			this.eraText.attr("x", xCoord);
+		if (shouldTransition) {
+			axis.style("display", hidden ? "none" : "block")
+	            .transition().duration(1150)
+				.call(axisFunc);
 		} else {
-			this.eraText.classed("visible", false);
+			axis.style("display", hidden ? "none" : "block")
+				.call(axisFunc);
 		}
-	}
-
-	whichEra(eventObject) {
-		let retEra;
-		for (let era of this.eraList) {
-			if (parseDate(eventObject.start_date) >= parseDate(era.start_date)) {
-				if (era.end_date) {
-					if (parseDate(eventObject.start_date) <= parseDate(era.end_date)) {
-						retEra = era;
-						break;
-					}
-				} else {
-					retEra = era;
-					break;
-				}
-			}
-		}
-		return retEra;
 	}
 
 	//
@@ -409,18 +480,20 @@ export class Timeline {
 
 	// wrapAround indicators whether should wrap to first event when at end of list, vice-versa.
 	//		only arrow key events allow wraparound
-	setNewSelected(id, wrapAround) {
-		if (id < 0) {
-			id = wrapAround ? this.eventList.length-1 : 0;
-		} else if (id > this.eventList.length-1) {
-			id = wrapAround ? 0 : this.eventList.length-1;
+	setNewSelected(newIndex, wrapAround) {
+		if (newIndex < 0) {
+			newIndex = wrapAround ? this.currEventList.length-1 : 0;
+		} else if (newIndex > this.currEventList.length-1) {
+			newIndex = wrapAround ? 0 : this.currEventList.length-1;
 		}
 
-		this.currSelected = id;
-		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (id*this.eventContentVisibleWidth.replace("px", "")) + "px)");
-		this.circles.classed("selected", (d) => { return d.id == this.currSelected });
-		this.eraList ? this.setEraText() : null;
+		this.currSelected = newIndex;
+		// transforms event container to show current event within viewport
+		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (newIndex*this.eventContentVisibleWidth.replace("px", "")) + "px)");
+		this.circles.classed("selected", (d, i) => { console.log(i); console.log(d); return i == this.currSelected });
+		this.eraList && this.eraList.length > 0 ? this.setEraText() : null;
 		this.setNextPrev();
+		window.location.hash = "?" + this.currEventList[newIndex].id;
 	}
 
 	setNextPrev() {
@@ -429,32 +502,33 @@ export class Timeline {
 			this.setNext();
 			return;
 		} 
-
-		if (this.currSelected == this.eventList.length-1) {
+		if (this.currSelected == this.currEventList.length-1) {
 			this.nextContainer.classed("hidden", true);
 			this.setPrev();
 			return;
 		} 
-
 		this.setNext();
 		this.setPrev();
 	}
 
 	setNext() {
-		if (this.eventList.length <= 1) {
-			return;
-		}
-		const nextEvent = this.eventList[this.currSelected + 1];
+		if (this.currEventList.length <= 1) { return; }
+
+		const nextEvent = this.currEventList[this.currSelected + 1];
 		this.nextContainer.classed("hidden", false);
 		this.nextContainer.select(".timeline__next-prev__date").text(formatDateLine(nextEvent));
-		this.nextContainer.select(".timeline__next-prev__title").text(nextEvent.title);
+		this.nextContainer.select(".timeline__next-prev__title")
+			.classed("italicize", nextEvent.italicize_title)
+			.text(nextEvent.title);
 	}
 
 	setPrev() {
-		const prevEvent = this.eventList[this.currSelected - 1];
+		const prevEvent = this.currEventList[this.currSelected - 1];
 		this.prevContainer.classed("hidden", false);
 		this.prevContainer.select(".timeline__next-prev__date").text(formatDateLine(prevEvent));
-		this.prevContainer.select(".timeline__next-prev__title").text(prevEvent.title);
+		this.prevContainer.select(".timeline__next-prev__title")
+			.classed("italicize", prevEvent.italicize_title)
+			.text(prevEvent.title);
 	}
 
 	//
@@ -463,7 +537,7 @@ export class Timeline {
 
 	resize() {
 		this.g.selectAll("rect").remove();
-		this.render();
+		this.render(false);
 	}
 
 	mouseover(datum, path) {
@@ -473,36 +547,113 @@ export class Timeline {
 
 		this.hoverInfo
 			.classed("hidden", false)
+			.classed("italicize", datum.italicize_title)
 			.attr("fill", setColor(datum, this.colorScale))
 			.text(datum.title);
 
 		let textWidth = this.hoverInfo._groups[0][0].getBBox().width;
 
+		// ensures hover text doesn't overflow off right edge of screen
 		if (Number(elemX) + textWidth > this.w) {
-			elemX = this.w - textWidth + margin.left;
+			elemX = this.w - textWidth + 5;
 		} 
 			
 		this.hoverInfo.attr("transform", "translate(" + elemX + ")")
-		
 	}
 
 	mouseout(path) {
 		select(path).classed("hovered", false);
-
 		this.hoverInfo.classed("hidden", true);
 	}
 
-	clicked(datum, path) {
-		const { id } = datum;
-		this.setNewSelected(id, false);
+	clicked(index) {
+		this.setNewSelected(index, false);
 	}
 
+	// handles arrow key interaction
 	keyPressed(eventInfo) {
 		if (eventInfo.keyCode == 37) {
 			this.setNewSelected(this.currSelected - 1, true);
 		} else if (eventInfo.keyCode == 39) {
 			this.setNewSelected(this.currSelected + 1, true);
 		}
+	}
+
+	changeCategoryFilter(newCategory, pathIndex, paths) {
+		let elem = select(paths[pathIndex]);
+
+		if (this.currCategoryShown == newCategory) {
+			this.currCategoryShown = "all";
+			this.categoryLegendItems.classed("active", true);
+			this.categoryLegendCircles.attr("r", dimensions.dotRadius);
+			this.categoryLegendText
+				.style("color", (d) => { return setColor({"category": d}, this.colorScale); } )
+		} else {
+			this.currCategoryShown = newCategory;
+			this.categoryLegendItems.classed("active", false);
+			elem.classed("active", true);
+			this.categoryLegendCircles
+				.attr("r", (d) => { return d == newCategory ? dimensions.dotRadius : 0 })
+			this.categoryLegendText
+				.style("color", (d) => { return d == newCategory ? setColor({"category": d}, this.colorScale) : subColor } )
+		}
+
+		this.filterEventList();
+		this.eventListChangedReRender();
+	}
+
+	changeSplitShown(newSplit, pathIndex, paths) {
+		let elem = select(paths[pathIndex]);
+
+		this.splitButtons.classed("active", false);
+		elem.classed("active", true);
+
+		this.currSplitShown = newSplit;
+		this.filterEventList();
+	}
+
+	filterEventList() {
+		this.currEventList = this.fullEventList.filter((d) => { 
+			return this.shouldShowEvent(d);
+		})
+	}
+
+	eventListChangedReRender() {
+		this.g.selectAll("rect").remove();
+		this.currSelected = 0;
+		this.initializeXYScales();
+		this.render(true);
+		this.setNewSelected(0, false);
+
+		this.eventDivs
+			.style("display", (d, i) => { return this.shouldShowEvent(this.fullEventList[i]) ? "block" : "none"; })
+	}
+
+	shouldShowEvent(eventObject) {
+		if (this.currCategoryShown == "all" || eventObject.category == this.currCategoryShown) {
+			if (this.currSplitShown == "all") {
+				return true;
+			} else {
+				if (this.currSplitShown.end_date && eventObject.start_date > this.currSplitShown.end_date) {
+					return false;
+				}
+				if (eventObject.start_date >= this.currSplitShown.start_date) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	findNewEventIndex(currIndex) {
+		let newIndex = 0;
+		for (let eventObject of this.currEventList) {
+			if (eventObject.id == currIndex) {
+				return newIndex;
+			}
+			newIndex++;
+		}
+		return currIndex;
 	}
 }
 
