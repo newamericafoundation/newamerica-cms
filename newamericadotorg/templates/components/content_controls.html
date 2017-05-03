@@ -1,0 +1,19 @@
+<form class="content-grid__controls__filter-group" action="{{ pageurl }}" method="get">
+  {% if subprograms %}
+    <div class="content-grid__controls__filter">
+      <select class="content-grid__controls__subprogram-filter" name="subprogram_id">
+        <option value="">All Initiatives</option>
+        {% for subprogram in subprograms %}
+        <option value="{{subprogram.id}}">{{subprogram.title}}</option>
+        {% endfor %}
+          </select>
+      </div>
+  {% endif %}
+    <div class="content-grid__controls__filter">
+    <input id="content-grid__controls__date-filter" class="date-picker" name="date">
+    </div>
+    <div class="content-grid__controls__buttons">
+      <button id="content-grid__controls__submit" class="button" type="submit" value="Search" disabled>Update Search</button>
+      <a href="{{ self.url }}">Reset</a>
+  </div>
+</form>

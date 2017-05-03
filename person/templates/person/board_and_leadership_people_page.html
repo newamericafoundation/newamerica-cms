@@ -43,7 +43,7 @@
 		<div class="pagination">
 			{% if people.has_previous %}
 				<a class="pagination__arrow" href="?page={{ people.previous_page_number }}">
-					{% include 'ui_elements/svg/arrow-left.html' %}
+					{% include 'components/svg/arrow-left.html' %}
 				</a>
 			{% endif %}
 
@@ -57,7 +57,7 @@
 
 			{% if people.has_next %}
 		    	<a class="pagination__arrow" href="?page={{ people.next_page_number }}">
-		    		{% include 'ui_elements/svg/arrow-right.html' %}
+		    		{% include 'components/svg/arrow-right.html' %}
 				</a>
 			{% endif %}
 		</div>

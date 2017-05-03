@@ -1,0 +1,22 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<a href="{{ author.author.url }}">
+  <div class="post-person {{ author.author.profile_image|yesno:"with-image," }}">
+    {% if author.author.profile_image %}
+    <div class="post-person__left">
+      <div class='person__icon'>
+        {% image author.author.profile_image min-100x100 as author_image %}
+        <div class='person__icon__photo' style='background: no-repeat center/100% url({{ author_image.url }})'>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="post-person__text">
+      {% if author.author.short_bio %}
+        {{ author.author.short_bio | richtext }}
+      {% else %}
+        <h5 class="post-person__text__author-name">{{ author.author.first_name }} {{ author.author.last_name }}</h5>
+      {% endif %}
+    </div>
+  </div>
+</a>

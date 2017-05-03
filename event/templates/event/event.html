@@ -7,77 +7,30 @@
 {% block body_class %}template-event{% endblock %}
 
 {% block content %}
-	{% image page.story_image min-1100x300 as story_image %}
 
-	<div class="post-header-container">
-		{% if story_image %}
-
-			<div class="post-header with-image" style="background-image: linear-gradient(
-			      rgba(0, 0, 0, 0),
-			      rgba(0, 0, 0, 0.15)
-			    ), 
-		    	url({{ story_image.url }})">
-
-				<div class="post-header__text">
-			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-			    	{% if page.subheading %}
-			    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-			    	{% endif %}
-			    	{% if page.rsvp_link %}
-			    		{% if page|is_future %}
-			    			<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
-			    		{% endif %}
-			    	{% endif %}
-				</div>
-			</div>
-			{% if story_image.image.source %}
-				<div class="caption">Photo: {{ story_image.image.source}}</div>
-			{% endif %}
-
-		{% else %}
-
-			<div class="post-header">
-				<div class="post-header__text">
-			    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-			    	{% if page.subheading %}
-			    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-			    	{% endif %}
-			    	{% if page.rsvp_link %}
-			    		{% if page|is_future %}
-			    			<a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
-			    		{% endif %}
-			    	{% endif %}
-				</div>
-			</div>
-
-		{% endif %}
+<div class="post-container">
+	<div class="event row">
+		<div class="event__left">
+			<h3 class="event__heading">When</h3>
+			{% generate_dateline page %}
+		</div>
+		<div class="event__right">
+			<h3 class="event__heading">Where</h3>
+			<p>{{ page.host_organization }}</p>
+			<p>{{ page.street_address }}</p>
+			<p>{{ page.city }}, {{ page.state }} {{ page.zipcode }}</p>
+		</div>
 	</div>
 
-	<div class="post-container">
+  {% include 'components/post_body.html' %}
 
-		<div class="event row">
-			<div class="event__left">
-				<h3 class="event__heading">When</h3>
-				{% generate_dateline page %}
-			</div>
-			<div class="event__right">
-				<h3 class="event__heading">Where</h3>
-				<p>{{ page.host_organization }}</p>
-				<p>{{ page.street_address }}</p>
-				<p>{{ page.city }}, {{ page.state }} {{ page.zipcode }}</p>
-			</div>
+	{% if page.soundcloud_url %}
+		<div class="event__soundcloud_embed">
+			<a href='{{ page.soundcloud_url }}'>Listen to this Event</a>
 		</div>
-	     <div class="post-body with-dropcap">
-		    {% for block in self.body %}
-		    	{% include 'ui_elements/post_body_block.html' %}
-		    {% endfor %}
+	{% endif %}
 
-		    {% if page.soundcloud_url %}
-		    	<a href='{{ page.soundcloud_url }}'>Listen to this Event</a>
-		    {% endif %}
-		</div>
-
-		{% include 'ui_elements/social_share.html' %}
-	</div>
+	{% include 'components/social_share.html' %}
+</div>
 
 {% endblock %}

@@ -7,7 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.blocks import PageChooserBlock
 
-from mysite.helpers import paginate_results
+from newamericadotorg.helpers import paginate_results
 
 
 class Weekly(Page):

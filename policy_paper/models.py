@@ -9,7 +9,7 @@ from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class PolicyPaper(Post):

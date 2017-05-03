@@ -1,0 +1,17 @@
+{% load wagtailcore_tags %}
+
+{% if page.source %}
+  <h5 class="post-source">Media Outlet: {{ page.source }} </h5>
+{% endif %}
+
+<div class="post-body with-dropcap">
+ {% for block in self.body %}
+   <div class="block-{{ block.block_type }}">
+       {% include_block block %}
+   </div>
+ {% endfor %}
+</div>
+
+{% if page.attachment %}
+  {% include 'components/post_attachments.html' %}
+{% endif %}

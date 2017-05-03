@@ -5,7 +5,7 @@ from home.models import Post
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class Quoted(Post):
