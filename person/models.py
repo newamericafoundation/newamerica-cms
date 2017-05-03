@@ -15,6 +15,8 @@ from programs.models import Program, Subprogram
 
 from mysite.helpers import paginate_results
 
+from django.db.models import Q
+
 
 # Through relationship that connects the Person model
 # to the Program model so that a Person may belong
@@ -112,6 +114,7 @@ class Person(Page):
     ])
 
     ROLE_OPTIONS = (
+        ('Board Chair', 'Board Chair'),
         ('Board Member', 'Board Member'),
         ('Fellow', 'Fellow'),
         ('Central Staff', 'Central Staff'),
@@ -386,8 +389,11 @@ class BoardAndLeadershipPeoplePage(Page):
 
         if which_role == 'Leadership Team':
             all_people = all_people.filter(leadership=True)
+        elif which_role == 'Board Member':
+            all_people = all_people.filter(Q(role=which_role) | Q(role='Board Chair')).order_by('role', 'last_name')
         else:
             all_people = all_people.filter(role=which_role)
+
 
         context['people'] = paginate_results(request, all_people)
 
