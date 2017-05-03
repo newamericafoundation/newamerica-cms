@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% block extra_js %}
+	{% if project_root.specific.data_project_external_script %}
+		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ project_root.specific.data_project_external_script }}"></script>
+	{% endif %}
+{% endblock %}
+
+{% block body_class %}template-indepthsection{% endblock %}
+{% block sidemenu_status %}no_sidemenu{% endblock %}
+
+{% block content %}
+	<div class="in-depth__header">
+		<div class="in-depth__panel__max-width-wrapper">
+			<div class="in-depth__header__left">
+				{% if project_root.specific.project_logo %}
+					{% image project_root.specific.project_logo min-200x100 as logo %}
+					<div class="in-depth__title-block__logo">
+						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">				      
+						    <img class="sidemenu__logo" src="{{ logo.url }}">
+	  					</a>
+					</div>
+					<div class="in-depth__title-block__text has-logo">
+				{% else %}
+					<div class="in-depth__title-block__text">
+				{% endif %}
+						<h5 class="in-depth__navigation-subheading">In Depth</h5>
+						<h3 class="in-depth__navigation-heading"><a href="{{ project_root.url }}">{{ project_root }}</a></h3>
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="in-depth__profile">
+		<div class="in-depth__profile__title-block-container">
+			<div class="in-depth__profile__title-block">
+				{% if page.image_field %}
+					<div class="in-depth__profile__title-block__image" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}" data-image-field="{{ page.image_field }}"></div>
+				{% endif %}
+				<h5 class="in-depth__profile__title-block__subheading">{{ page.title }}</h5>
+			   	<h1 class="in-depth__profile__title-block__title">{{ query_string }}</h1>
+			</div>
+			<div class="in-depth__profile__other-value-selector-container">
+				<select class="in-depth__profile__other-value-selector" onchange="document.location = '?' + this.value;">
+	                <option value="" disabled selected>Select Another {{ page.title }}</option>
+	            </select>
+			</div>
+		</div>
+		<div class="in-depth__profile__body post-body" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}">
+			{% for block in page.body %}
+		    	{% include 'ui_elements/post_body_block.html' %}
+		    {% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

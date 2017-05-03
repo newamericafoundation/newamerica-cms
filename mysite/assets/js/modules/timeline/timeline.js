@@ -493,7 +493,7 @@ export class Timeline {
 		this.circles.classed("selected", (d, i) => { console.log(i); console.log(d); return i == this.currSelected });
 		this.eraList && this.eraList.length > 0 ? this.setEraText() : null;
 		this.setNextPrev();
-		window.location.hash = "?" + this.currEventList[newIndex].id;
+		window.location.hash = this.currEventList[newIndex].id;
 	}
 
 	setNextPrev() {
