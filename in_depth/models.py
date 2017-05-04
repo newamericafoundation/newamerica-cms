@@ -11,8 +11,7 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
 from newamericadotorg.blocks import ButtonBlock, IframeBlock, DatavizBlock
-from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody
-
+from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
