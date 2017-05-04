@@ -322,20 +322,9 @@ class Subprogram(AbstractProgram):
             if created:
                 relationship.save()
 
-class ProgramContentHomePage(Page):
+class AbstractContentPage(Page):
     """
-    A page which inherits from the abstract Page model and
-    returns all Content associated with a specific program or Subprogram
+    Convenience Class for querying all Content homepages
     """
-    parent_program = models.ForeignKey(Program, on_delete=models.SET_NULL, blank=True, null=True)
-    parent_subprogram = models.ForeignKey(Subprogram, on_delete=models.SET_NULL, blank=True, null=True)
-
-    def save(self,*args,**kwargs):
-        super(ProgramContentHomePage, self).save(*args,**kwargs)
-        program = self.get_ancestors()[2]
-        if isinstance(program, Program):
-            self.parent_program = program
-        elif isinstance(program, Subprogram):
-            self.parent_subprogram = program
-
-        self.save()
+    class Meta:
+        abstract=True

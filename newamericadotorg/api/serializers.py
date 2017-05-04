@@ -9,55 +9,38 @@ from person.models import Person
 from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.utils import generate_signature
 
-from helpers import get_content_types, generate_image_url
+from helpers import get_program_content_types, content_types, generate_image_url, get_children
 
-class ProgramSubprogramSerializer(ModelSerializer):
+class ProgramProjectSerializer(ModelSerializer):
+    '''
+    Nested under program serializer
+    '''
     name = SerializerMethodField()
-    content_types = SerializerMethodField()
-    leads = SerializerMethodField()
-    features = SerializerMethodField()
 
     class Meta:
         model = Page
         fields = (
-            'id', 'name', 'url', 'slug', 'content_types', 'leads', 'features'
+            'id', 'name', 'url', 'slug'
         )
 
     def get_name(self, obj):
         return obj.title
 
-    def get_content_types(self, obj):
-        return get_content_types(obj)
-
-    def get_leads(self, obj):
-        leads = []
-        for i in range(4):
-            l = 'lead_' + str(i+1)
-            if getattr(obj,l,None):
-                leads.append(getattr(obj,l).id)
-        return leads
-
-    def get_features(self, obj):
-        features = []
-        for i in range(3):
-            f = 'features_' + str(i+1)
-            if getattr(obj,f,None):
-                features.append(getattr(obj,f).id)
-        return features
 
 class ProgramSerializer(ModelSerializer):
     logo = SerializerMethodField()
     description = SerializerMethodField()
-    subprograms = SerializerMethodField()
+    projects = SerializerMethodField()
     content_types = SerializerMethodField()
     leads = SerializerMethodField()
     features = SerializerMethodField()
+    subpages = SerializerMethodField()
 
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'description', 'url', 'subprograms', 'logo', 'slug',
-            'content_types', 'leads', 'features'
+            'id', 'name', 'description', 'url', 'projects', 'logo', 'slug',
+            'content_types', 'leads', 'features', 'subpages'
         )
 
     def get_logo(self, obj):
@@ -66,9 +49,68 @@ class ProgramSerializer(ModelSerializer):
     def get_description(self, obj):
         return obj.story_excerpt
 
-    def get_subprograms(self, obj):
+    def get_projects(self, obj):
         #horribly inefficient. may have to add a ManyToManyField to Program??
-        return ProgramSubprogramSerializer(obj.get_subprograms(),many=True).data
+        return ProgramProjectSerializer(obj.get_subprograms(),many=True).data
+
+    def get_content_types(self, obj):
+        return get_program_content_types(obj)
+
+    def get_leads(self, obj):
+        leads = []
+        for i in range(4):
+            l = 'lead_' + str(i+1)
+            if getattr(obj,l,None):
+                leads.append(getattr(obj,l).id)
+        return leads
+
+    def get_features(self, obj):
+        features = []
+        for i in range(3):
+            f = 'features_' + str(i+1)
+            if getattr(obj,f,None):
+                features.append(getattr(obj,f).id)
+        return features
+
+    def get_subpages(self, obj):
+        return get_children(obj)
+
+
+class ProjectProgramSerializer(ModelSerializer):
+    class Meta:
+        model = Program
+        fields = (
+            'id', 'name', 'url', 'slug'
+        )
+
+class ProjectSerializer(ModelSerializer):
+    parent_programs = SerializerMethodField()
+    content_types = SerializerMethodField()
+    logo = SerializerMethodField()
+    description = SerializerMethodField()
+    content_types = SerializerMethodField()
+    leads = SerializerMethodField()
+    features = SerializerMethodField()
+    subpages = SerializerMethodField()
+
+    class Meta:
+        model = Subprogram
+        fields = (
+            'id', 'name', 'parent_programs', 'url', 'slug', 'content_types',
+            'logo', 'description', 'leads', 'features', 'subpages'
+        )
+
+    def get_parent_programs(self, obj):
+        return ProjectProgramSerializer(obj.parent_programs, many=True).data
+
+    def get_content_types(self, obj):
+        return get_content_types(obj)
+
+    def get_logo(self, obj):
+        return obj.desktop_program_logo
+
+    def get_description(self, obj):
+        return obj.story_excerpt
 
     def get_content_types(self, obj):
         return get_content_types(obj)
@@ -89,24 +131,9 @@ class ProgramSerializer(ModelSerializer):
                 features.append(getattr(obj,f).id)
         return features
 
+    def get_subpages(self, obj):
+        return get_children(obj)
 
-class SubprogramProgramSerializer(ModelSerializer):
-    class Meta:
-        model = Program
-        fields = (
-            'id', 'name', 'url', 'slug'
-        )
-
-class SubprogramSerializer(ModelSerializer):
-    parent_programs = SerializerMethodField()
-    class Meta:
-        model = Subprogram
-        fields = (
-            'id', 'name', 'parent_programs', 'url', 'slug'
-        )
-
-    def get_parent_programs(self, obj):
-        return SubprogramProgramSerializer(obj.parent_programs, many=True).data
 
 class AuthorSerializer(ModelSerializer):
     position = SerializerMethodField()
