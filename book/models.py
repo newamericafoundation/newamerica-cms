@@ -5,7 +5,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from home.models import Post
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class Book(Post):

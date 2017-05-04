@@ -5,7 +5,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 
 
 class PressRelease(Post):

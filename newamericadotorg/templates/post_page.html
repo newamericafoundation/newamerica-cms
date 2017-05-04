@@ -1,0 +1,42 @@
+{% extends "program_base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% block extra_js %}
+	{% if page.data_project_external_script %}
+		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
+	{% endif %}
+{% endblock %}
+
+{% block body_class %}template-postpage{% endblock %}
+
+{% block content %}
+
+	{% block post-header %}
+	{% endblock %}
+
+	<div class="post-container">
+
+	   {% if authors %}
+		 	<h5 class="post-author">{% generate_byline page.content_type authors %}</h5>
+		 {% endif %}
+
+		<h5 class="post-date">{{ page.date }}</h5>
+
+		{% block post-body %}
+		{% endblock %}
+
+		{% include 'components/social_share.html' %}
+
+		{% if authors %}
+			<h1 class="post-subheading">{% get_author_block_prefix page.content_type authors %}</h1>
+			<div class="post-person-container">
+				{% for author in authors %}
+						{% include 'components/post_person.html' with author=author %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

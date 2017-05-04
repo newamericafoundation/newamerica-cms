@@ -13,7 +13,7 @@ from wagtail.wagtailcore.models import Page
 
 from home.models import Post
 from conference.models import Conference
-from mysite.helpers import paginate_results, generate_url, is_json, is_int
+from newamericadotorg.helpers import paginate_results, generate_url, is_json, is_int
 
 class Event(Post):
     """

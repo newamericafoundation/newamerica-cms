@@ -26,7 +26,7 @@
                 <div class="content-grid__controls__search">
                     <input class="search-box__input" type='text' name='query' value='{{ search_query }}' placeholder='Search' autocomplete="off"></input>
                     <button class="search-box__submit" type="submit">
-                        {% include 'ui_elements/svg/magnifying-glass.html' %}
+                        {% include 'components/svg/magnifying-glass.html' %}
                     </button>
                 </div>
             </form>
@@ -34,7 +34,7 @@
                 <div class="pagination">
                     {% if search_results.has_previous %}
                         <a class="pagination__arrow" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">
-                            {% include 'ui_elements/svg/arrow-left.html' %}
+                            {% include 'components/svg/arrow-left.html' %}
                         </a>
                     {% endif %}
 
@@ -49,7 +49,7 @@
 
                     {% if search_results.has_next %}
                         <a class="pagination__arrow" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">
-                            {% include 'ui_elements/svg/arrow-right.html' %}
+                            {% include 'components/svg/arrow-right.html' %}
                         </a>
                     {% endif %}
                 </div>
@@ -164,7 +164,7 @@
                 <div class="pagination">
                     {% if search_results.has_previous %}
                         <a class="pagination__arrow" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">
-                            {% include 'ui_elements/svg/arrow-left.html' %}
+                            {% include 'components/svg/arrow-left.html' %}
                         </a>
                     {% endif %}
 
@@ -179,7 +179,7 @@
 
                     {% if search_results.has_next %}
                         <a class="pagination__arrow" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">
-                            {% include 'ui_elements/svg/arrow-right.html' %}
+                            {% include 'components/svg/arrow-right.html' %}
                         </a>
                     {% endif %}
                 </div>

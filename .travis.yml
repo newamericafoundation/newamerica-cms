@@ -30,8 +30,8 @@ install:
 - travis_retry pip install elasticsearch==1.9.0
 
 script:
-- python manage.py migrate --noinput --settings=mysite.settings.test
-- python manage.py test --noinput --settings=mysite.settings.test
+- python manage.py migrate --noinput --settings=newamericadotorg.settings.test
+- python manage.py test --noinput --settings=newamericadotorg.settings.test
 
 notifications:
   slack:

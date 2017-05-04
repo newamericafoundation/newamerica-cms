@@ -30,7 +30,7 @@ from person.models import Person
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from mysite.blocks import BodyBlock
+from newamericadotorg.blocks import BodyBlock
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)

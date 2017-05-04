@@ -7,7 +7,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.contrib.table_block.blocks import TableBlock
-from mysite.blocks import IntegerBlock, TwoColumnBlock
+from newamericadotorg.blocks import IntegerBlock, TwoColumnBlock
 
 class PartnerTypeBlock(blocks.ChoiceBlock):
     choices = (

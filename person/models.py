@@ -13,7 +13,7 @@ from modelcluster.fields import ParentalKey
 
 from programs.models import Program, Subprogram
 
-from mysite.helpers import paginate_results
+from newamericadotorg.helpers import paginate_results
 
 from django.db.models import Q
 
