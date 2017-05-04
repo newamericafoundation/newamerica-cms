@@ -59,7 +59,7 @@ def get_org_wide_posts(self, request, page_type, content_model):
             filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
     all_posts = content_model.objects.filter(**filter_dict)
-    context['all_posts'] = paginate_results(request, all_posts.live().order_by("-date"))
+    context['all_posts'] = paginate_results(request, all_posts.live().public().order_by("-date"))
     context['programs'] = Program.objects.filter(Q(live=True), Q(show_in_menus=True)| Q(location=True)).order_by('title')
     context['query_url'] = generate_url(request)
 
@@ -104,7 +104,7 @@ def get_program_and_subprogram_posts(self, request, page_type, content_model):
                 if 'start' in date_range and 'end' in date_range:
                     filter_dict['date__range'] = (date_range['start'], date_range['end'])
 
-    all_posts = content_model.objects.live().filter(**filter_dict)
+    all_posts = content_model.objects.live().public().filter(**filter_dict)
     context['all_posts'] = paginate_results(request, all_posts.order_by("-date"))
     context['query_url'] = generate_url(request)
     context['program'] = program
