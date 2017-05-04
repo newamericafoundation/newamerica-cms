@@ -1,3 +1,7 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
 {% for post in all_content %}
   <div class="picture-grid__entry">
     {% if post.story_image %}
