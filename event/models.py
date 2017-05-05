@@ -14,6 +14,7 @@ from wagtail.wagtailcore.models import Page
 from home.models import Post
 from conference.models import Conference
 from newamericadotorg.helpers import paginate_results, generate_url, is_json, is_int
+from programs.models import AbstractContentPage
 
 class Event(Post):
     """

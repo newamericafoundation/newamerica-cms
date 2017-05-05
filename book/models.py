@@ -6,7 +6,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from home.models import Post
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from programs.models import AbstractContentPage
 
 class Book(Post):
     """
@@ -52,7 +52,7 @@ class AllBooksHomePage(Page):
         verbose_name = "Homepage for all Books"
 
 
-class ProgramBooksPage(Page):
+class ProgramBooksPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Books associated with a specific program or Subprogram

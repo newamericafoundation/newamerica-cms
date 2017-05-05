@@ -6,7 +6,7 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from programs.models import AbstractContentPage
 
 class PressRelease(Post):
     """
@@ -49,7 +49,7 @@ class AllPressReleasesHomePage(Page):
         verbose_name = "Homepage for all Press Releases"
 
 
-class ProgramPressReleasesPage(Page):
+class ProgramPressReleasesPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Press Releases associated with a specific

@@ -6,7 +6,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 from newamericadotorg.helpers import get_program_and_subprogram_posts, get_org_wide_posts
-
+from programs.models import AbstractContentPage
 
 class Article(Post):
     """
@@ -50,7 +50,7 @@ class AllArticlesHomePage(Page):
         verbose_name = "Homepage for all Articles and Op-Eds"
 
 
-class ProgramArticlesPage(Page):
+class ProgramArticlesPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Articles associated with a specific Program

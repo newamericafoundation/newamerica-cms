@@ -6,6 +6,7 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from programs.models import AbstractContentPage
 
 from django.db import models
 
@@ -55,7 +56,7 @@ class AllPodcastsHomePage(Page):
         verbose_name = "Homepage for all Podcasts"
 
 
-class ProgramPodcastsPage(Page):
+class ProgramPodcastsPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Podcasts associated with a sepcific program

@@ -6,7 +6,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from programs.models import AbstractContentPage
 
 class Quoted(Post):
     """
@@ -45,12 +45,12 @@ class AllQuotedHomePage(Page):
             AllQuotedHomePage,
             Quoted
         )
-    
+
     class Meta:
         verbose_name = "Homepage for all In The News Pieces"
 
 
-class ProgramQuotedPage(Page):
+class ProgramQuotedPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Quoted pieces associated with a specific Program

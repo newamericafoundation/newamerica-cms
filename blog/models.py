@@ -10,7 +10,7 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from programs.models import AbstractContentPage
 
 class BlogPost(Post):
     """
@@ -53,7 +53,7 @@ class AllBlogPostsHomePage(Page):
         verbose_name = "Homepage for all Blog Posts"
 
 
-class ProgramBlogPostsPage(Page):
+class ProgramBlogPostsPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and returns
     all Blog Posts associated with a specific Program or

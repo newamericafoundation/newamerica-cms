@@ -4,6 +4,7 @@ from home.models import Post
 from issue.models import IssueOrTopic
 
 from wagtail.wagtailimages.views.serve import generate_signature
+from wagtail.wagtailcore.models import Page
 
 def generate_image_url(image, filter_spec=None):
     if not filter_spec:
@@ -15,8 +16,13 @@ def generate_image_url(image, filter_spec=None):
     return url
 
 
-def get_program_content_types(program_id):
-    children = Page.objects.get(pk=program_id).get_children().type(AbstractContentPage)
+def get_program_content_types(program):
+    if isinstance(program, Program) or isinstance(program, Subprogram):
+        page = program
+    else:
+        page = Page.objects.get(pk=program)
+
+    children = page.get_children().type(AbstractContentPage)
 
     content_types = []
     for c in children:

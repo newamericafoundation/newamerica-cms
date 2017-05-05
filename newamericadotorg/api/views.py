@@ -7,10 +7,12 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.serializers import ListSerializer
 
+from wagtail.wagtailcore.models import Page
+
 from home.models import Post, HomePage
 from person.models import Person
 from serializers import PostSerializer, AuthorSerializer, ProgramSerializer, ProjectSerializer, HomeSerializer, TopicSerializer
-from helpers import content_types
+from helpers import content_types, get_subpages
 from programs.models import Program, Subprogram
 from issue.models import IssueOrTopic
 from rest_framework import mixins
@@ -52,7 +54,7 @@ class PostList(generics.ListAPIView):
 #     serializer_class = TopicSerializer
 #     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 #     filter_class = TopicFilter
-# 
+#
 #     def get_queryset(self):
 #         ids = self.request.query_params.getlist('id[]', None)
 #
@@ -79,17 +81,15 @@ class AuthorList(generics.ListAPIView):
 
 class MetaList(APIView):
     def get(self, request, format=None):
-        subpages = get_children(HomePage)
+        subpages = get_subpages(HomePage)
         programs = ProgramSerializer(Program.objects.live(), many=True).data
         projects = ProjectSerializer(Subprogram.objects.live(), many=True).data
-        topics = TopicSerializer(IssueOrTopic.objects.live(),many=True).data
         home = HomeSerializer(HomePage.objects.live().first()).data
 
         return Response({
             'subpages': subpages,
             'programs': programs,
             'projects': projects,
-            'topics': topics,
             'home': home
         })
 

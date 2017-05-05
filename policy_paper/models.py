@@ -10,7 +10,7 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from programs.models import AbstractContentPage
 
 class PolicyPaper(Post):
     """
@@ -66,7 +66,7 @@ class AllPolicyPapersHomePage(Page):
         verbose_name = "Homepage for all Policy Papers"
 
 
-class ProgramPolicyPapersPage(Page):
+class ProgramPolicyPapersPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Policy Papers associated with a specific
