@@ -5,11 +5,11 @@ from wagtail.wagtailcore.models import Page, ContentType
 from home.models import Post
 from programs.models import Program, Subprogram
 from person.models import Person
+from issue.models import IssueOrTopic
 
 from django.core.urlresolvers import reverse
-from wagtail.wagtailimages.utils import generate_signature
 
-from helpers import get_program_content_types, content_types, generate_image_url, get_children
+from helpers import get_program_content_types, content_types, generate_image_url, get_subpages
 
 class ProgramProjectSerializer(ModelSerializer):
     '''
@@ -73,7 +73,7 @@ class ProgramSerializer(ModelSerializer):
         return features
 
     def get_subpages(self, obj):
-        return get_children(obj)
+        return get_subpages(obj)
 
 
 class ProjectProgramSerializer(ModelSerializer):
@@ -104,16 +104,13 @@ class ProjectSerializer(ModelSerializer):
         return ProjectProgramSerializer(obj.parent_programs, many=True).data
 
     def get_content_types(self, obj):
-        return get_content_types(obj)
+        return get_program_content_types(obj)
 
     def get_logo(self, obj):
         return obj.desktop_program_logo
 
     def get_description(self, obj):
         return obj.story_excerpt
-
-    def get_content_types(self, obj):
-        return get_content_types(obj)
 
     def get_leads(self, obj):
         leads = []
@@ -132,7 +129,7 @@ class ProjectSerializer(ModelSerializer):
         return features
 
     def get_subpages(self, obj):
-        return get_children(obj)
+        return get_subpages(obj)
 
 
 class AuthorSerializer(ModelSerializer):
@@ -192,6 +189,14 @@ class PostSerializer(ModelSerializer):
 
     def get_authors(self, obj):
         return AuthorSerializer(obj.post_author, many=True, context=self.context).data
+
+class TopicSerializer(ModelSerializer):
+
+    class Meta:
+        model = IssueOrTopic
+        fields = (
+            'id', 'title'
+        )
 
 class HomeSerializer(ModelSerializer):
     leads = SerializerMethodField()

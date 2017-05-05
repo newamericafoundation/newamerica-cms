@@ -3,6 +3,8 @@ from programs.models import Program, Subprogram, AbstractContentPage
 from home.models import Post
 from issue.models import IssueOrTopic
 
+from wagtail.wagtailimages.views.serve import generate_signature
+
 def generate_image_url(image, filter_spec=None):
     if not filter_spec:
         return image.file.url
