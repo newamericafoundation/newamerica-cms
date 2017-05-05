@@ -1,0 +1,57 @@
+h1{
+  font-size: 2.68rem/2.89rem
+}
+
+h2 {
+  font-size: 2.10rem/2.28rem;
+}
+
+h3 {
+  font-size: 1.64rem/1.78rem;
+}
+
+h4 {
+  font-size: 1.28rem/1.39rem;
+}
+
+p {
+  font-size: 1.00em/1.44em;
+
+  & a {
+    color: color(turquoise);
+  }
+}
+
+label {
+  font-size: 0.78em/1.06em
+}
+
+.subtitle {
+  color: color(gray);
+  &__h1{
+    font-size: 1.22rem/1.50rem;
+  }
+
+  &__h2 {
+    font-size: 1.16rem/1.39rem;
+  }
+
+  &__h3 {
+    font-size: 1.11rem/1.28rem;
+  }
+
+  &__h4 {
+    font-size: 1.06em/1.22em;
+  }
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  @include border-bottom;
+
+  &:not(.button):hover {
+  	color: color(turquoise);
+    @include border-bottom(turquoise);
+  }
+}

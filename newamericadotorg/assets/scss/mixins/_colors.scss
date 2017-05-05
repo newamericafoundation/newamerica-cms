@@ -1,6 +1,6 @@
 $colors: (
   turquoise: (
-    base: #2ebcb3,
+    base: #52BDBF,
     light: #46ccc3,
     dark: #2a8e88
   ),
@@ -15,12 +15,15 @@ $colors: (
     dark: #692025
   ),
   black: (
-    base: #2c2f35,
+    base: #282830,
     light: #5f6268,
     70: rgba(44,47,53,0.7),
     40: #6b6d71,
     30: #c0c1c3,
     10: #e0e0e1
+  ),
+  gray: (
+    base: #A9A9AC
   ),
   white: (
     base: #ffffff

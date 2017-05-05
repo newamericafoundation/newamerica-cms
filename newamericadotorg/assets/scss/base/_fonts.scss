@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Circular';
+    src: url('#{$font-url}/fonts/CircularStd-Black');
+    // src: url('#{$font-url}/fonts/simplon/SimplonNorm-Regular-WebS.eot?#iefix') format('embedded-opentype'),
+    //      url('#{$font-url}/fonts/simplon/SimplonNorm-Regular-WebS.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circular';
+    src: url('#{$font-url}/fonts/CircularStd-Book.ttf');
+    // src: url('#{$font-url}/fonts/simplon/SimplonNorm-Bold-WebS.eot?#iefix') format('embedded-opentype'),
+    //      url('#{$font-url}/fonts/simplon/SimplonNorm-Bold-WebS.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circular';
+    src: url('#{$font-url}/fonts/CircularStd-BookItalic.ttf');
+    // src: url('#{$font-url}/fonts/simplon/SimplonNorm-Bold-WebS.eot?#iefix') format('embedded-opentype'),
+    //      url('#{$font-url}/fonts/simplon/SimplonNorm-Bold-WebS.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}

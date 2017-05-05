@@ -1,4 +1,33 @@
-@import 'type/index';
-@import 'layout/index';
+html, body{
+  color: color(black);
+  background: color(white);
+  font-family: $paragraph-font-family;
+}
+
+h1,h2,h3,h4{
+  font-family: $header-font-family;
+  font-weight: bold;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style-type: none;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+hr {
+	border-bottom: $standard-border;
+}
+
+
+@import 'bootstrap-grid';
+@import 'fonts';
+@import 'type';
+@import 'inputs';
 @import 'print';
-@import 'setup';

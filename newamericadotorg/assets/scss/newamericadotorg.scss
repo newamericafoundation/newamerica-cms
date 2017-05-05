@@ -1,10 +1,4 @@
-/*
- * Main SASS entry point.
- * See include comments and the subfolders' _manifest.scss for documentation.
- */
-
 @import 'mixins/index';
-@import 'vendor/index';
 @import 'base/index';
 @import 'components/index';
 @import 'pages/index';
