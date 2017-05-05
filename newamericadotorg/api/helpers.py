@@ -7,23 +7,23 @@ from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
 
 newamericadotorg_content_types = [
-    { 'name': 'In the News', 'api_name': 'quoted' },
     { 'name': 'Blog Post', 'api_name': 'blogpost' },
+    { 'name': 'Policy Paper', 'api_name': 'policypaper' },
+    { 'name': 'Book', 'api_name': 'book' },
+    { 'name': 'In the News', 'api_name': 'quoted' },
     { 'name': 'Press Release', 'api_name': 'pressrelease' },
     { 'name': 'Article', 'api_name': 'article' },
     { 'name': 'Podcast', 'api_name': 'podcast' },
-    { 'name': 'Book', 'api_name': 'book' },
-    { 'name': 'Policy Paper', 'api_name': 'policypaper' },
 ]
 
 programpage_contenttype_map = {
-    'programquotedpage': newamericadotorg_content_types[0],
-    'programblogpostspage': newamericadotorg_content_types[1],
-    'programpressreleasespage': newamericadotorg_content_types[2],
-    'programarticlespage': newamericadotorg_content_types[3],
-    'programpodcastspage': newamericadotorg_content_types[4],
-    'programbookspage': newamericadotorg_content_types[5],
-    'programpolicypaperspage': newamericadotorg_content_types[6],
+    'programblogpostspage': newamericadotorg_content_types[0],
+    'programpolicypaperspage': newamericadotorg_content_types[1],
+    'programbookspage': newamericadotorg_content_types[2],
+    'programquotedpage': newamericadotorg_content_types[3],
+    'programpressreleasespage': newamericadotorg_content_types[4],
+    'programarticlespage': newamericadotorg_content_types[5],
+    'programpodcastspage': newamericadotorg_content_types[6],
 }
 
 def generate_image_url(image, filter_spec=None):
