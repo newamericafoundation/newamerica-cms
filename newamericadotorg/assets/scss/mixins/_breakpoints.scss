@@ -10,8 +10,24 @@ $breakpoints: (
   expanded-header: $expanded-header-foldup,
 );
 
+$media-breakpoints: (
+  mobile: 576px,
+  tablet: 767px,
+  desktop: 992px,
+  large-desktop: 1200px
+);
+
 @mixin breakpoint($point) {
-  @media (min-width: map-get($breakpoints, $point)) { @content ; }
+  @media (min-width: map-get($breakpoints, $point)) { @content; }
+}
+
+@mixin media-breakpoint($point, $limit: 'max' ){
+  $limit-width: $limit + '-width';
+  @media (min-width: map-get($media-breakpoints, $point)) { @content; }
+}
+
+@mixin media-breakpoint-down($point){
+  @media (max-width: map-get($media-breakpoints, $point)) { @content; }
 }
 
 @mixin mobile-header() {

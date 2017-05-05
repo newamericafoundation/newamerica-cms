@@ -5,9 +5,6 @@
 
 //== Base Colors
 $base-color:        palette-get(na-turquoise);
-
-$mobile-break: 750px;
-
 $black:                     palette-get(na-black);
 $black-alt:                 #1f2125;
 $white:                     palette-get(na-white);
@@ -90,6 +87,7 @@ $bold-weight:               700;
 
 
 //== Media queries breakpoints
+$mobile-break: 750px;
 
 // Extra small screen / phone
 $screen-2xs:                340px;
