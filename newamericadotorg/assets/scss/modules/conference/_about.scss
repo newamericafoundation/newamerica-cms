@@ -3,7 +3,7 @@
     margin-top: 20px;
     @include breakpoint($mobile-break){
         margin-top: 0px;
-        @include grid-column-uncollapse(50);
+      //  @include grid-column-uncollapse(50);
     }
 
     p {

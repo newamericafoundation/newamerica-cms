@@ -208,7 +208,7 @@
     }
   }
   .block-introduction {
-    @include clearfix;
+    @extend %clearfix;
     background: palette-get(na-black-10);
     margin-bottom: 25px;
     padding: $desktop-padding;
@@ -275,7 +275,7 @@
     .block-inline_image__wrapper{
       display: inline-block;
       text-align: left;
-      @include clearfix;
+      @extend %clearfix;
     }
   }
 

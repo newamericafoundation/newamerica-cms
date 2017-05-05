@@ -40,7 +40,7 @@
 
 	$gutter-adjust: 0px;
 
-	@include clearfix;
+	@extend %clearfix;
 
 	&__main, &__secondary, &__thirds {
 		float: left;

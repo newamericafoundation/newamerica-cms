@@ -27,7 +27,7 @@
   width: 100%;
   
   padding: $pad;
-  @include clearfix;
+  @extend %clearfix;
   background-color: white;
   position:relative;
   border-top: $standard-border;

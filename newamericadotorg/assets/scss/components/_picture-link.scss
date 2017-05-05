@@ -1,7 +1,7 @@
 .picture-link {
   $size: 75px;
   $local-gutter: 15px;
-  @include clearfix;
+  @extend %clearfix;
   width: auto;
   height: $size;
 
