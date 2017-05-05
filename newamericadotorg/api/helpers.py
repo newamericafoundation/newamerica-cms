@@ -6,6 +6,17 @@ from issue.models import IssueOrTopic
 from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
 
+content_api_map = {
+    'programpressreleasespage': { 'name': 'Press Release', 'api_name': 'pressrelease' },
+    'programquotedpage': { 'name': 'In the News', 'api_name': 'quoted' },
+    'programblogpostspage': { 'name': 'Blog Post', 'api_name': 'blogpost' },
+    'programpressreleasespage': { 'name': 'Press Release', 'api_name': 'pressrelease' },
+    'programarticlespage': { 'name': 'Article', 'api_name': 'article' },
+    'programpodcastspage': { 'name': 'Podcast', 'api_name': 'podcast' },
+    'programbookspage': { 'name': 'Books', 'api_name': 'book' },
+    'programpolicypaperspage': { 'name': 'Policy Paper', 'api_name': 'policypaper' },
+}
+
 def generate_image_url(image, filter_spec=None):
     if not filter_spec:
         return image.file.url
@@ -26,13 +37,14 @@ def get_program_content_types(program):
 
     content_types = []
     for c in children:
+        print c.content_type.model
         content_types.append({
             'id': c.id,
             'url': c.url,
             'slug': c.slug,
             'title': c.title,
-            'api_name': c.content_type.model,
-            'name': c.content_type.name
+            'api_name': content_api_map[c.content_type.model]['api_name'],
+            'name': content_api_map[c.content_type.model]['name']
         })
 
     return content_types
