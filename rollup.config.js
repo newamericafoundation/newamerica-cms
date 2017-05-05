@@ -13,21 +13,13 @@ export default {
   plugins: [
     sass({
       output: 'newamericadotorg/static/css/newamericadotorg.css',
-      insert: true,
-      options: {
-        includePaths: ['node_modules']
-      }
+      insert: false
     }),
-    resolve({
-      jsnext: true,
-      main: true,
-      browser: true
-    }),
-    commonjs({
-      namedExports: {
-          'node_modules/jquery/dist/jquery.min.js': [ 'jquery' ]
-      }
-    }),
+    // resolve({
+    //   jsnext: true,
+    //   main: true,
+    //   browser: true
+    // }),
     babel()
   ]
 };

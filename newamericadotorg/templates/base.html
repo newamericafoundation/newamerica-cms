@@ -46,7 +46,9 @@
 
   {# Global javascript #}
   <script type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
-
+  <link rel="stylesheet" type="text/css" href='/static/css/newamericadotorg.css'></link>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.23.0/polyfill.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
   {% block extra_scripts %}
       {# Override this in templates to add extra scripts and stylesheets #}
   {% endblock %}
@@ -67,33 +69,12 @@
   </noscript>
   <!-- End Google Tag Manager (noscript) -->
   {% wagtailuserbar %}
-  <div class='wrapper {% check_oti request.path %}'>
-    <div class='wrapper__clear-header'>
-      <div class="{% block sidemenu_status %}{% endblock %}">
-        {% block menu %}
-          {% get_site_root as site_root %}
-          {% include './components/mobile_nav.html' %}
-          {% top_menu parent=site_root calling_page=self %}
-        {% endblock %}
-      </div>
+  {% include 'components/header.html' %}
+  <main>
+      {% block content %}{% endblock %}
+  </main>
+  {% include 'components/footer.html' %}
 
-      <section class='section section--fixed-width'>
-        <div class="container">
-          {% block sidebar %}
-          <div class='content-container'>
-          {% endblock %}
-
-          {% if self.get_ancestors|length > 2 %}
-            {% include 'components/base_breadcrumbs.html' %}
-          {% endif %}
-
-          {% block content %}{% endblock %}
-          </div>
-        </div>
-      </section>
-      {% include 'components/footer.html' %}
-    </div>
-  </div>
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}
   {% endblock %}

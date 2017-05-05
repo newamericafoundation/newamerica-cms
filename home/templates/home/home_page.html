@@ -8,17 +8,17 @@
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
-<section class='section section--fixed-width'>
+<section>
 	{% include 'components/story_grid.html' with page_context='homepage' %}
 </section>
 
 {% if featured_stories %}
-<section class='section section--fixed-width'>
+<section>
 	{% include 'components/featured_stories.html' with stories=featured_stories %}
 </section>
 {% endif %}
 
-<section class='section section--fixed-width'>
+<section>
 	<div class='row border-panel-container'>
 	{% if upcoming_events %}
 		{% include 'components/feature_carousel.html' with items=upcoming_events page_context='homepage' %}

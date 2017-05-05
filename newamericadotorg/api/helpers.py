@@ -82,9 +82,9 @@ def program_data(request):
     programs = Program.objects.in_menu().order_by("title").exclude(location=True)
     for p in programs:
         program_data.append({
-            program: p,
-            projects: p.get_children().type(Subprogram).live().in_menu(),
-            topics: p.get_children().type(IssueOrTopic).live().in_mene()
+            'program': p,
+            'projects': p.get_children().type(Subprogram).live().in_menu(),
+            'topics': p.get_children().type(IssueOrTopic).live().in_menu()
         })
 
     return { 'programs': program_data }
