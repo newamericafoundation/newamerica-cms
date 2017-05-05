@@ -10,20 +10,22 @@ newamericadotorg_content_types = [
     { 'name': 'Blog Post', 'api_name': 'blogpost' },
     { 'name': 'Policy Paper', 'api_name': 'policypaper' },
     { 'name': 'Book', 'api_name': 'book' },
+    { 'name': 'In Depth Project', 'api_name': 'indepthproject' },
     { 'name': 'In the News', 'api_name': 'quoted' },
     { 'name': 'Press Release', 'api_name': 'pressrelease' },
     { 'name': 'Article', 'api_name': 'article' },
     { 'name': 'Podcast', 'api_name': 'podcast' },
 ]
 
+
 programpage_contenttype_map = {
     'programblogpostspage': newamericadotorg_content_types[0],
     'programpolicypaperspage': newamericadotorg_content_types[1],
     'programbookspage': newamericadotorg_content_types[2],
-    'programquotedpage': newamericadotorg_content_types[3],
-    'programpressreleasespage': newamericadotorg_content_types[4],
-    'programarticlespage': newamericadotorg_content_types[5],
-    'programpodcastspage': newamericadotorg_content_types[6],
+    'programquotedpage': newamericadotorg_content_types[4],
+    'programpressreleasespage': newamericadotorg_content_types[5],
+    'programarticlespage': newamericadotorg_content_types[6],
+    'programpodcastspage': newamericadotorg_content_types[7],
 }
 
 def generate_image_url(image, filter_spec=None):
