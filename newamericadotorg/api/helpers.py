@@ -6,15 +6,24 @@ from issue.models import IssueOrTopic
 from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
 
-content_api_map = {
-    'programpressreleasespage': { 'name': 'Press Release', 'api_name': 'pressrelease' },
-    'programquotedpage': { 'name': 'In the News', 'api_name': 'quoted' },
-    'programblogpostspage': { 'name': 'Blog Post', 'api_name': 'blogpost' },
-    'programpressreleasespage': { 'name': 'Press Release', 'api_name': 'pressrelease' },
-    'programarticlespage': { 'name': 'Article', 'api_name': 'article' },
-    'programpodcastspage': { 'name': 'Podcast', 'api_name': 'podcast' },
-    'programbookspage': { 'name': 'Books', 'api_name': 'book' },
-    'programpolicypaperspage': { 'name': 'Policy Paper', 'api_name': 'policypaper' },
+newamericadotorg_content_types = [
+    { 'name': 'In the News', 'api_name': 'quoted' },
+    { 'name': 'Blog Post', 'api_name': 'blogpost' },
+    { 'name': 'Press Release', 'api_name': 'pressrelease' },
+    { 'name': 'Article', 'api_name': 'article' },
+    { 'name': 'Podcast', 'api_name': 'podcast' },
+    { 'name': 'Book', 'api_name': 'book' },
+    { 'name': 'Policy Paper', 'api_name': 'policypaper' },
+]
+
+programpage_contenttype_map = {
+    'programquotedpage': newamericadotorg_content_types[0],
+    'programblogpostspage': newamericadotorg_content_types[1],
+    'programpressreleasespage': newamericadotorg_content_types[2],
+    'programarticlespage': newamericadotorg_content_types[3],
+    'programpodcastspage': newamericadotorg_content_types[4],
+    'programbookspage': newamericadotorg_content_types[5],
+    'programpolicypaperspage': newamericadotorg_content_types[6],
 }
 
 def generate_image_url(image, filter_spec=None):
@@ -37,14 +46,13 @@ def get_program_content_types(program):
 
     content_types = []
     for c in children:
-        print c.content_type.model
         content_types.append({
             'id': c.id,
             'url': c.url,
             'slug': c.slug,
             'title': c.title,
-            'api_name': content_api_map[c.content_type.model]['api_name'],
-            'name': content_api_map[c.content_type.model]['name']
+            'api_name': programpage_contenttype_map[c.content_type.model]['api_name'],
+            'name': programpage_contenttype_map[c.content_type.model]['name']
         })
 
     return content_types
@@ -84,12 +92,12 @@ def content_types(request):
     For sitewide context_processor
     All available content_types
     '''
-    content_classes = Post.__subclasses__()
-    content_types = []
-    for c in content_classes:
-        content_types.append({
-            'api_name': c._meta.model_name,
-            'name': c._meta.verbose_name
-        })
+    # content_classes = Post.__subclasses__()
+    # content_types = []
+    # for c in content_classes:
+    #     content_types.append({
+    #         'api_name': c._meta.model_name,
+    #         'name': c._meta.verbose_name
+    #     })
 
-    return { 'content_types': content_types }
+    return { 'content_types': newamericadotorg_content_types }
