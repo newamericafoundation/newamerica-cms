@@ -1,0 +1,33 @@
+$colors: (
+  turquoise: (
+    base: #2ebcb3
+    light: #46ccc3,
+    dark: #2a8e88
+  ),
+  oti-blue: (
+    base: #5ba4da,
+    light: #75bef4,
+    dark: #477da3
+  ),
+  red: (
+    base: #e75c64,
+    light: #e75c64
+    dark: #692025
+  ),
+  black: (
+    base: #2c2f35,
+    light: #5f6268,
+    70: rgba(44,47,53,0.7),
+    40: #6b6d71,
+    30: #c0c1c3,
+    10: #e0e0e1
+  ),
+  white: #ffffff
+);
+
+$shadow: rgba(0, 0, 0, 0.25),
+$overlay: rgba(0, 0, 0, 0.2)
+
+@function color($color, $tone: 'base') {
+    @return map-get(map-get($colors, $color), $tone);
+}

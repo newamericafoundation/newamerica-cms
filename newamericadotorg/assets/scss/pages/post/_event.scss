@@ -1,0 +1,40 @@
+$event-column-padding: 30px;
+
+.event {
+	font-weight:bold;
+	color:palette-get(na-black);
+	width: 100%;
+
+	&__left {
+		padding: 0px $event-column-padding 0px 0px;
+		float: none;
+
+		@include breakpoint(medium) {
+			float: left;
+		}
+	}
+
+	&__right {
+		padding-left: 0px;
+		padding-top: $desktop-padding;
+		border-left: none;
+		float: none;
+
+		@include breakpoint(medium) {
+			padding-left: 30px;
+			padding-top: 0px;
+			border-left: 2px solid palette-get(na-black-10);
+			float:left;
+		}
+
+	}
+
+	p {
+		margin: 0px;
+	}
+
+	&__heading {
+		font-size: 16px;
+		color:palette-get(na-black-40);
+	}
+}

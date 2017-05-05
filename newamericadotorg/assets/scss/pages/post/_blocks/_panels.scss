@@ -1,0 +1,41 @@
+.panel {
+  padding: 60px 20px;
+  margin-top: $desktop-padding;
+  background-color: palette-get(na-black-10);
+
+  @include breakpoint(medium) {
+    margin-left: -1000px;
+    margin-right:-1000px;
+
+    .has-sidemenu > & {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
+
+  h1,
+  p {
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+    @include handle-text-overflow;
+  }
+  h1 {
+    font-weight: bold;
+    color: palette-get(na-black);
+    font-size: 1.75rem;
+    line-height: 100%;
+    @include breakpoint(medium) {
+      font-size: 2rem;
+    }
+  }
+  p {
+    opacity: 0.7;
+    margin: 20px auto 0px;
+    font-size: rem-calc(20);
+  }
+  &__link {
+    margin-top: $desktop-padding;
+    text-align: center;
+  }
+}

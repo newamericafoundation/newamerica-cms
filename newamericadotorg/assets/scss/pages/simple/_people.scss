@@ -1,0 +1,70 @@
+.our-people {
+	&__body {
+		@include limit-body-width;
+		padding-top: $desktop-padding;
+
+    	@include desktop-header {
+    		padding-left: 0px;
+    		padding-right: 0px;
+    	}
+
+		p {
+			font-size: rem-calc(20);
+	    	color: palette-get(na-black-70);
+
+	    	& > a {
+	    		font-weight: bold;
+	    	}
+	    }
+
+	    h3 {
+	    	font-size: rem-calc(21);
+	    	color: palette-get(na-black);
+	    	font-weight: bold;
+	    }
+
+	    hr {
+	    	width: 100%;
+	    	max-width: 100%;
+	    	margin: $desktop-padding 0px;
+	    }
+
+	    input {
+	    	max-width: 250px;
+	    }
+
+	}
+
+	&__item-list {
+		margin-left: $desktop-padding;
+
+
+
+		& > .columns {
+			padding: 0px;
+		}
+		&__list {
+			-webkit-column-count: 1;
+		    -moz-column-count: 1;
+		    column-count: 1;
+
+			@include breakpoint(medium) {
+				-webkit-column-count: 3;
+			    -moz-column-count: 3;
+			    column-count: 3;
+			}
+
+			& > li {
+				list-style-type:disc;
+				list-style-position: inside;
+
+				display: list-item;
+				padding-right: 15px;
+				& > a {
+					font-weight: bold;
+				}
+
+			}
+		}
+	}
+}

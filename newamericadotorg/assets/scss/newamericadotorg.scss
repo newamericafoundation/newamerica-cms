@@ -3,9 +3,8 @@
  * See include comments and the subfolders' _manifest.scss for documentation.
  */
 
-@import 'variables/manifest';
-@import 'mixins/manifest';
-@import 'vendor/manifest';
-@import 'base/manifest';
-@import 'components/manifest';
-@import 'modules/manifest';
+@import 'mixins/index';
+@import 'vendor/index';
+@import 'base/index';
+@import 'components/index';
+@import 'pages/index';
