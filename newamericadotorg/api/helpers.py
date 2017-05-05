@@ -30,7 +30,9 @@ def get_program_content_types(program):
             'id': c.id,
             'url': c.url,
             'slug': c.slug,
-            'title': c.title
+            'title': c.title,
+            'api_name': c.content_type.model,
+            'name': c.content_type.name
         })
 
     return content_types

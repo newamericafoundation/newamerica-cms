@@ -63,6 +63,7 @@ class ProgramSerializer(ModelSerializer):
         return leads
 
     def get_logo(self, obj):
+        return ''
         return obj.desktop_program_logo
 
     def get_features(self, obj):
@@ -152,6 +153,30 @@ class AuthorSerializer(ModelSerializer):
         if obj.profile_image:
             return generate_image_url(obj.profile_image, rendition)
 
+class PostProgramSerializer(ModelSerializer):
+    name = SerializerMethodField()
+
+    class Meta:
+        model = Program
+        fields = (
+            'id', 'name', 'url', 'slug'
+        )
+
+    def get_name(self, obj):
+        return obj.title;
+
+class PostProjectSerializer(ModelSerializer):
+    name = SerializerMethodField()
+
+    class Meta:
+        model = Subprogram
+        fields = (
+            'id', 'name', 'url', 'slug'
+        )
+
+    def get_name(self, obj):
+        return obj.title;
+
 class PostSerializer(ModelSerializer):
     content_type = SerializerMethodField()
     story_image = SerializerMethodField()
@@ -174,15 +199,16 @@ class PostSerializer(ModelSerializer):
             }
 
     def get_story_image(self, obj):
+        return ''
         rendition = self.context['request'].query_params.get('image_rendition', None)
         if obj.story_image:
             return generate_image_url(obj.story_image, rendition)
 
     def get_programs(self, obj):
-        return ProgramSerializer(obj.parent_programs, many=True).data
+        return PostProgramSerializer(obj.parent_programs, many=True).data
 
     def get_projects(self, obj):
-        return ProjectSerializer(obj.post_subprogram, many=True).data
+        return PostProjectSerializer(obj.post_subprogram, many=True).data
 
     def get_authors(self, obj):
         return AuthorSerializer(obj.post_author, many=True, context=self.context).data
