@@ -1,22 +1,21 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% load utilities %}
 
-<div class='row'>
-  <div class='columns hero-grid-container'>
-    <div class='hero-grid has-{{ other_lead_stories|length|add:"1" }}-children'>
-      <div class='hero-grid__main'>
-        {% include 'components/story_grid_item.html' with story=page.lead_1 page_context=page_context %}
+<section class="story-grid has-{{ other_lead_stories|length|add:"1" }}-children">
+  <div class="row">
+    <div class="story-grid__main">
+      <div class="row">
+        {% include 'components/story_grid_item.html' with which="main" story=page.lead_1 page_context=page_context %}
       </div>
-      {% if other_lead_stories %}
-        <div class='hero-grid__secondary'>
-          {% for other_lead_story in other_lead_stories %}
-            {% if other_lead_story %}
-              {% include 'components/story_grid_item.html' with story=other_lead_story page_context=page_context %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
     </div>
+    {% if other_lead_stories %}
+    <div class="story-grid__secondary">
+      <div class="row">
+        {% for other_lead_story in other_lead_stories %}
+            {% include 'components/story_grid_item.html' with which="secondary" story=other_lead_story page_context=page_context %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
   </div>
-</div>
+</section>

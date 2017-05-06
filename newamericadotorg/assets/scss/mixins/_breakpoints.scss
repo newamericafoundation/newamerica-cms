@@ -21,9 +21,12 @@ $media-breakpoints: (
   @media (min-width: map-get($breakpoints, $point)) { @content; }
 }
 
-@mixin media-breakpoint($point, $limit: 'max' ){
-  $limit-width: $limit + '-width';
-  @media ($limit-width: map-get($media-breakpoints, $point)) { @content; }
+@mixin media-breakpoint($point){
+  @media (min-width: map-get($media-breakpoints, $point)) { @content; }
+}
+
+@mixin media-breakpoint-down($point){
+  @media (max-width: map-get($media-breakpoints, $point)) { @content; }
 }
 
 @mixin mobile-header() {

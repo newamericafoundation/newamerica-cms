@@ -43,7 +43,7 @@
 		&__text {
 			height: 100%;
 			top: 50%;
-			font-family:"Simplon";
+			font-family:"Circular";
 			color:palette-get(na-black-40);
 			margin-bottom: 0px;
 			max-width: $max-body-width;
@@ -59,7 +59,7 @@
 		&__title,  &__title > a{
 			font-size: 25px;
 			margin-bottom: 0px;
-			font-family:"Simplon";
+			font-family:"Circular";
 			color:palette-get(na-black-40);
 			line-height: 110%;
 

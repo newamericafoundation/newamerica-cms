@@ -50,7 +50,7 @@
 				{% if project_root.specific.project_logo %}
 					{% image project_root.specific.project_logo min-200x100 as logo %}
 					<div class="in-depth__title-block__logo">
-						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">				      
+						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
 						    <img class="sidemenu__logo" src="{{ logo.url }}">
 	  					</a>
 					</div>
@@ -62,7 +62,7 @@
 						<h3 class="in-depth__navigation-heading"><a href="{{ project_root.url }}">{{ project_root }}</a></h3>
 					</div>
 			</div>
-			
+
 			{% if siblings|length > 1 %}
 				<div class="in-depth__header__right">
 					<div class="in-depth__header__arrow__previous">{% include 'components/svg/arrow-left.html' %}</div>
@@ -94,7 +94,7 @@
 		<a id="title-panel" class="in-depth__panel__anchor"></a>
 		<section id="title-panel" class="in-depth__panel title-panel" style="background-image: linear-gradient(
 		      rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) 30%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0)
-		    ), 
+		    ),
 	    	url({{ story_image.url }})">
 		    <div class="title-panel__text-box">
 				<h1 class="title-panel__title">{{ page.title }}</h1>
@@ -116,7 +116,7 @@
 				<h1 class="in-depth__panel__title">{{ panel.value.panel_title }}<a class="in-depth__panel__title-link" href="#{{ panel.value.panel_title|slugify }}" title="Link to this Heading">{% include 'components/svg/link.html' %}</a></h1>
 				<div class="in-depth__panel__body post-body">
 					{% for block in panel.value.panel_body %}
-				    	{% include 'components/post_body_block.html' %}
+				    	{% include 'components/post_body.html' %}
 				    {% endfor %}
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 					{% image previous_sibling.specific.story_image original as prev_background %}
 					<div class="in-depth__footer__next-prev__wrapper" style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) 30%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0)), url({{ prev_background.url }})">
 				{% else %}
-					<div class="in-depth__footer__next-prev__wrapper no-image"> 
+					<div class="in-depth__footer__next-prev__wrapper no-image">
 				{% endif %}
 					<a href="{{ previous_sibling.specific.url }}">
 						<div class="in-depth__footer__next-prev__prev">
@@ -148,7 +148,7 @@
 					{% image next_sibling.specific.story_image original as next_background %}
 					<div class="in-depth__footer__next-prev__wrapper" style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) 30%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0)), url({{ next_background.url }})">
 				{% else %}
-					<div class="in-depth__footer__next-prev__wrapper no-image"> 
+					<div class="in-depth__footer__next-prev__wrapper no-image">
 				{% endif %}
 					<a href="{{ next_sibling.specific.url }}">
 						<div class="in-depth__footer__next-prev__next">
@@ -166,7 +166,7 @@
 					{% if project_root.specific.project_logo %}
 						{% image project_root.specific.project_logo min-200x100 as logo %}
 						<div class="in-depth__title-block__logo">
-							<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">				      
+							<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
 							    <img class="sidemenu__logo" src="{{ logo.url }}">
 		  					</a>
 						</div>
@@ -186,7 +186,7 @@
 						{% endif %}
 						{% if authors %}
 							<h5 class="in-depth__navigation-subheading">Authors</h5>
-						
+
 							<div class="post-person-container">
 								{% for author in authors %}
 									{% if author.author.profile_image %}
@@ -224,7 +224,7 @@
 								{% endfor %}
 							</div>
 						{% endif %}
-						
+
 					</div>
 					<div class="in-depth__footer__main__right">
 						<h5 class="in-depth__navigation-subheading">Project Outline</h5>

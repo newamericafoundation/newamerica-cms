@@ -1,0 +1,120 @@
+.story-grid{
+	@include media-breakpoint(mobile){
+		height: 80vh;
+		min-height: 450px;
+	}
+
+	.row {
+		height: 100%;
+	}
+
+	&.has-1-children{
+		.story-grid__main{
+			@extend .col-md-12;
+
+			&__item:first-child{
+				@extend .col-md-12;
+				height: 100%;
+			}
+		}
+	}
+
+	&.has-2-children, &.has-3-children, &.has-4-children{
+		.story-grid__main{
+			@extend .col-md-6;
+
+			&__item:first-child {
+				@extend .col-md-12;
+			}
+		}
+
+		.story-grid__secondary{
+			@extend .col-md-6;
+		}
+	}
+
+	&.has-3-children{
+		.story-grid__secondary{
+			&__item:first-child, &__item:nth-child(2){
+				@extend .col-md-12;
+			}
+		}
+	}
+
+	&.has-4-children{
+		.story-grid__secondary{
+			&__item{
+				height: 50%;
+			}
+			&__item:first-child{
+				@extend .col-md-12;
+			}
+			&__item:nth-child(2), &__item:nth-child(3){
+				@extend .col-md-6;
+			}
+		}
+	}
+}
+
+.story-grid-item{
+	position: relative;
+	border: 1px solid color(white);
+	padding: 0 !important;
+
+	&__image{
+		width: 100%;
+		height: 100%;
+		position: relative;
+		z-index: 0;
+		background-size: cover;
+		@extend %with-overlay;
+
+		&:before{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			content: ' ';
+			display: block;
+			background: rgba(color(white), 0);
+			@include transition(background $transition-function);
+		}
+	}
+
+	&:hover{
+		.story-grid-item__image:before{
+			background: rgba(color(white), 0.15);
+		}
+	}
+
+	&__text{
+		color: color(white);
+		position: absolute;
+		bottom: 0;
+		z-index: 100;
+		margin: 0 0 15px 0;
+		padding: 0 20px;
+		cursor: pointer;
+
+		&__program-content{
+			margin: 0;
+		}
+
+		&__heading{
+			margin: 5px 0;
+			font-weight: bold;
+			@extend h3;
+
+			&.secondary{
+				@extend h4;
+			}
+		}
+
+		&__button{
+			display: block;
+			width: 70px;
+			margin: 0 0 5px 0;
+		}
+	}
+}

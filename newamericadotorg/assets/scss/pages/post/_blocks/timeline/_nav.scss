@@ -45,7 +45,7 @@
 		}
 		.tick {
 			text {
-				font-family: Simplon;
+				font-family: Circular;
 				fill: $sub-color;
 				font-size: $subtext-size;
 				line-height: .7;
@@ -66,7 +66,7 @@
 		stroke-dasharray: 4, 4;
 	}
 	&__era-text {
-		font-family: Simplon;
+		font-family: Circular;
 		fill: $sub-color;
 		font-size: $subtext-size;
 		line-height: .7;

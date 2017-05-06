@@ -1,26 +1,28 @@
 
 .button {
-	font-weight: bold;
 	color: white;
-	vertical-align: initial;
-	@include set-color(background-color);
-	@include standard-shadow;
+	background: color(turquoise);
+	font-weight: normal;
+	text-align: center;
+	padding: 0.5em;
+	border-radius: $border-radius;
+	@include transition(background $transition-function)
 
 	&:hover {
-		@include set-light-color(background-color);
-		@include hover-shadow;
+		background: color(turquoise, light);
 		color: white;
 	}
 
 	&.black {
-		background-color: palette-get(na-black);
+		background: color(black);
 		&:hover {
-			background-color: palette-get(na-light-black);
+			background: color(black,light);
 		}
 	}
+
 	&.transparent {
-		background-color: white;
-		border: 2px solid palette-get(na-black-10);
-		color: palette-get(na-black);
+		background: rgba(color(turquoise),0);
+		border: 1px solid color(turquoise);
+		color: color(turquoise);
 	}
 }

@@ -1,3 +1,20 @@
+%with-overlay{
+  position: relative;
+  &::after{
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255,255,255,0);
+    @include transition(background-image 0.2s ease-in-out);
+    background-blend-mode: multiply;
+    @include linear-gradient-vertical(rgba(color(black), 0), color(black), 30% );
+  }
+}
+
 @mixin border-bottom($color: black){
   border-bottom: 1px solid color($color);
 }

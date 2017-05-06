@@ -41,7 +41,7 @@
   font-size: 1.2rem;
   color: palette-get(na-black-70);
   line-height: 1.65;
-  font-family: Simplon;
+  font-family: Circular;
   font-style: normal;
 }
 
@@ -55,7 +55,7 @@
 @mixin grid-title-text {
   font-weight:bold;
   font-size: 26px;
-  font-family: Simplon;
+  font-family: Circular;
   line-height: 105%;
 
   &:hover {

@@ -33,9 +33,9 @@ $colors: (
 $shadow: rgba(0, 0, 0, 0.25);
 $overlay: rgba(0, 0, 0, 0.2);
 
-// @function color($color, $tone: 'base') {
-//     @return map-get(map-get($colors, $color), $tone);
-// }
+@function color($color, $tone: 'base') {
+    @return map-get(map-get($colors, $color), $tone);
+}
 
 $_color-palette: (
 	na-turquoise: #2ebcb3,

@@ -1,0 +1,21 @@
+.container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  max-width: 1200px;
+
+  &--full-width{
+    width: 100%;
+  }
+
+  &--wide{
+    width: 90%;
+  }
+
+  &--center{
+    width: 660px;
+    max-width: 90%;
+  }
+}

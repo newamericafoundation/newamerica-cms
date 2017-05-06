@@ -20,7 +20,7 @@
 				{% if project_root.specific.project_logo %}
 					{% image project_root.specific.project_logo min-200x100 as logo %}
 					<div class="in-depth__title-block__logo">
-						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">				      
+						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
 						    <img class="sidemenu__logo" src="{{ logo.url }}">
 	  					</a>
 					</div>
@@ -52,7 +52,7 @@
 		</div>
 		<div class="in-depth__profile__body post-body" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}">
 			{% for block in page.body %}
-		    	{% include 'ui_elements/post_body_block.html' %}
+		    	{% include 'ui_elements/post_body.html' %}
 		    {% endfor %}
 		</div>
 	</div>
