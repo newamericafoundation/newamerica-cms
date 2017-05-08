@@ -1,0 +1,37 @@
+.featured-stories{
+  height: 150px;
+  margin: 50px 0;
+}
+
+.featured-story{
+  padding: 0 10px;
+  
+  &:first-child{
+    padding-left: 0;
+  }
+  &:last-child{
+    padding-right: 0;
+  }
+  &__link-wrapper{
+    height: 100%;
+  }
+
+  &__image{
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  &__text{
+    padding-left: 5px;
+
+    &__label{
+      display: block;
+      margin: 0 0 5px 0;
+      color: color(gray);
+    }
+    &__heading{
+      margin: 0 0 5px 0;
+    }
+  }
+}

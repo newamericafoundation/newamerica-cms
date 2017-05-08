@@ -8,37 +8,46 @@
 {% block sidemenu_status %}has_sidemenu{% endblock %}
 
 {% block content %}
-<section class='section section--fixed-width'>
+<section class='container container--wide'>
+	<div class="program-page-header">
+		<h1 class="program-page-header__heading">{{ page.name }}</h1>
+		<p class="program-page-header__subheading subheading--h1">
+			{% firstof page.short_description 'Bringing to the table win-win survival strategies to ensure proactive domination.' %}
+			<a class="program-page-header__button button transparent gray" href="{{page.about_us_page.url}}">
+				Read More
+			</a>
+		</p>
+	</div>
 	{% include 'components/story_grid.html' %}
+
+	{% if featured_stories %}
+		{% include 'components/featured_stories.html' with stories=featured_stories %}
+	{% endif %}
 </section>
 
-{% if featured_stories %}
-<section class='section section--fixed-width'>
-	{% include 'components/featured_stories.html' with stories=featured_stories %}
-</section>
-{% endif %}
 
-<section class='section section--fixed-width'>
-	<div class='row border-panel-container'>
+	<!-- <div class='row border-panel-container'>
 	{% if page.feature_carousel %}
 		{% include 'components/feature_carousel.html' with items=page.feature_carousel %}
-		<div class='small-12 large-6 columns'>
+		<div class='col-sm-12 col-lg-6'>
 	{% else %}
 		<div class='small-12 large-12 columns'>
 	{% endif %}
-			{% include 'components/subscribe.html' %}
-		</div>
-	</div>
-</section>
 
-<div class='panel'>
-	<h1>About {{ page.name }}</h1>
-	<p>{{ page.description }}</p>
-	{% if page.about_us_page %}
-		<div class='panel__link'>
-			<a href='{{ page.about_us_page.url }}' class='button black'>Read our Story</a>
 		</div>
-	{% endif %}
+	</div> -->
+
+<section class="container container--full-width">
+
+	<div class='panel'>
+		<h1>About {{ page.name }}</h1>
+		<p>{{ page.description }}</p>
+		{% if page.about_us_page %}
+			<div class='panel__link'>
+				<a href='{{ page.about_us_page.url }}' class='button black'>Read our Story</a>
+			</div>
+		{% endif %}
+	</div>
 </div>
 
 {% endblock %}

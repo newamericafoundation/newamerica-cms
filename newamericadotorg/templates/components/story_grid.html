@@ -2,7 +2,7 @@
 {% load wagtailimages_tags %}
 
 <section class="story-grid has-{{ other_lead_stories|length|add:"1" }}-children">
-  <div class="row">
+  <div class="row no-gutters">
     <div class="story-grid__main">
       <div class="row">
         {% include 'components/story_grid_item.html' with which="main" story=page.lead_1 page_context=page_context %}
