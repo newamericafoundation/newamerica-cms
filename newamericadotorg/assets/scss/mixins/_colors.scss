@@ -23,7 +23,8 @@ $colors: (
     10: #e0e0e1
   ),
   gray: (
-    base: #A9A9AC
+    base: #A9A9AC,
+    light: #f6f6f6
   ),
   white: (
     base: #ffffff
@@ -33,8 +34,8 @@ $colors: (
 $shadow: rgba(0, 0, 0, 0.25);
 $overlay: rgba(0, 0, 0, 0.2);
 
-@function color($color, $tone: 'base') {
-    @return map-get(map-get($colors, $color), $tone);
+@function color($color, $tone: 'base', $opacity: 1) {
+    @return rgba(map-get(map-get($colors, $color), $tone), $opacity);
 }
 
 $_color-palette: (

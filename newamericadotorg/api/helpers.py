@@ -87,7 +87,7 @@ def program_data(request):
             'topics': p.get_children().type(IssueOrTopic).live().in_menu()
         })
 
-    return { 'programs': program_data }
+    return { 'program_data': program_data }
 
 def content_types(request):
     '''

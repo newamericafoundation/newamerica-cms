@@ -33,7 +33,7 @@
 		}
 	}
 
-	&.has-3-children{
+	&.has-2-children, &.has-3-children{
 		.story-grid__secondary{
 			&__item:first-child, &__item:nth-child(2){
 				@extend .col-md-12;
@@ -60,6 +60,7 @@
 	position: relative;
 	border: 1px solid color(white);
 	padding: 0 !important;
+	display: block;
 
 	&__image{
 		width: 100%;
@@ -115,6 +116,13 @@
 			display: block;
 			width: 70px;
 			margin: 0 0 5px 0;
+			z-index: 10;
 		}
+	}
+}
+
+.has-2-children{
+	.story-grid-item__text__heading.secondary{
+		@extend h3;
 	}
 }

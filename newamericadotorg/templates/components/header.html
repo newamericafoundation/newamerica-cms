@@ -1,17 +1,23 @@
-<header>
-  <div class="row">
-    <div class="logo-wrapper col-md-6 col-xs-12">
+<header class="header">
+  <div class="row no-gutters">
+    <div class="header__logo-wrapper col-md-6 col-xs-12">
+      <a href="/">
+        <div class="header__logo logo"></div>
+      </a>
     </div>
-    <nav class="nav col-md-6 col-xs-12">
-      <div class="nav__dropdown-list">
+    <nav class="header__nav col-md-6 col-xs-12">
+      <div class="header__nav__dropdown-list">
+        {% include './header_dropdown_list.html' %}
       </div>
-      <div class="nav__donate">
-        <a class="nav__donate__button button">Donate</a>
-      </div>
-      <div class="nav__search">
+      <div class="header__nav__button-and-icons">
+        <div class="header__nav__donate">
+          <a class="header__nav__donate__button button transparent">Donate</a>
+        </div>
+        <div class="header__nav__search">
 
-      </div>
-      <div class="nav__social">
+        </div>
+        <div class="header__nav__social">
+        </div>
       </div>
     </nav>
   </div>

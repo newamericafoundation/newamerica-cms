@@ -6,7 +6,14 @@
 	text-align: center;
 	padding: 0.5em;
 	border-radius: $border-radius;
-	@include transition(background $transition-function)
+	@include transition(all $transition-function)
+	cursor: pointer;
+
+	&.transparent {
+		background: rgba(color(turquoise),0);
+		border: 1px solid color(turquoise);
+		color: color(turquoise);
+	}
 
 	&:hover {
 		background: color(turquoise, light);
@@ -18,11 +25,5 @@
 		&:hover {
 			background: color(black,light);
 		}
-	}
-
-	&.transparent {
-		background: rgba(color(turquoise),0);
-		border: 1px solid color(turquoise);
-		color: color(turquoise);
 	}
 }

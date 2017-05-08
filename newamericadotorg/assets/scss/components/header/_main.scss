@@ -1,100 +1,44 @@
+$header-height: 65px;
+$header-expanded-height: 155px;
 
 .header {
-  top: 0;
+  height: $header-height;
+  background: color(white);
+  @include border-bottom(gray, base, 0.45);
+  color: color(gray);
   width: 100%;
-  border-bottom: $thick-border-width solid;
-  @include set-color(border-color);
-  background-color: palette-get(na-white);
-  display:none;
-  z-index: 10000;
+  display: block;
+  margin: 0 0 15px 0;
+  padding: 0 15px 0 25px;
 
-  @include desktop-header {
-    position: fixed;
-    width: 100%; 
-    height:$desktop-header-height;
-    cursor: auto;
-    display: block;
-    top: 0px;
-  }
-
-  @include expanded-header {
-    padding-top: 8px;
+  &__logo-wrapper{
+    height: $header-height;
     position: relative;
-    width: 100%;
-    border: none;
-    height:$expanded-header-height;
-    cursor: auto;
-    display: block;
   }
 
-  &__content {
-
-    padding: 13px $mobile-padding;
-    
-    @include desktop-header() {
-      margin-left: auto;
-      margin-right: auto;
-      max-width: $max-site-width;
-      padding: 14px $desktop-padding 14px $desktop-padding;
-    }
-    @include expanded-header {
-     /* @include desktop-header {*/
-        padding: 20px $desktop-padding 12px $desktop-padding;
-    }
-    & > * {
-      vertical-align: bottom;
-    }
-    position: relative;
-    display: block;
-    width: 100%;
-    margin: auto;
-  }
-  &__secondary-nav,
-  &__search {
-    right: $desktop-padding;
-    a {
-      margin-left: 8px;
-    }
-  }
-  &__search {
-    display: none;
-    @include desktop-header() {
-      display: block;
-    }
-    margin: 0;
-    padding: 0;
+  &__logo{
     position: absolute;
-    bottom: 13px;
-    width: 200px;
-    input {
-      margin: 0;
-    }
-  }
-  &__cover-bottom-shadow {
-    
-    width: 100%;
-    z-index: 5;
-    position: relative;
-    bottom: 8px;
-    left: 0;
-    transition: none;
-    display: none;
-
-    @include desktop-header() {
-      height: 27px;
-    }
-
-    @include expanded-header() {
-      height: 15px;
-    }
-    .header__has-link-group:hover &,
-    .header__has-link-group--active & {
-      display: block;
-    }
-    background-color: palette-get(na-white);
-    border-left: 1px solid palette-get(na-black-10);
-    border-right: 1px solid palette-get(na-black-10);
+    @include vertical-center;
+    line-height: $header-height;
+    width: 134px;
+    height: 34px;
   }
 
-  
+  &__nav{
+    position: static;
+    @extend %clearfix;
+
+    & > * {
+      float: left;
+    }
+
+    &__donate{
+      line-height: $header-height;
+    }
+
+    &__dropdown-list{
+      @extend %clearfix;
+      @import 'dropdown';
+    }
+  }
 }

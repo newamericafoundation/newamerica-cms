@@ -40,22 +40,22 @@ label {
 
 .subheading {
   color: color(gray);
-  &__h1{
+  &--h1{
     font-size: 1.22rem;
     line-height: 1.50rem;
   }
 
-  &__h2 {
+  &--h2 {
     font-size: 1.16rem;
     line-height: 1.39rem;
   }
 
-  &__h3 {
+  &--h3 {
     font-size: 1.11rem;
     line-height: 1.28rem;
   }
 
-  &__h4 {
+  &--h4 {
     font-size: 1.06em;
     line-height: 1.22em;
   }
@@ -66,12 +66,7 @@ a {
   font-weight: bold;
   color: color(black);
 
-  &:not(.button){
-    @include border-bottom;
-  }
-
   &:not(.button):hover {
   	color: color(turquoise);
-    @include border-bottom(turquoise);
   }
 }

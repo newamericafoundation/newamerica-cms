@@ -270,3 +270,23 @@ def oembed(url):
     except EmbedException:
         # silently ignore failed embeds, rather than letting them crash the page
         return ''
+
+@register.simple_tag()
+def split_program_list(start_list, max_size=6):
+    final_list = []
+    temp_list = []
+    add = max_size
+    length = len(start_list)
+    for i, item in enumerate(start_list):
+        if i+1 > max_size:
+            max_size += add
+            final_list.append(temp_list)
+            temp_list = []
+        elif i+1 == length:
+            temp_list.append(item)
+            final_list.append(temp_list)
+            break
+
+        temp_list.append(item)
+
+    return final_list

@@ -1,0 +1,139 @@
+&__dropdown{
+  float: left;
+
+  &__main-link{
+    display: block;
+    position: relative;
+    font-size: 0.8em;
+    line-height: $header-height;
+    border-bottom: none !important;
+    padding: 0 0.5em;
+    font-weight: normal;
+    color: color(gray);
+    cursor: pointer;
+    text-decoration: none;
+
+    &:not(.no-drop):after{
+      // down arrow
+      display: inline-block;
+      content: '';
+      position: relative;
+      @include transform(rotate(45deg) translateY(-3px));
+      border-right: 1px solid color(gray);
+      border-bottom: 1px solid color(gray);
+      height: 5px;
+      width: 5px;
+      margin: 0 10px 0 5px;
+    }
+
+    &.no-drop{
+      padding-right: 1em;
+    }
+  }
+
+  &__links{
+    position: absolute;
+    z-index: 150;
+    top: $header-height;
+    display: none;
+
+    &.box{
+      border-left: 1px solid color(gray, base, 0.65);
+      border-right: 1px solid color(gray, base, 0.65);
+      border-bottom: 1px solid color(gray, base, 0.65);
+      border-bottom-right-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+      background: color(white);
+
+      .header-dropdown-content{
+        display: none;
+      }
+
+      &.wide{
+        padding: 25px;
+        left: 10px;
+        width: calc(100% - 20px);
+      }
+
+      &:not(.wide){
+        padding: 15px 2em 15px 1em;
+        @include transform(translateX(-0.2em));
+        .header-dropdown-links {
+          @extend .col-lg-12;
+        }
+      }
+    }
+
+    &.gray-box{
+      background-color: color(gray, light);
+      padding: 25px;
+      box-shadow: inset 0 0 1px 0 color(black,light,0.5), 0 1px 3px 0px color(black,light,0.5);
+      border-bottom: 1px solid color(black, base, 0.25);
+      width: 100%;
+      left: 0;
+    }
+
+  }
+
+  &:hover, &.active{
+    // dropdown hover/active state
+    .header__nav__dropdown-list__dropdown__links{
+      display: block;
+    }
+
+    .header__nav__dropdown-list__dropdown__main-link{
+      color: color(turquoise);
+      position: relative;
+      z-index: 200;
+
+      &:before{
+        position: absolute;
+        content: '';
+        display: block;
+      }
+
+      &.box:before{
+        // box around main link on hover
+        top: 0.5em;
+        left: -0.25em;
+        height: calc(100% - 0.5em);
+        width: 100%;
+        z-index: 200;
+        border-top: 1px solid color(gray, base, 0.65);
+        border-left: 1px solid color(gray, base, 0.65);
+        border-right: 1px solid color(gray, base, 0.65);
+        // small white bottom border to make dropdown appear seamless
+        border-bottom: 1px solid color(white);
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+      }
+
+      &.box.no-drop:before{
+        // smaller hover box for no-drop
+        height: calc(100% - 1em);
+        border-radius: $border-radius;
+        border-bottom: 1px solid color(gray, base, 0.65);
+      }
+
+      &.gray-box:before{
+        // pointer
+        left: calc( 50% - 20px);
+        bottom: -9px;
+        height: 20px;
+        width: 20px;
+        background: color(gray,light);
+        border-top: 1px solid  color(gray, base, 0.6);
+        border-left: 1px solid  color(gray, base, 0.6);
+        box-shadow: inset 0 1px 0 0 color(black,light,0.25),
+        inset 1px 0 0 0 color(black,light,0.25);
+        @include transform(rotate(45deg));
+      }
+
+      &:after{
+        // make down arrow turquoise on hover
+        border-right: 1px solid color(turquoise);
+        border-bottom: 1px solid color(turquoise);
+      }
+    }
+  }
+}

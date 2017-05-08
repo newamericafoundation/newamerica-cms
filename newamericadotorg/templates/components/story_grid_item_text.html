@@ -3,7 +3,15 @@
 <div class='story-grid-item__text'>
   {% if story.specific.rsvp_link %}
     {% if story.specific|is_future %}
-      <a class="story-grid-item__text__button button" href='{{ story.specific.rsvp_link }}'>RSVP</a>
+     {% comment %}
+        for whatever reason, using an <a></a> tag here causes django to
+        render this entire block outside of the parent template's link-wrapper.
+        Resorting to js.
+      {% endcomment %}
+      <div class="story-grid-item__text__button button"
+          onclick="window.location='{{story.specific.rsvp_link}}'; return false;">
+          RSVP
+      </div>
     {% endif %}
   {% endif %}
   <label class='story-grid-item__text__program-content {{which}}'>

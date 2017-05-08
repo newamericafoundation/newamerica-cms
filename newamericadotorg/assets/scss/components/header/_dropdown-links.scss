@@ -1,0 +1,58 @@
+.header-dropdown-links{
+  &__link{
+    cursor: pointer;
+    h4 {
+      margin: 1em 0 5px 0;
+      cursor: pointer;
+    }
+
+    label{
+      padding: 10px 0;
+      display: block;
+      font-size: 1em;
+      color: color(gray);
+      cursor: pointer;
+      &:hover{
+        color: color(turquoise);
+      }
+    }
+
+    &__project-link{
+      margin: 2.5px 5px 2.5px 0px
+    }
+
+    &__description{
+      font-size: 1rem;
+    }
+  }
+}
+
+.gray-box{
+  .header-dropdown-links__link label{
+    position: relative;
+    color: color(black);
+    font-weight: bold;
+    &:hover{
+      color: color(turquoise);
+
+      &:before{
+        content: '';
+        display: block;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: calc(50% - 5px);
+        left: -20px;
+        background: color(gray,light);
+        border-top: 1px solid color(gray);
+        border-right: 1px solid color(gray);
+        @include transform(rotate(45deg));
+      }
+
+    }
+  }
+}
+
+.header-dropdown-content{
+  border-right: 1px solid color(gray,base,0.65);
+}

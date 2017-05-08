@@ -15,8 +15,8 @@
   }
 }
 
-@mixin border-bottom($color: black){
-  border-bottom: 1px solid color($color);
+@mixin border-bottom($color: black, $tone: base, $opacity: 1){
+  border-bottom: 1px solid color($color, $tone, $opacity);
 }
 
 
@@ -41,6 +41,20 @@
 }
 
 @mixin handle-text-overflow {
+  -webkit-word-break: break-word;
+  word-break: break-word;
+  -webkit-word-wrap: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  /*Moz and IE hyphenation fallbacks due to lack of "word-break:break-word" support
+   and word-wrap only working on fixed width containers*/
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+/*  -webkit-hyphens: auto;
+   hyphens: auto;*/
+}
+
+@mixin break-word{
   -webkit-word-break: break-word;
   word-break: break-word;
   -webkit-word-wrap: break-word;

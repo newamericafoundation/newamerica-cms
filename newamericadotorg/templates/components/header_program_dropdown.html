@@ -1,0 +1,28 @@
+{% load utilities %}
+
+{% split_program_list program_data as program_groups %}
+<div class="row">
+{% for pg in program_groups %}
+  <div class="header-dropdown-links col-md-4">
+    {% for p in pg %}
+    <div class="header-dropdown-links__link">
+      <a href="{{p.program.url}}" class="header-dropdown__link__header">
+        <h4>{{p.program.title}}</h4>
+      </a>
+      <!-- <div class="header-dropdown-links__link__description subheading--h4">
+        Bringing to the table win-win survival strategies to ensure proactive domination.
+      </div> -->
+      <ul>
+      {% for project in p.projects %}
+        <li>
+          <a class="header-link-list__item__project-link tag tag-project" href="{{project.url}}">
+            {{project.title}}
+          </a>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+{% endfor %}
+</div>
