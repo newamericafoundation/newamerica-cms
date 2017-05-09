@@ -15,16 +15,6 @@
 		{% include 'components/featured_stories.html' with stories=featured_stories %}
 	{% endif %}
 
-	<div class='row border-panel-container'>
-	{% if upcoming_events %}
-		{% include 'components/feature_carousel.html' with items=upcoming_events page_context='homepage' %}
-		<div class='small-12 large-6 columns'>
-	{% else %}
-		<div class='small-12 large-12 columns'>
-	{% endif %}
-			{% include 'components/subscribe.html' %}
-		</div>
-	</div>
 </section>
 
 <section class="container container--full-width">

@@ -35,16 +35,18 @@
         }
         &__heading{
           margin: 0 0 5px 0;
+          font-size: 1em;
+          line-height: 1.2em;
         }
       }
     }
   }
 
   &.top-image{
-    height: 250px;
+    height: auto;
     margin: 50px 0;
     .featured-story{
-      height: 100%;
+      height: auto;
       &:first-child{
         padding-left: 0;
       }
@@ -57,7 +59,7 @@
       }
       &__image-wrapper{
         width: 100% !important;
-        height: 70%;
+        height: 175px;
         max-width: none !important;
       }
 
@@ -73,9 +75,16 @@
         height: 30%;
         width: 100% !important;
         max-width: none !important;
+        margin: 10px 0;
+
+        &__label{
+          display: block;
+          margin: 0 0 5px 0;
+          color: color(gray);
+        }
 
         &__heading{
-          margin: 10px 0;
+          margin: 0;
         }
       }
     }
