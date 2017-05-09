@@ -9,15 +9,22 @@
 
 {% block content %}
 <section class='container container--wide'>
-	<div class="program-page-header">
-		<h1 class="program-page-header__heading">{{ page.name }}</h1>
-		<p class="program-page-header__subheading subheading--h1">
+	<div class="program-heading">
+		<h1 class="program-heading__heading">{{ page.name }}</h1>
+		<p class="program-heading__subheading subheading--h1">
 			{% firstof page.short_description 'Bringing to the table win-win survival strategies to ensure proactive domination.' %}
-			<a class="program-page-header__button button transparent gray" href="{{page.about_us_page.url}}">
+			<a class="program-heading__button button transparent gray" href="{{page.about_us_page.url}}">
 				Read More
 			</a>
 		</p>
 	</div>
+	<header class="program-header">
+		<nav class="header__nav">
+			<div class="header__nav__dropdown-list">
+				{% include './program_header_dropdown_list.html' %}
+			</div>
+		</nav>
+	</header>
 	{% include 'components/story_grid.html' %}
 
 	{% if featured_stories %}

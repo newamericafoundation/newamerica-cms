@@ -1,0 +1,18 @@
+.program-heading{
+  margin: 50px 0;
+
+  &__heading{
+    margin: 25px 0 5px 0;
+  }
+
+  &__subheading{
+    color: color(gray);
+    font-weight: normal;
+    margin: 0;
+  }
+
+  &__button{
+    font-size: 0.7em;
+  }
+
+}
