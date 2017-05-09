@@ -13,16 +13,16 @@
     <div class="post-heading__image" style="background-image: url({{story_image.url}})"></div>
     {% endif %}
     <div class="post-heading__text">
-      <h1 class="post-header__text__heading">{{ page.title }}</h1>
+      <h1 class="post-heading__text__heading">{{ page.title }}</h1>
       {% if page.subheading %}
-        <p class="post-header__text__subheading subheading--h2">{{ page.subheading }}</p>
+        <p class="post-heading__text__subheading subheading--h2">{{ page.subheading }}</p>
       {% endif %}
       {% if page.source_url %}
-        <a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+        <a class="post-heading__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
       {% endif %}
       {% if page.rsvp_link %}
         {% if page|is_future %}
-          <a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
+          <a class="post-heading__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
         {% endif %}
       {% endif %}
     </div>
