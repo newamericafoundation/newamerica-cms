@@ -1,11 +1,11 @@
 {% load wagtailimages_tags utilities %}
 
-<section class='featured-stories row'>
+<section class='featured-stories row top-image'>
   {% for story in stories %}
   <div class='col-md-4 featured-story'>
-    <a class="featured-story__link-wrapper row" href="{{ story.url }}">
+    <a class="featured-story__link-wrapper row no-gutters" href="{{ story.url }}">
       {% if story.specific.story_image %}
-        {% image story.specific.story_image fill-250x150 as story_image %}
+        {% image story.specific.story_image fill-350x175 as story_image %}
         <div class="featured-story__image-wrapper col-md-6">
           <div class='featured-story__image'
             style="background-image: url({{story_image.url}})">
@@ -15,12 +15,15 @@
       {% else %}
         <div class='featured-story__text col-md-12'>
       {% endif %}
+        {% generate_content_type_line story.content_type as label %}
+          {% if label %}
           <label class="featured-story__text__label">
-            {% generate_content_type_line story.content_type %}
+            {{ label }}
           </label>
-          <h4 class="featured-story__text__heading">
+          {% endif %}
+          <h3 class="featured-story__text__heading">
               {% if story.seo_title %}{{ story.seo_title }}{% else %}{{ story.title }}{% endif %}
-          </h4>
+          </h3>
           <!-- <p class="featured-story__text__description subheading--h4">
             {{ story.specific.story_excerpt }}
           </p> -->

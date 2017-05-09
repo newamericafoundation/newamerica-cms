@@ -107,6 +107,7 @@ def generate_content_type_line(ptype):
 		"issue or topic" : "",
 		"Article and Op-Ed" : "Article",
 		"redirect page": "",
+		"Homepage for all In-Depth Projects": ""
 	}
 
 	if page_type in page_mappings:

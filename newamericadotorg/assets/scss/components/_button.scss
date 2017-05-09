@@ -6,27 +6,27 @@
 	text-align: center;
 	padding: 0.5em;
 	border-radius: $border-radius;
-	@include transition(all $transition-function)
+	@include transition(all $transition-function);
 	cursor: pointer;
+
+	&.transparent {
+		background: rgba(color(turquoise),0);
+		border: 1px solid color(turquoise);
+		color: color(turquoise);
+	}
 
 	&:hover {
 		background: color(turquoise, light);
 		color: color(white);
 	}
 
-	&.transparent {
-		background: rgba(color(turquoise),0);
-		border: 1px solid color(turquoise);
-		color: color(turquoise);
-
-		&.gray {
-			border: 1px solid color(gray);
-			color: color(gray);
-			&:hover{
-				background: color(black);
-				color: color(white);
-				border: 1px solid color(black);
-			}
+	&.gray {
+		border: 1px solid color(gray);
+		color: color(gray);
+		&:hover{
+			background: color(black);
+			color: color(white);
+			border: 1px solid color(black);
 		}
 	}
 
