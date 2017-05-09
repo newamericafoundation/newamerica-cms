@@ -1,0 +1,15 @@
+ol, ul {
+  margin-bottom: 20px;
+}
+
+ol li {
+  display: list-item;
+  list-style-type: decimal;
+  margin-left: $desktop-padding;
+}
+
+ul li {
+  display: list-item;
+  list-style-type: disc;
+  margin-left: 45px;
+}

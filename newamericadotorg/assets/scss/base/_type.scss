@@ -1,3 +1,7 @@
+* {
+  -webkit-font-smoothing: antialiased !important;
+}
+
 h1,h2,h3,h4{
   font-family: $header-font-family;
   font-weight: bold;
@@ -25,17 +29,20 @@ h4 {
 
 p {
   font-size: 1.00em;
-  line-height: 1.44em;
-
-  & a {
-    color: color(turquoise);
-  }
+  line-height: 1.6em;
+  text-shadow: 1px 1px 1px color(black, base, 0.004);
+  text-rendering: optimizeLegibility !important;;
 }
 
 label {
   font-size: 0.78em;
   line-height: 1.06em;
   font-weight: normal;
+  color: color(gray);
+
+  &.active{
+    color: color(black);
+  }
 }
 
 .subheading {
@@ -69,4 +76,11 @@ a {
   &:not(.button):hover {
   	color: color(turquoise);
   }
+}
+
+.caption {
+	margin-top: 12px;
+	color: rgba(44,47,53,.45);
+	font-size: 15px;
+	line-height: 140%;
 }

@@ -1,0 +1,31 @@
+.block-table {
+  max-width: $max-site-width - $max-sidemenu-width;
+  margin-top: $desktop-padding;
+  margin-bottom: $desktop-padding;
+  overflow-x: scroll;
+
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(44, 47, 53, 0.05);
+  }
+
+  th, td {
+    padding: 10px;
+    min-width: 130px;
+    vertical-align: top;
+    text-align: left;
+    line-height: 1.3;
+    border-left: $standard-border;
+    border-right: $standard-border;
+
+    &:first-child {
+      border-left: none;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  th {
+    color: palette-get(na-black);
+  }
+}

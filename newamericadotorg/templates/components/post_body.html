@@ -1,11 +1,13 @@
 {% load wagtailcore_tags %}
 
-<h5 class="post-date">{{ page.date }}</h5>
 {% if page.source %}
-  <h5 class="post-source">Media Outlet: {{ page.source }} </h5>
+  <label class="post-body__source">Media Outlet: {{ page.source }} </label>
 {% endif %}
+
+<label class="post-body__date">{{ page.date }}</label>
+
 {% for block in self.body %}
- <div class="block-{{ block.block_type }}">
+  <div class="block-{{ block.block_type }}">
      {% include_block block %}
- </div>
+  </div>
 {% endfor %}

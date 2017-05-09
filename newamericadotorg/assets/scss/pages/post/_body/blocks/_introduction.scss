@@ -1,0 +1,6 @@
+.block-introduction {
+  @extend %clearfix;
+  background: color(gray, light);
+  margin-bottom: 25px;
+  padding: $desktop-padding;
+}

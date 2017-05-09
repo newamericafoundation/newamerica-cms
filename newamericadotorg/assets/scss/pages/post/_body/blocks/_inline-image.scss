@@ -1,0 +1,49 @@
+.block-inline_image{
+  text-align: center;
+
+  img, &__wrapper {
+    padding: $media-padding 25px;
+  }
+
+  img {
+    padding: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .block-inline_image__wrapper{
+    display: inline-block;
+    text-align: left;
+    @extend %clearfix;
+  }
+
+  .full-width {
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .left {
+    max-width: 100%;
+    margin: 0 auto;
+
+    @include media-breakpoint(tablet) {
+      float: left;
+      max-width: 60%;
+      padding-left: 0px;
+      padding-right: $desktop-padding;
+    }
+  }
+
+  .right {
+    max-width: 100%;
+    margin: 0 auto;
+
+    @include media-breakpoint(tablet) {
+      float: right;
+      max-width: 60%;
+      padding-right: 0px;
+      padding-left: $desktop-padding;
+    }
+  }
+}

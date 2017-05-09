@@ -21,7 +21,7 @@
 	<section class="container container--wide">
 		<div class="row">
 			 {% block post_left_aside %}
-				 	<aside class="post-authors col-md-3">
+				 	<aside class="post-authors col-md-12 col-lg-3">
 						{% if authors %}
 							{% for author in authors %}
 									{% include 'components/post_person.html' with author=author %}
@@ -31,7 +31,7 @@
 			 {% endblock %}
 
 			{% block post-body %}
-				<article class="post-body with-dropcap col-md-6">
+				<article class="post-body with-dropcap col-md-9 col-lg-6">
 					{% include 'components/post_body.html' %}
 					{% block post_extra_body_content %}{% endblock %}
 				</article>

@@ -1,4 +1,35 @@
-@import 'body';
-@import 'data-reference';
-@import 'caption';
-@import 'toggles';
+@import 'heading';
+@import 'attachment';
+
+.post-body {
+  $media-padding: 20px;
+  $media-default-aspect: 1;
+  // padding-top:$desktop-padding;
+  margin-bottom: $desktop-padding;
+
+  &__hidden {
+    display: none;
+  }
+
+  &__date{
+    font-size: 1em;
+    color: color(gray);
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  &__source{
+    display: block;
+    margin-bottom: 10px;
+    color: color(gray);
+    font-style: italic;
+  }
+
+  @import 'drop-cap';
+  @import 'link';
+  @import 'lists';
+  @import 'data-reference';
+  @import 'responsive-object';
+  @import 'toggles';
+  @import 'blocks/index';
+}

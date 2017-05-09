@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags utilities %}
 
 {% if page.publication_cover_image %}
-  {% include './post_book_header.html' %}
+  {% include './post_book_heading.html' %}
 {% endif %}
 <!-- EVERYTHING ELSE -->
 {% image page.story_image min-1100x300 as story_image %}

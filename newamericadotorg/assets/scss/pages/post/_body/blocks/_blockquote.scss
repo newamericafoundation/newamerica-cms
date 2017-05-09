@@ -1,0 +1,24 @@
+blockquote {
+  margin: 15px 5px;
+  padding: 0 20px;
+  border: none;
+
+  @include breakpoint(medium) {
+    margin: $desktop-padding;
+  }
+
+  &.pullquote {
+    font-weight: 800;
+    margin-left: 20px;
+    font-size: 1.3rem;
+    line-height: 2rem;
+    border-left: 4px solid;
+    @include set-color(border-color);
+    @include set-color(color);
+
+    @include breakpoint(medium) {
+      font-size: 1.5rem;
+      line-height: 2.3rem;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+.block-video {
+  margin-bottom: $desktop-padding;
+  @include limit-body-width;
+  .responsive-object {
+    @include responsive-iframe(56%);
+  }
+}

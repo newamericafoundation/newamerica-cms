@@ -1,0 +1,46 @@
+.post-attachment {
+    background-color: white;
+    max-width: 400px;
+    padding: $desktop-padding;
+    margin-bottom: $desktop-padding;
+    border: $standard-border;
+    overflow: hidden;
+    position: relative;
+
+    @include standard-shadow;
+
+    h3 {
+      font-weight: 800;
+      color: palette-get(na-black-40);
+      font-size: 14px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+    a {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 100%;
+    }
+
+    &__text {
+      padding-left: 80px;
+
+      &__item {
+        padding-bottom: $desktop-padding;
+
+        &:last-of-type {
+          padding-bottom: 0px;
+        }
+      }
+    }
+
+    &__image {
+        content: '';
+        float:left;
+        width: 60px;
+        height: 60px;
+        background-image: url(shape-urls-get(paperclip));
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
