@@ -14,29 +14,40 @@
 
 {% block content %}
 
-	{% block post-header %}
+	{% block post-heading %}
+		{% include 'components/post_heading.html' %}
 	{% endblock %}
 
-	<div class="post-container">
+	<section class="container container--wide">
+		<div class="row">
+			 {% block post_left_aside %}
+				 	<aside class="post-authors col-md-3">
+						{% if authors %}
+							{% for author in authors %}
+									{% include 'components/post_person.html' with author=author %}
+							{% endfor %}
+						{% endif %}
+					</aside>
+			 {% endblock %}
 
-	   {% if authors %}
-		 	<h5 class="post-author">{% generate_byline page.content_type authors %}</h5>
-		 {% endif %}
+			{% block post-body %}
+				<article class="post-body with-dropcap col-md-6">
+					{% include 'components/post_body.html' %}
+					{% block post_extra_body_content %}{% endblock %}
+				</article>
+			{% endblock %}
 
-		<h5 class="post-date">{{ page.date }}</h5>
+			{% block post_right_aside %}
+				<aside class="post-social col-md-3">
+					<div class="post-social__sticky-wrapper">
+						{% include 'components/social_share.html' %}
+						{% if page.attachment %}
+						  {% include 'components/post_attachments.html' %}
+						{% endif %}
+					</div>
+				</aside>
+			{% endblock %}
 
-		{% block post-body %}
-		{% endblock %}
-
-		{% include 'components/social_share.html' %}
-
-		{% if authors %}
-			<h1 class="post-subheading">{% get_author_block_prefix page.content_type authors %}</h1>
-			<div class="post-person-container">
-				{% for author in authors %}
-						{% include 'components/post_person.html' with author=author %}
-				{% endfor %}
-			</div>
-		{% endif %}
-	</div>
+		</div>
+	</section>>
 {% endblock %}

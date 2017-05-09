@@ -1,4 +1,4 @@
-{% extends "program_base.html" %}
+{% extends "post_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -6,31 +6,28 @@
 
 {% block body_class %}template-event{% endblock %}
 
-{% block content %}
 
-<div class="post-container">
-	<div class="event row">
-		<div class="event__left">
-			<h3 class="event__heading">When</h3>
-			{% generate_dateline page %}
+{% block post_left_aside %}
+	<aside class="col-md-3 event-details">
+		<div class="event row">
+			<div class="event__left">
+				<h3 class="event__heading">When</h3>
+				{% generate_dateline page %}
+			</div>
+			<div class="event__right">
+				<h3 class="event__heading">Where</h3>
+				<p>{{ page.host_organization }}</p>
+				<p>{{ page.street_address }}</p>
+				<p>{{ page.city }}, {{ page.state }} {{ page.zipcode }}</p>
+			</div>
 		</div>
-		<div class="event__right">
-			<h3 class="event__heading">Where</h3>
-			<p>{{ page.host_organization }}</p>
-			<p>{{ page.street_address }}</p>
-			<p>{{ page.city }}, {{ page.state }} {{ page.zipcode }}</p>
-		</div>
-	</div>
+	</aside>
+{% endblock %}
 
-  {% include 'components/post_body.html' %}
-
+{% block post_extra_body_content %}
 	{% if page.soundcloud_url %}
 		<div class="event__soundcloud_embed">
 			<a href='{{ page.soundcloud_url }}'>Listen to this Event</a>
 		</div>
 	{% endif %}
-
-	{% include 'components/social_share.html' %}
-</div>
-
 {% endblock %}

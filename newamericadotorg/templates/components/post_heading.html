@@ -1,0 +1,30 @@
+{% load wagtailcore_tags wagtailimages_tags utilities %}
+
+{% if page.publication_cover_image %}
+  {% include './post_book_header.html' %}
+{% endif %}
+<!-- EVERYTHING ELSE -->
+{% image page.story_image min-1100x300 as story_image %}
+<!-- BLOG -->
+{% image page.story_image min-1100x650 as story_image %}
+<section class="container container--wide">
+  <section class="post-heading {% if story_image %}with-image{% endif %}">
+    {% if story_image and not page.publication_cover_image %}
+    <div class="post-heading__image" style="background-image: url({{story_image.url}})"></div>
+    {% endif %}
+    <div class="post-heading__text">
+      <h1 class="post-header__text__heading">{{ page.title }}</h1>
+      {% if page.subheading %}
+        <p class="post-header__text__subheading subheading--h2">{{ page.subheading }}</p>
+      {% endif %}
+      {% if page.source_url %}
+        <a class="post-header__text__button button" href='{{ page.source_url }}'>Read Original Article</a>
+      {% endif %}
+      {% if page.rsvp_link %}
+        {% if page|is_future %}
+          <a class="post-header__text__button button" href='{{page.rsvp_link}}'>RSVP</a>
+        {% endif %}
+      {% endif %}
+    </div>
+  </section>
+</section>

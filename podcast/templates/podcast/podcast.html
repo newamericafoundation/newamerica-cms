@@ -14,14 +14,10 @@
   </div>
 {% endblock %}
 
-{% block post-body %}
-
-	{% include 'components/post_body.html' %}
-
+{% block post_extra_body_content %}
 	{% if page.itunes_url %}
 		<div class="podcast__itunes_link">
 			<a href="{{ page.itunes_url }}">Listen on iTunes</a>
 		</div>
 	{% endif %}
-
 {% endblock %}
