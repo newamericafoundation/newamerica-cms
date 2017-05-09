@@ -1,7 +1,6 @@
 .story-grid{
 	@include media-breakpoint(mobile){
-		height: 80vh;
-		min-height: 450px;
+		height: 450px;
 	}
 
 	.row {

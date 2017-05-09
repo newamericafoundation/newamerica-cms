@@ -7,8 +7,9 @@ $header-expanded-height: 155px;
   @include border-bottom(gray, base, 0.45);
   color: color(gray);
   width: 100%;
+  max-width: $max-site-width;
   display: block;
-  margin: 0 0 15px 0;
+  margin: 0 auto 15px auto;
   padding: 0 15px 0 25px;
 
   &__logo-wrapper{
