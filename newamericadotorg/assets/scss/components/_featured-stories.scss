@@ -1,13 +1,15 @@
 .featured-stories{
   height: 150px;
-  margin: 15px 0 25px 0;
+  margin: 25px 0;
   position: relative;
+  overflow: hidden;
+  @include fade-out(55px);
 
   &.side-image{
     .featured-story{
       padding: 0 10px;
       height: 70%;
-      @include vertical-center;
+
       &:first-child{
         padding-left: 0;
       }
@@ -28,6 +30,19 @@
       &__text{
         padding-left: 15px !important;
 
+        &.no-image{
+          max-height: 100%;
+          width: 70%;
+          position: absolute;
+          padding-left: 0 !important;
+          @include center;
+          .featured-story__text{
+            &__heading {
+              text-align: center;
+            }
+          }
+        }
+
         &__label{
           display: block;
           margin: 0 0 5px 0;
@@ -45,7 +60,6 @@
           margin: 0;
           height: 80px;
           overflow: hidden;
-          @extend %with-fade-out;
         }
       }
     }

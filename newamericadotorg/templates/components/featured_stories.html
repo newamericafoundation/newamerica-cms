@@ -13,7 +13,7 @@
         </div>
         <div class='featured-story__text col-md-6'>
       {% else %}
-        <div class='featured-story__text col-md-12'>
+        <div class='featured-story__text no-image'>
       {% endif %}
         {% generate_content_type_line story.content_type as label %}
           {% if label %}
@@ -24,9 +24,11 @@
           <h3 class="featured-story__text__heading">
               {% if story.seo_title %}{{ story.seo_title }}{% else %}{{ story.title }}{% endif %}
           </h3>
-          <p class="featured-story__text__description">
-            {{ story.specific.story_excerpt }}
-          </p>
+          {% if story.specific.story_excerpt %}
+            <p class="featured-story__text__description">
+              {{ story.specific.story_excerpt }}
+            </p>
+          {% endif %}
         </div>
     </a>
   </div>
