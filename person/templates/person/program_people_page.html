@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<section class='section section--fixed-width'>
+<section class='container container--wide'>
 	<div class="post-header-container">
 	    <div class="post-header">
 	        <div class="post-header__text">
@@ -16,33 +16,20 @@
 	        </div>
 	    </div>
 	</div>
+</section>
 
+<section class="container container--wide">
 	<div class="row person-grid__content">
 		{% for person in people %}
-			<div class="small-12 medium-6 large-4 columns">
-				<div class="person">
-					<a href="{{ person.url }}">
-						<div class='person__icon'>
-						{% if person.profile_image %}
-							{% image person.profile_image min-100x100 as person_image %}
-							<div class='person__icon__photo' style='background: no-repeat center/100% url({{ person_image.url }})'>
-							</div>
-						{% endif %}
-						</div>
-					</a>
-					<h5 class='person__name'>
-						<a href="{{ person.url }}">{{ person.first_name }} {{ person.last_name }}</a>
-					</h5>
-					<h5 class='person__position'>{{ person.position_at_new_america }}</h5>
-
-				</div>
+			<div class="col-sm-12 col-md-3">
+				{% include 'components/author.html' with author=person class="card" %}
 			</div>
 		{% endfor %}
 	</div>
+</section>
 
-	<div class="content-grid__footer">
-		{% include 'components/pagination.html' with all_content=people %}
-	</div>
+<section class="container container--wide content-grid__footer">
+	{% include 'components/pagination.html' with all_content=people %}
 </section>
 
 {% endblock %}
