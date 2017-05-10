@@ -34,10 +34,12 @@
     vertical-align: top;
     white-space: nowrap;
     .author__image-wrapper{
-      width: 30px;
+      //width: 30px;
+      @extend .col-sm-3;
       padding: 0;
-      display: inline-block;
-      margin-right: 5px;
+      padding-right: 5px;
+      // display: inline-block;
+      //margin-right: 5px;
     }
 
     .author__image{
@@ -47,9 +49,12 @@
       padding-right: 0;
     }
     .author__text{
+      padding: 0;
       padding-right: 10px;
-      padding-left: 0;
-      display: inline-block;
+      // padding-right: 10px;
+      // padding-left: 0;
+      // display: inline-block;
+      @extend .col-sm-9;
       &__position, &__short-bio{
         display: none;
       }
@@ -57,7 +62,7 @@
         font-weight: normal;
         color: color(gray);
         line-height: 30px;
-        margin: 5px 0 0 0;
+        margin: 0;
         font-size: 0.8rem;
         line-height: 1.1em;
         white-space: normal;
