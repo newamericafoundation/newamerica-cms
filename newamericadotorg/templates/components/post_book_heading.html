@@ -1,8 +1,5 @@
 {% load wagtailimages_tags %}
-
-<div class="book-container">
-  <div class="book">
-  {% image page.publication_cover_image min-95x155 as cover_image %}
-    <img src="{{ cover_image.url }}" />
-  </div>
+<div class="post-heading__book">
+  {% image page.publication_cover_image min-200x260 as cover_image %}
+  <img class="post-heading__book__image" src="{{ cover_image.url }}" />
 </div>

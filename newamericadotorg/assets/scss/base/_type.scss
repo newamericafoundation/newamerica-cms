@@ -27,11 +27,15 @@ h4 {
   line-height: 1.39rem;
 }
 
-p {
+p,
+blockquote,
+ul,
+li,
+span {
   font-size: 1.00em;
   line-height: 1.6em;
   text-shadow: 1px 1px 1px color(black, base, 0.004);
-  text-rendering: optimizeLegibility !important;;
+  text-rendering: optimizeLegibility !important;
 }
 
 label {
@@ -47,6 +51,7 @@ label {
 
 .subheading {
   color: color(gray);
+  font-weight: normal;
   &--h1{
     font-size: 1.22rem;
     line-height: 1.50rem;

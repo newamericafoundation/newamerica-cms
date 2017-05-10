@@ -38,6 +38,15 @@
           font-size: 1em;
           line-height: 1.2em;
         }
+        &__description{
+          color: color(gray);
+          font-weight: normal;
+          line-height: 1.2em;
+          margin: 0;
+          height: 80px;
+          overflow: hidden;
+          @extend %with-fade-out;
+        }
       }
     }
   }

@@ -6,7 +6,7 @@ a:not(.button) {
   color: color(black);
 
   &:hover{
-    color: color(turquoise, light);
-    border-bottom: 1px solid color(turquoise, light);
+    color: color(turquoise);
+    border-bottom: 1px solid color(turquoise);
   }
 }

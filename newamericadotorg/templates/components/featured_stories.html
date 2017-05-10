@@ -1,6 +1,6 @@
 {% load wagtailimages_tags utilities %}
 
-<section class='featured-stories row top-image'>
+<section class='featured-stories row side-image'>
   {% for story in stories %}
   <div class='col-md-4 featured-story'>
     <a class="featured-story__link-wrapper row no-gutters" href="{{ story.url }}">
@@ -24,9 +24,9 @@
           <h3 class="featured-story__text__heading">
               {% if story.seo_title %}{{ story.seo_title }}{% else %}{{ story.title }}{% endif %}
           </h3>
-          <!-- <p class="featured-story__text__description subheading--h4">
+          <p class="featured-story__text__description">
             {{ story.specific.story_excerpt }}
-          </p> -->
+          </p>
         </div>
     </a>
   </div>

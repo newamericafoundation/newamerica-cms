@@ -15,6 +15,21 @@
   }
 }
 
+%with-fade-out{
+  position: relative;
+  &::after{
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    user-select: none;
+    @include linear-gradient-vertical(rgba(color(white), 0), color(white), 70% );
+  }
+}
+
 @mixin border-bottom($color: black, $tone: base, $opacity: 1){
   border-bottom: 1px solid color($color, $tone, $opacity);
 }

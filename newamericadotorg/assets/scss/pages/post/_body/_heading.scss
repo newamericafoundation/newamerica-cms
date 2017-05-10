@@ -1,7 +1,6 @@
 .post-heading{
   position: relative;
   width: 100%;
-  height: 350px;
   margin: 50px 0;
 
   &__image{
@@ -14,14 +13,25 @@
   }
 
   &__text{
-    position: absolute;
-    @include center;
     width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    &__heading{
+      margin-bottom: 10px;
+    }
+    &__button{
+      display: inline-block;
+      margin-top: 10px;
+    }
   }
 
   &.with-image{
+      height: 350px;
+
     .post-heading__text{
-      text-align: center;
+      position: absolute;
+      @include center;
+
       &__heading{
         color: color(white);
         text-shadow: 0px 3px 3px color(black, base, .5);

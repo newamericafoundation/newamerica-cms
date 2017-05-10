@@ -1,67 +1,10 @@
-$book-height: 150px;
-$book-width: 95px;
-
-.book {
-  display: inline-block;
-  box-shadow: 5px 5px 20px #ddd;
-  height: $book-height;
-  width: $book-width;
-
-  img {
-    height: $book-height;
-    width: $book-width;
-    vertical-align: middle;
+.post-heading__book{
+  &__image{
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    height: auto;
+    box-shadow: 0px 0px 1px 2px color(black, base, 0.15),
+    0px 0px 1px 0px color(black, base, 0.65);
   }
-}
-
-/*
- *  In order for this to work, you must use Modernizer
- *  to detect 3D transform browser support. This will add
- *  a "csstransforms3d" class to the HTML element.
- *
- *  Visit http://modernizr.com/ for installation instructions
- */
-
-.csstransforms3d  .books {
-  -moz-perspective: 100px;
-  -moz-transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-}
-
-.csstransforms3d  .book {
-  position: relative;
-  -moz-perspective: 100px;
-  -moz-transform: rotateY(-3deg);
-  -webkit-transform: perspective(100) rotateY(-3deg);
-  outline: 1px solid transparent; /* Helps smooth jagged edges in Firefox */
-  box-shadow: none;
-  margin: 0;
-}
-
-.csstransforms3d  .book img {
-  position: relative;
-  max-width: 100%;
-}
-
-.csstransforms3d  .book:before,
-.csstransforms3d  .book:after {
-  position: absolute;
-  top: 2%;
-  height: 96%;
-  content: ' ';
-  z-index: -1;
-}
-
-.csstransforms3d  .book:before {
-  width: 100%;
-  left: 7.5%;
-  background-color: #999;
-  box-shadow: 5px 5px 20px #ddd;
-}
-
-.csstransforms3d  .book:after {
-  width: 5%;
-  left: 100%;
-  background-color: #EFEFEF;
-  box-shadow: inset 0px 0px 5px #aaa;
 }
