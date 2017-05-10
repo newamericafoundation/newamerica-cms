@@ -32,9 +32,9 @@ def list_separator(i):
 @register.simple_tag()
 def pluralize(num_items, label):
 	if num_items > 1:
-		return label + "s: "
+		return label + "s "
 	else:
-		return label + ": "
+		return label + " "
 
 
 # maps post type to appropriate person prefix for byline, calls pluralize helper function to pluralize if more than one item
