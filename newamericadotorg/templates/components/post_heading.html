@@ -4,7 +4,7 @@
 <!-- BLOG -->
 {% image page.story_image min-1100x650 as story_image %}
 <section class="container container--wide">
-  <section class="post-heading {% if story_image and not page.publication_cover_image %}with-image{% endif %}">
+  <section class="post-heading row {% if story_image and not page.publication_cover_image %}with-image{% endif %}">
     {% if page.publication_cover_image %}
       {% include './post_book_heading.html' %}
     {% elif story_image and not page.publication_cover_image %}

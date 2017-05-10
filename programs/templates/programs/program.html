@@ -9,7 +9,7 @@
 
 {% block content %}
 <section class='container container--wide'>
-	<div class="program-heading">
+	<div class="program-heading row">
 		<h1 class="program-heading__heading">{{ page.name }}</h1>
 		<p class="program-heading__subheading subheading--h1">
 			{% firstof page.short_description 'Bringing to the table win-win survival strategies to ensure proactive domination.' %}
@@ -18,7 +18,7 @@
 			</a>
 		</p>
 	</div>
-	<header class="program-header">
+	<header class="program-header row">
 		<nav class="header__nav">
 			<div class="header__nav__dropdown-list">
 				{% include './program_header_dropdown_list.html' %}

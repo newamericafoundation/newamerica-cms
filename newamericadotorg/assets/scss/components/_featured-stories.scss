@@ -1,6 +1,7 @@
 .featured-stories{
   height: 150px;
-  margin: 25px 0;
+  margin-top: 25px;
+  margin-bottom: 25px;
   position: relative;
   overflow: hidden;
   @include fade-out(55px);
