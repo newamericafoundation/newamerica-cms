@@ -31,7 +31,7 @@
 								</label>
 							{% endwith %}
 							{% for author in authors %}
-									{% include 'components/author.html' with author=author %}
+									{% include 'components/author.html' with author=author.author %}
 							{% endfor %}
 						{% endif %}
 					</aside>

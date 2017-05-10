@@ -46,7 +46,7 @@
 
 	{% if all_posts %}
 		{% block lead_story %}{% endblock %}
-		{% include 'components/content_grid.html' with all_content=all_posts %}
+		{% include 'components/content_list.html' with all_content=all_posts %}
 
 		<div class="content-grid__footer">
 			{% include 'components/pagination.html' with all_content=all_posts %}

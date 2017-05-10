@@ -1,0 +1,44 @@
+.content-list{
+  margin-top: 50px;
+  &__item{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    &__details{
+      border-right: 1px solid color(gray, base, 0.45);
+      label{
+        max-width: 90%;
+        display: block;
+        margin: 0 0 5px 0;
+        a {
+          color: color(gray);
+          font-weight: normal;
+        }
+      }
+    }
+    &__heading{
+      max-width: 90%;
+      &__heading{
+        margin: 0;
+      }
+      &__excerpt{
+        margin: 10px 0 5px 0;
+      }
+      &__authors{
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    &__image-wrapper{
+      max-height: 125px;
+      overflow: hidden;
+    }
+
+    &__image{
+      width: 100%;
+      height: auto;
+    }
+
+  }
+
+}

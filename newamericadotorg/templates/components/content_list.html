@@ -1,0 +1,48 @@
+{% load wagtailcore_tags wagtailimages_tags utilities %}
+
+<section class="content-list container">
+{% for post in all_content %}
+  <div class="row content-list__item">
+    <div class="content-list__item__details col-md-3">
+        <label class="content-list__item__details__date">
+          {{post.date}}
+        </label>
+        {% if post.post_subprogram.all %}
+        {% for subprogram in post.post_subprogram.all %}
+          <label class="content-list__item__details__program-content">
+            <a href="{{ subprogram.url }}">
+              {{ subprogram }}
+            {% list_separator forloop.revcounter0 %}
+            </a>
+          </label>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="content-list__item__heading col-md-6">
+      <a class="content-list__item__heading__link-wrapper" href="{{post.url}}">
+        <h4 class= "content-list__item__heading__heading">
+          {{ post.title }}
+        </h4>
+      </a>
+      <p class= "content-list__item__heading__excerpt">
+        {{ post.story_excerpt }}
+      </p>
+      <div class="content-list__item__heading__authors container">
+        <div class="row no-gutters">
+          {% for author in post.authors.all %}
+            {% include 'components/author.html' with author=author.author class='ultra-compact col-md-4 content-list__item__heading__author' %}
+          {% endfor %}
+        </div>
+      </div>
+
+
+    </div>
+    <div class="content-list__item__image-wrapper col-md-3">
+      {% if post.story_image %}
+        {% image post.story_image min-650x200 as post_image %}
+        <img src="{{post_image.url}}" class="content-list__item__image" />
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
+</section>

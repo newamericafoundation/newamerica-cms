@@ -1,32 +1,29 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-<div class="author {% firstof class 'short-bio' %} {{ author.author.profile_image|yesno:"with-image," }}">
+<div class="author {% firstof class 'short-bio' %} {{ author.profile_image|yesno:"with-image," }}">
   <div class="row no-gutters">
-    {% if author.author.profile_image %}
-      {% image author.author.profile_image min-300x300 as author_image %}
+    {% if author.profile_image %}
+      {% image author.profile_image min-300x300 as author_image %}
       <div class="author__image-wrapper">
-        <div class="author__image"
-          style="background-image: url({{ author_image.url }})"></div>
-        </div>
+        <div class="author__image" style="background-image: url({{ author_image.url }})"></div>
+      </div>
     {% endif %}
     <div class="author__text">
-      <a href="{{author.author.url}}" class="author__link-wrapper">
-      {% if author.author.short_bio %}
-        <div class="author__text__short-bio">
-          {{ author.author.short_bio | richtext }}
-        </div>
-      {% endif %}
-      <p class="author__text__name">
-        {{ author.author.first_name }} {{ author.author.last_name }}
-      </p>
-      <label class="author__text__position">
-        {{ author.author.position_at_new_america }}
-      </label>
+      <a href="{{author.url}}" class="author__link-wrapper">
+        {% if author.short_bio %}
+          <div class="author__text__short-bio">
+            {{ author.short_bio | richtext }}
+          </div>
+        {% endif %}
+        <p class="author__text__name">
+          {{ author.first_name }} {{ author.last_name }}
+        </p>
+        <label class="author__text__position">
+          {{ author.position_at_new_america }}
+        </label>
       </a>
     </div>
   </div>
-  <div class="author__contact">
-
-  </div>
+  <div class="author__contact"></div>
 </div>

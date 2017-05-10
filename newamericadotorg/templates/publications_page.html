@@ -7,32 +7,22 @@
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}
-	<div class="post-header-container">
-		<div class="post-header">
-			<div class="post-header__text">
-			    <h1 class="post-header__text__heading">{{ page.title }}</h1>
-			</div>
-		</div>
-	</div>
-
-	<div class="content-grid__controls">
-		{% include 'components/content_controls.html' %}
-		<div class="content-grid__controls__right">
+	<section class="container container--medium">
+		<section class="content-list-heading">
+			<h1 class="content-list-heading__heading">{{ page.title }}</h1>
+			<p class="content-list-heading__subheading subheading subheading--h1">
+				Bringing to the table win-win survival strategies to ensure proactive domination.
+			</p>
+		</section>
+		<section class="content-list-filters">
+			{% include 'components/content_controls.html' %}
+		</section>
+		{% include 'components/content_list.html' with all_content=all_posts %}
+		{% if not all_posts %}
+			<h4 class="content-list-no-results">No results found</h4>
+		{% endif %}
+		<section class="content-list-footer">
 			{% include 'components/pagination.html' with all_content=all_posts %}
-		</div>
-	</div>
-
-{% if all_posts %}
-
-	<div class="content-grid__entries">
-		{% include 'components/content_grid.html' with all_content=all_posts %}
-	</div>
-	<div class="content-grid__footer">
-		{% include 'components/pagination.html' with all_content=all_posts %}
-	</div>
-
-{% else %}
-	<h5 class="content-grid__no-results">No results found</h5>
-{% endif %}
-
+		</section>
+	</section>
 {% endblock %}

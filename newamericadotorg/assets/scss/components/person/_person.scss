@@ -1,3 +1,7 @@
+.bio__content-list__heading{
+  text-align: center;
+}
+
 .person {
   $info-offset: 26px;
   $nav-offset: 19px;
@@ -19,7 +23,7 @@
     width: 100px;
     height: 100px;
     margin: auto;
-  
+
       & > svg {
         position: absolute;
         top: 50%;
@@ -50,7 +54,7 @@
     margin-bottom: 0px;
   }
 
-  
+
 
   &__position {
     opacity: 1;
