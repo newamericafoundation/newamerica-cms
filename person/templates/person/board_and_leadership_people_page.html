@@ -1,4 +1,4 @@
-{% extends "about_sidemenu.html" %}
+{% extends "base.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -28,7 +28,7 @@
 </section>
 
 <section class="container container--wide">
-	{% include 'components/pagination' with all_content=people %}
+	{% include 'components/pagination.html' with all_content=people %}
 </section>
 
 {% endblock %}

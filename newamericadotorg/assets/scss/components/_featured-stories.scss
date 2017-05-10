@@ -6,6 +6,10 @@
   overflow: hidden;
   @include fade-out(55px);
 
+  .row{
+    height: 100%;
+  }
+
   &.side-image{
     .featured-story{
       padding: 0 10px;

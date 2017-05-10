@@ -17,6 +17,9 @@
 		<section class="content-list-filters">
 			{% include 'components/content_controls.html' %}
 		</section>
+		{% if all_posts %}
+			{% block lead_story %}{% endblock %}
+		{% endif %}
 		{% include 'components/content_list.html' with all_content=all_posts %}
 		{% if not all_posts %}
 			<h4 class="content-list-no-results">No results found</h4>
