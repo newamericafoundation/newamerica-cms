@@ -1,4 +1,4 @@
-{% extends "program_base.html" %}
+{% extends "base.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
@@ -13,7 +13,9 @@
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}
-
+	{% block breadcrumbs %}
+    {% include 'components/breadcrumbs.html' %}
+  {% endblock %}
 	{% block post-heading %}
 		{% include 'components/post_heading.html' %}
 	{% endblock %}
@@ -56,5 +58,5 @@
 			{% endblock %}
 
 		</div>
-	</section>>
+	</section>
 {% endblock %}

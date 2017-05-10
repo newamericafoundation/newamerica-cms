@@ -4,11 +4,6 @@
 @import 'job';
 @import 'subscribe';
 
-.simple-page-title {
-  padding-top: 30px;
-  h1 {
-    font-size: rem-calc(24);
-    font-weight: bold;
-    margin: 0 0 10px;
-  }
+.simple-page-body, .simple-page-social{
+  margin: 0 auto;
 }

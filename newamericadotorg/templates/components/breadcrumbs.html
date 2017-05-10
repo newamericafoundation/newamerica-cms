@@ -1,0 +1,14 @@
+<section class="container container--wide">
+  <div class='breadcrumbs'>
+    {% for page in self.get_ancestors %}
+      {% if forloop.counter > 2 %}
+        <label class="breadcrumbs__item">
+          <a href="{{ page.url }}">{{ page.title }}</a>
+        </label>
+      {% endif %}
+    {% endfor %}
+     <!-- <label class="breadcrumbs__item active">
+       {{ page.title }}
+     </label> -->
+  </div>
+</section>

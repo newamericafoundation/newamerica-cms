@@ -1,0 +1,48 @@
+<div class='sidemenu-container'>
+	<div class="sidemenu weekly__sidemenu">
+		<div class="weekly__sidemenu__title-block">
+			<h1 class="weekly__sidemenu__title"><a href="/weekly/">NEW AMERICA WEEKLY</a><h1>
+			<h3 class="weekly__sidemenu__subtitle"><a href="{{ self.get_parent.url }}">{{ self.get_parent }}</a></h3>
+		</div>
+		<h5 class="weekly__sidemenu__subheading">In this Edition:</h5>
+
+		<div class="weekly__sidemenu__sibling-list">
+			{% for sibling in siblings %}
+				<a class="weekly__sidemenu__sibling-list__link" href="{{ sibling.specific.url }}">
+					<div class="weekly__sidemenu__sibling-list__entry">
+						{% if sibling.specific.story_image %}
+							{% image sibling.specific.story_image fill-60x60 as sibling_image %}
+							<div class='weekly__sidemenu__sibling-list__entry__picture' style='background-image: url({{ sibling_image.url }})'>
+								<div class='weekly__sidemenu__sibling-list__entry__picture__label'>{{ forloop.counter }}</div>
+							</div>
+						{% else %}
+							<div class='weekly__sidemenu__sibling-list__entry__picture'>
+								<div class='weekly__sidemenu__sibling-list__entry__picture__label no-image'>{{ forloop.counter }}</div>
+							</div>
+						{% endif %}
+
+						<div class='weekly__sidemenu__sibling-list__entry__text'>
+							<h1>{{ sibling.specific.title | truncatechars:60 }}</h1>
+						</div>
+					</div>
+				</a>
+
+			{% endfor %}
+		</div>
+
+		<h5 class="weekly__sidemenu__subheading">Subscribe</h5>
+		<form class="subscribe-form" action="/subscribe/">
+			<input type='text' placeholder='Your Email' name='email' class='weekly__sidemenu__subscribe__input'></input>
+			<button class='button black weekly__sidemenu__subscribe__submit' type="submit" value="Submit">{% include 'components/svg/arrow-right.html' %}</button>
+		</form>
+		<h5 class="weekly__sidemenu__subheading">Change Edition</h5>
+		<select onchange="location = this.value;">
+			<option disabled selected value>Select an Edition</option>
+			{% for edition in self.get_parent.get_siblings %}
+				{% if edition != self.get_parent and edition.get_children|length > 0 %}
+					<option value="{{ edition.url }}">{{ edition.title }}</option>
+				{% endif %}
+			{% endfor %}
+		</select>
+	</div>
+</div>

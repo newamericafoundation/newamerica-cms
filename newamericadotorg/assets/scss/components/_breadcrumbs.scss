@@ -1,53 +1,38 @@
-.breadcrumb-overlay {
-  position: relative;
-  top: 0;
-  left: 0px;
-  display: block;
-  height: 25px;
-  width: 100%;
-  z-index: 2;
-  background-image:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0) 80%, white);
-  pointer-events: none;
-}
-
 
 .breadcrumbs {
-  position: relative;
   overflow: hidden;
-  top: -27px;
-  float: left;
   text-overflow: clip;
   white-space: nowrap;
-
-  @media screen and (max-width: 1100px ) {
-    width: 600px;
-  }
-
-  li {
-    display: inline-block;
-    float: none;
-  }
-  
-  li.active {
-    color: palette-get(na-black);
-    font-weight: 800;
-  }
   a {
-    color: palette-get(na-black-70);
+    color: color(gray);
 
     &:hover {
       text-decoration: none;
-      @include set-color(color);
+      color: color(turquoise);
     }
   }
-  li:not(:last-child)::after {
-    content: url(shape-urls-get(right-arrow-na-black));
-    font-weight: bold;
-    font-family: 'Platform';
-    margin: 0 $breadcrumbs-item-margin;
-    position: relative;
-    opacity: .5;
-    width:10px;
-    height: 10px;
+
+  &__item{
+    display: inline-block;
+    margin: 0 8px;
+    &:after{
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      position: relative;
+      left: 8px;
+      top: -1px;
+      @include transform(rotate(45deg));
+      border-top: 1px solid color(gray);
+      border-right: 1px solid color(gray);
+    }
+
+    &.active, &:last-child{
+      font-weight: bold;
+      &:after{
+        display: none;
+      }
+    }
   }
 }

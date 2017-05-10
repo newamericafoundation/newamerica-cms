@@ -1,26 +1,6 @@
-{% extends "base.html" %}
+{% extends "simple_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-orgsimplepage{% endblock %}
-
-{% block extra_js %}
-	{% if page.data_project_external_script %}
-		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
-	{% endif %}
-{% endblock %}
-
-{% block sidemenu_status %}has_sidemenu simple{% endblock %}
-{% block sidebar %}
-	{% include 'components/sidemenu_events.html' %}
-{% endblock %}
-
-{% block content %}
-	{% include 'components/post_heading.html' %}
-
-	<div class="post-container">
-	    {% include 'components/post_body.html' %}
-	</div>
-
-{% endblock %}

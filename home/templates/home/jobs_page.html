@@ -1,22 +1,10 @@
-{% extends "base.html" %}
+{% extends "simple_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-jobspage{% endblock %}
-{% block sidemenu_status %}has_sidemenu simple{% endblock %}
-{% block sidebar %}
-	{% include 'components/sidemenu_about.html' %}
-{% endblock %}
-{% block content %}
-<div class="jobs-page">
-	{% include 'components/post_heading.html' %}
 
-	<div class="post-container">
-	   {% include 'components/post_body.html' %}
-	</div>
-
-	<script type="text/javascript" src="//app.jazz.co/widgets/basic/create/newamerica" charset="utf-8"></script>
-</div>
-
+{% block post_extra_body_content %}
+<script type="text/javascript" src="//app.jazz.co/widgets/basic/create/newamerica" charset="utf-8"></script>
 {% endblock %}

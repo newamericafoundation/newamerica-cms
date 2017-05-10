@@ -1,4 +1,4 @@
-{% extends "about_sidemenu.html" %}
+{% extends "simple_page.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
@@ -6,66 +6,34 @@
 
 {% block body_class %}template-ourpeoplepage{% endblock %}
 
-{% block content %}
+{% block post-body %}
 
-    {% image page.story_image min-1100x300 as story_image %}
+<article class="post-body simple-page-body our-people with-dropcap col-md-9">
+  <p class="our-people__page-description">{{ page.page_description|richtext }}</p>
+  <div class="our-people__board-text">
+    <h3>Board of Directors & Leadership</h3>
+    <p>Our Board of Directors and Leadership Team provide strategic direction to the organization:</p>
+    <p class="our-people__item-list">
+      <ul class="our-people__item-list__list">
+        <li><a href="/board/">Board of Directors</a></li>
+        <li><a href="/leadership/">Leadership Team</a></li>
+      </ul>
+    </p>
+  </div>
+  <div class="our-people__program-staff-text">
+    <h3>Program Staff</h3>
+    <p>Find out more about our distinctive community of thinkers, writers, researchers, technologists, and community activists:</p>
+    <p class="row our-people__item-list">
+      <ul class="our-people__item-list__list">
+          {% for our_people_page in all_our_people_pages %}
+              <li><a href="{{ our_people_page.url }}">{{ our_people_page.get_parent }}</a></li>
+          {% endfor %}
+      </ul>
+    </p>
+  <div class="our-people__central-staff-text">
+    <h3>Central Staff</h3>
+    <p>Our administrative staff provides support for programs through development, finance, talent development, communications, editorial, and production operations. <a href='/central-staff/'>Find out more about Central Staff</a></p>
+  </div>
+</article>
 
-    <div class="post-header-container">
-        {% if story_image %}
-
-            <div class="post-header with-image" style="background-image: linear-gradient(
-                  rgba(0, 0, 0, 0),
-                  rgba(0, 0, 0, 0.15)
-                ), 
-                url({{ story_image.url }})">
-
-                <div class="post-header__text">
-                    <h1 class="post-header__text__heading">{{ page.title }}</h1>
-                </div>
-            </div>
-            {% if story_image.image.source %}
-                <div class="caption">Photo: {{ story_image.image.source}}</div>
-            {% endif %}
-
-        {% else %}
-
-            <div class="post-header">
-                <div class="post-header__text">
-                    <h1 class="post-header__text__heading">{{ page.title }}</h1>
-                </div>
-            </div>
-
-        {% endif %}
-    </div>
-    
-    <div class="post-container">
-        <div class="our-people__body">
-            <p>{{ page.page_description|richtext }}</p>
-            <hr>
-            <h3>Board of Directors & Leadership</h3>
-            <p>Our Board of Directors and Leadership Team provide strategic direction to the organization:</p>
-            <div class="our-people__item-list">
-            	<ul class="our-people__item-list__list">
-            		<li><a href="/board/">Board of Directors</a></li>
-            		<li><a href="/leadership/">Leadership Team</a></li>
-            	</ul>
-            </div>
-            <hr>
-            <h3>Program Staff</h3>
-            <p>Find out more about our distinctive community of thinkers, writers, researchers, technologists, and community activists:</p>
-
-            <div class="row our-people__item-list">
-                <ul class="our-people__item-list__list">
-                    {% for our_people_page in all_our_people_pages %}
-                        <li><a href="{{ our_people_page.url }}">{{ our_people_page.get_parent }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-                
-            <hr>
-            <h3>Central Staff</h3>
-            <p>Our administrative staff provides support for programs through development, finance, talent development, communications, editorial, and production operations. <a href='/central-staff/'>Find out more about Central Staff</a></p>
-        </div>
-    </div>
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "post_page.html" %}
+
+
+{% block post_left_aside %}
+ 	<aside class="post-social simple-page-social col-md-9">
+    <label class="post-label">Share</label>
+    {% include 'components/social_share.html' %}
+  </aside>
+{% endblock %}
+
+{% block post-body %}
+	<article class="post-body simple-page-body with-dropcap col-lg-9">
+		{% include 'components/post_body.html' %}
+		{% block post_extra_body_content %}{% endblock %}
+	</article>
+{% endblock %}
+
+{% block post_right_aside %}
+ 	<!-- no right aside -->
+{% endblock %}

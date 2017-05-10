@@ -4,33 +4,7 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% block extra_scripts %}
-	<script>
-        $(function() {
-        	$("#content-grid__controls__date-filter").daterangepicker({
-        		applyButtonText: 'Confirm',
-				clearButtonText: null,
-				cancelButtonText: null,
-				initialText: 'Select Dates',
-				datepickerOptions: {
-					numberOfMonths : 1,
-					defaultDate: +0,
-			        minDate: null,
-			        maxDate: null
-			    },
-			    onChange: function() {
-			    	$("#content-grid__controls__submit").prop('disabled', false);
-			    }
-     		})
-     	});
-    </script>
-{% endblock %}
-
 {% block body_class %}template-postpage{% endblock %}
-{% block sidemenu_status %}has_sidemenu simple{% endblock %}
-{% block sidebar %}
-	{% include 'components/sidemenu_our_work.html' %}
-{% endblock %}
 
 {% block content %}
 	<div class="post-header-container">
