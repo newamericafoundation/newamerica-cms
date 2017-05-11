@@ -5,14 +5,19 @@
   padding: 0.25em 0.5em;
   display: inline-block;
   text-decoration: none;
-  border-bottom: none !important;
   font-weight: normal;
   cursor: pointer;
   font-size: 0.8em;
   margin: 3px 0;
 
+  &.tag{
+    background: transparent;
+    border: 1px solid color(black, light, 0.45);
+  }
+
   &:hover{
     background: color(black);
     color: color(white) !important;
+    border: 1px solid color(black, light, 0);
   }
 }

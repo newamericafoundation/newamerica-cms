@@ -1,15 +1,17 @@
 .header-dropdown-links{
   &__link{
     cursor: pointer;
+    margin: 0 0 10px 0;
     h4 {
-      margin: 1em 0 5px 0;
+      font-size: 1em;
+      margin: 0;
       cursor: pointer;
     }
 
     label{
-      padding: 10px 0;
-      display: block;
+      padding: 5px 0;
       font-size: 1em;
+      display: block;
       color: color(gray);
       cursor: pointer;
       &:hover{
@@ -18,7 +20,8 @@
     }
 
     &__project-link{
-      margin: 2.5px 5px 2.5px 0px
+      font-size: 0.8em;
+      margin: 5px 5px 0px 0px
     }
 
     &__description{

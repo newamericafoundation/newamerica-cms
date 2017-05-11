@@ -3,9 +3,12 @@
   overflow: hidden;
   text-overflow: clip;
   white-space: nowrap;
+  margin-top: 35px;
+  margin-bottom: 35px;
+
   a {
     color: color(gray);
-
+    font-weight: normal;
     &:hover {
       text-decoration: none;
       color: color(turquoise);
@@ -14,14 +17,14 @@
 
   &__item{
     display: inline-block;
-    margin: 0 8px;
+    margin: 0 10px;
     &:after{
       content: '';
       display: inline-block;
       width: 6px;
       height: 6px;
       position: relative;
-      left: 8px;
+      left: 10px;
       top: -1px;
       @include transform(rotate(45deg));
       border-top: 1px solid color(gray);
