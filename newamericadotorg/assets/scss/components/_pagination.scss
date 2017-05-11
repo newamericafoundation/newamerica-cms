@@ -1,10 +1,10 @@
 .pagination {
 	$pagination-spacing: 7px;
-	display:inline-block;
 	margin: auto;
 	padding:0px;
 	height: $default-input-height;
-
+	width: 200px;
+	
 	span {
 		color: palette-get(na-black);
 		margin-right: 0px;
@@ -16,7 +16,7 @@
     	-moz-transform: translateY(-50%);
     	-webkit-transform: translateY(-50%);
 	}
-	
+
 	&__form {
 		display: inline-block;
 		float: left;

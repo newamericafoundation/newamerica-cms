@@ -8,17 +8,17 @@
 
 
 {% block post_left_aside %}
-	<aside class="col-md-12 col-lg-3 event-details">
-		<div class="event row">
-			<div class="event__left">
-				<h3 class="event__heading">When</h3>
-				{% generate_dateline page %}
+	<aside class="col-md-12 col-lg-3 event-details container">
+		<div class="row">
+			<div class="event-details__when col-lg-12 col-6">
+					<h4 class="event-details__label narrow-margin">When</h4>
+					<label class="event-detail__when__date lg">{% generate_dateline page %}</label>
 			</div>
-			<div class="event__right">
-				<h3 class="event__heading">Where</h3>
-				<p>{{ page.host_organization }}</p>
-				<p>{{ page.street_address }}</p>
-				<p>{{ page.city }}, {{ page.state }} {{ page.zipcode }}</p>
+			<div class="event-details__where col-lg-12 col-6">
+				<h4 class="event-details__label narrow-margin">Where</h4>
+				<label class="event-details__where__organization lg block">{{ page.host_organization }}</label>
+				<label class="event-details__where__street lg block">{{ page.street_address }}</label>
+				<label class="event-details__where__city-state lg block">{{ page.city }}, {{ page.state }} {{ page.zipcode }}</label>
 			</div>
 		</div>
 	</aside>

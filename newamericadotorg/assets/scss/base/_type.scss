@@ -92,6 +92,20 @@ label {
       color: color(turquoise);
     }
   }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0
+  }
+
+  &.block{
+    display: block;
+  }
+
+  &.lg{
+    font-size: 1em;
+    line-height: 1.6em;
+  }
 }
 
 .caption {
