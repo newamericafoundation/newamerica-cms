@@ -1,0 +1,18 @@
+.author{
+  margin-bottom: 15px;
+  
+  &__image{
+    border-radius: 300px;
+    background-size: cover;
+  }
+
+  &__text{
+    line-height: 1em;
+  }
+
+  @import 'card';
+  @import 'short-bio';
+  @import 'compact';
+  @import 'ultra-compact';
+
+}

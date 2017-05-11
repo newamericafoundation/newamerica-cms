@@ -1,0 +1,35 @@
+&.card{
+  padding: 25px 0;
+  .author__image-wrapper{
+    width: 100%;
+  }
+  .author__image{
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+  }
+
+  .author__text{
+    width: 100%;
+    &__short-bio{
+      display: none;
+    }
+    &__name{
+      margin: 10px 0 5px 0;
+      text-align: center;
+    }
+    &__position{
+      display: block;
+      text-align: center;
+    }
+  }
+  .author__contact{
+    text-align: center;
+  }
+
+  &:not(.with-image){
+    .author__text{
+      margin-top: 65px;
+    }
+  }
+}

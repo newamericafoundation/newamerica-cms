@@ -1,0 +1,19 @@
+&.compact{
+  .author__image-wrapper{
+    @extend .col-sm-4;
+  }
+  .author__image{
+    width: 75px;
+    height: 75px;
+  }
+  .author__text{
+    @extend .col-sm-8;
+    &__short-bio{
+      display: none;
+    }
+    &__name{
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+}
