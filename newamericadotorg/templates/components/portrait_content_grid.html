@@ -1,0 +1,42 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+<section class="container container--medium">
+  <div class="content-portrait-grid row gutter-10">
+{% for post in all_content %}
+  <div class="portrait-content-grid__item col-sm-6 col-md-4 col-lg-3 col-xl-2 {%if post.story_image %}with-image{% endif %}">
+    <a href="{{ post.url }}" class="portrait-content-grid__item__link-wrapper">
+      {% if post.story_image %}
+        {% image post.story_image fill-200x300 as post_image %}
+        <div class="portrait-content-grid__item__image-wrapper">
+          <img class="portrait-content-grid__item__image" src="{{post_image.url}}"/>
+        </div>
+      {% endif %}
+      <div class="portrait-content-grid__item__text">
+        <h4 class="portrait-content-grid__item__text__heading narrow-margin">
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </h4>
+        {% if post.post_subprogram.all %}
+          <label class="portrait-content-grid__item__text__programs">
+          {% for subprogram in post.post_subprogram.all %}
+            <a href="{{ subprogram.url }}">
+              {{ subprogram }}
+            </a>
+            {% list_separator forloop.revcounter0 %}
+          {% endfor %}
+          </label>
+        {% endif %}
+        <label class= "portrait-content-grid__item__text__date">
+          {% generate_dateline post %}
+        </label>
+        <label class= "portrait-content-grid__item__text__location">
+          {{ post.city }}, {{ post.state }}
+        </label>
+      </div>
+    </div>
+  </a>
+{% endfor %}
+
+  </div>
+</section>

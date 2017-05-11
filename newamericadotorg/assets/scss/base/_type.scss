@@ -5,6 +5,9 @@
 h1,h2,h3,h4{
   font-family: $header-font-family;
   font-weight: bold;
+  &.narrow-margin {
+    margin: 5px 0;
+  }
 }
 
 h1{
@@ -38,17 +41,6 @@ span {
   text-rendering: optimizeLegibility !important;
 }
 
-label {
-  font-size: 0.78em;
-  line-height: 1.06em;
-  font-weight: normal;
-  color: color(gray);
-
-  &.active{
-    color: color(black);
-  }
-}
-
 .subheading {
   color: color(gray);
   font-weight: normal;
@@ -80,6 +72,25 @@ a {
 
   &:not(.button):hover {
   	color: color(turquoise);
+  }
+}
+
+label {
+  font-size: 0.78em;
+  line-height: 1.06em;
+  font-weight: normal;
+  color: color(gray);
+
+  &.active{
+    color: color(black);
+  }
+
+  a {
+    font-weight: normal;
+    color: color(gray);
+    &:hover{
+      color: color(turquoise);
+    }
   }
 }
 

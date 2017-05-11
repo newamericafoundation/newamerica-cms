@@ -1,0 +1,23 @@
+.portrait-content-grid{
+  &__item{
+    margin: 0 0 25px 0;
+    &__image{
+      width: 100% !important;
+      height: auto;
+    }
+    &__text{
+      p {
+        margin: 0;
+        line-height: 1.4em;
+      }
+      &__heading{
+        font-size: 1em;
+        line-height: 1.2em;
+      }
+      &__date, &__location, &__programs{
+        line-height: 1.5em;
+        display: block;
+      }
+    }
+  }
+}
