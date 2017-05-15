@@ -2,27 +2,25 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-<section class="container container--medium">
+<section class="container--wide">
   <div class="content-portrait-grid row gutter-10">
 {% for post in all_content %}
-  <div class="portrait-content-grid__item col-sm-6 col-md-4 col-lg-3 col-xl-2 {%if post.story_image %}with-image{% endif %}">
+  <div class="portrait-content-grid__item col-sm-6 col-md-4 col-lg-3 col-xl-2{% if forloop.counter0|divisibleby:5 %} offset-xl-1{%endif%}{%if post.story_image %} with-image{% endif %}">
     <a href="{{ post.url }}" class="portrait-content-grid__item__link-wrapper">
       {% if post.story_image %}
-        {% image post.story_image fill-200x300 as post_image %}
+        {% image post.story_image fill-200x325 as post_image %}
         <div class="portrait-content-grid__item__image-wrapper">
           <img class="portrait-content-grid__item__image" src="{{post_image.url}}"/>
         </div>
       {% endif %}
       <div class="portrait-content-grid__item__text">
         <h4 class="portrait-content-grid__item__text__heading narrow-margin">
-          <a href="{{ post.url }}">{{ post.title }}</a>
+          {{ post.title }}
         </h4>
         {% if post.post_subprogram.all %}
           <label class="portrait-content-grid__item__text__programs">
           {% for subprogram in post.post_subprogram.all %}
-            <a href="{{ subprogram.url }}">
-              {{ subprogram }}
-            </a>
+          <label><a href="{{ subprogram.url }}">{{ subprogram }}</a></label>
             {% list_separator forloop.revcounter0 %}
           {% endfor %}
           </label>
@@ -37,6 +35,5 @@
     </div>
   </a>
 {% endfor %}
-
   </div>
 </section>

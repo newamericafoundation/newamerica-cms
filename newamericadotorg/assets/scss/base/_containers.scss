@@ -1,4 +1,4 @@
-.container {
+[class*="container--"], .container{
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -6,9 +6,17 @@
   padding-left: 15px;
   max-width: $max-site-width;
 
+  &.gray{
+    background-color: color(gray, light);
+  }
+
+}
+
+.container {
   &--full-width{
     width: 100%;
     padding: 0;
+    max-width: 100%;
   }
 
   &--wide{
@@ -26,6 +34,4 @@
     width: 660px;
     max-width: 90%;
   }
-
-
 }

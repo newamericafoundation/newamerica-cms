@@ -32,29 +32,14 @@
 	{% endif %}
 </section>
 
-
-	<!-- <div class='row border-panel-container'>
-	{% if page.feature_carousel %}
-		{% include 'components/feature_carousel.html' with items=page.feature_carousel %}
-		<div class='col-sm-12 col-lg-6'>
-	{% else %}
-		<div class='small-12 large-12 columns'>
-	{% endif %}
-
-		</div>
-	</div> -->
-
-<section class="container container--full-width">
-
-	<div class='panel'>
-		<h1>About {{ page.name }}</h1>
-		<p>{{ page.description }}</p>
+<section class="container--full-width gray">
+	<div class='container--wide home-about-description'>
+		<h1 class="home-about-description__heading">About {{ page.name }}</h1>
+		<p class="home-about-description__description"> {{ page.description }}</p>
 		{% if page.about_us_page %}
-			<div class='panel__link'>
-				<a href='{{ page.about_us_page.url }}' class='button black'>Read our Story</a>
-			</div>
+			<a class="home-about-description__link button black" href='{{ page.about_us_page.url }}'>Read our Story</a>
 		{% endif %}
 	</div>
-</div>
+</section>
 
 {% endblock %}

@@ -1,34 +1,11 @@
 {% load wagtailcore_tags wagtailimages_tags utilities %}
 
-<div class='blog-lead-story'>
-  <div class='hero-grid has-1-children'>
-    <div class='hero-grid__main'>
-      <div class='hero-grid__element'>
-      <a href="{{ post.url }}">
-        <div class='hero-grid__element__wrapper'>
-        {% image post.story_image min-1100x500 as post_image %}
-          <div class='hero-grid__element__background' style='background-image: url({{ post_image.url }})'></div>
-          <div class='hero-grid__element__overlay'></div>
-          <div class='hero-grid__element__text-bar'>
-            {% if post.post_subprogram.all %}
-              <h5 class="content-entry__text__program">
-              {% for subprogram in post.post_subprogram.all %}
-                <a href="{{ subprogram.url }}"> {{ subprogram | upper }}</a>{% list_separator forloop.revcounter0 %}
-              {% endfor %}
-              </h5>
-            {% endif %}
-            <h1 class='content-entry__text__title'>{{ post.title }}</h1>
-            {% if post.authors.all %}
-              <p class='content-entry__text__author' href="{{ post.url }}">{% generate_byline post.content_type post.authors.all %}</p>
-            {% endif %}
-            <h5 class= "content-entry__text__date-time">{{ post.date }} </h5>
-            {% if post.story_excerpt %}
-              <p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
-            {% endif %}
-          </div>
-        </div>
-      </a>
+<section class="container story-grid has-1-children">
+  <div class="row">
+    <div class="story-grid__main">
+      <div class="row">
+        {% include 'components/story_grid_item.html' with which="main" story=post page_context='publication-page' %}
       </div>
     </div>
   </div>
-</div>
+</section>

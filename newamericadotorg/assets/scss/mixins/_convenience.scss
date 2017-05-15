@@ -20,6 +20,11 @@
   transition: $args;
 }
 
+@mixin transition-delay($seconds){
+  -webkit-transition-delay: $seconds;
+  transition-delay: $seconds;
+}
+
 @mixin vertical-center {
   top: 50%;
   @include transform(translateY(-50%));

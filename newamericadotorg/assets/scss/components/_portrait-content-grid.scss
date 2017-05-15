@@ -1,11 +1,17 @@
 .portrait-content-grid{
+  position: relative;
+  .portrait-content-grid__item__link-wrapper{
+    display: block;
+  }
   &__item{
-    margin: 0 0 25px 0;
+    margin-bottom: 25px;
+    position: relative;
     &__image{
       width: 100% !important;
       height: auto;
     }
     &__text{
+      position: relative;
       p {
         margin: 0;
         line-height: 1.4em;
@@ -13,10 +19,25 @@
       &__heading{
         font-size: 1em;
         line-height: 1.2em;
+        padding-bottom: 5px;
+        overflow: hidden;
+        position: relative;
+        z-index: 0;
+        background: color(white);
+        //@include transition(max-height $transition-function);
+
       }
       &__date, &__location, &__programs{
         line-height: 1.5em;
         display: block;
+      }
+    }
+
+    &:not(.with-image){
+      position: relative;
+      .portrait-content-grid__item__text{
+        position: absolute;
+        @include vertical-center;
       }
     }
   }
