@@ -5,7 +5,7 @@
 <section class="container--wide">
   <div class="content-portrait-grid row gutter-10">
 {% for post in all_content %}
-  <div class="portrait-content-grid__item col-sm-6 col-md-4 col-lg-3 col-xl-2{% if forloop.counter0|divisibleby:5 %} offset-xl-1{%endif%}{%if post.story_image %} with-image{% endif %}">
+  <div class="portrait-content-grid__item col-sm-6 col-md-4 col-lg-3 col-xl-2{% if forloop.counter0|divisibleby:5 %} offset-xl-0{%endif%}{%if post.story_image %} with-image{% endif %}">
     <div onclick="window.location='{{post.url}}';" class="portrait-content-grid__item__link-wrapper">
       {% if post.story_image %}
         {% image post.story_image fill-200x290 as post_image %}

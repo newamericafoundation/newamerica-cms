@@ -22,11 +22,6 @@
     height: auto;
   }
 
-  [class*="block-"]:nth-child(2){
-    // date label is 1st child
-    margin-top: 25px;
-  }
-
   @import 'drop-cap';
   @import 'link';
   @import 'lists';
