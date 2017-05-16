@@ -1,43 +1,24 @@
 .portrait-content-grid{
-  position: relative;
-  .portrait-content-grid__item__link-wrapper{
-    display: block;
-  }
   &__item{
     margin-bottom: 25px;
-    position: relative;
+    cursor: pointer;
+
+    &__image-wrapper{
+      position: relative;
+      background: color(gray, light);
+    }
     &__image{
       width: 100% !important;
       height: auto;
     }
-    &__text{
-      position: relative;
-      p {
-        margin: 0;
-        line-height: 1.4em;
-      }
-      &__heading{
-        font-size: 1em;
-        line-height: 1.2em;
-        overflow: hidden;
-        position: relative;
-        z-index: 0;
-        background: color(white);
-        //@include transition(max-height $transition-function);
-
-      }
-      &__date, &__location, &__programs{
-        line-height: 1.5em;
-        display: block;
-      }
+    &__no-image{
+      color: color(gray);
+      position: absolute;
+      font-size: 1.44rem;
+      @include center;
     }
-
-    &:not(.with-image){
-      position: relative;
-      .portrait-content-grid__item__text{
-        position: absolute;
-        @include vertical-center;
-      }
+    &__text{
+      margin-top: 5px;
     }
   }
 }

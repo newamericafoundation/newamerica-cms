@@ -8,28 +8,33 @@
   <div class="portrait-content-grid__item col-sm-6 col-md-4 col-lg-3 col-xl-2{% if forloop.counter0|divisibleby:5 %} offset-xl-1{%endif%}{%if post.story_image %} with-image{% endif %}">
     <div onclick="window.location='{{post.url}}';" class="portrait-content-grid__item__link-wrapper">
       {% if post.story_image %}
-        {% image post.story_image fill-200x380 as post_image %}
+        {% image post.story_image fill-200x290 as post_image %}
         <div class="portrait-content-grid__item__image-wrapper">
           <img class="portrait-content-grid__item__image" src="{{post_image.url}}"/>
         </div>
+      {% else %}
+        <div class="portrait-content-grid__item__image-wrapper">
+          <i class="portrait-content-grid__item__no-image fa fa-calendar"></i>
+          <svg class="portrait-content-grid__item__image" width="200px" height="290px"></svg>
+        </div>
       {% endif %}
       <div class="portrait-content-grid__item__text">
-        <h4 class="portrait-content-grid__item__text__heading narrow-margin">
+        <label class="active portrait-content-grid__item__text__heading">
           {{ post.title }}
-        </h4>
+        </label>
         {% if post.post_subprogram.all %}
-          <label class="portrait-content-grid__item__text__programs">
+          <label class="block portrait-content-grid__item__text__programs">
           {% for subprogram in post.post_subprogram.all %}
-          <label><a href="{{ subprogram.url }}">{{ subprogram }}</a></label>
+            <a href="{{ subprogram.url }}">{{ subprogram }}</a>
             {% list_separator forloop.revcounter0 %}
           {% endfor %}
           </label>
         {% endif %}
-        <label class= "portrait-content-grid__item__text__date">
+        <label class= "block portrait-content-grid__item__text__date">
           {% generate_dateline post %}
         </label>
-        <label class= "portrait-content-grid__item__text__location">
-          {{ post.city }}, {{ post.state }}
+        <label class="block portrait-content-grid__item__text__location">
+          <i class="fa fa-map-marker no-padding sm"></i> {{ post.city }}, {{ post.state }}
         </label>
       </div>
     </div>

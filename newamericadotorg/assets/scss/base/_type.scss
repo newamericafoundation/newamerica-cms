@@ -76,8 +76,8 @@ span {
   }
 
   &--h4 {
-    font-size: 1.06em;
-    line-height: 1.22em;
+    font-size: 1.06rem;
+    line-height: 1.22rem;
   }
 }
 
@@ -85,6 +85,23 @@ span {
   color: color(gray);
   font-weight: 300;
   padding-right: 10px;
+
+  &.padding-5{
+    padding-right: 5px;
+  }
+
+  &.no-padding{
+    padding-right: 0px;
+  }
+
+  &.sm {
+    font-size: 0.78rem;
+  }
+
+  &.lg {
+    font-size: 1.2rem;
+  }
+
   &.outline{
     -webkit-text-stroke-width: 1px;
    -webkit-text-stroke-color: color(gray);
@@ -116,13 +133,15 @@ a {
 }
 
 label {
-  font-size: 0.78em;
-  line-height: 1.06em;
+  font-size: 0.78rem;
+  line-height: 1.06rem;
   font-weight: normal;
   color: color(gray);
+  display: inline-block;
 
   &.active{
     color: color(black);
+    font-weight: bold;
   }
 
   a {
@@ -143,8 +162,8 @@ label {
   }
 
   &.lg{
-    font-size: 1em;
-    line-height: 1.6em;
+    font-size: 1rem;
+    line-height: 1.6rem;
   }
 }
 
