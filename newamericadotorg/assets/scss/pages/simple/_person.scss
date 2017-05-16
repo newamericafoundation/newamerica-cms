@@ -1,7 +1,7 @@
 .person-heading{
   margin-top: 75px;
   margin-bottom: 50px;
-  
+
   &__image{
     margin-bottom: 25px;
     img {
@@ -11,5 +11,11 @@
       height: 175px;
       border-radius: 175px;
     }
+  }
+}
+
+.person-contact{
+  &__item{
+    margin: 5px 0;
   }
 }

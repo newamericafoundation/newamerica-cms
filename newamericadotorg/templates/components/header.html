@@ -1,23 +1,26 @@
 <header class="header">
   <div class="row no-gutters">
-    <div class="header__logo-wrapper col-md-6 col-xs-12">
+    <div class="header__logo-wrapper col-md-4 col-xs-12">
       <a href="/">
         <div class="header__logo logo"></div>
       </a>
     </div>
-    <nav class="header__nav col-md-6 col-xs-12">
-      <div class="header__nav__dropdown-list">
-        {% include './header_dropdown_list.html' %}
-      </div>
+    <nav class="header__nav col-md-8 col-xs-12">
+      <!-- floated right, so this is in opposite order -->
       <div class="header__nav__button-and-icons">
         <div class="header__nav__donate">
           <a class="header__nav__donate__button button transparent">Donate</a>
         </div>
         <div class="header__nav__search">
-
+          <i class='fa fa-search'></i>
         </div>
         <div class="header__nav__social">
+          <a><i class='fa fa-twitter'></i></a>
+          <a><i class='fa fa-facebook'></i></a>
         </div>
+      </div>
+      <div class="header__nav__dropdown-list">
+        {% include './header_dropdown_list.html' %}
       </div>
     </nav>
   </div>

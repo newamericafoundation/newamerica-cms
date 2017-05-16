@@ -28,15 +28,29 @@
 <section class="container--wide person-content">
   <div class="row">
     <aside class="person-contact col-lg-3 col-md-12">
-      <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }} {{ page.last_name }}</a>
+      <div class="person-contact__wrapper container">
+        <div class="row">
+          <div class="person-contact__email person-contact__item col-lg-12 col-md-2">
+            <a class="light" href="mailto:{{ page.email }}"><i class="fa fa-envelope-o"></i> Contact</a>
+          </div>
+          <div class="person-contact__social person-contact__item col-lg-12 col-md-10">
+          {% for block in page.social_media %}
+            <a href="{{block.value}}" title="{{block.block_type}}">
+              <i class="fa fa-{{block.block_type}} outline"></i>
+            </a>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
     </aside>
     <article class="person-body post-body col-md-9 col-lg-6">
       {% if page.long_bio %}
+          <label class="lg">Last Updated {{ page.latest_revision_created_at }}</label>
           {{ page.long_bio|richtext|linebreaks }}
       {% endif %}
     </article>
     <article class="person-social">
-      <label>Share</label>
+      <label class="lg">Share</label>
       {% include 'components/social_share.html' %}
     </article>
   </div>
@@ -44,14 +58,14 @@
 
 {% if featured_work.0.title %}
 <section class="container--full-width gray person-featured-work">
-  <h1>Featured Publications</h1>
+  <h1 class="centered">Featured Publications</h1>
   {% include 'components/featured_stories.html' with stories=featured_work %}
 </section>
 {% endif %}
 
 {% if posts %}
   <section class="container--medium person-publications-list">
-    <h2 class="bio__content-list__heading">All Publications</h2>
+    <h1 class="centered">All Publications</h1>
     {% include 'components/content_list.html' with all_content=posts %}
   </section>
 {% endif %}

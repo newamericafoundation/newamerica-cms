@@ -1,0 +1,11 @@
+&__button-and-icons{
+  white-space: nowrap;
+  & > div {
+    display: inline-block;
+  }
+}
+
+&__donate{
+  line-height: $header-height;
+  padding-right: 10px;
+}

@@ -1,6 +1,5 @@
 @import 'heading';
 @import 'attachment';
-@import 'label';
 
 .post-body {
   $media-padding: 20px;
@@ -21,6 +20,11 @@
   img {
     max-width: 100%;
     height: auto;
+  }
+
+  [class*="block-"]:nth-child(2){
+    // date label is 1st child
+    margin-top: 25px;
   }
 
   @import 'drop-cap';

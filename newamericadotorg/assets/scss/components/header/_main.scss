@@ -35,14 +35,13 @@ $header-expanded-height: 155px;
     @extend %clearfix;
 
     & > * {
-      float: left;
+      float: right;
     }
 
-    &__donate{
-      line-height: $header-height;
-    }
+    @import 'button-and-icons';
 
     &__dropdown-list{
+      padding-right: 10px;
       @extend %clearfix;
       @import 'dropdown';
     }

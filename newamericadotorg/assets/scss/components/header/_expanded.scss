@@ -13,6 +13,9 @@
     &__nav{
       @extend .col-lg-12;
       padding: 0 !important;
+      & > * {
+        float: left;
+      }
 
       &__button-and-icons{
         position: absolute;

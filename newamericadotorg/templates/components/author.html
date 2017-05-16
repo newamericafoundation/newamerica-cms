@@ -4,7 +4,7 @@
 <div class="author {% firstof class 'short-bio' %} {{ author.profile_image|yesno:"with-image," }}">
   <div class="row no-gutters">
     {% if author.profile_image %}
-      {% image author.profile_image min-300x300 as author_image %}
+      {% image author.profile_image fill-300x300 as author_image %}
       <div class="author__image-wrapper">
         <div class="author__image" style="background-image: url({{ author_image.url }})"></div>
       </div>

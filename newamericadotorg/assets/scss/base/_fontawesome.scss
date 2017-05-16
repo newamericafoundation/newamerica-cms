@@ -1,0 +1,9 @@
+@import '../../../../node_modules/font-awesome/css/font-awesome';
+
+.fa-youtube{
+  @extend .fa-youtube-play;
+}
+
+.fa-google_plus{
+  @extend .fa-google-plus;
+}

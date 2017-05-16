@@ -81,6 +81,17 @@ span {
   }
 }
 
+.fa {
+  color: color(gray);
+  font-weight: 300;
+  padding-right: 10px;
+  &.outline{
+    -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: color(gray);
+   color: color(white);
+  }
+}
+
 a {
   text-decoration: none;
   font-weight: bold;
@@ -88,6 +99,19 @@ a {
 
   &:not(.button):hover {
   	color: color(turquoise);
+    .fa {
+      -webkit-text-stroke-width: 0px;
+      color: color(turquoise);
+    }
+  }
+
+  &:not(:hover) .fa:not(.outline) {
+    color: color(gray);
+  }
+
+  &.light {
+    font-weight: normal;
+    color: color(gray);
   }
 }
 
