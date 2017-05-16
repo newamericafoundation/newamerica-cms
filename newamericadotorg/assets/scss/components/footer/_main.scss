@@ -1,158 +1,21 @@
-@mixin footer-top-margin {
-  .template-homepage &, .template-person & {
-    margin-top: 0px;
-  }
-  @include is-in-depth-template {
-    margin-top: 0px;
-  }
-  .template-programhomepage & {
-    margin-top: 0px;
-    @include desktop-header {
-      margin-top: $desktop-padding;
-    }
-  }
-  margin-top: $desktop-padding;
-}
+.footer{
+  padding: 50px 0 25px 0;
+  border-top: $border;
+  margin-top: 75px;
 
-@mixin footer-main-nav-padding {
-   @media screen and (min-width: 510px) {
-      @content;
-   }
-}
-
-
-.footer {
-  $pad: 20px;
-  $link-pad: 16px;
-  width: 100%;
-  
-  padding: $pad;
-  @extend %clearfix;
-  background-color: white;
-  position:relative;
-  border-top: $standard-border;
-
-  @include footer-top-margin;
-
-  &__content {
-    width: 100%;
-    height: 100%;
-    max-width: $max-site-width;
-    margin: auto;
-    padding: 0px;
+  h4{
+    margin: 10px 0;
+    font-size: 1.1rem;
   }
 
-  .columns {
-    padding: 0px;
+  li {
+    line-height: 1.2em;
   }
 
-  p,
-  a {
-    color: palette-get(na-black-70);
+  &__logo-wrapper{
+    margin-bottom: 15px;
   }
-  a {
-    margin: 0 $link-pad;
+  &__content{
     
-    &:hover {
-      opacity: 1;
-    }
-  }
-  
-  &__main-nav,
-  &__info,
-  &__social-nav {
-    ul {
-      margin: 12px 0;
-    }
-    text-align: center;
-  }
-
-  &__info p {
-    margin-bottom: 0px;
-
-    @include breakpoint(medium) {
-      margin-bottom: 1rem;
-    }
-  }
-
-  &__main-nav, &__social-nav {
-    display: none;
-
-    @include breakpoint(medium) {
-      display: block;
-    }
-    li {
-      &:last-of-type {
-        a {
-          margin-right: 0;
-        }
-      }
-      &:first-of-type {
-        a {
-          margin-left: 0;
-        }
-      }
-    }
-  }
-
-  &__main-nav {
-    li {
-      &:first-of-type {
-        a {
-          margin-left: 0;
-        }
-      }
-
-      &:nth-of-type(3) {
-        a {
-          margin-right: 0px;
-
-          @include footer-main-nav-padding {
-            margin-right: 16px;
-          }
-        }
-      }
-      &:last-of-type {
-        a {
-          margin: 0px;
-          @include footer-main-nav-padding {
-            margin-left: 16px;
-            margin-right: 0;
-          }
-          @media screen and (min-width: 1024px) and (max-width: 1150px) {
-            display: none;
-          }
-        }
-      }
-      
-    }
-  }
-
-
-  @include expand-footer {
-    padding: $pad 0px;
-    &__content {
-      padding: 0px $desktop-padding;
-    }
-    ul {
-      margin: 0;
-    }
-    &__main-nav {
-      $w: 500px;
-      width: $w;
-      text-align: center;
-    }
-    &__info {
-      float: left;
-      p,
-      a {
-        margin: 0;
-      }
-    }
-    &__social-nav {
-      float: right;
-
-
-    }
   }
 }

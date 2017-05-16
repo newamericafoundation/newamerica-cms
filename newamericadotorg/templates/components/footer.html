@@ -1,46 +1,75 @@
-
-
-<footer class='footer'>
-	<div class='footer__content'>
+<section class="footer container--full-width">
+	<footer class='footer__wrapper container--wide'>
 		<div class="row">
-			<div class="large-4 columns">
-				<div class='footer__info'>
-					<p>New America® is a registered trademark</p>
-				</div>
+			<div class="footer__logo-wrapper col-sm-12">
+				<a href="/">
+					<div class="footer__logo logo md"></div>
+				</a>
 			</div>
-			<div class="large-5 columns">
-				<div class='footer__main-nav'>
-					<ul>
-						<li>
-							<a href="/contact/">Contact</a>
-						</li>
-						<li>
-							<a href="/jobs/">Jobs</a>
-						</li>
-						<li>
-							<a href="/policies-and-procedures/">Policies and Procedures</a>
-						</li>
-						<li>
-							<a href="/creative-commons/">Creative Commons</a>
-						</li>
+		</div>
+		<div class="footer__content row">
+			<div class="footer__content__programs col-sm-3">
+				<h4>Programs</h4>
+				<ul class="no-inline">
+					{% for d in program_data %}
+					<li><label><a href="{{d.program.url}}">{{d.program.title}}</a></label></li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="footer__content__network-and-events col-sm-3">
+				<div class="footer__content__network-and-events__network">
+					<h4>National Network</h4>
+					<ul class="no-inline">
+						<li><label><a>Washington, DC</a></label></li>
+						<li><label><a>New York</a></label></li>
+						<li><label><a>San Francisco</a></label></li>
+						<li><label><a>Chicago</a></label></li>
+					</ul>
+				</div>
+				<div class="footer__content__network-and-events__events">
+					<h4>Events</h4>
+					<ul class="no-inline">
+						<li><label><a href="/events">All Events</a></label></li>
+						<li><label><a href="/events">Annual Conference</a></label></li>
 					</ul>
 				</div>
 			</div>
-			<div class="large-3 columns">
-				<div class='footer__social-nav'>
-					<ul>
-						<li>
-							<a href="http://www.facebook.com/NewAmerica">Facebook</a>
-						</li>
-						<li>
-							<a href="http://www.twitter.com/NewAmerica">Twitter</a>
-						</li>
-						<li>
-							<a href="https://www.linkedin.com/company/new-america-foundation">LinkedIn</a>
-						</li>
+			<div class="footer__content__publications col-sm-3">
+				<h4>Publications</h4>
+				<ul class="no-inline">
+					<li><label><a>Blog Posts</a></label></li>
+					<li><label><a>Books</a></label></li>
+					<li><label><a>In Depth</a></label></li>
+					<li><label><a>In the News</a></label></li>
+					<li><label><a>Podcasts</a></label></li>
+					<li><label><a>Policy Papers</a></label></li>
+					<li><label><a>Press Releases</a></label></li>
+					<li><label><a>Testimonies</a></label></li>
+					<li><label><a>The Weekly</a></label></li>
+				</ul>
+			</div>
+			<div class="footer__content__about col-sm-3">
+				<div class="footer__content__about__pages">
+					<h4>About</h4>
+					<ul class="no-inline">
+						<li><label><a>Our Story</a></label></li>
+						<li><label><a>People</a></label></li>
+						<li><label><a>Funding</a></label></li>
+						<li><label><a>Fellowships</a></label></li>
+						<li><label><a>Jobs & Internships</a></label></li>
+						<li><label><a>Press</a></label></li>
+						<li><label><a>Contact Us</a></label></li>
+					</ul>
+				</div>
+				<div class="footer__content__about__social">
+					<h4>Social Media</h4>
+					<ul class="no-inline">
+						<li><label><a>Facebook</a></label></li>
+						<li><label><a>Twitter</a></label></li>
+						<li><label><a>LinkedIn</a></label></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-	</div>
-</footer>
+	</footer>
+</section>
