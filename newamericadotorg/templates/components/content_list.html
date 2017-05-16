@@ -39,7 +39,7 @@
     </div>
     <div class="content-list__item__image-wrapper col-md-3">
       {% if post.story_image %}
-        {% image post.story_image min-650x200 as post_image %}
+        {% image post.story_image fill-225x125 as post_image %}
         <img src="{{post_image.url}}" class="content-list__item__image" />
       {% endif %}
     </div>

@@ -8,6 +8,14 @@ h1,h2,h3,h4{
   &.narrow-margin {
     margin: 5px 0;
   }
+
+  &.no-margin{
+    margin: 0;
+  }
+
+  &.centered{
+    text-align: center;
+  }
 }
 
 h1{
@@ -41,9 +49,17 @@ span {
   text-rendering: optimizeLegibility !important;
 }
 
-.subheading {
+.subheading, [class*="subheading--"] {
   color: color(gray);
   font-weight: normal;
+  margin: 0;
+
+  &.centered{
+    text-align: center;
+  }
+}
+
+.subheading {
   &--h1{
     font-size: 1.22rem;
     line-height: 1.50rem;

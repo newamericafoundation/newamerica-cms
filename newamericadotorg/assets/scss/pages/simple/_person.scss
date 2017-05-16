@@ -1,0 +1,15 @@
+.person-heading{
+  margin-top: 75px;
+  margin-bottom: 50px;
+  
+  &__image{
+    margin-bottom: 25px;
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 175px;
+      height: 175px;
+      border-radius: 175px;
+    }
+  }
+}

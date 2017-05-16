@@ -7,104 +7,51 @@
 {% block body_class %}template-person{% endblock %}
 
 {% block content %}
-<div class="bio-page">
+<section class="person-heading container--wide">
+  <div class="person-heading__image">
     {% if page.profile_image %}
-        {% image page.profile_image original as large_bio_image %}
-        {% image page.profile_image min-150x150 as small_bio_image %}
-        <div class="bio-page__heading with-image">
-            <a class="bio-page__heading__icon-link" href="{{ large_bio_image.url }}">
-                <div class='bio-page__heading__icon'>
-                    <div class='bio-page__heading__icon__photo' style='background: no-repeat center/100% url({{ small_bio_image.url }})'>
-                    </div>
-                </div>
-            </a>
-            <div class="bio-page__heading__text">
-                <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
-                {% if page.position_at_new_america %}
-                    <h3 class= "bio-page__heading__text__position">{{ page.position_at_new_america }}</h3>
-                {% endif %}
-            </div>
-        </div>
-    {% else %}
-        <div class="bio-page__heading">
-            <div class="bio-page__heading__text">
-                <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
-                {% if page.position_at_new_america %}
-                    <h3 class= "bio-page__heading__text__position">{{ page.position_at_new_america }}</h3>
-                {% endif %}
-            </div>
-        </div>
+        {% image page.profile_image original as og_profile_image %}
+        {% image page.profile_image fill-300x300 as profile_image %}
+      <a class="person-heading__image__link-wrapper" href={{og_profile_image.url}}>
+        <img src="{{profile_image.url}}"></a>
+      </a>
     {% endif %}
-    <div class="bio-page__content">
-        <div class="post-body">
-            {% if page.long_bio %}
-                {{ page.long_bio|richtext|linebreaks }}
-            {% endif %}
-        </div>
-    </div>
+  </div>
+  <div class="person-heading__text">
+    <h1 class="person-heading__text__heading narrow-margin centered">{{ page.first_name }} {{ page.last_name }}</h1>
+    {% if page.position_at_new_america %}
+        <p class= "person-heading__text__position subheading--h1 centered">{{ page.position_at_new_america }}</p>
+    {% endif %}
+  </div>
+</section>
 
-    {% person_display_contact_info page as display_contact_info %}
-        {% if display_contact_info %}
-            <div class="bio-page__contact">
-                <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }} {{ page.last_name }}</a>
-            </div>
-        {% endif %}
+<section class="container--wide person-content">
+  <div class="row">
+    <aside class="person-contact col-lg-3 col-md-12">
+      <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }} {{ page.last_name }}</a>
+    </aside>
+    <article class="person-body post-body col-md-9 col-lg-6">
+      {% if page.long_bio %}
+          {{ page.long_bio|richtext|linebreaks }}
+      {% endif %}
+    </article>
+    <article class="person-social">
+      <label>Share</label>
+      {% include 'components/social_share.html' %}
+    </article>
+  </div>
+</section>
 
-    <div class="bio-page__work">
-        {% if featured_work.0.title %}
-            <div class="bio-page__work__featured">
-                <h3 class="bio-page__work__title">Featured Work</h3>
-
-                <div class="content-grid__entries">
-                    {% for item in featured_work %}
-                        {% if item.title %}
-                            <div class="content-entry {{ item.post.get_page_type }}">
-                                {% if item.post.story_image %}
-                                    {% image item.post.story_image min-650x200 as post_image %}
-
-                                    <a href="{{ item.post.url }}">
-                                        <div class="content-entry__image-container" style="background-image: url('{{ post_image.url }}') ">
-                                        </div>
-                                    </a>
-                                <div class="content-entry__text-container has-image">
-
-                                {% else %}
-                                <div class="content-entry__text-container">
-                                {% endif %}
-                                    <div class="content-entry__text">
-                                        {% if item.post.specific.parent_programs.all %}
-                                            <h5 class="content-entry__text__program">
-                                            {% for program in item.post.specific.parent_programs.all %}
-                                                <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
-                                            {% endfor %}
-                                            {% generate_content_type_line item.post.specific.content_type %}</h5>
-                                        {% else %}
-                                            <h5 class="content-entry__text__program">{% generate_content_type_line item.post.specific.content_type %}</h5>
-                                        {% endif %}
-                                        <h5 class= "content-entry__text__title"><a href="{{ item.post.url }}">{{ item.post.title }}</a></h5>
-
-                                        {% if item.post.authors.all %}
-                                            <h5 class= "content-entry__text__author">{% generate_byline item.post.content_type item.post.authors.all %}</h5>
-                                        {% endif %}
-                                        <h5 class= "content-entry__text__date-time">{% generate_dateline item.post.specific %}</h5>
-                                        <p class= "content-entry__text__excerpt">{{ item.post.story_excerpt }}</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-
-        {% endif %}
-    </div>
-</div>
+{% if featured_work.0.title %}
+<section class="container--full-width gray person-featured-work">
+  <h1>Featured Publications</h1>
+  {% include 'components/featured_stories.html' with stories=featured_work %}
+</section>
+{% endif %}
 
 {% if posts %}
-  <section class="container container--medium bio__content-list">
-    <h2 class="bio__content-list__heading">All Work</h2>
+  <section class="container--medium person-publications-list">
+    <h2 class="bio__content-list__heading">All Publications</h2>
     {% include 'components/content_list.html' with all_content=posts %}
   </section>
 {% endif %}
