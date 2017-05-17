@@ -1,0 +1,324 @@
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin transform($args){
+  -webkit-transform: $args;
+  -moz-transform: $args;
+  -o-transform: $args;
+  transform: $args;
+}
+
+@mixin transition($args){
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin transition-delay($seconds){
+  -webkit-transition-delay: $seconds;
+  transition-delay: $seconds;
+}
+
+@mixin vertical-center {
+  top: 50%;
+  @include transform(translateY(-50%));
+}
+
+@mixin horizontal-center {
+  left: 50%;
+  @include transform(translateX(-50%));
+}
+
+@mixin center {
+  left: 50%;
+  top: 50%;
+  @include transform(translate(-50%,-50%));
+}
+
+//bootstrap
+@mixin linear-gradient-horizontal($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Opera 12
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down
+}
+
+@mixin linear-gradient-vertical($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down
+}
+
+@mixin linear-gradient-vertical-fadein-fadeout($start-color, $middle-color, $end-color, $start-percent: 0%, $middle-percent: 50%, $end-percent: 100%){
+  background-image: -moz-linear-gradient(top, $start-color $start-percent, $middle-color $middle-percent, $end-color $end-percent);
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $middle-color $middle-percent, $end-color $end-percent);
+  background-image: -o-linear-gradient(top, $start-color $start-percent, $middle-color $middle-percent, $end-color $end-percent);
+  background-image: -ms-linear-gradient(top, $start-color $start-percent, $middle-color $middle-percent, $end-color $end-percent);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0 );
+}
+
+@mixin limit-body-width {
+  @include desktop-header {
+    max-width: $max-body-width;
+  }
+
+  @include expanded-header {
+    max-width: $max-body-width;
+  }
+}
+
+@mixin responsive-iframe($height-width-ratio) {
+  @if $height-width-ratio {
+    padding-bottom: $height-width-ratio !important;
+  }
+  position: relative;
+  height: 0px;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+@mixin is-in-depth-homepage {
+  .template-allindepthhomepage & {
+    @content;
+  }
+}
+
+@mixin is-in-depth-template {
+  .template-indepthsection &, .template-indepthproject &, .template-allindepthhomepage & {
+    @content;
+  }
+}
+
+%with-overlay{
+  position: relative;
+  &::after{
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255,255,255,0);
+    @include transition(background-image 0.2s ease-in-out);
+    background-blend-mode: multiply;
+    @include linear-gradient-vertical(color(black,base,0), color(black, base, 1), 30% );
+  }
+}
+
+[class*="with-overlay"]{
+  @extend %with-overlay;
+}
+
+.with-overlay{
+  &--black::after{
+    @include linear-gradient-vertical(rgba(#000,0), #000, 30% );
+  }
+}
+
+
+@mixin fade-out($start: 25%){
+  position: relative;
+  &::after{
+    content: '';
+    position: absolute;
+    display: block;
+    height: $start;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    @include linear-gradient-vertical(rgba(color(white), 0), color(white), 0% );
+  }
+}
+@mixin border-bottom($color: black, $tone: base, $opacity: 1){
+  border-bottom: 1px solid color($color, $tone, $opacity);
+}
+
+
+@mixin space-out($breakpoint) {
+  margin-top: $gutter / 2;
+  margin-bottom: $gutter / 2;
+  @include breakpoint($breakpoint) {
+   /* margin-top: 0;
+    margin-bottom: 0;*/
+  }
+}
+@mixin standard-shadow {
+	$s: 0 2px 5px 0 rgba(0,0,0,0.15), 0 2px 10px 0 rgba(0,0,0,0.10);
+	-webkit-box-shadow: $s;
+	box-shadow: $s;
+}
+
+@mixin hover-shadow {
+	$s: 0 2px 5px 0 rgba(0,0,0,0.20), 0 2px 10px 0 rgba(0,0,0,0.20);
+	-webkit-box-shadow: $s;
+	box-shadow: $s;
+}
+
+@mixin handle-text-overflow {
+  -webkit-word-break: break-word;
+  word-break: break-word;
+  -webkit-word-wrap: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  /*Moz and IE hyphenation fallbacks due to lack of "word-break:break-word" support
+   and word-wrap only working on fixed width containers*/
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+/*  -webkit-hyphens: auto;
+   hyphens: auto;*/
+}
+
+@mixin break-word{
+  -webkit-word-break: break-word;
+  word-break: break-word;
+  -webkit-word-wrap: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  /*Moz and IE hyphenation fallbacks due to lack of "word-break:break-word" support
+   and word-wrap only working on fixed width containers*/
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+/*  -webkit-hyphens: auto;
+   hyphens: auto;*/
+}
+
+@mixin line-clamp($num-lines, $default-line-height) {
+  /* to handle overflow - http://stackoverflow.com/questions/3922739/limit-text-length-to-n-lines-using-css*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num-lines; /* number of lines to show */
+  line-height: $default-line-height;        /* fallback */
+  max-height: calc(#{$num-lines}*#{$default-line-height});
+}
+
+@mixin program-and-content-type-text {
+  font-size:14px;
+  font-weight:bold;
+  color: palette-get(na-black-40);
+  line-height: 100%;
+  text-transform: uppercase;
+}
+
+@mixin page-title-text {
+  font-weight: bold;
+  color: palette-get(na-black);
+  font-size: 32px;
+
+  @include breakpoint(medium) {
+    font-size: 40px;
+  }
+}
+
+@mixin page-subheading-text($type) {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 110%;
+  margin-top: 7px;
+  margin-bottom: 0px;
+  @include breakpoint(medium) {
+      font-size: 25px;
+  }
+
+  a:hover {
+    @include set-color(color);
+  }
+
+  @if $type == white {
+    color: white;
+  } @else {
+    color: palette-get(na-black-40);
+  }
+}
+
+@mixin page-body-text {
+  font-size: 1.2rem;
+  color: palette-get(na-black-70);
+  line-height: 1.65;
+  font-family: Circular;
+  font-style: normal;
+}
+
+@mixin page-section-title-text {
+  font-weight: bold;
+  color: palette-get(na-black);
+  font-size: 26px;
+  margin-bottom: 0px;
+}
+
+@mixin grid-title-text {
+  font-weight:bold;
+  font-size: 26px;
+  font-family: Circular;
+  line-height: 105%;
+
+  &:hover {
+    @include set-color(color);
+  }
+}
+
+@mixin mobile-header() {
+  @media screen and (min-width: 340px) {
+    @content;
+  }
+}
+
+@mixin desktop-header() {
+  @media screen and (min-width: $desktop-header-foldup) {
+    @content;
+  }
+}
+@mixin expanded-header() {
+  .header--expanded & {
+    @media screen and (min-width: $expanded-header-foldup) {
+        @content;
+    }
+  }
+}
+@mixin expand-footer() {
+  @include breakpoint(large) {
+    @content;
+  }
+}
+
+@mixin desktop-sidemenu() {
+  @include breakpoint(medium) {
+    @content;
+  }
+}
+
+@mixin has-sidemenu {
+  .has_sidemenu:not(.simple) & {
+    @content;
+  }
+}
+
+@mixin show-mini-logo {
+  @include has-sidemenu {
+    @media screen and (max-width: $mini-logo-breakpoint) {
+      @content;
+    }
+  }
+}
