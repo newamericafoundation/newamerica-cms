@@ -20,7 +20,7 @@
 		{% include 'components/post_heading.html' %}
 	{% endblock %}
 
-	<section class="container container--wide">
+	<section class="{% block post_container_class %}container--wide{% endblock %}">
 		<div class="row">
 			 {% block post_left_aside %}
 				 	<aside class="post-authors col-md-12 col-lg-3">
