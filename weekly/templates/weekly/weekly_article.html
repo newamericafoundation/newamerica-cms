@@ -3,29 +3,19 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load utilities %}
+{% block body_class %}template-weeklyarticlepage the-weekly{% endblock %}
 
-{% block sidebar %}
-	{% include './side_menu.html' %}
+{% block header %}
+	{% include './header.html' with page_context="article" %}
 {% endblock %}
 
 {% block content %}
-	{% include './heading.html' %}
-
-  {% include 'components/breadcrumbs.html' %}
-	{% include 'components/post_heading.html' %}
-	<section class="container container--wide">
+	{% include './weekly_heading.html' with post=page page_context="article" %}
+<section class="container--full-width weekly-article-content-wrapper">
+	<section class="container container--wide weekly-article-content">
 		<div class="row">
 		 	<aside class="post-authors col-md-12 col-lg-3">
-				{% if authors %}
-					{% with authors|length as authors_len %}
-						<label class="post-label">
-							{% pluralize authors_len "Author" %}
-						</label>
-					{% endwith %}
-					{% for author in authors %}
-							{% include 'components/author.html' with author=author %}
-					{% endfor %}
-				{% endif %}
+
 			</aside>
 			<article class="post-body with-dropcap col-md-9 col-lg-6">
 				{% include 'components/post_body.html' %}
@@ -43,5 +33,5 @@
 			</aside>
 		</div>
 	</section>
-	{% include './border-panel.html' %}
+</section>
 {% endblock %}

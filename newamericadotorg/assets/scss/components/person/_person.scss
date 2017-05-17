@@ -66,5 +66,13 @@
     line-height: 120%;
     margin-bottom: 0px;
   }
+}
 
+.person-featured-work {
+  padding: 25px 0;
+  .featured-stories {
+    &::after{
+      @include linear-gradient-vertical(color(gray,light,0), color(gray,light,1), 30%);
+    }
+  }
 }

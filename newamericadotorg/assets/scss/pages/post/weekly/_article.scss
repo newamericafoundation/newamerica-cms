@@ -1,26 +1,11 @@
-.weekly__article {
-	.weekly__header {
-		display: table;
-		padding: $desktop-padding;
-
-		@include desktop-header {
-			display: none;
-		}
+.weekly-article-content{
+	&-wrapper {
+		background: color(white);
 	}
 
-	.border-panel {
-		margin-top: $desktop-padding + 10px;
-		margin-left: $desktop-padding;
-		margin-right: $desktop-padding;
-		
-		@include desktop-header {
-			margin-left: 0px;
-			margin-right: 0px;
-			max-width: $max-body-width;
-		}
-	}
-
-	.post-container {
-		padding-bottom: 0px;
-	}
+	background: color(white);
+	padding-top: 50px;
+	padding-bottom: 25px;
+	position: relative;
+	top: -25vh;
 }

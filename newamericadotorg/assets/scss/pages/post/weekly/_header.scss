@@ -1,72 +1,56 @@
-.weekly__header {
-	display: table;
-	padding: $desktop-padding $mobile-padding;
-	width: 100%;
+.weekly-header{
+	position: absolute;
+	top: 25px;
+	left: 25px;
+	z-index: 10;
 
-	@include breakpoint(medium) {
-		padding: $desktop-padding 0px 0px 0px;
-	}
-	@include desktop-header {
-		padding: 0px;
+	&__logo{
+		margin-right: 15px;
 	}
 
-	&__left {
-		padding-right: $desktop-padding;
-		margin-bottom: 0px;
-		display: table-cell;
-		border-right: 2px solid palette-get(na-black-10);
-		width: 150px;
-
-		@include breakpoint(medium) {
-			width: 200px;
-		}
-
-		&__text {
-			font-family:"Platform";
-			color:palette-get(na-black);
-			line-height: 90%;
-			margin-bottom: 0px;
-			font-size: 30px;
-
-			@include breakpoint(medium) {
-				font-size: 40px;
-			}
-		}
-	}
-
-	&__middle {
+	&__heading, &__subheading{
+		color: color(white) !important;
+		display: inline-block;
 		vertical-align: middle;
-		display: table-cell;
-		padding: 0px $desktop-padding;
-		
+	}
 
-		&__text {
-			height: 100%;
-			top: 50%;
-			font-family:"Circular";
-			color:palette-get(na-black-40);
-			margin-bottom: 0px;
-			max-width: $max-body-width;
-			display: none;
-
-			@include breakpoint(medium) {
-				display: table-cell;
-			}
-			a {
-				font-weight: bold;
-			}
-		}
-		&__title,  &__title > a{
-			font-size: 25px;
-			margin-bottom: 0px;
-			font-family:"Circular";
-			color:palette-get(na-black-40);
-			line-height: 110%;
-
-			@include breakpoint(medium) {
-				font-size: 35px;
-			}
+	&__heading {
+		margin-right: 30px;
+		position: relative;
+		&::after{
+			position: absolute;
+			right: -15px;
+			@include transform(rotate(24deg));
+			border-right: 1px solid color(white);
+			height: 150%;
+			top: -25%;
+			display: inline-block;
+			content: ' ';
 		}
 	}
 
+	&__subheading{
+		max-width: 250px;
+	}
+
+	&.article {
+		& > * {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.weekly-header{
+			&__heading{
+				font-size: 1.4rem;
+				&::after{
+					height: 100%;
+    			top: 0%;
+				}
+			}
+			&__subheading{
+				font-size: 0.78rem;
+				line-height: 1rem;
+				max-width: 240px;
+			}
+		}
+	}
 }

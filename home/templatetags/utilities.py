@@ -46,7 +46,7 @@ def get_byline_prefix(ptype, items_list):
 	if post_type == "Podcast":
 		return pluralize(num_items, "Contributor")
 	elif (post_type == "Blog Post" or post_type == "Weekly Article"):
-		return "By "
+		return ""
 	elif post_type == "In The News Piece":
 		return "In the News: "
 	else:

@@ -1,6 +1,20 @@
-@import 'main';
-@import 'header';
-@import 'lead';
-@import 'edition';
-@import 'sidemenu';
+.the-weekly {
+	background: #000;
+
+	.footer{
+		border-top: none;
+	}
+
+	.footer__logo{
+		background-image: url('/static/logo-white.svg');
+	}
+
+	.footer__content h4{
+		color: color(gray);
+	}
+}
+
 @import 'article';
+@import 'content-list';
+@import 'header';
+@import 'heading';

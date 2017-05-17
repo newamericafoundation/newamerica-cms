@@ -1,0 +1,18 @@
+.weekly-content-list{
+	&__item{
+		margin-top: 25px;
+		margin-bottom: 25px;
+		cursor: pointer;
+
+		&__text{
+			&__title, &__author, a, .active{
+				color: color(white);
+				font-weight: bold;
+			}
+		}
+
+		&__image{
+
+		}
+	}
+}

@@ -31,7 +31,9 @@
   }
 
   &--narrow{
-    width: 660px;
-    max-width: 90%;
+    width: 90%;
+    @include media-breakpoint(tablet){
+      width: 50%;
+    }
   }
 }

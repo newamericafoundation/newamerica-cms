@@ -7,7 +7,7 @@
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}
-	<section class="container container--medium">
+	<section class="container {% block container_class %}container--medium{% endblock %}">
 		<section class="content-list-heading">
 			<h1 class="content-list-heading__heading">{{ page.title }}</h1>
 			<p class="content-list-heading__subheading subheading subheading--h1">

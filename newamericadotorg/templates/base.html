@@ -68,7 +68,9 @@
   </noscript>
   <!-- End Google Tag Manager (noscript) -->
   {% wagtailuserbar %}
-  {% include 'components/header.html' %}
+  {% block header %}
+    {% include 'components/header.html' %}
+  {% endblock %}
   <main>
       {% block content %}{% endblock %}
   </main>

@@ -1,0 +1,64 @@
+.weekly-heading{
+	height: 100vh;
+	width: 100%;
+	min-height: 450px;
+	position: relative;
+	z-index: 0;
+
+
+	&__image{
+		position: absolute;
+		bottom: 0;
+		top: 0;
+		left: 0;
+		right: 0;
+		background-size: cover;
+		background-repeat: no-repeat;
+		z-index: 20;
+
+    &::after{
+      @include linear-gradient-vertical-fadein-fadeout(#000,rgba(#000,0),#000);
+    }
+	}
+	&__lead-story{
+		width: 100%;
+		height: 100%;
+		position: relative;
+		z-index: 30;
+		&__text{
+			width: 33.333%;
+			float: right;
+			margin-top: 250px;
+			padding-right: 25px;
+
+			&.article{
+				float: left;
+				padding-left: 50px;
+				width: 66.6666%;
+			}
+
+			&__title, &__author, a, .active{
+				color: color(white);
+				font-weight: bold;
+			}
+		}
+	}
+
+	&__also-in-this-edition{
+		position: absolute;
+		bottom: 25px;
+		@include horizontal-center;
+		z-index: 30;
+
+		&.article {
+			display: none;
+		}
+
+		label{
+			color: color(white);
+      .fa{
+        color: color(white) !important;
+      }
+		}
+	}
+}

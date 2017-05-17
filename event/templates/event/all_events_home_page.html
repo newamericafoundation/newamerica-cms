@@ -1,6 +1,7 @@
 {% extends "publications_page.html" %}
 
 {% block body_class %}template-alleventshomepage{% endblock %}
+{% block container_class %}container--wide{% endblock %}
 
 {% block publication_list %}
 	{% include 'components/portrait_content_grid.html' with all_content=all_events %}
