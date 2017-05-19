@@ -7,7 +7,7 @@ TIME_ZONE = 'America/New_York'
 USE_TZ = True
 
 
-DEBUG = False
+DEBUG = os.getenv("DEBUG")
 
 APPEND_SLASH = True
 
