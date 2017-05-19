@@ -16,6 +16,7 @@ export default {
       insert: false,
       options: {
         includePaths: [
+          'node_modules',
           'newamericadotorg/assets/scss/settings/' + process.env.NODE_ENV,
           'newamericadotorg/assets/scss'
         ]

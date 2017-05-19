@@ -1,4 +1,17 @@
-@import '../../../../node_modules/font-awesome/css/font-awesome';
+@import "font-awesome/scss/variables";
+$fa-font-path: $font-url;
+@import "font-awesome/scss/mixins";
+@import "font-awesome/scss/path";
+@import "font-awesome/scss/core";
+@import "font-awesome/scss/larger";
+@import "font-awesome/scss/fixed-width";
+@import "font-awesome/scss/list";
+@import "font-awesome/scss/bordered-pulled";
+@import "font-awesome/scss/animated";
+@import "font-awesome/scss/rotated-flipped";
+@import "font-awesome/scss/stacked";
+@import "font-awesome/scss/icons";
+@import "font-awesome/scss/screen-reader";
 
 .fa-youtube{
   @extend .fa-youtube-play;
