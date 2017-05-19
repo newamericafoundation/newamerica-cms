@@ -10,7 +10,7 @@
     "start": "source .env & ./manage.py runserver",
     "open": "open https://localhost:8000/",
     "dev": "NODE_ENV=development watch 'rollup -c' newamericadotorg/assets/",
-    "heroku-postbuild": "npm run build",
+    "postinstall": "npm run build",
     "build": "NODE_ENV=production rollup -c"
   },
   "repository": {
