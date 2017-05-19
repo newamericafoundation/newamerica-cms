@@ -13,7 +13,13 @@ export default {
   plugins: [
     sass({
       output: 'newamericadotorg/static/css/newamericadotorg.css',
-      insert: false
+      insert: false,
+      options: {
+        includePaths: [
+          'newamericadotorg/assets/scss/settings/' + process.env.NODE_ENV,
+          'newamericadotorg/assets/scss'
+        ]
+      }
     }),
     // resolve({
     //   jsnext: true,

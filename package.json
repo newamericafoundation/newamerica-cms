@@ -9,11 +9,9 @@
   "scripts": {
     "start": "source .env & ./manage.py runserver",
     "open": "open https://localhost:8000/",
-    "dev": "watch 'rollup -c' newamericadotorg/assets/",
-    "postinstall": "rollup -c",
-    "build": "rollup -c",
-    "get-icon-svgs": "node newamericadotorg/assets/utilities/icon_parser/index.js",
-    "get-dropdown-svg-b64": "node newamericadotorg/assets/utilities/b64.js"
+    "dev": "NODE_ENV=development watch 'rollup -c' newamericadotorg/assets/",
+    "heroku-postbuild": "npm run build",
+    "build": "NODE_ENV=production rollup -c"
   },
   "repository": {
     "type": "git",
