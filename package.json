@@ -11,7 +11,7 @@
     "open": "open https://localhost:8000/",
     "dev": "NODE_ENV=development watch 'rollup -c' newamericadotorg/assets/",
     "postinstall": "npm run build",
-    "build": "NODE_ENV=production rollup -c"
+    "build": "NODE_ENV=production ./node_modules/rollup/bin/rollup -c"
   },
   "repository": {
     "type": "git",
