@@ -21,6 +21,8 @@
 }
 
 .person-featured-work{
+  padding-top: 15px;
+  padding-bottom: 15px;
   .featured-stories::after{
     @include linear-gradient-vertical(color(gray,light,0),color(gray,light,1));
   }

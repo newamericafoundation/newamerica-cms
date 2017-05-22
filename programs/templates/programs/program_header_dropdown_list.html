@@ -1,24 +1,32 @@
+{% if page.sidebar_menu_initiatives_and_projects_pages %}
 <div class="header__nav__dropdown-list__dropdown">
   <a class="header__nav__dropdown-list__dropdown__main-link box">Projects</a>
   <div class="header__nav__dropdown-list__dropdown__links box">
+    {% include './projects_dropdown_list.html' %}
   </div>
 </div>
-<div class="header__nav__dropdown-list__dropdown">
+{% endif %}
+<!-- <div class="header__nav__dropdown-list__dropdown">
   <a class="header__nav__dropdown-list__dropdown__main-link box">Topics</a>
   <div class="header__nav__dropdown-list__dropdown__links box">
   </div>
-</div>
+</div> -->
+{% if page.sidebar_our_work_pages %}
 <div class="header__nav__dropdown-list__dropdown">
-  <a href="/events" class="header__nav__dropdown-list__dropdown__main-link no-drop">Publications</a>
+    <a class="header__nav__dropdown-list__dropdown__main-link box">Publications</a>
+    <div class="header__nav__dropdown-list__dropdown__links box">
+      {% include './publications_dropdown_list.html' %}
+    </div>
 </div>
+{% endif %}
 <div class="header__nav__dropdown-list__dropdown">
-  <a href="" class="header__nav__dropdown-list__dropdown__main-link no-drop">Events</a>
+  <a href="{{page.url}}events/" class="header__nav__dropdown-list__dropdown__main-link no-drop">Events</a>
 </div>
-<div class="header__nav__dropdown-list__dropdown">
+<!-- <div class="header__nav__dropdown-list__dropdown">
   <a href="" class="header__nav__dropdown-list__dropdown__main-link no-drop">Fellowships</a>
-</div>
+</div> -->
 <div class="header__nav__dropdown-list__dropdown">
-  <a href="" class="header__nav__dropdown-list__dropdown__main-link no-drop">About</a>
+  <a href="{{ page.about_us_page.url }}" class="header__nav__dropdown-list__dropdown__main-link no-drop">About</a>
 </div>
 <div class="header__nav__dropdown-list__dropdown">
   <a href="" class="header__nav__dropdown-list__dropdown__main-link no-drop">Subscribe</a>
