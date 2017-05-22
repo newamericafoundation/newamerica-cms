@@ -65,14 +65,14 @@
       }
     }
 
-    &.gray-box{
-      background-color: color(gray, light);
-      padding: 25px;
-      box-shadow: inset 0 0 1px 0 color(black,light,0.5), 0 1px 3px 0px color(black,light,0.5);
-      border-bottom: 1px solid color(black, base, 0.25);
-      width: 100%;
-      left: 0;
-    }
+    // &.gray-box{
+    //   background-color: color(gray, light);
+    //   padding: 25px;
+    //   box-shadow: inset 0 0 1px 0 color(black,light,0.5), 0 1px 3px 0px color(black,light,0.5);
+    //   border-bottom: 1px solid color(black, base, 0.25);
+    //   width: 100%;
+    //   left: 0;
+    // }
 
   }
 
@@ -120,20 +120,20 @@
         border-radius: $border-radius;
         border-bottom: 1px solid color(gray, base, 0.65);
       }
-
-      &.gray-box:before{
-        // pointer
-        left: calc( 50% - 20px);
-        bottom: -9px;
-        height: 20px;
-        width: 20px;
-        background: color(gray,light);
-        border-top: 1px solid  color(gray, base, 0.6);
-        border-left: 1px solid  color(gray, base, 0.6);
-        box-shadow: inset 0 1px 0 0 color(black,light,0.15),
-        inset 1px 0 0 0 color(black,light,0.15);
-        @include transform(rotate(45deg));
-      }
+      //
+      // &.gray-box:before{
+      //   // pointer
+      //   left: calc( 50% - 20px);
+      //   bottom: -9px;
+      //   height: 20px;
+      //   width: 20px;
+      //   background: color(gray,light);
+      //   border-top: 1px solid  color(gray, base, 0.6);
+      //   border-left: 1px solid  color(gray, base, 0.6);
+      //   box-shadow: inset 0 1px 0 0 color(black,light,0.15),
+      //   inset 1px 0 0 0 color(black,light,0.15);
+      //   @include transform(rotate(45deg));
+      // }
 
       &:after{
         // make down arrow turquoise on hover

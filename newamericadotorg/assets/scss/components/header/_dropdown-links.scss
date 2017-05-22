@@ -30,31 +30,31 @@
   }
 }
 
-.gray-box{
-  .header-dropdown-links__link label{
-    position: relative;
-    color: color(black);
-    font-weight: bold;
-    &:hover{
-      color: color(turquoise);
-
-      &:before{
-        content: '';
-        display: block;
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        top: calc(50% - 5px);
-        left: -20px;
-        background: color(gray,light);
-        border-top: 1px solid color(gray);
-        border-right: 1px solid color(gray);
-        @include transform(rotate(45deg));
-      }
-
-    }
-  }
-}
+// .gray-box{
+//   .header-dropdown-links__link label{
+//     position: relative;
+//     color: color(black);
+//     font-weight: bold;
+//     &:hover{
+//       color: color(turquoise);
+//
+//       &:before{
+//         content: '';
+//         display: block;
+//         width: 10px;
+//         height: 10px;
+//         position: absolute;
+//         top: calc(50% - 5px);
+//         left: -20px;
+//         background: color(gray,light);
+//         border-top: 1px solid color(gray);
+//         border-right: 1px solid color(gray);
+//         @include transform(rotate(45deg));
+//       }
+//
+//     }
+//   }
+// }
 
 .header-dropdown-content{
   border-right: 1px solid color(gray,base,0.65);
