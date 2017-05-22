@@ -19,3 +19,9 @@
     margin: 5px 0;
   }
 }
+
+.person-featured-work{
+  .featured-stories::after{
+    @include linear-gradient-vertical(color(gray,light,0),color(gray,light,1));
+  }
+}
