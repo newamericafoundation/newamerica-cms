@@ -15,10 +15,17 @@
 		background-size: cover;
 		background-repeat: no-repeat;
 		z-index: 20;
+		opacity: 0.8;
 
     &::after{
       @include linear-gradient-vertical-fadein-fadeout(#000,rgba(#000,0),#000);
     }
+
+		&.article{
+			&::after{
+				@include linear-gradient-vertical(#000,rgba(#000,0),0%,50%);
+			}
+		}
 	}
 	&__lead-story{
 		width: 100%;
@@ -40,6 +47,12 @@
 			&__title, &__author, a, .active{
 				color: color(white);
 				font-weight: bold;
+			}
+
+			&__title{
+				h1{
+					font-family: $weekly-font-family;
+				}
 			}
 		}
 	}

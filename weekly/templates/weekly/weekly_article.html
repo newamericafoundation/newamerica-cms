@@ -14,16 +14,15 @@
 <section class="container--full-width weekly-article-content-wrapper">
 	<section class="container container--wide weekly-article-content">
 		<div class="row">
-		 	<aside class="post-authors col-md-12 col-lg-3">
-
+		 	<aside class="post-authors col-sm-2">
 			</aside>
-			<article class="post-body with-dropcap col-md-9 col-lg-6">
+			<article class="post-body weekly-body with-dropcap col-sm-8">
 				{% include 'components/post_body.html' %}
 				{% block post_extra_body_content %}{% endblock %}
 			</article>
-			<aside class="post-social col-md-3">
+			<aside class="post-social weekly-social col-sm-2">
 				<div class="post-social__sticky-wrapper">
-					<label class="post-label">Share</label>
+					<label class="post-label lg">Share</label>
 					{% include 'components/social_share.html' %}
 					{% if page.attachment %}
 						<label class="post-label attachment-label">Download</label>

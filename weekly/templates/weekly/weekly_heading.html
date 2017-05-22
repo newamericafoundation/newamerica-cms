@@ -2,7 +2,7 @@
 
 {% image post.story_image original as lead_image %}
 <section class="container--full-width weekly-heading">
-  <div class="weekly-heading__image with-overlay--black"
+  <div class="weekly-heading__image with-overlay--black {{page_context}}"
     style="background-image: url({{lead_image.url}})"></div>
 
   <div class="weekly-heading__lead-story">

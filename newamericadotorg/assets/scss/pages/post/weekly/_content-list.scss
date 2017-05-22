@@ -1,18 +1,32 @@
+$content-item-height: 180px;
+
 .weekly-content-list{
 	&__item{
-		margin-top: 25px;
-		margin-bottom: 25px;
+		height: $content-item-height;
 		cursor: pointer;
+		position: relative;
+
+		&__text-wrapper{
+			height: $content-item-height;
+		}
 
 		&__text{
+			position: absolute;
+			@include vertical-center;
+
 			&__title, &__author, a, .active{
 				color: color(white);
 				font-weight: bold;
 			}
+
+			&__title{
+				font-family: $weekly-font-family;
+			}
 		}
 
 		&__image{
-
+			position: absolute;
+			@include vertical-center;
 		}
 	}
 }

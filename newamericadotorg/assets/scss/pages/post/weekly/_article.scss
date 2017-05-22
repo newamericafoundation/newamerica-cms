@@ -1,6 +1,15 @@
 .weekly-article-content{
 	&-wrapper {
 		background: color(white);
+		position: relative;
+		&:before{
+			content: '';
+			height: 25vh;
+			width: 100%;
+			position: absolute;
+			top: -25vh;
+			@include linear-gradient-vertical(color(white,base,0),color(white,base,1),0%, 90%);
+		}
 	}
 
 	background: color(white);
@@ -8,4 +17,16 @@
 	padding-bottom: 25px;
 	position: relative;
 	top: -25vh;
+}
+
+.weekly-body{
+	font-size: 1.2em;
+	font-family: $weekly-font-family;
+}
+
+.weekly-social{
+	text-align: center;
+	.fa{
+		padding-right: 0;
+	}
 }

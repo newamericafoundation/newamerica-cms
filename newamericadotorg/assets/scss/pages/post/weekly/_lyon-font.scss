@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Lyon Display';
+    src: url('#{$static-url}/fonts/LyonDisplay-Bold.otf');
+    // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
+    //      url('#{$font-url}/fonts/.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lyon Display';
+    src: url('#{$static-url}/fonts/LyonDisplay-BoldItalic.otf');
+    // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
+    //      url('#{$font-url}/fonts/.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Lyon Display';
+    src: url('#{$static-url}/fonts/LyonDisplay-Regular.otf');
+    // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
+    //      url('#{$font-url}/fonts/.woff') format('woff');
+    font-weight: normal;
+    font-style: none;
+}
+
+@font-face {
+    font-family: 'Lyon Display';
+    src: url('#{$static-url}/fonts/LyonDisplay-RegularItalic.otf');
+    // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
+    //      url('#{$font-url}/fonts/.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}

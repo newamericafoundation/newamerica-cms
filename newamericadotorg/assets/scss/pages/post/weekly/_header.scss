@@ -17,6 +17,8 @@
 	&__heading {
 		margin-right: 30px;
 		position: relative;
+		font-family: $weekly-font-family;
+		font-style: italic;
 		&::after{
 			position: absolute;
 			right: -15px;
