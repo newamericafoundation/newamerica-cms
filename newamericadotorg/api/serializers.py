@@ -139,7 +139,7 @@ class AuthorSerializer(ModelSerializer):
         model = Person
         fields = (
             'id', 'full_name', 'first_name', 'last_name', 'role', 'position',
-            'short_bio', 'long_bio', 'profile_image', 'slug'
+            'short_bio', 'long_bio', 'profile_image', 'slug', 'url'
         )
 
     def get_position(self, obj):
@@ -149,9 +149,8 @@ class AuthorSerializer(ModelSerializer):
         return obj.title
 
     def get_profile_image(self, obj):
-        rendition = self.context['request'].query_params.get('image_rendition', None)
         if obj.profile_image:
-            return generate_image_url(obj.profile_image, rendition)
+            return generate_image_url(obj.profile_image, 'fill-300x300')
 
 class PostProgramSerializer(ModelSerializer):
     name = SerializerMethodField()

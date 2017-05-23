@@ -19,7 +19,7 @@ export class LazyLoadImages extends Component {
   render() {
     let { className, children } = this.props;
     return (
-      <this.component className={'compose__lazyload-images-wrapper ' + className}>
+      <this.component className={'compose__lazyload-images-wrapper ' + (className || '')}>
         {children}
       </this.component>
     );
