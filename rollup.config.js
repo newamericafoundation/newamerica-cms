@@ -23,6 +23,7 @@ export default {
         ]
       }
     }),
+    // shim for React that is not written with es6 exports
     commonjs({
       include: [
         'node_modules/**'
@@ -35,6 +36,7 @@ export default {
         'node_modules/react-dom/index.js': ['render']
       }
     }),
+    // import node_module dependencies
     resolve({
       jsnext: true,
       main: true,

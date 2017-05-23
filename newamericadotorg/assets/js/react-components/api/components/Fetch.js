@@ -2,7 +2,7 @@ import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { BASEURL } from '../constants';
 import {
-  fetch, setEndpoint, setParam, setParams,
+  fetchData, setEndpoint, setParam, setParams,
   setBase, receiveResults
 } from '../actions';
 
@@ -28,7 +28,7 @@ class Fetch extends Component {
   componentWillMount(){
     let {
       setParams, receiveResults, endpoint,
-      initialQuery, clear, fetch, fetchOnMount,
+      initialQuery, clear, fetchData, fetchOnMount,
       component
     } = this.props;
 
@@ -41,7 +41,7 @@ class Fetch extends Component {
       return;
     }
 
-    if(fetchOnMount) fetch();
+    if(fetchOnMount) fetchData();
   }
 
   render() {
@@ -61,8 +61,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setParams(this.name, {endpoint, query}));
   },
 
-  fetch: function(){
-    dispatch(fetch(this.name));
+  fetchData: function(){
+    dispatch(fetchData(this.name));
   },
 
   setEndpoint: function(endpoint){

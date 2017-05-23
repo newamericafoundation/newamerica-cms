@@ -3,7 +3,6 @@ import {
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE
 } from './constants';
-import axios from 'axios';
 
 export const setParams = (component, {endpoint, query}) => {
   return {
@@ -67,34 +66,40 @@ export const receiveTemplate = (component, template) => ({
   template
 })
 
-export const fetch = (component, callback=()=>{}) => (dispatch,getState) => {
+export const fetchData = (component, callback=()=>{}) => (dispatch,getState) => {
   let params = getState()[component].params;
-  return axios.get(`//${params.baseUrl}${params.endpoint}/`, {
-    params:params.query,
+  let url = new URL(`//${params.baseUrl}${params.endpoint}/`);
+  for(let k in params.query)
+    url.searchParams.append(k, params.query[key]);
+
+  return fetch(url, {
     headers: {'X-Requested-With': 'XMLHttpRequest'}
   }).then(json => {
-      dispatch(receiveResults(component,json.data));
-      callback();
-    });
+    dispatch(receiveResults(component,json.data));
+    callback();
+  });
 }
 
 export const fetchAndAppend = (component, callback=()=>{}) => (dispatch,getState) => {
   let params = getState()[component].params;
-  return axios.get(`//${params.baseUrl}${params.endpoint}/`, {
-    params:params.query,
+  let url = new URL(`//${params.baseUrl}${params.endpoint}/`);
+  for(let k in params.query)
+    url.searchParams.append(k, params.query[key]);
+
+  return fetch(url, {
     headers: {'X-Requested-With': 'XMLHttpRequest'}
   }).then(json => {
-      dispatch(appendResults(component,json.data));
-      callback();
-    });
+    dispatch(appendResults(component,json.data));
+    callback();
+  });
 }
 
 export const fetchTemplate = (component, callback=()=>{}) => (dispatch,getState) => {
   let url = getState()[component].templateUrl;
-  return axios.get(url,{
+  return fetch(url,{
     headers: {'X-Requested-With': 'XMLHttpRequest'}
   }).then(html => {
-      dispatch(receiveTemplate(component, html.data));
-      callback();
-    });
+    dispatch(receiveTemplate(component, html.data));
+    callback();
+  });
 }
