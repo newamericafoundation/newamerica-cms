@@ -24,24 +24,16 @@ export default {
         ]
       }
     }),
+    // import node_module dependencies
+    resolve(),
     // shim for React that is not written with es6 exports
     commonjs({
-      include: [
-        'node_modules/**'
-      ],
-      exclude: [
-        'node_modules/process-es6/**'
-      ],
+      include: 'node_modules/**',
+      exclude: ['node_modules/vanilla-lazyload/**'],
       namedExports: {
-        'node_modules/react/react.js': ['Children', 'Component', 'PropTypes', 'createElement'],
-        'node_modules/react-dom/index.js': ['render']
+        'node_modules/react/react.js': ['Children', 'Component', 'createElement'],
+        'node_modules/react-dom/index.js': ['render'],
       }
-    }),
-    // import node_module dependencies
-    resolve({
-      jsnext: true,
-      main: true,
-      browser: true
     }),
     babel(),
     replace({

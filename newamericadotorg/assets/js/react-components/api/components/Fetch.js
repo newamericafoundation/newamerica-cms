@@ -7,6 +7,8 @@ import {
   setBase, receiveResults
 } from '../actions';
 
+import lazyload from '../../../utils/lazyload';
+
 class Fetch extends Component {
   component = null;
 
@@ -33,7 +35,7 @@ class Fetch extends Component {
       component
     } = this.props;
 
-    this.component = component || (<span></span>);
+    this.component = component || 'span';
 
     setParams(endpoint, initialQuery);
 
@@ -48,7 +50,7 @@ class Fetch extends Component {
   render() {
     let { className, children } = this.props;
     return (
-      <this.component className={'compose__component ' + className}>
+      <this.component className={'compose__fetch-component ' + className}>
         {children}
       </this.component>
     );
