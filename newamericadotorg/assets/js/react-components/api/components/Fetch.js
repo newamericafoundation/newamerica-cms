@@ -1,4 +1,5 @@
-import { Component, PropTypes } from 'react';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BASEURL } from '../constants';
 import {
@@ -12,7 +13,7 @@ class Fetch extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     endpoint: PropTypes.string.isRequired,
-    component: Proptype.object,
+    component: PropTypes.func,
     eager: PropTypes.bool,
     baseUrl: PropTypes.string,
     clear: PropTypes.bool,
@@ -56,29 +57,29 @@ class Fetch extends Component {
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => ({
-  setParams: function(endpoint,query){
-    dispatch(setParams(this.name, {endpoint, query}));
+const mapDispatchToProps = (dispatch, props) => ({
+  setParams: (endpoint,query) => {
+    dispatch(setParams(props.name, {endpoint, query}));
   },
 
-  fetchData: function(){
-    dispatch(fetchData(this.name));
+  fetchData: () => {
+    dispatch(fetchData(props.name));
   },
 
-  setEndpoint: function(endpoint){
-    dispatch(setEndpoint(this.name, endpoint));
+  setEndpoint: (endpoint) => {
+    dispatch(setEndpoint(props.name, endpoint));
   },
 
-  setParam: function(key, value){
-    dispatch(setParam(this.name, {key, value}));
-    if(this.eager) this.fetch();
+  setParam: (key, value) => {
+    dispatch(setParam(props.name, {key, value}));
+    if(props.eager) this.fetch();
   },
 
-  receiveResults: function(val){
-    dispatch(receiveResults(this.name, val));
+  receiveResults: (val) => {
+    dispatch(receiveResults(props.name, val));
   },
 
-  setBase: function(baseUrl){
+  setBase: (baseUrl) => {
     dispatch(setBase(this.name, baseUrl));
   }
 });

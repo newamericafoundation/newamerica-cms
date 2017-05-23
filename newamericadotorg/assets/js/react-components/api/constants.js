@@ -2,13 +2,13 @@ let baseurl;
 
 switch(process.env.NODE_ENV){
   case 'production':
-    baseurl = '//newamerica.org/api/';
+    baseurl = 'https://newamerica.org/api/';
   case 'preview':
-    baseurl = '//na-preview.herokuapp.com/api/';
+    baseurl = 'https://na-preview.herokuapp.com/api/';
   case 'staging':
-    baseurl = '//na-staging.herokuapp.com/api/';
+    baseurl = 'https://na-staging.herokuapp.com/api/';
   default:
-    baseurl = '//localhost:8000/api/';
+    baseurl = 'http://localhost:8000/api/';
 }
 
 export const BASEURL = baseurl;

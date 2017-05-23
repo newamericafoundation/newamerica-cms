@@ -36,9 +36,23 @@ class Filter extends Component {
 
 const mapStateToProps = (state) => ({
   programs: [],
-  publications: []
+  content_types: []
 });
 
 Filter = connect(mapStateToProps)(Filter);
 
-export default (<Fetch name={NAME} endpoint="post" eager={true} component={Filter}/>);
+// Fetch sends results to state[NAME].results
+// see ContentList for render
+const Container = () => (
+  <Fetch
+    name={NAME}
+    endpoint="post"
+    eager={true}
+    fetchOnMount={true}
+    component={Filter}
+    initialQuery={{
+      image_rendition: 'fill-225x125'
+    }}/>
+);
+
+export default Container;

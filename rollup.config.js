@@ -4,6 +4,7 @@ import sass from 'rollup-plugin-sass';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs'
 import replace from 'rollup-plugin-replace';
+import globals from 'rollup-plugin-node-globals';
 
 export default {
   entry: 'newamericadotorg/assets/js/newamericadotorg.js',
@@ -45,6 +46,7 @@ export default {
     babel(),
     replace({
       'process.env.NODE_ENV': '\'' + process.env.NODE_ENV + '\''
-    })
+    }),
+    globals()
   ]
 };

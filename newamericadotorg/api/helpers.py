@@ -3,6 +3,7 @@ from programs.models import Program, Subprogram, AbstractContentPage
 from home.models import Post
 from issue.models import IssueOrTopic
 
+from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
 
@@ -34,7 +35,7 @@ def generate_image_url(image, filter_spec=None):
 
     signature = generate_signature(image.id, filter_spec)
     url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
-
+    
     return url
 
 

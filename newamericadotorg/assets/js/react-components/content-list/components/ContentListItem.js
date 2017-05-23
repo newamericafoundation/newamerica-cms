@@ -9,12 +9,16 @@ const Details = ({ post: { date, programs, content_type } }) => (
     {programs &&
       <label className="content-list__item__details__program-content">
         {programs.map((p,i)=>(
-          <a href={p.url}>{p.title}</a>
+          <span key={`program-${i}`}>
+            <a href={p.url}>{p.name}</a>
+            {i<programs.length-2 && ', '}
+            {i==programs.length-2 && ' and '}
+          </span>
         ))}
       </label>
     }
     <label className="content-list__item__details__content-type">
-      {content_type}
+      {content_type.name}
     </label>
   </div>
 );
@@ -32,17 +36,16 @@ const Heading = ({ post: { url, title, story_excerpt, authors }}) => (
     <div className="content-list__item__heading__authors container">
       <div className="row no-gutters">
         {authors.map((a,i)=>(
-          <Author author={a} classes="ultra-compact col-md-4 col-xl-3 content-list__item__heading__author"/>
+          <Author key={`author-${i}`} author={a} classes="ultra-compact col-md-4 col-xl-3 content-list__item__heading__author"/>
         ))}
       </div>
     </div>
   </div>
 );
-// image fill-225x125
 
-const Image = ({ post: { image }}) => (
+const Image = ({ post: { story_image }}) => (
   <div className="content-list__item__image-wrapper col-md-3">
-    <img src={image} className="content-list__item__image" />
+    <img src={story_image} className="content-list__item__image" />
   </div>
 );
 

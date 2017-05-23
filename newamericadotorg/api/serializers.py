@@ -199,7 +199,6 @@ class PostSerializer(ModelSerializer):
             }
 
     def get_story_image(self, obj):
-        return ''
         rendition = self.context['request'].query_params.get('image_rendition', None)
         if obj.story_image:
             return generate_image_url(obj.story_image, rendition)

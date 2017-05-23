@@ -68,23 +68,25 @@ export const receiveTemplate = (component, template) => ({
 
 export const fetchData = (component, callback=()=>{}) => (dispatch,getState) => {
   let params = getState()[component].params;
-  let url = new URL(`//${params.baseUrl}${params.endpoint}/`);
+  let url = new URL(`${params.baseUrl}${params.endpoint}/`);
   for(let k in params.query)
-    url.searchParams.append(k, params.query[key]);
+    url.searchParams.append(k, params.query[k]);
 
   return fetch(url, {
-    headers: {'X-Requested-With': 'XMLHttpRequest'}
-  }).then(json => {
-    dispatch(receiveResults(component,json.data));
-    callback();
-  });
+      headers: {'X-Requested-With': 'XMLHttpRequest'}
+    }).then(response => {
+      return response.json();
+    }).then(json => {
+      dispatch(receiveResults(component,json.results));
+      callback();
+    });
 }
 
 export const fetchAndAppend = (component, callback=()=>{}) => (dispatch,getState) => {
   let params = getState()[component].params;
-  let url = new URL(`//${params.baseUrl}${params.endpoint}/`);
+  let url = new URL(`${params.baseUrl}${params.endpoint}/`);
   for(let k in params.query)
-    url.searchParams.append(k, params.query[key]);
+    url.searchParams.append(k, params.query[k]);
 
   return fetch(url, {
     headers: {'X-Requested-With': 'XMLHttpRequest'}

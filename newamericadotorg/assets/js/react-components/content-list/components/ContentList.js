@@ -9,7 +9,7 @@ class ContentList extends Component {
     return (
       <section className='content-list container'>
         {results.map((r, i)=>(
-          <ContentListItem post={r} />
+          <ContentListItem post={r} key={`content-list-item-${i}`}/>
         ))}
       </section>
     );
