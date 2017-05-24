@@ -1,7 +1,12 @@
 import { Component } from 'react';
 import LazyLoad from '../../../../node_modules/vanilla-lazyload/src/lazyload.core';
 
+export const lazyloadBackgroundImage = new LazyLoad({ elements_selector: '.lazyload' });
 export const lazyload = new LazyLoad();
+export const update = () => {
+  lazyload.update();
+  lazyloadBackgroundImage.update();
+}
 
 export class LazyLoadImages extends Component {
   component = null;
@@ -11,10 +16,10 @@ export class LazyLoadImages extends Component {
   }
 
   componentDidMount() {
-    lazyload.update();
+    update();
   }
   componentDidUpdate(){
-    lazyload.update();
+    update();
   }
   render() {
     let { className, children } = this.props;
@@ -26,4 +31,10 @@ export class LazyLoadImages extends Component {
   }
 }
 
-export default lazyload;
+const singleton = {
+  lazyload,
+  lazyloadBackgroundImage,
+  update
+};
+
+export default singleton;

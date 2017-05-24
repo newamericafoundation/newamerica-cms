@@ -1,6 +1,7 @@
 const Image = ({ author: { profile_image }}) => (
   <div className="author__image-wrapper">
-    <div className="author__image" style={{ backgroundImage: `url(${profile_image})` }}></div>
+    <div className="author__image lazyload"
+      data-original={profile_image}></div>
   </div>
 );
 
