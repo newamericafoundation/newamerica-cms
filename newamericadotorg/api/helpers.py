@@ -8,14 +8,14 @@ from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
 
 newamericadotorg_content_types = [
-    { 'name': 'Blog Post', 'api_name': 'blogpost' },
-    { 'name': 'Policy Paper', 'api_name': 'policypaper' },
-    { 'name': 'Book', 'api_name': 'book' },
-    { 'name': 'In Depth Project', 'api_name': 'indepthproject' },
-    { 'name': 'In the News', 'api_name': 'quoted' },
-    { 'name': 'Press Release', 'api_name': 'pressrelease' },
-    { 'name': 'Article', 'api_name': 'article' },
-    { 'name': 'Podcast', 'api_name': 'podcast' },
+    { 'name': 'Blog Post', 'api_name': 'blogpost', 'slug': 'blogs'  },
+    { 'name': 'Policy Paper', 'api_name': 'policypaper', 'slug': 'policy-papers'  },
+    { 'name': 'Book', 'api_name': 'book', 'slug': 'books'  },
+    { 'name': 'In Depth Project', 'api_name': 'indepthproject', 'slug': 'in-depth'  },
+    { 'name': 'In the News', 'api_name': 'quoted', 'slug': 'in-the-news'  },
+    { 'name': 'Press Release', 'api_name': 'pressrelease', 'slug': 'press-releases'  },
+    { 'name': 'Article', 'api_name': 'article', 'slug': 'articles' },
+    { 'name': 'Podcast', 'api_name': 'podcast', 'slug': 'podcasts' },
 ]
 
 
@@ -35,7 +35,7 @@ def generate_image_url(image, filter_spec=None):
 
     signature = generate_signature(image.id, filter_spec)
     url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
-    
+
     return url
 
 

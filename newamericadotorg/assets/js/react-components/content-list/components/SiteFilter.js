@@ -4,7 +4,8 @@ import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
 
 const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name' }) => (
-  <select onChange={onchange}>-
+  <select onChange={onchange}>
+    <option value="">All</option>
     {options.map((o,i)=>(
       <option key={i} value={o[valueAccessor]}>{o[nameAccessor]}</option>
     ))}
@@ -15,7 +16,7 @@ const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name' }) 
 class Filter extends Component {
   render() {
     let { programs, content_types, setParam } = this.props;
-    console.log(this);
+    
     return (
       <section className="container--medium content-filters">
         <div className="content-filters__filter">
