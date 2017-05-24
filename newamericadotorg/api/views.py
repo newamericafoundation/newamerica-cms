@@ -120,7 +120,7 @@ class ProgramFilter(django_filters.rest_framework.FilterSet):
         fields = ['id',]
 
 class ProgramList(generics.ListAPIView):
-    queryset = Program.objects.live().order_by('title')
+    queryset = Program.objects.in_menu().live().order_by('title').exclude(location=True)
     serializer_class = ProgramSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = ProgramFilter

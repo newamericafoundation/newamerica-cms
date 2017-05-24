@@ -20,7 +20,7 @@ class ProgramProjectSerializer(ModelSerializer):
     class Meta:
         model = Page
         fields = (
-            'id', 'name', 'url', 'slug'
+            'id', 'name', 'url'
         )
 
     def get_name(self, obj):
@@ -28,6 +28,23 @@ class ProgramProjectSerializer(ModelSerializer):
 
 
 class ProgramSerializer(ModelSerializer):
+    description = SerializerMethodField()
+    logo = SerializerMethodField()
+
+    class Meta:
+        model = Program
+        fields = (
+            'id', 'name', 'description', 'url', 'logo'
+        )
+
+    def get_description(self, obj):
+        return obj.story_excerpt
+
+    def get_logo(self, obj):
+        return ''
+        return obj.desktop_program_logo
+
+class ProgramDetailSerializer(ModelSerializer):
     description = SerializerMethodField()
     projects = SerializerMethodField()
     logo = SerializerMethodField()
@@ -39,7 +56,7 @@ class ProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'description', 'url', 'projects', 'slug',
+            'id', 'name', 'description', 'url', 'projects',
             'content_types', 'leads', 'features', 'subpages', 'logo'
         )
 
@@ -82,14 +99,13 @@ class ProjectProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'url', 'slug'
+            'id', 'name', 'url'
         )
 
 class ProjectSerializer(ModelSerializer):
     parent_programs = SerializerMethodField()
     content_types = SerializerMethodField()
     description = SerializerMethodField()
-    content_types = SerializerMethodField()
     leads = SerializerMethodField()
     features = SerializerMethodField()
     subpages = SerializerMethodField()
@@ -97,7 +113,7 @@ class ProjectSerializer(ModelSerializer):
     class Meta:
         model = Subprogram
         fields = (
-            'id', 'name', 'parent_programs', 'url', 'slug', 'content_types',
+            'id', 'name', 'parent_programs', 'url', 'content_types',
              'description', 'leads', 'features', 'subpages'
         )
 
@@ -132,21 +148,17 @@ class ProjectSerializer(ModelSerializer):
 
 class AuthorSerializer(ModelSerializer):
     position = SerializerMethodField()
-    full_name = SerializerMethodField()
     profile_image = SerializerMethodField()
 
     class Meta:
         model = Person
         fields = (
-            'id', 'full_name', 'first_name', 'last_name', 'role', 'position',
-            'short_bio', 'long_bio', 'profile_image', 'slug', 'url'
+            'id', 'first_name', 'last_name', 'position',
+            'short_bio', 'profile_image', 'url'
         )
 
     def get_position(self, obj):
         return obj.position_at_new_america
-
-    def get_full_name(self, obj):
-        return obj.title
 
     def get_profile_image(self, obj):
         if obj.profile_image:
@@ -158,7 +170,7 @@ class PostProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'url', 'slug'
+            'id', 'name', 'url'
         )
 
     def get_name(self, obj):
@@ -170,7 +182,7 @@ class PostProjectSerializer(ModelSerializer):
     class Meta:
         model = Subprogram
         fields = (
-            'id', 'name', 'url', 'slug'
+            'id', 'name', 'url'
         )
 
     def get_name(self, obj):
@@ -188,7 +200,7 @@ class PostSerializer(ModelSerializer):
         fields = (
             'id', 'title', 'subheading', 'date', 'content_type',
             'authors', 'programs', 'projects', 'url', 'story_excerpt',
-            'story_image', 'slug'
+            'story_image'
         )
 
     def get_content_type(self, obj):
