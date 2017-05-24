@@ -1,6 +1,6 @@
 import { fetchData, setParams } from './api/actions';
 import store from './store';
-import { events } from './events';
+import { events, actions } from './events';
 
 export default function(){
   store.dispatch(setParams('programData', { endpoint: 'program' } ));
@@ -10,4 +10,5 @@ export default function(){
   store.dispatch(fetchData('contentTypes'));
 
   events.scrollPosition();
+  actions.setScrollPosition(0);
 }

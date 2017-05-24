@@ -2,8 +2,9 @@ import {
   SET_PARAMS, SET_PARAM, SET_ENDPOINT, RECEIVE_RESULTS,
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
-  SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE
+  SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE
 } from './constants';
+
 
 export const setParams = (component, {endpoint, query}) => {
   return {
@@ -54,6 +55,13 @@ export const appendResults = (component, results) => {
     results
   }
 }
+
+export const setResponse = (component, response) => ({
+  type: SET_RESPONSE,
+  component,
+  response
+});
+
 
 export const setHasNext = (component, hasNext) => ({
   type: SET_HAS_NEXT,
@@ -115,12 +123,9 @@ export const fetchData = (component, callback=()=>{}) => (dispatch,getState) => 
     }).then(response => {
       return response.json();
     }).then(json => {
-      let { hasPrevious, hasNext, page, results } = parseResponse(json);
+      let response = parseResponse(json);
 
-      dispatch(receiveResults(component, results));
-      dispatch(setHasNext(component, hasNext));
-      dispatch(setHasPrevious(component, hasPrevious));
-      dispatch(setPage(component, page));
+      dispatch(setResponse(component, response));
       callback();
     });
 }
@@ -130,18 +135,16 @@ export const fetchAndAppend = (component, callback=()=>{}) => (dispatch,getState
   let url = new URL(`${params.baseUrl}${params.endpoint}/`);
   for(let k in params.query)
     url.searchParams.append(k, params.query[k]);
-  console.log(url);
+
   return fetch(url, {
     headers: {'X-Requested-With': 'XMLHttpRequest'}
   }).then(response => {
     return response.json();
   }).then(json => {
-    let { hasPrevious, hasNext, page, results } = parseResponse(json);
+    let response = parseResponse(json);
+    response.append = true;
 
-    dispatch(appendResults(component, results));
-    dispatch(setHasNext(component, hasNext));
-    dispatch(setHasPrevious(component, hasPrevious));
-    dispatch(setPage(component, page));
+    dispatch(setResponse(component, response));
     callback();
   });
 }

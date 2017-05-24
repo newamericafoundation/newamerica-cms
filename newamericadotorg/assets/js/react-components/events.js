@@ -3,7 +3,6 @@ import store from '../react-components/store';
 
 // constants
 const SET_SCROLL_POSITION = 'SET_SCROLL_POSITION';
-const component = 'site';
 
 // reducers
 const scrollPosition = (state=0, action) => {
@@ -19,15 +18,25 @@ export const reducers = {
   scrollPosition
 }
 
-// events
-const scrollPositionEvent = (position) => {
-  window.addEventListener('scroll', (e)=>{
-    store.dispatch({
-      type: SET_SCROLL_POSITION,
-      position: position || window.scrollY,
-      component
-    });
+// actions
+const setScrollPosition = (position) => {
+  store.dispatch({
+    type: SET_SCROLL_POSITION,
+    position: position,
+    component: 'site'
   });
+}
+
+export const actions = {
+  setScrollPosition
+}
+
+// events
+const scrollPositionEvent = () => {
+  window.addEventListener('scroll', (e)=>{
+    setScrollPosition(window.scrollY);
+    e.preventDefault();
+  }, false);
 }
 
 // currently initiated in ./site.js
