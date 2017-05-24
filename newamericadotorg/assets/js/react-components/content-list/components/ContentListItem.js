@@ -1,11 +1,11 @@
 import { Component } from 'react';
-import moment from 'moment';
+import { format as formatDate } from 'date-fns';
 import Author from '../../author/components/Author';
 
 const Details = ({ post: { date, programs, content_type } }) => (
   <div className="content-list__item__details col-md-3">
     <label className="content-list__item__details__date">
-      {moment(date).format('LL')}
+      {formatDate(date, 'MMMM D, YYYY')}
     </label>
     {programs &&
       <label className="content-list__item__details__program-content">
