@@ -46,7 +46,7 @@ const Heading = ({ post: { url, title, story_excerpt, authors }}) => (
 
 const Image = ({ post: { story_image }}) => (
   <div className="content-list__item__image-wrapper col-md-3">
-    <img data-original={story_image} className="content-list__item__image" />
+    <img data-original={story_image} className="content-list__item__image lazyload" />
   </div>
 );
 

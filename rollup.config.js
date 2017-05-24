@@ -24,8 +24,6 @@ export default {
         ]
       }
     }),
-    // import node_module dependencies
-    resolve(),
     // shim for React that is not written with es6 exports
     commonjs({
       include: 'node_modules/**',
@@ -36,6 +34,8 @@ export default {
         'node_modules/date-fns/index.js': ['format']
       }
     }),
+    // import node_module dependencies
+    resolve({'jsnext': true}),
     babel(),
     replace({
       'process.env.NODE_ENV': '\'' + process.env.NODE_ENV + '\''

@@ -1,6 +1,6 @@
 const Image = ({ author: { profile_image }}) => (
   <div className="author__image-wrapper">
-    <div className="author__image lazyload"
+    <div className="author__image lazyload--background"
       data-original={profile_image}></div>
   </div>
 );

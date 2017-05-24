@@ -20,11 +20,11 @@
   }
 
   &--wide{
-    width: 95%;
+    width: 100%;
   }
 
   &--medium{
-    width: 90%;
+    width: 100%;
     @include media-breakpoint(tablet){
       width: 80%;
     }

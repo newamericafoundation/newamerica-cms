@@ -1,0 +1,8 @@
+.lazyload--background, .lazyload {
+  opacity: 0;
+  @include transition(opacity 0.3s ease-in-out);
+  transition-delay: 0.15s;
+  &[data-was-processed="true"]{
+    opacity: 1;
+  }
+}
