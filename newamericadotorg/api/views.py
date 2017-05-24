@@ -104,7 +104,7 @@ class MetaList(APIView):
 
 class ContentList(APIView):
     def get(self, request, format=None):
-        types = content_types(request)
+        types = content_types(request)['content_types']
         return Response({
             'count': len(types),
             'next': None,

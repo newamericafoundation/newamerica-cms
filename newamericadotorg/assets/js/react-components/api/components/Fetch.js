@@ -50,7 +50,7 @@ class Fetch extends Component {
   render() {
     let { className, children } = this.props;
     return (
-      <this.component className={'compose__fetch-component ' + (className||'')}>
+      <this.component {...this.props} className={'compose__fetch-component ' + (className||'')}>
         {children}
       </this.component>
     );
@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
   setParam: (key, value) => {
     dispatch(setParam(props.name, {key, value}));
-    if(props.eager) this.fetch();
+    if(props.eager) dispatch(fetchData(props.name));
   },
 
   receiveResults: (val) => {
@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch, props) => ({
   },
 
   setBase: (baseUrl) => {
-    dispatch(setBase(this.name, baseUrl));
+    dispatch(setBase(props.name, baseUrl));
   }
 });
 

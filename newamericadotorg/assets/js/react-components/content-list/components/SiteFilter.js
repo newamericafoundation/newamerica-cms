@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
 
-const Select = ({ onchange, options }) => (
-  <select onChange={onchange}>
+const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name' }) => (
+  <select onChange={onchange}>-
     {options.map((o,i)=>(
-      <option value={o.api_name}>{o.name}</option>
+      <option key={i} value={o[valueAccessor]}>{o[nameAccessor]}</option>
     ))}
   </select>
 )
@@ -15,18 +15,20 @@ const Select = ({ onchange, options }) => (
 class Filter extends Component {
   render() {
     let { programs, content_types, setParam } = this.props;
+    console.log(this);
     return (
       <section className="container--medium content-filters">
         <div className="content-filters__filter">
           <Select
-            onchange={(v)=>{ setParam('program', v); }}
+            onchange={(e)=>{ setParam('program_id', e.target.value); }}
             options={programs}
           />
         </div>
         <div className="content-filters__filter">
           <Select
-            onchange={(v)=>{ setParam('content_type', v); }}
+            onchange={(e)=>{ setParam('content_type', e.target.value); }}
             options={content_types}
+            valueAccessor="api_name"
           />
         </div>
       </section>
@@ -35,8 +37,8 @@ class Filter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  programs: [],
-  content_types: []
+  programs: state.programData.results || [],
+  content_types: state.contentTypes.results || []
 });
 
 Filter = connect(mapStateToProps)(Filter);
