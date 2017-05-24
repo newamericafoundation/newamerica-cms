@@ -2,12 +2,16 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk'
 
 import apiReducers from './api/reducers';
+import { reducers as eventReducers } from './events';
+
 import * as components from './installed_components';
 
 let initialState = {};
-let reducers = {};
 
 let defaultReducer = combineReducers(apiReducers);
+let siteReducer = combineReducers({...eventReducers});
+
+let reducers = { 'site': siteReducer };
 
 // Create hash of reducers for each component, adding apiReducers
 for(let k in components){
