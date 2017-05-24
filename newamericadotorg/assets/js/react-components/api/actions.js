@@ -1,7 +1,8 @@
 import {
   SET_PARAMS, SET_PARAM, SET_ENDPOINT, RECEIVE_RESULTS,
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
-  SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE
+  SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
+  SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE
 } from './constants';
 
 export const setParams = (component, {endpoint, query}) => {
@@ -54,6 +55,24 @@ export const appendResults = (component, results) => {
   }
 }
 
+export const setHasNext = (component, hasNext) => ({
+  type: SET_HAS_NEXT,
+  component,
+  hasNext
+});
+
+export const setHasPrevious = (component, hasPrevious) => ({
+  type: SET_HAS_PREVIOUS,
+  component,
+  hasPrevious
+});
+
+export const setPage = (component, page) => ({
+  type: SET_PAGE,
+  component,
+  page
+});
+
 export const setTemplateUrl = (component, templateUrl) => ({
   type: SET_TEMPLATE_URL,
   component,
@@ -64,7 +83,26 @@ export const receiveTemplate = (component, template) => ({
   type: RECEIVE_RENDERED_TEMPLATE,
   component,
   template
-})
+});
+
+const parseResponse = (json) => {
+  let results = json.results,
+  hasNext = json.next!==null,
+  hasPrevious = json.previous!==null,
+  page = 1,
+  re = /.+page=([0-9]+)/;
+
+  if(hasNext){
+    page = (+re.exec(json.next)[1])-1;
+  } else if(hasPrevious){
+    let next = +re.exec(json.previous)[1];
+    page = next ? next : 1;
+  }
+
+  return {
+    hasNext, hasPrevious, page, results
+  }
+};
 
 export const fetchData = (component, callback=()=>{}) => (dispatch,getState) => {
   let params = getState()[component].params;
@@ -77,7 +115,12 @@ export const fetchData = (component, callback=()=>{}) => (dispatch,getState) => 
     }).then(response => {
       return response.json();
     }).then(json => {
-      dispatch(receiveResults(component,json.results));
+      let { hasPrevious, hasNext, page, results } = parseResponse(json);
+
+      dispatch(receiveResults(component, results));
+      dispatch(setHasNext(component, hasNext));
+      dispatch(setHasPrevious(component, hasPrevious));
+      dispatch(setPage(component, page));
       callback();
     });
 }
@@ -87,11 +130,18 @@ export const fetchAndAppend = (component, callback=()=>{}) => (dispatch,getState
   let url = new URL(`${params.baseUrl}${params.endpoint}/`);
   for(let k in params.query)
     url.searchParams.append(k, params.query[k]);
-
+  console.log(url);
   return fetch(url, {
     headers: {'X-Requested-With': 'XMLHttpRequest'}
+  }).then(response => {
+    return response.json();
   }).then(json => {
-    dispatch(appendResults(component,json.data));
+    let { hasPrevious, hasNext, page, results } = parseResponse(json);
+
+    dispatch(appendResults(component, results));
+    dispatch(setHasNext(component, hasNext));
+    dispatch(setHasPrevious(component, hasPrevious));
+    dispatch(setPage(component, page));
     callback();
   });
 }

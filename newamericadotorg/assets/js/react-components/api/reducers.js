@@ -1,7 +1,8 @@
 import {
   SET_PARAMS, SET_PARAM, SET_ENDPOINT, RECEIVE_RESULTS,
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
-  SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE
+  SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
+  SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE
 } from './constants';
 
 export const params = (state={
@@ -50,6 +51,33 @@ export const results = (state=[], action) => {
   }
 }
 
+export const hasNext = (state=false, action) => {
+  switch(action.type){
+    case SET_HAS_NEXT:
+      return action.hasNext;
+    default:
+      return state;
+  }
+}
+
+export const hasPrevious = (state=false, action) => {
+  switch(action.type){
+    case SET_HAS_PREVIOUS:
+      return action.hasPrevious;
+    default:
+      return state;
+  }
+}
+
+export const page = (state=1, action) => {
+  switch(action.type){
+    case SET_PAGE:
+      return action.page;
+    default:
+      return state;
+  }
+}
+
 export const templateUrl = (state='', action) => {
   switch(action.type) {
     case SET_TEMPLATE_URL:
@@ -71,6 +99,9 @@ export const templateResult = (state={}, action) => {
 const reducers = {
   params,
   results,
+  hasNext,
+  hasPrevious,
+  page,
   templateUrl,
   templateResult
 }
