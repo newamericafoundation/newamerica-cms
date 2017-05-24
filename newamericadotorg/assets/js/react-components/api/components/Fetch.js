@@ -37,7 +37,7 @@ class Fetch extends Component {
 
     this.component = component || 'span';
 
-    setParams(endpoint, initialQuery);
+    setParams({ endpoint, query: initialQuery });
 
     if(clear){
       receiveResults([]);
@@ -60,8 +60,9 @@ class Fetch extends Component {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = (dispatch, props) => ({
-  setParams: (endpoint,query) => {
-    dispatch(setParams(props.name, {endpoint, query}));
+  setParams: ({ endpoint, query, baseUrl }) => {
+    dispatch(setParams(props.name, { endpoint, query, baseUrl }));
+    if(props.eager) dispatch(fetchData(props.name));
   },
 
   fetchData: () => {

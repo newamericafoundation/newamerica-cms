@@ -14,20 +14,26 @@ const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name' }) 
 
 // inherits action/dispatch props from Fetch
 class Filter extends Component {
+  setParam = (key, value) => {
+    let { setParams } = this.props;
+    // reset page query parameter every time
+    let query = { page: 1, [key]: value }
+    setParams({ query });
+  }
   render() {
-    let { programs, content_types, setParam } = this.props;
-    
+    let { programs, content_types } = this.props;
+
     return (
       <section className="container--medium content-filters">
         <div className="content-filters__filter">
           <Select
-            onchange={(e)=>{ setParam('program_id', e.target.value); }}
+            onchange={(e)=>{ this.setParam('program_id', e.target.value); }}
             options={programs}
           />
         </div>
         <div className="content-filters__filter">
           <Select
-            onchange={(e)=>{ setParam('content_type', e.target.value); }}
+            onchange={(e)=>{ this.setParam('content_type', e.target.value); }}
             options={content_types}
             valueAccessor="api_name"
           />

@@ -6,12 +6,13 @@ import {
 } from './constants';
 
 
-export const setParams = (component, {endpoint, query}) => {
+export const setParams = (component, {endpoint, query, baseUrl}) => {
   return {
     type: SET_PARAMS,
     component,
     endpoint,
-    query
+    query,
+    baseUrl
   }
 }
 

@@ -13,9 +13,9 @@ export const params = (state={
   switch(action.type) {
     case SET_PARAMS:
       return {
-        baseUrl: action.baseUrl || BASEURL,
-        endpoint: action.endpoint,
-        query: action.query
+        baseUrl: action.baseUrl || state.baseUrl,
+        endpoint: action.endpoint || state.endpoint,
+        query: (action.query ? { ...state.query, ...action.query } : state.query)
       };
     case SET_PARAM:
       return {

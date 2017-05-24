@@ -24,16 +24,23 @@ class ContentList extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    let { hasNext, results } = this.props;
+    let { hasNext, results, params } = this.props;
     let { isInfinite, isLoading } = this.state;
     /**
       since we're subscribing to scrollPosition event,
       this component gets reevaluated with each tick (/rerendered on each tick)
       this causes sluggish scrolling when results prop array gets large.
-      here we check the results length and only rerender if we have new data.
+      here we check the results and only rerender if we have new data.
     **/
     if((isInfinite && hasNext) && !isLoading)
       this.nextPageOnEnd();
+
+    if(results[0] && nextProps.results[0]){
+      if(results[0].id !== nextProps.results[0].id){
+        this.setState({ isLoading: false, isInfinite: false });
+        return true;
+      }
+    }
 
     return results.length !== nextProps.results.length;
   }
@@ -80,6 +87,7 @@ class ContentList extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  params: state[NAME].params || {},
   results: state[NAME].results || [],
   hasNext: state[NAME].hasNext || false,
   hasPrevious: state[NAME].hasPrevious || false,
