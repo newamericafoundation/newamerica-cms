@@ -91,15 +91,26 @@ class MetaList(APIView):
         home = HomeSerializer(HomePage.objects.live().first()).data
 
         return Response({
-            'subpages': subpages,
-            'programs': programs,
-            'projects': projects,
-            'home': home
+            'count': None,
+            'next': None,
+            'previous': None,
+            'results': {
+                'subpages': subpages,
+                'programs': programs,
+                'projects': projects,
+                'home': home
+            }
         })
 
 class ContentList(APIView):
     def get(self, request, format=None):
-        return Response(content_types(request))
+        types = content_types(request)
+        return Response({
+            'count': len(types),
+            'next': None,
+            'previous': None,
+            'results': types
+        })
 
 class ProgramFilter(django_filters.rest_framework.FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
