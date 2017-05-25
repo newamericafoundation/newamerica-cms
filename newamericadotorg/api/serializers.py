@@ -9,7 +9,7 @@ from issue.models import IssueOrTopic
 
 from django.core.urlresolvers import reverse
 
-from helpers import get_program_content_types, content_types, generate_image_url, get_subpages
+from helpers import get_program_content_types, generate_image_url, get_subpages
 
 class ProgramProjectSerializer(ModelSerializer):
     '''

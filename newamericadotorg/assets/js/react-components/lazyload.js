@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import LazyLoad from '../../../../node_modules/vanilla-lazyload/src/lazyload.core';
+import LazyLoad from 'vanilla-lazyload';
 
 export const lazyloadBackgroundImage = new LazyLoad({ elements_selector: '.lazyload--background' });
 export const lazyload = new LazyLoad();

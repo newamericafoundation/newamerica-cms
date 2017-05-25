@@ -13,7 +13,8 @@ from wagtail.wagtailcore.models import Page
 from home.models import Post, HomePage
 from person.models import Person
 from serializers import PostSerializer, AuthorSerializer, ProgramSerializer, ProjectSerializer, HomeSerializer, TopicSerializer
-from helpers import content_types, get_subpages
+from helpers import get_subpages
+from newamericadotorg.settings.context_processors import content_types
 from programs.models import Program, Subprogram
 from issue.models import IssueOrTopic
 from event.models import Event

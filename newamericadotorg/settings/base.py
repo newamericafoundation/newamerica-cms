@@ -100,8 +100,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'newamericadotorg.api.helpers.program_data',
-                'newamericadotorg.api.helpers.content_types'
+                'newamericadotorg.settings.context_processors.debug',
+                'newamericadotorg.settings.context_processors.program_data',
+                'newamericadotorg.settings.context_processors.content_types'
             ]
         },
     },
