@@ -4,16 +4,15 @@ import json
 
 register = template.Library()
 
+# loops through field list, counting number of footnotes before current
 @register.simple_tag()
-def get_footnote_index(full_list, curr_index):
-	list_converted = json.loads(full_list)
+def get_footnote_index(json_field_list, curr_index):
+	field_list = json.loads(json_field_list)
 	i = 0
 	footnote_count = 0
 	while i < curr_index:
-		print(list_converted[i]['footnote_field'])
-		if list_converted[i]['footnote_field'] and list_converted[i]['footnote_field'] != "":
-			footnote_count = footnote_count + 1
-
-		i = i + 1
+		if field_list[i]['footnote_field'] and field_list[i]['footnote_field'] != "":
+			footnote_count += 1
+		i += 1
 
 	return footnote_count + 1
