@@ -1,6 +1,8 @@
 from wagtail.wagtailcore import blocks
 from mysite.blocks import BodyBlock
 
+import json
+
 class CollapsibleBlock(blocks.StructBlock):
 	hidden_by_default = BodyBlock()
 
@@ -34,6 +36,13 @@ class DataReferenceBlock(blocks.StructBlock):
     	], default='string')),
     	('footnote_field', blocks.CharBlock(required=False))
 	]), help_text="Specify the field where values to display will be found.")
+
+	def get_context(self, value):
+		context = super(DataReferenceBlock, self).get_context(value)
+		context["fields_json"] = json.dumps(value["fields_to_display"])
+		# print(value["fields_to_display"])
+		# print(context["fields_json"])
+		return context
 
 	class Meta:
 		template = './blocks/data_reference.html'
