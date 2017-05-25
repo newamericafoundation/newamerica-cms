@@ -1,8 +1,40 @@
 .content-list{
   margin-top: 50px;
+  min-height: 50vh;
+  position: relative;
+
+  &.is-fetching:not(.is-infinite){
+    &::after{
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      content: ' ';
+      background: color(white, base, 0.85);
+      display: block;
+      z-index: 5;
+    }
+
+    .content-list__loading-icon-wrapper{
+      position: absolute;
+      width: 100%;
+      top: 50px;
+    }
+  }
+
+  &__loading-icon-wrapper{
+    text-align: center;
+    z-index: 10;
+  }
+
   &__load-more{
     text-align: center;
     margin-top: 25px;
+  }
+
+  &__no-results{
+    text-align: center;
   }
 
   &__item{

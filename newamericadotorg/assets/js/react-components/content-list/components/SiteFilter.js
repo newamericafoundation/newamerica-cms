@@ -61,7 +61,7 @@ const Container = () => (
     component={Filter}
     initialQuery={{
       image_rendition: 'fill-225x125',
-      page_size: 10
+      page_size: 15
     }}/>
 );
 

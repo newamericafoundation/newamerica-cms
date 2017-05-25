@@ -1,0 +1,67 @@
+$loading-icon-height: 0.5em;
+$loading-icon-width: 3.5em;
+$loading-icon-spacing: 0.5em;
+$loading-icon-circle-margin: #{$loading-icon-spacing - .1em};
+$loading-animation-delay: 0.15s;
+
+.loading-icon{
+  font-size: 0.55rem;
+  display: inline-block;
+  &__row{
+    margin-bottom: $loading-icon-spacing;
+    height: $loading-icon-height;
+    width: $loading-icon-width;
+    position: relative;
+    @include animation(loading-icon-animation .5s alternate infinite)
+
+    &__circle, &__rect{
+      background: color(turquoise, base, 0.75);
+      height: $loading-icon-height;
+    }
+
+    &__circle{
+      width: $loading-icon-height;
+      border-radius: 100px;
+      margin-right: $loading-icon-circle-margin;
+    }
+
+    &__rect{
+      width: 100%;
+    }
+
+    &:first-child {
+      white-space: nowrap;
+      @include animation-delay($loading-animation-delay);
+      .loading-icon__row__rect{
+        width: calc(100% - 0.9em);
+      }
+      .loading-icon__row{
+        &__rect, &__circle{
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+    }
+
+    &:nth-child(2) {
+      @include animation-delay($loading-animation-delay*2);
+    }
+
+    &:nth-child(3) {
+      @include animation-delay($loading-animation-delay*3);
+    }
+
+  }
+}
+
+@include keyframes(loading-icon-animation) {
+  0% {
+    top: 0em;
+    opacity: 1;
+  }
+
+  100% {
+    top: $loading-icon-spacing/1.5;
+    opacity: 0.25;
+  }
+}

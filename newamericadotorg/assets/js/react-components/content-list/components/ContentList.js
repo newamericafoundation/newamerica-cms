@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { NAME } from '../constants';
 import ContentListItem from './ContentListItem';
 import { LazyLoadImages } from '../../lazyload';
+import Loading from '../../loading';
 import { setParam, fetchAndAppend } from '../../api/actions';
 
 const LoadMore = ({ onclick }) => (
@@ -13,27 +14,28 @@ const LoadMore = ({ onclick }) => (
 
 class ContentList extends Component {
   el = null;
-  isLoading = false;
   isInfinite = false;
 
   shouldComponentUpdate(nextProps) {
-    let { hasNext, results, params } = this.props;
+    let { hasNext, results, params, isFetching } = this.props;
     /**
       since we're subscribing to scrollPosition,
       this component gets reevaluated with each tick (/rerendered on each tick)
       this causes sluggish scrolling when the results array gets large.
       here we check the results and only rerender if we have new data.
     **/
-    if((this.isInfinite && hasNext) && !this.isLoading)
+    if((this.isInfinite && hasNext) && !isFetching)
       this.nextPageOnEnd();
 
     if(results[0] && nextProps.results[0]){
+      // TODO better check for new data
       if(results[0].id !== nextProps.results[0].id){
-        this.isLoading = false;
         this.isInfinite = false;
         return true;
       }
     }
+
+    if(isFetching !== nextProps.isFetching) return true;
 
     return results.length !== nextProps.results.length;
   }
@@ -41,9 +43,8 @@ class ContentList extends Component {
   nextPage = () => {
     let { page, hasNext, setParam, fetchAndAppend } = this.props;
     if(hasNext){
-      this.isLoading = true;
       setParam('page', page+1);
-      fetchAndAppend(()=>{ this.isLoading = false; });
+      fetchAndAppend();
     }
   }
 
@@ -58,20 +59,30 @@ class ContentList extends Component {
   }
 
   render(){
-    let { results, hasNext } = this.props;
+    let { results, hasNext, isFetching } = this.props;
 
     return (
-      <section className='content-list container' ref={(el) => { this.el = el; }}>
+      <section
+        className={`content-list container ${this.isInfinite ? 'is-infinite' : ''} ${isFetching ? 'is-fetching' : ''}`}
+        ref={(el) => { this.el = el; }}>
         <LazyLoadImages>
-        {results.map((r, i)=>(
-          <ContentListItem post={r} key={`content-list-item-${i}`}/>
-        ))}
+          {results.map((r, i)=>(
+            <ContentListItem post={r} key={`content-list-item-${i}`}/>
+          ))}
         </LazyLoadImages>
         {(hasNext && !this.isInfinite) &&
           <LoadMore onclick={()=>{
             this.isInfinite = true;
             this.nextPage();
           }}/>
+        }{(results.length===0 && !isFetching) &&
+          <div className="content-list__no-results">
+            <label className="active lg">No results found</label>
+          </div>
+        }{isFetching &&
+          <div className="content-list__loading-icon-wrapper">
+            <Loading />
+          </div>
         }
       </section>
     );
@@ -84,6 +95,7 @@ const mapStateToProps = (state) => ({
   hasNext: state[NAME].hasNext || false,
   hasPrevious: state[NAME].hasPrevious || false,
   page: state[NAME].page || 1,
+  isFetching: state[NAME].isFetching || false,
   siteScrollPosition: state.site.scrollPosition // forces reevaluation on scroll
 });
 

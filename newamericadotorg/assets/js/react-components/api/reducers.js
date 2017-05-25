@@ -2,14 +2,15 @@ import {
   SET_PARAMS, SET_PARAM, SET_ENDPOINT, RECEIVE_RESULTS,
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
-  SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE
+  SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
+  SET_FETCHING_STATUS
 } from './constants';
 
-export const params = (state={
-  baseUrl: BASEURL,
-  endpoint: 'post',
-  query: {}
-}, action) => {
+const paramsState = {
+  baseUrl: BASEURL, endpoint: 'post', query: {}
+}
+
+export const params = (state=paramsState, action) => {
   switch(action.type) {
     case SET_PARAMS:
       return {
@@ -51,6 +52,17 @@ export const results = (state=[], action) => {
       return  [...state, ...action.results];
     case RECEIVE_RESULTS:
       return action.results;
+    default:
+      return state;
+  }
+}
+
+export const isFetching = (state=false, action) => {
+  switch(action.type){
+    case SET_RESPONSE:
+      return false;
+    case SET_FETCHING_STATUS:
+      return action.status;
     default:
       return state;
   }
@@ -113,6 +125,7 @@ const reducers = {
   hasNext,
   hasPrevious,
   page,
+  isFetching,
   templateUrl,
   templateResult
 }

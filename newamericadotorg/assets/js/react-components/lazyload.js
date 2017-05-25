@@ -39,6 +39,7 @@ export class LazyImage extends Component {
     let { src } = this.props;
     if(src !== nextProps.src){
       this.el.removeAttribute('data-was-processed');
+      this.el.removeAttribute('src');
       return true;
     }
 
