@@ -27,7 +27,6 @@ class DataReferenceBlock(blocks.StructBlock):
 		('label', blocks.CharBlock(required=False)),
     	('format', blocks.ChoiceBlock(choices=[
     		('date', 'Date'),
-    		('string', 'Image'),
     		('number', 'Number (with thousands-place comma)'),
     		('percent', 'Percent'),
     		('string', 'Plain-text'),
@@ -40,11 +39,21 @@ class DataReferenceBlock(blocks.StructBlock):
 	def get_context(self, value):
 		context = super(DataReferenceBlock, self).get_context(value)
 		context["fields_json"] = json.dumps(value["fields_to_display"])
-		# print(value["fields_to_display"])
-		# print(context["fields_json"])
 		return context
 
 	class Meta:
 		template = './blocks/data_reference.html'
 		icon = 'cogs'
 		label = 'Data Reference'
+
+class VideoDataReferenceBlock(blocks.StructBlock):
+	field_name = blocks.CharBlock(required=True)
+	host_site = blocks.ChoiceBlock(choices=[
+		('youtube', 'Youtube'),
+		('vimeo', 'Vimeo'),
+	], default='youtube')
+
+	class Meta:
+		template = './blocks/video_data_reference.html'
+		icon = 'cogs'
+		label = 'Video Data Reference'

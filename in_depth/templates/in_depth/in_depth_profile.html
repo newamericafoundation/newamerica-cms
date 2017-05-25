@@ -42,7 +42,7 @@
 					<div class="in-depth__profile__title-block__image" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}" data-image-field="{{ page.image_field }}"></div>
 				{% endif %}
 				<h5 class="in-depth__profile__title-block__subheading">{{ page.title }}</h5>
-			   	<h1 class="in-depth__profile__title-block__title">{{ query_string }}</h1>
+			   	<h1 class="in-depth__profile__title-block__title" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}"></h1>
 			</div>
 			<div class="in-depth__profile__other-value-selector-container">
 				<select class="in-depth__profile__other-value-selector" onchange="document.location = '?' + this.value;">

@@ -3,7 +3,7 @@
 <div class="data-reference">
 	{% for field in self.fields_to_display %}
 		<div class="data-reference__row">
-			<div class="data-reference__label">{{ field.label }}{% if field.footnote_field %}<span class="data-reference__footnote-label">{% get_footnote_index fields_json forloop.counter0 %}</span>{% endif %}</div>
+			<div class="data-reference__label">{{ field.label }}{% if field.footnote_field %}<span class="data-reference__footnote__label">{% get_footnote_index fields_json forloop.counter0 %}</span>{% endif %}</div>
 			<div class="data-reference__value" data-field-name="{{ field.field_name }}" data-field-format="{{ field.format }}"></div>
 		</div>
 	{% endfor %}
@@ -13,8 +13,8 @@
 	{% for field in self.fields_to_display %}
 		{% if field.footnote_field %}
 			<div class="data-reference__footnote">
-				<span class="data-reference__footnote-label">{% get_footnote_index fields_json forloop.counter0 %}.</span>
-				<span class="data-reference__table__footnote__inner-wrapper" data-field-name="{{ field.footnote_field }}"></span>
+				<span class="data-reference__footnote__label">{% get_footnote_index fields_json forloop.counter0 %}.</span>
+				<span class="data-reference__footnote__value" data-field-name="{{ field.footnote_field }}"></span>
 			</div>
 		{% endif %}
 	{% endfor %}
