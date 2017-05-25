@@ -38,7 +38,7 @@
       <p class= "content-list__item__heading__excerpt">
         {{ post.story_excerpt }}
       </p>
-      <div class="content-list__item__heading__authors container">
+      <div class="content-list__item__heading__authors">
         <div class="row no-gutters">
           {% for author in post.authors.all %}
             {% include 'components/author.html' with author=author.author class='ultra-compact col-md-4 col-xl-3 content-list__item__heading__author' %}

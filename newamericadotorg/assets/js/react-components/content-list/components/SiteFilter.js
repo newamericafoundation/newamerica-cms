@@ -60,7 +60,8 @@ const Container = () => (
     fetchOnMount={true}
     component={Filter}
     initialQuery={{
-      image_rendition: 'fill-225x125'
+      image_rendition: 'fill-225x125',
+      page_size: 10
     }}/>
 );
 

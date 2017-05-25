@@ -13,7 +13,7 @@
   transform: $args;
 }
 
-@mixin transition($args){
+@mixin transition($args...){
   -webkit-transition: $args;
   -moz-transition: $args;
   -o-transition: $args;

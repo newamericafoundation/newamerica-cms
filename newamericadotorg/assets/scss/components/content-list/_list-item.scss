@@ -1,5 +1,10 @@
 .content-list{
   margin-top: 50px;
+  &__load-more{
+    text-align: center;
+    margin-top: 25px;
+  }
+
   &__item{
     padding-top: 25px;
     padding-bottom: 25px;
@@ -16,7 +21,9 @@
       }
     }
     &__heading{
-      max-width: 90%;
+      &__heading, &__excerpt{
+        max-width: 95%;
+      }
       &__heading{
         margin: 0;
       }
@@ -33,6 +40,12 @@
     &__image-wrapper{
       max-height: 125px;
       overflow: hidden;
+      padding-left: 0;
+      padding-right: 0;
+
+      &.with-image {
+        background: color(gray, light);
+      }
     }
 
     &__image{

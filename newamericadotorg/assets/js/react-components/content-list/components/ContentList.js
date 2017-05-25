@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { NAME } from '../constants';
 import ContentListItem from './ContentListItem';
-import { LazyLoadImages } from '../../../utils/lazyload';
+import { LazyLoadImages } from '../../lazyload';
 import { setParam, fetchAndAppend } from '../../api/actions';
 
 const LoadMore = ({ onclick }) => (
@@ -13,31 +13,24 @@ const LoadMore = ({ onclick }) => (
 
 class ContentList extends Component {
   el = null;
-
-  constructor(props, context){
-    super(props, context);
-
-    this.state = {
-      isInfinite: false,
-      isLoading: false
-    }
-  }
+  isLoading = false;
+  isInfinite = false;
 
   shouldComponentUpdate(nextProps) {
     let { hasNext, results, params } = this.props;
-    let { isInfinite, isLoading } = this.state;
     /**
-      since we're subscribing to scrollPosition event,
+      since we're subscribing to scrollPosition,
       this component gets reevaluated with each tick (/rerendered on each tick)
-      this causes sluggish scrolling when results prop array gets large.
+      this causes sluggish scrolling when the results array gets large.
       here we check the results and only rerender if we have new data.
     **/
-    if((isInfinite && hasNext) && !isLoading)
+    if((this.isInfinite && hasNext) && !this.isLoading)
       this.nextPageOnEnd();
 
     if(results[0] && nextProps.results[0]){
       if(results[0].id !== nextProps.results[0].id){
-        this.setState({ isLoading: false, isInfinite: false });
+        this.isLoading = false;
+        this.isInfinite = false;
         return true;
       }
     }
@@ -48,9 +41,9 @@ class ContentList extends Component {
   nextPage = () => {
     let { page, hasNext, setParam, fetchAndAppend } = this.props;
     if(hasNext){
-      this.setState({ isLoading: true });
+      this.isLoading = true;
       setParam('page', page+1);
-      fetchAndAppend(()=>{ this.setState({ isLoading: false }); });
+      fetchAndAppend(()=>{ this.isLoading = false; });
     }
   }
 
@@ -66,7 +59,6 @@ class ContentList extends Component {
 
   render(){
     let { results, hasNext } = this.props;
-    let { isInfinite } = this.state;
 
     return (
       <section className='content-list container' ref={(el) => { this.el = el; }}>
@@ -75,9 +67,9 @@ class ContentList extends Component {
           <ContentListItem post={r} key={`content-list-item-${i}`}/>
         ))}
         </LazyLoadImages>
-        {(hasNext && !isInfinite) &&
+        {(hasNext && !this.isInfinite) &&
           <LoadMore onclick={()=>{
-            this.setState({ isInfinite: true });
+            this.isInfinite = true;
             this.nextPage();
           }}/>
         }

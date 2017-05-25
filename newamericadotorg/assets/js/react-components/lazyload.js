@@ -18,15 +18,54 @@ export class LazyLoadImages extends Component {
   componentDidMount() {
     update();
   }
+
   componentDidUpdate(){
     update();
   }
+
   render() {
     let { className, children } = this.props;
     return (
       <this.component className={'compose__lazyload-images-wrapper ' + (className || '')}>
         {children}
       </this.component>
+    );
+  }
+}
+
+export class LazyImage extends Component {
+  el = null;
+  shouldComponentUpdate(nextProps){
+    let { src } = this.props;
+    if(src !== nextProps.src){
+      this.el.removeAttribute('data-was-processed');
+      return true;
+    }
+
+    return false;
+  }
+
+  render(){
+    let { src, className } = this.props;
+
+    return(
+      <img
+        ref={(el) => { this.el = el; }}
+        data-original={src}
+        className={`lazyload ${className}`} />
+    );
+  }
+}
+
+export class LazyBackgroundImage extends LazyImage {
+  render(){
+    let { src, className } = this.props;
+
+    return(
+      <div
+        ref={(el) => { this.el = el; }}
+        data-original={src}
+        className={`lazyload--background ${className}`} />
     );
   }
 }

@@ -8,7 +8,7 @@ window.React = React;
 
 import composer from './react-components/index';
 import { actions } from './react-components/events';
-import lazyload from './utils/lazyload';
+import lazyload from './react-components/lazyload';
 
 const newamericadotorg = {
   composer,

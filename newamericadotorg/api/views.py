@@ -6,6 +6,7 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.serializers import ListSerializer
+from rest_framework.pagination import PageNumberPagination
 
 from wagtail.wagtailcore.models import Page
 
@@ -17,6 +18,11 @@ from programs.models import Program, Subprogram
 from issue.models import IssueOrTopic
 from event.models import Event
 from rest_framework import mixins
+
+class CustomPagination(PageNumberPagination):
+    page_size = 25
+    page_size_query_param = 'page_size'
+    max_page_size = 200
 
 class PostFilter(django_filters.rest_framework.FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
@@ -35,10 +41,11 @@ class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = PostFilter
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         ids = self.request.query_params.getlist('id[]', None)
-        posts = Post.objects.live().order_by('-date').not_type(Event)
+        posts = Post.objects.live().order_by('-date').not_type(Event).distinct()
         if not ids:
             return posts
 

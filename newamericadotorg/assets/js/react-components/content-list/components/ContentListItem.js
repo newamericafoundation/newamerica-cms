@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { format as formatDate } from 'date-fns';
 import Author from '../../author/components/Author';
+import { LazyImage } from '../../lazyload'
 
 const Details = ({ post: { date, programs, content_type } }) => (
   <div className="content-list__item__details col-md-3">
@@ -34,7 +35,7 @@ const Heading = ({ post: { url, title, story_excerpt, authors }}) => (
     <p className= "content-list__item__heading__excerpt">
       {story_excerpt}
     </p>
-    <div className="content-list__item__heading__authors container">
+    <div className="content-list__item__heading__authors">
       <div className="row no-gutters">
         {authors.map((a,i)=>(
           <Author key={`author-${i}`} author={a} classes="ultra-compact col-md-4 col-xl-3 content-list__item__heading__author"/>
@@ -44,9 +45,9 @@ const Heading = ({ post: { url, title, story_excerpt, authors }}) => (
   </div>
 );
 
-const Image = ({ post: { story_image }}) => (
-  <div className="content-list__item__image-wrapper col-md-3">
-    <img data-original={story_image} className="content-list__item__image lazyload" />
+const Image = ({ post: { story_image, content_type }}) => (
+  <div className={`content-list__item__image-wrapper col-md-3 ${content_type.api_name} ${story_image ? 'with-image' : ''}`}>
+    <LazyImage src={story_image} className="content-list__item__image" />
   </div>
 );
 

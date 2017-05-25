@@ -7,7 +7,7 @@ import {
   setBase, receiveResults
 } from '../actions';
 
-import lazyload from '../../../utils/lazyload';
+import lazyload from '../../lazyload';
 
 class Fetch extends Component {
   component = null;
@@ -43,8 +43,6 @@ class Fetch extends Component {
       receiveResults([]);
       return;
     }
-
-    if(fetchOnMount) fetchData();
   }
 
   render() {
