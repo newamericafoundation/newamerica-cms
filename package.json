@@ -11,7 +11,8 @@
     "open": "open https://localhost:8000/",
     "dev": "npm run watch:js & npm run watch:css",
     "watch:js": "NODE_ENV=development; rollup -c rollup.dev.js --watch",
-    "watch:css": "NODE_ENV=development; node-sass newamericadotorg/assets/scss/newamericadotorg.scss --output='newamericadotorg/static/css/' --include-path='node_modules' --include-path=\"newamericadotorg/assets/scss/settings/$NODE_ENV\" --include-path='newamericadotorg/assets/scss' --watch=newamericadotorg/assets/scss",
+    "watch:css": "watch 'npm run build:css' newamericadotorg/assets/scss --interval=1",
+    "build:css": "./node_modules/node-sass/bin/node-sass --include-path='node_modules' --include-path=newamericadotorg/assets/scss/settings/development --include-path='newamericadotorg/assets/scss' newamericadotorg/assets/scss/newamericadotorg.scss newamericadotorg/static/css/newamericadotorg.css",
     "heroku-postbuild": "npm run build",
     "build": "NODE_ENV=production rollup -c"
   },

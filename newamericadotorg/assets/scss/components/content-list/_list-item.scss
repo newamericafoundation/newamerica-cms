@@ -43,7 +43,7 @@
       padding-left: 0;
       padding-right: 0;
 
-      &.with-image {
+      &.with-image:not(.book){
         background: color(gray, light);
       }
     }
