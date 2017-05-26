@@ -35,6 +35,11 @@ const List = ({ results }) => (
 class ContentList extends Component {
   el = null;
   isInfinite = false;
+  /**
+    dispatched isFetching prop doesn't update quickly enough for onscroll events.
+    as in the next scroll tick happens before isFetching is updated.
+    add isLoading flag that's updated in the right order in the call stack
+  **/
   isLoading = false;
   shouldComponentUpdate(nextProps) {
     let { hasNext, results, params, isFetching } = this.props;
