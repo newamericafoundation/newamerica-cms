@@ -8,9 +8,11 @@ export default {
   moduleName: 'newamericadotorg',
   external: [
     'react', 'react-dom', 'prop-types', 'redux', 'react-redux', 'react-router',
-    'react-router-dom', 'redux-thunk', 'date-fns', 'vanilla-lazyload', 'whatwg-fetch'
+    'react-router-dom', 'redux-thunk', 'date-fns', 'vanilla-lazyload', 'whatwg-fetch',
+    'url-polyfill'
   ],
   globals: {
+    'url-polyfill': 'URL',
     'whatwg-fetch': 'fetch',
     'react': 'React',
     'react-dom': 'ReactDOM',
@@ -21,7 +23,7 @@ export default {
     'react-router': 'ReactRouter',
     'react-router-dom': 'ReactRouterDOM',
     'date-fns': 'dateFns',
-    'vanilla-lazyload': 'LazyLoad'
+    'vanilla-lazyload': 'LazyLoad',
   },
   plugins: [
     replace({

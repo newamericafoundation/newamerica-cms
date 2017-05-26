@@ -3,6 +3,7 @@ import './../scss/newamericadotorg.scss';
 // import modules from './modules/index.js';
 import * as React from 'react';
 import 'whatwg-fetch';
+import 'url-polyfill';
 
 window.React = React;
 

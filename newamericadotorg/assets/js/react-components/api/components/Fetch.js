@@ -25,7 +25,8 @@ class Fetch extends Component {
 
   static defaultProps = {
     initialQuery: {},
-    baseUrl: BASEURL
+    baseUrl: BASEURL,
+    fetchOnMount: true
   }
 
   componentWillMount(){
@@ -37,7 +38,7 @@ class Fetch extends Component {
 
     this.component = component || 'span';
 
-    setParams({ endpoint, query: initialQuery });
+    setParams({ endpoint, query: initialQuery }, fetchOnMount);
 
     if(clear){
       receiveResults([]);
@@ -58,9 +59,9 @@ class Fetch extends Component {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = (dispatch, props) => ({
-  setParams: ({ endpoint, query, baseUrl }) => {
+  setParams: ({ endpoint, query, baseUrl }, eager=true) => {
     dispatch(setParams(props.name, { endpoint, query, baseUrl }));
-    if(props.eager) dispatch(fetchData(props.name));
+    if(props.eager && eager) dispatch(fetchData(props.name));
   },
 
   fetchData: () => {
@@ -71,9 +72,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     dispatch(setEndpoint(props.name, endpoint));
   },
 
-  setParam: (key, value) => {
+  setParam: (key, value, eager=true) => {
     dispatch(setParam(props.name, {key, value}));
-    if(props.eager) dispatch(fetchData(props.name));
+    if(props.eager && eager) dispatch(fetchData(props.name));
   },
 
   receiveResults: (val) => {

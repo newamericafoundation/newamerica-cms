@@ -2,40 +2,86 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
+import { Redirect } from 'react-router-dom';
 
-const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name' }) => (
+const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', selected, all }) => (
   <select onChange={onchange}>
-    <option value="">All</option>
+    <option value={all}>All</option>
     {options.map((o,i)=>(
-      <option key={i} value={o[valueAccessor]}>{o[nameAccessor]}</option>
+      <option key={i} value={o[valueAccessor]} selected={o[valueAccessor]==selected}>
+        {o[nameAccessor]}
+      </option>
     ))}
   </select>
 )
 
-// inherits action/dispatch props from Fetch
+// inherits action/dispatch setParam props from api.Fetch
 class Filter extends Component {
-  setParam = (key, value) => {
-    let { setParams } = this.props;
-    // reset page query parameter every time
-    let query = { page: 1, [key]: value }
-    setParams({ query });
-  }
-  render() {
-    let { programs, content_types } = this.props;
+  // content_type is set by route
+  // program_id is set by query parameter
+  redirect = false;
+  componentWillMount(){
+    let { setParam, contentType, programId } = this.props;
 
+    if(programId)
+      setParam('program_id', programId, false);
+
+    setParam('content_type', contentType.api_name);
+  }
+
+  componentWillReceiveProps(nextProps){
+    let { setParam, contentType, programId, fetchData } = this.props;
+
+    let shouldFetch = false;
+
+    if(nextProps.contentType.api_name !== contentType.api_name){
+      setParam('content_type', nextProps.contentType.api_name, false);
+      shouldFetch = true;
+    }
+
+    if(nextProps.programId != programId){
+      setParam('program_id', nextProps.programId || '', false);
+      shouldFetch = true;
+    }
+
+    if(shouldFetch) fetchData();
+  }
+
+  getParams = () => {
+    let { programId } = this.props;
+    let params = new URLSearchParams();
+
+    if( programId )
+      params.append('program_id', programId);
+
+    return params.toString();
+  }
+
+  render() {
+    let { programs, content_types, contentType, history, match, programId } = this.props;
     return (
       <section className="container--medium content-filters">
         <div className="content-filters__filter">
           <Select
-            onchange={(e)=>{ this.setParam('program_id', e.target.value); }}
             options={programs}
+            selected={programId}
+            all=''
+            onchange={(e)=>{
+              console.log(e.target.value);
+              let val = e.target.value ? '/?program_id='+e.target.value : '/';
+              history.push(match.path+val);
+            }}
           />
         </div>
         <div className="content-filters__filter">
           <Select
-            onchange={(e)=>{ this.setParam('content_type', e.target.value); }}
             options={content_types}
-            valueAccessor="api_name"
+            valueAccessor="slug"
+            selected={contentType.slug}
+            all="publications"
+            onchange={(e)=>{
+              history.push('/'+e.target.value+'/?'+this.getParams());
+            }}
           />
         </div>
       </section>
@@ -45,24 +91,27 @@ class Filter extends Component {
 
 const mapStateToProps = (state) => ({
   programs: state.programData.results || [],
-  content_types: state.contentTypes.results || []
+  content_types: state.contentTypes.results || [],
+  query: state[NAME].params ? state[NAME].params.query : {}
 });
 
 Filter = connect(mapStateToProps)(Filter);
 
 // Fetch sends results to state[NAME].results
 // see ContentList for render
-const Container = () => (
+const Container = (props) => (
   <Fetch
     name={NAME}
     endpoint="post"
     eager={true}
-    fetchOnMount={true}
+    fetchOnMount={false}
     component={Filter}
     initialQuery={{
       image_rendition: 'fill-225x125',
       page_size: 15
-    }}/>
+    }}
+    {...props}
+    />
 );
 
 export default Container;

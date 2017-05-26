@@ -27,17 +27,18 @@
   },
   "homepage": "https://github.com/newamericafoundation/newamerica-cms#readme",
   "dependencies": {
-    "whatwg-fetch": "^2.0.3",
+    "date-fns": "^1.28.5",
+    "prop-types": "^15.5.10",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "prop-types": "^15.5.10",
-    "redux": "^3.6.0",
     "react-redux": "^4.4.5",
-    "redux-thunk": "^2.2.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "date-fns": "^1.28.5",
-    "vanilla-lazyload": "^7.2.1"
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "url-polyfill": "^1.0.5",
+    "vanilla-lazyload": "^7.2.1",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

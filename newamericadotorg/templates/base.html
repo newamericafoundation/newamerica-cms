@@ -46,7 +46,8 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.css' %}"></link>
   {% if DEBUG %}
     {# development dependencies that will bundled with production #}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+    <!-- for convenience, but you should add whatever polyfills you need to dependencies -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.min.js"></script>
     <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
@@ -63,14 +64,14 @@
       {# Override this in templates to add extra scripts and stylesheets #}
   {% endblock %}
 
-  {% if DEBUG %}
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MMGT6BG');</script>
-  <!-- End Google Tag Manager -->
+  {% if not DEBUG %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MMGT6BG');</script>
+    <!-- End Google Tag Manager -->
   {% endif %}
 </head>
 
