@@ -24,7 +24,7 @@ class ProgramFilter extends Component {
                 projectId={new URLSearchParams(props.location.search).get('project_id')}
                 programId={programId}
                 program={program}
-                contentType={{slug: 'publications', api_name:'', name:'Publications'}} />
+                contentType={{slug: 'publications', api_name:'', name:'Publications', title:'Publications'}} />
             )}/>
           {program.content_types && program.content_types.map((c,j)=>(
             <Route path={c.url} render={(props)=>(

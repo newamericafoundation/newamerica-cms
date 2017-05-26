@@ -21,7 +21,7 @@ class App extends Component {
             <Route path='/publications' render={(props)=>(
               <SiteFilter {...props}
                 programId={new URLSearchParams(props.location.search).get('program_id')}
-                contentType={{slug: 'publications', api_name:'', name:'Publications'}} />
+                contentType={{slug: 'publications', api_name:'', name:'Publications', title:'Publications'}} />
             )}/>
             {contentTypes.map((c,i)=>(
                 <Route path={`/${c.slug}`} render={(props)=>(

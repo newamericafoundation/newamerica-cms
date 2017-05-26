@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
 import { Redirect } from 'react-router-dom';
+import Heading from './Heading';
 
 export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', selected, all }) => (
   <select onChange={onchange}>
@@ -60,6 +61,7 @@ class Filter extends Component {
     let { programs, content_types, contentType, history, match, programId } = this.props;
     return (
       <section className="container--medium content-filters">
+        <Heading title={contentType.title} />
         <div className="content-filters__filter">
           <Select
             options={programs}

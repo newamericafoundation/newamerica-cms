@@ -8,14 +8,14 @@ from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
 
 newamericadotorg_content_types = [
-    { 'name': 'Blog Post', 'api_name': 'blogpost', 'slug': 'blogs'  },
-    { 'name': 'Policy Paper', 'api_name': 'policypaper', 'slug': 'policy-papers'  },
-    { 'name': 'Book', 'api_name': 'book', 'slug': 'books'  },
-    { 'name': 'In Depth Project', 'api_name': 'indepthproject', 'slug': 'in-depth'  },
-    { 'name': 'In the News', 'api_name': 'quoted', 'slug': 'in-the-news'  },
-    { 'name': 'Press Release', 'api_name': 'pressrelease', 'slug': 'press-releases'  },
-    { 'name': 'Article', 'api_name': 'article', 'slug': 'articles' },
-    { 'name': 'Podcast', 'api_name': 'podcast', 'slug': 'podcasts' },
+    { 'name': 'Blog Post', 'api_name': 'blogpost', 'slug': 'blogs', 'title': 'Blogs'  },
+    { 'name': 'Policy Paper', 'api_name': 'policypaper', 'slug': 'policy-papers', 'title': 'Policy Papers'  },
+    { 'name': 'Book', 'api_name': 'book', 'slug': 'books', 'title': 'Books'  },
+    { 'name': 'In Depth Project', 'api_name': 'indepthproject', 'slug': 'in-depth', 'title': 'In Depth Projects'  },
+    { 'name': 'In the News', 'api_name': 'quoted', 'slug': 'in-the-news', 'title': 'In the News'  },
+    { 'name': 'Press Release', 'api_name': 'pressrelease', 'slug': 'press-releases', 'title': 'Press Releases'  },
+    { 'name': 'Article', 'api_name': 'article', 'slug': 'articles', 'title': 'Articles' },
+    { 'name': 'Podcast', 'api_name': 'podcast', 'slug': 'podcasts', 'title': 'Podcasts' },
 ]
 
 

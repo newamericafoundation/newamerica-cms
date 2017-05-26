@@ -1,5 +1,6 @@
 import { NAME } from '../constants';
 import { Select, Filter } from './SiteFilter';
+import Heading from './Heading';
 import Fetch from '../../api/components/Fetch';
 
 class ProjectFilter extends Filter {
@@ -43,6 +44,7 @@ class ProjectFilter extends Filter {
 
       return (
         <div className="content-filters__filters-wrapper">
+          <Heading title={contentType.title} />
           <div className="content-filters__filter">
             <Select
               options={program.content_types}
