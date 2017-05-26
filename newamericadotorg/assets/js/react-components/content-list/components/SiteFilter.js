@@ -4,7 +4,7 @@ import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
 import { Redirect } from 'react-router-dom';
 
-const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', selected, all }) => (
+export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', selected, all }) => (
   <select onChange={onchange}>
     <option value={all}>All</option>
     {options.map((o,i)=>(
@@ -17,9 +17,6 @@ const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', se
 
 // inherits action/dispatch setParam props from api.Fetch
 class Filter extends Component {
-  // content_type is set by route
-  // program_id is set by query parameter
-  redirect = false;
   componentWillMount(){
     let { setParam, contentType, programId } = this.props;
 
@@ -44,7 +41,9 @@ class Filter extends Component {
       shouldFetch = true;
     }
 
-    if(shouldFetch) fetchData();
+    if(shouldFetch)
+      setParam('page', 1);
+
   }
 
   getParams = () => {
@@ -96,6 +95,7 @@ const mapStateToProps = (state) => ({
 
 Filter = connect(mapStateToProps)(Filter);
 
+export { Filter };
 // Fetch sends results to state[NAME].results
 // see ContentList for render
 const Container = (props) => (

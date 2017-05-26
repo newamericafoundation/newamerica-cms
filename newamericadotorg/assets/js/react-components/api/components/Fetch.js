@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { BASEURL } from '../constants';
 import {
   fetchData, setEndpoint, setParam, setParams,
-  setBase, receiveResults
+  setBase, receiveResults, setFetchingStatus
 } from '../actions';
 
 import lazyload from '../../lazyload';
@@ -83,6 +83,10 @@ const mapDispatchToProps = (dispatch, props) => ({
 
   setBase: (baseUrl) => {
     dispatch(setBase(props.name, baseUrl));
+  },
+
+  setFetchingStatus: (status) => {
+    dispatch(setFetchingStatus(props.name, status));
   }
 });
 

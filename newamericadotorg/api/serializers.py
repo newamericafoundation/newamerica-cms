@@ -34,7 +34,7 @@ class ProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'description', 'url', 'logo'
+            'id', 'name', 'description', 'url', 'logo', 'slug'
         )
 
     def get_description(self, obj):
@@ -56,7 +56,7 @@ class ProgramDetailSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'description', 'url', 'projects',
+            'id', 'name', 'description', 'url', 'projects', 'slug',
             'content_types', 'leads', 'features', 'subpages', 'logo'
         )
 

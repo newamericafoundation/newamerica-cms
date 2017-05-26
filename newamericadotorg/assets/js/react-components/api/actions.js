@@ -98,10 +98,11 @@ const parseResponse = (json) => {
   re = /.+page=([0-9]+)/;
 
   if(hasNext){
-    page = (+re.exec(json.next)[1])-1;
+    let next = +re.exec(json.next);
+    page = next ? next[1]-1 : 1;
   } else if(hasPrevious){
     let next = +re.exec(json.previous);
-    page = next ? next[1] : 1;
+    page = next ? next[1]+1 : 1;
   }
 
   return {

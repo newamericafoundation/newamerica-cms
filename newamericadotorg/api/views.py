@@ -12,7 +12,7 @@ from wagtail.wagtailcore.models import Page
 
 from home.models import Post, HomePage
 from person.models import Person
-from serializers import PostSerializer, AuthorSerializer, ProgramSerializer, ProjectSerializer, HomeSerializer, TopicSerializer
+from serializers import PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer, ProjectSerializer, HomeSerializer, TopicSerializer
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
 from programs.models import Program, Subprogram
@@ -122,14 +122,15 @@ class ContentList(APIView):
 
 class ProgramFilter(django_filters.rest_framework.FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
+    slug = django_filters.CharFilter(name='slug', lookup_expr='iexact')
 
     class Meta:
         model = Program
-        fields = ['id',]
+        fields = ['id', 'slug']
 
 class ProgramList(generics.ListAPIView):
     queryset = Program.objects.in_menu().live().order_by('title').exclude(location=True)
-    serializer_class = ProgramSerializer
+    serializer_class = ProgramDetailSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = ProgramFilter
 
