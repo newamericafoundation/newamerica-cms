@@ -67,7 +67,6 @@ class Filter extends Component {
             selected={programId}
             all=''
             onchange={(e)=>{
-              console.log(e.target.value);
               let val = e.target.value ? '/?program_id='+e.target.value : '/';
               history.push(match.path+val);
             }}
