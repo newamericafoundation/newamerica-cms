@@ -46,16 +46,20 @@ const Heading = ({ post: { url, title, story_excerpt, authors }}) => (
 );
 
 const Image = ({ post: { story_image, content_type }}) => (
-  <div className={`content-list__item__image-wrapper col-md-3 ${content_type.api_name} ${story_image ? 'with-image' : ''}`}>
-    <LazyImage src={story_image} className="content-list__item__image" />
+  <div className="content-list__item__image-wrapper col-md-3">
+    <div className={`content-list__item__image ${content_type.api_name}`}>
+      <LazyImage src={story_image} className="content-list__item__image__image" />
+    </div>
   </div>
 );
 
 const ContentListItem = ({ post }) => (
-  <div className="row content-list__item">
+  <div className="row content-list__item gutter-10">
     <Details post={post} />
     <Heading post={post} />
-    <Image post={post} />
+    {post.story_image &&
+      <Image post={post} />
+    }
   </div>
 );
 

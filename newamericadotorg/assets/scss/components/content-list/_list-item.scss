@@ -3,17 +3,15 @@
   min-height: 50vh;
   position: relative;
 
-  &.is-fetching:not(.is-infinite){
-    &::after{
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      content: ' ';
-      background: color(white, base, 0.85);
-      display: block;
-      z-index: 5;
+  .compose__lazyload-images-wrapper {
+    display: block;
+    opacity: 1;
+    @include transition(opacity 0.3s ease-in-out);
+  }
+
+  &.is-fetching:not(.is-loading){
+    .compose__lazyload-images-wrapper {
+      opacity: 0.15;
     }
 
     .content-list__loading-icon-wrapper{
@@ -41,7 +39,6 @@
     padding-top: 25px;
     padding-bottom: 25px;
     &__details{
-      border-right: 1px solid color(gray, base, 0.45);
       label{
         max-width: 90%;
         display: block;
@@ -69,22 +66,15 @@
       }
     }
 
-    &__image-wrapper{
-      max-height: 125px;
-      overflow: hidden;
-      padding-left: 0;
-      padding-right: 0;
-
-      &.with-image:not(.book){
+    &__image{
+      height: 125px;
+      &:not(.book){
         background: color(gray, light);
       }
+      &__image{
+        width: 100%;
+        height: auto;
+      }
     }
-
-    &__image{
-      width: 100%;
-      height: auto;
-    }
-
   }
-
 }

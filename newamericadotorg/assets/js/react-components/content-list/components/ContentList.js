@@ -12,10 +12,30 @@ const LoadMore = ({ onclick }) => (
   </div>
 );
 
+const LoadingIcon = () => (
+  <div className="content-list__loading-icon-wrapper">
+    <Loading />
+  </div>
+);
+
+const NoResults = () => (
+  <div className="content-list__no-results">
+    <label className="active lg">No results found</label>
+  </div>
+);
+
+const List = ({ results }) => (
+  <LazyLoadImages>
+    {results.map((r, i)=>(
+      <ContentListItem post={r} key={`content-list-item-${i}`}/>
+    ))}
+  </LazyLoadImages>
+);
+
 class ContentList extends Component {
   el = null;
   isInfinite = false;
-
+  isLoading = false;
   shouldComponentUpdate(nextProps) {
     let { hasNext, results, params, isFetching } = this.props;
     /**
@@ -24,7 +44,7 @@ class ContentList extends Component {
       this causes sluggish scrolling when the results array gets large.
       here we check the results and only rerender if we have new data.
     **/
-    if((this.isInfinite && hasNext) && !isFetching)
+    if(this.isInfinite && hasNext && !this.isLoading)
       this.nextPageOnEnd();
 
     if(results[0] && nextProps.results[0]){
@@ -42,10 +62,16 @@ class ContentList extends Component {
 
   nextPage = () => {
     let { page, hasNext, setParam, fetchAndAppend } = this.props;
-    if(hasNext){
+    if(hasNext && !this.isLoading){
+      this.isLoading = true;
       setParam('page', page+1);
-      fetchAndAppend();
+      fetchAndAppend(()=>{ this.isLoading = false; });
     }
+  }
+
+  loadMore = () => {
+    this.isInfinite = true;
+    this.nextPage();
   }
 
   nextPageOnEnd = () => {
@@ -53,36 +79,34 @@ class ContentList extends Component {
 
     let distanceFromTop = -this.el.getBoundingClientRect().top;
     let bottom = this.el.offsetHeight;
-    let end = bottom - (document.documentElement.clientHeight*2);
-    if(distanceFromTop>end)
+    let end = bottom - (document.documentElement.clientHeight*2.5);
+    let limit = bottom + 50;
+
+    if(distanceFromTop>end && distanceFromTop<limit)
       this.nextPage();
+
   }
 
   render(){
     let { results, hasNext, isFetching } = this.props;
+    let classes = `${this.isInfinite ? 'is-infinite' : ''} ${this.isLoading ? 'is-loading' : '' } ${isFetching ? 'is-fetching' : ''}`;
 
     return (
       <section
-        className={`content-list container ${this.isInfinite ? 'is-infinite' : ''} ${isFetching ? 'is-fetching' : ''}`}
-        ref={(el) => { this.el = el; }}>
-        <LazyLoadImages>
-          {results.map((r, i)=>(
-            <ContentListItem post={r} key={`content-list-item-${i}`}/>
-          ))}
-        </LazyLoadImages>
+        ref={(el) => { this.el = el; }}
+        className={`content-list container ${classes}`}>
+
+        <List results={results} />
+
         {(hasNext && !this.isInfinite) &&
-          <LoadMore onclick={()=>{
-            this.isInfinite = true;
-            this.nextPage();
-          }}/>
+          <LoadMore onclick={this.loadMore}/>
+
         }{(results.length===0 && !isFetching) &&
-          <div className="content-list__no-results">
-            <label className="active lg">No results found</label>
-          </div>
+          <NoResults />
+
         }{isFetching &&
-          <div className="content-list__loading-icon-wrapper">
-            <Loading />
-          </div>
+          <LoadingIcon />
+
         }
       </section>
     );
