@@ -1,9 +1,14 @@
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import SiteFilter from './components/SiteFilter';
 import ProgramFilter from './components/ProgramFilter';
 import ContentList from './components/ContentList';
+import {
+  PublicationDefault as PublicationRoute,
+  ContentType as ContentTypeRoute,
+  Program as ProgramRoute
+} from './components/Routes';
 import { setFetchingStatus } from '../api/actions';
 import { NAME, ID } from './constants';
 
@@ -13,27 +18,16 @@ class App extends Component {
   }
   render() {
     let { contentTypes, programs } = this.props;
-
     return (
       <BrowserRouter>
         <section className="content-list-wrapper container">
           <Switch>
-            <Route path='/publications' render={(props)=>(
-              <SiteFilter {...props}
-                programId={new URLSearchParams(props.location.search).get('program_id')}
-                contentType={{slug: 'publications', api_name:'', name:'Publications', title:'Publications'}} />
-            )}/>
+            <PublicationRoute path="/publications" />
             {contentTypes.map((c,i)=>(
-                <Route path={`/${c.slug}`} render={(props)=>(
-                  <SiteFilter {...props}
-                    programId={new URLSearchParams(props.location.search).get('program_id')}
-                    contentType={c} />
-                )}/>
+              <ContentTypeRoute path={`/${c.slug}`} contentType={c} />
             ))}
             {programs.map((p,i)=>(
-              <Route path={`/${p.slug}`} render={(props)=>(
-                <ProgramFilter {...props} programId={p.id} />
-              )} />
+              <ProgramRoute path={`/${p.slug}`} program={p} />
             ))}
           </Switch>
           <ContentList />

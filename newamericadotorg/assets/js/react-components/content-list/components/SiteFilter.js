@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
-import { Redirect } from 'react-router-dom';
 import Heading from './Heading';
 
 export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', selected, all }) => (
@@ -19,12 +18,14 @@ export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='na
 // inherits action/dispatch setParam props from api.Fetch
 class Filter extends Component {
   componentWillMount(){
-    let { setParam, contentType, programId } = this.props;
+    let { setParams, contentType, programId } = this.props;
 
-    if(programId)
-      setParam('program_id', programId, false);
-
-    setParam('content_type', contentType.api_name);
+    setParams({
+      query: {
+        program_id: programId || '',
+        content_type: contentType.api_name
+      }
+    }, true);
   }
 
   componentWillReceiveProps(nextProps){
@@ -43,7 +44,7 @@ class Filter extends Component {
     }
 
     if(shouldFetch)
-      setParam('page', 1);
+      setParam('page', 1, true);
 
   }
 
@@ -59,6 +60,7 @@ class Filter extends Component {
 
   render() {
     let { programs, content_types, contentType, history, match, programId } = this.props;
+    console.log()
     return (
       <section className="container--medium content-filters">
         <Heading title={contentType.title} />
@@ -104,8 +106,6 @@ const Container = (props) => (
   <Fetch
     name={NAME}
     endpoint="post"
-    eager={true}
-    fetchOnMount={false}
     component={Filter}
     initialQuery={{
       image_rendition: 'fill-225x125',

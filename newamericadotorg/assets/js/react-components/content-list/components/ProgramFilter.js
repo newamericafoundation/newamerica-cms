@@ -1,48 +1,95 @@
-import { connect } from 'react-redux';
-import { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
 import { NAME } from '../constants';
-import ProjectFilter from './ProjectFilter';
+import { Select, Filter } from './SiteFilter';
+import Heading from './Heading';
 import Fetch from '../../api/components/Fetch';
 
-class ProgramFilter extends Component {
-  render(){
-    let { programId, program, match } = this.props;
+class ProgramFilter extends Filter {
+    componentWillMount(){
+      let { setParams, contentType, programId, projectId, setFetchingStatus } = this.props;
 
-    return (
-      <section className="container--medium content-filters">
-        {program &&
-          <Fetch name='program'
-            endpoint='program'
-            initialQuery={{id: programId}}
-            eager={true}
-            fetchOnMount={true} />
-          }
-          <Switch>
-            <Route path={`/${program.slug}/publications`} render={(props)=>(
-              <ProjectFilter {...props}
-                projectId={new URLSearchParams(props.location.search).get('project_id')}
-                programId={programId}
-                program={program}
-                contentType={{slug: 'publications', api_name:'', name:'Publications', title:'Publications'}} />
-            )}/>
-          {program.content_types && program.content_types.map((c,j)=>(
-            <Route path={c.url} render={(props)=>(
-                <ProjectFilter {...props}
-                  projectId={new URLSearchParams(props.location.search).get('project_id')}
-                  programId={programId}
-                  program={program}
-                  contentType={c} />
-              )}/>
-          ))}
-          </Switch>
-      </section>
-    );
-  }
+      setParams({
+        query: {
+          program_id: programId,
+          project_id: projectId || '',
+          content_type: contentType.api_name
+        }
+      }, true);
+    }
+
+    componentWillReceiveProps(nextProps){
+      let { setParam, contentType, projectId, fetchData } = this.props;
+
+      let shouldFetch = false;
+
+      if(nextProps.contentType.api_name !== contentType.api_name){
+        setParam('content_type', nextProps.contentType.api_name, false);
+        shouldFetch = true;
+      }
+
+      if(nextProps.projectId != projectId){
+        setParam('project_id', nextProps.projectId || '', false);
+        shouldFetch = true;
+      }
+
+      if(shouldFetch) setParam('page', 1, true);
+    }
+
+    getParams = () => {
+      let { projectId } = this.props;
+      let params = new URLSearchParams();
+
+      if( projectId )
+        params.append('project_id', projectId);
+
+      return params.toString();
+    }
+
+    render(){
+      let { programId, program, match, contentType, projectId, history } = this.props;
+
+      return (
+        <div className="content-filters__filters-wrapper">
+          <Heading title={contentType.title} />
+          <div className="content-filters__filter">
+            <Select
+              options={program.content_types}
+              valueAccessor="slug"
+              nameAccessor="title"
+              selected={contentType.slug}
+              all="publications"
+              onchange={(e)=>{
+                history.push('/'+program.slug+'/'+e.target.value+'/?'+this.getParams());
+              }}
+            />
+          </div>
+          <div className="content-filters__filter">
+            <Select
+              options={program.projects}
+              selected={projectId}
+              all=""
+              onchange={(e)=>{
+                let val = e.target.value ? '?project_id='+e.target.value : '';
+                history.push(match.path+val);
+              }}
+            />
+          </div>
+        </div>
+      )
+    }
 }
 
-const mapStateToProps = (state) => ({
-  program: state.program ? ( state.program.results.length ? state.program.results[0] : {} ) : {}
-});
+const Container = (props) => (
+  <Fetch
+    name={NAME}
+    endpoint="post"
+    component={ProgramFilter}
+    fetchOnMount={true}
+    initialQuery={{
+      image_rendition: 'fill-225x125',
+      page_size: 15
+    }}
+    {...props}
+    />
+);
 
-export default connect(mapStateToProps)(ProgramFilter);
+export default Container;
