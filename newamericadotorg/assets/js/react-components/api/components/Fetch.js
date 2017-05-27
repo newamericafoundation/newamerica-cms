@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch, props) => ({
   },
 
   setQuery: (query, eager) => {
-    dispatch(setQuery(props.name), query);
+    dispatch(setQuery(props.name, query));
     if(eager===false) return;
     if(props.eager || eager) dispatch(fetchData(props.name));
   },
