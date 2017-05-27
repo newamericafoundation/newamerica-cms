@@ -28,18 +28,18 @@ class ProjectFilter extends Filter {
       return (
         <div className="content-filters__filters-wrapper">
           <Heading title={contentType.title} />
-          <div className="content-filters__filter">
-            <Select
-              options={project.content_types}
-              valueAccessor="slug"
-              nameAccessor="title"
-              selected={contentType.slug}
-              allValue="publications"
-              onchange={(e)=>{
-                history.push('/'+project.url+'/'+e.target.value+'/?'+this.getParams());
-              }}
-            />
-          </div>
+          {project.content_types.length > 1 && <div className="content-filters__filter">
+              <Select
+                options={project.content_types}
+                valueAccessor="slug"
+                nameAccessor="title"
+                selected={contentType.slug}
+                allValue="publications"
+                onchange={(e)=>{
+                  history.push('/'+project.url+'/'+e.target.value+'/?'+this.getParams());
+                }}
+              />
+            </div>}
         </div>
       )
     }

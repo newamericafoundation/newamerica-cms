@@ -97,18 +97,26 @@ export const receiveTemplate = (component, template) => ({
 });
 
 const parseResponse = (json) => {
-  let results = json.results,
-  hasNext = json.next!==null,
-  hasPrevious = json.previous!==null,
-  page = 1,
-  re = /.+page=([0-9]+)/;
+  let results, hasNext, hasPrevious, page;
+  if(json.results){
+    results = json.results;
+    hasNext = json.next!==null;
+    hasPrevious = json.previous!==null;
+    page = 1;
+    let re = /.+page=([0-9]+)/;
 
-  if(hasNext){
-    let next = re.exec(json.next);
-    page = next ? +next[1]-1 : 1;
-  } else if(hasPrevious){
-    let next = re.exec(json.previous);
-    page = next ? +next[1]+1 : 1;
+    if(hasNext){
+      let next = re.exec(json.next);
+      page = next ? +next[1]-1 : 1;
+    } else if(hasPrevious){
+      let next = re.exec(json.previous);
+      page = next ? +next[1]+1 : 1;
+    }
+  } else {
+    results = json;
+    hasNext = false;
+    hasPrevious = false;
+    page = 1;
   }
 
   return {

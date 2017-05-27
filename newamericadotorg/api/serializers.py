@@ -66,7 +66,7 @@ class ProgramDetailSerializer(ModelSerializer):
 
     def get_projects(self, obj):
         #horribly inefficient. may have to add a ManyToManyField to Program??
-        return ProgramProjectSerializer(obj.get_subprograms(),many=True).data
+        return ProgramProjectSerializer(obj.get_children().type(Subprogram).live(),many=True).data
 
     def get_content_types(self, obj):
         return get_program_content_types(obj.id)

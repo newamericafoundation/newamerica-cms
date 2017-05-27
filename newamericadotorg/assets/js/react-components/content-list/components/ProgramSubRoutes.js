@@ -14,8 +14,8 @@ class ProgramSubRoutes extends Component {
 
     return (
       <section className="container--medium content-filters">
-          <Fetch name='program' endpoint='program'
-            initialQuery={{id: programId}} fetchOnMount={true} />
+          <Fetch name='program' endpoint={`program/${programId}`}
+            fetchOnMount={true} />
           <Switch>
             <ContentTypeRoute
               path={`/${program.slug}/publications`}
@@ -39,7 +39,7 @@ class ProgramSubRoutes extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  program: state.program ? ( state.program.results.length ? state.program.results[0] : {} ) : {}
+  program: state.program ? state.program.results : {}
 });
 
 export default connect(mapStateToProps)(ProgramSubRoutes);

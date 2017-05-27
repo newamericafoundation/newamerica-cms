@@ -33,6 +33,7 @@ urlpatterns = [
 
     url(r'^api/post/$', api_views.PostList.as_view()),
     url(r'^api/author/$', api_views.AuthorList.as_view()),
+    url(r'^api/program/(?P<pk>[\d]+)/$', api_views.ProgramDetail.as_view()),
     url(r'^api/program/$', api_views.ProgramList.as_view()),
     #url(r'^api/topic/$', api_views.TopicList.as_view()),
     url(r'^api/project/$', api_views.ProjectList.as_view()),
