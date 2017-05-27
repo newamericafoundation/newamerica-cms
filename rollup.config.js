@@ -11,6 +11,10 @@ export default {
   moduleName: 'newamericadotorg',
   // fetch polyfill should happen in window context
   moduleContext: { 'node_modules/whatwg-fetch/fetch.js': 'window' },
+  onwarn: function(warn){
+    // this doesn't matter
+    if(warn.message=="'default' is not exported by 'node_modules/redux/es/index.js'") return;
+  },
   plugins: [
     sass({
       output: 'newamericadotorg/static/css/newamericadotorg.css',
