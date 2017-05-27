@@ -17,21 +17,18 @@ class ProgramFilter extends Filter {
     }
 
     componentWillReceiveProps(nextProps){
-      let { setParam, contentType, projectId, fetchData } = this.props;
+      let { setParams, contentType, projectId, fetchData } = this.props;
 
-      let shouldFetch = false;
-
-      if(nextProps.contentType.api_name !== contentType.api_name){
-        setParam('content_type', nextProps.contentType.api_name, false);
-        shouldFetch = true;
+      if(
+        nextProps.contentType.api_name !== contentType.api_name ||
+        nextProps.projectId != projectId
+      ){
+        setParams({ query: {
+          content_type: nextProps.contentType.api_name,
+          project_id: nextProps.projectId || '',
+          page: 1
+        }}, true);
       }
-
-      if(nextProps.projectId != projectId){
-        setParam('project_id', nextProps.projectId || '', false);
-        shouldFetch = true;
-      }
-
-      if(shouldFetch) setParam('page', 1, true);
     }
 
     getParams = () => {
@@ -56,7 +53,7 @@ class ProgramFilter extends Filter {
               valueAccessor="slug"
               nameAccessor="title"
               selected={contentType.slug}
-              all="publications"
+              allValue="publications"
               onchange={(e)=>{
                 history.push('/'+program.slug+'/'+e.target.value+'/?'+this.getParams());
               }}
@@ -66,7 +63,7 @@ class ProgramFilter extends Filter {
             <Select
               options={program.projects}
               selected={projectId}
-              all=""
+              allValue=""
               onchange={(e)=>{
                 let val = e.target.value ? '?project_id='+e.target.value : '';
                 history.push(match.path+val);

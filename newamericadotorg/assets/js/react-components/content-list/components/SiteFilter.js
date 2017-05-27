@@ -4,9 +4,9 @@ import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
 import Heading from './Heading';
 
-export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', selected, all }) => (
+export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', selected, allValue }) => (
   <select onChange={onchange}>
-    <option value={all}>All</option>
+    <option value={allValue}>All</option>
     {options.map((o,i)=>(
       <option key={i} value={o[valueAccessor]} selected={o[valueAccessor]==selected}>
         {o[nameAccessor]}
@@ -15,7 +15,7 @@ export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='na
   </select>
 )
 
-// inherits action/dispatch setParam props from api.Fetch
+// inherits action/dispatch setParam prop from api.Fetch
 class Filter extends Component {
   componentWillMount(){
     let { setParams, contentType, programId } = this.props;
@@ -29,23 +29,18 @@ class Filter extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    let { setParam, contentType, programId, fetchData } = this.props;
+    let { setParams, contentType, programId, fetchData } = this.props;
 
-    let shouldFetch = false;
-
-    if(nextProps.contentType.api_name !== contentType.api_name){
-      setParam('content_type', nextProps.contentType.api_name, false);
-      shouldFetch = true;
+    if(
+      nextProps.programId !== programId ||
+      nextProps.contentType.api_name !== contentType.api_name
+    ){
+      setParams({ query: {
+        program_id: nextProps.programId || '',
+        content_type: nextProps.contentType.api_name,
+        page: 1
+      }}, true);
     }
-
-    if(nextProps.programId != programId){
-      setParam('program_id', nextProps.programId || '', false);
-      shouldFetch = true;
-    }
-
-    if(shouldFetch)
-      setParam('page', 1, true);
-
   }
 
   getParams = () => {
@@ -103,16 +98,14 @@ export { Filter };
 // Fetch sends results to state[NAME].results
 // see ContentList for render
 const Container = (props) => (
-  <Fetch
+  <Fetch {...props}
     name={NAME}
     endpoint="post"
     component={Filter}
     initialQuery={{
       image_rendition: 'fill-225x125',
       page_size: 15
-    }}
-    {...props}
-    />
+    }} />
 );
 
 export default Container;
