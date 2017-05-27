@@ -4,8 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
 import {
-  ProgramPublicationDefault as PublicationRoute,
-  ProgramContentType as ContentTypeRoute
+  ProgramContentType as ContentTypeRoute,
+  Project as ProjectRoute
 } from './Routes';
 
 class ProgramSubRoutes extends Component {
@@ -14,15 +14,12 @@ class ProgramSubRoutes extends Component {
 
     return (
       <section className="container--medium content-filters">
-        {program &&
-          <Fetch name='program'
-            endpoint='program'
-            initialQuery={{id: programId}}
-            fetchOnMount={true} />
-          }
+          <Fetch name='program' endpoint='program'
+            initialQuery={{id: programId}} fetchOnMount={true} />
           <Switch>
-            <PublicationRoute
+            <ContentTypeRoute
               path={`/${program.slug}/publications`}
+              contentType={{slug: 'publications', api_name:'', name:'Publications', title:'Publications'}}
               program={program}
               programId={programId} />
             {program.content_types && program.content_types.map((c,i)=>(
@@ -31,6 +28,9 @@ class ProgramSubRoutes extends Component {
                 contentType={c}
                 program={program}
                 programId={programId} />
+            ))}
+            {program.projects && program.projects.map((p,i)=>(
+              <ProjectRoute path={p.url} projectId={p.id} />
             ))}
           </Switch>
       </section>

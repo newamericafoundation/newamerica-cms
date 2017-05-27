@@ -18,7 +18,7 @@ export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='na
 // inherits action/dispatch setQuery prop from api.Fetch
 class Filter extends Component {
   componentWillReceiveProps(nextProps){
-    let { setQuery, contentType, programId, fetchData } = this.props;
+    let { setQuery, contentType, programId } = this.props;
 
     if(
       nextProps.programId !== programId ||

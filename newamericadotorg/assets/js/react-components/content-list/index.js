@@ -5,7 +5,6 @@ import SiteFilter from './components/SiteFilter';
 import ProgramFilter from './components/ProgramFilter';
 import ContentList from './components/ContentList';
 import {
-  PublicationDefault as PublicationRoute,
   ContentType as ContentTypeRoute,
   Program as ProgramRoute
 } from './components/Routes';
@@ -22,7 +21,8 @@ class App extends Component {
       <BrowserRouter>
         <section className="content-list-wrapper container">
           <Switch>
-            <PublicationRoute path="/publications" />
+            <ContentTypeRoute path="/publications"
+              contentType={{slug: 'publications', api_name:'', name:'Publications', title:'Publications'}} />
             {contentTypes.map((c,i)=>(
               <ContentTypeRoute path={`/${c.slug}`} contentType={c} />
             ))}
