@@ -10,8 +10,6 @@ import {
 import lazyload from '../../lazyload';
 
 class Fetch extends Component {
-  component = null;
-
   static propTypes = {
     name: PropTypes.string.isRequired,
     endpoint: PropTypes.string.isRequired,
