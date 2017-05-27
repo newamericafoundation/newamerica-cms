@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { NAME } from '../constants';
-import ContentListItem from './ContentListItem';
-import { LazyLoadImages } from '../../lazyload';
+
 import Loading from '../../loading';
-import { setParam, fetchAndAppend } from '../../api/actions';
+import ContentListItem from './ContentListItem';
+import { NAME } from '../constants';
+import { LazyLoadImages } from '../../lazyload';
+import { setQueryParam, fetchAndAppend } from '../../api/actions';
 
 const LoadMore = ({ onclick }) => (
   <div className="content-list__load-more">
@@ -69,7 +70,7 @@ class ContentList extends Component {
     let { page, hasNext, setParam, fetchAndAppend } = this.props;
     if(hasNext && !this.isLoading){
       this.isLoading = true;
-      setParam('page', page+1);
+      setQueryParam('page', page+1);
       fetchAndAppend(()=>{ this.isLoading = false; });
     }
   }
@@ -129,8 +130,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setParam: (key, value) => {
-    dispatch(setParam(NAME, {key, value}));
+  setQueryParam: (key, value) => {
+    dispatch(setQueryParam(NAME, {key, value}));
   },
   fetchAndAppend: (callback) => {
     dispatch(fetchAndAppend(NAME, callback));

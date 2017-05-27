@@ -18,7 +18,6 @@ class ProgramSubRoutes extends Component {
           <Fetch name='program'
             endpoint='program'
             initialQuery={{id: programId}}
-            eager={true}
             fetchOnMount={true} />
           }
           <Switch>
@@ -27,11 +26,11 @@ class ProgramSubRoutes extends Component {
               program={program}
               programId={programId} />
             {program.content_types && program.content_types.map((c,i)=>(
-                <ContentTypeRoute
-                  path={c.url}
-                  contentType={c}
-                  program={program}
-                  programId={programId} />
+              <ContentTypeRoute
+                path={c.url}
+                contentType={c}
+                program={program}
+                programId={programId} />
             ))}
           </Switch>
       </section>

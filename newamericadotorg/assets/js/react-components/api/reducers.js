@@ -1,5 +1,5 @@
 import {
-  SET_PARAMS, SET_PARAM, SET_ENDPOINT, RECEIVE_RESULTS,
+  SET_PARAMS, SET_QUERY_PARAM, SET_QUERY, SET_ENDPOINT, RECEIVE_RESULTS,
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
@@ -18,12 +18,20 @@ export const params = (state=paramsState, action) => {
         endpoint: action.endpoint || state.endpoint,
         query: (action.query ? { ...state.query, ...action.query } : state.query)
       };
-    case SET_PARAM:
+    case SET_QUERY_PARAM:
       return {
         ...state,
         query: {
           ...state.query,
           [action.key]: action.value
+        }
+      };
+    case SET_QUERY:
+      return {
+        ...state,
+        query: {
+          ...state.query,
+          ...action.query
         }
       };
     case SET_ENDPOINT:

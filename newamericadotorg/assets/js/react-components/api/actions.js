@@ -1,5 +1,5 @@
 import {
-  SET_PARAMS, SET_PARAM, SET_ENDPOINT, RECEIVE_RESULTS,
+  SET_PARAMS, SET_QUERY_PARAM, SET_QUERY, SET_ENDPOINT, RECEIVE_RESULTS,
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
@@ -22,11 +22,17 @@ export const setBase = (component, baseUrl) => ({
 });
 
 
-export const setParam = (component, {key, value}) => ({
-  type: SET_PARAM,
+export const setQueryParam = (component, {key, value}) => ({
+  type: SET_QUERY_PARAM,
   component,
   key,
   value
+});
+
+export const setQuery = (component, query) => ({
+  type: SET_QUERY,
+  component,
+  query
 });
 
 export const setEndpoint = (component, endpoint) => ({

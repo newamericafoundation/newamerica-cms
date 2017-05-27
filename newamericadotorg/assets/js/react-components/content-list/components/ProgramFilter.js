@@ -4,30 +4,18 @@ import Heading from './Heading';
 import Fetch from '../../api/components/Fetch';
 
 class ProgramFilter extends Filter {
-    componentWillMount(){
-      let { setParams, contentType, programId, projectId, setFetchingStatus } = this.props;
-
-      setParams({
-        query: {
-          program_id: programId,
-          project_id: projectId || '',
-          content_type: contentType.api_name
-        }
-      }, true);
-    }
-
     componentWillReceiveProps(nextProps){
-      let { setParams, contentType, projectId, fetchData } = this.props;
+      let { setQuery, contentType, projectId, fetchData } = this.props;
 
       if(
         nextProps.contentType.api_name !== contentType.api_name ||
         nextProps.projectId != projectId
       ){
-        setParams({ query: {
+        setQuery({
           content_type: nextProps.contentType.api_name,
           project_id: nextProps.projectId || '',
           page: 1
-        }}, true);
+        }, true);
       }
     }
 
@@ -76,17 +64,19 @@ class ProgramFilter extends Filter {
 }
 
 const Container = (props) => (
-  <Fetch
+  <Fetch {...props}
     name={NAME}
     endpoint="post"
     component={ProgramFilter}
     fetchOnMount={true}
     initialQuery={{
       image_rendition: 'fill-225x125',
-      page_size: 15
-    }}
-    {...props}
-    />
+      program_id: props.programId,
+      content_type: props.contentType.api_name,
+      project_id: props.projectId || '',
+      page_size: 15,
+      page: 1
+    }} />
 );
 
 export default Container;
