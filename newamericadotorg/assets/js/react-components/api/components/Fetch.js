@@ -53,9 +53,9 @@ class Fetch extends Component {
   render() {
     let { className, children } = this.props;
     return (
-      <this.component {...this.props} className={'compose__fetch-component ' + (className||'')}>
+      <this.props.component {...this.props} className={'compose__fetch-component ' + (className||'')}>
         {children}
-      </this.component>
+      </this.props.component>
     );
   }
 }
