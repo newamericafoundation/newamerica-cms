@@ -67,7 +67,7 @@ class ContentList extends Component {
   }
 
   nextPage = () => {
-    let { page, hasNext, setParam, fetchAndAppend } = this.props;
+    let { page, hasNext, setQueryParam, fetchAndAppend } = this.props;
     if(hasNext && !this.isLoading){
       this.isLoading = true;
       setQueryParam('page', page+1);
