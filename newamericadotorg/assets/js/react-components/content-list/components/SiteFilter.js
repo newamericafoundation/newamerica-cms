@@ -3,17 +3,7 @@ import { connect } from 'react-redux';
 import { NAME } from '../constants';
 import Fetch from '../../api/components/Fetch';
 import Heading from './Heading';
-
-export const Select = ({ onchange, options, valueAccessor='id', nameAccessor='name', selected, allValue }) => (
-  <select onChange={onchange}>
-    <option value={allValue}>All</option>
-    {options.map((o,i)=>(
-      <option key={i} value={o[valueAccessor]} selected={o[valueAccessor]==selected}>
-        {o[nameAccessor]}
-      </option>
-    ))}
-  </select>
-)
+import Select from '../../Select';
 
 // inherits action/dispatch setQuery prop from api.Fetch
 class Filter extends Component {
@@ -44,31 +34,34 @@ class Filter extends Component {
 
   render() {
     let { programs, content_types, contentType, history, match, programId } = this.props;
+    let program = programs.find(p =>(p.id==programId));
 
     return (
       <section className="container--medium content-filters">
-        <Heading title={contentType.title} />
-        <div className="content-filters__filter">
+        <Heading title={contentType.title || 'Publications'} />
+        <div className="content-filters">
           <Select
-            options={programs}
-            selected={programId}
-            allValue=""
-            onchange={(e)=>{
-              let val = e.target.value ? '/?program_id='+e.target.value : '/';
-              history.push(match.path+val);
-            }}
-          />
-        </div>
-        <div className="content-filters__filter">
-          <Select
+            name="Publication Type"
+            className="content-filters__filter publication-type"
             options={content_types}
             valueAccessor="slug"
-            selected={contentType.slug}
-            allValue="publications"
-            onchange={(e)=>{
-              history.push('/'+e.target.value+'/?'+this.getParams());
-            }}
-          />
+            labelAccessor="title"
+            defaultOption={contentType}
+            onChange={(option)=>{
+              let val = option ? option.slug : 'publications'
+              history.push('/'+val+'/?'+this.getParams());
+            }}/>
+          <Select
+            options={programs}
+            defaultOption={program}
+            className="content-filters__filter program"
+            name="Program"
+            valueAccessor='id'
+            labelAccessor='title'
+            onChange={(option)=>{
+              let val = option ? '/?program_id='+option.id : '/';
+              history.push(match.path+val);
+            }}/>
         </div>
       </section>
     );
@@ -77,8 +70,7 @@ class Filter extends Component {
 
 const mapStateToProps = (state) => ({
   programs: state.programData.results || [],
-  content_types: state.contentTypes.results || [],
-  query: state[NAME].params ? state[NAME].params.query : {}
+  content_types: state.contentTypes.results || []
 });
 
 Filter = connect(mapStateToProps)(Filter);
@@ -86,7 +78,7 @@ Filter = connect(mapStateToProps)(Filter);
 export { Filter };
 // Fetch sends results to state[NAME].results
 // see ContentList for render
-const Container = (props) => (
+export default (props) => (
   <Fetch {...props}
     name={NAME}
     endpoint="post"
@@ -100,5 +92,3 @@ const Container = (props) => (
       page: 1
     }} />
 );
-
-export default Container;

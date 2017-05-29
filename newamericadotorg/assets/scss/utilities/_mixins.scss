@@ -193,6 +193,14 @@
   border-bottom: 1px solid color($color, $tone, $opacity);
 }
 
+@mixin no-select{
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
 
 @mixin space-out($breakpoint) {
   margin-top: $gutter / 2;

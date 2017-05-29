@@ -20,7 +20,7 @@ class ProgramProjectSerializer(ModelSerializer):
     class Meta:
         model = Page
         fields = (
-            'id', 'name', 'url'
+            'id', 'name', 'url', 'title'
         )
 
     def get_name(self, obj):
@@ -34,7 +34,7 @@ class ProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'description', 'url', 'logo', 'slug'
+            'id', 'name', 'title', 'description', 'url', 'logo', 'slug'
         )
 
     def get_description(self, obj):

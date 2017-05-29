@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import SiteFilter from './components/SiteFilter';
 import ProgramFilter from './components/ProgramFilter';
 import ContentList from './components/ContentList';
-import {
-  ContentType as ContentTypeRoute,
-  Program as ProgramRoute
-} from './components/Routes';
+import { IndexRoutes } from './components/Routes';
 import { setFetchingStatus } from '../api/actions';
 import { NAME, ID } from './constants';
 
@@ -20,16 +17,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <section className="content-list-wrapper container">
-          <Switch>
-            <ContentTypeRoute path="/publications"
-              contentType={{slug: 'publications', api_name:'', name:'Publications', title:'Publications'}} />
-            {contentTypes.map((c,i)=>(
-              <ContentTypeRoute path={`/${c.slug}`} contentType={c} />
-            ))}
-            {programs.map((p,i)=>(
-              <ProgramRoute path={`/${p.slug}`} program={p} />
-            ))}
-          </Switch>
+          <IndexRoutes contentTypes={contentTypes} programs={programs} />
           <ContentList />
         </section>
       </BrowserRouter>

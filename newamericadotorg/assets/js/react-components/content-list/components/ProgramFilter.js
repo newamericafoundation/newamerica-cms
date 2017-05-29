@@ -1,9 +1,10 @@
 import { NAME } from '../constants';
-import { Select, Filter } from './SiteFilter';
+import { Component } from 'react';
 import Heading from './Heading';
 import Fetch from '../../api/components/Fetch';
+import Select from '../../Select';
 
-class ProgramFilter extends Filter {
+class Filter extends Component {
     componentWillReceiveProps(nextProps){
       let { setQuery, contentType, projectId } = this.props;
 
@@ -30,44 +31,47 @@ class ProgramFilter extends Filter {
     }
 
     render(){
-      let { programId, program, match, contentType, projectId, history } = this.props;
+      let { program, projectId, match, contentType, history } = this.props;
+      let project = program.projects.find(p => p.id==projectId);
 
       return (
         <div className="content-filters__filters-wrapper">
-          <Heading title={contentType.title} />
-          <div className="content-filters__filter">
+          <Heading title={contentType.title || 'Publications'} />
+          <div className="content-filters">
             <Select
+              name="Publication Type"
+              className="content-filters__filter publication-type"
               options={program.content_types}
+              defaultOption={contentType}
               valueAccessor="slug"
-              nameAccessor="title"
-              selected={contentType.slug}
-              allValue="publications"
-              onchange={(e)=>{
-                history.push('/'+program.slug+'/'+e.target.value+'/?'+this.getParams());
-              }}
-            />
-          </div>
-          <div className="content-filters__filter">
-            <Select
+              labelAccessor="title"
+              onChange={(option)=>{
+                let val = option ? option.slug : 'publications';
+                history.push('/'+program.slug+'/'+val+'/?'+this.getParams());
+              }}/>
+            {program.projects.length > 0 &&
+              <Select
+              name="Projects"
+              className="content-filters__filter program"
               options={program.projects}
-              selected={projectId}
-              allValue=""
-              onchange={(e)=>{
-                let val = e.target.value ? '?project_id='+e.target.value : '';
+              defaultOption={project}
+              valueAccessor="id"
+              labelAccessor="title"
+              onChange={(option)=>{
+                let val = option ? '?project_id='+option.id : '';
                 history.push(match.path+val);
-              }}
-            />
+              }}/>}
           </div>
         </div>
       )
     }
 }
 
-const Container = (props) => (
+export default (props) => (
   <Fetch {...props}
     name={NAME}
     endpoint="post"
-    component={ProgramFilter}
+    component={Filter}
     fetchOnMount={true}
     initialQuery={{
       image_rendition: 'fill-225x125',
@@ -78,5 +82,3 @@ const Container = (props) => (
       page: 1
     }} />
 );
-
-export default Container;

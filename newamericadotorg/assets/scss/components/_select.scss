@@ -1,0 +1,114 @@
+.select{
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  &__input-wrapper{
+    cursor: pointer;
+    padding: 0.5em;
+    padding-right: 2em;
+    border: $border;
+    border-radius: $border-radius;
+    position: relative;
+    z-index: 110;
+    background: color(white, base);
+    &::after{
+      // cover wrapper for click events;
+      position: absolute;
+      display: block;
+      content: '';
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+  }
+
+  &__input{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: block;
+    font-size: 1rem;
+    height: auto;
+    padding-top: 0.5em;
+    padding-bottom: 0.25em;
+    width: 100%;
+    background: color(white);
+  }
+
+  &__label{
+    display: block;
+  }
+
+  &__clear{
+    cursor: pointer;
+    position: absolute;
+    z-index: 115;
+    right: 20px;
+    top: 50%;
+    opacity: 0.5;
+    margin-top: -0.15rem;
+    .fa{
+      font-size: 0.9rem;
+    }
+    &:hover{
+      .fa{
+        color: color(turquoise);
+      }
+    }
+  }
+
+  &__arrow{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    z-index: 115;
+    margin-top: -0.15rem;
+    .fa{
+      @include transition(transform 0.25s ease-in);
+      font-size: 0.9rem;
+      padding: 0;
+    }
+  }
+
+  &__options{
+    position: absolute;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    overflow-y: scroll;
+    max-height: 0px;
+    padding-top: 10px;
+    @include transition(max-height 0.1s ease-in, opacity 0.1s ease-in);
+    border: $border;
+    background: color(white, base);
+    margin-top: -5px;
+    border-radius: $border-radius;
+    z-index: 100;
+    &__option{
+      display: block;
+      cursor: pointer;
+      padding-top: 0.15em;
+      padding-bottom: 0.15em;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      &.selected, &:hover{
+        background: color(turquoise,light,0.25);
+      }
+    }
+  }
+
+  &.expanded{
+    .select__options{
+      max-height: 250px;
+      opacity: 1;
+    }
+
+    .select__arrow .fa{
+      @include transform(rotate(180deg));
+    }
+  }
+
+
+}

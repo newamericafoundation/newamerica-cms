@@ -7,6 +7,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.serializers import ListSerializer
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import mixins
+from django_filters.rest_framework import FilterSet
 
 from wagtail.wagtailcore.models import Page
 
@@ -18,14 +20,14 @@ from newamericadotorg.settings.context_processors import content_types
 from programs.models import Program, Subprogram
 from issue.models import IssueOrTopic
 from event.models import Event
-from rest_framework import mixins
+
 
 class CustomPagination(PageNumberPagination):
     page_size = 25
     page_size_query_param = 'page_size'
     max_page_size = 200
 
-class PostFilter(django_filters.rest_framework.FilterSet):
+class PostFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
     project_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
@@ -74,7 +76,7 @@ class PostList(generics.ListAPIView):
 #
 #         return Post.objects.live().filter(id__in=ids)
 
-class AuthorFilter(django_filters.rest_framework.FilterSet):
+class AuthorFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     program_id = django_filters.CharFilter(name='belongs_to_these_programs__id', lookup_expr='iexact')
     project_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
@@ -120,7 +122,7 @@ class ContentList(APIView):
             'results': types
         })
 
-class ProgramFilter(django_filters.rest_framework.FilterSet):
+class ProgramFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     slug = django_filters.CharFilter(name='slug', lookup_expr='iexact')
 
@@ -138,7 +140,7 @@ class ProgramList(generics.ListAPIView):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = ProgramFilter
 
-class ProjectFilter(django_filters.rest_framework.FilterSet):
+class ProjectFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
 
     class Meta:
@@ -150,3 +152,7 @@ class ProjectList(generics.ListAPIView):
     serializer_class = ProjectSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = ProjectFilter
+
+class ProjectDetail(generics.RetrieveAPIView):
+    queryset = Subprogram.objects.live()
+    serializer_class = ProjectSerializer

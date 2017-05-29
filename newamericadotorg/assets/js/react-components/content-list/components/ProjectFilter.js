@@ -1,9 +1,10 @@
 import { NAME } from '../constants';
-import { Select, Filter } from './SiteFilter';
+import { Component } from 'react';
 import Heading from './Heading';
 import Fetch from '../../api/components/Fetch';
+import Select from '../../Select';
 
-class ProjectFilter extends Filter {
+class Filter extends Component {
     componentWillReceiveProps(nextProps){
       let { setQuery, contentType } = this.props;
 
@@ -27,16 +28,18 @@ class ProjectFilter extends Filter {
 
       return (
         <div className="content-filters__filters-wrapper">
-          <Heading title={contentType.title} />
-          {project.content_types.length > 1 && <div className="content-filters__filter">
+          <Heading title={contentType.title || 'Publications'} />
+          {project.content_types.length > 1 && <div className="content-filters">
               <Select
-                options={project.content_types}
+                name="Publication Type"
+                className="content-filters__filter publication-type"
                 valueAccessor="slug"
-                nameAccessor="title"
-                selected={contentType.slug}
-                allValue="publications"
-                onchange={(e)=>{
-                  history.push('/'+project.url+'/'+e.target.value+'/?'+this.getParams());
+                labelAccessor="title"
+                options={project.content_types}
+                defaultOption={contentType.slug}
+                onChange={(option)=>{
+                  let val = option ? option.slug : 'publications';
+                  history.push('/'+project.url+'/'+val+'/?'+this.getParams());
                 }}
               />
             </div>}
@@ -45,11 +48,11 @@ class ProjectFilter extends Filter {
     }
 }
 
-const Container = (props) => (
+export default (props) => (
   <Fetch {...props}
     name={NAME}
     endpoint="post"
-    component={ProjectFilter}
+    component={Filter}
     fetchOnMount={true}
     initialQuery={{
       image_rendition: 'fill-225x125',
@@ -59,5 +62,3 @@ const Container = (props) => (
       page: 1
     }} />
 );
-
-export default Container;

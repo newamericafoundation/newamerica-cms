@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^api/program/$', api_views.ProgramList.as_view()),
     #url(r'^api/topic/$', api_views.TopicList.as_view()),
     url(r'^api/project/$', api_views.ProjectList.as_view()),
+    url(r'^api/project/(?P<pk>[\d]+)/$', api_views.ProjectDetail.as_view()),
     url(r'^api/meta/$', api_views.MetaList.as_view()),
     url(r'^api/content-types/$', api_views.ContentList.as_view()),
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
