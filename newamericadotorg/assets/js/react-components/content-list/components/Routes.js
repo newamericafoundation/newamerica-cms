@@ -1,3 +1,13 @@
+/**
+  Dynamic routes based on
+  - sitewide contentTypes and programs data pulled from API
+  - a program's contentTypes
+    (programs select which contentTypes they use, 
+    and rename default slugs, so this is also dyanmic)
+  - a program's projects and that project's contentTypes
+    (projects can also choose contentTypes and rename slugs)
+**/
+
 import { Route, Switch } from 'react-router-dom';
 import SiteFilter from './SiteFilter';
 import ProgramFilter from './ProgramFilter';
@@ -29,7 +39,7 @@ export const ProgramContentTypeRoute = ({contentType, program, ...rest}) => (
     )}/>
 );
 
-export const ProjectRoute = ({contentType, projectId, ...rest}) => (
+export const ProjectRoute = ({projectId, ...rest}) => (
   <Route {...rest} render={(props)=>(
     <ProjectIndex {...props} projectId={projectId} />
   )}/>
@@ -45,6 +55,7 @@ export const ProjectContentTypeRoute = ({contentType, project, ...rest}) => (
   )}/>
 );
 
+// Sitewide Routes `/:contentType/?...` and `/:program`=> ProgramRoutes
 export const IndexRoutes = ({contentTypes, programs}) => (
   <Switch>
     <IndexContentTypeRoute path="/publications"
@@ -58,6 +69,7 @@ export const IndexRoutes = ({contentTypes, programs}) => (
   </Switch>
 );
 
+// Routes for ProgramIndex `/:program/:contentType/`
 export const ProgramRoutes = ({program}) => (
   <Switch>
     <ProgramContentTypeRoute
@@ -76,6 +88,7 @@ export const ProgramRoutes = ({program}) => (
   </Switch>
 );
 
+// Routes for ProjectIndex `/:program/:project/:contentType`
 export const ProjectRoutes = ({project}) => (
   <Switch>
     <ProjectContentTypeRoute
