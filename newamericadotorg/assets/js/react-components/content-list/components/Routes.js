@@ -2,7 +2,7 @@
   Dynamic routes based on
   - sitewide contentTypes and programs data pulled from API
   - a program's contentTypes
-    (programs select which contentTypes they use, 
+    (programs select which contentTypes they use,
     and rename default slugs, so this is also dyanmic)
   - a program's projects and that project's contentTypes
     (projects can also choose contentTypes and rename slugs)
@@ -12,6 +12,7 @@ import { Route, Switch } from 'react-router-dom';
 import SiteFilter from './SiteFilter';
 import ProgramFilter from './ProgramFilter';
 import ProjectFilter from './ProjectFilter';
+import AuthorFilter from './AuthorFilter';
 import ProgramIndex from './ProgramIndex';
 import ProjectIndex from './ProjectIndex';
 
@@ -26,6 +27,13 @@ export const IndexContentTypeRoute = ({contentType, ...rest}) => (
 export const ProgramRoute = ({program, ...rest}) => (
   <Route {...rest} render={(props)=>(
     <ProgramIndex {...props} programId={program.id} />
+  )} />
+);
+
+export const AuthorRoute = (rest) => (
+  <Route {...rest} render={(props)=>(
+    <AuthorFilter {...props}
+      contentTypeAPIName={new URLSearchParams(props.location.search).get('publication_type')} />
   )} />
 );
 
@@ -66,6 +74,7 @@ export const IndexRoutes = ({contentTypes, programs}) => (
     {programs.map((p,i)=>(
       <ProgramRoute path={`/${p.slug}`} program={p} />
     ))}
+    <AuthorRoute path="/our-people/:authorSlug" />
   </Switch>
 );
 

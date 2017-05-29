@@ -31,6 +31,8 @@ class PostFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
     project_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
+    author_id = django_filters.CharFilter(name='post_author__id', lookup_expr='iexact')
+    author_slug = django_filters.CharFilter(name='post_author__slug', lookup_expr="iexact")
     topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
     after = django_filters.DateFilter(name='date', lookup_expr='gte')
     before = django_filters.DateFilter(name='date', lookup_expr='lte')
@@ -78,6 +80,7 @@ class PostList(generics.ListAPIView):
 
 class AuthorFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
+    slug = django_filters.CharFilter(name='slug', lookup_expr="iexact")
     program_id = django_filters.CharFilter(name='belongs_to_these_programs__id', lookup_expr='iexact')
     project_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
     topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
