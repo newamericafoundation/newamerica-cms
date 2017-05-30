@@ -91,7 +91,7 @@ class AuthorFilter(FilterSet):
         fields = ['id','program_id', 'project_id', 'topic_id', 'name']
 
 class AuthorList(generics.ListAPIView):
-    queryset = Person.objects.live().order_by('last_name')
+    queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')
     serializer_class = AuthorSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = AuthorFilter

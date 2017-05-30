@@ -5,11 +5,13 @@
 {% load utilities %}
 
 {% block body_class %}template-ourpeoplepage{% endblock %}
+{% block post_container_class %}container--wide{% endblock %}
 
 {% block post-body %}
 
-<article class="post-body simple-page-body our-people with-dropcap col-sm-12">
-  <p class="our-people__page-description">{{ page.page_description|richtext }}</p>
+<article class="post-body simple-page-body our-people col-sm-12">
+  {% include 'components/react/our-people.html' %}
+  <!-- <p class="our-people__page-description">{{ page.page_description|richtext }}</p>
   <div class="our-people__board-text">
     <h3>Board of Directors & Leadership</h3>
     <p>Our Board of Directors and Leadership Team provide strategic direction to the organization:</p>
@@ -33,7 +35,7 @@
   <div class="our-people__central-staff-text">
     <h3>Central Staff</h3>
     <p>Our administrative staff provides support for programs through development, finance, talent development, communications, editorial, and production operations. <a href='/central-staff/'>Find out more about Central Staff</a></p>
-  </div>
+  </div> -->
 </article>
 
 {% endblock %}
