@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^api/project/(?P<pk>[\d]+)/$', api_views.ProjectDetail.as_view()),
     url(r'^api/meta/$', api_views.MetaList.as_view()),
     url(r'^api/content-types/$', api_views.ContentList.as_view()),
-    url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
+    url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
 
     url(r'', include(wagtail_urls)),
 
