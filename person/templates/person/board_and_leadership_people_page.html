@@ -1,34 +1,6 @@
-{% extends "base.html" %}
-
-{% load wagtailcore_tags %}
-{% load wagtailcore_tags wagtailimages_tags %}
-{% load utilities %}
-
-{% block body_class %}template-programpeoplepage{% endblock %}
+{% extends "./our_people_page.html" %}
+{% block body_class %}template-boardpeoplepage{% endblock %}
 
 {% block content %}
-
-<section class='container container--wide'>
-	<div class="post-header-container">
-		<div class="post-header">
-			<div class="post-header__text">
-			    <h1 class="post-header__text__heading">{{ page.title }}</h1>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="container container--wide">
-	<div class="row person-grid__content">
-		{% for person in people %}
-			<div class="col-sm-12 col-md-3">
-				{% include 'components/author.html' with author=person class="card" %}
-			</div>
-		{% endfor %}
-	</div>
-</section>
-
-<section class="container container--wide">
-	{% include 'components/pagination.html' with all_content=people %}
-</section>
-
+	{% include 'components/react/our-people.html' %}
 {% endblock %}

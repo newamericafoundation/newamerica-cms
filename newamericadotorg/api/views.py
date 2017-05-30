@@ -82,13 +82,16 @@ class AuthorFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     slug = django_filters.CharFilter(name='slug', lookup_expr="iexact")
     program_id = django_filters.CharFilter(name='belongs_to_these_programs__id', lookup_expr='iexact')
+    program_slug = django_filters.CharFilter(name='belongs_to_these_programs__slug', lookup_expr='iexact')
     project_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
     topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
+    role = django_filters.CharFilter(name='role', lookup_expr='iexact')
+    leadership = django_filters.BooleanFilter(name='leadership')
     name = django_filters.CharFilter(name='title', lookup_expr='icontains')
 
     class Meta:
         model = Person
-        fields = ['id','program_id', 'project_id', 'topic_id', 'name']
+        fields = ['id','program_id', 'project_id', 'topic_id', 'name', 'role', 'leadership']
 
 class AuthorList(generics.ListAPIView):
     queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')

@@ -153,8 +153,8 @@ class AuthorSerializer(ModelSerializer):
     class Meta:
         model = Person
         fields = (
-            'id', 'first_name', 'last_name', 'position',
-            'short_bio', 'profile_image', 'url'
+            'id', 'first_name', 'last_name', 'position', 'role',
+            'short_bio', 'profile_image', 'url', 'leadership'
         )
 
     def get_position(self, obj):

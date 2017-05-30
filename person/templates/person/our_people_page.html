@@ -1,41 +1,6 @@
-{% extends "simple_page.html" %}
-
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-{% load utilities %}
-
+{% extends "base.html" %}
 {% block body_class %}template-ourpeoplepage{% endblock %}
-{% block post_container_class %}container--wide{% endblock %}
 
-{% block post-body %}
-
-<article class="post-body simple-page-body our-people col-sm-12">
+{% block content %}
   {% include 'components/react/our-people.html' %}
-  <!-- <p class="our-people__page-description">{{ page.page_description|richtext }}</p>
-  <div class="our-people__board-text">
-    <h3>Board of Directors & Leadership</h3>
-    <p>Our Board of Directors and Leadership Team provide strategic direction to the organization:</p>
-    <p class="our-people__item-list">
-      <ul class="our-people__item-list__list">
-        <li><a href="/board/">Board of Directors</a></li>
-        <li><a href="/leadership/">Leadership Team</a></li>
-      </ul>
-    </p>
-  </div>
-  <div class="our-people__program-staff-text">
-    <h3>Program Staff</h3>
-    <p>Find out more about our distinctive community of thinkers, writers, researchers, technologists, and community activists:</p>
-    <p class="row our-people__item-list">
-      <ul class="our-people__item-list__list">
-          {% for our_people_page in all_our_people_pages %}
-              <li><a href="{{ our_people_page.url }}">{{ our_people_page.get_parent }}</a></li>
-          {% endfor %}
-      </ul>
-    </p>
-  <div class="our-people__central-staff-text">
-    <h3>Central Staff</h3>
-    <p>Our administrative staff provides support for programs through development, finance, talent development, communications, editorial, and production operations. <a href='/central-staff/'>Find out more about Central Staff</a></p>
-  </div> -->
-</article>
-
 {% endblock %}

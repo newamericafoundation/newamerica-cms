@@ -56,9 +56,8 @@ class InfiniteLoadMore extends Component {
     lowerBoundOffset: 50
   }
 
-  constructor(props) {
-    super(props);
-    this.isInfinite = props.infiniteOnMount;
+  componentWillMount() {
+    this.isInfinite = this.props.infiniteOnMount===true ? true : false;
   }
 
   shouldComponentUpdate(nextProps) {
@@ -77,7 +76,7 @@ class InfiniteLoadMore extends Component {
     if(data[0] && nextProps.data[0]){
       // TODO better check for new data
       if(data[0].id !== nextProps.data[0].id){
-        this.isInfinite = false;
+        if(!this.props.infiniteOnMount) his.isInfinite = false;
         return true;
       }
     }

@@ -54,7 +54,7 @@ class Filter extends Component {
           <Select
             options={programs}
             defaultOption={program}
-            className="content-filters__filter program"
+            className="content-filters__filter program wide"
             name="Program"
             valueAccessor='id'
             labelAccessor='title'

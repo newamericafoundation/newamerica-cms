@@ -1,0 +1,37 @@
+.our-people {
+	&__heading{
+		margin-top: 75px;
+		margin-bottom: 25px;
+	}
+	&__filters{
+		&__link-wrapper{
+			white-space: nowrap;
+			text-align: center;
+		}
+		&__link{
+			display: inline-block;
+			padding: 0.5em 0.75em;
+			text-align: center;
+			a{
+				color: color(black) !important;
+				border-bottom: 2px solid color(black) !important;
+				@include transition(border-bottom $transition-function, color $transition-function);
+			}
+
+			&.selected, &:hover{
+				a{
+					color: color(turquoise) !important;
+					border-bottom: 3px solid color(turquoise) !important;
+					font-weight: bold;
+				}
+			}
+		}
+		&__select-wrapper{
+			text-align: center;
+			margin-top: 15px;
+			* {
+				text-align: left;
+			}
+		}
+	}
+}

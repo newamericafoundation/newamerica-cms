@@ -52,7 +52,7 @@ class Filter extends Component {
             {program.projects.length > 0 &&
               <Select
               name="Projects"
-              className="content-filters__filter program"
+              className="content-filters__filter program wide"
               options={program.projects}
               defaultOption={project}
               valueAccessor="id"

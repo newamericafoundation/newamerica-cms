@@ -3,6 +3,9 @@
   position: relative;
   cursor: pointer;
   outline: none;
+  &.wide {
+    width: 280px;
+  }
   &__input-wrapper{
     cursor: pointer;
     padding: 0.5em;

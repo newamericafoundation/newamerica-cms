@@ -9,7 +9,7 @@ class APP extends Component {
   render(){
     return (
       <BrowserRouter>
-        <section>
+        <section className="our-people">
           <Routes />
           <PeopleList />
         </section>
