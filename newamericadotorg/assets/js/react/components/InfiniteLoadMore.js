@@ -137,7 +137,7 @@ class InfiniteLoadMore extends Component {
         {(hasNext && !this.isInfinite) &&
           <LoadMoreButton onclick={this.loadMore}/>
 
-        }{
+        }{isFetching &&
           <LoadingIconWrapper />
         }
       </this.props.component>

@@ -32,7 +32,6 @@ class ContentList extends Component {
         hasNext={hasNext}
         isFetching={isFetching}
         data={results}
-        infiniteOnMount={true}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
         <section className='content-list container--wide'>
           <List results={results} />
