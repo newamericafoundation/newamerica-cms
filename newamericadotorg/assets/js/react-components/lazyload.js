@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import LazyLoad from 'vanilla-lazyload';
+import PropTypes from 'prop-types';
 
 export const lazyloadBackgroundImage = new LazyLoad({ elements_selector: '.lazyload--background' });
 export const lazyload = new LazyLoad();
@@ -9,10 +10,15 @@ export const update = () => {
 }
 
 export class LazyLoadImages extends Component {
-  component = null;
-  componentWillMount(){
-    let { component } = this.props;
-    this.component = component || 'span';
+  static propTypes = {
+    component: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string
+    ])
+  }
+
+  static defaultProps ={
+    component: 'span'
   }
 
   componentDidMount() {
@@ -26,9 +32,9 @@ export class LazyLoadImages extends Component {
   render() {
     let { className, children } = this.props;
     return (
-      <this.component className={'compose__lazyload-images-wrapper ' + (className || '')}>
+      <this.props.component {...this.props} className={'compose__lazyload-images-wrapper ' + (className||'')}>
         {children}
-      </this.component>
+      </this.props.component>
     );
   }
 }

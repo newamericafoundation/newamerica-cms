@@ -3,38 +3,6 @@
   min-height: 50vh;
   position: relative;
 
-  .compose__lazyload-images-wrapper {
-    display: block;
-    opacity: 1;
-    @include transition(opacity 0.3s ease-in-out);
-  }
-
-  &.is-fetching:not(.is-loading){
-    .compose__lazyload-images-wrapper {
-      opacity: 0.15;
-    }
-
-    .content-list__loading-icon-wrapper{
-      position: absolute;
-      width: 100%;
-      top: 50px;
-    }
-  }
-
-  &__loading-icon-wrapper{
-    text-align: center;
-    z-index: 10;
-  }
-
-  &__load-more{
-    text-align: center;
-    margin-top: 25px;
-  }
-
-  &__no-results{
-    text-align: center;
-  }
-
   &__item{
     padding-top: 25px;
     padding-bottom: 25px;

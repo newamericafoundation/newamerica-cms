@@ -44,6 +44,6 @@ export default (props) => (
     component={Filter}
     fetchOnMount={true}
     endpoint='author'
-    page_size='15'
+    page_size='12'
     page='1' />
 )

@@ -138,9 +138,8 @@ export const fetchData = (component, callback=()=>{}, append=false) => (dispatch
     }).then(json => {
       let response = parseResponse(json);
       response.append = append;
-
+      callback(response);
       dispatch(setResponse(component, response));
-      callback();
     });
 }
 

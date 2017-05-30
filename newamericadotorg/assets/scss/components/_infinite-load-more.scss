@@ -1,0 +1,31 @@
+.compose__infinite-load-more {
+  display: block;
+  opacity: 1;
+  @include transition(opacity 0.3s ease-in-out);
+
+  &.is-fetching:not(.is-loading-more){
+    opacity: 0.15;
+
+    &.compose__infinite-load-more{
+      &__loading-icon-wrapper{
+        position: absolute;
+        width: 100%;
+        top: 50px;
+      }
+    }
+  }
+
+  &__loading-icon-wrapper{
+    text-align: center;
+    z-index: 10;
+  }
+
+  &__load-more-button{
+    text-align: center;
+    margin-top: 25px;
+  }
+
+  &__no-results{
+    text-align: center;
+  }
+}
