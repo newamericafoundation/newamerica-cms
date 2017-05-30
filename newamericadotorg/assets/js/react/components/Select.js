@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default class Select extends Component {
   static propTypes = {
@@ -67,7 +67,7 @@ export default class Select extends Component {
 
     let label = selectedLabel=='' && defaultOption ? defaultOption[labelAccessor] : selectedLabel;
     let classes = `${expanded ? 'expanded' : ''} ${className ? className : ''}`;
-  
+
     return (
       <div tabIndex="1" onBlur={this.blur} className={`select ${classes}`}>
         <div className="select__input-wrapper" onClick={this.toggleExpand}>
