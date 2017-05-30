@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk'
 
 import apiReducers from './api/reducers';
-import { reducers as eventReducers } from './events';
+import { reducers as eventReducers } from './actions';
 
 import * as components from './installed_components';
 

@@ -1,21 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-const Loading = (props) => (
-  <div className="loading-icon">
-    <div className="loading-icon__row">
-      <div className="loading-icon__row__circle"></div>
-      <div className="loading-icon__row__rect"></div>
-    </div>
-    <div className="loading-icon__row">
-      <div className="loading-icon__row__rect"></div>
-    </div>
-    <div className="loading-icon__row">
-      <div className="loading-icon__row__rect"></div>
-    </div>
-  </div>
-);
+import LoadingIcon from './LoadingIcon';
 
 const LoadMoreButton = ({ onclick }) => (
   <div className="compose__infinite-load-more__load-more-button">
@@ -23,9 +9,9 @@ const LoadMoreButton = ({ onclick }) => (
   </div>
 );
 
-const LoadingIcon = () => (
+const LoadingIconWrapper = () => (
   <div className="compose__infinite-load-more__loading-icon-wrapper">
-    <Loading />
+    <LoadingIcon />
   </div>
 );
 
@@ -34,8 +20,6 @@ const NoResults = () => (
     <label className="active lg">No results found</label>
   </div>
 );
-
-export default loading;
 
 class InfiniteLoadMore extends Component {
   el = null;
@@ -144,16 +128,17 @@ class InfiniteLoadMore extends Component {
         ref={(el) => { this.el = el; }}
         className={'compose__infinite-load-more ' + classes + ' ' + (className||'')}>
 
+        {(data.length===0 && !isFetching) &&
+          <NoResults />
+        }
+
         {children}
 
         {(hasNext && !this.isInfinite) &&
           <LoadMoreButton onclick={this.loadMore}/>
 
-        }{(data.length===0 && !isFetching) &&
-          <NoResults />
-
-        }{isFetching &&
-          <LoadingIcon />
+        }{
+          <LoadingIconWrapper />
         }
       </this.props.component>
     );
@@ -166,4 +151,4 @@ const mapStateToProps = (state) => ({
 
 InfiniteLoadMore = connect(mapStateToProps)(InfiniteLoadMore);
 
-export { InfiniteLoadMore, Loading };
+export default InfiniteLoadMore;

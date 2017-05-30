@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { format as formatDate } from 'date-fns';
-import Author from '../../author/components/Author';
-import { LazyImage } from '../../lazyload'
+import Author from '../../components/Author';
+import { LazyImage } from '../../components/LazyLoad'
 
 const Details = ({ post: { date, programs, content_type } }) => (
   <div className="content-list__item__details col-md-3">

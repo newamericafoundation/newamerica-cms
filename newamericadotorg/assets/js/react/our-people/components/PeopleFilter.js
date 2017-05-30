@@ -1,8 +1,8 @@
-import Fetch from '../../api/components/Fetch';
+import { Fetch } from '../../components/API';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { NAME } from '../constants';
-import Select from '../../Select';
+import Select from '../../components/Select';
 import { Link } from 'react-router-dom';
 
 class Filter extends Component {

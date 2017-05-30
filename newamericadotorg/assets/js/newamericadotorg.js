@@ -7,9 +7,9 @@ import 'url-polyfill';
 
 window.React = React;
 
-import composer from './react-components/index';
-import { actions } from './react-components/events';
-import lazyload from './react-components/lazyload';
+import composer from './react/index';
+import { actions } from './react/actions';
+import lazyload from './react/components/LazyLoad';
 
 const newamericadotorg = {
   composer,

@@ -1,6 +1,6 @@
 import { fetchData, setParams } from './api/actions';
 import store from './store';
-import { events, actions } from './events';
+import { events, actions } from './actions';
 
 export default function(){
   store.dispatch(setParams('programData', { endpoint: 'program' } ));

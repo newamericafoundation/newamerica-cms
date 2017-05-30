@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { NAME } from '../constants';
-import Fetch from '../../api/components/Fetch';
+import { Fetch } from '../../components/API';
 import { ProjectRoutes } from './Routes';
 
 class ProjectIndex extends Component {

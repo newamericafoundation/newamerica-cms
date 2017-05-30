@@ -1,5 +1,5 @@
-import { fetchData, setParams } from '../react-components/api/actions';
-import store from '../react-components/store';
+import { fetchData, setParams } from './api/actions';
+import store from './store';
 
 // constants
 const SET_SCROLL_POSITION = 'SET_SCROLL_POSITION';

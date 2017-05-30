@@ -1,22 +1,19 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import Response from '../../api/components/Response';
-import Author from '../../author/components/Author';
-import {InfiniteLoadMore} from '../../loading';
+import { Response } from '../../components/API';
+import { LazyLoadImages } from '../../components/LazyLoad';
+import InfiniteLoadMore from '../../components/InfiniteLoadMore';
+import ContentListItem from './ContentListItem';
 import { NAME } from '../constants';
-import { LazyLoadImages } from '../../lazyload';
-
-const List = ({ people, className }) => (
-	<div className={"row person-grid__content "+ className}>
-		{people.map((p,i)=>(
-			<div className="col-sm-12 col-md-3">
-        <Author author={p} classes="card" />
-			</div>
-		))}
-	</div>
+const List = ({ results }) => (
+  <LazyLoadImages>
+    {results.map((r, i)=>(
+      <ContentListItem post={r} key={`content-list-item-${i}`}/>
+    ))}
+  </LazyLoadImages>
 );
 
-class PeopleList extends Component {
+class ContentList extends Component {
 
   nextPage = () => {
     let { setQueryParam, fetchAndAppend, response } = this.props;
@@ -37,14 +34,20 @@ class PeopleList extends Component {
         data={results}
         infiniteOnMount={true}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
-        <section className='people-list container--wide'>
-          <LazyLoadImages component={List} people={results} />
+        <section className='content-list container--wide'>
+          <List results={results} />
         </section>
       </InfiniteLoadMore>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  siteScrollPosition: state.site.scrollPosition // forces reevaluation on scroll
+});
+
+ContentList = connect(mapStateToProps)(ContentList)
+
 export default () => (
-  <Response name={NAME} component={PeopleList} />
+  <Response name={NAME} component={ContentList} />
 )

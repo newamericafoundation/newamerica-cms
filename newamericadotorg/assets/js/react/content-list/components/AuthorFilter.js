@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { NAME } from '../constants';
-import Fetch from '../../api/components/Fetch';
+import { Fetch } from '../../components/API';
 import Heading from './Heading';
-import Select from '../../Select';
+import Select from '../../components/Select';
 
 // inherits action/dispatch setQuery prop from api.Fetch
 class Filter extends Component {

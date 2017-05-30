@@ -1,8 +1,8 @@
 import { NAME } from '../constants';
 import { Component } from 'react';
 import Heading from './Heading';
-import Fetch from '../../api/components/Fetch';
-import Select from '../../Select';
+import { Fetch } from '../../components/API';
+import Select from '../../components/Select';
 
 class Filter extends Component {
     componentWillReceiveProps(nextProps){

@@ -1,19 +1,29 @@
 .compose__infinite-load-more {
   display: block;
-  opacity: 1;
-  @include transition(opacity 0.3s ease-in-out);
+
+  position: relative;
+
+  & > *{
+    opacity: 1;
+    @include transition(opacity 0.3s ease-in-out);
+  }
+
 
   &.is-fetching:not(.is-loading-more){
-    opacity: 0.15;
+      > * {
+        z-index: 0;
+        opacity: 0.15;
+      }
 
-    &.compose__infinite-load-more{
-      &__loading-icon-wrapper{
+    .compose__infinite-load-more__loading-icon-wrapper{
+        opacity: 1;
+        z-index: 10;
         position: absolute;
         width: 100%;
         top: 50px;
       }
-    }
   }
+
 
   &__loading-icon-wrapper{
     text-align: center;
@@ -27,5 +37,6 @@
 
   &__no-results{
     text-align: center;
+    margin-top: 50px;
   }
 }
