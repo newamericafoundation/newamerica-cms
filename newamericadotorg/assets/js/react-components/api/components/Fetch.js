@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BASEURL } from '../constants';
 import {
-  fetchData, setEndpoint, setQueryParam, setParams,
+  fetchData, fetchAndAppend, setEndpoint, setQueryParam, setParams,
   setQuery, setBase, receiveResults, setFetchingStatus
 } from '../actions';
 
-import lazyload from '../../lazyload';
 
 class Fetch extends Component {
   static propTypes = {
@@ -58,9 +57,11 @@ class Fetch extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+export const mapStateToProps = (state, props) => ({
+  response: state[props.name] || {}
+});
 
-const mapDispatchToProps = (dispatch, props) => ({
+export const mapDispatchToProps = (dispatch, props) => ({
   setParams: ({ endpoint, query, baseUrl }, eager) => {
     dispatch(setParams(props.name, { endpoint, query, baseUrl }));
     if(eager===false) return;
@@ -95,8 +96,12 @@ const mapDispatchToProps = (dispatch, props) => ({
     dispatch(setFetchingStatus(props.name, status));
   },
 
-  fetchData: () => {
-    dispatch(fetchData(props.name));
+  fetchData: (callback) => {
+    dispatch(fetchData(props.name, callback));
+  },
+
+  fetchAndAppend: (callback) => {
+    dispatch(fetchAndAppend(props.name, callback));
   },
 
   receiveResults: (val) => {

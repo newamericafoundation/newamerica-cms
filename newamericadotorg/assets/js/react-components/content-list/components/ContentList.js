@@ -1,11 +1,10 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-
+import Response from '../../api/components/Response';
 import Loading from '../../loading';
 import ContentListItem from './ContentListItem';
 import { NAME } from '../constants';
 import { LazyLoadImages } from '../../lazyload';
-import { setQueryParam, fetchAndAppend } from '../../api/actions';
 
 const LoadMore = ({ onclick }) => (
   <div className="content-list__load-more">
@@ -43,7 +42,7 @@ class ContentList extends Component {
   **/
   isLoading = false;
   shouldComponentUpdate(nextProps) {
-    let { hasNext, results, params, isFetching } = this.props;
+    let { hasNext, results, isFetching } = this.props.response;
     /**
       since we're subscribing to scrollPosition,
       this component gets reevaluated with each tick (/rerendered on each tick)
@@ -53,9 +52,9 @@ class ContentList extends Component {
     if(this.isInfinite && hasNext && !this.isLoading)
       this.nextPageOnEnd();
 
-    if(results[0] && nextProps.results[0]){
+    if(results[0] && nextProps.response.results[0]){
       // TODO better check for new data
-      if(results[0].id !== nextProps.results[0].id){
+      if(results[0].id !== nextProps.response.results[0].id){
         this.isInfinite = false;
         return true;
       }
@@ -67,7 +66,8 @@ class ContentList extends Component {
   }
 
   nextPage = () => {
-    let { page, hasNext, setQueryParam, fetchAndAppend } = this.props;
+    let { page, hasNext } = this.props.response;
+    let { setQueryParam, fetchAndAppend } = this.props;
     if(hasNext && !this.isLoading){
       this.isLoading = true;
       setQueryParam('page', page+1);
@@ -94,7 +94,7 @@ class ContentList extends Component {
   }
 
   render(){
-    let { results, hasNext, isFetching } = this.props;
+    let { results, hasNext, isFetching } = this.props.response;
     let classes = `${this.isInfinite ? 'is-infinite' : ''} ${this.isLoading ? 'is-loading' : '' } ${isFetching ? 'is-fetching' : ''}`;
 
     return (
@@ -120,22 +120,11 @@ class ContentList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  params: state[NAME].params || {},
-  results: state[NAME].results || [],
-  hasNext: state[NAME].hasNext || false,
-  hasPrevious: state[NAME].hasPrevious || false,
-  page: state[NAME].page || 1,
-  isFetching: state[NAME].isFetching || false,
   siteScrollPosition: state.site.scrollPosition // forces reevaluation on scroll
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setQueryParam: (key, value) => {
-    dispatch(setQueryParam(NAME, {key, value}));
-  },
-  fetchAndAppend: (callback) => {
-    dispatch(fetchAndAppend(NAME, callback));
-  }
-});
+ContentList = connect(mapStateToProps)(ContentList)
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContentList);
+export default () => (
+  <Response name={NAME} component={ContentList} />
+)
