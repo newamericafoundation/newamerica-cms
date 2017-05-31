@@ -3,10 +3,14 @@ import sass from 'rollup-plugin-sass';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs'
 import replace from 'rollup-plugin-replace';
+import uglify from 'rollup-plugin-uglify';
+import postcss from 'postcss'
+import cssnano from 'cssnano';
+import fs from 'fs';
 
 export default {
   entry: 'newamericadotorg/assets/js/newamericadotorg.js',
-  dest: 'newamericadotorg/static/js/newamericadotorg.js',
+  dest: 'newamericadotorg/static/js/newamericadotorg.min.js',
   format: 'iife',
   moduleName: 'newamericadotorg',
   // fetch polyfill should happen in window context
@@ -25,6 +29,14 @@ export default {
           'newamericadotorg/assets/scss/settings/' + process.env.NODE_ENV,
           'newamericadotorg/assets/scss'
         ]
+      },
+      processor: css => {
+        // minify
+        postcss([cssnano()])
+          .process(css)
+          .then(result => {
+            fs.writeFileSync('newamericadotorg/static/css/newamericadotorg.min.css',result.css);
+          });
       }
     }),
     // import node_module dependencies
@@ -41,6 +53,7 @@ export default {
     babel({ exclude: 'node_modules/**' }),
     replace({
       'process.env.NODE_ENV': '\'' + process.env.NODE_ENV + '\''
-    })
+    }),
+    uglify()
   ]
 };
