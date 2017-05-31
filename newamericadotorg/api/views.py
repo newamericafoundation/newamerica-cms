@@ -1,4 +1,6 @@
 import django_filters
+from django.db.models import Q
+from django.utils.timezone import localtime, now
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -13,7 +15,10 @@ from wagtail.wagtailcore.models import Page
 
 from home.models import Post, HomePage
 from person.models import Person
-from serializers import PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer, ProjectSerializer, HomeSerializer, TopicSerializer
+from serializers import (
+    PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
+    ProjectSerializer, HomeSerializer, TopicSerializer, EventSerializer
+)
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
 from programs.models import Program, Subprogram
@@ -90,6 +95,39 @@ class AuthorList(generics.ListAPIView):
     serializer_class = AuthorSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = AuthorFilter
+
+class EventFilter(FilterSet):
+    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
+    project_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
+    topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
+    after = django_filters.DateFilter(name='date', lookup_expr='gte')
+    before = django_filters.DateFilter(name='date', lookup_expr='lte')
+
+    class Meta:
+        model = Post
+        fields = ['id', 'program_id', 'project_id', 'before', 'after', 'topic_id']
+
+class EventList(generics.ListAPIView):
+    serializer_class = EventSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_class = EventFilter
+
+    def get_queryset(self):
+        ids = self.request.query_params.getlist('id[]', None)
+        time_period = self.request.query_params.get('time_period', None)
+        events = Event.objects.live().distinct()
+        print time_period
+        if time_period:
+            today = localtime(now()).date()
+            if time_period=='future':
+                return events.filter(Q(date__gte=today)).order_by('date', 'start_time')
+            elif time_period=='past':
+                return events.filter(date__lt=today).order_by('-date', '-start_time')
+        if not ids:
+            return events.order_by('-date', '-start_time')
+
+        return events.filter(id__in=ids).order_by('-date', '-start_time')
 
 class MetaList(APIView):
     def get(self, request, format=None):

@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^feed/(?P<content_type>[a-zA-z]*)/(?P<program>[a-zA-z\-]*)/$', ContentFeed()),
 
     url(r'^api/post/$', api_views.PostList.as_view()),
+    url(r'^api/event/$', api_views.EventList.as_view()),
     url(r'^api/author/$', api_views.AuthorList.as_view()),
     url(r'^api/program/(?P<pk>[\d]+)/$', api_views.ProgramDetail.as_view()),
     url(r'^api/program/$', api_views.ProgramList.as_view()),

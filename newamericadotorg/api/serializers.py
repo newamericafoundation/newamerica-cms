@@ -6,6 +6,7 @@ from home.models import Post
 from programs.models import Program, Subprogram
 from person.models import Person
 from issue.models import IssueOrTopic
+from event.models import Event
 
 from django.core.urlresolvers import reverse
 
@@ -170,7 +171,7 @@ class PostProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'url'
+            'id', 'name', 'url', 'slug'
         )
 
     def get_name(self, obj):
@@ -182,7 +183,7 @@ class PostProjectSerializer(ModelSerializer):
     class Meta:
         model = Subprogram
         fields = (
-            'id', 'name', 'url'
+            'id', 'name', 'url', 'slug'
         )
 
     def get_name(self, obj):
@@ -222,6 +223,28 @@ class PostSerializer(ModelSerializer):
 
     def get_authors(self, obj):
         return AuthorSerializer(obj.post_author, many=True, context=self.context).data
+
+class EventSerializer(ModelSerializer):
+    story_image = SerializerMethodField()
+    programs = SerializerMethodField()
+    projects = SerializerMethodField()
+
+    class Meta:
+        model = Event
+        fields = ('id', 'title', 'slug', 'date', 'end_date', 'start_time', 'end_time',
+        'street_address','city', 'state', 'zipcode', 'rsvp_link', 'story_image',
+        'programs', 'projects', 'url'
+        )
+
+    def get_story_image(self, obj):
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'fill-200x290')
+
+    def get_programs(self, obj):
+        return PostProgramSerializer(obj.parent_programs, many=True).data
+
+    def get_projects(self, obj):
+        return PostProjectSerializer(obj.post_subprogram, many=True).data
 
 class TopicSerializer(ModelSerializer):
 

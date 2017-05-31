@@ -1,14 +1,9 @@
 {% extends "publications_page.html" %}
 
 {% block body_class %}template-alleventshomepage{% endblock %}
-{% block container_class %}container--wide{% endblock %}
 
-{% block publication_list %}
-	{% include 'components/portrait_content_grid.html' with all_content=all_events %}
-	{% if not all_events %}
-		<h4 class="content-list-no-results">No results found</h4>
-	{% endif %}
-	<section class="content-list-footer">
-		{% include 'components/pagination.html' with all_content=all_events %}
+{% block content %}
+	<section class="container {% block container_class %}container--medium{% endblock %}">
+		{% include 'components/react/event-list.html' %}
 	</section>
 {% endblock %}

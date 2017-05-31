@@ -1,0 +1,9 @@
+.event-list{
+  &__past-events{
+    min-height: 50vh;
+  }
+  &__show-past-button-wrapper{
+    text-align: center;
+    margin: 15px 0;
+  }
+}
