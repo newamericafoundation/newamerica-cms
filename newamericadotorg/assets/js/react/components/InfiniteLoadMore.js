@@ -76,7 +76,7 @@ class InfiniteLoadMore extends Component {
     if(data[0] && nextProps.data[0]){
       // TODO better check for new data
       if(data[0].id !== nextProps.data[0].id){
-        if(!this.props.infiniteOnMount) his.isInfinite = false;
+        if(!this.props.infiniteOnMount) this.isInfinite = false;
         return true;
       }
     }
