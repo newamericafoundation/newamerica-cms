@@ -10,7 +10,7 @@
 
 	&__title-block-container {
 		display: table;
-		padding: 45px 0px 35px 0px;
+		padding: 45px 0px 25px 0px;
 		width: 100%;
 	}
 
@@ -30,8 +30,10 @@
 		}
 		&__title {
 			margin-bottom: 0px;
+			margin-top: 5px;
 			font-size: 32px;
 			color: palette-get(na-black);
+			line-height: 1.2;
 		}
 	}
 

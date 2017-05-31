@@ -11,7 +11,7 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
 from mysite.blocks import ButtonBlock, IframeBlock, DatavizBlock
-from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock
+from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock, VideoDataReferenceBlock
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
@@ -191,7 +191,8 @@ class InDepthProfile(Page):
         ('button', ButtonBlock()),
         ('iframe', IframeBlock()),
         ('collapsible', CollapsibleBlock()),
-        ('data_reference', DataReferenceBlock())
+        ('data_reference', DataReferenceBlock()),
+        ('video_data_reference', VideoDataReferenceBlock())
     ])
 
     content_panels = Page.content_panels + [
@@ -208,7 +209,6 @@ class InDepthProfile(Page):
     def get_context(self, request):
         context = super(InDepthProfile, self).get_context(request)
         context["project_root"] = self.get_parent()
-        context["query_string"] = request.GET.urlencode().replace("%2F", "").replace("=", "").replace("_"," ").title()
 
         return context
 
