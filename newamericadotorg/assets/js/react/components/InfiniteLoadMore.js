@@ -94,7 +94,10 @@ class InfiniteLoadMore extends Component {
       this.isLoadingMore = true;
       if(typeof fetchFn !== 'function')
         console.error('onNextPage prop must return async function with a callback parameter.');
-      fetchFn(()=>{ this.isLoadingMore = false; });
+      fetchFn(()=>{
+        // give dispatch some time.
+        setTimeout(()=>{ this.isLoadingMore = false;});
+      });
     }
   }
 

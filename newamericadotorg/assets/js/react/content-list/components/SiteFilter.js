@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { NAME } from '../constants';
+import { NAME, PAGE_SIZE, IMAGE_RENDITION } from '../constants';
 import { Fetch } from '../../components/API';
 import Heading from './Heading';
 import Select from '../../components/Select';
@@ -85,10 +85,10 @@ export default (props) => (
     component={Filter}
     fetchOnMount={true}
     initialQuery={{
-      image_rendition: 'min-650x200',
+      image_rendition: IMAGE_RENDITION,
       program_id: props.programId || '',
       content_type: props.contentType.api_name,
-      page_size: 15,
+      page_size: PAGE_SIZE,
       page: 1
     }} />
 );
