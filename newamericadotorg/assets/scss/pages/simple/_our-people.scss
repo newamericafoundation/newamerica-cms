@@ -1,4 +1,7 @@
 .our-people {
+	&__list{
+		min-height: 50vh;
+	}
 	&__heading{
 		margin-top: 75px;
 		margin-bottom: 25px;

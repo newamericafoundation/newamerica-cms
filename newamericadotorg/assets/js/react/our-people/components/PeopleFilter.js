@@ -116,7 +116,7 @@ export default (props) => (
     fetchOnMount={true}
     endpoint='author'
     initialQuery={{
-      page_size: 12,
+      page_size: 24,
       page: 1,
       program_id: new URLSearchParams(location.search).get('program_id') ? new URLSearchParams(location.search).get('program_id') : '',
       program_slug: props.match.params.programSlug ? props.match.params.programSlug : '',

@@ -6,7 +6,6 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.serializers import ListSerializer
-from rest_framework.pagination import PageNumberPagination
 from rest_framework import mixins
 from django_filters.rest_framework import FilterSet
 
@@ -20,12 +19,6 @@ from newamericadotorg.settings.context_processors import content_types
 from programs.models import Program, Subprogram
 from issue.models import IssueOrTopic
 from event.models import Event
-
-
-class CustomPagination(PageNumberPagination):
-    page_size = 25
-    page_size_query_param = 'page_size'
-    max_page_size = 200
 
 class PostFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
@@ -46,7 +39,6 @@ class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = PostFilter
-    pagination_class = CustomPagination
 
     def get_queryset(self):
         ids = self.request.query_params.getlist('id[]', None)

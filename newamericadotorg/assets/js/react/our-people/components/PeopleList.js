@@ -26,7 +26,8 @@ class PeopleList extends Component {
   }
 
   render(){
-    let { results, hasNext, isFetching } = this.props.response;
+    let { results, hasNext, isFetching, page } = this.props.response;
+		let viewHeight = -document.documentElement.clientHeight;
     if(!results) return null;
     return (
       <InfiniteLoadMore
@@ -35,7 +36,7 @@ class PeopleList extends Component {
         isFetching={isFetching}
         data={results}
         infiniteOnMount={true}
-        upperBoundOffset={-(document.documentElement.clientHeight*1.5)}>
+        upperBoundOffset={page==1 ? viewHeight*.7 : viewHeight*1.5}>
         <section className='our-people__list container--wide'>
 					<List people={results} />
         </section>
