@@ -50,7 +50,6 @@ class Filter extends Component {
         case '/our-people/programs/':
           role = 'Program Staff';
           let program_id = this.getProgramId(nextProps.location);
-          console.log(nextProps);
           setQuery({ ...query, program_id, role }, true);
           break;
         case '/:programSlug/our-people':

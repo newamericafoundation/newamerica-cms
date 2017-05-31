@@ -35,7 +35,7 @@ class PeopleList extends Component {
         isFetching={isFetching}
         data={results}
         infiniteOnMount={true}
-        upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
+        upperBoundOffset={-(document.documentElement.clientHeight*1.5)}>
         <section className='our-people__list container--wide'>
 					<List people={results} />
         </section>

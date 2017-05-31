@@ -1,4 +1,4 @@
-from home.models import Post, HomePage
+from home.models import Post, HomePage, CustomImage
 from programs.models import Program, Subprogram, AbstractContentPage
 from home.models import Post
 from issue.models import IssueOrTopic
@@ -33,10 +33,15 @@ def generate_image_url(image, filter_spec=None):
     if not filter_spec:
         return image.file.url
 
-    signature = generate_signature(image.id, filter_spec)
-    url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
+    img = CustomImage.objects.get(pk=image.id);
+    if not image:
+        return image.file.url
 
-    return url
+    rendition = img.get_rendition(filter_spec)
+    # signature = generate_signature(image.id, filter_spec)
+    # url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
+
+    return rendition.url
 
 
 def get_program_content_types(program):
