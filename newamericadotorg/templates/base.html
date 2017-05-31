@@ -43,8 +43,9 @@
   {% endif %}
 
   {# Global javascript #}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.css' %}"></link>
+
   {% if DEBUG %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.css' %}"></link>
     {# development dependencies that will bundled with production #}
     <!-- for convenience, but you should add whatever polyfills you need to dependencies -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
@@ -58,8 +59,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/4.1.1/react-router-dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.28.5/date_fns.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/7.2.2/lazyload.min.js"></script>
+
+    <script type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
+  {% else %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.min.css' %}"></link>
+    <script type="text/javascript" src="{% static 'js/newamericadotorg.min.js' %}"></script>
   {% endif %}
-  <script type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
+
   {% block extra_scripts %}
       {# Override this in templates to add extra scripts and stylesheets #}
   {% endblock %}
