@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { format as formatDate } from 'date-fns';
 import Author from '../../components/Author';
-import { LazyImage } from '../../components/LazyLoad'
 
 const Details = ({ post: { date, programs, content_type } }) => (
   <div className="content-list__item__details col-md-3">
@@ -48,7 +47,7 @@ const Heading = ({ post: { url, title, story_excerpt, authors }}) => (
 const Image = ({ post: { story_image, content_type }}) => (
   <div className="content-list__item__image-wrapper col-md-3">
     <div className={`content-list__item__image ${content_type.api_name}`}>
-      <LazyImage src={story_image} className="content-list__item__image__image" />
+      <div style={{backgroundImage: `url(${story_image})`}} className="content-list__item__image__image" />
     </div>
   </div>
 );

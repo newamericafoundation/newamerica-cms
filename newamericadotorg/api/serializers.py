@@ -162,7 +162,7 @@ class AuthorSerializer(ModelSerializer):
 
     def get_profile_image(self, obj):
         if obj.profile_image:
-            return generate_image_url(obj.profile_image, 'fill-300x300')
+            return generate_image_url(obj.profile_image, 'fill-200x200')
 
 class PostProgramSerializer(ModelSerializer):
     name = SerializerMethodField()

@@ -69,7 +69,7 @@ export default (props) => (
     component={Filter}
     fetchOnMount={true}
     initialQuery={{
-      image_rendition: 'fill-225x125',
+      image_rendition: 'min-650x200',
       author_slug: props.match.params.authorSlug,
       content_type: props.contentTypeAPIName || '',
       page_size: 15,

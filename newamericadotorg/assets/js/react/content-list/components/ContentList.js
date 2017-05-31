@@ -1,17 +1,9 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Response } from '../../components/API';
-import { LazyLoadImages } from '../../components/LazyLoad';
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import ContentListItem from './ContentListItem';
 import { NAME } from '../constants';
-const List = ({ results }) => (
-  <LazyLoadImages>
-    {results.map((r, i)=>(
-      <ContentListItem post={r} key={`content-list-item-${i}`}/>
-    ))}
-  </LazyLoadImages>
-);
 
 class ContentList extends Component {
 
@@ -34,7 +26,9 @@ class ContentList extends Component {
         data={results}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
         <section className='content-list container--wide'>
-          <List results={results} />
+          {results.map((r, i)=>(
+            <ContentListItem post={r} key={`content-list-item-${i}`}/>
+          ))}
         </section>
       </InfiniteLoadMore>
     );

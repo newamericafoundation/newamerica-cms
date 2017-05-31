@@ -1,8 +1,6 @@
-import { LazyBackgroundImage } from './LazyLoad';
-
 const Image = ({ author: { profile_image }}) => (
   <div className="author__image-wrapper">
-    <LazyBackgroundImage className="author__image" src={profile_image}/>
+    <div className="author__image" style={{backgroundImage : `url(${profile_image})`}} />
   </div>
 );
 
