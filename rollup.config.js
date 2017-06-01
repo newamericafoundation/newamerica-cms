@@ -37,16 +37,16 @@ export default {
         postcss([cssnano()])
           .process(styleNodes[0].content)
           .then(result => {
-            fs.writeFileSync(
-              path.join(__dirname,'newamericadotorg/templates/style.css'),
+            writeFile(
+              'newamericadotorg/templates/style.css',
               result.css
             );
           });
         postcss([cssnano()])
           .process(styleNodes[1].content)
           .then(result => {
-            fs.writeFileSync(
-              path.join(__dirname,'newamericadotorg/static/css/newamericadotorg.min.css'),
+            writeFile(
+              'newamericadotorg/static/css/newamericadotorg.min.css',
               result.css
             );
           });
@@ -70,3 +70,27 @@ export default {
     uglify()
   ]
 };
+
+function mkdirpath ( _path ) {
+	var dir = path.dirname( _path );
+	try {
+		fs.readdirSync( dir );
+	} catch ( err ) {
+		mkdirpath( dir );
+		fs.mkdirSync( dir );
+	}
+}
+
+function writeFile ( dest, data ) {
+	return new Promise( function ( fulfil, reject ) {
+		mkdirpath( dest );
+
+		fs.writeFile( dest, data, function (err) {
+			if ( err ) {
+				reject( err );
+			} else {
+				fulfil();
+			}
+		});
+	});
+}
