@@ -33,7 +33,6 @@ export default {
       },
 
       output: function(styles, styleNodes) {
-        console.log(__dirname);
         postcss([cssnano()])
           .process(styleNodes[0].content)
           .then(result => {
