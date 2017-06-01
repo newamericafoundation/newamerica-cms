@@ -84,6 +84,7 @@ MIDDLEWARE = [
 
     'newamericadotorg.log_handlers.LogDNAMiddleware',
     # minify html
+    'django.middleware.gzip.GZipMiddleware',
     'htmlmin.middleware.HtmlMinifyMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
 ]
