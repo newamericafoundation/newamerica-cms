@@ -11,6 +11,14 @@ import composer from './react/index';
 import { actions } from './react/actions';
 import lazyload from './react/components/LazyLoad';
 
+// initialize on ready
+if(document.readyState != 'loading') init();
+else document.addEventListener('DOMContentLoaded', init);
+
+function init(){
+  composer.init();
+}
+
 const newamericadotorg = {
   composer,
   lazyload,

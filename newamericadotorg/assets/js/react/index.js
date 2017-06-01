@@ -5,11 +5,7 @@ import siteInit from './site';
 
 let composer = new Composer(store);
 
-// initialize on ready
-if(document.readyState != 'loading') init();
-else document.addEventListener('DOMContentLoaded', init);
-
-function init() {
+composer.init = () => {
   siteInit();
 
   for(let k in components)

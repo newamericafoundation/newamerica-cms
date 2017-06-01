@@ -59,7 +59,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/4.1.1/react-router-dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.28.5/date_fns.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/7.2.2/lazyload.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
+    <script async type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
   {% else %}
     <style>{% include './style.css' %}</style>
     <link rel="preload" href="{% static 'css/newamericadotorg.min.css' %}" as="style" onload="this.rel='stylesheet'">
