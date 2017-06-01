@@ -48,7 +48,12 @@ class Fetch extends Component {
   }
 
   render() {
-    let { className, children } = this.props;
+    let { className, children, name } = this.props;
+    if(typeof children == 'object' && !children.length){
+      if(children.type.displayName=="Connect(Response)")
+        children.props.name = name;
+    }
+
     return (
       <this.props.component {...this.props} className={'compose__fetch-component ' + (className||'')}>
         {children}

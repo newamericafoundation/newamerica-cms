@@ -42,7 +42,7 @@ export class FutureEvents extends Component {
             time_period: 'future',
             page_size: 200
           }}>
-          <Response name="upcomingEvents" component={List} />
+          <Response component={List} />
         </Fetch>
       </div>
     );
@@ -64,7 +64,7 @@ export class PastEvents extends Component {
             page_size: 12,
             page: 1
           }}>
-          <Response name="pastEvents" component={PastList} />
+          <Response component={PastList} />
         </Fetch>
       </div>
     );
