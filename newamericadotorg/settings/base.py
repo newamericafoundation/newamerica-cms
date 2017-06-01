@@ -83,6 +83,9 @@ MIDDLEWARE = [
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 
     'newamericadotorg.log_handlers.LogDNAMiddleware',
+    # minify html
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'newamericadotorg.urls'
