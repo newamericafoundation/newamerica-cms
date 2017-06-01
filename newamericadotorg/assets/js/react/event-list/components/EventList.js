@@ -5,7 +5,7 @@ import EventListItem from './EventListItem';
 
 const List = ({ response: { results }, colxl2=false }) => (
   <div className="content-portrait-grid event-list__list row gutter-10">
-    {results.map((r,i)=>(
+    {results && results.map((r,i)=>(
       <EventListItem event={r} colxl2={colxl2} />
     ))}
   </div>
