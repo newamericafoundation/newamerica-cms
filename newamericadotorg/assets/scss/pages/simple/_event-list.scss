@@ -6,4 +6,26 @@
     text-align: center;
     margin: 15px 0;
   }
+
+  &__item{
+    position: relative;
+
+    &.with-image{
+      .dummy-image{
+        position: absolute;
+        z-index: 0;
+        .fa{
+          display: none;
+        }
+      }
+    }
+    &__text{
+      &__date{
+        &__wrap{
+          display: inline-block;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
 }

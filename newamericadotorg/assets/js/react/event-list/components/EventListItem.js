@@ -7,7 +7,7 @@ const Image = ({ event: { story_image }}) => (
 );
 
 const DummyImage = () => (
-  <div className="portrait-content-grid__item__image-wrapper">
+  <div className="portrait-content-grid__item__image-wrapper dummy-image">
     <i className="portrait-content-grid__item__no-image fa fa-calendar"></i>
     <svg className="portrait-content-grid__item__image" width="200px" height="290px"></svg>
   </div>
@@ -33,7 +33,16 @@ const Programs = ({programs}) => (
 
 const Time = ({startDate, endDate}) => (
   <label className= "block portrait-content-grid__item__text__date">
-    { formatDate(startDate, 'MMMM D, YYYY') + (endDate ? ' - ' + formatDate(endDate, 'MMMM D, YYYY') : '') }
+    <span className="block event-list__item__text__date__wrap">
+      {formatDate(startDate, 'MMMM D, YYYY')}
+    </span>
+    {(endDate>startDate && endDate!=startDate) &&
+      <span>{' - '}
+        <span className="event-list__item__text__date__wrap">
+          {formatDate(endDate, 'MMMM D, YYYY')}
+        </span>
+      </span>
+    }
   </label>
 )
 
@@ -54,10 +63,11 @@ const Text = ({event: { title, programs, projects, date, end_date, city, state }
 
 export default ({ event, colxl2 }) => (
   <div
-    className={`portrait-content-grid__item col-4 col-md-3 ${colxl2 ? ' col-xl-2': ''} ${event.story_image ? ' with-image' : ''}`}>
+    className={`portrait-content-grid__item event-list__item col-4 col-md-3 ${colxl2 ? ' col-xl-2': ''} ${event.story_image ? ' with-image' : ''}`}>
     <a href={event.url} className="portrait-content-grid__item__link-wrapper">
+      <DummyImage />
       {event.story_image && <Image event={event} />}
-      {!event.story_image && <DummyImage />}
+
       <Text event={event} />
     </a>
   </div>
