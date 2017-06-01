@@ -46,8 +46,34 @@
 
   {% if DEBUG %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.css' %}"></link>
+  {% else %}
+    <style>{% include './style.css' %}</style>
+    <link rel="preload" href="{% static 'css/newamericadotorg.min.css' %}" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.min.css' %}"></link></noscript>
+
+    {# css preload polyfill (loadCSS) #}
+    <script>!function(e){"use strict";var n=function(n,t,o){function i(e){return a.body?e():void setTimeout(function(){i(e)})}function r(){l.addEventListener&&l.removeEventListener("load",r),l.media=o||"all"}var d,a=e.document,l=a.createElement("link");if(t)d=t;else{var s=(a.body||a.getElementsByTagName("head")[0]).childNodes;d=s[s.length-1]}var f=a.styleSheets;l.rel="stylesheet",l.href=n,l.media="only x",i(function(){d.parentNode.insertBefore(l,t?d:d.nextSibling)});var u=function(e){for(var n=l.href,t=f.length;t--;)if(f[t].href===n)return e();setTimeout(function(){u(e)})};return l.addEventListener&&l.addEventListener("load",r),l.onloadcssdefined=u,u(r),l};"undefined"!=typeof exports?exports.loadCSS=n:e.loadCSS=n}("undefined"!=typeof global?global:this);!function(t){if(t.loadCSS){var e=loadCSS.relpreload={};if(e.support=function(){try{return t.document.createElement("link").relList.supports("preload")}catch(e){return!1}},e.poly=function(){for(var e=t.document.getElementsByTagName("link"),r=0;r<e.length;r++){var n=e[r];"preload"===n.rel&&"style"===n.getAttribute("as")&&(t.loadCSS(n.href,n,n.getAttribute("media")),n.rel=null)}},!e.support()){e.poly();var r=t.setInterval(e.poly,300);t.addEventListener&&t.addEventListener("load",function(){e.poly(),t.clearInterval(r)}),t.attachEvent&&t.attachEvent("onload",function(){t.clearInterval(r)})}}}(this);
+    </script>
+  {% endif %}
+
+  {% block extra_scripts %}
+      {# Override this in templates to add extra scripts and stylesheets #}
+  {% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+  {% wagtailuserbar %}
+  {% block header %}
+    {% include 'components/header.html' %}
+  {% endblock %}
+  <main>
+      {% block content %}{% endblock %}
+  </main>
+  {% include 'components/footer.html' %}
+
+  {% if DEBUG %}
     {# development dependencies that will bundled with production #}
-    <!-- for convenience, but you should add whatever polyfills you need to dependencies -->
+    <!-- polyfill.io for convenience, but you should add whatever polyfills you need to dependencies -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.min.js"></script>
@@ -59,24 +85,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/4.1.1/react-router-dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.28.5/date_fns.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/7.2.2/lazyload.min.js"></script>
-
     <script type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
   {% else %}
-    <style>{% include './style.css' %}</style>
-    <link rel="preload" href="{% static 'css/newamericadotorg.min.css' %}" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.min.css' %}"></link></noscript>
-
-    {# css preload polyfill (loadCSS) #}
-    <script>!function(e){"use strict";var n=function(n,t,o){function i(e){return a.body?e():void setTimeout(function(){i(e)})}function r(){l.addEventListener&&l.removeEventListener("load",r),l.media=o||"all"}var d,a=e.document,l=a.createElement("link");if(t)d=t;else{var s=(a.body||a.getElementsByTagName("head")[0]).childNodes;d=s[s.length-1]}var f=a.styleSheets;l.rel="stylesheet",l.href=n,l.media="only x",i(function(){d.parentNode.insertBefore(l,t?d:d.nextSibling)});var u=function(e){for(var n=l.href,t=f.length;t--;)if(f[t].href===n)return e();setTimeout(function(){u(e)})};return l.addEventListener&&l.addEventListener("load",r),l.onloadcssdefined=u,u(r),l};"undefined"!=typeof exports?exports.loadCSS=n:e.loadCSS=n}("undefined"!=typeof global?global:this);!function(t){if(t.loadCSS){var e=loadCSS.relpreload={};if(e.support=function(){try{return t.document.createElement("link").relList.supports("preload")}catch(e){return!1}},e.poly=function(){for(var e=t.document.getElementsByTagName("link"),r=0;r<e.length;r++){var n=e[r];"preload"===n.rel&&"style"===n.getAttribute("as")&&(t.loadCSS(n.href,n,n.getAttribute("media")),n.rel=null)}},!e.support()){e.poly();var r=t.setInterval(e.poly,300);t.addEventListener&&t.addEventListener("load",function(){e.poly(),t.clearInterval(r)}),t.attachEvent&&t.attachEvent("onload",function(){t.clearInterval(r)})}}}(this);
-    </script>
     <script type="text/javascript" src="{% static 'js/newamericadotorg.min.js' %}"></script>
-  {% endif %}
-
-  {% block extra_scripts %}
-      {# Override this in templates to add extra scripts and stylesheets #}
-  {% endblock %}
-
-  {% if not DEBUG %}
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -84,24 +95,10 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-MMGT6BG');</script>
     <!-- End Google Tag Manager -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMGT6BG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
   {% endif %}
-</head>
-
-<body class="{% block body_class %}{% endblock %}">
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMGT6BG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  {% wagtailuserbar %}
-  {% block header %}
-    {% include 'components/header.html' %}
-  {% endblock %}
-  <main>
-      {% block content %}{% endblock %}
-  </main>
-  {% include 'components/footer.html' %}
-
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}
   {% endblock %}
