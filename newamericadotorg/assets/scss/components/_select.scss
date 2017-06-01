@@ -1,7 +1,7 @@
 .select{
   display: inline-block;
   position: relative;
-  z-index: 10;
+  z-index: 1;
   cursor: pointer;
   outline: none;
   &.wide {
@@ -14,7 +14,7 @@
     border: $border;
     border-radius: $border-radius;
     position: relative;
-    z-index: 110;
+    z-index: 2;
     background: color(white, base);
     &::after{
       // cover wrapper for click events;
@@ -48,7 +48,7 @@
   &__clear{
     cursor: pointer;
     position: absolute;
-    z-index: 115;
+    z-index: 3;
     right: 20px;
     top: 50%;
     opacity: 0.5;
@@ -67,7 +67,7 @@
     position: absolute;
     right: 10px;
     top: 50%;
-    z-index: 115;
+    z-index: 3;
     margin-top: -0.15rem;
     .fa{
       @include transition(transform 0.25s ease-in);
@@ -89,7 +89,7 @@
     background: color(white, base);
     margin-top: -5px;
     border-radius: $border-radius;
-    z-index: 100;
+    z-index: 1;
     &__option{
       display: block;
       cursor: pointer;
