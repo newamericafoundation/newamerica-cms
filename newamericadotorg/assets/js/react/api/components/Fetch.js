@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { BASEURL } from '../constants';
 import {
   fetchData, fetchAndAppend, setEndpoint, setQueryParam, setParams,
-  setQuery, setBase, receiveResults, setFetchingStatus, setResponse
+  setQuery, setBase, receiveResults, setFetchingStatus
 } from '../actions';
 
 
@@ -33,14 +33,11 @@ class Fetch extends Component {
 
   componentWillMount(){
     let {
-      name, setParams, receiveResults, endpoint,
+      setParams, receiveResults, endpoint,
       initialQuery, clear, fetchData, fetchOnMount
     } = this.props;
 
     setParams({ endpoint, query: initialQuery }, false);
-    setResponse(name, {
-      isFetching: false, hasNext: false, hasPrevious: false, results: [],
-    });
 
     if(clear){
       receiveResults([]);
@@ -53,13 +50,11 @@ class Fetch extends Component {
   render() {
     let { className, children, name } = this.props;
     if(children){
-      if(children.type){
-        if(children.type.displayName=='Connect(Response)'){
-          children.props.name = name;
-          console.log(children);
-        }
+      if(typeof children == 'object' && !children.length && children.type.displayName=="Connect(Response)"){
+        children.props.name = name;
       }
     }
+
     return (
       <this.props.component {...this.props} className={'compose__fetch-component ' + (className||'')}>
         {children}
@@ -69,7 +64,7 @@ class Fetch extends Component {
 }
 
 export const mapStateToProps = (state, props) => ({
-  response: state[props.name] || {}
+  response: state[props.name] || { isFetching: false, hasNext: false, hasPrevious: false, results: [] }
 });
 
 export const mapDispatchToProps = (dispatch, props) => ({
