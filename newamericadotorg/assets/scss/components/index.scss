@@ -1,9 +1,10 @@
-@import 'author/index';
+// @import 'story-grid/index';
+// @import 'featured-stories';
+
 @import 'content-list/index';
-//@import 'search/index';
+@import 'portrait-content-grid';
+@import 'author/index';
 @import 'breadcrumbs';
-//@import 'nav-circles';
-//@import 'pagination';
 @import 'social-share';
 @import 'footer';
 @import 'lazyload-images';

@@ -7,6 +7,7 @@ import uglify from 'rollup-plugin-uglify';
 import postcss from 'postcss'
 import cssnano from 'cssnano';
 import fs from 'fs';
+import path from 'path';
 
 export default {
   entry: 'newamericadotorg/assets/js/newamericadotorg.js',
@@ -30,12 +31,24 @@ export default {
           'newamericadotorg/assets/scss'
         ]
       },
-      processor: css => {
-        // minify
+
+      output: function(styles, styleNodes) {
+        console.log(__dirname);
         postcss([cssnano()])
-          .process(css)
+          .process(styleNodes[0].content)
           .then(result => {
-            fs.writeFileSync('newamericadotorg/static/css/newamericadotorg.min.css',result.css);
+            fs.writeFileSync(
+              path.join(__dirname,'newamericadotorg/templates/style.css'),
+              result.css
+            );
+          });
+        postcss([cssnano()])
+          .process(styleNodes[1].content)
+          .then(result => {
+            fs.writeFileSync(
+              path.join(__dirname,'newamericadotorg/static/css/newamericadotorg.min.css'),
+              result.css
+            );
           });
       }
     }),

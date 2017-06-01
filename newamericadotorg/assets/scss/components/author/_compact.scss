@@ -1,13 +1,25 @@
 &.compact{
   .author__image-wrapper{
-    @extend .col-sm-4;
+    @extend %col;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 33.333333%;
+        -ms-flex: 0 0 33.333333%;
+            flex: 0 0 33.333333%;
+    max-width: 33.333333%;
   }
   .author__image{
     width: 75px;
     height: 75px;
   }
+
   .author__text{
-    @extend .col-sm-8;
+    @extend %col;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 66.666667%;
+        -ms-flex: 0 0 66.666667%;
+            flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+
     &__short-bio{
       display: none;
     }

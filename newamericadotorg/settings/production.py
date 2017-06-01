@@ -22,6 +22,7 @@ SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 AWS_QUERYSTRING_AUTH = False
+AWS_IS_GZIPPED = True
 
 # s3 bucket settings
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -42,6 +43,8 @@ STATICFILES_LOCATION='static'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 STATIC_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
 
+COMPRESS_URL = STATIC_URL
+COMPRESS_STORAGE = STATICFILES_STORAGE
 
 # Elastic Search setup
 es_url = os.getenv('SEARCHBOX_URL', "http://localhost:9200/")

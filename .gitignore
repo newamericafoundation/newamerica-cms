@@ -14,7 +14,7 @@ media/
 static/
 
 newamericadotorg/static/js/
-
+newamericadotorg/templates/style.css
 
 venv
 *.log

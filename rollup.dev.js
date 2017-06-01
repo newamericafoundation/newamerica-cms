@@ -28,7 +28,8 @@ export default {
   plugins: [
     replace({
       'process.env.NODE_ENV': '\'' + process.env.NODE_ENV + '\'',
-      'import \'./../scss/newamericadotorg.scss\';': ''
+      'import \'./../scss/newamericadotorg.scss\';': '',
+      'import \'./../scss/critical.scss\';': ''
     }),
     babel(),
   ]

@@ -1,6 +1,7 @@
 .select{
   display: inline-block;
   position: relative;
+  z-index: 0;
   cursor: pointer;
   outline: none;
   &.wide {

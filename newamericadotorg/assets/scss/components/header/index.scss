@@ -12,6 +12,7 @@ $header-expanded-height: 155px;
   margin: 0 auto 15px auto;
   padding: 0 15px 0 25px;
   position: relative;
+  z-index: 1000;
 
   @include media-breakpoint(large-desktop){
     padding: 0 0 0 0;
