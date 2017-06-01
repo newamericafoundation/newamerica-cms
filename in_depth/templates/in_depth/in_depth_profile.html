@@ -35,14 +35,14 @@
 		</div>
 	</div>
 
-	<div class="in-depth__profile">
+	<div class="in-depth__profile" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}">
 		<div class="in-depth__profile__title-block-container">
 			<div class="in-depth__profile__title-block">
 				{% if page.image_field %}
 					<div class="in-depth__profile__title-block__image" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}" data-image-field="{{ page.image_field }}"></div>
 				{% endif %}
 				<h5 class="in-depth__profile__title-block__subheading">{{ page.title }}</h5>
-			   	<h1 class="in-depth__profile__title-block__title" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}"></h1>
+			   	<h1 class="in-depth__profile__title-block__title"></h1>
 			</div>
 			<div class="in-depth__profile__other-value-selector-container">
 				<select class="in-depth__profile__other-value-selector" onchange="document.location = '?' + this.value;">
@@ -50,7 +50,7 @@
 	            </select>
 			</div>
 		</div>
-		<div class="in-depth__profile__body post-body" data-sheet-name="{{ page.datasheet_name }}" data-lookup-field="{{ page.lookup_field }}">
+		<div class="in-depth__profile__body post-body">
 			{% for block in page.body %}
 		    	{% include 'ui_elements/post_body_block.html' %}
 		    {% endfor %}

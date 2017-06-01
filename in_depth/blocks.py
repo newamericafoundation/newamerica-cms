@@ -32,6 +32,7 @@ class DataReferenceBlock(blocks.StructBlock):
     		('string', 'Plain-text'),
     		('price', 'Price'),
 			('rank', 'Rank'),
+			('markdown', 'Rich-text'),
     	], default='string')),
     	('footnote_field', blocks.CharBlock(required=False))
 	]), help_text="Specify the field where values to display will be found.")
