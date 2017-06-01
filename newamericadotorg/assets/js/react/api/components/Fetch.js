@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { BASEURL } from '../constants';
 import {
   fetchData, fetchAndAppend, setEndpoint, setQueryParam, setParams,
-  setQuery, setBase, receiveResults, setFetchingStatus
+  setQuery, setBase, receiveResults, setFetchingStatus, setResponse
 } from '../actions';
 
 
@@ -33,11 +33,14 @@ class Fetch extends Component {
 
   componentWillMount(){
     let {
-      setParams, receiveResults, endpoint,
+      name, setParams, receiveResults, endpoint,
       initialQuery, clear, fetchData, fetchOnMount
     } = this.props;
 
     setParams({ endpoint, query: initialQuery }, false);
+    setResponse(name, {
+      isFetching: false, hasNext: false, hasPrevious: false, results: [],
+    });
 
     if(clear){
       receiveResults([]);
@@ -50,12 +53,13 @@ class Fetch extends Component {
   render() {
     let { className, children, name } = this.props;
     if(children){
-      if(typeof children == 'object' && !children.length && children.type.displayName=="Connect(Response)"){
-        children.props.name = name;
-        console.log(children);
+      if(children.type){
+        if(children.type.displayName=='Connect(Response)'){
+          children.props.name = name;
+          console.log(children);
+        }
       }
     }
-
     return (
       <this.props.component {...this.props} className={'compose__fetch-component ' + (className||'')}>
         {children}
