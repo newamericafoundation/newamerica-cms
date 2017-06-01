@@ -3,6 +3,10 @@ import { Fetch, Response } from '../../components/API'
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import EventListItem from './EventListItem';
 
+const ListWrapper = ({ className, children }) => (
+  <div className={'event-list__past-events ' + className}>{children}</div>
+);
+
 const List = ({ response: { results }, colxl2=false }) => (
   <div className="content-portrait-grid event-list__list row gutter-10">
     {results.map((r,i)=>(
@@ -35,7 +39,7 @@ export class FutureEvents extends Component {
         <h1 className="event-list__heading centered">Upcoming Events</h1>
         <Fetch
           name="upcomingEvents"
-          component="div"
+          component={ListWrapper}
           fetchOnMount={true}
           endpoint="event"
           initialQuery={{
@@ -56,7 +60,7 @@ export class PastEvents extends Component {
         <h1 className="event-list__heading centered">Past Events</h1>
         <Fetch
           name="pastEvents"
-          component="div"
+          component={ListWrapper}
           fetchOnMount={true}
           endpoint="event"
           initialQuery={{

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps } from './Fetch';
+import { mapStateToProps, mapDispatchToProps } from './props';
 
 class Response extends Component {
   static propTypes = {

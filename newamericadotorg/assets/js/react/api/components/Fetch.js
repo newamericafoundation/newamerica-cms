@@ -2,11 +2,8 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BASEURL } from '../constants';
-import {
-  fetchData, fetchAndAppend, setEndpoint, setQueryParam, setParams,
-  setQuery, setBase, receiveResults, setFetchingStatus
-} from '../actions';
-
+import Response from './Response';
+import { mapDispatchToProps, mapStateToProps } from './props';
 
 class Fetch extends Component {
   static propTypes = {
@@ -47,26 +44,21 @@ class Fetch extends Component {
     if(fetchOnMount) fetchData();
   }
 
-  applyNameToResponseChild = () => {
+  mapNameToResponse = () => {
     let { children, name } = this.props;
     let _children;
     if(typeof children == 'object'){
-      if(children.type){
-        if(children.type.displayName=="Connect(Response)")
-          _children = (
-            <children.type {...children.props} name={name} >
-              {children.props.children}
-            </children.type>
-          );
+      if(children.type === Response){
+        return (<Response name={name} component={children.props.component} />);
       }
     }
-    return _children || children;
+
+    return children;
   }
 
   render() {
     let { className } = this.props;
-    let children = this.applyNameToResponseChild();
-
+    let children = this.mapNameToResponse();
     return (
       <this.props.component {...this.props} className={'compose__fetch-component ' + (className||'')}>
         {children}
@@ -74,59 +66,6 @@ class Fetch extends Component {
     );
   }
 }
-
-export const mapStateToProps = (state, props) => ({
-  response: state[props.name] || { isFetching: false, hasNext: false, hasPrevious: false, results: [] }
-});
-
-export const mapDispatchToProps = (dispatch, props) => ({
-  setParams: ({ endpoint, query, baseUrl }, eager) => {
-    dispatch(setParams(props.name, { endpoint, query, baseUrl }));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
-  },
-
-  setEndpoint: (endpoint, eager) => {
-    dispatch(setEndpoint(props.name, endpoint));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
-  },
-
-  setQueryParam: (key, value, eager) => {
-    dispatch(setQueryParam(props.name, {key, value}));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
-  },
-
-  setQuery: (query, eager) => {
-    dispatch(setQuery(props.name, query));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
-  },
-
-  setBase: (baseUrl, eager) => {
-    dispatch(setBase(props.name, baseUrl));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
-  },
-
-  setFetchingStatus: (status) => {
-    dispatch(setFetchingStatus(props.name, status));
-  },
-
-  fetchData: (callback) => {
-    dispatch(fetchData(props.name, callback));
-  },
-
-  fetchAndAppend: (callback) => {
-    dispatch(fetchAndAppend(props.name, callback));
-  },
-
-  receiveResults: (val) => {
-    dispatch(receiveResults(props.name, val));
-  }
-
-});
 
 export default connect(
   mapStateToProps, mapDispatchToProps
