@@ -1,10 +1,20 @@
 import { NAME, ID } from './constants';
 import { Events } from './components';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 
-const APP = () => (
-  <section className="program-events">
-    <Events />
-  </section>
-)
+class APP extends Component {
+  static propTypes = {
+    programId: PropTypes.string
+  }
+
+  render(){
+    return(
+      <section className="program-events">
+        <Events programId={this.props.programId} />
+      </section>
+    );
+  }
+}
 
 export default { NAME, ID, APP };

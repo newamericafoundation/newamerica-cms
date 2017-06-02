@@ -1,5 +1,6 @@
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { camelize } from '../utils/index';
 
 export default class Composer {
   constructor(store){
@@ -20,8 +21,9 @@ export default class Composer {
       this.components[name] = { name, id, el, app: null };
 
     if(el) {
+      let props = getProps(el);
       this.components[name].app = render(
-        <Provider store={store}><App/></Provider>, el );
+        <Provider store={store}><App {...props}/></Provider>, el );
 
       this.components[name].render = function(){
         console.warn(`${name} is already rendered!`); }
@@ -36,4 +38,17 @@ export default class Composer {
     }
     return this;
   }
+}
+
+function getProps(el){
+  let props = {};
+  for(let i=0; i<el.attributes.length; i++){
+    let attr = el.attributes[i],
+    name = attr.nodeName,
+    val = attr.nodeValue;
+    if(name.indexOf('data-')!==-1){
+      props[camelize(name.replace('data-',''))] = val;
+    }
+  }
+  return props;
 }

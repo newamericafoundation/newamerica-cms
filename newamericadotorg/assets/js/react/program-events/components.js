@@ -109,7 +109,8 @@ export class Events extends Component {
         showLoading={true}
         transition={true}
         initialQuery={{
-          page_size: 15
+          page_size: 18,
+          program_id: this.props.programId
         }}
       />
     );

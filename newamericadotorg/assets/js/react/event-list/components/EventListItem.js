@@ -8,10 +8,10 @@ const RSVP = () => (
   </div>
 )
 
-const Image = ({ event: { story_image }, hasRSVP }) => (
+const Image = ({ event: { story_image, date }}) => (
   <div className="portrait-content-grid__item__image-wrapper">
     <img className="portrait-content-grid__item__image" src={story_image}/>
-    {hasRSVP && <RSVP/>}
+    {(new Date(date)>=new Date()) && <RSVP/>}
   </div>
 );
 
@@ -70,11 +70,11 @@ const Text = ({event: { title, programs, projects, date, end_date, city, state }
   </div>
 );
 
-export default ({ item, cols, hasRSVP }) => (
+export default ({ item, cols }) => (
   <div
     className={`portrait-content-grid__item event-list__item ${cols} ${item.story_image ? ' with-image' : ''}`}>
     <a href={item.url} className="portrait-content-grid__item__link-wrapper">
-      {item.story_image && <Image event={item} hasRSVP={hasRSVP}/>}
+      {item.story_image && <Image event={item}/>}
       {!item.story_image && <DummyImage />}
       <Text event={item} />
     </a>
