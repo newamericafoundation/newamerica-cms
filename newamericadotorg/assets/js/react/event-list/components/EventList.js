@@ -3,16 +3,16 @@ import { Fetch, Response } from '../../components/API'
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import EventListItem from './EventListItem';
 
-export const List = ({ items, colxl2=false, hasRSVP=false}) => (
+export const List = ({ items, cols, hasRSVP=false}) => (
   <div className="content-portrait-grid event-list row gutter-10">
     {items.map((r,i)=>(
-      <EventListItem event={r} colxl2={colxl2} hasRSVP={hasRSVP}/>
+      <EventListItem item={r} cols={cols} hasRSVP={hasRSVP}/>
     ))}
   </div>
 );
 
 const FutureList = ({ response }) => (
-  <List items={response.results} hasRSVP={true}/>
+  <List items={response.results} cols='col-4 col-md-3' hasRSVP={true}/>
 );
 
 const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
@@ -28,7 +28,7 @@ const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
       setQueryParam('page', response.page+1);
       return fetchAndAppend;
     }}>
-    <List items={response.results} colxl2={true}/>
+    <List items={response.results} cols='col-4 col-md-3 col-xl-2'/>
   </InfiniteLoadMore>
 )
 

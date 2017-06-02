@@ -70,13 +70,13 @@ const Text = ({event: { title, programs, projects, date, end_date, city, state }
   </div>
 );
 
-export default ({ event, colxl2, hasRSVP }) => (
+export default ({ item, cols, hasRSVP }) => (
   <div
-    className={`portrait-content-grid__item event-list__item col-4 col-md-3${colxl2 ? ' col-xl-2': ''}${event.story_image ? ' with-image' : ''}`}>
-    <a href={event.url} className="portrait-content-grid__item__link-wrapper">
-      {event.story_image && <Image event={event} hasRSVP={hasRSVP}/>}
-      {!event.story_image && <DummyImage />}
-      <Text event={event} />
+    className={`portrait-content-grid__item event-list__item ${cols} ${item.story_image ? ' with-image' : ''}`}>
+    <a href={item.url} className="portrait-content-grid__item__link-wrapper">
+      {item.story_image && <Image event={item} hasRSVP={hasRSVP}/>}
+      {!item.story_image && <DummyImage />}
+      <Text event={item} />
     </a>
   </div>
 );
