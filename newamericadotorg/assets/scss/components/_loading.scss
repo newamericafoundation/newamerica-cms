@@ -3,17 +3,24 @@ $loading-icon-width: 3.5em;
 $loading-icon-spacing: 0.5em;
 $loading-icon-circle-margin: #{$loading-icon-spacing - .1em};
 $loading-animation-delay: 0.15s;
+
+.fetch-transition{
+  > * {
+    @include transition(opacity .3s ease-in-out);
+    opacity: 1;
+  }
+
+  &.is-fetching{
+    > * {
+      opacity: 0.15;
+    }
+  }
+}
+
 .loading-icon-container{
   margin-top: 50px;
   text-align: center;
-}
-
-.fetch-transition{
-  @include transition(opacity .3s ease-in-out);
-  opacity: 1;
-  &.is-fetching{
-    opacity: 0.15;
-  }
+  opacity: 1 !important;
 }
 
 .loading-icon{
