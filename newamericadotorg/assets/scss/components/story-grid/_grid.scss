@@ -26,7 +26,7 @@
 		&__item{
 			height: 33.333%;
 			@include media-breakpoint(tablet){
-				height: 50% !important;
+				height: 50%;
 			}
 		}
 	}
