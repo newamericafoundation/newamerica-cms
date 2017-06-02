@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BASEURL } from '../constants';
 import Response from './Response';
+import LoadingIcon from '../../components/LoadingIcon';
 import { mapDispatchToProps, mapStateToProps } from './props';
 
 class Fetch extends Component {
@@ -17,7 +18,9 @@ class Fetch extends Component {
     baseUrl: PropTypes.string,
     clear: PropTypes.bool,
     initialQuery: PropTypes.object,
-    fetchOnMount: PropTypes.bool
+    fetchOnMount: PropTypes.bool,
+    showLoading: PropTypes.bool,
+    transition: PropTypes.bool
   }
 
   static defaultProps = {
@@ -25,7 +28,9 @@ class Fetch extends Component {
     baseUrl: BASEURL,
     fetchOnMount: false,
     eager: false,
-    component: 'div'
+    component: 'div',
+    showLoading: false,
+    transition: false
   }
 
   componentWillMount(){
@@ -57,13 +62,14 @@ class Fetch extends Component {
   }
 
   render() {
-    let { className } = this.props;
+    let { className, showLoading, component, transition } = this.props;
     let { isFetching } = this.props.response;
     let children = this.mapNameToResponse();
     return (
       <this.props.component {...this.props}
-        className={'compose__fetch-component ' + (className||'') + (isFetching? ' is-fetching': '')}>
-        {children}
+        className={'compose__fetch-component' + (transition ? ' fetch-transition ' : '') + (className||'') + (isFetching? ' is-fetching': '')}>
+        {children || (component.props ? component.props.children : '')}
+        {(isFetching&&showLoading) && <div className="loading-icon-container"><LoadingIcon /></div>}
       </this.props.component>
     );
   }

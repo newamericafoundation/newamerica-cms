@@ -39,8 +39,10 @@ export class FutureEvents extends Component {
         <h1 className="event-list__heading centered">Upcoming Events</h1>
         <Fetch name="upcomingEvents"
           className="event-lists__upcoming-events"
-          fetchOnMount={true}
           endpoint="event"
+          fetchOnMount={true}
+          showLoading={true}
+          transition={true}
           initialQuery={{
             time_period: 'future',
             page_size: 200
