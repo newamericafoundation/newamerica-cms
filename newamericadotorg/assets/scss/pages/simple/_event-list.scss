@@ -12,16 +12,29 @@
 .event-list{
   &__item{
     position: relative;
-
-    &.with-image{
-      .dummy-image{
-        position: relative;
-        z-index: 0;
-        svg{
-          position: absolute;
-        }
-        .fa{
-          display: none;
+    &__rsvp{
+      position: absolute;
+      bottom: 0px;
+      padding: 25px 0 15px 0;
+      @include linear-gradient-vertical(color(black,base,0), color(black,base,1));
+      text-align: center;
+      width: 100%;
+      display: block;
+      &__text, .fa{
+        color: color(turquoise, light) !important;
+      }
+      &__text{
+        font-size: 0.8rem;
+      }
+      .fa {
+        font-size: 1.2rem;
+        padding-right: 5px;
+      }
+    }
+    &:hover{
+      .event-list__item__rsvp{
+        &__text, .fa{
+          color: color(turquoise) !important;
         }
       }
     }

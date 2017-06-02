@@ -8,14 +8,27 @@
     }
 
     &__image-wrapper{
-      position: relative;
       background: color(gray, light);
+      z-index: 1;
+      width: 100%;
+      padding-bottom: 145%;
+      position: relative;
+      opacity: 1;
+      cursor: pointer;
+
+      @include transition(opacity $transition-function);
+      &:hover{
+        opacity: 0.8;
+      }
     }
+
     &__image{
       width: 100% !important;
       height: auto;
       display: block;
+      position: absolute;
     }
+
     &__no-image{
       color: color(gray);
       position: absolute;
@@ -25,5 +38,6 @@
     &__text{
       margin-top: 5px;
     }
+
   }
 }

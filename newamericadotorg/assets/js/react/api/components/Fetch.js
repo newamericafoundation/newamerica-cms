@@ -25,7 +25,7 @@ class Fetch extends Component {
     baseUrl: BASEURL,
     fetchOnMount: false,
     eager: false,
-    component: 'span'
+    component: 'div'
   }
 
   componentWillMount(){
@@ -58,9 +58,11 @@ class Fetch extends Component {
 
   render() {
     let { className } = this.props;
+    let { isFetching } = this.props.response;
     let children = this.mapNameToResponse();
     return (
-      <this.props.component {...this.props} className={'compose__fetch-component ' + (className||'')}>
+      <this.props.component {...this.props}
+        className={'compose__fetch-component ' + (className||'') + (isFetching? ' is-fetching': '')}>
         {children}
       </this.props.component>
     );

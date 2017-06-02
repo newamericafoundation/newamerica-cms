@@ -3,18 +3,16 @@ import { Fetch, Response } from '../../components/API'
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import EventListItem from './EventListItem';
 
-export const List = ({ results, colxl2=false }) => (
+export const List = ({ items, colxl2=false, hasRSVP=false}) => (
   <div className="content-portrait-grid event-list row gutter-10">
-    {results.map((r,i)=>(
-      <EventListItem event={r} colxl2={colxl2} />
+    {items.map((r,i)=>(
+      <EventListItem event={r} colxl2={colxl2} hasRSVP={hasRSVP}/>
     ))}
   </div>
 );
 
-const FutureList = ({ className, response }) => (
-  <div className={'event-lists__upcoming-events ' + className}>
-    <List results={response.results}/>
-  </div>
+const FutureList = ({ response }) => (
+  <List items={response.results} hasRSVP={true}/>
 );
 
 const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
@@ -30,7 +28,7 @@ const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
       setQueryParam('page', response.page+1);
       return fetchAndAppend;
     }}>
-    <List results={response.results} colxl2={true}/>
+    <List items={response.results} colxl2={true}/>
   </InfiniteLoadMore>
 )
 
@@ -39,15 +37,16 @@ export class FutureEvents extends Component {
     return(
       <div className="event-list">
         <h1 className="event-list__heading centered">Upcoming Events</h1>
-        <Fetch
-          name="upcomingEvents"
-          component={FutureList}
+        <Fetch name="upcomingEvents"
+          className="event-lists__upcoming-events"
           fetchOnMount={true}
           endpoint="event"
           initialQuery={{
             time_period: 'future',
             page_size: 200
-          }}/>
+          }}>
+          <Response component={FutureList} />
+        </Fetch>
       </div>
     );
   }
@@ -58,8 +57,7 @@ export class PastEvents extends Component {
     return(
       <div className="event-list">
         <h1 className="event-list__heading centered">Past Events</h1>
-        <Fetch
-          name="pastEvents"
+        <Fetch name="pastEvents"
           component={PastList}
           fetchOnMount={true}
           endpoint="event"

@@ -1,8 +1,17 @@
 import { format as formatDate } from 'date-fns';
 
-const Image = ({ event: { story_image }}) => (
+const RSVP = () => (
+  <div className="event-list__item__rsvp">
+    <span className="event-list__item__rsvp__text">
+      <i className="fa fa-ticket"></i> Now Available
+    </span>
+  </div>
+)
+
+const Image = ({ event: { story_image }, hasRSVP }) => (
   <div className="portrait-content-grid__item__image-wrapper">
     <img className="portrait-content-grid__item__image" src={story_image}/>
+    {hasRSVP && <RSVP/>}
   </div>
 );
 
@@ -56,18 +65,17 @@ const Text = ({event: { title, programs, projects, date, end_date, city, state }
   <div className="portrait-content-grid__item__text">
     <Title title={title} />
     {programs && <Programs programs={programs} />}
-    <Time startDate={date} endDate={end_date} />
-    <Location city={city} state={state} />
+    {date && <Time startDate={date} endDate={end_date} />}
+    {(city&&state) && <Location city={city} state={state} />}
   </div>
-)
+);
 
-export default ({ event, colxl2 }) => (
+export default ({ event, colxl2, hasRSVP }) => (
   <div
     className={`portrait-content-grid__item event-list__item col-4 col-md-3${colxl2 ? ' col-xl-2': ''}${event.story_image ? ' with-image' : ''}`}>
     <a href={event.url} className="portrait-content-grid__item__link-wrapper">
-      <DummyImage />
-      {event.story_image && <Image event={event} />}
-
+      {event.story_image && <Image event={event} hasRSVP={hasRSVP}/>}
+      {!event.story_image && <DummyImage />}
       <Text event={event} />
     </a>
   </div>

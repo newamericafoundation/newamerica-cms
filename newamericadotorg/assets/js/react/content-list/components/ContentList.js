@@ -5,9 +5,9 @@ import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import ContentListItem from './ContentListItem';
 import { NAME } from '../constants';
 
-export const List = ({ results }) => (
+export const List = ({ items }) => (
   <section className='content-list container--wide'>
-    {results.map((r, i)=>(
+    {items.map((r, i)=>(
       <ContentListItem post={r} key={`content-list-item-${i}`}/>
     ))}
   </section>
@@ -33,7 +33,7 @@ class ContentList extends Component {
         isFetching={isFetching}
         data={results}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
-        <List results={results} />
+        <List items={results} />
       </InfiniteLoadMore>
     );
   }

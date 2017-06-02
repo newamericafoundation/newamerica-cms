@@ -18,8 +18,10 @@ class Response extends Component {
 
   render(){
     let { children, className } = this.props;
+    let { isFetching } = this.props.response;
     return (
-      <this.props.component {...this.props} className={'compose__response-component ' + (className||'')}>
+      <this.props.component {...this.props}
+        className={'compose__response-component ' + (className||'') + (isFetching? ' is-fetching': '')}>
         {children}
       </this.props.component>
     );
