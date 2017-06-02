@@ -11,11 +11,11 @@ class APP extends Component {
   }
   render(){
     return(
-      <section className="container--wide event-list">
+      <section className="container--wide event-lists">
         <FutureEvents />
         {!this.state.showPast &&
-          <div className="event-list__show-past-button-wrapper">
-            <a className="button transparent lg event-list__show-past-button" onClick={this.showPast}>
+          <div className="event-lists__show-past-button-wrapper">
+            <a className="button transparent lg event-lists__show-past-button" onClick={this.showPast}>
               Show Past Events
             </a>
           </div>

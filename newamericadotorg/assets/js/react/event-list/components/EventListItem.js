@@ -63,7 +63,7 @@ const Text = ({event: { title, programs, projects, date, end_date, city, state }
 
 export default ({ event, colxl2 }) => (
   <div
-    className={`portrait-content-grid__item event-list__item col-4 col-md-3 ${colxl2 ? ' col-xl-2': ''} ${event.story_image ? ' with-image' : ''}`}>
+    className={`portrait-content-grid__item event-list__item col-4 col-md-3${colxl2 ? ' col-xl-2': ''}${event.story_image ? ' with-image' : ''}`}>
     <a href={event.url} className="portrait-content-grid__item__link-wrapper">
       <DummyImage />
       {event.story_image && <Image event={event} />}

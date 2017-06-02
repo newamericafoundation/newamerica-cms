@@ -5,6 +5,14 @@ import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import ContentListItem from './ContentListItem';
 import { NAME } from '../constants';
 
+export const List = ({ results }) => (
+  <section className='content-list container--wide'>
+    {results.map((r, i)=>(
+      <ContentListItem post={r} key={`content-list-item-${i}`}/>
+    ))}
+  </section>
+);
+
 class ContentList extends Component {
 
   nextPage = () => {
@@ -25,11 +33,7 @@ class ContentList extends Component {
         isFetching={isFetching}
         data={results}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
-        <section className='content-list container--wide'>
-          {results.map((r, i)=>(
-            <ContentListItem post={r} key={`content-list-item-${i}`}/>
-          ))}
-        </section>
+        <List results={results} />
       </InfiniteLoadMore>
     );
   }

@@ -1,12 +1,15 @@
-.event-list{
-  &__past-events{
-    min-height: 50vh;
-  }
+.event-lists{
   &__show-past-button-wrapper{
     text-align: center;
     margin: 15px 0;
   }
 
+  &__past-events, &__upcoming-events{
+    min-height: 50vh;
+  }
+}
+
+.event-list{
   &__item{
     position: relative;
 

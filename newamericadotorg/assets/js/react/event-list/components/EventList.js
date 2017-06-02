@@ -3,21 +3,23 @@ import { Fetch, Response } from '../../components/API'
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import EventListItem from './EventListItem';
 
-const ListWrapper = ({ className, children }) => (
-  <div className={'event-list__past-events ' + className}>{children}</div>
-);
-
-const List = ({ response: { results }, colxl2=false }) => (
-  <div className="content-portrait-grid event-list__list row gutter-10">
+export const List = ({ results, colxl2=false }) => (
+  <div className="content-portrait-grid event-list row gutter-10">
     {results.map((r,i)=>(
       <EventListItem event={r} colxl2={colxl2} />
     ))}
   </div>
 );
 
-const PastList = ({ response, fetchAndAppend, setQueryParam }) => (
+const FutureList = ({ className, response }) => (
+  <div className={'event-lists__upcoming-events ' + className}>
+    <List results={response.results}/>
+  </div>
+);
+
+const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
   <InfiniteLoadMore
-    className="event-list__past-events"
+    className={'event-lists__past-events ' + className }
     infiniteOnMount={true}
     isFetching={response.isFetching}
     hasNext={response.hasNext}
@@ -28,7 +30,7 @@ const PastList = ({ response, fetchAndAppend, setQueryParam }) => (
       setQueryParam('page', response.page+1);
       return fetchAndAppend;
     }}>
-    <List response={response} colxl2={true}/>
+    <List results={response.results} colxl2={true}/>
   </InfiniteLoadMore>
 )
 
@@ -39,15 +41,13 @@ export class FutureEvents extends Component {
         <h1 className="event-list__heading centered">Upcoming Events</h1>
         <Fetch
           name="upcomingEvents"
-          component={ListWrapper}
+          component={FutureList}
           fetchOnMount={true}
           endpoint="event"
           initialQuery={{
             time_period: 'future',
             page_size: 200
-          }}>
-          <Response component={List} />
-        </Fetch>
+          }}/>
       </div>
     );
   }
@@ -60,16 +60,14 @@ export class PastEvents extends Component {
         <h1 className="event-list__heading centered">Past Events</h1>
         <Fetch
           name="pastEvents"
-          component={ListWrapper}
+          component={PastList}
           fetchOnMount={true}
           endpoint="event"
           initialQuery={{
             time_period: 'past',
             page_size: 12,
             page: 1
-          }}>
-          <Response component={PastList} />
-        </Fetch>
+          }}/>
       </div>
     );
   }
