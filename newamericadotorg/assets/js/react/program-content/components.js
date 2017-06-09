@@ -15,7 +15,7 @@ export const ContentGridItem = ({ item, className }) => (
         <h3 className="narrow-margin content-grid__item__text__title">
           <a href={item.url} className="content-grid__item__link-wrapper">{item.title}</a>
           </h3>
-        <p className="content-grid__item__text__description">{item.story_excerpt}</p>
+        <p className="content-grid__item__text__description narrow-margin">{item.story_excerpt}</p>
       </div>
   </div>
 );

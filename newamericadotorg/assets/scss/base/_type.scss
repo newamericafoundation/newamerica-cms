@@ -48,6 +48,18 @@ li{
   text-rendering: optimizeLegibility !important;
 }
 
+p {
+  &.no-margin{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &.narrow-margin{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
 .subheading, [class*="subheading--"] {
   color: color(gray);
   font-weight: normal;
