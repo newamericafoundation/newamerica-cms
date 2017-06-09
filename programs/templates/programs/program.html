@@ -40,6 +40,22 @@
 		</p>
 	</div>
 	{% include 'components/react/program-event-list.html' %}
+	<div class="program-block__button-wrapper button-wrapper centered">
+		<a class="button transparent" href="{{page.url}}events/">View All Events</a>
+	</div>
+</section>
+
+<section class="container--wide program-block">
+	<div class="program-block__heading">
+		<h1 class="centered narrow-margin">Publications</h1>
+		<p class="program-heading__subheading subheading--h1 centered">
+			Political Reform program publications help to generate new ideas, voices, and technologies.
+		</p>
+	</div>
+	{% include 'components/react/program-content-grid.html' %}
+	<div class="program-block__button-wrapper button-wrapper centered">
+		<a class="button transparent" href="{{page.url}}publications/">View All Publications</a>
+	</div>
 </section>
 
 <section class="container--full-width gray program-block">
@@ -47,7 +63,9 @@
 		<h1 class="home-about-description__heading">About {{ page.name }}</h1>
 		<p class="home-about-description__description"> {{ page.description }}</p>
 		{% if page.about_us_page %}
+		<div class="home-about-description__link-wrapper">
 			<a class="home-about-description__link button black" href='{{ page.about_us_page.url }}'>Read our Story</a>
+		</div>
 		{% endif %}
 	</div>
 </section>

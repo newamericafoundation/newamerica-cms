@@ -3,8 +3,12 @@ import {
   setQuery, setBase, receiveResults, setFetchingStatus
 } from '../actions';
 
+let defaultResponse = { isFetching: false, hasNext: false, hasPrevious: false, results: [] };
+
 export const mapStateToProps = (state, props) => ({
-  response: state[props.name] || { isFetching: false, hasNext: false, hasPrevious: false, results: [] }
+  response: state[props.name] ?
+    (state[props.name].results ? state[props.name] : defaultResponse) :
+    defaultResponse 
 });
 
 export const mapDispatchToProps = (dispatch, props) => ({

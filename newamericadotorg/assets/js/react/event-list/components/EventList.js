@@ -3,16 +3,21 @@ import { Fetch, Response } from '../../components/API'
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import EventListItem from './EventListItem';
 
-export const List = ({ items, cols, hasRSVP=false}) => (
+export const List = ({ items, cols, children }) => (
   <div className="content-portrait-grid event-list row gutter-10">
     {items.map((r,i)=>(
-      <EventListItem item={r} cols={cols} hasRSVP={hasRSVP}/>
+      <EventListItem item={r} cols={cols} />
     ))}
+    {children}
   </div>
 );
 
 const FutureList = ({ response }) => (
-  <List items={response.results} cols='col-4 col-md-3' hasRSVP={true}/>
+  <List items={response.results} cols='col-4 col-md-3'>
+    {(response.results.length===0 && !response.isFetching) &&
+      <label className="active lg block centered">No upcoming events. Check back soon!</label>
+    }
+  </List>
 );
 
 const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
@@ -28,6 +33,7 @@ const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
       setQueryParam('page', response.page+1);
       return fetchAndAppend;
     }}>
+
     <List items={response.results} cols='col-4 col-md-3 col-xl-2'/>
   </InfiniteLoadMore>
 )

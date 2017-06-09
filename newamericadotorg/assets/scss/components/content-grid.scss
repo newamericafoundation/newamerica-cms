@@ -1,0 +1,24 @@
+.content-grid{
+  &__item{
+    &__image-wrapper{
+      width: 100%;
+      padding-bottom: 5px;
+    }
+    &__image{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    &__text{
+      &__content-type{
+
+      }
+      &__title{
+
+      }
+      &__description{
+
+      }
+    }
+  }
+}

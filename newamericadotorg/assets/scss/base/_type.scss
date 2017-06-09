@@ -160,6 +160,11 @@ label {
     display: block;
   }
 
+  &.centered{
+    margin: 0 auto;
+    text-align: center;
+  }
+
   &.lg{
     font-size: 1rem;
     line-height: 1.6rem;

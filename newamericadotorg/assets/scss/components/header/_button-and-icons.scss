@@ -4,8 +4,10 @@
     display: inline-block;
   }
 }
-
 &__donate{
   line-height: $header-height;
   padding-right: 10px;
+  &__button{
+    display: initial !important;
+  }
 }

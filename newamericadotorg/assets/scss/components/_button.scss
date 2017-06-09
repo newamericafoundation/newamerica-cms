@@ -1,11 +1,10 @@
-
 .button {
 	color: white;
 	background: color(turquoise);
 	font-weight: normal;
 	text-align: center;
 	padding: 0.75em 0.5em;
-
+	display: inline-block;
 	border-radius: $border-radius;
 	@include transition(all $transition-function);
 	cursor: pointer;
@@ -37,5 +36,11 @@
 		&:hover {
 			background: color(black,light);
 		}
+	}
+}
+
+.button-wrapper {
+	&.centered{
+		text-align: center;
 	}
 }
