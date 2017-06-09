@@ -58,7 +58,7 @@
 
       &:not(.wide){
         padding: 15px 2em 15px 1em;
-        @include transform(translateX(-0.2em));
+        margin-left: -0.2em;
         .header-dropdown-links {
           @extend .col-lg-12;
         }
