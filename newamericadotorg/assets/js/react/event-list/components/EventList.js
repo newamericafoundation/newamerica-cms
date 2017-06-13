@@ -43,7 +43,7 @@ export class FutureEvents extends Component {
     return(
       <div className="event-list">
         <h1 className="event-list__heading centered">Upcoming Events</h1>
-        <Fetch name="upcomingEvents"
+        <Fetch name="eventList.upcoming"
           className="event-lists__upcoming-events"
           endpoint="event"
           fetchOnMount={true}
@@ -65,7 +65,7 @@ export class PastEvents extends Component {
     return(
       <div className="event-list">
         <h1 className="event-list__heading centered">Past Events</h1>
-        <Fetch name="pastEvents"
+        <Fetch name="eventList.past"
           component={PastList}
           fetchOnMount={true}
           endpoint="event"

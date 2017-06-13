@@ -5,7 +5,7 @@ import {
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
   SET_FETCHING_STATUS
 } from './constants';
-
+import { getNestedState } from '../store';
 
 export const setParams = (component, {endpoint, query, baseUrl}) => ({
   type: SET_PARAMS,
@@ -125,7 +125,8 @@ const parseResponse = (json) => {
 };
 
 export const fetchData = (component, callback=()=>{}, append=false) => (dispatch,getState) => {
-  let params = getState()[component].params;
+  let state = getNestedState(getState(), component);
+  let params = state.params;
   let url = new URL(`${params.baseUrl}${params.endpoint}/`);
   for(let k in params.query)
     url.searchParams.append(k, params.query[k]);

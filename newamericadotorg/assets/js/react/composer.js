@@ -9,34 +9,47 @@ export default class Composer {
   }
 
   add(COMPONENT) {
-    return this._add(COMPONENT.NAME, COMPONENT.ID, COMPONENT.APP);
+    if(COMPONENT.MULTI)
+      this.__addMulti__(COMPONENT.NAME, COMPONENT.ID, COMPONENT.APP);
+    else
+      this.__add__(COMPONENT.NAME, COMPONENT.ID, COMPONENT.APP);
   }
 
-  _add(name, _id, App, warn) {
-    const store = this.store;
-    const id = `compose__${_id}`;
-    const el = document.getElementById(id);
+  __addMulti__(name, id, App) {
+    let selector = `compose__${id}`;
+    let els = document.getElementsByClassName(selector);
+    this.components[name] = { components: [], multi: true };
 
-    if(!this.components[name])
-      this.components[name] = { name, id, el, app: null };
-
-    if(el) {
-      let props = getProps(el);
-      this.components[name].app = render(
-        <Provider store={store}><App {...props}/></Provider>, el );
-
-      this.components[name].render = function(){
-        console.warn(`${name} is already rendered!`); }
-
-    } else if(warn) {
-      console.warn(`Document must have element with id '${id}' to render ${name} component.`);
-
-    } else {
-      this.components[name].render = () => {
-        this._add(name,_id,App,true); }
-
+    for(let i=0; i<els.length; i++){
+      let app = this.__render__(els[i], App);
+      this.components[name].components.push({ name, selector, el: els[i], app });
     }
-    return this;
+
+    if(els.length===0)
+      this.components[name].render = () => { this.__addMulti__(name, id, App); }
+    else
+      this.components[name].render = () => { console.warn(`${name} is already rendered!`); }
+  }
+
+  __add__(name, id, App) {
+    let selector = `compose__${id}`;
+    let el = document.getElementById(selector);
+    this.components[name] = { name, selector, el, multi: false }
+
+    if(el){
+      this.components[name].app = this.__render__(el, App);
+      this.components[name].render = () => { console.warn(`${name} is already rendered!`); }
+    } else {
+      this.components[name].render = () => { this.__add__(name, id, App); }
+    }
+  }
+
+  __render__(el, App){
+    let props = getProps(el);
+    return render(
+      <Provider store={this.store}><App {...props}/></Provider>,
+      el
+    );
   }
 }
 

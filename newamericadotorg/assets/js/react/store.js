@@ -15,7 +15,7 @@ let reducers = { 'site': siteReducer };
 
 // Create hash of reducers for each component, adding apiReducers
 for(let k in components){
-  let name = components[k].NAME
+  let name = components[k].NAME.split('.')[0];
   initialState[name] = {};
 
   if(components[k].REDUCERS)
@@ -24,15 +24,38 @@ for(let k in components){
     reducers[name] = defaultReducer;
 }
 
+export const getNestedState = (state, name) => {
+  let i = name.indexOf('.');
+  if(i===-1) return state[name] || {};
+  return getNestedState(state[name.slice(0,i)] || {}, name.slice(i+1,name.length));
+}
+
+// nest component data by giving name like `componentName.subName.subSubName`;
+const setNestedState = (state, componentName, action, rdcr) => {
+  let i = componentName.indexOf('.');
+  let name = i === -1 ? componentName : componentName.slice(0,i);
+  let componentState = state[name] || {};
+  if(!rdcr) rdcr = reducers[name] || defaultReducer;
+
+  if(i===-1)
+    return { [name]: rdcr(componentState, action) };
+
+  let subName = componentName.slice(i+1, componentName.length);
+  return {
+    [name]: {
+      ...componentState,
+      ...setNestedState(componentState, subName, action, rdcr)
+    }
+  };
+}
+
 // Roll our own top-level reducer using above hash
 let reducer = (state=initialState, action) => {
   // Each action needs the name of the component in action.component
   if(action.type && action.component){
-    let componentState = state[action.component];
-    let componentReducer = reducers[action.component] ? reducers[action.component] : defaultReducer;
     return {
       ...state,
-      [action.component]: componentReducer(componentState, action)
+      ...setNestedState(state, action.component, action)
     }
   }
 

@@ -15,7 +15,7 @@ export class Events extends Component {
   render() {
     return(
       <Fetch
-        name="programEventList"
+        name="program.events"
         endpoint="event"
         component={EventCarousel}
         fetchOnMount={true}

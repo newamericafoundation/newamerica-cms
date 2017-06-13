@@ -34,7 +34,7 @@ export class Content extends Component {
 
     return(
       <Fetch
-        name={NAME}
+        name='program.content'
         endpoint="post"
         fetchOnMount={true}
         component={ContentGrid}

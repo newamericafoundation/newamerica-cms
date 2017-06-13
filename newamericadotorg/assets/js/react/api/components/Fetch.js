@@ -1,38 +1,13 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import composer from '../../index';
 import { BASEURL } from '../constants';
 import Response from './Response';
 import LoadingIcon from '../../components/LoadingIcon';
 import { mapDispatchToProps, mapStateToProps } from './props';
 
 class Fetch extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    endpoint: PropTypes.string.isRequired,
-    component: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string
-    ]),
-    eager: PropTypes.bool,
-    baseUrl: PropTypes.string,
-    clear: PropTypes.bool,
-    initialQuery: PropTypes.object,
-    fetchOnMount: PropTypes.bool,
-    showLoading: PropTypes.bool,
-    transition: PropTypes.bool
-  }
-
-  static defaultProps = {
-    initialQuery: {},
-    baseUrl: BASEURL,
-    fetchOnMount: false,
-    eager: false,
-    component: 'div',
-    showLoading: false,
-    transition: false
-  }
-
   componentWillMount(){
     let {
       setParams, receiveResults, endpoint,
@@ -75,6 +50,59 @@ class Fetch extends Component {
   }
 }
 
-export default connect(
+Fetch = connect(
   mapStateToProps, mapDispatchToProps
 )(Fetch);
+
+class FetchWrapper extends Component{
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    endpoint: PropTypes.string.isRequired,
+    component: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string
+    ]),
+    eager: PropTypes.bool,
+    baseUrl: PropTypes.string,
+    clear: PropTypes.bool,
+    initialQuery: PropTypes.object,
+    fetchOnMount: PropTypes.bool,
+    showLoading: PropTypes.bool,
+    transition: PropTypes.bool
+  }
+
+  static defaultProps = {
+    initialQuery: {},
+    baseUrl: BASEURL,
+    fetchOnMount: false,
+    eager: false,
+    component: 'div',
+    showLoading: false,
+    transition: false
+  }
+
+  name = null;
+
+  constructor(props){
+    super(props);
+
+    let { name } = props;
+    let composerComponent = composer.components[name];
+
+    this.name = name;
+
+    if(composerComponent){
+      if(composerComponent.multi){
+        this.name = `${name}.${composerComponent.components.length}`;
+      }
+    }
+  }
+
+  render(){
+    return (
+      <Fetch {...this.props} name={this.name} />
+    );
+  }
+}
+
+export default FetchWrapper;
