@@ -224,6 +224,10 @@
     margin-bottom: $desktop-padding;
     overflow-x: scroll;
 
+    table {
+      margin: 0 auto;
+    }
+
     tbody tr:nth-of-type(odd) {
       background-color: rgba(44, 47, 53, 0.05);
     }
