@@ -145,8 +145,28 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
+#####################
+# s3 bucket settings
+#AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+#AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+# media file settings
+#MEDIA_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+#S3_MEDIA_DOMAIN = '%s.s3.amazonaws.com' % MEDIA_BUCKET_NAME
+
+MEDIA_URL = "https://%s/" % '%s.s3.amazonaws.com' % os.getenv('S3_BUCKET_NAME')
+#DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
+# static file settings
+#STATIC_BUCKET_NAME = os.getenv('STATIC_S3_BUCKET_NAME')
+#S3_STATIC_DOMAIN = '%s.s3.amazonaws.com' % STATIC_BUCKET_NAME
+
+#STATICFILES_LOCATION='static'
+#STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+# STATIC_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
+###########################
 
 
 # Wagtail settings
