@@ -7,10 +7,23 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailcore.blocks import IntegerBlock
-
+from wagtail.wagtaildocs.blocks import DocumentChooserBlock
+from wagtail.wagtailcore.rich_text import RichText
+from wagtail.wagtailcore.blocks import stream_block
 
 from operator import itemgetter, attrgetter
-import json
+import json, datetime
+
+class CustomJSONEncoder(json.JSONEncoder):
+	def default(self, obj):
+		if isinstance(obj, datetime.datetime) or isinstance(obj, datetime.date):
+			return obj.isoformat()
+		elif isinstance(obj, RichText):
+			return obj.__str__()
+		elif isinstance(obj, stream_block.StreamValue):
+			return obj.stream_data
+
+		return json.JSONEncoder.default(self, obj)
 
 class CustomImageBlock(blocks.StructBlock):
 	image = ImageChooserBlock(icon="image", required=True)
@@ -66,6 +79,30 @@ class DatavizBlock(blocks.StructBlock):
 		template = 'blocks/dataviz.html'
 		icon = 'site'
 		label = 'Dataviz'
+
+class ResourceKit(blocks.StructBlock):
+	title = blocks.CharBlock(required=True)
+	description = blocks.TextBlock(required=False)
+	resources = blocks.StreamBlock([
+		('post', blocks.StructBlock([
+			('name', blocks.CharBlock(required=True)),
+			('description', blocks.RichTextBlock(required=False)),
+			('resource', blocks.PageChooserBlock(required=True))
+		], icon='redirect', label='Post')),
+		('external_resource', blocks.StructBlock([
+			('name', blocks.CharBlock(required=True)),
+			('description', blocks.RichTextBlock(required=False)),
+			('resource', blocks.URLBlock(required=True))
+		], icon='site', label='External resource')),
+		('attachment', blocks.StructBlock([
+			('name', blocks.CharBlock(required=True)),
+			('description', blocks.RichTextBlock(required=False)),
+			('resource', DocumentChooserBlock(required=True))
+		], icon='doc-full', label='Attachment'))
+    ])
+
+	class Meta:
+		template = 'blocks/resource_kit.html'
 
 def getJSCompatibleList(input_list, is_era, sort):
 	if sort:
@@ -126,7 +163,7 @@ class TimelineBlock(blocks.StructBlock):
 		context = super(TimelineBlock, self).get_context(value)
 		context["sorted_event_list"] = sorted(value["event_list"], key=lambda member: member['start_date'])
 		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"], False, True), "eraList":getJSCompatibleList(value["event_eras"], True, True), "splitList":getJSCompatibleList(value["major_timeline_splits"], True, False), "categoryList":value["event_categories"]})
-		
+
 		return context
 
 	class Meta:
@@ -225,6 +262,7 @@ class Body(blocks.StreamBlock):
 	dataviz = DatavizBlock(icon="code")
 	timeline = TimelineBlock(icon="arrows-up-down")
 	google_map = GoogleMapBlock(icon="site")
+	resource_kit = ResourceKit(icon="folder")
 
 class PanelBlock(blocks.StructBlock):
 	title = blocks.TextBlock()
