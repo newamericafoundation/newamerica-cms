@@ -1,7 +1,8 @@
 .weekly-header{
-	position: absolute;
-	top: 25px;
-	left: 25px;
+	//position: absolute;
+	// top: 25px;
+	// left: 25px;
+	margin: 25px;
 	z-index: 10;
 
 	&__logo{
@@ -36,6 +37,10 @@
 	}
 
 	&.article {
+		position: absolute;
+		top: 25px;
+		left: 25px;
+		margin: 0;
 		& > * {
 			display: inline-block;
 			vertical-align: middle;

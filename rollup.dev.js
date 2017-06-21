@@ -9,7 +9,7 @@ export default {
   external: [
     'react', 'react-dom', 'prop-types', 'redux', 'react-redux', 'react-router',
     'react-router-dom', 'redux-thunk', 'date-fns', 'vanilla-lazyload', 'whatwg-fetch',
-    'url-polyfill'
+    'url-polyfill', 'react-transition-group'
   ],
   globals: {
     'url-polyfill': 'URL',
@@ -22,6 +22,7 @@ export default {
     'redux-thunk': 'ReduxThunk',
     'react-router': 'ReactRouter',
     'react-router-dom': 'ReactRouterDOM',
+    'react-transition-group': 'ReactTransitionGroup',
     'date-fns': 'dateFns',
     'vanilla-lazyload': 'LazyLoad',
   },

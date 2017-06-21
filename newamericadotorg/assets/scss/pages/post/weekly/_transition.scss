@@ -1,0 +1,13 @@
+.weekly-page-fade-enter{
+  opacity: 0;
+  &.weekly-page-fade-enter-active{
+    opacity: 1;
+    transition: opacity 250ms ease-in;
+  }
+}
+
+.weekly-page-fade-leave{
+  &.weekly-page-fade-leave-active{
+
+  }
+}

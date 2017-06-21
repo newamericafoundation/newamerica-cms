@@ -17,10 +17,10 @@ class Weekly(Page):
     def get_context(self, request):
         context = super(Weekly, self).get_context(request)
 
-        all_posts = WeeklyEdition.objects.all().live()
+        all_posts = WeeklyEdition.objects.all().live().order_by('-first_published_at')
 
         context['all_posts'] = paginate_results(request, all_posts)
-
+        context['latest_edition'] = int(all_posts.first().title.split(' ')[1])
         return context
 
     class Meta:
@@ -33,7 +33,9 @@ class WeeklyEdition(Page):
 
     def get_context(self, request):
         context = super(WeeklyEdition, self).get_context(request)
+        all_posts = WeeklyEdition.objects.all().live().order_by('-first_published_at')
 
+        context['latest_edition'] = all_posts.first().title.split(' ')[1]
         return context
 
 
@@ -46,6 +48,8 @@ class WeeklyArticle(Post):
         context = super(WeeklyArticle, self).get_context(request)
 
         context['siblings'] = self.get_siblings(inclusive=True)
+        all_posts = WeeklyEdition.objects.all().live().order_by('-first_published_at')
+        context['latest_edition'] = all_posts.first().title.split(' ')[1]
 
         return context
 

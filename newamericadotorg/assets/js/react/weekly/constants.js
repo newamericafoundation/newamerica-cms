@@ -1,2 +1,2 @@
-export const NAME = 'weeklyApp';
-export const ID = 'weekly-app';
+export const NAME = 'weekly';
+export const ID = 'weekly';

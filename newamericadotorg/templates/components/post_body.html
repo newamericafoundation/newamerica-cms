@@ -6,7 +6,7 @@
 
 <label class="post-body__date lg">{{ page.date }}</label>
 
-{% for block in self.body %}
+{% for block in page.body %}
   <div class="block-{{ block.block_type }}">
      {% include_block block %}
   </div>

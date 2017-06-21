@@ -1,14 +1,8 @@
-import django_filters
+import django_filters, math
 from django.db.models import Q
 from django.utils.timezone import localtime, now
 
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework import mixins
-from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework.serializers import ListSerializer
-from rest_framework import mixins
+from rest_framework import status, pagination, mixins, generics, views, response
 from django_filters.rest_framework import FilterSet
 
 from wagtail.wagtailcore.models import Page
@@ -17,13 +11,15 @@ from home.models import Post, HomePage
 from person.models import Person
 from serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
-    ProjectSerializer, HomeSerializer, TopicSerializer, EventSerializer
+    ProjectSerializer, HomeSerializer, TopicSerializer, EventSerializer,
+    WeeklyEditionSerializer, WeeklyArticleSerializer
 )
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
 from programs.models import Program, Subprogram
 from issue.models import IssueOrTopic
 from event.models import Event
+from weekly.models import WeeklyArticle, WeeklyEdition
 
 class PostFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
@@ -90,6 +86,34 @@ class AuthorFilter(FilterSet):
         model = Person
         fields = ['id','program_id', 'project_id', 'topic_id', 'name', 'role', 'leadership']
 
+def get_edition_number(edition):
+    if 'edition-' in edition.slug:
+        return -int(edition.slug.split('-')[1])
+    return -int(edition.slug)
+
+class WeeklyPagination(pagination.LimitOffsetPagination):
+    default_limit = 3
+    max_limit = 25
+
+
+class WeeklyList(generics.ListAPIView):
+    serializer_class = WeeklyEditionSerializer
+    pagination_class = WeeklyPagination
+
+    def get_queryset(self):
+        queryset = WeeklyEdition.objects.live()
+        return sorted(queryset, key=lambda edition: get_edition_number(edition));
+
+class WeeklyDetail(generics.RetrieveAPIView):
+    queryset = WeeklyArticle.objects.live()
+    serializer_class = WeeklyArticleSerializer
+
+class WeeklyDetailByEdition(views.APIView):
+    def get(self, request, edition_slug, article_slug):
+        article = WeeklyEdition.objects.get(slug=edition_slug).get_children().specific().filter(slug=article_slug).first()
+
+        return response.Response(WeeklyArticleSerializer(article).data)
+
 class AuthorList(generics.ListAPIView):
     queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')
     serializer_class = AuthorSerializer
@@ -129,14 +153,14 @@ class EventList(generics.ListAPIView):
 
         return events.filter(id__in=ids).order_by('-date', '-start_time')
 
-class MetaList(APIView):
+class MetaList(views.APIView):
     def get(self, request, format=None):
         subpages = get_subpages(HomePage)
         programs = ProgramSerializer(Program.objects.live(), many=True).data
         projects = ProjectSerializer(Subprogram.objects.live(), many=True).data
         home = HomeSerializer(HomePage.objects.live().first()).data
 
-        return Response({
+        return response.Response({
             'count': None,
             'next': None,
             'previous': None,
@@ -148,10 +172,10 @@ class MetaList(APIView):
             }
         })
 
-class ContentList(APIView):
+class ContentList(views.APIView):
     def get(self, request, format=None):
         types = content_types(request)['content_types']
-        return Response({
+        return response.Response({
             'count': len(types),
             'next': None,
             'previous': None,

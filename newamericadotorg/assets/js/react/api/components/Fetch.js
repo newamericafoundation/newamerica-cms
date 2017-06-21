@@ -24,6 +24,14 @@ class Fetch extends Component {
     if(fetchOnMount) fetchData();
   }
 
+  componentDidUpdate(prevProps){
+    let { fetchData, setParams, endpoint, initialQuery, fetchOnMount } = this.props;
+    if( !Object.is(prevProps.endpoint, endpoint) ){
+      setParams({ endpoint, query: initialQuery }, false);
+      if(fetchOnMount) fetchData();
+    }
+  }
+
   mapNameToResponse = () => {
     let { children, name } = this.props;
     let _children;

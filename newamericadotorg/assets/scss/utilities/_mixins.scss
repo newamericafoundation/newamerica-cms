@@ -144,7 +144,7 @@
   }
 }
 
-%with-overlay{
+%with-overlay, [class*="with-overlay"]{
   position: relative;
   &::after{
     content: ' ';
@@ -161,13 +161,22 @@
   }
 }
 
-[class*="with-overlay"]{
+%with-inverse-overlay, [class*="with-inverse-overlay"]{
   @extend %with-overlay;
+  &::after{
+    @include linear-gradient-vertical(color(black, base, 1), color(black,base,0), 0%, 50% );
+  }
 }
 
 .with-overlay{
   &--black::after{
     @include linear-gradient-vertical(rgba(#000,0), #000, 30% );
+  }
+}
+
+.with-inverse-overlay{
+  &--black::after{
+    @include linear-gradient-vertical(rgba(#000,1), rgba(#000,0), 0%, 50% );
   }
 }
 

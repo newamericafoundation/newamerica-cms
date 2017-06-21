@@ -1,3 +1,5 @@
+from django.shortcuts import render
+from django.template import loader
 from rest_framework import serializers
 from rest_framework.serializers import Serializer, ModelSerializer, SerializerMethodField
 
@@ -7,6 +9,7 @@ from programs.models import Program, Subprogram
 from person.models import Person
 from issue.models import IssueOrTopic
 from event.models import Event
+from weekly.models import WeeklyEdition, WeeklyArticle
 
 from django.core.urlresolvers import reverse
 
@@ -279,3 +282,53 @@ class HomeSerializer(ModelSerializer):
             if getattr(obj,f,None):
                 features.append(getattr(obj,f).id)
         return features
+
+class WeeklyEditionArticleSerializer(ModelSerializer):
+    authors = SerializerMethodField()
+    story_image = SerializerMethodField()
+
+    def get_authors(self, obj):
+        return AuthorSerializer(obj.post_author, many=True, context=self.context).data
+
+    def get_story_image(self, obj):
+        if(obj.story_image):
+            return generate_image_url(obj.story_image, 'fill-600x600')
+
+    class Meta:
+        model = WeeklyArticle
+        fields = (
+            'id', 'title', 'search_description', 'authors', 'slug', 'story_image'
+        )
+
+class WeeklyArticleSerializer(ModelSerializer):
+    authors = SerializerMethodField()
+    body = SerializerMethodField()
+    story_image = SerializerMethodField()
+
+    def get_authors(self, obj):
+        return AuthorSerializer(obj.post_author, many=True, context=self.context).data
+
+    def get_story_image(self, obj):
+        if obj.story_image:
+            return generate_image_url(obj.story_image)
+
+    def get_body(self, obj):
+        return loader.get_template('components/post_body.html').render({ 'page': obj })
+
+    class Meta:
+        model = WeeklyArticle
+        fields = (
+            'id', 'title', 'date', 'authors', 'body', 'story_image', 'slug', 'story_excerpt'
+        )
+
+class WeeklyEditionSerializer(ModelSerializer):
+    articles = SerializerMethodField()
+
+    def get_articles(self, obj):
+        return WeeklyArticleSerializer(obj.get_children().type(WeeklyArticle).specific().live(), many=True).data
+
+    class Meta:
+        model = WeeklyEdition
+        fields = (
+        'id', 'title', 'search_description', 'articles', 'slug', 'first_published_at'
+        )
