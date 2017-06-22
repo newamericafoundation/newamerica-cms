@@ -42,6 +42,13 @@ class PolicyPaper(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
+    def get_context(self, request):
+        context = super(PolicyPaper, self).get_context(request);
+        for block in self.body:
+            if block.block_type == 'panels':
+                context['panels'] = block.value;
+        return context;
+
     class Meta:
         verbose_name = 'Policy Paper'
 

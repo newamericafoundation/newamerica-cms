@@ -17,6 +17,7 @@ else document.addEventListener('DOMContentLoaded', init);
 
 function init(){
   composer.init();
+  actions.addScrollEvent({ selector: '.scroll-target' });
 }
 
 const newamericadotorg = {

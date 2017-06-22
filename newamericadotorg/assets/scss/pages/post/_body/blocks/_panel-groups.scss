@@ -15,12 +15,8 @@
 }
 
 .panel-section{
-
-  margin: 50px 0;
-
-  &:not(:first-child){
-    margin: 125px 0;
-  }
+  
+  padding: 75px 0 0 0;
 
   .panel-title{
     a { border: none };

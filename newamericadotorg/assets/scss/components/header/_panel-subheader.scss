@@ -1,0 +1,54 @@
+$subheader-height: 70px;
+
+.header__subheader{
+  height: 5px;
+  &__sticky-wrapper{
+    @include transition(top 0.35s ease-in-out, opacity 0.35s ease-in-out);
+    top: -50px;
+    left: 0px;
+    padding: 0 15px;
+    opacity: 0;
+    position: fixed;
+    height: $subheader-height;
+    border-bottom: $border;
+    background: color(white, base, 0.9);
+    width: 100%;
+  }
+
+  &.scroll-left{
+    .header__subheader__sticky-wrapper{
+      top: 0px;
+      opacity: 1;
+    }
+  }
+
+  &__title{
+    max-width: 30%;
+    padding-right: 15px !important;
+    label {
+      line-height: $subheader-height;
+    }
+  }
+  &__panel-list{
+    max-width: 70%;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    &__item{
+
+      display: inline-block;
+      white-space: normal;
+      height: 100%;
+      a{
+        &:hover, &.active{
+          background: color(gray, light, 0.75);
+        }
+        padding: 0 10px !important;
+        display: block;
+        width: 100%;
+        line-height: $subheader-height;
+      }
+    }
+  }
+}

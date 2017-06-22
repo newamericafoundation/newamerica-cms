@@ -1,0 +1,18 @@
+{% extends "components/header.html" %}
+{% block with-subheader-class %}with-subheader{% endblock %}
+{% block subheader %}
+  <div class="row no-gutters header__subheader scroll-target">
+    <div class="row no-gutters header__subheader__sticky-wrapper">
+      <div class="col-auto header__subheader__title">
+        <label class="lg active block">{{page.title}}</label>
+      </div>
+      <div class="col-auto header__subheader__panel-list">
+        {% for panel in value %}
+        <div class="header__subheader__panel-list__item">
+          <label><a id="panel-nav-link__{{panel.value.title|slugify}}" href="#{{panel.value.title|slugify}}">{{panel.value.title}}</a></label>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

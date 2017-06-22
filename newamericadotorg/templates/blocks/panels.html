@@ -1,29 +1,14 @@
 {% load wagtailcore_tags %}
 <div class="panel-group">
-  <a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
-  <nav id="cd-vertical-nav" class="panel-nav">
-    <ul>
-      {% for panel in value %}
-        <li>
-          <a href="#{{ panel.value.title|slugify }}"
-            id="nav-{{ panel.value.title|slugify }}"
-            style="border:none;">
-            <span class="cd-dot"></span>
-            <span class="cd-label">{{ panel.value.title }}</span>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </nav>
   <div class="panel-sections">
     {% for panel in value %}
       <section id="{{ panel.value.title|slugify }}" class="panel-section">
-        <h3 class="panel-title">
+        <h2 class="panel-title">
           <a href="#{{panel.value.title|slugify}}" class="panel-anchor-link">
             {{ panel.value.title }}
             <i class="fa fa-link"></i>
           </a>
-        </h3>
+        </h2>
         <div class="panel-body-block">
           {% for block in panel.value.body %}
             <div class="block-{{ block.block_type }}">
@@ -35,3 +20,20 @@
     {% endfor %}
   </div>
 </div>
+  <script type="text/javascript">
+    newamericadotorg.actions.addAdHocObserver({
+      stateName: 'activePanel',
+      onChange: function(state, prevState){
+        if(prevState) prevState.classList.remove('active');
+        if(state) state.classList.add('active');
+      }
+    });
+
+    newamericadotorg.actions.addScrollEvent({
+      selector: '.panel-section',
+      onEnter: function(el){
+        var activePanel = document.getElementById('panel-nav-link__' + el.getAttribute('id'));
+        newamericadotorg.actions.setAdHocState({ activePanel: activePanel });
+      }
+    });
+  </script>

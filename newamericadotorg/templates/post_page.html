@@ -12,6 +12,13 @@
 
 {% block body_class %}template-postpage{% endblock %}
 
+{% if panels %}
+	{# panels loaded on PolicyPaper's get_context #}
+	{% block header %}
+		{% include 'blocks/panels_subheader.html' with value=panels %}
+	{% endblock %}
+{% endif %}
+
 {% block content %}
 	{% block breadcrumbs %}
     {% include 'components/breadcrumbs.html' %}

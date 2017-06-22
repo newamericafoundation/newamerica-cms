@@ -6,7 +6,7 @@ import { reducers as eventReducers } from './actions';
 
 import * as components from './installed_components';
 
-let initialState = {};
+let initialState = { site: { adHoc: {}, scrollPosition: 0 }};
 
 let defaultReducer = combineReducers(apiReducers);
 let siteReducer = combineReducers({...eventReducers});
