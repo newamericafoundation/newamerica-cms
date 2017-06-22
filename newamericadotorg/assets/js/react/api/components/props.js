@@ -1,17 +1,17 @@
 import {
-  fetchData, fetchAndAppend, setEndpoint, setQueryParam, setParams,
+  fetchData, fetchAndAppend, fetchAndPrepend, setEndpoint, setQueryParam, setParams,
   setQuery, setBase, receiveResults, setFetchingStatus
 } from '../actions';
 import { getNestedState } from '../../store';
 
-let defaultResponse = { isFetching: false, hasNext: false, hasPrevious: false, results: [] };
+let defaultResponse = { isFetching: false, hasNext: false, hasPrevious: false, count: 0, results: [] };
 
 export const mapStateToProps = (state, { name }) => {
   let componentState = getNestedState(state, name);
   return {
     response: componentState ?
       (componentState.results ? componentState : defaultResponse) :
-      defaultResponse 
+      defaultResponse
   }
 };
 
@@ -56,6 +56,10 @@ export const mapDispatchToProps = (dispatch, props) => ({
 
   fetchAndAppend: (callback) => {
     dispatch(fetchAndAppend(props.name, callback));
+  },
+
+  fetchAndPrepend: (callback) => {
+    dispatch(fetchAndPrepend(props.name, callback));
   },
 
   receiveResults: (val) => {

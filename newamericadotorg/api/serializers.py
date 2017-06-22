@@ -304,6 +304,7 @@ class WeeklyArticleSerializer(ModelSerializer):
     authors = SerializerMethodField()
     body = SerializerMethodField()
     story_image = SerializerMethodField()
+    story_image_sm = SerializerMethodField()
 
     def get_authors(self, obj):
         return AuthorSerializer(obj.post_author, many=True, context=self.context).data
@@ -312,13 +313,17 @@ class WeeklyArticleSerializer(ModelSerializer):
         if obj.story_image:
             return generate_image_url(obj.story_image)
 
+    def get_story_image_sm(self, obj):
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'fill-600x600')
+
     def get_body(self, obj):
         return loader.get_template('components/post_body.html').render({ 'page': obj })
 
     class Meta:
         model = WeeklyArticle
         fields = (
-            'id', 'title', 'date', 'authors', 'body', 'story_image', 'slug', 'story_excerpt'
+            'id', 'title', 'date', 'authors', 'body', 'story_image', 'slug', 'story_excerpt', 'story_image_sm'
         )
 
 class WeeklyEditionSerializer(ModelSerializer):

@@ -1,6 +1,6 @@
 import {
   SET_PARAMS, SET_QUERY_PARAM, SET_QUERY, SET_ENDPOINT, RECEIVE_RESULTS,
-  RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
+  RECEIVE_AND_APPEND_RESULTS, RECEIVE_AND_PREPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
   SET_FETCHING_STATUS
@@ -52,12 +52,16 @@ export const params = (state=paramsState, action) => {
 export const results = (state=[], action) => {
   switch(action.type) {
     case SET_RESPONSE:
-      if(action.response.append)
+      if(action.response.pend==='append')
         return [...state, ...action.response.results];
+      else if(action.response.pend=='prepend')
+        return [...action.response.results, ...state];
       else
         return action.response.results;
     case RECEIVE_AND_APPEND_RESULTS:
       return  [...state, ...action.results];
+    case RECEIVE_AND_PREPEND_RESULTS:
+      return  [...action.results, ...state];
     case RECEIVE_RESULTS:
       return action.results;
     default:
@@ -71,6 +75,15 @@ export const isFetching = (state=false, action) => {
       return false;
     case SET_FETCHING_STATUS:
       return action.status;
+    default:
+      return state;
+  }
+}
+
+export const count = (state=null, action) => {
+  switch(action.type){
+    case SET_RESPONSE:
+      return action.response.count || null;
     default:
       return state;
   }
@@ -132,6 +145,7 @@ const reducers = {
   results,
   hasNext,
   hasPrevious,
+  count,
   page,
   isFetching,
   templateUrl,

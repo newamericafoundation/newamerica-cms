@@ -2,20 +2,21 @@ import { Link } from 'react-router-dom';
 
 const LeadHeading = ({ article, edition }) => (
   <div className="weekly-edition-grid__lead__text">
-    <Link to={`/weekly/${edition.slug}/${article.slug}`}>
       <h4 className="weekly-edition-grid__lead__text__edition">{edition.title}</h4>
       <h2 className="weekly-edition-grid__lead__text__title">{article.title}</h2>
-    </Link>
+
   </div>
 );
 
 
 const Lead = ({ article, edition }) => (
-  <div className="weekly-edition-grid__lead col-md-6">
-    <div className="weekly-edition-grid__lead__image-wrapper">
-      <div style={{ backgroundImage: `url(${article.story_image})`}} className="weekly-edition-grid__lead__image with-inverse-overlay--black"/>
-    </div>
-    <LeadHeading article={edition.articles[0]} edition={edition} />
+  <div className="weekly-edition-grid__lead col-md-7">
+    <Link to={`/weekly/${edition.slug}/${article.slug}`}>
+      <div className="weekly-edition-grid__lead__image-wrapper">
+        <div style={{ backgroundImage: `url(${article.story_image_sm})`}} className="weekly-edition-grid__lead__image with-inverse-overlay--black"/>
+      </div>
+      <LeadHeading article={edition.articles[0]} edition={edition} />
+    </Link>
   </div>
 );
 
@@ -23,7 +24,7 @@ const ArticleListItem = ({ item, edition }) => (
   <div className="weekly-edition-grid__article-list__item col-md-6">
     <Link to={`/weekly/${edition.slug}/${item.slug}`}>
       <div className="weekly-edition-grid__article-list__item__image"
-        style={{backgroundImage: `url(${item.story_image})`}}></div>
+        style={{backgroundImage: `url(${item.story_image_sm})`}}></div>
       <label className="lg active weekly-edition-grid__article-list__item__title">
       {item.title}
       </label>

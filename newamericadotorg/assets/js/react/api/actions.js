@@ -97,12 +97,13 @@ export const receiveTemplate = (component, template) => ({
 });
 
 const parseResponse = (json) => {
-  let results, hasNext, hasPrevious, page;
+  let results, hasNext, hasPrevious, page, count;
   if(json.results){
     results = json.results;
     hasNext = json.next!==null;
     hasPrevious = json.previous!==null;
     page = 1;
+    count = json.count;
     let re = /.+page=([0-9]+)/;
 
     if(hasNext){
@@ -117,14 +118,15 @@ const parseResponse = (json) => {
     hasNext = false;
     hasPrevious = false;
     page = 1;
+    count = null;
   }
 
   return {
-    hasNext, hasPrevious, page, results
+    hasNext, hasPrevious, page, results, count
   }
 };
 
-export const fetchData = (component, callback=()=>{}, append=false) => (dispatch,getState) => {
+export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getState) => {
   let state = getNestedState(getState(), component);
   let params = state.params;
   let url = new URL(`${params.baseUrl}${params.endpoint}/`);
@@ -138,14 +140,18 @@ export const fetchData = (component, callback=()=>{}, append=false) => (dispatch
       return response.json();
     }).then(json => {
       let response = parseResponse(json);
-      response.append = append;
+      response.pend = pend;
       callback(response);
       dispatch(setResponse(component, response));
     });
 }
 
 export const fetchAndAppend = (component, callback=()=>{}) => {
-  return fetchData(component, callback, true);
+  return fetchData(component, callback, 'append');
+}
+
+export const fetchAndPrepend = (component, callback=()=>{}) => {
+  return fetchData(component, callback, 'prepend');
 }
 
 export const fetchTemplate = (component, callback=()=>{}) => (dispatch,getState) => {

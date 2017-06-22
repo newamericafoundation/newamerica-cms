@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
 import { CSSTransitionGroup } from 'react-transition-group'
 import { Component } from 'react';
 import { connect } from 'react-redux';
@@ -9,13 +9,63 @@ import EditionGrid from './components/EditionGrid';
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 
-const EditionGridList = ({ edition }) => (
-  <section className="weekly-edition-grid-list container">
-    <EditionGrid edition={edition} />
+const EditionGridList = ({ edition, nextEdition, prevEdition }) => (
+
+  <section className="container">
+    <div className="row">
+      <div className="col-md-10 weekly-edition-grid-list">
+        <EditionGrid edition={edition} />
+      </div>
+      <div className="col-md-2 weekly-edition-grid__nav">
+        <div className="weekly-edition-grid__nav__arrows">
+          {prevEdition &&
+            <Link to={`/weekly/${prevEdition.slug}`}>
+              <i className="fa fa-long-arrow-left"/>
+              <span>{prevEdition.title} </span>
+            </Link>
+          }{nextEdition &&
+            <Link to={`/weekly/${nextEdition.slug}`}>
+              <span>{nextEdition.title}</span>
+              <i className="fa fa-long-arrow-right"/>
+            </Link>
+          }
+        </div>
+      </div>
+    </div>
   </section>
 );
 
 class Routes extends Component {
+  isFetching = false;
+  getNextEdition = (edition) => {
+    let { response: { results, hasNext, count }, setQueryParam, offset, fetchAndAppend } = this.props;
+    let index = results.indexOf(edition);
+    let nextEdition = results[index+1];
+    if(nextEdition) return nextEdition;
+    if(offset+3>count) return null;
+    if(!this.isFetching && hasNext){
+      this.isFetching = true;
+      setQueryParam('offset', offset+3);
+      fetchAndAppend(()=>{ this.isFetching = false });
+      return undefined;
+    }
+    return nextEdition;
+  }
+
+  getPrevEdition = (edition) => {
+    let { response: { results, hasPrevious }, setQueryParam, offset, fetchAndPrepend } = this.props;
+    let index = results.indexOf(edition);
+    let prevEdition = results[index-1];
+    if(prevEdition) return prevEdition;
+    if(offset===0) return null;
+    if(!this.isFetching && hasPrevious){
+      this.isFetching = true;
+      setQueryParam('offset', offset-3);
+      fetchAndPrepend(()=>{ this.isFetching = false });
+      return undefined;
+    }
+  }
+
   getEdition = (editionSlug) => {
     let { response: { results }} = this.props;
     return results.find((e)=>(e.slug==editionSlug)) || results[0];
@@ -43,7 +93,12 @@ class Routes extends Component {
             <Switch key={location.key} location={location}>
               <Route exact
                 path="/weekly/:edition"
-                render={()=>(<EditionGridList edition={edition}/>)}/>
+                render={()=>(
+                  <EditionGridList
+                    prevEdition={this.getPrevEdition(edition)}
+                    nextEdition={this.getNextEdition(edition)}
+                    edition={edition}/>
+                )}/>
               <Route exact
                 path="/weekly/:edition/:article"
                 render={(props)=>{
@@ -63,23 +118,32 @@ class APP extends Component {
     if(!isNaN(edition)) return +edition;
     return +match.params.edition.split('-')[1];
   }
+
+  getOffset = (match) => {
+    let { latestEdition } = this.props;
+    let edition = this.getEdition(match);
+    return Math.floor((latestEdition - edition)/3)*3
+  }
+
   render() {
     let { latestEdition } = this.props;
 
     return (
       <Router>
-        <Route path="/weekly/:edition?/:article?" render={({ location, match }) => (
-          <Fetch
+        <Route path="/weekly/:edition?/:article?" render={({ location, match }) => {
+          let offset = this.getOffset(match);
+          return <Fetch
             name={NAME}
             endpoint='weekly'
             fetchOnMount={true}
             component={Routes}
             location={location}
+            offset={offset}
             match={match}
             initialQuery={{
-              offset: latestEdition - this.getEdition(match)
+              offset
             }}/>
-          )}/>
+          }}/>
       </Router>
     );
   }
