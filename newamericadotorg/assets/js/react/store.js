@@ -3,8 +3,8 @@ import thunkMiddleware from 'redux-thunk'
 
 import apiReducers from './api/reducers';
 import { reducers as eventReducers } from './actions';
-
 import * as components from './installed_components';
+import getNestedState from '../utils/getNestedState';
 
 let initialState = { site: { adHoc: {}, scrollPosition: 0 }};
 
@@ -22,12 +22,6 @@ for(let k in components){
     reducers[name] = combineReducers({ ...apiReducers, ...components[k].REDUCERS });
   else
     reducers[name] = defaultReducer;
-}
-
-export const getNestedState = (state, name) => {
-  let i = name.indexOf('.');
-  if(i===-1) return state[name] || {};
-  return getNestedState(state[name.slice(0,i)] || {}, name.slice(i+1,name.length));
 }
 
 // nest component data by giving name like `componentName.subName.subSubName`;

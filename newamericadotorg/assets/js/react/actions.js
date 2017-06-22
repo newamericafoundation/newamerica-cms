@@ -1,4 +1,5 @@
 import { fetchData, setParams } from './api/actions';
+import getNestedState from '../utils/getNestedState';
 import store from './store';
 
 // constants
@@ -67,22 +68,32 @@ const setAdHocState = (obj) => {
   });
 }
 
+const getState = (name) => {
+  return getNestedState(store.getState(), name);
+}
+
 const getAdHocState = (name) => {
-  return store.getState().site.adHoc[name];
+  return getNestedState(store.getState(), `site.adHoc.${name}`);
+}
+
+const observerFactory = function(stateName, onChange){
+  let currentState;
+  return function(){
+    let nextState = getNestedState(store.getState(), stateName);
+    if(nextState !== currentState) {
+      onChange(nextState, currentState);
+      currentState = nextState;
+    }
+  }
 }
 
 const addAdHocObserver = ({ stateName, onChange }) => {
-  if(!getAdHocState(stateName)) setAdHocState({ [stateName]: null });
-  let observer = function(){
-    let currentState;
-    return function(){
-      let nextState = getAdHocState(stateName);
-      if(nextState !== currentState) {
-        onChange(nextState, currentState);
-        currentState = nextState;
-      }
-    }
-  }();
+  let observer = observerFactory(`site.adHoc.${stateName}`, onChange);
+  return store.subscribe(observer);
+}
+
+const addObserver = ({ stateName, onChange }) => {
+  let observer = observerFactory(stateName, onChange);
   return store.subscribe(observer);
 }
 
@@ -136,8 +147,10 @@ export const actions = {
   setScrollPosition,
   addScrollEvent,
   setAdHocState,
+  getState,
   getAdHocState,
-  addAdHocObserver
+  addAdHocObserver,
+  addObserver
 }
 
 // events
