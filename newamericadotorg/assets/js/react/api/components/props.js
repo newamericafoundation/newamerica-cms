@@ -2,7 +2,7 @@ import {
   fetchData, fetchAndAppend, fetchAndPrepend, setEndpoint, setQueryParam, setParams,
   setQuery, setBase, receiveResults, setFetchingStatus
 } from '../actions';
-import getNestedState from '../../../utils/getNestedState';
+import getNestedState from '../../../utils/get-nested-state';
 
 let defaultResponse = { isFetching: false, hasNext: false, hasPrevious: false, count: 0, results: [] };
 

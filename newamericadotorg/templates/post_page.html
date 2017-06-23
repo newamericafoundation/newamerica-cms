@@ -12,12 +12,15 @@
 
 {% block body_class %}template-postpage{% endblock %}
 
-{% if panels %}
-	{# panels loaded on PolicyPaper's get_context #}
-	{% block header %}
-		{% include 'blocks/panels_subheader.html' with value=panels %}
-	{% endblock %}
-{% endif %}
+
+{% block header %}
+	{% if panels %}
+		{% include './blocks/panels_subheader.html' with value=panels %}
+	{% else %}
+		{% include 'components/header.html' %}
+	{% endif %}
+{% endblock %}
+
 
 {% block content %}
 	{% block breadcrumbs %}
@@ -52,7 +55,7 @@
 			{% endblock %}
 
 			{% block post_right_aside %}
-				<aside class="post-social col-md-3">
+				<aside class="post-social col-md-3 scroll-target" {% if panels %}data-scroll-offset-top="-70"{% endif %}>
 					<div class="post-social__sticky-wrapper">
 						<label class="lg">Share</label>
 						{% include 'components/social_share.html' %}

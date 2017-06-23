@@ -5,7 +5,7 @@ import {
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
   SET_FETCHING_STATUS
 } from './constants';
-import getNestedState from '../../utils/getNestedState';
+import getNestedState from '../../utils/get-nested-state';
 
 export const setParams = (component, {endpoint, query, baseUrl}) => ({
   type: SET_PARAMS,

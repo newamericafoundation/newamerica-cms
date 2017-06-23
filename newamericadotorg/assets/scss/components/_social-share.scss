@@ -4,3 +4,24 @@
     padding-right: 10px;
   }
 }
+
+.post-social {
+  &__sticky-wrapper{
+    padding-top: 15px;
+  }
+  &.scroll-entered {
+    .post-social__sticky-wrapper{
+      background: color(white, base, 0.9);
+      position: fixed;
+      top: 0;
+      max-width: 22.5%;
+      padding-right: 30px;
+    }
+
+    &[data-scroll-offset-top]{
+      .post-social__sticky-wrapper{
+        top: 70px;
+      }
+    }
+  }
+}

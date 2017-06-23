@@ -1,0 +1,17 @@
+<script type="text/javascript">
+  newamericadotorg.actions.addAdHocObserver({
+    stateName: 'activePanel',
+    onChange: function(state, prevState){
+      if(prevState) prevState.classList.remove('active');
+      if(state) state.classList.add('active');
+    }
+  });
+
+  newamericadotorg.actions.addScrollEvent({
+    selector: '.panel-section',
+    onEnter: function(el){
+      var activePanel = document.getElementById('panel-nav-link__' + el.getAttribute('id'));
+      newamericadotorg.actions.setAdHocState({ activePanel: activePanel });
+    }
+  });
+</script>

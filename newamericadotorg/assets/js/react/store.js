@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import apiReducers from './api/reducers';
 import { reducers as eventReducers } from './actions';
 import * as components from './installed_components';
-import getNestedState from '../utils/getNestedState';
+import getNestedState from '../utils/get-nested-state';
 
 let initialState = { site: { adHoc: {}, scrollPosition: 0 }};
 

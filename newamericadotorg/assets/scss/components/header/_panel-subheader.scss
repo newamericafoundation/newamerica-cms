@@ -29,20 +29,28 @@ $subheader-height: 70px;
       line-height: $subheader-height;
     }
   }
+  &__panel-list-wrapper{
+    overflow: hidden;
+    width: 70%;
+  }
+
   &__panel-list{
-    max-width: 70%;
+    width: 100%;
     white-space: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+    font-size: 0;
+    padding: 0 5px 25px 5px !important;
 
     &__item{
-
       display: inline-block;
       white-space: normal;
       height: 100%;
       a{
         &:hover, &.active{
-          background: color(gray, light, 0.75);
+          background: color(gray, light, 0.9);
+          box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+          color: color(gray) !important;
         }
         padding: 0 10px !important;
         display: block;
