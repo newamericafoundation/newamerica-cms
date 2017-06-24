@@ -8,8 +8,11 @@ import 'url-polyfill';
 window.React = React;
 
 import composer from './react/index';
-import { actions } from './react/actions';
+import actions from './react/actions';
 import lazyload from './react/components/LazyLoad';
+
+import addEventListeners from './add-event-listeners';
+import addObservers from './add-observers';
 
 // initialize on ready
 if(document.readyState != 'loading') init();
@@ -17,7 +20,8 @@ else document.addEventListener('DOMContentLoaded', init);
 
 function init(){
   composer.init();
-  actions.addScrollEvent({ selector: '.scroll-target' });
+  addEventListeners();
+  addObservers();
 }
 
 const newamericadotorg = {

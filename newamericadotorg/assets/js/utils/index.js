@@ -1,9 +1,4 @@
-// import './jquery_base_plugins.js';
-// import './toggles.js';
-//
-
-export function camelize(str) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-  }).replace(/\s+/g, '').replace('-','');
-}
+export { default as camelize } from './camelize';
+export { default as getProps } from './get-props';
+export { default as getNestedState } from './get-nested-state';
+export { default as triggerScrollEvents } from './trigger-scroll-events';

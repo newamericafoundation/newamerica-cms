@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { camelize } from '../utils/index';
+import { camelize, getProps } from '../utils/index';
 
 export default class Composer {
   constructor(store){
@@ -51,17 +51,4 @@ export default class Composer {
       el
     );
   }
-}
-
-function getProps(el){
-  let props = {};
-  for(let i=0; i<el.attributes.length; i++){
-    let attr = el.attributes[i],
-    name = attr.nodeName,
-    val = attr.nodeValue;
-    if(name.indexOf('data-')!==-1){
-      props[camelize(name.replace('data-',''))] = val;
-    }
-  }
-  return props;
 }
