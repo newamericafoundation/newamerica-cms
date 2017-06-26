@@ -1,42 +1,25 @@
 /**
-  Loop through a list of events and assign class names and fire events, if defined
-  when element enters or leaves viewPoint
-  Events are objects with properties:
-  {
-    els => an array of html elements,
-    selector => document.querySelectorAll compatable string,
-    triggerPoint => where in viewPort event should be triggered options: ['top', 'bottom', 'middle'],
-    enterOffset => offset from triggerPoint for enter events. if defined as % (eg '50%'), offsets by % of element's outerHeight,
-    leaveOffset => offset from triggerPoint for leave events. If defined as %, (eg '50%'), offsets by % of element's outerHeight,
-    enter => event for any point the element has passed the triggerPoint,
-    onEnter => event for the exact moment when element hits the triggerPoint,
-    leave => event for any point the element (including outerHeight) is outside the triggerPoint,
-    onLeave => event for the exact moment when element (including outerHeight) goes outside the triggerPoint
-  }
+  * Loop through a list of Events and when element enters or leaves viewPort
+  * assign class names and fire event callbacks, if defined.
+  *
+  *
+  * @typedef {Object} Event
+  * @property {HtmlElement[]} els - (required) an array of html elements,
+  * @property {string} selector - (required) document.querySelectorAll compatable string,
+  * @property {string} triggerPoint - (default: 'top', options: 'top', 'middle', 'bottom') part of viewPort event is triggered,
+  * @property {(number|string)} offset - (default: 0) offset for both enter and leave events. essentially shifts entire frame by this value. if defined as % (eg '50%'), offsets by % of element's outerHeight,
+  * @property {(number|string)} enterOffset - (default: 0) offset from triggerPoint for enter events. if defined as % (eg '50%'), offsets by % of element's outerHeight,
+  * @property {(number|string)} leaveOffset - (default: 0) offset from triggerPoint for leave events. If defined as %, (eg '50%'), offsets by % of element's outerHeight,
+  * @property {eventCallback} enter - event for any point after the element has passed the triggerPoint,
+  * @property {eventCallback} onEnter - event for the exact moment when element hits the triggerPoint,
+  * @property {eventCallback} leave - event for any point after the element (including outerHeight) is outside the triggerPoint,
+  * @property {eventCallback} onLeave - event for the exact moment when element (including outerHeight) goes outside the triggerPoint
+  *
+  * @callback eventCallback
+  * @param {HtmlElement} el - the triggered html element
+  * @param {string} direction - the direction scroll is moving ('FORWARD' or 'REVERSE')
+  *
 **/
-
-import store from '../react/store';
-
-const getOffset = (el, attr) => {
-  let offset = el.getAttribute(attr);
-  if(!offset) return false;
-  if(offset.indexOf('%')!=-1)
-    return el.offsetHeight * offset.replace('%', '')/100;
-  return +offset;
-}
-
-const getTriggerPointOffset = (triggerPoint, docHeight) => {
-  switch(triggerPoint){
-    case 'top':
-      return 0;
-    case 'bottom':
-      return -docHeight;
-    case 'middle':
-      return -docHeight/2;
-    default:
-      return 0;
-  }
-}
 
 const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => {
   let docHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -47,8 +30,9 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
   for(let e of events){
     for(let el of e.els){
       let rect = el.getBoundingClientRect(),
-      enterOffset = getOffset(el, 'data-scroll-enter-offset') || e.enterOffset || 0,
-      leaveOffset = getOffset(el, 'data-scroll-leave-offset') || e.leaveOffset || 0,
+      offset = getOffset(el, 'data-scroll-offset') || e.offset || 0,
+      enterOffset = getOffset(el, 'data-scroll-enter-offset') || offset || e.enterOffset || 0,
+      leaveOffset = getOffset(el, 'data-scroll-leave-offset') || offset || e.leaveOffset || 0,
       triggerPoint = el.getAttribute('data-scroll-trigger-point') || e.triggerPoint || 'top',
       triggerPointOffset = getTriggerPointOffset(triggerPoint, docHeight);
 
@@ -90,3 +74,24 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
 }
 
 export default scrollEvents;
+
+function getOffset(el, attr) {
+  let offset = el.getAttribute(attr);
+  if(!offset) return false;
+  if(offset.indexOf('%')!=-1)
+    return el.offsetHeight * offset.replace('%', '')/100;
+  return +offset;
+}
+
+function getTriggerPointOffset(triggerPoint, docHeight){
+  switch(triggerPoint){
+    case 'top':
+      return 0;
+    case 'bottom':
+      return -docHeight;
+    case 'middle':
+      return -docHeight/2;
+    default:
+      return 0;
+  }
+}

@@ -1,9 +1,14 @@
 .header--expanded{
   .header{
-    border-bottom: none;
-    padding: 15px 15px 0 25px;
     height: $header-expanded-height;
-    margin: 0 auto;
+
+    &__wrapper{
+      position: relative;
+      border-bottom: none;
+      padding: 15px 15px 0 25px;
+      height: $header-expanded-height;
+      margin: 0 auto;
+    }
 
     &__logo{
       width: 200px;

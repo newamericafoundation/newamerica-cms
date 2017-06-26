@@ -1,7 +1,9 @@
 $subheader-height: 70px;
 
 .header__subheader{
-  height: 5px;
+  height: $subheader-height;
+  position: relative;
+  z-index: 1;
   &__sticky-wrapper{
     @include transition(top 0.35s ease-in-out, opacity 0.35s ease-in-out);
     top: -50px;
@@ -57,6 +59,14 @@ $subheader-height: 70px;
         width: 100%;
         line-height: $subheader-height;
       }
+    }
+  }
+}
+
+body.scroll-reverse {
+  .header__subheader.scroll-left{
+    .header__subheader__sticky-wrapper{
+      top: $header-height !important;
     }
   }
 }

@@ -1,5 +1,5 @@
 import { fetchData, setParams } from './api/actions';
-import getNestedState from '../utils/get-nested-state';
+import { getNestedState, smoothScroll } from '../utils/index';
 import store from './store';
 
 // constants
@@ -95,7 +95,7 @@ class Actions {
   }
 
   addScrollEvent = ({
-    onEnter, onLeave, enter, leave, enterOffset, leaveOffset,
+    onEnter, onLeave, enter, leave, offset, enterOffset, leaveOffset,
     triggerPoint, selector
   }) => {
     let els = document.querySelectorAll(selector);
@@ -105,12 +105,14 @@ class Actions {
       component: 'site',
       eventObject: {
         onEnter, onLeave, enter, leave, selector,
-        enterOffset, leaveOffset, triggerPoint, els
+        offset, enterOffset, leaveOffset, triggerPoint, els
       }
     });
 
     return this;
   }
+
+  smoothScroll = smoothScroll
 
   setScrollDirection = (direction) => {
     store.dispatch({

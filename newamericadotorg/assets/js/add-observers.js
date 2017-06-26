@@ -1,7 +1,7 @@
 import actions from './react/actions';
 
 let observers = [
-  function(){
+  function scrollDirectionChange(){
     let body = document.getElementsByTagName('body')[0];
     actions.addObserver({
       stateName: 'site.scrollDirection',
@@ -9,12 +9,6 @@ let observers = [
         if(dir=='FORWARD') body.classList.remove('scroll-reverse');
         else body.classList.add('scroll-reverse');
       }
-    });
-  },
-
-  function(){
-    actions.addScrollEvent({
-      selector: '.scroll-target'
     });
   }
 ];

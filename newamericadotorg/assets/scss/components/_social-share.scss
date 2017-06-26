@@ -16,11 +16,27 @@
       top: 0;
       max-width: 22.5%;
       padding-right: 30px;
+      @include transition(top 0.35s ease-in-out);
     }
 
     &[data-scroll-enter-offset]{
       .post-social__sticky-wrapper{
-        top: 70px;
+        top: $subheader-height;
+      }
+    }
+  }
+}
+
+body.scroll-reverse{
+  .post-social.scroll-entered{
+    top: -$header-height;
+
+    .post-social__sticky-wrapper{
+      top: $header-height !important;
+    }
+    &[data-scroll-enter-offset]{
+      .post-social__sticky-wrapper{
+        top: #{$header-height + $subheader-height} !important;
       }
     }
   }

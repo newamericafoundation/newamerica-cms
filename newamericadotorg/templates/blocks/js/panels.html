@@ -9,7 +9,7 @@
 
   newamericadotorg.actions.addScrollEvent({
     selector: '.panel-section',
-    enterOffset: -1,
+    offset: -55,
     onEnter: function(el){
       var activePanel = document.getElementById('panel-nav-link__' + el.getAttribute('id'));
       newamericadotorg.actions.setAdHocState({ activePanel: activePanel });
