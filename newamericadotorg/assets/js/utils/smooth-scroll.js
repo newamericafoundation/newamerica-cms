@@ -8,21 +8,36 @@ import easings from './easings';
 const smoothScroll = ( destination, options={}, callback) => {
   let duration = options.duration || 350,
   easing = options.easing || 'easeInOutQuad',
-  offset = options.offset || 0;
+  offset = options.offset || 0,
+  direction = options.direction || 'vertical',
+  el = options.el || document.body;
 
   if(typeof destination == 'string' && destination.indexOf('#')===0)
     destination = document.getElementById(destination.replace('#',''));
 
-  const start = window.pageYOffset;
-  const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+  let start,
+  startTime = 'now' in window.performance ? performance.now() : new Date().getTime(),
+  documentHeight,
+  windowHeight,
+  destinationOffset;
 
-  const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-  const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-  const destinationOffset = typeof destination === 'number' ? destination + offset : destination.getBoundingClientRect().top + start + offset;
-  const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+  if(direction=='vertical'){
+    start = el.pageYOffset || el.scrollTop;
+    documentHeight = Math.max(el.scrollHeight, el.offsetHeight, el.clientHeight);
+    windowHeight = el.innerHeight || el.clientHeight;
+    destinationOffset = typeof destination === 'number' ? Math.ceil(destination + offset) : Math.ceil(destination.getBoundingClientRect().top + start + offset - el.offsetTop);
+  } else {
+    start = el.pageXOffset || el.scrollLeft;
+    documentHeight = Math.max(el.scrollWidth, el.offsetWidth, el.clientHeight);
+    windowHeight = el.innerHeight;
+    destinationOffset = typeof destination === 'number' ? Math.ceil(destination + offset) : Math.ceil(destination.getBoundingClientRect().left + start + offset - el.offsetLeft);
+  }
 
   if ('requestAnimationFrame' in window === false) {
-    window.scroll(0, destinationOffsetToScroll);
+    if(direction=='vertical')
+      el.scrollTop = destinationOffset;
+    else
+      el.scrollLeft = destinationOffset;
     if (callback) {
       callback();
     }
@@ -33,15 +48,20 @@ const smoothScroll = ( destination, options={}, callback) => {
     const now = 'now' in window.performance ? performance.now() : new Date().getTime();
     const time = Math.min(1, ((now - startTime) / duration));
     const timeFunction = easings[easing](time);
-    window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+    const next = Math.ceil((timeFunction * (destinationOffset - start)) + start);
 
-    if (window.pageYOffset === destinationOffsetToScroll) {
+    let currentPoint;
+    if(direction=='vertical')
+      el.scrollTop = currentPoint = next;
+    else
+      el.scrollLeft = currentPoint = next;
+
+    if (currentPoint === (destinationOffset)) {
       if (callback) {
         callback();
       }
       return;
     }
-
     requestAnimationFrame(scroll);
   }
 

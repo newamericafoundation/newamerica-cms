@@ -7,12 +7,18 @@
     }
   });
 
+  let panelScrollWrapper = document.getElementById('panel-anchor-scroll-wrapper');
   newamericadotorg.actions.addScrollEvent({
     selector: '.panel-section',
     offset: -55,
     onEnter: function(el){
       var activePanel = document.getElementById('panel-nav-link__' + el.getAttribute('id'));
       newamericadotorg.actions.setAdHocState({ activePanel: activePanel });
+      newamericadotorg.actions.smoothScroll(activePanel, {
+        el: panelScrollWrapper,
+        direction: 'horizontal',
+        offset: -2
+      });
     }
   });
 </script>
