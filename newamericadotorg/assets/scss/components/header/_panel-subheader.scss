@@ -32,6 +32,26 @@
   &__panel-list-wrapper{
     overflow: hidden;
     width: 70%;
+    position: relative;
+    &:before, &:after{
+      display: block;
+      content: ' ';
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      height: 100%;
+    }
+
+    &:before{
+      left: 0;
+      width: 5px;
+      @include linear-gradient-horizontal(color(white, base, 1), color(white, base, 0));
+    }
+    &:after{
+      right: 0;
+      width: 25px;
+      @include linear-gradient-horizontal(color(white, base, 0), color(white, base, 1));
+    }
   }
 
   &__panel-list{
@@ -41,7 +61,7 @@
     overflow-y: hidden;
     position: relative;
     font-size: 0;
-    padding: 0 5px 25px 5px !important;
+    padding: 0 25px 25px 5px !important;
 
     &__item{
       display: inline-block;
