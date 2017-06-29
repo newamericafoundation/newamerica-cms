@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
 import actions from '../../actions';
+import { Response } from '../../components/API';
 
 const LeadHeading = ({ article }) => (
   <div className="weekly-edition-grid__lead__text">
@@ -45,8 +46,21 @@ const ArticleList = ({ articles, edition }) => (
   </div>
 );
 
-const EditionList = ({ editions }) => (
-  <div className="weekly-edition-grid__edition-list weekly-edition-grid__col col"></div>
+const EditionList = ({ response: { results }}) => (
+  <div className="weekly-edition-grid__edition-list weekly-edition-grid__col col">
+    <div className="weekly-edition-grid__edition-list__scroll-wrapper">
+      {results.map((e, i)=>(
+          <div className="weekly-edition-grid__edition-list__item">
+            <Link to={'/weekly/'+e.slug}>
+            <label className="weekly-edition-grid__edition-list__item__label">Edition</label>
+            <label className="weekly-edition-grid__edition-list__item__edition-number">
+              {e.title.split(' ')[1] || e.title}
+            </label>
+            </Link>
+          </div>
+      ))}
+    </div>
+  </div>
 );
 
 class EditionGrid extends Component {
@@ -68,7 +82,7 @@ class EditionGrid extends Component {
         <div className="row">
           <Lead article={edition.articles[0]} edition={edition} />
           <ArticleList articles={edition.articles.slice(1,edition.articles.length)} edition={edition}/>
-          <EditionList />
+          <Response name="weekly.editionList" component={EditionList} />
         </div>
       </section>
     );
