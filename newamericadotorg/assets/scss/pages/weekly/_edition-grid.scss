@@ -2,97 +2,20 @@
   margin: 0 0 0 0 !important;
 }
 .weekly-edition-grid{
-  height: 90vh;
-  min-height: 450px;
-  margin-bottom: 10vh;
-  overflow: hidden;
+  @extend %clearfix;
+  padding-bottom: 25px;
+  &__col{
+    float: left;
+    min-height: 100vh;
+    border-left: 1px solid color(weekly, black, .2);
+  }
 
-
-  &__lead{
-    height: 100%;
+  .row{
     position: relative;
-
-    &__text{
-      position: absolute;
-      top: 0;
-      padding: 15px;
-
-      &__edition {
-        color: color(white) !important;
-        font-family: $weekly-font-family;
-        font-style: italic;
-      }
-
-      &__title{
-        color: color(white);
-        max-width: 75%;
-        font-family: $weekly-font-family;
-      }
-    }
-
-    &__image-wrapper{
-    }
-
-    &__image{
-        opacity: 0.8;
-        width: 100%;
-        padding-bottom: 110%;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
   }
 
-  &__article-list{
-    height: 100%;
-    overflow-y: scroll;
-    padding-bottom: 50px;
+  @import 'lead';
+  @import 'article-list';
+  @import 'edition-list';
 
-    &__also{
-      margin-bottom: 25px;
-      color: color(white) !important;
-    }
-
-    &__item{
-      margin: 0 0 25px 0;
-      cursor: pointer;
-
-      &__title{
-        margin: 10px auto 0 auto;
-        display: block;
-        cursor: pointer;
-        line-height: 1.3rem !important;
-        color: color(white) !important;
-        font-family: $weekly-font-family;
-      }
-      &__image{
-        width: 100%;
-        margin: 0 auto;
-        padding-bottom: 100%;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-    }
-  }
-
-  &__nav {
-    &__arrows{
-      i {
-        font-size: 1.6rem;
-        font-weight: 300;
-        color: color(white) !important;
-        vertical-align: middle;
-      }
-      span {
-        display: inline-block;
-        vertical-align: middle;
-        padding-right: 10px;
-        color: color(white) !important;
-      }
-      a:hover{
-        i, span{
-          color: color(turquoise) !important;
-        }
-      }
-    }
-  }
 }

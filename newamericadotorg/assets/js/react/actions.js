@@ -1,74 +1,24 @@
 import { fetchData, setParams } from './api/actions';
 import { getNestedState, smoothScroll } from '../utils/index';
 import store from './store';
+import {
+  SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
+  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE
+} from './constants';
 
-// constants
-const SET_SCROLL_POSITION = 'SET_SCROLL_POSITION';
-const ADD_SCROLL_EVENT = 'ADD_SCROLL_EVENT';
-const SET_SCROLL_DIRECTION = 'SET_SCROLL_DIRECTION';
-const RELOAD_SCROLL_EVENT = 'RELOAD_SCROLL_EVENT';
-const RELOAD_SCROLL_EVENTS = 'RELOAD_SCROLL_EVENTS';
-const SET_AD_HOC_STATE = 'SET_AD_HOC_STATE';
 
-// reducers
-const scrollPosition = (state=0, action) => {
-  switch(action.type){
-    case SET_SCROLL_POSITION:
-      return action.position;
-    default:
-      return state;
+const findScrollEventBySelector = (selector) => {
+  // assumes 1 event for each selector...
+  let state = store.getState().site.scrollEvents;
+  for(let i=0;i<state.length; i++){
+    if(state[i].selector==selector){
+      return {
+        event: state[i],
+        index: i
+      };
+    }
   }
-}
-
-const scrollDirection = (state='FORWARD', action) => {
-  switch(action.type){
-    case SET_SCROLL_DIRECTION:
-      return action.direction;
-    default:
-      return state;
-  }
-}
-
-const scrollEvents = (state=[], action) => {
-  switch(action.type){
-    case ADD_SCROLL_EVENT:
-      return [...state, action.eventObject];
-    case RELOAD_SCROLL_EVENT:
-      // assumes 1 event for each selector...
-      let index;
-      for(let i=0;i<state.length; i++){
-        if(state[i].selector==action.selector){
-          index = i;
-          break;
-        }
-      }
-      if(!index) return state;
-      let e = state.splice(index,1);
-      return [...state, {...e, els: document.querySelectorAll(e.selector)}];
-    case RELOAD_SCROLL_EVENTS:
-      let events = [];
-      for(let e of state)
-        events.push({...e, els: document.querySelectorAll(e.selector)});
-      return events;
-    default:
-      return state;
-  }
-}
-
-const adHoc = (state={}, action) => {
-  switch(action.type){
-    case SET_AD_HOC_STATE:
-      return {...state, ...action.object};
-    default:
-      return state;
-  }
-}
-
-export const reducers = {
-  scrollPosition,
-  scrollDirection,
-  scrollEvents,
-  adHoc
+  return null;
 }
 
 const observerFactory = function(stateName, onChange){
@@ -124,10 +74,15 @@ class Actions {
   }
 
   reloadScrollEvents = (selector) => {
+    let event;
+    if(selector){
+      event = findScrollEventBySelector(selector);
+      if(!event) return this.addScrollEvent({selector});
+    }
     store.dispatch({
-      type: selector ? RELOAD_SCROLL_EVENT : RELOAD_SCROLL_EVENTS,
+      type: event ? RELOAD_SCROLL_EVENT : RELOAD_SCROLL_EVENTS,
       component: 'site',
-      selector
+      event
     });
 
     return this;
@@ -163,5 +118,5 @@ class Actions {
   }
 }
 
-export const actions = new Actions();
+const actions = new Actions();
 export default actions;

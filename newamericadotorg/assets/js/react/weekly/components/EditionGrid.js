@@ -1,45 +1,40 @@
 import { Link } from 'react-router-dom';
+import { Component } from 'react';
+import actions from '../../actions';
 
-const LeadHeading = ({ article, edition }) => (
+const LeadHeading = ({ article }) => (
   <div className="weekly-edition-grid__lead__text">
-      <h4 className="weekly-edition-grid__lead__text__edition">{edition.title}</h4>
-      <h2 className="weekly-edition-grid__lead__text__title">{article.title}</h2>
-
+      <h1 className="weekly-edition-grid__lead__text__title">{article.title}</h1>
   </div>
 );
 
 
 const Lead = ({ article, edition }) => (
-  <div className="weekly-edition-grid__lead col-md-7">
-    <Link to={`/weekly/${edition.slug}/${article.slug}`}>
+  <div className="weekly-edition-grid__lead weekly-edition-grid__col col">
+    <Link to={`/weekly/${edition.slug}/${article.slug}`} className="weekly-edition-grid__lead-wrapper">
       <div className="weekly-edition-grid__lead__image-wrapper">
-        <div style={{ backgroundImage: `url(${article.story_image_sm})`}} className="weekly-edition-grid__lead__image with-inverse-overlay--black"/>
+        <div style={{ backgroundImage: `url(${article.story_image_sm})`}} className="weekly-edition-grid__lead__image scroll-target"/>
       </div>
-      <LeadHeading article={edition.articles[0]} edition={edition} />
+      <LeadHeading article={edition.articles[0]} />
     </Link>
   </div>
 );
 
 const ArticleListItem = ({ item, edition }) => (
-  <div className="weekly-edition-grid__article-list__item col-md-6">
+  <div className="weekly-edition-grid__article-list__item col-6">
     <Link to={`/weekly/${edition.slug}/${item.slug}`}>
       <div className="weekly-edition-grid__article-list__item__image"
         style={{backgroundImage: `url(${item.story_image_sm})`}}></div>
-      <label className="lg active weekly-edition-grid__article-list__item__title">
-      {item.title}
-      </label>
+      <h2 className="weekly-edition-grid__article-list__item__title">
+        {item.title}
+      </h2>
     </Link>
   </div>
 );
 
 const ArticleList = ({ articles, edition }) => (
-  <div className="weekly-edition-grid__article-list col-md-5">
-    <div className="row">
-      <div className="col-md-12">
-        <label className="active lg weekly-edition-grid__article-list__also">Also in this Edition</label>
-      </div>
-    </div>
-    <div className="row">
+  <div className="weekly-edition-grid__article-list weekly-edition-grid__col col">
+    <div className="row gutter-15">
       {articles.map((a,i) => (
         <ArticleListItem item={a} edition={edition}/>
       ))}
@@ -47,11 +42,34 @@ const ArticleList = ({ articles, edition }) => (
   </div>
 );
 
-const EditionGrid = ({ edition }) => (
-  <div className="weekly-edition-grid row">
-    <Lead article={edition.articles[0]} edition={edition} />
-    <ArticleList articles={edition.articles.slice(1,edition.articles.length)} edition={edition}/>
-  </div>
+const EditionList = ({ editions }) => (
+  <div className="weekly-edition-grid__edition-list weekly-edition-grid__col col"></div>
 );
+
+class EditionGrid extends Component {
+  componentDidMount(){
+    actions.reloadScrollEvents('.scroll-target');
+  }
+  componentDidUpdate(){
+    actions.reloadScrollEvents('.scroll-target');
+  }
+
+  render(){
+    let { edition } = this.props;
+    let attrs =  {
+      'data-scroll-enter-offset':'-25',
+      'data-scroll-leave-offset': '-100vh'
+    }
+    return(
+      <section className="weekly-edition-grid scroll-target container" {...attrs}>
+        <div className="row">
+          <Lead article={edition.articles[0]} edition={edition} />
+          <ArticleList articles={edition.articles.slice(1,edition.articles.length)} edition={edition}/>
+          <EditionList />
+        </div>
+      </section>
+    );
+  }
+}
 
 export default EditionGrid;

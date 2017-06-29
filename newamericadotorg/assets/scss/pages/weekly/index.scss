@@ -1,8 +1,41 @@
 $weekly-font-family: 'Lyon Display', serif;
+$weekly-header-height: 60px;
 @import 'lyon-font';
+@import 'mixins';
 
 .the-weekly {
-	background: #000;
+	background: color(weekly, beige);
+
+	h1, h4 {
+		font-family: $weekly-font-family;
+		color: color(weekly, black);
+	}
+
+	h1{
+		font-size: 2rem;
+		line-height: 1.75rem;
+	}
+
+	h2, h3 {
+		font-family: $paragraph-font-family;
+		color: color(weekly, black);
+	}
+
+	h2 {
+		font-size: 0.9rem;
+		line-height: 0.9rem;
+	}
+
+	p,
+	blockquote,
+	ul,
+	li{
+		font-family: $weekly-font-family;
+	}
+
+	.subheading, [class*="subheading--"] {
+		font-family: $paragraph-font-family;
+	}
 
 	.footer{
 		border-top: none;
@@ -10,10 +43,6 @@ $weekly-font-family: 'Lyon Display', serif;
 
 	.footer__logo{
 		background-image: url('/static/logo-white.svg');
-	}
-
-	.footer__content h4{
-		color: color(gray);
 	}
 }
 

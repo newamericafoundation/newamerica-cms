@@ -2,14 +2,14 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk'
 
 import apiReducers from './api/reducers';
-import { reducers as eventReducers } from './actions';
+import siteReducers from './reducers';
 import * as components from './installed_components';
 import getNestedState from '../utils/get-nested-state';
 
-let initialState = { site: { adHoc: {}, scrollPosition: 0 }};
+let initialState = { site: { adHoc: {}, scrollPosition: 0, scrollEvents: [], scrollDirection: 'FORWARD' }};
 
 let defaultReducer = combineReducers(apiReducers);
-let siteReducer = combineReducers({...eventReducers});
+let siteReducer = combineReducers(siteReducers);
 
 let reducers = { 'site': siteReducer };
 

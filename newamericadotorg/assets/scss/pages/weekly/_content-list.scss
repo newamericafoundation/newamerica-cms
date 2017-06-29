@@ -15,7 +15,6 @@ $content-item-height: 180px;
 			@include vertical-center;
 
 			&__title, &__author, a, .active{
-				color: color(white);
 				font-weight: bold;
 			}
 

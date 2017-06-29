@@ -1,63 +1,17 @@
 .weekly-header{
-	//position: absolute;
-	// top: 25px;
-	// left: 25px;
-	margin: 25px;
-	z-index: 10;
+	background: color(weekly, black);
+	height: $weekly-header-height;
+	margin-bottom: 25px;
 
 	&__logo{
-		margin-right: 15px;
+		width: 100%;
+		height: auto;
 	}
 
-	&__heading, &__subheading{
-		color: color(white) !important;
-		display: inline-block;
-		vertical-align: middle;
+	&__heading{
+		color: color(weekly, gray) !important;
+		text-align: center;
+		line-height: $weekly-header-height;
 	}
 
-	&__heading {
-		margin-right: 30px;
-		position: relative;
-		font-family: $weekly-font-family;
-		font-style: italic;
-		&::after{
-			position: absolute;
-			right: -15px;
-			@include transform(rotate(24deg));
-			border-right: 1px solid color(white);
-			height: 150%;
-			top: -25%;
-			display: inline-block;
-			content: ' ';
-		}
-	}
-
-	&__subheading{
-		max-width: 250px;
-	}
-
-	&.article {
-		position: absolute;
-		top: 25px;
-		left: 25px;
-		margin: 0;
-		& > * {
-			display: inline-block;
-			vertical-align: middle;
-		}
-		.weekly-header{
-			&__heading{
-				font-size: 1.4rem;
-				&::after{
-					height: 100%;
-    			top: 0%;
-				}
-			}
-			&__subheading{
-				font-size: 0.78rem;
-				line-height: 1rem;
-				max-width: 240px;
-			}
-		}
-	}
 }

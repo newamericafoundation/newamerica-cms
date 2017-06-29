@@ -1,0 +1,26 @@
+@mixin turquoise-overlay {
+  position: relative;
+  &::before{
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    opacity: .3;
+    @include linear-gradient-vertical(color(weekly, turquoise), color(weekly, blue));
+  }
+  @extend %with-overlay;
+}
+
+@mixin gray-multiply-overlay {
+  background-color: color(weekly, gray, 1);
+  background-blend-mode: multiply;
+  filter: grayscale(75%);
+  @include transition(filter 0.3s ease-in-out);
+  &:hover{
+    filter: grayscale(0%);
+  }
+}

@@ -80,6 +80,11 @@ function getOffset(el, attr) {
   if(!offset) return false;
   if(offset.indexOf('%')!=-1)
     return el.offsetHeight * offset.replace('%', '')/100;
+  if(offset.indexOf('vh')!=-1){
+    let docHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    return docHeight * offset.replace('vh', '')/100;
+  }
+
   return +offset;
 }
 

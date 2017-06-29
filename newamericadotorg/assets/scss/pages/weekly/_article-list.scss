@@ -1,0 +1,22 @@
+&__article-list{
+  max-width: 38.88888%;
+
+  &__item{
+    margin: 0 0 25px 0;
+    cursor: pointer;
+
+    &__title{
+      margin: 10px auto 0 auto;
+      display: block;
+      cursor: pointer;
+    }
+    &__image{
+      width: 100%;
+      margin: 0 auto;
+      padding-bottom: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      @include gray-multiply-overlay;
+    }
+  }
+}

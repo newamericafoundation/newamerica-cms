@@ -1,0 +1,29 @@
+&__edition-list {
+  max-width: 16.66667%;
+  height: calc(100vh - 50px);
+  min-height: 0;
+}
+
+&.scroll-in-view{
+  .weekly-edition-grid__edition-list{
+    width: 16.666667vw;
+    max-width: 200px;
+    position: fixed;
+    top: 25px;
+    left: 83.333333vw;
+    @include media-breakpoint(large-desktop){
+      left: initial;
+      right: calc(50vw - 599px);
+    }
+  }
+}
+
+&.scroll-left{
+  .weekly-edition-grid__edition-list{
+    width: 16.666667vw;
+    max-width: 200px;
+    position: absolute;
+    bottom: 0;
+    right: 1px;
+  }
+}

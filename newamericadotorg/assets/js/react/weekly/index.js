@@ -8,32 +8,7 @@ import Article from './components/Article';
 import EditionGrid from './components/EditionGrid';
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
-
-const EditionGridList = ({ edition, nextEdition, prevEdition }) => (
-
-  <section className="container">
-    <div className="row">
-      <div className="col-md-10 weekly-edition-grid-list">
-        <EditionGrid edition={edition} />
-      </div>
-      <div className="col-md-2 weekly-edition-grid__nav">
-        <div className="weekly-edition-grid__nav__arrows">
-          {prevEdition &&
-            <Link to={`/weekly/${prevEdition.slug}`}>
-              <i className="fa fa-long-arrow-left"/>
-              <span>{prevEdition.title} </span>
-            </Link>
-          }{nextEdition &&
-            <Link to={`/weekly/${nextEdition.slug}`}>
-              <span>{nextEdition.title}</span>
-              <i className="fa fa-long-arrow-right"/>
-            </Link>
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-);
+import actions from '../actions';
 
 class Routes extends Component {
   isFetching = false;
@@ -94,10 +69,7 @@ class Routes extends Component {
               <Route exact
                 path="/weekly/:edition"
                 render={()=>(
-                  <EditionGridList
-                    prevEdition={this.getPrevEdition(edition)}
-                    nextEdition={this.getNextEdition(edition)}
-                    edition={edition}/>
+                  <EditionGrid edition={edition}/>
                 )}/>
               <Route exact
                 path="/weekly/:edition/:article"
