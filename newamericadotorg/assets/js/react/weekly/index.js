@@ -74,7 +74,7 @@ class Routes extends Component {
               <Route exact
                 path="/weekly/:edition/:article"
                 render={(props)=>{
-                  return <Article article={this.getArticle(edition, props.match.params.article)} />
+                  return <Article article={this.getArticle(edition, props.match.params.article)} edition={edition} />
                 }}/>
             </Switch>
           </CSSTransitionGroup>
@@ -84,6 +84,7 @@ class Routes extends Component {
 }
 
 class APP extends Component {
+  
   getEdition = (match) => {
     let { params: { edition }} = match;
     if(!edition) return +this.props.latestEdition;

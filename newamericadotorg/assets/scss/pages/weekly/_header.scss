@@ -2,10 +2,12 @@
 	background: color(weekly, black);
 	height: $weekly-header-height;
 	margin-bottom: 25px;
+	position: relative;
 
 	&__logo{
-		width: 100%;
-		height: auto;
+		position: absolute;
+		opacity: 0.8;
+		@include vertical-center;
 	}
 
 	&__heading{

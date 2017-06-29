@@ -3,6 +3,23 @@
   max-width: 44.44444%;
   position: static;
   border-left: none;
+  &__edition-title{
+    position: absolute;
+    top: 0;
+    padding: 15px;
+    padding-top: 25px;
+    z-index: 10;
+    label{
+      padding: 2.5px;
+      padding-left: 5px;
+      padding-right: 5px;
+      display: inline-block;
+      color: color(white);
+      background: color(weekly, turquoise);
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
   &-wrapper{
     display: block;
     position: relative;

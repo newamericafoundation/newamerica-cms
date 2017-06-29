@@ -27,8 +27,10 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
   const ENTER_CLASS = 'scroll-entered';
   const LEFT_CLASS = 'scroll-left';
   const IN_VIEW_CLASS = 'scroll-in-view';
+  let oneE;
   for(let e of events){
     for(let el of e.els){
+      oneE = el;
       let rect = el.getBoundingClientRect(),
       offset = getOffset(el, 'data-scroll-offset') || e.offset || 0,
       enterOffset = getOffset(el, 'data-scroll-enter-offset') || offset || e.enterOffset || 0,
@@ -71,6 +73,8 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       }
     }
   }
+  // reflow
+  if(oneE) void(oneE.offsetHeight);
 }
 
 export default scrollEvents;

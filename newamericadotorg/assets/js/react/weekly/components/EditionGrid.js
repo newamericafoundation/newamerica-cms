@@ -15,6 +15,9 @@ const Lead = ({ article, edition }) => (
       <div className="weekly-edition-grid__lead__image-wrapper">
         <div style={{ backgroundImage: `url(${article.story_image_sm})`}} className="weekly-edition-grid__lead__image scroll-target"/>
       </div>
+      <div className="weekly-edition-grid__lead__edition-title">
+        <label>{edition.title}</label>
+      </div>
       <LeadHeading article={edition.articles[0]} />
     </Link>
   </div>

@@ -1,78 +1,49 @@
 .weekly-heading{
-	height: 100vh;
-	width: 100%;
-	min-height: 450px;
 	position: relative;
 	z-index: 0;
-
+	padding-top: 50px;
+	padding-bottom: 50px;
 
 	&__image{
-		position: absolute;
-		bottom: 0;
-		top: 0;
-		left: 0;
-		right: 0;
+		width: 100%;
+		padding-bottom: 50%;
 		background-size: cover;
 		background-repeat: no-repeat;
-		z-index: 20;
-		opacity: 0.8;
-
-    &::after{
-      @include linear-gradient-vertical-fadein-fadeout(#000,rgba(#000,0),#000);
-    }
-
-		&.article{
-			&::after{
-				@include linear-gradient-vertical(#000,rgba(#000,0),0%,50%);
-			}
-		}
-	}
-	&__lead-story{
-		height: 100%;
-		position: relative;
-		z-index: 30;
-		&__text{
-			width: 33.333%;
-			float: right;
-			margin-top: 250px;
-			padding-right: 25px;
-
-			&.article{
-				float: left;
-				width: 80%;
-				position: absolute;
-				bottom: calc(25vh + 75px);
-			}
-
-			&__title, &__author, a, .active{
-				color: color(white);
-				font-weight: bold;
-				width: 100%;
-			}
-
-			&__title{
-				h1{
-					font-family: $weekly-font-family;
-				}
-			}
-		}
 	}
 
-	&__also-in-this-edition{
-		position: absolute;
-		bottom: 25px;
-		@include horizontal-center;
-		z-index: 30;
-
-		&.article {
-			display: none;
+	&__text{
+		margin-bottom: 35px;
+		&__title{
+			margin-bottom: 15px;
+			width: 100%;
+			text-align: center;
+			h1 {
+				margin: 0 auto;
+				max-width: 600px;
+			}
 		}
+		&__date-author-wrapper {
+			text-align: center;
+			width: 100%;
 
-		label{
-			color: color(white);
-      .fa{
-        color: color(white) !important;
-      }
+		}
+		&__author, &__date{
+			font-family: $paragraph-font-family;
+			display: inline-block;
+			padding: 0 10px;
+			height: 10px;
+			line-height: 10px;
+			color: color(weekly, black, 0.9) !important;
+			a {
+				color: color(weekly, black, 0.9);
+			}
+		}
+		&__date{
+			border-right: 1px solid color(weekly, black);
+			text-transform: uppercase;
+		}
+		&__author{
+			letter-spacing: -0.04em;
 		}
 	}
 }
