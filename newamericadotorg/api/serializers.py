@@ -311,7 +311,7 @@ class WeeklyArticleSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         if obj.story_image:
-            return generate_image_url(obj.story_image)
+            return generate_image_url(obj.story_image, 'max-1200x600')
 
     def get_story_image_sm(self, obj):
         if obj.story_image:
@@ -325,6 +325,11 @@ class WeeklyArticleSerializer(ModelSerializer):
         fields = (
             'id', 'title', 'date', 'authors', 'body', 'story_image', 'slug', 'story_excerpt', 'story_image_sm'
         )
+
+class WeeklyEditionListSerializer(ModelSerializer):
+    class Meta:
+        model = WeeklyEdition
+        fields = ('id', 'title', 'slug')
 
 class WeeklyEditionSerializer(ModelSerializer):
     articles = SerializerMethodField()

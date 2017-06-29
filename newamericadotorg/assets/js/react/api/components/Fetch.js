@@ -46,7 +46,10 @@ class Fetch extends Component {
 
   render() {
     let { className, showLoading, component, transition } = this.props;
-    let { isFetching } = this.props.response;
+    let { isFetching, results } = this.props.response;
+
+    if(!results) return null;
+    if(results instanceof Array && !results.length) return null;
     let children = this.mapNameToResponse();
     return (
       <this.props.component {...this.props}

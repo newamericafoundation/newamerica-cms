@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^api/project/(?P<pk>[\d]+)/$', api_views.ProjectDetail.as_view()),
     url(r'^api/weekly/$', api_views.WeeklyList.as_view()),
     url(r'^api/weekly/(?P<pk>[\d]+)/$', api_views.WeeklyDetail.as_view()),
-    url(r'^api/weekly/(?P<edition_slug>.+)/(?P<article_slug>.+)/$', api_views.WeeklyDetailByEdition.as_view()),
+    #url(r'^api/weekly/(?P<edition_slug>.+)/$', api_views.WeeklyDetail.as_view()),
     url(r'^api/meta/$', api_views.MetaList.as_view()),
     url(r'^api/content-types/$', api_views.ContentList.as_view()),
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),

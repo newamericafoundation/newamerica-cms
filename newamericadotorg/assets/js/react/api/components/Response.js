@@ -23,7 +23,9 @@ class Response extends Component {
 
   render(){
     let { children, className, transition, showLoading, component } = this.props;
-    let { isFetching } = this.props.response;
+    let { isFetching, results } = this.props.response;
+    if(!results) return null;
+    if(results instanceof Array && !results.length) return null;
     return (
       <this.props.component {...this.props}
         className={'compose__response-component ' + (transition ? ' fetch-transition ' : '') +  (className||'') + (isFetching? ' is-fetching': '')}>

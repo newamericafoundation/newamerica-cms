@@ -12,7 +12,7 @@ from person.models import Person
 from serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
     ProjectSerializer, HomeSerializer, TopicSerializer, EventSerializer,
-    WeeklyEditionSerializer, WeeklyArticleSerializer
+    WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer
 )
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
@@ -92,12 +92,12 @@ def get_edition_number(edition):
     return -int(edition.slug)
 
 class WeeklyPagination(pagination.LimitOffsetPagination):
-    default_limit = 3
-    max_limit = 25
+    default_limit = 1000
+    max_limit = 1000
 
 
 class WeeklyList(generics.ListAPIView):
-    serializer_class = WeeklyEditionSerializer
+    serializer_class = WeeklyEditionListSerializer
     pagination_class = WeeklyPagination
 
     def get_queryset(self):
@@ -105,14 +105,14 @@ class WeeklyList(generics.ListAPIView):
         return sorted(queryset, key=lambda edition: get_edition_number(edition));
 
 class WeeklyDetail(generics.RetrieveAPIView):
-    queryset = WeeklyArticle.objects.live()
-    serializer_class = WeeklyArticleSerializer
+    queryset = WeeklyEdition.objects.live()
+    serializer_class = WeeklyEditionSerializer
 
-class WeeklyDetailByEdition(views.APIView):
-    def get(self, request, edition_slug, article_slug):
-        article = WeeklyEdition.objects.get(slug=edition_slug).get_children().specific().filter(slug=article_slug).first()
-
-        return response.Response(WeeklyArticleSerializer(article).data)
+# class WeeklyDetail(views.APIView):
+#     def get(self, request, edition_slug, article_slug):
+#         edition = WeeklyEdition.objects.get(slug=edition_slug).get_children().specific().filter(slug=article_slug).first()
+#
+#         return response.Response(WeeklyEditionSerializer(edition, many=True).data)
 
 class AuthorList(generics.ListAPIView):
     queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')

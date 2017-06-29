@@ -10,44 +10,51 @@ import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 import actions from '../actions';
 
-class Routes extends Component {
-  isFetching = false;
-  getNextEdition = (edition) => {
-    let { response: { results, hasNext, count }, setQueryParam, offset, fetchAndAppend } = this.props;
-    let index = results.indexOf(edition);
-    let nextEdition = results[index+1];
-    if(nextEdition) return nextEdition;
-    if(offset+3>count) return null;
-    if(!this.isFetching && hasNext){
-      this.isFetching = true;
-      setQueryParam('offset', offset+3);
-      fetchAndAppend(()=>{ this.isFetching = false });
-      return undefined;
-    }
-    return nextEdition;
+class ArticleResponse extends Component {
+  getArticle = () => {
+    let edition = this.props.response.results;
+    let articleSlug = this.props.match.params.article;
+    return edition.articles.find((a)=>(a.slug==articleSlug));
   }
 
-  getPrevEdition = (edition) => {
-    let { response: { results, hasPrevious }, setQueryParam, offset, fetchAndPrepend } = this.props;
-    let index = results.indexOf(edition);
-    let prevEdition = results[index-1];
-    if(prevEdition) return prevEdition;
-    if(offset===0) return null;
-    if(!this.isFetching && hasPrevious){
-      this.isFetching = true;
-      setQueryParam('offset', offset-3);
-      fetchAndPrepend(()=>{ this.isFetching = false });
-      return undefined;
-    }
+  render(){
+    let edition = this.props.response.results;
+    return(
+      <Article article={this.getArticle()} edition={edition} />
+    );
   }
+}
+
+const EditionResponse = ({ response: { results } }) => {
+  return <EditionGrid edition={results} />
+  return null;
+};
+
+const Main = ({ location }) => (
+  <CSSTransitionGroup
+    transitionName="weekly-page-fade"
+    transitionEnterTimeout={500}
+    transitionLeaveTimeout={300}>
+    <Switch key={location.key} location={location}>
+      <Route exact
+        path="/weekly/:edition"
+        render={()=>(
+          <Response name="weekly.edition" component={EditionResponse}/>
+        )}/>
+      <Route exact
+        path="/weekly/:edition/:article"
+        render={(props)=>(
+          <Response name="weekly.edition" match={props.match} component={ArticleResponse}/>
+        )}/>
+    </Switch>
+  </CSSTransitionGroup>
+);
+
+class Routes extends Component {
 
   getEdition = (editionSlug) => {
     let { response: { results }} = this.props;
     return results.find((e)=>(e.slug==editionSlug)) || results[0];
-  }
-
-  getArticle = (edition, articleSlug) => {
-    return edition.articles.find((a)=>(a.slug==articleSlug));
   }
 
   render(){
@@ -59,64 +66,31 @@ class Routes extends Component {
       {results.length &&
         <div>
           <ScrollToTop location={location} />
-          <Header page={match.params.article ? 'article' : 'edition' }/>
+          <Header />
           <Route exact path="/weekly" render={()=>(<Redirect to={`/weekly/${edition.slug}`}/>)} />
-          <CSSTransitionGroup
-            transitionName="weekly-page-fade"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}>
-            <Switch key={location.key} location={location}>
-              <Route exact
-                path="/weekly/:edition"
-                render={()=>(
-                  <EditionGrid edition={edition}/>
-                )}/>
-              <Route exact
-                path="/weekly/:edition/:article"
-                render={(props)=>{
-                  return <Article article={this.getArticle(edition, props.match.params.article)} edition={edition} />
-                }}/>
-            </Switch>
-          </CSSTransitionGroup>
+          <Route path="/weekly/:edition" render={()=>(
+            <Fetch name="weekly.edition"
+              endpoint={`weekly/${edition.id}`}
+              fetchOnMount={true} />
+          )}/>
+          <Main location={location}/>
         </div>}</div>
     );
   }
 }
 
 class APP extends Component {
-  
-  getEdition = (match) => {
-    let { params: { edition }} = match;
-    if(!edition) return +this.props.latestEdition;
-    if(!isNaN(edition)) return +edition;
-    return +match.params.edition.split('-')[1];
-  }
-
-  getOffset = (match) => {
-    let { latestEdition } = this.props;
-    let edition = this.getEdition(match);
-    return Math.floor((latestEdition - edition)/3)*3
-  }
-
   render() {
-    let { latestEdition } = this.props;
-
     return (
       <Router>
-        <Route path="/weekly/:edition?/:article?" render={({ location, match }) => {
-          let offset = this.getOffset(match);
-          return <Fetch
-            name={NAME}
-            endpoint='weekly'
-            fetchOnMount={true}
-            component={Routes}
-            location={location}
-            offset={offset}
-            match={match}
-            initialQuery={{
-              offset
-            }}/>
-          }}/>
+        <Route path="/weekly/:edition?/:article?" render={({ location, match }) => (
+            <Fetch name='weekly.editionList'
+              endpoint='weekly'
+              fetchOnMount={true}
+              component={Routes}
+              location={location}
+              match={match}/>
+          )}/>
       </Router>
     );
   }
