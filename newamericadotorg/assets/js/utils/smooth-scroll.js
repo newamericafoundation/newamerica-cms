@@ -6,7 +6,7 @@ import easings from './easings';
 import getOffset from './get-offset';
 
 const smoothScroll = (destination, options={}, callback) => {
-  let duration = options.duration || 350,
+  let duration = options.duration===0 ? 0 : (options.duration || 350),
   easing = options.easing || 'easeInOutQuad',
   offset = options.offset || 0,
   direction = options.direction || 'vertical',
@@ -28,8 +28,8 @@ const smoothScroll = (destination, options={}, callback) => {
     start = el.pageXOffset || el.scrollLeft;
     destinationOffset = typeof destination === 'number' ? Math.ceil(destination + offset) : Math.ceil(getOffset(destination, el).left + offset);
   }
-
-  if ('requestAnimationFrame' in window === false) {
+  
+  if ('requestAnimationFrame' in window === false || duration===0) {
     if(direction=='vertical')
       el.scrollTop = destinationOffset;
     else

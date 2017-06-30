@@ -7,9 +7,6 @@ export default class Article extends Component {
   componentDidMount(){
     actions.reloadScrollEvents('.scroll-target');
   }
-  componentDidUpdate(){
-    actions.reloadScrollEvents('.scroll-target');
-  }
 
   render(){
     let { article, edition } = this.props;

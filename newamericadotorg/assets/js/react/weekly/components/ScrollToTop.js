@@ -3,7 +3,9 @@ import { Component } from 'react';
 class ScrollToTop extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0)
+      setTimeout(function(){
+        window.scrollTo(0, 0)
+      }, 0);
     }
   }
 

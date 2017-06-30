@@ -33,7 +33,7 @@
 
       }
     }
-    &:hover, .active{
+    &:hover, &.active{
       cursor: pointer;
       .weekly-edition-grid__edition-list__item__edition-number{
         cursor: pointer;

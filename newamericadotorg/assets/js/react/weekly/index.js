@@ -25,17 +25,16 @@ class ArticleResponse extends Component {
   }
 }
 
-const EditionResponse = ({ response: { results } }) => {
-  return <EditionGrid edition={results} />
-  return null;
-};
+const EditionResponse = ({ response: { results }, key }) => (
+  <EditionGrid edition={results} key={key} />
+);
 
-const Main = ({ location }) => (
+const Main = ({ location, match }) => (
   <CSSTransitionGroup
     transitionName="weekly-page-fade"
-    transitionEnterTimeout={500}
-    transitionLeaveTimeout={300}>
-    <Switch key={location.key} location={location}>
+    transitionEnterTimeout={800}
+    transitionLeaveTimeout={800}>
+    <Switch key={match.params.article ? 'article' : 'edition'} location={location}>
       <Route exact
         path="/weekly/:edition"
         render={()=>(
@@ -73,7 +72,7 @@ class Routes extends Component {
               endpoint={`weekly/${edition.id}`}
               fetchOnMount={true} />
           )}/>
-          <Main location={location}/>
+          <Main location={location} match={match}/>
         </div>}</div>
     );
   }
