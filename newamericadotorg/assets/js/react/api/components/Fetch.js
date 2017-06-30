@@ -34,7 +34,7 @@ class Fetch extends Component {
 
   mapNameToResponse = () => {
     let { children, name } = this.props;
-    let _children;
+
     if(typeof children == 'object'){
       if(children.type === Response){
         return (<Response name={name} component={children.props.component} />);
@@ -50,7 +50,10 @@ class Fetch extends Component {
 
     if(!results) return null;
     if(results instanceof Array && !results.length) return null;
+
     let children = this.mapNameToResponse();
+    if(!children && !this.props.component=='span') return null;
+
     return (
       <this.props.component {...this.props}
         className={'compose__fetch-component' + (transition ? ' fetch-transition ' : '') + (className||'') + (isFetching? ' is-fetching': '')}>
@@ -87,7 +90,7 @@ class FetchWrapper extends Component{
     baseUrl: BASEURL,
     fetchOnMount: false,
     eager: false,
-    component: 'div',
+    component: 'span',
     showLoading: false,
     transition: false
   }

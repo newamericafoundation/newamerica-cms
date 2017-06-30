@@ -1,0 +1,73 @@
+.weekly-loading{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: color(weekly, gray);
+  @include turquoise-overlay(0.8);
+  position: fixed;
+  text-align: center;
+  animation-name: fade-all;
+  animation-duration: 1s;
+  animation-delay: 4s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  opacity: 1;
+
+  &__text{
+    * {
+      color: color(white) !important;
+      text-align: center;
+    }
+    &__title, .tagline-1, .tagline-2{
+      animation-name: text-fade;
+      animation-duration: 2s;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+      white-space: nowrap;
+      opacity: 0;
+      @include transform(translate3d(0, 100%, 0));
+    }
+    &__title{
+      font-size: 1.8rem !important;
+    }
+    &__tagline{
+      font-size: 3rem !important;
+      line-height: 3rem !important;
+      font-weight: normal;
+
+      .tagline-1{
+        display: block;
+        animation-delay: 0.75s;
+      }
+      .tagline-2, {
+        display: block;
+        animation-delay: 1.25s;
+      }
+    }
+    z-index: 100;
+    position: absolute;
+    padding-bottom: 75px;
+    @include center;
+  }
+}
+
+@include keyframes(fade-all){
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@include keyframes(text-fade){
+  0% {
+    opacity: 0;
+    @include transform(translate3d(0, 100%, 0));
+  }
+  100% {
+    opacity: 1;
+      @include transform(translate3d(0, 0, 0));
+  }
+}

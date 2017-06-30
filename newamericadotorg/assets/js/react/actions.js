@@ -49,7 +49,7 @@ class Actions {
     triggerPoint, selector
   }) => {
     let els = document.querySelectorAll(selector);
-    if(!els.length) return;
+    if(!els.length && selector != '.scroll-target') return;
     store.dispatch({
       type: ADD_SCROLL_EVENT,
       component: 'site',

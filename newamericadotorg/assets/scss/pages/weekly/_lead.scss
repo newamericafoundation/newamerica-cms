@@ -47,7 +47,7 @@
 
   &__image-wrapper{
     @include turquoise-overlay;
-
+    @extend %with-overlay;
     &:hover{
       .weekly-edition-grid__lead__image{
         filter: grayscale(0%);

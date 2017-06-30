@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
-import actions from '../../actions';
+import smoothScroll from '../../../utils/smooth-scroll';
 import { Response } from '../../components/API';
-import { CSSTransitionGroup } from 'react-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group';
+import { reloadScrollEvents } from '../actions';
 
 const LeadHeading = ({ article }) => (
   <div className="weekly-edition-grid__lead__text">
@@ -15,7 +16,7 @@ const Lead = ({ article, edition }) => (
   <div className="weekly-edition-grid__lead weekly-edition-grid__col col">
     <Link to={`/weekly/${edition.slug}/${article.slug}`} className="weekly-edition-grid__lead-wrapper">
       <div className="weekly-edition-grid__lead__image-wrapper">
-        <div style={{ backgroundImage: `url(${article.story_image_sm})`}} className="weekly-edition-grid__lead__image scroll-target"/>
+        <div style={{ backgroundImage: `url(${article.story_image_sm})`}} className="weekly-edition-grid__lead__image"/>
       </div>
       <div className="weekly-edition-grid__lead__edition-title">
         <label>{edition.title}</label>
@@ -52,7 +53,7 @@ class EditionList extends Component {
   componentDidMount(){
     let { activeEdition } = this.props;
     setTimeout(function(){
-      actions.smoothScroll(`#id-${activeEdition.id}`, {
+      smoothScroll(`#id-${activeEdition.id}`, {
         el: '#edition-list-scroll',
         duration: 0,
         offset: -90
@@ -83,7 +84,7 @@ class EditionList extends Component {
 
 class EditionGrid extends Component {
   componentDidMount(){
-    actions.reloadScrollEvents('.scroll-target');
+    this.props.dispatch(reloadScrollEvents());
   }
 
   render(){
@@ -100,12 +101,12 @@ class EditionGrid extends Component {
           transitionName="weekly-edition-stagger"
           transitionEnterTimeout={2000}
           transitionLeaveTimeout={600}>
-        <div className="row" key={edition.id}>
-          <Lead article={edition.articles[0]} edition={edition} />
-          <ArticleList articles={edition.articles.slice(1,edition.articles.length)} edition={edition}/>
-          <Response name="weekly.editionList" component={EditionList} activeEdition={edition} />
-        </div>
-      </CSSTransitionGroup>
+          <div className="row" key={edition.id}>
+            <Lead article={edition.articles[0]} edition={edition} />
+            <ArticleList articles={edition.articles.slice(1,edition.articles.length)} edition={edition}/>
+            <Response name="weekly.editionList" component={EditionList} activeEdition={edition} />
+          </div>
+        </CSSTransitionGroup>
       </section>
     );
   }

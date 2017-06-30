@@ -4,11 +4,15 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';
+import getNestedState from '../../utils/get-nested-state';
 import Article from './components/Article';
 import EditionGrid from './components/EditionGrid';
 import Header from './components/Header';
+import Preload from './components/Preload';
+import LoadingPage from './components/LoadingPage';
 import ScrollToTop from './components/ScrollToTop';
-import actions from '../actions';
+import * as REDUCERS from './reducers';
+
 
 class ArticleResponse extends Component {
   getArticle = () => {
@@ -18,16 +22,19 @@ class ArticleResponse extends Component {
   }
 
   render(){
-    let edition = this.props.response.results;
+    let { response: { results }, dispatch } = this.props;
     return(
-      <Article article={this.getArticle()} edition={edition} />
+      <Article article={this.getArticle()} edition={results} dispatch={dispatch} />
     );
   }
 }
 
-const EditionResponse = ({ response: { results }, key }) => (
-  <EditionGrid edition={results} key={key} />
-);
+class EditionResponse extends Component {
+  render(){
+    let { response: { results }, dispatch } = this.props;
+    return <EditionGrid edition={results} dispatch={dispatch} />
+  }
+}
 
 const Main = ({ location, match }) => (
   <CSSTransitionGroup
@@ -49,6 +56,8 @@ const Main = ({ location, match }) => (
   </CSSTransitionGroup>
 );
 
+
+
 class Routes extends Component {
 
   getEdition = (editionSlug) => {
@@ -57,26 +66,28 @@ class Routes extends Component {
   }
 
   render(){
-    let { response: { results }, location, match } = this.props;
+    let { response: { results }, location, match, isReady } = this.props;
     let edition = this.getEdition(match.params.edition);
-
     return (
       <div>
-      {results.length &&
-        <div>
-          <ScrollToTop location={location} />
-          <Header />
-          <Route exact path="/weekly" render={()=>(<Redirect to={`/weekly/${edition.slug}`}/>)} />
-          <Route path="/weekly/:edition" render={()=>(
-            <Fetch name="weekly.edition"
-              endpoint={`weekly/${edition.id}`}
-              fetchOnMount={true} />
-          )}/>
-          <Main location={location} match={match}/>
-        </div>}</div>
+        <Preload />
+        <ScrollToTop location={location} />
+        <Route exact path="/weekly" component={LoadingPage} />
+        <Route path="/weekly" render={()=>(
+          <Fetch name="weekly.edition"
+            endpoint={`weekly/${edition.id}`}
+            fetchOnMount={true} />
+        )}/>
+        <Route path="/weekly/:edition" component={Header} />
+        {isReady && <Main location={location} match={match}/>}
+      </div>
     );
   }
 }
+
+Routes = connect((state)=>({
+  isReady: getNestedState(state, 'weekly.edition.isReady')
+}))(Routes);
 
 class APP extends Component {
   render() {
@@ -95,4 +106,4 @@ class APP extends Component {
   }
 }
 
-export default { APP, NAME, ID };
+export default { APP, NAME, ID, REDUCERS };

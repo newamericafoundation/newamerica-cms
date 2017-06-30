@@ -1,11 +1,11 @@
 import Heading from './Heading';
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
-import actions from '../../actions';
+import { reloadScrollEvents } from '../actions';
 
 export default class Article extends Component {
   componentDidMount(){
-    actions.reloadScrollEvents('.scroll-target');
+    this.props.dispatch(reloadScrollEvents());
   }
 
   render(){

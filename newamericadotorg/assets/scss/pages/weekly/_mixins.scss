@@ -1,4 +1,4 @@
-@mixin turquoise-overlay {
+@mixin turquoise-overlay($opacity:0.62) {
   position: relative;
   &::before{
     content: ' ';
@@ -9,10 +9,12 @@
     left: 0;
     right: 0;
     z-index: 1;
-    opacity: .3;
-    @include linear-gradient-vertical(color(weekly, turquoise), color(weekly, blue));
+    opacity: $opacity;
+    background-image: -webkit-linear-gradient(135deg, color(weekly, turquoise, .7) 0%, color(weekly, blue, .3) 100%); // Safari 5.1-6, Chrome 10+
+    background-image: -o-linear-gradient(135deg, color(weekly, turquoise, .7) 0%, color(weekly, blue, .3) 100%); // Opera 12
+    background-image: linear-gradient(135deg, color(weekly, turquoise, .7) 0%, color(weekly, blue, .3) 100%); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+    background-repeat: repeat-x;
   }
-  @extend %with-overlay;
 }
 
 @mixin gray-multiply-overlay {

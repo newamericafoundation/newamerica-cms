@@ -64,6 +64,8 @@ export const mapDispatchToProps = (dispatch, props) => ({
 
   receiveResults: (val) => {
     dispatch(receiveResults(props.name, val));
-  }
+  },
+
+  dispatch
 
 });
