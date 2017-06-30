@@ -4,6 +4,12 @@
 	padding-top: 50px;
 	padding-bottom: 50px;
 
+	&__image-wrapper{
+		background-color: color(weekly, black, 0.1);
+		@extend %shift-and-fade-in;
+		animation-delay: .8s;
+	}
+
 	&__image{
 		width: 100%;
 		padding-bottom: 50%;
@@ -13,6 +19,8 @@
 
 	&__text{
 		margin-bottom: 35px;
+		@extend %shift-and-fade-in;
+		animation-delay: 0.5s;
 		&__title{
 			margin-bottom: 15px;
 			width: 100%;

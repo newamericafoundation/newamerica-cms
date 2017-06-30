@@ -26,3 +26,42 @@
     filter: grayscale(0%);
   }
 }
+
+%animate-fade-in {
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  animation-name: animate-fade-in;
+  animation-duration: .6s;
+  opacity: 0;
+}
+
+%shift-and-fade-in {
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  animation-name: shift-and-fade-in;
+  animation-duration: 0.6s;
+  opacity: 0;
+  @include transform(translate3d(0, 75px, 0));
+}
+
+@include keyframes(animate-fade-in){
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@include keyframes(shift-and-fade-in){
+  0% {
+    opacity: 0;
+    @include transform(translate3d(0, 75px, 0));
+  }
+
+  100% {
+    opacity: 1;
+    @include transform(translate3d(0, 0, 0));
+  }
+}

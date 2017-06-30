@@ -3,6 +3,7 @@
 	height: $weekly-header-height;
 	margin-bottom: 25px;
 	position: relative;
+	@extend %animate-fade-in;
 
 	&__logo{
 		position: absolute;
