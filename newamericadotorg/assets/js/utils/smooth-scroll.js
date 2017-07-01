@@ -28,7 +28,7 @@ const smoothScroll = (destination, options={}, callback) => {
     start = el.pageXOffset || el.scrollLeft;
     destinationOffset = typeof destination === 'number' ? Math.ceil(destination + offset) : Math.ceil(getOffset(destination, el).left + offset);
   }
-  
+
   if ('requestAnimationFrame' in window === false || duration===0) {
     if(direction=='vertical')
       el.scrollTop = destinationOffset;

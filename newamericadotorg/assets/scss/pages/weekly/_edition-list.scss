@@ -7,13 +7,9 @@
   right: -50%;
   background: color(weekly, beige);
   max-width: 0px;
-  z-index: 10;
-  top: 0;
   padding-left: 0px;
   padding-right: 0px;
   border-left: none;
-  bottom: 0;
-  height: 100%;
   @include transition(all 0.4s ease-in-out);
 
   &.open {
@@ -42,8 +38,7 @@
 
   &__scroll-wrapper{
     height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: scroll;
     padding-right: 25px;
     width: calc(100% + 25px);
     margin-top: 60px;

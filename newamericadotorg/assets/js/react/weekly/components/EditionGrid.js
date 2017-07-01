@@ -55,7 +55,7 @@ class EditionList extends Component {
   componentDidMount(){
     let { activeEdition } = this.props;
     setTimeout(function(){
-      smoothScroll(`#id-${activeEdition.id}`, {
+      smoothScroll(`#ed-${activeEdition.id}`, {
         el: '#edition-list-scroll',
         duration: 0,
         offset: -90
@@ -74,7 +74,7 @@ class EditionList extends Component {
       <div className={`weekly-edition-grid__edition-list weekly-edition-grid__col col ${menuIsOpen ? 'open' : ''}`}>
         <div className="weekly-edition-grid__edition-list__scroll-wrapper" id="edition-list-scroll">
           {results.map((e, i)=>(
-            <div className={`weekly-edition-grid__edition-list__item ${activeEdition.id==e.id ? 'active' : ''}`} id={`id-${e.id}`}>
+            <div className={`weekly-edition-grid__edition-list__item ${activeEdition.id==e.id ? 'active' : ''}`} id={`ed-${e.id}`}>
               <Link to={'/weekly/'+e.slug}>
               <label className="weekly-edition-grid__edition-list__item__label">Edition</label>
               <label className="weekly-edition-grid__edition-list__item__edition-number">
