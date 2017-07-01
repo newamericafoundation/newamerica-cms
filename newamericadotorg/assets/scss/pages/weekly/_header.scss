@@ -1,20 +1,56 @@
 .weekly-header{
 	background: color(weekly, black);
 	height: $weekly-header-height;
-	margin-bottom: 25px;
 	position: relative;
+	z-index: 15;
 	@extend %animate-fade-in;
 
-	&__logo{
+	&__logo.sm{
 		position: absolute;
 		opacity: 0.8;
 		@include vertical-center;
+		width: 75px;
+		height: #{25 * .75}px;
+		@include media-breakpoint(tablet){
+			width: 100px;
+			height: 25px;
+		}
 	}
 
 	&__heading{
 		color: color(weekly, gray) !important;
 		text-align: center;
 		line-height: $weekly-header-height;
+	}
+
+	&__more-editions{
+		height: 100%;
+		width: 100%;
+		position: relative;
+		@include media-breakpoint(desktop){
+			display: none;
+		}
+		&__btn{
+			z-index: 1000;
+			cursor: pointer;
+			right: 0;
+			font-size: 0.7rem;
+			letter-spacing: -0.04em;
+			text-transform: uppercase;
+			position: absolute;
+			@include vertical-center;
+			padding: 5px;
+			color: color(weekly, gray);
+			background-color: color(weekly, gray, 0);
+			border: 1px solid color(weekly, gray);
+			text-align: center;
+			display: inline-block;
+			@include transition(all 0.3s ease);
+			&:hover, &.active{
+				color: color(weekly, black);
+				background-color: color(weekly, gray, 1);
+			}
+		}
 	}
 
 }

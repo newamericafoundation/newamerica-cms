@@ -3,10 +3,10 @@
 }
 .weekly-edition-grid{
   @extend %clearfix;
+  margin-top: 25px;
   padding-bottom: 25px;
   &__col{
     float: left;
-    min-height: 100vh;
     border-left: 1px solid color(weekly, black, .2);
   }
 

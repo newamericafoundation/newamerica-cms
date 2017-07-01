@@ -1,15 +1,54 @@
 &__edition-list {
-  max-width: 16.66667%;
+  width: 50%;
   height: calc(100vh - 50px);
   min-height: 0;
   overflow: hidden;
-  z-index: 50;
+  position: fixed;
+  right: -50%;
+  background: color(weekly, beige);
+  max-width: 0px;
+  z-index: 10;
+  top: 0;
+  padding-left: 0px;
+  padding-right: 0px;
+  border-left: none;
+  bottom: 0;
+  height: 100%;
+  @include transition(all 0.4s ease-in-out);
+
+  &.open {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 50%;
+    right: 0%;
+    border-left: 1px solid color(weekly, black, .2);
+  }
+
+  @include media-breakpoint(desktop){
+    padding-left: 15px;
+    padding-right: 15px;
+    display: block;
+    opacity: 1;
+    z-index: 50;
+    width: auto;
+    position: static;
+    max-width: 16.66667%;
+    left: initial;
+    right: initial;
+    border-left: 1px solid color(weekly, black, .2);
+    @include transition(none);
+  }
 
   &__scroll-wrapper{
     height: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
     padding-right: 25px;
     width: calc(100% + 25px);
+    margin-top: 60px;
+    @include media-breakpoint(tablet){
+      margin-top: 0;
+    }
   }
   &__item{
     padding-top: 25px;
@@ -44,13 +83,19 @@
 }
 
 &.scroll-in-view{
-  .weekly-edition-grid__edition-list{
-    width: 16.666667vw;
-    max-width: 200px;
-    position: fixed;
-    top: 25px;
-    left: 83.333333vw;
-    @include media-breakpoint(large-desktop){
+  @include media-breakpoint(desktop){
+    .weekly-edition-grid__edition-list{
+      width: 16.666667vw;
+      max-width: 200px;
+      position: fixed;
+      top: 25px;
+      left: 83.333333vw;
+      right: initial;
+
+    }
+  }
+  @include media-breakpoint(large-desktop){
+    .weekly-edition-grid__edition-list{
       left: initial;
       right: calc(50vw - 599px);
     }
@@ -58,11 +103,13 @@
 }
 
 &.scroll-left{
-  .weekly-edition-grid__edition-list{
-    width: 16.666667vw;
-    max-width: 200px;
-    position: absolute;
-    bottom: 0;
-    right: 1px;
+  @include media-breakpoint(desktop){
+    .weekly-edition-grid__edition-list{
+      width: 16.666667vw;
+      max-width: 200px;
+      position: absolute;
+      bottom: 0;
+      right: 1px;
+    }
   }
 }

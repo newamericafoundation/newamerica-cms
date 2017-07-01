@@ -68,12 +68,12 @@ $transition-function: .6s ease;
 }
 
 .weekly-edition-stagger-leave{
-  .row{
+  & > * {
     opacity: 1;
   }
 
   &.weekly-edition-stagger-leave-active{
-    .row{
+    & > * {
       @include transition(all .6s ease);
       opacity: 0;
     }

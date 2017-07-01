@@ -3,7 +3,9 @@ import { Component } from 'react';
 import smoothScroll from '../../../utils/smooth-scroll';
 import { Response } from '../../components/API';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { reloadScrollEvents } from '../actions';
+import { reloadScrollEvents, setMenuState } from '../actions';
+import { connect } from 'react-redux';
+import getNestedState from '../../../utils/get-nested-state';
 
 const LeadHeading = ({ article }) => (
   <div className="weekly-edition-grid__lead__text">
@@ -13,7 +15,7 @@ const LeadHeading = ({ article }) => (
 
 
 const Lead = ({ article, edition }) => (
-  <div className="weekly-edition-grid__lead weekly-edition-grid__col col">
+  <div className="weekly-edition-grid__lead weekly-edition-grid__col col-12">
     <Link to={`/weekly/${edition.slug}/${article.slug}`} className="weekly-edition-grid__lead-wrapper">
       <div className="weekly-edition-grid__lead__image-wrapper">
         <div style={{ backgroundImage: `url(${article.story_image_sm})`}} className="weekly-edition-grid__lead__image"/>
@@ -27,7 +29,7 @@ const Lead = ({ article, edition }) => (
 );
 
 const ArticleListItem = ({ item, edition, index }) => (
-  <div className="weekly-edition-grid__article-list__item col-6"
+  <div className="weekly-edition-grid__article-list__item col-6 col-sm-4 col-md-6"
     style={{'transitionDelay': `${50*index}ms`, 'WebkitTransitionDelay': `${50*index}ms` }}>
     <Link to={`/weekly/${edition.slug}/${item.slug}`}>
       <div className="weekly-edition-grid__article-list__item__image"
@@ -40,7 +42,7 @@ const ArticleListItem = ({ item, edition, index }) => (
 );
 
 const ArticleList = ({ articles, edition }) => (
-  <div className="weekly-edition-grid__article-list weekly-edition-grid__col col">
+  <div className="weekly-edition-grid__article-list weekly-edition-grid__col col-12">
     <div className="row gutter-15">
       {articles.map((a,i) => (
         <ArticleListItem item={a} edition={edition} index={i}/>
@@ -52,6 +54,7 @@ const ArticleList = ({ articles, edition }) => (
 class EditionList extends Component {
   componentDidMount(){
     let { activeEdition } = this.props;
+    this.props.dispatch(setMenuState(false));
     setTimeout(function(){
       smoothScroll(`#id-${activeEdition.id}`, {
         el: '#edition-list-scroll',
@@ -61,10 +64,10 @@ class EditionList extends Component {
     }, 0);
   }
   render(){
-    let { response: { results }, activeEdition} = this.props;
+    let { response: { results }, activeEdition, menuIsOpen} = this.props;
 
     return (
-      <div className="weekly-edition-grid__edition-list weekly-edition-grid__col col">
+      <div className={`weekly-edition-grid__edition-list weekly-edition-grid__col col ${menuIsOpen ? 'open' : ''}`}>
         <div className="weekly-edition-grid__edition-list__scroll-wrapper" id="edition-list-scroll">
           {results.map((e, i)=>(
             <div className={`weekly-edition-grid__edition-list__item ${activeEdition.id==e.id ? 'active' : ''}`} id={`id-${e.id}`}>
@@ -81,6 +84,12 @@ class EditionList extends Component {
     );
   }
 }
+
+const mapStateToProps = (state)=>({
+  menuIsOpen: getNestedState(state, 'weekly.edition.menuIsOpen')
+});
+
+EditionList = connect(mapStateToProps)(EditionList);
 
 class EditionGrid extends Component {
   componentDidMount(){

@@ -3,25 +3,37 @@
   padding-bottom: 2.5px;
   border-top: 1px solid color(weekly, black, 0.2);
   border-bottom: 1px solid color(weekly, black, 0.2);
-  height: 33px;
+  height: 40px;
   @extend %animate-fade-in;
-  
+
+  @include media-breakpoint(tablet){
+    height: 33px;
+  }
+
   &__text{
     text-transform: uppercase;
     a{
       color: color(weekly, black, .75);
     }
     a{
-      font-size: 0.8rem;
+      font-size: 1rem;
       line-height: 2em;
       vertical-align: middle;
       letter-spacing: -0.04em;
+
+      @include media-breakpoint(tablet){
+        font-size: 0.8rem;
+      }
     }
   }
 }
 
 .weekly-article__nav-wrapper{
-  height: 33px;
+  height: 40px;
+  @include media-breakpoint(tablet){
+    margin-top: 25px;
+    height: 33px;
+  }
   &.scroll-entered{
     .weekly-article__nav{
       position: fixed;

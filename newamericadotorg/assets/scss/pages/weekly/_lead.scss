@@ -1,8 +1,19 @@
 &__lead{
   height: 100%;
-  max-width: 44.44444%;
+  max-width: 100%;
   position: static;
   border-left: none;
+
+  @include media-breakpoint(tablet){
+    width: auto;
+    max-width: 50%;
+  }
+
+  @include media-breakpoint(desktop){
+    width: auto;
+    max-width: 44.44444%;
+  }
+
   &__edition-title{
     position: absolute;
     top: 0;
@@ -23,6 +34,7 @@
   &-wrapper{
     display: block;
     position: relative;
+    margin-bottom: 15px;
   }
   &__text{
     position: absolute;
@@ -38,11 +50,18 @@
 
   &__image{
     opacity: 0.8;
-    height: calc(100vh - 75px);
+    width: 100%;
+    padding-bottom: 66%;
     background-size: cover;
     background-repeat: no-repeat;
     filter: grayscale(100%);
     @include transition(filter 0.3s ease-in-out);
+
+    @include media-breakpoint(tablet){
+      height: calc(100vh - 75px);
+      padding-bottom: 0;
+      width: auto;
+    }
   }
 
   &__image-wrapper{
@@ -58,19 +77,37 @@
 
 &.scroll-in-view{
   height: auto;
-  .weekly-edition-grid__lead-wrapper{
-    position: fixed;
-    width: calc(44.44444vw - 30px);
-    max-width: 503.33328px; // 1200px *.4444444 - 30;
-    top: 25px;
+  @include media-breakpoint(tablet){
+    .weekly-edition-grid__lead-wrapper{
+      position: fixed;
+      width: calc(50vw - 30px);
+      max-width: 570px; // 1200px *.5 - 30;
+      top: 25px;
+    }
+  }
+
+  @include media-breakpoint(desktop){
+    .weekly-edition-grid__lead-wrapper{
+      width: calc(44.44444vw - 30px);
+      max-width: 503.33328px; // 1200px *.4444444 - 30;
+    }
   }
 }
 
 &.scroll-left{
-  .weekly-edition-grid__lead-wrapper{
-    position: absolute;
-    width: calc(44.44444vw - 30px);
-    max-width: 503.33328px; // 1200px *.4444444 - 30;
-    bottom: 25px;
+  @include media-breakpoint(tablet){
+    .weekly-edition-grid__lead-wrapper{
+      position: absolute;
+      width: calc(50vw - 30px);
+      max-width: 570px; // 1200px *.5 - 30;
+      bottom: 25px;
+    }
+  }
+
+  @include media-breakpoint(desktop){
+    .weekly-edition-grid__lead-wrapper{
+      width: calc(44.44444vw - 30px);
+      max-width: 503.33328px; // 1200px *.4444444 - 30;
+    }
   }
 }

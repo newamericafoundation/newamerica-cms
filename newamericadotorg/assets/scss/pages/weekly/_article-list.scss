@@ -1,5 +1,15 @@
 &__article-list{
-  max-width: 38.88888%;
+  width: 100%;
+
+  @include media-breakpoint(tablet){
+    width: auto;
+    max-width: 50%;
+  }
+
+  @include media-breakpoint(desktop){
+    width: auto;
+    max-width: 38.88888%;
+  }
 
   &__item{
     margin: 0 0 25px 0;

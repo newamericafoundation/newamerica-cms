@@ -85,7 +85,7 @@ class Routes extends Component {
               fetchOnMount={true} />
           )}/>
         }
-        <Route path="/weekly/:edition" component={Header} />
+        <Route path="/weekly/:edition" render={()=>(<Header isArticle={match.params.article ? true : false}/>)} />
         {isReady && <Main location={location} match={match}/>}
         {!isReady && <Route path="/weekly/:edition" component={Loading}/> }
       </div>
