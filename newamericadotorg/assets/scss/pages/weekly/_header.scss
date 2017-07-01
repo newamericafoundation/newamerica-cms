@@ -5,12 +5,21 @@
 	z-index: 15;
 	@extend %animate-fade-in;
 
+	&__container{
+		background: color(weekly, black);
+		height: $weekly-header-height;
+		width: 100%;
+		&.with-open-menu{
+			position: fixed;
+		}
+	}
+
 	&__logo.sm{
 		position: absolute;
 		opacity: 0.8;
 		@include vertical-center;
-		width: 75px;
-		height: #{25 * .75}px;
+		width: 88px;
+		height: #{25 * .88}px;
 		@include media-breakpoint(tablet){
 			width: 100px;
 			height: 25px;
@@ -45,6 +54,7 @@
 			border: 1px solid color(weekly, gray);
 			text-align: center;
 			display: inline-block;
+			white-space: nowrap;
 			@include transition(all 0.3s ease);
 			&:hover, &.active{
 				color: color(weekly, black);

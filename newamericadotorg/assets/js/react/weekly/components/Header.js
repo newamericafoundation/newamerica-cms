@@ -10,10 +10,10 @@ class Header extends Component {
   }
   render(){
     let { menuIsOpen, isArticle } = this.props;
-    
+
     return(
       <header className='weekly-header'>
-        <div className="container">
+        <div className={`container weekly-header__container ${menuIsOpen ? 'with-open-menu' : ''}`}>
           <div className="row">
             <div className="col-3"><a href="/">
               <div className="weekly-header__logo logo sm white"></div></a>

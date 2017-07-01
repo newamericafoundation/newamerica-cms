@@ -2,7 +2,7 @@ import { format as formatDate } from 'date-fns';
 const Heading = ({ post : { authors, title, url, story_image, date } }) => (
   <section className="container--medium weekly-heading">
 
-    <div className='weekly-heading__text row'>
+    <div className='weekly-heading__text'>
       <div className="weekly-heading__text__title">
         <h1 className="narrow-margin">{title}</h1>
       </div>
@@ -17,7 +17,7 @@ const Heading = ({ post : { authors, title, url, story_image, date } }) => (
       }
       </div>
     </div>
-    <div className="weekly-heading__image-wrapper row">
+    <div className="weekly-heading__image-wrapper">
       <div className='weekly-heading__image'
         style={{ backgroundImage: `url(${story_image})`}}></div>
     </div>

@@ -11,7 +11,7 @@ export default class Article extends Component {
   render(){
     let { article, edition } = this.props;
     return (
-      <section className="weekly-article">
+      <section className="weekly-article container">
         <section className="weekly-article__nav-wrapper scroll-target">
           <div className="weekly-article__nav container--wide">
             <label className="weekly-article__nav__text">

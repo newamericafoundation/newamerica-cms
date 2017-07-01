@@ -54,7 +54,6 @@ const ArticleList = ({ articles, edition }) => (
 class EditionList extends Component {
   componentDidMount(){
     let { activeEdition } = this.props;
-    this.props.dispatch(setMenuState(false));
     setTimeout(function(){
       smoothScroll(`#id-${activeEdition.id}`, {
         el: '#edition-list-scroll',
@@ -63,6 +62,11 @@ class EditionList extends Component {
       });
     }, 0);
   }
+
+  componentWillUnmount(){
+    this.props.dispatch(setMenuState(false));
+  }
+
   render(){
     let { response: { results }, activeEdition, menuIsOpen} = this.props;
 

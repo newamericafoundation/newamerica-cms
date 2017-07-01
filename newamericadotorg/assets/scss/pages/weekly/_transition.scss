@@ -3,11 +3,15 @@ $transition-function: .6s ease;
 .weekly-page-fade-enter{
   position: absolute;
   transition-delay: .2s;
+  @include media-breakpoint(large-desktop){
+    margin-left: calc(50vw - 600px) !important;
+  }
   &.weekly-edition-grid{
     @include transform(translate3d(-100%, 0, 0));
   }
   &.weekly-article{
     @include transform(translate3d(100%, 0, 0));
+
   }
   &.weekly-page-fade-enter-active{
     &.weekly-edition-grid{
@@ -23,6 +27,9 @@ $transition-function: .6s ease;
 
 .weekly-page-fade-leave{
   position: absolute;
+  @include media-breakpoint(large-desktop){
+    margin-left: calc(50vw - 600px) !important;
+  }
   &.weekly-edition-grid{
     @include transform(translate3d(0, 0, 0));
   }

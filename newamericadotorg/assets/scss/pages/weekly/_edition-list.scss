@@ -17,6 +17,7 @@
   @include transition(all 0.4s ease-in-out);
 
   &.open {
+    @include transition(all 0.4s ease-in-out !important);
     padding-left: 15px;
     padding-right: 15px;
     max-width: 50%;
@@ -46,7 +47,7 @@
     padding-right: 25px;
     width: calc(100% + 25px);
     margin-top: 60px;
-    @include media-breakpoint(tablet){
+    @include media-breakpoint(desktop){
       margin-top: 0;
     }
   }
