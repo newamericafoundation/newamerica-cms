@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';
 import getNestedState from '../../utils/get-nested-state';
+import LoadingIcon from '../components/LoadingIcon';
 import Article from './components/Article';
 import EditionGrid from './components/EditionGrid';
 import Header from './components/Header';
@@ -35,6 +36,12 @@ class EditionResponse extends Component {
     return <EditionGrid edition={results} dispatch={dispatch} />
   }
 }
+
+const Loading = () => (
+  <div className="weekly-loading-icon">
+    <LoadingIcon />
+  </div>
+);
 
 const Main = ({ location, match }) => (
   <CSSTransitionGroup
@@ -72,14 +79,15 @@ class Routes extends Component {
       <div>
         <Preload />
         <ScrollToTop location={location} />
-        <Route exact path="/weekly" component={LoadingPage} />
-        <Route path="/weekly" render={()=>(
-          <Fetch name="weekly.edition"
-            endpoint={`weekly/${edition.id}`}
-            fetchOnMount={true} />
-        )}/>
+        {edition && <Route path="/weekly" render={()=>(
+            <Fetch name="weekly.edition"
+              endpoint={`weekly/${edition.id}`}
+              fetchOnMount={true} />
+          )}/>
+        }
         <Route path="/weekly/:edition" component={Header} />
         {isReady && <Main location={location} match={match}/>}
+        {!isReady && <Route path="/weekly/:edition" component={Loading}/> }
       </div>
     );
   }
@@ -93,14 +101,17 @@ class APP extends Component {
   render() {
     return (
       <Router>
-        <Route path="/weekly/:edition?/:article?" render={({ location, match }) => (
-            <Fetch name='weekly.editionList'
-              endpoint='weekly'
-              fetchOnMount={true}
-              component={Routes}
-              location={location}
-              match={match}/>
-          )}/>
+        <main>
+          <Route exact path="/weekly" component={LoadingPage} />
+          <Route path="/weekly/:edition?/:article?" render={({ location, match }) => (
+              <Fetch name='weekly.editionList'
+                endpoint='weekly'
+                fetchOnMount={true}
+                component={Routes}
+                location={location}
+                match={match}/>
+            )}/>
+        </main>
       </Router>
     );
   }

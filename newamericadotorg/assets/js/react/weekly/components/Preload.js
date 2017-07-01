@@ -4,7 +4,8 @@ import getNestedState from '../../../utils/get-nested-state';
 import { loadArticleImage, setIsReady, clearArticleImages } from '../actions';
 
 class Preload extends Component {
-  loaded = false;
+  start;
+  timeout = 0;
   componentWillMount(){
     this.clear(this.props);
   }
@@ -14,19 +15,32 @@ class Preload extends Component {
     let { edition, images } = nextProps;
     if(!edition || !images) return;
     if(edition.length===0) return;
-    if(!this.loaded) return this.preloadImages(nexProps);
-    if(edition.articles.length === images.length){
-      nextProps.dispatch(setIsReady(true));
-    }
+    if(edition.articles.length === images.length)
+      this.setAsReady(nextProps);
+  }
+
+  setAsReady = (props) => {
+    clearTimeout(this.timeout);
+    let elapsed = new Date() - this.start;
+    if(elapsed>=800) props.dispatch(setIsReady(true));
+    setTimeout(()=>{
+      props.dispatch(setIsReady(true));
+    }, 800-elapsed);
   }
 
   clear = (props) => {
+    this.start = new Date();
     props.dispatch(clearArticleImages());
     props.dispatch(setIsReady(false));
     if(props.edition){
       if(props.edition.length!==0) this.preloadImages(props);
     }
+    // you have 4 seconds to load images or it's loading without you
+    this.timeout = setTimeout(()=>{
+      this.setAsReady(props);
+    }, 4000);
   }
+
   preloadImages(props){
     let { edition: { articles } } = props;
     for(let i=0; i<articles.length; i++){
@@ -38,7 +52,6 @@ class Preload extends Component {
       let img2 = new Image();
       img2.src = articles[i].story_image;
     }
-    return this.loaded = true;
   }
 
   render(){

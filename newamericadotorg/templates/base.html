@@ -42,8 +42,6 @@
     <meta name="twitter:site" content="@NewAmerica">
   {% endif %}
 
-  {# Global javascript #}
-
   {% if DEBUG %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.css' %}"></link>
     {# development dependencies that will bundled with production #}
@@ -83,10 +81,11 @@
   {% block header %}
     {% include 'components/header.html' %}
   {% endblock %}
-  <main>
-      {% block content %}{% endblock %}
-  </main>
-  {% include 'components/footer.html' %}
+  {% block content %}{% endblock %}
+  {% block footer %}
+    {% include 'components/footer.html' %}
+  {% endblock %}
+
 
   {% if not DEBUG %}
     <!-- Google Tag Manager -->

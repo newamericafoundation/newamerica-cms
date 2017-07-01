@@ -7,7 +7,9 @@
 {% block body_class %}template-postpage{% endblock %}
 
 {% block content %}
-	<section class="container {% block container_class %}container--medium{% endblock %}">
-		{% include 'components/react/content-list.html' %}
-	</section>
+	<main>
+		<section class="container {% block container_class %}container--medium{% endblock %}">
+			{% include 'components/react/content-list.html' %}
+		</section>
+	</main>
 {% endblock %}

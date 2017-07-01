@@ -49,7 +49,7 @@ class Fetch extends Component {
     let { isFetching, results } = this.props.response;
 
     if(!results) return null;
-    if(results instanceof Array && !results.length) return null;
+    //if(results instanceof Array && !results.length) return null;
 
     let children = this.mapNameToResponse();
     if(!children && !this.props.component=='span') return null;

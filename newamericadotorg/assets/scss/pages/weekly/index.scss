@@ -3,6 +3,7 @@ $weekly-header-height: 60px;
 @import 'lyon-font';
 @import 'mixins';
 #compose__weekly{
+	display: block;
 	min-height: 100vh;
 }
 .the-weekly {
@@ -55,6 +56,18 @@ $weekly-header-height: 60px;
 
 	.footer__logo{
 		background-image: url('/static/logo-white.svg');
+	}
+
+	.weekly-loading-icon{
+		text-align: center;
+		position: fixed;
+		@include center;
+		.loading-icon{
+			font-size: 1rem;
+			&__circle, &__rect{
+				background: color(weekly, turquoise, 0.65);
+			}
+		}
 	}
 }
 
