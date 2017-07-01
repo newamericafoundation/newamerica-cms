@@ -10,7 +10,13 @@
   padding-left: 0px;
   padding-right: 0px;
   border-left: none;
+  z-index: 10;
   @include transition(all 0.4s ease-in-out);
+
+  @include media-breakpoint-down(desktop){
+    top: 0;
+    margin-top: 60px;
+  }
 
   &.open {
     @include transition(all 0.4s ease-in-out !important);
@@ -41,7 +47,6 @@
     overflow: scroll;
     padding-right: 25px;
     width: calc(100% + 25px);
-    margin-top: 60px;
     @include media-breakpoint(desktop){
       margin-top: 0;
     }

@@ -77,7 +77,7 @@ class Routes extends Component {
     let edition = this.getEdition(match.params.edition);
     return (
       <div>
-        <Preload />
+        <Preload match={match}/>
         <ScrollToTop location={location} />
         {edition && <Route path="/weekly" render={()=>(
             <Fetch name="weekly.edition"

@@ -8,15 +8,18 @@ class Preload extends Component {
   timeout = 0;
   componentWillMount(){
     this.clear(this.props);
+    if(!this.props.isReady && this.props.match.params.article){
+      this.setAsReady(this.props);
+    }
   }
 
   componentWillUpdate(nextProps){
     if(this.props.edition !== nextProps.edition) return this.clear(nextProps);
-    let { edition, images } = nextProps;
+    let { edition, images, isReady } = nextProps;
     if(!edition || !images) return;
     if(edition.length===0) return;
-    if(edition.articles.length === images.length)
-      this.setAsReady(nextProps);
+    if(edition.articles.length === images.length && !isReady)
+      return this.setAsReady(nextProps);
   }
 
   setAsReady = (props) => {
@@ -61,7 +64,8 @@ class Preload extends Component {
 
 const mapStateToProps = (state) => ({
   images: getNestedState(state, 'weekly.edition.articleImages'),
-  edition: getNestedState(state, 'weekly.edition.results')
+  edition: getNestedState(state, 'weekly.edition.results'),
+  isReady: getNestedState(state, 'weekly.edition.isReady')
 });
 
 export default connect(mapStateToProps)(Preload);
