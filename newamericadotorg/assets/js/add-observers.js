@@ -4,21 +4,20 @@ import triggerScrollEvents from './utils/trigger-scroll-events';
 
 let observers = [
   function scroll(){
-    let body = document.getElementsByTagName('body')[0];
-    let prevPosition = window.scrollY, position = 0, animationFrame = 0, startTime = 0;
+    let prevPosition = window.scrollY, direction, prevDirection, position = 0, animationFrame = 0, startTime = 0;
     const onscroll = () => {
-      let position = window.scrollY;
+      position = window.scrollY;
 
-      let direction = position < prevPosition ? 'REVERSE' : 'FORWARD';
-      if(direction=='FORWARD') body.classList.remove('scroll-reverse');
-      else body.classList.add('scroll-reverse');
+      if(position===prevPosition) direction = prevDirection
+      else direction = position < prevPosition ? 'REVERSE' : 'FORWARD';
 
       triggerScrollEvents(
         position, prevPosition, direction,
         store.getState().site.scroll.events
       );
-      prevPosition = position;
       actions.setScroll({ position, direction });
+      prevPosition = position;
+      prevDirection = direction;
       animationFrame = window.requestAnimationFrame(onscroll);
     }
 
@@ -28,7 +27,19 @@ let observers = [
         if(isScrolling)
           animationFrame = window.requestAnimationFrame(onscroll);
         else
-          window.cancelAnimationFrame(animationFrame);}
+          window.cancelAnimationFrame(animationFrame);
+      }
+    });
+  },
+
+  function scrollDirection(){
+    let body = document.getElementsByTagName('body')[0];
+    actions.addObserver({
+      stateName: 'site.scroll.direction',
+      onChange: (direction) => {
+        if(direction=='FORWARD') body.classList.remove('scroll-reverse');
+        else body.classList.add('scroll-reverse');
+      }
     });
   }
 ];

@@ -10,7 +10,7 @@ let listeners = [
       actions.setIsScrolling(true);
       timeout = setTimeout(()=>{
         actions.setIsScrolling(false);
-      }, 50);
+      }, 17);
     }
 
     window.addEventListener('scroll', onscroll, false);
