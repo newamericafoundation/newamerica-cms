@@ -1,14 +1,18 @@
 &__article-list{
-  width: 100%;
+
 
   @include media-breakpoint(tablet){
-    width: auto;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
     max-width: 50%;
   }
 
   @include media-breakpoint(desktop){
-    width: auto;
-    max-width: 38.88888%;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 38.88888%;
+    flex: 0 0 38.88888%;
+    max-width: 38.888888%;
   }
 
   &__item{
