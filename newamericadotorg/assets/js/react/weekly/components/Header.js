@@ -28,12 +28,12 @@ class Header extends Component {
                 </a>
               </div>
             </div>
-            <div className="col-3">
-              {!isArticle && <div className="weekly-header__more-editions">
+            <div className="col-3 weekly-header__more-editions">
+              {!isArticle &&
                 <button className={`weekly-header__more-editions__btn ${menuIsOpen ? 'active' : ''}`} onClick={this.setMenuState}>
                   More Editions
                 </button>
-              </div>}
+              }
             </div>
           </div>
         </div>

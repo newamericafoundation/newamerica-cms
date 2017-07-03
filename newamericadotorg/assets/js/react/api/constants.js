@@ -11,7 +11,7 @@ switch(process.env.NODE_ENV){
     baseurl = 'https://na-staging.herokuapp.com/api/';
     break;
   default:
-    baseurl = 'http://localhost:8000/api/';
+    baseurl = `${window.location.origin}/api/`;
 }
 
 export const BASEURL = baseurl;

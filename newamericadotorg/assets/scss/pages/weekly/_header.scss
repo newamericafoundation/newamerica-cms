@@ -33,7 +33,7 @@
 	}
 
 	&__more-editions{
-		height: 100%;
+		height: $weekly-header-height;
 		width: 100%;
 		position: relative;
 		@include media-breakpoint(desktop){
@@ -55,6 +55,7 @@
 			text-align: center;
 			display: inline-block;
 			white-space: nowrap;
+			margin-right: 15px;
 			@include transition(all 0.3s ease);
 			&:hover, &.active{
 				color: color(weekly, black);
