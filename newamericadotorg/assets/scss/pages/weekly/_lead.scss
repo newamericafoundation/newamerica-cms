@@ -79,7 +79,7 @@
   }
 }
 
-&.scroll-in-view{
+.scroll-in-view{
   height: auto;
   @include media-breakpoint(tablet){
     .weekly-edition-grid__lead-wrapper{
@@ -98,7 +98,7 @@
   }
 }
 
-&.scroll-left{
+.scroll-left{
   @include media-breakpoint(tablet){
     .weekly-edition-grid__lead-wrapper{
       position: absolute;

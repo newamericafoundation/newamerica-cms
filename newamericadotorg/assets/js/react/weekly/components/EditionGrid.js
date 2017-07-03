@@ -107,14 +107,14 @@ class EditionGrid extends Component {
       'data-scroll-leave-offset': '-100vh'
     }
     return(
-      <section className="weekly-edition-grid scroll-target container" {...attrs}>
+      <section className="weekly-edition-grid container">
         <CSSTransitionGroup
           transitionAppear={true}
           transitionAppearTimeout={2000}
           transitionName="weekly-edition-stagger"
           transitionEnterTimeout={2000}
           transitionLeaveTimeout={600}>
-          <div className="row" key={edition.id}>
+          <div className="row scroll-target" {...attrs} key={edition.id}>
             <Lead article={edition.articles[0]} edition={edition} />
             <ArticleList articles={edition.articles.slice(1,edition.articles.length)} edition={edition}/>
             <Response name="weekly.editionList" component={EditionList} activeEdition={edition} />

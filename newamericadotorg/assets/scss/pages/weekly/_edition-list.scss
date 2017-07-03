@@ -43,10 +43,11 @@
   }
 
   &__scroll-wrapper{
-    height: 100%;
+    height: calc(100% + 50px);
     overflow: scroll;
-    padding-right: 25px;
-    width: calc(100% + 25px);
+    padding-right: 50px;
+    padding-bottom: 50px;
+    width: calc(100% + 50px);
     @include media-breakpoint(desktop){
       margin-top: 0;
     }
@@ -83,7 +84,7 @@
   }
 }
 
-&.scroll-in-view{
+.scroll-in-view{
   @include media-breakpoint(desktop){
     .weekly-edition-grid__edition-list{
       width: 16.666667vw;
@@ -103,7 +104,7 @@
   }
 }
 
-&.scroll-left{
+.scroll-left{
   @include media-breakpoint(desktop){
     .weekly-edition-grid__edition-list{
       width: 16.666667vw;
