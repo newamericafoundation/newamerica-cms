@@ -4,18 +4,17 @@ import triggerScrollEvents from './utils/trigger-scroll-events';
 
 let listeners = [
   function onScroll() {
-    let prevScrollPosition = window.scrollY, scrollPosition = 0;
-    window.addEventListener('scroll', (e)=>{
-      scrollPosition = window.scrollY;
-      let direction = scrollPosition < prevScrollPosition ? 'REVERSE' : 'FORWARD';
-      prevScrollPosition = scrollPosition;
+    let timeout = 0;
+    let onscroll = (e) => {
+      clearTimeout(timeout);
+      actions.setIsScrolling(true);
+      timeout = setTimeout(()=>{
+        actions.setIsScrolling(false);
+      }, 50);
+    }
 
-      actions.setScrollPosition(scrollPosition);
-      actions.setScrollDirection(direction);
-      triggerScrollEvents(scrollPosition, prevScrollPosition, direction, store.getState().site.scrollEvents);
-
-      e.preventDefault();
-    }, false);
+    window.addEventListener('scroll', onscroll, false);
+    window.addEventListener('touchmove', onscroll, false);
   },
 
   function anchorLinkClick(){

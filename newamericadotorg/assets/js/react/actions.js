@@ -3,7 +3,8 @@ import { getNestedState, smoothScroll } from '../utils/index';
 import store from './store';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
-  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE
+  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
+  SET_SCROLL, SET_IS_SCROLLING
 } from './constants';
 
 
@@ -26,7 +27,7 @@ const observerFactory = function(stateName, onChange){
   return function(){
     let nextState = getNestedState(store.getState(), stateName);
     if(nextState !== currentState) {
-      onChange(nextState, currentState);
+      onChange(nextState, currentState || nextState);
       currentState = nextState;
     }
   }
@@ -38,9 +39,19 @@ class Actions {
     window.scrollTo(0, position);
     store.dispatch({
       type: SET_SCROLL_POSITION,
-      position: position,
+      position,
       component: 'site'
     });
+    return this;
+  }
+
+  setScroll = ({ position, direction }) => {
+    store.dispatch({
+      type: SET_SCROLL,
+      scroll: { position, direction },
+      component: 'site'
+    });
+
     return this;
   }
 
@@ -69,6 +80,15 @@ class Actions {
       type: SET_SCROLL_DIRECTION,
       component: 'site',
       direction
+    });
+    return this;
+  }
+
+  setIsScrolling = (isScrolling) => {
+    store.dispatch({
+      type: SET_IS_SCROLLING,
+      component: 'site',
+      isScrolling
     });
     return this;
   }

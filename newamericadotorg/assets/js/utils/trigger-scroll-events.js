@@ -74,7 +74,7 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
     }
   }
   // reflow
-  //if(oneE) void(oneE.offsetHeight);
+  if(oneE) void(oneE.offsetHeight);
 }
 
 export default scrollEvents;

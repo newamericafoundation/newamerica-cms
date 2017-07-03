@@ -1,27 +1,10 @@
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
-  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE
+  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
+  SET_SCROLL, SET_IS_SCROLLING
 } from './constants';
 
 // reducers
-const scrollPosition = (state=0, action) => {
-  switch(action.type){
-    case SET_SCROLL_POSITION:
-      return action.position;
-    default:
-      return state;
-  }
-}
-
-const scrollDirection = (state='FORWARD', action) => {
-  switch(action.type){
-    case SET_SCROLL_DIRECTION:
-      return action.direction;
-    default:
-      return state;
-  }
-}
-
 const scrollEvents = (state=[], action) => {
   switch(action.type){
     case ADD_SCROLL_EVENT:
@@ -39,6 +22,26 @@ const scrollEvents = (state=[], action) => {
   }
 }
 
+const scroll = (state={position: 0, direction: 'FORWARD', events: [], isScrolling: false}, action) => {
+  switch(action.type){
+    case SET_SCROLL_POSITION:
+      return { ...state, position: action.position };
+    case SET_SCROLL_DIRECTION:
+      return { ...state, direction: action.direction };
+    case SET_SCROLL:
+      return { ...state, ...action.scroll };
+    case SET_IS_SCROLLING:
+      return { ...state, isScrolling: action.isScrolling };
+    case ADD_SCROLL_EVENT:
+    case RELOAD_SCROLL_EVENTS:
+    case RELOAD_SCROLL_EVENT:
+      return { ...state, events: scrollEvents(state.events, action)};
+    default:
+      return state;
+  }
+}
+
+
 const adHoc = (state={}, action) => {
   switch(action.type){
     case SET_AD_HOC_STATE:
@@ -49,8 +52,6 @@ const adHoc = (state={}, action) => {
 }
 
 export default {
-  scrollPosition,
-  scrollDirection,
-  scrollEvents,
+  scroll,
   adHoc
 }
