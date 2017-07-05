@@ -56,14 +56,7 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 ANYMAIL = {
-    "MAILGUN_API_KEY": os.getenv('MAILGUN_API_KEY'),
-    "MAILGUN_SENDER_DOMAIN": 'newamerica.org',
-    "MAILGUN_DOMAIN": os.getenv('MAILGUN_DOMAIN'),
-    "MAILGUN_PUBLIC_KEY": os.getenv('MAILGUN_PUBLIC_KEY'),
-    "MAILGUN_SMTP_LOGIN": os.getenv('MAILGUN_SMTP_LOGIN'),
-    "MAILGUN_SMTP_PASSWORD": os.getenv('MAILGUN_API_KEY'),
-    "MAILGUN_SMTP_PORT": os.getenv('MAILGUN_SMTP_PORT'),
-    "MAILGUN_SMTP_SERVER": os.getenv('MAILGUN_SMTP_SERVER'),
+    "MAILGUN_API_KEY": os.getenv('MAILGUN_API_KEY')
 }
 
 # Email backend configuration
