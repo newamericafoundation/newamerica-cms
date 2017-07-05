@@ -103,3 +103,4 @@ whitenoise==3.0
 Willow==0.4
 Wand==0.4.4
 logdna==1.0.2
+django-anymail==0.10
