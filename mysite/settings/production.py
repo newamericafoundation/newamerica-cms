@@ -55,13 +55,20 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.getenv('MAILGUN_API_KEY'),
+    "MAILGUN_SENDER_DOMAIN": 'newamerica.org',
+    "MAILGUN_DOMAIN": os.getenv('MAILGUN_DOMAIN'),
+    "MAILGUN_PUBLIC_KEY": os.getenv('MAILGUN_PUBLIC_KEY'),
+    "MAILGUN_SMTP_LOGIN": os.getenv('MAILGUN_SMTP_LOGIN'),
+    "MAILGUN_SMTP_PASSWORD": os.getenv('MAILGUN_API_KEY'),
+    "MAILGUN_SMTP_PORT": os.getenv('MAILGUN_SMTP_PORT'),
+    "MAILGUN_SMTP_SERVER": os.getenv('MAILGUN_SMTP_SERVER'),
+}
 
 # Email backend configuration
-EMAIL_BACKEND = 'postmark.django_backend.EmailBackend'
-POSTMARK_API_KEY = os.getenv("POSTMARK_API_KEY")
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 POSTMARK_SENDER = os.getenv("POSTMARK_SENDER")
-POSTMARK_TEST_MODE   = False
-POSTMARK_TRACK_OPENS = False
 DEFAULT_FROM_EMAIL = POSTMARK_SENDER
 SERVER_EMAIL = POSTMARK_SENDER
 

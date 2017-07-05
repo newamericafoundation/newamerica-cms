@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'taggit',
     'wand',
     'willow',
+    'anymail',
 
     'django.contrib.admin',
     'django.contrib.auth',
