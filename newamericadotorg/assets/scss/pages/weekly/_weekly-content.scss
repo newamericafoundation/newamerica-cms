@@ -1,0 +1,7 @@
+.weekly-content {
+	position: absolute;
+	height: 100vh;
+	overflow: scroll;
+  top: 0;
+  padding-top: #{$weekly-header-height + 25px };
+}

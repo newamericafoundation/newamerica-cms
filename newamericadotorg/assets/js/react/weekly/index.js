@@ -78,7 +78,7 @@ class Routes extends Component {
     return (
       <div>
         <Preload match={match}/>
-        <ScrollToTop location={location} />
+        {/* <ScrollToTop location={location} /> */}
         {edition && <Route path="/weekly" render={()=>(
             <Fetch name="weekly.edition"
               endpoint={`weekly/${edition.id}`}

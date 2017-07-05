@@ -8,6 +8,9 @@ $weekly-header-height: 60px;
 }
 .the-weekly {
 	background: color(weekly, beige);
+	position: relative;
+	height: 100vh;
+	overflow: hidden;
 
 	h1, h4 {
 		font-family: $weekly-font-family;
@@ -68,3 +71,4 @@ $weekly-header-height: 60px;
 @import 'transition';
 @import 'loading-page';
 @import 'loading-icon';
+@import 'weekly-content';

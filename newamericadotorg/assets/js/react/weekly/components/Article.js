@@ -2,6 +2,7 @@ import Heading from './Heading';
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
 import { reloadScrollEvents } from '../actions';
+import ScrollToTop from './ScrollToTop';
 
 export default class Article extends Component {
   componentDidMount(){
@@ -11,7 +12,7 @@ export default class Article extends Component {
   render(){
     let { article, edition } = this.props;
     return (
-      <section className="weekly-article container">
+      <section className="weekly-article weekly-content container">
         <section className="weekly-article__nav-wrapper scroll-target">
           <div className="weekly-article__nav container--wide">
             <label className="weekly-article__nav__text">
@@ -34,6 +35,7 @@ export default class Article extends Component {
       			</aside>
       		</div>
       	</section>
+        <ScrollToTop />
       </section>
     );
   }

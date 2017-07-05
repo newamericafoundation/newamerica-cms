@@ -5,6 +5,7 @@ import { Response } from '../../components/API';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { reloadScrollEvents, setMenuState } from '../actions';
 import { connect } from 'react-redux';
+import ScrollToTop from './ScrollToTop';
 import getNestedState from '../../../utils/get-nested-state';
 
 const LeadHeading = ({ article }) => (
@@ -107,7 +108,7 @@ class EditionGrid extends Component {
       'data-scroll-leave-offset': '-100vh'
     }
     return(
-      <section className="weekly-edition-grid container">
+      <section className="weekly-edition-grid weekly-content container">
         <CSSTransitionGroup
           transitionAppear={true}
           transitionAppearTimeout={2000}
@@ -120,6 +121,7 @@ class EditionGrid extends Component {
             <Response name="weekly.editionList" component={EditionList} activeEdition={edition} />
           </div>
         </CSSTransitionGroup>
+        <ScrollToTop />
       </section>
     );
   }

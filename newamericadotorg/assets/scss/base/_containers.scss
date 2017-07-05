@@ -5,6 +5,7 @@
   padding-right: 15px;
   padding-left: 15px;
   max-width: $max-site-width;
+  display: block;
 
   &.gray{
     background-color: color(gray, light);
