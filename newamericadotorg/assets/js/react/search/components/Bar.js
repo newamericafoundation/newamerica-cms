@@ -20,10 +20,18 @@ class Bar extends Component {
     }, 500);
   }
 
+  componentDidMount() {
+    this.el.focus();
+  }
+
   render(){
     return (
       <div className="search__bar">
-        <input value={this.state.value} onChange={this.change} />
+        <input value={this.state.value}
+          ref={(el)=>{this.el = el;}}
+          autofocus={true}
+          placeholder="Search names or keywords"
+          onChange={this.change} />
       </div>
     );
   }
@@ -35,6 +43,9 @@ const BarWrapper = () => (
     name={NAME}
     fetchOnMount={false}
     eager={false}
+    initialQuery={{
+      page_size: 8
+    }}
     component={Bar} />
 );
 

@@ -353,7 +353,13 @@ class SearchSerializer(ModelSerializer):
     specific = SerializerMethodField()
 
     def get_specific(self, obj):
-        spec = { 'image': None, 'date': None, 'content_type': obj.content_type.model }
+        spec = {
+            'image': None,
+            'date': None,
+            'content_type': obj.content_type.model,
+            'authors': None,
+            'description': None
+        }
 
         if(getattr(obj.specific, 'story_image', None)):
             spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
@@ -361,6 +367,12 @@ class SearchSerializer(ModelSerializer):
             spec['image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
         if(getattr(obj.specific, 'date', None)):
             spec['date'] = obj.specific.date
+        if(getattr(obj.specific, 'post_author', None)):
+            spec['authors'] = AuthorSerializer(obj.specific.post_author, many=True, context=self.context).data
+        if(getattr(obj.specific, 'story_excerpt', None)):
+            spec['description'] = obj.specific.story_excerpt
+        if(getattr(obj.specific, 'short_bio', None)):
+            spec['description'] = obj.specific.short_bio
 
         return spec
 

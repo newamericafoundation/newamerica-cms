@@ -1,0 +1,16 @@
+<script>
+  var searchIcon = document.querySelector('.search-icon');
+  searchIcon.onclick = function(){
+    newamericadotorg.actions.toggleSearch();
+  }
+
+  newamericadotorg.actions.addObserver({
+    stateName: 'site.searchIsOpen',
+    onChange: function(state){
+      if(state===true)
+        document.body.classList.add('with-open-search');
+      else
+        document.body.classList.remove('with-open-search');
+    }
+  });
+</script>

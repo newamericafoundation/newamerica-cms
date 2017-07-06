@@ -4,10 +4,62 @@
 
 .search{
   position: fixed;
+  padding-top: 50px;
   top: $header-height;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 200;
-  background: color(turquoise, base, 0.25);
+  background: color(white, base, 0.9);
+
+  & > .container--narrow {
+    overflow: hidden;
+  }
+
+  &__bar {
+    width: 100%;
+    margin-bottom: 15px;
+
+    input {
+      width: 100%;
+      font-weight: bold;
+      color: color(black);
+      border-bottom: 3px solid color(turquoise);
+    }
+  }
+
+  &__results {
+    &__item{
+      padding-top: 15px;
+      padding-bottom: 15px;
+      &__title {
+        margin-bottom: 2px;
+        white-space: nowrap;
+      }
+      &__description{
+        & > .with-description {
+          &:after{
+            content: '-';
+            margin-left: 4px;
+            margin-right: 4px;
+            display: inline;
+          }
+        }
+        color: color(black, base, 0.65);
+      }
+    }
+  }
+}
+
+body.with-open-search{
+  height: 100vh;
+  overflow: hidden;
+
+  .header__wrapper{
+    top: 0 !important;
+  }
+
+  & > *:not(.header):not(#compose__search) {
+    filter: blur(2px);
+  }
 }

@@ -12,8 +12,10 @@ class APP extends Component {
 
     return (
       <section className="search">
-        <SearchBar />
-        <SearchResults />
+        <div className="container--narrow">
+          <SearchBar />
+          <SearchResults />
+        </div>
       </section>
     );
   }

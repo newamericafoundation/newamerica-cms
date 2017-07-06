@@ -42,8 +42,8 @@ p,
 blockquote,
 ul,
 li{
-  font-size: 1.00em;
-  line-height: 1.6em;
+  font-size: 1.00rem;
+  line-height: 1.6rem;
   text-shadow: 1px 1px 1px color(black, base, 0.004);
   text-rendering: optimizeLegibility !important;
 }
@@ -52,11 +52,13 @@ p {
   &.no-margin{
     margin-top: 0;
     margin-bottom: 0;
+    line-height: 1.1rem;
   }
 
   &.narrow-margin{
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1.1rem;
   }
 }
 
@@ -156,10 +158,10 @@ label {
   }
 
   a {
-    font-weight: normal;
-    color: color(gray);
+    font-weight: inherit !important;
+    color: inherit !important;
     &:hover{
-      color: color(turquoise);
+      color: color(turquoise) !important;
     }
   }
 
@@ -179,7 +181,7 @@ label {
 
   &.lg{
     font-size: 1rem;
-    line-height: 1.6rem;
+    line-height: 1.1rem;
   }
 }
 
