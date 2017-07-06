@@ -6,24 +6,29 @@ let addScrollEvent = (dispatch) => {
   let content = document.querySelector('.weekly-content'),
     header = document.querySelector('.weekly-header');
 
-  if(header) header.style.top = '0px';
+  setTimeout(function(){
+    if(header) header.style.top = '0px';
+  });
 
   if(!content) return;
   content.addEventListener('scroll', (e) => {
-    header.style.top = -content.scrollTop + 'px';
+    let top = -content.scrollTop*2 + 'px';
     clearTimeout(timeout);
     dispatch({
       type: 'SET_IS_SCROLLING',
       component: 'site',
       isScrolling: true
     });
-    timeout = setTimeout(()=>{
-      dispatch({
-        type: 'SET_IS_SCROLLING',
-        component: 'site',
-        isScrolling: false
-      });
-    }, 17);
+    requestAnimationFrame(function(){
+      header.style.top = top;
+      timeout = setTimeout(()=>{
+        dispatch({
+          type: 'SET_IS_SCROLLING',
+          component: 'site',
+          isScrolling: false
+        });
+      }, 17);
+    });
   }, false);
 
 }

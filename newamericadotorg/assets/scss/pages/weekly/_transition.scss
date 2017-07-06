@@ -3,9 +3,6 @@ $transition-function: .6s ease;
 .weekly-page-fade-enter{
   transition-delay: .2s;
 
-  @include media-breakpoint(large-desktop){
-    margin-left: calc(50vw - 600px) !important;
-  }
   &.weekly-edition-grid{
     @include transform(translate3d(-100%, 0, 0));
   }
@@ -26,9 +23,6 @@ $transition-function: .6s ease;
 }
 
 .weekly-page-fade-leave{
-  @include media-breakpoint(large-desktop){
-    margin-left: calc(50vw - 600px) !important;
-  }
   &.weekly-edition-grid{
     @include transform(translate3d(0, 0, 0));
   }
