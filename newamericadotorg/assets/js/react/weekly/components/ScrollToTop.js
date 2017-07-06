@@ -20,23 +20,23 @@ let addScrollEvent = (dispatch) => {
   if(!content) return;
   let isArticle = content.classList.contains('weekly-article');
   content.addEventListener('scroll', (e) => {
-
     let top = content.scrollTop;
     clearTimeout(timeout);
-    requestAnimationFrame(function(){
-      if(isArticle) header.style.top = -top*2 + 'px';
+    dispatch({
+      type: 'SET_IS_SCROLLING',
+      component: 'site',
+      isScrolling: true
+    });
+
+    timeout = setTimeout(()=>{
       dispatch({
         type: 'SET_IS_SCROLLING',
         component: 'site',
-        isScrolling: true
+        isScrolling: false
       });
-      timeout = setTimeout(()=>{
-        dispatch({
-          type: 'SET_IS_SCROLLING',
-          component: 'site',
-          isScrolling: false
-        });
-      }, 17);
+    }, 17);
+    requestAnimationFrame(function(){
+      if(isArticle) header.style.top = -top*2 + 'px';
     });
   }, false);
 

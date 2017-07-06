@@ -2,7 +2,9 @@
 	position: absolute;
 	height: 100vh;
 	width: 100%;
-	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: hidden; 
+	-webkit-overflow-scrolling: touch;
 	@extend %clearfix;
   padding-bottom: 200px;
   top: 0;

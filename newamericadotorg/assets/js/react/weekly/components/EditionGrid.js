@@ -19,7 +19,7 @@ const Lead = ({ article, edition }) => (
   <div className="weekly-edition-grid__lead weekly-edition-grid__col col-12">
     <Link to={`/weekly/${edition.slug}/${article.slug}`} className="weekly-edition-grid__lead-wrapper">
       <div className="weekly-edition-grid__lead__image-wrapper">
-        <div style={{ backgroundImage: `url(${article.story_image_sm})`}} className="weekly-edition-grid__lead__image"/>
+        <div style={{ backgroundImage: `url(${article.story_image_md})`}} className="weekly-edition-grid__lead__image"/>
       </div>
       <div className="weekly-edition-grid__lead__edition-title">
         <label>{edition.title}</label>

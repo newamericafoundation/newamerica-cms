@@ -15,9 +15,10 @@ class Preload extends Component {
 
   componentWillUpdate(nextProps){
     if(this.props.edition !== nextProps.edition) return this.clear(nextProps);
-    let { edition, images, isReady } = nextProps;
+    let { edition, images, isReady, isFetching, dispatch } = nextProps;
     if(!edition || !images) return;
     if(edition.length===0) return;
+    if(isFetching === true) return dispatch(setIsReady(false));
     if(edition.articles.length === images.length && !isReady)
       return this.setAsReady(nextProps);
   }
@@ -65,6 +66,7 @@ class Preload extends Component {
 const mapStateToProps = (state) => ({
   images: getNestedState(state, 'weekly.edition.articleImages'),
   edition: getNestedState(state, 'weekly.edition.results'),
+  isFetching: getNestedState(state, 'weekly.edition.isFetching'),
   isReady: getNestedState(state, 'weekly.edition.isReady')
 });
 

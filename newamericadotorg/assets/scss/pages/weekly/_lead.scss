@@ -75,11 +75,9 @@
     padding-bottom: 66%;
     background-size: cover;
     background-repeat: no-repeat;
-    filter: grayscale(100%);
-    @include transition(filter 0.3s ease-in-out);
 
     @include media-breakpoint(tablet){
-      height: calc(100vh - 105px);
+      height: calc(100vh - 115px);
       padding-bottom: 0;
       width: auto;
     }
@@ -89,9 +87,7 @@
     @include turquoise-overlay;
     @extend %with-overlay;
     &:hover{
-      .weekly-edition-grid__lead__image{
-        filter: grayscale(0%);
-      }
+      @include turquoise-overlay(0.25);
     }
   }
 }

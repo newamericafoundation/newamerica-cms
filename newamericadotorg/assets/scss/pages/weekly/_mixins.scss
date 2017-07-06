@@ -10,6 +10,7 @@
     right: 0;
     z-index: 1;
     opacity: $opacity;
+    @include transition(opacity .3s ease);
     background-image: -webkit-linear-gradient(135deg, color(weekly, turquoise, .7) 0%, color(weekly, blue, .3) 100%); // Safari 5.1-6, Chrome 10+
     background-image: -o-linear-gradient(135deg, color(weekly, turquoise, .7) 0%, color(weekly, blue, .3) 100%); // Opera 12
     background-image: linear-gradient(135deg, color(weekly, turquoise, .7) 0%, color(weekly, blue, .3) 100%); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
@@ -18,12 +19,12 @@
 }
 
 @mixin gray-multiply-overlay {
-  background-color: color(weekly, gray, 1);
-  background-blend-mode: multiply;
-  filter: grayscale(75%);
-  @include transition(filter 0.3s ease-in-out);
+  background-color: color(weekly, gray, 0.75);
+  background-blend-mode: luminosity;
+
+  @include transition(background-color 0.3s ease-in-out);
   &:hover{
-    filter: grayscale(0%);
+    background-color: color(weekly, gray, 0.25 );
   }
 }
 
