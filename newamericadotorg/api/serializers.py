@@ -348,3 +348,22 @@ class WeeklyEditionSerializer(ModelSerializer):
         fields = (
         'id', 'title', 'search_description', 'articles', 'slug', 'first_published_at'
         )
+
+class SearchSerializer(ModelSerializer):
+    specific = SerializerMethodField()
+
+    def get_specific(self, obj):
+        spec = { 'image': None, 'date': None, 'content_type': obj.content_type.model }
+
+        if(getattr(obj.specific, 'story_image', None)):
+            spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
+        if(getattr(obj.specific, 'profile_image', None)):
+            spec['image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
+        if(getattr(obj.specific, 'date', None)):
+            spec['date'] = obj.specific.date
+
+        return spec
+
+    class Meta:
+        model = Page
+        fields = ('id', 'title', 'slug', 'url', 'search_description', 'specific')

@@ -1,7 +1,7 @@
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
-  SET_SCROLL, SET_IS_SCROLLING
+  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE
 } from './constants';
 
 // reducers
@@ -51,7 +51,17 @@ const adHoc = (state={}, action) => {
   }
 }
 
+const searchIsOpen = (state=false, action) => {
+  switch(action.type){
+    case SET_SEARCH_STATE:
+      return action.state;
+    default:
+      return state;
+  }
+}
+
 export default {
   scroll,
-  adHoc
+  adHoc,
+  searchIsOpen
 }

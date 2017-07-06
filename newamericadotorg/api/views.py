@@ -2,17 +2,19 @@ import django_filters, math
 from django.db.models import Q
 from django.utils.timezone import localtime, now
 
-from rest_framework import status, pagination, mixins, generics, views, response
+from rest_framework import status, pagination, mixins, generics, views, response, filters
 from django_filters.rest_framework import FilterSet
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailsearch.models import Query
 
 from home.models import Post, HomePage
 from person.models import Person
 from serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
     ProjectSerializer, HomeSerializer, TopicSerializer, EventSerializer,
-    WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer
+    WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer,
+    SearchSerializer
 )
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
@@ -38,7 +40,7 @@ class PostFilter(FilterSet):
 
 class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = PostFilter
 
     def get_queryset(self):
@@ -48,6 +50,17 @@ class PostList(generics.ListAPIView):
             return posts
 
         return posts.filter(id__in=ids)
+
+class SearchList(generics.ListAPIView):
+    serializer_class = SearchSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
+
+    def get_queryset(self):
+        search = self.request.query_params.get('query', None)
+        results = Page.objects.live().search(search)
+        query = Query.get(search)
+        query.add_hit()
+        return results
 
 
 # class TopicFilter(django_filters.rest_framework.FilterSet):
@@ -117,7 +130,7 @@ class WeeklyDetail(generics.RetrieveAPIView):
 class AuthorList(generics.ListAPIView):
     queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')
     serializer_class = AuthorSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = AuthorFilter
 
 class EventFilter(FilterSet):
@@ -134,7 +147,7 @@ class EventFilter(FilterSet):
 
 class EventList(generics.ListAPIView):
     serializer_class = EventSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = EventFilter
 
     def get_queryset(self):
@@ -197,7 +210,7 @@ class ProgramDetail(generics.RetrieveAPIView):
 class ProgramList(generics.ListAPIView):
     queryset = Program.objects.in_menu().live().order_by('title').exclude(location=True)
     serializer_class = ProgramSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = ProgramFilter
 
 class ProjectFilter(FilterSet):
@@ -210,7 +223,7 @@ class ProjectFilter(FilterSet):
 class ProjectList(generics.ListAPIView):
     queryset = Subprogram.objects.live().order_by('title')
     serializer_class = ProjectSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = ProjectFilter
 
 class ProjectDetail(generics.RetrieveAPIView):

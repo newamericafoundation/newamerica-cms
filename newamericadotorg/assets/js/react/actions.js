@@ -4,7 +4,7 @@ import store from './store';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
-  SET_SCROLL, SET_IS_SCROLLING
+  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE
 } from './constants';
 
 
@@ -134,6 +134,17 @@ class Actions {
   addObserver = ({ stateName, onChange }) => {
     let observer = observerFactory(stateName, onChange);
     store.subscribe(observer);
+    return this;
+  }
+
+  toggleSearch = (state) => {
+    if(state===undefined) state = !this.getState('site.searchIsOpen');
+    store.dispatch({
+      type: SET_SEARCH_STATE,
+      component: 'site',
+      state
+    });
+
     return this;
   }
 }
