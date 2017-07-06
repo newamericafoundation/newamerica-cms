@@ -52,7 +52,9 @@ class Preload extends Component {
       img.onload = () => {
         this.props.dispatch(loadArticleImage(img));
       }
-      img.src = articles[i].story_image_sm;
+      if(i===0) img.src = articles[i].story_image_md;
+      else img.src = articles[i].story_image_sm;
+
       let img2 = new Image();
       img2.src = articles[i].story_image;
     }
