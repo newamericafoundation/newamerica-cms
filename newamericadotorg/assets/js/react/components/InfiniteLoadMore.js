@@ -148,7 +148,7 @@ class InfiniteLoadMore extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  siteScrollPosition: state.site.scrollPosition // forces reevaluation on scroll
+  siteScrollPosition: state.site.scroll.position // forces reevaluation on scroll
 });
 
 InfiniteLoadMore = connect(mapStateToProps)(InfiniteLoadMore);
