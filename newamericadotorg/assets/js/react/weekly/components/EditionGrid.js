@@ -108,8 +108,9 @@ class EditionGrid extends Component {
       'data-scroll-leave-offset': '-100vh'
     }
     return(
-      <section className="weekly-edition-grid weekly-content container">
+      <section className="weekly-edition-grid weekly-content container--full-width">
         <CSSTransitionGroup
+          className="container"
           transitionAppear={true}
           transitionAppearTimeout={2000}
           transitionName="weekly-edition-stagger"

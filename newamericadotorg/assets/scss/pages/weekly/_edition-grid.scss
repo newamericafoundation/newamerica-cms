@@ -2,9 +2,6 @@
   margin: 0 0 0 0 !important;
 }
 .weekly-edition-grid{
-  @extend %clearfix;
-  padding-bottom: 25px;
-  width: 100%;
   &__col{
     float: left;
     border-left: 1px solid color(weekly, black, .2);
