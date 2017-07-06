@@ -31,7 +31,7 @@ const Lead = ({ article, edition }) => (
 
 const ArticleListItem = ({ item, edition, index }) => (
   <div className="weekly-edition-grid__article-list__item col-6 col-sm-4 col-md-6"
-    style={{'transitionDelay': `${50*index}ms`, 'WebkitTransitionDelay': `${50*index}ms` }}>
+    style={{'transitionDelay': `${600 + 50*index}ms`, 'WebkitTransitionDelay': `${600 + 50*index}ms` }}>
     <Link to={`/weekly/${edition.slug}/${item.slug}`}>
       <div className="weekly-edition-grid__article-list__item__image"
         style={{backgroundImage: `url(${item.story_image_sm})`}}></div>
@@ -116,7 +116,7 @@ class EditionGrid extends Component {
           transitionName="weekly-edition-stagger"
           transitionEnterTimeout={2000}
           transitionLeaveTimeout={600}>
-          <div className="row scroll-target" {...attrs} key={edition.id}>
+          <div className="row scroll-target weekly-edition-grid__column-wrapper" {...attrs} key={edition.id}>
             <Lead article={edition.articles[0]} edition={edition} />
             <ArticleList articles={edition.articles.slice(1,edition.articles.length)} edition={edition}/>
             <Response name="weekly.editionList" component={EditionList} activeEdition={edition} />

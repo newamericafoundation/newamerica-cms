@@ -2,8 +2,10 @@
 	background: color(weekly, black);
 	height: $weekly-header-height;
 	position: relative;
-	z-index: 15;
+	z-index: 250;
 	margin-bottom: 25px;
+
+	@include transform(translateZ(0));
 	@extend %animate-fade-in;
 
 	&__container{

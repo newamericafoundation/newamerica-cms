@@ -40,6 +40,7 @@
   animation-fill-mode: forwards;
   animation-name: shift-and-fade-in;
   animation-duration: 0.6s;
+  animation-delay: 0.3s;
   opacity: 0;
   @include transform(translate3d(0, 75px, 0));
 }

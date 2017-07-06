@@ -39,6 +39,23 @@
     display: block;
     position: relative;
     margin-bottom: 15px;
+      //.scroll-in-view{
+        @include media-breakpoint(tablet){
+        //  .weekly-edition-grid__lead-wrapper{
+            position: fixed;
+            width: calc(50vw - 30px);
+            max-width: 570px; // 1200px *.5 - 30;
+            top: 85px;
+        //  }
+        }
+
+        @include media-breakpoint(desktop){
+          //.weekly-edition-grid__lead-wrapper{
+            width: calc(44.44444vw - 30px);
+            max-width: 503.33328px; // 1200px *.4444444 - 30;
+          //}
+        }
+      //}
   }
   &__text{
     position: absolute;
@@ -62,7 +79,7 @@
     @include transition(filter 0.3s ease-in-out);
 
     @include media-breakpoint(tablet){
-      height: calc(100vh - 75px);
+      height: calc(100vh - 105px);
       padding-bottom: 0;
       width: auto;
     }
@@ -79,24 +96,24 @@
   }
 }
 
-.scroll-in-view{
-  height: auto;
-  @include media-breakpoint(tablet){
-    .weekly-edition-grid__lead-wrapper{
-      position: fixed;
-      width: calc(50vw - 30px);
-      max-width: 570px; // 1200px *.5 - 30;
-      top: 25px;
-    }
-  }
-
-  @include media-breakpoint(desktop){
-    .weekly-edition-grid__lead-wrapper{
-      width: calc(44.44444vw - 30px);
-      max-width: 503.33328px; // 1200px *.4444444 - 30;
-    }
-  }
-}
+// //.scroll-in-view{
+//   height: auto;
+//   @include media-breakpoint(tablet){
+//   //  .weekly-edition-grid__lead-wrapper{
+//       position: fixed;
+//       width: calc(50vw - 30px);
+//       max-width: 570px; // 1200px *.5 - 30;
+//       top: 25px;
+//   //  }
+//   }
+//
+//   @include media-breakpoint(desktop){
+//     //.weekly-edition-grid__lead-wrapper{
+//       width: calc(44.44444vw - 30px);
+//       max-width: 503.33328px; // 1200px *.4444444 - 30;
+//     //}
+//   }
+// //}
 
 .scroll-left{
   @include media-breakpoint(tablet){
@@ -104,7 +121,8 @@
       position: absolute;
       width: calc(50vw - 30px);
       max-width: 570px; // 1200px *.5 - 30;
-      bottom: 25px;
+      bottom: 0px;
+      top: initial;
     }
   }
 

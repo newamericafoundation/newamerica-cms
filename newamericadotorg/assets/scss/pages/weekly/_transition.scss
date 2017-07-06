@@ -1,19 +1,25 @@
 $transition-function: .6s ease;
 
 .weekly-page-fade-enter{
-  transition-delay: .2s;
 
   &.weekly-edition-grid{
-    @include transform(translate3d(-100%, 0, 0));
+    &.weekly-content{
+      overflow: hidden !important;
+    }
+    .weekly-edition-grid__lead-wrapper, .weekly-edition-grid__article-list, .weekly-edition-grid__edition-list{
+      @include transform(translate3d(-125vw, 0, 0));
+    }
   }
   &.weekly-article{
-    @include transform(translate3d(100%, 0, 0));
+    @include transform(translate3d(125vw, 0, 0));
 
   }
   &.weekly-page-fade-enter-active{
     &.weekly-edition-grid{
-      @include transform(translate3d(0, 0, 0));
-      @include transition(all $transition-function);
+      .weekly-edition-grid__lead-wrapper, .weekly-edition-grid__article-list, .weekly-edition-grid__edition-list{
+        @include transform(translate3d(0, 0, 0));
+        @include transition(all $transition-function);
+      }
     }
     &.weekly-article{
       @include transform(translate3d(0, 0, 0));
@@ -24,18 +30,22 @@ $transition-function: .6s ease;
 
 .weekly-page-fade-leave{
   &.weekly-edition-grid{
-    @include transform(translate3d(0, 0, 0));
+    .weekly-edition-grid__lead-wrapper, .weekly-edition-grid__article-list, .weekly-edition-grid__edition-list{
+      @include transform(translate3d(0, 0, 0));
+    }
   }
   &.weekly-article{
     @include transform(translate3d(0, 0, 0));
   }
   &.weekly-page-fade-leave-active{
     &.weekly-edition-grid{
-      @include transform(translate3d(-125%, 0, 0));
-      @include transition(all $transition-function);
+      .weekly-edition-grid__lead-wrapper, .weekly-edition-grid__article-list, .weekly-edition-grid__edition-list{
+        @include transform(translate3d(-125vw, 0, 0));
+        @include transition(all $transition-function);
+      }
     }
     &.weekly-article{
-      @include transform(translate3d(125%, 0, 0));
+      @include transform(translate3d(125vw, 0, 0));
       @include transition(all $transition-function);
     }
   }
@@ -43,7 +53,6 @@ $transition-function: .6s ease;
 
 .weekly-edition-stagger-enter, .weekly-edition-stagger-appear{
   .weekly-edition-grid__article-list__item{
-    @include transition(all 1s ease);
     @include transform(translate3d(0, 300px, 0));
     opacity: 0;
   }
@@ -51,8 +60,9 @@ $transition-function: .6s ease;
     opacity: 0;
   }
   &.weekly-edition-stagger-enter-active, &.weekly-edition-stagger-appear-active{
-    .weekly-edition-grid__article-list__item,{
+    .weekly-edition-grid__article-list__item{
       @include transition(all 1s ease);
+      transition-delay: 5s;
       opacity: 1;
       @include transform(translate3d(0, 0, 0));
     }

@@ -46,7 +46,7 @@ const Loading = () => (
 const Main = ({ location, match }) => (
   <CSSTransitionGroup
     transitionName="weekly-page-fade"
-    transitionEnterTimeout={800}
+    transitionEnterTimeout={1850}
     transitionLeaveTimeout={800}>
     <Switch key={match.params.article ? 'article' : 'edition'} location={location}>
       <Route exact

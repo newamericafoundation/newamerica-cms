@@ -9,14 +9,31 @@
   max-width: 0px;
   padding-left: 0px;
   padding-right: 0px;
+  top: 60px;
   border-left: none;
+  margin-bottom: 15px;
   z-index: 10;
-  @include transition(all 0.4s ease-in-out);
+  @include media-breakpoint(desktop){
+    //.weekly-edition-grid__edition-list{
+      border-left: 1px solid color(weekly, black, .2);
+      width: 16.666666666vw;
+      max-width: 200px;
+      left: 83.33333333vw;
+      right: initial;
 
-  @include media-breakpoint-down(desktop){
-    top: 0;
-    margin-top: 60px;
+    //}
   }
+  @include media-breakpoint(large-desktop){
+    //.weekly-edition-grid__edition-list{
+      left: initial;
+      right: calc(50vw - 599px);
+    //}
+  }
+
+  // @include media-breakpoint-down(desktop){
+  //   top: 0;
+  //   margin-top: 60px;
+  // }
 
   &.open {
     @include transition(all 0.4s ease-in-out !important);
@@ -28,18 +45,18 @@
   }
 
   @include media-breakpoint(desktop){
-    padding-left: 15px;
-    padding-right: 15px;
-    display: block;
-    opacity: 1;
-    z-index: 50;
-    width: auto;
-    position: static;
-    max-width: 16.66667%;
-    left: initial;
-    right: initial;
-    border-left: 1px solid color(weekly, black, .2);
-    @include transition(none);
+    // padding-left: 15px;
+    // padding-right: 15px;
+    // display: block;
+    // opacity: 1;
+    // z-index: 50;
+    // width: auto;
+    //position: static;
+    //max-width: 16.66667%;
+    //left: initial;
+    //right: initial;
+    //border-left: 1px solid color(weekly, black, .2);
+    //@include transition(none);
   }
 
   &__scroll-wrapper{
@@ -55,6 +72,8 @@
   &__item{
     padding-top: 25px;
     padding-bottom: 25px;
+    margin-left: 15px;
+    margin-right: 15px;
     text-align: center;
     border-bottom: 1px solid color(weekly, black, .2);
 
@@ -84,33 +103,32 @@
   }
 }
 
-.scroll-in-view{
-  @include media-breakpoint(desktop){
-    .weekly-edition-grid__edition-list{
-      width: 16.666667vw;
-      max-width: 200px;
-      position: fixed;
-      top: 25px;
-      left: 83.333333vw;
-      right: initial;
-
-    }
-  }
-  @include media-breakpoint(large-desktop){
-    .weekly-edition-grid__edition-list{
-      left: initial;
-      right: calc(50vw - 599px);
-    }
-  }
-}
+// .scroll-in-view{
+//   @include media-breakpoint(desktop){
+//     .weekly-edition-grid__edition-list{
+//       width: 16.666666666vw;
+//       max-width: 200px;
+//       position: fixed;
+//       top: 85px;
+//       left: 83.33333333vw;
+//       right: initial;
+//
+//     }
+//   }
+//   @include media-breakpoint(large-desktop){
+//     .weekly-edition-grid__edition-list{
+//       left: initial;
+//       right: calc(50vw - 599px);
+//     }
+//   }
+// }
 
 .scroll-left{
   @include media-breakpoint(desktop){
     .weekly-edition-grid__edition-list{
-      width: 16.666667vw;
-      max-width: 200px;
       position: absolute;
-      bottom: 0;
+      bottom: -25px;
+      top: initial;
       right: 1px;
     }
   }
