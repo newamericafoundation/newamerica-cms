@@ -10,8 +10,20 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 200;
+  z-index: 50;
   background: color(white, base, 0.9);
+
+  .fa-times{
+    font-size: 1.4rem;
+    cursor: pointer;
+    position: fixed;
+    right: 25px;
+    opacity: 0.75;
+    top: #{$header-height + 25};
+    &:hover{
+      color: color(turquoise);
+    }
+  }
 
   & > .container--narrow {
     overflow: hidden;
@@ -38,6 +50,22 @@
       &__title {
         margin-bottom: 2px;
         white-space: nowrap;
+      }
+      &__details {
+        label{
+          color: color(black, base, 0.65);
+          &:nth-child(2){
+            &:before {
+              display: inline;
+              content: '•';
+              margin-left: 4px;
+              margin-right: 4px;
+              font-size: 0.75em;
+              position: relative;
+              bottom: .125em;
+            }
+          }
+        }
       }
       &__description{
         & > .with-description {

@@ -14,7 +14,10 @@ class Results extends Component {
     let title = p.title.substring(0,67);
     if(l > 67) title += ' ...';
     return title;
+  }
 
+  componentWillUnmount(){
+    this.props.clear();
   }
 
   render(){
@@ -28,7 +31,17 @@ class Results extends Component {
                 {this.cleanTitle(p)}
               </a>
             </label>
-            <p className="search__results__item__description narrow-margin">
+            <div className="search__results__item__details">
+              {p.specific.programs.length!==0 &&
+                <label className="search__results__item__details__program active">
+                  <a href={p.specific.programs[0].url}>{p.specific.programs[0].name}</a>
+                </label>
+              }
+              <label className="search__results__item__details__content-type active">
+                {p.specific.content_type.name}
+              </label>
+            </div>
+            <p className="search__results__item__description no-margin">
               {p.specific.date &&
                 <label className={p.specific.description ? 'with-description' : ''}>
                   {formatDate(p.specific.date, 'MMMM D, YYYY')}

@@ -26,7 +26,7 @@ programpage_contenttype_map = {
     'programquotedpage': newamericadotorg_content_types[4],
     'programpressreleasespage': newamericadotorg_content_types[5],
     'programarticlespage': newamericadotorg_content_types[6],
-    'programpodcastspage': newamericadotorg_content_types[7],
+    'programpodcastspage': newamericadotorg_content_types[7]
 }
 
 def generate_image_url(image, filter_spec=None):
@@ -42,6 +42,22 @@ def generate_image_url(image, filter_spec=None):
     # url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
 
     return rendition.url
+
+def get_content_type(api_name):
+    for c in newamericadotorg_content_types:
+        if c['api_name'] == api_name:
+            return c;
+
+    if api_name == 'person':
+        return { 'name': 'Person', 'api_name': 'person', 'slug': 'our-people', 'title': 'People'  }
+
+    if api_name == 'event':
+        return { 'name': 'Event', 'api_name': 'event', 'slug': 'events', 'title': 'Events'  }
+
+    if(getattr(programpage_contenttype_map, api_name, None)):
+        return programpage_contenttype_map[api_name]
+
+    return { 'name': 'Homepage', 'api_name': api_name, 'slug': None, 'title': 'Homepages' }
 
 
 def get_program_content_types(program):

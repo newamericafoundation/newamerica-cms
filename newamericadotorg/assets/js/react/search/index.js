@@ -6,12 +6,20 @@ import SearchResults from './components/Results'
 import { NAME, ID } from './constants';
 
 class APP extends Component {
+  close = () => {
+    this.props.dispatch({
+      type: 'SET_SEARCH_STATE',
+      component: 'site',
+      state: false
+    });
+  }
 
   render(){
     if(!this.props.active) return null;
 
     return (
       <section className="search">
+        <i className="fa fa-times" onClick={this.close}></i>
         <div className="container--narrow">
           <SearchBar />
           <SearchResults />

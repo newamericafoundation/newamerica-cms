@@ -1,6 +1,6 @@
 import {
   fetchData, fetchAndAppend, fetchAndPrepend, setEndpoint, setQueryParam, setParams,
-  setQuery, setBase, receiveResults, setFetchingStatus
+  setQuery, setBase, setResponse, receiveResults, setFetchingStatus
 } from '../actions';
 import getNestedState from '../../../utils/get-nested-state';
 
@@ -64,6 +64,10 @@ export const mapDispatchToProps = (dispatch, props) => ({
 
   receiveResults: (val) => {
     dispatch(receiveResults(props.name, val));
+  },
+
+  clear: () => {
+    dispatch(setResponse(props.name, {}));
   },
 
   dispatch

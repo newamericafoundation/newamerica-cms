@@ -13,7 +13,7 @@ from weekly.models import WeeklyEdition, WeeklyArticle
 
 from django.core.urlresolvers import reverse
 
-from helpers import get_program_content_types, generate_image_url, get_subpages
+from helpers import get_program_content_types, generate_image_url, get_subpages, get_content_type
 
 class ProgramProjectSerializer(ModelSerializer):
     '''
@@ -356,23 +356,30 @@ class SearchSerializer(ModelSerializer):
         spec = {
             'image': None,
             'date': None,
-            'content_type': obj.content_type.model,
+            'content_type': get_content_type(obj.content_type.model),
             'authors': None,
-            'description': None
+            'description': None,
+            'programs': []
         }
 
-        if(getattr(obj.specific, 'story_image', None)):
+        if getattr(obj.specific, 'story_image', None):
             spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
-        if(getattr(obj.specific, 'profile_image', None)):
+        if getattr(obj.specific, 'profile_image', None):
             spec['image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
-        if(getattr(obj.specific, 'date', None)):
+        if getattr(obj.specific, 'date', None):
             spec['date'] = obj.specific.date
-        if(getattr(obj.specific, 'post_author', None)):
+        if getattr(obj.specific, 'post_author', None):
             spec['authors'] = AuthorSerializer(obj.specific.post_author, many=True, context=self.context).data
-        if(getattr(obj.specific, 'story_excerpt', None)):
+        if getattr(obj.specific, 'story_excerpt', None):
             spec['description'] = obj.specific.story_excerpt
-        if(getattr(obj.specific, 'short_bio', None)):
+        if getattr(obj.specific, 'short_bio', None):
             spec['description'] = obj.specific.short_bio
+        if getattr(obj.specific, 'parent_programs', None):
+            spec['programs'] = PostProgramSerializer(obj.specific.parent_programs, many=True).data
+        if getattr(obj.specific, 'belongs_to_these_programs', None):
+            spec['programs'] = PostProgramSerializer(obj.specific.belongs_to_these_programs, many=True).data
+        if obj.content_type.model == 'person':
+            spec['content_type']['name'] = obj.specific.role
 
         return spec
 
