@@ -52,7 +52,6 @@ export const params = (state=paramsState, action) => {
 export const results = (state=[], action) => {
   switch(action.type) {
     case SET_RESPONSE:
-      if(!action.response.results) return null;
       if(action.response.pend==='append')
         return [...state, ...action.response.results];
       else if(action.response.pend=='prepend')
@@ -93,7 +92,7 @@ export const count = (state=null, action) => {
 export const hasNext = (state=false, action) => {
   switch(action.type){
     case SET_RESPONSE:
-      return action.response.hasNext || null;
+      return action.response.hasNext;
     case SET_HAS_NEXT:
       return action.hasNext;
     default:
@@ -104,7 +103,7 @@ export const hasNext = (state=false, action) => {
 export const hasPrevious = (state=false, action) => {
   switch(action.type){
     case SET_RESPONSE:
-      return action.response.hasPrevious || null;
+      return action.response.hasPrevious;
     case SET_HAS_PREVIOUS:
       return action.hasPrevious;
     default:
@@ -115,7 +114,7 @@ export const hasPrevious = (state=false, action) => {
 export const page = (state=1, action) => {
   switch(action.type){
     case SET_RESPONSE:
-      return action.response.page || null;
+      return action.response.page;
     case SET_PAGE:
       return action.page;
     default:

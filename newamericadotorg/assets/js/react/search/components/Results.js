@@ -17,7 +17,7 @@ class Results extends Component {
   }
 
   componentWillUnmount(){
-    this.props.clear();
+    this.props.clearResults();
   }
 
   render(){
