@@ -51,7 +51,7 @@ es_url = os.getenv('SEARCHBOX_URL', "http://localhost:9200/")
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
         'URLS': [es_url],
         'INDEX': 'elasticsearch',
         'TIMEOUT': 1500,
