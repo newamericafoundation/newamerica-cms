@@ -4,13 +4,20 @@
     newamericadotorg.actions.toggleSearch();
   }
 
+  let pageYOffset = 0;
+
   newamericadotorg.actions.addObserver({
     stateName: 'site.searchIsOpen',
     onChange: function(state){
-      if(state===true)
+      if(state===true){
+        pageYOffset = document.documentElement.scrollTop || window.pageYOffset
+        document.body.style.top = -pageYOffset + 'px';
         document.body.classList.add('with-open-search');
-      else
+      } else {
         document.body.classList.remove('with-open-search');
+        document.body.style.top = '';
+        window.scroll(0, pageYOffset);
+      }
     }
   });
 </script>

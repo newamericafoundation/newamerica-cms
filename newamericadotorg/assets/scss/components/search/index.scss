@@ -4,6 +4,7 @@
 
 .search{
   position: fixed;
+  overflow: scroll;
   padding-top: 50px;
   top: $header-height;
   bottom: 0;
@@ -29,6 +30,8 @@
   }
 
   &__results {
+    padding-bottom: 100px;
+
     &__item{
       padding-top: 15px;
       padding-bottom: 15px;
@@ -51,9 +54,35 @@
   }
 }
 
+.search-icon {
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    color: color(turquoise);
+  }
+}
+
 body.with-open-search{
-  height: 100vh;
   overflow: hidden;
+  position: fixed;
+
+  .search-icon {
+    color: color(turquoise);
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: -10px;
+      right: -2px;
+      top: -15px;
+      bottom: -28px;
+      border: 1px solid color(black, base, 0.25);
+      box-shadow: 0px -2px 4px 0 rgba(40, 40, 48, 0.15);
+      border-bottom: 5px solid color(white);
+      border-top-right-radius: $border-radius;
+      border-top-left-radius: $border-radius;
+    }
+  }
 
   .header__wrapper{
     top: 0 !important;
