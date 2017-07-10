@@ -511,7 +511,7 @@ export class Timeline {
 		this.circles.classed("selected", (d, i) => { return i == this.currSelected });
 		this.eraList && this.eraList.length > 0 ? this.setEraText() : null;
 		this.setNextPrev();
-		console.log(this.currEventList[newIndex])
+
 		history.replaceState(undefined, undefined, "#" + encodeURI(this.currEventList[newIndex].title));
 	}
 
