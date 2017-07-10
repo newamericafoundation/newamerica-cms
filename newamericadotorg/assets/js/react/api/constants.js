@@ -30,3 +30,4 @@ export const SET_HAS_PREVIOUS = 'SET_HAS_PREVIOUS';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_RESPONSE = 'SET_RESPONSE';
 export const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
+export const SET_HAS_RESULTS = 'SET_HAS_RESULTS';

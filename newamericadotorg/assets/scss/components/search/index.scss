@@ -51,6 +51,11 @@
         margin-bottom: 2px;
         white-space: nowrap;
       }
+      &__author {
+        span {
+          font-weight: bold;
+        }
+      }
       &__details {
         label{
           color: color(black, base, 0.65);

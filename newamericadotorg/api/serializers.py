@@ -357,15 +357,15 @@ class SearchSerializer(ModelSerializer):
             'image': None,
             'date': None,
             'content_type': get_content_type(obj.content_type.model),
-            'authors': None,
+            'authors': [],
             'description': None,
             'programs': []
         }
-
-        if getattr(obj.specific, 'story_image', None):
-            spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
-        if getattr(obj.specific, 'profile_image', None):
-            spec['image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
+        if not self.context['request'].query_params.get('exclude_images', None):
+            if getattr(obj.specific, 'story_image', None):
+                spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
+            if getattr(obj.specific, 'profile_image', None):
+                spec['image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
         if getattr(obj.specific, 'date', None):
             spec['date'] = obj.specific.date
         if getattr(obj.specific, 'post_author', None):

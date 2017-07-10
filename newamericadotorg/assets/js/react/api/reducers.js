@@ -3,7 +3,7 @@ import {
   RECEIVE_AND_APPEND_RESULTS, RECEIVE_AND_PREPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
-  SET_FETCHING_STATUS
+  SET_FETCHING_STATUS, SET_HAS_RESULTS
 } from './constants';
 
 const paramsState = {
@@ -80,6 +80,17 @@ export const isFetching = (state=false, action) => {
   }
 }
 
+export const hasResults = (state=false, action) => {
+  switch(action.type){
+    case SET_RESPONSE:
+      return true;
+    case SET_HAS_RESULTS:
+      return action.status;
+    default:
+      return state;
+  }
+}
+
 export const count = (state=null, action) => {
   switch(action.type){
     case SET_RESPONSE:
@@ -148,6 +159,7 @@ const reducers = {
   count,
   page,
   isFetching,
+  hasResults,
   templateUrl,
   templateResult
 }

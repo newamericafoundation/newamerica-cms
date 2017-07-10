@@ -2,6 +2,7 @@ import { Response } from '../../components/API';
 import { Component } from 'react';
 import { NAME } from '../constants';
 import { format as formatDate } from 'date-fns';
+import LoadingIcon from '../../components/LoadingIcon';
 
 class Results extends Component {
   cleanDescription = (p) => {
@@ -21,9 +22,9 @@ class Results extends Component {
   }
 
   render(){
-    let { response: { results }} = this.props;
+    let { response: { results, isFetching, hasResults }, className } = this.props;
     return(
-      <div className="search__results">
+    <div className={"search__results " + className}>
         {results.map((p,i)=>(
           <div className="search__results__item">
             <label className="lg active search__results__item__title">
@@ -40,7 +41,17 @@ class Results extends Component {
               <label className="search__results__item__details__content-type active">
                 {p.specific.content_type.name}
               </label>
-            </div>
+            </div>{p.specific.authors[0] &&
+              <label className="search__results__item__author">
+                by {p.specific.authors.map((a,i)=>(
+                  <span key={`author-${i}`}>
+                    <a href={a.url}>{a.first_name + ' ' + a.last_name}</a>
+                    {i<p.specific.authors.length-2 && ', '}
+                    {i==p.specific.authors.length-2 && ', and '}
+                  </span>
+                ))}
+              </label>
+            }
             <p className="search__results__item__description no-margin">
               {p.specific.date &&
                 <label className={p.specific.description ? 'with-description' : ''}>
@@ -51,13 +62,22 @@ class Results extends Component {
             </p>
           </div>
         ))}
+        <div className="loading-icon-container"><LoadingIcon /></div>
+        {(results.length===0 && !isFetching && hasResults) &&
+          <div className="no-results">
+            <label className="lg active">No results found</label>
+          </div>
+        }
       </div>
     );
   }
 }
 
 const ResultsWrapper = () => (
-  <Response name={NAME} component={Results} />
+  <Response name={NAME}
+    component={Results}
+    showLoading={true}
+    transition={true}/>
 );
 
 export default ResultsWrapper;

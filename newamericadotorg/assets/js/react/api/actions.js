@@ -3,7 +3,7 @@ import {
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
-  SET_FETCHING_STATUS
+  SET_FETCHING_STATUS, SET_HAS_RESULTS
 } from './constants';
 import getNestedState from '../../utils/get-nested-state';
 
@@ -43,6 +43,12 @@ export const setEndpoint = (component, endpoint) => ({
 
 export const setFetchingStatus = (component, status) => ({
   type: SET_FETCHING_STATUS,
+  component,
+  status
+});
+
+export const setHasResults = (component, status) => ({
+  type: SET_HAS_RESULTS,
   component,
   status
 });
@@ -88,7 +94,7 @@ export const setTemplateUrl = (component, templateUrl) => ({
   type: SET_TEMPLATE_URL,
   component,
   templateUrl
-})
+});
 
 export const receiveTemplate = (component, template) => ({
   type: RECEIVE_RENDERED_TEMPLATE,

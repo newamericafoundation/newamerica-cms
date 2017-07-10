@@ -4,9 +4,10 @@ import triggerScrollEvents from './utils/trigger-scroll-events';
 
 let observers = [
   function scroll(){
-    let prevPosition = window.scrollY, direction, prevDirection, position = 0, animationFrame = 0, startTime = 0;
+    let prevPosition = window.scrollY || window.pageYOffset,
+    direction, prevDirection, position = 0, animationFrame = 0, startTime = 0;
     const onscroll = () => {
-      position = window.scrollY;
+      position = window.scrollY || window.pageYOffset;
 
       if(position===prevPosition) direction = prevDirection
       else direction = position < prevPosition ? 'REVERSE' : 'FORWARD';

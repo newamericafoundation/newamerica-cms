@@ -29,8 +29,6 @@ class Response extends Component {
     return (
       <this.props.component {...this.props}
         className={'compose__response-component ' + (transition ? ' fetch-transition ' : '') +  (className||'') + (isFetching? ' is-fetching': '')}>
-        {children || (component.props ? component.props.children : '')}
-        {(isFetching&&showLoading) && <div className="loading-icon-container"><LoadingIcon /></div>}
       </this.props.component>
     );
   }

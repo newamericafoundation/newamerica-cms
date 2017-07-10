@@ -44,7 +44,8 @@ const BarWrapper = () => (
     fetchOnMount={false}
     eager={false}
     initialQuery={{
-      page_size: 8
+      page_size: 8,
+      exclude_images: true
     }}
     component={Bar} />
 );
