@@ -11,7 +11,7 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
 from mysite.blocks import ButtonBlock, IframeBlock, DatavizBlock
-from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody
+from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock, VideoDataReferenceBlock
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
@@ -64,7 +64,7 @@ class InDepthSection(Page):
         project_root = self.get_parent()
         context['project_root'] = project_root
         context['authors'] = project_root.specific.authors.order_by('pk')
-        siblings = self.get_siblings(inclusive=True).live()
+        siblings = self.get_siblings(inclusive=True).live().type(InDepthSection)
         index = 0
         for i, item in enumerate(siblings):
             if (item.title == self.title):
@@ -72,9 +72,9 @@ class InDepthSection(Page):
 
         context['index'] = index
         context['siblings'] = siblings
-        if (index != 0):
+        if (index != 0 and len(siblings) > 1):
             context['previous_sibling'] = siblings[(index - 1)]
-        if (index != len(siblings) - 1):
+        if (index != len(siblings) - 1 and len(siblings) > 1):
             context['next_sibling'] = siblings[(index + 1)]
 
         return context
@@ -88,7 +88,7 @@ class InDepthProject(Post):
 
     """
     parent_page_types = ['AllInDepthHomePage']
-    subpage_types = ['InDepthSection']
+    subpage_types = ['InDepthSection', 'InDepthProfile']
 
     about_the_project = RichTextField(blank=True, null=True)
 
@@ -120,6 +120,13 @@ class InDepthProject(Post):
         FieldPanel('project_logo_link'),
         FieldPanel('show_data_download_links'),
     ]
+
+    def get_context(self, request):
+        context = super(InDepthProject, self).get_context(request)
+
+        context['project_sections'] = self.get_children().live().type(InDepthSection)
+
+        return context
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
@@ -161,3 +168,49 @@ class AllInDepthHomePage(Page):
 
     class Meta:
         verbose_name = "Homepage for all In-Depth Projects"
+
+class InDepthProfile(Page):
+    parent_page_types = ['InDepthProject']
+    subpage_types = []
+
+    subheading = RichTextField(blank=True, null=True)
+
+    datasheet_name = models.CharField(null=False, max_length=150, help_text="The name of the data sheet where the lookup field and query value will be found.")
+
+    lookup_field = models.CharField(null=False, max_length=150, help_text="The name of the field where the query value will be found")
+
+    image_field = models.CharField(max_length=150, blank=True, null=True, help_text="The name of the field where the an image for each profile will be found")
+
+    body = StreamField([
+        ('introduction', blocks.RichTextBlock()),
+        ('heading', blocks.CharBlock(classname='full title')),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock(icon='image')),
+        ('video', EmbedBlock(icon='media')),
+        ('table', TableBlock()),
+        ('button', ButtonBlock()),
+        ('iframe', IframeBlock()),
+        ('collapsible', CollapsibleBlock()),
+        ('data_reference', DataReferenceBlock()),
+        ('video_data_reference', VideoDataReferenceBlock())
+    ])
+
+    content_panels = Page.content_panels + [
+        FieldPanel('image_field'),
+        FieldPanel('subheading'),
+        StreamFieldPanel('body'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('datasheet_name'),
+        FieldPanel('lookup_field'),
+    ]
+
+    def get_context(self, request):
+        context = super(InDepthProfile, self).get_context(request)
+        context["project_root"] = self.get_parent()
+
+        return context
+
+    class Meta:
+        verbose_name = "In-Depth Profile Page"

@@ -55,13 +55,13 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.getenv('MAILGUN_API_KEY')
+}
 
 # Email backend configuration
-EMAIL_BACKEND = 'postmark.django_backend.EmailBackend'
-POSTMARK_API_KEY = os.getenv("POSTMARK_API_KEY")
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 POSTMARK_SENDER = os.getenv("POSTMARK_SENDER")
-POSTMARK_TEST_MODE   = False
-POSTMARK_TRACK_OPENS = False
 DEFAULT_FROM_EMAIL = POSTMARK_SENDER
 SERVER_EMAIL = POSTMARK_SENDER
 

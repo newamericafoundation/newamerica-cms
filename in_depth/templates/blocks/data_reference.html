@@ -1,0 +1,9 @@
+<div class="data-reference">
+	{% for field in self.fields_to_display %}
+		<div class="data-reference__row">
+			<div class="data-reference__label">{{ field.label }}<span class="data-reference__footnote__label" data-footnote-field-name="{{ field.footnote_field }}"></span></div>
+			<div class="data-reference__value" data-field-name="{{ field.field_name }}" data-field-format="{{ field.format }}"></div>
+		</div>
+	{% endfor %}
+</div>
+<ul class="data-reference__footnote-container"></ul>
