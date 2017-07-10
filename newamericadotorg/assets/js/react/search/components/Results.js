@@ -17,12 +17,21 @@ class Results extends Component {
     return title;
   }
 
+  getParams = () => {
+    let { response: { params }} = this.props;
+    let p = new URLSearchParams();
+
+    p.set('query', params.query.query);
+
+    return p.toString();
+  }
+
   componentWillUnmount(){
     this.props.clearResults();
   }
 
   render(){
-    let { response: { results, isFetching, hasResults }, className } = this.props;
+    let { response: { results, isFetching, hasResults, hasNext }, className } = this.props;
     return(
     <div className={"search__results " + className}>
         {results.map((p,i)=>(
@@ -47,7 +56,7 @@ class Results extends Component {
                   <span key={`author-${i}`}>
                     <a href={a.url}>{a.first_name + ' ' + a.last_name}</a>
                     {i<p.specific.authors.length-2 && ', '}
-                    {i==p.specific.authors.length-2 && ', and '}
+                    {i==p.specific.authors.length-2 && ' and '}
                   </span>
                 ))}
               </label>
@@ -66,6 +75,10 @@ class Results extends Component {
         {(results.length===0 && !isFetching && hasResults) &&
           <div className="no-results">
             <label className="lg active">No results found</label>
+          </div>
+        }{hasNext &&
+          <div className="search__results__item__see-more">
+            <a href={`/search/?${this.getParams()}`} className="button transparent">See more</a>
           </div>
         }
       </div>
