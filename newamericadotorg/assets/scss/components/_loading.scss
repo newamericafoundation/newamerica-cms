@@ -6,6 +6,7 @@ $loading-animation-delay: 0.15s;
 
 .fetch-transition{
   position: relative;
+  display: block;
 
   > * {
     @include transition(opacity .3s ease-in-out);
