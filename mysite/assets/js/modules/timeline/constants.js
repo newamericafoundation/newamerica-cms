@@ -13,7 +13,7 @@ export const parseDate = (date) => {
 export const margin = { left: 50, right: 50, top: 20, bottom: 35};
 
 export const dimensions = {
-	dotRadius : 7,
+	dotRadius : 6,
 	dotOffset : 1.5,
 };
 
