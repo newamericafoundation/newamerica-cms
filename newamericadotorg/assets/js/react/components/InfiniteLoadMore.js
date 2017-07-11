@@ -47,8 +47,6 @@ class InfiniteLoadMore extends Component {
   static defaultProps = {
     infiniteOnMount: false,
     component: 'div',
-    hasNext: true,
-    isFetching: false,
     onNextPage: ()=>{},
     upperBoundOffset: -500,
     lowerBoundOffset: 50
@@ -59,7 +57,7 @@ class InfiniteLoadMore extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    let { data, isFetching, response } = this.props;
+    let { response } = this.props;
     /**
       since we're subscribing to scrollPosition,
       this component gets reevaluated with each tick (/rerendered on each tick)
@@ -120,7 +118,7 @@ class InfiniteLoadMore extends Component {
   }
 
   render(){
-    let { data, children, className, isFetching, hasNext, response } = this.props;
+    let { children, className, response } = this.props;
     let classes = `${this.isInfinite ? 'is-infinite' : ''} ${this.isLoadingMore ? 'is-loading-more' : '' } ${response.isFetching ? 'is-fetching' : ''}`;
 
     return (
@@ -134,7 +132,7 @@ class InfiniteLoadMore extends Component {
 
         {children}
 
-        {(hasNext && !this.isInfinite) &&
+        {(response.hasNext && !this.isInfinite) &&
           <LoadMoreButton onclick={this.loadMore}/>
 
         }{response.isFetching &&
