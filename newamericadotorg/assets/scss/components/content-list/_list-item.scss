@@ -39,8 +39,15 @@
       width: 100%;
       background: color(gray, light);
       &.book{
+        background: none;
+        overflow: hidden;
         & > div{
-          
+          width: 200%;
+          height: 100%;
+          background-repeat: no-repeat;
+          background-size: contain;
+          position: relative;
+          left: -50%;
         }
       }
       &.person{
