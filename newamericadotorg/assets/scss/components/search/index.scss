@@ -104,6 +104,9 @@
   .search:not(.search-page){
     top: $header-expanded-height;
     border-top: 1px solid rgba(40, 40, 48, 0.15);
+    .fa-times{
+      top: #{$header-expanded-height + 25px};
+    }
   }
 }
 
@@ -112,6 +115,10 @@
   cursor: pointer;
   &:hover {
     color: color(turquoise);
+  }
+  &:before{
+    z-index: 2;
+    position: relative;
   }
 }
 
@@ -123,6 +130,8 @@ body.with-open-search{
     color: color(turquoise);
     &:after {
       content: '';
+      z-index: 1;
+      background: color(white);
       display: block;
       position: absolute;
       left: -10px;
