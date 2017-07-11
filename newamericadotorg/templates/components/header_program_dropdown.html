@@ -12,9 +12,9 @@
       <ul>
       {% for project in p.projects %}
         <li>
-          <a class="header-link-list__item__project-link tag transparent" href="{{project.url}}">
+          <label><a class="header-link-list__item__project-link" href="{{project.url}}">
             {{project.title}}
-          </a>
+          </a></label>
         </li>
       {% endfor %}
       </ul>

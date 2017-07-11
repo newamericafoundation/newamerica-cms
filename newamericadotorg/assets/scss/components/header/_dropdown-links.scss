@@ -8,10 +8,23 @@
       cursor: pointer;
     }
 
+    li {
+      display: block;
+      &:before{
+        content: '';
+        color: white;
+        //margin-left: 2px;
+        margin-right: 5px;
+        font-size: 0.75em;
+        position: relative;
+        top: -.125em;
+        display: inline;
+      }
+    }
+
     label{
       padding: 5px 0;
       font-size: 1em;
-      display: block;
       color: color(gray);
       cursor: pointer;
       &:hover{

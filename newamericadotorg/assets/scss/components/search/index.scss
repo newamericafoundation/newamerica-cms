@@ -3,15 +3,18 @@
 // @import 'search-box';
 
 .search{
-  position: fixed;
-  overflow: scroll;
+  &:not(.search-page){
+    position: fixed;
+    overflow: scroll;
+    top: $header-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 150;
+  }
+
   padding-top: 50px;
-  top: $header-height;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  background: color(white, base, 0.9);
+  background: color(white, base, 0.96);
 
   .fa-times{
     font-size: 1.4rem;
@@ -89,6 +92,19 @@
       }
     }
   }
+
+  &__person{
+    .content-list__item__details__date {
+      display: none;
+    }
+  }
+}
+
+.header--expanded {
+  .search:not(.search-page){
+    top: $header-expanded-height;
+    border-top: 1px solid rgba(40, 40, 48, 0.15);
+  }
 }
 
 .search-icon {
@@ -123,9 +139,5 @@ body.with-open-search{
 
   .header__wrapper{
     top: 0 !important;
-  }
-
-  & > *:not(.header):not(#compose__search) {
-    filter: blur(2px);
   }
 }

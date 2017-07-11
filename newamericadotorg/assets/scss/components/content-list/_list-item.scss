@@ -37,8 +37,20 @@
     &__image{
       height: 125px;
       width: 100%;
-      &:not(.book){
-        background: color(gray, light);
+      background: color(gray, light);
+      &.book{
+        & > div{
+          
+        }
+      }
+      &.person{
+        background: none;
+        & > div{
+          width: 125px;
+          height: 125px;
+          margin: 0 auto;
+          border-radius: 1000px;
+        }
       }
       &__image{
         width: 100%;

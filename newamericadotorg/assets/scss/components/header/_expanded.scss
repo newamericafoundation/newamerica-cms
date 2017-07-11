@@ -1,6 +1,7 @@
 .header--expanded{
   .header{
     height: $header-expanded-height;
+    margin-bottom: 15px;
 
     &__wrapper{
       position: relative;
@@ -11,8 +12,8 @@
     }
 
     &__logo{
-      width: 200px;
-      height: 50px
+      width: 150px;
+      height: 38px;
     }
 
     &__nav{

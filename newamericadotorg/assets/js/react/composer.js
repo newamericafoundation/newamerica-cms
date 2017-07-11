@@ -21,8 +21,8 @@ export default class Composer {
     this.components[name] = { components: [], multi: true };
 
     for(let i=0; i<els.length; i++){
-      let app = this.__render__(els[i], App);
-      this.components[name].components.push({ name, selector, el: els[i], app });
+      let app = this.__render__(els[i], App, i);
+      this.components[name].components.push({ name:`name.${i}`, selector, el: els[i], app });
     }
 
     if(els.length===0)
@@ -44,8 +44,9 @@ export default class Composer {
     }
   }
 
-  __render__(el, App){
+  __render__(el, App, index=0){
     let props = getProps(el);
+    props.index = index;
     return render(
       <Provider store={this.store}><App {...props}/></Provider>,
       el

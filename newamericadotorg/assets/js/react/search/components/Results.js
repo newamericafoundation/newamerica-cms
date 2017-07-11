@@ -1,10 +1,9 @@
-import { Response } from '../../components/API';
 import { Component } from 'react';
 import { NAME } from '../constants';
 import { format as formatDate } from 'date-fns';
 import LoadingIcon from '../../components/LoadingIcon';
 
-class Results extends Component {
+export default class Results extends Component {
   cleanDescription = (p) => {
     let d = p.specific.description;
     if(d) return d.replace(/<(?:.|\n)*?>/gm, '')
@@ -85,12 +84,3 @@ class Results extends Component {
     );
   }
 }
-
-const ResultsWrapper = () => (
-  <Response name={NAME}
-    component={Results}
-    showLoading={true}
-    transition={true}/>
-);
-
-export default ResultsWrapper;

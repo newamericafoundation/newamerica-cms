@@ -101,15 +101,13 @@ class FetchWrapper extends Component{
     super(props);
 
     let { name } = props;
-    let composerComponent = composer.components[name];
+    let composerComponent = composer.components[name] || {};
 
-    this.name = name;
+    if(name.indexOf('.')==-1 || !composerComponent.multi)
+      this.name = name;
+    else if(composerComponent.multi)
+      this.name = `${name}.${composerComponent.components.length}`;
 
-    if(composerComponent){
-      if(composerComponent.multi){
-        this.name = `${name}.${composerComponent.components.length}`;
-      }
-    }
   }
 
   render(){

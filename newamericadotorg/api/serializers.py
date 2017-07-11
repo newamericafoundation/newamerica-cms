@@ -354,6 +354,10 @@ class SearchSerializer(ModelSerializer):
 
     def get_specific(self, obj):
         spec = {
+            'id': obj.id,
+            'title': obj.title,
+            'slug': obj.slug,
+            'url': obj.url,
             'image': None,
             'date': None,
             'content_type': get_content_type(obj.content_type.model),
@@ -361,7 +365,7 @@ class SearchSerializer(ModelSerializer):
             'description': None,
             'programs': []
         }
-        if not self.context['request'].query_params.get('exclude_images', None):
+        if not self.context['request'].query_params.get('exclude_images', None)=='true':
             if getattr(obj.specific, 'story_image', None):
                 spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
             if getattr(obj.specific, 'profile_image', None):

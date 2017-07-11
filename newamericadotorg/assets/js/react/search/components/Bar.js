@@ -1,12 +1,22 @@
 import { Component } from 'react';
-import { Fetch } from '../../components/API';
 import { NAME } from '../constants';
 
-class Bar extends Component {
+export default class Bar extends Component {
   timeout = 0
   constructor(props){
     super(props);
-    this.state = { value: '' };
+    let { page, setQueryParam } = this.props;
+    let value = '';
+    if(page=='search-page'){
+      let params = new URLSearchParams(window.location.search);
+      let query = params.get('query');
+      if(query){
+        value = query;
+        setQueryParam('query', value, true);
+      }
+    }
+
+    this.state = { value };
   }
   change = (e) => {
     this.setState({ value: e.target.value });
@@ -16,7 +26,14 @@ class Bar extends Component {
     if(this.state.value == nextState.value) return;
     clearTimeout(this.timeout);
     this.timeout = setTimeout(()=>{
-      this.props.setQueryParam('query', nextState.value, true);
+      this.props.setQuery({
+        query: nextState.value,
+        page: 1
+      }, true);
+      if(this.props.page=='search-page'){
+        let url = `${window.location.origin}${window.location.pathname}?query=${nextState.value}`;
+        window.history.replaceState(null, null, url);
+      }
     }, 500);
   }
 
@@ -36,18 +53,3 @@ class Bar extends Component {
     );
   }
 }
-
-const BarWrapper = () => (
-  <Fetch
-    endpoint={'search'}
-    name={NAME}
-    fetchOnMount={false}
-    eager={false}
-    initialQuery={{
-      page_size: 8,
-      exclude_images: true
-    }}
-    component={Bar} />
-);
-
-export default BarWrapper;

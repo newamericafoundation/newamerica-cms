@@ -8,7 +8,7 @@ const Details = ({ post: { date, programs, content_type } }) => (
       {formatDate(date, 'MMMM D, YYYY')}
     </label>
     {programs &&
-      <label className="content-list__item__details__program-content">
+      <label className="content-list__item__details__program-content bold">
         {programs.map((p,i)=>(
           <span key={`program-${i}`}>
             <a href={p.url}>{p.name}</a>
@@ -18,7 +18,7 @@ const Details = ({ post: { date, programs, content_type } }) => (
         ))}
       </label>
     }
-    <label className="content-list__item__details__content-type">
+    <label className="content-list__item__details__content-type bold">
       {content_type.name}
     </label>
   </div>
@@ -31,9 +31,7 @@ const Heading = ({ post: { url, title, story_excerpt, authors }}) => (
         {title}
       </h4>
     </a>
-    <p className= "content-list__item__heading__excerpt">
-      {story_excerpt}
-    </p>
+    <p className="content-list__item__heading__excerpt" dangerouslySetInnerHTML={{__html: story_excerpt}}/>
     <div className="content-list__item__heading__authors">
       <div className="row no-gutters">
         {authors.map((a,i)=>(
