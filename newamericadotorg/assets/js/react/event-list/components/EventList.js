@@ -24,9 +24,7 @@ const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
   <InfiniteLoadMore
     className={'event-lists__past-events ' + className }
     infiniteOnMount={true}
-    isFetching={response.isFetching}
-    hasNext={response.hasNext}
-    data={response.results}
+    response={response}
     upperBoundOffset={-(document.documentElement.clientHeight*1.5)}
     onNextPage={()=>{
       if(!response.hasNext) return false;
