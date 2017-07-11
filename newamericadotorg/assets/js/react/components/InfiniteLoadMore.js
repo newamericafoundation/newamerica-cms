@@ -33,14 +33,12 @@ class InfiniteLoadMore extends Component {
   isLoadingMore = false;
 
   static propTypes = {
-    data: PropTypes.array.required,
     component: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.string
     ]),
+    response: PropTypes.object.required,
     infiniteOnMount: PropTypes.bool,
-    isFetching: PropTypes.bool.required,
-    hasNext: PropTypes.bool,
     onNextPage: PropTypes.func.required,
     upperBoundOffset: PropTypes.number,
     lowerBoundOffset: PropTypes.number
@@ -61,7 +59,7 @@ class InfiniteLoadMore extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    let { data, isFetching } = this.props;
+    let { data, isFetching, response } = this.props;
     /**
       since we're subscribing to scrollPosition,
       this component gets reevaluated with each tick (/rerendered on each tick)
@@ -71,19 +69,19 @@ class InfiniteLoadMore extends Component {
     if(this.isInfinite && !this.isLoadingMore)
       this.nextPageOnEnd();
 
-    if(!data) return false;
+    if(!response.results) return false;
 
-    if(data[0] && nextProps.data[0]){
+    if(response.results[0] && nextProps.response.results[0]){
       // TODO better check for new data
-      if(data[0].id !== nextProps.data[0].id){
+      if(response.results[0].id !== nextProps.response.results[0].id){
         if(!this.props.infiniteOnMount) this.isInfinite = false;
         return true;
       }
     }
 
-    if(isFetching !== nextProps.isFetching) return true;
+    if(response.isFetching !== nextProps.response.isFetching) return true;
 
-    return data.length !== nextProps.data.length;
+    return response.results.length !== nextProps.response.results.length;
   }
 
   nextPage = () => {
@@ -122,15 +120,15 @@ class InfiniteLoadMore extends Component {
   }
 
   render(){
-    let { data, children, className, isFetching, hasNext } = this.props;
-    let classes = `${this.isInfinite ? 'is-infinite' : ''} ${this.isLoadingMore ? 'is-loading-more' : '' } ${isFetching ? 'is-fetching' : ''}`;
+    let { data, children, className, isFetching, hasNext, response } = this.props;
+    let classes = `${this.isInfinite ? 'is-infinite' : ''} ${this.isLoadingMore ? 'is-loading-more' : '' } ${response.isFetching ? 'is-fetching' : ''}`;
 
     return (
       <this.props.component
         ref={(el) => { this.el = el; }}
         className={'compose__infinite-load-more ' + classes + ' ' + (className||'')}>
 
-        {(data.length===0 && !isFetching) &&
+        {(response.results.length===0 && !response.isFetching && response.hasResults) &&
           <NoResults />
         }
 
@@ -139,7 +137,7 @@ class InfiniteLoadMore extends Component {
         {(hasNext && !this.isInfinite) &&
           <LoadMoreButton onclick={this.loadMore}/>
 
-        }{isFetching &&
+        }{response.isFetching &&
           <LoadingIconWrapper />
         }
       </this.props.component>

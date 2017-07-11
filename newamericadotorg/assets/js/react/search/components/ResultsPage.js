@@ -27,9 +27,7 @@ export default class ResultsPage extends Component {
     return(
       <InfiniteLoadMore
         onNextPage={this.nextPage}
-        hasNext={hasNext}
-        isFetching={isFetching}
-        data={results}
+        response={this.props.response}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
         <div className="search__results-page content-list container--wide">
           {results && results.map((p,i)=>(

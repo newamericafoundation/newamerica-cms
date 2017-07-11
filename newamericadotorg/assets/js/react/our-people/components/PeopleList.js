@@ -32,9 +32,7 @@ class PeopleList extends Component {
     return (
       <InfiniteLoadMore
         onNextPage={this.nextPage}
-        hasNext={hasNext}
-        isFetching={isFetching}
-        data={results}
+				response={this.props.response}
         infiniteOnMount={true}
         upperBoundOffset={page==1 ? viewHeight*.7 : viewHeight*1.5}>
         <section className='our-people__list container--wide'>

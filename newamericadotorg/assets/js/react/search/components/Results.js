@@ -30,7 +30,7 @@ export default class Results extends Component {
   }
 
   render(){
-    let { response: { results, isFetching, hasResults, hasNext }, className } = this.props;
+    let { response: { results, isFetching, hasResults, hasNext, params }, className } = this.props;
     return(
     <div className={"search__results " + className}>
         {results.map((p,i)=>(
@@ -71,7 +71,7 @@ export default class Results extends Component {
           </div>
         ))}
         <div className="loading-icon-container"><LoadingIcon /></div>
-        {(results.length===0 && !isFetching && hasResults) &&
+        {(results.length===0 && !isFetching && hasResults && params.query.query != '') &&
           <div className="no-results">
             <label className="lg active">No results found</label>
           </div>

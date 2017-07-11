@@ -29,9 +29,7 @@ class ContentList extends Component {
     return (
       <InfiniteLoadMore
         onNextPage={this.nextPage}
-        hasNext={hasNext}
-        isFetching={isFetching}
-        data={results}
+        response={this.props.response}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
         <List items={results} />
       </InfiniteLoadMore>
