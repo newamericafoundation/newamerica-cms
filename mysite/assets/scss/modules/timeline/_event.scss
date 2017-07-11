@@ -32,6 +32,17 @@
 		& p {
 			font-size: .9rem;
 			color: palette-get(na-black) !important;
+
+			&:first-child {
+				img.left, img.right {
+		    		padding-top: 5px !important;
+		    	}
+		    }
+		}
+
+		blockquote {
+			font-size: .9rem !important;
+			line-height: 1.65 !important;
 		}
 
 		img {
