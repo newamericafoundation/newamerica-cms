@@ -13,15 +13,8 @@ npm-debug.log
 media/
 static/
 
-<<<<<<< HEAD
 newamericadotorg/static/js/
 newamericadotorg/templates/style.css
-=======
-mysite/static/js/
-newamericadotorg/static/js/
-newamericadotorg/templates/style.css
-
->>>>>>> 8400a19409f2770f60634b612f129c4f8aa215dc
 
 venv
 *.log
