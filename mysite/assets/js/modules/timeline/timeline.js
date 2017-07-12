@@ -233,6 +233,16 @@ export class Timeline {
 
 		window.addEventListener('resize', this.resize.bind(this));
 
+		window.onhashchange = () => {
+	        let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
+		
+			let index = this.getEventIndexByHash(hashString);
+
+			if (this.currSelected != index) {
+				this.setNewSelected(index, true);
+			}
+	    }
+
 		this.keyListener = this.keyPressed.bind(this);
 
 		this.nextContainer = this.contentContainer.select(".timeline__next")
