@@ -26,7 +26,12 @@ export class Timeline {
 
 		// if specific event id in url hash, sets that event as default
 		let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
-		this.currSelected = hashString && !isNaN(hashString) && Number(hashString) < this.fullEventList.length ? Number(hashString) : 0;
+		if (hashString) {
+			this.currSelected = this.getEventIndexByHash(hashString);
+		} else {
+			this.currSelected = 0;
+		}
+		
 
 		this.cacheDOMSelections(containerId);
 		this.appendContainers();
@@ -62,6 +67,19 @@ export class Timeline {
 	//
 	// initialization functions - called on first load
 	//
+
+	getEventIndexByHash(hash) {
+		let decodedHash = decodeURI(hash).toLowerCase();
+
+		let retIndex = 0;
+		this.fullEventList.forEach((d, i) => {
+			if (d.title.toLowerCase() === decodedHash) {
+				retIndex = i;
+				return;
+			}
+		})
+		return retIndex;
+	}
 
 	cacheDOMSelections(containerId) {
 		this.navContainer = select("#" + containerId + " .timeline__nav");
@@ -214,6 +232,16 @@ export class Timeline {
 		}
 
 		window.addEventListener('resize', this.resize.bind(this));
+
+		window.onhashchange = () => {
+	        let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
+		
+			let index = this.getEventIndexByHash(hashString);
+
+			if (this.currSelected != index) {
+				this.setNewSelected(index, true);
+			}
+	    }
 
 		this.keyListener = this.keyPressed.bind(this);
 
@@ -490,10 +518,10 @@ export class Timeline {
 		this.currSelected = newIndex;
 		// transforms event container to show current event within viewport
 		this.contentContainer.select(".timeline__full-event-container").style("transform", "translate(-" + (newIndex*this.eventContentVisibleWidth.replace("px", "")) + "px)");
-		this.circles.classed("selected", (d, i) => { console.log(i); console.log(d); return i == this.currSelected });
+		this.circles.classed("selected", (d, i) => { return i == this.currSelected });
 		this.eraList && this.eraList.length > 0 ? this.setEraText() : null;
 		this.setNextPrev();
-		window.location.hash = this.currEventList[newIndex].id;
+		history.replaceState(undefined, undefined, "#" + encodeURI(this.currEventList[newIndex].title));
 	}
 
 	setNextPrev() {

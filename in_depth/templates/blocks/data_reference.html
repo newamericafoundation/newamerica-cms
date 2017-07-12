@@ -1,22 +1,9 @@
 <div class="data-reference">
-	{% if self.fields_to_display|length > 1 %}
-		<table class="data-reference__table">
-			{% for field in self.fields_to_display %}
-				<tr class="data-reference__table__row">
-					<td class="data-reference__label">{{ field.label }}:</td>
-					<td class="data-reference__value" data-field-name="{{ field.field_name }}" data-field-format="{{ field.format }}"></td>
-				</tr>
-				{% if field.footnote_field %}
-				<tr class="data-reference__table__footnote-row">
-					<td colspan="2" class="data-reference__table__footnote">
-						<div class="data-reference__table__footnote__inner-wrapper" data-field-name="{{ field.footnote_field }}"></div>
-					</td>
-				</tr>
-				{% endif %}
-			{% endfor %}
-		</table>
-	{% else %}
-		<h5 class="data-reference__label">{{ self.fields_to_display.0.label }}:</h5>
-		<h5 class="data-reference__value" data-field-name="{{ self.fields_to_display.0.field_name }}" data-field-format="{{ self.fields_to_display.0.format }}"></h5>
-	{% endif %}
+	{% for field in self.fields_to_display %}
+		<div class="data-reference__row">
+			<div class="data-reference__label">{{ field.label }}<span class="data-reference__footnote__label" data-footnote-field-name="{{ field.footnote_field }}"></span></div>
+			<div class="data-reference__value" data-field-name="{{ field.field_name }}" data-field-format="{{ field.format }}"></div>
+		</div>
+	{% endfor %}
 </div>
+<ul class="data-reference__footnote-container"></ul>
