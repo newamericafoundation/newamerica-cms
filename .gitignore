@@ -14,6 +14,8 @@ media/
 static/
 
 mysite/static/js/
+newamericadotorg/static/js/
+newamericadotorg/templates/style.css
 
 
 venv
