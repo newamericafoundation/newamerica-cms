@@ -32,7 +32,6 @@ export class Timeline {
 			this.currSelected = 0;
 		}
 		
-
 		this.cacheDOMSelections(containerId);
 		this.appendContainers();
 
@@ -123,7 +122,7 @@ export class Timeline {
 			.enter().append("li")
 			.attr("class", "timeline__split-button")
 			.classed("active", (d, i) => { return d == this.currSplitShown; })
-			.on("click", (d, index, paths) => { this.changeSplitShown(d, index, paths); this.eventListChangedReRender();})
+			.on("click", (d, index, paths) => { this.changeSplitShown(d); this.eventListChangedReRender();})
 			.text((d) => { return d.title; });	
 	}
 
@@ -168,7 +167,7 @@ export class Timeline {
 			.data(this.categoryList)
 			.enter().append("li")
 			.attr("class", "timeline__category-legend__item active")
-			.on("click", (category, index, paths) => { return this.changeCategoryFilter(category, index, paths);  });
+			.on("click", (category, index, paths) => { return this.changeCategoryFilter(category);  });
 
 		this.categoryLegendCircles = this.categoryLegendItems
 		   .append("svg")
@@ -239,6 +238,15 @@ export class Timeline {
 			let index = this.getEventIndexByHash(hashString);
 
 			if (this.currSelected != index) {
+				if (this.splitList && this.splitList.length > 0) {
+					let split = whichEraOrSplit(this.fullEventList[index], this.splitList);
+					this.changeSplitShown(split); 
+					this.eventListChangedReRender();
+				}
+				// show all categories
+				if (this.categoryList && this.categoryList.length > 0) {
+					this.changeCategoryFilter(this.currCategoryShown);
+				}
 				this.setNewSelected(index, true);
 			}
 	    }
@@ -607,8 +615,8 @@ export class Timeline {
 		}
 	}
 
-	changeCategoryFilter(newCategory, pathIndex, paths) {
-		let elem = select(paths[pathIndex]);
+	changeCategoryFilter(newCategory) {
+		console.log(newCategory)
 
 		if (this.currCategoryShown == newCategory) {
 			this.currCategoryShown = "all";
@@ -618,8 +626,7 @@ export class Timeline {
 				.style("color", (d) => { return setColor({"category": d}, this.colorScale); } )
 		} else {
 			this.currCategoryShown = newCategory;
-			this.categoryLegendItems.classed("active", false);
-			elem.classed("active", true);
+			this.categoryLegendItems.classed("active", (d) => { return d == newCategory; });
 			this.categoryLegendCircles
 				.attr("r", (d) => { return d == newCategory ? dimensions.dotRadius : 0 })
 			this.categoryLegendText
@@ -630,12 +637,9 @@ export class Timeline {
 		this.eventListChangedReRender();
 	}
 
-	changeSplitShown(newSplit, pathIndex, paths) {
-		let elem = select(paths[pathIndex]);
-
-		this.splitButtons.classed("active", false);
-		elem.classed("active", true);
-
+	changeSplitShown(newSplit) {
+		this.splitButtons.classed("active", (d) => { return newSplit.id == d.id; });
+		
 		this.currSplitShown = newSplit;
 		this.filterEventList();
 	}
