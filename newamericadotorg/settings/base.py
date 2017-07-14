@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'wand',
     'willow',
     'anymail',
+    'createsend',
 
     'django.contrib.admin',
     'django.contrib.auth',
