@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-	<main id="compose__in-depth" data-in-depth-id="{{page.id}}"></main>
+	<main id="compose__in-depth" data-project-id="{% firstof project_root.id page.id %}"></main>
 {% endblock %}
 
 
