@@ -1,0 +1,45 @@
+.in-depth__project__body{
+  margin-top: 100vh;
+  background: color(white);
+  padding-top: 50px;
+  position: relative;
+  @extend %clearfix;
+
+  &.with-body{
+    .in-depth__project__body__contents {
+      display: block;
+      float: right;
+      max-width: calc(50% - 35px);
+      margin-left: 35px;
+      margin-bottom: 15px;
+    }
+  }
+
+  &:not(.with-body){
+    .in-depth__project__body__contents{
+      max-width: 50%;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
+  &__contents{
+    padding: 25px;
+    background: color(black, base, 0.05);
+    &__list{
+      li {
+        display: block;
+        line-height: 1.1em;
+        padding-bottom: 15px;
+      }
+    }
+  }
+
+  &__text{
+    margin-top: 25px;
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6em;
+    }
+  }
+}

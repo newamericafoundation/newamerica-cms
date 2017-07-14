@@ -1,0 +1,39 @@
+.in-depth__project__heading__header{
+    max-width: 450px;
+    margin: 25px auto;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    @include horizontal-center;
+    white-space: nowrap;
+    & > * {
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    &__logo-wrapper{
+      position: relative;
+      width: 100px;
+      padding-right: 15px;
+      &:after{
+        content: '';
+        height: 50px;
+        border-right: 1px solid color(white);
+        @include transform(rotate(22.5deg));
+        display: block;
+        position: relative;
+        top: -15px;
+        left: 35px;
+      }
+      .logo {
+        @include vertical-center;
+        position: absolute;
+        left: 0;
+      }
+    }
+
+    &__in-depth-title{
+      color: color(white);
+      padding-left: 30px;
+    }
+}
