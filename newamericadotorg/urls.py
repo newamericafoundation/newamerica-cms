@@ -42,6 +42,8 @@ urlpatterns = [
     url(r'^api/project/(?P<pk>[\d]+)/$', api_views.ProjectDetail.as_view()),
     url(r'^api/weekly/$', api_views.WeeklyList.as_view()),
     url(r'^api/weekly/(?P<pk>[\d]+)/$', api_views.WeeklyDetail.as_view()),
+    url(r'^api/in-depth/$', api_views.InDepthProjectList.as_view()),
+    url(r'^api/in-depth/(?P<pk>[\d]+)/$', api_views.InDepthProjectDetail.as_view()),
     #url(r'^api/weekly/(?P<edition_slug>.+)/$', api_views.WeeklyDetail.as_view()),
     url(r'^api/meta/$', api_views.MetaList.as_view()),
     url(r'^api/content-types/$', api_views.ContentList.as_view()),
