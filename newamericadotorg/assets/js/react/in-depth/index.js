@@ -9,7 +9,14 @@ import Section, { Header } from './components/Section';
 class InDepthRoutes extends Component {
   getSection = (sectionSlug) => {
     let { response: { results }} = this.props;
-    return results.sections.find((s)=>(s.slug===sectionSlug));
+    let index = 0;
+    let page = results.sections.find((s,i)=>{
+      if(s.slug===sectionSlug){
+        index=i;
+        return true;
+      }
+    });
+    return { page, index };
   }
 
   componentDidMount() {
@@ -29,8 +36,8 @@ class InDepthRoutes extends Component {
             transitionName="fade"
             transitionEnterTimeout={500}
             transitionLeaveTimeout={500}>
-            <Route path="/in-depth/:projectSlug/:sectionSlug" render={()=>(
-              <Header project={results}/>
+            <Route path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
+              <Header project={results} sectionIndex={this.getSection(match.params.sectionSlug).index}/>
             )}/>
             <Switch key={location.key} location={location}>
               <Route exact path="/in-depth/:projectSlug" render={()=>(

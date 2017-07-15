@@ -414,12 +414,11 @@ class InDepthSectionSerializer(ModelSerializer):
         fields = ('id', 'title', 'subheading', 'slug', 'url', 'story_excerpt', 'story_image', 'story_image_sm', 'body')
 
 class InDepthProjectListSerializer(ModelSerializer):
-    story_image = SerializerMethodField()
-    story_image_sm = SerializerMethodField()
+    story_image = SerializerMethodField() 
 
     def get_story_image(self, obj):
         if obj.story_image:
-            return generate_image_url(obj.story_image)
+            return generate_image_url(obj.story_image, 'max-1920x1080')
     class Meta:
         model = InDepthProject
         fields = ('id', 'title', 'slug', 'url', 'story_image', 'story_excerpt')
@@ -431,7 +430,7 @@ class InDepthProjectSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         if obj.story_image:
-            return generate_image_url(obj.story_image)
+            return generate_image_url(obj.story_image, 'max-1920x1080')
 
     def get_body(self, obj):
         if obj.body:
