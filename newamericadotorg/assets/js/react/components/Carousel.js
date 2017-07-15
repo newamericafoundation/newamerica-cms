@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactSlick from 'react-slick';
 
 class Carousel extends Component {
   static propTypes = {
@@ -91,3 +92,5 @@ class Carousel extends Component {
 }
 
 export default Carousel;
+const Slider = ReactSlick.default || ReactSlick;
+export { Slider, Carousel };

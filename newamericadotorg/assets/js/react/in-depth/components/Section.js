@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { default as Slider } from 'react-slick';
+import { Slider } from '../../components/Carousel';
 import ScrollToTop from './ScrollToTop';
 import loadExternalScript from '../load-external-script';
 
@@ -23,7 +23,7 @@ const Header = ({ project, sectionIndex }) => (
           nextArrow={<div><i className="fa fa-arrow-circle-right"></i></div>}>
           {project.sections.map((s,i)=>(
             <div className={`in-depth__section__header__section-list__item ${i===sectionIndex ? 'active' : ''}`}>
-              <Link draggable={false} to={s.url} onDragStart={()=>{console.log('here!')}}>
+              <Link draggable={false} to={s.url}>
                 <div className="in-depth__section__header__section-list__item__image">
                   <img src={s.story_image_sm} draggable={false}/>
                 </div>
@@ -33,7 +33,7 @@ const Header = ({ project, sectionIndex }) => (
               </Link>
             </div>
           ))}
-          </Slider>
+        </Slider>
       </div>
     </div>
   </header>

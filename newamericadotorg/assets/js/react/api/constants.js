@@ -1,20 +1,4 @@
-let baseurl;
-
-switch(process.env.NODE_ENV){
-  case 'production':
-    baseurl = 'https://na-preview.herokuapp.com/api/';
-    break;
-  case 'preview':
-    baseurl = 'https://na-preview.herokuapp.com/api/';
-    break;
-  case 'staging':
-    baseurl = 'https://na-staging.herokuapp.com/api/';
-    break;
-  default:
-    baseurl = `${window.location.origin}/api/`;
-}
-
-export const BASEURL = baseurl;
+export const BASEURL = `${window.location.origin}/api/`;
 export const SET_PARAMS = 'SET_PARAMS';
 export const SET_QUERY_PARAM = 'SET_QUERY_PARAM';
 export const SET_QUERY = 'SET_QUERY';
