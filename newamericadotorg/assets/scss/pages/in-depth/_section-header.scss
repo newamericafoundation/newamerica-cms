@@ -82,7 +82,7 @@
         max-width: 95%;
       }
 
-      &.active{
+      &.active, &:hover{
         label {
           font-weight: bold;
           padding-bottom: 5px;
