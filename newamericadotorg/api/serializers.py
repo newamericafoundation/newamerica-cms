@@ -399,7 +399,7 @@ class InDepthSectionSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         if obj.story_image:
-            return generate_image_url(obj.story_image, 'max-2560x1080')
+            return generate_image_url(obj.story_image, 'max-1920x1080')
 
     def get_story_image_sm(self, obj):
         if obj.story_image:

@@ -12,6 +12,14 @@ class InDepthRoutes extends Component {
     return results.sections.find((s)=>(s.slug===sectionSlug));
   }
 
+  componentDidMount() {
+    let { response: { results }} = this.props;
+    for(let i=0; i<results.sections.length; i++){
+      let img = new Image();
+      img.src = results.sections[i].story_image;
+    }
+  }
+
   render() {
     let { response: { results }} = this.props;
     return (
@@ -20,7 +28,7 @@ class InDepthRoutes extends Component {
           <CSSTransitionGroup
             transitionName="fade"
             transitionEnterTimeout={500}
-            transitionLeaveTimeout={1}>
+            transitionLeaveTimeout={500}>
             <Route path="/in-depth/:projectSlug/:sectionSlug" render={()=>(
               <Header project={results}/>
             )}/>
