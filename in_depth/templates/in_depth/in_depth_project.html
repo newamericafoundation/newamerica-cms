@@ -1,18 +1,7 @@
 {% extends "base.html" %}
-
-{% block extra_js %}
-	{% if page.data_project_external_script %}
-		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
-	{% endif %}
-{% endblock %}
-
 {% block body_class %}template-indepthproject{% endblock %}
 
-{% block header %}
-<header>
-
-</header>
-{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
 	<main id="compose__in-depth" data-project-id="{% firstof project_root.id page.id %}"></main>
@@ -20,7 +9,5 @@
 
 
 {% block footer %}
-<footer>
-
-</footer>
+<footer></footer>
 {% endblock %}

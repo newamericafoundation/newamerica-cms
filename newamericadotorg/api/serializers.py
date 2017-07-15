@@ -398,8 +398,8 @@ class InDepthSectionSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         if obj.story_image:
-            return generate_image_url(obj.story_image)
-    
+            return generate_image_url(obj.story_image, 'max-2560x1080')
+
     def get_body(self, obj):
         return loader.get_template('components/in_depth_body.html').render({ 'page': obj })
 
@@ -435,4 +435,4 @@ class InDepthProjectSerializer(ModelSerializer):
 
     class Meta:
         model = InDepthProject
-        fields = ('id', 'title', 'slug', 'url', 'story_image', 'search_description', 'body', 'sections')
+        fields = ('id', 'title', 'slug', 'url', 'story_image', 'search_description', 'body', 'sections', 'data_project_external_script')

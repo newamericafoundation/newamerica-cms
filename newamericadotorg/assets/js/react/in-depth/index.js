@@ -16,14 +16,21 @@ class InDepthRoutes extends Component {
     let { response: { results }} = this.props;
     return (
       <Router>
-        <div>
-          <Route exact path="/in-depth/:projectSlug" render={()=>(
-            <Project project={results} />
-          )}/>
-          <Route exact path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
-            <Section section={this.getSection(match.params.sectionSlug)} project={results} />
-          )}/>
-        </div>
+        <Route render={({ location })=>(
+          <CSSTransitionGroup
+            transitionName="fade"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={1}>
+            <Switch key={location.key} location={location}>
+              <Route exact path="/in-depth/:projectSlug" render={()=>(
+                <Project project={results} />
+              )}/>
+              <Route exact path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
+                <Section section={this.getSection(match.params.sectionSlug)} project={results} />
+              )}/>
+            </Switch>
+          </CSSTransitionGroup>
+        )}/>
       </Router>
     );
   }

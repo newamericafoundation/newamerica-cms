@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import ScrollToTop from './ScrollToTop';
+import loadExternalScript from '../load-external-script';
 
 const Heading = ({ project: { story_image, title } }) => (
   <section className="in-depth__heading in-depth__project__heading">
@@ -36,12 +37,17 @@ const Contents = ({ sections }) => (
 )
 
 export default class Project extends Component {
+  componentDidMount(){
+    let { project } = this.props;
+    loadExternalScript(project.data_project_external_script);
+  }
 
   render(){
     let { project } = this.props;
 
     return (
       <div className="in-depth__project">
+        <ScrollToTop />
         <Heading project={project} />
         <section className={`in-depth__project__body ${project.body ? 'with-body': ''}`}>
           <div className="container--medium">

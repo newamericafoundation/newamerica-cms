@@ -1,12 +1,17 @@
+{% load wagtailcore_tags %}
 {% for panel in page.panels %}
   <a id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel__anchor"></a>
   <section id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel {{ panel.value.panel_color_theme }}">
   	<div class="in-depth__panel__max-width-wrapper">
-  		<h5 class="in-depth__panel__title-label">{{ page.title }}</h5>
-  		<h1 class="in-depth__panel__title">{{ panel.value.panel_title }}<a class="in-depth__panel__title-link" href="#{{ panel.value.panel_title|slugify }}" title="Link to this Heading">{% include 'components/svg/link.html' %}</a></h1>
+  		<div class="in-depth__panel__title">
+        <h2>{{ panel.value.panel_title }}</h2>
+        <a class="in-depth__panel__title-link" href="#{{ panel.value.panel_title|slugify }}" title="Link to this Heading">
+          <i class="fa fa-link"></i>
+        </a>
+      </div>
   		<div class="in-depth__panel__body post-body">
   			{% for block in panel.value.panel_body %}
-  		    	{% include 'components/post_body.html' %}
+  		    	{% include_block block %}
   		   {% endfor %}
   		</div>
   	</div>
