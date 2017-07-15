@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group'
 import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';
 import Project from './components/Project';
-import Section from './components/Section';
+import Section, { Header } from './components/Section';
 
 class InDepthRoutes extends Component {
   getSection = (sectionSlug) => {
@@ -21,6 +21,9 @@ class InDepthRoutes extends Component {
             transitionName="fade"
             transitionEnterTimeout={500}
             transitionLeaveTimeout={1}>
+            <Route path="/in-depth/:projectSlug/:sectionSlug" render={()=>(
+              <Header project={results}/>
+            )}/>
             <Switch key={location.key} location={location}>
               <Route exact path="/in-depth/:projectSlug" render={()=>(
                 <Project project={results} />

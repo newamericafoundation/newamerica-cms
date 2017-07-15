@@ -2,6 +2,7 @@
   opacity: 0.4;
   z-index: 1;
   &.fade-enter-active{
+    @include transition-delay(50ms)
     @include transition(opacity 450ms ease-in);
     opacity: 1;
   }

@@ -7,10 +7,10 @@ const Heading = ({ project: { story_image, title } }) => (
   <section className="in-depth__heading in-depth__project__heading">
     <header className="in-depth__project__heading__header">
         <div className="in-depth__project__heading__header__logo-wrapper">
-          <div className="logo sm white"/>
+          <a href="/"><div className="logo sm white"/></a>
         </div>
         <div className="in-depth__project__heading__header__in-depth-title">
-          <h3 className>In Depth</h3>
+          <a href="/in-depth"><h3 className>In Depth</h3></a>
         </div>
     </header>
     <div className="in-depth__heading__image-wrapper">
