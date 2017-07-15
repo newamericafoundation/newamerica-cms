@@ -37,7 +37,7 @@
     }
     .slick-arrow {
       cursor: pointer;
-      display: none !important;
+      opacity: 0;
       font-size: 1.4rem;
       position: absolute;
       margin-top: -15px;
@@ -62,6 +62,7 @@
       padding-right: 7.5px;
       padding-left: 7.5px;
       margin-bottom: 0;
+      padding-bottom: 5px;
       &__image{
         max-height: 0px;
         overflow: hidden;
@@ -80,12 +81,12 @@
         color: color(white);
         display: inline-block;
         max-width: 95%;
+        padding-bottom: 5px;
       }
 
       &.active, &:hover{
         label {
           font-weight: bold;
-          padding-bottom: 5px;
           box-shadow: 0px 2px 0px 0px color(white);
         }
         img {
@@ -101,9 +102,9 @@
         box-shadow: 0px 0px 1px 0px color(black, base, 0.35);
       }
       .slick-arrow{
-        display: block !important;
+        opacity: 1;
         &.slick-disabled{
-          display: none !important;
+          opacity: 0;
         }
       }
     }

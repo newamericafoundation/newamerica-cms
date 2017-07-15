@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Slider from 'react-slick';
+import { default as Slider } from 'react-slick';
 import ScrollToTop from './ScrollToTop';
 import loadExternalScript from '../load-external-script';
 
