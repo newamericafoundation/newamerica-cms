@@ -61,9 +61,9 @@ class InDepthSection(Page):
 
     def get_context(self, request):
         context = super(InDepthSection, self).get_context(request)
-        project_root = self.get_parent()
+        project_root = self.get_parent().specific
         context['project_root'] = project_root
-        context['authors'] = project_root.specific.authors.order_by('pk')
+        context['authors'] = project_root.authors.order_by('pk')
         siblings = self.get_siblings(inclusive=True).live().type(InDepthSection)
         index = 0
         for i, item in enumerate(siblings):
@@ -125,7 +125,7 @@ class InDepthProject(Post):
         context = super(InDepthProject, self).get_context(request)
 
         context['project_sections'] = self.get_children().live().type(InDepthSection)
-
+        context['project_root'] = self
         return context
 
     def save(self, *args, **kwargs):

@@ -1,3 +1,6 @@
-.in-depth__section__body{
-  margin-top: 75px;
+.in-depth__section{
+  background: color(white);
+  &__body{
+    margin-top: 75px;
+  }
 }

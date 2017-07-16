@@ -1,0 +1,18 @@
+{% load wagtailimages_tags %}
+{% image project_root.story_image max-1920x1080 as tmp_image %}
+
+<section class="in-depth__heading in-depth__project__heading" id="splash">
+  <header class="in-depth__project__heading__header">
+      <div class="in-depth__project__heading__header__logo-wrapper">
+        <div class="logo sm white"></div>
+      </div><div class="in-depth__project__heading__header__in-depth-title">
+        <h3 class>In Depth</h3>
+      </div>
+  </header>
+  <div class="in-depth__heading__image-wrapper">
+    <div class="in-depth__heading__image" style="background-image: url({{tmp_image.url}});"></div>
+  </div>
+  <div class="in-depth__heading__text">
+    <h1 class="in-depth__heading__text__title">{{project_root.title}}</h1>
+  </div>
+</section>

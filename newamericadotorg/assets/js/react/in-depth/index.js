@@ -7,6 +7,13 @@ import Project from './components/Project';
 import Section, { Header } from './components/Section';
 
 class InDepthRoutes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isReady: false
+    };
+  }
+
   getSection = (sectionSlug) => {
     let { response: { results }} = this.props;
     let index = 0;
@@ -19,7 +26,7 @@ class InDepthRoutes extends Component {
     return { page, index };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let { response: { results }} = this.props;
     for(let i=0; i<results.sections.length; i++){
       let img = new Image();
@@ -27,28 +34,47 @@ class InDepthRoutes extends Component {
     }
   }
 
+  componentDidMount() {
+    let { startTime } = this.props;
+    let elapsedTime = new Date() - startTime;
+
+    if(elapsedTime > 3250){
+      this.setState({ isReady: true });
+    } else {
+      setTimeout(()=>{
+        this.setState({ isReady: true });
+      }, 3250-elapsedTime);
+    }
+  }
+
   render() {
     let { response: { results }} = this.props;
     return (
       <Router>
+        {this.state.isReady &&
         <Route render={({ location })=>(
-          <CSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}>
+          <span>
             <Route path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
               <Header project={results} sectionIndex={this.getSection(match.params.sectionSlug).index}/>
             )}/>
-            <Switch key={location.key} location={location}>
-              <Route exact path="/in-depth/:projectSlug" render={()=>(
-                <Project project={results} />
-              )}/>
-              <Route exact path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
-                <Section section={this.getSection(match.params.sectionSlug)} project={results} />
-              )}/>
-            </Switch>
-          </CSSTransitionGroup>
+            <CSSTransitionGroup
+              transitionName="fade"
+              transitionAppear={true}
+              transitionAppearTimeout={250}
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={500}>
+              <Switch key={location.key} location={location}>
+                <Route exact path="/in-depth/:projectSlug" render={()=>(
+                  <Project project={results} />
+                )}/>
+                <Route exact path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
+                  <Section section={this.getSection(match.params.sectionSlug)} project={results} />
+                )}/>
+              </Switch>
+            </CSSTransitionGroup>
+          </span>
         )}/>
+        }
       </Router>
     );
   }
@@ -62,6 +88,7 @@ class APP extends Component {
       <Fetch name={NAME}
         endpoint={`in-depth/${projectId}`}
         fetchOnMount={true}
+        startTime={new Date()}
         component={InDepthRoutes} />
     )
   }

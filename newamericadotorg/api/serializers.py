@@ -414,7 +414,7 @@ class InDepthSectionSerializer(ModelSerializer):
         fields = ('id', 'title', 'subheading', 'slug', 'url', 'story_excerpt', 'story_image', 'story_image_sm', 'body')
 
 class InDepthProjectListSerializer(ModelSerializer):
-    story_image = SerializerMethodField() 
+    story_image = SerializerMethodField()
 
     def get_story_image(self, obj):
         if obj.story_image:
@@ -427,6 +427,7 @@ class InDepthProjectSerializer(ModelSerializer):
     sections = SerializerMethodField()
     body = SerializerMethodField()
     story_image = SerializerMethodField()
+    buttons = SerializerMethodField()
 
     def get_story_image(self, obj):
         if obj.story_image:
@@ -439,6 +440,12 @@ class InDepthProjectSerializer(ModelSerializer):
     def get_sections(self, obj):
         return InDepthSectionSerializer(obj.get_children().type(InDepthSection).live().specific(), many=True).data
 
+    def get_buttons(self, obj):
+        buttons = []
+        if obj.buttons:
+            for b in obj.buttons:
+                buttons.append({ 'text': b.value['button_text'], 'url': b.value['button_url']})
+        return buttons
     class Meta:
         model = InDepthProject
-        fields = ('id', 'title', 'slug', 'url', 'story_image', 'search_description', 'body', 'sections', 'data_project_external_script')
+        fields = ('id', 'title', 'slug', 'url', 'story_image', 'search_description', 'body', 'sections', 'buttons', 'data_project_external_script')

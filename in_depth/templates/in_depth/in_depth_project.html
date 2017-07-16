@@ -4,7 +4,8 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-	<main id="compose__in-depth" data-project-id="{% firstof project_root.id page.id %}"></main>
+	{% include './splash_page.html' %}
+	<main id="compose__in-depth" data-project-id="{{project_root.id}}"></main>
 {% endblock %}
 
 

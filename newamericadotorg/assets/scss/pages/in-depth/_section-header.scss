@@ -70,7 +70,7 @@
         @include transition(max-height 0.6s ease);
         background: color(black);
         margin: 0 auto;
-        img{
+        img {
           height: 125px;
           width: 125px;
           opacity: 0.6;
@@ -78,7 +78,7 @@
         }
       }
 
-      &__text{
+      &__text {
         color: color(white);
         display: inline-block;
         max-width: 95%;
@@ -99,7 +99,6 @@
           opacity: 0.95 !important;
         }
       }
-
     }
     &:hover{
       .in-depth__section__header__section-list__item__image {

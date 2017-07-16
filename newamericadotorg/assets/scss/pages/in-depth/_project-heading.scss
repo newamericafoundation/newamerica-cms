@@ -1,4 +1,37 @@
 .in-depth__project__heading{
   position: fixed;
   top: 0;
+
+  .see-more{
+    position: absolute;
+    z-index: 2;
+    @include horizontal-center;
+    bottom: 0;
+    margin-bottom: 25px;
+
+    i {
+      color: color(white);
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.in-depth__project__quick-nav{
+  position: absolute;
+  bottom: 0;
+  padding: 50px;
+  padding-bottom: 90px;
+  right: 0;
+  z-index: 2;
+  min-height: 275px;
+
+  &__item{
+    margin-bottom: 10px;
+  }
+
+  label {
+    color: color(white);
+    margin-bottom: 10px;
+    margin-left: 0.25em;
+  }
 }

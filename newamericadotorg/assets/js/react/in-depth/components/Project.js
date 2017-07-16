@@ -3,14 +3,29 @@ import { Link } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 import loadExternalScript from '../load-external-script';
 
-const Heading = ({ project: { story_image, title } }) => (
+const QuickNav = ({ buttons, sections }) => (
+  <nav className="in-depth__project__quick-nav">
+    {buttons.length > 0 && <label className="lg active">Get Started:</label>}
+    {buttons.map((b,i)=>(
+      <div className="in-depth__project__quick-nav__item">
+        {i===0 &&
+          <Link to={/(\/in-depth\/.+)/.exec(b.url)[1]} className="button">
+          {sections[0].title.indexOf(':')!=-1 ? sections[0].title : `Section 1: ${sections[0].title}` }
+        </Link>}
+        {i>0 &&<Link to={/(\/in-depth\/.+)/.exec(b.url)[1]} className="button white">{b.text}</Link>}
+      </div>
+    ))}
+  </nav>
+);
+
+const Heading = ({ project: { story_image, title, sections, buttons } }) => (
   <section className="in-depth__heading in-depth__project__heading">
     <header className="in-depth__project__heading__header">
         <div className="in-depth__project__heading__header__logo-wrapper">
           <a href="/"><div className="logo sm white"/></a>
         </div>
         <div className="in-depth__project__heading__header__in-depth-title">
-          <a href="/in-depth"><h3 className>In Depth</h3></a>
+          <a href="/in-depth"><h3>In Depth</h3></a>
         </div>
     </header>
     <div className="in-depth__heading__image-wrapper">
@@ -18,6 +33,10 @@ const Heading = ({ project: { story_image, title } }) => (
     </div>
     <div className="in-depth__heading__text">
       <h1 className="in-depth__heading__text__title">{title}</h1>
+    </div>
+    <QuickNav sections={sections} buttons={buttons} />
+    <div className="see-more">
+      <i className="fa fa-arrow-circle-down"></i>
     </div>
   </section>
 );
@@ -34,7 +53,7 @@ const Contents = ({ sections }) => (
     ))}
     </ul>
   </div>
-)
+);
 
 export default class Project extends Component {
   componentDidMount(){
