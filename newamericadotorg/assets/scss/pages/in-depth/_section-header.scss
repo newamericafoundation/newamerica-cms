@@ -69,6 +69,7 @@
         width: 125px;
         @include transition(max-height 0.6s ease);
         background: color(black);
+        margin: 0 auto;
         img{
           height: 125px;
           width: 125px;
@@ -82,12 +83,17 @@
         display: inline-block;
         max-width: 95%;
         padding-bottom: 5px;
+        position: relative;
+        left: 50%;
+        @include transform(translateX(-50%));
+        text-align: center;
       }
 
       &.active, &:hover{
         label {
           font-weight: bold;
-          box-shadow: 0px 2px 0px 0px color(white);
+          font-size: 0.95em;
+          box-shadow: 0px 3px 0px -1px color(white);
         }
         img {
           opacity: 0.95 !important;
