@@ -38,12 +38,12 @@ class InDepthRoutes extends Component {
     let { startTime } = this.props;
     let elapsedTime = new Date() - startTime;
 
-    if(elapsedTime > 3250){
+    if(elapsedTime > 2250){
       this.setState({ isReady: true });
     } else {
       setTimeout(()=>{
         this.setState({ isReady: true });
-      }, 3250-elapsedTime);
+      }, 2250-elapsedTime);
     }
   }
 
