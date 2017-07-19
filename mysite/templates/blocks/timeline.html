@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		new window.Timeline({{ settings_json|safe }}, "{{ self.title|slugify }}");
+		new window.Timeline({{ settings_json|safe }}, "tl_{{ self.title|slugify }}");
 	});
 </script>
 
-<div class="timeline" id="{{ self.title|slugify }}">
+<div class="timeline" id="tl_{{ self.title|slugify }}">
 
 	<div class="timeline__see-all-button"></div>
 
