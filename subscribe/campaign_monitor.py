@@ -6,10 +6,10 @@ from subscribe.models import SubscriptionSegment, SubscribePage
 CREATESEND_API_KEY = os.getenv('CREATESEND_API_KEY')
 CREATESEND_CLIENTID = os.getenv('CREATESEND_CLIENTID')
 CREATESEND_LISTID = os.getenv('CREATESEND_LISTID')
+auth = {'api_key': CREATESEND_API_KEY}
 
 def update_segments():
-    cs = CreateSend({'api_key': CREATESEND_API_KEY})
-    newamerica_list = List(cs.auth_details, CREATESEND_LISTID)
+    newamerica_list = List(auth, CREATESEND_LISTID)
 
     cs_segments = newamerica_list.segments()
     existing_segments = SubscriptionSegment.objects.all()
@@ -24,6 +24,26 @@ def update_segments():
         for s in existing_segments:
             if s.SegmentID == cs_s.SegmentID:
                 exists = True
+                s.title = cs_s.title
+                s.update()
+
         if not exists:
             segment = SubscriptionSegment(title=cs_s.Title, SegmentID=cs_s.SegmentID, ListID=CREATESEND_LISTID)
             parent.add_child(instance=segment)
+
+def update_subscriber(email, name, custom_fields):
+    subscriber = Subscriber(auth, CREATESEND_LISTID, email)
+    try:
+        s = subscriber.get()
+        # prevent overwriting Subscriptions by merging existing data
+        for cf in s.CustomFields:
+            exists = False
+            for new_cf in custom_fields:
+                if cf.Key == 'Subscriptions' and cf.Value == new_cf['value']:
+                    exists = True
+            if not exists:
+                custom_fields.append({ 'key': cf.Key, 'value': cf.Value })
+
+        subscriber.update(email, name, custom_fields, True)
+    except BadRequest:
+        subscriber.add(CREATESEND_LISTID, email, name, custom_fields, True)

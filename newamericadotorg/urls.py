@@ -47,6 +47,7 @@ urlpatterns = [
     #url(r'^api/weekly/(?P<edition_slug>.+)/$', api_views.WeeklyDetail.as_view()),
     url(r'^api/meta/$', api_views.MetaList.as_view()),
     url(r'^api/content-types/$', api_views.ContentList.as_view()),
+    url(r'^api/subscribe/$', api_views.subscribe),
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
 
     url(r'', include(wagtail_urls)),

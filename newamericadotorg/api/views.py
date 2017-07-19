@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.utils.timezone import localtime, now
 
 from rest_framework import status, pagination, mixins, generics, views, response, filters
+from rest_framework.decorators import api_view
 from django_filters.rest_framework import FilterSet
 
 from wagtail.wagtailcore.models import Page
@@ -23,6 +24,7 @@ from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
 from in_depth.models import InDepthProject
+from subscribe.campaign_monitor import update_subscriber
 
 class PostFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
@@ -239,3 +241,24 @@ class ProjectList(generics.ListAPIView):
 class ProjectDetail(generics.RetrieveAPIView):
     queryset = Subprogram.objects.live()
     serializer_class = ProjectSerializer
+
+
+@api_view(['POST'])
+def subscribe(request):
+    params = request.data;
+    subscriptions = params.getlist('subscriptions[]', None)
+    job_title = params.get('job_title', None)
+    org = params.get('organization', None)
+    custom_fields = []
+
+    if job_title:
+        custom_fields.append({ 'key': 'JobTitle', 'value': job_title })
+    if org:
+        custom_fields.append({ 'key': 'Organization', 'value': org })
+    if subscriptions:
+        for s in subscriptions:
+            custom_fields.append({ 'key': 'Subscriptions', 'value': s })
+
+    update_subscriber(params.get('email'), params.get('name'), custom_fields)
+
+    return response.Response({ 'subscriber_added': True })
