@@ -6,7 +6,26 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, Inl
 from wagtail.wagtailcore.blocks import PageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
+from subscribe.models import SubscriptionSegment
 from modelcluster.fields import ParentalKey
+
+class SubscriptionProgramRelationship(models.Model):
+    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    program = ParentalKey('Program', related_name='subscriptions')
+    alternate_title = models.TextField(blank=True)
+    panels = [
+        FieldPanel('subscription_segment'),
+        FieldPanel('alternate_title')
+    ]
+
+class SubscriptionSubprogramRelationship(models.Model):
+    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    subprogram = ParentalKey('Subprogram', related_name='subscriptions')
+    alternate_name = models.TextField(blank=True)
+    panels = [
+        FieldPanel('subscription_segment'),
+        FieldPanel('alternate_name')
+    ]
 
 
 class AbstractProgram(Page):
@@ -235,6 +254,12 @@ class Program(AbstractProgram):
         ('Item', PageChooserBlock()),
     ], blank=True)
 
+    subscription_segments = models.ManyToManyField(
+        SubscriptionSegment,
+        through=SubscriptionProgramRelationship,
+        blank=True,
+    )
+
     content_panels = AbstractProgram.content_panels + [
         ImageChooserPanel('desktop_program_logo'),
         ImageChooserPanel('mobile_program_logo'),
@@ -244,6 +269,7 @@ class Program(AbstractProgram):
         StreamFieldPanel('sidebar_menu_about_us_pages'),
         StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
         StreamFieldPanel('sidebar_menu_our_work_pages'),
+        InlinePanel('subscriptions', label=("Subscription Segements")),
     ]
 
     def get_context(self, request):
@@ -291,8 +317,19 @@ class Subprogram(AbstractProgram):
         through=ProgramSubprogramRelationship,
         blank=True
     )
+
+    subscription_segments = models.ManyToManyField(
+        SubscriptionSegment,
+        through=SubscriptionSubprogramRelationship,
+        blank=True,
+    )
+
     content_panels = AbstractProgram.content_panels + [
         InlinePanel('programs', label=("Programs")),
+    ]
+
+    promote_panels = AbstractProgram.promote_panels + [
+        InlinePanel('subscriptions', label=("Subscription Segements")),
     ]
 
     def get_template(self, request):

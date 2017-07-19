@@ -4,6 +4,7 @@ from django.utils.timezone import localtime, now
 
 from rest_framework import status, pagination, mixins, generics, views, response, filters
 from rest_framework.decorators import api_view
+from django.shortcuts import redirect
 from django_filters.rest_framework import FilterSet
 
 from wagtail.wagtailcore.models import Page
@@ -245,7 +246,7 @@ class ProjectDetail(generics.RetrieveAPIView):
 
 @api_view(['POST'])
 def subscribe(request):
-    params = request.data;
+    params = request.data
     subscriptions = params.getlist('subscriptions[]', None)
     job_title = params.get('job_title', None)
     org = params.get('organization', None)
@@ -261,4 +262,4 @@ def subscribe(request):
 
     update_subscriber(params.get('email'), params.get('name'), custom_fields)
 
-    return response.Response({ 'subscriber_added': True })
+    return redirect('/thankyou')

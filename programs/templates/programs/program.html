@@ -5,7 +5,6 @@
 {% load utilities %}
 
 {% block body_class %}template-programhomepage{% endblock %}
-{% block sidemenu_status %}has_sidemenu{% endblock %}
 
 {% block content %}
 <section class='container container--wide'>
@@ -58,6 +57,10 @@
 	</div>
 </section>
 
+<section class="container--wide subscribe-block">
+	{% include 'components/subscribe.html' with subscriptions=page.subscriptions.all %}
+</section>
+
 <section class="container--full-width gray program-block">
 	<div class='container--wide home-about-description'>
 		<h1 class="home-about-description__heading">About {{ page.name }}</h1>
@@ -69,5 +72,6 @@
 		{% endif %}
 	</div>
 </section>
+
 
 {% endblock %}
