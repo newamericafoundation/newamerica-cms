@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'in_depth',
     'storages',
     'rss_feed',
+    'subscribe',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
