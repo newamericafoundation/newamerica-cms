@@ -10,6 +10,7 @@ from person.models import Person
 from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyEdition, WeeklyArticle
+from in_depth.models import InDepthProject, InDepthSection
 
 from django.core.urlresolvers import reverse
 
@@ -390,3 +391,61 @@ class SearchSerializer(ModelSerializer):
     class Meta:
         model = Page
         fields = ('id', 'title', 'slug', 'url', 'search_description', 'specific')
+
+class InDepthSectionSerializer(ModelSerializer):
+    body = SerializerMethodField()
+    story_image = SerializerMethodField()
+    story_image_sm = SerializerMethodField()
+
+    def get_story_image(self, obj):
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'max-1920x1080')
+
+    def get_story_image_sm(self, obj):
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'fill-150x150')
+
+
+    def get_body(self, obj):
+        return loader.get_template('components/in_depth_body.html').render({ 'page': obj })
+
+    class Meta:
+        model = InDepthSection
+        fields = ('id', 'title', 'subheading', 'slug', 'url', 'story_excerpt', 'story_image', 'story_image_sm', 'body')
+
+class InDepthProjectListSerializer(ModelSerializer):
+    story_image = SerializerMethodField()
+
+    def get_story_image(self, obj):
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'max-1920x1080')
+    class Meta:
+        model = InDepthProject
+        fields = ('id', 'title', 'slug', 'url', 'story_image', 'story_excerpt')
+
+class InDepthProjectSerializer(ModelSerializer):
+    sections = SerializerMethodField()
+    body = SerializerMethodField()
+    story_image = SerializerMethodField()
+    buttons = SerializerMethodField()
+
+    def get_story_image(self, obj):
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'max-1920x1080')
+
+    def get_body(self, obj):
+        if obj.body:
+            return loader.get_template('components/in_depth_project_body.html').render({ 'page': obj })
+
+    def get_sections(self, obj):
+        return InDepthSectionSerializer(obj.get_children().type(InDepthSection).live().specific(), many=True).data
+
+    def get_buttons(self, obj):
+        buttons = []
+        if obj.buttons:
+            for b in obj.buttons:
+                buttons.append({ 'text': b.value['button_text'], 'url': b.value['button_url']})
+        return buttons
+    class Meta:
+        model = InDepthProject
+        fields = ('id', 'title', 'slug', 'url', 'story_image', 'search_description', 'body', 'sections', 'buttons', 'data_project_external_script')

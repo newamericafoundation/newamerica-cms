@@ -1,0 +1,15 @@
+.fade-enter, .fade-appear{
+  opacity: 0.4;
+  z-index: 1;
+  &.fade-enter-active, &.fade-appear-active{
+    @include transition(opacity 450ms ease);
+    opacity: 1;
+  }
+}
+
+.fade-leave{
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

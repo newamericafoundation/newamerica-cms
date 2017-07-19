@@ -14,7 +14,7 @@ from serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
     ProjectSerializer, HomeSerializer, TopicSerializer, EventSerializer,
     WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer,
-    SearchSerializer
+    SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer
 )
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
@@ -22,6 +22,7 @@ from programs.models import Program, Subprogram
 from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
+from in_depth.models import InDepthProject
 
 class PostFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
@@ -126,6 +127,15 @@ class WeeklyDetail(generics.RetrieveAPIView):
 #         edition = WeeklyEdition.objects.get(slug=edition_slug).get_children().specific().filter(slug=article_slug).first()
 #
 #         return response.Response(WeeklyEditionSerializer(edition, many=True).data)
+
+class InDepthProjectList(generics.ListAPIView):
+    serializer_class = InDepthProjectListSerializer
+    queryset = InDepthProject.objects.live().order_by('-date')
+
+class InDepthProjectDetail(generics.RetrieveAPIView):
+    queryset = InDepthProject.objects.live()
+    serializer_class = InDepthProjectSerializer
+
 
 class AuthorList(generics.ListAPIView):
     queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')

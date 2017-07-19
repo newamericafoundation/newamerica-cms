@@ -1,0 +1,46 @@
+#splash{
+  position: fixed;
+  top: 0;
+
+  .in-depth__project__heading__header__in-depth-title{
+    overflow: hidden;
+    h3{
+      @include transform(translateX(-350px));
+      animation-name: slide-in-from-left;
+      animation-delay: 0.5s;
+      animation-duration: 0.7s;
+      animation-timing-function: cubic-bezier(0.290, 0.520, 0.320, 1.305);
+      animation-fill-mode: forwards;
+    }
+  }
+
+  .in-depth__heading__text {
+    opacity: 0;
+    animation-name: fade-in;
+    animation-delay: 1.25s;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+}
+
+
+@include keyframes(slide-in-from-left){
+  0% {
+    @include transform(translateX(-350px));
+  }
+  100% {
+    @include transform(translateX(0px));
+  }
+}
+
+@include keyframes(fade-in){
+  0% {
+    opacity: 0;
+    @include transform(translateY(100px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateY(0px));
+  }
+}

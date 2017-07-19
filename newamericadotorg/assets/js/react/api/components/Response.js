@@ -23,8 +23,8 @@ class Response extends Component {
 
   render(){
     let { children, className, transition, showLoading, component } = this.props;
-    let { isFetching, results } = this.props.response;
-    if(!results) return null;
+    let { isFetching, results, hasResults } = this.props.response;
+    if(!hasResults) return null;
     //if(results instanceof Array && !results.length) return null;
     return (
       <this.props.component {...this.props}

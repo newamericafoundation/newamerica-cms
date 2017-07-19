@@ -1,0 +1,13 @@
+.in-depth__project, .in-depth__section{
+  position: relative;
+}
+
+@import 'heading';
+@import 'project-header';
+@import 'project-body';
+@import 'project-heading';
+@import 'section-heading';
+@import 'section-header';
+@import 'section-body';
+@import 'transition';
+@import 'splash';

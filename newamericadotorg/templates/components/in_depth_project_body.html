@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+<a id="body" class="in-depth__panel__anchor"></a>
+<section class="in-depth__panel">
+	<div class="in-depth__panel__body post-body">
+		{% for block in page.body %}
+	    {% include_block block %}
+	  {% endfor %}
+	</div>
+</section>
