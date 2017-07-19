@@ -22,6 +22,7 @@ export class Timeline {
 		this.currEventList = this.eventList;
 		this.listView = false;
 		this.currCategoryShown = "all";
+		this.currSplitShown = "all";
 
 		// if specific event id in url hash, sets that event as default
 		let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
@@ -224,21 +225,19 @@ export class Timeline {
 		window.addEventListener('resize', this.resize.bind(this));
 
 		window.onhashchange = () => {
-			console.log("hash changed")
 	        let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
 			
-			console.log(hashString)
 			let index = this.getEventIndexByHash(hashString);
-			console.log(index)
 
 			if (this.categoryList && this.categoryList.length > 0) {
 				this.changeCategoryFilter(this.currCategoryShown);
 			}
-			this.changeSplitShown({id:"all"});
+			if (this.splitList && this.splitList.length > 0) {
+				this.changeSplitShown({id:"all"});
+			}
 			
 			this.eventListChangedReRender();
 			this.setNewSelected(index, true);
-			
 	    }
 
 		this.keyListener = this.keyPressed.bind(this);
