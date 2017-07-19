@@ -1,0 +1,42 @@
+.subscribe{
+  display: block;
+  &__fields{
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 15px 0;
+  }
+  &__subscription-lists{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 15px 0;
+  }
+  &__field{
+    padding: 15px 0 0 0;
+    &__label{
+      padding-bottom: 5px;
+      &.required:after{
+        content: '*';
+        color: color(red);
+        margin-left: 3px;
+      }
+    }
+    &__input{
+      width: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
+      border-bottom: 1px solid color(black, base, 0.15) !important;
+      background-color: color(white) !important;
+      box-shadow: 0px 0px 0px 1px color(black, base, 0.15);
+      border-radius: $border-radius;
+    }
+    &__checkbox-label-wrapper {
+      color: color(black, base, 0.6);
+      font-size: 0.75em;
+    }
+  }
+
+  &__submit-wrapper{
+    margin: 35px auto;
+    text-align: center;
+  }
+}

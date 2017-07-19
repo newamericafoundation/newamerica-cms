@@ -12,11 +12,17 @@ select {
 	}
 }
 
-input, select {
+input[type="submit"] {
+	border: 0;
+	outline: 0;
+	font-size: 1rem;
+}
+
+input[type="text"], select {
 	height: $default-input-height;
 }
 
-input {
+input[type="text"] {
 	border: none;
 	outline: none;
 	border-bottom: 2px solid color(black);

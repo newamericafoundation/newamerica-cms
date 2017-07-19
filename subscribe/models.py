@@ -17,8 +17,9 @@ class SubscriptionSegment(Page):
     parent_page_types = ['SubscribePage',]
     SegmentID = models.TextField()
     ListID = models.TextField()
-
     is_creatable=False
+
+    #alternative_title = models.TextField()
 
     class Meta:
         verbose_name = "Mailing List Segment"

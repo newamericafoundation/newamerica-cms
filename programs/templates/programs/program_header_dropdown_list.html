@@ -28,6 +28,8 @@
 <div class="header__nav__dropdown-list__dropdown">
   <a href="{{ page.about_us_page.url }}" class="header__nav__dropdown-list__dropdown__main-link no-drop">About</a>
 </div>
+{% if page.subscriptions.all|length > 0 %}
 <div class="header__nav__dropdown-list__dropdown">
-  <a href="" class="header__nav__dropdown-list__dropdown__main-link no-drop">Subscribe</a>
+  <a href="#subscribe" class="header__nav__dropdown-list__dropdown__main-link no-drop">Subscribe</a>
 </div>
+{% endif %}
