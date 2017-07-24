@@ -1,0 +1,93 @@
+<style>
+li[id^="inline_child_location"]{
+  padding-right: 25px;
+}
+
+.disabled-input input{
+  color: #898989;
+  border: none;
+  background: none;
+}
+
+.disabled-input{
+  font-size: 0.8em;
+  padding: 0 !important;
+}
+</style>
+
+<input maxlength="500" id="{{id}}" name="location" value="{% firstof value '' %}" type="text" onkeyup="window['{{id}}'].keyup(this);">
+<p class="help">What city, state, and/or country is this post related to? Be as specific as you need to be, then verify the information below is correct.</p>
+
+<script>
+  var to = 0;
+  $(document).ready(function(){
+    $('#inline_child_' + getPrefix('{{id}}') + " input").not('#{{id}}').attr('readonly', true);
+    $('#{{id}}').attr('name', getPrefix('{{id}}') + '-location');
+    $('label[for$="-street_number"]').text('Street #');
+  });
+
+  window['{{id}}'] = {
+    keyup: function(el){
+      clearTimeout(to);
+      to = setTimeout(function(){
+        var $inputs = $('#inline_child_' + getPrefix('{{id}}'));
+        var location = $(el);
+        if(location.val()==''){
+          $inputs.find('input').not('#{{id}}').val('');
+          return;
+        }
+        $.ajax({
+          dataType: 'json',
+          url: 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDDcpveCnwgsHr_rHAN1ozJHwg3EIDAMQE&address=' + location.val(),
+          success: function(response){
+            if(response.status!="OK"){
+              $inputs.find('#no-results').html('No location found. Try again!');
+              return;
+            } else {
+              $inputs.find('#no-results').html('');
+            }
+
+            var results = response.results[0];
+            $inputs.find('input').not('#{{id}}').val('').attr('value', '');
+            $inputs.find('input[name="' + getPrefix('{{id}}') + '-formatted_address"]').val(results.formatted_address);
+            $inputs.find('input[name="' + getPrefix('{{id}}') + '-latitude"]').val(results.geometry.location.lat);
+            $inputs.find('input[name="' + getPrefix('{{id}}') + '-longitude"]').val(results.geometry.location.lng);
+            for(var i=0; i<results.address_components.length; i++){
+              var component = results.address_components[i]
+              var name = getComponentType(component.types[0]);
+              $inputs.find('input[name="' + getPrefix('{{id}}') + '-' + name +'"]').val(component.long_name);
+            }
+          },
+          error: function(e){
+            console.log(e);
+          }
+        })
+      }, 500);
+    }
+  }
+
+  function getPrefix(id){
+    var regex = /(location-[0-9])-/g;
+    return regex.exec(id)[1];
+  }
+
+  function getComponentType(type){
+    switch(type){
+      case 'locality':
+        return 'city';
+      case 'administrative_area_level_1':
+        return 'state_or_province';
+      case 'administrative_area_level_2':
+        return 'county';
+      case 'route':
+        return 'street';
+      case 'country':
+        return 'country';
+      case 'postal_code':
+        return 'zipcode';
+      case 'street_number':
+        return 'street_number';
+    }
+  }
+
+</script>

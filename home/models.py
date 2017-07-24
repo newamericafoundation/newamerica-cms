@@ -31,6 +31,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
 from newamericadotorg.blocks import BodyBlock
+from newamericadotorg.wagtailadmin.widgets import LocationWidget
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
@@ -382,6 +383,43 @@ class PostSubprogramRelationship(models.Model):
     class meta:
         unique_together = (("subprogram", "post"),)
 
+
+class Location(models.Model):
+    location = models.CharField(max_length=999)
+    formatted_address = models.CharField(max_length=999,blank=True, null=True)
+    street_number = models.CharField(max_length=999,blank=True, null=True)
+    street = models.CharField(max_length=999,blank=True, null=True)
+    city = models.CharField(max_length=999,blank=True, null=True)
+    state_or_province = models.CharField(max_length=999,blank=True, null=True)
+    zipcode = models.CharField(max_length=999,blank=True, null=True)
+    county = models.CharField(max_length=999,blank=True, null=True)
+    country = models.CharField(max_length=999,blank=True, null=True)
+    latitude = models.CharField(max_length=999,blank=True, null=True)
+    longitude = models.CharField(max_length=999,blank=True, null=True)
+
+    post = ParentalKey(
+        'Post',
+        related_name='location',
+        blank=True,
+        null=True
+    )
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('location', widget=LocationWidget),
+            FieldPanel('formatted_address', classname="disabled-input"),
+            FieldPanel('street_number', classname="disabled-input field-col col6",),
+            FieldPanel('street', classname="disabled-input field-col col6"),
+            FieldPanel('county', classname="disabled-input field-col col6"),
+            FieldPanel('zipcode', classname="disabled-input field-col col6"),
+            FieldPanel('city', classname="disabled-input field-col col12"),
+            FieldPanel('state_or_province', classname="disabled-input field-col col12"),
+            FieldPanel('country', classname="disabled-input field-col col12"),
+            FieldPanel('latitude', classname="disabled-input field-col col6"),
+            FieldPanel('longitude', classname="disabled-input field-col col6"),
+        ])
+    ]
+
 class Post(Page):
     """
     Abstract Post class that inherits from Page
@@ -428,6 +466,7 @@ class Post(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
+        InlinePanel('location', label=("Locations"),)
     ]
 
     settings_panels = Page.settings_panels + [
