@@ -14,7 +14,7 @@ from home.models import Post, HomePage
 from person.models import Person
 from serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
-    ProjectSerializer, HomeSerializer, TopicSerializer, EventSerializer,
+    ProjectSerializer, HomeSerializer, TopicSerializer, TopicDetailSerializer, EventSerializer,
     WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer,
     SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer
 )
@@ -67,26 +67,22 @@ class SearchList(generics.ListAPIView):
         return results
 
 
-# class TopicFilter(django_filters.rest_framework.FilterSet):
-#     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-#     program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
-#
-#     class Meta:
-#         model = IssueOrTopic
-#         fields = ['id', 'program_id']
+class TopicFilter(django_filters.rest_framework.FilterSet):
+    program_id = django_filters.CharFilter(name='parent_program__id', lookup_expr='iexact')
 
-# class TopicList(generics.ListAPIView):
-#     serializer_class = TopicSerializer
-#     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-#     filter_class = TopicFilter
-#
-#     def get_queryset(self):
-#         ids = self.request.query_params.getlist('id[]', None)
-#
-#         if not ids:
-#             return Post.objects.live()
-#
-#         return Post.objects.live().filter(id__in=ids)
+    class Meta:
+        model = IssueOrTopic
+        fields = ['program_id']
+
+class TopicList(generics.ListAPIView):
+    serializer_class = TopicSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_class = TopicFilter
+    queryset = IssueOrTopic.objects.live().filter(depth=5)
+
+class TopicDetail(generics.RetrieveAPIView):
+    serializer_class = TopicDetailSerializer
+    queryset = IssueOrTopic.objects.live()
 
 class AuthorFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')

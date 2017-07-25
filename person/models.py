@@ -39,6 +39,13 @@ class PersonSubprogramRelationship(models.Model):
         FieldPanel('subprogram'),
     ]
 
+class PersonTopicRelationship(models.Model):
+    topic = models.ForeignKey('issue.IssueOrTopic', related_name="+")
+    person = ParentalKey('person.Person', related_name="topics")
+
+    panels = [
+        PageChooserPanel('topic', 'issue.IssueOrTopic')
+    ]
 
 class Person(Page):
     first_name = models.CharField(max_length=150)
@@ -71,6 +78,12 @@ class Person(Page):
     belongs_to_these_subprograms = models.ManyToManyField(
         Subprogram,
         through=PersonSubprogramRelationship,
+        blank=True,
+    )
+
+    expertise = models.ManyToManyField(
+        'issue.IssueOrTopic',
+        through=PersonTopicRelationship,
         blank=True,
     )
 

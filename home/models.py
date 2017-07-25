@@ -383,6 +383,13 @@ class PostSubprogramRelationship(models.Model):
     class meta:
         unique_together = (("subprogram", "post"),)
 
+class PostTopicRelationship(models.Model):
+    topic = models.ForeignKey('issue.IssueOrTopic', related_name="+")
+    post = ParentalKey('home.Post', related_name="topics")
+
+    panels = [
+        PageChooserPanel('topic', 'issue.IssueOrTopic')
+    ]
 
 class Location(models.Model):
     location = models.CharField(max_length=999)
@@ -441,6 +448,9 @@ class Post(Page):
 
     post_author = models.ManyToManyField(
         Person, through=PostAuthorRelationship, blank=True)
+
+    post_topic = models.ManyToManyField(
+        'issue.IssueOrTopic', through=PostTopicRelationship, blank=True)
 
     story_excerpt = models.CharField(blank=True, null=True, max_length=140)
 

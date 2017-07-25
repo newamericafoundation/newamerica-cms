@@ -27,7 +27,7 @@ class IssueOrTopic(ProgramSimplePage):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='topics'
     )
 
     def get_context(self, request):
@@ -46,19 +46,3 @@ class IssueOrTopic(ProgramSimplePage):
 
     class Meta:
         verbose_name = 'Topic'
-
-class PostTopicRelationship(models.Model):
-    topic = models.ForeignKey(IssueOrTopic, related_name="+")
-    post = ParentalKey('home.Post', related_name="topics")
-
-    panels = [
-        PageChooserPanel('topic', 'issue.IssueOrTopic')
-    ]
-
-class PersonTopicRelationship(models.Model):
-    topic = models.ForeignKey(IssueOrTopic, related_name="+")
-    person = ParentalKey('person.Person', related_name="topics")
-
-    panels = [
-        PageChooserPanel('topic', 'issue.IssueOrTopic')
-    ]
