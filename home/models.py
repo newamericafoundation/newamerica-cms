@@ -461,6 +461,7 @@ class Post(Page):
         InlinePanel('programs', label=("Programs")),
         InlinePanel('subprograms', label=("Subprograms")),
         InlinePanel('authors', label=("Authors")),
+        InlinePanel('topics', label=("Topics")),
     ]
 
     promote_panels = Page.promote_panels + [

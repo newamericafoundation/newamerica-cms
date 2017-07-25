@@ -168,8 +168,8 @@ class Person(Page):
 
         InlinePanel('programs',
             label=("Belongs to these Programs")),
-        InlinePanel('subprograms',
-            label=("Belongs to these Subprograms/Initiatives")),
+        InlinePanel('subprograms', label=("Belongs to these Subprograms/Initiatives")),
+        InlinePanel('topics', label="Expert in these topics"),
 
         MultiFieldPanel([
             FieldPanel('email'),

@@ -222,7 +222,7 @@ class Program(AbstractProgram):
     'home.ProgramSimplePage',
     'person.ProgramPeoplePage',
     'Subprogram',
-    'issue.IssueOrTopic',
+    'issue.TopicHomepage',
     'home.RedirectPage',
     ]
 
