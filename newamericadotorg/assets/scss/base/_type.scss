@@ -9,6 +9,10 @@ h1,h2,h3,h4{
     margin: 5px 0;
   }
 
+  &.narrow-bottom-margin{
+    margin-bottom: 5px;
+  }
+
   &.no-margin{
     margin: 0;
   }

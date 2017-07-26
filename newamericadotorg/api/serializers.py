@@ -26,7 +26,7 @@ class ProgramProjectSerializer(ModelSerializer):
     class Meta:
         model = Page
         fields = (
-            'id', 'name', 'url', 'title'
+            'id', 'name', 'url', 'title', 'slug'
         )
 
     def get_name(self, obj):

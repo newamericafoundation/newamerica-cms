@@ -33,7 +33,7 @@ class PostFilter(FilterSet):
     project_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
     author_id = django_filters.CharFilter(name='post_author__id', lookup_expr='iexact')
     author_slug = django_filters.CharFilter(name='post_author__slug', lookup_expr="iexact")
-    topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
+    topic_id = django_filters.CharFilter(name='post_topic__id', lookup_expr='iexact')
     after = django_filters.DateFilter(name='date', lookup_expr='gte')
     before = django_filters.DateFilter(name='date', lookup_expr='lte')
     content_type = django_filters.CharFilter(name='content_type__model')
@@ -90,7 +90,7 @@ class AuthorFilter(FilterSet):
     program_id = django_filters.CharFilter(name='belongs_to_these_programs__id', lookup_expr='iexact')
     program_slug = django_filters.CharFilter(name='belongs_to_these_programs__slug', lookup_expr='iexact')
     project_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
-    topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
+    topic_id = django_filters.CharFilter(name='expertise__id', lookup_expr='iexact')
     role = django_filters.CharFilter(name='role', lookup_expr='iexact')
     leadership = django_filters.BooleanFilter(name='leadership')
     name = django_filters.CharFilter(name='title', lookup_expr='icontains')
@@ -121,12 +121,6 @@ class WeeklyDetail(generics.RetrieveAPIView):
     queryset = WeeklyEdition.objects.live()
     serializer_class = WeeklyEditionSerializer
 
-# class WeeklyDetail(views.APIView):
-#     def get(self, request, edition_slug, article_slug):
-#         edition = WeeklyEdition.objects.get(slug=edition_slug).get_children().specific().filter(slug=article_slug).first()
-#
-#         return response.Response(WeeklyEditionSerializer(edition, many=True).data)
-
 class InDepthProjectList(generics.ListAPIView):
     serializer_class = InDepthProjectListSerializer
     queryset = InDepthProject.objects.live().order_by('-date')
@@ -134,7 +128,6 @@ class InDepthProjectList(generics.ListAPIView):
 class InDepthProjectDetail(generics.RetrieveAPIView):
     queryset = InDepthProject.objects.live()
     serializer_class = InDepthProjectSerializer
-
 
 class AuthorList(generics.ListAPIView):
     queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')

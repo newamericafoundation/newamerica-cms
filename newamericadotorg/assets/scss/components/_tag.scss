@@ -7,10 +7,15 @@
   text-decoration: none;
   font-weight: normal;
   cursor: pointer;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   margin: 3px 0;
+  border: 1px solid color(black, light, 0);
 
-  &.tag{
+  &.with-gutter{
+    margin-right: 5px;
+  }
+
+  &.transparent{
     background: transparent;
     border: 1px solid color(black, light, 0.45);
   }

@@ -32,8 +32,14 @@ class IssueOrTopic(ProgramSimplePage):
 
     def get_context(self, request):
         context = super(IssueOrTopic, self).get_context(request)
-
         context['topics'] = self.get_children().live()
+        ancestors = self.get_ancestors()
+        if len(ancestors) == 4:
+            context['parent_topic'] = self
+        elif len(ancestors) < 4:
+            context['parent_topic'] = None
+        else:
+            context['parent_topic'] = ancestors[4]
 
         return context
 
