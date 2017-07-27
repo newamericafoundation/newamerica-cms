@@ -2,6 +2,10 @@
   -webkit-font-smoothing: antialiased !important;
 }
 
+body, html{
+  font-size: 18px;
+}
+
 h1,h2,h3,h4{
   font-family: $header-font-family;
   font-weight: bold;

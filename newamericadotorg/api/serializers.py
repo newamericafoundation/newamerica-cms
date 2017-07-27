@@ -39,7 +39,7 @@ class TopicDetailSerializer(ModelSerializer):
     body = SerializerMethodField()
 
     def get_subtopics(self, obj):
-        return TopicSerializer(obj.get_children().live().specific(), many=True).data
+        return TopicDetailSerializer(obj.get_children().live().specific(), many=True).data
 
     def get_description(self, obj):
         return obj.story_excerpt

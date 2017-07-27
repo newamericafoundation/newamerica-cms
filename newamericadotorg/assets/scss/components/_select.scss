@@ -9,8 +9,8 @@
   }
   &__input-wrapper{
     cursor: pointer;
-    padding: 0.5em;
-    padding-right: 2em;
+    padding: 0.4em;
+    padding-right: calc(0.4em + 25px);
     border: $border;
     border-radius: $border-radius;
     position: relative;
@@ -93,8 +93,8 @@
     &__option{
       display: block;
       cursor: pointer;
-      padding-top: 0.15em;
-      padding-bottom: 0.15em;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
       padding-left: 0.5em;
       padding-right: 0.5em;
       &.selected, &:hover{

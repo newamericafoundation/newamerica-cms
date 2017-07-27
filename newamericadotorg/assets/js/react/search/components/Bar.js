@@ -45,6 +45,7 @@ export default class Bar extends Component {
     return (
       <div className="search__bar">
         <input value={this.state.value}
+          type="text"
           ref={(el)=>{this.el = el;}}
           autofocus={true}
           placeholder="Search names or keywords"

@@ -1,0 +1,17 @@
+.topic{
+  &__details{
+    border-bottom: 1px solid color(black, base, 0.15);
+
+    &__author-list{
+      margin-top: 25px;
+    }
+    &__text-wrapper{
+      @extend %clearfix;
+      padding-bottom: 25px;
+    }
+  }
+
+  &__content{
+    margin-top: 50px;
+  }
+}

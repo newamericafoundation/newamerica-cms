@@ -18,6 +18,10 @@
     display: inline-block;
     margin: 0 10px;
 
+    &:first-child{
+      margin-left: 0;
+    }
+
     &:after{
       content: '';
       display: inline-block;
@@ -33,9 +37,7 @@
 
     &.active, &:last-child{
       font-weight: bold;
-      &:after{
-        display: none;
-      }
+      color: color(black);
     }
   }
 }

@@ -45,11 +45,10 @@ class Fetch extends Component {
   }
 
   render() {
-    let { className, showLoading, component, transition } = this.props;
+    let { className, showLoading, component, transition, fetchOnMount } = this.props;
     let { isFetching, results, hasResults } = this.props.response;
 
-    if(!hasResults) return null;
-    //if(results instanceof Array && !results.length) return null;
+    if(!hasResults && fetchOnMount) return null;
 
     let children = this.mapNameToResponse();
     if(!children && !this.props.component=='span') return null;

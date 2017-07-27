@@ -2,46 +2,17 @@ import { NAME, ID } from './constants';
 import { Component } from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { Fetch, Response } from '../components/API';
+import Topic from './components/Topic';
 
-const Topic = ({ topic, ancestors }) => {
-  return (
-    <main>
-      <section className="container--wide">
-        <div className="breadcrumbs">
-          <label className="breadcrumbs__item">
-            <a href={topic.program.url}>{topic.program.title}</a>
-          </label>
-          <label className="breadcrumbs__item">
-            <a href={`${topic.program.url}/topic/`}>Topic</a>
-          </label>
-          {ancestors.map((a,i)=>(
-            <label className="breadcrumbs__item">
-              <Link to={ a.url }>{ a.title }</Link>
-            </label>
-          ))}
-        </div>
-      </section>
-      <section className="container--wide topic">
-        <h1>{topic.title}</h1>
-        {topic.subtopics.length > 0 &&
-          <h4 className="narrow-margin topic__subtopic-label">Subtopics</h4>
-        }
-        {topic.subtopics.map((t,i)=>(
-          <Link className="tag with-gutter" to={t.url}>{t.title}</Link>
-        ))}
-      </section>
-    </main>
-  );
-}
 
 const TopicRoutes = ({ match, topic, ancestors }) => {
   return (
     <div>
       <Route exact path={match.url} render={(props)=>(<Topic topic={topic} ancestors={ancestors} />)} />
-      <Route path={`${match.url}/:slug`} render={(props)=>(
-        <TopicRoutes match={props.match}
+      <Route path={`${match.url}/:slug`} render={({ match })=>(
+        <TopicRoutes match={match}
           ancestors={[...ancestors, topic]}
-          topic={topic.subtopics.find((s)=>(s.slug==props.match.params.slug))} />
+          topic={topic.subtopics.find((s)=>(s.slug==match.params.slug))} />
       )} />
     </div>
   );
@@ -51,11 +22,13 @@ const TopicRoutes = ({ match, topic, ancestors }) => {
 class Routes extends Component {
   render() {
     let { response : { results } } = this.props;
+    let re = new RegExp(`\/${results.program.slug}\/(.+)\/.+`, 'i');
+    let match = window.location.href.match(re);
     return (
        <Router>
         <TopicRoutes ancestors={[]} topic={results} match={{
           params: { slug: results.slug, program: results.program.title },
-          url: `/${results.program.slug}/topic/${results.slug}`
+          url: `/${results.program.slug}/${match[1]}/${results.slug}`
         }} />
       </Router>
     );
@@ -65,9 +38,8 @@ class Routes extends Component {
 class APP extends Component {
   render(){
     let { parentTopicId } = this.props;
-    console.log(this.props);
     return (
-      <Fetch name={NAME}
+      <Fetch name={NAME + '.topics'}
         endpoint={`topic/${parentTopicId}`}
         component={Routes}
         fetchOnMount={true} />
