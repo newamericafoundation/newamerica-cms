@@ -27,6 +27,11 @@
 		border: 1px solid color(turquoise);
 		color: color(turquoise);
 
+		&:hover {
+			background: color(turquoise, light);
+			color: color(white);
+		}
+
 		&.white{
 			border: 1px solid color(white);
 			color: color(white);

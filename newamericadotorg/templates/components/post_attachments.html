@@ -1,10 +1,10 @@
 {% load utilities %}
 
-<div class="post-attachment">
-  <div class="post-attachment__image"></div>
-  <div class="post-attachment__text">
+<div class="post__attachment post__aside-section">
+  <label class="lg">Download</label>
+  <div class="post__attachment__text">
     {% for block in page.attachment %}
-      <a class="post-attachement__text__link" href='{{ block.value.file.url }}' target="_blank">
+      <a class="post__attachement__text__link" href='{{ block.value.file.url }}' target="_blank">
         {{ block.value.title }}
       </a>
     {% endfor %}

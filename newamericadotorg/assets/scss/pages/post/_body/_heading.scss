@@ -5,7 +5,9 @@
 
   &__image{
     background-size: cover;
-    @extend %with-overlay;
+    background-position-y: 20%;
+    background-repeat: no-repeat;
+    opacity: 0.8;
     width: 100%;
 		height: 100%;
 		position: relative;
@@ -18,6 +20,7 @@
     text-align: center;
     &__heading{
       margin-bottom: 10px;
+      margin-top: 10px
     }
     &__button{
       display: inline-block;
@@ -26,8 +29,9 @@
   }
 
   &.with-image{
-      height: 350px;
+      height: 400px;
       margin-bottom: 50px;
+      background: color(black);
 
     .post-heading__text{
       position: absolute;

@@ -58,10 +58,11 @@
 			{% block post_right_aside %}
 				<aside class="post-social col-md-3 scroll-target" {% if panels %}data-scroll-enter-offset="-70"{% endif %}>
 					<div class="post-social__sticky-wrapper">
-						<label class="lg">Share</label>
-						{% include 'components/social_share.html' %}
+						{% include 'components/post_share.html' %}
+						{% if page.topics.all %}
+							{% include 'components/post_topics.html' %}
+						{% endif %}
 						{% if page.attachment %}
-							<label class="lg">Download</label>
 						  {% include 'components/post_attachments.html' %}
 						{% endif %}
 					</div>
