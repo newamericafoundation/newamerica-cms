@@ -135,6 +135,11 @@ a {
   font-weight: bold;
   color: color(black);
 
+  & > label:hover {
+    color: color(turquoise);
+    cursor: pointer;
+  }
+
   &:not(.button):hover {
   	color: color(turquoise);
     .fa {

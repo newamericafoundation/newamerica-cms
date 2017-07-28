@@ -7,9 +7,10 @@ import Select from '../../components/Select';
 
 // inherits action/dispatch setQuery prop from api.Fetch
 class Filter extends Component {
+  hasChanged = false
   render() {
     let { content_types, response: { results } } = this.props;
-    if(results.length===0) return null;
+    if(results.length===0 && !this.hasChanged) return null;
     return (
       <section className="container--medium content-filters">
         <h2 className="centered">Related Content</h2>
@@ -21,6 +22,7 @@ class Filter extends Component {
             valueAccessor="api_name"
             labelAccessor="title"
             onChange={(option)=>{
+              this.hasChanged = true;
               let val = option ? option.api_name : '';
               this.props.setQueryParam('content_type', val, true);
             }}/>

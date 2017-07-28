@@ -22,7 +22,7 @@ const TopicRoutes = ({ match, topic, ancestors }) => {
 class Routes extends Component {
   render() {
     let { response : { results } } = this.props;
-    let re = new RegExp(`\/${results.program.slug}\/(.+)\/.+`, 'i');
+    let re = new RegExp(`\/${results.program.slug}\/(.+)\/${results.slug}`, 'i');
     let match = window.location.href.match(re);
     return (
        <Router>

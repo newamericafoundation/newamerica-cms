@@ -24,3 +24,9 @@
     font-weight: normal;
     font-style: italic;
 }
+
+@font-face {
+  font-family: 'Platform';
+  src: url('#{$static-url}/fonts/Platform-Bold.otf');
+  font-weight: bold;
+}
