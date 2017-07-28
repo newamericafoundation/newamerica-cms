@@ -71,7 +71,7 @@ p {
 }
 
 .subheading, [class*="subheading--"] {
-  color: color(gray);
+  color: color(gray, dark);
   font-weight: normal;
   margin: 0;
 
@@ -103,7 +103,7 @@ p {
 }
 
 .fa {
-  color: color(gray);
+  color: color(gray, dark);
   font-weight: 300;
   padding-right: 10px;
 
@@ -125,7 +125,7 @@ p {
 
   &.outline{
     -webkit-text-stroke-width: 1px;
-   -webkit-text-stroke-color: color(gray);
+   -webkit-text-stroke-color: color(gray, dark);
    color: color(white);
   }
 }
@@ -149,7 +149,7 @@ a {
   }
 
   &:not(:hover) .fa:not(.outline) {
-    color: color(gray);
+    color: color(gray, dark);
   }
 
   &.light {
@@ -162,7 +162,7 @@ label {
   font-size: 0.78rem;
   line-height: 1.06rem;
   font-weight: normal;
-  color: color(gray);
+  color: color(gray, dark);
   display: inline-block;
 
   &.active{

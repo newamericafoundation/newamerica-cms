@@ -5,12 +5,12 @@
   &__wrapper{
     height: $header-height;
     background: color(white);
-    @include border-bottom(gray, base, 0.45);
+    @include border-bottom(gray, ultra-light);
+    box-shadow: inset 0px -3px 1px -3px color(black,base,0.35);
     color: color(gray);
     display: block;
     width: 100%;
     margin: 0 !important;
-    padding: 0 25px 0 25px;
     z-index: 175;
     @include transition(top 0.35s ease-in-out);
 

@@ -28,7 +28,7 @@ constructor(props){
   };
 }
 componentDidMount(){
-  if(this.body.offsetHeight >= 425) this.setState({ readMore: true });
+  if(this.body.offsetHeight >= 400) this.setState({ readMore: true });
 }
 toggleReadMore = () => {
   this.setState({ expanded: !this.state.expanded })

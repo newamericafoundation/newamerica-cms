@@ -3,7 +3,7 @@
 	background: color(turquoise);
 	font-weight: normal;
 	text-align: center;
-	padding: 0.6em 0.7em;
+	padding: 0.5em 0.4em;
 	display: inline-block;
 	border-radius: $border-radius;
 	@include transition(all $transition-function);
@@ -44,8 +44,8 @@
 	}
 
 	&.gray {
-		border: 1px solid color(gray);
-		color: color(gray);
+		border: 1px solid color(gray, dark);
+		color: color(gray, dark);
 		&:hover{
 			background: color(black);
 			color: color(white);

@@ -8,7 +8,7 @@
   display: block;
 
   &.gray{
-    background-color: color(gray, light);
+    background-color: color(gray, ultra-light);
   }
 
 }
@@ -23,7 +23,7 @@
   &--wide{
     width: 100%;
     @include media-breakpoint(tablet){
-      width: 90%;
+      width: 98%;
     }
   }
 
