@@ -161,7 +161,8 @@ class AbstractProgram(Page):
 
     def get_context(self, request):
         context = super(AbstractProgram, self).get_context(request)
-
+        context['topics'] = self.get_descendants().filter(content_type__model='issueortopic', depth=5).live()
+        print context['topics']
         # In order to apply different styling to main lead story
         # versus the other lead stories, we needed to separate them out
         context['other_lead_stories'] = []
