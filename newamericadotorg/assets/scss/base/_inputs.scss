@@ -31,14 +31,14 @@ input[type="text"] {
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: color(black, base, 0.25);
+  color: color(gray,light);
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: color(black, base, 0.25);
+  color: color(gray,light);
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: color(black, base, 0.25);
+  color: color(gray,light);
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: color(black, base, 0.25);
+  color: color(gray,light);
 }

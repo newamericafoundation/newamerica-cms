@@ -24,13 +24,13 @@
       width: 100%;
       padding-left: 15px;
       padding-right: 15px;
-      border-bottom: 1px solid color(black, base, 0.15) !important;
+      border-bottom: 1px solid color(gray, light) !important;
       background-color: color(white) !important;
-      box-shadow: 0px 0px 0px 1px color(black, base, 0.15);
+      box-shadow: 0px 0px 0px 1px color(gray, light);
       border-radius: $border-radius;
     }
     &__checkbox-label-wrapper {
-      color: color(black, base, 0.6);
+      color: color(gray, dark);
       font-size: 0.75em;
     }
   }

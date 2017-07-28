@@ -1,7 +1,7 @@
 .tag{
   border-radius: $border-radius;
-  color: color(black, light, 0.75);
-  background: color(gray, base, 0.25);
+  color: color(gray);
+  background: color(gray, light);
   padding: 0.25em 0.5em;
   display: inline-block;
   text-decoration: none;
@@ -9,7 +9,7 @@
   cursor: pointer;
   font-size: 0.8rem;
   margin: 3px 0;
-  border: 1px solid color(black, light, 0);
+  border: 1px solid color(gray, base, 0);
 
   &.with-gutter{
     margin-right: 5px;
@@ -17,12 +17,12 @@
 
   &.transparent{
     background: transparent;
-    border: 1px solid color(black, light, 0.45);
+    border: 1px solid color(gray, base, 1);
   }
 
   &:hover{
     background: color(black);
     color: color(white) !important;
-    border: 1px solid color(black, light, 0);
+    border: 1px solid color(gray, base, 0);
   }
 }
