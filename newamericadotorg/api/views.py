@@ -33,14 +33,13 @@ class PostFilter(FilterSet):
     project_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
     author_id = django_filters.CharFilter(name='post_author__id', lookup_expr='iexact')
     author_slug = django_filters.CharFilter(name='post_author__slug', lookup_expr="iexact")
-    topic_id = django_filters.CharFilter(name='post_topic__id', lookup_expr='iexact')
     after = django_filters.DateFilter(name='date', lookup_expr='gte')
     before = django_filters.DateFilter(name='date', lookup_expr='lte')
     content_type = django_filters.CharFilter(name='content_type__model')
 
     class Meta:
         model = Post
-        fields = ['id', 'program_id', 'project_id', 'before', 'after', 'content_type', 'topic_id']
+        fields = ['id', 'program_id', 'project_id', 'before', 'after', 'content_type']
 
 class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
@@ -49,11 +48,19 @@ class PostList(generics.ListAPIView):
 
     def get_queryset(self):
         ids = self.request.query_params.getlist('id[]', None)
+        topic_id = self.request.query_params.get('topic_id', None)
         posts = Post.objects.live().order_by('-date').not_type(Event).distinct()
-        if not ids:
-            return posts
 
-        return posts.filter(id__in=ids)
+        if topic_id:
+            topics = IssueOrTopic.objects.get(pk=topic_id)\
+                .get_descendants(inclusive=True).live()
+
+            posts = posts.filter(post_topic__in=topics)
+
+        if ids:
+            posts = posts.filter(id__in=ids)
+
+        return posts;
 
 class SearchList(generics.ListAPIView):
     serializer_class = SearchSerializer
@@ -90,14 +97,13 @@ class AuthorFilter(FilterSet):
     program_id = django_filters.CharFilter(name='belongs_to_these_programs__id', lookup_expr='iexact')
     program_slug = django_filters.CharFilter(name='belongs_to_these_programs__slug', lookup_expr='iexact')
     project_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
-    topic_id = django_filters.CharFilter(name='expertise__id', lookup_expr='iexact')
     role = django_filters.CharFilter(name='role', lookup_expr='iexact')
     leadership = django_filters.BooleanFilter(name='leadership')
     name = django_filters.CharFilter(name='title', lookup_expr='icontains')
 
     class Meta:
         model = Person
-        fields = ['id','program_id', 'project_id', 'topic_id', 'name', 'role', 'leadership']
+        fields = ['id','program_id', 'project_id', 'name', 'role', 'leadership']
 
 def get_edition_number(edition):
     if 'edition-' in edition.slug:
@@ -130,10 +136,21 @@ class InDepthProjectDetail(generics.RetrieveAPIView):
     serializer_class = InDepthProjectSerializer
 
 class AuthorList(generics.ListAPIView):
-    queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')
     serializer_class = AuthorSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = AuthorFilter
+
+    def get_queryset(self):
+        topic_id = self.request.query_params.get('topic_id', None)
+        queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')
+
+        if topic_id:
+            topics = IssueOrTopic.objects.get(pk=topic_id)\
+                .get_descendants(inclusive=True).live()
+
+            queryset = queryset.filter(expertise__in=topics)
+
+        return queryset
 
 class EventFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
