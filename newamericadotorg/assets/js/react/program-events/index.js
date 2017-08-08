@@ -10,9 +10,7 @@ class APP extends Component {
 
   render(){
     return(
-      <section className="program-events">
-        <Events programId={this.props.programId} />
-      </section>
+      <Events programId={this.props.programId} />
     );
   }
 }

@@ -67,7 +67,7 @@ class Carousel extends Component {
 
   render() {
     let { n } = this.props;
-    let col = Math.floor(12/n);
+    let col = '5ths'; //Math.floor(12/n);
 
     return (
       <div className="carousel container" >

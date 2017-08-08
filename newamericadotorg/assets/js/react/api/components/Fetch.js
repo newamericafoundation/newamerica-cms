@@ -45,10 +45,11 @@ class Fetch extends Component {
   }
 
   render() {
-    let { className, showLoading, component, transition, fetchOnMount } = this.props;
-    let { isFetching, results, hasResults } = this.props.response;
+    let { className, showLoading, component, transition, fetchOnMount, renderIfNoResults } = this.props;
+    let { isFetching, results, hasResults} = this.props.response;
 
     if(!hasResults && fetchOnMount) return null;
+    if(hasResults && results.length===0 && !renderIfNoResults) return null;
 
     let children = this.mapNameToResponse();
     if(!children && !this.props.component=='span') return null;
@@ -81,7 +82,8 @@ class FetchWrapper extends Component{
     initialQuery: PropTypes.object,
     fetchOnMount: PropTypes.bool,
     showLoading: PropTypes.bool,
-    transition: PropTypes.bool
+    transition: PropTypes.bool,
+    renderIfNoResults: PropTypes.bool
   }
 
   static defaultProps = {
@@ -91,7 +93,8 @@ class FetchWrapper extends Component{
     eager: false,
     component: 'span',
     showLoading: false,
-    transition: false
+    transition: false,
+    renderIfNoResults: true
   }
 
   name = null;

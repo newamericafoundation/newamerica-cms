@@ -10,9 +10,7 @@ class APP extends Component {
 
   render() {
     return (
-      <section className="program-content-grid container">
-        <Content programId={this.props.programId} />
-      </section>
+      <Content programId={this.props.programId} />
     );
   }
 }

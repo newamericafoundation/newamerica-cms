@@ -1,17 +1,13 @@
 .portrait-content-grid{
   &__item{
-    margin-bottom: 25px;
+    margin-bottom: 50px;
     cursor: pointer;
-
-    label{
-      padding: 1px 0;
-    }
 
     &__image-wrapper{
       background: color(gray, light);
       z-index: 1;
       width: 100%;
-      padding-bottom: 145%;
+      padding-bottom: 150%;
       position: relative;
       opacity: 1;
       cursor: pointer;
@@ -25,6 +21,7 @@
     &__image{
       width: 100% !important;
       height: auto;
+      min-height: 100%;
       display: block;
       position: absolute;
     }
@@ -36,7 +33,32 @@
       @include center;
     }
     &__text{
-      margin-top: 5px;
+      margin-top: 10px;
+
+      &__heading{
+        padding-bottom: 4px;
+      }
+
+      .fa {
+        position: relative;
+        bottom: 1px;
+        color: color(gray, dark) !important;
+      }
+
+      &__programs{
+        //padding-bottom: 4px;
+        //font-size:0.7rem;
+        line-height: 1.15em;
+        width: 100%;
+        color: color(white) !important;
+        position: absolute;
+        bottom: 0;
+        padding: 10px;
+        text-align: center;
+        //@include linear-gradient-vertical(color(black,base,1),color(black,base,0));
+        background: color(turquoise, dark, 0.8);
+        //background-blend-mode: luminosity;
+      }
     }
 
   }

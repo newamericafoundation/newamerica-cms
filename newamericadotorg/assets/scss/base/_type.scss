@@ -118,6 +118,10 @@ p {
     padding-right: 0px;
   }
 
+  &.xs {
+    font-size: 0.65rem;
+  }
+
   &.sm {
     font-size: 0.78rem;
   }
@@ -177,6 +181,14 @@ label {
   &.active{
     color: color(black);
     font-weight: bold;
+    &.gray {
+      color: color(gray, dark);
+    }
+  }
+
+  &.narrow-margin{
+    margin: 5px 0;
+    display: block;
   }
 
   &.bold{
@@ -205,9 +217,14 @@ label {
     text-align: center;
   }
 
+  &.md {
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+  }
+
   &.lg{
     font-size: 1rem;
-    line-height: 1.1rem;
+    line-height: 1.35rem;
   }
 }
 

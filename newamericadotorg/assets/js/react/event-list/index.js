@@ -11,7 +11,7 @@ class APP extends Component {
   }
   render(){
     return(
-      <section className="container--wide event-lists">
+      <section className="container--medium event-lists">
         <FutureEvents />
         {!this.state.showPast &&
           <div className="event-lists__show-past-button-wrapper">

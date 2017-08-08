@@ -31,31 +31,10 @@
 	{% endif %}
 </section>
 
-<section class="container--full-width program-block">
-	<div class="program-block__heading">
-		<h1 class="centered narrow-bottom-margin">Events</h1>
-		<p class="program-heading__subheading subheading--h1 centered">
-			Political Reform program publications help to generate new ideas, voices, and technologies.
-		</p>
-	</div>
-	{% include 'components/react/program-event-list.html' %}
-	<div class="program-block__button-wrapper button-wrapper centered">
-		<a class="button transparent" href="{{page.url}}events/">View All Events</a>
-	</div>
-</section>
 
-<section class="container--wide program-block">
-	<div class="program-block__heading">
-		<h1 class="centered narrow-bottom-margin">Publications</h1>
-		<p class="program-heading__subheading subheading--h1 centered">
-			Political Reform program publications help to generate new ideas, voices, and technologies.
-		</p>
-	</div>
-	{% include 'components/react/program-content-grid.html' %}
-	<div class="program-block__button-wrapper button-wrapper centered">
-		<a class="button transparent" href="{{page.url}}publications/">View All Publications</a>
-	</div>
-</section>
+{% include 'components/react/program-event-list.html' %}
+
+{% include 'components/react/program-content-grid.html' %}
 
 {% if page.subscriptions.all|length > 0 %}
 <section class="container--full-width gray program-block subscribe-block" id="subscribe">

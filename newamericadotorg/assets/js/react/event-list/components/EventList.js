@@ -4,7 +4,7 @@ import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import EventListItem from './EventListItem';
 
 export const List = ({ items, cols, children }) => (
-  <div className="content-portrait-grid event-list row gutter-10">
+  <div className="content-portrait-grid event-list row gutter-15">
     {items.map((r,i)=>(
       <EventListItem item={r} cols={cols} />
     ))}
@@ -13,7 +13,7 @@ export const List = ({ items, cols, children }) => (
 );
 
 const FutureList = ({ response }) => (
-  <List items={response.results} cols='col-4 col-md-3'>
+  <List items={response.results} cols='col-4 col-md-3 col-lg-5ths'>
     {(response.results.length===0 && !response.isFetching) &&
       <label className="active lg block centered">No upcoming events. Check back soon!</label>
     }
@@ -32,7 +32,7 @@ const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
       return fetchAndAppend;
     }}>
 
-    <List items={response.results} cols='col-4 col-md-3 col-xl-2'/>
+    <List items={response.results} cols='col-4 col-md-3 col-lg-5ths'/>
   </InfiniteLoadMore>
 )
 
@@ -69,7 +69,7 @@ export class PastEvents extends Component {
           endpoint="event"
           initialQuery={{
             time_period: 'past',
-            page_size: 12,
+            page_size: 15,
             page: 1
           }}/>
       </div>

@@ -3,7 +3,5 @@
 {% block body_class %}template-alleventshomepage{% endblock %}
 
 {% block content %}
-	<section class="container {% block container_class %}container--medium{% endblock %}">
-		{% include 'components/react/event-list.html' %}
-	</section>
+	{% include 'components/react/event-list.html' %}
 {% endblock %}
