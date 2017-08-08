@@ -75,7 +75,7 @@ class Filter extends Component {
 
     return (
       <section className="our-people__heading container--medium">
-        <h1 className="our-people__heading__header centered no-margin">Our People</h1>
+        <h1 className="our-people__heading__header centered narrow-margin">Our People</h1>
         <div className="our-people__filters">
           {match.path!='/:programSlug/our-people/' &&
             <Links selected={match.path} />

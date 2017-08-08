@@ -22,13 +22,13 @@
               {{ label }}
             </label>
             {% endif %}
-            <h3 class="featured-story__text__heading">
+            <h4 class="featured-story__text__heading">
                 {% if story.seo_title %}{{ story.seo_title }}{% else %}{{ story.title }}{% endif %}
-            </h3>
+            </h4>
             {% if story.specific.story_excerpt %}
-              <p class="featured-story__text__description">
+              <!-- <p class="featured-story__text__description">
                 {{ story.specific.story_excerpt }}
-              </p>
+              </p> -->
             {% endif %}
           </div>
       </a>

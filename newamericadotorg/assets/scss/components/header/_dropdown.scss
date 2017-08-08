@@ -9,6 +9,7 @@
     padding: 0 0.5em;
     font-weight: normal;
     label {
+      color: color(black);
       font-size: 0.75rem;
       text-transform: uppercase;
       font-family: $header-font-family;
@@ -23,11 +24,11 @@
       content: '';
       position: relative;
       @include transform(rotate(45deg) translateY(-3.5px));
-      border-right: 1px solid color(gray, dark);
-      border-bottom: 1px solid color(gray, dark);
+      border-right: 1px solid color(black);
+      border-bottom: 1px solid color(black);
       height: 6px;
       width: 6px;
-      margin: 0 10px 0 5px;
+      margin: 0 5px 0 5px;
     }
 
     &.no-drop{
@@ -119,7 +120,7 @@
         background: color(white);
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
-        box-shadow: 0px -2px 4px 0px color(black,base,0.2),
+        box-shadow: 0px -6px 10px 0px color(black,base,0.2),
         0px -4px 2px -3px color(black,base,0.2),
         -4px 0px 2px -3px color(black,base,0.2),
         4px 0px 2px -3px color(black,base,0.2);

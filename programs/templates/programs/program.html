@@ -7,7 +7,7 @@
 {% block body_class %}template-programhomepage{% endblock %}
 
 {% block content %}
-<section class='container container--wide program-block'>
+<section class='container container--wide'>
 	<div class="program-heading">
 		<h1 class="program-heading__heading">{{ page.name }}</h1>
 		<p class="subheading--h1">
@@ -33,7 +33,7 @@
 
 <section class="container--full-width program-block">
 	<div class="program-block__heading">
-		<h1 class="centered narrow-margin">Events</h1>
+		<h1 class="centered narrow-bottom-margin">Events</h1>
 		<p class="program-heading__subheading subheading--h1 centered">
 			Political Reform program publications help to generate new ideas, voices, and technologies.
 		</p>
@@ -46,7 +46,7 @@
 
 <section class="container--wide program-block">
 	<div class="program-block__heading">
-		<h1 class="centered narrow-margin">Publications</h1>
+		<h1 class="centered narrow-bottom-margin">Publications</h1>
 		<p class="program-heading__subheading subheading--h1 centered">
 			Political Reform program publications help to generate new ideas, voices, and technologies.
 		</p>
@@ -60,7 +60,7 @@
 {% if page.subscriptions.all|length > 0 %}
 <section class="container--full-width gray program-block subscribe-block" id="subscribe">
 	<div class="container--wide">
-		<h1 class="centered narrow-margin">Subscribe</h1>
+		<h1 class="centered narrow-bottom-margin">Subscribe</h1>
 		<p class="subheading--h1 centered">Our new voices, ideas, and technologies through New America newsletters and events</p>
 		{% include 'components/subscribe.html' with subscriptions=page.subscriptions.all %}
 	</div>

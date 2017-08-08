@@ -12,10 +12,10 @@ export const ContentGridItem = ({ item, className }) => (
       }
       <div className="content-grid__item__text">
         <label className="content-grid__item__text__content-type">{item.content_type.name}</label>
-        <h3 className="narrow-margin content-grid__item__text__title">
+        <h4 className="narrow-margin content-grid__item__text__title">
           <a href={item.url} className="content-grid__item__link-wrapper">{item.title}</a>
-          </h3>
-        <p className="content-grid__item__text__description narrow-margin">{item.story_excerpt}</p>
+        </h4>
+        <p className="content-grid__item__text__description narrow-margin gray">{item.story_excerpt}</p>
       </div>
   </div>
 );

@@ -1,12 +1,11 @@
 .featured-stories{
   height: auto;
-  margin-top: 50px;
+  margin: 35px 0 75px 0;
   position: relative;
   overflow: hidden;
 
   @include media-breakpoint(tablet){
-    height: 150px;
-    @include fade-out(55px);
+    height: 125px;
   }
 
   .row{
@@ -15,13 +14,13 @@
 
   &.side-image{
     .featured-story{
-      height: 105px;
+      height: 100%;
       padding-left: 0;
       padding-right: 0;
       padding-bottom: 10px;
 
       @include media-breakpoint(tablet){
-        height: 70%;
+        height: 100%;
         padding-left: 10px;
         padding-right: 10px;
         padding-bottom: 0px;
@@ -50,19 +49,7 @@
 
       &__text{
         padding-left: 15px !important;
-
-        &.no-image{
-          max-height: 100%;
-          width: 70%;
-          position: absolute;
-          padding-left: 0 !important;
-          @include center;
-          .featured-story__text{
-            &__heading {
-              text-align: center;
-            }
-          }
-        }
+        position: relative;
 
         &__label{
           display: block;
@@ -70,9 +57,9 @@
           color: color(gray);
         }
         &__heading{
-          margin: 0 0 5px 0;
-          font-size: 1em;
-          line-height: 1.2em;
+          margin: 0 0 0 0;
+          // position: absolute;
+          // @include vertical-center;
         }
         &__description{
           color: color(gray);
@@ -81,6 +68,12 @@
           margin: 0;
           height: 80px;
           overflow: hidden;
+        }
+
+        &.no-image{
+          max-height: 100%;
+          width: 70%;
+          padding-left: 0 !important;
         }
       }
     }

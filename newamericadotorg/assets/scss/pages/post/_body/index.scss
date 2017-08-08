@@ -1,11 +1,18 @@
 @import 'heading';
 @import 'attachment';
+@import 'authors';
+@import 'social';
 
 .post-body {
   $media-padding: 20px;
   $media-default-aspect: 1;
+  padding-top: 15px;
   // padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
+
+  &__date {
+    padding-bottom: 15px;
+  }
 
   &__hidden {
     display: none;

@@ -10,11 +10,11 @@ h1,h2,h3,h4{
   font-family: $header-font-family;
   font-weight: bold;
   &.narrow-margin {
-    margin: 5px 0;
+    margin: 10px 0;
   }
 
   &.narrow-bottom-margin{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   &.no-margin{
@@ -67,6 +67,9 @@ p {
     margin-top: 5px;
     margin-bottom: 5px;
     line-height: 1.3rem;
+  }
+  &.gray{
+    color: color(gray, dark);
   }
 }
 
@@ -127,6 +130,12 @@ p {
     -webkit-text-stroke-width: 1px;
    -webkit-text-stroke-color: color(gray, dark);
    color: color(white);
+   &.turquoise{
+     -webkit-text-stroke-color: color(turquoise);
+   }
+   &:hover{
+     -webkit-text-stroke-width: 0px;
+   }
   }
 }
 
@@ -154,7 +163,7 @@ a {
 
   &.light {
     font-weight: normal;
-    color: color(gray);
+    color: color(gray, dark);
   }
 }
 

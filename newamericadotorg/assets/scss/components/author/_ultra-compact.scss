@@ -21,7 +21,6 @@
   }
   .author__text{
     padding: 0;
-    padding-left: 5px;
     @extend %col;
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 75%;
@@ -36,8 +35,7 @@
       font-weight: normal;
       color: color(gray, dark);
       line-height: 30px;
-      padding-left: 8px;
-      margin-left: 5px;
+      padding-left: 6px;
       padding-right: 10px;
       margin: 0;
       font-size: 0.8rem;
@@ -58,10 +56,16 @@
     }
     .author__text{
       padding: 0;
+      -webkit-flex: 0 0 100%;
+          -ms-flex: 0 0 100%;
+              flex: 0 0 100%;
+      max-width: 100%;
+      text-align: center;
+
       &:not(:first-child){
         max-width: 100%;
         flex: none;
-        text-align: center;
+        text-align: left;
       }
     }
   }
