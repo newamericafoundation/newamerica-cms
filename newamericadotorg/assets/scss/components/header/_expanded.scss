@@ -41,7 +41,8 @@
               &.wide{
                 border-top-left-radius: $border-radius;
                 width: calc(100% + 20px);
-                left: -15px;
+                left: -14px;
+                top: 62px;
               }
 
               &:not(.wide){

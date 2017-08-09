@@ -142,7 +142,7 @@ class AuthorList(generics.ListAPIView):
 
     def get_queryset(self):
         topic_id = self.request.query_params.get('topic_id', None)
-        queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author')
+        queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author').distinct()
 
         if topic_id:
             topics = IssueOrTopic.objects.get(pk=topic_id)\

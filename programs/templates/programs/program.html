@@ -7,56 +7,15 @@
 {% block body_class %}template-programhomepage{% endblock %}
 
 {% block content %}
-<section class='container container--wide'>
-	<div class="program-heading">
-		<h1 class="program-heading__heading">{{ page.name }}</h1>
-		<p class="subheading--h1">
-			{% firstof page.short_description 'Bringing to the table win-win survival strategies to ensure proactive domination.' %}
-			<a class="program-heading__button button transparent gray" href="{{page.about_us_page.url}}">
-				Read More
-			</a>
-		</p>
-	</div>
-	<header class="program-header">
-		<nav class="header__nav">
-			<div class="header__nav__dropdown-list">
-				{% include './program_header_dropdown_list.html' %}
-			</div>
-		</nav>
-	</header>
-	{% include 'components/story_grid.html' %}
+	<main class="program-blocks-wrapper">
+		{% include './intro_block.html' %}
 
-	{% if featured_stories %}
-		{% include 'components/featured_stories.html' with stories=featured_stories %}
-	{% endif %}
-</section>
+		{% include 'components/react/program-event-list.html' %}
 
+		{% include 'components/react/program-content-grid.html' %}
 
-{% include 'components/react/program-event-list.html' %}
-
-{% include 'components/react/program-content-grid.html' %}
-
-{% if page.subscriptions.all|length > 0 %}
-<section class="container--full-width gray program-block subscribe-block" id="subscribe">
-	<div class="container--wide">
-		<h1 class="centered narrow-bottom-margin">Subscribe</h1>
-		<p class="subheading--h1 centered">Our new voices, ideas, and technologies through New America newsletters and events</p>
-		{% include 'components/subscribe.html' with subscriptions=page.subscriptions.all %}
-	</div>
-</section>
-{% endif %}
-
-<!-- <section class="container--full-width gray program-block">
-	<div class='container--wide home-about-description'>
-		<h1 class="home-about-description__heading">About {{ page.name }}</h1>
-		<p class="home-about-description__description"> {{ page.description }}</p>
-		{% if page.about_us_page %}
-		<div class="home-about-description__link-wrapper">
-			<a class="home-about-description__link button black" href='{{ page.about_us_page.url }}'>Read our Story</a>
-		</div>
+		{% if page.subscriptions.all|length > 0 %}
+			{% include './subscribe_block.html' %}
 		{% endif %}
-	</div>
-</section> -->
-
-
+	</main>
 {% endblock %}

@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { Fetch, Response } from '../components/API';
 import Topic from './components/Topic';
 
-
 const TopicRoutes = ({ match, topic, ancestors }) => {
   return (
     <div>
@@ -17,7 +16,6 @@ const TopicRoutes = ({ match, topic, ancestors }) => {
     </div>
   );
 }
-
 
 class Routes extends Component {
   render() {

@@ -27,7 +27,9 @@ html, body{
 
 main {
   min-height: 70vh;
-  margin-bottom: 75px;
+  & > *:last-child:not(.no-last-child-margin){
+    margin-bottom: 75px;
+  }
 }
 
 ul {
