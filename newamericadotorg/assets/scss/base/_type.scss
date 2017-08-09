@@ -9,6 +9,8 @@ body, html{
 h1,h2,h3,h4{
   font-family: $header-font-family;
   font-weight: bold;
+  letter-spacing: 0.035em;
+
   &.narrow-margin {
     margin: 10px 0;
   }
