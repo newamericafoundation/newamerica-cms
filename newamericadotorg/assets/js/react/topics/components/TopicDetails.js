@@ -37,11 +37,11 @@ class TopicText extends Component {
       <div className="topic__details__text-wrapper col-7">
           <h1 className="topic__details__title narrow-margin">{topic.title}</h1>
           <SubTopics topic={topic} />
-          <div className={`topic__details__body ${expandedClass}`}>
+          <article className={`topic__details__body ${expandedClass}`}>
             <div ref={(div)=>{this.body=div;}}
               className="topic__details__body__wrapper"
               dangerouslySetInnerHTML={{__html: topic.body }} />
-          </div>
+          </article>
           {this.state.readMore &&
             <a onClick={this.toggleReadMore} className="button transparent">
               Read {this.state.expanded ? 'Less' : 'More'}

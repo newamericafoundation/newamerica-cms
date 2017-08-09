@@ -6,7 +6,7 @@ import Topic from './components/Topic';
 
 const TopicRoutes = ({ match, topic, ancestors }) => {
   return (
-    <div>
+    <div className="topics-wrapper">
       <Route exact path={match.url} render={(props)=>(<Topic topic={topic} ancestors={ancestors} />)} />
       <Route path={`${match.url}/:slug`} render={({ match })=>(
         <TopicRoutes match={match}
