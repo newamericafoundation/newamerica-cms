@@ -1,11 +1,10 @@
 .content-list{
-  margin-top: 50px;
   min-height: 50vh;
+  margin-top: 75px;
   position: relative;
 
   &__item{
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-bottom: 50px;
     &__details{
       label{
         max-width: 90%;

@@ -4,14 +4,14 @@
 <!-- BLOG -->
 {% image page.story_image min-1100x650 as story_image %}
 <section class="container container--wide">
-  <section class="post-heading {% if story_image and not page.publication_cover_image %}with-image{% endif %}">
+  <div class="post-heading {% if story_image and not page.publication_cover_image %}with-image{% endif %}">
     {% if page.publication_cover_image %}
       {% include './post_book_heading.html' %}
     {% elif story_image and not page.publication_cover_image %}
       <div class="post-heading__image" style="background-image: url({{story_image.url}})"></div>
     {% endif %}
     <div class="post-heading__text">
-      <h1 class="post-heading__text__heading">{{ page.title }}</h1>
+      <h1 class="post-heading__text__heading">{% firstof custom_title page.title %}</h1>
       {% if page.subheading %}
         <p class="post-heading__text__subheading subheading--h2">{{ page.subheading }}</p>
       {% endif %}
@@ -24,5 +24,5 @@
         {% endif %}
       {% endif %}
     </div>
-  </section>
+  </div>
 </section>

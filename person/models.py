@@ -248,7 +248,7 @@ class OurPeoplePage(Page):
     returns everyone from the Person model
     """
     parent_page_types = ['home.HomePage']
-    subpage_types = ['Person']
+    subpage_types = ['Person', 'BoardAndLeadershipPeoplePage']
 
     page_description = RichTextField(blank=True, null=True)
 
@@ -267,18 +267,6 @@ class OurPeoplePage(Page):
     promote_panels = Page.promote_panels + [
         ImageChooserPanel('story_image'),
     ]
-
-    def get_context(self, request):
-        context = super(OurPeoplePage, self).get_context(request)
-
-        context['people'] = Person.objects.live().filter(former=False).exclude(
-            role='External Author/Former Staff')
-
-        context['all_programs'] = Program.objects.live()
-
-        context['all_our_people_pages'] = ProgramPeoplePage.objects.live()
-
-        return context
 
     class Meta:
         verbose_name = "Homepage for All People in NAF"
@@ -312,22 +300,6 @@ class ExpertPage(Page):
         ImageChooserPanel('story_image'),
     ]
 
-    def get_context(self, request):
-        context = super(ExpertPage, self).get_context(request)
-
-        context['non_program_experts'] = Person.objects\
-            .live()\
-            .filter(belongs_to_these_programs=None)\
-            .filter(expert=True)\
-            .order_by('-title')
-
-        context['all_programs'] = Program.objects.live()
-
-        context['all_our_people_pages'] = ProgramPeoplePage.objects.live()
-
-        return context
-
-
 class ProgramPeoplePage(Page):
     """
     A page which inherits from the abstract Page model and returns
@@ -336,31 +308,17 @@ class ProgramPeoplePage(Page):
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = []
 
-    def get_context(self, request):
-        context = super(ProgramPeoplePage, self).get_context(request)
+    story_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
-        if self.depth == 4:
-            program_title = self.get_ancestors()[2]
-            program = Program.objects.get(title=program_title)
-            all_posts = Person.objects\
-                .live()\
-                .filter(belongs_to_these_programs=program, former=False)\
-                .exclude(role__icontains='External Author')\
-                .order_by('last_name', 'first_name')
-        else:
-            subprogram_title = self.get_ancestors()[3]
-            program = Subprogram.objects.get(title=subprogram_title)
-            all_posts = Person.objects\
-                .live()\
-                .filter(belongs_to_these_subprograms=program, former=False)\
-                .exclude(role__icontains='External Author')\
-                .order_by('last_name', 'first_name')
-
-        context['people'] = paginate_results(request, all_posts)
-
-        context['program'] = program
-
-        return context
+    promote_panels = Page.promote_panels + [
+        ImageChooserPanel('story_image')
+    ]
 
     class Meta:
         verbose_name = "Our People Page for Programs and Subprograms"
@@ -371,8 +329,16 @@ class BoardAndLeadershipPeoplePage(Page):
     A page which inherits from the abstract Page model and returns
     everyone from the Person model for a specific program or Subprogram
     """
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ['home.HomePage', 'OurPeoplePage']
     subpage_types = []
+
+    story_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     page_description = RichTextField(blank=True, null=True)
 
@@ -390,27 +356,9 @@ class BoardAndLeadershipPeoplePage(Page):
         FieldPanel('former_query')
     ]
 
-    def get_context(self, request):
-        context = super(BoardAndLeadershipPeoplePage, self).get_context(request)
-
-        which_role = self.role_query
-        is_former = self.former_query
-
-        all_people = Person.objects.live()\
-            .filter(former=is_former)\
-            .order_by('last_name', 'first_name')
-
-        if which_role == 'Leadership Team':
-            all_people = all_people.filter(leadership=True)
-        elif which_role == 'Board Member':
-            all_people = all_people.filter(Q(role=which_role) | Q(role='Board Chair')).order_by('role', 'last_name')
-        else:
-            all_people = all_people.filter(role=which_role)
-
-
-        context['people'] = paginate_results(request, all_people)
-
-        return context
+    promote_panels = Page.promote_panels + [
+        ImageChooserPanel('story_image')
+    ]
 
     class Meta:
         verbose_name = "Our People Page for Board of Directors, Central Staff, and Leadership Team"

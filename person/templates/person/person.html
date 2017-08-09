@@ -7,70 +7,71 @@
 {% block body_class %}template-person{% endblock %}
 
 {% block content %}
-<section class="person-heading container--wide">
-  <div class="person-heading__image">
-    {% if page.profile_image %}
-        {% image page.profile_image original as og_profile_image %}
-        {% image page.profile_image fill-200x200 as profile_image %}
-      <a class="person-heading__image__link-wrapper" href={{og_profile_image.url}}>
-        <img src="{{profile_image.url}}"></a>
-      </a>
-    {% endif %}
-  </div>
-  <div class="person-heading__text">
-    <h1 class="person-heading__text__heading narrow-margin centered">{{ page.first_name }} {{ page.last_name }}</h1>
-    {% if page.position_at_new_america %}
-        <p class= "person-heading__text__position subheading--h1 centered">{{ page.position_at_new_america }}</p>
-    {% endif %}
-  </div>
-</section>
+<main>
+  {% include 'components/breadcrumbs.html' %}
+  <section class="person-heading container--wide">
+    <div class="person-heading__image">
+      {% if page.profile_image %}
+          {% image page.profile_image original as og_profile_image %}
+          {% image page.profile_image fill-200x200 as profile_image %}
+        <a class="person-heading__image__link-wrapper" href={{og_profile_image.url}}>
+          <img src="{{profile_image.url}}"></a>
+        </a>
+      {% endif %}
+    </div>
+    <div class="person-heading__text">
+      <h1 class="person-heading__text__heading narrow-margin centered">{{ page.first_name }} {{ page.last_name }}</h1>
+      {% if page.position_at_new_america %}
+          <p class= "person-heading__text__position subheading--h1 centered">{{ page.position_at_new_america }}</p>
+      {% endif %}
+    </div>
+  </section>
 
-<section class="container--wide person-content">
-  <div class="row">
-    <aside class="person-contact col-lg-3 col-md-12">
-      <div class="person-contact__wrapper container">
-        <div class="row">
-          <div class="person-contact__email person-contact__item col-lg-12 col-md-2">
-            <a class="light" href="mailto:{{ page.email }}"><i class="fa fa-envelope-o"></i> Contact</a>
-          </div>
-          <div class="person-contact__social person-contact__item col-lg-12 col-md-10">
-          {% for block in page.social_media %}
-            <a href="{{block.value}}" title="{{block.block_type}}">
-              <i class="fa fa-{{block.block_type}} outline"></i>
-            </a>
-          {% endfor %}
+  <section class="container--wide person-content">
+    <div class="row">
+      <aside class="person-contact col-lg-3 col-md-12">
+        <div class="person-contact__wrapper container">
+          <div class="row">
+            <div class="person-contact__email person-contact__item col-lg-12 col-md-2">
+              <a class="light" href="mailto:{{ page.email }}"><i class="fa fa-envelope-o"></i> Contact</a>
+            </div>
+            <div class="person-contact__social person-contact__item col-lg-12 col-md-10">
+            {% for block in page.social_media %}
+              <a href="{{block.value}}" title="{{block.block_type}}">
+                <i class="fa fa-{{block.block_type}} outline"></i>
+              </a>
+            {% endfor %}
+            </div>
           </div>
         </div>
-      </div>
-    </aside>
-    <article class="person-body post-body col-md-9 col-lg-6">
-      {% if page.long_bio %}
-          <label class="lg">Last Updated {{ page.latest_revision_created_at }}</label>
-          {{ page.long_bio|richtext|linebreaks }}
-      {% endif %}
-    </article>
-    <article class="person-social">
-      <label class="lg">Share</label>
-      {% include 'components/social_share.html' %}
-    </article>
-  </div>
-</section>
-
-{% if featured_work.0.title %}
-<section class="container--full-width gray person-featured-work">
-  <div class="container--wide">
-    <h1 class="centered no-margin narrow-bottom-margin">Featured Publications</h1>
-    {% include 'components/featured_stories.html' with stories=featured_work %}
-  </div>
-</section>
-{% endif %}
-
-{% if posts %}
-  <section class="container--medium person-publications-list">
-    <h1 class="centered narrow-bottom-margin">All Publications</h1>
-    {% include 'components/react/content-list.html' %}
+      </aside>
+      <article class="person-body post-body col-md-9 col-lg-6">
+        {% if page.long_bio %}
+            <label class="lg">Last Updated {{ page.latest_revision_created_at }}</label>
+            {{ page.long_bio|richtext|linebreaks }}
+        {% endif %}
+      </article>
+      <article class="person-social">
+        <label class="lg">Share</label>
+        {% include 'components/social_share.html' %}
+      </article>
+    </div>
   </section>
-{% endif %}
 
+  {% if featured_work.0.title %}
+  <section class="container--full-width gray person-featured-work">
+    <div class="container--wide">
+      <h1 class="centered no-margin narrow-bottom-margin">Featured Publications</h1>
+      {% include 'components/featured_stories.html' with stories=featured_work %}
+    </div>
+  </section>
+  {% endif %}
 
+  {% if posts %}
+    <section class="container--medium person-publications-list">
+      <h1 class="centered narrow-bottom-margin">All Publications</h1>
+      {% include 'components/react/content-list.html' %}
+    </section>
+  {% endif %}
+</main>
 {% endblock %}

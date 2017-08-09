@@ -1,12 +1,17 @@
 .our-people {
+
 	&__list{
 		min-height: 50vh;
 	}
 	&__heading{
-		margin-top: 75px;
+		margin-top: -25px;
 		margin-bottom: 25px;
+		text-align: center;
 	}
 	&__filters{
+		border-bottom: $border;
+		display: inline-block;
+
 		&__link-wrapper{
 			white-space: nowrap;
 			text-align: center;
@@ -17,14 +22,13 @@
 			text-align: center;
 			a{
 				color: color(black) !important;
-				border-bottom: 2px solid color(black) !important;
-				@include transition(border-bottom $transition-function, color $transition-function);
+				border-bottom: 0px solid color(turquoise) !important;
 			}
 
 			&.selected, &:hover{
+				border-bottom: 3px solid color(turquoise) !important;
 				a{
 					color: color(turquoise) !important;
-					border-bottom: 3px solid color(turquoise) !important;
 					font-weight: bold;
 				}
 			}

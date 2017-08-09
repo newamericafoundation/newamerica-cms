@@ -1,5 +1,5 @@
 .person-heading{
-  padding: 75px 0;
+  padding-bottom: 75px;
 
   &__image{
     margin-bottom: 25px;
@@ -17,6 +17,10 @@
   &__item{
     margin-bottom: 10px;
   }
+}
+
+.person-body{
+  padding-top: 0px;
 }
 
 .person-featured-work{

@@ -7,13 +7,11 @@
 {% block body_class %}template-programhomepage{% endblock %}
 
 {% block content %}
-	<main class="program-blocks-wrapper">
+	<main>
+		{% include 'components/breadcrumbs.html' %}
 		{% include './intro_block.html' %}
-
 		{% include 'components/react/program-event-list.html' %}
-
 		{% include 'components/react/program-content-grid.html' %}
-
 		{% if page.subscriptions.all|length > 0 %}
 			{% include './subscribe_block.html' %}
 		{% endif %}

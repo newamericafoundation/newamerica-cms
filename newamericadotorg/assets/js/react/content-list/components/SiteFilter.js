@@ -37,7 +37,7 @@ class Filter extends Component {
     let program = programs.find(p =>(p.id==programId));
 
     return (
-      <section className="container--medium content-filters">
+      <section className="container--medium">
         <Heading title={contentType.title || 'Publications'} />
         <div className="content-filters">
           <Select

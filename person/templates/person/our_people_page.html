@@ -3,6 +3,8 @@
 
 {% block content %}
   <main>
+    {% include 'components/breadcrumbs.html' %}
+    {% include 'components/post_heading.html' with custom_title='Our People'%}
     {% include 'components/react/our-people.html' %}
   </main>
 {% endblock %}
