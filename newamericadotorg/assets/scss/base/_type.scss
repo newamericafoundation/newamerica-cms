@@ -9,7 +9,7 @@ body, html{
 h1,h2,h3,h4,h5,h6{
   font-family: $header-font-family;
   font-weight: bold;
-  letter-spacing: 0.035em;
+  letter-spacing: 0.015em;
 
   &.narrow-margin {
     margin: 10px 0;
@@ -43,7 +43,7 @@ h1,h2,h3,h4,h5,h6{
 h1{
   font-size: 2.68rem;
   line-height: 2.89rem;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
 }
 
 h2 {
