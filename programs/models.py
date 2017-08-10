@@ -372,7 +372,7 @@ class AbstractContentPage(Page):
 class PublicationsPage(AbstractContentPage):
     '''
     '''
-    parent_page_types = ['Program', 'Subprogram']
+    parent_page_types = ['home.HomePage', 'Program', 'Subprogram']
 
     class Meta:
         verbose_name = 'Homepage for all program publications'

@@ -91,7 +91,8 @@ class HomePage(Page):
     'in_depth.AllInDepthHomePage',
     'JobsPage',
     'RedirectPage',
-    'subscribe.SubscribePage'
+    'subscribe.SubscribePage',
+    'programs.PublicationsPage'
     ]
 
     # Up to four lead stories can be featured on the homepage.
