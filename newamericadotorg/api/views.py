@@ -156,6 +156,8 @@ class EventFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
     project_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
+    program_slug = django_filters.CharFilter(name='parent_programs__slug', lookup_expr='iexact')
+    project_slug = django_filters.CharFilter(name='post_subprogram__slug', lookup_expr='iexact')
     topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
     after = django_filters.DateFilter(name='date', lookup_expr='gte')
     before = django_filters.DateFilter(name='date', lookup_expr='lte')

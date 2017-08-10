@@ -11,8 +11,7 @@
     label {
       color: color(black);
       font-size: 0.75rem;
-      letter-spacing: 0.035em;
-      text-transform: uppercase;
+      letter-spacing: 0.06em;
       font-family: $header-font-family;
     }
 
@@ -27,8 +26,8 @@
       @include transform(rotate(45deg) translateY(-3.5px));
       border-right: 1px solid color(black);
       border-bottom: 1px solid color(black);
-      height: 6px;
-      width: 6px;
+      height: 4px;
+      width: 4px;
       margin: 0 5px 0 5px;
     }
 

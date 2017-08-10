@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const EventCarousel = ({ response }) => (
   <section className="container--full-width program-block">
   	<div className="program-block__heading">
-  		<h1 className="centered narrow-margin">Events</h1>
+  		<h1 className="centered narrow-bottom-margin">Upcoming Events</h1>
   		<p className="program-heading__subheading subheading--h1 centered">
   			Political Reform program publications help to generate new ideas, voices, and technologies.
   		</p>
@@ -18,7 +18,7 @@ const EventCarousel = ({ response }) => (
       </div>
     </section>
   	<div className="program-block__button-wrapper button-wrapper centered">
-  		<a className="button transparent" href="{{page.url}}publications/">View All Events</a>
+  		<a className="button transparent" href={`${location.pathname}events`}>View All Events</a>
   	</div>
   </section>
 
@@ -27,6 +27,12 @@ const EventCarousel = ({ response }) => (
 export class Events extends Component {
 
   render() {
+    let query = {};
+    if(this.props.contentType=='program')
+      query.program_id = this.props.programId;
+    else
+      query.project_id = this.props.programId;
+
     return(
       <Fetch
         name="program.events"
@@ -37,8 +43,9 @@ export class Events extends Component {
         renderIfNoResults={false}
         transition={true}
         initialQuery={{
-          page_size: 18,
-          program_id: this.props.programId
+          time_period: 'future',
+          page_size: 15,
+          ...query
         }}
       />
     );

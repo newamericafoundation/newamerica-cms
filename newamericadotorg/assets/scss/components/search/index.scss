@@ -80,14 +80,7 @@
         }
       }
       &__description{
-        & > .with-description {
-          &:after{
-            content: '-';
-            margin-left: 4px;
-            margin-right: 4px;
-            display: inline;
-          }
-        }
+        
         color: color(black, base, 0.65);
       }
     }

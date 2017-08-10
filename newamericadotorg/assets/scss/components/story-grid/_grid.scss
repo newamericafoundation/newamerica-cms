@@ -1,6 +1,9 @@
 .story-grid{
 	height: 100vh;
 	min-height: 500px;
+	&:last-child{
+		margin-bottom: 75px;
+	}
 	@include media-breakpoint(tablet){
 		height: 450px;
 		min-height: 0;

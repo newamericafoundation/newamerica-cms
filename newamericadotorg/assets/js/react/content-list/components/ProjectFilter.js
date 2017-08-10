@@ -38,8 +38,9 @@ class Filter extends Component {
                 options={project.content_types}
                 defaultOption={contentType.slug}
                 onChange={(option)=>{
+                  console.log(option);
                   let val = option ? option.slug : 'publications';
-                  history.push('/'+project.url+'/'+val+'/?'+this.getParams());
+                  history.push(project.url+val+'/?'+this.getParams());
                 }}
               />
             </div>}

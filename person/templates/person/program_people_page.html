@@ -2,5 +2,9 @@
 {% block body_class %}template-programpeoplepage{% endblock %}
 
 {% block content %}
-	{% include 'components/react/our-people.html' %}
+	<main>
+		{% include 'components/breadcrumbs.html' %}
+		<h1 class='centered'>Our People</h1>
+		{% include 'components/react/our-people.html' %}
+	</main>
 {% endblock %}

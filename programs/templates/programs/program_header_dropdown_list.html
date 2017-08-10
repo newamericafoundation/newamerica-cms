@@ -28,9 +28,16 @@
     </div>
 </div>
 {% endif %}
+{% if page.content_type.model == 'program' %}
 <div class="header__nav__dropdown-list__dropdown">
   <a href="{{page.url}}events/" class="header__nav__dropdown-list__dropdown__main-link no-drop">
     <label>Events</label>
+  </a>
+</div>
+{% endif %}
+<div class="header__nav__dropdown-list__dropdown">
+  <a href="#publications" class="header__nav__dropdown-list__dropdown__main-link no-drop">
+    <label>Publications</label>
   </a>
 </div>
 <!-- <div class="header__nav__dropdown-list__dropdown">

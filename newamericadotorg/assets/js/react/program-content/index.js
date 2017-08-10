@@ -5,12 +5,13 @@ import { Content } from './components';
 
 class APP extends Component {
   static propTypes = {
-    programId: PropTypes.string.isRequired
+    programId: PropTypes.string.isRequired,
+    contentType: PropTypes.string
   }
 
   render() {
     return (
-      <Content programId={this.props.programId} />
+      <Content {...this.props} />
     );
   }
 }

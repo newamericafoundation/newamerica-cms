@@ -155,7 +155,7 @@ class ProjectProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'url'
+            'id', 'name', 'url', 'slug'
         )
 
 class ProjectSerializer(ModelSerializer):
@@ -169,7 +169,7 @@ class ProjectSerializer(ModelSerializer):
     class Meta:
         model = Subprogram
         fields = (
-            'id', 'name', 'parent_programs', 'url', 'content_types',
+            'id', 'name', 'parent_programs', 'url', 'slug', 'content_types',
              'description', 'leads', 'features', 'subpages'
         )
 

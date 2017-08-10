@@ -1,0 +1,29 @@
+.inline-toggles{
+  border-bottom: $border;
+  display: inline-block;
+  white-space: nowrap;
+
+  &-wrapper{
+    text-align: center;
+  }
+
+  &__item{
+    display: inline-block;
+    padding: 0.5em 0.75em;
+    text-align: center;
+    border-bottom: 3px solid color(turquoise, base, 0) !important;
+    a{
+      cursor: pointer;
+      display: block;
+      color: color(black) !important;
+    }
+
+    &.selected, &:hover{
+      border-bottom: 3px solid color(turquoise) !important;
+      a{
+        color: color(turquoise) !important;
+        font-weight: bold;
+      }
+    }
+  }
+}

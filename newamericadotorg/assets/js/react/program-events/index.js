@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 
 class APP extends Component {
   static propTypes = {
-    programId: PropTypes.string
+    programId: PropTypes.string,
+    contentType: PropTypes.string
   }
 
   render(){
     return(
-      <Events programId={this.props.programId} />
+      <Events {...this.props} />
     );
   }
 }

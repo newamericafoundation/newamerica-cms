@@ -9,30 +9,7 @@
 		text-align: center;
 	}
 	&__filters{
-		border-bottom: $border;
-		display: inline-block;
-
-		&__link-wrapper{
-			white-space: nowrap;
-			text-align: center;
-		}
-		&__link{
-			display: inline-block;
-			padding: 0.5em 0.75em;
-			text-align: center;
-			a{
-				color: color(black) !important;
-				border-bottom: 0px solid color(turquoise) !important;
-			}
-
-			&.selected, &:hover{
-				border-bottom: 3px solid color(turquoise) !important;
-				a{
-					color: color(turquoise) !important;
-					font-weight: bold;
-				}
-			}
-		}
+		
 		&__select-wrapper{
 			text-align: center;
 			margin-top: 15px;

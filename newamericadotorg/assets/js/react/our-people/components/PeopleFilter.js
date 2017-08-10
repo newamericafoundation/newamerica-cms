@@ -15,9 +15,9 @@ let paths = [
 ];
 
 const Links = ({selected}) => (
-  <div className="our-people__filters__link-wrapper">
+  <div className="inline-toggles">
     {paths.filter((p)=>(p.title!=='')).map((p)=>(
-      <div className={"our-people__filters__link active " + (selected==p.path ? 'selected' : '') }>
+      <div className={"inline-toggles__item" + (selected==p.path ? ' selected' : '') }>
         <Link to={p.path}>{p.title}</Link>
       </div>
     ))}
@@ -75,7 +75,7 @@ class Filter extends Component {
 
     return (
       <section className="our-people__heading container--medium">
-        <div className="our-people__filters">
+        <div className="our-people__filters inline-toggles-wrapper">
           {match.path!='/:programSlug/our-people/' &&
             <Links selected={match.path} />
           }

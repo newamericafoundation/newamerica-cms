@@ -225,6 +225,7 @@ class Program(AbstractProgram):
     'Subprogram',
     'issue.TopicHomepage',
     'home.RedirectPage',
+    'PublicationsPage'
     ]
 
     desktop_program_logo = models.ForeignKey(
@@ -311,6 +312,7 @@ class Subprogram(AbstractProgram):
     'person.ProgramPeoplePage',
     'issue.IssueOrTopic',
     'home.RedirectPage',
+    'PublicationsPage'
     ]
 
     parent_programs = models.ManyToManyField(
@@ -337,7 +339,7 @@ class Subprogram(AbstractProgram):
         return 'programs/program.html'
 
     class Meta:
-        verbose_name = "Subprogram/Initiative Page"
+        verbose_name = "Project Page"
         ordering = ('title',)
 
     def save(self, *args, **kwargs):
@@ -366,3 +368,11 @@ class AbstractContentPage(Page):
     """
     class Meta:
         abstract=True
+
+class PublicationsPage(AbstractContentPage):
+    '''
+    '''
+    parent_page_types = ['Program', 'Subprogram']
+
+    class Meta:
+        verbose_name = 'Homepage for all program publications'

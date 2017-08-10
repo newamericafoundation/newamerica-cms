@@ -6,13 +6,17 @@ body, html{
   font-size: 18px;
 }
 
-h1,h2,h3,h4{
+h1,h2,h3,h4,h5,h6{
   font-family: $header-font-family;
   font-weight: bold;
   letter-spacing: 0.035em;
 
   &.narrow-margin {
     margin: 10px 0;
+  }
+
+  &.narrow-top-margin{
+    margin-top: 10px;
   }
 
   &.narrow-bottom-margin{
@@ -23,6 +27,14 @@ h1,h2,h3,h4{
     margin: 0;
   }
 
+  &.no-top-margin{
+    margin-top: 0;
+  }
+
+  &.no-bottom-margin{
+    margin-bottom: 0;
+  }
+
   &.centered{
     text-align: center;
   }
@@ -31,6 +43,7 @@ h1,h2,h3,h4{
 h1{
   font-size: 2.68rem;
   line-height: 2.89rem;
+  letter-spacing: 0.01em;
 }
 
 h2 {
@@ -46,6 +59,16 @@ h3 {
 h4 {
   font-size: 1.28rem;
   line-height: 1.39rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+  line-height: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+  line-height: 1.1rem;
 }
 
 p,
@@ -195,6 +218,15 @@ label {
 
   &.bold{
     font-weight: bold;
+  }
+
+  &.with-description {
+    &:after{
+      content: '-';
+      margin-left: 4px;
+      margin-right: 4px;
+      display: inline;
+    }
   }
 
   a {

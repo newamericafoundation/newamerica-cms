@@ -38,6 +38,12 @@ const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
 
 export class FutureEvents extends Component {
   render(){
+    let { params } = this.props;
+    let query = {};
+    if(params){
+      if(params.projectSlug) query.project_slug = params.projectSlug;
+      else if(params.programSlug) query.program_slug = params.programSlug;
+    }
     return(
       <div className="event-list">
         <h1 className="event-list__heading centered">Upcoming Events</h1>
@@ -49,7 +55,8 @@ export class FutureEvents extends Component {
           transition={true}
           initialQuery={{
             time_period: 'future',
-            page_size: 200
+            page_size: 200,
+            ...query
           }}>
           <Response component={FutureList} />
         </Fetch>
@@ -60,6 +67,12 @@ export class FutureEvents extends Component {
 
 export class PastEvents extends Component {
   render(){
+    let { params } = this.props;
+    let query = {};
+    if(params){
+      if(params.projectSlug) query.project_slug = params.projectSlug;
+      else if(params.programSlug) query.program_slug = params.programSlug;
+    }
     return(
       <div className="event-list">
         <h1 className="event-list__heading centered">Past Events</h1>
@@ -70,7 +83,8 @@ export class PastEvents extends Component {
           initialQuery={{
             time_period: 'past',
             page_size: 15,
-            page: 1
+            page: 1,
+            ...query
           }}/>
       </div>
     );
