@@ -39,6 +39,7 @@ class InfiniteLoadMore extends Component {
     ]),
     response: PropTypes.object.required,
     infiniteOnMount: PropTypes.bool,
+    promptToLoadMore: PropTypes.bool,
     onNextPage: PropTypes.func.required,
     upperBoundOffset: PropTypes.number,
     lowerBoundOffset: PropTypes.number
@@ -49,7 +50,8 @@ class InfiniteLoadMore extends Component {
     component: 'div',
     onNextPage: ()=>{},
     upperBoundOffset: -500,
-    lowerBoundOffset: 50
+    lowerBoundOffset: 50,
+    promptToLoadMore: false
   }
 
   componentWillMount() {
@@ -57,14 +59,14 @@ class InfiniteLoadMore extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    let { response } = this.props;
+    let { response, promptToLoadMore } = this.props;
     /**
       since we're subscribing to scrollPosition,
       this component gets reevaluated with each tick (/rerendered on each tick)
       this causes sluggish scrolling when the results array gets large.
       here we check the results and only rerender if we have new data.
     **/
-    if(this.isInfinite && !this.isLoadingMore)
+    if(this.isInfinite && !this.isLoadingMore && !promptToLoadMore)
       this.nextPageOnEnd();
 
     if(!response.results) return false;
@@ -98,7 +100,7 @@ class InfiniteLoadMore extends Component {
   }
 
   loadMore = () => {
-    this.isInfinite = true;
+    if(!this.props.promptToLoadMore) this.isInfinite = true;
     this.nextPage();
   }
 
@@ -132,7 +134,7 @@ class InfiniteLoadMore extends Component {
 
         {children}
 
-        {(response.hasNext && !this.isInfinite) &&
+        {(response.hasNext && !this.isInfinite && !response.isFetching) &&
           <LoadMoreButton onclick={this.loadMore}/>
 
         }{response.isFetching &&

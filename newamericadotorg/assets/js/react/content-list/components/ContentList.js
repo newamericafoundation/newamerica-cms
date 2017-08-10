@@ -30,6 +30,7 @@ class ContentList extends Component {
       <InfiniteLoadMore
         onNextPage={this.nextPage}
         response={this.props.response}
+        promptToLoadMore={true}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
         <List items={results} />
       </InfiniteLoadMore>
