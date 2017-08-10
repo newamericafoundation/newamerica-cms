@@ -27,12 +27,17 @@ const EventCarousel = ({ response }) => (
 export class Events extends Component {
 
   render() {
+    let { contentType, programId } = this.props
     let query = {};
-    if(this.props.contentType=='program')
-      query.program_id = this.props.programId;
-    else
-      query.project_id = this.props.programId;
-
+    switch(contentType){
+      case 'homepage':
+        break;
+      case 'program':
+        query.program_id = programId;
+        break;
+      case 'subprogram':
+        query.project_id = programId;
+    }
     return(
       <Fetch
         name="program.events"

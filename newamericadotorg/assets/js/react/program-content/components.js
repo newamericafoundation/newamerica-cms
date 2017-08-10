@@ -29,17 +29,17 @@ class ContentGrid extends Component {
   defaultContentType = {title: 'Publications', slug: 'publications'}
   contentType = this.defaultContentType
   render(){
-    let { response, program, setQueryParam, className } = this.props;
+    let { response, content_types, setQueryParam, className } = this.props;
     return (
       <section id="publications" className="container--full-width program-block">
       	<h1 className="centered">Recent Publications</h1>
-        {program.detail.results.content_types.length > 0 &&
+        {content_types.length > 0 &&
           <section className="content-type-filters container--medium inline-toggles-wrapper">
             <div className="inline-toggles">
               <div className={`inline-toggles__item ${response.params.query.content_type=='' ? 'selected' : ''}`}>
                 <a onClick={()=>{this.contentType=this.defaultContentType;setQueryParam('content_type', '', true);}}>All</a>
               </div>
-              {program.detail.results.content_types.map((c)=>(
+              {content_types.filter((c)=>(c.api_name!='indepthproject'&&c.api_name!='weeklyarticle')).map((c)=>(
                 <div className={`inline-toggles__item ${response.params.query.content_type==c.api_name ? 'selected' : ''}`}>
                   <a onClick={()=>{this.contentType=c;setQueryParam('content_type', c.api_name, true);}}>{c.title}</a>
                 </div>
@@ -64,23 +64,29 @@ class ContentGrid extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  program: state.program
+  content_types: !state.program.detail.hasResults ? state.contentTypes.results : state.program.detail.results.content_types
 });
 
 ContentGrid = connect(mapStateToProps)(ContentGrid);
 
 export class Content extends Component {
   render(){
+    let { contentType, programId } = this.props
     let query = {};
-    if(this.props.contentType=='program')
-      query.program_id = this.props.programId;
-    else
-      query.project_id = this.props.programId;
-
+    switch(contentType){
+      case 'homepage':
+        break;
+      case 'program':
+        query.program_id = programId;
+        break;
+      case 'subprogram':
+        query.project_id = programId;
+    }
+    
     return(
       <Fetch name="program.detail"
-        fetchOnMount={true}
-        endpoint={this.props.contentType=='program' ? `program/${this.props.programId}` : `project/${this.props.programId}`}>
+        fetchOnMount={contentType!='homepage'}
+        endpoint={contentType=='program' ? `program/${programId}` : `project/${programId}`}>
         <Fetch
           name='program.content'
           endpoint="post"

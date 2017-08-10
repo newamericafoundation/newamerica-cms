@@ -16,8 +16,7 @@ newamericadotorg_content_types = [
     { 'name': 'Press Release', 'api_name': 'pressrelease', 'slug': 'press-releases', 'title': 'Press Releases'  },
     { 'name': 'Article', 'api_name': 'article', 'slug': 'articles', 'title': 'Articles' },
     { 'name': 'Podcast', 'api_name': 'podcast', 'slug': 'podcasts', 'title': 'Podcasts' },
-    { 'name': 'Weekly Article', 'api_name': 'weeklyarticle', 'slug': 'weekly', 'title': 'Weekly Articles' },
-    { 'name': 'All Publications', 'api_name': 'publicationspage', 'slug': 'publications', 'title': 'Publications' },
+    { 'name': 'Weekly Article', 'api_name': 'weeklyarticle', 'slug': 'weekly', 'title': 'Weekly Articles' }
 ]
 
 
@@ -28,8 +27,7 @@ programpage_contenttype_map = {
     'programquotedpage': newamericadotorg_content_types[4],
     'programpressreleasespage': newamericadotorg_content_types[5],
     'programarticlespage': newamericadotorg_content_types[6],
-    'programpodcastspage': newamericadotorg_content_types[7],
-    'publicationspage': newamericadotorg_content_types[8]
+    'programpodcastspage': newamericadotorg_content_types[7]
 }
 
 def generate_image_url(image, filter_spec=None):
