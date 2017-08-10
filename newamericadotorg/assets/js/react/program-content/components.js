@@ -5,7 +5,7 @@ import { Fetch } from '../components/API';
 import { format as formatDate } from 'date-fns';
 import LoadingIcon from '../components/LoadingIcon';
 
-export const ContentGridItem = ({ item, className }) => (
+export const ContentGridItem = ({ item, className, page }) => (
   <div className={`content-grid__item ${className} ${item.story_image? 'with-image' : ''}`}>
       {item.story_image &&
         <div className="content-grid__item__image-wrapper">
@@ -13,7 +13,14 @@ export const ContentGridItem = ({ item, className }) => (
         </div>
       }
       <div className="content-grid__item__text">
-        <label className="content-grid__item__text__content-type narrow-margin active gray">{item.content_type.name}</label>
+        <label className="content-grid__item__text__content-type narrow-margin active gray">
+          {(page=='homepage' && item.programs[0]) &&
+            <a href={item.programs[0].url} className="content-grid__item__text__content-type__program">
+              {item.programs[0].name}
+            </a>
+            }
+          {item.content_type.name}
+        </label>
         <label className="content-grid__item__text__title md active">
           <a href={item.url} className="content-grid__item__link-wrapper">{item.title}</a>
         </label>
@@ -29,7 +36,7 @@ class ContentGrid extends Component {
   defaultContentType = {title: 'Publications', slug: 'publications'}
   contentType = this.defaultContentType
   render(){
-    let { response, content_types, setQueryParam, className } = this.props;
+    let { response, content_types, setQueryParam, className, page } = this.props;
     return (
       <section id="publications" className="container--full-width program-block">
       	<h1 className="centered">Recent Publications</h1>
@@ -50,7 +57,7 @@ class ContentGrid extends Component {
       	<section className={`program-content-grid container ${className}`}>
           <div className="row">
             {response.results.map((item, i) => (
-              <ContentGridItem item={item} className="col-md-3" />
+              <ContentGridItem item={item} page={page} className="col-md-3" />
             ))}
           </div>
           <div className="loading-icon-container"><LoadingIcon /></div>
@@ -82,7 +89,7 @@ export class Content extends Component {
       case 'subprogram':
         query.project_id = programId;
     }
-    
+
     return(
       <Fetch name="program.detail"
         fetchOnMount={contentType!='homepage'}
@@ -101,6 +108,7 @@ export class Content extends Component {
             image_rendition: IMAGE_RENDITION,
             ...query
           }}
+          page={contentType}
           programId={this.props.programId}
         />
       </Fetch>
