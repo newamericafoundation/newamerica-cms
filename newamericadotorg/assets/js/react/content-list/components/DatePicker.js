@@ -1,5 +1,4 @@
-import DateRangePicker from 'DateRangePicker';
-import toMomentObject from 'toMomentObject';
+import { DateRangePicker, toMomentObject } from 'react-dates';
 import { Component } from 'react';
 
 class Picker extends Component {
