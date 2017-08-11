@@ -29,8 +29,10 @@
   "homepage": "https://github.com/newamericafoundation/newamerica-cms#readme",
   "dependencies": {
     "date-fns": "^1.28.5",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.3.2",
+    "react-addons-shallow-compare": "^15.6.0",
     "react-dates": "^12.4.0",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
