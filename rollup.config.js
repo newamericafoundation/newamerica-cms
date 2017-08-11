@@ -55,12 +55,15 @@ export default {
     resolve(),
     // shim for dependencies that are not written with es6-style exports
     commonjs({
-      include: 'node_modules/**',
+      include: [
+        'node_modules/**',
+        'node_modules/react-dates/src/components',
+        'node_modules/react-dates/src/utils'
+      ],
       namedExports: {
         'node_modules/react/react.js': ['Children', 'Component', 'createElement'],
         'node_modules/react-dom/index.js': ['render'],
-        'node_modules/date-fns/index.js': ['format'],
-        'node_modules/react-dates/index.js': ['DateRangePicker', 'toMomentObject']
+        'node_modules/date-fns/index.js': ['format']
       }
     }),
     babel({ exclude: 'node_modules/**' }),
