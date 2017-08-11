@@ -3,35 +3,44 @@ import { Component } from 'react';
 import Heading from './Heading';
 import { Fetch } from '../../components/API';
 import Select from '../../components/Select';
+import DatePicker from './DatePicker';
 
 class Filter extends Component {
     componentWillReceiveProps(nextProps){
-      let { setQuery, contentType, projectId } = this.props;
+      let { setQuery, contentType, projectId, before, after } = this.props;
 
       if(
         nextProps.contentType.api_name !== contentType.api_name ||
-        nextProps.projectId != projectId
+        nextProps.projectId != projectId ||
+        nextProps.before != before ||
+        nextProps.after != after
       ){
         setQuery({
           content_type: nextProps.contentType.api_name,
           project_id: nextProps.projectId || '',
+          before: nextProps.before || '',
+          after: nextProps.after || '',
           page: 1
         }, true);
       }
     }
 
     getParams = () => {
-      let { projectId } = this.props;
+      let { projectId, before, after } = this.props;
       let params = new URLSearchParams();
 
       if( projectId )
-        params.append('project_id', projectId);
+        params.set('project_id', projectId);
+      if(before)
+        params.set('before', before);
+      if(after)
+        params.set('after', after);
 
-      return params.toString();
+      return params;
     }
 
     render(){
-      let { program, projectId, match, contentType, history } = this.props;
+      let { program, projectId, match, contentType, history, before, after } = this.props;
       let project = program.projects.find(p => p.id==projectId);
 
       return (
@@ -47,7 +56,7 @@ class Filter extends Component {
               labelAccessor="title"
               onChange={(option)=>{
                 let val = option ? option.slug : 'publications';
-                history.push('/'+program.slug+'/'+val+'/?'+this.getParams());
+                history.push('/'+program.slug+'/'+val+'/?'+this.getParams().toString());
               }}/>
             {program.projects.length > 0 &&
               <Select
@@ -58,9 +67,22 @@ class Filter extends Component {
               valueAccessor="id"
               labelAccessor="title"
               onChange={(option)=>{
-                let val = option ? '?project_id='+option.id : '';
-                history.push(match.path+val);
+                let params = this.getParams();
+                let val = option ? params.set('project_id', option.id) : params.delete('project_id');
+                history.push(match.url+'?'+params.toString());
               }}/>}
+              <DatePicker
+                startDate={after}
+                endDate={before}
+                onDatesChange={({startDate, endDate})=>{
+                  let params = this.getParams();
+                  if(startDate) params.set('after', startDate);
+                  else params.delete('after');
+                  if(endDate) params.set('before', endDate);
+                  else params.delete('before');
+                  history.push(match.url+'?'+params.toString());
+                }}
+              />
           </div>
         </div>
       )
@@ -78,6 +100,8 @@ export default (props) => (
       program_id: props.programId,
       content_type: props.contentType.api_name,
       project_id: props.projectId || '',
+      before: props.before || '',
+      after: props.after || '',
       page_size: PAGE_SIZE,
       page: 1
     }} />

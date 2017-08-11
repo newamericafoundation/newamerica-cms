@@ -229,7 +229,7 @@ label {
     }
   }
 
-  a {
+  & > a {
     font-weight: inherit !important;
     color: inherit !important;
     &:hover{

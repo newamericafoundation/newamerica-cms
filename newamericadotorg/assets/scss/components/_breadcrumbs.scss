@@ -6,7 +6,7 @@
   margin-bottom: 35px;
 
   a {
-    color: color(gray);
+    color: color(gray, dark);
     font-weight: normal;
     &:hover {
       text-decoration: none;
@@ -36,8 +36,15 @@
     }
 
     &.active, &:last-child{
-      font-weight: bold;
-      color: color(black);
+      a{
+        font-weight: bold;
+        color: color(black);
+
+        &:hover{
+          color: color(turquoise);
+        }
+
+      }
     }
   }
 }

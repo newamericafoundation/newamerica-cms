@@ -20,6 +20,8 @@ export const IndexContentTypeRoute = ({contentType, ...rest}) => (
   <Route {...rest} render={(props)=>(
     <SiteFilter {...rest} {...props}
       programId={new URLSearchParams(props.location.search).get('program_id')}
+      before={new URLSearchParams(props.location.search).get('before')}
+      after={new URLSearchParams(props.location.search).get('after')}
       contentType={contentType} />
   )}/>
 );
@@ -41,6 +43,8 @@ export const ProgramContentTypeRoute = ({contentType, program, ...rest}) => (
   <Route {...rest} render={(props)=>(
       <ProgramFilter {...props}
         projectId={new URLSearchParams(props.location.search).get('project_id')}
+        before={new URLSearchParams(props.location.search).get('before')}
+        after={new URLSearchParams(props.location.search).get('after')}
         programId={program.id}
         program={program}
         contentType={contentType} />

@@ -10,7 +10,7 @@ class ProgramIndex extends Component {
     let { programId, program, match } = this.props;
 
     return (
-      <section className="container--medium content-filters">
+      <section className="content-filters">
           <Fetch name='program' endpoint={`program/${programId}`}
             fetchOnMount={true} />
           {program && <ProgramRoutes program={program}/> }

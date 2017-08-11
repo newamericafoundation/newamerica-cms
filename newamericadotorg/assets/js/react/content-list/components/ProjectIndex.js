@@ -10,7 +10,7 @@ class ProjectIndex extends Component {
     let { projectId, project } = this.props;
 
     return (
-      <section className="container--medium content-filters">
+      <section className="content-filters">
           <Fetch name='project' endpoint={`project/${projectId}`}
             fetchOnMount={true} />
           {project && <ProjectRoutes project={project}/>}

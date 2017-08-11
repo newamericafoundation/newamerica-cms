@@ -59,7 +59,8 @@ export default {
       namedExports: {
         'node_modules/react/react.js': ['Children', 'Component', 'createElement'],
         'node_modules/react-dom/index.js': ['render'],
-        'node_modules/date-fns/index.js': ['format']
+        'node_modules/date-fns/index.js': ['format'],
+        'node_modules/react-dates/index.js': ['DateRangePicker', 'toMomentObject']
       }
     }),
     babel({ exclude: 'node_modules/**' }),
