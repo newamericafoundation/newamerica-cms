@@ -6,7 +6,7 @@ import Topic from './components/Topic';
 
 const TopicRoutes = ({ match, topic, ancestors }) => {
   return (
-    <div className="topics-wrapper">
+    <div>
       <Route exact path={match.url} render={(props)=>(<Topic topic={topic} ancestors={ancestors} />)} />
       <Route path={`${match.url}/:slug`} render={({ match })=>(
         <TopicRoutes match={match}
@@ -38,6 +38,7 @@ class APP extends Component {
     let { parentTopicId } = this.props;
     return (
       <Fetch name={NAME + '.topics'}
+        showLoading={true}
         endpoint={`topic/${parentTopicId}`}
         component={Routes}
         fetchOnMount={true} />

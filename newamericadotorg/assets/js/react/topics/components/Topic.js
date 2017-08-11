@@ -10,11 +10,11 @@ class Topic extends Component {
 render(){
     let { topic, ancestors } = this.props;
     return (
-      <main>
+      <div>
         <Breadcrumbs topic={topic} ancestors={ancestors} />
         <TopicDetails topic={topic}/>
         <TopicContent topic={topic} />
-      </main>
+      </div>
     );
   }
 }

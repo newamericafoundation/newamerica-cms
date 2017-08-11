@@ -1,4 +1,10 @@
+.topics-wrapper{
+    min-height: 100vh;
+    display: block;
+    margin-bottom: 75px;
+  }
 .topic{
+
   &__details{
     border-bottom: 1px solid color(black, base, 0.15);
 
@@ -25,6 +31,8 @@
 
   &__content{
     margin-top: 50px;
-    min-height: 25vh;
+    .compose__fetch-response{
+      min-height: 150px;
+    }
   }
 }
