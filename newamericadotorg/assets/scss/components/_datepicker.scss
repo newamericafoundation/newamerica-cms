@@ -4,6 +4,10 @@
   padding: 15px 0 55px;
 }
 
+.DateRangePicker__picker{
+  z-index: 5;
+}
+
 .DateRangePickerInput {
   border-radius: $border-radius;
   border: 1px solid #dededf;

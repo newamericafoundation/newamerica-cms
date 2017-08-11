@@ -1,6 +1,10 @@
 .event-lists{
   padding-bottom: 75px;
-  
+
+  .content-filters{
+    margin-bottom: 25px;
+  }
+
   &__show-past-button-wrapper{
     text-align: center;
     margin: 15px 0;

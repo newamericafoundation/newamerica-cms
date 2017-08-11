@@ -37,11 +37,11 @@
 
     &.active, &:last-child{
       a{
-        font-weight: bold;
-        color: color(black);
+        font-weight: bold !important;
+        color: color(black) !important;
 
         &:hover{
-          color: color(turquoise);
+          color: color(turquoise) !important;
         }
 
       }

@@ -1,6 +1,9 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
 import { Fetch, Response } from '../../components/API'
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
+import DatePicker from '../../components/DatePicker';
+import Select from '../../components/Select';
 import EventListItem from './EventListItem';
 
 export const List = ({ items, cols, children }) => (
@@ -20,7 +23,7 @@ const FutureList = ({ response }) => (
   </List>
 );
 
-const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
+let PastList = ({ response, fetchAndAppend, setQueryParam, setQuery, className, programs, isSiteWide }) => (
   <InfiniteLoadMore
     className={'event-lists__past-events ' + className }
     response={response}
@@ -31,10 +34,35 @@ const PastList = ({ response, fetchAndAppend, setQueryParam, className }) => (
       setQueryParam('page', response.page+1);
       return fetchAndAppend;
     }}>
-
+      <div className="content-filters">
+        {isSiteWide &&<Select
+          options={programs}
+          className="content-filters__filter program wide"
+          name="Program"
+          valueAccessor='id'
+          labelAccessor='title'
+          onChange={(option)=>{
+            if(option) setQueryParam('program_id', option.id, true);
+            else setQueryParam('program_id', '', true);
+        }}/>}
+        <DatePicker
+          onDatesChange={({startDate, endDate})=>{
+            setQuery({
+              after: startDate || '',
+              before: endDate || ''
+            }, true);
+          }}
+        />
+      </div>
     <List items={response.results} cols='col-4 col-md-3 col-lg-5ths'/>
   </InfiniteLoadMore>
-)
+);
+
+const mapStateToProps = (state) => ({
+  programs: state.programData.results
+});
+
+PastList = connect(mapStateToProps)(PastList);
 
 export class FutureEvents extends Component {
   render(){
@@ -80,6 +108,7 @@ export class PastEvents extends Component {
           component={PastList}
           fetchOnMount={true}
           endpoint="event"
+          isSiteWide={!params}
           initialQuery={{
             time_period: 'past',
             page_size: 15,

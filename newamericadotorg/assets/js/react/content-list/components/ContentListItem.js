@@ -8,7 +8,7 @@ const Details = ({ post: { date, programs, content_type } }) => (
       {formatDate(date, 'MMMM D, YYYY')}
     </label>
     {programs &&
-      <label className="content-list__item__details__program-content bold">
+      <label className="content-list__item__details__program-content">
         {programs.map((p,i)=>(
           <span key={`program-${i}`}>
             <a href={p.url}>{p.name}</a>
