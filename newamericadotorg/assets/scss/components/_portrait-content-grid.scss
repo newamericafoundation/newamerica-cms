@@ -50,7 +50,7 @@
         //font-size:0.7rem;
         line-height: 1.15em;
         width: 100%;
-        color: color(white) !important;
+
         position: absolute;
         bottom: 0;
         padding: 10px;
@@ -58,6 +58,12 @@
         //@include linear-gradient-vertical(color(black,base,1),color(black,base,0));
         background: color(turquoise, dark, 0.8);
         //background-blend-mode: luminosity;
+        a {
+          color: color(white);
+          &:hover{
+            color: color(turquoise);
+          }
+        }
       }
     }
 
