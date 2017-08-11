@@ -14,6 +14,8 @@ export default {
   dest: 'newamericadotorg/static/js/newamericadotorg.min.js',
   format: 'iife',
   moduleName: 'newamericadotorg',
+  external: ['react-dates'],
+  globals: { 'react-dates': 'reactDates' },
   // fetch polyfill should happen in window context
   moduleContext: { 'node_modules/whatwg-fetch/fetch.js': 'window' },
   onwarn: function(warn){
@@ -61,15 +63,14 @@ export default {
       namedExports: {
         'node_modules/react/react.js': ['Children', 'Component', 'createElement'],
         'node_modules/react-dom/index.js': ['render'],
-        'node_modules/date-fns/index.js': ['format'],
-        'node_modules/react-dates/index.js': ['DateRangePicker', 'toMomentObject']
+        'node_modules/date-fns/index.js': ['format']
       }
     }),
     babel({ exclude: 'node_modules/**' }),
     replace({
       'process.env.NODE_ENV': '\'' + process.env.NODE_ENV + '\''
-    })
-  //  uglify()
+    }),
+    uglify()
   ]
 };
 
