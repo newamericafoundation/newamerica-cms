@@ -33,10 +33,6 @@ class InfiniteLoadMore extends Component {
   isLoadingMore = false;
 
   static propTypes = {
-    component: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string
-    ]),
     response: PropTypes.object.required,
     infiniteOnMount: PropTypes.bool,
     promptToLoadMore: PropTypes.bool,
@@ -47,7 +43,6 @@ class InfiniteLoadMore extends Component {
 
   static defaultProps = {
     infiniteOnMount: false,
-    component: 'div',
     onNextPage: ()=>{},
     upperBoundOffset: -500,
     lowerBoundOffset: 50,
@@ -124,7 +119,7 @@ class InfiniteLoadMore extends Component {
     let classes = `${this.isInfinite ? ' is-infinite' : ''}${this.isLoadingMore ? ' is-loading-more' : '' } ${response.isFetching ? ' is-fetching' : ''}`;
 
     return (
-      <this.props.component
+      <span
         ref={(el) => { this.el = el; }}
         className={'compose__infinite-load-more' + classes + ' ' + (className||'')}>
         {(response.results.length===0 && !response.isFetching && response.hasResults) &&
@@ -136,7 +131,7 @@ class InfiniteLoadMore extends Component {
         }{response.isFetching &&
           <LoadingIconWrapper />
         }
-      </this.props.component>
+      </span>
     );
   }
 }

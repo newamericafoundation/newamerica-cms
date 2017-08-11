@@ -48,5 +48,5 @@ const mapStateToProps = (state) => ({
 ContentList = connect(mapStateToProps)(ContentList)
 
 export default () => (
-  <Response name={NAME} component={ContentList} />
+  <Response name={NAME} showLoading={true} transition={true} component={ContentList} />
 )

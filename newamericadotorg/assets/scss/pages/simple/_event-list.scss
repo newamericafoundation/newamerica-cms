@@ -5,14 +5,11 @@
     text-align: center;
     margin: 15px 0;
   }
-
-  &__past-events, &__upcoming-events{
-    min-height: 50vh;
-  }
 }
 
 .event-list{
-  min-height: 50px;
+  min-height: 150px;
+  margin-bottom: 75px;
 
   &__results{
     margin-top: 50px;

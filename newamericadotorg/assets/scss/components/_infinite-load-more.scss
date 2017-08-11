@@ -8,19 +8,21 @@
     @include transition(opacity 0.3s ease-in-out);
   }
 
+  .compose__infinite-load-more__loading-icon-wrapper{
+    display: none;
+  }
 
-  &.is-fetching:not(.is-loading-more){
+
+  &.is-fetching.is-loading-more{
       > * {
-        z-index: 0;
-        opacity: 0.15;
+        opacity: 1;
       }
 
     .compose__infinite-load-more__loading-icon-wrapper{
         opacity: 1;
         z-index: 3;
-        position: absolute;
+        display: block;
         width: 100%;
-        top: 50px;
       }
   }
 

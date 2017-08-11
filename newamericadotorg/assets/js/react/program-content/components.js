@@ -109,8 +109,7 @@ export class Content extends Component {
             ...query
           }}
           page={contentType}
-          programId={this.props.programId}
-        />
+          programId={this.props.programId}/>
       </Fetch>
     );
   }

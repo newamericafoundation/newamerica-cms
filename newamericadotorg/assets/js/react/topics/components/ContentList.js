@@ -5,7 +5,7 @@ import { NAME } from '../constants';
 const ContentList = ({ response: { results }}) => {
   if(results.length===0) return null;
   return (
-    <div className="topic__content__list container--medium content-list">
+    <div className="topic__content__list container--medium content-list__results">
       {results.map((c,i)=>(
         <ContentListItem post={c} />
       ))}
@@ -15,5 +15,5 @@ const ContentList = ({ response: { results }}) => {
 
 
 export default () => (
-  <Response name={NAME+'.content'} component={ContentList} />
+  <Response name={NAME+'.content'} showLoading={true} transition={true} component={ContentList} />
 );

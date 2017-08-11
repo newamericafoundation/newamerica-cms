@@ -12,12 +12,12 @@ class Filter extends Component {
     let { content_types, response: { results } } = this.props;
     if(results.length===0 && !this.hasChanged) return null;
     return (
-      <section className="container--medium content-filters">
-        <h2 className="centered">Related Content</h2>
-        <div className="content-filters">
+      <section className="container--medium">
+        <h2 className="centered narrow-bottom-margin">Related Content</h2>
+        <div className="content-list__filters">
           <Select
             name="Publication Type"
-            className="content-filters__filter publication-type"
+            className="content-list__filters__filter publication-type"
             options={content_types}
             valueAccessor="api_name"
             labelAccessor="title"

@@ -24,14 +24,27 @@ class Response extends Component {
   }
 
   render(){
-    let { children, className, transition, showLoading, component, fetchOnMount, renderIfNoResults } = this.props;
+    let { children, className, transition, showLoading, component, fetchOnMount, renderIfNoResults} = this.props;
     let { isFetching, results, hasResults } = this.props.response;
-    if(!hasResults && fetchOnMount) return null;
+
+    if(!hasResults && fetchOnMount){
+      if(showLoading) return (<div className="loading-icon-container"><LoadingIcon /></div>);
+      return null;
+    }
     if(hasResults && results.length===0 && !renderIfNoResults) return null;
+
+    let classes = 'compose__fetch-response' + (transition ? ' fetch-transition ' : '') + (className ? ' ' + className : '') + (isFetching ? ' is-fetching': '');
+
+    if(!showLoading){
+      return (<this.props.component {...this.props}/>);
+    }
+
     return (
-      <this.props.component {...this.props}
-        className={'compose__response-component ' + (transition ? ' fetch-transition ' : '') +  (className||'') + (isFetching? ' is-fetching': '')}>
-      </this.props.component>
+      <span className={`${classes}`}>
+        <this.props.component {...this.props} />
+        {children}
+        {isFetching && <div className="loading-icon-container"><LoadingIcon /></div>}
+      </span>
     );
   }
 }

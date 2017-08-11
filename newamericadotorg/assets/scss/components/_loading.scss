@@ -8,7 +8,7 @@ $loading-animation-delay: 0.15s;
   position: relative;
   display: block;
 
-  > * {
+  & > *{
     @include transition(opacity .3s ease-in-out);
     opacity: 1;
   }
@@ -16,20 +16,20 @@ $loading-animation-delay: 0.15s;
   & .loading-icon-container{
     display: none;
     position: absolute;
+    z-index: 4;
     @include horizontal-center;
-    top: 0;
+    top: 75px;
+  }
+}
+
+.fetch-transition.is-fetching{
+   > *:not(.is-loading-more) {
+    opacity: 0.15;
   }
 
-  &.is-fetching{
-    > * {
-      opacity: 0.15;
-    }
-
-    & .loading-icon-container{
-      display: block;
-      opacity: 1;
-    }
-
+  & .loading-icon-container{
+    display: block;
+    opacity: 1;
   }
 }
 

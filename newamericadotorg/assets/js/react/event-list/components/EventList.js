@@ -23,28 +23,36 @@ const FutureList = ({ response }) => (
   </List>
 );
 
-let PastList = ({ response, fetchAndAppend, setQueryParam, setQuery, className, programs, isSiteWide }) => (
-  <span>
-    <div className={`content-list__filters`}>
-      {isSiteWide &&<Select
-        options={programs}
-        className="content-list__filters__filter program wide"
-        name="Program"
-        valueAccessor='id'
-        labelAccessor='title'
-        onChange={(option)=>{
-          if(option) setQuery({program_id: option.id, page: 1}, true);
-          else setQuery({program_id: '', page: 1}, true);
-      }}/>}
-      <DatePicker
-        onDatesChange={({startDate, endDate})=>{
-          setQuery({
-            after: startDate || '',
-            before: endDate || '',
-            page: 1
-          }, true);
-        }}/>
-    </div>
+let PastFilters = ({programs, setQuery, isSiteWide}) => (
+  <div className={`content-list__filters`}>
+    {isSiteWide &&<Select
+      options={programs}
+      className="content-list__filters__filter program wide"
+      name="Program"
+      valueAccessor='id'
+      labelAccessor='title'
+      onChange={(option)=>{
+        if(option) setQuery({program_id: option.id, page: 1}, true);
+        else setQuery({program_id: '', page: 1}, true);
+    }}/>}
+    <DatePicker
+      onDatesChange={({startDate, endDate})=>{
+        setQuery({
+          after: startDate || '',
+          before: endDate || '',
+          page: 1
+        }, true);
+      }}/>
+  </div>
+);
+
+const mapStateToProps = (state) => ({
+  programs: state.programData.results
+});
+
+PastFilters = connect(mapStateToProps)(PastFilters);
+
+const PastList = ({ response, fetchAndAppend, setQueryParam, className, programs}) => (
     <InfiniteLoadMore
       response={response}
       promptToLoadMore={true}
@@ -56,14 +64,7 @@ let PastList = ({ response, fetchAndAppend, setQueryParam, setQuery, className, 
       }}>
       <List items={response.results} cols='col-4 col-md-3 col-lg-5ths'/>
     </InfiniteLoadMore>
-  </span>
 );
-
-const mapStateToProps = (state) => ({
-  programs: state.programData.results
-});
-
-PastList = connect(mapStateToProps)(PastList);
 
 export class FutureEvents extends Component {
   render(){
@@ -105,18 +106,17 @@ export class PastEvents extends Component {
       <div className="event-list">
         <h1 className="event-list__heading centered narrow-bottom-margin">Past Events</h1>
         <Fetch name="eventList.past"
-          component={PastList}
-          fetchOnMount={true}
-          showLoading={true}
-          transition={true}
-          endpoint="event"
           isSiteWide={!params}
+          component={PastFilters}
+          fetchOnMount={true}
+          endpoint={'event'}
           initialQuery={{
             time_period: 'past',
             page_size: 15,
             page: 1,
             ...query
           }}/>
+        <Response name="eventList.past" showLoading={true} transition={true} component={PastList} />
       </div>
     );
   }

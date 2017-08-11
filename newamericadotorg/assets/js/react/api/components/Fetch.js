@@ -41,15 +41,17 @@ class Fetch extends Component {
     }
 
     if(hasResults && results.length===0 && !renderIfNoResults) return null;
+    let classes = 'compose__fetch-component' + (transition ? ' fetch-transition ' : '') + (className ? ' ' + className : '') + (isFetching ? ' is-fetching': '');
 
-    if(!children && !this.props.component=='span') return null;
+    if(!showLoading){
+      return (<this.props.component {...this.props} />);
+    }
 
     return (
-      <this.props.component {...this.props}
-        className={'compose__fetch-component' + (transition ? ' fetch-transition ' : '') + (className||'') + (isFetching? ' is-fetching': '')}>
-        {(isFetching&&showLoading) && <div className="loading-icon-container"><LoadingIcon /></div>}
-        {children || (component.props ? component.props.children : '')}
-      </this.props.component>
+      <span className={`${classes}`}>
+        <this.props.component {...this.props}/>
+        {isFetching && <div className="loading-icon-container"><LoadingIcon /></div>}
+      </span>
     );
   }
 }

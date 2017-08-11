@@ -44,5 +44,5 @@ class PeopleList extends Component {
 }
 
 export default () => (
-  <Response name={NAME} component={PeopleList} />
+  <Response name={NAME} showLoading={true} transition={true} component={PeopleList} />
 )
