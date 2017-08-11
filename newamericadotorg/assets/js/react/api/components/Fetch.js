@@ -8,6 +8,7 @@ import LoadingIcon from '../../components/LoadingIcon';
 import { mapDispatchToProps, mapStateToProps } from './props';
 
 class Fetch extends Component {
+  hasLoaded = false;
   componentWillMount(){
     let {
       setParams, receiveResults, endpoint,
@@ -40,7 +41,9 @@ class Fetch extends Component {
       return null;
     }
 
-    if(hasResults && results.length===0 && !renderIfNoResults) return null;
+    if(hasResults && results.length===0 && !renderIfNoResults && !this.hasLoaded) return null;
+    this.hasLoaded = true;
+    
     let classes = 'compose__fetch-component' + (transition ? ' fetch-transition ' : '') + (className ? ' ' + className : '') + (isFetching ? ' is-fetching': '');
 
     if(!showLoading){

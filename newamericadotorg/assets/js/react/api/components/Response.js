@@ -23,6 +23,8 @@ class Response extends Component {
     renderIfNoResults: true
   }
 
+  hasLoaded = false;
+
   render(){
     let { children, className, transition, showLoading, component, fetchOnMount, renderIfNoResults} = this.props;
     let { isFetching, results, hasResults } = this.props.response;
@@ -31,7 +33,8 @@ class Response extends Component {
       if(showLoading) return (<div className="loading-icon-container"><LoadingIcon /></div>);
       return null;
     }
-    if(hasResults && results.length===0 && !renderIfNoResults) return null;
+    if(hasResults && results.length===0 && !renderIfNoResults && !this.hasLoaded) return null;
+    this.hasLoaded = true;
 
     let classes = 'compose__fetch-response' + (transition ? ' fetch-transition ' : '') + (className ? ' ' + className : '') + (isFetching ? ' is-fetching': '');
 
