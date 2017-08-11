@@ -10,10 +10,12 @@
     {% elif story_image and not page.publication_cover_image %}
       <div class="post-heading__image" style="background-image: url({{story_image.url}})"></div>
     {% endif %}
-    <div class="post-heading__text">
-      <h1 class="post-heading__text__heading">{% firstof custom_title page.title %}</h1>
+    <div class="post-heading__text container--wide">
+      <h1 class="post-heading__text__heading centered {% if story_image and not page.publication_cover_image %}narrow-margin{% endif %}">
+        {% firstof custom_title page.title %}
+      </h1>
       {% if page.subheading %}
-        <p class="post-heading__text__subheading subheading--h2">{{ page.subheading }}</p>
+        <p class="post-heading__text__subheading subheading--h2 centered">{{ page.subheading }}</p>
       {% endif %}
       {% if page.source_url %}
         <a class="post-heading__text__button button" href='{{ page.source_url }}'>Read Original Article</a>

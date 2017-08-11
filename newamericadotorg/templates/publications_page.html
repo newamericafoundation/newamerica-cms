@@ -9,8 +9,6 @@
 {% block content %}
 	<main>
 		{% include 'components/breadcrumbs.html' %}
-		<section class="container {% block container_class %}container--medium{% endblock %}">
-			{% include 'components/react/content-list.html' %}
-		</section>
+		{% include 'components/react/content-list.html' %}
 	</main>
 {% endblock %}

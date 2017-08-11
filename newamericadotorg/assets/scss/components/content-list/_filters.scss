@@ -1,8 +1,12 @@
-.content-filters{
-  margin-top: 25px;
-  text-wrap: none;
+.content-list__filters{
+  margin: 25px 0;
+  text-align: center;
 
-  &__filter{
+  & > * {
+    text-align: left;
+  }
+
+  & > *:not(:last-child), &__filter:not(:last-child) {
     margin-right: 15px;
   }
 }

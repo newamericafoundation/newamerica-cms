@@ -27,12 +27,12 @@ class Filter extends Component {
       let { project, projectId, contentType, history } = this.props;
 
       return (
-        <div className="content-filters__filters-wrapper">
+        <div className="content-list__heading-filter-wrapper">
           <Heading title={contentType.title || 'Publications'} />
-          {project.content_types.length > 1 && <div className="content-filters">
+          {project.content_types.length > 1 && <div className="content-list__filters">
               <Select
                 name="Publication Type"
-                className="content-filters__filter publication-type"
+                className="content-list__filters__filter publication-type"
                 valueAccessor="slug"
                 labelAccessor="title"
                 options={project.content_types}

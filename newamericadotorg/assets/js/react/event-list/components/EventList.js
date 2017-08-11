@@ -7,7 +7,7 @@ import Select from '../../components/Select';
 import EventListItem from './EventListItem';
 
 export const List = ({ items, cols, children }) => (
-  <div className="content-portrait-grid event-list row gutter-15">
+  <div className="content-portrait-grid event-list__results row gutter-15">
     {items.map((r,i)=>(
       <EventListItem item={r} cols={cols} />
     ))}
@@ -25,10 +25,10 @@ const FutureList = ({ response }) => (
 
 let PastList = ({ response, fetchAndAppend, setQueryParam, setQuery, className, programs, isSiteWide }) => (
   <span>
-    <div className={`content-filters`}>
+    <div className={`content-list__filters`}>
       {isSiteWide &&<Select
         options={programs}
-        className="content-filters__filter program wide"
+        className="content-list__filters__filter program wide"
         name="Program"
         valueAccessor='id'
         labelAccessor='title'
@@ -46,7 +46,6 @@ let PastList = ({ response, fetchAndAppend, setQueryParam, setQuery, className, 
         }}/>
     </div>
     <InfiniteLoadMore
-      className={`event-lists__past-events`}
       response={response}
       promptToLoadMore={true}
       upperBoundOffset={-(document.documentElement.clientHeight*1.5)}
@@ -76,7 +75,7 @@ export class FutureEvents extends Component {
     }
     return(
       <div className="event-list">
-        <h1 className="event-list__heading centered">Upcoming Events</h1>
+        <h1 className="event-list__heading centered narrow-bottom-margin">Upcoming Events</h1>
         <Fetch name="eventList.upcoming"
           className="event-lists__upcoming-events"
           component={FutureList}
@@ -104,7 +103,7 @@ export class PastEvents extends Component {
     }
     return(
       <div className="event-list">
-        <h1 className="event-list__heading centered">Past Events</h1>
+        <h1 className="event-list__heading centered narrow-bottom-margin">Past Events</h1>
         <Fetch name="eventList.past"
           component={PastList}
           fetchOnMount={true}

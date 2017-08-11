@@ -16,7 +16,7 @@ class App extends Component {
     let { contentTypes, programs } = this.props;
     return (
       <BrowserRouter>
-        <section className="content-list-wrapper container">
+        <section className="content-list">
           <IndexRoutes contentTypes={contentTypes} programs={programs} />
           <ContentList />
         </section>

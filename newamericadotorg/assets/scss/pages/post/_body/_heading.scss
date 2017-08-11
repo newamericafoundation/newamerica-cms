@@ -3,6 +3,10 @@
   margin-bottom: 75px;
   width: 100%;
 
+  &:not(.with-image){
+    margin-top: 75px;
+  }
+
   &__image{
     background-size: cover;
     background-position-y: 20%;
@@ -15,16 +19,9 @@
   }
 
   &__text{
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-    &__heading{
-      margin-bottom: 10px;
-      margin-top: 10px
-    }
     &__button{
       display: inline-block;
-      margin-top: 10px;
+      margin-top: 25px;
     }
   }
 

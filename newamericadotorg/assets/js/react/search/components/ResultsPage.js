@@ -27,6 +27,7 @@ export default class ResultsPage extends Component {
     return(
       <InfiniteLoadMore
         onNextPage={this.nextPage}
+        promptToLoadMore={true}
         response={this.props.response}
         upperBoundOffset={-(document.documentElement.clientHeight*2.5)}>
         <div className="search__results-page content-list container--wide">

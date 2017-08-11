@@ -121,12 +121,12 @@ class InfiniteLoadMore extends Component {
 
   render(){
     let { children, className, response } = this.props;
-    let classes = `${this.isInfinite ? 'is-infinite' : ''} ${this.isLoadingMore ? 'is-loading-more' : '' } ${response.isFetching ? 'is-fetching' : ''}`;
+    let classes = `${this.isInfinite ? ' is-infinite' : ''}${this.isLoadingMore ? ' is-loading-more' : '' } ${response.isFetching ? ' is-fetching' : ''}`;
 
     return (
       <this.props.component
         ref={(el) => { this.el = el; }}
-        className={'compose__infinite-load-more ' + classes + ' ' + (className||'')}>
+        className={'compose__infinite-load-more' + classes + ' ' + (className||'')}>
         {(response.results.length===0 && !response.isFetching && response.hasResults) &&
           <NoResults />
         }

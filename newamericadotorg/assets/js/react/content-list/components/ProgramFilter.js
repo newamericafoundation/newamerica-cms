@@ -44,12 +44,12 @@ class Filter extends Component {
       let project = program.projects.find(p => p.id==projectId);
 
       return (
-        <div className="content-filters__filters-wrapper">
+        <div className="content-list__heading-filter-wrapper">
           <Heading title={contentType.title || 'Publications'} />
-          <div className="content-filters">
+          <div className="content-list__filters">
             <Select
               name="Publication Type"
-              className="content-filters__filter publication-type"
+              className="content-list__filters__filter publication-type"
               options={program.content_types}
               defaultOption={contentType}
               valueAccessor="slug"
@@ -61,7 +61,7 @@ class Filter extends Component {
             {program.projects.length > 0 &&
               <Select
               name="Projects"
-              className="content-filters__filter program wide"
+              className="content-list__filters__filter program wide"
               options={program.projects}
               defaultOption={project}
               valueAccessor="id"
@@ -72,6 +72,7 @@ class Filter extends Component {
                 history.push(match.url+'?'+params.toString());
               }}/>}
               <DatePicker
+                className="content-list__filters__filter"
                 startDate={after}
                 endDate={before}
                 onDatesChange={({startDate, endDate})=>{

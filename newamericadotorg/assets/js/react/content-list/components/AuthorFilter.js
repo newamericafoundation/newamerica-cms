@@ -35,11 +35,11 @@ class Filter extends Component {
     let contentType = content_types.find(c =>(c.api_name==contentTypeAPIName));
 
     return (
-      <section className="container--medium content-filters">
-        <div className="content-filters">
+      <section className="content-list__heading-filter-wrapper">
+        <div className="content-list__filters">
           <Select
             name="Publication Type"
-            className="content-filters__filter publication-type"
+            className="content-list__filters__filter publication-type"
             options={content_types}
             defaultOption={contentType}
             valueAccessor="api_name"

@@ -13,6 +13,7 @@ class Picker extends Component {
   render(){
     return (
       <DateRangePicker
+        className={this.props.className}
         onDatesChange={({startDate, endDate})=>{
           this.setState({startDate, endDate});
           this.props.onDatesChange({
