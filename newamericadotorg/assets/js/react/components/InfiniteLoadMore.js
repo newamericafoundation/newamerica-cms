@@ -127,16 +127,12 @@ class InfiniteLoadMore extends Component {
       <this.props.component
         ref={(el) => { this.el = el; }}
         className={'compose__infinite-load-more ' + classes + ' ' + (className||'')}>
-
         {(response.results.length===0 && !response.isFetching && response.hasResults) &&
           <NoResults />
         }
-
         {children}
-
         {(response.hasNext && !this.isInfinite && !response.isFetching) &&
           <LoadMoreButton onclick={this.loadMore}/>
-
         }{response.isFetching &&
           <LoadingIconWrapper />
         }

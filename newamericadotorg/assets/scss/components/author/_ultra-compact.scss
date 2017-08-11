@@ -60,12 +60,11 @@
           -ms-flex: 0 0 100%;
               flex: 0 0 100%;
       max-width: 100%;
-      text-align: center;
-
-      &:not(:first-child){
-        max-width: 100%;
-        flex: none;
-        text-align: left;
+      text-align: left;
+    }
+    &:first-child{
+      .author__text__name{
+        padding-left: 0;
       }
     }
   }

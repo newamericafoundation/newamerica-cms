@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
+import getNestedState from '../../utils/get-nested-state';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NAME, ID } from './constants';
 import { FutureEvents, PastEvents } from  './components/EventList';
@@ -11,11 +13,11 @@ class Events extends Component {
     this.setState({ showPast: true });
   }
   render(){
-    let { params } = this.props;
+    let { params, upcomingLoaded } = this.props;
     return(
       <section className="container--medium event-lists">
         <FutureEvents params={params} />
-        {!this.state.showPast &&
+        {(!this.state.showPast && upcomingLoaded) &&
           <div className="event-lists__show-past-button-wrapper">
             <a className="button transparent lg event-lists__show-past-button" onClick={this.showPast}>
               Show Past Events
@@ -28,6 +30,12 @@ class Events extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  upcomingLoaded: getNestedState(state, 'eventList.upcoming.hasResults')
+});
+
+Events = connect(mapStateToProps)(Events);
 
 const APP = ({}) => (
   <Router>

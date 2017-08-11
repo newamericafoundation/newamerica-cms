@@ -16,6 +16,8 @@
 }
 
 .event-list{
+  min-height: 50px;
+
   &__item{
     position: relative;
     &__rsvp{

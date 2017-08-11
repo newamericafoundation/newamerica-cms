@@ -206,9 +206,14 @@ label {
   &.active{
     color: color(black);
     font-weight: bold;
-    &.gray {
-      color: color(gray, dark);
-    }
+  }
+
+  &.gray {
+    color: color(gray, dark);
+  }
+
+  &.white{
+    color: color(white);
   }
 
   &.narrow-margin{

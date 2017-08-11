@@ -31,34 +31,24 @@ class Fetch extends Component {
       if(fetchOnMount) fetchData();
     }
   }
-
-  mapNameToResponse = () => {
-    let { children, name } = this.props;
-
-    if(typeof children == 'object'){
-      if(children.type === Response){
-        return (<Response name={name} component={children.props.component} />);
-      }
-    }
-
-    return children;
-  }
-
   render() {
-    let { className, showLoading, component, transition, fetchOnMount, renderIfNoResults } = this.props;
+    let { className, showLoading, component, transition, fetchOnMount, renderIfNoResults, children } = this.props;
     let { isFetching, results, hasResults} = this.props.response;
 
-    if(!hasResults && fetchOnMount) return null;
+    if(!hasResults && fetchOnMount){
+      if(showLoading) return (<div className="loading-icon-container"><LoadingIcon /></div>);
+      return null;
+    }
+
     if(hasResults && results.length===0 && !renderIfNoResults) return null;
 
-    let children = this.mapNameToResponse();
     if(!children && !this.props.component=='span') return null;
 
     return (
       <this.props.component {...this.props}
         className={'compose__fetch-component' + (transition ? ' fetch-transition ' : '') + (className||'') + (isFetching? ' is-fetching': '')}>
-        {children || (component.props ? component.props.children : '')}
         {(isFetching&&showLoading) && <div className="loading-icon-container"><LoadingIcon /></div>}
+        {children || (component.props ? component.props.children : '')}
       </this.props.component>
     );
   }

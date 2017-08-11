@@ -9,7 +9,7 @@ const RSVP = () => (
 )
 
 const Programs = ({programs}) => (
-  <label className="block portrait-content-grid__item__text__programs active gray">
+  <label className="block portrait-content-grid__item__text__programs active white">
     {programs.map((p,i)=>(
       <span key={`program=${i}`}>
         <a href={p.url}>{p.name}</a>

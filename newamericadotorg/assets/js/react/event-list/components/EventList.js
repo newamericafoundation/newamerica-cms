@@ -24,38 +24,40 @@ const FutureList = ({ response }) => (
 );
 
 let PastList = ({ response, fetchAndAppend, setQueryParam, setQuery, className, programs, isSiteWide }) => (
-  <InfiniteLoadMore
-    className={'event-lists__past-events ' + className }
-    response={response}
-    promptToLoadMore={true}
-    upperBoundOffset={-(document.documentElement.clientHeight*1.5)}
-    onNextPage={()=>{
-      if(!response.hasNext) return false;
-      setQueryParam('page', response.page+1);
-      return fetchAndAppend;
-    }}>
-      <div className="content-filters">
-        {isSiteWide &&<Select
-          options={programs}
-          className="content-filters__filter program wide"
-          name="Program"
-          valueAccessor='id'
-          labelAccessor='title'
-          onChange={(option)=>{
-            if(option) setQueryParam('program_id', option.id, true);
-            else setQueryParam('program_id', '', true);
-        }}/>}
-        <DatePicker
-          onDatesChange={({startDate, endDate})=>{
-            setQuery({
-              after: startDate || '',
-              before: endDate || ''
-            }, true);
-          }}
-        />
-      </div>
-    <List items={response.results} cols='col-4 col-md-3 col-lg-5ths'/>
-  </InfiniteLoadMore>
+  <span>
+    <div className={`content-filters`}>
+      {isSiteWide &&<Select
+        options={programs}
+        className="content-filters__filter program wide"
+        name="Program"
+        valueAccessor='id'
+        labelAccessor='title'
+        onChange={(option)=>{
+          if(option) setQuery({program_id: option.id, page: 1}, true);
+          else setQuery({program_id: '', page: 1}, true);
+      }}/>}
+      <DatePicker
+        onDatesChange={({startDate, endDate})=>{
+          setQuery({
+            after: startDate || '',
+            before: endDate || '',
+            page: 1
+          }, true);
+        }}/>
+    </div>
+    <InfiniteLoadMore
+      className={`event-lists__past-events`}
+      response={response}
+      promptToLoadMore={true}
+      upperBoundOffset={-(document.documentElement.clientHeight*1.5)}
+      onNextPage={()=>{
+        if(!response.hasNext) return false;
+        setQueryParam('page', response.page+1);
+        return fetchAndAppend;
+      }}>
+      <List items={response.results} cols='col-4 col-md-3 col-lg-5ths'/>
+    </InfiniteLoadMore>
+  </span>
 );
 
 const mapStateToProps = (state) => ({
@@ -77,6 +79,7 @@ export class FutureEvents extends Component {
         <h1 className="event-list__heading centered">Upcoming Events</h1>
         <Fetch name="eventList.upcoming"
           className="event-lists__upcoming-events"
+          component={FutureList}
           endpoint="event"
           fetchOnMount={true}
           showLoading={true}
@@ -85,9 +88,7 @@ export class FutureEvents extends Component {
             time_period: 'future',
             page_size: 200,
             ...query
-          }}>
-          <Response component={FutureList} />
-        </Fetch>
+          }}/>
       </div>
     );
   }
@@ -107,6 +108,8 @@ export class PastEvents extends Component {
         <Fetch name="eventList.past"
           component={PastList}
           fetchOnMount={true}
+          showLoading={true}
+          transition={true}
           endpoint="event"
           isSiteWide={!params}
           initialQuery={{
