@@ -4,6 +4,13 @@
     margin-bottom: 15px;
     z-index: 500;
 
+    &__logo-wrapper, .header__nav{
+      min-width: 100%;
+      -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+    }
+
     &__wrapper{
       position: relative;
       border-bottom: none;
@@ -19,7 +26,6 @@
     }
 
     &__nav{
-      @extend .col-lg-12;
       padding: 0 !important;
       & > * {
         float: left;

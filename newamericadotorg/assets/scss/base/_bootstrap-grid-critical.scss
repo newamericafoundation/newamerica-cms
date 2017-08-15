@@ -238,7 +238,7 @@
   max-width: 20%;
 }
 
-@media (min-width: 576px) {
+@include media-breakpoint(mobile) {
   .col-sm {
     -webkit-flex-basis: 0;
         -ms-flex-preferred-size: 0;
@@ -350,7 +350,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@include media-breakpoint(tablet) {
   .col-md {
     -webkit-flex-basis: 0;
         -ms-flex-preferred-size: 0;
@@ -462,7 +462,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@include media-breakpoint(desktop){
   .col-lg {
     -webkit-flex-basis: 0;
         -ms-flex-preferred-size: 0;
@@ -574,7 +574,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@include media-breakpoint(large-desktop) {
   .col-xl {
     -webkit-flex-basis: 0;
         -ms-flex-preferred-size: 0;

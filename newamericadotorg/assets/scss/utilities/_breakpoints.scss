@@ -13,12 +13,12 @@ $breakpoints: (
 $media-breakpoints: (
   mobile: 576px,
   tablet: 767px,
-  desktop: 992px,
-  large-desktop: 1200px
+  desktop: 860px,
+  large-desktop: 1020px
 );
 
 @mixin breakpoint($point) {
-  @media (min-width: map-get($breakpoints, $point)) { @content; }
+  @media (min-width: $point) { @content; }
 }
 
 @mixin media-breakpoint($point){
