@@ -1,4 +1,8 @@
 .header__nav{
+  display: none;
+  @include media-breakpoint(tablet){
+    display: block;
+  }
   position: static;
   @extend %clearfix;
 

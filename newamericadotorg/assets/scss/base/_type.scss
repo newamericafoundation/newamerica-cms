@@ -3,7 +3,10 @@
 }
 
 body, html{
-  font-size: 18px;
+  font-size: 15px;
+  @include media-breakpoint(tablet){
+    font-size: 18px;
+  }
 }
 
 h1,h2,h3,h4,h5,h6{

@@ -112,8 +112,9 @@ $default-item-padding: 25px;
 	}
 
 	&.has-4-children{
+		
 		@include media-breakpoint(tablet){
-			height: auto;
+			height: 525px;
 		}
 
 		@include media-breakpoint(large-desktop){
@@ -132,6 +133,7 @@ $default-item-padding: 25px;
 
 		.story-grid__secondary{
 			@extend .col-xl-6;
+
 			@include media-breakpoint(tablet){
 				height: 350px;;
 			}

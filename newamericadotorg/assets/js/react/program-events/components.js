@@ -1,6 +1,6 @@
 import { Fetch, Response } from '../components/API';
 import { EventListItem } from '../components/Content';
-import Carousel from '../components/Carousel';
+import { Slider } from '../components/Carousel';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -12,10 +12,24 @@ const EventCarousel = ({ response }) => (
   			Political Reform program publications help to generate new ideas, voices, and technologies.
   		</p>
   	</div>
-  	<section className="program-events container">
-      <div className="program-event-carousel">
-        <Carousel items={response.results} itemComponent={EventListItem} n={5}/>
-      </div>
+  	<section className="program-events container--medium">
+      <Slider
+        infinite={false}
+        speed={500}
+        slidesToShow={5}
+        slideToScroll={5}
+        responsive={[
+          { breakpoint: 576, settings: { slidesToShow: 1, slidesToScroll: 1} },
+          { breakpoint: 1020, settings: { slidesToShow: 3, slidesToScroll: 3} },
+        ]}
+        prevArrow={<div><i className="fa fa-arrow-circle-left"></i></div>}
+        nextArrow={<div><i className="fa fa-arrow-circle-right"></i></div>}>
+          {response.results.map((e,i)=>(
+            <div>
+              <EventListItem item={e} />
+            </div>
+          ))}
+      </Slider>
     </section>
   	<div className="program-block__button-wrapper button-wrapper centered">
   		<a className="button transparent" href={`${location.pathname}events`}>View All Events</a>

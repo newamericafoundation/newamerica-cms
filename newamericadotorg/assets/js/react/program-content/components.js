@@ -65,7 +65,7 @@ class ContentGrid extends Component {
     	<div className={`program-content-grid container ${className}`}>
         <div className="row">
           {response.results.map((item, i) => (
-            <ContentGridItem item={item} page={page} className="col-md-3" />
+            <ContentGridItem item={item} page={page} className="col-12 col-sm-6 col-md-4 col-xl-3" />
           ))}
         </div>
 

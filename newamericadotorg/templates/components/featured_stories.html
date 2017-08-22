@@ -7,12 +7,12 @@
       <a class="featured-story__link-wrapper row no-gutters" href="{{ story.url }}">
         {% if story.specific.story_image %}
           {% image story.specific.story_image fill-350x175 as story_image %}
-          <div class="featured-story__image-wrapper col-4 col-sm-6">
+          <div class="featured-story__image-wrapper col-4 col-md-12 col-xl-6">
             <div class='featured-story__image'
               style="background-image: url({{story_image.url}})">
             </div>
           </div>
-          <div class='featured-story__text col-8 col-sm-6'>
+          <div class='featured-story__text col-8 col-md-12 col-xl-6'>
         {% else %}
           <div class='featured-story__text no-image'>
         {% endif %}

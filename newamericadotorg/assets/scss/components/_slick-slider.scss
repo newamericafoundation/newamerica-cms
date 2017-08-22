@@ -1,0 +1,40 @@
+.slick-slider{
+  margin-left: 60px;
+  margin-right: 60px;
+
+  @include media-breakpoint(tablet){
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .slick-arrow{
+    position: absolute;
+    @include vertical-center;
+    &.slick-disabled {
+      display: none !important;
+    }
+    i {
+      padding-right: 0;
+      font-size: 2rem;
+      &:hover{
+        color: color(turquoise);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .slick-prev{
+    left: 10px;
+
+    @include media-breakpoint(tablet){
+      left: -2.5rem;
+    }
+  }
+
+  .slick-next{
+    right: 10px;
+    @include media-breakpoint(tablet){
+      right: -2.5rem;
+    }
+  }
+}

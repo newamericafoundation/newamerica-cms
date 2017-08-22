@@ -16,7 +16,7 @@ export const List = ({ items, cols, children }) => (
 );
 
 const FutureList = ({ response }) => (
-  <List items={response.results} cols='col-4 col-md-3 col-lg-5ths'>
+  <List items={response.results} cols='col-6 col-sm-4 col-md-3 col-lg-5ths'>
     {(response.results.length===0 && !response.isFetching) &&
       <label className="active lg block centered">No upcoming events. Check back soon!</label>
     }
@@ -62,7 +62,7 @@ const PastList = ({ response, fetchAndAppend, setQueryParam, className, programs
         setQueryParam('page', response.page+1);
         return fetchAndAppend;
       }}>
-      <List items={response.results} cols='col-4 col-md-3 col-lg-5ths'/>
+      <List items={response.results} cols='col-6 col-sm-4 col-md-3 col-lg-5ths'/>
     </InfiniteLoadMore>
 );
 
