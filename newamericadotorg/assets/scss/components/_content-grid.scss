@@ -1,6 +1,12 @@
 .content-grid{
   &__item{
-    padding-bottom: 50px;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: $border-light;
+
+    @include media-breakpoint(tablet){
+      border-bottom: 0 !important;
+    }
 
     &__image-wrapper{
       width: 100%;

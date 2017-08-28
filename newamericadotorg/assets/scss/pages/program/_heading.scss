@@ -8,6 +8,14 @@
     width: 100%;
   }
 
+  &__button-wrapper{
+    display: block;
+    margin: 15px 0;
+    @include media-breakpoint(desktop){
+      display: inline-block;
+    }
+  }
+
   &__button{
     font-size: 0.7em;
   }

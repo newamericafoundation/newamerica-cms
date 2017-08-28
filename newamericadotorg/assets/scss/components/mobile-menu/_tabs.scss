@@ -14,7 +14,7 @@
       font-size: 0.93rem;
       padding-top: 6px;
       padding-bottom: 6px;
-      border-bottom: $border;
+      border-bottom: $border-light;
       @include media-breakpoint(tablet){
         max-width: 280px;
       }

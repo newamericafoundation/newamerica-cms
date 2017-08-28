@@ -3,9 +3,11 @@
 		<h1 class="program-heading__heading">{{ page.name }}</h1>
 		<p class="subheading--h1">
 			{% firstof page.short_description 'Bringing to the table win-win survival strategies to ensure proactive domination.' %}
-			<a class="program-heading__button button transparent gray" href="{{page.about_us_page.url}}">
+			<span class="program-heading__button-wrapper">
+				<a class="program-heading__button button transparent gray" href="{{page.about_us_page.url}}">
 				Read More
-			</a>
+				</a>
+			</span>
 		</p>
 	</div>
 	<header class="program-header">
