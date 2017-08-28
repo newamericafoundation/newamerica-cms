@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fetch, Response } from '../components/API';
 import { format as formatDate } from 'date-fns';
+import { Slider } from '../components/Carousel';
 
 export const ContentGridItem = ({ item, className, page }) => (
   <div className={`content-grid__item ${className} ${item.story_image? 'with-image' : ''}`}>
@@ -32,15 +33,17 @@ export const ContentGridItem = ({ item, className, page }) => (
 );
 
 let ContentFilters = ({ response, setQueryParam, content_types }) => (
-  <div className="content-type-filters container--medium inline-toggles-wrapper">
+  <div className="content-type-filters container--medium">
     <h1 className="centered">Recent Publications</h1>
     {content_types.length > 0 &&
+      <div className='inline-toggles-wrapper'>
         <div className="inline-toggles">
           <div className={`inline-toggles__item ${response.params.query.content_type=='' ? 'selected' : ''}`}>
             <a onClick={()=>{
               setQueryParam('content_type', '', true);
             }}>All</a>
           </div>
+
           {content_types.filter((c)=>(c.api_name!='indepthproject'&&c.api_name!='weeklyarticle')).map((c)=>(
             <div className={`inline-toggles__item ${response.params.query.content_type==c.api_name ? 'selected' : ''}`}>
               <a onClick={()=>{
@@ -49,6 +52,7 @@ let ContentFilters = ({ response, setQueryParam, content_types }) => (
             </div>
           ))}
         </div>
+      </div>
     }
   </div>
 );

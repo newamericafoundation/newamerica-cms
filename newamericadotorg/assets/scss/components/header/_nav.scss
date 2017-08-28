@@ -1,6 +1,6 @@
 .header__nav{
   display: none;
-  @include media-breakpoint(tablet){
+  @include media-breakpoint(desktop){
     display: block;
   }
   position: static;

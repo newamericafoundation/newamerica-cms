@@ -1,6 +1,7 @@
 .header {
   position: relative;
   height: $header-height;
+  z-index: 175;
 
   &__wrapper{
     height: $header-height;

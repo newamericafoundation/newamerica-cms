@@ -1,7 +1,12 @@
 .tabs{
-  
+  text-align: left;
+
+  @include media-breakpoint(tablet){
+    display: inline-block;
+    width: 460px;
+  }
+
   &__tab{
-    text-align: left;
     padding-top: 15px;
     padding-bottom: 25px;
 
@@ -9,6 +14,10 @@
       font-size: 0.93rem;
       padding-top: 6px;
       padding-bottom: 6px;
+      border-bottom: $border;
+      @include media-breakpoint(tablet){
+        max-width: 280px;
+      }
     }
   }
 }

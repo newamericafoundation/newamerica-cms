@@ -13,7 +13,7 @@ const TabSelector = ({ switchTab, selectedTab, options }) => (
 
 
 const PublicationTab = () => (
-  <div className="tabs__tab row">
+  <div className="tabs__tab row gutter-10">
     <div className="col-6">
       <div className="tabs__tab__list-item">
         <a href="/books">Books</a>
@@ -48,15 +48,29 @@ const PublicationTab = () => (
   </div>
 );
 
-const ProgramsTab = ({ response: { results }}) => (
-  <div className="tabs__tab programs-tab">
-    {results.map((p, i)=>(
-      <div className="tabs__tab__list-item">
-        <a href={`/${p.slug}`}>{p.name}</a>
+const ProgramsTab = ({ response: { results }}) => {
+  let programs = [...results];
+  let halfIndex = Math.round(programs.length/2);
+  let programsTail = programs.splice(halfIndex, programs.length-halfIndex);
+  return(
+    <div className="tabs__tab programs-tab row">
+      <div className="col-md-6 col-12">
+      {programs.map((p, i)=>(
+        <div className="tabs__tab__list-item">
+          <a href={`/${p.slug}`}>{p.name}</a>
+        </div>
+      ))}
       </div>
-    ))}
-  </div>
-);
+      <div className="col-md-6 col-12">
+      {programsTail.map((p, i)=>(
+        <div className="tabs__tab__list-item">
+          <a href={`/${p.slug}`}>{p.name}</a>
+        </div>
+      ))}
+      </div>
+    </div>
+  );
+};
 
 const AboutTab = () => (
   <div className="tabs__tab">

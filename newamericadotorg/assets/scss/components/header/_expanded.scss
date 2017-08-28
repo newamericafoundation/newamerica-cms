@@ -1,7 +1,7 @@
 .header--expanded{
   .header{
     height: 100px;
-    @include media-breakpoint(tablet){
+    @include media-breakpoint(desktop){
       height: $header-expanded-height;
     }
     margin-bottom: 15px;
