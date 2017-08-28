@@ -1,5 +1,8 @@
 .header__nav__mobile{
-  display: none;
+  display: block;
+  @include media-breakpoint(desktop){
+    display: none;
+  }
 }
 
 .header__nav__mobile-menu-toggle{
