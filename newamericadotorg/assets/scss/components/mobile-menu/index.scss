@@ -1,3 +1,7 @@
+.header__nav__mobile{
+  display: none;
+}
+
 .header__nav__mobile-menu-toggle{
   text-align: right;
   .fa{
@@ -41,6 +45,10 @@
 body.mobile-menu-open{
   overflow: hidden;
   position: fixed;
+
+  .header__nav__mobile{
+    display: block;
+  }
 
   .header .fa-ellipsis-v {
     display: none;
