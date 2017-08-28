@@ -48,7 +48,7 @@ body:not(.header--expanded){
   }
 }
 
-body.scroll-reverse:not(.header--expanded){
+body.scroll-reverse:not(.header--expanded), body.mobile-menu-open:not(.header--expanded){
   .scroll-left{
     .header__wrapper{
       top: 0;

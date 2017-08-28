@@ -2,12 +2,12 @@
   <div class="header__wrapper">
     <div class="container--wide">
     <div class="row no-gutters">
-      <div class="header__logo-wrapper col-md-4 col-xs-12">
+      <div class="header__logo-wrapper col-md-4 col-11">
         <a href="/">
           <div class="header__logo logo"></div>
         </a>
       </div>
-      <nav class="header__nav col-md-8 col-xs-12">
+      <nav class="header__nav col-md-8">
         <!-- floated right, so this is in opposite order -->
         <div class="header__nav__button-and-icons">
           <div class="header__nav__donate">
@@ -23,6 +23,12 @@
         </div>
         <div class="header__nav__dropdown-list">
           {% include './header_dropdown_list.html' %}
+        </div>
+      </nav>
+      <nav class="header__nav__mobile col-1">
+        <div class="header__nav__mobile-menu-toggle">
+          <i class="fa fa-ellipsis-v"></i>
+          <i class="fa fa-times"></i>
         </div>
       </nav>
     </div>

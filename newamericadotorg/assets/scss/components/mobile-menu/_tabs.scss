@@ -1,0 +1,14 @@
+.tabs{
+  
+  &__tab{
+    text-align: left;
+    padding-top: 15px;
+    padding-bottom: 25px;
+
+    &__list-item{
+      font-size: 0.93rem;
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+  }
+}

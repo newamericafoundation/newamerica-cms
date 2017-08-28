@@ -8,3 +8,4 @@ export const SET_AD_HOC_STATE = 'SET_AD_HOC_STATE';
 export const SET_SCROLL = 'SET_SCROLL';
 export const SET_IS_SCROLLING = 'SET_IS_SCROLLING';
 export const SET_SEARCH_STATE = 'SET_SEARCH_STATE';
+export const TOGGLE_MOBILE_MENU = 'TOGGLE_MOBILE_MENU';

@@ -4,7 +4,7 @@ import store from './store';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
-  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE
+  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU
 } from './constants';
 
 
@@ -146,6 +146,15 @@ class Actions {
     });
 
     return this;
+  }
+
+  toggleMobileMenu = (_isOpen) => {
+    let state = _isOpen !== undefined ? _isOpen : !getNestedState(store.getState(), 'site.mobileMenuIsOpen');
+    store.dispatch({
+      type: TOGGLE_MOBILE_MENU,
+      component: 'site',
+      state
+    });
   }
 }
 

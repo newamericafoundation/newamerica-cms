@@ -1,7 +1,7 @@
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
-  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE
+  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU
 } from './constants';
 
 // reducers
@@ -60,8 +60,18 @@ const searchIsOpen = (state=false, action) => {
   }
 }
 
+const mobileMenuIsOpen = (state=false, action) => {
+  switch(action.type){
+    case TOGGLE_MOBILE_MENU:
+      return action.state;
+    default:
+      return state;
+  }
+}
+
 export default {
   scroll,
   adHoc,
-  searchIsOpen
+  searchIsOpen,
+  mobileMenuIsOpen
 }

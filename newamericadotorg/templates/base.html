@@ -59,7 +59,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.28.5/date_fns.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/7.2.2/lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-slick/0.14.11/react-slick.min.js"></script>
-    <script src="https://wzrd.in/standalone/react-dates@latest"></script>
+    <script type="text/javascript" src="{% static 'js/react-dates.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
   {% else %}
     <style>{% include './style.css' %}</style>
@@ -93,6 +93,7 @@
   {% endblock %}
 
   {% include 'components/react/search.html' with search_page="modal" %}
+  {% include 'components/react/mobile-menu.html' %}
   {% if not DEBUG %}
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

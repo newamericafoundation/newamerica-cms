@@ -1,0 +1,59 @@
+.header__nav__mobile-menu-toggle{
+  text-align: right;
+  .fa{
+    color: color(black);
+    font-size: 1.8rem;
+    line-height: $header-height;
+  }
+
+  .fa-times {
+    display: none;
+  }
+
+  @include media-breakpoint(tablet){
+    display: none;
+  }
+}
+
+.mobile-menu{
+  position: fixed;
+  z-index: 170;
+  top: $header-height;
+  bottom: 0;
+  right: -115vw;
+  overflow-y: scroll;
+  width: 100vw;
+  padding: 15px 25px;
+  background: color(white);
+  @include transition(right $transition-function);
+
+  @include media-breakpoint(tablet){
+    display: none;
+  }
+}
+
+.header--expanded{
+  .mobile-menu{
+    top: 100px;
+    border-top: $border;
+  }
+}
+
+body.mobile-menu-open{
+  overflow: hidden;
+  position: fixed;
+
+  .header .fa-ellipsis-v {
+    display: none;
+  }
+
+  .header .fa-times{
+    display: inline-block;
+  }
+
+  .mobile-menu{
+    right: 0;
+  }
+}
+
+@import 'tabs';
