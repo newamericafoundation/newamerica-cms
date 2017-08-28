@@ -7,6 +7,12 @@
     margin-bottom: 15px;
     z-index: 500;
 
+    &__logo-wrapper {
+      @extend .col-lg-12;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
     &__wrapper{
       position: relative;
       border-bottom: none;

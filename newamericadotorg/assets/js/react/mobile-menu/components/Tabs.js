@@ -75,19 +75,19 @@ const ProgramsTab = ({ response: { results }}) => {
 const AboutTab = () => (
   <div className="tabs__tab">
     <div className="tabs__tab__list-item">
-      <a href="/books">Our Story</a>
+      <a href="/our-story">Our Story</a>
     </div>
     <div className="tabs__tab__list-item">
-      <a href="/blogs">Our People</a>
+      <a href="/our-people">Our People</a>
     </div>
     <div className="tabs__tab__list-item">
-      <a href="/policy-papers">Our Funding</a>
+      <a href="/our-funding">Our Funding</a>
     </div>
     <div className="tabs__tab__list-item">
-      <a href="/in-the-news">Press</a>
+      <a href="/press">Press</a>
     </div>
     <div className="tabs__tab__list-item">
-      <a href="/podcasts">Jobs</a>
+      <a href="/jobs">Jobs</a>
     </div>
   </div>
 );
