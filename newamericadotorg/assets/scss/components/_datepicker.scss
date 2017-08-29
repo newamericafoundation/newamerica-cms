@@ -1,5 +1,15 @@
 @import 'react-dates/lib/css/_datepicker';
+.DateRangePicker{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 
+  @include media-breakpoint(tablet){
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 .CalendarMonth--horizontal .CalendarMonth__caption, .CalendarMonth--vertical .CalendarMonth__caption{
   padding: 15px 0 55px;
 }
@@ -14,6 +24,7 @@
   box-shadow: 0px 0px 3px 0px rgba(40, 40, 48, 0.2);
   position: relative;
   top: -2px;
+  width: 100%;
 
   &:before{
     content: 'Date Range';

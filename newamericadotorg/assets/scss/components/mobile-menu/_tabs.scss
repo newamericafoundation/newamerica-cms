@@ -1,5 +1,5 @@
 .tabs{
-  text-align: left;
+  text-align: middle;
 
   @include media-breakpoint(tablet){
     display: inline-block;
@@ -7,6 +7,7 @@
   }
 
   &__tab{
+    text-align: left;
     padding-top: 15px;
     padding-bottom: 25px;
 
