@@ -4,12 +4,16 @@
 @import 'social';
 
 .post-body {
-  font-family: $paragraph-font-family;
   $media-padding: 20px;
   $media-default-aspect: 1;
   padding-top: 15px;
   // padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
+  font-size: 18px;
+
+  @include media-breakpoint(tablet){
+    @include flex-order(2);
+  }
 
   &__date {
     padding-bottom: 15px;

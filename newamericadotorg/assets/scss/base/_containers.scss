@@ -10,6 +10,13 @@
   &.gray{
     background-color: color(gray, ultra-light);
   }
+
+  &.sm-no-padding{
+    @include media-breakpoint-down(tablet){
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
 }
 
 .container {

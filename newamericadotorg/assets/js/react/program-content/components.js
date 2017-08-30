@@ -5,7 +5,7 @@ import { Fetch, Response } from '../components/API';
 import { format as formatDate } from 'date-fns';
 import { Slider } from '../components/Carousel';
 
-export const ContentGridItem = ({ item, className, page }) => (
+export const ContentGridItem = ({ item, className, page, contentType }) => (
   <div className={`content-grid__item ${className} ${item.story_image? 'with-image' : ''}`}>
       {item.story_image &&
         <div className="content-grid__item__image-wrapper">
@@ -19,7 +19,7 @@ export const ContentGridItem = ({ item, className, page }) => (
               {item.programs[0].name}
             </a>
             }
-          {item.content_type.name}
+          {contentType=='' && <span>{item.content_type.name}</span>}
         </label>
         <label className="content-grid__item__text__title md active">
           <a href={item.url} className="content-grid__item__link-wrapper">{item.title}</a>
@@ -66,10 +66,14 @@ class ContentGrid extends Component {
     let { response, className, page, content_types } = this.props;
     let contentType = content_types.find(c=>response.params.query.content_type==c.api_name) || {slug: 'publications', title: 'Publications'};
     return (
-    	<div className={`program-content-grid container ${className}`}>
+    	<div className={`program-content-grid container sm-no-padding ${className}`}>
         <div className="row">
           {response.results.map((item, i) => (
-            <ContentGridItem item={item} page={page} className="col-12 col-sm-6 col-md-4 col-xl-3" />
+            <ContentGridItem
+              contentType={response.params.query.content_type}
+              item={item}
+              page={page}
+              className="col-12 col-sm-6 col-md-4 col-xl-3" />
           ))}
         </div>
 

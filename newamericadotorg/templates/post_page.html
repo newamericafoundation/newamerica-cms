@@ -41,32 +41,34 @@
 									{% pluralize authors_len "Author" %}
 								</label>
 							{% endwith %}
-							{% for author in authors %}
-									{% include 'components/author.html' with author=author.author %}
-							{% endfor %}
+							<div class="post-authors__list">
+								{% for author in authors %}
+										{% include 'components/author.html' with author=author.author class='short-bio sm-compact'%}
+								{% endfor %}
+							</div>
 						{% endif %}
 					</aside>
 			 {% endblock %}
+
+ 			{% block post_right_aside %}
+ 				<aside class="post-social col-md-3 scroll-target" {% if panels %}data-scroll-enter-offset="-70"{% endif %}>
+ 					<div class="post-social__sticky-wrapper">
+ 						{% include 'components/post_share.html' %}
+ 						{% if page.topics.all %}
+ 							{% include 'components/post_topics.html' %}
+ 						{% endif %}
+ 						{% if page.attachment %}
+ 						  {% include 'components/post_attachments.html' %}
+ 						{% endif %}
+ 					</div>
+ 				</aside>
+ 			{% endblock %}
 
 			{% block post-body %}
 				<article class="post-body with-dropcap col-md-9 col-lg-6">
 					{% include 'components/post_body.html' %}
 					{% block post_extra_body_content %}{% endblock %}
 				</article>
-			{% endblock %}
-
-			{% block post_right_aside %}
-				<aside class="post-social col-md-3 scroll-target" {% if panels %}data-scroll-enter-offset="-70"{% endif %}>
-					<div class="post-social__sticky-wrapper">
-						{% include 'components/post_share.html' %}
-						{% if page.topics.all %}
-							{% include 'components/post_topics.html' %}
-						{% endif %}
-						{% if page.attachment %}
-						  {% include 'components/post_attachments.html' %}
-						{% endif %}
-					</div>
-				</aside>
 			{% endblock %}
 
 		</div>

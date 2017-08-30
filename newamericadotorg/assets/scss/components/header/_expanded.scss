@@ -1,18 +1,24 @@
 .header--expanded{
   .header{
     height: 100px;
+    padding-top: 25px;
+    margin-bottom: 15px;
+    z-index: 500;
+    background: color(white);
     @include media-breakpoint(desktop){
+      margin-bottom: 25px;
+      padding-top: 0;
       height: $header-expanded-height;
     }
-    margin-bottom: 25px;
-    z-index: 500;
 
     &__logo-wrapper {
       @extend .col-lg-12;
       padding-left: 0;
       padding-right: 0;
-      margin-top: 40px;
-      margin-bottom: 40px;
+      @include media-breakpoint(desktop){
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
     }
 
     &__wrapper{

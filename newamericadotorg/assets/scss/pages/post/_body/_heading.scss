@@ -1,7 +1,10 @@
 .post-heading{
   position: relative;
-  margin-bottom: 75px;
   width: 100%;
+
+  @include media-breakpoint(desktop){
+    margin-bottom: 75px;
+  }
 
   &:not(.with-image){
     margin-top: 75px;
@@ -27,8 +30,12 @@
 
   &.with-image{
       height: 400px;
-      margin-bottom: 50px;
+      margin-bottom: 25px;
       background: color(black);
+
+      @include media-breakpoint(desktop){
+        margin-bottom: 50px;
+      }
 
     .post-heading__text{
       position: absolute;

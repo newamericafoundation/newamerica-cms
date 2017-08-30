@@ -18,6 +18,10 @@
       display: block;
     }
     &__text{
+      @include media-breakpoint-down(tablet){
+        padding-left: 15px;
+        padding-right: 15px;
+      }
       &__content-type{
         &__program:after{
           display: inline;
@@ -28,12 +32,6 @@
           position: relative;
           bottom: .1em;
         }
-      }
-      &__title{
-
-      }
-      &__description{
-
       }
     }
   }

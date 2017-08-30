@@ -7,7 +7,7 @@
 {% block body_class %}template-homepage header--expanded{% endblock %}
 
 {% block content %}
-<section class="container container--wide">
+<section class="container container--wide sm-no-padding">
 	{% include 'components/story_grid.html' with page_context='homepage' %}
 
 	{% if featured_stories %}

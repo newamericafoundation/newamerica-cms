@@ -65,10 +65,12 @@
 
       &__text{
         padding-left: 15px;
+        padding-right: 15px;
 
         @include media-breakpoint(tablet){
           padding-top: 15px;
           padding-left: 0;
+          padding-right: 0;
         }
         @include media-breakpoint(large-desktop){
           padding-top: 0;

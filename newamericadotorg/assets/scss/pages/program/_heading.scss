@@ -1,6 +1,10 @@
 .program-heading{
   margin-top: 50px;
   margin-bottom: 50px;
+  @include media-breakpoint-down(tablet){
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
   &__heading{
     margin-top: 25px;

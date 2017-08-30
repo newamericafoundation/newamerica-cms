@@ -24,11 +24,14 @@
 
   &__text{
     line-height: 1em;
+
+    &__name{
+      line-height: 1em;
+    }
   }
 
   @import 'card';
   @import 'short-bio';
   @import 'compact';
   @import 'ultra-compact';
-
 }

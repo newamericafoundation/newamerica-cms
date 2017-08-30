@@ -10,7 +10,9 @@
 
 .post__aside-section{
   background: color(white, base, 0.65);
-  border-bottom: 1px solid color(black, base, 0.075);
   padding-bottom: 5px;
   padding-top: 15px;
+  @include media-breakpoint(tablet){
+    border-bottom: 1px solid color(black, base, 0.075);
+  }
 }

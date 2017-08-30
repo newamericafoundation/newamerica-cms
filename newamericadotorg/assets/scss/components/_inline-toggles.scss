@@ -18,19 +18,19 @@
 
   &__item{
     display: inline-block;
-    padding: 0.5em 0.75em;
     text-align: center;
-    border-bottom: 3px solid color(turquoise, base, 0) !important;
-    box-shadow: 0px 2px 0px -1px color(black, base, 0.15);
+    border-bottom: 1px solid color(black, base, 0.15);
     a{
+      padding: 0.5em 0.75em;
       cursor: pointer;
       display: block;
       color: color(black) !important;
+      border-bottom: 3px solid color(turquoise, base, 0) !important;
     }
 
     &.selected, &:hover{
-      border-bottom: 3px solid color(turquoise) !important;
       a{
+        border-bottom: 3px solid color(turquoise) !important;
         color: color(turquoise) !important;
         font-weight: bold;
       }
