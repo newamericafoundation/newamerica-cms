@@ -26,6 +26,9 @@
   &--medium{
     width: 100%;
     @include media-breakpoint(tablet){
+      width: 90%;
+    }
+    @include media-breakpoint(desktop){
       width: 80%;
     }
   }
@@ -33,6 +36,9 @@
   &--narrow{
     width: 90%;
     @include media-breakpoint(tablet){
+      width: 75%;
+    }
+    @include media-breakpoint(desktop){
       width: 50%;
     }
   }
