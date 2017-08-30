@@ -9,10 +9,7 @@
     padding: 0 0.5em;
     font-weight: normal;
     label {
-      color: color(black);
-      font-size: 0.75rem;
-      letter-spacing: 0.06em;
-      font-family: $header-font-family;
+      font-size: 0.82rem;
     }
 
     cursor: pointer;
@@ -24,8 +21,8 @@
       content: '';
       position: relative;
       @include transform(rotate(45deg) translateY(-3.5px));
-      border-right: 1px solid color(black);
-      border-bottom: 1px solid color(black);
+      border-right: 1px solid color(gray, dark);
+      border-bottom: 1px solid color(gray, dark);
       height: 4px;
       width: 4px;
       margin: 0 5px 0 5px;
@@ -62,7 +59,7 @@
       }
 
       &:not(.wide){
-        padding: 15px 2em 15px 1em;
+        padding: 15px 2em 5px 1em;
         margin-left: -0.25em;
         .header-dropdown-links {
           @extend .col-lg-12;

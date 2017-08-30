@@ -4,20 +4,21 @@
     @include media-breakpoint(desktop){
       height: $header-expanded-height;
     }
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     z-index: 500;
 
     &__logo-wrapper {
       @extend .col-lg-12;
       padding-left: 0;
       padding-right: 0;
+      margin-top: 40px;
+      margin-bottom: 40px;
     }
 
     &__wrapper{
       position: relative;
       border-bottom: none;
       box-shadow: none;
-      padding: 40px 0 0 0;
       height: 100%;
       margin: 0 auto;
     }
@@ -38,10 +39,15 @@
         right: 15px;
       }
 
+      &__donate{
+        line-height: normal;
+      }
+
       &__dropdown-list{
         margin-left: -5px;
         &__dropdown{
           &__links{
+            top: #{$header-expanded-height + 15px};
             &.box{
               border-top: 1px solid color(gray, base, 0.65);
               border-top-right-radius: $border-radius;
@@ -50,17 +56,21 @@
                 border-top-left-radius: $border-radius;
                 width: calc(100% + 20px);
                 left: -14px;
-                top: 128px;
               }
 
               &:not(.wide){
-                top: initial;
                 margin-left: -9px;
               }
             }
           }
 
           &__main-link{
+            &:before{
+              top: -0.5em !important;
+              height: auto !important;
+              bottom: -15px !important;
+            }
+            line-height: normal;
             top: 1px;
             left: -5px;
           }

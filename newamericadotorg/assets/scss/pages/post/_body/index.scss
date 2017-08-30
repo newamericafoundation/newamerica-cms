@@ -4,6 +4,7 @@
 @import 'social';
 
 .post-body {
+  font-family: $paragraph-font-family;
   $media-padding: 20px;
   $media-default-aspect: 1;
   padding-top: 15px;
