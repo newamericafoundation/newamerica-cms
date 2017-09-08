@@ -1,3 +1,25 @@
+.slick-arrow {
+  position: absolute;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  border-top: 1px solid color(gray, dark);
+  border-left: 1px solid color(gray, dark);
+  @include vertical-center;
+
+  &.slick-disabled {
+    display: none !important;
+  }
+
+  &.slick-prev{
+    @include transform(rotate(-45deg));
+  }
+
+  &.slick-next{
+    @include transform(rotate(135deg));
+  }
+}
+
 .program-events{
 
 .slick-slider{
@@ -7,22 +29,6 @@
   @include media-breakpoint(tablet){
     margin-left: 0px;
     margin-right: 0px;
-  }
-
-  .slick-arrow{
-    position: absolute;
-    @include vertical-center;
-    &.slick-disabled {
-      display: none !important;
-    }
-    i {
-      padding-right: 0;
-      font-size: 2rem;
-      &:hover{
-        color: color(turquoise);
-        cursor: pointer;
-      }
-    }
   }
 
   .slick-prev{

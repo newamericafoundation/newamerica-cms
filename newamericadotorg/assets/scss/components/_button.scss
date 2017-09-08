@@ -4,7 +4,7 @@
 	font-weight: normal;
 	text-align: center;
 	padding: 0.5em 0.4em;
-	//display: inline-block;
+	display: inline-block;
 	border-radius: $border-radius;
 	@include transition(all $transition-function);
 	cursor: pointer;

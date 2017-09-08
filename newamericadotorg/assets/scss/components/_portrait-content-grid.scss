@@ -45,25 +45,14 @@
         color: color(gray, dark) !important;
       }
 
+      &__date {
+        padding-bottom: 2px;
+        //font-weight: bold;
+      }
+
       &__programs{
-        //padding-bottom: 4px;
-        //font-size:0.7rem;
-        line-height: 1.15em;
-        width: 100%;
-        color: color(white);
-        position: absolute;
-        bottom: 0;
-        padding: 10px;
-        text-align: center;
-        //@include linear-gradient-vertical(color(black,base,1),color(black,base,0));
-        background: color(turquoise, dark, 0.8);
-        //background-blend-mode: luminosity;
-        a {
-          color: color(white);
-          &:hover{
-            color: color(turquoise);
-          }
-        }
+        line-height: 0;
+        padding-bottom: 2px;
       }
     }
 

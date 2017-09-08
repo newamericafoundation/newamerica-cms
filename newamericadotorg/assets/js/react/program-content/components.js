@@ -13,7 +13,7 @@ export const ContentGridItem = ({ item, className, page, contentType }) => (
         </div>
       }
       <div className="content-grid__item__text">
-        <label className="content-grid__item__text__content-type narrow-margin active gray">
+        <label className="content-grid__item__text__content-type narrow-margin">
           {(page=='homepage' && item.programs[0]) &&
             <a href={item.programs[0].url} className="content-grid__item__text__content-type__program">
               {item.programs[0].name}

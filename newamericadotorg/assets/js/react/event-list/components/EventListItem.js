@@ -6,25 +6,24 @@ const RSVP = () => (
       <i className="fa fa-ticket"></i> Now Available
     </span>
   </div>
-)
+);
 
 const Programs = ({programs}) => (
-  <label className="block portrait-content-grid__item__text__programs active white">
+  <div className="portrait-content-grid__item__text__programs">
     {programs.map((p,i)=>(
-      <span key={`program=${i}`}>
+      <label key={`program=${i}`}>
         <a href={p.url}>{p.name}</a>
         {i<programs.length-2 && ', '}
         {i==programs.length-2 && ' and '}
-      </span>
+      </label>
     ))}
-  </label>
-)
+  </div>
+);
 
 const Image = ({ event: { story_image, date, programs }}) => (
   <div className="portrait-content-grid__item__image-wrapper">
     <img className="portrait-content-grid__item__image" src={story_image}/>
     {/* {(new Date(date)>=new Date()) && <RSVP/>} */}
-    {programs && <Programs programs={programs} />}
   </div>
 );
 
@@ -43,7 +42,7 @@ const Title = ({title}) => (
 )
 
 const Time = ({startDate, endDate}) => (
-  <label className= "block portrait-content-grid__item__text__date active gray">
+  <label className= "block portrait-content-grid__item__text__date">
     <span className="block event-list__item__text__date__wrap">
       {formatDate(startDate, 'MMMM D, YYYY')}
     </span>
@@ -60,15 +59,14 @@ const Time = ({startDate, endDate}) => (
 const Location = ({city, state}) => (
   <label className="block portrait-content-grid__item__text__location">
     <i className="fa fa-map-marker no-padding xs"></i> {city}, {state}
-    {/* {city}, {state} */}
   </label>
 )
 
 const Text = ({event: { title, programs, projects, date, end_date, city, state }}) => (
   <div className="portrait-content-grid__item__text">
-  {date && <Time startDate={date} endDate={end_date} />}
+    {date && <Time startDate={date} endDate={end_date} />}
     <Title title={title} />
-    {/* {programs && <Programs programs={programs} />} */}
+    {programs && <Programs programs={programs} />}
     {(city&&state) && <Location city={city} state={state} />}
   </div>
 );

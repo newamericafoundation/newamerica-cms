@@ -22,8 +22,8 @@ const EventCarousel = ({ response }) => (
           { breakpoint: 576, settings: { slidesToShow: 1, slidesToScroll: 1} },
           { breakpoint: 1020, settings: { slidesToShow: 3, slidesToScroll: 3} },
         ]}
-        prevArrow={<div><i className="fa fa-arrow-circle-left"></i></div>}
-        nextArrow={<div><i className="fa fa-arrow-circle-right"></i></div>}>
+        prevArrow={<div className="slider-arrow--left"></div>}
+        nextArrow={<div className="slider-arrow--right"></div>}>
           {response.results.map((e,i)=>(
             <div>
               <EventListItem item={e} />
