@@ -13,9 +13,16 @@
 
     &__list-item{
       font-size: 0.93rem;
-      padding-top: 6px;
-      padding-bottom: 6px;
       border-bottom: $border-light;
+
+      a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
       @include media-breakpoint(tablet){
         max-width: 280px;
       }
