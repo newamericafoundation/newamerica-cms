@@ -1,0 +1,14 @@
+.program-heading__mobile-menu-toggle{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 25px;
+  margin-bottom: 10px;
+  border-right: 1px solid color(gray, dark);
+  border-bottom: 1px solid color(gray, dark);
+  @include transform(rotate(45deg));
+
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+}

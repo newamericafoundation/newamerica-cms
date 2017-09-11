@@ -1,6 +1,11 @@
 <section class='container container--wide sm-no-padding'>
-	<div class="program-heading">
-		<h1 class="program-heading__heading">{{ page.name }}</h1>
+	<div class="program-heading scroll-target">
+		<div class="program-heading__heading-wrapper">
+			<h1 class="program-heading__heading">{{ page.name }}<i class="program-heading__mobile-menu-toggle"></i></h1>
+			<div class="program-heading__mobile-menu">
+				<div id="compose__program-mobile-menu"></div>
+			</div>
+		</div>
 		<p class="subheading--h1">
 			{% firstof page.short_description 'Bringing to the table win-win survival strategies to ensure proactive domination.' %}
 			<span class="program-heading__button-wrapper">

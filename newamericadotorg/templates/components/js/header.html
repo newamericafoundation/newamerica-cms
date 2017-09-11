@@ -9,7 +9,6 @@
   newamericadotorg.actions.addObserver({
     stateName: 'site.mobileMenuIsOpen',
     onChange: function(state){
-      console.log(state);
       if(state===true){
         pageYOffset = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
         document.body.style.top = -pageYOffset + 'px';

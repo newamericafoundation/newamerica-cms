@@ -1,0 +1,13 @@
+.program-heading__mobile-menu{
+  //max-height: 0;
+  overflow: hidden;
+  @include transition(max-height $transition-function);
+
+  .active {
+    max-height: 500px
+  }
+
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+}

@@ -8,3 +8,4 @@ export { default as search } from './search/index';
 export { default as inDepth } from './in-depth/index';
 export { default as topics } from './topics/index';
 export { default as mobileMenu } from './mobile-menu/index';
+export { default as programMobileMenu } from './program-mobile-menu/index';
