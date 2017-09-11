@@ -1,6 +1,7 @@
 .block-paragraph p,
 .block-introduction p,
-.panel p{
+.panel p,
+.block-paragraph .rich-text{
   font-family: $paragraph-font-family;
   font-size: 1.00em;
   line-height: 1.6em;
