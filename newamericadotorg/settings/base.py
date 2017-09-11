@@ -155,7 +155,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
+MEDIA_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+S3_MEDIA_DOMAIN = '%s.s3.amazonaws.com' % MEDIA_BUCKET_NAME
+
+MEDIA_URL = "https://%s/" % S3_MEDIA_DOMAIN
 
 # MEDIA_URL = "https://%s/" % '%s.s3.amazonaws.com' % os.getenv('S3_BUCKET_NAME')
 
