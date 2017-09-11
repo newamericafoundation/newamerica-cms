@@ -12,7 +12,7 @@ const EventCarousel = ({ response }) => (
   			Political Reform program publications help to generate new ideas, voices, and technologies.
   		</p>
   	</div>
-  	<section className="program-events container--medium">
+  	<section className={`program-events container--medium${response.results.length< 5 ? ' no-slide' : '' }`}>
       <Slider
         infinite={false}
         speed={500}

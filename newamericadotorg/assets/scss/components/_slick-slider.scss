@@ -61,4 +61,19 @@
   }
 }
 
+&.no-slide {
+  .slick-list{
+    @include media-breakpoint(tablet){
+      text-align: center;
+    }
+  }
+  .slick-track {
+    @include media-breakpoint(tablet){
+      width: auto !important;
+      display: inline-block;
+      text-align: left;
+    }
+  }
+}
+
 }
