@@ -31,7 +31,6 @@ const DummyImage = ({ event: { programs }}) => (
   <div className="portrait-content-grid__item__image-wrapper dummy-image">
     <i className="portrait-content-grid__item__no-image fa fa-calendar"></i>
     <svg className="portrait-content-grid__item__image" width="200px" height="290px"></svg>
-    {programs && <Programs programs={programs} />}
   </div>
 );
 
