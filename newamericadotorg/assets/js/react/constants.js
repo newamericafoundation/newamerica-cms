@@ -9,3 +9,4 @@ export const SET_SCROLL = 'SET_SCROLL';
 export const SET_IS_SCROLLING = 'SET_IS_SCROLLING';
 export const SET_SEARCH_STATE = 'SET_SEARCH_STATE';
 export const TOGGLE_MOBILE_MENU = 'TOGGLE_MOBILE_MENU';
+export const SET_ANY_STATE = 'SET_ANY_STATE';

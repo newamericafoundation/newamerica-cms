@@ -3,7 +3,8 @@
 		<div class="program-heading__heading-wrapper">
 			<h1 class="program-heading__heading">{{ page.name }}<i class="program-heading__mobile-menu-toggle"></i></h1>
 			<div class="program-heading__mobile-menu">
-				<div id="compose__program-mobile-menu"></div>
+				{% include 'components/react/program-mobile-menu.html' %}
+				{% include 'components/js/program-mobile-menu.html' %}
 			</div>
 		</div>
 		<p class="subheading--h1">

@@ -3,7 +3,7 @@ import { getNestedState, smoothScroll } from '../utils/index';
 import store from './store';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
-  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
+  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE, SET_ANY_STATE,
   SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU
 } from './constants';
 
@@ -106,6 +106,14 @@ class Actions {
     });
 
     return this;
+  }
+
+  setState = (component, state) => {
+    store.dispatch({
+      type: SET_ANY_STATE,
+      component,
+      state
+    });
   }
 
   setAdHocState = (obj) => {

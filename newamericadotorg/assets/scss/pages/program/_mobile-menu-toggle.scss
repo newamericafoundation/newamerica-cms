@@ -3,12 +3,19 @@
   height: 10px;
   display: inline-block;
   margin-left: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   border-right: 1px solid color(gray, dark);
   border-bottom: 1px solid color(gray, dark);
+  @include transition(transform $transition-function);
   @include transform(rotate(45deg));
 
   @include media-breakpoint(desktop){
     display: none;
+  }
+}
+
+.program-heading__heading-wrapper.open {
+  .program-heading__mobile-menu-toggle{
+    @include transform(rotate(-135deg));
   }
 }
