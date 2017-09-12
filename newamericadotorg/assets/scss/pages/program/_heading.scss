@@ -6,7 +6,7 @@
     padding-right: 15px;
   }
 
-  &__heading{
+  &__heading, &__dummy-heading{
     margin-top: 25px;
     margin-bottom: 5px;
     width: 100%;
@@ -22,5 +22,15 @@
 
   &__button{
     font-size: 0.7em;
+  }
+
+  &__dummy-heading{
+    display: none;
+  }
+}
+
+.program-heading.scroll-entered{
+  .program-heading__dummy-heading{
+    display: block;
   }
 }

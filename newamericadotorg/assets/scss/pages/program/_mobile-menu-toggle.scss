@@ -3,7 +3,7 @@
   height: 10px;
   display: inline-block;
   margin-left: 25px;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   border-right: 1px solid color(gray, dark);
   border-bottom: 1px solid color(gray, dark);
   @include transition(transform $transition-function);
@@ -17,5 +17,15 @@
 .program-heading__heading-wrapper.open {
   .program-heading__mobile-menu-toggle{
     @include transform(rotate(-135deg));
+  }
+}
+
+.program-heading.scroll-entered{
+  .program-heading__mobile-menu-toggle{
+    margin-bottom: 2px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 1;
   }
 }
