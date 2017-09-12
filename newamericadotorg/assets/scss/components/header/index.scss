@@ -13,6 +13,7 @@
     width: 100%;
     margin: 0 !important;
     z-index: 175;
+    @include transform(translateZ(0));
     @include transition(top 0.35s ease-in-out);
 
     & > .row{

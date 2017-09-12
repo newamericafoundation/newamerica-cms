@@ -24,25 +24,25 @@ const TopicsTab = ({topics}) => (
 const Toggles = ({ switchTab, program, selectedTab, closeMenu }) => (
   <div className="inline-toggles-wrapper">
     <div className="inline-toggles">
-      <div className={`inline-toggles__item${selectedTab=='Projects' ? ' selected' : ''}`}>
-        <a onClick={()=>{switchTab('Projects')}}>Projects</a>
-      </div>
-      <div className={`inline-toggles__item${selectedTab=='Topics' ? ' selected' : ''}`}>
-        <a onClick={()=>{switchTab('Topics')}}>Topics</a>
-      </div>
+      {program.projects.length > 0 &&
+        <div className={`inline-toggles__item${selectedTab=='Projects' ? ' selected' : ''}`}>
+          <a onClick={()=>{switchTab('Projects')}}>Projects</a>
+        </div>}
+      {program.topics.length > 0 &&
+        <div className={`inline-toggles__item${selectedTab=='Topics' ? ' selected' : ''}`}>
+          <a onClick={()=>{switchTab('Topics')}}>Topics</a>
+        </div>}
       {program.subpages.find((p)=>(p.slug=='events')) &&
         <div className='inline-toggles__item'>
           <a href={`/${program.slug}/events`}>Events</a>
-        </div>
-      }
+        </div>}
       <div className='inline-toggles__item'>
         <a onClick={closeMenu} href="#publications">Publications</a>
       </div>
       {program.subpages.find((p)=>(p.slug=='about-us')) &&
         <div className='inline-toggles__item'>
           <a href={`/${program.slug}/about-us`}>About</a>
-        </div>
-      }
+        </div>}
       <div className='inline-toggles__item'>
         <a onClick={closeMenu} href="#subscribe">Subscribe</a>
       </div>
