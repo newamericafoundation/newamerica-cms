@@ -37,6 +37,7 @@ const setAnyState = (state) => {
 const setNestedState = (state, componentName, action, rdcr) => {
   let i = componentName.indexOf('.');
   let name = i === -1 ? componentName : componentName.slice(0,i);
+  let componentState = state[name] || {};
   if(!rdcr) rdcr = reducers[name] || defaultReducer;
 
   if(i===-1){
@@ -44,7 +45,6 @@ const setNestedState = (state, componentName, action, rdcr) => {
     return { [name]: rdcr(componentState, action) };
   }
 
-  let componentState = state[name] || {};
   let subName = componentName.slice(i+1, componentName.length);
 
   return {

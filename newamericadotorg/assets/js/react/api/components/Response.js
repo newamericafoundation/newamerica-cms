@@ -29,7 +29,7 @@ class Response extends Component {
     let { children, className, transition, showLoading, component, fetchOnMount, renderIfNoResults} = this.props;
     let { isFetching, results, hasResults } = this.props.response;
 
-    if(!hasResults){
+    if(!hasResults && !this.hasLoaded){
       if(showLoading) return (<div className="loading-icon-container"><LoadingIcon /></div>);
       return null;
     }

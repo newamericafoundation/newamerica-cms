@@ -43,7 +43,7 @@ class Fetch extends Component {
 
     if(hasResults && results.length===0 && !renderIfNoResults && !this.hasLoaded) return null;
     this.hasLoaded = true;
-    
+
     let classes = 'compose__fetch-component' + (transition ? ' fetch-transition ' : '') + (className ? ' ' + className : '') + (isFetching ? ' is-fetching': '');
 
     if(!showLoading){
