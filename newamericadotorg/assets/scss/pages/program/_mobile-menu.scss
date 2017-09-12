@@ -43,7 +43,9 @@
     .program-heading__heading{
       @include media-breakpoint-down(desktop){
         font-size: 1rem;
-        margin-top: 5px;
+        line-height: 1.1rem;
+        margin-top: 15px;
+        margin-bottom: 15px;
       }
     }
   }

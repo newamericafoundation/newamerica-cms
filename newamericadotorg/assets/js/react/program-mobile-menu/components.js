@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { SET_ANY_STATE } from '../constants';
 
 const ProjectsTab = ({projects}) => (
   <div className="tabs__tab">
@@ -20,7 +21,7 @@ const TopicsTab = ({topics}) => (
   </div>
 );
 
-const Toggles = ({ switchTab, program, selectedTab }) => (
+const Toggles = ({ switchTab, program, selectedTab, closeMenu }) => (
   <div className="inline-toggles-wrapper">
     <div className="inline-toggles">
       <div className={`inline-toggles__item${selectedTab=='Projects' ? ' selected' : ''}`}>
@@ -35,7 +36,7 @@ const Toggles = ({ switchTab, program, selectedTab }) => (
         </div>
       }
       <div className='inline-toggles__item'>
-        <a href="#publications">Publications</a>
+        <a onClick={closeMenu} href="#publications">Publications</a>
       </div>
       {program.subpages.find((p)=>(p.slug=='about-us')) &&
         <div className='inline-toggles__item'>
@@ -43,7 +44,7 @@ const Toggles = ({ switchTab, program, selectedTab }) => (
         </div>
       }
       <div className='inline-toggles__item'>
-        <a href="#subscribe">Subscribe</a>
+        <a onClick={closeMenu} href="#subscribe">Subscribe</a>
       </div>
     </div>
   </div>
@@ -59,12 +60,20 @@ export default class Menu extends Component {
       this.setState({ selectedTab });
   }
 
+  closeMenu = () => {
+    this.props.dispatch({
+      type: SET_ANY_STATE,
+      component: 'program.mobileMenuIsOpen',
+      state: false
+    });
+  }
+
   render(){
     let { response: { results }} = this.props;
     let { selectedTab } = this.state;
     return (
       <div className="tabs">
-        <Toggles program={results} selectedTab={selectedTab} switchTab={this.switchTab}/>
+        <Toggles program={results} selectedTab={selectedTab} switchTab={this.switchTab} closeMenu={this.closeMenu}/>
         <div className="tabs-wrapper">
           {selectedTab == 'Projects' && <ProjectsTab projects={results.projects}/>}
           {selectedTab == 'Topics' && <TopicsTab topics={results.topics}/>}
