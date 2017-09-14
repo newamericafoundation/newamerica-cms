@@ -140,6 +140,7 @@ class Actions {
   }
 
   addObserver = ({ stateName, onChange }) => {
+    if(this.getState(stateName)===undefined) this.setState(stateName, null);
     let observer = observerFactory(stateName, onChange);
     store.subscribe(observer);
     return this;

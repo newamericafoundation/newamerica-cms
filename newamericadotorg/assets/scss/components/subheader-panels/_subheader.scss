@@ -1,0 +1,28 @@
+.header__subheader{
+  position: relative;
+  z-index: 0;
+  height: 5px;
+
+  &__title{
+    display: inline-block;
+    @include media-breakpoint(desktop){
+      max-width: 30%;
+      padding-right: 15px !important;
+    }
+    label {
+      line-height: $subheader-height;
+    }
+  }
+
+  &.scroll-left{
+    height: $subheader-height;
+  }
+}
+
+body.scroll-reverse {
+  .header__subheader.scroll-left{
+    .header__subheader__sticky-wrapper{
+      top: $header-height !important;
+    }
+  }
+}

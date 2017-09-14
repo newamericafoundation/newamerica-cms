@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
@@ -69,9 +70,18 @@ const mobileMenuIsOpen = (state=false, action) => {
   }
 }
 
-export default {
+let reducer = combineReducers({
   scroll,
   adHoc,
   searchIsOpen,
   mobileMenuIsOpen
+});
+
+const siteReducer = (state, action) => {
+  return{
+    ...state,
+    ...reducer(state, action)
+  }
 }
+
+export default siteReducer;

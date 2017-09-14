@@ -4,6 +4,7 @@
   z-index: 175;
 
   &__wrapper{
+    position: relative;
     height: $header-height;
     background: color(white);
     @include border-bottom(gray, ultra-light);
@@ -61,4 +62,3 @@ body.scroll-reverse:not(.header--expanded), body.mobile-menu-open:not(.header--e
 @import 'dropdown-links';
 @import 'expanded';
 @import 'nav';
-@import 'panel-subheader';

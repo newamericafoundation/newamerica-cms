@@ -18,11 +18,11 @@ let listeners = [
   },
 
   function anchorLinkClick(){
-    let anchors = document.querySelectorAll('.anchor-link');
+    let anchors = document.getElementsByClassName('anchor-link');
     for(let anchor of anchors) {
-      anchor.addEventListener('click', (e) => {
-        let offset = e.target.getAttribute('data-anchor-offset') || 0;
-        actions.smoothScroll(e.target.getAttribute('href'), { offset: +offset });
+      anchor.addEventListener('click', function(e){
+        let offset = this.getAttribute('data-anchor-offset') || 0;
+        actions.smoothScroll(this.getAttribute('href'), { offset: +offset });
         e.preventDefault();
       });
     }
