@@ -1,7 +1,6 @@
 .header--expanded{
   .header{
     height: 100px;
-    padding-top: 25px;
     margin-bottom: 15px;
     z-index: 500;
     background: color(white);
@@ -26,6 +25,7 @@
       border-bottom: none;
       box-shadow: none;
       height: 100%;
+      padding-top: 25px;
       margin: 0 auto;
     }
 
