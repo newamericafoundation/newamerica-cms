@@ -5,7 +5,7 @@
   <div class="post__attachment__text">
     {% for block in page.attachment %}
       <a class="post__attachement__text__link" href='{{ block.value.file.url }}' target="_blank">
-        {{ block.value.title }}
+        <label class="block">{{ block.value.title }}</label>
       </a>
     {% endfor %}
   </div>

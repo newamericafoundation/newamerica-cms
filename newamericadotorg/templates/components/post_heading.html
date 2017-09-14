@@ -11,7 +11,7 @@
       <div class="post-heading__image" style="background-image: url({{story_image.url}})"></div>
     {% endif %}
     <div class="post-heading__text container--wide">
-      <h1 class="post-heading__text__heading centered {% if story_image and not page.publication_cover_image %}narrow-margin{% endif %}">
+      <h1 class="post-heading__text__heading centered{% if story_image and not page.publication_cover_image %} narrow-margin{% endif %}{% if page.subheading %} narrow-bottom-margin{% endif %}">
         {% firstof custom_title page.title %}
       </h1>
       {% if page.subheading %}

@@ -5,6 +5,23 @@
 
   &__title{
     display: inline-block;
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+
+    &:after{
+      display: block;
+      content: ' ';
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      bottom: 4px;
+      right: 0;
+      width: 25px;
+      @include linear-gradient-horizontal(color(white, base, 0), color(white, base, 1));
+    }
+
     @include media-breakpoint(desktop){
       max-width: 30%;
       padding-right: 15px !important;
@@ -14,13 +31,13 @@
     }
   }
 
-  &.scroll-left{
+  &.scroll-entered{
     height: $subheader-height;
   }
 }
 
 body.scroll-reverse {
-  .header__subheader.scroll-left{
+  .header__subheader.scroll-entered{
     .header__subheader__sticky-wrapper{
       top: $header-height !important;
     }
