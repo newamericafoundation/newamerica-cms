@@ -34,7 +34,7 @@ class TopicText extends Component {
     let { topic } = this.props;
     let expandedClass = this.state.expanded ? 'expanded' : '';
     return (
-      <div className="topic__details__text-wrapper col-7">
+      <div className="topic__details__text-wrapper col-lg-8">
           <h1 className="topic__details__title narrow-margin">{topic.title}</h1>
           <SubTopics topic={topic} />
           <article className={`topic__details__body ${expandedClass}`}>
@@ -53,12 +53,14 @@ class TopicText extends Component {
 }
 
 const AuthorsList = ({ response: { results }}) => (
-  <div className="topic__details__author-list col-4">
-    {results.length > 0 && <h4 className="narrow-bottom-margin">Experts</h4>}
-    <div className="row no-gutters">
+  <div className="topic__details__author-list col-lg-4">
+    {results.length > 0 && <div className="container"><h4 className="narrow-bottom-margin">Experts</h4></div>}
+    <div className="post-authors">
+    <div className="post-authors__list">
       {results.map((a,i)=>(
-        <Author classes="compact" author={a}/>
+        <Author classes="compact sm-compact" author={a}/>
       ))}
+    </div>
     </div>
   </div>
 );

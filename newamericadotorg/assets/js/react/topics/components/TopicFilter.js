@@ -13,7 +13,7 @@ class Filter extends Component {
     if(results.length===0 && !this.hasChanged) return null;
     return (
       <section className="container--medium">
-        <h2 className="centered narrow-bottom-margin">Related Content</h2>
+        <h2 className="centered narrow-bottom-margin">Related Publications</h2>
         <div className="content-list__filters">
           <Select
             name="Publication Type"
