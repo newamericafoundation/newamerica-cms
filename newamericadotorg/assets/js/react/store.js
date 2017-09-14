@@ -7,7 +7,7 @@ import * as components from './installed_components';
 import getNestedState from '../utils/get-nested-state';
 import { SET_ANY_STATE } from './constants';
 
-let initialState = { site: { adHoc: {}, scrollPosition: 0, scrollEvents: [], scrollDirection: 'FORWARD' }};
+let initialState = { site: {} };
 
 let defaultReducer = combineReducers(apiReducers);
 
