@@ -42,16 +42,6 @@ const scroll = (state={position: 0, direction: 'FORWARD', events: [], isScrollin
   }
 }
 
-
-const adHoc = (state={}, action) => {
-  switch(action.type){
-    case SET_AD_HOC_STATE:
-      return {...state, ...action.object};
-    default:
-      return state;
-  }
-}
-
 const searchIsOpen = (state=false, action) => {
   switch(action.type){
     case SET_SEARCH_STATE:
@@ -72,7 +62,6 @@ const mobileMenuIsOpen = (state=false, action) => {
 
 let reducer = combineReducers({
   scroll,
-  adHoc,
   searchIsOpen,
   mobileMenuIsOpen
 });

@@ -5,7 +5,7 @@
 
   &__title{
     display: inline-block;
-    max-width: calc(100% - 40px);
+    width: calc(100% - 40px);
     overflow: hidden;
     white-space: nowrap;
     position: relative;
@@ -24,6 +24,7 @@
 
     @include media-breakpoint(desktop){
       max-width: 30%;
+      width: auto;
       padding-right: 15px !important;
     }
     label {

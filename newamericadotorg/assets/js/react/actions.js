@@ -116,21 +116,8 @@ class Actions {
     });
   }
 
-  setAdHocState = (obj) => {
-    store.dispatch({
-      type: SET_AD_HOC_STATE,
-      component: 'site',
-      object: obj
-    });
-    return this;
-  }
-
   getState = (name) => {
     return getNestedState(store.getState(), name);
-  }
-
-  getAdHocState = (name) => {
-    return getNestedState(store.getState(), `site.adHoc.${name}`);
   }
 
   addAdHocObserver = ({ stateName, onChange }) => {
