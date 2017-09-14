@@ -7,32 +7,33 @@
 {% block body_class %}template-homepage header--expanded{% endblock %}
 
 {% block content %}
-<section class="container container--wide sm-no-padding">
-	{% include 'components/story_grid.html' with page_context='homepage' %}
+<main>
+	<section class="container container--wide sm-no-padding">
+		{% include 'components/story_grid.html' with page_context='homepage' %}
 
-	{% if featured_stories %}
-		{% include 'components/featured_stories.html' with stories=featured_stories %}
-	{% endif %}
+		{% if featured_stories %}
+			{% include 'components/featured_stories.html' with stories=featured_stories %}
+		{% endif %}
 
-</section>
+	</section>
 
-{% include 'components/react/program-event-list.html' %}
-{% include 'components/react/program-content-grid.html' %}
+	{% include 'components/react/program-event-list.html' %}
+	{% include 'components/react/program-content-grid.html' %}
 
 
-<section class="container--full-width gray program-block">
-		<div class='container--medium'>
-			<h1 class="centered">Our Story</h1>
-			<p class="centered">
-				Founded in 1999, New America is a think tank and civic enterprise committed
-				to renewing American politics, prosperity, and purpose in the Digital Age.
-				We generate big ideas, bridge the gap between technology and policy,
-				and curate broad public conversation.
-			</p>
-			<div class="button-wrapper centered">
-				<a class='button black' href="/our-story/">Read our Story</a>
+	<section class="container--full-width gray program-block">
+			<div class='container--medium'>
+				<h1 class="centered">Our Story</h1>
+				<p class="centered">
+					Founded in 1999, New America is a think tank and civic enterprise committed
+					to renewing American politics, prosperity, and purpose in the Digital Age.
+					We generate big ideas, bridge the gap between technology and policy,
+					and curate broad public conversation.
+				</p>
+				<div class="button-wrapper centered">
+					<a class='button black' href="/our-story/">Read our Story</a>
+				</div>
 			</div>
-		</div>
-</section>
-
+	</section>
+</main>
 {% endblock %}

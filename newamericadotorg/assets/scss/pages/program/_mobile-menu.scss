@@ -12,6 +12,10 @@
   @include media-breakpoint(desktop){
     display: none;
   }
+
+  .tabs {
+    width: auto !important;
+  }
 }
 
 .program-heading__heading-wrapper{

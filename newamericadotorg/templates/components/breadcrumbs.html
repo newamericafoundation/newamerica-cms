@@ -1,5 +1,6 @@
-<section class="container container--wide">
-  <div class='breadcrumbs'>
+{% if self.get_ancestors|length > 2 %}
+  <section class="container container--wide">
+  <div class='breadcrumbs depth-{{self.get_ancestors|length}}'>
     {% for page in self.get_ancestors %}
       {% if forloop.counter > 2 %}
         <label class="breadcrumbs__item">
@@ -12,3 +13,4 @@
      </label> -->
   </div>
 </section>
+{% endif %}

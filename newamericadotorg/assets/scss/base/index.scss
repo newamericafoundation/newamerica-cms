@@ -30,6 +30,14 @@ main {
   & > *:last-child:not(.no-last-child-margin){
     margin-bottom: 75px;
   }
+
+  &.with-margin{
+    margin-top: 50px;
+
+    @include media-breakpoint(desktop){
+      margin-top: 75px;
+    }
+  }
 }
 
 ul {
