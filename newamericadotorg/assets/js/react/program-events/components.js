@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const EventCarousel = ({ response }) => (
   <section className="container--full-width program-block">
-  	<div className="program-block__heading">
+  	<div className="program-block__heading container--wide">
   		<h1 className="centered narrow-bottom-margin">Upcoming Events</h1>
   		<p className="program-heading__subheading subheading--h1 centered">
   			Political Reform program publications help to generate new ideas, voices, and technologies.

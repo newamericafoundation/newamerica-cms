@@ -99,6 +99,10 @@ p {
   &.gray{
     color: color(gray, dark);
   }
+
+  &.centered{
+    text-align: center;
+  }
 }
 
 .subheading, [class*="subheading--"] {
