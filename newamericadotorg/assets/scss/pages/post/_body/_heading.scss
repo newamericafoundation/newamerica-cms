@@ -1,6 +1,7 @@
 .post-heading{
   position: relative;
   width: 100%;
+  margin-bottom: 15px;
 
   @include media-breakpoint(desktop){
     margin-bottom: 75px;
@@ -30,7 +31,6 @@
 
   &.with-image{
       height: 400px;
-      margin-bottom: 25px;
       background: color(black);
 
       @include media-breakpoint(desktop){

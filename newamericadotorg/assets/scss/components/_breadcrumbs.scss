@@ -50,20 +50,20 @@
       }
     }
 
-    @include media-breakpoint-down(desktop){
+    @include media-breakpoint-down(tablet){
         display: none;
         max-width: 165px;
         line-height: 1.1em;
     }
 
     &:last-child, &:nth-last-child(2){
-      @include media-breakpoint-down(desktop){
+      @include media-breakpoint-down(tablet){
         display: inline-block;
       }
     }
 
     &:nth-last-child(2){
-      @include media-breakpoint-down(desktop){
+      @include media-breakpoint-down(tablet){
         margin-left: 0;
       }
     }
