@@ -27,6 +27,9 @@
       height: 100%;
       padding-top: 25px;
       margin: 0 auto;
+      @include media-breakpoint(desktop){
+        padding-top: 0px;
+      }
     }
 
     &__logo{
