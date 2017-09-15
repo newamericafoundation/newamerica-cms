@@ -8,7 +8,7 @@ const Intro = ({ slug, project: { title, subheading }}) => (
   <div className="in-depth__intro">
     <div className="in-depth__intro__text">
       <div className="in-depth__intro__text__logo">
-        <div className="logo bug in-depth-logo-bug"></div>
+        <a href="/"><div className="logo bug in-depth-logo-bug"></div></a>
         <h4 className="no-margin">In-Depth</h4>
       </div>
       <div className="in-depth__intro__text__heading">
@@ -27,14 +27,32 @@ const Intro = ({ slug, project: { title, subheading }}) => (
   </div>
 );
 
+class AboutBody extends Component {
+  constructor(props){
+    super(props);
+    this.state = { active: false };
+    this.el = {};
+  }
+  render(){
+    let { body } = this.props;
+    return (
+      <div ref={(el)=>{ this.el=el; }} className="in-depth__about__text col-lg-6">
+        <label className="in-depth-label">About</label>
+        <div className={`in-depth__about__text__body ${this.state.active ? 'active': ''}`} dangerouslySetInnerHTML={{__html: body}}/>
+        {this.el.offsetHeight > 250 && <div className="read-more" onClick={()=>{this.setState({active: !this.state.active})}}>
+          {this.state.active && <label className="in-depth-label">Read Less -</label>}
+          {!this.state.active && <label className="in-depth-label">Read More +</label>}
+        </div>}
+      </div>
+    );
+  }
+}
+
 const About = ({ project: { sections, body }}) => (
   <div className="in-depth__about">
     <div className="row">
-      {body && <div className="in-depth__about__text col-md-6">
-        <label className="in-depth-label">About</label>
-        <div className="in-depth__project__text__body" dangerouslySetInnerHTML={{__html: body}}/>
-      </div>}
-      <div className="in-depth__about__contents col-md-6">
+      {body && <AboutBody body={body}/>}
+      <div className="in-depth__about__contents col-lg-6">
         <Contents sections={sections} />
       </div>
     </div>

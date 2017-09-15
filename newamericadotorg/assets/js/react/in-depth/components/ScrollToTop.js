@@ -2,7 +2,8 @@ import { Component } from 'react';
 
 export default class ScrollToTop extends Component {
   componentWillMount() {
-    window.scrollTo(0,0);
+    let content = document.querySelector('.in-depth__content');
+    if(content) content.scrollTop = 0;
   }
 
   render() {

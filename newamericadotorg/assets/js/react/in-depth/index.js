@@ -6,6 +6,7 @@ import { NAME, ID } from './constants';
 import Project from './components/Project';
 import Section from './components/Section';
 import Header from './components/Header';
+import ScrollToTop from './components/ScrollToTop';
 
 class InDepthRoutes extends Component {
   constructor(props) {

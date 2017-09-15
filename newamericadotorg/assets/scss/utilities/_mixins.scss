@@ -189,7 +189,7 @@
 }
 
 
-@mixin fade-out($start: 25%){
+@mixin fade-out($start: 25%, $color: color(white)){
   position: relative;
   &::after{
     content: '';
@@ -203,7 +203,7 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    @include linear-gradient-vertical(rgba(color(white), 0), color(white), 0% );
+    @include linear-gradient-vertical(rgba($color, 0), $color, 0% );
   }
 }
 @mixin border-bottom($color: black, $tone: base, $opacity: 1){

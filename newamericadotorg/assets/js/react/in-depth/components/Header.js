@@ -1,5 +1,38 @@
 import { Link } from 'react-router-dom';
 import { Slider } from '../../components/Carousel';
+import { Component } from 'react';
+
+class SectionItem extends Component {
+  constructor(props){
+    super(props);
+    this.state = { hover: false };
+  }
+  onEnter = () => {
+    this.setState({ hover: true });
+  }
+  onLeave = () => {
+    this.setState({ hover: false });
+  }
+  render(){
+    let { i, s } = this.props;
+    let { hover } = this.state;
+    return (
+      <div onMouseEnter={this.onEnter} onMouseLeave={this.onLeave}>
+        <Link to={s.url}>
+          {!hover &&
+            <label className="in-depth__header__section-list__item__text">
+              {s.title.length > 17 ? `${s.title.slice(0,17)}...` : s.title}
+            </label>}
+          {hover &&
+            <label className="in-depth__header__section-list__item__text">
+              {s.title}
+            </label>}
+        </Link>
+      </div>
+    );
+  }
+}
+
 
 const Header = ({ project, sectionIndex, match }) => (
   <header className="in-depth__header">
@@ -23,12 +56,8 @@ const Header = ({ project, sectionIndex, match }) => (
           prevArrow={<div><div></div></div>}
           nextArrow={<div><div></div></div>}>
           {project.sections.map((s,i)=>(
-            <div className={`in-depth__header__section-list__item ${i===sectionIndex ? 'active' : ''}`}>
-              <Link draggable={false} to={s.url}>
-                <label className="in-depth__header__section-list__item__text">
-                  {s.title.length > 25 ? `${s.title.slice(0,25)}...` : s.title}
-                </label>
-              </Link>
+            <div className={`in-depth__header__section-list__item ${i===sectionIndex ? 'active' : ''} ${s.title.length > 17 ? 'long-text' : ''}`}>
+              <SectionItem s={s} i={i}/>
             </div>
           ))}
         </Slider>

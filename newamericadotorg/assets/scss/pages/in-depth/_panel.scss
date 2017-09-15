@@ -1,0 +1,15 @@
+.in-depth__panel{
+
+  &__title{
+    &-link{
+      border-bottom: none !important;
+    }
+    h2 {
+      display: inline;
+    }
+    .fa {
+      margin-bottom: 8px;
+      margin-left: 10px;
+    }
+  }
+}

@@ -1,17 +1,31 @@
 .in-depth__header__section-list{
   white-space: nowrap;
   position: relative;
-  width: 750px;
+  width: 500px;
   padding-left: 15px;
   padding-right: 15px;
   &__item{
     display: inline-block;
-    padding-left: 15px;
-    padding-right: 15px;
+    position: relative;
     text-align: center;
     line-height: 50px;
+    background: color(black);
+    vertical-align: top;
     label{
       color: color(white) !important;
+    }
+
+    div {
+      padding-left: 15px;
+      padding-right: 15px;
+      width: 100%;
+      height: 100%;
+    }
+
+    a {
+      display: block;
+      height: 100%;
+      width: 100%;
     }
 
     &.active, &:hover{
@@ -21,10 +35,18 @@
         font-size: 0.79em;
       }
     }
+
+    &.long-text:hover{
+      white-space: normal;
+      div {
+        padding-top: 20px;
+      }
+    }
   }
 
   .slick-list{
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .slick-arrow{
@@ -53,7 +75,7 @@
     }
 
     &.slick-next{
-      right: 0px;
+      right: -15px;
       div{
         @include transform(rotate(135deg));
       }

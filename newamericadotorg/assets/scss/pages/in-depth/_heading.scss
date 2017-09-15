@@ -1,10 +1,15 @@
 .in-depth__heading{
   &__text{
-    padding: 25px;
+    margin: 75px 0 50px 0;
     width: 100%;
-
     &__title{
-      max-width: 50%;
+      background-image: -moz-linear-gradient(top , rgba(255, 255, 255, 0) 54px, color(black) 54px, color(black) 54px);
+      background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0) 54px, color(black) 54px, color(black) 54px);
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 54px, color(black) 54px, color(black) 54px);
+      background-repeat: repeat-y;
+      background-size: 100% 55px;
+      line-height: 55px;
+      padding-right: 50%;
     }
   }
 }

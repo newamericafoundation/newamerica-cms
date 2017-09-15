@@ -2,14 +2,23 @@
   background: #F1FFFB;
   position: fixed;
   overflow: hidden;
-  width: 80vw;
-  height: 80vh;
+  width: 95vw;
+  height: 95vh;
   @include transition(all $transition-function);
   max-width: $max-site-width;
   max-height: 800px;
-  border: 1px solid color(black);
-  box-shadow: 0px 0px 3px 5px color(black, base, 0.15);
+  box-shadow: 0px 0px 8px 3px color(black, base, 0.15);
   @include center;
+
+  @include media-breakpoint(desktop){
+    width: 95vw;
+    height: 80vh;
+  }
+
+  @include media-breakpoint(large-desktop){
+    width: 80vw;
+    height: 80vh;
+  }
 
   &.section {
     padding-left: 0;
@@ -32,7 +41,5 @@
   overflow-x: hidden;
   overflow-y: scroll;
   padding-top: 50px;
-  padding-left: 25px;
-  padding-right: 25px;
   padding-bottom: 25px;
 }
