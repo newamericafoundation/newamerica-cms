@@ -1,37 +1,9 @@
 .in-depth__heading{
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-
-  &__image-wrapper{
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 0;
-    background: color(black, base);
-  }
-
-  &__image{
-    height: inherit;
-    width: inherit;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: color(black, base, 0.2);
-    background-blend-mode: luminosity;
-    opacity: 0.6;
-  }
-
   &__text{
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
     padding: 25px;
     width: 100%;
 
     &__title{
-      color: color(white);
-      font-size: 5rem;
-      line-height: 4.6rem;
       max-width: 50%;
     }
   }

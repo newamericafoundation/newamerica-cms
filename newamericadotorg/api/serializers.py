@@ -491,4 +491,4 @@ class InDepthProjectSerializer(ModelSerializer):
         return buttons
     class Meta:
         model = InDepthProject
-        fields = ('id', 'title', 'slug', 'url', 'story_image', 'search_description', 'body', 'sections', 'buttons', 'data_project_external_script')
+        fields = ('id', 'title', 'slug', 'url', 'story_image', 'search_description', 'body', 'sections', 'buttons', 'data_project_external_script', 'subheading')

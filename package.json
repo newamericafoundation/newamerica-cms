@@ -33,7 +33,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.3.2",
     "react-addons-shallow-compare": "^15.6.0",
-    "react-dates": "^12.4.0",
+    "react-dates": "^12.6.0",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^4.1.1",

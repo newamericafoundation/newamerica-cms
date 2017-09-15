@@ -1,0 +1,23 @@
+.in-depth__header{
+  background: color(black);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: hidden;
+  z-index: 3;
+
+  &__project-title{
+    margin-top: 10px;
+    padding-right: 50px;
+    padding-left: 15px;
+  }
+
+  &__project-title label{
+    color: color(white);
+    vertical-align: middle;
+  }
+}

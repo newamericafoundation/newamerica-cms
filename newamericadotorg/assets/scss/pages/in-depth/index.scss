@@ -1,5 +1,9 @@
-.in-depth__project, .in-depth__section{
-  position: relative;
+.in-depth-label{
+  font-weight: bold;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: color(black);
 }
 
 @import 'heading';
@@ -11,3 +15,8 @@
 @import 'section-body';
 @import 'transition';
 @import 'splash';
+@import 'window';
+@import 'intro';
+@import 'header';
+@import 'logo';
+@import 'header-nav';

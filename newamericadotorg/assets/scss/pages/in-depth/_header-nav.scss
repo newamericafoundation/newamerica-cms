@@ -1,0 +1,62 @@
+.in-depth__header__section-list{
+  white-space: nowrap;
+  position: relative;
+  width: 750px;
+  padding-left: 15px;
+  padding-right: 15px;
+  &__item{
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    line-height: 50px;
+    label{
+      color: color(white) !important;
+    }
+
+    &.active, &:hover{
+      box-shadow: inset 0px 3px 0px 0px color(white);
+      label {
+        font-weight: bold;
+        font-size: 0.79em;
+      }
+    }
+  }
+
+  .slick-list{
+    overflow: hidden;
+  }
+
+  .slick-arrow{
+    border: none !important;
+    height: 100%;
+    width: 15px;
+    top: 0;
+    @include transform(none);
+  }
+
+  .slick-arrow{
+    div{
+      margin-top: 22.5px;
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-top: 1px solid color(white);
+      border-left: 1px solid color(white);
+    }
+
+    &.slick-prev {
+      left: 0px;
+      div {
+        @include transform(rotate(-45deg));
+      }
+    }
+
+    &.slick-next{
+      right: 0px;
+      div{
+        @include transform(rotate(135deg));
+      }
+    }
+  }
+}

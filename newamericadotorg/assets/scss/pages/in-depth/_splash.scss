@@ -1,46 +1,25 @@
 #splash{
   position: fixed;
   top: 0;
-
-  .in-depth__project__heading__header__in-depth-title{
-    overflow: hidden;
-    h3{
-      @include transform(translateX(-350px));
-      animation-name: slide-in-from-left;
-      animation-delay: 0.5s;
-      animation-duration: 0.7s;
-      animation-timing-function: cubic-bezier(0.290, 0.520, 0.320, 1.305);
-      animation-fill-mode: forwards;
-    }
-  }
-
-  .in-depth__heading__text {
-    opacity: 0;
-    animation-name: fade-in;
-    animation-delay: 1.25s;
-    animation-duration: 1s;
-    animation-timing-function: ease;
-    animation-fill-mode: forwards;
-  }
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
-
-@include keyframes(slide-in-from-left){
-  0% {
-    @include transform(translateX(-350px));
-  }
-  100% {
-    @include transform(translateX(0px));
-  }
+.splash__image-wrapper{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  background: color(black, base);
 }
 
-@include keyframes(fade-in){
-  0% {
-    opacity: 0;
-    @include transform(translateY(100px));
-  }
-  100% {
-    opacity: 1;
-    @include transform(translateY(0px));
-  }
+.splash__image{
+  height: inherit;
+  width: inherit;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: color(black, base, 0.2);
+  background-blend-mode: luminosity;
+  opacity: 0.6;
 }

@@ -4,7 +4,8 @@ import { CSSTransitionGroup } from 'react-transition-group'
 import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';
 import Project from './components/Project';
-import Section, { Header } from './components/Section';
+import Section from './components/Section';
+import Header from './components/Header';
 
 class InDepthRoutes extends Component {
   constructor(props) {
@@ -52,27 +53,29 @@ class InDepthRoutes extends Component {
     return (
       <Router>
         {this.state.isReady &&
-        <Route render={({ location })=>(
-          <span>
+        <Route path="/in-depth/:projectSlug?/:sectionSlug?" render={({ location, match })=>(
+          <div className={`in-depth-window ${match.params.sectionSlug && match.params.sectionSlug != 'about' ? 'section' : ''}`}>
             <Route path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
-              <Header project={results} sectionIndex={this.getSection(match.params.sectionSlug).index}/>
+              <Header project={results} match={match} sectionIndex={this.getSection(match.params.sectionSlug).index}/>
             )}/>
             <CSSTransitionGroup
+              component="div"
+              className="in-depth__content"
               transitionName="fade"
               transitionAppear={true}
               transitionAppearTimeout={250}
               transitionEnterTimeout={500}
               transitionLeaveTimeout={500}>
               <Switch key={location.key} location={location}>
-                <Route exact path="/in-depth/:projectSlug" render={()=>(
+                <Route exact path="/in-depth/:projectSlug/(|about)" render={()=>(
                   <Project project={results} />
                 )}/>
-                <Route exact path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
+                <Route path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
                   <Section section={this.getSection(match.params.sectionSlug)} project={results} />
                 )}/>
               </Switch>
             </CSSTransitionGroup>
-          </span>
+          </div>
         )}/>
         }
       </Router>

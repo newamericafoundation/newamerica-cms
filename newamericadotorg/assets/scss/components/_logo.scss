@@ -23,5 +23,10 @@
     background-image: url('#{$static-url}/logo-white.svg');
   }
 
-
+  &.bug{
+    background-image: url('#{$static-url}/logo-bug.svg');
+    &.white {
+      background-image: url('#{$static-url}/logo-bug-white.svg');
+    }
+  }
 }
