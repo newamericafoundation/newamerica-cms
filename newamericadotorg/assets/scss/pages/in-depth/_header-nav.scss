@@ -58,7 +58,7 @@
   .slick-arrow{
     border: none !important;
     height: 100%;
-    width: 15px;
+    width: 30px;
     top: 0;
     @include transform(none);
   }
@@ -74,17 +74,18 @@
     }
 
     &.slick-prev {
-      left: 10px;
+      left: 0px;
       @include media-breakpoint(desktop){
-        left: 0px;
+        left: -15px;
       }
       div {
+        right: 0;
         @include transform(rotate(-45deg));
       }
     }
 
     &.slick-next{
-      right: 10px;
+      right: 0px;
       @include media-breakpoint(desktop){
         right: -15px;
       }
