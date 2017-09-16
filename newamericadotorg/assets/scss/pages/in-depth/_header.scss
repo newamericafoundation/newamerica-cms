@@ -45,20 +45,20 @@
       padding-right: 30px !important;
     }
   }
+}
 
-  &.scroll-in-view{
-    .in-depth__header__project-title{
-      @include media-breakpoint-down(desktop){
-        z-index: 0;
-        opacity: 0;
-        user-select: none;
-      }
+.section .in-depth__header.scroll-in-view{
+  .in-depth__header__project-title{
+    @include media-breakpoint-down(desktop){
+      z-index: 0;
+      opacity: 0;
+      user-select: none;
     }
-    .in-depth__header__section-list{
-      @include media-breakpoint-down(desktop){
-        z-index: 1;
-        opacity: 1;
-      }
+  }
+  .in-depth__header__section-list{
+    @include media-breakpoint-down(desktop){
+      z-index: 1;
+      opacity: 1;
     }
   }
 }

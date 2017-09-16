@@ -17,14 +17,15 @@ class SectionItem extends Component {
     let { i, s } = this.props;
     let { hover } = this.state;
     let mobile = window.innerWidth <= 860;
+    let limit = mobile ? 36 : 17;
     return (
       <div onMouseEnter={this.onEnter} onMouseLeave={this.onLeave}>
         <Link to={s.url}>
-          {(!hover && !mobile) &&
+          {(!hover || mobile) &&
             <label className="in-depth__header__section-list__item__text">
-              {s.title.length > 17 ? `${s.title.slice(0,17)}...` : s.title}
+              {s.title.length > limit ? `${s.title.slice(0,limit)}...` : s.title}
             </label>}
-          {(hover || mobile) &&
+          {(hover && !mobile) &&
             <label className="in-depth__header__section-list__item__text">
               {s.title}
             </label>}
