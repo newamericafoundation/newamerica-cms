@@ -47,7 +47,7 @@ const Header = ({ project, sectionIndex, match }) => (
         </label>
       </div>
       {match.params.sectionSlug != 'about' &&
-        <div className="in-depth__header__section-list col-10 col-lg-auto">
+        <div className="in-depth__header__section-list col-12 col-lg-auto">
         <Slider
           infinite={false}
           speed={500}

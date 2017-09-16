@@ -16,10 +16,12 @@
     }
 
     div {
-      padding-left: 15px;
-      padding-right: 15px;
       width: 100%;
       height: 100%;
+      @include media-breakpoint(desktop){
+        padding-left: 15px;
+        padding-right: 15px;
+      }
     }
 
     a {
@@ -72,14 +74,20 @@
     }
 
     &.slick-prev {
-      left: 0px;
+      left: 10px;
+      @include media-breakpoint(desktop){
+        left: 0px;
+      }
       div {
         @include transform(rotate(-45deg));
       }
     }
 
     &.slick-next{
-      right: -15px;
+      right: 10px;
+      @include media-breakpoint(desktop){
+        right: -15px;
+      }
       div{
         @include transform(rotate(135deg));
       }
