@@ -19,8 +19,8 @@ let listeners = [
 
   function anchorLinkClick(){
     let anchors = document.getElementsByClassName('anchor-link');
-    for(let anchor of anchors) {
-      anchor.addEventListener('click', function(e){
+    for(let i = 0; i < anchors.length; i++) {
+      anchors[i].addEventListener('click', function(e){
         let offset = this.getAttribute('data-anchor-offset') || 0;
         actions.smoothScroll(this.getAttribute('href'), { offset: +offset });
         e.preventDefault();
