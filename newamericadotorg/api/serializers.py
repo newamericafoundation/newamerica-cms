@@ -471,6 +471,7 @@ class InDepthProjectSerializer(ModelSerializer):
     body = SerializerMethodField()
     story_image = SerializerMethodField()
     buttons = SerializerMethodField()
+    authors = SerializerMethodField()
 
     def get_story_image(self, obj):
         if obj.story_image:
@@ -483,6 +484,9 @@ class InDepthProjectSerializer(ModelSerializer):
     def get_sections(self, obj):
         return InDepthSectionSerializer(obj.get_children().type(InDepthSection).live().specific(), many=True).data
 
+    def get_authors(self, obj):
+        return AuthorSerializer(obj.post_author, many=True, context=self.context).data
+
     def get_buttons(self, obj):
         buttons = []
         if obj.buttons:
@@ -491,4 +495,7 @@ class InDepthProjectSerializer(ModelSerializer):
         return buttons
     class Meta:
         model = InDepthProject
-        fields = ('id', 'title', 'slug', 'url', 'story_image', 'search_description', 'body', 'sections', 'buttons', 'data_project_external_script', 'subheading')
+        fields = (
+        'id', 'title', 'slug', 'url', 'story_image', 'authors',
+        'search_description', 'body', 'sections', 'buttons',
+        'data_project_external_script', 'subheading')

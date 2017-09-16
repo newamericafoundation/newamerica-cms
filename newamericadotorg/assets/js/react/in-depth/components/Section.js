@@ -24,7 +24,19 @@ export default class Section extends Component {
         <ScrollToTop />
         <Heading section={section} project={project} />
         <div className="row">
-          <aside className="in-depth__section__authors col-md-4 col-xl-3"></aside>
+          <aside className="in-depth__authors col-md-4 col-xl-3">
+            <label className="in-depth-label">Authors</label>
+            {project.authors.map((a)=>(
+              <div className="in-depth__author">
+                <label className="in-depth__author__name">
+                  <a href={a.url}>
+                    {`${a.first_name} ${a.last_name}`}
+                  </a>
+                </label>
+                <p className="in-depth__author__position no-margin">{a.position}</p>
+              </div>
+            ))}
+          </aside>
           <article className="in-depth__section__body post-body col-md-8 col-xl-9" dangerouslySetInnerHTML={{__html: section.page.body}}/>
         </div>
       </div>

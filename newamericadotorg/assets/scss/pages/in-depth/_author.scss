@@ -1,0 +1,23 @@
+.in-depth__authors{
+  .in-depth-label{
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+}
+
+.in-depth__author{
+  margin-bottom: 15px;
+
+  &__name{
+    font-weight: bold;
+    color: color(black);
+    font-size: 1rem;
+  }
+
+  &__position{
+    font-family: 'Lyon';
+    font-size: 0.8rem;
+    line-height: 1.35em !important;
+    font-style: italic;
+  }
+}
