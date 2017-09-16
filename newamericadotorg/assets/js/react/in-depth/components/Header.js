@@ -16,14 +16,15 @@ class SectionItem extends Component {
   render(){
     let { i, s } = this.props;
     let { hover } = this.state;
+    let mobile = window.innerWidth <= 860;
     return (
       <div onMouseEnter={this.onEnter} onMouseLeave={this.onLeave}>
         <Link to={s.url}>
-          {!hover &&
+          {(!hover && !mobile) &&
             <label className="in-depth__header__section-list__item__text">
               {s.title.length > 17 ? `${s.title.slice(0,17)}...` : s.title}
             </label>}
-          {hover &&
+          {(hover || mobile) &&
             <label className="in-depth__header__section-list__item__text">
               {s.title}
             </label>}
@@ -37,7 +38,7 @@ class SectionItem extends Component {
 const Header = ({ project, sectionIndex, match }) => (
   <header className="in-depth__header">
     <div className="row">
-      <div className="in-depth__header__project-title col-auto">
+      <div className="in-depth__header__project-title col-12 col-lg-auto">
         <a href="/">
           <div className="logo bug white in-depth-logo-bug sm"></div>
         </a>
@@ -46,13 +47,16 @@ const Header = ({ project, sectionIndex, match }) => (
         </label>
       </div>
       {match.params.sectionSlug != 'about' &&
-        <div className="in-depth__header__section-list col-auto">
+        <div className="in-depth__header__section-list col-10 col-lg-auto">
         <Slider
           infinite={false}
           speed={500}
           slidesToShow={3}
           slidesToScroll={3}
           initialSlide={Math.floor(sectionIndex/3)*3}
+          responsive={[
+            { breakpoint: 860, settings: { slidesToShow: 1, slidesToScroll: 1, initialSlide: sectionIndex }}
+          ]}
           prevArrow={<div><div></div></div>}
           nextArrow={<div><div></div></div>}>
           {project.sections.map((s,i)=>(

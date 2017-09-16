@@ -57,7 +57,7 @@ class Actions {
 
   addScrollEvent = ({
     onEnter, onLeave, enter, leave, offset, enterOffset, leaveOffset,
-    triggerPoint, selector
+    triggerPoint, selector, target
   }) => {
     let els = document.querySelectorAll(selector);
     if(!els.length && selector != '.scroll-target') return;
@@ -66,7 +66,7 @@ class Actions {
       component: 'site',
       eventObject: {
         onEnter, onLeave, enter, leave, selector,
-        offset, enterOffset, leaveOffset, triggerPoint, els
+        offset, enterOffset, leaveOffset, triggerPoint, els, target
       }
     });
 

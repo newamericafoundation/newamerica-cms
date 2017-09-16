@@ -13,8 +13,8 @@ let listeners = [
       }, 17);
     }
 
-    window.addEventListener('scroll', onscroll, false);
-    window.addEventListener('touchmove', onscroll, false);
+    window.addEventListener('scroll', onscroll, true);
+    window.addEventListener('touchmove', onscroll, true);
   },
 
   function anchorLinkClick(){

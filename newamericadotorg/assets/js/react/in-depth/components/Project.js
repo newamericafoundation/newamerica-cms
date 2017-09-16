@@ -62,12 +62,13 @@ const About = ({ project: { sections, body }}) => (
 export default class Project extends Component {
   componentDidMount(){
     let { project } = this.props;
-    loadExternalScript(project.data_project_external_script);
+    setTimeout(()=>{
+      loadExternalScript(project.data_project_external_script);
+    }, 600);
   }
 
   render(){
     let { project } = this.props;
-
     return (
       <Switch>
         <Route exact path="/in-depth/:projectSlug" render={({match})=>( <Intro slug={match.params.projectSlug} project={project}/> )} />

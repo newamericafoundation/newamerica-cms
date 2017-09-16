@@ -37,9 +37,13 @@
     }
 
     &.long-text:hover{
-      white-space: normal;
+      @include media-breakpoint(desktop){
+        white-space: normal;
+      }
       div {
-        padding-top: 20px;
+        @include media-breakpoint(desktop){
+          padding-top: 20px;
+        }
       }
     }
   }

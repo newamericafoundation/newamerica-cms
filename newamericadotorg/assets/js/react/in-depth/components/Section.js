@@ -14,7 +14,14 @@ const Heading = ({ section: { page, index }, project }) => (
 export default class Section extends Component {
   componentDidMount(){
     let { project } = this.props;
-    loadExternalScript(project.data_project_external_script);
+    setTimeout(()=>{
+      loadExternalScript(project.data_project_external_script)
+    },600);
+    
+    this.props.dispatch({
+      type: 'RELOAD_SCROLL_EVENTS',
+      component: 'site'
+    });
   }
 
   render(){
@@ -37,7 +44,9 @@ export default class Section extends Component {
               </div>
             ))}
           </aside>
-          <article className="in-depth__section__body post-body col-md-8 col-xl-9" dangerouslySetInnerHTML={{__html: section.page.body}}/>
+          <article className="in-depth__section__body scroll-target post-body col-md-8 col-xl-9"
+            data-scroll-target=".in-depth__header"
+            dangerouslySetInnerHTML={{__html: section.page.body}}/>
         </div>
       </div>
     );

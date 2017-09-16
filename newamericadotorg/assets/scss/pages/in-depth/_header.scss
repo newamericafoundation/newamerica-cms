@@ -19,4 +19,44 @@
     color: color(white);
     vertical-align: middle;
   }
+
+  &__project-title, &__section-list{
+    position: absolute;
+    @include transition(opacity $transition-function);
+    @include media-breakpoint(desktop){
+      position: static;
+    }
+  }
+
+  &__project-title{
+    @include media-breakpoint-down(desktop){
+      @include vertical-center;
+      margin-top: 0px;
+      opacity: 1;
+      z-index: 1;
+    }
+  }
+
+  &__section-list {
+    @include media-breakpoint-down(desktop){
+      @include horizontal-center;
+      opacity: 0;
+      z-index: 0;
+    }
+  }
+
+  &.scroll-in-view{
+    .in-depth__header__project-title{
+      @include media-breakpoint-down(desktop){
+        z-index: 0;
+        opacity: 0;
+      }
+    }
+    .in-depth__header__section-list{
+      @include media-breakpoint-down(desktop){
+        z-index: 1;
+        opacity: 1;
+      }
+    }
+  }
 }

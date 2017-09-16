@@ -6,6 +6,7 @@
   * @typedef {Object} Event
   * @property {HtmlElement[]} els - (required) an array of html elements,
   * @property {string} selector - (required) document.querySelectorAll compatable string,
+  * @property {string} target - class selector, apply scroll classes to this target when element is triggered,
   * @property {string} triggerPoint - (default: 'top', options: 'top', 'middle', 'bottom') part of viewPort event is triggered,
   * @property {(number|string)} offset - (default: 0) offset for both enter and leave events. essentially shifts entire frame by this value. if defined as % (eg '50%'), offsets by % of element's outerHeight,
   * @property {(number|string)} enterOffset - (default: 0) offset from triggerPoint for enter events. if defined as % (eg '50%'), offsets by % of element's outerHeight,
@@ -45,31 +46,53 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       hasLeft = -rect.top > el.offsetHeight + leaveOffset + triggerPointOffset,
       inView = hasEntered && !hasLeft;
 
+      let targetSelector = el.getAttribute('data-scroll-target') || e.target;
+      let target = targetSelector ? document.querySelector(targetSelector) : null;
+
       if(inView && !markedInView){
-        if(e.onEnter) e.onEnter(el, direction);
+        if(e.onEnter) e.onEnter(target || el, direction);
         el.classList.remove(LEFT_CLASS);
         el.classList.add(IN_VIEW_CLASS);
+        if(target){
+          target.classList.remove(LEFT_CLASS);
+          target.classList.add(IN_VIEW_CLASS);
+        }
       }
       if(hasEntered && !markedEntered){
-        if(e.enter) e.enter(el, direction);
+        if(e.enter) e.enter(target || el, direction);
         el.classList.remove(LEFT_CLASS);
         el.classList.add(ENTER_CLASS);
+        if(target){
+          target.classList.remove(LEFT_CLASS);
+          target.classList.add(ENTER_CLASS);
+        }
       }
       // account for scenarios where scroll speed skips over element
       if(!hasEntered && (markedInView||markedLeft||markedEntered)){
-        if(e.onLeave) e.onLeave(el, direction);
+        if(e.onLeave) e.onLeave(target || el, direction);
         el.classList.remove(IN_VIEW_CLASS);
         el.classList.remove(ENTER_CLASS);
         el.classList.remove(LEFT_CLASS);
+        if(target){
+          target.classList.remove(IN_VIEW_CLASS);
+          target.classList.remove(ENTER_CLASS);
+          target.classList.remove(LEFT_CLASS);
+        }
       }
       if(hasLeft && markedInView){
-        if(e.onLeave) e.onLeave(el, direction);
+        if(e.onLeave) e.onLeave(target || el, direction);
         el.classList.remove(IN_VIEW_CLASS);
         el.classList.remove(LEFT_CLASS);
+        if(target){
+          target.classList.remove(IN_VIEW_CLASS);
+          target.classList.remove(LEFT_CLASS);
+        }
       }
       if(hasLeft && !markedLeft){
-        if(e.leave) e.leave(el, direction);
+        if(e.leave) e.leave(target || el, direction);
         el.classList.add(LEFT_CLASS);
+        if(target)
+          target.classList.add(LEFT_CLASS);
       }
     }
   }
