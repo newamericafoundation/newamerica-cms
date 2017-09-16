@@ -65,8 +65,8 @@ class InDepthRoutes extends Component {
               transitionName="fade"
               transitionAppear={true}
               transitionAppearTimeout={250}
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={500}>
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}>
               <Switch key={location.key} location={location}>
                 <Route exact path="/in-depth/:projectSlug/(|about)" render={()=>(
                   <Project project={results} />

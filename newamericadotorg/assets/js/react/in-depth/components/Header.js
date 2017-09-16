@@ -42,7 +42,7 @@ const Header = ({ project, sectionIndex, match }) => (
           <div className="logo bug white in-depth-logo-bug sm"></div>
         </a>
         <label>
-          <Link to={project.url}>{project.title}</Link>
+          <Link to={`${project.url}`}>{project.title}</Link>
         </label>
       </div>
       {match.params.sectionSlug != 'about' &&

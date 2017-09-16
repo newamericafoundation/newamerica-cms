@@ -5,10 +5,16 @@
   width: 95vw;
   height: 95vh;
   @include transition(all $transition-function);
+  transition-delay: 500ms;
+  -webkit-transition-delay: 500ms;
+  -o-transition-delay: 500ms;
+  -moz-transition-delay: 500ms;
   max-width: $max-site-width;
   max-height: 800px;
   box-shadow: 0px 0px 8px 3px color(black, base, 0.15);
   @include center;
+  // from weekly mixins
+  @extend %animate-fade-in;
 
   @include media-breakpoint(desktop){
     width: 95vw;
@@ -25,12 +31,10 @@
     padding-right: 0;
     width: 100vw;
     height: 100vh;
-    max-width: none;
-    max-height: none;
+    max-width: 10000px;
+    max-height: 10000px;
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
     @include transform(translate(0%, 0%));
   }
 }
