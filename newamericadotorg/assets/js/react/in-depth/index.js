@@ -12,8 +12,18 @@ class InDepthRoutes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isReady: false
+      isReady: false,
+      elapsedTime: new Date() - props.startTime
     };
+
+    let timeout = () => {
+      setTimeout(()=>{
+        this.setState({ elapsedTime: new Date() - props.startTime });
+        if(!this.state.isReady) timeout();
+      }, 50);
+    }
+
+    timeout();
   }
 
   getSection = (sectionSlug) => {
@@ -26,14 +36,6 @@ class InDepthRoutes extends Component {
       }
     });
     return { page, index };
-  }
-
-  componentWillMount() {
-    let { response: { results }} = this.props;
-    for(let i=0; i<results.sections.length; i++){
-      let img = new Image();
-      img.src = results.sections[i].story_image;
-    }
   }
 
   componentDidMount() {
@@ -51,9 +53,24 @@ class InDepthRoutes extends Component {
 
   render() {
     let { response: { results }} = this.props;
+    let { elapsedTime } = this.state;
+    if(!this.state.isReady){
+      return(
+        <div className="in-depth-loading">
+          <h6 className="no-margin">In-Depth</h6>
+          <label className="in-depth-label">
+            {results.title}
+          </label>
+          <div className="in-depth-loading__bar">
+            <div className="in-depth-loading__bar__progress"
+              style={{ width: Math.round((elapsedTime/2250)*100) + '%' }}>
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <Router>
-        {this.state.isReady &&
         <Route path="/in-depth/:projectSlug?/:sectionSlug?" render={({ location, match })=>(
           <div className={`in-depth-window ${match.params.sectionSlug && match.params.sectionSlug != 'about' ? 'section' : ''}`}>
             <Route path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
@@ -78,7 +95,6 @@ class InDepthRoutes extends Component {
             </CSSTransitionGroup>
           </div>
         )}/>
-        }
       </Router>
     );
   }

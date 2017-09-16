@@ -1,0 +1,24 @@
+.in-depth-loading{
+  position: absolute;
+  z-index: 2;
+  width: 60%;
+  max-width: 600px;
+  @include center;
+
+  label, h6 {
+    color: color(white);
+  }
+
+  &__bar {
+    height: 2px;
+    width: 100%;
+    background: color(black, base, 0.85);
+    border-radius: 4px;
+
+    &__progress {
+      height: 100%;
+      border-radius: 4px;
+      background: color(white);
+    }
+  }
+}
