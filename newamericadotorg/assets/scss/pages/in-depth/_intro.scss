@@ -1,5 +1,7 @@
 .in-depth__intro{
   &__text{
+    width: 90%;
+    max-width: 800px;
     position: absolute;
     @include center;
   }

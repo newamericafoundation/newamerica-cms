@@ -9,7 +9,9 @@
       background-repeat: repeat-y;
       background-size: 100% 55px;
       line-height: 55px;
-      padding-right: 50%;
+      @include media-breakpoint(desktop){
+        padding-right: 50%;
+      }
     }
   }
 }

@@ -16,11 +16,11 @@
   &__text__body{
     max-height: 250px;
     overflow: hidden;
-    @include fade-out(35px, #F1FFFB);
+    @include fade-out(35px, $in-depth-color);
     @include transition(max-height $transition-function);
 
     &.active{
-      @include fade-out(0px, #F1FFFB);
+      @include fade-out(0px, $in-depth-color);
       max-height: 1200px;
     }
     @include media-breakpoint(desktop){
