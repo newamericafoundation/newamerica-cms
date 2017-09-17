@@ -12,10 +12,9 @@ export default class Article extends Component {
   render(){
     let { article, edition } = this.props;
     return (
-      <section className="weekly-article weekly-content container--full-width">
-        <div className="container">
+      <section className="weekly-article weekly-content">
           <section className="weekly-article__nav-wrapper scroll-target">
-            <div className="weekly-article__nav container--wide">
+            <div className="weekly-article__nav">
               <label className="weekly-article__nav__text">
                 <Link to={'/weekly/'+edition.slug}>
                   <i className="fa fa-long-arrow-left"></i>
@@ -27,9 +26,8 @@ export default class Article extends Component {
           <Heading post={article} page="article" />
         	<section className="container--medium weekly-article-content">
         		<div className="row">
-        		 	<aside className="post-authors col-sm-2"></aside>
-        			<article className="post-body weekly-body with-dropcap col-sm-8" dangerouslySetInnerHTML={{__html: article.body}}></article>
-        			<aside className="post-social weekly-social col-sm-7">
+        			<article className="post-body weekly-body with-dropcap col-lg-9 col-md-8" dangerouslySetInnerHTML={{__html: article.body}}></article>
+        			<aside className="post-social weekly-social col-lg-3 col-md-4">
         				<div className="post-social__sticky-wrapper">
         					<label className="post-label lg">Share</label>
         				</div>
@@ -37,7 +35,6 @@ export default class Article extends Component {
         		</div>
         	</section>
           <ScrollToTop />
-        </div>
       </section>
     );
   }

@@ -16,15 +16,6 @@
     font-style: normal;
 }
 
-// @font-face {
-//     font-family: 'Circular';
-//     src: url('#{$static-url}/fonts/CircularStd-BookItalic.ttf');
-//     // src: url('#{$font-url}/fonts/Circular/CircularNorm-Bold-WebS.eot?#iefix') format('embedded-opentype'),
-//     //      url('#{$font-url}/fonts/Circular/CircularNorm-Bold-WebS.woff') format('woff');
-//     font-weight: normal;
-//     font-style: italic;
-// }
-
 @font-face {
   font-family: 'Platform';
   src: url('#{$static-url}/fonts/Platform-Medium.otf');
@@ -39,6 +30,16 @@
     font-weight: normal;
     font-style: none;
 }
+
+@font-face {
+    font-family: 'Lyon Display';
+    src: url('#{$static-url}/fonts/LyonDisplay-Bold.otf');
+    // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
+    //      url('#{$font-url}/fonts/.woff') format('woff');
+    font-weight: bold;
+    font-style: none;
+}
+
 
 @font-face {
     font-family: 'Lyon Display';
