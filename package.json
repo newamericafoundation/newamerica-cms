@@ -4,7 +4,8 @@
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
   "engines": {
-    "node": "6.9.1"
+    "node": "6.9.1",
+    "npm": "3.10.8"
   },
   "scripts": {
     "start": "source .env & ./manage.py runserver",
@@ -62,8 +63,7 @@
     "sass-loader": "^3.1.2",
     "script-loader": "^0.6.1",
     "slick-carousel": "^1.6.0",
-    "style-loader": "^0.13.0",
-    "webpack": "^2.2.1"
+    "style-loader": "^0.13.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
@@ -71,6 +71,6 @@
     "eslint-plugin-babel": "^3.2.0",
     "file-loader": "^0.8.5",
     "raw-loader": "^0.5.1",
-    "webpack": "^2.2.1"
+    "webpack": "^2.7.0"
   }
 }
