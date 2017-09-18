@@ -126,7 +126,12 @@
     font-size: 1.2em;
   }
 
+  .na-logo-wrapper{
+    text-align: center;
+  }
+
   .na-logo{
+    display: inline-block;
     max-width: 250px;
     margin: 0 auto 25px auto;
 
@@ -145,7 +150,7 @@
     }
 
     @include breakpoint($mobile-break){
-      max-width: 400px;
+      max-width: 600px;
       margin: 0 auto 50px auto;
       svg{
         width: 160px;

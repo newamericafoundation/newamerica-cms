@@ -28,6 +28,7 @@ $(document).ready(function() {
 });
 
 $(window).load(function(){
+	Foundation.addToJquery($);
 	$(document).foundation();
 	getHeaderBreakpoints();
 	modules.forEach((module) => {
