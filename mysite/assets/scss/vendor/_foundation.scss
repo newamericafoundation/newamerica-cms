@@ -10,7 +10,6 @@
 // }
 @include foundation-typography;
 @include foundation-button;
-@include foundation-forms;
 @include foundation-visibility-classes;
 @include foundation-float-classes;
 @include foundation-accordion;
@@ -41,6 +40,8 @@
 // @include foundation-title-bar;
 // @include foundation-tooltip;
 @include foundation-top-bar;
+//@include foundation-forms;
+@import 'foundation_form';
 // Overrides. Use very sparingly - modify Foundation variables instead.
 
 input[type='text'] {

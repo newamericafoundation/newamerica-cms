@@ -4,7 +4,8 @@
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
   "engines": {
-    "node": "6.9.1"
+    "node": "6.9.1",
+    "npm": "5.4.2"
   },
   "scripts": {
     "start": "source .env & ./manage.py runserver",
