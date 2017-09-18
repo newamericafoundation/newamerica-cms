@@ -18,14 +18,14 @@ module.exports = {
 			{
 				test: /(\.js)|(\.jsx)$/,
 				loader: 'babel-loader',
-				exclude: /(node_modules|bower_components)/,
+				exclude: /node_modules\/(?!(foundation-sites)\/).*/,
 				query: {
 					presets: [ 'es2015', 'stage-0' ]
 				}
 			},
 			{
 				test: /\.scss$/,
-				use: [ 
+				use: [
 					{
 						loader:'style-loader'
 					},
