@@ -4,8 +4,7 @@
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
   "engines": {
-    "node": "6.9.1",
-    "npm": "3.10.8"
+    "node": "6.9.1"
   },
   "scripts": {
     "start": "source .env & ./manage.py runserver",
@@ -48,7 +47,7 @@
     "detect-browser": "^1.5.0",
     "dom-to-image": "^2.5.2",
     "express": "^4.13.4",
-    "foundation-sites": "6.1.1",
+    "foundation-sites": "6.4.3",
     "hammerjs": "^2.0.8",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
