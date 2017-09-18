@@ -10,19 +10,19 @@
         {% for partner in partner_groups.no_type %}
         {% with partner.value as p %}
           {% image p.logo width-400 as logo %}
-          <div class="sponsor big"><img src="{{logo.url}}" alt=""></div>
+          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
         {% endwith %}
         {% endfor %}
       </div>
     {% endif %}
-    
+
     {% if partner_groups.premier_sponsor %}
       <div class="sponsor-row">
         <h4>Premier Sponsors</h4>
         {% for partner in partner_groups.premier_sponsor %}
         {% with partner.value as p %}
           {% image p.logo width-400 as logo %}
-          <div class="sponsor big"><img src="{{logo.url}}" alt=""></div>
+          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
         {% endwith %}
         {% endfor %}
       </div>

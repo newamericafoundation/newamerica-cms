@@ -39,7 +39,7 @@
   <section id="sponsors" class="section section-nav align-center">
     <div class="container">
       <span class="line-icon section-icon line-icon-seo-icons-24"></span>
-      <h3>Sponsors & Partners</h3>
+      <h3>{{ page.partner_heading }}</h3>
     </div>
     {{ page.partners }}
   </section>
@@ -51,6 +51,7 @@
   </section>
   {% endif %}
 
+  {% if page.directions %}
   <section id="directions" class="section align-center">
     <div class="container">
       <span class="line-icon section-icon line-icon-seo-icons-36"></span>
@@ -60,5 +61,6 @@
       {{ page.directions }}
     </div>
   </section>
+  {% endif %}
 
 {% endblock %}
