@@ -26,7 +26,7 @@ export default class Section extends Component {
   }
 
   render(){
-    let { sections, section, project } = this.props;
+    let { section, project } = this.props;
     return (
       <div className="in-depth__section">
         <ScrollToTop />
@@ -51,7 +51,7 @@ export default class Section extends Component {
               dangerouslySetInnerHTML={{__html: section.page.body}}/>
           </div>
         </div>
-        <SectionNav sections={sections} currentIndex={section.index} />
+        <SectionNav sections={project.sections} currentIndex={section.index} />
       </div>
     );
   }

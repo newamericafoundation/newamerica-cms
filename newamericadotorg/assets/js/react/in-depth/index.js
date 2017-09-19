@@ -89,7 +89,7 @@ class InDepthRoutes extends Component {
                   <Project project={results} />
                 )}/>
                 <Route path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
-                  <Section dispatch={this.props.dispatch} sections={results.sections} section={this.getSection(match.params.sectionSlug)} project={results} />
+                  <Section dispatch={this.props.dispatch} section={this.getSection(match.params.sectionSlug)} project={results} />
                 )}/>
               </Switch>
             </CSSTransitionGroup>

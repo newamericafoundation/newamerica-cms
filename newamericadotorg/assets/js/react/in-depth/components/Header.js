@@ -35,6 +35,16 @@ class SectionItem extends Component {
   }
 }
 
+const Arrow = ({section}) => {
+  if(window.innerWidth<860 && section.url){
+    console.log(section)
+    return (
+      <Link to={section.url}><div></div></Link>
+    );
+  }
+  return (<div></div>);
+};
+
 export default class Header extends Component {
 
   goTo = (index) => {
@@ -42,7 +52,7 @@ export default class Header extends Component {
   }
 
   render(){
-    let { project, sectionIndex, match } = this.props;
+    let { project, sectionIndex, match} = this.props;
     let goToIndex = window.innerWidth < 860 ? sectionIndex : Math.floor(sectionIndex/3)*3;
     if(this.refs.slider) this.goTo(goToIndex);
     return (
@@ -67,8 +77,8 @@ export default class Header extends Component {
               responsive={[
                 { breakpoint: 860, settings: { slidesToShow: 1, slidesToScroll: 1, initialSlide: sectionIndex }}
               ]}
-              prevArrow={<div><div></div></div>}
-              nextArrow={<div><div></div></div>}>
+              prevArrow={<div><Arrow section={project.sections[sectionIndex-1] || {}} /></div>}
+              nextArrow={<div><Arrow section={project.sections[sectionIndex+1] || {}} /></div>}>
               {project.sections.map((s,i)=>(
                 <div className={`in-depth__header__section-list__item ${i===sectionIndex ? 'active' : ''} ${s.title.length > 17 ? 'long-text' : ''}`}>
                   <SectionItem s={s} i={i}/>
