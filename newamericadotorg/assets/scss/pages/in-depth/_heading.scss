@@ -1,7 +1,10 @@
 .in-depth__heading{
   &__text{
-    margin: 75px 0 50px 0;
+    margin: 75px 0 25px 0;
     width: 100%;
+    @include media-breakpoint(desktop){
+      margin: 75px 0 50px 0;
+    }
     &__title{
       background-image: -moz-linear-gradient(top , rgba(255, 255, 255, 0) 54px, color(black) 54px, color(black) 54px);
       background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0) 54px, color(black) 54px, color(black) 54px);

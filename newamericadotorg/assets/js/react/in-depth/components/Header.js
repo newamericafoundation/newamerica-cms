@@ -35,15 +35,6 @@ class SectionItem extends Component {
   }
 }
 
-const Arrow = ({section}) => {
-  if(window.innerWidth<860 && section.url){
-    return (
-      <Link to={section.url}><div></div></Link>
-    );
-  }
-  return (<div></div>);
-};
-
 export default class Header extends Component {
 
   goTo = (index) => {
@@ -52,7 +43,6 @@ export default class Header extends Component {
 
   render(){
     let { project, sectionIndex, match, history} = this.props;
-    console.log(this.props);
     let goToIndex = window.innerWidth < 860 ? sectionIndex : Math.floor(sectionIndex/3)*3;
     if(this.refs.slider) this.goTo(goToIndex);
     return (

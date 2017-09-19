@@ -35,6 +35,7 @@ export default class Section extends Component {
           <div className="row">
             <aside className="in-depth__authors col-md-4 col-xl-3">
               <label className="in-depth-label">Authors</label>
+              <div className="in-depth__author-list">
               {project.authors.map((a)=>(
                 <div className="in-depth__author">
                   <label className="in-depth__author__name">
@@ -45,6 +46,7 @@ export default class Section extends Component {
                   <p className="in-depth__author__position no-margin">{a.position}</p>
                 </div>
               ))}
+              </div>
             </aside>
             <article className="in-depth__section__body scroll-target post-body col-md-8 col-xl-9"
               data-scroll-target=".in-depth__header"

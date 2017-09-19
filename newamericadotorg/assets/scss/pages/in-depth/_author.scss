@@ -1,12 +1,33 @@
 .in-depth__authors{
+  margin-bottom: 15px;
+  overflow: hidden;
   .in-depth-label{
     margin-top: 20px;
     margin-bottom: 15px;
   }
 }
 
+.in-depth__author-list{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  @include media-breakpoint(tablet){
+    white-space: normal;
+  }
+}
+
 .in-depth__author{
+  white-space: normal;
   margin-bottom: 15px;
+  display: inline-block;
+  max-width: 175px;
+  padding-right: 30px;
+  vertical-align: top;
+  @include media-breakpoint(tablet){
+    display: block;
+    max-width: none;
+  }
 
   &__name{
     font-weight: bold;
