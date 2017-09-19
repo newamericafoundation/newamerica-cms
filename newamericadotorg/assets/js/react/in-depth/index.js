@@ -73,8 +73,8 @@ class InDepthRoutes extends Component {
       <Router>
         <Route path="/in-depth/:projectSlug?/:sectionSlug?" render={({ location, match })=>(
           <div className={`in-depth-window ${match.params.sectionSlug && match.params.sectionSlug != 'about' ? 'section' : ''}`}>
-            <Route path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
-              <Header project={results} match={match} sectionIndex={this.getSection(match.params.sectionSlug).index}/>
+            <Route path="/in-depth/:projectSlug/:sectionSlug" render={(props)=>(
+              <Header {...props} project={results} sectionIndex={this.getSection(props.match.params.sectionSlug).index}/>
             )}/>
             <CSSTransitionGroup
               component="div"
@@ -88,8 +88,8 @@ class InDepthRoutes extends Component {
                 <Route exact path="/in-depth/:projectSlug/(|about)" render={()=>(
                   <Project project={results} />
                 )}/>
-                <Route path="/in-depth/:projectSlug/:sectionSlug" render={({ match })=>(
-                  <Section dispatch={this.props.dispatch} section={this.getSection(match.params.sectionSlug)} project={results} />
+              <Route path="/in-depth/:projectSlug/:sectionSlug" render={(props)=>(
+                  <Section {...props} dispatch={this.props.dispatch} section={this.getSection(props.match.params.sectionSlug)} project={results} />
                 )}/>
               </Switch>
             </CSSTransitionGroup>
