@@ -35,7 +35,7 @@ export default {
       },
 
       output: function(styles, styleNodes) {
-        postcss([cssnano()])
+        postcss([cssnano({ discardUnused: false })])
           .process(styleNodes[0].content)
           .then(result => {
             writeFile(

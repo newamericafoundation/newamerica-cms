@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Lyon Display';
-    src: url('#{$static-url}/fonts/LyonDisplay-Bold.otf');
+    font-family: 'Lyon';
+    src: url('#{$static-url}/fonts/Lyon-Bold.otf');
     // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
     //      url('#{$font-url}/fonts/.woff') format('woff');
     font-weight: bold;
@@ -8,8 +8,8 @@
 }
 
 @font-face {
-    font-family: 'Lyon Display';
-    src: url('#{$static-url}/fonts/LyonDisplay-BoldItalic.otf');
+    font-family: 'Lyon';
+    src: url('#{$static-url}/fonts/Lyon-BoldItalic.otf');
     // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
     //      url('#{$font-url}/fonts/.woff') format('woff');
     font-weight: bold;
