@@ -81,15 +81,15 @@ class InDepthRoutes extends Component {
               className="in-depth__content"
               transitionName="fade"
               transitionAppear={true}
-              transitionAppearTimeout={250}
-              transitionEnterTimeout={1000}
-              transitionLeaveTimeout={1000}>
-              <Switch key={location.key} location={location}>
+              transitionAppearTimeout={500}
+              transitionEnterTimeout={1500}
+              transitionLeaveTimeout={500}>
+              <Switch key={match.params.sectionSlug && match.params.sectionSlug != 'about' ? 'section' : 'project'} location={location}>
                 <Route exact path="/in-depth/:projectSlug/(|about)" render={()=>(
                   <Project project={results} />
                 )}/>
               <Route path="/in-depth/:projectSlug/:sectionSlug" render={(props)=>(
-                  <Section {...props} dispatch={this.props.dispatch} section={this.getSection(props.match.params.sectionSlug)} project={results} />
+                  <Section {...props} location={location} dispatch={this.props.dispatch} section={this.getSection(props.match.params.sectionSlug)} project={results} />
                 )}/>
               </Switch>
             </CSSTransitionGroup>

@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { CSSTransitionGroup } from 'react-transition-group'
 import SectionNav from './SectionNav';
 import ScrollToTop from './ScrollToTop';
 import loadExternalScript from '../load-external-script';
@@ -25,12 +26,21 @@ export default class Section extends Component {
     });
   }
 
+  componentDidUpdate(){
+    let content = document.querySelector('.in-depth__content');
+    if(content) content.scrollTop = 0;
+  }
+
   render(){
-    let { section, project } = this.props;
+    let { section, project, location } = this.props;
     return (
-      <div className="in-depth__section">
-        <ScrollToTop />
-        <div className="container">
+      <CSSTransitionGroup
+        component="div"
+        className="in-depth__section"
+        transitionName="section-fade"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}>
+        <div key={location.key} className="container">
           <Heading section={section} project={project} />
           <div className="row">
             <aside className="in-depth__authors col-md-4 col-xl-3">
@@ -54,7 +64,7 @@ export default class Section extends Component {
           </div>
         </div>
         <SectionNav sections={project.sections} currentIndex={section.index} />
-      </div>
+      </CSSTransitionGroup>
     );
   }
 }
