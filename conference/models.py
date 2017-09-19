@@ -80,6 +80,8 @@ class Conference(Page):
     zipcode = models.TextField(default='20005', blank=True, null=True)
     venue_details = RichTextField(null=True, blank=True)
 
+    partner_heading = models.TextField(default='Sponsors & Partners')
+
     about = MultiFieldPanel(
         [
             FieldPanel('title'),
@@ -151,6 +153,11 @@ class Conference(Page):
     partners = StreamField(PartnersBlock(), null=True, blank=True)
     sessions = StreamField(SessionsBlock(), null=True, blank=True)
 
+    partners_and_sponsors = MultiFieldPanel([
+        FieldPanel('partner_heading'),
+        StreamFieldPanel('partners')
+    ]);
+
     content_panels = [
         about,
         setup,
@@ -159,7 +166,7 @@ class Conference(Page):
         StreamFieldPanel('directions'),
         StreamFieldPanel('speakers'),
         StreamFieldPanel('sessions'),
-        StreamFieldPanel('partners')
+        partners_and_sponsors
     ]
 
     promote_panels = Page.promote_panels

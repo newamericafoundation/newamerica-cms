@@ -14,7 +14,7 @@
             <li class="navigation-item"><a href="#speakers" class="navigation-link">Speakers</a></li>
             <li class="navigation-item"><a href="#schedule" class="navigation-link">Schedule</a></li>
             {% if page.partners|length > 0 %}
-              <li class="navigation-item"><a href="#sponsors" class="navigation-link">Sponsors</a></li>
+              <li class="navigation-item"><a href="#sponsors" class="navigation-link">{{ page.partner_heading }}</a></li>
             {% endif %}
             {% if page.venue_details %}
               {% if page.hotel_details %}
@@ -22,6 +22,9 @@
               {% else %}
                 <li class="navigation-item"><a href="#venue" class="navigation-link">Venue</a></li>
               {% endif %}
+            {% endif %}
+            {% if page.directions %}
+              <li class="navigation-item"><a href="#directions" class="navigation-link">Directions</a></li>
             {% endif %}
           </ul>
         </div>

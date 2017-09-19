@@ -6,15 +6,18 @@
 
   <div class="heading-block centered-block align-center">
     <div class="container">
-      <div class="na-logo">
-        <a href="http://newamerica.org/" target="_blank">
-        {% if page.alternate_logo %}
-          {% image page.alternate_logo max-400x100 %}
-        {% else %}
-          {% include 'components/svg/new-america-white.html' %}
-        {% endif %}
-        </a>
-    	</div>
+      <div class="na-logo-wrapper">
+        <div class="na-logo">
+          <a href="http://newamerica.org/" target="_blank">
+          {% if page.alternate_logo %}
+            {% image page.alternate_logo original as alt_logo %}
+            <img src="{{alt_logo.url}}" />
+          {% else %}
+            {% include 'ui_elements/svg/new-america-white.html' %}
+          {% endif %}
+          </a>
+      	</div>
+      </div>
       <h5 class="heading-alt" style="margin-bottom: 8px;">
         <span>
           <span class="fa fa-calendar-o base-clr-txt"></span>
