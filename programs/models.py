@@ -1,13 +1,14 @@
 from django.db import models
-
+from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.wagtailcore.blocks import PageChooserBlock
+from wagtail.wagtailcore.blocks import PageChooserBlock, ChoiceBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from subscribe.models import SubscriptionSegment
 from modelcluster.fields import ParentalKey
+from newamericadotorg.blocks import BodyBlock
 
 class SubscriptionProgramRelationship(models.Model):
     subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
@@ -129,7 +130,9 @@ class AbstractProgram(Page):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+    ]
+
+    featured_panels = [
         MultiFieldPanel(
             [
                 PageChooserPanel('lead_1'),
@@ -153,10 +156,17 @@ class AbstractProgram(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('name', classname='full title'),
-        FieldPanel('location'),
-        FieldPanel('description'),
-        PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
+        MultiFieldPanel(
+            [
+                FieldPanel('name', classname='full title'),
+                ImageChooserPanel('story_image'),
+                FieldPanel('location'),
+                FieldPanel('description'),
+                PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
+            ],
+            heading="Setup",
+            classname="collapsible"
+        ),
     ]
 
     def get_context(self, request):
@@ -263,16 +273,29 @@ class Program(AbstractProgram):
     )
 
     content_panels = AbstractProgram.content_panels + [
-        ImageChooserPanel('desktop_program_logo'),
-        ImageChooserPanel('mobile_program_logo'),
+        MultiFieldPanel([
+            ImageChooserPanel('desktop_program_logo'),
+            ImageChooserPanel('mobile_program_logo'),
+        ], heading="Logos")
     ]
 
     promote_panels = AbstractProgram.promote_panels + [
+        InlinePanel('subscriptions', label=("Subscription Segments")),
+    ]
+
+    sidebar_panels = [
         StreamFieldPanel('sidebar_menu_about_us_pages'),
         StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
         StreamFieldPanel('sidebar_menu_our_work_pages'),
-        InlinePanel('subscriptions', label=("Subscription Segements")),
     ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading="Content"),
+        ObjectList(AbstractProgram.featured_panels, heading="Featured"),
+        ObjectList(sidebar_panels, heading="Sidebar"),
+        ObjectList(promote_panels, heading="Promote"),
+        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+    ])
 
     def get_context(self, request):
         context = super(Program, self).get_context(request)
@@ -315,6 +338,18 @@ class Subprogram(AbstractProgram):
     'PublicationsPage'
     ]
 
+    PROJECT_OPTIONS =  (
+        ('base', 'Full'),
+        ('simple_page', 'Simple Project'),
+    )
+
+    project_type = models.CharField(choices=PROJECT_OPTIONS, default='base', max_length=100)
+
+    body = StreamField(
+        BodyBlock(),
+        blank=True, null=True, help_text="On the Content tab, be sure to set Project Type to 'Simple Project' and choose a 'Story Image'"
+    )
+
     parent_programs = models.ManyToManyField(
         Program,
         through=ProgramSubprogramRelationship,
@@ -327,13 +362,25 @@ class Subprogram(AbstractProgram):
         blank=True,
     )
 
-    content_panels = AbstractProgram.content_panels + [
+    content_panels = [ FieldPanel('project_type') ] + AbstractProgram.content_panels + [
         InlinePanel('programs', label=("Programs")),
     ]
 
     promote_panels = AbstractProgram.promote_panels + [
         InlinePanel('subscriptions', label=("Subscription Segements")),
     ]
+
+    simple_project_panels = [
+        StreamFieldPanel('body')
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(simple_project_panels, heading='Simple Project'),
+        ObjectList(AbstractProgram.featured_panels, heading='Featured'),
+        ObjectList(promote_panels, heading='Promote'),
+        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+    ])
 
     def get_template(self, request):
         return 'programs/program.html'
