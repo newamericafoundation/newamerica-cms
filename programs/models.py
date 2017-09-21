@@ -339,7 +339,7 @@ class Subprogram(AbstractProgram):
     ]
 
     PROJECT_OPTIONS =  (
-        ('base', 'Full'),
+        ('./program', 'Program'),
         ('simple_page', 'Simple Project'),
     )
 
@@ -383,7 +383,7 @@ class Subprogram(AbstractProgram):
     ])
 
     def get_template(self, request):
-        return 'programs/program.html'
+        return 'programs/project.html'
 
     class Meta:
         verbose_name = "Project Page"
