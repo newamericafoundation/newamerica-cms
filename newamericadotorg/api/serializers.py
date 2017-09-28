@@ -5,7 +5,7 @@ from rest_framework.serializers import Serializer, ModelSerializer, SerializerMe
 
 from wagtail.wagtailcore.models import Page, ContentType
 from home.models import Post
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, AbstractContentPage
 from person.models import Person
 from issue.models import IssueOrTopic
 from event.models import Event
@@ -260,9 +260,14 @@ class PostSerializer(ModelSerializer):
         )
 
     def get_content_type(self, obj):
+        content_type = obj.get_ancestors().type(AbstractContentPage).first()
         return {
-            'name': obj.content_type.name.title(),
-            'api_name': obj.content_type.model
+            'id': content_type.id,
+            'name': content_type.title,
+            'title': obj.content_type.name.title(),
+            'api_name': obj.content_type.model,
+            'url': content_type.url,
+            'slug': content_type.slug
             }
 
     def get_story_image(self, obj):

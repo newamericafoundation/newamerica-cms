@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
 
+# eventually hard encode these values into respective the ContentTypePage model
 newamericadotorg_content_types = [
     { 'name': 'Blog Post', 'api_name': 'blogpost', 'slug': 'blogs', 'title': 'Blogs'  },
     { 'name': 'Policy Paper', 'api_name': 'policypaper', 'slug': 'policy-papers', 'title': 'Policy Papers'  },
@@ -16,7 +17,8 @@ newamericadotorg_content_types = [
     { 'name': 'Press Release', 'api_name': 'pressrelease', 'slug': 'press-releases', 'title': 'Press Releases'  },
     { 'name': 'Article', 'api_name': 'article', 'slug': 'articles', 'title': 'Articles' },
     { 'name': 'Podcast', 'api_name': 'podcast', 'slug': 'podcasts', 'title': 'Podcasts' },
-    { 'name': 'Weekly Article', 'api_name': 'weeklyarticle', 'slug': 'weekly', 'title': 'Weekly Articles' }
+    { 'name': 'Weekly Article', 'api_name': 'weeklyarticle', 'slug': 'weekly', 'title': 'Weekly Articles' },
+    { 'name': 'Custom Content Type', 'api_name': 'customcontenttype', 'slug': 'custom', 'title': 'Custom'}
 ]
 
 
@@ -27,7 +29,8 @@ programpage_contenttype_map = {
     'programquotedpage': newamericadotorg_content_types[4],
     'programpressreleasespage': newamericadotorg_content_types[5],
     'programarticlespage': newamericadotorg_content_types[6],
-    'programpodcastspage': newamericadotorg_content_types[7]
+    'programpodcastspage': newamericadotorg_content_types[7],
+    'prgoramcustomcontenttypepage': newamericadotorg_content_types[8]
 }
 
 def generate_image_url(image, filter_spec=None):
@@ -71,14 +74,23 @@ def get_program_content_types(program):
 
     content_types = []
     for c in children:
-        content_types.append({
+        content_type = {
             'id': c.id,
             'url': c.url,
             'slug': c.slug,
             'title': c.title,
             'api_name': programpage_contenttype_map[c.content_type.model]['api_name'],
-            'name': programpage_contenttype_map[c.content_type.model]['name']
-        })
+            'name': programpage_contenttype_map[c.content_type.model]['name'],
+            'categories': [] # for custom content types
+        }
+        if c.content_type.model == 'programcustomcontenttypepage':
+            for cat in c.get_children():
+                content_type.categories.append({
+                    'name': cat.title,
+                    'id': cat.id,
+                    'slug': cat.slug
+                })
+        content_types.append(content_type)
 
     return content_types
 

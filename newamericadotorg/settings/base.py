@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'policy_paper',
     'press_release',
     'quoted',
+    'custom_contenttype',
     'issue',
     'weekly',
     'in_depth',

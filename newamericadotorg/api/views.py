@@ -20,11 +20,12 @@ from serializers import (
 )
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, AbstractContentPage
 from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
 from in_depth.models import InDepthProject
+from custom_contenttype.models import CustomContentTypeCategory
 from subscribe.campaign_monitor import update_subscriber
 
 class PostFilter(FilterSet):
@@ -50,6 +51,8 @@ class PostList(generics.ListAPIView):
         ids = self.request.query_params.getlist('id[]', None)
         topic_id = self.request.query_params.get('topic_id', None)
         posts = Post.objects.live().order_by('-date').not_type(Event).distinct()
+        content_type_id = self.request.query_params.get('content_type_id', None)
+        category_id = self.request.query_params.get('category_id', None)
 
         if topic_id:
             topics = IssueOrTopic.objects.get(pk=topic_id)\
@@ -59,6 +62,12 @@ class PostList(generics.ListAPIView):
 
         if ids:
             posts = posts.filter(id__in=ids)
+
+        if content_type_id:
+            posts = posts.descendant_of(Page.objects.get(pk=content_type_id))
+
+        if category_id:
+            posts = posts.descendant_of(Page.objects.get(pk=category_id))
 
         return posts;
 
