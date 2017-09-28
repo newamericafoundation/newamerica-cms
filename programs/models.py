@@ -235,7 +235,8 @@ class Program(AbstractProgram):
     'Subprogram',
     'issue.TopicHomepage',
     'home.RedirectPage',
-    'PublicationsPage'
+    'PublicationsPage',
+    'custom_contenttype.ProgramCustomContentTypePage'
     ]
 
     desktop_program_logo = models.ForeignKey(
