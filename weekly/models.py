@@ -7,10 +7,11 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.blocks import PageChooserBlock
 
+from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results
 
 
-class Weekly(Page):
+class Weekly(AbstractContentPage):
     parent_page_types = ['home.HomePage']
     subpage_types = ['WeeklyEdition']
 

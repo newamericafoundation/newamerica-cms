@@ -10,13 +10,13 @@ class Filter extends Component {
       let { setQuery, contentType, projectId, before, after } = this.props;
 
       if(
-        nextProps.contentType.api_name !== contentType.api_name ||
+        nextProps.contentType.id !== contentType.id ||
         nextProps.projectId != projectId ||
         nextProps.before != before ||
         nextProps.after != after
       ){
         setQuery({
-          content_type: nextProps.contentType.api_name,
+          content_type_id: nextProps.contentType.id || '',
           project_id: nextProps.projectId || '',
           before: nextProps.before || '',
           after: nextProps.after || '',
@@ -56,7 +56,7 @@ class Filter extends Component {
               labelAccessor="title"
               onChange={(option)=>{
                 let val = option ? option.slug : 'publications';
-                history.push('/'+program.slug+'/'+val+'/?'+this.getParams().toString());
+                history.push(`/${program.slug}/${val}/?${this.getParams().toString()}`);
               }}/>
             {program.projects.length > 0 &&
               <Select
@@ -99,7 +99,7 @@ export default (props) => (
     initialQuery={{
       image_rendition: IMAGE_RENDITION,
       program_id: props.programId,
-      content_type: props.contentType.api_name,
+      content_type_id: props.contentType.id || '',
       project_id: props.projectId || '',
       before: props.before || '',
       after: props.after || '',

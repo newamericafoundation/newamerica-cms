@@ -32,7 +32,7 @@ class CustomContentTypeCategory(Page):
 class ProgramCustomContentTypePage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and returns
-    all Blog Posts associated with a specific Program or
+    all Custom Content Type Posts associated with a specific Program or
     Subprogram
     """
 

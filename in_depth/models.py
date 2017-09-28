@@ -16,6 +16,7 @@ from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReference
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
+from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results, get_org_wide_posts
 
 class InDepthSection(Page):
@@ -135,7 +136,7 @@ class InDepthProject(Post):
         verbose_name = "In-Depth Project"
 
 
-class AllInDepthHomePage(Page):
+class AllInDepthHomePage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every In Depth Page
