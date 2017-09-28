@@ -1,21 +1,2 @@
-{% extends page.project_type|add:".html" %}
-
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-{% load utilities %}
-
-{% block body_class %}template-programhomepage{% endblock %}
-
-{% if page.project_type == "./program" %}
-	{% block content %}
-		<main>
-			{% include 'components/breadcrumbs.html' %}
-			{% include './intro_block.html' %}
-			{% include 'components/react/program-event-list.html' %}
-			{% include 'components/react/program-content-grid.html' %}
-			{% if page.subscriptions.all|length > 0 %}
-				{% include './subscribe_block.html' %}
-			{% endif %}
-		</main>
-	{% endblock %}
-{% endif %}
+{% extends base_template %}
+{% block body_class %}template-projecthomepage{% endblock %}

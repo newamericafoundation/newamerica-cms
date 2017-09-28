@@ -339,11 +339,11 @@ class Subprogram(AbstractProgram):
     ]
 
     PROJECT_OPTIONS =  (
-        ('./program', 'Program'),
+        ('programs/program', 'Subprogram'),
         ('simple_page', 'Simple Project'),
     )
 
-    project_type = models.CharField(choices=PROJECT_OPTIONS, default='base', max_length=100)
+    project_type = models.CharField(choices=PROJECT_OPTIONS, default='programs/program', max_length=100)
 
     body = StreamField(
         BodyBlock(),
@@ -384,6 +384,15 @@ class Subprogram(AbstractProgram):
 
     def get_template(self, request):
         return 'programs/project.html'
+
+    def get_context(self, request):
+        context = super(Subprogram, self).get_context(request)
+
+        context['base_template'] = self.project_type + '.html'
+
+        print context['base_template']
+
+        return context
 
     class Meta:
         verbose_name = "Project Page"
