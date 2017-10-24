@@ -4,17 +4,17 @@
   - a program's contentTypes
     (programs select which contentTypes they use,
     and rename default slugs, so this is also dyanmic)
-  - a program's projects and that project's contentTypes
-    (projects can also choose contentTypes and rename slugs)
+  - a program's subprograms and that subprogram's contentTypes
+    (subprograms can also choose contentTypes and rename slugs)
 **/
 
 import { Route, Switch } from 'react-router-dom';
 import SiteFilter from './SiteFilter';
 import ProgramFilter from './ProgramFilter';
-import ProjectFilter from './ProjectFilter';
+import SubprogramFilter from './SubprogramFilter';
 import AuthorFilter from './AuthorFilter';
 import ProgramIndex from './ProgramIndex';
-import ProjectIndex from './ProjectIndex';
+import SubprogramIndex from './SubprogramIndex';
 
 export const IndexContentTypeRoute = ({contentType, ...rest}) => (
   <Route {...rest} render={(props)=>(
@@ -42,7 +42,7 @@ export const AuthorRoute = (rest) => (
 export const ProgramContentTypeRoute = ({contentType, program, ...rest}) => (
   <Route {...rest} render={(props)=>(
       <ProgramFilter {...props}
-        projectId={new URLSearchParams(props.location.search).get('project_id')}
+        subprogramId={new URLSearchParams(props.location.search).get('subprogram_id')}
         before={new URLSearchParams(props.location.search).get('before')}
         after={new URLSearchParams(props.location.search).get('after')}
         programId={program.id}
@@ -51,17 +51,17 @@ export const ProgramContentTypeRoute = ({contentType, program, ...rest}) => (
     )}/>
 );
 
-export const ProjectRoute = ({projectId, ...rest}) => (
+export const SubprogramRoute = ({subprogramId, ...rest}) => (
   <Route {...rest} render={(props)=>(
-    <ProjectIndex {...props} projectId={projectId} />
+    <SubprogramIndex {...props} subprogramId={subprogramId} />
   )}/>
 );
 
-export const ProjectContentTypeRoute = ({contentType, project, ...rest}) => (
+export const SubprogramContentTypeRoute = ({contentType, subprogram, ...rest}) => (
   <Route {...rest} render={(props)=>(
-    <ProjectFilter {...props}
-      project={project}
-      projectId={project.id}
+    <SubprogramFilter {...props}
+      subprogram={subprogram}
+      subprogramId={subprogram.id}
       contentType={contentType}
     />
   )}/>
@@ -95,24 +95,24 @@ export const ProgramRoutes = ({program}) => (
         contentType={c}
         program={program} />
     ))}
-    {program.projects && program.projects.map((p,i)=>(
-      <ProjectRoute path={p.url} projectId={p.id} />
+    {program.subprograms && program.subprograms.map((p,i)=>(
+      <SubprogramRoute path={p.url} subprogramId={p.id} />
     ))}
   </Switch>
 );
 
-// Routes for ProjectIndex `/:program/:project/:contentType`
-export const ProjectRoutes = ({project}) => (
+// Routes for SubprogramIndex `/:program/:subprogram/:contentType`
+export const SubprogramRoutes = ({subprogram}) => (
   <Switch>
-    <ProjectContentTypeRoute
-      path={`${project.url}publications`}
+    <SubprogramContentTypeRoute
+      path={`${subprogram.url}publications`}
       contentType={{slug: 'publications', api_name:'', name:'Publications', title: ''}}
-      project={project} />
-    {project.content_types && project.content_types.map((c,i)=>(
-      <ProjectContentTypeRoute
+      subprogram={subprogram} />
+    {subprogram.content_types && subprogram.content_types.map((c,i)=>(
+      <SubprogramContentTypeRoute
         path={c.url}
         contentType={c}
-        project={project} />
+        subprogram={subprogram} />
     ))}
   </Switch>
 );

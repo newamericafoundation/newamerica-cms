@@ -10,11 +10,11 @@
         <h4>{{p.program.title}}</h4>
       </a>
       <ul>
-      {% for project in p.projects %}
+      {% for subprogram in p.subprograms %}
         <li>
-          <a class="header-link-list__item__project-link" href="{{project.url}}">
+          <a class="header-link-list__item__subprogram-link" href="{{subprogram.url}}">
             <label>
-              {{project.title}}
+              {{subprogram.title}}
             </label>
           </a>
         </li>

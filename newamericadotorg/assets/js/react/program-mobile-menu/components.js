@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { SET_ANY_STATE } from '../constants';
 
-const ProjectsTab = ({projects}) => (
+const SubprogramsTab = ({subprograms}) => (
   <div className="tabs__tab">
-    {projects.map((p)=>(
+    {subprograms.map((p)=>(
       <div className="tabs__tab__list-item">
         <a href={p.url}>{p.title}</a>
       </div>
@@ -24,9 +24,9 @@ const TopicsTab = ({topics}) => (
 const Toggles = ({ switchTab, program, selectedTab, closeMenu }) => (
   <div className="inline-toggles-wrapper">
     <div className="inline-toggles">
-      {program.projects.length > 0 &&
-        <div className={`inline-toggles__item${selectedTab=='Projects' ? ' selected' : ''}`}>
-          <a onClick={()=>{switchTab('Projects')}}>Projects</a>
+      {program.subprograms.length > 0 &&
+        <div className={`inline-toggles__item${selectedTab=='Subprograms' ? ' selected' : ''}`}>
+          <a onClick={()=>{switchTab('Subprograms')}}>Subprograms</a>
         </div>}
       {program.topics.length > 0 &&
         <div className={`inline-toggles__item${selectedTab=='Topics' ? ' selected' : ''}`}>
@@ -53,7 +53,7 @@ const Toggles = ({ switchTab, program, selectedTab, closeMenu }) => (
 export default class Menu extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedTab: 'Projects' };
+    this.state = { selectedTab: 'Subprograms' };
   }
 
   switchTab = (selectedTab) => {
@@ -75,7 +75,7 @@ export default class Menu extends Component {
       <div className="tabs">
         <Toggles program={results} selectedTab={selectedTab} switchTab={this.switchTab} closeMenu={this.closeMenu}/>
         <div className="tabs-wrapper">
-          {selectedTab == 'Projects' && <ProjectsTab projects={results.projects}/>}
+          {selectedTab == 'Subprograms' && <SubprogramsTab subprograms={results.subprograms}/>}
           {selectedTab == 'Topics' && <TopicsTab topics={results.topics}/>}
         </div>
       </div>

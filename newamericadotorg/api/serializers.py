@@ -17,7 +17,7 @@ from django.core.urlresolvers import reverse
 from helpers import get_program_content_types, generate_image_url, get_subpages, get_content_type
 
 
-class ProgramProjectSerializer(ModelSerializer):
+class ProgramSubprogramSerializer(ModelSerializer):
     '''
     Nested under program serializer
     '''
@@ -46,7 +46,7 @@ class TopicDetailSerializer(ModelSerializer):
 
     def get_program(self, obj):
         if obj.parent_program:
-            return ProgramProjectSerializer(obj.parent_program).data
+            return ProgramSubprogramSerializer(obj.parent_program).data
 
     def get_body(self, obj):
         return loader.get_template('components/post_body.html').render({ 'page': obj })
@@ -70,7 +70,7 @@ class TopicSerializer(ModelSerializer):
 
     def get_program(self, obj):
         if obj.parent_program:
-            return ProgramProjectSerializer(obj.parent_program).data
+            return ProgramSubprogramSerializer(obj.parent_program).data
 
     class Meta:
         model = IssueOrTopic
@@ -98,7 +98,7 @@ class ProgramSerializer(ModelSerializer):
 
 class ProgramDetailSerializer(ModelSerializer):
     description = SerializerMethodField()
-    projects = SerializerMethodField()
+    subprograms = SerializerMethodField()
     logo = SerializerMethodField()
     content_types = SerializerMethodField()
     leads = SerializerMethodField()
@@ -109,7 +109,7 @@ class ProgramDetailSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'description', 'url', 'projects', 'slug',
+            'id', 'name', 'description', 'url', 'subprograms', 'slug',
             'content_types', 'leads', 'features', 'subpages', 'logo', 'topics'
         )
 
@@ -117,9 +117,9 @@ class ProgramDetailSerializer(ModelSerializer):
     def get_description(self, obj):
         return obj.story_excerpt
 
-    def get_projects(self, obj):
+    def get_subprograms(self, obj):
         #horribly inefficient. may have to add a ManyToManyField to Program??
-        return ProgramProjectSerializer(obj.get_children().type(Subprogram).live(),many=True).data
+        return ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live(),many=True).data
 
     def get_topics(self, obj):
         return TopicSerializer(obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live(), many=True).data
@@ -151,14 +151,14 @@ class ProgramDetailSerializer(ModelSerializer):
         return get_subpages(obj)
 
 
-class ProjectProgramSerializer(ModelSerializer):
+class SubprogramProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
             'id', 'name', 'url', 'slug'
         )
 
-class ProjectSerializer(ModelSerializer):
+class SubprogramSerializer(ModelSerializer):
     parent_programs = SerializerMethodField()
     content_types = SerializerMethodField()
     description = SerializerMethodField()
@@ -174,7 +174,7 @@ class ProjectSerializer(ModelSerializer):
         )
 
     def get_parent_programs(self, obj):
-        return ProjectProgramSerializer(obj.parent_programs, many=True).data
+        return SubProgramProgramSerializer(obj.parent_programs, many=True).data
 
     def get_content_types(self, obj):
         return get_program_content_types(obj)
@@ -232,7 +232,7 @@ class PostProgramSerializer(ModelSerializer):
     def get_name(self, obj):
         return obj.title;
 
-class PostProjectSerializer(ModelSerializer):
+class PostSubprogramSerializer(ModelSerializer):
     name = SerializerMethodField()
 
     class Meta:
@@ -248,14 +248,14 @@ class PostSerializer(ModelSerializer):
     content_type = SerializerMethodField()
     story_image = SerializerMethodField()
     programs = SerializerMethodField()
-    projects = SerializerMethodField()
+    subprograms = SerializerMethodField()
     authors = SerializerMethodField()
 
     class Meta:
         model = Post
         fields = (
             'id', 'title', 'subheading', 'date', 'content_type',
-            'authors', 'programs', 'projects', 'url', 'story_excerpt',
+            'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
             'story_image', 'topics'
         )
 
@@ -278,8 +278,8 @@ class PostSerializer(ModelSerializer):
     def get_programs(self, obj):
         return PostProgramSerializer(obj.parent_programs, many=True).data
 
-    def get_projects(self, obj):
-        return PostProjectSerializer(obj.post_subprogram, many=True).data
+    def get_subprograms(self, obj):
+        return PostSubprogramSerializer(obj.post_subprogram, many=True).data
 
     def get_authors(self, obj):
         return AuthorSerializer(obj.post_author, many=True, context=self.context).data
@@ -287,13 +287,13 @@ class PostSerializer(ModelSerializer):
 class EventSerializer(ModelSerializer):
     story_image = SerializerMethodField()
     programs = SerializerMethodField()
-    projects = SerializerMethodField()
+    subprograms = SerializerMethodField()
 
     class Meta:
         model = Event
         fields = ('id', 'title', 'slug', 'date', 'end_date', 'start_time', 'end_time',
         'street_address','city', 'state', 'zipcode', 'rsvp_link', 'story_image',
-        'programs', 'projects', 'url'
+        'programs', 'subprograms', 'url'
         )
 
     def get_story_image(self, obj):
@@ -303,8 +303,8 @@ class EventSerializer(ModelSerializer):
     def get_programs(self, obj):
         return PostProgramSerializer(obj.parent_programs, many=True).data
 
-    def get_projects(self, obj):
-        return PostProjectSerializer(obj.post_subprogram, many=True).data
+    def get_subprograms(self, obj):
+        return PostSubprogramSerializer(obj.post_subprogram, many=True).data
 
 class HomeSerializer(ModelSerializer):
     leads = SerializerMethodField()

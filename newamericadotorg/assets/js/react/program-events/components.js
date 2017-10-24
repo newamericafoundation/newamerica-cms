@@ -50,7 +50,7 @@ export class Events extends Component {
         query.program_id = programId;
         break;
       case 'subprogram':
-        query.project_id = programId;
+        query.subprogram_id = programId;
     }
     return(
       <Fetch

@@ -44,7 +44,7 @@ const APP = ({}) => (
       <Route path="/:programSlug/events" render={({match: { params }})=>(
         <Events params={params} />
       )}/>
-      <Route path="/:programSlug/:projectSlug/events" render={({match: { params }})=>(
+      <Route path="/:programSlug/:subprogramSlug/events" render={({match: { params }})=>(
         <Events params={params} />
       )}/>
     </Switch>

@@ -339,16 +339,16 @@ class Subprogram(AbstractProgram):
     'PublicationsPage'
     ]
 
-    PROJECT_OPTIONS =  (
-        ('programs/program', 'Subprogram'),
-        ('simple_page', 'Simple Project'),
+    TEMPLATE_OPTIONS =  (
+        ('programs/program.html', 'Full'),
+        ('simple_page.html', 'Simple'),
     )
 
-    project_type = models.CharField(choices=PROJECT_OPTIONS, default='programs/program', max_length=100)
+    template = models.CharField(choices=TEMPLATE_OPTIONS, default='programs/program.html', max_length=100)
 
     body = StreamField(
         BodyBlock(),
-        blank=True, null=True, help_text="On the Content tab, be sure to set Project Type to 'Simple Project' and choose a 'Story Image'"
+        blank=True, null=True, help_text="On the Content tab, be sure to set the template to 'Simple' and choose a 'Story Image'"
     )
 
     parent_programs = models.ManyToManyField(
@@ -363,40 +363,31 @@ class Subprogram(AbstractProgram):
         blank=True,
     )
 
-    content_panels = [ FieldPanel('project_type') ] + AbstractProgram.content_panels + [
+    content_panels = [ FieldPanel('template') ] + AbstractProgram.content_panels + [
         InlinePanel('programs', label=("Programs")),
     ]
 
     promote_panels = AbstractProgram.promote_panels + [
-        InlinePanel('subscriptions', label=("Subscription Segements")),
+        InlinePanel('subscriptions', label=("Subscription Segments")),
     ]
 
-    simple_project_panels = [
+    simple_page_panels = [
         StreamFieldPanel('body')
     ]
 
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading='Content'),
-        ObjectList(simple_project_panels, heading='Simple Project'),
+        ObjectList(simple_page_panels, heading='Simple Content'),
         ObjectList(AbstractProgram.featured_panels, heading='Featured'),
         ObjectList(promote_panels, heading='Promote'),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
     ])
 
     def get_template(self, request):
-        return 'programs/project.html'
-
-    def get_context(self, request):
-        context = super(Subprogram, self).get_context(request)
-
-        context['base_template'] = self.project_type + '.html'
-
-        print context['base_template']
-
-        return context
+        return 'programs/subprogram.html'
 
     class Meta:
-        verbose_name = "Project Page"
+        verbose_name = "Subprogram Page"
         ordering = ('title',)
 
     def save(self, *args, **kwargs):

@@ -99,13 +99,13 @@ export class Content extends Component {
         query.program_id = programId;
         break;
       case 'subprogram':
-        query.project_id = programId;
+        query.subprogram_id = programId;
     }
 
     return(
       <Fetch name="program.detail"
         fetchOnMount={contentType!='homepage'}
-        endpoint={contentType=='program' ? `program/${programId}` : `project/${programId}`}>
+        endpoint={contentType=='program' ? `program/${programId}` : `subprogram/${programId}`}>
         <section id="publications" className='program-block container--full-width'>
           <Fetch
             name='program.content'

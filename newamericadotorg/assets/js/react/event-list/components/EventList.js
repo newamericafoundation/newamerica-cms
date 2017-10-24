@@ -71,7 +71,7 @@ export class FutureEvents extends Component {
     let { params } = this.props;
     let query = {};
     if(params){
-      if(params.projectSlug) query.project_slug = params.projectSlug;
+      if(params.subprogramSlug) query.subprogram_slug = params.subprogramSlug;
       else if(params.programSlug) query.program_slug = params.programSlug;
     }
     return(
@@ -99,7 +99,7 @@ export class PastEvents extends Component {
     let { params } = this.props;
     let query = {};
     if(params){
-      if(params.projectSlug) query.project_slug = params.projectSlug;
+      if(params.subprogramSlug) query.subprogram_slug = params.subprogramSlug;
       else if(params.programSlug) query.program_slug = params.programSlug;
     }
     return(

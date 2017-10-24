@@ -14,7 +14,7 @@ from home.models import Post, HomePage
 from person.models import Person
 from serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
-    ProjectSerializer, HomeSerializer, TopicSerializer, TopicDetailSerializer, EventSerializer,
+    SubprogramSerializer, HomeSerializer, TopicSerializer, TopicDetailSerializer, EventSerializer,
     WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer,
     SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer
 )
@@ -31,7 +31,7 @@ from subscribe.campaign_monitor import update_subscriber
 class PostFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
-    project_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
     author_id = django_filters.CharFilter(name='post_author__id', lookup_expr='iexact')
     author_slug = django_filters.CharFilter(name='post_author__slug', lookup_expr="iexact")
     after = django_filters.DateFilter(name='date', lookup_expr='gte')
@@ -40,7 +40,7 @@ class PostFilter(FilterSet):
 
     class Meta:
         model = Post
-        fields = ['id', 'program_id', 'project_id', 'before', 'after', 'content_type']
+        fields = ['id', 'program_id', 'subprogram_id', 'before', 'after', 'content_type']
 
 class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
@@ -105,14 +105,14 @@ class AuthorFilter(FilterSet):
     slug = django_filters.CharFilter(name='slug', lookup_expr="iexact")
     program_id = django_filters.CharFilter(name='belongs_to_these_programs__id', lookup_expr='iexact')
     program_slug = django_filters.CharFilter(name='belongs_to_these_programs__slug', lookup_expr='iexact')
-    project_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
     role = django_filters.CharFilter(name='role', lookup_expr='iexact')
     leadership = django_filters.BooleanFilter(name='leadership')
     name = django_filters.CharFilter(name='title', lookup_expr='icontains')
 
     class Meta:
         model = Person
-        fields = ['id','program_id', 'project_id', 'name', 'role', 'leadership']
+        fields = ['id','program_id', 'subprogram_id', 'name', 'role', 'leadership']
 
 def get_edition_number(edition):
     if 'edition-' in edition.slug:
@@ -164,16 +164,16 @@ class AuthorList(generics.ListAPIView):
 class EventFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
-    project_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
     program_slug = django_filters.CharFilter(name='parent_programs__slug', lookup_expr='iexact')
-    project_slug = django_filters.CharFilter(name='post_subprogram__slug', lookup_expr='iexact')
+    subprogram_slug = django_filters.CharFilter(name='post_subprogram__slug', lookup_expr='iexact')
     topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
     after = django_filters.DateFilter(name='date', lookup_expr='gte')
     before = django_filters.DateFilter(name='date', lookup_expr='lte')
 
     class Meta:
         model = Post
-        fields = ['id', 'program_id', 'project_id', 'before', 'after', 'topic_id']
+        fields = ['id', 'program_id', 'subprogram_id', 'before', 'after', 'topic_id']
 
 class EventList(generics.ListAPIView):
     serializer_class = EventSerializer
@@ -200,7 +200,7 @@ class MetaList(views.APIView):
     def get(self, request, format=None):
         subpages = get_subpages(HomePage)
         programs = ProgramSerializer(Program.objects.live(), many=True).data
-        projects = ProjectSerializer(Subprogram.objects.live(), many=True).data
+        subprograms = SubprogramSerializer(Subprogram.objects.live(), many=True).data
         home = HomeSerializer(HomePage.objects.live().first()).data
 
         return response.Response({
@@ -210,7 +210,7 @@ class MetaList(views.APIView):
             'results': {
                 'subpages': subpages,
                 'programs': programs,
-                'projects': projects,
+                'subprograms': subprograms,
                 'home': home
             }
         })
@@ -243,22 +243,22 @@ class ProgramList(generics.ListAPIView):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = ProgramFilter
 
-class ProjectFilter(FilterSet):
+class SubprogramFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
 
     class Meta:
         model = Subprogram
         fields = ['id',]
 
-class ProjectList(generics.ListAPIView):
+class SubprogramList(generics.ListAPIView):
     queryset = Subprogram.objects.live().order_by('title')
-    serializer_class = ProjectSerializer
+    serializer_class = SubprogramSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
-    filter_class = ProjectFilter
+    filter_class = SubprogramFilter
 
-class ProjectDetail(generics.RetrieveAPIView):
+class SubprogramDetail(generics.RetrieveAPIView):
     queryset = Subprogram.objects.live()
-    serializer_class = ProjectSerializer
+    serializer_class = SubprogramSerializer
 
 
 @api_view(['POST'])

@@ -9,14 +9,14 @@ def debug(request):
 def program_data(request):
     '''
     For sitewide context_processor
-    Programs and related projects or topics
+    Programs and related subprograms or topics
     '''
     program_data = []
     programs = Program.objects.in_menu().order_by("title").exclude(location=True)
     for p in programs:
         program_data.append({
             'program': p,
-            'projects': p.get_children().type(Subprogram).live().in_menu(),
+            'subprograms': p.get_children().type(Subprogram).live().in_menu(),
             'topics': p.get_children().type(IssueOrTopic).live().in_menu()
         })
 

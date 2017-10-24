@@ -2,10 +2,10 @@
   <div class="header-dropdown-content col-md-9">
   </div>
   <div class="header-dropdown-links col-md-3">
-    {% for project in page.sidebar_menu_initiatives_and_projects_pages %}
+    {% for subprogram in page.sidebar_menu_initiatives_and_projects_pages %}
       <div class="header-dropdown-links__link">
-        <a href="{{project.value.url}}" class="header-dropdown__link__header">
-          <label>{{project.value.title}}</label>
+        <a href="{{subprogram.value.url}}" class="header-dropdown__link__header">
+          <label>{{subprogram.value.title}}</label>
         </a>
       </div>
     {% endfor %}

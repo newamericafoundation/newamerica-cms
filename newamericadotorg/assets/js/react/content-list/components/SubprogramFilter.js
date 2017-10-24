@@ -24,23 +24,23 @@ class Filter extends Component {
     }
 
     render(){
-      let { project, projectId, contentType, history } = this.props;
+      let { subprogram, subprogramId, contentType, history } = this.props;
 
       return (
         <div className="content-list__heading-filter-wrapper">
           <Heading title={contentType.title || 'Publications'} />
-          {project.content_types.length > 1 && <div className="content-list__filters">
+          {subprogram.content_types.length > 1 && <div className="content-list__filters">
               <Select
                 name="Publication Type"
                 className="content-list__filters__filter publication-type"
                 valueAccessor="slug"
                 labelAccessor="title"
-                options={project.content_types}
+                options={subprogram.content_types}
                 defaultOption={contentType.slug}
                 onChange={(option)=>{
                   console.log(option);
                   let val = option ? option.slug : 'publications';
-                  history.push(project.url+val+'/?'+this.getParams());
+                  history.push(subprogram.url+val+'/?'+this.getParams());
                 }}
               />
             </div>}
@@ -58,7 +58,7 @@ export default (props) => (
     initialQuery={{
       image_rendition: IMAGE_RENDITION,
       content_type: props.contentType.api_name,
-      project_id: props.projectId || '',
+      subprogram_id: props.subprogramId || '',
       page_size: PAGE_SIZE,
       page: 1
     }} />

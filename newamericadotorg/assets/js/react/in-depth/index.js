@@ -86,7 +86,7 @@ class InDepthRoutes extends Component {
               transitionLeaveTimeout={500}>
               <Switch key={match.params.sectionSlug && match.params.sectionSlug != 'about' ? 'section' : 'project'} location={location}>
                 <Route exact path="/in-depth/:projectSlug/(|about)" render={()=>(
-                  <Project project={results} />
+                  <Subprogram project={results} />
                 )}/>
               <Route path="/in-depth/:projectSlug/:sectionSlug" render={(props)=>(
                   <Section {...props} location={location} dispatch={this.props.dispatch} section={this.getSection(props.match.params.sectionSlug)} project={results} />

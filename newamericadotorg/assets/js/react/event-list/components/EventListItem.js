@@ -61,7 +61,7 @@ const Location = ({city, state}) => (
   </label>
 )
 
-const Text = ({event: { title, programs, projects, date, end_date, city, state }}) => (
+const Text = ({event: { title, programs, subprograms, date, end_date, city, state }}) => (
   <div className="portrait-content-grid__item__text">
     {date && <Time startDate={date} endDate={end_date} />}
     <Title title={title} />
