@@ -34,7 +34,7 @@ class DocxParse():
             if p.partname.find('footnotes.xml') != -1:
                 part = p
                 break
-        if p is None: return endnotes
+        if part is None: return endnotes
         notes_tree = ET.fromstring(part.blob)
         notes = notes_tree.findall('.//w:footnote', self._namespaces)
 
@@ -47,7 +47,7 @@ class DocxParse():
                 if r.find('.//w:i', self._namespaces) is not None:
                     text = '<em>%s</em>' % text
                 note += text
-            endnotes.append(note)
+            endnotes.append(note.strip())
 
         return endnotes
 
@@ -71,7 +71,7 @@ class DocxParse():
                 elements = []
                 # python-docx ignores w:hyperlink tags...
                 # create tuple of all elements + parent paragraph
-                # and reinstantiate Run on loop
+                # and reinstantiate Run in loop
                 for c in p._element.getchildren():
                     elements.append((c,p))
                 section['elements'] = section['elements'] + elements
@@ -93,6 +93,7 @@ class DocxParse():
                 rId = child.get('{%s}id' % self._namespaces['r'])
                 link = self._links.get(rId, None)
                 child = child.getchildren()[0]
+                if child is None: continue
 
             run = Run(child, paragraph)
 
@@ -158,7 +159,7 @@ class DocxParse():
 
             text += t.text
 
-            # check for breaks only at end
+            # check for trailing breaks only at end
             if i < len(texts)-1: continue
 
             next_breaks = self.__countnextbreaks__(t)
