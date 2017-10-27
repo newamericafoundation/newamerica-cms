@@ -235,6 +235,7 @@ class Program(AbstractProgram):
     'Subprogram',
     'issue.TopicHomepage',
     'home.RedirectPage',
+    'report.ReportsHomepage',
     'PublicationsPage',
     'custom_contenttype.ProgramCustomContentTypePage'
     ]
@@ -329,6 +330,7 @@ class Subprogram(AbstractProgram):
     'blog.ProgramBlogPostsPage',
     'event.ProgramEventsPage',
     'podcast.ProgramPodcastsPage',
+    'report.ReportsHomepage',
     'policy_paper.ProgramPolicyPapersPage',
     'press_release.ProgramPressReleasesPage',
     'quoted.ProgramQuotedPage',

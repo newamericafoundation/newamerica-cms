@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'event',
     'conference',
     'podcast',
+    'report',
     'policy_paper',
     'press_release',
     'quoted',
