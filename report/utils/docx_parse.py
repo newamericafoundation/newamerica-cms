@@ -92,7 +92,7 @@ class DocxParse():
             if self.__runisfigure__(run):
                 # close paragraph and add new block if next run is a figure
                 if block:
-                    if block['type'] == 'paragraph'
+                    if block['type'] == 'paragraph':
                         block['html'] += '</p>'
                 blocks.append({ 'type': 'figure' })
                 block = None
@@ -118,7 +118,7 @@ class DocxParse():
             block['html'] += html
 
         if block:
-            if block['type'] == 'paragraph'
+            if block['type'] == 'paragraph':
                 block['html'] += '</p>'
 
         return blocks
@@ -126,12 +126,13 @@ class DocxParse():
     def __run2html__(self, run):
 
         if self.__runisfootnote__(run):
-            return '\{\{%s\}\}' % str(self._footnoteindex+=1)
+            self._footnoteindex+=1
+            return '\{\{%s\}\}' % str(self._footnoteindex)
 
         text = self.__getruntext__(run)
-        if run.italic
+        if run.italic:
             text = '<em>%s</em>' % text
-        if run.bold
+        if run.bold:
             text = '<b>%s</b>' % text
 
         return text
