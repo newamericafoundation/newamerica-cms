@@ -36,7 +36,7 @@ class DocxParse():
                 break
         if p is None: return endnotes
         notes_tree = ET.fromstring(part.blob)
-        notes = notes_tree.findall('.//w:footnotes', self._namespaces)
+        notes = notes_tree.findall('.//w:footnote', self._namespaces)
 
         for n in notes:
             note = ''
@@ -44,7 +44,7 @@ class DocxParse():
                 t = r.find('.//w:t', self._namespaces)
                 if t is None: continue
                 text = t.text
-                if r.find('.//w:i', self._namespaces):
+                if r.find('.//w:i', self._namespaces) is not None:
                     text = '<em>%s</em>' % text
                 note += text
             endnotes.append(note)
