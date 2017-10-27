@@ -30,7 +30,7 @@ class DocxParse():
     def __endnotes__(self):
         endnotes = []
         part = None
-        for p in doc.part.package.parts:
+        for p in self.doc.part.package.parts:
             if p.partname.find('footnotes.xml') != -1:
                 part = p
                 break
@@ -66,28 +66,35 @@ class DocxParse():
                 })
                 section = sections[len(sections)-1]
                 continue
+            # all blocks must have a section
             if section:
-                # all blocks must have a section
-                section['elements'] = section['elements'] + p._element.getchildren()
+                elements = []
+                # python-docx ignores w:hyperlink tags...
+                # create tuple of all elements + parent paragraph
+                # and reinstantiate Run on loop
+                for c in p._element.getchildren():
+                    elements.append((c,p))
+                section['elements'] = section['elements'] + elements
 
         for s in sections:
             s['blocks'] = self.__blocks__(s)
+            del s['elements']
 
         return sections
 
     def __blocks__(self, section):
         blocks = []
         block = None
-        for child in sections['elements']:
-            tag = getattr(self._tags, child.tag, None)
+        for child, paragraph in section['elements']:
+            tag = self._tags.get(child.tag, None)
             link = None
             if tag is None: continue
             if tag == 'hyperlink':
-                # get r:id attribute from <w:hyperlink>
-                link = getattr(self._links, child.get('{%s}id' % self._namespaces['r']), None)
+                rId = child.get('{%s}id' % self._namespaces['r'])
+                link = self._links.get(rId, None)
                 child = child.getchildren()[0]
 
-            run = Run(child, self.doc)
+            run = Run(child, paragraph)
 
             if self.__runisfigure__(run):
                 # close paragraph and add new block if next run is a figure
@@ -107,14 +114,16 @@ class DocxParse():
 
             html = self.__run2html__(run)
             if link:
-                html = '<a href="%s">%s</a>' % (link, html)
+                html = '<a href=\"%s\">%s</a>' % (link, html)
             if paragraph.style.name == 'Heading 2':
+                if html == '': continue
                 if block['html'] != '':
                     html = '</p><h2>%s</h2><p>' % html
                 else:
                     html = '<h2>%s</h2><p>' % html
             elif block['html'] == '':
                 html = '<p>' + html
+
             block['html'] += html
 
         if block:
@@ -127,7 +136,7 @@ class DocxParse():
 
         if self.__runisfootnote__(run):
             self._footnoteindex+=1
-            return '\{\{%s\}\}' % str(self._footnoteindex)
+            return '{{%s}}' % str(self._footnoteindex)
 
         text = self.__getruntext__(run)
         if run.italic:
@@ -140,10 +149,8 @@ class DocxParse():
     def __getruntext__(self, run):
         texts = run.element.findall('.//w:t', self._namespaces)
         text = ''
-        for t in texts:
+        for i, t in enumerate(texts):
             prev_breaks = self.__countprevbreaks__(t)
-            next_breaks = self.__countnextbreaks__(t)
-
             if prev_breaks == 1:
                 text += '<br/>'
             elif prev_breaks == 2:
@@ -151,10 +158,16 @@ class DocxParse():
 
             text += t.text
 
+            # check for breaks only at end
+            if i < len(texts)-1: continue
+
+            next_breaks = self.__countnextbreaks__(t)
             if next_breaks == 1:
                 text += '<br/>'
             elif next_breaks == 2:
                 text += '</p><p>'
+
+        return text
 
     def __countnextbreaks__(self, el, count=0):
         breaktag = '{%s}br' % self._namespaces['w']
@@ -167,19 +180,19 @@ class DocxParse():
     def __countprevbreaks__(self, el, count=0):
         breaktag = '{%s}br' % self._namespaces['w']
         p = el.getprevious()
-        if n is None: return count
-        if n.tag != breaktag: return count
+        if p is None: return count
+        if p.tag != breaktag: return count
         count += 1
         return self.__countprevbreaks__(p, count)
 
     def __runisfigure__(self, run):
-        if run.element.find('.//w:drawing', self._namespaces):
+        if run.element.find('.//w:drawing', self._namespaces) is not None:
             return True
 
         return False
 
     def __runisfootnote__(self, run):
-        if run.element.find('.//w:footnoteReference', self._namespaces):
+        if run.element.find('.//w:footnoteReference', self._namespaces) is not None:
             return True
 
         return False
