@@ -38,7 +38,7 @@ class DocxParse():
         notes_tree = ET.fromstring(part.blob)
         notes = notes_tree.findall('.//w:footnote', self._namespaces)
 
-        for n in notes:
+        for i, n in enumerate(notes):
             note = ''
             for r in n.findall('.//w:r', self._namespaces):
                 t = r.find('.//w:t', self._namespaces)
@@ -47,7 +47,7 @@ class DocxParse():
                 if r.find('.//w:i', self._namespaces) is not None:
                     text = '<em>%s</em>' % text
                 note += text
-            endnotes.append(note.strip())
+            endnotes.append({ 'number': i+1, 'note': note.strip() })
 
         return endnotes
 
@@ -102,7 +102,7 @@ class DocxParse():
                 if block:
                     if block['type'] == 'paragraph':
                         block['html'] += '</p>'
-                blocks.append({ 'type': 'figure' })
+                blocks.append({ 'type': 'inline_image' })
                 block = None
                 continue
 
