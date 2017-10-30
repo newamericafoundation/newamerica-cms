@@ -14,6 +14,7 @@ from in_depth.models import InDepthProject, InDepthSection
 from report.models import Report
 
 from django.core.urlresolvers import reverse
+from django.utils.text import slugify
 
 from helpers import get_program_content_types, generate_image_url, get_subpages, get_content_type
 
@@ -509,26 +510,39 @@ class InDepthProjectSerializer(ModelSerializer):
 class ReportDetailSerializer(PostSerializer):
     sections = SerializerMethodField()
     body = SerializerMethodField()
+    endnotes = SerializerMethodField()
 
     class Meta:
         model = Report
         fields = (
             'id', 'title', 'subheading', 'date', 'content_type',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
-            'story_image', 'topics', 'sections', 'body'
+            'story_image', 'topics', 'sections', 'body', 'endnotes'
         )
 
     def get_body(self, obj):
         if obj.body:
             return loader.get_template('components/post_body.html').render({ 'page': obj })
 
+    def get_endnotes(self, obj):
+        if obj.endnotes:
+            endnotes = []
+            for e in obj.endnotes:
+                endnotes.append({
+                    'number': e.value['number'],
+                    'note': e.value['note'].source 
+                })
+            return endnotes
+
     def get_sections(self, obj):
         if obj.sections is None:
             return None
         sections = []
-        for s in obj.sections:
+        for i,s in enumerate(obj.sections):
             sections.append({
                 'title': s.value['title'],
+                'number': i+1,
+                'slug': slugify(s.value['title']),
                 'body': s.render()
             })
         return sections

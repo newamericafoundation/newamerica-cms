@@ -14,6 +14,10 @@ h1,h2,h3,h4,h5,h6{
   font-weight: bold;
   letter-spacing: 0.015em;
 
+  &.white{
+    color: white !important;
+  }
+
   &.narrow-margin {
     margin: 10px 0;
   }
@@ -112,6 +116,10 @@ p {
 
   &.centered{
     text-align: center;
+  }
+
+  &.white{
+    color: white !important;
   }
 }
 

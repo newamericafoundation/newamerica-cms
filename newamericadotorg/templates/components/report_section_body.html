@@ -1,8 +1,13 @@
 {% load wagtailcore_tags %}
+{% load cited_html %}
 <div class="report__section__body">
   {% for block in value.body %}
     <div class="block-{{ block.block_type }}">
-      {% include_block block %}
+      {% if block.block_type == 'paragraph' %}
+        {{ block.value|cited_html|safe }}
+      {% else %}
+        {% include_block block %}
+      {% endif %}
     </div>
   {% endfor %}
 </div>
