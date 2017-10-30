@@ -94,7 +94,6 @@ class Report(Post):
             streamfields = generate_docx_streamfields(self.source_word_doc.file)
             self.sections = streamfields['sections']
             self.endnotes = streamfields['endnotes']
-            print self.sections
             self.save_revision()
             self.revising = False
 

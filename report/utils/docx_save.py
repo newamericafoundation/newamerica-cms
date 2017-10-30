@@ -8,16 +8,16 @@ from wagtail.wagtailcore import blocks
 def generate_docx_streamfields(document):
     parsed = DocxParse(document)
     panels = []
-
+    figure_index = 1
     for s in parsed.sections:
         body = []
         for b in s['blocks']:
             if b['type'] == 'paragraph':
                 val = ('paragraph', RichText(b['html']))
-                body.append(val)
-            # else:
-            #     val = ('inline_image', {})
-            # body.append(val)
+            else:
+                val = ('heading', '<Figure %s>' % figure_index)
+                figure_index += 1
+            body.append(val)
 
         panel = ('section', { 'title': s['title'], 'body': StreamValue(Body(), body) })
         panels.append(panel)
