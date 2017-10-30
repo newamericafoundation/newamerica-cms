@@ -16,7 +16,7 @@ from serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
     SubprogramSerializer, HomeSerializer, TopicSerializer, TopicDetailSerializer, EventSerializer,
     WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer,
-    SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer
+    SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer, ReportDetailSerializer
 )
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
@@ -25,6 +25,7 @@ from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
 from in_depth.models import InDepthProject
+from report.models import Report
 from custom_contenttype.models import CustomContentTypeCategory
 from subscribe.campaign_monitor import update_subscriber
 
@@ -70,6 +71,10 @@ class PostList(generics.ListAPIView):
             posts = posts.descendant_of(Page.objects.get(pk=category_id))
 
         return posts;
+
+class ReportDetail(generics.RetrieveAPIView):
+    serializer_class = ReportDetailSerializer
+    queryset = Report.objects.live()
 
 class SearchList(generics.ListAPIView):
     serializer_class = SearchSerializer

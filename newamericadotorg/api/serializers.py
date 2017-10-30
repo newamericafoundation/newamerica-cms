@@ -11,6 +11,7 @@ from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyEdition, WeeklyArticle
 from in_depth.models import InDepthProject, InDepthSection
+from report.models import Report
 
 from django.core.urlresolvers import reverse
 
@@ -504,3 +505,30 @@ class InDepthProjectSerializer(ModelSerializer):
         'id', 'title', 'slug', 'url', 'story_image', 'authors',
         'search_description', 'body', 'sections', 'buttons',
         'data_project_external_script', 'subheading')
+
+class ReportDetailSerializer(PostSerializer):
+    sections = SerializerMethodField()
+    body = SerializerMethodField()
+
+    class Meta:
+        model = Report
+        fields = (
+            'id', 'title', 'subheading', 'date', 'content_type',
+            'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
+            'story_image', 'topics', 'sections', 'body'
+        )
+
+    def get_body(self, obj):
+        if obj.body:
+            return loader.get_template('components/post_body.html').render({ 'page': obj })
+
+    def get_sections(self, obj):
+        if obj.sections is None:
+            return None
+        sections = []
+        for s in obj.sections:
+            sections.append({
+                'title': s.value['title'],
+                'body': s.render()
+            })
+        return sections

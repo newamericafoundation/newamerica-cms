@@ -29,7 +29,7 @@ class Report(Post):
     subpage_types = []
 
     sections = StreamField([
-        ('section', PanelBlock()),
+        ('section', PanelBlock(template="components/report_section_body.html")),
     ])
 
     source_word_doc = models.ForeignKey(
