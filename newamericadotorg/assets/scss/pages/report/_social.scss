@@ -1,0 +1,23 @@
+.report__social__item{
+   margin-bottom: 15px;
+  .fa{
+    background: #7A7A7A;
+    color: color(white);
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 16px;
+    position: relative;
+    margin-right: 15px;
+    &:before{
+      position: absolute;
+      font-size: 0.7em;
+      @include center;
+    }
+  }
+
+  .fa, label{
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

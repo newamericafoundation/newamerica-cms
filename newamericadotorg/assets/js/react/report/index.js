@@ -4,6 +4,8 @@ import { Fetch } from '../components/API';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Heading from './components/Heading';
 import Body from './components/Body';
+import TopNav from './components/TopNav';
+import BottomNav from './components/BottomNav';
 
 class Report extends Component {
   getSection = () => {
@@ -13,16 +15,25 @@ class Report extends Component {
     return report.sections.find((s)=>( s.slug==params.sectionSlug ));
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      window.scrollTo(0, 0)
+    }
+  }
+
   render(){
     let { location, match, report } = this.props;
     let section = this.getSection();
-
     return (
-      <div className='report'>
-        {section.number===1 &&
-          <Heading report={report}/>
-        }
-        <Body section={section}/>
+      <div className='report no-last-child-margin'>
+        <TopNav section={section} report={report} />
+        <div className="container no-padding">
+          {section.number===1 &&
+            <Heading report={report}/>
+          }
+          <Body section={section} authors={report.authors}/>
+        </div>
+        <BottomNav section={section} report={report} />
       </div>
     );
   }

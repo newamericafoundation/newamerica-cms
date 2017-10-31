@@ -28,5 +28,9 @@
     &.white {
       background-image: url('#{$static-url}/logo-bug-white.svg');
     }
+
+    &.white-transparent {
+        background-image: url('#{$static-url}/logo-white-transparent.svg');
+    }
   }
 }

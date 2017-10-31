@@ -4,7 +4,36 @@
 
   h1{
     max-width: 475px;
-    margin: 0 auto;
-    
+    margin: 35px auto;
+  }
+}
+
+.report__heading__image {
+  width: 100%;
+  padding-bottom: 47%;
+  background-size: cover;
+
+}
+
+.report__heading__logo {
+  text-align: center;
+  &__program, .logo{
+    vertical-align:middle;
+  }
+
+  &__program{
+    margin-left: 1px;
+    display: inline-block;
+    height: 32px;
+    max-width: 125px;
+    padding: 5px 10px;
+    background: color(white);
+    text-align: left;
+
+    label {
+      color: #00DABB;
+      line-height: 1.1em;
+      font-size: 0.6rem;
+    }
   }
 }

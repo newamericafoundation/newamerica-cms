@@ -1,0 +1,35 @@
+.report__bottom-nav{
+  margin-top: 100px;
+  height: 60px;
+  background: #525252;
+  @extend %clearfix;
+
+  &__button {
+    background: #7A7A7A;
+    line-height: 60px;
+    height: 60px;
+    cursor: pointer;
+    &.previous{
+      float: left;
+    }
+    &.next{
+      float: right;
+    }
+
+    a {
+      border-top: 4px solid #C1C1C1;
+      display: block;
+      padding: 0 25px;
+      height: 100%;
+      width: 100%;
+      &:hover{
+        border-top: 0px solid #C1C1C1;
+        background: color(white, base, 0.05);
+      }
+    }
+
+    label{
+      color: color(white) !important;
+    }
+  }
+}
