@@ -15,7 +15,7 @@ class TopNav extends Component {
                 <i className="fa fa-bars"></i><label>Contents</label>
               </div>
             </div>
-            <div className="report__top-nav__title col-10">
+            <div className="report__top-nav__title col-auto">
               <label className="bold white">{report.title}</label>
               <label className="white">{` (${section.title})`}</label>
             </div>
