@@ -150,7 +150,7 @@
   margin-left: 91.666667%;
 }
 
-@media (min-width: 576px) {
+@include media-breakpoint(mobile) {
   .pull-sm-0 {
     right: auto;
   }
@@ -267,7 +267,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@include media-breakpoint(tablet) {
   .pull-md-0 {
     right: auto;
   }
@@ -384,7 +384,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@include media-breakpoint(desktop) {
   .pull-lg-0 {
     right: auto;
   }
@@ -501,7 +501,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@include media-breakpoint(large-desktop) {
   .pull-xl-0 {
     right: auto;
   }

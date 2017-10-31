@@ -39,16 +39,16 @@ class Body extends Component {
     let { endnote, top } = this.state;
     return (
       <div className="report__body row gutter-45">
-        <div className={"report__body__left-aside col-2 offset-0 offset-lg-1 " + (endnote ? 'endnote-active' : '')}>
+        <div className={"report__body__left-aside col-12 col-lg-2 offset-0 offset-xl-1 " + (endnote ? 'endnote-active' : '')}>
           <Social />
           <Endnote endnote={endnote} top={top}/>
         </div>
-        <div className="report__body__section col-6">
+        <div className="report__body__right-aside col-12 col-lg-2 push-lg-8 push-xl-6">
+          <Authors authors={authors} />
+        </div>
+        <div className="report__body__section col-12 col-lg-8 col-xl-6 pull-lg-2">
           <h1 className="no-top-margin">{`${section.number}. ${section.title}`}</h1>
           <div dangerouslySetInnerHTML={{__html: section.body}} />
-        </div>
-        <div className="report__body__right-aside col-2">
-          <Authors authors={authors} />
         </div>
       </div>
     );

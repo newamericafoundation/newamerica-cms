@@ -1,5 +1,10 @@
 .report__social__item{
    margin-bottom: 15px;
+   display: inline-block;
+   @include media-breakpoint(desktop){
+     display: block;
+   }
+
   .fa{
     background: #7A7A7A;
     color: color(white);
@@ -20,8 +25,24 @@
     display: inline-block;
     vertical-align: middle;
   }
+
+  label{
+    display: none;
+    @include media-breakpoint(large-desktop){
+      display: inline-block;
+    }
+  }
 }
 
 .report__social{
   @include transition(opacity 0.35s ease);
+  text-align: right;
+  position: absolute;
+  top: -5px;
+  right: 0;
+  @include media-breakpoint(desktop){
+    position: relative;
+    text-align: left;
+    top: 0;
+  }
 }

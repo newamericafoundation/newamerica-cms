@@ -1,6 +1,6 @@
 .report__top-nav{
   height: 65px;
-  
+
   &__contents, &__arrows, &__title{
     height: 65px;
   }
@@ -12,6 +12,7 @@
   }
 
   &__title{
+    white-space: nowrap;
     label{
       line-height: 65px;
       display: inline-block;
@@ -24,6 +25,27 @@
 
     flex: 0 0 calc(83.333333% - 44px);
     max-width: calc(83.333333% - 44px);
+  }
+
+  &__contents{
+    label{
+      display: none;
+      @include media-breakpoint(desktop){
+        display: inline-block;
+      }
+    }
+
+    .fa {
+      position: absolute;
+      @include center;
+      padding-right: 0;
+      font-size: 1.2rem;
+      @include media-breakpoint(desktop){
+        @include transform(none);
+        position: static;
+        padding-right: 10px;
+      }
+    }
   }
 
   &__contents__button{

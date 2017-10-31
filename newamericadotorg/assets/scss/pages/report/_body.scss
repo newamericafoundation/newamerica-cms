@@ -1,6 +1,16 @@
 .report__body{
-  margin-top: 100px;
   position: relative;
+  margin-top: 35px;
+  @include media-breakpoint(desktop){
+    margin-top: 100px;
+  }
+}
+
+.report__body__section{
+  margin-top: 35px;
+  @include media-breakpoint(desktop){
+    margin-top: 0px;
+  }
 }
 
 .report__body__endnote{

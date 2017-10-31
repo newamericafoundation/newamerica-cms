@@ -5,7 +5,7 @@ class Heading extends Component {
     let { report } = this.props;
     return (
       <div className="report__heading row gutter-45">
-        <div className="col-12 col-lg-10 offset-lg-1 offset-0">
+        <div className="col-12 col-xl-10 offset-xl-1 offset-0">
           <div className="report__heading__title ">
             <div className='report__heading__logo'>
               <div className='logo bug white-transparent' style={{ width: '40px', height: '32px' }}/>
