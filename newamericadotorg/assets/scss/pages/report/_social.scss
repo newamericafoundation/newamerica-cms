@@ -21,3 +21,7 @@
     vertical-align: middle;
   }
 }
+
+.report__social{
+  @include transition(opacity 0.35s ease);
+}

@@ -1,3 +1,22 @@
 .report__body{
   margin-top: 100px;
+  position: relative;
+}
+
+.report__body__endnote{
+  @include transition(opacity 0.5s ease, transform 0.5s ease);
+  position: absolute;
+  opacity: 0;
+  @include transform(translateY(-40%));
+}
+
+.endnote-active{
+  .report__body__endnote{
+    @include transform(translateY(-50%));
+    opacity: 1;
+  }
+
+  .report__social{
+    opacity: 0;
+  }
 }

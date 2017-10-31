@@ -230,6 +230,10 @@ label {
   font-family: $label-font-family;
   display: inline-block;
 
+  &.inline {
+    display: inline;
+  }
+
   &.active{
     color: color(black);
     font-weight: bold;
