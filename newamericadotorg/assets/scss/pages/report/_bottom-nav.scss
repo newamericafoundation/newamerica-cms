@@ -6,7 +6,6 @@
 
   &__button {
     background: #7A7A7A;
-    line-height: 60px;
     height: 60px;
     cursor: pointer;
     &.previous{
@@ -29,6 +28,7 @@
     }
 
     label{
+      line-height: 60px;
       color: color(white) !important;
     }
   }

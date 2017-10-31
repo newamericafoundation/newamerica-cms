@@ -24,7 +24,7 @@
 
 @font-face {
     font-family: 'Lyon';
-    src: url('#{$static-url}/fonts/LyonDisplay-Regular.otf');
+    src: url('#{$static-url}/fonts/LyonText-Regular.otf');
     // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
     //      url('#{$font-url}/fonts/.woff') format('woff');
     font-weight: normal;
@@ -33,7 +33,7 @@
 
 @font-face {
     font-family: 'Lyon';
-    src: url('#{$static-url}/fonts/LyonDisplay-Bold.otf');
+    src: url('#{$static-url}/fonts/LyonText-Bold.otf');
     // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
     //      url('#{$font-url}/fonts/.woff') format('woff');
     font-weight: bold;
@@ -43,7 +43,7 @@
 
 @font-face {
     font-family: 'Lyon';
-    src: url('#{$static-url}/fonts/LyonDisplay-RegularItalic.otf');
+    src: url('#{$static-url}/fonts/LyonText-RegularItalic.otf');
     // src: url('#{$font-url}/fonts/.eot?#iefix') format('embedded-opentype'),
     //      url('#{$font-url}/fonts/.woff') format('woff');
     font-weight: normal;

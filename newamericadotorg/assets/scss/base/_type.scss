@@ -5,7 +5,7 @@
 body, html{
   font-size: 16px;
   @include media-breakpoint(tablet){
-    font-size: 18px;
+    //font-size: 18px;
   }
 }
 
@@ -48,9 +48,9 @@ h1,h2,h3,h4,h5,h6{
 }
 
 h1{
-  font-size: 2.68rem;
-  line-height: 2.89rem;
-  letter-spacing: -0.01em;
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.020625rem;
 }
 
 h2 {
@@ -89,17 +89,20 @@ li{
 }
 
 p {
+  font-family: $paragraph-font-family;
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+
   &.no-margin{
     margin-top: 0;
     margin-bottom: 0;
-    line-height: 1.3rem;
   }
 
   &.narrow-margin{
     margin-top: 5px;
     margin-bottom: 5px;
-    line-height: 1.3rem;
   }
+
   &.gray{
     color: color(gray, dark);
   }
@@ -107,6 +110,12 @@ p {
   &.centered{
     text-align: center;
   }
+}
+
+.caption p, p.caption {
+  font-family: $label-font-family;
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
 }
 
 .subheading, [class*="subheading--"] {
@@ -186,7 +195,9 @@ p {
 a {
   text-decoration: none;
   font-weight: bold;
-  color: color(black);
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  color: #20E1B6;
 
   & > label:hover {
     color: color(turquoise);
@@ -212,10 +223,11 @@ a {
 }
 
 label {
-  font-size: 0.82rem;
-  line-height: 1.06rem;
+  font-size: 0.9375rem;
+  line-height: 1.1875rem;
   font-weight: normal;
-  color: color(gray, dark);
+  color: color(black);
+  font-family: $label-font-family;
   display: inline-block;
 
   &.active{
@@ -233,11 +245,27 @@ label {
 
   &.narrow-margin{
     margin: 5px 0;
-    display: block;
+  }
+
+  &.margin {
+    margin: 15px 0;
+  }
+
+  &.bottom-margin {
+    margin-bottom: 15px;
+  }
+
+  &.top-margin{
+    margin-top: 15px;
   }
 
   &.bold{
     font-weight: bold;
+  }
+
+  &.caption {
+    font-family: $paragraph-font-family;
+    font-style: italic;
   }
 
   &.with-description {
@@ -280,11 +308,4 @@ label {
     font-size: 1rem;
     line-height: 1.35rem;
   }
-}
-
-.caption {
-	margin-top: 12px;
-	color: rgba(44,47,53,.45);
-	font-size: 15px;
-	line-height: 140%;
 }
