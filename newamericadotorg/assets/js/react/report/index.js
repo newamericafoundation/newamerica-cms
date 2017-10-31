@@ -15,9 +15,16 @@ class Report extends Component {
     return report.sections.find((s)=>( s.slug==params.sectionSlug ));
   }
 
+  componentDidMount(){
+    this.props.dispatch({
+      type: 'RELOAD_SCROLL_EVENTS',
+      component: 'site'
+    });
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 65)
     }
   }
 
@@ -42,7 +49,7 @@ class Report extends Component {
 class Routes extends Component {
   reportRender = (props) => {
     let { response: { results }} = this.props;
-    return (<Report {...props} report={results} />);
+    return (<Report {...props} dispatch={this.props.dispatch} report={results} />);
   }
 
   redirect = (props) => {

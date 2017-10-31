@@ -7,7 +7,8 @@ class TopNav extends Component {
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
     return (
-      <div className="report__top-nav">
+      <div className="report__top-nav scroll-target">
+        <div className="report__top-nav__sticky-wrapper">
         <div className="container no-padding">
           <div className="row no-gutters">
             <div className="report__top-nav__contents col-1">
@@ -38,6 +39,7 @@ class TopNav extends Component {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     )
