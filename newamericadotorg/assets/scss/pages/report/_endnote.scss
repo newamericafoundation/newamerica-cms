@@ -6,7 +6,7 @@
   @include transform(translateY(-40%));
   padding: 35px;
   width: calc(100vw - 45px);
-  z-index: 3;
+  z-index: 1;
   box-shadow: 0px 0px 20px 0px color(black, base, 0.15);
   border: 1px solid color(black, base, 0.15);
   @include media-breakpoint(desktop){
@@ -24,6 +24,10 @@
     border: 1px solid color(black);
     border-radius: 30px;
     cursor: pointer;
+
+    @include media-breakpoint(desktop){
+      display: none;
+    }
   }
 }
 
