@@ -4,17 +4,17 @@ import triggerScrollEvents from './utils/trigger-scroll-events';
 
 let listeners = [
   function onScroll() {
-    let timeout = 0;
-    let onscroll = (e) => {
-      clearTimeout(timeout);
-      actions.setIsScrolling(true);
-      timeout = setTimeout(()=>{
-        actions.setIsScrolling(false);
-      }, 17);
-    }
-
-    window.addEventListener('scroll', onscroll, true);
-    window.addEventListener('touchmove', onscroll, true);
+    // let timeout = 0;
+    // let onscroll = (e) => {
+    //   clearTimeout(timeout);
+    //   actions.setIsScrolling(true);
+    //   timeout = setTimeout(()=>{
+    //     actions.setIsScrolling(false);
+    //   }, 17);
+    // }
+    //
+    // window.addEventListener('scroll', onscroll, true);
+    // window.addEventListener('touchmove', onscroll, true);
   },
 
   function anchorLinkClick(){

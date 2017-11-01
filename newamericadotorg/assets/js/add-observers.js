@@ -5,7 +5,7 @@ import triggerScrollEvents from './utils/trigger-scroll-events';
 let observers = [
   function scroll(){
     let prevPosition = window.scrollY || window.pageYOffset,
-    direction, prevDirection, position = 0, animationFrame = 0, startTime = 0, cancelTO;
+    direction, prevDirection, position = 0, animationFrame = 0, startTime = 0;
     const onscroll = () => {
       position = window.scrollY || window.pageYOffset;
 
@@ -25,12 +25,10 @@ let observers = [
     actions.addObserver({
       stateName: 'site.scroll.isScrolling',
       onChange: (isScrolling) => {
-        if(isScrolling){
-          clearTimeout(cancelTO);
+        if(isScrolling)
           animationFrame = window.requestAnimationFrame(onscroll);
-        } else {
-          cancelTO = setTimeout(()=>{ window.cancelAnimationFrame(onscroll); }, 100);
-        }
+        else
+          window.cancelAnimationFrame(animationFrame);
       }
     });
   },
