@@ -8,7 +8,7 @@ class Body extends Component {
   constructor(props){
     super(props);
     this.state = {
-      endnote: null, top: 0
+      endnote: null, top: 0, el: null
     };
   }
 
@@ -18,10 +18,10 @@ class Body extends Component {
     return function(){
       let endnotes = _this.props.endnotes;
       let number = +this.getAttribute('data-citation-number');
-      if(_this.state.endnote)
+      if(_this.state.el==this)
         _this.closeEndnote();
       else
-        _this.setState({ endnote: endnotes[number-1], top: this.offsetTop });
+        _this.setState({ endnote: endnotes[number-1], top: this.offsetTop, el: this });
     }
   }
 
@@ -41,8 +41,8 @@ class Body extends Component {
     }
   }
 
-  closeEndnote = () => {
-    this.setState({ endnote: null, top: -250 });
+  closeEndnote = (delay) => {
+    this.setState({ endnote: null, top: -250, el: null });
   }
 
   componentDidMount(){
