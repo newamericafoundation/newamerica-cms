@@ -15,8 +15,10 @@
 
   &__caption{
     padding-left: 5px;
+    margin-top: 5px;
     @include media-breakpoint(desktop){
       padding-left: 0;
+      margin-top: 15px;
     }
   }
 

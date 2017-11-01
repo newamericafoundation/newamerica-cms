@@ -38,7 +38,7 @@ class Report extends Component {
           {section.number===1 &&
             <Heading report={report}/>
           }
-          <Body section={section} authors={report.authors} endnotes={report.endnotes}/>
+          <Body section={section} authors={report.authors} endnotes={report.endnotes} date={report.date} location={location}/>
         </div>
         <BottomNav section={section} report={report} />
       </div>

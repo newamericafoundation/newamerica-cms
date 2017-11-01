@@ -14,9 +14,9 @@ const Authors = ({ authors }) => (
     {authors.map((a,i)=>(
       <span className="report__authors__item--mobile">
         <label>{`${a.first_name} ${a.last_name}`}</label>
-        {(i==0 && authors.length==2) && <span> and </span>}
+        {(i==0 && authors.length==2) && <span> & </span>}
         {(i<authors.length-2 && authors.length>2) && <span>, </span>}
-        {(i==authors.length-2 && authors.length>2) && <span>, and </span>}
+        {(i==authors.length-2 && authors.length>2) && <span> & </span>}
       </span>
     ))}
     </div>

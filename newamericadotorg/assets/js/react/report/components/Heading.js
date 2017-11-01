@@ -22,7 +22,7 @@ class Heading extends Component {
             }
           </div>
           <div className="report__heading__image" style={{ backgroundImage: `url(${report.story_image})` }}/>
-          <div className="report__heading__image__caption"><label className="caption top-margin">Source: Lorem Ipsum Dolor Sit Amet / Caption</label></div>
+          <div className="report__heading__image__caption"><label className="caption">Source: Lorem Ipsum Dolor Sit Amet / Caption</label></div>
         </div>
       </div>
     );

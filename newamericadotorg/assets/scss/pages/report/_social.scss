@@ -38,11 +38,18 @@
   @include transition(opacity 0.35s ease);
   text-align: right;
   position: absolute;
-  top: -5px;
-  right: 0;
+  top: 0px;
+  right: 22.5px;
   @include media-breakpoint(desktop){
     position: relative;
     text-align: left;
     top: 0;
+  }
+}
+
+.social__print, .social__download{
+  display: none;
+  @include media-breakpoint(desktop){
+    display: block;
   }
 }

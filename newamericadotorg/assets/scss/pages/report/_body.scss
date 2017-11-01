@@ -11,13 +11,50 @@
   @include media-breakpoint(desktop){
     margin-top: 0px;
   }
+
+  &__date{
+    margin-bottom: 35px;
+  }
 }
 
 .report__body__endnote{
   @include transition(opacity 0.5s ease, transform 0.5s ease);
   position: absolute;
   opacity: 0;
+  background: color(white);
   @include transform(translateY(-40%));
+  padding: 35px;
+  width: calc(100vw - 45px);
+  z-index: 3;
+  box-shadow: 0px 0px 20px 0px color(black, base, 0.15);
+  border: 1px solid color(black, base, 0.15);
+  @include media-breakpoint(desktop){
+    width: auto;
+    box-shadow: none;
+    border: 0px;
+    padding: 0;
+  }
+
+  &__close{
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    padding: 5px 12px 7px 12px;
+    border: 1px solid color(black);
+    border-radius: 30px;
+    cursor: pointer;
+    &:hover{
+      background: color(black);
+      color: white;
+    }
+    @include media-breakpoint(desktop){
+      left: -45px;
+      padding: 3px 10px 5px 10px;
+      right: auto;
+      top: 0;
+      display: none;
+    }
+  }
 }
 
 .endnote-active{
