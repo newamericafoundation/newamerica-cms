@@ -13,123 +13,27 @@
     max-width: calc(8.333333% + 22px);
   }
 
-  &__title{
-    white-space: nowrap;
-    position: relative;
-    z-index: 3;
-    overflow: hidden;
-    background: #525252;
-    label{
-      line-height: 65px;
-      display: inline-block;
-      vertical-align: middle;
-      padding-left: 5px;
-      &:first-child{
-        padding-left: 20px;
-      }
-    }
-
-    flex: 0 0 calc(83.333333% - 44px);
-    max-width: calc(83.333333% - 44px);
-  }
-
-  &__contents{
-    position: relative;
-    &__button label{
-      display: none;
-      @include media-breakpoint(desktop){
-        display: inline-block;
-      }
-    }
-
-    .fa {
-      position: absolute;
-      @include center;
-      padding-right: 0;
-      font-size: 1.2rem;
-      @include media-breakpoint(desktop){
-        @include transform(none);
-        position: static;
-        padding-right: 10px;
-      }
-    }
-  }
-
-  &__contents__button{
-    text-align: center;
-    height: 65px;
-    background: #7A7A7A;
-    border-bottom: 4px solid #C1C1C1;
-    white-space: nowrap;
-    position: relative;
-    z-index: 3;
-
-    &:hover{
-      border-bottom: 0px solid #C1C1C1;
-      cursor: pointer;
-    }
-
-    .fa, label{
-      cursor: pointer;
-      line-height: 65px;
-      color: color(white) !important;
-    }
-  }
-
   &__sticky-wrapper{
     width: 100vw;
     height: 65px;
     color: color(white);
     background: #525252;
+    @include transition(top 0.35s ease-in-out);
   }
 
   &.scroll-entered{
     .report__top-nav__sticky-wrapper{
-      z-index: 100;
+      z-index: 2;
       position: fixed;
       top: 0px;
     }
   }
 }
 
-.report__top-nav__arrows{
-  .fa {
-    position: absolute;
-    display: inline-block;
-    padding: 0;
-    color: color(white) !important;
-    @include center;
-  }
-
-  .previous {
-    border-right: 1px solid #C1C1C1;
-  }
-  .next, .previous{
-    position: relative;
-    height: 100%;
-    display: inline-block;
-    width: 50%;
-    border-bottom: 4px solid #C1C1C1;
-    background: color(white, base, 0);
-    cursor: pointer;
-    &:not(.inactive):hover{
-      border-bottom: 0px solid #C1C1C1;
-      background: color(white, base, 0.05);
-    }
-
-    &.inactive {
-      cursor: default;
-      background: #C1C1C1;
-
-      .fa {
-        color: rgba(#7A7A7A,0.5) !important;
-      }
-    }
-
-    a {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
+// .scroll-reverse {
+//   .report__top-nav.scroll-entered .report__top-nav__sticky-wrapper{
+//     z-index: 100;
+//     position: fixed;
+//     top: 65px;
+//   }
+// }

@@ -1,0 +1,42 @@
+.report__top-nav__contents{
+  position: relative;
+  &__button label{
+    display: none;
+    @include media-breakpoint(desktop){
+      display: inline-block;
+    }
+  }
+
+  .fa {
+    position: absolute;
+    @include center;
+    padding-right: 0;
+    font-size: 1.2rem;
+    @include media-breakpoint(desktop){
+      @include transform(none);
+      position: static;
+      padding-right: 10px;
+    }
+  }
+}
+
+.report__top-nav__contents__button{
+  text-align: center;
+  height: 65px;
+  background: #7A7A7A;
+  border-bottom: 4px solid #C1C1C1;
+  white-space: nowrap;
+  position: relative;
+  z-index: 3;
+
+  &:hover{
+    border-bottom: 0px solid #C1C1C1;
+    cursor: pointer;
+  }
+
+  .fa, label{
+    cursor: pointer;
+    line-height: 65px;
+    color: color(white) !important;
+  }
+}

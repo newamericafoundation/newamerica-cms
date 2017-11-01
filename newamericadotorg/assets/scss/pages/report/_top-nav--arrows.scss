@@ -1,0 +1,41 @@
+.report__top-nav__arrows{
+  .fa {
+    position: absolute;
+    display: inline-block;
+    padding: 0;
+    color: color(white) !important;
+    @include center;
+  }
+
+  .previous {
+    border-right: 1px solid #C1C1C1;
+  }
+  .next, .previous{
+    position: relative;
+    height: 100%;
+    display: inline-block;
+    width: 50%;
+    border-bottom: 4px solid #C1C1C1;
+    background: color(white, base, 0);
+    cursor: pointer;
+    &:not(.inactive):hover{
+      border-bottom: 0px solid #C1C1C1;
+      background: color(white, base, 0.05);
+    }
+
+    &.inactive {
+      cursor: default;
+      background: #C1C1C1;
+
+      .fa {
+        color: rgba(#7A7A7A,0.5) !important;
+      }
+    }
+
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

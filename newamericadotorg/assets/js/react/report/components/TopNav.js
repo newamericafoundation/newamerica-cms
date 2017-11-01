@@ -26,7 +26,7 @@ class TopNav extends Component {
             </div>
             <div className="report__top-nav__title col-auto">
               <label className="bold white">{report.title}</label>
-              <label className="white">{` (${section.title})`}</label>
+              <label className="white report__top-nav__title__chapter">{` (${section.title})`}</label>
             </div>
             <div className="report__top-nav__arrows col-1">
               <div className={`previous ${previous ? '' : 'inactive'}`}>

@@ -1,0 +1,27 @@
+.report__top-nav__title{
+  white-space: nowrap;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  background: #525252;
+  label{
+    line-height: 65px;
+    vertical-align: middle;
+    padding-left: 5px;
+    &:first-child{
+      padding-left: 20px;
+    }
+  }
+
+  &__chapter{
+    display: none;
+    @include media-breakpoint(desktop){
+      display: inline;
+    }
+  }
+
+  flex: 0 0 calc(83.333333% - 44px);
+  max-width: calc(83.333333% - 44px);
+
+
+}
