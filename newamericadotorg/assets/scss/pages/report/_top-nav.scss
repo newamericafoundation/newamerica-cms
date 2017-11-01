@@ -25,15 +25,21 @@
     .report__top-nav__sticky-wrapper{
       z-index: 2;
       position: fixed;
+      top: -65px;
+    }
+  }
+
+  &.scroll-left{
+    .report__top-nav__sticky-wrapper{
       top: 0px;
     }
   }
 }
 
-// .scroll-reverse {
-//   .report__top-nav.scroll-entered .report__top-nav__sticky-wrapper{
-//     z-index: 100;
-//     position: fixed;
-//     top: 65px;
-//   }
-// }
+.scroll-reverse {
+  .report__top-nav.scroll-left .report__top-nav__sticky-wrapper{
+    z-index: 100;
+    position: fixed;
+    top: 65px;
+  }
+}

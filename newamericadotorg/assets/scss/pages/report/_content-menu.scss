@@ -11,7 +11,7 @@
   @include transition(transform 0.35s ease);
 
   &.open {
-    @include transform(translateY(0%));
+    @include transform(translateY(65px));
     opacity: 1;
   }
 
