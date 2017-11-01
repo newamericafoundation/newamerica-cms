@@ -1,0 +1,29 @@
+.report__content-menu{
+  position: absolute;
+  width: 280px;
+  padding: 25px;
+  background: #7A7A7A;
+  z-index: 0;
+  max-height: calc(100vh - 65px);
+  overflow-y: scroll;
+  opacity: 0;
+  top: -125px;
+  @include transition(top 0.35s ease);
+
+  &.open {
+    top: 65px;
+    opacity: 1;
+  }
+
+  &__item{
+    a {
+      display: block;
+      padding-bottom: 25px;
+    }
+    &:last-child{
+      a {
+        padding-bottom: 0px;
+      }
+    }
+  }
+}

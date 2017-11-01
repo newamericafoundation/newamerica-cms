@@ -6,6 +6,8 @@
   }
 
   &__contents, &__arrows{
+    position: relative;
+    z-index: 2;
     background: #7A7A7A;
     flex: 0 0 calc(8.333333% + 22px);
     max-width: calc(8.333333% + 22px);
@@ -13,6 +15,10 @@
 
   &__title{
     white-space: nowrap;
+    position: relative;
+    z-index: 3;
+    overflow: hidden;
+    background: #525252;
     label{
       line-height: 65px;
       display: inline-block;
@@ -28,7 +34,8 @@
   }
 
   &__contents{
-    label{
+    position: relative;
+    &__button label{
       display: none;
       @include media-breakpoint(desktop){
         display: inline-block;
@@ -51,12 +58,14 @@
   &__contents__button{
     text-align: center;
     height: 65px;
+    background: #7A7A7A;
     border-bottom: 4px solid #C1C1C1;
     white-space: nowrap;
+    position: relative;
+    z-index: 3;
 
     &:hover{
       border-bottom: 0px solid #C1C1C1;
-      background: color(white, base, 0.05);
       cursor: pointer;
     }
 

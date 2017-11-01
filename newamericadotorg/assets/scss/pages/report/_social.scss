@@ -41,9 +41,8 @@
   top: 0px;
   right: 22.5px;
   @include media-breakpoint(desktop){
-    position: relative;
+    position: static;
     text-align: left;
-    top: 0;
   }
 }
 

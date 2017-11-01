@@ -1,7 +1,14 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ContentMenu from './ContentMenu';
 
 class TopNav extends Component {
+  state = { openMenu: false }
+
+  toggleMenu = () => {
+    this.setState({ openMenu: !this.state.openMenu });
+  }
+
   render(){
     let { section, report } = this.props;
     let next = report.sections[section.number],
@@ -12,7 +19,8 @@ class TopNav extends Component {
         <div className="container no-padding">
           <div className="row no-gutters">
             <div className="report__top-nav__contents col-1">
-              <div className="report__top-nav__contents__button">
+              <ContentMenu report={report} open={this.state.openMenu} closeMenu={this.toggleMenu}/>
+              <div className="report__top-nav__contents__button" onClick={this.toggleMenu}>
                 <i className="fa fa-bars"></i><label>Contents</label>
               </div>
             </div>
