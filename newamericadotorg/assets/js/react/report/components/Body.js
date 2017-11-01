@@ -58,12 +58,12 @@ class Body extends Component {
   }
 
   render(){
-    let { section, authors, endnotes, date } = this.props;
+    let { section, authors, endnotes, date, url } = this.props;
     let { endnote, top } = this.state;
     return (
       <div className="report__body row gutter-45">
         <div className={"report__body__left-aside col-12 col-lg-2 offset-0 offset-xl-1 " + (endnote ? 'endnote-active' : '')}>
-          <Social />
+          <Social url={url}/>
           <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
         </div>
         <div className="report__body__right-aside col-12 col-lg-2 push-lg-8 push-xl-6">

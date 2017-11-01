@@ -107,3 +107,4 @@ django-cors-headers==1.2.2
 django-anymail==0.10
 createsend==4.2.1
 python-docx==0.8.6
+WeasyPrint==0.41

@@ -7,11 +7,11 @@
   max-height: calc(100vh - 65px);
   overflow-y: scroll;
   opacity: 0;
-  top: -125px;
-  @include transition(top 0.35s ease);
+  @include transform(translateY(-100%));
+  @include transition(transform 0.35s ease);
 
   &.open {
-    top: 65px;
+    @include transform(translateY(0%));
     opacity: 1;
   }
 
