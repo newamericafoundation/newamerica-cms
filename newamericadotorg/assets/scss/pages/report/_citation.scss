@@ -4,12 +4,34 @@
   top: -.8em;
   border: 1px solid color(black);
   border-radius: 1.5em;
+  min-width: 20px;
+  min-height: 20px;
+  display: inline-block;
   padding: 0.2em 0.5em 0.2em 0.5em;
   cursor: pointer;
+  font-variant-numeric: lining-nums;
+  font-family: $label-font-family;
 
-  &:hover{
+  &:after{
+    content: 'x';
+    font-size: 1.2em;
+    padding-bottom: 2px;
+    display: none;
+    position: absolute;
+    color: color(white);
+    @include center;
+  }
+
+  &:hover {
     background: color(black);
     color: color(white);
-    border: 1px solid color(black);
+  }
+
+  &.active {
+    background: color(black);
+    color: color(black);
+    &:after{
+      display: block;
+    }
   }
 }

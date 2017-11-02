@@ -35,13 +35,17 @@
 }
 
 .report__social{
+  display: none;
   @include transition(opacity 0.35s ease);
   text-align: right;
-  position: absolute;
+  height: 0px;
   top: 0px;
   right: 22.5px;
+  @include media-breakpoint(tablet){
+    display: block;
+  }
   @include media-breakpoint(desktop){
-    position: static;
+    height: auto;
     text-align: left;
   }
 }

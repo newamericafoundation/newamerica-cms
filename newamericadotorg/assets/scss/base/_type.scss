@@ -10,10 +10,6 @@ body, html{
 }
 
 h1,h2,h3,h4,h5,h6{
-  font-family: $header-font-family;
-  font-weight: bold;
-  letter-spacing: 0.015em;
-
   &.white{
     color: white !important;
   }
@@ -47,6 +43,16 @@ h1,h2,h3,h4,h5,h6{
   }
 }
 
+h1, h2{
+  font-family: $header-font-family;
+  font-weight: bold;
+}
+
+h3, h4{
+  font-family: $label-font-family;
+  font-weight: bold;
+}
+
 h1{
   font-size: 2.5rem;
   line-height: 2.5rem;
@@ -54,13 +60,14 @@ h1{
 }
 
 h2 {
-  font-size: 2.10rem;
-  line-height: 2.28rem;
+  font-size: 1.875rem;
+  line-height: 1.875rem;
+  letter-spacing: 0.020625rem;
 }
 
 h3 {
-  font-size: 1.64rem;
-  line-height: 1.78rem;
+  font-size: 1.125rem;
+  line-height: 1.125rem;
 }
 
 h4 {
@@ -92,6 +99,8 @@ p {
   font-family: $paragraph-font-family;
   font-size: 1.125rem;
   line-height: 1.875rem;
+  margin-top: 1.3em;
+  margin-bottom: 1.4em;
 
   &.no-margin{
     margin-top: 0;
@@ -257,6 +266,10 @@ label {
 
   &.bottom-margin {
     margin-bottom: 15px;
+  }
+
+  &.bottom-margin-5 {
+    margin-bottom: 5px;
   }
 
   &.top-margin{

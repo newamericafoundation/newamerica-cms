@@ -3,8 +3,18 @@
   background: #00DABB;
 
   h1{
-    max-width: 475px;
-    margin: 35px auto;
+    max-width: 350px;
+    margin: 20px auto;
+    @include media-breakpoint(desktop){
+      max-width: 475px;
+    }
+  }
+
+  label{
+    max-width: 350px;
+    @include media-breakpoint(desktop){
+      max-width: 475px;
+    }
   }
 }
 

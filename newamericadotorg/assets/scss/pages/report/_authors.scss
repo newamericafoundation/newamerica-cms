@@ -1,5 +1,10 @@
 .report__authors__item{
-  padding: 17.5px 0;
+  .caption {
+    display: none;
+    @include media-breakpoint(large-desktop){
+      display: block;
+    }
+  }
 }
 
 .report__authors__desktop{
@@ -10,7 +15,6 @@
 }
 
 .report__authors__mobile{
-  max-width: 50%;
   @include media-breakpoint(desktop){
     display: none;
   }

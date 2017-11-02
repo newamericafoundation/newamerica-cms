@@ -18,30 +18,25 @@ class Body extends Component {
     return function(){
       let endnotes = _this.props.endnotes;
       let number = +this.getAttribute('data-citation-number');
-      if(_this.state.el==this)
+      if(_this.state.el==this){
         _this.closeEndnote();
-      else
+      } else {
+        this.classList.add('active');
         _this.setState({ endnote: endnotes[number-1], top: this.offsetTop, el: this });
+      }
     }
   }
 
   citationEvents = () => {
     let _this = this;
     let citations = document.querySelectorAll('.report__citation');
-    let isMobile = window.innerWidth < 860;
     for(let c of citations){
-      if(isMobile){
-        c.onclick = this.openEndnote()
-      } else {
-        c.onmouseenter = this.openEndnote();
-        c.onmouseleave = function(){
-          _this.closeEndnote();
-        }
-      }
+      c.onclick = this.openEndnote()
     }
   }
 
   closeEndnote = (delay) => {
+    this.state.el.classList.remove('active');
     this.setState({ endnote: null, top: -250, el: null });
   }
 
@@ -62,14 +57,14 @@ class Body extends Component {
     let { endnote, top } = this.state;
     return (
       <div className="report__body row gutter-45">
-        <div className={"report__body__left-aside col-12 col-lg-2 offset-0 offset-xl-1 " + (endnote ? 'endnote-active' : '')}>
+        <div className="report__body__right-aside col-6 col-md-5 col-lg-2 push-lg-10 push-xl-9 offset-md-1 offset-lg-0">
+          <Authors authors={authors} />
+        </div>
+        <div className={"report__body__left-aside col-6 col-md-5 col-lg-2 pull-lg-2 offset-xl-1 " + (endnote ? 'endnote-active' : '')}>
           <Social url={url}/>
           <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
         </div>
-        <div className="report__body__right-aside col-12 col-lg-2 push-lg-8 push-xl-6">
-          <Authors authors={authors} />
-        </div>
-        <div className="report__body__section col-12 col-lg-8 col-xl-6 pull-lg-2">
+        <div className="report__body__section col-12 col-md-10 col-lg-8 col-xl-6 pull-lg-2 offset-md-1 offset-lg-0">
           {section.number==1 && <label className="block report__body__section__date">Published on {formatDate(date, "MMM. DD, YYYY")}</label>}
           <h1 className="no-top-margin">{`${section.number}. ${section.title}`}</h1>
           <div dangerouslySetInnerHTML={{__html: section.body}} />
