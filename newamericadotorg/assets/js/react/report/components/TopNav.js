@@ -19,7 +19,7 @@ class TopNav extends Component {
         <div className="container no-padding">
           <div className="row no-gutters">
             <div className="report__top-nav__contents col-1">
-              <ContentMenu report={report} open={this.state.openMenu} closeMenu={this.toggleMenu}/>
+              <ContentMenu report={report} open={this.state.openMenu} closeMenu={this.toggleMenu} activeSection={section}/>
               <div className="report__top-nav__contents__button" onClick={this.toggleMenu}>
                 <i className="fa fa-bars"></i><label>Contents</label>
               </div>

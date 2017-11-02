@@ -10,6 +10,7 @@ class BottomNav extends Component {
 
     return (
       <div className="report__bottom-nav">
+        <div className="container no-padding">
         {previous &&
           <div className="report__bottom-nav__button previous">
             <Link to={`${report.url}${previous.slug}`}>
@@ -24,6 +25,7 @@ class BottomNav extends Component {
             </Link>
           </div>
         }
+        </div>
       </div>
     );
   }

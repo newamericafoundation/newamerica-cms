@@ -1,14 +1,15 @@
 .report__content-menu{
   position: absolute;
   width: 280px;
-  padding: 25px;
+  padding: 12.5px 0;
   background: #7A7A7A;
   z-index: 0;
   max-height: calc(100vh - 65px);
+  overflow-x: hidden;
   overflow-y: scroll;
   opacity: 0;
   @include transform(translateY(-100%));
-  @include transition(transform 0.35s ease);
+  @include transition(transform 0.35s ease, max-height 0.35s ease);
 
   &.open {
     @include transform(translateY(65px));
@@ -16,14 +17,23 @@
   }
 
   &__item{
+    * {
+      cursor: pointer;
+    }
+    padding: 0 25px;
+    &.active, &:hover{
+      box-shadow: inset -4px 0px 0px #C1C1C1;
+    }
+
     a {
       display: block;
-      padding-bottom: 25px;
-    }
-    &:last-child{
-      a {
-        padding-bottom: 0px;
-      }
+      padding-top: 12.5px;
+      padding-bottom: 12.5px;
     }
   }
+}
+
+.scroll-reverse .report__top-nav.scroll-left .report__content-menu,
+.report__top-nav:not(.scroll-entered) .report_content-menu{
+  max-height: calc(100vh - 130px);
 }
