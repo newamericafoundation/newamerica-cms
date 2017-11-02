@@ -10,7 +10,7 @@ def generate_pdf_response(page, request=None):
     pdf = HTML(string=html).write_pdf()
 
     response = HttpResponse(content_type='application/pdf;')
-    response['Content-Disposition'] = 'inline; filename=list_people.pdf'
+    response['Content-Disposition'] = 'inline; filename=%s.pdf' % page.title 
     response['Content-Transfer-Encoding'] = 'binary'
     with tempfile.NamedTemporaryFile(delete=True) as output:
         output.write(pdf)
