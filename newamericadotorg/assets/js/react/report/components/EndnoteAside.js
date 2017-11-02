@@ -7,7 +7,7 @@ class Endnote extends Component {
 
     return (
       <div className="report__body__endnote" style={{ top: top }}>
-        <div className="report__body__endnote__close" onClick={this.props.close}>x</div>
+        <div className="report__body__endnote__close" onClick={this.props.close}><span>x</span></div>
         {endnote &&<span>
           <label className="inline" >{`${endnote.number} `}</label>
           <label className="inline" dangerouslySetInnerHTML={{__html: endnote.note}}></label>

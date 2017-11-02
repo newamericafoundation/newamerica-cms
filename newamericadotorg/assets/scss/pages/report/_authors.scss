@@ -10,7 +10,6 @@
 }
 
 .report__authors__mobile{
-  margin-bottom: 15px;
   max-width: 50%;
   @include media-breakpoint(desktop){
     display: none;
