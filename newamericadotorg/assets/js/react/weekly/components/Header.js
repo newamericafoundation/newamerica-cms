@@ -24,7 +24,7 @@ class Header extends Component {
               </div>
               <div className="weekly-header__title__wrapper">
                 <a href="/weekly">
-                  <h4 className="weekly-header__heading no-margin">The Weekly</h4>
+                  <h4 className="weekly-header__heading margin-0">The Weekly</h4>
                 </a>
               </div>
             </div>

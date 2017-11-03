@@ -9,11 +9,11 @@ const Intro = ({ slug, project: { title, subheading }}) => (
     <div className="in-depth__intro__text">
       <div className="in-depth__intro__text__logo">
         <a href="/"><div className="logo bug in-depth-logo-bug"></div></a>
-        <h4 className="no-margin">In-Depth</h4>
+        <h4 className="margin-0">In-Depth</h4>
       </div>
       <div className="in-depth__intro__text__heading">
-        <h1 className={`centered narrow-margin`}>{title}</h1>
-        {subheading && <p className="in-depth__intro__text__heading__sub centered no-margin">{subheading}</p>}
+        <h1 className={`centered margin-5`}>{title}</h1>
+        {subheading && <p className="in-depth__intro__text__heading__sub centered margin-0">{subheading}</p>}
       </div>
       <div className="in-depth__intro__text__link">
         <Link to={`/in-depth/${slug}/about`}>

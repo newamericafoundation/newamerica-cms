@@ -4,7 +4,7 @@ const Heading = ({ post : { authors, title, url, story_image, date } }) => (
 
     <div className='weekly-heading__text'>
       <div className="weekly-heading__text__title">
-        <h1 className="narrow-margin">{title}</h1>
+        <h1 className="margin-5">{title}</h1>
       </div>
       <div className="weekly-heading__text__date-author-wrapper">
         <label className="weekly-heading__text__date">

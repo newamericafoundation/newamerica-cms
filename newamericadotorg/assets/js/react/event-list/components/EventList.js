@@ -76,7 +76,7 @@ export class FutureEvents extends Component {
     }
     return(
       <div className="event-list">
-        <h1 className="event-list__heading centered narrow-bottom-margin">Upcoming Events</h1>
+        <h1 className="event-list__heading centered margin-bottom-5">Upcoming Events</h1>
         <Fetch name="eventList.upcoming"
           className="event-lists__upcoming-events"
           component={FutureList}
@@ -104,7 +104,7 @@ export class PastEvents extends Component {
     }
     return(
       <div className="event-list">
-        <h1 className="event-list__heading centered narrow-bottom-margin">Past Events</h1>
+        <h1 className="event-list__heading centered margin-bottom-5">Past Events</h1>
         <Fetch name="eventList.past"
           isSiteWide={!params}
           component={PastFilters}

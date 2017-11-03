@@ -16,7 +16,7 @@ class Heading extends Component {
                 <label>{report.programs[0].name}</label>
               </div>*/}
             </div>
-            <h1 className="white no-margin centered">{report.title}</h1>
+            <h1 className="white margin-0 centered">{report.title}</h1>
             {report.subheading &&
               <label className="block centered white">{report.subheading}</label>
             }

@@ -14,30 +14,6 @@ h1,h2,h3,h4,h5,h6{
     color: white !important;
   }
 
-  &.narrow-margin {
-    margin: 10px 0;
-  }
-
-  &.narrow-top-margin{
-    margin-top: 10px;
-  }
-
-  &.narrow-bottom-margin{
-    margin-bottom: 10px;
-  }
-
-  &.no-margin{
-    margin: 0;
-  }
-
-  &.no-top-margin{
-    margin-top: 0;
-  }
-
-  &.no-bottom-margin{
-    margin-bottom: 0;
-  }
-
   &.centered{
     text-align: center;
   }
@@ -98,16 +74,6 @@ li{
 p {
   margin-top: 1.3em;
   margin-bottom: 1.4em;
-
-  &.no-margin{
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  &.narrow-margin{
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
 
   &.gray{
     color: color(gray, dark);
@@ -221,11 +187,6 @@ a {
   // &:not(:hover) .fa:not(.outline) {
   //   color: color(gray, dark);
   // }
-
-  &.light {
-    font-weight: normal;
-    color: color(gray, dark);
-  }
 }
 
 label {
@@ -235,73 +196,14 @@ label {
   color: color(black);
   font-family: $label-font-family;
   display: inline-block;
-
-  &.inline {
-    display: inline;
-  }
-
-  &.active{
-    color: color(black);
-    font-weight: bold;
-  }
-
-  &.gray {
-    color: color(gray, dark);
-  }
+  text-decoration: none;
 
   &.white{
     color: color(white);
   }
 
-  &.narrow-margin{
-    margin: 5px 0;
-  }
-
-  &.margin {
-    margin: 15px 0;
-  }
-
-  &.bottom-margin {
-    margin-bottom: 15px;
-  }
-
-  &.bottom-margin-5 {
-    margin-bottom: 5px;
-  }
-
-  &.top-margin{
-    margin-top: 15px;
-  }
-
   &.bold{
     font-weight: bold;
-  }
-
-  &.caption {
-    font-family: $paragraph-font-family;
-    font-style: italic;
-  }
-
-  &.with-description {
-    &:after{
-      content: '-';
-      margin-left: 4px;
-      margin-right: 4px;
-      display: inline;
-    }
-  }
-
-  & > a {
-    font-weight: inherit !important;
-    color: inherit !important;
-    &:hover{
-      color: color(turquoise) !important;
-    }
-  }
-
-  p {
-    margin-top: 0;
-    margin-bottom: 0
   }
 
   &.block{
@@ -313,6 +215,10 @@ label {
     text-align: center;
   }
 
+  &.inline {
+    display: inline;
+  }
+
   &.md {
     font-size: 0.9rem;
     line-height: 1.2rem;
@@ -321,5 +227,21 @@ label {
   &.lg{
     font-size: 1rem;
     line-height: 1.35rem;
+  }
+
+  &.caption {
+    font-family: $paragraph-font-family;
+    font-style: italic;
+  }
+
+  p, a{
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    text-decoration: inherit;
+    color: inherit;
+    font-weight: inherit;
   }
 }

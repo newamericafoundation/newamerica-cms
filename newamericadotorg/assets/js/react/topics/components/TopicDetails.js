@@ -7,7 +7,7 @@ import { NAME } from '../constants';
 const SubTopics = ({topic}) => (
   <div className="topic__details__subtopics">
     {topic.subtopics.length > 0 &&
-      <h4 className="narrow-bottom-margin topic__details__subtopic-label">Subtopics</h4>
+      <h4 className="margin-bottom-5 topic__details__subtopic-label">Subtopics</h4>
     }
     {topic.subtopics.map((t,i)=>(
       <Link className="tag with-gutter" to={t.url}>{t.title}</Link>
@@ -35,7 +35,7 @@ class TopicText extends Component {
     let expandedClass = this.state.expanded ? 'expanded' : '';
     return (
       <div className="topic__details__text-wrapper col-lg-8">
-          <h1 className="topic__details__title narrow-margin">{topic.title}</h1>
+          <h1 className="topic__details__title margin-5">{topic.title}</h1>
           <SubTopics topic={topic} />
           <article className={`topic__details__body ${expandedClass}`}>
             <div ref={(div)=>{this.body=div;}}
@@ -54,7 +54,7 @@ class TopicText extends Component {
 
 const AuthorsList = ({ response: { results }}) => (
   <div className="topic__details__author-list col-lg-4">
-    {results.length > 0 && <div className="container"><h4 className="narrow-bottom-margin">Experts</h4></div>}
+    {results.length > 0 && <div className="container"><h4 className="margin-bottom-5">Experts</h4></div>}
     <div className="post-authors">
     <div className="post-authors__list">
       {results.map((a,i)=>(

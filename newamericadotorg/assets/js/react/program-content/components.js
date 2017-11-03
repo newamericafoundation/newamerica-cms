@@ -13,7 +13,7 @@ export const ContentGridItem = ({ item, className, page, contentType }) => (
         </div>
       }
       <div className="content-grid__item__text">
-        <label className="content-grid__item__text__content-type narrow-margin">
+        <label className="content-grid__item__text__content-type margin-5">
           {(page=='homepage' && item.programs[0]) &&
             <a href={item.programs[0].url} className="content-grid__item__text__content-type__program">
               {item.programs[0].name}
@@ -24,7 +24,7 @@ export const ContentGridItem = ({ item, className, page, contentType }) => (
         <label className="content-grid__item__text__title md active">
           <a href={item.url} className="content-grid__item__link-wrapper">{item.title}</a>
         </label>
-        <p className="content-grid__item__text__description narrow-margin gray">
+        <p className="content-grid__item__text__description margin-5 gray">
           <label className="with-description">{formatDate(item.date, 'MMMM D, YYYY')}</label>
           {item.story_excerpt}
         </p>

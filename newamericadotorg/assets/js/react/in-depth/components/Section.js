@@ -8,7 +8,7 @@ import loadExternalScript from '../load-external-script';
 const Heading = ({ section: { page, index }, project }) => (
   <section className="in-depth__heading">
     <div className="in-depth__heading__text">
-      <h1 className="in-depth__heading__text__title no-margin">{page.title}</h1>
+      <h1 className="in-depth__heading__text__title margin-0">{page.title}</h1>
     </div>
   </section>
 );
@@ -53,7 +53,7 @@ export default class Section extends Component {
                       {`${a.first_name} ${a.last_name}`}
                     </a>
                   </label>
-                  <p className="in-depth__author__position no-margin">{a.position}</p>
+                  <p className="in-depth__author__position margin-0">{a.position}</p>
                 </div>
               ))}
               </div>

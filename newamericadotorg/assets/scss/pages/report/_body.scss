@@ -1,18 +1,7 @@
 .report__body{
   position: relative;
-  margin-top: 35px;
-  @include media-breakpoint(desktop){
-    margin-top: 80px;
-  }
 }
 
 .report__body__section{
-  margin-top: 35px;
-  @include media-breakpoint(desktop){
-    margin-top: 0px;
-  }
 
-  &__date{
-    margin-bottom: 35px;
-  }
 }

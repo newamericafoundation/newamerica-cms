@@ -57,7 +57,7 @@ class InDepthRoutes extends Component {
     if(!this.state.isReady){
       return(
         <div className="in-depth-loading">
-          <h6 className="no-margin">In-Depth</h6>
+          <h6 className="margin-0">In-Depth</h6>
           <label className="in-depth-label">
             {results.title}
           </label>

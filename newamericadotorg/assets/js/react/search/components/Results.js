@@ -60,7 +60,7 @@ export default class Results extends Component {
                 ))}
               </label>
             }
-            <p className="search__results__item__description no-margin">
+            <p className="search__results__item__description margin-0">
               {p.specific.date &&
                 <label className={p.specific.description ? 'with-description' : ''}>
                   {formatDate(p.specific.date, 'MMMM D, YYYY')}

@@ -6,8 +6,8 @@ const Contents = ({ sections }) => (
     <ul className="in-depth__table-of-contents">
     {sections.map((s,i)=>(
       <li>
-        <h4 className="no-margin"><Link to={s.url}>{s.title}</Link></h4>
-        <p className="no-margin">{s.story_excerpt}</p>
+        <h4 className="margin-0"><Link to={s.url}>{s.title}</Link></h4>
+        <p className="margin-0">{s.story_excerpt}</p>
       </li>
     ))}
     </ul>
