@@ -530,7 +530,7 @@ class ReportDetailSerializer(PostSerializer):
             for e in obj.endnotes:
                 endnotes.append({
                     'number': e.value['number'],
-                    'note': e.value['note'].source 
+                    'note': e.value['note'].source
                 })
             return endnotes
 
@@ -539,10 +539,18 @@ class ReportDetailSerializer(PostSerializer):
             return None
         sections = []
         for i,s in enumerate(obj.sections):
-            sections.append({
+            section = {
                 'title': s.value['title'],
                 'number': i+1,
                 'slug': slugify(s.value['title']),
-                'body': s.render()
-            })
+                'body': s.render(),
+                'subsections': []
+            }
+            for block in s.value['body']:
+                if block.block_type == 'heading':
+                    section['subsections'].append({
+                        'title': block.value,
+                        'slug': slugify(block.value)
+                    })
+            sections.append(section)
         return sections

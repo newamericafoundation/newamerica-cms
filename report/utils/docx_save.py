@@ -12,12 +12,17 @@ def generate_docx_streamfields(document):
     for s in parsed.sections:
         body = []
         for b in s['blocks']:
+            val = None
             if b['type'] == 'paragraph':
                 val = ('paragraph', RichText(b['html']))
-            else:
-                val = ('heading', '<Figure %s>' % figure_index)
+            elif b['type'] == 'heading':
+                val = ('heading', b['text'])
+            elif b['type'] == 'inline_image':
+                val = ('paragraph', RichText('<em>[[Figure %s]]</em>' % figure_index))
                 figure_index += 1
-            body.append(val)
+
+            if val is not None:
+                body.append(val)
 
         panel = ('section', { 'title': s['title'], 'body': StreamValue(Body(), body) })
         panels.append(panel)

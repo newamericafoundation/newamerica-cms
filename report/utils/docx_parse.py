@@ -98,11 +98,14 @@ class DocxParse():
             run = Run(child, paragraph)
 
             if self.__runisfigure__(run):
-                # close paragraph and add new block if next run is a figure
-                if block:
-                    if block['type'] == 'paragraph':
-                        block['html'] += '</p>'
+                self.__closeblock__(block)
                 blocks.append({ 'type': 'inline_image' })
+                block = None
+                continue
+
+            if paragraph.style.name == 'Heading 2':
+                self.__closeblock__(block)
+                blocks.append({ 'type': 'heading', 'text': run.text })
                 block = None
                 continue
 
@@ -113,33 +116,30 @@ class DocxParse():
                 })
                 block = blocks[len(blocks)-1]
 
-            html = self.__run2html__(run)
+            html = self.__run2html__(run, block)
             if link:
                 html = '<a href=\"%s\">%s</a>' % (link, html)
-            if paragraph.style.name == 'Heading 2':
-                if html == '': continue
-                if block['html'] != '':
-                    html = '</p><h2>%s</h2><p>' % html
-                else:
-                    html = '<h2>%s</h2><p>' % html
-            elif block['html'] == '':
+            if block['html'] == '':
                 html = '<p>' + html
 
             block['html'] += html
 
-        if block:
-            if block['type'] == 'paragraph':
-                block['html'] += '</p>'
+        self.__closeblock__(block)
 
         return blocks
 
-    def __run2html__(self, run):
+    def __closeblock__(self, block):
+        if block is not None:
+            if block['type'] == 'paragraph':
+                block['html'] += '</p>'
+
+    def __run2html__(self, run, block):
 
         if self.__runisfootnote__(run):
             self._footnoteindex+=1
             return '{{%s}}' % str(self._footnoteindex)
 
-        text = self.__getruntext__(run)
+        text = self.__getruntext__(run, block)
         if run.italic:
             text = '<em>%s</em>' % text
         if run.bold:
@@ -147,15 +147,16 @@ class DocxParse():
 
         return text
 
-    def __getruntext__(self, run):
+    def __getruntext__(self, run, block):
         texts = run.element.findall('.//w:t', self._namespaces)
         text = ''
         for i, t in enumerate(texts):
-            prev_breaks = self.__countprevbreaks__(t)
-            if prev_breaks == 1:
-                text += '<br/>'
-            elif prev_breaks == 2:
-                text += '</p><p>'
+            if block['html'] != '':
+                prev_breaks = self.__countprevbreaks__(t)
+                if prev_breaks == 1:
+                    text += '<br/>'
+                elif prev_breaks == 2:
+                    text += '</p><p>'
 
             text += t.text
 

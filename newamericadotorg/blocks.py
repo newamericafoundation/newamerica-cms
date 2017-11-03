@@ -252,7 +252,7 @@ class SessionsBlock(blocks.StreamBlock):
 
 class Body(blocks.StreamBlock):
 	introduction = blocks.RichTextBlock(icon="openquote")
-	heading = blocks.CharBlock(classname='full title', icon="title")
+	heading = blocks.CharBlock(classname='full title', icon="title", template="blocks/heading.html")
 	paragraph = blocks.RichTextBlock()
 	inline_image = CustomImageBlock(icon='image')
 	video = EmbedBlock(icon='media')
