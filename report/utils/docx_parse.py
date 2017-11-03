@@ -85,7 +85,9 @@ class DocxParse():
     def __blocks__(self, section):
         blocks = []
         block = None
-        last_paragraph = None
+        prev_paragraph = None
+        this_list = None
+        r_index = 0
         for child, paragraph in section['elements']:
             # only parsing tags specified in self._tags
             tag = self._tags.get(child.tag, None)
@@ -105,13 +107,8 @@ class DocxParse():
                 block = None
                 continue
 
-            if run.text == '':
+            if run.text == '' and not self.__runisfootnote__(run):
                 continue
-
-            if last_paragraph != paragraph:
-                self.__closeblock__(block)
-
-            last_paragraph = paragraph
 
             if paragraph.style.name == 'Heading 2':
                 self.__closeblock__(block)
@@ -126,30 +123,57 @@ class DocxParse():
                 })
                 block = blocks[len(blocks)-1]
 
-            html = self.__run2html__(run, block)
+            if prev_paragraph != paragraph:
+                r_index = 0
+                this_list = self.__getparagraphlist__(paragraph)
+                prev_list = self.__getparagraphlist__(prev_paragraph)
+                # if it's a list
+                if this_list is not None:
+                    if prev_list is None:
+                        l = '<ul>' if this_list == 'unordered' else '<ol>'
+                        block['html'] += '%s<li>' % l
+                    else:
+                        block['html'] += '</li><li>'
+                else:
+                    if prev_list is not None:
+                        l = '</ul>' if prev_list == 'unordered' else '</ol>'
+                        block['html'] += '</li>%s<p>' % l
+                    else:
+                        self.__closeblock__(block)
+                        block['html'] += '<p>'
+
+
+            html = self.__run2html__(run, r_index)
             if link:
                 html = '<a href=\"%s\">%s</a>' % (link, html)
-            if block['html'] == '':
-                html = '<p>' + html
 
             block['html'] += html
 
-        self.__closeblock__(block)
+            prev_paragraph = paragraph
+            r_index += 1
+
+        self.__closeblock__(block, this_list)
 
         return blocks
 
-    def __closeblock__(self, block):
+    def __closeblock__(self, block, last_list=None):
         if block is not None:
             if block['type'] == 'paragraph':
-                block['html'] += '</p>'
+                if last_list is not None:
+                    l = '</ul>' if last_list == 'unordered' else '</ol>'
+                    block['html'] += l
+                elif block['html'] != '':
+                    block['html'] += '</p>'
 
-    def __run2html__(self, run, block):
+
+
+    def __run2html__(self, run, r_index):
 
         if self.__runisfootnote__(run):
             self._footnoteindex+=1
             return '{{%s}}' % str(self._footnoteindex)
 
-        text = self.__getruntext__(run, block)
+        text = self.__getruntext__(run, r_index)
         if run.italic:
             text = '<em>%s</em>' % text
         if run.bold:
@@ -157,12 +181,12 @@ class DocxParse():
 
         return text
 
-    def __getruntext__(self, run, block):
+    def __getruntext__(self, run, r_index):
         texts = run.element.findall('.//w:t', self._namespaces)
         text = ''
         for i, t in enumerate(texts):
             # never add breaks at start of paragraph
-            if block['html'] != '' or i > 0:
+            if r_index > 0 or i > 0:
                 prev_breaks = self.__countprevbreaks__(t)
                 if prev_breaks == 1:
                     text += '<br/>'
@@ -197,6 +221,20 @@ class DocxParse():
         if p.tag != breaktag: return count
         count += 1
         return self.__countprevbreaks__(p, count)
+
+    def __getparagraphlist__(self, paragraph):
+        if paragraph is None:
+            return None
+        elif paragraph._element.find('.//w:ilvl', self._namespaces) is not None:
+            numId = paragraph._element.find('.//w:numId', self._namespaces)
+            val = numId.get('{%s}val' % self._namespaces['w'])
+            print val
+            if val == '2':
+                return 'ordered'
+            else:
+                return 'unordered'
+        else:
+            return None
 
     def __runisfigure__(self, run):
         if run.element.find('.//w:drawing', self._namespaces) is not None:

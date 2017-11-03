@@ -87,18 +87,15 @@ h6 {
 
 p,
 blockquote,
-ul,
 li{
-  font-size: 1.00rem;
-  line-height: 1.6rem;
+  font-family: $paragraph-font-family;
+  font-size: 1.125rem;
+  line-height: 1.875rem;
   text-shadow: 1px 1px 1px color(black, base, 0.004);
   text-rendering: optimizeLegibility !important;
 }
 
 p {
-  font-family: $paragraph-font-family;
-  font-size: 1.125rem;
-  line-height: 1.875rem;
   margin-top: 1.3em;
   margin-bottom: 1.4em;
 
