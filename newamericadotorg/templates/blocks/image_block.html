@@ -8,21 +8,31 @@
   {% image value original as img_original %}
 {% endif %}
 
-<div class="block-inline_image__wrapper {% firstof value.align 'no-alignment' %}"
-  style="{% if value.width and value.width != 'initial' %}width:{{value.width}};{% endif %}">
-  {% if value.open_image_on_click %}
-    <a href={{ img_original.url }} target='_blank' >
-      <img {{ img.attrs }}/>
-    </a>
-  {% else %}
-    <img {{ img.attrs }}/>
-  {% endif %}
-  {% if value.caption or value.source or value.image.caption or value.image.source %}
-    <div class="caption">
-      {% firstof value.caption value.image.caption %}
-      {% if value.source or value.image.source %}
-        ({% firstof value.source value.image.source %})
-      {% endif %}
-    </div>
-  {% endif %}
-</div>
+<figure class="figure {{value.align}}">
+  <div class="figure__title margin-bottom-15">
+    <label class="bold">Figure X |</label>
+    <label>Lorem Ipsum Dolor Sit Amet</label>
+  </div>
+  <div class="figure__image width-200">
+    {% if value.open_image_on_click %}
+      <a href={{ img_original.url }} target='_blank' >
+        <img {{ img_original.attrs }}/>
+      </a>
+    {% else %}
+      <img {{ img_original.attrs }}/>
+    {% endif %}
+  </div>
+  <figcaption>
+    <label class="caption block margin-top-10">
+      Source: Lorem Ipsum Dolor Sit Amet / Caption
+    </label>
+  </figcaption>
+</figure>
+{% if value.caption or value.source or value.image.caption or value.image.source %}
+
+  <!-- {% firstof value.caption value.image.caption %}
+  {% if value.source or value.image.source %}
+    ({% firstof value.source value.image.source %})
+  {% endif %} -->
+
+{% endif %}

@@ -7,7 +7,12 @@
 <label class="post-body__date lg">{{ page.date }}</label>
 
 {% for block in page.body %}
-  <div class="block-{{ block.block_type }}">
-     {% include_block block %}
-  </div>
+  {% if block.block_type == "inline_image" %}
+    {% include_block block %}
+  {% else %}
+    <div class="block-{{ block.block_type }}">
+       {% include_block block %}
+    </div>
+  {% endif %}
+
 {% endfor %}
