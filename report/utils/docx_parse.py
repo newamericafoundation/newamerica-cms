@@ -85,7 +85,9 @@ class DocxParse():
     def __blocks__(self, section):
         blocks = []
         block = None
+        last_paragraph = None
         for child, paragraph in section['elements']:
+            # only parsing tags specified in self._tags
             tag = self._tags.get(child.tag, None)
             link = None
             if tag is None: continue
@@ -102,6 +104,15 @@ class DocxParse():
                 blocks.append({ 'type': 'inline_image' })
                 block = None
                 continue
+
+            if run.text == '':
+                continue
+
+            if last_paragraph != paragraph:
+                self.__closeblock__(block)
+                block = None
+
+            last_paragraph = paragraph
 
             if paragraph.style.name == 'Heading 2':
                 self.__closeblock__(block)
@@ -151,7 +162,8 @@ class DocxParse():
         texts = run.element.findall('.//w:t', self._namespaces)
         text = ''
         for i, t in enumerate(texts):
-            if block['html'] != '':
+            # never add breaks at start of paragraph
+            if block['html'] != '' or i > 0:
                 prev_breaks = self.__countprevbreaks__(t)
                 if prev_breaks == 1:
                     text += '<br/>'
