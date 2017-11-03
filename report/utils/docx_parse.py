@@ -85,9 +85,10 @@ class DocxParse():
     def __blocks__(self, section):
         blocks = []
         block = None
-        prev_paragraph = None
+        prev_paragraph = None # track when there is a new w:p in order to reset html
+        r_index = 0 # track run index within a w:p. resets to 0 with new w:p or after a heading or figure
         this_list = None
-        r_index = 0
+        prev_list = None
         for child, paragraph in section['elements']:
             # only parsing tags specified in self._tags
             tag = self._tags.get(child.tag, None)
@@ -102,22 +103,25 @@ class DocxParse():
             run = Run(child, paragraph)
 
             if self.__runisfigure__(run):
-                self.__closeblock__(block)
+                self.__closeblock__(block, prev_list)
                 blocks.append({ 'type': 'inline_image' })
                 block = None
                 r_index = 0
+                this_list = None
                 continue
 
             if run.text == '' and not self.__runisfootnote__(run):
                 continue
 
             if paragraph.style.name == 'Heading 2':
-                self.__closeblock__(block)
+                self.__closeblock__(block, prev_list)
                 blocks.append({ 'type': 'heading', 'text': run.text })
                 block = None
+                r_index = 0
+                this_list = None
                 continue
 
-            if not block:
+            if block is None:
                 blocks.append({
                     'type': 'paragraph',
                     'html': ''
@@ -137,11 +141,9 @@ class DocxParse():
                         block['html'] += '</li><li>'
                 else:
                     if prev_list is not None:
-                        l = '</ul>' if prev_list == 'unordered' else '</ol>'
-                        block['html'] += '</li>%s<p>' % l
-                    else:
-                        self.__closeblock__(block)
-                        block['html'] += '<p>'
+                        block['html'] += '</li>'
+                    self.__closeblock__(block, prev_list)
+                    block['html'] += '<p>'
 
 
             html = self.__run2html__(run, r_index)
@@ -231,7 +233,6 @@ class DocxParse():
         elif paragraph._element.find('.//w:ilvl', self._namespaces) is not None:
             numId = paragraph._element.find('.//w:numId', self._namespaces)
             val = numId.get('{%s}val' % self._namespaces['w'])
-            print val
             if val == '2':
                 return 'ordered'
             else:

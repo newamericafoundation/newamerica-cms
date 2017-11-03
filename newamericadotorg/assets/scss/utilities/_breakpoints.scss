@@ -13,8 +13,8 @@ $breakpoints: (
 $media-breakpoints: (
   mobile: 576px,
   tablet: 767px,
-  desktop: 860px,
-  large-desktop: 1020px
+  desktop: 892px,
+  large-desktop: 1100px
 );
 
 @mixin breakpoint($point) {
