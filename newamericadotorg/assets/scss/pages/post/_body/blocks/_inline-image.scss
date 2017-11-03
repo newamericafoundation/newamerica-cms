@@ -2,7 +2,7 @@
   text-align: center;
 
   img, &__wrapper {
-    padding: $media-padding 25px;
+  //  padding: $media-padding 25px;
   }
 
   img {
@@ -31,7 +31,7 @@
       float: left;
       max-width: 60%;
       padding-left: 0px;
-      padding-right: $desktop-padding;
+    //  padding-right: $desktop-padding;
     }
   }
 
@@ -43,7 +43,7 @@
       float: right;
       max-width: 60%;
       padding-right: 0px;
-      padding-left: $desktop-padding;
+      //padding-left: $desktop-padding;
     }
   }
 }

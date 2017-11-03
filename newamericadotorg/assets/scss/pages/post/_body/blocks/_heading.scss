@@ -1,6 +1,3 @@
 .block-heading {
-  @include limit-body-width;
-  color: palette-get(na-black);
-  font-size: 1.5rem;
-  font-weight: bold;
+  margin-top: 65px;
 }
