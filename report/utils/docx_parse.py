@@ -146,6 +146,8 @@ class DocxParse():
             html = self.__run2html__(run, r_index)
             if link:
                 html = '<a href=\"%s\">%s</a>' % (link, html)
+            if block['html'] == '':
+                html = '<p>' + html
 
             block['html'] += html
 
