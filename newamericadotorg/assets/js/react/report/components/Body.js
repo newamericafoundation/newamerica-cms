@@ -8,7 +8,7 @@ class Body extends Component {
   constructor(props){
     super(props);
     this.state = {
-      endnote: null, top: 0, el: null
+      endnote: null, top: 0, citeEl: null
     };
   }
 
@@ -18,11 +18,13 @@ class Body extends Component {
     return function(){
       let endnotes = _this.props.endnotes;
       let number = +this.getAttribute('data-citation-number');
-      if(_this.state.el==this){
+      if(_this.state.citeEl==this){
         _this.closeEndnote();
       } else {
+        if(_this.state.citeEl)
+          _this.state.citeEl.classList.remove('active');
         this.classList.add('active');
-        _this.setState({ endnote: endnotes[number-1], top: this.offsetTop, el: this });
+        _this.setState({ endnote: endnotes[number-1], top: this.offsetTop, citeEl: this });
       }
     }
   }
@@ -36,8 +38,9 @@ class Body extends Component {
   }
 
   closeEndnote = (delay) => {
-    this.state.el.classList.remove('active');
-    this.setState({ endnote: null, top: -250, el: null });
+    if(this.state.citeEl)
+      this.state.citeEl.classList.remove('active');
+    this.setState({ endnote: null, top: -250, citeEl: null });
   }
 
   componentDidMount(){
