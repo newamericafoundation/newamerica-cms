@@ -105,6 +105,7 @@ class DocxParse():
                 self.__closeblock__(block)
                 blocks.append({ 'type': 'inline_image' })
                 block = None
+                r_index = 0
                 continue
 
             if run.text == '' and not self.__runisfootnote__(run):
