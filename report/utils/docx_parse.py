@@ -110,7 +110,6 @@ class DocxParse():
 
             if last_paragraph != paragraph:
                 self.__closeblock__(block)
-                block = None
 
             last_paragraph = paragraph
 
