@@ -41,7 +41,7 @@ class Body extends Component {
         els: citations,
         // viewHeight
         enterOffset: -Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-        leaveOffset: -85
+        leaveOffset: -65
       }
     });
     for(let c of citations){
