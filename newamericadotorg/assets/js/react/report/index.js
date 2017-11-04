@@ -25,6 +25,10 @@ class Report extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 65)
+      this.props.dispatch({
+        type: 'RELOAD_SCROLL_EVENTS',
+        component: 'site'
+      });
     }
   }
 
@@ -38,7 +42,13 @@ class Report extends Component {
           {section.number===1 &&
             <Heading report={report}/>
           }
-          <Body section={section} authors={report.authors} endnotes={report.endnotes} date={report.date} location={location} url={report.url}/>
+          <Body section={section}
+            authors={report.authors}
+            endnotes={report.endnotes}
+            date={report.date}
+            dispatch={this.props.dispatch}
+            location={location}
+            url={report.url}/>
         </div>
         <BottomNav section={section} report={report} />
       </div>

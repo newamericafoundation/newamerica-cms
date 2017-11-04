@@ -1,6 +1,10 @@
+.figure{
+  @include transition(opacity 0.35s ease);
+}
+
 .figure__image{
   width: 100%;
-  
+
   @include media-breakpoint(desktop){
     &.width-133 {
       width: 120%;

@@ -32,12 +32,24 @@ class Body extends Component {
   citationEvents = () => {
     let _this = this;
     let citations = document.querySelectorAll('.report__citation');
+    this.props.dispatch({
+      type: 'ADD_SCROLL_EVENT',
+      component: 'site',
+      eventObject: {
+        selector: '.report__citation',
+        onLeave: (el, dir) => {if(this.state.citeEl) this.closeEndnote();},
+        els: citations,
+        // viewHeight
+        enterOffset: -Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+        leaveOffset: -85
+      }
+    });
     for(let c of citations){
       c.onclick = this.openEndnote()
     }
   }
 
-  closeEndnote = (delay) => {
+  closeEndnote = () => {
     if(this.state.citeEl)
       this.state.citeEl.classList.remove('active');
     this.setState({ endnote: null, top: -250, citeEl: null });
@@ -59,11 +71,11 @@ class Body extends Component {
     let { section, authors, endnotes, date, url } = this.props;
     let { endnote, top } = this.state;
     return (
-      <div className="report__body row gutter-45 margin-top-35 margin-top-lg-80">
+      <div className={"report__body row gutter-45 margin-top-35 margin-top-lg-80 " + (endnote ? 'endnote-active' : '')}>
         <div className="report__body__right-aside col-11 col-md-5 col-lg-2 push-lg-10 push-xl-9 offset-md-1 offset-lg-0">
           <Authors authors={authors} />
         </div>
-        <div className={"report__body__left-aside col-6 col-md-5 col-lg-2 pull-lg-2 offset-xl-1 " + (endnote ? 'endnote-active' : '')}>
+        <div className={"report__body__left-aside col-6 col-md-5 col-lg-2 pull-lg-2 offset-xl-1"}>
           <Social url={url}/>
           <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
         </div>
