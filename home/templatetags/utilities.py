@@ -28,6 +28,18 @@ def list_separator(i):
 		return ""
 
 
+# this function will be removed, here now so we don't have to do a massive
+# migration to change image-size options.
+@register.filter()
+def temp_image_width_map(width):
+	if width == '60%':
+		return 'width-200'
+	if width == '50%':
+		return 'width-166'
+	if width == '33.333%':
+		return 'width-133'
+	return ''
+
 # handles pluralization for content labels across the site
 @register.simple_tag()
 def pluralize(num_items, label):

@@ -60,7 +60,7 @@ class Body extends Component {
     let { endnote, top } = this.state;
     return (
       <div className="report__body row gutter-45 margin-top-35 margin-top-lg-80">
-        <div className="report__body__right-aside col-6 col-md-5 col-lg-2 push-lg-10 push-xl-9 offset-md-1 offset-lg-0">
+        <div className="report__body__right-aside col-11 col-md-5 col-lg-2 push-lg-10 push-xl-9 offset-md-1 offset-lg-0">
           <Authors authors={authors} />
         </div>
         <div className={"report__body__left-aside col-6 col-md-5 col-lg-2 pull-lg-2 offset-xl-1 " + (endnote ? 'endnote-active' : '')}>

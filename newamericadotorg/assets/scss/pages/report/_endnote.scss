@@ -7,7 +7,6 @@
   padding: 35px;
   width: calc(100vw - 45px);
   z-index: 1;
-  left: -90%;
   box-shadow: 0px 0px 20px 0px color(black, base, 0.15);
   border: 1px solid color(black, base, 0.15);
 
@@ -21,7 +20,12 @@
     box-shadow: none;
     border: 0px;
     padding: 0;
+    padding-left: 22.5px;
     left: 0;
+  }
+
+  @include media-breakpoint(large-desktop){
+    padding-left: 0;
   }
 
   &__close {

@@ -234,6 +234,15 @@ label {
     font-style: italic;
   }
 
+  &.with-seperator {
+    &:after{
+      content: '|';
+      display: inline;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
+  }
+
   p, a{
     margin-top: 0;
     margin-bottom: 0;
