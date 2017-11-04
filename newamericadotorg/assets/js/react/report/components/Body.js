@@ -37,7 +37,7 @@ class Body extends Component {
       component: 'site',
       eventObject: {
         selector: '.report__citation',
-        onLeave: (el, dir) => {if(this.state.citeEl) this.closeEndnote();},
+        onLeave: (el, dir) => {if(this.state.citeEl==el) this.closeEndnote();},
         els: citations,
         // viewHeight
         enterOffset: -Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
