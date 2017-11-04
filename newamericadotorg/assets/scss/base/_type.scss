@@ -4,9 +4,11 @@
 
 body, html{
   font-size: 16px;
-  @include media-breakpoint(tablet){
-    //font-size: 18px;
-  }
+}
+
+h1,h2,h3,h4,h5,h6,
+p,blockquote,label,li,figcaption, a{
+  text-shadow: 1px 1px 1px color(black, base, 0.004);
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -62,12 +64,10 @@ h6 {
 }
 
 p,
-blockquote,
 li{
   font-family: $paragraph-font-family;
   font-size: 1.125rem;
   line-height: 1.875rem;
-  text-shadow: 1px 1px 1px color(black, base, 0.004);
   text-rendering: optimizeLegibility !important;
 }
 
@@ -82,6 +82,17 @@ p {
   &.centered{
     text-align: center;
   }
+}
+
+blockquote{
+  font-family: $paragraph-font-family;
+  font-weight: bold;
+  font-size: 2.375rem;
+  line-height: 2.85rem;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .caption p, p.caption {

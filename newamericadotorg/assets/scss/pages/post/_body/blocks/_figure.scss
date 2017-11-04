@@ -1,16 +1,6 @@
-.figure {
-  margin-top: 35px;
-  margin-bottom: 35px;
-
-  @include media-breakpoint(desktop){
-    margin-top: 60px;
-    margin-bottom: 60px;
-  }
-}
-
 .figure__image{
   width: 100%;
-  max-width: 100vw;
+  
   @include media-breakpoint(desktop){
     &.width-133 {
       width: 120%;
@@ -23,8 +13,8 @@
     }
 
     &.width-200{
-      width: calc(140% + 132px);
-      margin-left: calc(-20% - 66px);
+      width: calc(140% + 140px);
+      margin-left: calc(-20% - 70px);
     }
   }
 
