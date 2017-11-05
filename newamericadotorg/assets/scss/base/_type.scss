@@ -15,10 +15,6 @@ h1,h2,h3,h4,h5,h6{
   &.white{
     color: white !important;
   }
-
-  &.centered{
-    text-align: center;
-  }
 }
 
 h1, h2{
@@ -78,10 +74,6 @@ p {
   &.gray{
     color: color(gray, dark);
   }
-
-  &.centered{
-    text-align: center;
-  }
 }
 
 blockquote{
@@ -105,10 +97,6 @@ blockquote{
   color: color(gray, dark);
   font-weight: normal;
   margin: 0;
-
-  &.centered{
-    text-align: center;
-  }
 
   &.white{
     color: white !important;
@@ -217,13 +205,8 @@ label {
     font-weight: bold;
   }
 
-  &.block{
+  &.block, &.centered{
     display: block;
-  }
-
-  &.centered{
-    margin: 0 auto;
-    text-align: center;
   }
 
   &.inline {
@@ -264,4 +247,8 @@ label {
     color: inherit;
     font-weight: inherit;
   }
+}
+
+.centered{
+  text-align: center;
 }
