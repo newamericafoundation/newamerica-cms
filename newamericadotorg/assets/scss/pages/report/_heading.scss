@@ -12,6 +12,7 @@
 
   label{
     max-width: 350px;
+    margin: 0 auto;
     @include media-breakpoint(desktop){
       max-width: 475px;
     }
