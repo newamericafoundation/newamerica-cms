@@ -15,6 +15,7 @@
   * @property {eventCallback} onEnter - event for the exact moment when element hits the triggerPoint,
   * @property {eventCallback} leave - event for any point after the element (including outerHeight) is outside the triggerPoint,
   * @property {eventCallback} onLeave - event for the exact moment when element (including outerHeight) goes outside the triggerPoint
+  * @property {eventCallback} onTick - when element is in view, event fires for each scroll tick.
   *
   * @callback eventCallback
   * @param {HtmlElement} el - the triggered html element
@@ -93,6 +94,13 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
         el.classList.add(LEFT_CLASS);
         if(target)
           target.classList.add(LEFT_CLASS);
+      }
+
+      if(inView){
+        if(e.onTick){
+          let progress = 1-(rect.top+triggerPointOffset+el.offsetHeight+leaveOffset-0.5)/(el.offsetHeight - enterOffset + leaveOffset);
+          e.onTick(target || el, direction, progress)
+        }
       }
     }
   }
