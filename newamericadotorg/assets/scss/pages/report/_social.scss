@@ -1,7 +1,27 @@
 .report__social__item{
    display: inline-block;
+   position: relative;
+
+   .fa, label{
+     display: inline-block;
+     vertical-align: middle;
+   }
+
+   label{
+     display: none;
+   }
+
    @include media-breakpoint(desktop){
      display: block;
+     label{
+       display: inline-block;;
+     }
+   }
+
+   @include media-breakpoint(large-desktop){
+     label {
+       display: inline-block;
+     }
    }
 
   .fa{
@@ -17,18 +37,6 @@
       position: absolute;
       font-size: 0.7em;
       @include center;
-    }
-  }
-
-  .fa, label{
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  label{
-    display: none;
-    @include media-breakpoint(large-desktop){
-      display: inline-block;
     }
   }
 }

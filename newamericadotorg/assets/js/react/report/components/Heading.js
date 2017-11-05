@@ -5,7 +5,7 @@ class Heading extends Component {
     let { report } = this.props;
     return (
       <div className="report__heading row gutter-45">
-        <div className="col-12 col-xl-10 offset-xl-1 offset-0">
+        <div className="col-12 col-md-10 col-lg-11 col-xl-10 offset-md-1 offset-lg-0p5 offset-xl-1">
           <div className="report__heading__title ">
             <div className='report__heading__logo'>
               <div className='logo bug white-transparent' style={{ width: '40px', height: '32px' }}/>
@@ -22,7 +22,7 @@ class Heading extends Component {
             }
           </div>
           <div className="report__heading__image" style={{ backgroundImage: `url(${report.story_image})` }}/>
-          <div className="report__heading__image__caption"><label className="caption">Source: Lorem Ipsum Dolor Sit Amet / Caption</label></div>
+          <div className="report__heading__image__caption margin-top-5 margin-top-lg-10"><label className="caption">Source: Lorem Ipsum Dolor Sit Amet / Caption</label></div>
         </div>
       </div>
     );

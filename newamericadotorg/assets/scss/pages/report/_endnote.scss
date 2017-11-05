@@ -1,9 +1,11 @@
 .report__body__endnote{
-  @include transition(opacity 0.5s ease, transform 0.5s ease);
+  @include transition(opacity 0.5s ease, margin-top 0.5s ease);
+
   position: absolute;
   opacity: 0;
   background: color(white);
-  @include transform(translateY(-40%));
+  margin-top: 35px;
+  @include transform(translateY(-50%));
   padding: 35px;
   width: calc(100vw - 45px);
   z-index: 1;
@@ -12,7 +14,6 @@
 
   @include media-breakpoint(tablet){
     width: calc(83.333vw - 45px);
-    left: -95%;
   }
 
   @include media-breakpoint(desktop){
@@ -20,12 +21,7 @@
     box-shadow: none;
     border: 0px;
     padding: 0;
-    padding-left: 22.5px;
     left: 0;
-  }
-
-  @include media-breakpoint(large-desktop){
-    padding-left: 0;
   }
 
   &__close {
@@ -57,15 +53,17 @@
 
 .endnote-active{
   .report__body__endnote{
-    @include transform(translateY(-50%));
+    margin-top: 0px;
     opacity: 1;
   }
 
-  .report__social{
-    opacity: 0;
-  }
+  @include media-breakpoint(desktop){
+    .report__authors{
+      opacity: 0;
+    }
 
-  .figure.left{
-    opacity: 0.1;
+    .figure.left{
+      opacity: 0.1;
+    }
   }
 }

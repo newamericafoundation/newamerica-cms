@@ -1,8 +1,12 @@
+.report__authors{
+  @include transition(opacity 0.35s ease);
+}
+
 .report__authors__item{
   .caption {
-    display: none;
+    //display: none;
     @include media-breakpoint(large-desktop){
-      display: block;
+      //display: block;
     }
   }
 }

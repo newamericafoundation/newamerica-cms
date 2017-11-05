@@ -5,6 +5,17 @@
 .figure__image{
   width: 100%;
 
+  &.width-200 {
+     width: 100vw;
+     margin-left: -22.5px;
+  }
+
+  @include media-breakpoint(tablet){
+    &.width-200{
+      margin-left: calc(-8.33333vw - 22.5px);
+    }
+  }
+
   @include media-breakpoint(desktop){
     &.width-133 {
       width: 120%;
@@ -17,8 +28,9 @@
     }
 
     &.width-200{
-      width: calc(140% + 140px);
-      margin-left: calc(-20% - 70px);
+    //  width: calc(140% + 140px);
+    //  margin-left: calc(-20% - 70px);
+     margin-left: calc(-20.83333vw - 22.5px);
     }
   }
 
@@ -39,7 +51,7 @@
     }
   }
 
-  img {
+  & > img {
     display: block;
     width: auto;
     height: auto;
@@ -51,8 +63,13 @@
 
 .figure {
   &.left, &.right {
+    @include media-breakpoint(tablet){
+      margin-top: 35px;
+      margin-bottom: 35px;
+      width: 50%;
+    }
+
     @include media-breakpoint(desktop){
-      display: inline-block;
       margin-top: 35px;
       margin-bottom: 35px;
       width: 60%;
@@ -62,17 +79,21 @@
       width: 100% !important;
       margin-left: 0 !important;
 
-      img {
+      & > img {
         margin: 0 !important;
       }
     }
   }
 
   &.left {
-    @include media-breakpoint(desktop){
-      margin-right: 50px;
-      margin-left: -25%;
+    @include media-breakpoint(tablet){
       float: left;
+      margin-right: 50px;
+      margin-left: -4.166667vw;
+    }
+
+    @include media-breakpoint(desktop){
+      margin-left: -25%;
     }
 
     @include media-breakpoint(large-desktop){
@@ -81,10 +102,14 @@
   }
 
   &.right {
+    @include media-breakpoint(tablet){
+      float: right;
+      margin-left: 50px;
+      margin-right: -4.166667vw;
+    }
+
     @include media-breakpoint(desktop){
       margin-right: -25%;
-      margin-left: 50px;
-      float: right;
     }
 
     @include media-breakpoint(large-desktop){
