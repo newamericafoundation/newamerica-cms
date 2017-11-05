@@ -34,9 +34,9 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
     for(let el of e.els){
       oneE = el;
       let rect = el.getBoundingClientRect(),
-      offset = getOffset(el.getAttribute('data-scroll-offset') || e.offset || 0 ),
-      enterOffset = getOffset(el.getAttribute('data-scroll-enter-offset') || offset || e.enterOffset || 0),
-      leaveOffset = getOffset(el.getAttribute('data-scroll-leave-offset') || offset || e.leaveOffset || 0),
+      offset = getOffset(el, el.getAttribute('data-scroll-offset') || e.offset || 0 ),
+      enterOffset = getOffset(el, el.getAttribute('data-scroll-enter-offset') || offset || e.enterOffset || 0),
+      leaveOffset = getOffset(el, el.getAttribute('data-scroll-leave-offset') || offset || e.leaveOffset || 0),
       triggerPoint = el.getAttribute('data-scroll-trigger-point') || e.triggerPoint || 'top',
       triggerPointOffset = getTriggerPointOffset(triggerPoint, docHeight);
 
@@ -110,7 +110,7 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
 
 export default scrollEvents;
 
-function getOffset(offset) {
+function getOffset(el, offset) {
   if(typeof(offset)=='number') return offset;
   if(!offset) return false;
   if(offset.indexOf('%')!=-1)
