@@ -34,9 +34,9 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
     for(let el of e.els){
       oneE = el;
       let rect = el.getBoundingClientRect(),
-      offset = getOffset(el, 'data-scroll-offset') || e.offset || 0,
-      enterOffset = getOffset(el, 'data-scroll-enter-offset') || offset || e.enterOffset || 0,
-      leaveOffset = getOffset(el, 'data-scroll-leave-offset') || offset || e.leaveOffset || 0,
+      offset = getOffset(el.getAttribute('data-scroll-offset') || e.offset || 0 ),
+      enterOffset = getOffset(el.getAttribute('data-scroll-enter-offset') || offset || e.enterOffset || 0),
+      leaveOffset = getOffset(el.getAttribute('data-scroll-leave-offset') || offset || e.leaveOffset || 0),
       triggerPoint = el.getAttribute('data-scroll-trigger-point') || e.triggerPoint || 'top',
       triggerPointOffset = getTriggerPointOffset(triggerPoint, docHeight);
 
@@ -45,6 +45,7 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       markedInView = el.classList.contains(IN_VIEW_CLASS),
       hasEntered = rect.top + enterOffset + triggerPointOffset <= 0,
       hasLeft = -rect.top > el.offsetHeight + leaveOffset + triggerPointOffset,
+      progress = 1-(rect.top+triggerPointOffset+el.offsetHeight+leaveOffset-0.5)/(el.offsetHeight - enterOffset + leaveOffset),
       inView = hasEntered && !hasLeft;
 
       let targetSelector = el.getAttribute('data-scroll-target') || e.target;
@@ -59,6 +60,9 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
           target.classList.add(IN_VIEW_CLASS);
         }
       }
+      if(inView){
+        if(e.onTick) e.onTick(target || el, direction, progress );
+      }
       if(hasEntered && !markedEntered){
         if(e.enter) e.enter(target || el, direction);
         el.classList.remove(LEFT_CLASS);
@@ -71,6 +75,7 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       // account for scenarios where scroll speed skips over element
       if(!hasEntered && (markedInView||markedLeft||markedEntered)){
         if(e.onLeave) e.onLeave(target || el, direction);
+        if(e.onTick) e.onTick(target || el, direction, rect.top > 0 ? 0 : 1);
         el.classList.remove(IN_VIEW_CLASS);
         el.classList.remove(ENTER_CLASS);
         el.classList.remove(LEFT_CLASS);
@@ -82,6 +87,7 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       }
       if(hasLeft && markedInView){
         if(e.onLeave) e.onLeave(target || el, direction);
+        if(e.onTick) e.onTick(target || el, direction, rect.top > 0 ? 0 : 1);
         el.classList.remove(IN_VIEW_CLASS);
         el.classList.remove(LEFT_CLASS);
         if(target){
@@ -91,16 +97,10 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       }
       if(hasLeft && !markedLeft){
         if(e.leave) e.leave(target || el, direction);
+        if(e.onTick) e.onTick(target || el, direction, 1);
         el.classList.add(LEFT_CLASS);
         if(target)
           target.classList.add(LEFT_CLASS);
-      }
-
-      if(inView){
-        if(e.onTick){
-          let progress = 1-(rect.top+triggerPointOffset+el.offsetHeight+leaveOffset-0.5)/(el.offsetHeight - enterOffset + leaveOffset);
-          e.onTick(target || el, direction, progress)
-        }
       }
     }
   }
@@ -110,8 +110,8 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
 
 export default scrollEvents;
 
-function getOffset(el, attr) {
-  let offset = el.getAttribute(attr);
+function getOffset(offset) {
+  if(typeof(offset)=='number') return offset;
   if(!offset) return false;
   if(offset.indexOf('%')!=-1)
     return el.offsetHeight * offset.replace('%', '')/100;
