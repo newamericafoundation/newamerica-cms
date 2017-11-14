@@ -6,19 +6,20 @@ class Heading extends Component {
     return (
       <div className="report__heading row gutter-45">
         <div className="col-12 col-md-10 col-lg-11 col-xl-10 offset-md-1 offset-lg-0p5 offset-xl-1">
-          <div className="report__heading__title ">
-            <div className='report__heading__logo'>
-              <div className='logo bug white-transparent' style={{ width: '40px', height: '32px' }}/>
-              <div className='report__heading__logo__program'>
-                <label className='bold'>{report.programs[0].name}</label>
-              </div>
-              {/*report.subprograms.length && <div className='report__heading__logo__program'>
-                <label>{report.programs[0].name}</label>
-              </div>*/}
+          <div className="report__heading__title margin-60">
+            <div className="report__heading__bug centered">
+              <i className="fa fa-file-text-o lg"></i>
+              <label className="bold block centered margin-top-10 margin-bottom-25">Report</label>
             </div>
-            <h1 className="white margin-0 centered">{report.title}</h1>
+            <div className='report__heading__programs centered'>
+              <a className="button--text" href={report.programs[0].url}>{report.programs[0].name}</a>
+              {report.subprograms.length>0 && <a className="button--text" href={report.subprograms[0].url}>
+                {report.programs[0].name}
+              </a>}
+            </div>
+            <h1 className="margin-25 centered">{report.title}</h1>
             {report.subheading &&
-              <label className="block centered white">{report.subheading}</label>
+              <label className="subtitle centered">{report.subheading}</label>
             }
           </div>
           <div className="report__heading__image" style={{ backgroundImage: `url(${report.story_image})` }}/>

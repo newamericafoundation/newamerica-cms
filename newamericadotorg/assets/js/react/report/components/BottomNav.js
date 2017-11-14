@@ -13,16 +13,12 @@ class BottomNav extends Component {
         <div className="container no-padding">
         {previous &&
           <div className="report__bottom-nav__button previous">
-            <Link to={`${report.url}${previous.slug}`}>
-              <label className="white">Prev. Section</label>
-            </Link>
+            <Link to={`${report.url}${previous.slug}`} className="button--text white with-caret--left">Prev. Section</Link>
           </div>
         }
         {next &&
           <div className="report__bottom-nav__button next">
-            <Link to={`${report.url}${next.slug}`}>
-              <label className="white">Next Section</label>
-            </Link>
+            <Link to={`${report.url}${next.slug}`} className="button--text white with-caret--right">Next Section</Link>
           </div>
         }
         </div>

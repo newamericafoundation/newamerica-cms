@@ -1,0 +1,59 @@
+.button--text{
+  display: inline-block;
+  font-family: $label-font-family;
+  font-size: 0.6875rem;
+  line-height: 0.75rem;
+  color: #7A7A7A;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid #37D0AE;
+  letter-spacing: 0.0625rem;
+
+  &.white {
+    color: #FFFFFF;
+    border-bottom: none;
+  }
+
+  &.black {
+    color: color(black);
+    border-bottom: none;
+  }
+
+  &.with-caret, &.with-caret--right {
+    &:after{
+      content: ' ';
+      display: inline-block;
+      position: relative;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      top: calc(0.5em + 2px);
+      width: 4px;
+      height: 4px;
+      border-right: 1px solid color(white);
+      border-bottom: 1px solid color(white);
+      @include transform(rotate(45deg));
+    }
+  }
+
+  &.with-caret--right {
+    &:after{
+      @include transform(rotate(-45deg));
+    }
+  }
+
+  &.with-caret--left{
+    &:before{
+      content: ' ';
+      display: inline-block;
+      position: relative;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      top: calc(0.5em + 2px);
+      width: 4px;
+      height: 4px;
+      border-left: 1px solid color(white);
+      border-bottom: 1px solid color(white);
+      @include transform(rotate(45deg));
+    }
+  }
+
+}

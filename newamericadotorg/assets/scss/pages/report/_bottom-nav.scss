@@ -1,12 +1,11 @@
 .report__bottom-nav{
   margin-top: 100px;
-  height: 60px;
+  height: 65px;
   background: #525252;
   @extend %clearfix;
 
   &__button {
-    background: #7A7A7A;
-    height: 60px;
+    height: 65px;
     cursor: pointer;
     &.previous{
       float: left;
@@ -16,20 +15,11 @@
     }
 
     a {
-      border-top: 4px solid #C1C1C1;
       display: block;
       padding: 0 25px;
+      line-height: 65px;
       height: 100%;
       width: 100%;
-      &:hover{
-        border-top: 0px solid #C1C1C1;
-        background: color(white, base, 0.05);
-      }
-    }
-
-    label{
-      line-height: 55px;
-      color: color(white) !important;
     }
   }
 }

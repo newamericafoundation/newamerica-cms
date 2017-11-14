@@ -1,16 +1,21 @@
 .report__top-nav{
   height: 65px;
 
-  &__contents, &__arrows, &__title{
+  &__contents, &__title{
     height: 65px;
+    line-height: 65px;
   }
 
-  &__contents, &__arrows{
+  &__title{
+    text-align: right;
+    label {
+      display: none;
+    }
+  }
+
+  &__contents{
     position: relative;
     z-index: 2;
-    background: #7A7A7A;
-    flex: 0 0 calc(8.333333% + 22px);
-    max-width: calc(8.333333% + 22px);
   }
 
   &__sticky-wrapper{
@@ -32,6 +37,10 @@
   &.scroll-left{
     .report__top-nav__sticky-wrapper{
       top: 0px;
+    }
+
+    .report__top-nav__title label {
+      display: inline-block;
     }
   }
 }

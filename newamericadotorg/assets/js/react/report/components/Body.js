@@ -72,12 +72,12 @@ class Body extends Component {
     let { endnote, top } = this.state;
     return (
       <div className={"report__body row gutter-45 margin-top-35 margin-top-lg-80 " + (endnote ? 'endnote-active' : '')}>
-        <div className="report__body__right-aside col-11 col-md-5 col-lg-2 offset-md-1 offset-lg-0p5 offset-xl-1">
+        <div className="report__body__right-aside col-11 col-md-5 col-lg-2 col-xl-2 push-lg-9 offset-md-1 offset-lg-0p5 offset-xl-0">
           <Authors authors={authors} />
-          <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
         </div>
-        <div className={"report__body__left-aside col-6 col-md-5 col-lg-2 push-lg-7 push-xl-6"}>
+        <div className={"report__body__left-aside col-6 col-md-5 col-lg-2 pull-lg-2 offset-xl-1"}>
           <Social url={url}/>
+          <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
         </div>
         <div className="report__body__section col-12 col-md-10 col-lg-7 col-xl-6 pull-lg-2 offset-md-1 offset-lg-0 margin-top-35 margin-top-lg-0">
           {section.number==1 && <label className="block report__body__section__date margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</label>}
@@ -88,25 +88,5 @@ class Body extends Component {
     );
   }
 }
-
-// right authors
-
-// <div className={"report__body row gutter-45 margin-top-35 margin-top-lg-80 " + (endnote ? 'endnote-active' : '')}>
-//   <div className="report__body__right-aside col-11 col-md-5 col-lg-2 col-xl-2 push-lg-9 offset-md-1 offset-lg-0p5 offset-xl-0">
-//     <Authors authors={authors} />
-//   </div>
-//   <div className={"report__body__left-aside col-6 col-md-5 col-lg-2 pull-lg-2 offset-xl-1"}>
-//     <Social url={url}/>
-//     <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
-//   </div>
-//   <div className="report__body__section col-12 col-md-10 col-lg-7 col-xl-6 pull-lg-2 offset-md-1 offset-lg-0 margin-top-35 margin-top-lg-0">
-//     {section.number==1 && <label className="block report__body__section__date margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</label>}
-//     <h2 className="margin-top-0">{`${section.number}. ${section.title}`}</h2>
-//     <article className="report__body__section__article" dangerouslySetInnerHTML={{__html: section.body}} />
-//   </div>
-// </div>
-
-
-
 
 export default Body;

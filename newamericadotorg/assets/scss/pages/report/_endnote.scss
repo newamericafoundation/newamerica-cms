@@ -22,6 +22,7 @@
     border: 0px;
     padding: 0;
     left: 0;
+    background: transparent;
   }
 
   &__close {
@@ -58,12 +59,12 @@
   }
 
   @include media-breakpoint(desktop){
-    .report__authors{
+    .report__social{
       opacity: 0;
     }
 
     .figure.left{
-      opacity: 0.1;
+      opacity: 0.05;
     }
   }
 }

@@ -1,8 +1,9 @@
 .report__citation{
-  font-size: 0.6em;
+  color: #37D0AE;
+  font-weight: bold;
+  font-size: 0.7em;
   position: relative;
   top: -.6em;
-  border: 1px solid color(black);
   border-radius: 1.5em;
   min-width: 18px;
   height: 18px;
@@ -18,6 +19,7 @@
     content: 'x';
     font-size: 1.2em;
     padding-bottom: 2px;
+    font-weight: normal;
     display: none;
     position: absolute;
     color: color(white);
@@ -25,13 +27,13 @@
   }
 
   &:hover {
-    background: color(black);
+    background: #37D0AE;
     color: color(white);
   }
 
   &.active {
-    background: color(black);
-    color: color(black);
+    background: #37D0AE;
+    color: #37D0AE;
     &:before{
       display: block;
     }

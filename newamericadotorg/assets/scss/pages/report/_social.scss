@@ -25,11 +25,11 @@
    }
 
   .fa{
-    background: #7A7A7A;
-    color: color(white);
+    color: #37D0AE;
     width: 32px;
     height: 32px;
     padding: 0;
+    border: 1px solid #37D0AE;
     border-radius: 16px;
     position: relative;
     margin-right: 15px;
@@ -37,6 +37,11 @@
       position: absolute;
       font-size: 0.7em;
       @include center;
+    }
+
+    &:hover{
+      color: color(white);
+      background: #37D0AE;
     }
   }
 }

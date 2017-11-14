@@ -17,34 +17,18 @@ class TopNav extends Component {
       <div className="report__top-nav scroll-target" data-scroll-offset="200%">
         <div className="report__top-nav__sticky-wrapper">
         <div className="container no-padding">
-          <div className="row no-gutters">
-            <div className="report__top-nav__contents col-1">
-              <ContentMenu report={report} open={this.state.openMenu} closeMenu={this.toggleMenu} activeSection={section}/>
-              <div className="report__top-nav__contents__button" onClick={this.toggleMenu}>
-                <i className="fa fa-bars"></i><label>Contents</label>
+          <div className="row gutter-45">
+            <div className={"report__top-nav__contents col-2 "}>
+              <div className={`report__top-nav__contents__menu-wrapper${this.state.openMenu ? ' open' : ''}`}>
+                <div className="report__top-nav__contents__button" onClick={this.toggleMenu}>
+                  <a className="button--text white with-caret">Contents</a>
+                </div>
+                <ContentMenu report={report} open={this.state.openMenu} closeMenu={this.toggleMenu} activeSection={section}/>
               </div>
-            </div>
-            <div className="report__top-nav__title col-auto">
-              <label className="bold white">{report.title}</label>
-              <label className="white report__top-nav__title__chapter">{` (${section.title})`}</label>
-            </div>
-            <div className="report__top-nav__arrows col-1">
-              <div className={`previous ${previous ? '' : 'inactive'}`}>
-                {previous &&
-                <Link to={`${report.url}${previous.slug}`}>
-                  <i className="fa fa-long-arrow-left" />
-                </Link>}
-                {!previous &&
-                  <i className="fa fa-long-arrow-left" />}
-              </div>
-              <div className={`next ${next ? '' : 'inactive'}`}>
-                {next &&
-                <Link to={`${report.url}${next.slug}`}>
-                  <i className="fa fa-long-arrow-right" />
-                </Link>}
-                {!next &&
-                  <i className="fa fa-long-arrow-right" />}
-              </div>
+          </div>
+            <div className="report__top-nav__title col-10">
+              <label className="bold white margin-0">{report.title}</label>
+              <label className="white margin-0 report__top-nav__title__chapter">{` (${section.title})`}</label>
             </div>
           </div>
         </div>

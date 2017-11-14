@@ -1,21 +1,9 @@
 .report__heading__title{
-  padding: 100px 0;
-  background: #00DABB;
-
-  h1{
-    max-width: 350px;
-    margin: 20px auto;
-    @include media-breakpoint(desktop){
-      max-width: 475px;
-    }
-  }
-
-  label{
-    max-width: 350px;
-    margin: 0 auto;
-    @include media-breakpoint(desktop){
-      max-width: 475px;
-    }
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 350px;
+  @include media-breakpoint(desktop){
+    max-width: 475px;
   }
 }
 
@@ -36,29 +24,6 @@
     }
   }
 
-}
-
-.report__heading__logo {
-  text-align: center;
-  &__program, .logo{
-    vertical-align:middle;
-  }
-
-  &__program{
-    margin-left: 1px;
-    display: inline-block;
-    height: 32px;
-    max-width: 125px;
-    padding: 5px 10px;
-    background: color(white);
-    text-align: left;
-
-    label {
-      color: #00DABB;
-      line-height: 1.2em;
-      font-size: 0.6rem;
-    }
-  }
 }
 
 .report__heading{

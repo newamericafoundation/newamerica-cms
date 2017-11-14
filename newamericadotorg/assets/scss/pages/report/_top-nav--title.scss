@@ -4,6 +4,11 @@
   z-index: 3;
   overflow: hidden;
   background: #525252;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 calc(100% - 280px);;
+  -ms-flex: 0 0 calc(100% - 280px);;
+  flex: 0 0 calc(100% - 280px);;
+  max-width: calc(100% - 280px);
   label{
     line-height: 65px;
     vertical-align: middle;
@@ -19,9 +24,4 @@
       display: inline;
     }
   }
-
-  flex: 0 0 calc(83.333333% - 44px);
-  max-width: calc(83.333333% - 44px);
-
-
 }
