@@ -25,6 +25,11 @@ html, body{
   overflow-x: hidden;
 }
 
+body.scroll-disabled {
+  position: fixed;
+  overflow: hidden;
+}
+
 main {
   min-height: 70vh;
   & > *:last-child:not(.no-last-child-margin){

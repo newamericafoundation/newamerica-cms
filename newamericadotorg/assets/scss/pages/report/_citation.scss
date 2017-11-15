@@ -16,10 +16,9 @@
   font-family: $label-font-family;
 
   &:before{
-    content: 'x';
-    font-size: 1.2em;
-    padding-bottom: 2px;
-    font-weight: normal;
+    font-family: 'FontAwesome';
+    content: '\f00d';
+    font-size: 0.8em;
     display: none;
     position: absolute;
     color: color(white);

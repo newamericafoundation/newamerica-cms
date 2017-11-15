@@ -61,7 +61,7 @@
   }
 }
 
-.scroll-reverse .program-heading.scroll-entered {
+.scroll-reverse:not(.scroll-disabled) .program-heading.scroll-entered {
   .program-heading__heading-wrapper{
     @include media-breakpoint-down(desktop){
       top: #{$header-height - 3px};

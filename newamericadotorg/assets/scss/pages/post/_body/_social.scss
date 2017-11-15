@@ -49,7 +49,7 @@
   }
 }
 
-body.scroll-reverse{
+body.scroll-reverse:not(.scroll-disabled){
   .post-social.scroll-entered{
     top: -$header-height;
 

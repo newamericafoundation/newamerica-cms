@@ -33,7 +33,7 @@
   }
 }
 
-.scroll-reverse {
+.scroll-reverse:not(.scroll-disabled) {
   .report__top-nav.scroll-left .report__top-nav__sticky-wrapper{
     z-index: 100;
     position: fixed;

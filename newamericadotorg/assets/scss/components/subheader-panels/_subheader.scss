@@ -37,7 +37,7 @@
   }
 }
 
-body.scroll-reverse {
+body.scroll-reverse:not(.scroll-disabled) {
   .header__subheader.scroll-entered{
     .header__subheader__sticky-wrapper{
       top: $header-height !important;

@@ -57,7 +57,7 @@
   }
 }
 
-.scroll-reverse .report__top-nav.scroll-left .report__content-menu,
+.scroll-reverse:not(.scroll-disabled) .report__top-nav.scroll-left .report__content-menu,
 .report__top-nav:not(.scroll-entered) .report_content-menu{
   max-height: calc(100vh - 130px);
 }
