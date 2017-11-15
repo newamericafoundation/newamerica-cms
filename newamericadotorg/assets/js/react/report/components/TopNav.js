@@ -18,7 +18,7 @@ class TopNav extends Component {
         <div className="report__top-nav__sticky-wrapper">
         <div className="container no-padding">
           <div className={`row gutter-45${this.state.openMenu ? ' menu-open' : ''}`}>
-            <div className="report__top-nav__contents col-2">
+            <div className="report__top-nav__contents col-5 col-md-2">
               <div className={`report__top-nav__contents__menu-wrapper`}>
                 <div className="report__top-nav__contents__button" onClick={this.toggleMenu}>
                   <a className="button--text white with-caret">Contents</a>
@@ -26,9 +26,11 @@ class TopNav extends Component {
                 <ContentMenu report={report} open={this.state.openMenu} closeMenu={this.toggleMenu} activeSection={section}/>
               </div>
           </div>
-            <div className="report__top-nav__title col-10">
-              <label className="bold white margin-0">{report.title}</label>
-              <label className="white margin-0 report__top-nav__title__chapter">{` (${section.title})`}</label>
+            <div className="report__top-nav__title col-7 col-md-10">
+              <div className="report__top-nav__title__wrapper">
+                <label className="bold white margin-0">{report.title}</label>
+                <label className="white margin-0 report__top-nav__title__chapter">{` (${section.title})`}</label>
+              </div>
             </div>
           </div>
         </div>

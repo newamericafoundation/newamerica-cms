@@ -3,14 +3,6 @@
 
   &__contents, &__title{
     height: 65px;
-    line-height: 65px;
-  }
-
-  &__title{
-    text-align: right;
-    label {
-      display: none;
-    }
   }
 
   &__contents{
@@ -37,10 +29,6 @@
   &.scroll-left{
     .report__top-nav__sticky-wrapper{
       top: 0px;
-    }
-
-    .report__top-nav__title label {
-      display: inline-block;
     }
   }
 }

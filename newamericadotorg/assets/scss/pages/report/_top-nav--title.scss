@@ -1,11 +1,22 @@
 .report__top-nav__title{
-  white-space: nowrap;
   position: relative;
   z-index: 1;
   overflow: hidden;
   background: #525252;
+  text-align: right;
+
+  &__wrapper{
+    max-width: 85%;
+    position: absolute;
+    right: 22.5px;
+    margin-top: -4px;
+    overflow: hidden;
+    @include vertical-center;
+  }
+
   label{
-    line-height: 65px;
+    display: none;
+    white-space: nowrap;
     vertical-align: middle;
     padding-left: 5px;
     &:first-child{
@@ -21,13 +32,20 @@
   }
 }
 
+.report__top-nav.scroll-left{
+  .report__top-nav__title label {
+    display: inline-block;
+  }
+}
+
 .menu-open{
   .report__top-nav__title{
     display: none;
-    
+
     @include media-breakpoint(tablet){
       display: block;
     }
+
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 calc(100% - 280px);;
     -ms-flex: 0 0 calc(100% - 280px);;
