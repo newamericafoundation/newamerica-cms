@@ -6,7 +6,7 @@ class Heading extends Component {
     return (
       <div className="report__heading row gutter-45">
         <div className="col-12 col-md-10 col-lg-11 col-xl-10 offset-md-1 offset-lg-0p5 offset-xl-1">
-          <div className="report__heading__title margin-60">
+          <div className="report__heading__title margin-80">
             <div className="report__heading__bug centered">
               <i className="fa fa-file-text-o lg"></i>
               <label className="bold block centered margin-top-10 margin-bottom-25">Report</label>

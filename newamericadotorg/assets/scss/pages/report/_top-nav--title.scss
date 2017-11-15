@@ -1,14 +1,9 @@
 .report__top-nav__title{
   white-space: nowrap;
   position: relative;
-  z-index: 3;
+  z-index: 1;
   overflow: hidden;
   background: #525252;
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 calc(100% - 280px);;
-  -ms-flex: 0 0 calc(100% - 280px);;
-  flex: 0 0 calc(100% - 280px);;
-  max-width: calc(100% - 280px);
   label{
     line-height: 65px;
     vertical-align: middle;
@@ -23,5 +18,20 @@
     @include media-breakpoint(desktop){
       display: inline;
     }
+  }
+}
+
+.menu-open{
+  .report__top-nav__title{
+    display: none;
+    
+    @include media-breakpoint(tablet){
+      display: block;
+    }
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 calc(100% - 280px);;
+    -ms-flex: 0 0 calc(100% - 280px);;
+    flex: 0 0 calc(100% - 280px);;
+    max-width: calc(100% - 280px);
   }
 }

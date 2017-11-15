@@ -1,6 +1,6 @@
 .report__top-nav__contents{
   position: relative;
-  min-width: 280px;
+  z-index: 2;
   padding-left: 0 !important;
   padding-right: 0 !important;
   &__button .button--text{
@@ -8,15 +8,13 @@
   }
 }
 
+
 .report__top-nav__contents__menu-wrapper{
   max-height: 65px;
+  overflow: hidden;
   width: 280px;
   padding-left: 22.5px;
   padding-right: 22.5px;
-  &.open{
-    max-height: 100vh;
-    box-shadow: 0px 2px 8px 0px rgba(#000, 0.5);
-  }
 }
 
 .report__top-nav__contents__button{
@@ -40,6 +38,17 @@
   }
 }
 
-.open .report__top-nav__contents__button{
-  background: #7A7A7A;
+.menu-open {
+  .report__top-nav__contents__menu-wrapper{
+    max-height: 100vh;
+    box-shadow: 0px 2px 8px 0px rgba(#000, 0.5);
+  }
+
+  .report__top-nav__contents{
+    min-width: 280px;
+  }
+
+  .report__top-nav__contents__button{
+    background: #7A7A7A;
+  }
 }

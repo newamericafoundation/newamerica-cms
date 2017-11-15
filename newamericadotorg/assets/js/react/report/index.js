@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import { NAME, ID } from './constants';
 import { Fetch } from '../components/API';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -15,11 +16,26 @@ class Report extends Component {
     return report.sections.find((s)=>( s.slug==params.sectionSlug ));
   }
 
+  anchorTag = () => {
+    const anchor = this.props.location.hash.replace('#', '');
+
+    if (anchor) {
+      const el = document.getElementById(anchor);
+      if (el) {
+        const { top } = el.getBoundingClientRect();
+        const { pageYOffset } = window;
+        window.scrollTo(0,top+pageYOffset-65)
+      }
+      return true;
+    }
+  }
+
   componentDidMount(){
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',
       component: 'site'
     });
+    this.anchorTag();
   }
 
   componentDidUpdate(prevProps) {
@@ -29,6 +45,8 @@ class Report extends Component {
         type: 'RELOAD_SCROLL_EVENTS',
         component: 'site'
       });
+
+      this.anchorTag();
     }
   }
 

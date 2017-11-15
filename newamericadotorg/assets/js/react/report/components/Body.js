@@ -81,7 +81,7 @@ class Body extends Component {
         </div>
         <div className="report__body__section col-12 col-md-10 col-lg-7 col-xl-6 pull-lg-2 offset-md-1 offset-lg-0 margin-top-35 margin-top-lg-0">
           {section.number==1 && <label className="block report__body__section__date margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</label>}
-          <h2 className="margin-top-0">{`${section.number}. ${section.title}`}</h2>
+          <h2 className="margin-top-0">{section.title}</h2>
           <article className="report__body__section__article" dangerouslySetInnerHTML={{__html: section.body}} />
         </div>
       </div>
