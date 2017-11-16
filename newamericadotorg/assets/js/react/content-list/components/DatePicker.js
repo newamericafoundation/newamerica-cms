@@ -1,4 +1,4 @@
-import { DateRangePicker, toMomentObject } from 'react-dates';
+// import { DateRangePicker, toMomentObject } from 'react-dates';
 import { Component } from 'react';
 
 class Picker extends Component {
@@ -11,24 +11,24 @@ class Picker extends Component {
   }
 
   render(){
-    return (
-      <DateRangePicker
-        className={this.props.className}
-        onDatesChange={({startDate, endDate})=>{
-          this.setState({startDate, endDate});
-          this.props.onDatesChange({
-            startDate: startDate ? startDate.format('YYYY-MM-DD') : '',
-            endDate: endDate ? endDate.format('YYYY-MM-DD') : ''
-          });
-        }}
-        showClearDates={true}
-        isOutsideRange={(()=>(false))}
-        startDate={this.state.startDate}
-        endDate={this.state.endDate}
-        focusedInput={this.state.focusedInput}
-        onFocusChange={(focusedInput)=>{this.setState({focusedInput})}}
-      />
-    );
+    return null; //(
+      // <DateRangePicker
+      //   className={this.props.className}
+      //   onDatesChange={({startDate, endDate})=>{
+      //     this.setState({startDate, endDate});
+      //     this.props.onDatesChange({
+      //       startDate: startDate ? startDate.format('YYYY-MM-DD') : '',
+      //       endDate: endDate ? endDate.format('YYYY-MM-DD') : ''
+      //     });
+      //   }}
+      //   showClearDates={true}
+      //   isOutsideRange={(()=>(false))}
+      //   startDate={this.state.startDate}
+      //   endDate={this.state.endDate}
+      //   focusedInput={this.state.focusedInput}
+      //   onFocusChange={(focusedInput)=>{this.setState({focusedInput})}}
+      // />
+    //);
   }
 }
 

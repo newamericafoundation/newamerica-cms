@@ -4,6 +4,7 @@ import * as components from './installed_components';
 import store from './store';
 
 let composer = new Composer(store);
+composer.installed_components = components;
 
 composer.init = () => {
   store.dispatch(setParams('programData', { endpoint: 'program' } ));

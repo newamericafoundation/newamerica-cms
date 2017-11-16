@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setTemplateUrl, fetchTemplate } from '../actions';
 import { BASEURL } from '../constants';
+import { setTemplateUrl, fetchTemplate } from '../actions';
 
 class Template extends Component {
 
@@ -18,18 +18,19 @@ class Template extends Component {
   }
 
   static defaultProps = {
-    baseUrl: BASEURL
+
   }
 
   render() {
     return (
       <div dangerouslySetInnerHTML={{__html:this.props.renderedTemplate.html}}></div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state,props) => ({
-  renderedTemplate: state[props.name] ? state[props.name].rendered : ''
+  renderedTemplate: state[props.name] ? state[props.name].rendered : '',
+  baseUrl: props.baseUrl || state.site.baseUrl || BASEURL
 });
 
 const mapDispatchToProps = dispatch => ({

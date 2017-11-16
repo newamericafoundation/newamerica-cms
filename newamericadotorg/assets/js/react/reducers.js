@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
-  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU
+  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU,
+  SET_SITE_BASEURL
 } from './constants';
 
 // reducers
@@ -60,10 +61,20 @@ const mobileMenuIsOpen = (state=false, action) => {
   }
 }
 
+const baseUrl = (state=false, action) => {
+  switch(action.type){
+    case SET_SITE_BASEURL:
+      return action.url;
+    default:
+      return state;
+  }
+}
+
 let reducer = combineReducers({
   scroll,
   searchIsOpen,
-  mobileMenuIsOpen
+  mobileMenuIsOpen,
+  baseUrl
 });
 
 const siteReducer = (state, action) => {

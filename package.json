@@ -13,10 +13,11 @@
     "dev": "npm run watch:js & npm run watch:css",
     "watch:js": "NODE_ENV=development; rollup -c rollup.dev.js --watch",
     "build:js": "rollup -c rollup.dev.js",
+    "build:standalone-js": "NODE_ENV=production rollup -c rollup.standalone.js",
     "watch:css": "watch 'npm run build:css' newamericadotorg/assets/scss --interval=1",
     "build:css": "node-sass --include-path='node_modules' --include-path=newamericadotorg/assets/scss/settings/development --include-path='newamericadotorg/assets/scss' newamericadotorg/assets/scss/all.scss newamericadotorg/static/css/newamericadotorg.css",
     "build:production": "NODE_ENV=production rollup -c",
-    "heroku-postbuild": "npm run build:production"
+    "heroku-postbuild": "npm run build:production && npm run build:standalone-js"
   },
   "repository": {
     "type": "git",

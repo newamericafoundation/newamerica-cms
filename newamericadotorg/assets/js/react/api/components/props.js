@@ -2,16 +2,18 @@ import {
   fetchData, fetchAndAppend, fetchAndPrepend, setEndpoint, setQueryParam, setParams,
   setQuery, setBase, receiveResults, setFetchingStatus
 } from '../actions';
+import { BASEURL } from '../constants';
 import getNestedState from '../../../utils/get-nested-state';
 
 let defaultResponse = { isFetching: false, hasNext: false, hasPrevious: false, count: 0 };
 
-export const mapStateToProps = (state, { name }) => {
+export const mapStateToProps = (state, { name, baseUrl }) => {
   let componentState = getNestedState(state, name);
   return {
     response: componentState ?
       (componentState.results ? componentState : defaultResponse) :
-      defaultResponse
+      defaultResponse,
+    baseUrl: baseUrl || state.site.baseUrl || BASEURL
   }
 };
 

@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import composer from '../../index';
-import { BASEURL } from '../constants';
 import Response from './Response';
 import LoadingIcon from '../../components/LoadingIcon';
 import { mapDispatchToProps, mapStateToProps } from './props';
@@ -83,7 +82,6 @@ class FetchWrapper extends Component{
 
   static defaultProps = {
     initialQuery: {},
-    baseUrl: BASEURL,
     fetchOnMount: false,
     eager: false,
     component: 'span',
