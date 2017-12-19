@@ -1,8 +1,14 @@
 $colors: (
   turquoise: (
-    base: #52BDBF,
+    base: #55D2AF,
     light: #46ccc3,
     dark: #2a8e88
+  ),
+  blue: (
+    base: #10355F
+  ),
+  purple: (
+    base: #9868BE
   ),
   oti-blue: (
     base: #5ba4da,
@@ -15,7 +21,7 @@ $colors: (
     dark: #692025
   ),
   black: (
-    base: #282830,
+    base: #333333,
     light: #5f6268,
     70: rgba(44,47,53,0.7),
     40: #6b6d71,
@@ -29,7 +35,9 @@ $colors: (
     ultra-light: #f6f6f6
   ),
   white: (
-    base: #ffffff
+    base: #ffffff,
+    light: #ffffff,
+    dark: #ffffff
   ),
   weekly: (
     base: #000000,

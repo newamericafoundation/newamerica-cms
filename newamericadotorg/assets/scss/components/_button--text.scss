@@ -1,20 +1,5 @@
 .button--text{
-  display: inline-block;
-  font-family: $label-font-family;
-  font-size: 0.6875rem;
-  line-height: 0.75rem;
-  color: #7A7A7A;
-  text-transform: uppercase;
-  border-bottom: 1.5px solid #37D0AE;
-  letter-spacing: 0.0625rem;
-
-  &.white {
-    color: #FFFFFF;
-    border-bottom: none;
-  }
-
-  &.black {
-    color: color(black);
+  &.border-0 {
     border-bottom: none;
   }
 

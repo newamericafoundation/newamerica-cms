@@ -8,6 +8,7 @@ body, html{
 
 h1,h2,h3,h4,h5,h6,
 p,blockquote,label,li,figcaption, a{
+  color: color(black);
   text-shadow: 1px 1px 1px color(black, base, 0.004);
 }
 
@@ -27,10 +28,17 @@ h3, h4{
   font-weight: bold;
 }
 
-h1{
+h1:not(.promo){
   font-size: 2.5rem;
   line-height: 2.5rem;
   letter-spacing: 0.03125rem;
+  margin-top: 0.875rem;
+  margin-bottom: 0.875rem;
+}
+
+h1.promo {
+  font-size: 4.0625rem;
+  line-height: 3.75rem;
   margin-top: 0.875rem;
   margin-bottom: 0.875rem;
 }
@@ -148,7 +156,7 @@ a {
   font-weight: bold;
   font-size: 1.125rem;
   line-height: 1.875rem;
-  color: #37D0AE;
+  color: color(turquoise);
 }
 
 label {
@@ -170,12 +178,12 @@ label {
     font-weight: bold;
   }
 
-  &.block, &.centered, &.subtitle{
-    display: block;
-  }
-
   &.inline {
     display: inline;
+  }
+
+  &.block, &.centered, &.subtitle{
+    display: block;
   }
 
   &.caption, &.subtitle {
@@ -204,6 +212,21 @@ label {
     text-decoration: inherit;
     color: inherit;
     font-weight: inherit;
+  }
+}
+
+.button--text{
+  display: inline-block;
+  color: color(black);
+  font-family: $label-font-family;
+  font-size: 0.6875rem;
+  line-height: 0.75rem;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid color(turquoise);
+  letter-spacing: 0.0625rem;
+
+  &.white {
+    color: color(white);
   }
 }
 
