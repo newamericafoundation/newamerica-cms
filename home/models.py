@@ -212,7 +212,8 @@ class HomePage(Page):
         curr_date = datetime.now(eastern).date()
         date_filter = Q(date__gt=curr_date) | (Q(date=curr_date) & Q(start_time__gte=curr_time))
 
-        context['upcoming_events'] = Event.objects.live().filter(date_filter).order_by("date", "start_time")[:5]
+        context['upcoming_events'] = Event.objects.live().filter(date_filter).order_by("date", "start_time")[:3]
+        context['recent_publications'] = Post.objects.live().specific().not_type(Event).order_by("-date")[:4]
 
         return context
 

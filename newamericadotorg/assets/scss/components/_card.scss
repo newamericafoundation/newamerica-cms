@@ -47,3 +47,29 @@
 .highlights__highlight:last-child{
   margin-bottom: 0;
 }
+
+.card.event {
+  height: 265px;
+  box-shadow: 0px 2px 4px 0px color(black, base, 0.1);
+}
+
+.card.list {
+  padding: 15px;
+  height: 150px;
+  white-space: nowrap;
+  .card__image {
+    white-space: normal;
+    vertical-align: middle;
+    display: inline-block;
+    width: 150px;
+    height: 120px;
+  }
+
+  .card__text{
+    white-space: normal;
+    vertical-align: middle;
+    display: inline-block;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

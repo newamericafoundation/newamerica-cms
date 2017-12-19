@@ -12,4 +12,17 @@
     padding-top: 155px;
     padding-bottom: 105px;
   }
+
+  &__events-section, &__publications-section {
+    padding-top: 55px;
+    padding-bottom: 55px;
+    &__view-all{
+      text-align: right;
+    }
+  }
+
+  &__weekly-promo-section, &__subscribe-section{
+    padding-top: 105px;
+    padding-bottom: 105px;
+  }
 }

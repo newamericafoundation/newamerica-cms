@@ -4,3 +4,18 @@
     padding-right: 10px;
   }
 }
+
+.fa.circle{
+  width: 28px;
+  height: 28px;
+  border-radius: 28px;
+  font-size: 0.75rem;
+  text-align: center;
+  color: color(white);
+  background-color: color(black);
+  position: relative;
+  &:before{
+    position: absolute;
+    @include center;
+  }
+}

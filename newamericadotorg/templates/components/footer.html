@@ -1,75 +1,61 @@
 <footer class="footer desktop container--full-width">
-	<section class='footer__wrapper container--wide'>
+	<div class="container">
 		<div class="row">
-			<div class="footer__logo-wrapper col-sm-12">
-				<a href="/">
-					<div class="footer__logo logo md"></div>
-				</a>
-			</div>
-		</div>
-		<div class="footer__content row">
-			<div class="footer__content__programs col-sm-3">
-				<h4>Programs</h4>
-				<ul class="no-inline">
-					{% for d in program_data %}
-					<li><a href="{{d.program.url}}"><label>{{d.program.title}}</a></label></li>
-					{% endfor %}
-				</ul>
-			</div>
-			<div class="footer__content__network-and-events col-sm-3">
-				<div class="footer__content__network-and-events__network">
-					<h4>National Network</h4>
-					<ul class="no-inline">
-						<li><a><label>Washington, DC</label></a></li>
-						<li><a><label>New York</label></a></li>
-						<li><a><label>San Francisco</label></a></li>
-						<li><a><label>Chicago</label></a></li>
-					</ul>
-				</div>
-				<div class="footer__content__network-and-events__events">
-					<h4>Events</h4>
-					<ul class="no-inline">
-						<li><a href="/events"><label>All Events</a></label></li>
-						<li><a href="/events"><label>Annual Conference</a></label></li>
-					</ul>
+			<div class="col-6">
+				<h2 class="margin-top-0 margin-bottom-15">New America</h2>
+				<label class="block margin-bottom-25">740 15th Street NW, Suite 900<br/>Washington, DC 20005</label>
+				<div class="footer__social">
+					<i class="fa fa-twitter circle"></i>
+					<i class="fa fa-facebook circle"></i>
+					<i class="fa fa-linkedin circle"></i>
 				</div>
 			</div>
-			<div class="footer__content__publications col-sm-3">
-				<h4>Publications</h4>
-				<ul class="no-inline">
-					<li><a><label>Blog Posts</label></a></li>
-					<li><a><label>Books</label></a></li>
-					<li><a><label>In Depth</label></a></li>
-					<li><a><label>In the News</label></a></li>
-					<li><a><label>Podcasts</label></a></li>
-					<li><a><label>Policy Papers</label></a></li>
-					<li><a><label>Press Releases</label></a></li>
-					<li><a><label>Testimonies</label></a></li>
-					<li><a><label>The Weekly</label></a></li>
-				</ul>
-			</div>
-			<div class="footer__content__about col-sm-3">
-				<div class="footer__content__about__pages">
-					<h4>About</h4>
-					<ul class="no-inline">
-						<li><a><label>Our Story</label></a></li>
-						<li><a><label>People</label></a></li>
-						<li><a><label>Funding</label></a></li>
-						<li><a><label>Fellowships</label></a></li>
-						<li><a><label>Jobs & Internships</label></a></li>
-						<li><a><label>Press</label></a></li>
-						<li><a><label>Contact Us</label></a></li>
-					</ul>
-				</div>
-				<div class="footer__content__about__social">
-					<h4>Social Media</h4>
-					<ul class="no-inline">
-						<li><a><label>Facebook</label></a></li>
-						<li><a><label>Twitter</label></a></li>
-						<li><a><label>LinkedIn</label></a></li>
-					</ul>
+			<div class="col-6">
+				<div class="row">
+					<div class="col-4">
+						<label class="block margin-top-0 margin-bottom-25">
+							<a href="/programs">Programs</a>
+						</label>
+						<label class="block margin-bottom-25">
+							<a href="/events">Events</a>
+						</label>
+						<label class="block margin-bottom-25">
+							<a href="/publications">Publications</a>
+						</label>
+						<label class="block margin-bottom-0">
+							<a href="/Subscribe">Subscribe</a>
+						</label>
+					</div>
+					<div class="col-4">
+						<label class="block margin-top-0 margin-bottom-25">
+							<a href="/our-story">Mission</a>
+						</label>
+						<label class="block margin-bottom-25">
+							<a href="/our-people">People</a>
+						</label>
+						<label class="block margin-bottom-25">
+							<a href="/funding">Funding</a>
+						</label>
+						<label class="block margin-bottom-0">
+							<a href="/partners-in-residence">Partners in Residence</a>
+						</label>
+					</div>
+					<div class="col-4">
+						<label class="block margin-top-0 margin-bottom-25">
+							<a href="/contact-us">Contact</a>
+						</label>
+						<label class="block margin-bottom-25">
+							<a href="/jobs">Jobs + Internships</a>
+						</label>
+						<label class="block margin-bottom-25">
+							<a href="/fellowships">Fellowships</a>
+						</label>
+						<label class="block margin-bottom-0">
+							<a href="/Press">Press</a>
+						</label>
+					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 </footer>

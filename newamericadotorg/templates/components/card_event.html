@@ -1,0 +1,13 @@
+<div class="card event">
+  <div class="card__text">
+    <a href="{{event.url}}">
+      <label class="button--text block border-0 margin-0">{{event.date|date:"m-d-y"}}</label>
+      <label class="bold margin-top-25 margin-bottom-15">{{event.title}}</label>
+      <label class="subtitle margin-top-0 margin-bottom-25">{{event.story_excerpt}}</label>
+      <label class="block border-0 margin-top-0 margin-bottom-25">{{event.city}}, {{event.state}}</label>
+    </a>
+    <span class="block">
+      <a class="button--text margin-0" href="{{event.url}}">RSVP</a>
+    </span>
+  </div>
+</div>

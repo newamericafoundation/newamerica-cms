@@ -24,10 +24,19 @@
   &.gray{
     background-color: color(gray, ultra-light);
   }
-  
-  &.padding-15{
-    padding-right: 15px;
-    padding-left: 15px;
+
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @include media-breakpoint(large-desktop){
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* containers that are nested get no padding by default */
+  [class*="container--"], .container {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -35,6 +44,10 @@
   &--full-width{
     width: 100%;
     max-width: none;
+  }
+
+  &--wide {
+    width: 100%;
   }
 
   &--medium{
