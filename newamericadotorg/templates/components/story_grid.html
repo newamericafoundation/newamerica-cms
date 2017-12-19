@@ -1,21 +1,20 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-<section class="container story-grid has-{{ other_lead_stories|length|add:"1" }}-children">
-  <div class="row">
-    <div class="story-grid__main">
-      <div class="row">
-        {% include 'components/story_grid_item.html' with which="main" story=page.lead_1 page_context=page_context %}
-      </div>
+<div class="container story-grid">
+  <div class="row gutter-10">
+    <div class="col-12">
+      {% include 'components/card_lg.html' with post=page.lead_1.specific %}
     </div>
-    {% if other_lead_stories %}
-    <div class="story-grid__secondary">
-      <div class="row">
-        {% for other_lead_story in other_lead_stories %}
-            {% include 'components/story_grid_item.html' with which="secondary" story=other_lead_story page_context=page_context %}
-        {% endfor %}
-      </div>
+    <div class="col-4">
+      {% include 'components/card_highlights.html' with stories=featured_stories %}
     </div>
-    {% endif %}
+    <div class="col-4">
+      {% include 'components/card_sm.html' with post=page.lead_3.specific %}
+      {% include 'components/card_sm.html' with post=page.lead_4.specific %}
+    </div>
+    <div class="col-4">
+      {% include 'components/card_md.html' with post=page.lead_2.specific %}
+    </div>
   </div>
-</section>
+</div>

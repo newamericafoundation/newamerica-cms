@@ -40,6 +40,12 @@ def temp_image_width_map(width):
 		return 'width-133'
 	return ''
 
+@register.filter()
+def ellipsize(text, max_length):
+	if len(text) > max_length:
+		return text[:max_length].strip() + ' ...'
+
+
 # handles pluralization for content labels across the site
 @register.simple_tag()
 def pluralize(num_items, label):

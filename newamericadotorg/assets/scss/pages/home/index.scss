@@ -1,0 +1,15 @@
+.homepage{
+  section:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  &__story-grid-section{
+    max-height: 750px;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__mission-statement-section {
+    padding-top: 155px;
+    padding-bottom: 105px;
+  }
+}

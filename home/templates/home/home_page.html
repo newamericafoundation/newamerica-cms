@@ -4,36 +4,21 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% block body_class %}template-homepage header--expanded{% endblock %}
+{% block body_class %}homepage{% endblock %}
 
 {% block content %}
 <main>
-	<section class="container container--wide sm-no-padding">
+	<section class="container--full-width beige homepage__story-grid-section">
 		{% include 'components/story_grid.html' with page_context='homepage' %}
-
-		{% if featured_stories %}
-			{% include 'components/featured_stories.html' with stories=featured_stories %}
-		{% endif %}
-
 	</section>
-
-	{% include 'components/react/program-event-list.html' %}
-	{% include 'components/react/program-content-grid.html' %}
-
-
-	<section class="container--full-width gray program-block no-last-child-margin">
-			<div class='container--medium'>
-				<h1 class="centered">Our Story</h1>
-				<p class="centered">
-					Founded in 1999, New America is a think tank and civic enterprise committed
-					to renewing American politics, prosperity, and purpose in the Digital Age.
-					We generate big ideas, bridge the gap between technology and policy,
-					and curate broad public conversation.
-				</p>
-				<div class="button-wrapper centered">
-					<a class='button black' href="/our-story/">Read our Story</a>
-				</div>
-			</div>
+	<section class="container--full-width turquoise homepage__mission-statement-section">
+		<div class="container">
+			<h1 class="promo white margin-0">
+				<span class="block">We are dedicated to</span>
+				<span class="block">renewing America</span>
+			</h1>
+			<h3 class="white margin-top-30 margin-bottom-0">Read about our <a href="/our-story" class="white underlined">mission</a>.</h3>
+		</div>
 	</section>
 </main>
 {% endblock %}

@@ -7,9 +7,7 @@
     position: relative;
     height: $header-height;
     background: color(white);
-    @include border-bottom(gray, ultra-light);
-    box-shadow: inset 0px -3px 1px -3px color(black,base,0.35);
-    color: color(gray);
+    box-shadow: 0px 2px 4px 0px color(black, base, 0.05);
     display: block;
     width: 100%;
     margin: 0 !important;
@@ -37,8 +35,8 @@
     position: absolute;
     @include vertical-center;
     line-height: $header-height;
-    width: 115px;
-    height: 29px;
+    width: 94px;
+    height: 24px;
   }
 }
 
@@ -60,5 +58,4 @@ body.scroll-reverse:not(.header--expanded):not(.scroll-disabled), body.mobile-me
 }
 
 @import 'dropdown-links';
-@import 'expanded';
 @import 'nav';

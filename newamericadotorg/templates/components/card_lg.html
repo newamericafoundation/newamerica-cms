@@ -1,0 +1,24 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% image post.story_image min-1350x500 as post_image %}
+
+<div class="card lg">
+  <a href="{{post.url}}" class="row no-gutters">
+    <div class="col-8" style="padding-right: 3px;">
+      <div class="card__image">
+        <div class="card__image__background" style="background-image: url({{post_image.url}})"></div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card__text">
+        <label class="button--text block border-0 margin-0">{{post.date|date:"m-d-y"}}</label>
+        <h2 class="margin-15">{{post.title}}</h2>
+        <label class="subtitle margin-top-0 margin-bottom-25">{{post.story_excerpt}}</label>
+        <label class="block margin-0">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
+
+      </div>
+    </div>
+    </a>
+</div>

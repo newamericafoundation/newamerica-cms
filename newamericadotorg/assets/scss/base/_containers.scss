@@ -2,37 +2,39 @@
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  padding-right: 15px;
-  padding-left: 15px;
   max-width: $max-site-width;
   display: block;
+
+  &.beige {
+    background-color: color(beige);
+  }
+
+  &.turquoise {
+    background-color: color(turquoise);
+  }
+
+  &.blue {
+    background-color: color(blue);
+  }
+
+  &.purple {
+    background-color: color(purple);
+  }
 
   &.gray{
     background-color: color(gray, ultra-light);
   }
-
-  &.sm-no-padding{
-    @include media-breakpoint-down(tablet){
-      padding-left: 0px;
-      padding-right: 0px;
-    }
-  }
-
-  &.no-padding{
-    padding-left: 0px;
-    padding-right: 0px;
+  
+  &.padding-15{
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 
 .container {
   &--full-width{
     width: 100%;
-    padding: 0;
-    max-width: 100%;
-  }
-
-  &--wide{
-    width: 100%;
+    max-width: none;
   }
 
   &--medium{
@@ -53,9 +55,5 @@
     @include media-breakpoint(desktop){
       width: 50%;
     }
-  }
-
-  &.no-padding{
-    padding: 0;
   }
 }

@@ -30,21 +30,6 @@ body.scroll-disabled {
   overflow: hidden;
 }
 
-main {
-  min-height: 70vh;
-  & > *:last-child:not(.no-last-child-margin){
-    margin-bottom: 75px;
-  }
-
-  &.with-margin{
-    margin-top: 50px;
-
-    @include media-breakpoint(desktop){
-      margin-top: 75px;
-    }
-  }
-}
-
 ul, ol {
   &.no-list-style, &.inline {
     margin: 0;
@@ -58,6 +43,12 @@ ul, ol {
 
   &.inline li {
     display: inline-block;
+  }
+}
+
+span {
+  &.block {
+    display: block;
   }
 }
 
