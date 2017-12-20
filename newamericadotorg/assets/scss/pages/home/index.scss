@@ -27,9 +27,9 @@
   }
 }
 
-.homepage__mission-statement-section:not(.scroll-triggered),
-.homepage__weekly-promo-section:not(.scroll-triggered),
-.homepage__subscribe-section:not(.scroll-triggered){
+.homepage__mission-statement-section,
+.homepage__weekly-promo-section,
+.homepage__subscribe-section{
   .promo span, h3{
     @include transition(all 1.35s ease);
     opacity: 0;
@@ -46,7 +46,7 @@
   }
 
 
-  &.scroll-entered{
+  &.scroll-triggered{
     .promo span, h3{
       top: 0;
       opacity: 1;
@@ -54,7 +54,7 @@
   }
 }
 
-.homepage__events-section:not(.scroll-triggered){
+.homepage__events-section{
   .col-4{
     position: relative;
     top: 50px;
@@ -70,7 +70,7 @@
     }
   }
 
-  &.scroll-entered{
+  &.scroll-triggered {
     .col-4{
       top: 0;
       opacity: 1;
@@ -78,7 +78,7 @@
   }
 }
 
-.homepage__publications-section:not(.scroll-triggered){
+.homepage__publications-section{
   .card-wrapper{
     position: relative;
     top: 50px;
@@ -98,7 +98,7 @@
     }
   }
 
-  &.scroll-entered{
+  &.scroll-triggered{
     .card-wrapper{
       top: 0;
       opacity: 1;

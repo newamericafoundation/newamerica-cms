@@ -65,7 +65,7 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       if(inView){
         if(e.onTick) e.onTick(target || el, direction, progress );
       }
-      if(hasLeft && !markedTriggered){
+      if(hasEntered && !markedTriggered){
         el.classList.add(HAS_TRIGGERED_CLASS);
         if(target){
           target.classList.add(HAS_TRIGGERED_CLASS);
