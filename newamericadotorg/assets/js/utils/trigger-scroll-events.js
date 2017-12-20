@@ -29,6 +29,7 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
   const ENTER_CLASS = 'scroll-entered';
   const LEFT_CLASS = 'scroll-left';
   const IN_VIEW_CLASS = 'scroll-in-view';
+  const HAS_TRIGGERED_CLASS = 'scroll-triggered';
   let oneE;
   for(let e of events){
     for(let el of e.els){
@@ -43,6 +44,7 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       let markedEntered = el.classList.contains(ENTER_CLASS),
       markedLeft = el.classList.contains(LEFT_CLASS),
       markedInView = el.classList.contains(IN_VIEW_CLASS),
+      markedTriggered = el.classList.contains(HAS_TRIGGERED_CLASS),
       hasEntered = rect.top + enterOffset + triggerPointOffset <= 0,
       hasLeft = -rect.top > el.offsetHeight + leaveOffset + triggerPointOffset,
       progress = 1-(rect.top+triggerPointOffset+el.offsetHeight+leaveOffset-0.5)/(el.offsetHeight - enterOffset + leaveOffset),
@@ -62,6 +64,12 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       }
       if(inView){
         if(e.onTick) e.onTick(target || el, direction, progress );
+      }
+      if(hasLeft && !markedTriggered){
+        el.classList.add(HAS_TRIGGERED_CLASS);
+        if(target){
+          target.classList.add(HAS_TRIGGERED_CLASS);
+        }
       }
       if(hasEntered && !markedEntered){
         if(e.enter) e.enter(target || el, direction);
