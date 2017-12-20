@@ -1,5 +1,6 @@
 .card {
   background: color(white);
+  box-shadow: 0px 2px 4px 0px color(black, base, 0.35);
   box-shadow: 0px 2px 4px 0px color(black, base, 0.05);
   margin-top: 10px;
 
@@ -22,10 +23,22 @@
 
   &__text{
     padding: 25px;
+    position: relative;
+    //border-bottom: 1.5px solid color(turquoise);
+    &:after{
+      //content: '';
+      bottom: 0px;
+      position: absolute;
+      width: 105px;
+      border: 1.5px solid color(turquoise);
+    }
   }
 
   &.lg {
     height: 375px;
+    .card__text{
+      height: 100%;
+    }
   }
 
   &.md {
@@ -41,6 +54,21 @@
 
   &.sm {
     height: 185px;
+    .card__text{
+      height: 100%;
+    }
+  }
+
+  &.lg, &.md, &.sm, &.event, &.list {
+    position: relative;
+    top: 0;
+    &:hover{
+      @include transition(box-shadow 0.15s ease, top 0.15s ease);
+      top: -1px;
+      cursor: pointer;
+      box-shadow: 0px 2px 8px 0px color(black, base, 0.15),
+      0px 0px 1px color(black, base, 0.5);
+    }
   }
 }
 

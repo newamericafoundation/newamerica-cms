@@ -13,11 +13,10 @@
     </div>
     <div class="col-4">
       <div class="card__text">
-        <label class="button--text block border-0 margin-0">{{post.date|date:"m-d-y"}}</label>
-        <h2 class="margin-15">{{post.title}}</h2>
-        <label class="subtitle margin-top-0 margin-bottom-25">{{post.story_excerpt}}</label>
-        <label class="block margin-0">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
-
+        <label class="card__text__date button--text block border-0 margin-0">{{post.date|date:"m-d-y"}}</label>
+        <h2 class="card__text__title margin-15">{{post.title}}</h2>
+        <label class="card__text__subtitle subtitle margin-top-0 margin-bottom-25">{{post.story_excerpt}}</label>
+        <label class="card__text__program block margin-0">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
       </div>
     </div>
     </a>

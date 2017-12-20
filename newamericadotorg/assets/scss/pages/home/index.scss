@@ -26,3 +26,82 @@
     padding-bottom: 105px;
   }
 }
+
+.homepage__mission-statement-section,
+.homepage__weekly-promo-section,
+.homepage__subscribe-section{
+  .promo span, h3{
+    @include transition(all 1.35s ease);
+    opacity: 0;
+    top: 50px;
+    position: relative;
+  }
+
+  .promo span:nth-child(2){
+    @include transition-delay(0.25s);
+  }
+
+  h3{
+    @include transition-delay(0.5s);
+  }
+
+
+  &.scroll-entered{
+    .promo span, h3{
+      top: 0;
+      opacity: 1;
+    }
+  }
+}
+
+.homepage__events-section{
+  .col-4{
+    position: relative;
+    top: 50px;
+    opacity: 0;
+    @include transition(all 1s ease);
+
+    &:nth-child(2){
+      @include transition-delay(0.25s);
+    }
+
+    &:nth-child(3){
+      @include transition-delay(0.5s);
+    }
+  }
+
+  &.scroll-entered{
+    .col-4{
+      top: 0;
+      opacity: 1;
+    }
+  }
+}
+
+.homepage__publications-section{
+  .card{
+    position: relative;
+    top: 50px;
+    opacity: 0;
+    @include transition(all 1s ease);
+
+    &:nth-child(2){
+      @include transition-delay(0.25s);
+    }
+
+    &:nth-child(3){
+      @include transition-delay(0.5s);
+    }
+
+    &:nth-child(4){
+      @include transition-delay(0.75s);
+    }
+  }
+
+  &.scroll-entered{
+    .card{
+      top: 0;
+      opacity: 1;
+    }
+  }
+}
