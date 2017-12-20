@@ -35,7 +35,7 @@
 
 .scroll-reverse:not(.scroll-disabled) {
   .report__top-nav.scroll-left .report__top-nav__sticky-wrapper{
-    z-index: 100;
+    z-index: 1;
     position: fixed;
     top: $header-height;
   }
