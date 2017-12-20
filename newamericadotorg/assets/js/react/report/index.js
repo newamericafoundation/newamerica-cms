@@ -24,7 +24,7 @@ class Report extends Component {
       if (el) {
         const { top } = el.getBoundingClientRect();
         const { pageYOffset } = window;
-        window.scrollTo(0,top+pageYOffset-65)
+        window.scrollTo(0,top+pageYOffset-50)
       }
       return true;
     }
@@ -40,7 +40,7 @@ class Report extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 65)
+      window.scrollTo(0, 50)
       this.props.dispatch({
         type: 'RELOAD_SCROLL_EVENTS',
         component: 'site'

@@ -21,7 +21,7 @@ class TopNav extends Component {
             <div className="report__top-nav__contents col-5 col-md-2">
               <div className={`report__top-nav__contents__menu-wrapper`}>
                 <div className="report__top-nav__contents__button" onClick={this.toggleMenu}>
-                  <a className="button--text white with-caret">Contents</a>
+                  <a className="button--text border-0 white with-caret">Contents</a>
                 </div>
                 <ContentMenu report={report} open={this.state.openMenu} closeMenu={this.toggleMenu} activeSection={section}/>
               </div>

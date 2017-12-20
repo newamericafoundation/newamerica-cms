@@ -1,5 +1,5 @@
 .report__citation{
-  color: #37D0AE;
+  color: color(turquoise);
   font-weight: bold;
   font-size: 0.7em;
   position: relative;
@@ -26,13 +26,13 @@
   }
 
   &:hover {
-    background: #37D0AE;
+    background: color(turquoise);
     color: color(white);
   }
 
   &.active {
-    background: #37D0AE;
-    color: #37D0AE;
+    background: color(turquoise);
+    color: color(turquoise);
     &:before{
       display: block;
     }

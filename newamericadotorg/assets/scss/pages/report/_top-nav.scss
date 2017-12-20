@@ -14,7 +14,7 @@
     width: 100vw;
     height: 65px;
     color: color(white);
-    background: #525252;
+    background: color(black);
     @include transition(top 0.35s ease-in-out);
   }
 
@@ -37,6 +37,6 @@
   .report__top-nav.scroll-left .report__top-nav__sticky-wrapper{
     z-index: 100;
     position: fixed;
-    top: 65px;
+    top: $header-height;
   }
 }

@@ -1,7 +1,7 @@
 .report__bottom-nav{
   margin-top: 100px;
   height: 65px;
-  background: #525252;
+  background: color(black);
   @extend %clearfix;
 
   &__button {

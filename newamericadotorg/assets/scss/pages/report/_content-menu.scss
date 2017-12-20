@@ -2,9 +2,9 @@
   min-width: 300px;
   margin-left: -22.5px;
   padding: 12.5px 20px 12.5px 0;
-  background: #7A7A7A;
+  background: color(gray);
   z-index: 0;
-  max-height: calc(100vh - 65px);
+  max-height: calc(100vh - #{$header-height + 65px});
   overflow-x: hidden;
   overflow-y: scroll;
 
@@ -14,11 +14,11 @@
     }
 
     position: relative;
-    border-top: 1px solid #979797;
+    border-top: 1px solid color(black, base, 0.1);
     padding: 0 22.5px;
 
     &.active{
-      box-shadow: inset -4px 0 0 0 #37D0AE;
+      box-shadow: inset 4px 0 0 0 color(turquoise);
     }
 
     a {
@@ -44,7 +44,7 @@
   overflow: hidden;
   @include transition(max-height 0.35s ease);
   &__label{
-    color: #C1C1C1;
+    color: color(gray, light);
     padding-left: 15px;
   }
 }

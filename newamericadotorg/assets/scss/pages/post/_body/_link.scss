@@ -1,9 +1,8 @@
 a:not(.button) {
   font-weight: bold;
-  border-bottom: 1px solid color(black, base, .65);
   padding-bottom: 2px;
   opacity: 1;
-  color: color(black);
+  color: color(turquoise);
 
   &:hover{
     color: color(turquoise);

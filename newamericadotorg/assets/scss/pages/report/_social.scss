@@ -25,11 +25,11 @@
    }
 
   .fa{
-    color: #37D0AE;
+    color: color(turquoise);
     width: 32px;
     height: 32px;
     padding: 0;
-    border: 1px solid #37D0AE;
+    border: 1px solid color(turquoise);
     border-radius: 16px;
     position: relative;
     margin-right: 15px;
@@ -41,7 +41,7 @@
 
     &:hover{
       color: color(white);
-      background: #37D0AE;
+      background: color(turquoise);
     }
   }
 }

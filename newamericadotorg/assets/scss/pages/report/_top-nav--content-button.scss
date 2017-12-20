@@ -41,7 +41,7 @@
 .menu-open {
   .report__top-nav__contents__menu-wrapper{
     max-height: 100vh;
-    box-shadow: 0px 2px 8px 0px rgba(#000, 0.5);
+    box-shadow: 0px 2px 8px 0px color(black, base, 0.5);
   }
 
   .report__top-nav__contents{
@@ -49,6 +49,6 @@
   }
 
   .report__top-nav__contents__button{
-    background: #7A7A7A;
+    background: color(gray);
   }
 }
