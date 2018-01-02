@@ -2,12 +2,12 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% image post.story_image min-700x510 as post_image %}
+{% image event.story_image min-700x510 as event_image %}
 
 <div class="card event">
   <a href="{{event.url}}">
     <div class="card__image">
-      <div class="card__image__background" style="background-image: url({{post_image.url}})"></div>
+      <div class="card__image__background" style="background-image: url({{event_image.url}})"></div>
     </div>
   </a>
   <div class="card__text">
