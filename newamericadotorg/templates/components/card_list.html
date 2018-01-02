@@ -9,10 +9,18 @@
     <div class="card__image">
       <div class="card__image__background" style="background-image: url({{post_image.url}})"></div>
     </div>
-    <div class="card__text">
-      <label class="card__text__date button--text block border-0 margin-0">{{post.date|date:"m-d-y"}}</label>
-      <label class="card__text__title bold margin-25">{{post.title}}</label>
-      <label class="card__text__program block margin-0">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
-    </div>
-  </a>
+    </a>
+  <div class="card__text">
+    <a href="{{post.url}}">
+      <label class="card__text__date margin-top-0 block">{{post.date|date:"M. jS, Y"}}</label>
+      <label class="card__text__title bold block">{{post.title}}</label>
+    </a>
+    <label class="card__text__description subtitle block">
+      {% for author in post.post_author.all %}<a href="{{author.url}}" class="inline">{{author.first_name}} {{author.last_name}}</a>{% if forloop.counter != post.authors.all|length %} + {% endif %}{% endfor %}
+    </label>
+    <a href="{{post.url}}">
+      <label class="card__text__program caption margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
+    </a>
+  </div>
+
 </div>

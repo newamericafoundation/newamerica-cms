@@ -1,13 +1,25 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% image post.story_image min-700x510 as post_image %}
+
 <div class="card event">
+  <a href="{{event.url}}">
+    <div class="card__image">
+      <div class="card__image__background" style="background-image: url({{post_image.url}})"></div>
+    </div>
+  </a>
   <div class="card__text">
     <a href="{{event.url}}">
-      <label class="button--text block border-0 margin-0">{{event.date|date:"m-d-y"}}</label>
-      <label class="bold margin-top-25 margin-bottom-15">{{event.title}}</label>
-      <label class="subtitle margin-top-0 margin-bottom-25">{{event.story_excerpt}}</label>
-      <label class="block border-0 margin-top-0 margin-bottom-25">{{event.city}}, {{event.state}}</label>
+      <label class="margin-top-0 block">{{event.date|date:"M. jS, Y"}}</label>
+      <label class="bold block">{{event.title}}</label>
+      <label class="subtitle block">{{event.story_excerpt}}</label>
+      <label class="caption block">{{event.city}}, {{event.state}}</label>
     </a>
     <span class="block">
-      <a class="button--text margin-0" href="{{event.url}}">RSVP</a>
+      <a class="button--text margin-bottom-0" href="{{event.url}}">RSVP</a>
     </span>
   </div>
+
 </div>

@@ -1,7 +1,5 @@
 .card {
   background: color(white);
-  box-shadow: 0px 2px 4px 0px color(black, base, 0.35);
-  box-shadow: 0px 2px 4px 0px color(black, base, 0.05);
   margin-top: 10px;
 
   & > a {
@@ -62,12 +60,16 @@
   &.lg, &.md, &.sm, &.event, &.list {
     position: relative;
     top: 0;
+
+    label, h1, h2, h3 {
+      @include transition(color 0.3s ease);
+    }
+
     &:hover{
-      @include transition(box-shadow 0.15s ease, top 0.15s ease);
-      top: -1px;
       cursor: pointer;
-      box-shadow: 0px 2px 8px 0px color(black, base, 0.15),
-      0px 0px 1px color(black, base, 0.5);
+      label, h1, h2, h3 {
+        color: color(black, base, 0.55);
+      }
     }
   }
 }
@@ -77,8 +79,14 @@
 }
 
 .card.event {
-  height: 265px;
-  box-shadow: 0px 2px 4px 0px color(black, base, 0.1);
+  .card__image__background{
+    width: 100%;
+    padding-bottom: 72.857%;
+  }
+
+  .card__text{
+    height: 230px;
+  }
 }
 
 .card.list {

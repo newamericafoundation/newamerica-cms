@@ -38,7 +38,7 @@ h1:not(.promo){
 
 h1.promo {
   font-size: 4.0625rem;
-  line-height: 3.75rem;
+  line-height: 4.375rem;
   margin-top: 0.875rem;
   margin-bottom: 0.875rem;
 }
@@ -99,12 +99,6 @@ blockquote{
   margin-right: 0;
 }
 
-.caption p, p.caption {
-  font-family: $label-font-family;
-  font-size: 0.9375rem;
-  line-height: 1.375rem;
-}
-
 .subheading, [class*="subheading--"] {
   color: color(gray, dark);
   font-weight: normal;
@@ -162,9 +156,21 @@ a {
     box-shadow: 0px 1.5px 0px color(turquoise);
   }
 
+  &:hover.underlined--on-hover{
+    box-shadow: 0px 1.5px 0px color(turquoise);
+  }
+
+  &.inline {
+    display: inline;
+  }
+
   &.white {
     color: color(white);
     &.underlined {
+      box-shadow: 0px 1.5px 0px color(white);
+    }
+
+    &:hover.underlined--on-hover{
       box-shadow: 0px 1.5px 0px color(white);
     }
   }
@@ -173,8 +179,8 @@ a {
 label {
   font-size: 0.875rem;
   line-height: 1rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
   font-weight: normal;
   color: color(black);
   font-family: $label-font-family;
@@ -197,12 +203,8 @@ label {
     display: block;
   }
 
-  &.caption, &.subtitle {
+  &.subtitle {
     font-family: $paragraph-font-family;
-  }
-
-  &.caption {
-    font-style: italic;
   }
 
   &.with-seperator {
@@ -228,6 +230,22 @@ label {
   a {
     display: block;
   }
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a{
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  text-decoration: inherit;
+  color: inherit;
+  font-weight: inherit;
 }
 
 .button--text{

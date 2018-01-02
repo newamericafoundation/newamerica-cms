@@ -1,11 +1,11 @@
 <div class="card highlights">
   <div class="card__text">
-    <label class="button--text block border-0 margin-0">Highlights</label>
+    <label class="block margin-0">Featured</label>
     {% for story in stories %}
       <div class="highlights__highlight margin-25">
         <a href="{{story.url}}">
           <label class="block bold">{{story.title}}</label>
-          <label class="subtitle">{{story.specific.story_excerpt}}<label>
+          <label class="subtitle margin-bottom-0">{{story.specific.story_excerpt}}</label>
         </a>
       </div>
     {% endfor %}
