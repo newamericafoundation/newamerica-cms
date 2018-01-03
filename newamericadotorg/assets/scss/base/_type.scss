@@ -185,6 +185,7 @@ label {
   color: color(black);
   font-family: $label-font-family;
   display: inline-block;
+  cursor: inherit;
   text-decoration: none;
 
   &.white{

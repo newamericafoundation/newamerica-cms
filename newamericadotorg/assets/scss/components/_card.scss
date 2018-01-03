@@ -61,21 +61,32 @@
     position: relative;
     top: 0;
 
-    label, h1, h2, h3 {
-      @include transition(color 0.3s ease);
+    .card__text__title {
+      @include transition(color 0.15s ease);
     }
 
     &:hover{
       cursor: pointer;
-      label, h1, h2, h3 {
+      .card__text__title {
         color: color(black, base, 0.55);
       }
     }
   }
 }
 
-.highlights__highlight:last-child{
-  margin-bottom: 0;
+.highlights__highlight{
+  background: color(white);
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+  
+  &:hover {
+    cursor: pointer;
+    .card__text__title {
+      color: color(black, base, 0.55);
+    }
+  }
 }
 
 .card.event {
