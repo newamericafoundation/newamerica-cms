@@ -104,8 +104,8 @@ class EditionGrid extends Component {
   render(){
     let { edition } = this.props;
     let attrs =  {
-      'data-scroll-enter-offset':'-25',
-      'data-scroll-leave-offset': '-100vh'
+      'data-scroll-top-offset':'-25',
+      'data-scroll-bottom-offset': '-100vh'
     }
     return(
       <section className="weekly-edition-grid weekly-content container--full-width">

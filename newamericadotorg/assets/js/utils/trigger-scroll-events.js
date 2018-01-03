@@ -9,8 +9,8 @@
   * @property {string} target - class selector, apply scroll classes to this target when element is triggered,
   * @property {string} triggerPoint - (default: 'top', options: 'top', 'middle', 'bottom') part of viewPort event is triggered,
   * @property {(number|string)} offset - (default: 0) offset for both enter and leave events. essentially shifts entire frame by this value. if defined as % (eg '50%'), offsets by % of element's outerHeight,
-  * @property {(number|string)} enterOffset - (default: 0) offset from triggerPoint for enter events. if defined as % (eg '50%'), offsets by % of element's outerHeight,
-  * @property {(number|string)} leaveOffset - (default: 0) offset from triggerPoint for leave events. If defined as %, (eg '50%'), offsets by % of element's outerHeight,
+  * @property {(number|string)} topOffset - (default: 0) offset from triggerPoint for enter events. if defined as % (eg '50%'), offsets by % of element's outerHeight,
+  * @property {(number|string)} bottomOffset - (default: 0) offset from triggerPoint for leave events. If defined as %, (eg '50%'), offsets by % of element's outerHeight,
   * @property {eventCallback} enter - event for any point after the element has passed the triggerPoint,
   * @property {eventCallback} onEnter - event for the exact moment when element hits the triggerPoint,
   * @property {eventCallback} leave - event for any point after the element (including outerHeight) is outside the triggerPoint,
@@ -36,8 +36,8 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       oneE = el;
       let rect = el.getBoundingClientRect(),
       offset = getOffset(el, el.getAttribute('data-scroll-offset') || e.offset || 0 ),
-      enterOffset = getOffset(el, el.getAttribute('data-scroll-enter-offset') || offset || e.enterOffset || 0),
-      leaveOffset = getOffset(el, el.getAttribute('data-scroll-leave-offset') || offset || e.leaveOffset || 0),
+      topOffset = getOffset(el, el.getAttribute('data-scroll-top-offset') || offset || e.topOffset || 0),
+      bottomOffset = getOffset(el, el.getAttribute('data-scroll-bottom-offset') || offset || e.bottomOffset || 0),
       triggerPoint = el.getAttribute('data-scroll-trigger-point') || e.triggerPoint || 'top',
       triggerPointOffset = getTriggerPointOffset(triggerPoint, docHeight);
 
@@ -45,9 +45,9 @@ const scrollEvents = (scrollPosition, prevScrollPosition, direction, events) => 
       markedLeft = el.classList.contains(LEFT_CLASS),
       markedInView = el.classList.contains(IN_VIEW_CLASS),
       markedTriggered = el.classList.contains(HAS_TRIGGERED_CLASS),
-      hasEntered = rect.top + enterOffset + triggerPointOffset <= 0,
-      hasLeft = -rect.top > el.offsetHeight + leaveOffset + triggerPointOffset,
-      progress = 1-(rect.top+triggerPointOffset+el.offsetHeight+leaveOffset-0.5)/(el.offsetHeight - enterOffset + leaveOffset),
+      hasEntered = rect.top + topOffset + triggerPointOffset <= 0,
+      hasLeft = -rect.top > el.offsetHeight + bottomOffset + triggerPointOffset,
+      progress = 1-(rect.top+triggerPointOffset+el.offsetHeight+bottomOffset-0.5)/(el.offsetHeight - topOffset + bottomOffset),
       inView = hasEntered && !hasLeft;
 
       let targetSelector = el.getAttribute('data-scroll-target') || e.target;

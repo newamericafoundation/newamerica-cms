@@ -41,7 +41,7 @@
       }
     }
 
-    &[data-scroll-enter-offset]{
+    &[data-scroll-top-offset]{
       .post-social__sticky-wrapper{
         top: $subheader-height;
       }
@@ -56,7 +56,7 @@ body.scroll-reverse:not(.scroll-disabled){
     .post-social__sticky-wrapper{
       top: $header-height !important;
     }
-    &[data-scroll-enter-offset]{
+    &[data-scroll-top-offset]{
       .post-social__sticky-wrapper{
         top: #{$header-height + $subheader-height} !important;
       }

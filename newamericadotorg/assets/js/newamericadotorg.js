@@ -23,7 +23,7 @@ function init(){
   addEventListeners();
   addObservers();
   composer.init();
-  triggerScrollEvents(0, 0, 'FORWARD', composer.store.getState().site.scroll.events);
+  triggerScrollEvents(window.scrollY, window.scrollY, 'FORWARD', composer.store.getState().site.scroll.events);
 }
 
 const newamericadotorg = {
