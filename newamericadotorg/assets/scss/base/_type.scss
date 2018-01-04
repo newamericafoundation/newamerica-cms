@@ -204,8 +204,12 @@ label {
     display: block;
   }
 
-  &.subtitle {
+  &.subtitle, &.caption {
     font-family: $paragraph-font-family;
+  }
+
+  &.caption {
+    font-style: italic;
   }
 
   &.with-seperator {
