@@ -1,3 +1,8 @@
+$dropdown-background-color: color(black, base);
+$dropdown-border-color: color(gray, base, 0);
+$link-border-color: color(gray, base, 0.1);
+$link-text-color: color(white);
+
 .header {
   position: relative;
   height: $header-height;

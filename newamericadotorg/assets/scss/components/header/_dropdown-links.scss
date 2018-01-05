@@ -1,7 +1,7 @@
 .header-dropdown-links{
   &__link{
     cursor: pointer;
-    border-bottom: 1px solid color(gray, base, 0.1);
+    border-bottom: 1px solid $link-border-color;
     label{
       margin-top: 0px;
       margin-bottom: 0px;
@@ -10,7 +10,7 @@
       padding: 15px;
     }
     &:hover{
-      background: color(gray, base, 0.1);
+      background: $link-border-color;
     }
     li {
       display: block;

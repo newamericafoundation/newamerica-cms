@@ -31,7 +31,8 @@
     z-index: 200;
     top: $header-height;
     display: none;
-    background: color(black);
+    background: $dropdown-background-color;
+    border: 1px solid $dropdown-border-color;
 
     .header-dropdown-content{
       display: none;
@@ -55,41 +56,42 @@
     }
 
     label {
-      color: color(white) !important;
+      color: $link-text-color !important;
     }
 
     .header__nav__dropdown-list__dropdown__main-link{
-      color: color(black);
+      color: $link-text-color;
       position: relative;
       z-index: 201;
 
       &:before{
+        // box around main link on hover
         position: absolute;
         content: '';
+        height: 100%;
         display: block;
-        background: color(black);
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        border-top: 1px solid $dropdown-border-color;
+        border-left: 1px solid $dropdown-border-color;
+        border-right: 1px solid $dropdown-border-color;
+        background: $dropdown-background-color;
+      }
+      
+      &:not(.no-drop):before{
+        height: calc(100% + 1px);
       }
 
       label {
         position: relative;
         z-index: 1;
       }
-
-      &:before{
-        // box around main link on hover
-        top: 0;
-        left: 0;
-        height: 100%;
-        right: 0;
-        z-index: 0;
-        // border-top: 1px solid color(gray, light);
-        // border-left: 1px solid color(gray, light);
-        // border-right: 1px solid color(gray, light);
-        background: color(black);
-        //box-shadow: 0px -6px 10px 0px color(black,base,0.2),
-        // 0px -4px 2px -3px color(black,base,0.2),
-        // -4px 0px 2px -3px color(black,base,0.2),
-        // 4px 0px 2px -3px color(black,base,0.2);
+      
+      &:not(.no-drop):after{
+        border-right: 1px solid $link-text-color;
+        border-bottom: 1px solid $link-text-color;
       }
     }
   }
