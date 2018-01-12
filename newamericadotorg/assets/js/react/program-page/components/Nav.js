@@ -17,8 +17,8 @@ export default class Nav extends Component {
     return (
       <div className="program__nav">
         <ul className="inline">
-          <NavItem url={`${program.url}about`} label="About" />
-          <NavItem url={`${program.url}publications`} label="Publications" />
+          <NavItem url={`${program.url}about/`} label="About" />
+          <NavItem url={`${program.url}publications/`} label="Publications" />
         </ul>
       </div>
     );

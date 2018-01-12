@@ -87,7 +87,7 @@ def get_program_content_types(program):
         }
         if c.content_type.model == 'programcustomcontenttypepage':
             for cat in c.get_children():
-                content_type.categories.append({
+                content_type['categories'].append({
                     'name': cat.title,
                     'id': cat.id,
                     'slug': cat.slug

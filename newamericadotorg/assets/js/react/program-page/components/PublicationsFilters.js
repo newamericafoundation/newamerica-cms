@@ -50,6 +50,88 @@ class TypeFilter extends Component {
   }
 }
 
+class ProgramFilter extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      expanded: props.expanded || false
+    }
+  }
+  toggle = () => {
+    this.setState({ expanded: !this.state.expanded });
+  }
+  render(){
+    return (
+      <div className={`program__publications-filters__filter type ${this.state.expanded ? 'expanded' : ''}`}>
+        <label className="program__publications-filters__filter__heading block bold margin-25" onClick={this.toggle}>
+          Program
+          <div className="icon">
+            {this.state.expanded && <i className="fa fa-minus" />}
+            {!this.state.expanded && <i className="fa fa-plus" />}
+          </div>
+        </label>
+        <form>
+        </form>
+      </div>
+    );
+  }
+}
+
+class DateFilter extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      expanded: props.expanded || false
+    }
+  }
+  toggle = () => {
+    this.setState({ expanded: !this.state.expanded });
+  }
+  render(){
+
+    return (
+      <div className={`program__publications-filters__filter type ${this.state.expanded ? 'expanded' : ''}`}>
+        <label className="program__publications-filters__filter__heading block bold margin-25" onClick={this.toggle}>
+          Date
+          <div className="icon">
+            {this.state.expanded && <i className="fa fa-minus" />}
+            {!this.state.expanded && <i className="fa fa-plus" />}
+          </div>
+        </label>
+        <form>
+        </form>
+      </div>
+    );
+  }
+}
+
+class TopicFilter extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      expanded: props.expanded || false
+    }
+  }
+  toggle = () => {
+    this.setState({ expanded: !this.state.expanded });
+  }
+  render(){
+    return (
+      <div className={`program__publications-filters__filter type ${this.state.expanded ? 'expanded' : ''}`}>
+        <label className="program__publications-filters__filter__heading block bold margin-25" onClick={this.toggle}>
+          Topics
+          <div className="icon">
+            {this.state.expanded && <i className="fa fa-minus" />}
+            {!this.state.expanded && <i className="fa fa-plus" />}
+          </div>
+        </label>
+        <form>
+        </form>
+      </div>
+    );
+  }
+}
+
 export default class Filters extends Component {
   render(){
     let { program } = this.props;
@@ -57,6 +139,9 @@ export default class Filters extends Component {
     return (
       <div className="program__publications-filters">
         <TypeFilter types={program.content_types} {...this.props} expanded={true} />
+        <ProgramFilter />
+        <DateFilter />
+        <TopicFilter />
       </div>
     )
   }

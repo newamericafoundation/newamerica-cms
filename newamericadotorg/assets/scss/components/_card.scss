@@ -104,6 +104,9 @@
   padding: 15px;
   height: 150px;
   white-space: nowrap;
+  &:first-child {
+    margin-top: 0px;
+  }
   .card__image {
     white-space: normal;
     vertical-align: middle;
