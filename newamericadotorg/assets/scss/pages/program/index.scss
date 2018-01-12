@@ -1,8 +1,64 @@
-@import 'heading';
-@import 'header';
-@import 'program-block';
-@import 'subscribe-block';
-@import 'content-grid';
-@import 'events';
-@import 'mobile-menu';
-@import 'mobile-menu-toggle';
+.program {
+  background: color(beige);
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.program__heading__wrapper{
+  padding-top: 75px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: color(white);
+}
+
+.program__nav {
+  background-color: color(white);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.program__publications-list-load-more {
+  padding-top: 65px;
+  padding-bottom: 65px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: color(black, base, 0.8) !important;
+  }
+}
+
+.program__publications-filters__filter{
+    border-top: 1px solid color(black);
+    padding-bottom: 10px;
+    max-height: 68px;
+    overflow: hidden;
+    @include transition(max-height 0.4s ease-in-out);
+
+    &__heading {
+      cursor: pointer;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid color(black);
+    }
+
+    form {
+      opacity: 0;
+      @include transition(opacity 0.4s ease-in-out);
+    }
+
+    .icon {
+      float: right;
+    }
+
+    &.expanded {
+      max-height: 50vh;
+
+      form {
+        opacity: 1;
+      }
+    }
+}

@@ -7,13 +7,8 @@
 {% block body_class %}template-programhomepage{% endblock %}
 
 {% block content %}
-	<main>
-		{% include 'components/breadcrumbs.html' %}
-		{% include './intro_block.html' %}
-		{% include 'components/react/program-event-list.html' %}
-		{% include 'components/react/program-content-grid.html' %}
-		{% if page.subscriptions.all|length > 0 %}
-			{% include './subscribe_block.html' %}
-		{% endif %}
+	<main class="program container--full-width">
+		{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
+		<div id="compose__program-page" replace-this="true" data-program-id="{% firstof program.id page.id %}"></div>
 	</main>
 {% endblock %}

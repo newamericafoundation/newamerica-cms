@@ -1,10 +1,10 @@
 .button--text{
-  &.border-0 {
-    border-bottom: none;
+  &.with-border {
+    border-bottom: 1.5px solid color(turquoise);
   }
 
   &.with-caret, &.with-caret--right {
-    &:after{
+    &:after {
       content: ' ';
       display: inline-block;
       position: relative;

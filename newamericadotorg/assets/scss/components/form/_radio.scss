@@ -1,0 +1,77 @@
+.radio-button input{
+  position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.radio-button{
+	position: relative;
+	display: block;
+	cursor: pointer;
+  padding-left: 22px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.radio-button__indicator {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 12px;
+	height: 12px;
+	background: color(black, base, 0.3);
+	border-radius: 50%;
+}
+
+/* Hover and focus states */
+.radio-button:hover input ~ .radio-button__indicator,
+.radio-button input:focus ~ .radio-button__indicator {
+	//background: color(black, base, 0.6);
+}
+
+/* Checked state */
+.radio-button input:checked ~ .radio-button__indicator {
+	//background: color(black, base, 1);
+}
+
+/* Hover state whilst checked */
+.radio-button:hover input:not([disabled]):checked ~ .radio-button__indicator
+.radio-button input:checked:focus ~ .radio-button__indicator {
+	background: #0e647d;
+}
+
+/* Disabled state */
+.radio-button input:disabled ~ .radio-button__indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+
+/* Check mark */
+.radio-button__indicator:after {
+	position: absolute;
+	display: none;
+	content: '';
+  top: 6px;
+	left: 6px;
+  width: 0px;
+	height: 0px;
+  @include transition(all 0.15s linear);
+  background: color(black, base, 0);
+  display: block;
+}
+
+/* Radio button inner circle */
+.radio-button input:checked ~ .radio-button__indicator:after {
+	top: 0px;
+	left: 0px;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: color(black, base, 1);
+}
+
+/* Disabled circle colour */
+.radio-button input:disabled ~ .radio-button__indicator:after {
+	background: #7b7b7b;
+}

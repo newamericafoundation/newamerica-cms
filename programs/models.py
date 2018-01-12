@@ -416,6 +416,13 @@ class AbstractContentPage(Page):
     """
     Convenience Class for querying all Content homepages
     """
+
+    def get_context(self, request):
+        context = super(AbstractContentPage, self).get_context(request)
+        context['program'] = self.get_parent()
+
+        return context
+
     class Meta:
         abstract=True
 

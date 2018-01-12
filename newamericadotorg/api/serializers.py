@@ -99,6 +99,7 @@ class ProgramSerializer(ModelSerializer):
         return obj.desktop_program_logo
 
 class ProgramDetailSerializer(ModelSerializer):
+    story_grid = SerializerMethodField()
     description = SerializerMethodField()
     subprograms = SerializerMethodField()
     logo = SerializerMethodField()
@@ -111,10 +112,12 @@ class ProgramDetailSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'description', 'url', 'subprograms', 'slug',
+            'id', 'name', 'story_grid', 'description', 'url', 'subprograms', 'slug',
             'content_types', 'leads', 'features', 'subpages', 'logo', 'topics'
         )
 
+    def get_story_grid(self, obj):
+        return loader.get_template('components/story_grid.html').render({ 'page': obj })
 
     def get_description(self, obj):
         return obj.story_excerpt

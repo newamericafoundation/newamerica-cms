@@ -20,32 +20,27 @@ export const mapStateToProps = (state, { name, baseUrl }) => {
 export const mapDispatchToProps = (dispatch, props) => ({
   setParams: ({ endpoint, query, baseUrl }, eager) => {
     dispatch(setParams(props.name, { endpoint, query, baseUrl }));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
+    if(eager===true) dispatch(fetchData(props.name));
   },
 
   setEndpoint: (endpoint, eager) => {
     dispatch(setEndpoint(props.name, endpoint));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
+    if(eager===true) dispatch(fetchData(props.name));
   },
 
   setQueryParam: (key, value, eager) => {
     dispatch(setQueryParam(props.name, {key, value}));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
+    if(eager===true) dispatch(fetchData(props.name));
   },
 
   setQuery: (query, eager) => {
     dispatch(setQuery(props.name, query));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
+    if(eager===true) dispatch(fetchData(props.name));
   },
 
   setBase: (baseUrl, eager) => {
     dispatch(setBase(props.name, baseUrl));
-    if(eager===false) return;
-    if(props.eager || eager) dispatch(fetchData(props.name));
+    if(eager===true) dispatch(fetchData(props.name));
   },
 
   setFetchingStatus: (status) => {
