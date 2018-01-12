@@ -133,15 +133,31 @@ class TopicFilter extends Component {
 }
 
 export default class Filters extends Component {
+  componentDidMount(){
+    this.reloadScrollEvents();
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.location !== prevProps.location) this.reloadScrollEvents();
+  }
+
+  reloadScrollEvents(){
+    this.props.dispatch({
+      type: 'RELOAD_SCROLL_EVENTS',
+      component: 'site'
+    });
+  }
   render(){
     let { program } = this.props;
 
     return (
-      <div className="program__publications-filters">
-        <TypeFilter types={program.content_types} {...this.props} expanded={true} />
-        <ProgramFilter />
-        <DateFilter />
-        <TopicFilter />
+      <div className="program__publications-filters scroll-target" data-scroll-top-offset="-15">
+        <div className="program__publications-filters__sticky-wrapper">
+          <TypeFilter types={program.content_types} {...this.props} expanded={true} />
+          <ProgramFilter />
+          <DateFilter />
+          <TopicFilter />
+        </div>
       </div>
     )
   }

@@ -20,6 +20,14 @@
   padding-right: 25px;
 }
 
+.program__publications__list-col {
+  padding-right: 0px !important;
+}
+
+.program__publications__filter-col {
+  padding-left: 0px !important;
+}
+
 .program__publications-list-load-more {
   padding-top: 65px;
   padding-bottom: 65px;
@@ -27,6 +35,27 @@
 
   &:hover{
     background-color: color(black, base, 0.8) !important;
+  }
+}
+
+.program__publications-filters.scroll-entered{
+  .program__publications-filters__sticky-wrapper {
+    @include transition(top 0.35s ease-in-out);
+    background: color(beige);
+    position: fixed;
+    top: 15px;
+    width: 277.5px;
+  }
+}
+
+.scroll-reverse .program__publications-filters.scroll-entered .program__publications-filters__sticky-wrapper{
+  top: #{15px + $header-height};
+}
+
+body.scroll-reverse:not(.scroll-disabled){
+  .program__publications-filters.scroll-entered{
+    position: relative;
+    top: -$header-height;
   }
 }
 

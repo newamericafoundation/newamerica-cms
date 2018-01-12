@@ -78,7 +78,7 @@ export default class Publications extends Component{
     let type = program.content_types.find((t)=>(t.slug === slug ));
     return (
       <div className="margin-top-35 row gutter-45">
-        <div className="col-3">
+        <div className="col-3 program__publications__filter-col">
           <Fetch component={Filters} name="programPage.publications"
             endpoint={'post'}
             fetchOnMount={true}
@@ -92,7 +92,7 @@ export default class Publications extends Component{
               page_size: 8
             }}/>
         </div>
-        <div className='col-9'>
+        <div className='col-9 program__publications__list-col'>
           <Response name="programPage.publications" component={PublicationsList}/>
         </div>
       </div>
