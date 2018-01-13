@@ -9,7 +9,7 @@ export default {
   external: [
     'react', 'react-dom', 'prop-types', 'redux', 'react-redux', 'react-router',
     'react-router-dom', 'redux-thunk', 'date-fns', 'vanilla-lazyload', 'whatwg-fetch',
-    'url-polyfill', 'react-transition-group', 'react-slick', 'react-dates'
+    'url-polyfill', 'react-transition-group', 'react-slick', 'react-scrollbar'
   ],
   globals: {
     'url-polyfill': 'URL',
@@ -26,7 +26,7 @@ export default {
     'react-slick': 'Slider',
     'date-fns': 'dateFns',
     'vanilla-lazyload': 'LazyLoad',
-    'react-dates': 'reactDates'
+    'react-scrollbar': 'ScrollArea'
   },
   plugins: [
     replace({

@@ -3,6 +3,7 @@ import { Fetch, Response } from '../../components/API';
 import Filters from './PublicationsFilters';
 import { format as formatDate } from 'date-fns';
 
+  //
 const PublicationListItem = ({ post }) => (
   <div className="card list">
     <a href={post.url}>

@@ -5,7 +5,7 @@ import * as React from 'react';
 import 'whatwg-fetch';
 import 'url-polyfill';
 
-window.React = React;
+window.React = window.react = React;
 
 import composer from './react/index';
 import actions from './react/actions';

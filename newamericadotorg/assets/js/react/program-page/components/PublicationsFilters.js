@@ -1,6 +1,8 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Fetch } from '../../components/API';
+import ScrollArea from 'react-scrollbar';
 
 class Filter extends Component {
   constructor(props){
@@ -10,9 +12,7 @@ class Filter extends Component {
     }
   }
 
-  handleChange = (event) => {
-    // change the router history, not the query param
-  }
+  handleChange = (event) => {}
 
   toggle = () => {
     this.setState({ expanded: !this.state.expanded });
@@ -125,7 +125,9 @@ class TopicFilter extends Filter {
   }
 }
 
-export default class Filters extends Component {
+class Filters extends Component {
+  state = { lastScrollPosition: 0 }
+
   componentDidMount(){
     this.reloadScrollEvents();
   }
@@ -136,10 +138,23 @@ export default class Filters extends Component {
       this.reloadScrollEvents();
       let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
       let type = program.content_types.find((t)=>(t.slug === slug));
-      if(window.scrollY > 300){
-        window.scrollTo(0, 300);
+      if(+document.body.style.top.replace('px', '') < -365){
+        document.body.style.top = '-365px';
+        this.state.lastScrollPosition = 365;
       }
     }
+  }
+
+  disableScroll = () => {
+    this.state.lastScrollPosition = this.props.windowScrollPosition;
+    document.body.classList.add('scroll-disabled');
+    document.body.style.top = -this.state.lastScrollPosition + 'px';
+  }
+
+  enableScroll = () => {
+    document.body.classList.remove('scroll-disabled');
+    document.body.style.top = '';
+    window.scrollTo(0, this.state.lastScrollPosition);
   }
 
   reloadScrollEvents(){
@@ -153,14 +168,27 @@ export default class Filters extends Component {
     let { program } = this.props;
 
     return (
-      <div className="program__publications-filters scroll-target" data-scroll-top-offset="-15">
+      <div className="program__publications-filters scroll-target"
+        data-scroll-top-offset="-15"
+        onMouseEnter={this.disableScroll}
+        onTouchStart={this.disableScroll}
+        onMouseLeave={this.enableScroll}
+        onTouchEnd={this.enableScroll}>
         <div className="program__publications-filters__sticky-wrapper">
-          <TypeFilter types={program.content_types} {...this.props} expanded={true} label="Type"/>
-          <SubprogramFilter subprograms={program.subprograms} {...this.props} label="Subprogram"/>
-          <DateFilter {...this.props} label="Date"/>
-          <TopicFilter {...this.props} label="Topic"/>
+          <ScrollArea className="program__publications-filters__scroll-area">
+            <TypeFilter types={program.content_types} {...this.props} expanded={true} label="Type"/>
+            <SubprogramFilter subprograms={program.subprograms} {...this.props} label="Subprogram"/>
+            <DateFilter {...this.props} label="Date"/>
+            <TopicFilter {...this.props} label="Topic"/>
+          </ScrollArea>
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  windowScrollPosition: state.site.scroll.position
+});
+
+export default connect(mapStateToProps)(Filters);

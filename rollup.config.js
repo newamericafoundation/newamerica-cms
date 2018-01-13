@@ -14,8 +14,6 @@ export default {
   dest: 'newamericadotorg/static/js/newamericadotorg.min.js',
   format: 'iife',
   moduleName: 'newamericadotorg',
-  external: ['react-dates'],
-  globals: { 'react-dates': 'reactDates' },
   // fetch polyfill should happen in window context
   moduleContext: { 'node_modules/whatwg-fetch/fetch.js': 'window' },
   onwarn: function(warn){
