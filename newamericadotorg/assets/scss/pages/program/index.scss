@@ -38,8 +38,8 @@
   }
 }
 
-.program__publications-list{
-  min-height: calc(100vh - #{$header-height + 25px});
+.program__publications__list-col{
+  min-height: calc(100vh - #{$header-height + 30px});
 }
 
 .program__publications-filters{
