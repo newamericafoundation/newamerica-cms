@@ -133,7 +133,9 @@ class Filters extends Component {
   }
 
   componentDidUpdate(prevProps){
-    let { location, program, setQuery } = this.props;
+    let { location, program, setQuery, response } = this.props;
+    // reflow for Chrome
+    if(response.isFetching) void(document.documentElement.offsetHeight);
     if(location !== prevProps.location){
       this.reloadScrollEvents();
       let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
