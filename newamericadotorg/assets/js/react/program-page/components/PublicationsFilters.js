@@ -138,23 +138,27 @@ class Filters extends Component {
       this.reloadScrollEvents();
       let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
       let type = program.content_types.find((t)=>(t.slug === slug));
-      if(+document.body.style.top.replace('px', '') < -365){
-        document.body.style.top = '-365px';
-        this.state.lastScrollPosition = 365;
+      // if(+document.body.style.top.replace('px', '') < -365){
+      //   this.state.lastScrollPosition = 365;
+      //   this.enableScroll();
+      //   this.disableScroll(false);
+      // }
+      if(window.scrollY > 300){
+        window.scrollTo(0, 300);
       }
     }
   }
 
-  disableScroll = () => {
-    this.state.lastScrollPosition = this.props.windowScrollPosition;
-    document.body.classList.add('scroll-disabled');
-    document.body.style.top = -this.state.lastScrollPosition + 'px';
+  disableScroll = (update) => {
+    // if(update !== false) this.state.lastScrollPosition = this.props.windowScrollPosition;
+    // document.body.classList.add('scroll-disabled');
+    // document.body.style.top = -this.state.lastScrollPosition + 'px';
   }
 
   enableScroll = () => {
-    document.body.classList.remove('scroll-disabled');
-    document.body.style.top = '';
-    window.scrollTo(0, this.state.lastScrollPosition);
+    // document.body.classList.remove('scroll-disabled');
+    // document.body.style.top = '';
+    // window.scrollTo(0, this.state.lastScrollPosition);
   }
 
   reloadScrollEvents(){
@@ -165,16 +169,16 @@ class Filters extends Component {
   }
 
   render(){
-    let { program } = this.props;
+    let { program, response } = this.props;
 
     return (
-      <div className="program__publications-filters scroll-target"
+      <div className={`program__publications-filters scroll-target`}
         data-scroll-top-offset="-15"
         onMouseEnter={this.disableScroll}
         onTouchStart={this.disableScroll}
         onMouseLeave={this.enableScroll}
         onTouchEnd={this.enableScroll}>
-        <div className="program__publications-filters__sticky-wrapper">
+        <div className={`program__publications-filters__sticky-wrapper ${response.isFetching ? 'is-fetching' : ''}`}>
           <ScrollArea className="program__publications-filters__scroll-area">
             <TypeFilter types={program.content_types} {...this.props} expanded={true} label="Type"/>
             <SubprogramFilter subprograms={program.subprograms} {...this.props} label="Subprogram"/>

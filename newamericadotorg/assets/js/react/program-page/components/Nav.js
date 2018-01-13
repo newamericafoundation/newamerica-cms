@@ -15,7 +15,7 @@ export default class Nav extends Component {
   render(){
     let { program } = this.props;
     return (
-      <div className="program__nav">
+      <div className="program__nav margin-bottom-35">
         <ul className="inline">
           <NavItem url={`${program.url}about/`} label="About" />
           <NavItem url={`${program.url}publications/`} label="Publications" />

@@ -83,8 +83,14 @@ body.scroll-reverse:not(.scroll-disabled){
 
 .program__publications.scroll-left .program__publications-filters__sticky-wrapper {
   position: absolute !important;
-  bottom: 0 !important;
+  bottom: 0px !important;
   top: auto !important;
+}
+
+.program__publications.scroll-left .program__publications-filters__sticky-wrapper.is-fetching {
+  // for whatever reason, chrome requires me to shift this so the page will append
+  // the publications list correctly
+  bottom: -0.5px !important;
 }
 
 body.scroll-reverse:not(.scroll-disabled) .program__publications.scroll-left .program__publications-filters__sticky-wrapper {

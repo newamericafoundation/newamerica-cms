@@ -44,8 +44,18 @@ class PublicationsList extends Component {
     let { fetchAndAppend, setQueryParam, response } = this.props;
     if(!response.hasNext || response.isFetching) return;
     setQueryParam('page', response.page+1);
-    fetchAndAppend();
+    fetchAndAppend(this.triggerScrollEvents);
   }
+
+  triggerScrollEvents = () => {
+    setTimeout(()=>{
+      this.props.dispatch({
+        type: 'TRIGGER_SCROLL_EVENTS',
+        component: 'site'
+      });
+    });
+  }
+
   render(){
     let { response, fetchAndAppend } = this.props;
     let { results } = response;
@@ -79,7 +89,7 @@ export default class Publications extends Component{
     let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
     let type = program.content_types.find((t)=>(t.slug === slug ));
     return (
-      <div className="program__publications margin-top-35 row gutter-45 scroll-target" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="160">
+      <div className="program__publications row gutter-45 scroll-target" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="115">
         <div className="col-3 program__publications__filter-col">
           <Fetch component={Filters} name="programPage.publications"
             endpoint={'post'}

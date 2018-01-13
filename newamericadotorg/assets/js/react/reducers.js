@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import triggerScrollEvents from '../utils/trigger-scroll-events';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
-  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE,
+  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, TRIGGER_SCROLL_EVENTS, SET_AD_HOC_STATE,
   SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU,
   SET_SITE_BASEURL
 } from './constants';
@@ -19,6 +20,11 @@ const scrollEvents = (state=[], action) => {
       for(let e of state)
         events.push({...e, els: document.querySelectorAll(e.selector)});
       return events;
+    case TRIGGER_SCROLL_EVENTS:
+      // not best redux practice, but easiest way to retrigger scroll events when
+      // there is no scroll is through reducer
+      triggerScrollEvents(window.scrollY, window.scrollY, 'FORWARD', state);
+      return state;
     default:
       return state;
   }
@@ -37,6 +43,7 @@ const scroll = (state={position: 0, direction: 'FORWARD', events: [], isScrollin
     case ADD_SCROLL_EVENT:
     case RELOAD_SCROLL_EVENTS:
     case RELOAD_SCROLL_EVENT:
+    case TRIGGER_SCROLL_EVENTS:
       return { ...state, events: scrollEvents(state.events, action)};
     default:
       return state;

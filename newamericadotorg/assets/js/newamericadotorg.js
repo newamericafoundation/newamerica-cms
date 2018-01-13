@@ -13,7 +13,6 @@ import lazyload from './react/components/LazyLoad';
 
 import addEventListeners from './add-event-listeners';
 import addObservers from './add-observers';
-import triggerScrollEvents from './utils/trigger-scroll-events';
 
 // initialize on ready
 if(document.readyState != 'loading') init();
@@ -23,7 +22,7 @@ function init(){
   addEventListeners();
   addObservers();
   composer.init();
-  triggerScrollEvents(window.scrollY, window.scrollY, 'FORWARD', composer.store.getState().site.scroll.events);
+  actions.triggerScrollEvents();
 }
 
 const newamericadotorg = {

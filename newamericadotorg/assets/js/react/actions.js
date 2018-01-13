@@ -3,7 +3,7 @@ import { getNestedState, smoothScroll } from '../utils/index';
 import store from './store';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
-  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, SET_AD_HOC_STATE, SET_ANY_STATE,
+  RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, TRIGGER_SCROLL_EVENTS, SET_AD_HOC_STATE, SET_ANY_STATE,
   SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU, SET_SITE_BASEURL
 } from './constants';
 
@@ -104,6 +104,14 @@ class Actions {
       event
     });
 
+    return this;
+  }
+
+  triggerScrollEvents = () => {
+    store.dispatch({
+      type: TRIGGER_SCROLL_EVENTS,
+      component: 'site'
+    });
     return this;
   }
 
