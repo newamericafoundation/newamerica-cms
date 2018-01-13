@@ -38,18 +38,29 @@
   }
 }
 
+.program__publications-filters{
+  position: relative;
+  height: 100%;
+  min-height: 600px;
+}
+
+.program__publications-filters__sticky-wrapper {
+  height: 560px;
+  overflow-y: scroll;
+  background: color(beige);
+}
+
 .program__publications-filters.scroll-entered{
   .program__publications-filters__sticky-wrapper {
     @include transition(top 0.35s ease-in-out);
-    background: color(beige);
     position: fixed;
     top: 15px;
     width: 277.5px;
   }
 }
 
-.scroll-reverse .program__publications-filters.scroll-entered .program__publications-filters__sticky-wrapper{
-  top: #{15px + $header-height};
+body.scroll-reverse .program__publications-filters.scroll-entered .program__publications-filters__sticky-wrapper{
+  top: #{$header-height + 15px};
 }
 
 body.scroll-reverse:not(.scroll-disabled){
@@ -57,6 +68,16 @@ body.scroll-reverse:not(.scroll-disabled){
     position: relative;
     top: -$header-height;
   }
+}
+
+.program__publications.scroll-left .program__publications-filters__sticky-wrapper {
+  position: absolute !important;
+  bottom: 0 !important;
+  top: auto !important;
+}
+
+body.scroll-reverse .program__publications.scroll-left .program__publications-filters__sticky-wrapper {
+  bottom: -#{$header-height - 1px} !important;
 }
 
 .program__publications-filters__filter{
@@ -84,7 +105,7 @@ body.scroll-reverse:not(.scroll-disabled){
     }
 
     &.expanded {
-      max-height: 50vh;
+      max-height: 75vh;
 
       form {
         opacity: 1;

@@ -26,7 +26,7 @@ const PublicationListItem = ({ post }) => (
         ))}
       </label>
       <a href={post.url}>
-        <label className="card__text__program caption margin-bottom-0 block">{post.programs[0].name}</label>
+        <label className="card__text__program caption margin-bottom-0 block">{post.programs[0].name} {post.content_type.title}</label>
       </a>
     </div>
   </div>
@@ -74,10 +74,11 @@ export default class Publications extends Component{
 
   render(){
     let { program, history, location } = this.props;
+    let params = new URLSearchParams(location.search.replace('?', ''));
     let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
     let type = program.content_types.find((t)=>(t.slug === slug ));
     return (
-      <div className="margin-top-35 row gutter-45">
+      <div className="program__publications margin-top-35 row gutter-45 scroll-target" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="160">
         <div className="col-3 program__publications__filter-col">
           <Fetch component={Filters} name="programPage.publications"
             endpoint={'post'}
@@ -89,6 +90,7 @@ export default class Publications extends Component{
               program_id: program.id,
               image_rendition: 'max-300x240',
               content_type: type ? type.api_name : '',
+              subprogram_id: params.get('subprogramId') || '',
               page_size: 8
             }}/>
         </div>
