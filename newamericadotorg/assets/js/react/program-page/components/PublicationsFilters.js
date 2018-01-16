@@ -67,7 +67,7 @@ class TypeFilter extends Filter {
 
 class SubprogramFilter extends Filter {
   handleChange = (event) => {
-    let { setQueryParam, history, location, program } = this.props;
+    let { setQuery, history, location, program } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
 
     if(event.target.value == '') {
@@ -77,7 +77,10 @@ class SubprogramFilter extends Filter {
     }
 
     history.push(`${location.pathname}?${params.toString()}`);
-    setQueryParam('subprogram_id', event.target.value, true);
+    setQuery({
+      subprogram_id: event.target.value,
+      page: 1,
+    }, true);
 
   }
 
