@@ -33,8 +33,8 @@ const PublicationListItem = ({ post }) => (
   </div>
 );
 
-const LoadingDots = ({ color=black }) => (
-  <label className="button--text loading-dots centered white block">
+const LoadingDots = ({ color='black' }) => (
+  <label className={`button--text loading-dots centered ${color} block`}>
     <span>.</span><span>.</span><span>.</span>
   </label>
 );
@@ -43,12 +43,14 @@ class PublicationsList extends Component {
   loadMore = () => {
     let { fetchAndAppend, setQueryParam, response } = this.props;
     if(!response.hasNext || response.isFetching) return;
+    this.isLoadingMore = true;
     setQueryParam('page', response.page+1);
     fetchAndAppend(this.triggerScrollEvents);
   }
 
   triggerScrollEvents = () => {
     setTimeout(()=>{
+      this.isLoadingMore = false;
       this.props.dispatch({
         type: 'TRIGGER_SCROLL_EVENTS',
         component: 'site'
@@ -58,12 +60,23 @@ class PublicationsList extends Component {
 
   render(){
     let { response, fetchAndAppend } = this.props;
-    let { results } = response;
+    let { results, isFetching, hasNext } = response;
     if(results.length===0){
       return (
         <label className="bold block centered">No results found</label>
       );
     }
+
+    if(isFetching && !this.isLoadingMore){
+      return (
+        <div className="program__publications-list-wrapper">
+          <div className="program__publications-list margin-top-60">
+              <LoadingDots />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="program__publications-list-wrapper">
         <div className="program__publications-list">
@@ -71,17 +84,17 @@ class PublicationsList extends Component {
               <PublicationListItem post={post} />
             ))}
         </div>
-        {response.hasNext &&
+        {hasNext &&
         <div className="program__publications-list-load-more container black margin-top-10" onClick={this.loadMore}>
-          {!response.isFetching && <label className="button--text centered white">Load More</label>}
-          {response.isFetching && <LoadingDots color="white" />}
+          {!isFetching && <label className="button--text centered white">Load More</label>}
+          {isFetching && <LoadingDots color="white" />}
         </div>}
       </div>
     );
   }
 }
 
-export default class Publications extends Component{
+export default class Publications extends Component {
 
   render(){
     let { program, history, location } = this.props;

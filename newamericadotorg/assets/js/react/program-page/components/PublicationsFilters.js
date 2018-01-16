@@ -126,7 +126,7 @@ class TopicFilter extends Filter {
 }
 
 class Filters extends Component {
-  state = { lastScrollPosition: 0 }
+  state = { lastScrollPosition: 0, isLoadingMore: true }
 
   componentDidMount(){
     this.reloadScrollEvents();
@@ -134,8 +134,7 @@ class Filters extends Component {
 
   componentDidUpdate(prevProps){
     let { location, program, setQuery, response } = this.props;
-    // reflow for Chrome
-    if(response.isFetching) void(document.documentElement.offsetHeight);
+
     if(location !== prevProps.location){
       this.reloadScrollEvents();
       let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
@@ -148,14 +147,16 @@ class Filters extends Component {
           page: 1
         }, true);
       }
+
+      if(window.scrollY > 300){
+        window.scrollTo(0, 300);
+      }
       // if(+document.body.style.top.replace('px', '') < -365){
       //   this.state.lastScrollPosition = 365;
       //   this.enableScroll();
       //   this.disableScroll(false);
       // }
-      if(window.scrollY > 300){
-        window.scrollTo(0, 300);
-      }
+
     }
   }
 
