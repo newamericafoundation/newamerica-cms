@@ -18,12 +18,12 @@ class ProgramPage extends Component {
         <Router>
           <div className="">
             <Heading program={results} />
-            <Nav program={results}/>
+            <Route path='/:program/:subpage?' render={(props)=>(<Nav {...props} program={results}/>)}/>
             <Switch>
-              <Route path='/:program' exact render={()=>(<StoryGrid story_grid={results.story_grid} />)} />
-              <Route path='/:program/publications' render={(props)=>( <Publications {...props} program={results} /> )} />
+              <Route path='/:program/' exact render={()=>(<StoryGrid story_grid={results.story_grid} />)} />
+              <Route path='/:program/publications/' render={(props)=>( <Publications {...props} program={results} /> )} />
               {results.content_types.map((c,i)=>(
-                <Route path={`/:program/${c.slug}`} render={(props)=>( <Publications {...props} program={results} /> )} />
+                <Route path={`/:program/${c.slug}/`} render={(props)=>( <Publications {...props} program={results} /> )} />
               ))}
             </Switch>
           </div>

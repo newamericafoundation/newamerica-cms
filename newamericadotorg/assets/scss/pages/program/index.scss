@@ -18,6 +18,10 @@
   padding-bottom: 15px;
   padding-left: 25px;
   padding-right: 25px;
+
+  &.active .program__nav__link:not(.active) {
+    color: color(black, base, 0.3);
+  }
 }
 
 .program__publications__list-col {
