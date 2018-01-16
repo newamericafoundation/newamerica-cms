@@ -140,6 +140,14 @@ class Filters extends Component {
       this.reloadScrollEvents();
       let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
       let type = program.content_types.find((t)=>(t.slug === slug));
+      // click on publications link in nav:
+      if(slug=='publications' && location.search==''){
+        setQuery({
+          content_type: '',
+          subprogram_id: '',
+          page: 1
+        }, true);
+      }
       // if(+document.body.style.top.replace('px', '') < -365){
       //   this.state.lastScrollPosition = 365;
       //   this.enableScroll();

@@ -104,13 +104,17 @@
   padding: 15px;
   height: 150px;
   white-space: nowrap;
-  
+
   .card__image {
     white-space: normal;
     vertical-align: middle;
     display: inline-block;
     width: 150px;
     height: 120px;
+
+    &.no-image {
+      width: 0px;
+    }
   }
 
   .card__text{
