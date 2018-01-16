@@ -113,7 +113,18 @@
     height: 120px;
 
     &.no-image {
-      width: 0px;
+      background-color: color(black, base, 0.15);
+      position: relative;
+      &:after {
+        content: '\f1ea';
+        @include center;
+        font-size: 3rem;
+        font-weight: normal;
+        position: absolute;
+        color: color(black, base, 0.075);
+        font-family: 'fontawesome';
+
+      }
     }
   }
 
