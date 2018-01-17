@@ -1,14 +1,1 @@
-{% extends "base.html" %}
-
-{% load wagtailcore_tags %}
-{% load wagtailcore_tags wagtailimages_tags %}
-
-{% block body_class %}template-issueortopicpage{% endblock %}
-
-{% block content %}
-	{% if parent_topic %}
-		<main class="topics-wrapper">
-			{% include 'components/react/topics.html' with parent_topic_id=parent_topic.id %}
-		</main>
-	{% endif %}
-{% endblock %}
+{% extends "programs/program.html" %}

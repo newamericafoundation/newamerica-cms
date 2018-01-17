@@ -10,6 +10,8 @@ import About from './components/About';
 import Events from './components/Events';
 import StoryGrid from './components/StoryGrid';
 import People from './components/People';
+import {TopicsList, Topic} from './components/Topics';
+
 class ProgramPage extends Component {
   render(){
     let { response: { results }, programId } = this.props;
@@ -24,6 +26,10 @@ class ProgramPage extends Component {
               <Route path='/:program/about' render={()=>(<About about={results.about} />)} />
               <Route path='/:program/our-people/' render={(props)=>(<People {...props} program={results} /> )} />
               <Route path='/:program/events/' render={(props)=>(<Events {...props} program={results} /> )} />
+              <Route path='/:program/topics/' exact render={(props)=>(<TopicsList {...props} program={results} /> )} />
+              {results.topics.map((t,i)=>(
+                <Route path={`/:program/topics/${t.slug}`} exact render={(props)=>(<Topic {...props} program={results} />)} />
+              ))}
               <Route path='/:program/publications/' render={(props)=>(<Publications {...props} program={results} /> )} />
               {results.content_types.map((c,i)=>(
                 <Route path={`/:program/${c.slug}/`} render={(props)=>(<Publications {...props} program={results} /> )} />

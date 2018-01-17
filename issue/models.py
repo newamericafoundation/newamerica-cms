@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from modelcluster.fields import ParentalKey
-from programs.models import Program, Subprogram, AbstractProgram
+from programs.models import Program, Subprogram, AbstractProgram, AbstractContentPage
 
 from home.models import Post, ProgramSimplePage
 
@@ -11,7 +11,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, PageChooserPanel
 
 from programs.models import Program
 
-class TopicHomePage(Page):
+class TopicHomePage(AbstractContentPage):
     parent_page_types = ['programs.Program', 'home.HomePage']
     subpage_types = ['IssueOrTopic']
 
