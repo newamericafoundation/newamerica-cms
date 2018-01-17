@@ -1,6 +1,6 @@
 import {
   fetchData, fetchAndAppend, fetchAndPrepend, setEndpoint, setQueryParam, setParams,
-  setQuery, setBase, receiveResults, setFetchingStatus
+  setQuery, resetQuery, setBase, receiveResults, setFetchingStatus
 } from '../actions';
 import { BASEURL } from '../constants';
 import getNestedState from '../../../utils/get-nested-state';
@@ -35,6 +35,11 @@ export const mapDispatchToProps = (dispatch, props) => ({
 
   setQuery: (query, eager) => {
     dispatch(setQuery(props.name, query));
+    if(eager===true) dispatch(fetchData(props.name));
+  },
+
+  resetQuery: (query, eager) => {
+    dispatch(resetQuery(props.name, query));
     if(eager===true) dispatch(fetchData(props.name));
   },
 

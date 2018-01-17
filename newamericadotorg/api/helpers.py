@@ -39,7 +39,7 @@ programpage_contenttype_map = {
 def generate_image_url(image, filter_spec=None):
     if not filter_spec:
         return image.file.url
-    # return None;
+    return None;
     img = CustomImage.objects.get(pk=image.id);
     if not image:
         return image.file.url

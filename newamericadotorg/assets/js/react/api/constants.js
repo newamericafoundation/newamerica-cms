@@ -2,6 +2,7 @@ export const BASEURL = `${window.location.origin}/api/`;
 export const SET_PARAMS = 'SET_PARAMS';
 export const SET_QUERY_PARAM = 'SET_QUERY_PARAM';
 export const SET_QUERY = 'SET_QUERY';
+export const RESET_QUERY = 'RESET_QUERY';
 export const SET_ENDPOINT = 'SET_ENDPOINT';
 export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
 export const RECEIVE_AND_APPEND_RESULTS = 'RECEIVE_AND_APPEND_RESULTS';

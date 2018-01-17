@@ -10,11 +10,12 @@ class Fetch extends Component {
   hasLoaded = false;
   componentWillMount(){
     let {
-      setParams, receiveResults, endpoint,
+      setEndpoint, resetQuery, receiveResults, endpoint,
       initialQuery, clear, fetchData, fetchOnMount
     } = this.props;
 
-    setParams({ endpoint, query: initialQuery }, false);
+    setEndpoint(endpoint);
+    resetQuery(initialQuery);
 
     if(clear){
       receiveResults([]);
@@ -25,9 +26,10 @@ class Fetch extends Component {
   }
 
   componentDidUpdate(prevProps){
-    let { fetchData, setParams, endpoint, initialQuery, fetchOnMount } = this.props;
+    let { fetchData, setEndpoint, resetQuery, endpoint, initialQuery, fetchOnMount } = this.props;
     if( !Object.is(prevProps.endpoint, endpoint) ){
-      setParams({ endpoint, query: initialQuery }, false);
+      setEndpoint(endpoint);
+      resetQuery(initialQuery);
       if(fetchOnMount) fetchData();
     }
   }
