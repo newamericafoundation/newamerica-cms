@@ -212,7 +212,7 @@ label {
     font-style: italic;
   }
 
-  &.with-seperator {
+  &.with-seperator, &.with-separator {
     &:after{
       content: '|';
       display: inline;
@@ -230,10 +230,6 @@ label {
     text-decoration: inherit;
     color: inherit;
     font-weight: inherit;
-  }
-
-  a {
-    display: block;
   }
 }
 

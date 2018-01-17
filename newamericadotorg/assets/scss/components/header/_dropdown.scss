@@ -38,6 +38,10 @@
       display: none;
     }
 
+    a {
+      display: block;
+    }
+
     &.wide{
       width: 800px;
       @include horizontal-center;
@@ -79,7 +83,7 @@
         border-right: 1px solid $dropdown-border-color;
         background: $dropdown-background-color;
       }
-      
+
       &:not(.no-drop):before{
         height: calc(100% + 1px);
       }
@@ -88,7 +92,7 @@
         position: relative;
         z-index: 1;
       }
-      
+
       &:not(.no-drop):after{
         border-right: 1px solid $link-text-color;
         border-bottom: 1px solid $link-text-color;

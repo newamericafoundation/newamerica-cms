@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Fetch } from '../../components/API';
 import ScrollArea from 'react-scrollbar';
 
-class Filter extends Component {
+export class Filter extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -195,7 +195,7 @@ class Filters extends Component {
         <div className={`program__publications-filters__sticky-wrapper ${response.isFetching ? 'is-fetching' : ''}`}>
           <ScrollArea className="program__publications-filters__scroll-area">
             <TypeFilter types={program.content_types} {...this.props} expanded={true} label="Type"/>
-            {program.subprograms.length > 0 && 
+            {program.subprograms.length > 0 &&
             <SubprogramFilter subprograms={program.subprograms} {...this.props} label="Subprogram"/>}
             <DateFilter {...this.props} label="Date"/>
             {program.topics.length > 0 &&

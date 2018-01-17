@@ -307,7 +307,8 @@ class EventSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         if obj.story_image:
-            return generate_image_url(obj.story_image, 'fill-290x435')
+            rendition = self.context['request'].query_params.get('image_rendition', None)
+            return generate_image_url(obj.story_image, rendition)
 
     def get_programs(self, obj):
         return PostProgramSerializer(obj.parent_programs, many=True).data

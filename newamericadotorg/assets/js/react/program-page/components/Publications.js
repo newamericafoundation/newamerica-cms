@@ -16,6 +16,7 @@ const PublicationListItem = ({ post }) => (
         <label className="card__text__date margin-top-0 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>
         <label className="card__text__title bold block">{post.title}</label>
       </a>
+      {post.authors &&
       <label className="card__text__description subtitle block">
         {post.authors.map((a, i)=>(
           <span>
@@ -25,21 +26,23 @@ const PublicationListItem = ({ post }) => (
             }
           </span>
         ))}
-      </label>
+      </label>}
       <a href={post.url}>
-        <label className="card__text__program caption margin-bottom-0 block">{post.programs[0].name} {post.content_type.title}</label>
+        <label className="card__text__program caption margin-bottom-0 block">
+          {post.programs[0].name} {post.content_type ? post.content_type.title : ''}
+        </label>
       </a>
     </div>
   </div>
 );
 
-const LoadingDots = ({ color='black' }) => (
+export const LoadingDots = ({ color='black' }) => (
   <label className={`button--text loading-dots centered ${color} block`}>
     <span>.</span><span>.</span><span>.</span>
   </label>
 );
 
-class PublicationsList extends Component {
+export class PublicationsList extends Component {
   loadMore = () => {
     let { fetchAndAppend, setQueryParam, response } = this.props;
     if(!response.hasNext || response.isFetching) return;
@@ -61,7 +64,7 @@ class PublicationsList extends Component {
   render(){
     let { response, fetchAndAppend } = this.props;
     let { results, isFetching, hasNext } = response;
-    if(results.length===0){
+    if(results.length===0 && !isFetching){
       return (
         <label className="bold block centered">No results found</label>
       );

@@ -4,6 +4,21 @@
     padding-bottom: 72.857%;
   }
 
+  .card__image.no-image {
+    background-color: color(black, base, 0.15);
+    position: relative;
+
+    &:after{
+      content: '\f073';
+      font-family: 'FontAwesome';
+      position: absolute;
+      @include center;
+      color: color(black, base, 0.075);
+      font-weight: normal;
+      font-size: 3rem;
+    }
+  }
+
   .card__text{
     height: 230px;
   }

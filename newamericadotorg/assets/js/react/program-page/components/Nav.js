@@ -21,6 +21,7 @@ export default class Nav extends Component {
           <NavItem url={`${program.url}about/`} label="About"/>
           <NavItem url={`${program.url}publications/`} label="Publications" active={program.content_types.find((c)=>(c.slug===subpage))}/>
           <NavItem url={`${program.url}our-people/`} label="Our People"/>
+          <NavItem url={`${program.url}events/`} label="Events"/>
         </ul>
       </div>
     );

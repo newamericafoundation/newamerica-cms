@@ -189,7 +189,7 @@ class EventList(generics.ListAPIView):
         ids = self.request.query_params.getlist('id[]', None)
         time_period = self.request.query_params.get('time_period', None)
         events = Event.objects.live().distinct()
-        print time_period
+
         if time_period:
             today = localtime(now()).date()
             if time_period=='future':
