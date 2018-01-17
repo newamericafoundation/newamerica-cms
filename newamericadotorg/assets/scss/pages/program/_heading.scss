@@ -1,36 +1,7 @@
-.program-heading{
-  margin-top: 50px;
-  margin-bottom: 50px;
-  @include media-breakpoint-down(tablet){
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  &__heading, &__dummy-heading{
-    margin-top: 25px;
-    margin-bottom: 5px;
-    width: 100%;
-  }
-
-  &__button-wrapper{
-    display: block;
-    margin: 15px 0;
-    @include media-breakpoint(desktop){
-      display: inline-block;
-    }
-  }
-
-  &__button{
-    font-size: 0.7em;
-  }
-
-  &__dummy-heading{
-    display: none;
-  }
-}
-
-.program-heading.scroll-entered{
-  .program-heading__dummy-heading{
-    display: block;
-  }
+.program__heading__wrapper{
+  padding-top: 75px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: color(white);
 }

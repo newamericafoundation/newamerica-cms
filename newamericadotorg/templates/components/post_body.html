@@ -4,7 +4,9 @@
   <label class="post-body__source">Media Outlet: {{ page.source }} </label>
 {% endif %}
 
+{% if page.date %}
 <label class="post-body__date lg">{{ page.date }}</label>
+{% endif %}
 
 {% for block in page.body %}
   {% if block.block_type == "inline_image" %}

@@ -102,7 +102,7 @@ export default class Publications extends Component {
     let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
     let type = program.content_types.find((t)=>(t.slug === slug ));
     return (
-      <div className="program__publications row gutter-45 scroll-target" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="65">
+      <div className="program__publications row gutter-45 scroll-target margin-top-35" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="65">
         <div className="col-3 program__publications__filter-col">
           <Fetch component={Filters} name="programPage.publications"
             endpoint={'post'}

@@ -16,7 +16,7 @@ export default class Nav extends Component {
     let { program, match } = this.props;
     let subpage = match.params.subpage;
     return (
-      <div className={`program__nav margin-bottom-35 ${subpage ? 'active' : ''}`}>
+      <div className={`program__nav ${subpage ? 'active' : ''}`}>
         <ul className="inline">
           <NavItem url={`${program.url}about/`} label="About"/>
           <NavItem url={`${program.url}publications/`} label="Publications" active={program.content_types.find((c)=>(c.slug===subpage))}/>

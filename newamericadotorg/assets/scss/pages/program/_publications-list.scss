@@ -1,0 +1,18 @@
+.program__publications__list-col {
+  padding-right: 0px !important;
+  min-height: calc(100vh - #{$header-height + 30px});
+
+  .card.list:first-child{
+    margin-top: 0;
+  }
+}
+
+.program__publications-list-load-more {
+  padding-top: 65px;
+  padding-bottom: 65px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: color(black, base, 0.8) !important;
+  }
+}

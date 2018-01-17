@@ -6,7 +6,6 @@
 .post-body {
   $media-padding: 20px;
   $media-default-aspect: 1;
-  padding-top: 15px;
   // padding-top:$desktop-padding;
   margin-bottom: $desktop-padding;
   font-size: 18px;
@@ -15,6 +14,11 @@
     @include flex-order(2);
   }
 
+  & > [class^='block-']:first-child {
+    *:first-child {
+      margin-top: 0;
+    }
+  }
   &__date {
     padding-bottom: 15px;
   }

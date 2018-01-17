@@ -1,0 +1,49 @@
+.program__publications-filters__sticky-wrapper {
+  height: calc(100vh - #{$header-height + 30px});
+  min-height: 562px;
+  width: 277.5px;
+  overflow: hidden;
+  background: color(beige);
+}
+
+.program__publications-filters.scroll-entered
+.program__publications-filters__sticky-wrapper {
+  @include transition(top 0.35s ease-in-out);
+  position: fixed;
+  top: 15px;
+}
+
+body.scroll-reverse:not(.scroll-disabled)
+.program__publications-filters.scroll-entered
+.program__publications-filters__sticky-wrapper{
+  top: #{$header-height + 15px};
+}
+
+body.scroll-reverse:not(.scroll-disabled)
+.program__publications-filters.scroll-entered{
+  position: relative;
+  top: -$header-height;
+}
+
+.program__publications.scroll-left
+.program__publications-filters__sticky-wrapper {
+  position: absolute !important;
+  top: auto !important;
+  bottom: 0 !important;
+}
+
+
+body.scroll-reverse:not(.scroll-disabled)
+.program__publications.scroll-left
+.program__publications-filters__sticky-wrapper {
+  bottom: -#{$header-height} !important;
+}
+
+.program__publications.scroll-left
+.program__publications-filters__sticky-wrapper.is-fetching {
+  // for whatever reason, i have to switch out positioning so chrome can add publications
+  // while this is stuck to bottom
+  position: relative !important;
+  bottom: -100% !important;
+  @include transform(translateY(-100%));
+}
