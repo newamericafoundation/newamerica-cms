@@ -108,12 +108,13 @@ class ProgramDetailSerializer(ModelSerializer):
     features = SerializerMethodField()
     subpages = SerializerMethodField()
     topics = SerializerMethodField()
+    about = SerializerMethodField()
 
     class Meta:
         model = Program
         fields = (
             'id', 'name', 'story_grid', 'description', 'url', 'subprograms', 'slug',
-            'content_types', 'leads', 'features', 'subpages', 'logo', 'topics'
+            'content_types', 'leads', 'features', 'subpages', 'logo', 'topics', 'about'
         )
 
     def get_story_grid(self, obj):
@@ -154,6 +155,9 @@ class ProgramDetailSerializer(ModelSerializer):
 
     def get_subpages(self, obj):
         return get_subpages(obj)
+
+    def get_about(self, obj):
+        return loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
 
 
 class SubprogramProgramSerializer(ModelSerializer):

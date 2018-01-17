@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import { NAME, ID } from './constants';
 import { Fetch } from '../components/API';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
