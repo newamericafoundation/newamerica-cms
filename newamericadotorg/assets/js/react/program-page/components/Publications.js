@@ -118,7 +118,8 @@ export default class Publications extends Component {
               image_rendition: 'max-300x240',
               content_type: type ? type.api_name : '',
               subprogram_id: params.get('subprogramId') || '',
-              page_size: 8
+              page_size: 8,
+              page: 1
             }}/>
         </div>
         <div className='col-9 program__publications__list-col'>

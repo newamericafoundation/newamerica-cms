@@ -200,6 +200,8 @@ export default class Events extends Component {
           program_id: program.id,
           time_period: period,
           page_size: 6,
+          page: 1,
+          subprogram_id: '',
           image_rendition: period=='future' ? 'min-700x510' : 'max-300x240'
         }}/>
     );
