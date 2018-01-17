@@ -11,7 +11,7 @@ from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, AbstractContentPage
 
 from newamericadotorg.helpers import paginate_results
 
@@ -300,7 +300,7 @@ class ExpertPage(Page):
         ImageChooserPanel('story_image'),
     ]
 
-class ProgramPeoplePage(Page):
+class ProgramPeoplePage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and returns
     everyone from the Person model for a specific program or Subprogram

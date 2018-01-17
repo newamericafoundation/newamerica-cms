@@ -1,0 +1,37 @@
+.card.list {
+  padding: 15px;
+  height: 150px;
+  white-space: nowrap;
+
+  .card__image {
+    white-space: normal;
+    vertical-align: middle;
+    display: inline-block;
+    width: 150px;
+    height: 120px;
+
+    &.no-image {
+      background-color: color(black, base, 0.15);
+      position: relative;
+      &:after {
+        content: '\f1ea';
+        @include center;
+        font-size: 3rem;
+        font-weight: normal;
+        position: absolute;
+        color: color(black, base, 0.075);
+        font-family: 'fontawesome';
+
+      }
+    }
+  }
+
+  .card__text{
+    white-space: normal;
+    vertical-align: middle;
+    display: inline-block;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-width: calc(100% - 200px);
+  }
+}

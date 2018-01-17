@@ -1,0 +1,14 @@
+.card .highlights__highlight{
+  background: color(white);
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+    .card__text__title {
+      color: color(black, base, 0.55);
+    }
+  }
+}

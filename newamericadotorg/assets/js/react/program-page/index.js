@@ -8,7 +8,7 @@ import Nav from './components/Nav';
 import Heading from './components/Heading';
 import About from './components/About';
 import StoryGrid from './components/StoryGrid';
-
+import People from './components/People';
 class ProgramPage extends Component {
   render(){
     let { response: { results }, programId } = this.props;
@@ -21,10 +21,11 @@ class ProgramPage extends Component {
             <Route path='/:program/:subpage?' render={(props)=>(<Nav {...props} program={results}/>)}/>
             <Switch>
               <Route path='/:program/' exact render={()=>(<StoryGrid story_grid={results.story_grid} />)} />
-              <Route path='/:program/about' exact render={()=>(<About about={results.about} />)} />
-              <Route path='/:program/publications/' render={(props)=>( <Publications {...props} program={results} /> )} />
+              <Route path='/:program/about' render={()=>(<About about={results.about} />)} />
+              <Route path='/:program/our-people/' render={(props)=>(<People {...props} program={results} /> )} />
+              <Route path='/:program/publications/' render={(props)=>(<Publications {...props} program={results} /> )} />
               {results.content_types.map((c,i)=>(
-                <Route path={`/:program/${c.slug}/`} render={(props)=>( <Publications {...props} program={results} /> )} />
+                <Route path={`/:program/${c.slug}/`} render={(props)=>(<Publications {...props} program={results} /> )} />
               ))}
             </Switch>
           </div>

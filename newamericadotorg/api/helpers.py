@@ -1,5 +1,6 @@
 from home.models import Post, HomePage, CustomImage
 from programs.models import Program, Subprogram, AbstractContentPage, PublicationsPage
+from person.models import ProgramPeoplePage
 from home.models import Post
 from issue.models import IssueOrTopic
 
@@ -38,7 +39,7 @@ programpage_contenttype_map = {
 def generate_image_url(image, filter_spec=None):
     if not filter_spec:
         return image.file.url
-    return None;
+    #return None;
     img = CustomImage.objects.get(pk=image.id);
     if not image:
         return image.file.url
@@ -72,7 +73,7 @@ def get_program_content_types(program):
     else:
         page = Page.objects.get(pk=program)
 
-    children = page.get_children().type(AbstractContentPage).not_type(PublicationsPage)
+    children = page.get_children().type(AbstractContentPage).not_type(PublicationsPage).not_type(ProgramPeoplePage)
 
     content_types = []
     for c in children:

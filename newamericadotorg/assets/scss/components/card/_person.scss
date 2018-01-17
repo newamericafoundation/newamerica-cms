@@ -1,0 +1,40 @@
+.card.person{
+  height: 160px;
+  padding: 20px;
+
+  .card__text, .card__image{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .card__text{
+    padding-top: 0;
+    padding-bottom: 0;
+    width: calc(100% - 170px);
+  }
+
+  .card__image{
+    width: 120px;
+    height: 120px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+    }
+
+    &.no-image{
+      background-color: color(black, base, 0.15);
+      position: relative;
+      &:after{
+        position: absolute;
+        @include center;
+        font-family: 'FontAwesome';
+        color: color(black, base, 0.075);
+        font-size: 3rem;
+        content: '\f007';
+      }
+    }
+  }
+}
