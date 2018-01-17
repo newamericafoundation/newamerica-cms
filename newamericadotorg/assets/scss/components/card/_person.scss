@@ -30,6 +30,7 @@
       &:after{
         position: absolute;
         @include center;
+        font-weight: normal;
         font-family: 'FontAwesome';
         color: color(black, base, 0.075);
         font-size: 3rem;

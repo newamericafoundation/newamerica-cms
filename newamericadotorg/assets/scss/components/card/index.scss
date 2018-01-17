@@ -32,7 +32,7 @@
     }
   }
 
-  &.lg, &.md, &.sm, &.event, &.list {
+  &:not(.highlight) {
     position: relative;
     top: 0;
 

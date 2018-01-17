@@ -9,7 +9,7 @@ const Person = ({ person }) => (
           <img src={person.profile_image} />}
       </div>
       <div className="card__text">
-        <h3>{person.first_name} {person.last_name}</h3>
+        <h3 className="card__text__title">{person.first_name} {person.last_name}</h3>
         <label className="caption block">{person.position}</label>
       </div>
     </a>
