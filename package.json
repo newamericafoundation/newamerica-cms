@@ -17,7 +17,8 @@
     "watch:css": "watch 'npm run build:css' newamericadotorg/assets/scss --interval=1",
     "build:css": "node-sass --include-path='node_modules' --include-path=newamericadotorg/assets/scss/settings/development --include-path='newamericadotorg/assets/scss' newamericadotorg/assets/scss/all.scss newamericadotorg/static/css/newamericadotorg.css",
     "build:production": "NODE_ENV=production rollup -c",
-    "heroku-postbuild": "npm run build:production && npm run build:standalone-js"
+    "heroku-postbuild": "npm run build:production && npm run build:standalone-js",
+    "brew": "brew install cairo && brew install pango"
   },
   "repository": {
     "type": "git",

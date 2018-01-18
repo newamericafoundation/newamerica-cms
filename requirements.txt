@@ -65,7 +65,6 @@ pexpect==4.0.1
 pickleshare==0.6
 Pillow==3.4.2
 ply==3.8
-psycopg2==2.6
 ptyprocess==0.5.1
 pyasn1==0.1.9
 pyelasticsearch==0.6.1
@@ -105,7 +104,8 @@ Wand==0.4.4
 logdna==1.0.2
 django-cors-headers==1.2.2
 django-anymail==0.10
-createsend==4.2.1
+createsend==4.2.7
 python-docx==0.8.6
 cffi==1.11.2
 WeasyPrint==0.41
+psycopg2==2.7.3.2
