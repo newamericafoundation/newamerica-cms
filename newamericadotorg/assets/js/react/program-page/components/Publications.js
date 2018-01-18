@@ -98,6 +98,9 @@ export class PublicationsList extends Component {
 }
 
 export default class Publications extends Component {
+  componentWillMount(){
+    if(window.scrollY > 400) window.scrollTo(0, 0);
+  }
 
   render(){
     let { program, history, location } = this.props;

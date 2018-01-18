@@ -35,7 +35,7 @@ class ProgramPage extends Component {
     return (
       <div className="container">
         <Router>
-          <div className="">
+          <div className="program__content">
             <Heading program={results} />
             <Route path='/:program/:subpage?' render={(props)=>(<Nav {...props} program={results}/>)}/>
             <Route path='/:program/' exact render={()=>(<StoryGrid story_grid={results.story_grid} />)} />

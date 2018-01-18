@@ -37,7 +37,7 @@ const Separator = ({ text }) => (
 
 class PublicationsList extends Component {
   render(){
-    let { response: { results, hasNext }, topic} = this.props;
+    let { response: { results, hasNext }, topic, program } = this.props;
     if(results.length===0) return null;
     return (
       <div className="program__topic__publications">
@@ -46,7 +46,7 @@ class PublicationsList extends Component {
           <PublicationListItem post={p} />
         ))}
         {hasNext &&
-          <div className="program__topic__publications__view-all">
+          <div className="program__topic__publications__view-all margin-top-15">
             <Link className="button--text" to={`/${program.slug}/publications/?topicId=${topic.id}`}>View All</Link>
           </div>}
       </div>
@@ -55,6 +55,10 @@ class PublicationsList extends Component {
 }
 
 export class Topic extends Component {
+
+  componentWillMount(){
+    if(window.scrollY > 300) window.scrollTo(0, 300);
+  }
 
   render(){
     let { ancestors, topic, program } = this.props;
@@ -69,8 +73,6 @@ export class Topic extends Component {
         <Fetch name="programPage.topic.authors"
             endpoint="author"
             fetchOnMount={true}
-            topic={topic}
-            program={program.id}
             component={PersonsList}
             initialQuery={{
               topic_id: topic.id
@@ -81,6 +83,8 @@ export class Topic extends Component {
             endpoint="post"
             fetchOnMount={true}
             component={PublicationsList}
+            topic={topic}
+            program={program}
             initialQuery={{
               page_size: 4,
               topic_id: topic.id,
