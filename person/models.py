@@ -54,6 +54,11 @@ class Person(Page):
     long_bio = RichTextField(blank=True, null=True)
     expert = models.BooleanField(default=False)
     leadership = models.BooleanField(default=False)
+    sort_priority = models.CharField(
+        choices=(('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')),
+        blank=True, null=True, max_length=50,
+        help_text='This will override alphabetical ordering.'
+    )
     profile_image = models.ForeignKey(
         'home.CustomImage',
         null=True,
@@ -163,7 +168,8 @@ class Person(Page):
                 FieldPanel('role'),
                 FieldPanel('former'),
                 FieldPanel('expert'),
-                FieldPanel('leadership')
+                FieldPanel('leadership'),
+                FieldPanel('sort_priority'),
         ], heading="Role"),
 
         InlinePanel('programs',
@@ -333,7 +339,7 @@ class ProgramPeoplePage(Page):
                 .live()\
                 .filter(belongs_to_these_programs=program, former=False)\
                 .exclude(role__icontains='External Author')\
-                .order_by('last_name', 'first_name')
+                .order_by('sort_priority', 'last_name', 'first_name')
         else:
             subprogram_title = self.get_ancestors()[3]
             program = Subprogram.objects.get(title=subprogram_title)
@@ -341,7 +347,7 @@ class ProgramPeoplePage(Page):
                 .live()\
                 .filter(belongs_to_these_subprograms=program, former=False)\
                 .exclude(role__icontains='External Author')\
-                .order_by('last_name', 'first_name')
+                .order_by('sort_priority', 'last_name', 'first_name')
 
         context['people'] = paginate_results(request, all_posts)
 
@@ -388,11 +394,11 @@ class BoardAndLeadershipPeoplePage(Page):
             .order_by('last_name', 'first_name')
 
         if which_role == 'Leadership Team':
-            all_people = all_people.filter(leadership=True)
+            all_people = all_people.filter(leadership=True).order_by('sort_priority', 'last_name')
         elif which_role == 'Board Member':
-            all_people = all_people.filter(Q(role=which_role) | Q(role='Board Chair')).order_by('role', 'last_name')
+            all_people = all_people.filter(Q(role=which_role) | Q(role='Board Chair')).order_by('sort_priority', 'last_name')
         else:
-            all_people = all_people.filter(role=which_role)
+            all_people = all_people.filter(role=which_role).order_by('sort_priority', 'last_name')
 
 
         context['people'] = paginate_results(request, all_people)
