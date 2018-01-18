@@ -1,0 +1,18 @@
+.section-separator {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  &__text{
+    padding-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &__line{
+    height: 1px;
+    background: color(black, base, 0.3);
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+  }
+}

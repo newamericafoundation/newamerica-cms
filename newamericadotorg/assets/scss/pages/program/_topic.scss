@@ -1,0 +1,46 @@
+.program__topic__body {
+  background-color: color(white);
+  padding-left: 8.33333%;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  .post-body {
+    width: 66.66666%;
+  }
+}
+
+.program__topic__subtopic {
+  max-width: 66.66666%;
+  .button{
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+}
+
+.program__topic__breadcrumbs span{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.program__topic > h1 {
+  margin-bottom: 35px !important;
+}
+
+.program__topic > *:first-child{
+  margin-top: 35px !important;
+}
+
+.program__topic .section-separator {
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+
+.program__topic .program__people__list .section-separator {
+  margin-bottom: 5px;
+}
+
+.program__topic__publications{
+  &__view-all{
+    text-align: right;
+  }
+}

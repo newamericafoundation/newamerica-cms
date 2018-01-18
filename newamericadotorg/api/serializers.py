@@ -128,7 +128,7 @@ class ProgramDetailSerializer(ModelSerializer):
         return ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live(),many=True).data
 
     def get_topics(self, obj):
-        return TopicSerializer(obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live(), many=True).data
+        return TopicDetailSerializer(obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live(), many=True).data
 
     def get_content_types(self, obj):
         return get_program_content_types(obj.id)

@@ -4,7 +4,7 @@ import Filters from './PublicationsFilters';
 import { format as formatDate } from 'date-fns';
 
   //
-const PublicationListItem = ({ post }) => (
+export const PublicationListItem = ({ post }) => (
   <div className="card list">
     <a href={post.url}>
       <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
@@ -29,7 +29,7 @@ const PublicationListItem = ({ post }) => (
       </label>}
       <a href={post.url}>
         <label className="card__text__program caption margin-bottom-0 block">
-          {post.programs[0].name} {post.content_type ? post.content_type.title : ''}
+          {post.programs[0] ? post.programs[0].name : ''} {post.content_type ? post.content_type.title : ''}
         </label>
       </a>
     </div>

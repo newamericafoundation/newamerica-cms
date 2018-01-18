@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Fetch } from '../../components/API';
 
-const Person = ({ person }) => (
+export const Person = ({ person }) => (
   <div className="card person">
     <a href={person.url}>
       <div className={`card__image ${!person.profile_image ? 'no-image' : ''}`}>
@@ -16,12 +16,14 @@ const Person = ({ person }) => (
   </div>
 );
 
-class PersonsList extends Component {
+export class PersonsList extends Component {
 
   render(){
-    let { response : { results, isFetching } } = this.props;
+    let { response : { results, isFetching }, children } = this.props;
+    if(results.length===0) return null;
     return (
       <div className="program__people__list row gutter-10">
+        {children}
         {results.map((person, i) => (
           <div className="col-md-4 col-12">
             <Person person={person} />
