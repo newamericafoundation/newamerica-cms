@@ -9,7 +9,7 @@
       content: ' ';
       position: relative;
       right: -$caret-padding;
-      //top: -1px;
+      top: type-adjusted-padding(1px);
       display: inline-block;
       vertical-align: middle;
       width: 5px;
@@ -32,7 +32,7 @@
       content: ' ';
       position: relative;
       left: -$caret-padding;
-      //top: -1px;
+      top: type-adjusted-padding(1px);
       vertical-align: middle;
       display: inline-block;
       width: 5px;
