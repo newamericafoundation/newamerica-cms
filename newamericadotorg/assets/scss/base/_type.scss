@@ -41,30 +41,22 @@ h1.promo {
 }
 
 h1 {
-  &:not([class*="margin-"]){
-    margin-top: 0.875rem;
-    margin-bottom: 0.875rem;
-  }
+  margin-top: 0.875rem;
+  margin-bottom: 0.875rem;
 }
 
 h2 {
   font-size: 1.625rem;
   line-height: 1.625rem;
-
-  &:not([class*="margin-"]){
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 h3 {
   font-size: 1.125rem;
   line-height: 1.125rem;
-
-  &:not([class*="margin-"]){
-    margin-top: 0.625rem;
-    margin-bottom: 0.625rem;
-  }
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
 }
 
 h4 {
@@ -91,10 +83,9 @@ li{
 }
 
 p {
-  &:not([class*="margin-"]){
-    margin-top: 2.8125rem;
-    margin-bottom: 2.8125rem;
-  }
+  margin-top: 2.8125rem;
+  margin-bottom: 2.8125rem;
+
   &.gray{
     color: color(gray, dark);
   }
@@ -106,11 +97,8 @@ blockquote{
   line-height: 1.75rem;
   margin-left: 0;
   margin-right: 0;
-
-  &:not([class*="margin-"]){
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .subheading, [class*="subheading--"] {
@@ -199,11 +187,8 @@ label {
   display: inline-block;
   cursor: inherit;
   text-decoration: none;
-
-  &:not([class*="margin-"]){
-    margin-top: 0.625rem;
-    margin-bottom: 0.625rem;
-  }
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
 
   &.white{
     color: color(white);
