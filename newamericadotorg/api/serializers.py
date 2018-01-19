@@ -51,6 +51,8 @@ class TopicDetailSerializer(ModelSerializer):
             return ProgramSubprogramSerializer(obj.parent_program).data
 
     def get_body(self, obj):
+        if not obj.body:
+            return None
         return loader.get_template('components/post_body.html').render({ 'page': obj })
 
     class Meta:

@@ -23,8 +23,11 @@ const Subtopics = ({ subtopics }) => (
 );
 
 const Body = ({ body }) => (
-  <div className="program__topic__body" >
-    <div className="post-body" dangerouslySetInnerHTML={{__html: body}}></div>
+  <div className="program__topic__body">
+    <Separator text="About the Topic" />
+    <div className="program__topic__body__text" >
+      <div className="post-body" dangerouslySetInnerHTML={{__html: body}}></div>
+    </div>
   </div>
 );
 
@@ -68,8 +71,7 @@ export class Topic extends Component {
         {ancestors.length > 0 && <Breadcrumbs ancestors={ancestors} />}
         <h1 className="margin-bottom-35">{topic.title}</h1>
         <Subtopics subtopics={topic.subtopics} />
-        <Separator text="About the Topic" />
-        <Body body={topic.body} />
+        {topic.body && <Body body={topic.body} />}
         <Fetch name="programPage.topic.authors"
             endpoint="author"
             fetchOnMount={true}
