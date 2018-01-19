@@ -1,7 +1,11 @@
 .program__heading__wrapper{
-  padding-top: 75px;
-  padding-bottom: 15px;
-  padding-left: 25px;
-  padding-right: 25px;
   background-color: color(white);
+
+  h1 {
+    line-height: 1em;
+    padding-top: 75px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: type-adjusted-padding(25px);
+  }
 }

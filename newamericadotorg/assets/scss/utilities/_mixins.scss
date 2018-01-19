@@ -49,6 +49,11 @@
   order: $order;
 }
 
+// padding minus descender height, which for Platform bold is ~16% of line-height
+@function type-adjusted-padding($padding){
+  @return calc(#{$padding} - 0.16129032258em);
+}
+
 //bootstrap
 @mixin linear-gradient-horizontal($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
   background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+

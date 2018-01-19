@@ -42,12 +42,13 @@ class ProgramPage extends Component {
             <Route path='/:program/about' render={()=>(<About about={results.about} />)} />
             <Route path='/:program/our-people/' render={(props)=>(<People {...props} program={results} /> )} />
             <Route path='/:program/events/' render={(props)=>(<Events {...props} program={results} /> )} />
-            <Route path='/:program/topics/' exact render={(props)=>(<TopicsList {...props} program={results} /> )} />
-            {this.topicRoutes(results.topics)}
+
             <Route path='/:program/publications/' render={(props)=>(<Publications {...props} program={results} /> )} />
             {results.content_types.map((c,i)=>(
               <Route path={`/:program/${c.slug}/`} render={(props)=>(<Publications {...props} program={results} /> )} />
             ))}
+            <Route path='/:program/topics/' exact render={(props)=>(<TopicsList {...props} program={results} /> )} />
+            {this.topicRoutes(results.topics)}
           </div>
         </Router>
       </div>

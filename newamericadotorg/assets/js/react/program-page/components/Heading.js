@@ -9,7 +9,7 @@ export default class Heading extends Component {
     return (
       <div className="program__header container margin-bottom-10">
   			<div className="program__heading__wrapper">
-  					<h1 className="promo"><Link to={program.url}>{program.name}</Link></h1>
+  					<h1 className="margin-0 promo"><Link to={program.url}>{program.name}</Link></h1>
   			</div>
   		</div>
     );

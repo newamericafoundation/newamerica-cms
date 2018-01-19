@@ -19,10 +19,11 @@ export default class Nav extends Component {
       <div className={`program__nav ${subpage ? 'active' : ''}`}>
         <ul className="inline">
           <NavItem url={`${program.url}about/`} label="About"/>
-          <NavItem url={`${program.url}publications/`} label="Publications" active={program.content_types.find((c)=>(c.slug===subpage))}/>
           <NavItem url={`${program.url}our-people/`} label="Our People"/>
+          {program.subprograms.length > 0 && <NavItem url={`${program.url}subprograms/`} label="Subprograms"/>}
+          <NavItem url={`${program.url}publications/`} label="Publications" active={program.content_types.find((c)=>(c.slug===subpage))}/>
           <NavItem url={`${program.url}events/`} label="Events"/>
-          <NavItem url={`${program.url}topics/`} label="Topics"/>
+          {program.topics.length > 0 && <NavItem url={`${program.url}topics/`} label="Topics"/>}
         </ul>
       </div>
     );
