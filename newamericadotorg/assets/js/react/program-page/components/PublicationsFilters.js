@@ -195,10 +195,10 @@ class Filters extends Component {
         <div className={`program__publications-filters__sticky-wrapper ${response.isFetching ? 'is-fetching' : ''}`}>
           <ScrollArea className="program__publications-filters__scroll-area">
             <TypeFilter types={program.content_types} {...this.props} expanded={true} label="Type"/>
-            {program.subprograms.length > 0 &&
+            {program.subprograms &&
             <SubprogramFilter subprograms={program.subprograms} {...this.props} label="Subprogram"/>}
             <DateFilter {...this.props} label="Date"/>
-            {program.topics.length > 0 &&
+            {program.topics &&
             <TopicFilter {...this.props} label="Topic"/>}
           </ScrollArea>
         </div>

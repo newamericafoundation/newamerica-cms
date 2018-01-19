@@ -105,7 +105,7 @@ export default class Publications extends Component {
   }
 
   render(){
-    let { program, history, location } = this.props;
+    let { program, history, location, programType } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
     let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
     let type = program.content_types.find((t)=>(t.slug === slug ));
@@ -119,10 +119,10 @@ export default class Publications extends Component {
             history={history}
             location={location}
             initialQuery={{
-              program_id: program.id,
+              subprogram_id: params.get('subprogramId') || '',
+              [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
               image_rendition: 'max-300x240',
               content_type: type ? type.api_name : '',
-              subprogram_id: params.get('subprogramId') || '',
               page_size: 8,
               page: 1
             }}/>

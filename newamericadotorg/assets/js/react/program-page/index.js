@@ -10,10 +10,14 @@ import About from './components/About';
 import Events from './components/Events';
 import StoryGrid from './components/StoryGrid';
 import People from './components/People';
+import Subprograms from './components/Subprograms';
 import { TopicsList, Topic } from './components/Topics';
 
 class ProgramPage extends Component {
+  routes = () => {
+  }
   topicRoutes = (topics, ancestors=[]) => {
+    if(!topics) return;
     let { response: { results }} = this.props;
     let routes = [];
 
@@ -31,23 +35,25 @@ class ProgramPage extends Component {
   }
 
   render(){
-    let { response: { results }, programId } = this.props;
+    let { response: { results }, programType } = this.props;
+    let root = programType == 'program' ? ':program' : ':program/:subprogram';
     return (
       <div className="container">
         <Router>
           <div className="program__content">
             <Heading program={results} />
-            <Route path='/:program/:subpage?' render={(props)=>(<Nav {...props} program={results}/>)}/>
-            <Route path='/:program/' exact render={()=>(<StoryGrid story_grid={results.story_grid} />)} />
-            <Route path='/:program/about' render={()=>(<About about={results.about} />)} />
-            <Route path='/:program/our-people/' render={(props)=>(<People {...props} program={results} /> )} />
-            <Route path='/:program/events/' render={(props)=>(<Events {...props} program={results} /> )} />
-
-            <Route path='/:program/publications/' render={(props)=>(<Publications {...props} program={results} /> )} />
+            <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
+            <Route path={`/${root}/`} exact render={()=>(<StoryGrid story_grid={results.story_grid} />)} />
+            {results.about && <Route path={`/${root}/about`} render={()=>(<About about={results.about} />)} /> }
+            <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
+            <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
+            <Route path={`/${root}/subprograms/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />
+            <Route path={`/${root}/publications/`} render={(props)=>(<Publications programType={programType} {...props} program={results} /> )} />
             {results.content_types.map((c,i)=>(
-              <Route path={`/:program/${c.slug}/`} render={(props)=>(<Publications {...props} program={results} /> )} />
+              <Route path={`/${root}/${c.slug}/`} render={(props)=>(<Publications {...props} program={results} /> )} />
             ))}
-            <Route path='/:program/topics/' exact render={(props)=>(<TopicsList {...props} program={results} /> )} />
+            {results.topics &&
+              <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} /> )} />}
             {this.topicRoutes(results.topics)}
           </div>
         </Router>
@@ -58,17 +64,18 @@ class ProgramPage extends Component {
 
 class APP extends Component {
   static propTypes = {
-    programId: PropTypes.string.isRequired
+    programId: PropTypes.string.isRequired,
+    programType: PropTypes.string.isRequired
   }
 
   render() {
-    let { programId } = this.props;
+    let { programId, programType } = this.props;
     return (
       <Fetch component={ProgramPage}
         name={NAME}
-        endpoint={`program/${programId}`}
+        endpoint={`${programType}/${programId}`}
         fetchOnMount={true}
-        programId={programId}
+        programType={programType}
       />
     );
   }

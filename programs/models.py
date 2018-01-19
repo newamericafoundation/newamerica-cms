@@ -342,7 +342,7 @@ class Subprogram(AbstractProgram):
     ]
 
     TEMPLATE_OPTIONS =  (
-        ('programs/program.html', 'Full'),
+        ('programs/subprogram.html', 'Full'),
         ('simple_page.html', 'Simple'),
     )
 
@@ -419,7 +419,7 @@ class AbstractContentPage(Page):
 
     def get_context(self, request):
         context = super(AbstractContentPage, self).get_context(request)
-        context['program'] = self.get_parent()
+        context['program'] = self.get_parent().specific
 
         return context
 

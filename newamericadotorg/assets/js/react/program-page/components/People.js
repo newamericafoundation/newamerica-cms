@@ -36,14 +36,14 @@ export class PersonsList extends Component {
 
 export default class People extends Component {
   render(){
-    let { program } = this.props;
+    let { program, programType } = this.props;
     return (
       <Fetch name="program.people"
         endpoint="author"
         component={PersonsList}
         fetchOnMount={true}
         initialQuery={{
-          program_id: program.id,
+          [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
           limit: 100
         }}/>
     );

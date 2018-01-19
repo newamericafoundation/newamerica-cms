@@ -127,10 +127,16 @@ class ProgramDetailSerializer(ModelSerializer):
 
     def get_subprograms(self, obj):
         #horribly inefficient. may have to add a ManyToManyField to Program??
-        return ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live(),many=True).data
+        subprograms = ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live(),many=True).data
+        if len(subprograms)==0:
+            return None
+        return subprograms
 
     def get_topics(self, obj):
-        return TopicDetailSerializer(obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live(), many=True).data
+        topics = TopicDetailSerializer(obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live(), many=True).data
+        if len(topics)==0:
+            return None
+        return topics
 
     def get_content_types(self, obj):
         return get_program_content_types(obj.id)
@@ -159,6 +165,8 @@ class ProgramDetailSerializer(ModelSerializer):
         return get_subpages(obj)
 
     def get_about(self, obj):
+        if not obj.about_us_page:
+            return None;
         return loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
 
 
@@ -170,22 +178,30 @@ class SubprogramProgramSerializer(ModelSerializer):
         )
 
 class SubprogramSerializer(ModelSerializer):
+    story_grid = SerializerMethodField()
     parent_programs = SerializerMethodField()
     content_types = SerializerMethodField()
     description = SerializerMethodField()
     leads = SerializerMethodField()
     features = SerializerMethodField()
     subpages = SerializerMethodField()
+    about = SerializerMethodField()
 
     class Meta:
         model = Subprogram
         fields = (
-            'id', 'name', 'parent_programs', 'url', 'slug', 'content_types',
-             'description', 'leads', 'features', 'subpages'
+            'id', 'name', 'story_grid', 'parent_programs', 'url', 'slug', 'content_types',
+             'description', 'leads', 'features', 'subpages', 'about'
         )
 
     def get_parent_programs(self, obj):
-        return SubProgramProgramSerializer(obj.parent_programs, many=True).data
+        parents = SubprogramProgramSerializer(obj.parent_programs, many=True).data
+        if len(parents)==0:
+            return None
+        return parents
+
+    def get_story_grid(self, obj):
+        return loader.get_template('components/story_grid.html').render({ 'page': obj })
 
     def get_content_types(self, obj):
         return get_program_content_types(obj)
@@ -211,6 +227,11 @@ class SubprogramSerializer(ModelSerializer):
 
     def get_subpages(self, obj):
         return get_subpages(obj)
+
+    def get_about(self, obj):
+        if not obj.about_us_page:
+            return None;
+        return loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
 
 
 class AuthorSerializer(ModelSerializer):

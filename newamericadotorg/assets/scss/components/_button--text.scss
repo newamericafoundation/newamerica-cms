@@ -1,20 +1,21 @@
-.button--text{
+.button--text, label{
   &.with-border {
     border-bottom: 1.5px solid color(turquoise);
   }
-
+  $caret-padding: 10px;
   &.with-caret, &.with-caret--right {
+    padding-right: $caret-padding;
     &:after {
       content: ' ';
-      display: inline-block;
       position: relative;
-      margin-left: 10px;
-      margin-bottom: 10px;
-      top: calc(0.5em + 2px);
-      width: 4px;
-      height: 4px;
-      border-right: 1px solid color(white);
-      border-bottom: 1px solid color(white);
+      right: -$caret-padding;
+      //top: -1px;
+      display: inline-block;
+      vertical-align: middle;
+      width: 5px;
+      height: 5px;
+      border-right: 1px solid color(black);
+      border-bottom: 1px solid color(black);
       @include transform(rotate(45deg));
     }
   }
@@ -26,17 +27,18 @@
   }
 
   &.with-caret--left{
+    padding-left: $caret-padding;
     &:before{
       content: ' ';
-      display: inline-block;
       position: relative;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      top: calc(0.5em + 2px);
-      width: 4px;
-      height: 4px;
-      border-left: 1px solid color(white);
-      border-bottom: 1px solid color(white);
+      left: -$caret-padding;
+      //top: -1px;
+      vertical-align: middle;
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-left: 1px solid color(black);
+      border-bottom: 1px solid color(black);
       @include transform(rotate(45deg));
     }
   }

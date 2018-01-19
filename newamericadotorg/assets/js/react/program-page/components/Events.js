@@ -120,8 +120,8 @@ class Filters extends Component {
         <div className={`program__publications-filters__sticky-wrapper ${response.isFetching ? 'is-fetching' : ''}`}>
           <ScrollArea className="program__publications-filters__scroll-area">
             <AbstractFilter {...this.props} label="Date" />
-            <AbstractFilter {...this.props} label="Subprogram" />
-            <AbstractFilter {...this.props} label="Topic" />
+            {program.subprograms && <AbstractFilter {...this.props} label="Subprogram" />}
+            {program.topics && <AbstractFilter {...this.props} label="Topic" />}
           </ScrollArea>
         </div>
       </div>
@@ -186,9 +186,10 @@ class EventsList extends Component {
 
 export default class Events extends Component {
   render(){
-    let { program, location } = this.props;
+    let { program, location, programType } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
     let period = params.get('period') || 'future';
+
     return (
       <Fetch name="program.events"
         component={EventsList}
@@ -196,12 +197,13 @@ export default class Events extends Component {
         fetchOnMount={true}
         period={period}
         location={location}
+        program={program}
         initialQuery={{
-          program_id: program.id,
+          subprogram_id: params.get('subprogramId') || '',
+          [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
           time_period: period,
           page_size: 6,
           page: 1,
-          subprogram_id: '',
           image_rendition: period=='future' ? 'min-700x510' : 'max-300x240'
         }}/>
     );
