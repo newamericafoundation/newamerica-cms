@@ -41,7 +41,7 @@ h1.promo {
 }
 
 h1 {
-  &:not([class^="margin-"]){
+  &:not([class*="margin-"]){
     margin-top: 0.875rem;
     margin-bottom: 0.875rem;
   }
@@ -51,7 +51,7 @@ h2 {
   font-size: 1.625rem;
   line-height: 1.625rem;
 
-  &:not([class^="margin-"]){
+  &:not([class*="margin-"]){
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
   }
@@ -61,7 +61,7 @@ h3 {
   font-size: 1.125rem;
   line-height: 1.125rem;
 
-  &:not([class^="margin-"]){
+  &:not([class*="margin-"]){
     margin-top: 0.625rem;
     margin-bottom: 0.625rem;
   }
@@ -91,7 +91,7 @@ li{
 }
 
 p {
-  &:not([class^="margin-"]){
+  &:not([class*="margin-"]){
     margin-top: 2.8125rem;
     margin-bottom: 2.8125rem;
   }
@@ -107,7 +107,7 @@ blockquote{
   margin-left: 0;
   margin-right: 0;
 
-  &:not([class^="margin-"]){
+  &:not([class*="margin-"]){
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
   }
@@ -200,7 +200,7 @@ label {
   cursor: inherit;
   text-decoration: none;
 
-  &:not([class^="margin-"]){
+  &:not([class*="margin-"]){
     margin-top: 0.625rem;
     margin-bottom: 0.625rem;
   }

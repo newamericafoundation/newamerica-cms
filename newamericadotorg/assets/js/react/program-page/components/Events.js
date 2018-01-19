@@ -20,9 +20,9 @@ const EventItem = ({ event }) => (
         <label className="subtitle block">{event.story_excerpt}</label>
         <label className="caption block">{event.city}, {event.state}</label>
       </a>
-      <span className="block">
-        <a className="button--text margin-bottom-0" href={event.url}>RSVP</a>
-      </span>
+      <label className="event__rsvp button--text block margin-0">
+        <a href={event.url}>RSVP</a>
+      </label>
     </div>
   </div>
 );
