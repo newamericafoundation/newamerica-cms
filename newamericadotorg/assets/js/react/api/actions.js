@@ -151,6 +151,7 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
     }).then(response => {
       return response.json();
     }).then(json => {
+      if(json.error) console.log(json);
       let response = parseResponse(json);
       response.pend = pend;
       callback(response);

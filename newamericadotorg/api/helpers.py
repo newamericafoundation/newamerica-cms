@@ -8,6 +8,7 @@ from issue.models import IssueOrTopic
 from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailimages.models import SourceImageIOError
 
 # eventually hard encode these values into respective the ContentTypePage model
 newamericadotorg_content_types = [
@@ -44,12 +45,14 @@ def generate_image_url(image, filter_spec=None):
     img = CustomImage.objects.get(pk=image.id);
     if not image:
         return image.file.url
+    try:
+        rendition = img.get_rendition(filter_spec)
+        # signature = generate_signature(image.id, filter_spec)
+        # url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
 
-    rendition = img.get_rendition(filter_spec)
-    # signature = generate_signature(image.id, filter_spec)
-    # url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
-
-    return rendition.url
+        return rendition.url
+    except SourceImageIOError:
+        return None
 
 def get_content_type(api_name):
     for c in newamericadotorg_content_types:
