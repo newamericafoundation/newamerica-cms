@@ -18,7 +18,8 @@
     "build:css": "node-sass --include-path='node_modules' --include-path=newamericadotorg/assets/scss/settings/development --include-path='newamericadotorg/assets/scss' newamericadotorg/assets/scss/all.scss newamericadotorg/static/css/newamericadotorg.css",
     "build:production": "NODE_ENV=production rollup -c",
     "heroku-postbuild": "npm run build:production && npm run build:standalone-js",
-    "brew": "brew install cairo && brew install pango",
+    "brew": "brew install cairo && brew install pango && brew install redis",
+    "redis": "redis-server --daemonize yes",
     "get-static": "aws s3 sync s3://na-preview-static/static/ newamericadotorg/static --exclude 'wagtail*' --exclude 'rest_framework/*' --exclude 'admin/*' --exclude 'table_block/*'"
   },
   "repository": {

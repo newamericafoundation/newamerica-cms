@@ -67,6 +67,17 @@ EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 POSTMARK_SENDER = os.getenv("POSTMARK_SENDER")
 DEFAULT_FROM_EMAIL = POSTMARK_SENDER
 SERVER_EMAIL = POSTMARK_SENDER
+REDIS_URL = os.getenv('REDIS_URL')
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': REDIS_URL,
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
 
 try:
     from .local import *

@@ -15,6 +15,16 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 TIME_ZONE = 'America/New_York'
 USE_TZ = True
 
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://127.0.0.1:6379/1',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         }
+#     }
+# }
+
 try:
     from .local import *
 except ImportError:
