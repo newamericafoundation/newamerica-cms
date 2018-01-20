@@ -45,6 +45,8 @@ def ellipsize(text, max_length):
 	if len(text) > max_length:
 		return text[:max_length].strip() + ' ...'
 
+	return text
+
 
 # handles pluralization for content labels across the site
 @register.simple_tag()
