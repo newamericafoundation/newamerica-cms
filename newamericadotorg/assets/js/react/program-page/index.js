@@ -32,10 +32,17 @@ class ProgramPage extends Component {
     return routes;
   }
 
+  contentSlugs = () => {
+    let { response: { results }} = this.props;
+
+    if(results.content_types.length === 0) return '';
+    return '|' + results.content_types.map((c)=>(c.slug)).join('|');
+  }
+
   render(){
     let { response: { results }, programType } = this.props;
     let root = programType == 'program' ? ':program' : ':program/:subprogram';
-    let contentSlugs = results.content_types.map((c)=>(c.slug)).join('|');
+
     return (
       <div className="container">
         <Router>
@@ -47,7 +54,7 @@ class ProgramPage extends Component {
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/subprograms/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />
-            <Route path={`/${root}/(publications|${contentSlugs})/`} render={(props)=>(<Publications programType={programType} {...props} program={results} /> )} />
+            <Route path={`/${root}/(publications${this.contentSlugs()})/`} render={(props)=>(<Publications programType={programType} {...props} program={results} /> )} />
             {results.topics &&
               <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} /> )} />}
             {this.topicRoutes(results.topics)}

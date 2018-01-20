@@ -104,11 +104,30 @@ export default class Publications extends Component {
     }
   }
 
-  render(){
-    let { program, history, location, programType } = this.props;
+  initialQuery = () => {
+    let { programType, program, location } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
     let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
     let type = program.content_types.find((t)=>(t.slug === slug ));
+
+    let initQuery = {
+      [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
+      image_rendition: 'max-300x240',
+      content_type: type ? type.api_name : '',
+      page_size: 8,
+      page: 1
+    }
+
+    if(programType=='program'){
+      initQuery.subprogram_id = params.get('subprogramId') || '';
+    }
+
+    return initQuery;
+  }
+
+  render(){
+    let { program, history, location, programType } = this.props;
+
     return (
       <div className="program__publications row gutter-45 scroll-target margin-top-35" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="65">
         <div className="col-3 program__publications__filter-col">
@@ -118,14 +137,7 @@ export default class Publications extends Component {
             program={program}
             history={history}
             location={location}
-            initialQuery={{
-              subprogram_id: params.get('subprogramId') || '',
-              [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
-              image_rendition: 'max-300x240',
-              content_type: type ? type.api_name : '',
-              page_size: 8,
-              page: 1
-            }}/>
+            initialQuery={this.initialQuery()}/>
         </div>
         <div className='col-9 program__publications__list-col'>
           <Response name="programPage.publications" component={PublicationsList}/>

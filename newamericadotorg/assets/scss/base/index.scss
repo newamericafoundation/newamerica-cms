@@ -47,6 +47,10 @@ ul, ol {
   }
 }
 
+main {
+  min-height: 100vh;
+}
+
 span {
   &.block {
     display: block;
