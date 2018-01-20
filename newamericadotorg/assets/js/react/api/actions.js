@@ -6,6 +6,7 @@ import {
   SET_FETCHING_STATUS, SET_HAS_RESULTS
 } from './constants';
 import getNestedState from '../../utils/get-nested-state';
+import cache from '../cache';
 
 export const setParams = (component, {endpoint, query, baseUrl}) => ({
   type: SET_PARAMS,
@@ -146,14 +147,27 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
     url.searchParams.append(k, params.query[k]);
 
   dispatch(setFetchingStatus(component, true));
+
+  let request = `${url.pathname}${url.searchParams.toString()}`;
+  if(cache.get(request)){
+    let response = cache.get(request);
+    callback(response);
+    dispatch(setResponse(component, response));
+    return ()=>{};
+  }
   return fetch(url, {
       headers: {'X-Requested-With': 'XMLHttpRequest'}
     }).then(response => {
       return response.json();
     }).then(json => {
-      if(json.error) console.log(json);
       let response = parseResponse(json);
+      cache.set(request, response, new Date().getTime() + 3600000); // expire in one hour
       response.pend = pend;
+      if(json.error){
+        console.log(json);
+        response.error = json.error;
+        response.message = json.message;
+      }
       callback(response);
       dispatch(setResponse(component, response));
     });

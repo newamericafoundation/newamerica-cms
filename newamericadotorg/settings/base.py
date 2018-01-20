@@ -87,13 +87,17 @@ MIDDLEWARE = [
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 
-    'newamericadotorg.log_handlers.LogDNAMiddleware',
-    # minify html
+    # Gzip/minify
     'django.middleware.gzip.GZipMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
+
+    'newamericadotorg.log_handlers.LogDNAMiddleware',
     'newamericadotorg.log_handlers.APIExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'newamericadotorg.urls'
+HTML_MINIFY = True
 
 TEMPLATES = [
     {
