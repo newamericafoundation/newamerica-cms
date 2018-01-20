@@ -50,7 +50,7 @@ class ProgramPage extends Component {
             <Route path={`/${root}/subprograms/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />
             <Route path={`/${root}/publications/`} render={(props)=>(<Publications programType={programType} {...props} program={results} /> )} />
             {results.content_types.map((c,i)=>(
-              <Route path={`/${root}/${c.slug}/`} render={(props)=>(<Publications {...props} program={results} /> )} />
+              <Route path={`/${root}/${c.slug}/`} render={(props)=>(<Publications {...props} programType={programType} program={results} /> )} />
             ))}
             {results.topics &&
               <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} /> )} />}
