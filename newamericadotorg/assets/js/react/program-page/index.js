@@ -14,8 +14,6 @@ import Subprograms from './components/Subprograms';
 import { TopicsList, Topic } from './components/Topics';
 
 class ProgramPage extends Component {
-  routes = () => {
-  }
   topicRoutes = (topics, ancestors=[]) => {
     if(!topics) return;
     let { response: { results }} = this.props;
