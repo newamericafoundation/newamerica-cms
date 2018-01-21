@@ -157,7 +157,7 @@
   }
 }
 
-%with-overlay, [class*="with-overlay"]{
+%with-overlay {
   position: relative;
   &::after{
     content: ' ';
@@ -173,26 +173,6 @@
     @include linear-gradient-vertical(color(black,base,0), color(black, base, 1), 30% );
   }
 }
-
-%with-inverse-overlay, [class*="with-inverse-overlay"]{
-  @extend %with-overlay;
-  &::after{
-    @include linear-gradient-vertical(color(black, base, 1), color(black,base,0), 0%, 50% );
-  }
-}
-
-.with-overlay{
-  &--black::after{
-    @include linear-gradient-vertical(rgba(#000,0), #000, 30% );
-  }
-}
-
-.with-inverse-overlay{
-  &--black::after{
-    @include linear-gradient-vertical(rgba(#000,1), rgba(#000,0), 0%, 50% );
-  }
-}
-
 
 @mixin fade-out($start: 25%, $color: color(white)){
   position: relative;
