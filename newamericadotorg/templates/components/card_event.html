@@ -2,12 +2,13 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% image event.story_image min-700x510 as event_image %}
+{% image event.story_image fill-700x510 as event_image %}
+{% image event.story_image fill-150x110 as event_image_thumb %}
 
 <div class="card event">
   <a href="{{event.url}}">
     <div class="card__image{% if not event.story_image %} no-image{%endif%}">
-      <div class="card__image__background" style="background-image: url({{event_image.url}})"></div>
+      <img class="card__image__background" src="{{event_image.url}}" data-thumbnail="{{event_image_thumb.url}}" />
     </div>
   </a>
   <div class="card__text">

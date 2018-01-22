@@ -2,13 +2,15 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% image post.story_image min-1350x500 as post_image %}
+{% image post.story_image fill-675x250 as post_image_lg %}
+{% image post.story_image fill-350x130 as post_image_md %}
+{% image post.story_image fill-150x55 as post_image_thumb %}
 
 <div class="card sm">
   <a href="{{post.url}}" class="row no-gutters">
     <div class="col-6">
       <div class="card__image">
-        <div class="card__image__background" style="background-image: url({{post_image.url}})"></div>
+        <img class="card__image__background" data-thumbnail="{{post_image_thumb.url}}" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 675w, {{post_image_md.url}} 350w, {{post_image_thumb.url}} 150w"/>
       </div>
     </div>
     <div class="col-6">
