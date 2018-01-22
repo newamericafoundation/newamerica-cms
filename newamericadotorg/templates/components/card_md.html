@@ -2,15 +2,14 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% image post.story_image fill-1026x380 as post_image_lg %}
-{% image post.story_image fill-675x250 as post_image_md %}
-{% image post.story_image fill-350x130 as post_image_sm %}
-{% image post.story_image fill-150x55 as post_image_thumb %}
+{% image post.story_image fill-600x460 as post_image_lg %}
+{% image post.story_image fill-400x306 as post_image_md %}
+{% image post.story_image fill-150x115 as post_image_thumb %}
 
 <div class="card md">
   <a href="{{post.url}}">
     <div class="card__image">
-      <img class="card__image__background" data-thumbnail="{{post_image_thumb.url}}" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 1026w, {{post_image_md.url}} 675w, {{post_image_sm.url}} 350w"/>
+      <img class="card__image__background" data-thumbnail="{{post_image_thumb.url}}" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 600w, {{post_image_md.url}} 400w"/>
     </div>
     <div class="card__text">
       <label class="card__text__title bold margin-top-0 block">{{post.title}}</label>

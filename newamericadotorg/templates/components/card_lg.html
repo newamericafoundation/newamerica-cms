@@ -2,16 +2,16 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% image post.story_image fill-1350x500 as post_image_lg %}
-{% image post.story_image fill-1026x380 as post_image_md %}
-{% image post.story_image fill-675x250 as post_image_sm %}
-{% image post.story_image fill-150x55 as post_image_thumb %}
+{% image post.story_image fill-800x375 as post_image_lg %}
+{% image post.story_image fill-500x235 as post_image_md %}
+{% image post.story_image fill-300x140 as post_image_sm %}
+{% image post.story_image fill-150x75 as post_image_thumb %}
 
 <div class="card lg">
   <a href="{{post.url}}" class="row no-gutters">
     <div class="col-8" style="padding-right: 3px;">
       <div class="card__image">
-        <img class="card__image__background" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 1350w, {{post_image_md.url}} 1026w, {{post_image_sm.url}} 675w" data-thumbnail={{post_image_thumb.url}}/>
+        <img class="card__image__background" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 800w, {{post_image_md.url}} 500w, {{post_image_sm.url}} 300" data-thumbnail={{post_image_thumb.url}}/>
       </div>
     </div>
     <div class="col-4">

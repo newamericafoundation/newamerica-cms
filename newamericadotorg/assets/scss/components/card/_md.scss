@@ -6,6 +6,7 @@
   }
   .card__image__background {
     position: absolute;
+    @include center;
   }
 
   .card__text{

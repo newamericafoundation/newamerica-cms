@@ -3,4 +3,13 @@
   .card__text{
     height: 100%;
   }
+
+  .card__image{
+    position: relative;
+  }
+
+  .card__image__background{
+    position: absolute;
+    @include center;
+  }
 }
