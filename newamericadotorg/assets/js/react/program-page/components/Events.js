@@ -10,7 +10,7 @@ const EventItem = ({ event }) => (
   <div className="card event">
     <a href={event.url}>
       <div className={`card__image ${!event.story_image ? 'no-image' : ''}`}>
-        <div className="card__image__background" style={{backgroundImage: `url(${event.story_image})`}}></div>
+        <img className="card__image__background" src={event.story_image} />
       </div>
     </a>
     <div className="card__text">
@@ -204,7 +204,7 @@ export default class Events extends Component {
           time_period: period,
           page_size: 6,
           page: 1,
-          image_rendition: period=='future' ? 'min-700x510' : 'max-300x240'
+          image_rendition: period=='future' ? 'fill-700x510' : 'fill-300x240'
         }}/>
     );
   }
