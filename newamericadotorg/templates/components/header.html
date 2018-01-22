@@ -1,3 +1,6 @@
+{% load cache %}
+
+{% cache 86400 header %}
 <header class="header scroll-target {% block with-subheader-class %}{% endblock %}" data-scroll-offset="200%">
   <div class="header__wrapper">
     <div class="container--wide">
@@ -32,3 +35,4 @@
   </div>
   {% block subheader %}{% endblock %}
 </header>
+{% endcache %}
