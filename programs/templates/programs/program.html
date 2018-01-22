@@ -7,12 +7,10 @@
 {% block body_class %}programpage{% endblock %}
 
 {% block content %}
-{% cache 86400 program %}
 	<main class="program container--full-width">
 		{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
 		<div id="compose__program-page"
 			data-program-type="{% if page.parent_programs is not None or program.parent_programs is not None %}subprogram{% else %}program{% endif %}"
 			data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
 	</main>
-	{% endcache %}
 {% endblock %}
