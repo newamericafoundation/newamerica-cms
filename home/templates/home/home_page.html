@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-{% load utilities %}
+{% load utilities cache wagtailimages_tags wagtailcore_tags %}
 
 {% block body_class %}homepage{% endblock %}
 
 {% block content %}
+{% cache 300 homepage %}
 <main>
 	<section class="container--full-width beige homepage__story-grid-section">
 		{% include 'components/story_grid.html' with page_context='homepage' %}
@@ -74,4 +73,5 @@
 		</div>
 	</section>
 </main>
+{% endcache %}
 {% endblock %}

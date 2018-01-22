@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
+from django.views.decorators.cache import cache_page
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
@@ -33,23 +34,23 @@ urlpatterns = [
     url(r'^feed/(?P<content_type>[a-zA-z]*)/$', ContentFeed()),
     url(r'^feed/(?P<content_type>[a-zA-z]*)/(?P<program>[a-zA-z\-]*)/$', ContentFeed()),
 
-    url(r'^api/post/$', api_views.PostList.as_view()),
+    url(r'^api/post/$', cache_page(60 * 10)(api_views.PostList.as_view())),
     url(r'^api/search/$', api_views.SearchList.as_view()),
     url(r'^api/event/$', api_views.EventList.as_view()),
     url(r'^api/author/$', api_views.AuthorList.as_view()),
-    url(r'^api/program/(?P<pk>[\d]+)/$', api_views.ProgramDetail.as_view()),
-    url(r'^api/program/$', api_views.ProgramList.as_view()),
+    url(r'^api/program/(?P<pk>[\d]+)/$', cache_page(60 * 1440)(api_views.ProgramDetail.as_view())),
+    url(r'^api/program/$', cache_page(60 * 1440)(api_views.ProgramList.as_view())),
     url(r'^api/topic/$', api_views.TopicList.as_view()),
     url(r'^api/topic/(?P<pk>[\d]+)/$', api_views.TopicDetail.as_view()),
     url(r'^api/subprogram/$', api_views.SubprogramList.as_view()),
-    url(r'^api/subprogram/(?P<pk>[\d]+)/$', api_views.SubprogramDetail.as_view()),
-    url(r'^api/weekly/$', api_views.WeeklyList.as_view()),
+    url(r'^api/subprogram/(?P<pk>[\d]+)/$', cache_page(60 * 1440)(api_views.SubprogramDetail.as_view())),
+    url(r'^api/weekly/$', cache_page(60 * 5040)(api_views.WeeklyList.as_view())),
     url(r'^api/weekly/(?P<pk>[\d]+)/$', api_views.WeeklyDetail.as_view()),
-    url(r'^api/report/(?P<pk>[\d]+)/$', api_views.ReportDetail.as_view()),
+    url(r'^api/report/(?P<pk>[\d]+)/$', cache_page(60 * 1440)(api_views.ReportDetail.as_view())),
     url(r'^api/in-depth/$', api_views.InDepthProjectList.as_view()),
     url(r'^api/in-depth/(?P<pk>[\d]+)/$', api_views.InDepthProjectDetail.as_view()),
     url(r'^api/meta/$', api_views.MetaList.as_view()),
-    url(r'^api/content-types/$', api_views.ContentList.as_view()),
+    url(r'^api/content-types/$', cache_page(60 * 10080)(api_views.ContentList.as_view())),
     url(r'^api/subscribe/$', api_views.subscribe),
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
 
