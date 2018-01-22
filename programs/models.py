@@ -169,34 +169,6 @@ class AbstractProgram(Page):
         ),
     ]
 
-    def get_context(self, request):
-        context = super(AbstractProgram, self).get_context(request)
-        context['topics'] = self.get_descendants().filter(content_type__model='issueortopic', depth=5).live()
-        print context['topics']
-        # In order to apply different styling to main lead story
-        # versus the other lead stories, we needed to separate them out
-        context['other_lead_stories'] = []
-
-        # Solution to account for null values for the stories
-        # so that the div in the template wouldn't attempt to add styling to nothing
-        if self.lead_2:
-            context['other_lead_stories'].append(self.lead_2)
-        if self.lead_3:
-            context['other_lead_stories'].append(self.lead_3)
-        if self.lead_4:
-            context['other_lead_stories'].append(self.lead_4)
-
-        # In order to preserve style, minimum and maximum of feature stories is 3
-        # If there are less than 3 feature stories - none show up even if they're added.
-        if self.feature_1 and self.feature_2 and self.feature_3:
-            context['featured_stories'] = [
-                self.feature_1, self.feature_2, self.feature_3
-            ]
-        else:
-            context['featured_stories'] = []
-
-        return context
-
     def get_experts(self):
         """
         Method for the Program and Subprogram models to be able to access
@@ -298,11 +270,6 @@ class Program(AbstractProgram):
         ObjectList(promote_panels, heading="Promote"),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
     ])
-
-    def get_context(self, request):
-        context = super(Program, self).get_context(request)
-
-        return context
 
     class Meta:
         ordering = ('title',)
