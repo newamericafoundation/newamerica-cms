@@ -128,10 +128,6 @@ class AbstractProgram(Page):
         related_name='+'
     )
 
-    promote_panels = Page.promote_panels + [
-        FieldPanel('story_excerpt'),
-    ]
-
     featured_panels = [
         MultiFieldPanel(
             [
@@ -139,20 +135,13 @@ class AbstractProgram(Page):
                 PageChooserPanel('lead_2'),
                 PageChooserPanel('lead_3'),
                 PageChooserPanel('lead_4'),
+                PageChooserPanel('feature_1'),
+                PageChooserPanel('feature_2'),
+                PageChooserPanel('feature_3')
             ],
             heading="Lead Stories",
             classname="collapsible"
         ),
-        MultiFieldPanel(
-            [
-                PageChooserPanel('feature_1'),
-                PageChooserPanel('feature_2'),
-                PageChooserPanel('feature_3'),
-            ],
-            heading="Featured Stories",
-            classname="collapsible"
-        ),
-        StreamFieldPanel('feature_carousel'),
     ]
 
     content_panels = Page.content_panels + [
@@ -160,9 +149,10 @@ class AbstractProgram(Page):
             [
                 FieldPanel('name', classname='full title'),
                 ImageChooserPanel('story_image'),
+                PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
                 FieldPanel('location'),
                 FieldPanel('description'),
-                PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
+                FieldPanel('story_excerpt'),
             ],
             heading="Setup",
             classname="collapsible"
@@ -266,7 +256,6 @@ class Program(AbstractProgram):
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading="Content"),
         ObjectList(AbstractProgram.featured_panels, heading="Featured"),
-        ObjectList(sidebar_panels, heading="Sidebar"),
         ObjectList(promote_panels, heading="Promote"),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
     ])
@@ -309,16 +298,11 @@ class Subprogram(AbstractProgram):
     ]
 
     TEMPLATE_OPTIONS =  (
-        ('programs/subprogram.html', 'Full'),
-        ('simple_page.html', 'Simple'),
+        ('programs/program.html', 'Full'),
+        ('simple_program.html', 'Simple'),
     )
 
     template = models.CharField(choices=TEMPLATE_OPTIONS, default='programs/program.html', max_length=100)
-
-    body = StreamField(
-        BodyBlock(),
-        blank=True, null=True, help_text="On the Content tab, be sure to set the template to 'Simple' and choose a 'Story Image'"
-    )
 
     parent_programs = models.ManyToManyField(
         Program,
@@ -340,20 +324,15 @@ class Subprogram(AbstractProgram):
         InlinePanel('subscriptions', label=("Subscription Segments")),
     ]
 
-    simple_page_panels = [
-        StreamFieldPanel('body')
-    ]
-
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading='Content'),
-        ObjectList(simple_page_panels, heading='Simple Content'),
         ObjectList(AbstractProgram.featured_panels, heading='Featured'),
         ObjectList(promote_panels, heading='Promote'),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
     ])
 
     def get_template(self, request):
-        return 'programs/subprogram.html'
+        return self.template
 
     class Meta:
         verbose_name = "Subprogram Page"
