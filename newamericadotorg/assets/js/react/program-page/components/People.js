@@ -1,3 +1,4 @@
+import { NAME } from '../constants';
 import { Component } from 'react';
 import { Fetch } from '../../components/API';
 
@@ -38,7 +39,7 @@ export default class People extends Component {
   render(){
     let { program, programType } = this.props;
     return (
-      <Fetch name="program.people"
+      <Fetch name={`${NAME}.people`}
         endpoint="author"
         component={PersonsList}
         fetchOnMount={true}

@@ -11,3 +11,4 @@ export { default as mobileMenu } from './mobile-menu/index';
 export { default as programMobileMenu } from './program-mobile-menu/index';
 export { default as report } from './report/index';
 export { default as programPage } from './program-page/index';
+export { default as simpleProgramPage } from './program-page/simple.index';

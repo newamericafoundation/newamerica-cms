@@ -123,7 +123,7 @@ class ProgramDetailSerializer(ModelSerializer):
         return loader.get_template('components/story_grid.html').render({ 'page': obj })
 
     def get_description(self, obj):
-        return obj.story_excerpt
+        return obj.description or obj.story_excerpt
 
     def get_subprograms(self, obj):
         #horribly inefficient. may have to add a ManyToManyField to Program??
@@ -201,13 +201,23 @@ class SubprogramSerializer(ModelSerializer):
         return parents
 
     def get_story_grid(self, obj):
+        if obj.template == 'simple_program.html':
+            grid = []
+            if obj.lead_1:
+                grid.append(PostSerializer(obj.lead_1.specific, context=self.context).data)
+            if obj.lead_3:
+                grid.append(PostSerializer(obj.lead_2.specific, context=self.context).data)
+            if obj.lead_3:
+                grid.append(PostSerializer(obj.lead_3.specific, context=self.context).data)
+
+            return grid;
         return loader.get_template('components/story_grid.html').render({ 'page': obj })
 
     def get_content_types(self, obj):
         return get_program_content_types(obj)
 
     def get_description(self, obj):
-        return obj.story_excerpt
+        return obj.description or obj.story_excerpt
 
     def get_leads(self, obj):
         leads = []

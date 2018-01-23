@@ -38,7 +38,7 @@
   }
 }
 
-.no-gutters, .gutter-10, .gutter-20 {
+.gutter-0, .no-gutters, .gutter-10, .gutter-20 {
   margin-right: 0;
   margin-left: 0;
 }
@@ -64,7 +64,9 @@
 }
 
 .no-gutters > .col,
-.no-gutters > [class*="col-"] {
+.no-gutters > [class*="col-"],
+.gutter-0 > .col,
+.gutter-0 > [class*="col-"]  {
   padding-right: 0;
   padding-left: 0;
 }

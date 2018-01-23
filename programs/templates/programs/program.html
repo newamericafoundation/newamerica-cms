@@ -1,16 +1,22 @@
 {% extends "base.html" %}
-{% load cache %}
 {% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-{% load utilities %}
 
 {% block body_class %}programpage{% endblock %}
 
 {% block content %}
-	<main class="program container--full-width">
-		{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
-		<div id="compose__program-page"
-			data-program-type="{% if page.parent_programs is not None or program.parent_programs is not None %}subprogram{% else %}program{% endif %}"
-			data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
-	</main>
+	{% if program.template == 'simple_program.html' or page.template == 'simple_program.html' %}
+		<main class="program container--full-width">
+			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
+			<div id="compose__simple-program-page"
+				data-program-type="subprogram"
+				data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
+		</main>
+	{% else %}
+		<main class="program container--full-width">
+			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
+			<div id="compose__program-page"
+				data-program-type="{% if page.parent_programs is not None or program.parent_programs is not None %}subprogram{% else %}program{% endif %}"
+				data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
+		</main>
+	{% endif %}
 {% endblock %}

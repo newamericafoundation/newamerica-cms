@@ -332,7 +332,7 @@ class Subprogram(AbstractProgram):
     ])
 
     def get_template(self, request):
-        return self.template
+        return 'programs/program.html'
 
     class Meta:
         verbose_name = "Subprogram Page"
