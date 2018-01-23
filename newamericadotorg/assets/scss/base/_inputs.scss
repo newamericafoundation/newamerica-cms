@@ -30,6 +30,31 @@ input[type="text"] {
 	background: transparent;
 }
 
+.input {
+	position: relative;
+	margin-top: 3em;
+	input {
+		width: 100%;
+	}
+	label.input__label {
+		position: absolute;
+		@include transition(all 0.15s ease);
+		top: 0;
+		left: 0;
+	}
+	input[type="text"]:active + label,
+	input[type="text"]:focus + label,
+	input[type="text"]:valid + label {
+		top: -2em;
+		color: color(black, base, 0.55);
+	}
+
+	label.input__submit {
+		position: absolute;
+		right: 0;
+	}
+}
+
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: color(gray,light);
 }

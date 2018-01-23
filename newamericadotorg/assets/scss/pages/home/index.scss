@@ -34,7 +34,7 @@
 .homepage__mission-statement-section,
 .homepage__weekly-promo-section,
 .homepage__subscribe-section{
-  .promo span, h3{
+  .promo span, h3, .input{
     @include transition(all 1.35s ease);
     opacity: 0;
     top: 50px;
@@ -49,12 +49,27 @@
     @include transition-delay(0.5s);
   }
 
+  .input{
+    @include transition-delay(0.75s);
+  }
+
 
   &.scroll-triggered{
-    .promo span, h3{
+    .promo span, h3, .input{
       top: 0;
       opacity: 1;
     }
+  }
+}
+
+.homepage__subscribe-section__email-input{
+
+  .input {
+    max-width: 750px;
+  }
+
+  input{
+    width: 100%;
   }
 }
 

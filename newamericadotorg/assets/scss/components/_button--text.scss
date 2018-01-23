@@ -44,3 +44,15 @@
   }
 
 }
+
+.button--text.with-caret--left:after
+label.bold.with-caret--left:after{
+  border-left: 2px solid color(black);
+  border-bottom: 2px solid color(black);
+}
+
+.button--text.with-caret--right:after,
+label.bold.with-caret--right:after{
+  border-right: 2px solid color(black);
+  border-bottom: 2px solid color(black);
+}
