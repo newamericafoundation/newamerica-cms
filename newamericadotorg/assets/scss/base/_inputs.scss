@@ -1,4 +1,5 @@
 select {
+	font-family: $label-font-family;
 	border: $standard-border;
 	cursor: pointer;
 	background: url(shape-urls-get(down-arrow-na-black)) no-repeat;
@@ -10,6 +11,10 @@ select {
 	@include breakpoint(medium) {
 		background-position-x: 95%;
 	}
+}
+
+input {
+	font-family: $label-font-family;
 }
 
 input[type="submit"] {
@@ -25,7 +30,7 @@ input[type="text"], select {
 input[type="text"] {
 	border: none;
 	outline: none;
-	border-bottom: 2px solid color(black);
+	border-bottom: 1px solid color(black, base, 0.3);
 	font-size: 1.2rem;
 	background: transparent;
 }
@@ -46,7 +51,7 @@ input[type="text"] {
 	input[type="text"]:focus + label,
 	input[type="text"]:valid + label {
 		top: -2em;
-		color: color(black, base, 0.55);
+		color: color(black, base, 0.3);
 	}
 
 	label.input__submit {

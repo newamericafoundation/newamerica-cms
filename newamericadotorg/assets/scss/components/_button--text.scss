@@ -42,11 +42,10 @@
       @include transform(rotate(45deg));
     }
   }
-
 }
 
-.button--text.with-caret--left:after
-label.bold.with-caret--left:after{
+.button--text.with-caret--left:before
+label.bold.with-caret--left:before{
   border-left: 2px solid color(black);
   border-bottom: 2px solid color(black);
 }
