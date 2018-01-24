@@ -43,11 +43,11 @@ export default class StoryGrid extends Component {
         break;
       case 3:
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[1]} image_size="landscape"/>,
+          <CardMd post={story_grid[2]} image_size="landscape"/>,
           this.about()
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[2]} image_size="square"/>
+          <CardMd post={story_grid[1]} image_size="square"/>
         ]);
         break;
       case 4:
