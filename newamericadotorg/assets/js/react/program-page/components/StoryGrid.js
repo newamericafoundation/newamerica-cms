@@ -116,6 +116,17 @@ export default class StoryGrid extends Component {
   }
   render(){
     let { story_grid } = this.props;
+    if(story_grid.length===0){
+      return (
+        <div className="program__story-grid">
+          <div className="row gutter-10">
+            <div className="col-12">
+              <h1>We're just gettings started! <br/>Check back soon.</h1>
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="program__story-grid">
         <div className="row gutter-10">
