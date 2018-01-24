@@ -3,7 +3,6 @@ from programs.models import Program, Subprogram, AbstractContentPage, Publicatio
 from event.models import ProgramEventsPage, AllEventsHomePage
 from issue.models import TopicHomePage
 from person.models import ProgramPeoplePage
-from home.models import Post
 from issue.models import IssueOrTopic
 
 from django.core.urlresolvers import reverse

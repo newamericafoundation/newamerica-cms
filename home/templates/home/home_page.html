@@ -5,7 +5,7 @@
 {% block body_class %}homepage{% endblock %}
 
 {% block content %}
-{% cache 300 homepage %}
+{% cache 300 using="homepage" %}
 <main>
 	<section class="container--full-width beige homepage__story-grid-section">
 		{% include 'components/story_grid.html' with page_context='homepage' %}

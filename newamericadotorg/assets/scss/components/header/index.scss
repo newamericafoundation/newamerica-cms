@@ -3,22 +3,14 @@ $dropdown-border-color: color(gray, base, 0);
 $link-border-color: color(gray, base, 0.1);
 $link-text-color: color(white);
 
-body:not(.homepage):not(.programpage)  .header{
+body:not(.homepage):not(.programpage) .header__wrapper > div{
   box-shadow: 0px 1px 0px 0px color(black, base, 0.075);
-  box-shadow: 0px 1px 0px 0px color(black, base, 0.0);
-
-  .header__wrapper > div{
-    box-shadow: 0px 1px 0px 0px color(black, base, 0.0);
-    box-shadow: 0px 1px 0px 0px color(black, base, 0.075);
-  }
 }
 
 .header {
   position: relative;
   height: $header-height;
   z-index: 175;
-  box-shadow: 0px 1px 0px 0px color(black, base, 0.075);
-  box-shadow: 0px 1px 0px 0px color(black, base, 0.0);
 
   &__wrapper{
     position: relative;
@@ -62,7 +54,6 @@ body:not(.header--expanded){
       position: fixed;
       top: -$header-height;
       & > div {
-        box-shadow: 0px 1px 0px 0px color(black, base, 0.0);
         box-shadow: 0px 1px 0px 0px color(black, base, 0.075);
       }
     }
