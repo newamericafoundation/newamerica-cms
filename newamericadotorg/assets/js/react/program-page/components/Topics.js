@@ -1,3 +1,4 @@
+import { NAME } from '../constants';
 import { Link, BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Component } from 'react';
 import { Fetch } from  '../../components/API';
@@ -72,7 +73,7 @@ export class Topic extends Component {
         <h1 className="margin-bottom-35">{topic.title}</h1>
         <Subtopics subtopics={topic.subtopics} />
         {topic.body && <Body body={topic.body} />}
-        <Fetch name="programPage.topic.authors"
+        <Fetch name={`${NAME}.topic.authors`}
             endpoint="author"
             fetchOnMount={true}
             component={PersonsList}
@@ -81,7 +82,7 @@ export class Topic extends Component {
             }}>
             <Separator text="Topic Experts" />
           </Fetch>
-        <Fetch name="programPage.topic.publications"
+        <Fetch name={`${NAME}.topic.publications`}
             endpoint="post"
             fetchOnMount={true}
             component={PublicationsList}

@@ -1,3 +1,4 @@
+import { NAME } from '../constants';
 import { Component } from 'react';
 import { Fetch, Response } from '../../components/API';
 import Filters from './PublicationsFilters';
@@ -131,7 +132,7 @@ export default class Publications extends Component {
     return (
       <div className="program__publications row gutter-45 scroll-target margin-top-35" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="65">
         <div className="col-3 program__publications__filter-col">
-          <Fetch component={Filters} name="programPage.publications"
+          <Fetch component={Filters} name={`${NAME}.publications`}
             endpoint={'post'}
             fetchOnMount={true}
             program={program}
@@ -140,7 +141,7 @@ export default class Publications extends Component {
             initialQuery={this.initialQuery()}/>
         </div>
         <div className='col-9 program__publications__list-col'>
-          <Response name="programPage.publications" component={PublicationsList}/>
+          <Response name={`${NAME}.publications`} component={PublicationsList}/>
         </div>
       </div>
     );

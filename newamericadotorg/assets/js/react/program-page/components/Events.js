@@ -1,3 +1,4 @@
+import { NAME } from '../constants';
 import { Component } from 'react';
 import { Fetch } from '../../components/API';
 import { format as formatDate } from 'date-fns';
@@ -191,7 +192,7 @@ export default class Events extends Component {
     let period = params.get('period') || 'future';
 
     return (
-      <Fetch name="program.events"
+      <Fetch name={`${NAME}.events`}
         component={EventsList}
         endpoint="event"
         fetchOnMount={true}
