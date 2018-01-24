@@ -34,6 +34,11 @@ class StoryGrid extends Component {
         <Promo title="Subscribe">
           <div className="promo__subscribe">
             <h2>Be the first to hear about the latest events and research from {program.name}</h2>
+            <div className="input">
+              <input type="text" required />
+              <label className="input__label button--text">Email Address</label>
+              <label className="input__submit button--text with-caret--right">Go</label>
+            </div>
           </div>
         </Promo>
       </div>
