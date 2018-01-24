@@ -103,11 +103,15 @@ class ProgramSerializer(ModelSerializer):
 class StoryGridItemSerializer(ModelSerializer):
     content_type = SerializerMethodField()
     story_image = SerializerMethodField()
+    story_excerpt = SerializerMethodField()
+
+    def get_story_excerpt(self, obj):
+        return obj.specific.story_excerpt
 
     def get_story_image(self, obj):
-        if getattr(self.context, 'is_lead', None):
-            return generate_image_url(obj.specific, 'fill-800x375')
-        return generate_image_url(obj.specific, 'fill-600x460')
+        if 'is_lead' in self.context:
+            return generate_image_url(obj.specific.story_image, 'fill-800x375')
+        return generate_image_url(obj.specific.story_image, 'fill-600x460')
 
     def get_content_type(self, obj):
         content_type = obj.get_ancestors().type(AbstractContentPage).first()
@@ -124,7 +128,7 @@ class StoryGridItemSerializer(ModelSerializer):
 
     class Meta:
         model = Page
-        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image')
+        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt')
 
 class ProgramDetailSerializer(ModelSerializer):
     story_grid = SerializerMethodField()
@@ -158,7 +162,7 @@ class ProgramDetailSerializer(ModelSerializer):
         if obj.lead_4:
             grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=self.context).data)
         if obj.feature_1:
-            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
+            grid.append(StoryGridItemSerializer(obj.feature_1.specific, context=self.context).data)
         if obj.feature_2:
             grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
         if obj.feature_3:
@@ -257,7 +261,7 @@ class SubprogramSerializer(ModelSerializer):
         if obj.lead_4:
             grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=self.context).data)
         if obj.feature_1:
-            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
+            grid.append(StoryGridItemSerializer(obj.feature_1.specific, context=self.context).data)
         if obj.feature_2:
             grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
         if obj.feature_3:

@@ -19,6 +19,10 @@ export default class StoryGrid extends Component {
     return (
       <PromoMd title="Subscribe" link={{ to: 'subscribe', label: 'Go'}}>
         <h2 className="margin-25">{`Be the first to hear about the latest events and research from ${program.name}`}</h2>
+        <div className="input">
+          <input type="text" required />
+          <label className="input__label button--text">Email Address</label>
+        </div>
       </PromoMd>
     );
   }
@@ -31,7 +35,7 @@ export default class StoryGrid extends Component {
     switch(items){
       case 2:
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[1]} />
+          <CardMd post={story_grid[1]} image_size="square" />
         ]);
         cols[2] = cols[2].concat([
           this.about()
@@ -39,64 +43,64 @@ export default class StoryGrid extends Component {
         break;
       case 3:
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[1]} />,
+          <CardMd post={story_grid[1]} image_size="landscape"/>,
           this.about()
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[2]} />
+          <CardMd post={story_grid[2]} image_size="square"/>
         ]);
         break;
       case 4:
         cols[0] = cols[0].concat([
-          <CardMd post={story_grid[3]} />
+          <CardMd post={story_grid[3]} image_size="square"/>
         ]);
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[2]} />,
+          <CardMd post={story_grid[2]} image_size="landscape"/>,
           this.about()
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[1]} />
+          <CardMd post={story_grid[1]} image_size="square"/>
         ]);
         break;
       case 5:
         cols[0] = cols[0].concat([
-          <CardMd post={story_grid[3]} />
+          <CardMd post={story_grid[3]} image_size="square"/>
         ]);
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[2]} />,
-          <CardMd post={story_grid[4]} />
+          <CardMd post={story_grid[2]} image_size="landscape"/>,
+          <CardMd post={story_grid[4]} image_size="square"/>
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[1]} />,
+          <CardMd post={story_grid[1]} image_size="square"/>,
           this.about()
         ]);
         break;
       case 6:
         cols[0] = cols[0].concat([
-          <CardMd post={story_grid[3]} />,
-          <CardMd post={story_grid[5]} />
+          <CardMd post={story_grid[3]} image_size="square"/>,
         ]);
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[2]} />,
-          <CardMd post={story_grid[4]} />
+          <CardMd post={story_grid[2]} image_size="landscape"/>,
+          <CardMd post={story_grid[4]} image_size="square"/>,
+          <CardMd post={story_grid[5]} image_size="landscape"/>
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[1]} />,
+          <CardMd post={story_grid[1]} image_size="square"/>,
           this.about()
         ]);
         break;
       case 7:
         cols[0] = cols[0].concat([
-          <CardMd post={story_grid[3]} />,
-          <CardMd post={story_grid[5]} />
+          <CardMd post={story_grid[3]} image_size="landscape"/>,
+          <CardMd post={story_grid[5]} image_size="square"/>
         ]);
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[2]} />,
-          <CardMd post={story_grid[4]} />,
-          <CardMd post={story_grid[6]} />
+          <CardMd post={story_grid[2]} image_size="landscape"/>,
+          <CardMd post={story_grid[4]} image_size="square"/>,
+          <CardMd post={story_grid[6]} image_size="square"/>
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[1]} />,
+          <CardMd post={story_grid[1]} image_size="square"/>,
           this.about()
         ]);
         break;

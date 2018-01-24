@@ -1,7 +1,11 @@
 import { Component } from 'react';
 
 export default class About extends Component {
-
+  componentWillMount(){
+    if(window.scrollY > 300){
+      window.scrollTo(0, 0);
+    }
+  }
   render(){
     let { about } = this.props;
 

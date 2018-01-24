@@ -21,3 +21,21 @@
     max-width: 500px;
   }
 }
+
+.card.promo-md {
+  min-height: 400px;
+  .card__text{
+    padding-bottom: 50px;
+  }
+  h2{
+    line-height: 1.625rem;
+  }
+
+  .card__link-to{
+    width: 100%;
+    position: absolute;
+    text-align: right;
+    right: 25px;
+    bottom: type-adjusted-padding(25px);
+  }
+}

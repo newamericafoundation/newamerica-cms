@@ -12,4 +12,17 @@
   .card__text{
     max-width: 300px;
   }
+
+  &.square .card__image{
+    padding-bottom: 100%;
+  }
+
+  &.landscape .card__image{
+    padding-bottom: 70%;
+
+    .card__image__background {
+      width: 100%;
+      height: auto;
+    }
+  }
 }

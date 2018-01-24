@@ -39,6 +39,8 @@ programpage_contenttype_map = {
 }
 
 def generate_image_url(image, filter_spec=None):
+    if not image:
+        return None
     if not filter_spec:
         return image.file.url
     #return None;

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Slider } from '../../components/Carousel';
-
+import { Link } from 'react-router-dom';
 
 export class Promo extends Component {
 
@@ -31,7 +31,7 @@ export class PromoMd extends Component {
           {this.props.children}
         </div>
         <div className="card__link-to">
-          <a className="button--text with-caret--right" href={to}>{label}</a>
+          <Link className="button--text with-caret--right" to={to}>{label}</Link>
         </div>
       </div>
     );
