@@ -1,5 +1,6 @@
 from home.models import Post, HomePage, CustomImage
 from programs.models import Program, Subprogram, AbstractContentPage, PublicationsPage
+from event.models import ProgramEventsPage, AllEventsHomePage
 from issue.models import TopicHomePage
 from person.models import ProgramPeoplePage
 from home.models import Post
@@ -77,7 +78,8 @@ def get_program_content_types(program):
     else:
         page = Page.objects.get(pk=program)
 
-    children = page.get_children().type(AbstractContentPage).not_type(PublicationsPage).not_type(ProgramPeoplePage).not_type(TopicHomePage)
+    children = page.get_children().type(AbstractContentPage).not_type(PublicationsPage).not_type(ProgramPeoplePage)\
+        .not_type(TopicHomePage).not_type(ProgramEventsPage).not_type(AllEventsHomePage)
 
     content_types = []
     for c in children:

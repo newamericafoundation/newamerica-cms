@@ -68,7 +68,7 @@ class Event(Post):
         verbose_name = 'Event'
 
 
-class AllEventsHomePage(RoutablePageMixin, Page):
+class AllEventsHomePage(RoutablePageMixin, AbstractContentPage):
     """
     Page which inherits from abstract Page model and returns every
     Event in the Event model for the Events homepage
@@ -98,7 +98,7 @@ class AllEventsHomePage(RoutablePageMixin, Page):
         verbose_name = "Homepage for all Events"
 
 
-class ProgramEventsPage(RoutablePageMixin, Page):
+class ProgramEventsPage(RoutablePageMixin, AbstractContentPage):
     """
     Page which inherits from abstract Page model and returns every
     Event associated with a specific Program or Subprogram
