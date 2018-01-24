@@ -44,14 +44,14 @@
   }
 }
 
-.button--text.with-caret--left:before
+.button--text.with-caret--left:before,
 label.bold.with-caret--left:before{
-  border-left: 2px solid color(black);
-  border-bottom: 2px solid color(black);
+  border-left: 1.5px solid color(black);
+  border-bottom: 1.5px solid color(black);
 }
 
 .button--text.with-caret--right:after,
 label.bold.with-caret--right:after{
-  border-right: 2px solid color(black);
-  border-bottom: 2px solid color(black);
+  border-right: 1.5px solid color(black);
+  border-bottom: 1.5px solid color(black);
 }
