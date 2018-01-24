@@ -121,7 +121,7 @@ export default class StoryGrid extends Component {
         <div className="program__story-grid">
           <div className="row gutter-10">
             <div className="col-12">
-              <h1>We're just gettings started! <br/>Check back soon.</h1>
+              <h1 className="margin-top-60">We're just getting started! <br/>Check back soon.</h1>
             </div>
           </div>
         </div>
