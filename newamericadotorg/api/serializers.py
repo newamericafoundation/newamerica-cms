@@ -100,6 +100,32 @@ class ProgramSerializer(ModelSerializer):
         return ''
         return obj.desktop_program_logo
 
+class StoryGridItemSerializer(ModelSerializer):
+    content_type = SerializerMethodField()
+    story_image = SerializerMethodField()
+
+    def get_story_image(self, obj):
+        if getattr(self.context, 'is_lead', None):
+            return generate_image_url(obj.specific, 'fill-800x375')
+        return generate_image_url(obj.specific, 'fill-600x460')
+
+    def get_content_type(self, obj):
+        content_type = obj.get_ancestors().type(AbstractContentPage).first()
+        if content_type:
+            return {
+                'id': content_type.id,
+                'name': content_type.title,
+                'title': obj.content_type.name.title(),
+                'api_name': obj.content_type.model,
+                'url': content_type.url,
+                'slug': content_type.slug
+                }
+        return get_content_type(obj.content_type.model)
+
+    class Meta:
+        model = Page
+        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image')
+
 class ProgramDetailSerializer(ModelSerializer):
     story_grid = SerializerMethodField()
     description = SerializerMethodField()
@@ -120,7 +146,25 @@ class ProgramDetailSerializer(ModelSerializer):
         )
 
     def get_story_grid(self, obj):
-        return loader.get_template('components/story_grid.html').render({ 'page': obj })
+        grid = []
+        if obj.lead_1:
+            context = self.context.copy()
+            context['is_lead'] = True
+            grid.append(StoryGridItemSerializer(obj.lead_1.specific, context=context).data)
+        if obj.lead_3:
+            grid.append(StoryGridItemSerializer(obj.lead_2.specific, context=self.context).data)
+        if obj.lead_3:
+            grid.append(StoryGridItemSerializer(obj.lead_3.specific, context=self.context).data)
+        if obj.lead_4:
+            grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=self.context).data)
+        if obj.feature_1:
+            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
+        if obj.feature_2:
+            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
+        if obj.feature_3:
+            grid.append(StoryGridItemSerializer(obj.feature_3.specific, context=self.context).data)
+
+        return grid
 
     def get_description(self, obj):
         return obj.description or obj.story_excerpt
@@ -201,17 +245,25 @@ class SubprogramSerializer(ModelSerializer):
         return parents
 
     def get_story_grid(self, obj):
-        if obj.template == 'simple_program.html':
-            grid = []
-            if obj.lead_1:
-                grid.append(PostSerializer(obj.lead_1.specific, context=self.context).data)
-            if obj.lead_3:
-                grid.append(PostSerializer(obj.lead_2.specific, context=self.context).data)
-            if obj.lead_3:
-                grid.append(PostSerializer(obj.lead_3.specific, context=self.context).data)
+        grid = []
+        if obj.lead_1:
+            context = self.context.copy()
+            context['is_lead'] = True
+            grid.append(StoryGridItemSerializer(obj.lead_1.specific, context=context).data)
+        if obj.lead_3:
+            grid.append(StoryGridItemSerializer(obj.lead_2.specific, context=self.context).data)
+        if obj.lead_3:
+            grid.append(StoryGridItemSerializer(obj.lead_3.specific, context=self.context).data)
+        if obj.lead_4:
+            grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=self.context).data)
+        if obj.feature_1:
+            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
+        if obj.feature_2:
+            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
+        if obj.feature_3:
+            grid.append(StoryGridItemSerializer(obj.feature_3.specific, context=self.context).data)
 
-            return grid;
-        return loader.get_template('components/story_grid.html').render({ 'page': obj })
+        return grid
 
     def get_content_types(self, obj):
         return get_program_content_types(obj)

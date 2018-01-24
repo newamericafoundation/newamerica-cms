@@ -35,6 +35,7 @@ class ProgramPage extends Component {
   contentSlugs = () => {
     let { response: { results }} = this.props;
 
+    if(!results.content_types) return '';
     if(results.content_types.length === 0) return '';
     return '|' + results.content_types.map((c)=>(c.slug)).join('|');
   }
@@ -49,7 +50,7 @@ class ProgramPage extends Component {
           <div className="program__content">
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
-            <Route path={`/${root}/`} exact render={()=>(<StoryGrid story_grid={results.story_grid} />)} />
+            <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} story_grid={results.story_grid} />)} />
             {results.about && <Route path={`/${root}/about`} render={()=>(<About about={results.about} />)} /> }
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />

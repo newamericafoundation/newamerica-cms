@@ -20,6 +20,24 @@ export class Promo extends Component {
   }
 }
 
+export class PromoMd extends Component {
+  render(){
+    let { title, link : { label, to }} = this.props;
+
+    return (
+      <div className="card promo-md">
+        <div className="card__text margin">
+          <label className="block">{title}</label>
+          {this.props.children}
+        </div>
+        <div className="card__link-to">
+          <a className="button--text with-caret--right" href={to}>{label}</a>
+        </div>
+      </div>
+    );
+  }
+}
+
 const Person = ({ person }) => (
   <div className="promo__people-carousel__person">
     <div className="promo__people-carousel__person__image">
