@@ -156,15 +156,17 @@ class ProgramDetailSerializer(ModelSerializer):
             context['is_lead'] = True
             grid.append(StoryGridItemSerializer(obj.lead_1.specific, context=context).data)
         if obj.lead_2:
+            context = self.context
             if obj.template == 'simple_program.html':
                 context = self.context.copy()
                 context['is_lead'] = True
-            grid.append(StoryGridItemSerializer(obj.lead_2.specific, context=self.context).data)
+            grid.append(StoryGridItemSerializer(obj.lead_2.specific, context=context).data)
         if obj.lead_3:
+            context = self.context
             if obj.template == 'simple_program.html':
                 context = self.context.copy()
                 context['is_lead'] = True
-            grid.append(StoryGridItemSerializer(obj.lead_3.specific, context=self.context).data)
+            grid.append(StoryGridItemSerializer(obj.lead_3.specific, context=context).data)
         if obj.lead_4:
             grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=self.context).data)
         if obj.feature_1:
