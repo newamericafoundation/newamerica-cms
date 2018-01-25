@@ -33,7 +33,7 @@ MEDIA_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 S3_MEDIA_DOMAIN = '%s.s3.amazonaws.com' % MEDIA_BUCKET_NAME
 
 MEDIA_URL = "https://%s/" % S3_MEDIA_DOMAIN
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+DEFAULT_FILE_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # static file settings
 STATIC_BUCKET_NAME = os.getenv('STATIC_S3_BUCKET_NAME')
@@ -42,6 +42,11 @@ S3_STATIC_DOMAIN = '%s.s3.amazonaws.com' % STATIC_BUCKET_NAME
 STATICFILES_LOCATION='static'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 STATIC_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'CacheControl': 'max-age=94608000',
+}
 
 COMPRESS_URL = STATIC_URL
 COMPRESS_STORAGE = STATICFILES_STORAGE
