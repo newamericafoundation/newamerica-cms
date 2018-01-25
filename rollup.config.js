@@ -36,9 +36,11 @@ export default {
         postcss([cssnano({ discardUnused: false })])
           .process(styleNodes[0].content)
           .then(result => {
+            var final = '{% load static, cache %}';
+            final += result.css.replace(/\/static\/(.+?\.(svg|otf|ttf))/g, "{% static \$1 %}");
             writeFile(
               'newamericadotorg/templates/style.css',
-              result.css
+              final
             );
           });
         postcss([cssnano()])
