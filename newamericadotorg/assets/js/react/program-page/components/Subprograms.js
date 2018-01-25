@@ -5,9 +5,9 @@ export default class Subprograms extends Component {
   render(){
     let { program } = this.props;
     return (
-      <div className="">
+      <div className="menu-list with-arrow--right margin-top-35">
         {program.subprograms.map((s,i)=>(
-          <h2 className="margin-25"><a href={s.url}>{s.title}</a></h2>
+          <h2><a href={s.url}>{s.title}</a></h2>
         ))}
       </div>
     );

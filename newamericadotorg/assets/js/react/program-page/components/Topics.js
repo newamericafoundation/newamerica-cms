@@ -102,9 +102,9 @@ export class TopicsList extends Component {
   render(){
     let { program } = this.props;
     return (
-      <div className="program__topics">
+      <div className="program__topics menu-list with-arrow--right margin-top-35">
         {program.topics.map((topic,i)=>(
-          <h2 className="margin-25"><Link to={topic.url}>{topic.title}</Link></h2>
+          <h2><Link to={topic.url}>{topic.title}</Link></h2>
         ))}
       </div>
     );
