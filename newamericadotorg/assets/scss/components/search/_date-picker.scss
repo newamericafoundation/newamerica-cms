@@ -34,7 +34,7 @@
 	@include breakpoint(medium) {
 		border-bottom: none !important;
 		border-left: $standard-border !important;
-	}	
+	}
 }
 
 .comiseo-daterangepicker-mask {
@@ -56,7 +56,7 @@
 
 .ui-corner-all {
 	border-radius: 0px;
-	
+
 }
 
 
@@ -89,7 +89,7 @@
 
 .ui-widget-header {
 	border: none;
-	* { 
+	* {
 		color: palette-get(na-black);
 	}
 }
