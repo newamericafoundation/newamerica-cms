@@ -1,7 +1,8 @@
 from django.conf import settings
+from django.contrib.staticfiles.storage import ManifestFilesMixin
 from storages.backends.s3boto import S3BotoStorage
 
-class StaticStorage(S3BotoStorage):
+class StaticStorage(ManifestFilesMixin, S3BotoStorage):
     location = settings.STATICFILES_LOCATION
     bucket_name = settings.STATIC_BUCKET_NAME
 
