@@ -105,7 +105,7 @@ export class EventsList extends Component {
       let nextPeriod = nextParams.get('period') || 'future';
       setQuery({
         time_period: nextPeriod,
-        program_id: params.get('programId') || '',
+        program_id: '',
         page: 1,
         image_rendition: nextPeriod=='future' ? 'fill-700x510' : 'fill-300x240'
       }, true);

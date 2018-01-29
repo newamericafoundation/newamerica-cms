@@ -51,7 +51,7 @@ export class TypeFilter extends Filter {
         <form>
           <RadioButton label={'All'} value={''} data-slug="publications" checked={query.content_type=='' || pathname.indexOf('publications') != -1} onChange={this.handleChange} />
           {types.map((t,i)=>(
-            <RadioButton label={t.title} value={t.api_name} data-slug={t.slug} checked={query.content_type==t.api_name || pathname.indexOf(t.slug) != -1} onChange={this.handleChange}/>
+            <RadioButton label={t.title} value={t.api_name} data-slug={t.slug} checked={query.content_type==t.api_name || pathname.indexOf(`/${t.slug}/`) != -1} onChange={this.handleChange}/>
           ))}
         </form>
       </div>
