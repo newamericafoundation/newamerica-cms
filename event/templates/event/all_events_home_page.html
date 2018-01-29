@@ -1,10 +1,12 @@
-{% extends "publications_page.html" %}
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
 
-{% block body_class %}template-alleventshomepage{% endblock %}
-
+{% block body_class %}homepage{% endblock %}
 {% block content %}
-	<main class="with-margin">
-		{% include 'components/breadcrumbs.html' %}
-		{% include 'components/react/event-list.html' %}
-	</main>
+<main class="program container--full-width">
+	<div class="container">
+		<h1 class="promo margin-60">Events</h1>
+	</div>
+	<div id="compose__events-home" data-replace-this="true"></div>
+</main>
 {% endblock %}

@@ -1,11 +1,11 @@
-import { NAME } from '../constants';
 import { Component } from 'react';
-import { Fetch } from '../../components/API';
 import { EventsList } from '../../components/Events';
+import { Fetch } from '../../components/API';
+import { NAME } from '../constants';
 
 export default class Events extends Component {
   render(){
-    let { program, location, history, programType } = this.props;
+    let { location, history, program } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
     let period = params.get('period') || 'future';
 
@@ -19,8 +19,7 @@ export default class Events extends Component {
         history={history}
         program={program}
         initialQuery={{
-          subprogram_id: params.get('projectId') || '',
-          [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
+          program_id: params.get('programId') || '',
           time_period: period,
           page_size: 6,
           page: 1,
