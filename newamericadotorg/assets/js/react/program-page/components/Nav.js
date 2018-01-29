@@ -20,7 +20,7 @@ export default class Nav extends Component {
         <ul className="inline">
           {program.about && <NavItem url={`${program.url}about/`} label="About"/>}
           <NavItem url={`${program.url}our-people/`} label="Our People"/>
-          {program.subprograms && <NavItem url={`${program.url}subprograms/`} label="Subprograms"/>}
+          {program.subprograms && <NavItem url={`${program.url}projects/`} label="Projects"/>}
           <NavItem url={`${program.url}publications/`} label="Publications" active={program.content_types.find((c)=>(c.slug===subpage))}/>
           <NavItem url={`${program.url}events/`} label="Events"/>
           {program.topics && <NavItem url={`${program.url}topics/`} label="Topics"/>}

@@ -71,9 +71,9 @@ class SubprogramFilter extends Filter {
     let params = new URLSearchParams(location.search.replace('?', ''));
 
     if(event.target.value == '') {
-      params.delete('subprogramId');
+      params.delete('projectId');
     } else {
-      params.set('subprogramId', event.target.value);
+      params.set('projectId', event.target.value);
     }
 
     history.push(`${location.pathname}?${params.toString()}`);
@@ -196,7 +196,7 @@ class Filters extends Component {
           <ScrollArea className="program__publications-filters__scroll-area">
             <TypeFilter types={program.content_types} {...this.props} expanded={true} label="Type"/>
             {program.subprograms &&
-            <SubprogramFilter subprograms={program.subprograms} {...this.props} label="Subprogram"/>}
+            <SubprogramFilter subprograms={program.subprograms} {...this.props} label="Project"/>}
             <DateFilter {...this.props} label="Date"/>
             {program.topics &&
             <TopicFilter {...this.props} label="Topic"/>}

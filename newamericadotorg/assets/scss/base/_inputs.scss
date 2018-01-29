@@ -12,10 +12,6 @@ select {
 	}
 }
 
-input {
-	font-family: $label-font-family;
-}
-
 input[type="submit"] {
 	border: 0;
 	outline: 0;
@@ -30,7 +26,6 @@ input[type="text"] {
 	border: none;
 	outline: none;
 	border-bottom: 1px solid color(black, base, 0.3);
-	font-size: 1.2rem;
 	background: transparent;
 }
 
@@ -43,18 +38,19 @@ input[type="text"] {
 	label.input__label {
 		position: absolute;
 		@include transition(all 0.15s ease);
-		top: 0;
+		top: 1.5em;
 		left: 0;
 	}
 	input[type="text"]:active + label,
 	input[type="text"]:focus + label,
 	input[type="text"]:valid + label {
-		top: -2em;
+		top: -1em;
 		color: color(black, base, 0.3);
 	}
 
 	label.input__submit {
 		position: absolute;
+		top: 1.5em;
 		right: 0;
 	}
 }

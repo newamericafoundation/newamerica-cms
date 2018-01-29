@@ -178,7 +178,7 @@ a {
   }
 }
 
-label {
+label, input {
   font-size: 0.875rem;
   line-height: 1rem;
   font-weight: normal;
@@ -251,7 +251,7 @@ h6 > a{
   font-weight: inherit;
 }
 
-.button--text, .button, .tag{
+.button--text, .button, .tag, .input label{
   display: inline-block;
   color: color(black);
   font-variant-numeric: lining-nums;

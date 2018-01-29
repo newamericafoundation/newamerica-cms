@@ -10,7 +10,7 @@ export class Promo extends Component {
     return (
       <div className="card promo row gutter-0">
         <div className="promo__heading col-2">
-          <label className="block button--text white">{title}</label>
+          <label className="block button--text white margin-top-0">{title}</label>
         </div>
         <div className="card__text col-10">
           {this.props.children}
@@ -26,8 +26,8 @@ export class PromoMd extends Component {
 
     return (
       <div className="card promo-md">
-        <div className="card__text margin">
-          <label className="block">{title}</label>
+        <div className="card__text">
+          <label className="block margin-top-0">{title}</label>
           {this.props.children}
         </div>
         <div className="card__link-to">

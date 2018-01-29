@@ -32,6 +32,14 @@ class ProgramPage extends Component {
     return routes;
   }
 
+  aboutRoutes = (pages, root) => {
+    if(!pages) return;
+
+    return pages.map((p,i) => (
+      <Route path={`/${root}/about/${p.slug}/`} exact render={(props)=>(<About root={root} about={p} about_us_pages={pages} />)} />
+    ));
+  }
+
   contentSlugs = () => {
     let { response: { results }} = this.props;
 
@@ -51,10 +59,11 @@ class ProgramPage extends Component {
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
             <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} story_grid={results.story_grid} />)} />
-            {results.about && <Route path={`/${root}/about`} render={()=>(<About about={results.about} />)} /> }
+            {results.about && <Route path={`/${root}/about`} exact render={()=>(<About root={root} about={results.about} about_us_pages={results.about_us_pages} />)} /> }
+            {this.aboutRoutes(results.about_us_pages, root)}
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
-            <Route path={`/${root}/subprograms/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />
+            <Route path={`/${root}/projects/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />
             <Route path={`/${root}/(publications${this.contentSlugs()})/`} render={(props)=>(<Publications programType={programType} {...props} program={results} /> )} />
             {results.topics &&
               <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} /> )} />}

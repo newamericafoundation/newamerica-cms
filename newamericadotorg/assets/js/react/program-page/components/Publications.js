@@ -120,7 +120,7 @@ export default class Publications extends Component {
     }
 
     if(programType=='program'){
-      initQuery.subprogram_id = params.get('subprogramId') || '';
+      initQuery.subprogram_id = params.get('projectId') || '';
     }
 
     return initQuery;
