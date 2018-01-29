@@ -2,8 +2,8 @@ import { NAME } from '../constants';
 import { Component } from 'react';
 import { Fetch } from '../../components/API';
 import { format as formatDate } from 'date-fns';
-import { PublicationsList, LoadingDots } from './Publications';
-import { Filter } from './PublicationsFilters';
+import { PublicationsList, LoadingDots } from '../../components/Publications';
+import { Filter } from '../../components/Publications';
 import { NavLink } from 'react-router-dom';
 import ScrollArea from 'react-scrollbar';
 

@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fetch, Response } from '../../components/API'
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
-import DatePicker from '../../components/DatePicker';
+// import DatePicker from '../../components/DatePicker';
 import Select from '../../components/Select';
 import EventListItem from './EventListItem';
 

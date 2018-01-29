@@ -8,11 +8,9 @@
 }
 
 .program__publications-list-load-more {
-  padding-top: 65px;
-  padding-bottom: 65px;
-  cursor: pointer;
+  text-align: right;
 
-  &:hover{
-    background-color: color(black, base, 0.8) !important;
+  .is-fetching .load-more-label {
+    opacity: 0;
   }
 }

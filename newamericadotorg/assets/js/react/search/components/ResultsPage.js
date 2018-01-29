@@ -1,17 +1,17 @@
 import { Component } from 'react';
-import { Author, ContentListItem } from '../../components/Content';
+// import { Author, ContentListItem } from '../../components/Content';
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import { NAME } from '../constants';
-
-const Result = ({ item }) => (
-  <div className={`search__results__item search__${item.content_type.api_name}`}>
-    <ContentListItem post={{
-      ...item,
-      story_image: item.image,
-      story_excerpt: item.description
-    }} />
-  </div>
-);
+//
+// const Result = ({ item }) => (
+//   <div className={`search__results__item search__${item.content_type.api_name}`}>
+//     <ContentListItem post={{
+//       ...item,
+//       story_image: item.image,
+//       story_excerpt: item.description
+//     }} />
+//   </div>
+// );
 
 export default class ResultsPage extends Component {
   nextPage = () => {

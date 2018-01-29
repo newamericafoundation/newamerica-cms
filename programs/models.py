@@ -377,5 +377,11 @@ class PublicationsPage(AbstractContentPage):
     '''
     parent_page_types = ['home.HomePage', 'Program', 'Subprogram']
 
+    def get_template(self, request):
+        parent = self.get_parent()
+        if parent.content_type.model == 'program':
+            return 'programs/publications_page.html'
+        return 'home/publications_page.html'
+
     class Meta:
         verbose_name = 'Homepage for all program publications'

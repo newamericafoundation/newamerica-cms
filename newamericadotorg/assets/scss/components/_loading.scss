@@ -107,12 +107,14 @@ $loading-animation-delay: 0.1s;
 }
 
 
-.loading-dots{
-  font-size: 0.55rem;
+.loading-dots, [class*='loading-dots--']{
   display: inline-block;
   span {
+    display: inline-block;
     padding-right: 5px;
     position: relative;
+    position: relative;
+    top: -$loading-icon-spacing/3;
     @include animation(loading-dots-animation .4s alternate infinite);
 
     &:first-child {
@@ -129,12 +131,17 @@ $loading-animation-delay: 0.1s;
   }
 }
 
+.loading-dots--absolute{
+  position: absolute;
+  @include center;
+}
+
 @include keyframes(loading-dots-animation) {
   0% {
-    top: 0em;
+    @include transform(translateY(0px));
   }
 
   100% {
-    top: $loading-icon-spacing/1.5;
+    @include transform(translateY($loading-icon-spacing/1.5));
   }
 }

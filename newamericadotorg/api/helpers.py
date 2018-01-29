@@ -21,8 +21,8 @@ newamericadotorg_content_types = [
     { 'name': 'Article', 'api_name': 'article', 'slug': 'articles', 'title': 'Articles' },
     { 'name': 'Podcast', 'api_name': 'podcast', 'slug': 'podcasts', 'title': 'Podcasts' },
     { 'name': 'Weekly Article', 'api_name': 'weeklyarticle', 'slug': 'weekly', 'title': 'Weekly Articles' },
-    { 'name': 'Custom Content Type', 'api_name': 'customcontenttype', 'slug': 'other', 'title': 'Other'},
-    { 'name': 'Report', 'api_name': 'reportshomepage', 'slug': 'reports', 'title': 'Reports' }
+    { 'name': 'Other', 'api_name': 'customcontenttype', 'slug': 'other', 'title': 'Other'},
+    { 'name': 'Report', 'api_name': 'report', 'slug': 'reports', 'title': 'Reports' }
 ]
 
 

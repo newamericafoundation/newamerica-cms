@@ -7,14 +7,15 @@
 	white-space: nowrap;
 	display: inline-block;
 	border-radius: 2px;
+	position: relative;
 	@include transition(all $transition-function);
 	cursor: pointer;
 }
 
 .button {
-	border: 1px solid color(black, base, 0.5);
+	border: 1px solid color(black, base, 1);
 	&:hover {
-		background: color(black, base, 0.5);
+		background: color(black, base, 1);
 		border: 1px solid color(black, base, 0);
 		color: color(white);
 	}

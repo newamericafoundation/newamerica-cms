@@ -203,20 +203,16 @@ class EventList(generics.ListAPIView):
 
 class MetaList(views.APIView):
     def get(self, request, format=None):
-        subpages = get_subpages(HomePage)
-        programs = ProgramSerializer(Program.objects.live(), many=True).data
-        subprograms = SubprogramSerializer(Subprogram.objects.live(), many=True).data
-        home = HomeSerializer(HomePage.objects.live().first()).data
+        programs = ProgramSerializer(Program.objects.live().in_menu(), many=True).data
+        types = content_types(request)['content_types']
 
         return response.Response({
             'count': None,
             'next': None,
             'previous': None,
             'results': {
-                'subpages': subpages,
                 'programs': programs,
-                'subprograms': subprograms,
-                'home': home
+                'content_types': types
             }
         })
 

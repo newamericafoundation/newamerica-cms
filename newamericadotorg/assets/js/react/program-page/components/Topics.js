@@ -3,7 +3,7 @@ import { Link, BrowserRouter as Router, Route, Switch, Redirect } from 'react-ro
 import { Component } from 'react';
 import { Fetch } from  '../../components/API';
 import { PersonsList } from './People';
-import { PublicationListItem } from './Publications';
+import { PublicationListItem } from '../../components/Publications';
 
 const Breadcrumbs = ({ ancestors }) => (
   <div className="program__topic__breadcrumbs">

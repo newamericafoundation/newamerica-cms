@@ -1,20 +1,23 @@
 import { NAME } from '../constants';
 import { Component } from 'react';
 import { Fetch, Response } from '../../components/API';
-import { TypeFilter, SubprogramFilter, DateFilter, TopicFilter, FilterGroup } from '../../components/Publications';
 import { PublicationsList } from '../../components/Publications';
+import { FilterGroup, TypeFilter, ProgramFilter, DateFilter } from '../../components/Publications';
 
 // must pass an API Component (Fetch or Response) props to Filters
-const Filters = (props) => (
-  <FilterGroup>
-    <TypeFilter types={props.program.content_types} {...props} expanded={true} label="Type"/>
-    {props.program.subprograms &&
-    <SubprogramFilter subprograms={props.program.subprograms} {...props} label="Project"/>}
-    <DateFilter {...props} label="Date"/>
-    {props.program.topics &&
-    <TopicFilter {...props} topics={props.program.topics} label="Topic"/>}
-  </FilterGroup>
-);
+class Filters extends Component {
+  render(){
+    let { content_types, programs, response: { params: { query } }} = this.props;
+
+    return (
+      <FilterGroup>
+        <TypeFilter {...this.props} label="Type" expanded={true} types={content_types}/>
+        <ProgramFilter {...this.props} label="Program" expanded={query.program_id != '' && query.program_id != null} programs={programs} />
+        <DateFilter {...this.props} label="Date" />
+      </FilterGroup>
+    );
+  }
+}
 
 export default class Publications extends Component {
   componentWillMount(){
@@ -24,28 +27,25 @@ export default class Publications extends Component {
   }
 
   initialQuery = () => {
-    let { programType, program, location } = this.props;
+    let { location, content_types } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
-    let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
-    let type = program.content_types.find((t)=>(t.slug === slug ));
+    let slug = location.pathname.match(/^\/(.+)\/$/i)[1];
+    let type = content_types.find((t)=>(t.slug === slug ));
 
     let initQuery = {
-      [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
       image_rendition: 'max-300x240',
       content_type: type ? type.api_name : '',
       page_size: 8,
       page: 1
     }
 
-    if(programType=='program'){
-      initQuery.subprogram_id = params.get('projectId') || '';
-    }
+    initQuery.program_id = params.get('programId') || '';
 
     return initQuery;
   }
 
   render(){
-    let { program, history, location, programType } = this.props;
+    let { program, history, location, content_types, programs } = this.props;
 
     return (
       <div className="program__publications row gutter-45 scroll-target margin-top-35" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="65">
@@ -53,7 +53,8 @@ export default class Publications extends Component {
           <Fetch component={Filters} name={`${NAME}.publications`}
             endpoint={'post'}
             fetchOnMount={true}
-            program={program}
+            programs={programs}
+            content_types={content_types}
             history={history}
             location={location}
             initialQuery={this.initialQuery()}/>
