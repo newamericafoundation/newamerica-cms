@@ -18,7 +18,7 @@ const Breadcrumbs = ({ ancestors }) => (
 const Subtopics = ({ subtopics }) => (
   <div className="program__topic__subtopic">
     {subtopics.map((s,i)=>(
-      <Link className="button" to={s.url}>{s.title}</Link>
+      <Link className="tag" to={s.url}>{s.title}</Link>
     ))}
   </div>
 );
