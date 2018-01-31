@@ -58,6 +58,11 @@
   margin-left: -10px;
 }
 
+.gutter-30{
+  margin-right: -15px;
+  margin-right: -15px;
+}
+
 .gutter-45{
   margin-right: 0px;
   margin-left: 0px;
@@ -84,6 +89,11 @@
 .gutter-15 > [class*="col-"], .gutter-15 > .col {
   padding-right: 7.5px;
   padding-left: 7.5px;
+}
+
+.gutter-30 > [class*="col-"], .gutter-30 > .col {
+  padding-right: 22.5px;
+  padding-left: 22.5px;
 }
 
 .gutter-45 > [class*="col-"], .gutter-45 > .col {

@@ -4,35 +4,6 @@
 @import 'social';
 
 .post-body {
-  $media-padding: 20px;
-  $media-default-aspect: 1;
-  // padding-top:$desktop-padding;
-  margin-bottom: $desktop-padding;
-  font-size: 18px;
-
-  @include media-breakpoint(tablet){
-    @include flex-order(2);
-  }
-
-  & > [class^='block-']:first-child {
-    *:first-child {
-      margin-top: 0;
-    }
-  }
-  &__date {
-    padding-bottom: 15px;
-  }
-
-  &__hidden {
-    display: none;
-  }
-
-  &__source{
-    display: block;
-    margin-bottom: 10px;
-    font-style: italic;
-  }
-
   img {
     max-width: 100%;
     height: auto;

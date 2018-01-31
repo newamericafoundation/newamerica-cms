@@ -25,23 +25,25 @@
    }
 
   .fa{
-    color: color(turquoise);
-    width: 32px;
-    height: 32px;
+    //color: color(turquoise);
+    color: color(black);
+    //width: 32px;
+    height: 20px;
+    //height: 32px;
     padding: 0;
-    border: 1px solid color(turquoise);
+    //border: 1px solid color(turquoise);
     border-radius: 16px;
     position: relative;
-    margin-right: 15px;
+    margin-right: 25px;
     &:before{
-      position: absolute;
-      font-size: 0.7em;
-      @include center;
+      //position: absolute;
+      font-size: 0.9rem;
+      //@include center;
     }
 
     &:hover{
-      color: color(white);
-      background: color(turquoise);
+      color: color(turquoise);
+      //background: color(black);
     }
   }
 }

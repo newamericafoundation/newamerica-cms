@@ -1,8 +1,4 @@
-
-.event-details {
-	&__where{
-		@include media-breakpoint(desktop){
-			margin-top: 15px;
-		}
-	}
+.event-details label p{
+  display: block;
+  margin-top: 0.5em;
 }

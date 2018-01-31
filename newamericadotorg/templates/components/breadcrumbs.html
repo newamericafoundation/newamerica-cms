@@ -1,13 +1,9 @@
 {% if self.get_ancestors|length > 2 %}
-  <section class="container container--wide">
-  <div class='breadcrumbs depth-{{self.get_ancestors|length}}'>
-    {% for page in self.get_ancestors %}
-      {% if forloop.counter > 2 %}
-        <label class="breadcrumbs__item">
-          <a href="{{ page.url }}">{{ page.title }}</a>
-        </label>
-      {% endif %}
-    {% endfor %}
+{% with a=self.get_ancestors %}
+  <div class="container margin-top-25 breadcrumb">
+    <label class="block with-caret--left">
+      <a href="{{ a.2.url }}">{{ a.2.title }}</a>
+    </label>
   </div>
-</section>
+  {% endwith %}
 {% endif %}

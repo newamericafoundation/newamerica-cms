@@ -6,19 +6,23 @@
 
 {% block body_class %}template-event{% endblock %}
 
-{% block post_left_aside %}
-	<aside class="col-md-12 col-lg-3 event-details container">
-		<div class="row">
-			<div class="event-details__when col-lg-12 col-6">
-					<h4 class="event-details__label narrow-margin">When</h4>
-					<label class="event-detail__when__date lg">{% generate_dateline page %}</label>
+{% block post_right_aside %}
+	<aside class="col-md-2">
+		<div class="post-authors__list row gutter-0">
+			<div class="event-details col-lg-12 col-6 margin-bottom-lg-25">
+					<label class="block bold margin-0">When</label>
+					<label class="">{% generate_dateline page %}</label>
 			</div>
-			<div class="event-details__where col-lg-12 col-6">
-				<h4 class="event-details__label narrow-margin">Where</h4>
-				<label class="event-details__where__organization lg block">{{ page.host_organization }}</label>
-				<label class="event-details__where__street lg block">{{ page.street_address }}</label>
-				<label class="event-details__where__city-state lg block">{{ page.city }}, {{ page.state }} {{ page.zipcode }}</label>
+			<div class="event-details col-lg-12 col-6">
+				<label class="block bold margin-0">Where</label>
+				<label class="margin-bottom-0"><p>{{ page.host_organization }}</p>
+					<p>{{ page.street_address }}</p>
+					<p>{{ page.city }}, {{ page.state }} {{ page.zipcode }}</p>
+				</label>
 			</div>
+		</div>
+		<div class="post-authors__rsvp margin-top-25">
+			<a class="button turquoise block" href="">RSVP</a>
 		</div>
 	</aside>
 {% endblock %}

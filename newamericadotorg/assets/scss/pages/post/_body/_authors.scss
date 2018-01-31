@@ -1,34 +1,10 @@
-.post-authors{
-    height: 175px;
-    overflow: hidden;
-    padding-top: 15px;
-    @include media-breakpoint(tablet){
-      @include flex-order(1);
-    }
+.post-authors__list{
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-top: 1px solid color(black, base, 0.3);
+  border-bottom: 1px solid color(black, base, 0.3);
 
-    @include media-breakpoint(desktop){
-      height: auto;
-      overflow: visible;
-    }
-
-  &__list{
-    overflow-x: scroll;
-    height: calc(100% + 25px);
-    padding-bottom: 25px;
-    width: 100%;
-    white-space: nowrap;
-    .author{
-      white-space: normal;
-      display: inline-block;
-      max-width: calc(50vw - 20px);
-      @include media-breakpoint(tablet){
-        width: 200px;
-      }
-
-      @include media-breakpoint(desktop){
-        display: block;
-        width: auto;
-      }
-    }
+  .report__authors__item:not(:last-child){
+    margin-bottom: 25px;
   }
 }

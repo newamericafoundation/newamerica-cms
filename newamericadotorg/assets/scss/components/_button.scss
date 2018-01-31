@@ -20,19 +20,37 @@
 		color: color(white);
 	}
 
+	&.block {
+		display: block;
+	}
+
 	&.white {
+		border: 1px solid color(white, base, 0);
 		background: color(white);
 		color: color(black);
 		&:hover {
+			border: 1px solid color(white, base, 0);
 			background: color(white);
 		}
 	}
 
 	&.black {
+		border: 1px solid color(black, base, 0);
 		background: color(black);
 		color: color(white) !important;
 		&:hover {
+			border: 1px solid color(black, base, 0);
 			background: color(black, base, 0.75);
+		}
+	}
+
+	&.turquoise {
+		border: 1px solid color(turquoise, base, 0);
+		background: color(turquoise);
+		color: color(white) !important;
+		&:hover{
+			border: 1px solid color(turquoise, base, 0);
+			background: color(turquoise, base, 0.75);
 		}
 	}
 }

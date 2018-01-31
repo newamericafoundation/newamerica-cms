@@ -74,7 +74,7 @@ h6 {
   line-height: 1.1rem;
 }
 
-p,
+p, .rich-text,
 li{
   font-family: $paragraph-font-family;
   font-size: 1.125rem;
@@ -212,6 +212,13 @@ label, input {
 
   &.caption {
     font-style: italic;
+  }
+
+  &.pullquote {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
   &.with-seperator, &.with-separator {

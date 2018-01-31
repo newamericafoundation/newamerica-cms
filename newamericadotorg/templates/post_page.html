@@ -20,58 +20,46 @@
 		{% include 'components/header.html' %}
 	{% endif %}
 {% endblock %}
-
-
 {% block content %}
-	<main>
-	{% block breadcrumbs %}
-    {% include 'components/breadcrumbs.html' %}
-  {% endblock %}
-	{% block post-heading %}
-		{% include 'components/post_heading.html' %}
-	{% endblock %}
-
-	<section class="{% block post_container_class %}container--wide{% endblock %}">
-		<div class="row">
+{% block breadcrumbs %}
+	{% include 'components/breadcrumbs.html' %}
+{% endblock %}
+<main class="post margin-top-60 margin-bottom-80">
+	<section class="container">
+		<div class="row gutter-30">
+			 <div class="col-md-8 post-heading__wrapper">
+				 	{% include 'components/post_heading.html' %}
+			 </div>
+		 </div>
+	 <div class="row gutter-30">
 			 {% block post_left_aside %}
-				 	<aside class="post-authors col-md-12 col-lg-3">
-						{% if authors %}
+				 	<aside class="post-social col-md-2 ">
+						{% include 'components/post_share.html' %}
+	 				</aside>
+			 {% endblock %}
+			 {% block post-body %}
+ 				<article class="post-body col-md-8">
+ 					{% include 'components/post_body.html' %}
+ 					{% block post_extra_body_content %}{% endblock %}
+ 				</article>
+ 			{% endblock %}
+ 			{% block post_right_aside %}
+				<aside class="post-authors col-md-2">
+					{% if authors %}
+						<div class="post-authors__list">
 							{% with authors|length as authors_len %}
-								<label class="lg">
+								<label class="margin-top-0">
 									{% pluralize authors_len "Author" %}
 								</label>
 							{% endwith %}
-							<div class="post-authors__list">
-								{% for author in authors %}
-										{% include 'components/author.html' with author=author.author class='short-bio sm-compact'%}
-								{% endfor %}
-							</div>
-						{% endif %}
-					</aside>
-			 {% endblock %}
-
- 			{% block post_right_aside %}
- 				<aside class="post-social col-md-3 scroll-target" {% if panels %}data-scroll-top-offset="-70"{% endif %}>
- 					<div class="post-social__sticky-wrapper">
- 						{% include 'components/post_share.html' %}
- 						{% if page.topics.all %}
- 							{% include 'components/post_topics.html' %}
- 						{% endif %}
- 						{% if page.attachment %}
- 						  {% include 'components/post_attachments.html' %}
- 						{% endif %}
- 					</div>
- 				</aside>
+							{% for author in authors %}
+									{% include 'components/post_person.html' with author=author.author %}
+							{% endfor %}
+						</div>
+					{% endif %}
+				</aside>
  			{% endblock %}
-
-			{% block post-body %}
-				<article class="post-body with-dropcap col-md-9 col-lg-6">
-					{% include 'components/post_body.html' %}
-					{% block post_extra_body_content %}{% endblock %}
-				</article>
-			{% endblock %}
-
 		</div>
 	</section>
-	</main>
+</main>
 {% endblock %}
