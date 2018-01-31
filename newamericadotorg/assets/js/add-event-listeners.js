@@ -30,6 +30,7 @@ let listeners = [
 
   function menuToggle(){
     let menu = document.getElementById('mobile-menu-toggle');
+    if(!menu) return;
     menu.addEventListener('click', function(){
       store.dispatch({
         type: 'TOGGLE_MOBILE_MENU',

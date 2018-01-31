@@ -46,6 +46,7 @@ let observers = [
 
   function menuOpen(){
     let menu = document.getElementById('mobile-menu__wrapper');
+    if(!menu) return;
     let lastScrollY = 0;
     actions.addObserver({
       stateName: 'site.mobileMenuIsOpen',

@@ -42,8 +42,8 @@ class Menus extends Component {
     this.state = { selectedTab: false };
   }
 
-  componentDidUpdate(){
-    if(!this.props.isOpen) this.setState({ selectedTab: false });
+  componentDidUpdate(prevProps){
+    if(this.props.isOpen !== prevProps.isOpen && this.props.isOpen === false) this.setState({ selectedTab: false });
   }
 
   switchTab = (selectedTab) => {
