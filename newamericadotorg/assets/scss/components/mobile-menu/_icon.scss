@@ -1,0 +1,51 @@
+$bar-spacing: 6px;
+
+.mobile-menu-icon{
+  position: absolute;
+  width: 21px;
+  top: 25px;
+  right: 15px;
+  height: 21px;
+  z-index: 220;
+  cursor: pointer;
+  span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    display: block;
+    background: color(black, base, 0.5);
+    @include transition(all 0.25s ease-in-out);
+    @include transform(rotate(0));
+  }
+
+  span:nth-child(2){
+    top: $bar-spacing;
+  }
+
+  span:last-child{
+    top: $bar-spacing*2;
+  }
+
+}
+
+
+#mobile-menu__wrapper.open {
+
+  span:first-child{
+    background: color(black, base, 0);
+  }
+
+  span:nth-child(2){
+    top: $bar-spacing + 3;
+    background: color(turquoise, base, 1);
+    @include transform(rotate(45deg));
+  }
+
+  span:last-child{
+    top: $bar-spacing*2 - $bar-spacing + 3;
+    background: color(turquoise, base, 1);
+    @include transform(rotate(-45deg));
+  }
+
+}

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { NAME, ID } from './constants';
-import { Fetch } from '../components/API';
+import { Fetch, Response } from '../components/API';
 import Events from './components/Events';
 
 class Routes extends Component {
@@ -22,10 +22,7 @@ class APP extends Component {
   render() {
     let { contentTypes, programs } = this.props;
     return (
-      <Fetch component={Routes}
-        name={`${NAME}.meta`}
-        endpoint={`meta`}
-        fetchOnMount={true} />
+      <Response component={Routes} name='meta' />
     );
   }
 }

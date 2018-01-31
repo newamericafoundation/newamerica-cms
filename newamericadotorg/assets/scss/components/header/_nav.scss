@@ -17,4 +17,8 @@
     @extend %clearfix;
     @import 'dropdown';
   }
+
+  &__mobile-menu-icon {
+    text-align: center;
+  }
 }

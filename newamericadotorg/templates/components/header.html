@@ -1,6 +1,5 @@
 {% load cache %}
-
-{% cache 86400 header %}
+<!-- 86400 header  -->
 <header class="header scroll-target {% block with-subheader-class %}{% endblock %}" data-scroll-offset="200%">
   <div class="header__wrapper">
     <div class="container--wide">
@@ -10,7 +9,7 @@
           <div class="header__logo logo"></div>
         </a>
       </div>
-      <nav class="header__nav col-md-8">
+      <nav class="header__nav col-md-7">
         <!-- floated right, so this is in opposite order -->
         <div class="header__nav__button-and-icons">
           <div class="header__nav__donate">
@@ -24,15 +23,16 @@
           {% include './header_dropdown_list.html' %}
         </div>
       </nav>
-      <nav class="header__nav__mobile col-1">
-        <div class="header__nav__mobile-menu-toggle">
-          <i class="fa fa-ellipsis-v"></i>
-          <i class="fa fa-times"></i>
-        </div>
+      <nav class="header__nav__mobile-menu-icon col-1">
+
       </nav>
     </div>
   </div>
+  <div id="mobile-menu__wrapper">
+    {%  include 'components/mobile-menu-icon.html' %}
+    <div id="compose__mobile-menu" data-replace-this="true"></div>
   </div>
+  </div>
+
   {% block subheader %}{% endblock %}
 </header>
-{% endcache %}

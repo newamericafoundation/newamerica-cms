@@ -7,11 +7,8 @@ let composer = new Composer(store);
 composer.installed_components = components;
 
 composer.init = () => {
-  store.dispatch(setParams('programData', { endpoint: 'program' } ));
-  store.dispatch(fetchData('programData'));
-
-  store.dispatch(setParams('contentTypes', { endpoint: 'content-types' }));
-  store.dispatch(fetchData('contentTypes'));
+  store.dispatch(setParams('meta', { endpoint: 'meta' } ));
+  store.dispatch(fetchData('meta'));
 
   for(let k in components)
     composer.add(components[k]);

@@ -30,6 +30,15 @@ body.scroll-disabled {
   overflow: hidden;
 }
 
+body.scroll-md-disabled {
+  position: fixed;
+  overflow: hidden;
+  @include media-breakpoint(desktop){
+    position: static;
+    overflow: auto;
+  }
+}
+
 ul, ol {
   &.no-list-style, &.inline {
     margin: 0;

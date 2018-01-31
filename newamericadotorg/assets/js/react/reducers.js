@@ -62,7 +62,7 @@ const searchIsOpen = (state=false, action) => {
 const mobileMenuIsOpen = (state=false, action) => {
   switch(action.type){
     case TOGGLE_MOBILE_MENU:
-      return action.state;
+      return !state;
     default:
       return state;
   }

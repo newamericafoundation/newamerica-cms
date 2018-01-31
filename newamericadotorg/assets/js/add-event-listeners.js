@@ -28,6 +28,16 @@ let listeners = [
     }
   },
 
+  function menuToggle(){
+    let menu = document.getElementById('mobile-menu-toggle');
+    menu.addEventListener('click', function(){
+      store.dispatch({
+        type: 'TOGGLE_MOBILE_MENU',
+        component: 'site'
+      });
+    });
+  },
+
   function scrollTarget(){
     actions.addScrollEvent({
       selector: '.scroll-target'
