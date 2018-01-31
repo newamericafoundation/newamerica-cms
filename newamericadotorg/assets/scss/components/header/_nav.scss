@@ -13,7 +13,6 @@
   @import 'button-and-icons';
 
   &__dropdown-list{
-    padding-right: 10px;
     @extend %clearfix;
     @import 'dropdown';
   }

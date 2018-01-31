@@ -1,20 +1,14 @@
 &__button-and-icons{
-  padding-left: 15px;
   white-space: nowrap;
   & > div {
     display: inline-block;
   }
-
-  i {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
 }
 &__donate{
-  line-height: $header-height;
-  padding-left: 5px;
-  padding-right: 5px;
-  &__button{
-    display: initial !important;
-  }
+
+}
+
+.header__nav__search{
+  padding-left: 0.85em;
+  padding-top: 30px;
 }

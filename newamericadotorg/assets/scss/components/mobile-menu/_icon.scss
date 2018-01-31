@@ -1,17 +1,23 @@
 $bar-spacing: 6px;
 
 .mobile-menu-icon{
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+  background: color(white, base, 0);
   position: absolute;
-  width: 21px;
-  top: 25px;
+  width: 35px;
+  height: 100%;
+  width: 46px;
+  top: 0;
+  padding-top: 25px;
+  padding-left: 25px;
   right: 15px;
-  height: 21px;
   z-index: 220;
-  cursor: pointer;
   span {
     position: absolute;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 21px;
     height: 1px;
     display: block;
     background: color(black, base, 0.5);
@@ -19,12 +25,16 @@ $bar-spacing: 6px;
     @include transform(rotate(0));
   }
 
+  span:first-child{
+    top: 25px;
+  }
+
   span:nth-child(2){
-    top: $bar-spacing;
+    top: $bar-spacing + 25px;
   }
 
   span:last-child{
-    top: $bar-spacing*2;
+    top: $bar-spacing*2 + 25px;
   }
 
 }
@@ -37,13 +47,13 @@ $bar-spacing: 6px;
   }
 
   span:nth-child(2){
-    top: $bar-spacing + 3;
+    top: $bar-spacing + 3 + 25px;
     background: color(turquoise, base, 1);
     @include transform(rotate(45deg));
   }
 
   span:last-child{
-    top: $bar-spacing*2 - $bar-spacing + 3;
+    top: $bar-spacing*2 - $bar-spacing + 3 + 25px;
     background: color(turquoise, base, 1);
     @include transform(rotate(-45deg));
   }
