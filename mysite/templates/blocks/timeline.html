@@ -8,7 +8,7 @@
 	});
 </script>
 
-<div class="timeline" id="tl_{{ self.title|slugify }}">
+<div class="timeline {% if self.default_view == 'list' %}list-view{% endif %}" id="tl_{{ self.title|slugify }}">
 
 	<div class="timeline__see-all-button"></div>
 
@@ -69,5 +69,5 @@
 			</div>
 		</div>
 	</div>
-	
+
 </div>
