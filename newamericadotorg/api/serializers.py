@@ -221,6 +221,9 @@ class ProgramDetailSerializer(ModelSerializer):
     def get_about_us_pages(self, obj):
         if not obj.sidebar_menu_about_us_pages:
             return None
+        if len(obj.sidebar_menu_about_us_pages) == 0:
+            return None
+
         about_us_pages = []
         for p in obj.sidebar_menu_about_us_pages:
             p = p.value.specific

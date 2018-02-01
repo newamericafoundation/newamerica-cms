@@ -11,9 +11,9 @@ export default class About extends Component {
     let { about, about_us_pages, root } = this.props;
 
     return (
-      <div className={`program__about margin-top-10 ${about_us_pages.length > 0 ? 'with-menu' : ''}`}>
+      <div className={`program__about margin-top-10 ${about_us_pages ? 'with-menu' : ''}`}>
         <div className="row">
-          {about_us_pages.length > 0 &&
+          {about_us_pages &&
             <div className="program__about__menu col-md-2">
               <div className="menu-list--padding-15">
               {about_us_pages.map((p,i)=>(
