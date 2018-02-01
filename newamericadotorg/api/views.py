@@ -26,7 +26,6 @@ from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
 from in_depth.models import InDepthProject
 from report.models import Report
-from custom_contenttype.models import CustomContentTypeCategory
 from subscribe.campaign_monitor import update_subscriber
 
 class PostFilter(FilterSet):

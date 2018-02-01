@@ -20,7 +20,7 @@ export class Timeline {
 		Object.assign(this, settingsObject);
 		this.fullEventList = this.eventList;
 		this.currEventList = this.eventList;
-		this.listView = false;
+		this.listView = settingsObject.defaultView === 'list' || false;
 		this.currCategoryShown = "all";
 		this.currSplitShown = "all";
 
@@ -31,7 +31,7 @@ export class Timeline {
 		} else {
 			this.currSelected = 0;
 		}
-		
+
 		this.cacheDOMSelections(containerId);
 		this.appendContainers();
 
@@ -40,7 +40,7 @@ export class Timeline {
 			this.appendSplitButtons();
 		}
 
-		if (this.categoryList && this.categoryList.length > 0) { 
+		if (this.categoryList && this.categoryList.length > 0) {
 			this.initializeColorScale();
 			this.appendCategoryLegend();
 		}
@@ -82,7 +82,7 @@ export class Timeline {
 		this.svg = this.navContainer
 			.append("svg")
 			.attr("class", "timeline__nav__container")
-			.attr("width", "100%"); 
+			.attr("width", "100%");
 
 		this.g = this.svg.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -100,13 +100,13 @@ export class Timeline {
 
 		this.dotContainer = this.g.append("g")
 			.attr("width", "100%")
-			.attr("transform", this.eraList && this.eraList.length > 0 ? "translate(0," + dimensions.rowHeight/2 + ")" : "translate(0," + -dimensions.rowHeight/2 + ")"); 
+			.attr("transform", this.eraList && this.eraList.length > 0 ? "translate(0," + dimensions.rowHeight/2 + ")" : "translate(0," + -dimensions.rowHeight/2 + ")");
 	}
 
 	appendSplitButtons() {
 		let buttonList = this.splitButtonContainer.append("ul")
 			.attr("class", "timeline__split-button-list");
-		
+
 		this.splitList.push({ title: "All", id: "all"})
 
 		this.splitButtons = buttonList.selectAll("li")
@@ -115,7 +115,7 @@ export class Timeline {
 			.attr("class", "timeline__split-button")
 			.classed("active", (d, i) => { return this.currSplitShown != "all" ? d == this.currSplitShown : d.id == "all" })
 			.on("click", (d, index, paths) => { this.changeSplitShown(d); this.eventListChangedReRender();})
-			.text((d) => { return d.title; });	
+			.text((d) => { return d.title; });
 	}
 
 	appendEraContainers() {
@@ -204,13 +204,13 @@ export class Timeline {
 			.domain(this.categoryList)
 			.range(["#2ebcb3", "#477da3", "#692025", "#2a8e88", "#5ba4da"]);
 	}
-	
+
 	addListeners(containerId) {
 		// adds arrow key listeners only when user is hovered over nav or content containers
 		select("#" + containerId)
 			.classed("touch", isTouchDevice())
 			.on("mouseover", () => { window.addEventListener('keydown', this.keyListener); })
-			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })   
+			.on("mouseout", () => { window.removeEventListener('keydown', this.keyListener); })
 
 		if (select("#" + containerId).classed("touch")) {
 			console.log("this is a touch screen!");
@@ -226,7 +226,7 @@ export class Timeline {
 
 		window.onhashchange = () => {
 	        let hashString = window.location.hash ? window.location.hash.replace("#", "") : null;
-			
+
 			let index = this.getEventIndexByHash(hashString);
 
 			if (this.categoryList && this.categoryList.length > 0) {
@@ -235,7 +235,7 @@ export class Timeline {
 			if (this.splitList && this.splitList.length > 0) {
 				this.changeSplitShown({id:"all"});
 			}
-			
+
 			this.eventListChangedReRender();
 			this.setNewSelected(index, true);
 	    }
@@ -286,7 +286,7 @@ export class Timeline {
 		this.contentContainer.selectAll(".timeline__event").style("width", this.eventContentVisibleWidth);
 		this.contentContainer.select(".timeline__full-event-container")
 			.style("transform", "translate(-" + (this.currSelected*this.eventContentVisibleWidth.replace("px", "")) + "px)");
-	
+
 		this.xScale.range([0, this.w]);
 	}
 
@@ -313,7 +313,7 @@ export class Timeline {
 			.range([this.numDotRows * dimensions.rowHeight, 0]);
 	}
 
-	calcYIndex(startXPos, endXPos) {	
+	calcYIndex(startXPos, endXPos) {
 		let i = 0;
 
 		for (let row of this.rows) {
@@ -321,7 +321,7 @@ export class Timeline {
 			// loop through all intervals stored within row
 			for (let rowInterval of row) {
 				// check if start or end position overlaps with interval
-				if ((startXPos >= rowInterval.start && startXPos <= rowInterval.end) || 
+				if ((startXPos >= rowInterval.start && startXPos <= rowInterval.end) ||
 					(endXPos >= rowInterval.start && endXPos <= rowInterval.end)) {
 					// if overlap, breaks loop, moves to next row
 					foundOverlap = true;
@@ -363,7 +363,7 @@ export class Timeline {
 
 		if (this.eraList && this.eraList.length > 0) {
 			this.eraContainers.attr("height", gHeight)
-				
+
 			this.eraDividers.attr("height", gHeight)
 				.attr("y2", gHeight);
 		}
@@ -390,7 +390,7 @@ export class Timeline {
 
 	setEraContainerXCoords() {
 		this.eraContainers
-			.attr("transform", (d) => { 
+			.attr("transform", (d) => {
 				return "translate(" + this.setEraStart(d) + ")";
 			})
 			.attr("width", (d) => {
@@ -403,7 +403,7 @@ export class Timeline {
 	setEraStart(d) {
 		let start = this.xScale(parseDate(d.start_date));
 		if (start < 0) { start = 0; }
-		return start; 
+		return start;
 	}
 
 	setEraWidth(d) {
@@ -425,7 +425,7 @@ export class Timeline {
 			this.eraText
 				.classed("visible", true)
 				.text(currEra.title + " (" + formatDateLine(currEra, true) + ")");
-			
+
 			// handles case where eratext goes off edge of viewport
 			let textWidth = this.eraText._groups[0][0].getBBox().width;
 			let xCoord = this.setEraStart(currEra) + this.setEraWidth(currEra)/2;
@@ -526,12 +526,12 @@ export class Timeline {
 			this.prevContainer.classed("hidden", true);
 			this.setNext();
 			return;
-		} 
+		}
 		if (this.currSelected == this.currEventList.length-1) {
 			this.nextContainer.classed("hidden", true);
 			this.setPrev();
 			return;
-		} 
+		}
 		this.setNext();
 		this.setPrev();
 	}
@@ -581,8 +581,8 @@ export class Timeline {
 		// ensures hover text doesn't overflow off right edge of screen
 		if (Number(elemX) + textWidth > this.w) {
 			elemX = this.w - textWidth + 5;
-		} 
-			
+		}
+
 		this.hoverInfo.attr("transform", "translate(" + elemX + ")")
 	}
 
@@ -628,13 +628,13 @@ export class Timeline {
 
 	changeSplitShown(newSplit) {
 		this.splitButtons.classed("active", (d) => { return newSplit.id == d.id; });
-		
+
 		this.currSplitShown = newSplit.id == "all" ? "all" : newSplit;
 		this.filterEventList();
 	}
 
 	filterEventList() {
-		this.currEventList = this.fullEventList.filter((d) => { 
+		this.currEventList = this.fullEventList.filter((d) => {
 			return this.shouldShowEvent(d);
 		})
 	}

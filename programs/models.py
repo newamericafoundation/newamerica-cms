@@ -199,7 +199,6 @@ class Program(AbstractProgram):
     'home.RedirectPage',
     'report.ReportsHomepage',
     'PublicationsPage',
-    'custom_contenttype.ProgramCustomContentTypePage'
     ]
 
     desktop_program_logo = models.ForeignKey(

@@ -61,6 +61,11 @@ class Person(Page):
     long_bio = RichTextField(blank=True, null=True)
     expert = models.BooleanField(default=False)
     leadership = models.BooleanField(default=False)
+    sort_priority = models.CharField(
+        choices=(('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')),
+        blank=True, null=True, max_length=50,
+        help_text='This will override alphabetical ordering.'
+    )
     profile_image = models.ForeignKey(
         'home.CustomImage',
         null=True,
@@ -176,7 +181,8 @@ class Person(Page):
                 FieldPanel('role'),
                 FieldPanel('former'),
                 FieldPanel('expert'),
-                FieldPanel('leadership')
+                FieldPanel('leadership'),
+                FieldPanel('sort_priority'),
         ], heading="Role"),
 
         InlinePanel('programs',
