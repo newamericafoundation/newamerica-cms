@@ -25,7 +25,7 @@ class Article(Post):
     ]
 
     class Meta:
-        verbose_name = "Article and Op-Ed"
+        verbose_name = "Article/Op-Ed"
 
 
 class AllArticlesHomePage(Page):

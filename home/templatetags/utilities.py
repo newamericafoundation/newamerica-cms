@@ -98,12 +98,10 @@ def generate_byline(ptype, authors):
 	if post_type == "Event" or post_type == "Press Release":
 		return ret_string
 
-	ret_string += get_byline_prefix(post_type, authors)
-
 	# counter is used to determine appropriate list separator
 	counter = 1
 	for author in authors:
-		ret_string += '<a href="' + author.author.url + '">' + author.author.first_name + ' ' + author.author.last_name + '</a>'
+		ret_string += '<label class="bold"><a href="' + author.author.url + '">&nbsp;' + author.author.first_name + ' ' + author.author.last_name + '&nbsp;</a></label>'
 		ret_string += list_separator(num_authors - counter)
 		counter += 1
 
@@ -140,25 +138,21 @@ def generate_content_type_line(ptype):
 @register.simple_tag()
 def generate_dateline(post):
 	ret_string = ""
-	date_format = '%B %-d, %Y'
+	date_format = '%b. %-d, %Y'
 	time_format = '%-I:%M %p'
 
 	if str(post.content_type) == "Event":
 		if post.date:
-
-			ret_string += '<p class="date">'
 			ret_string += post.date.strftime(date_format)
 			if post.end_date:
 				if post.end_date != post.date:
 					ret_string += ' - ' + post.end_date.strftime(date_format)
-			ret_string += '</p>'
 
 		if post.start_time:
-			ret_string += '<p class="time">'
+			ret_string += '<br/>'
 			ret_string += post.start_time.strftime(time_format).lower()
 			if post.end_time:
 				ret_string += ' - ' + post.end_time.strftime(time_format).lower()
-			ret_string += '</p>'
 	elif str(post.content_type) == "person":
 		return ""
 	else:

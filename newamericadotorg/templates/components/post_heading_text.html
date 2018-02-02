@@ -1,0 +1,11 @@
+<div class="post-heading__text margin-bottom-35">
+  <h1>
+    {% firstof custom_title page.title %}
+  </h1>
+  {% if page.subheading %}
+    <label class="pullquote">{{ page.subheading }}</label>
+  {% endif %}
+  {% if page.content_type.name != 'New America Post' %}
+  <label class="block button--text">{{page.content_type}}{% if page.source %} in {{ page.source }}{% endif %}</label>
+  {% endif %}
+</div>

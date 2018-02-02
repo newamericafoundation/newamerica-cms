@@ -10,8 +10,7 @@
 	{% endif %}
 {% endblock %}
 
-{% block body_class %}template-postpage{% endblock %}
-
+{% block body_class %}postpage{% endblock %}
 
 {% block header %}
 	{% if panels %}
@@ -24,42 +23,29 @@
 {% block breadcrumbs %}
 	{% include 'components/breadcrumbs.html' %}
 {% endblock %}
-<main class="post margin-top-60 margin-bottom-80">
-	<section class="container">
-		<div class="row gutter-30">
-			 <div class="col-md-8 post-heading__wrapper">
-				 	{% include 'components/post_heading.html' %}
-			 </div>
-		 </div>
-	 <div class="row gutter-30">
-			 {% block post_left_aside %}
-				 	<aside class="post-social col-md-2 ">
-						{% include 'components/post_share.html' %}
-	 				</aside>
-			 {% endblock %}
-			 {% block post-body %}
- 				<article class="post-body col-md-8">
- 					{% include 'components/post_body.html' %}
- 					{% block post_extra_body_content %}{% endblock %}
- 				</article>
- 			{% endblock %}
- 			{% block post_right_aside %}
-				<aside class="post-authors col-md-2">
-					{% if authors %}
-						<div class="post-authors__list">
-							{% with authors|length as authors_len %}
-								<label class="margin-top-0">
-									{% pluralize authors_len "Author" %}
-								</label>
-							{% endwith %}
-							{% for author in authors %}
-									{% include 'components/post_person.html' with author=author.author %}
-							{% endfor %}
-						</div>
-					{% endif %}
-				</aside>
- 			{% endblock %}
+<main class="post container margin-top-60 margin-bottom-80">
+	<div class="row gutter-30">
+		<div class="col-md-8 post-heading">
+			{% include 'components/post_heading_text.html' %}
 		</div>
-	</section>
+	</div>
+	<div class="row gutter-30">
+		{% block post_left_aside %}
+			 <aside class="post-social col-md-2 ">
+				 {% include 'components/post_share.html' %}
+			 </aside>
+		{% endblock %}
+		 <div class="col-md-8">
+			{% include 'components/post_heading_image.html' %}
+			{% block post-body %}
+			<article class="post-body">
+				{% include 'components/post_body.html' %}
+				{% block post_extra_body_content %}{% endblock %}
+			</article>
+			{% endblock %}
+		 </div>
+			{% block post_right_aside %}
+			{% endblock %}
+	</div>
 </main>
 {% endblock %}

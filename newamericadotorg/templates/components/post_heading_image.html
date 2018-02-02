@@ -1,0 +1,15 @@
+{% load wagtailcore_tags wagtailimages_tags utilities %}
+
+<!-- BLOG -->
+{% image page.story_image width-800 as story_image %}
+
+{% if page.publication_cover_image %}
+  {% include './post_book_heading.html' %}
+{% elif story_image and not page.publication_cover_image %}
+  <div class="post-heading__image margin-bottom-60">
+    <img src="{{story_image.url}}" />
+    {% if story_image.image.source %}
+      <label class="block caption">{{story_image.image.source}}</label>
+    {% endif %}
+  </div>
+{% endif %}

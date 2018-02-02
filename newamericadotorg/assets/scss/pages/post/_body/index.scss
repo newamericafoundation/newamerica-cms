@@ -4,17 +4,24 @@
 @import 'social';
 
 .post-body {
-  img {
-    max-width: 100%;
-    height: auto;
+  & > *:first-child {
+    margin-top: 0 !important;
+
+    & > * :first-child {
+      margin-top: 0 !important;
+    }
   }
 
   @import 'drop-cap';
-  @import 'link';
   @import 'lists';
   @import 'data-reference';
   @import 'responsive-object';
   @import 'toggles';
+}
+
+.postpage .post-body{
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 @import 'blocks/index';

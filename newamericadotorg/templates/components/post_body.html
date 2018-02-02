@@ -1,6 +1,12 @@
 {% load wagtailcore_tags %}
+{% load utilities %}
+
+{% if page.authors and page.content_type.name != 'Event' and page.content_type.name != "Press Release" and page.content_type.name != "Report" %}
+  <label>By</label>
+  {% generate_byline page.content_type page.authors.all %}
+{% endif %}
 {% if page.date %}
-  <label class="post-body__date block margin-0">{{ page.date }}</label>
+  <label class="post-body__date block">{{ page.date }}</label>
 {% endif %}
 {% for block in page.body %}
   {% if block.block_type == "inline_image" %}

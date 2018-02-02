@@ -2,10 +2,10 @@
 {% with a=self.get_ancestors %}
   <div class="container margin-top-25 breadcrumb">
     <label class="block with-caret--left">
-      {% if "Subprogram" in a.3.content_type.name %}
+      {% if a.3.content_type.name == "Subprogram Page" %}
       <a href="{{ a.3.url }}">{{a.3.title }}</a>
       {% else %}
-      <a href="{{ a.2.url }}">2 {{a.2.title }}</a>
+      <a href="{{ a.2.url }}">{{a.2.title }}</a>
       {% endif %}
     </label>
   </div>

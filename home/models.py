@@ -290,6 +290,9 @@ class OrgSimplePage(AbstractSimplePage):
     parent_page_types = ['home.HomePage', 'OrgSimplePage']
     subpage_types = ['OrgSimplePage', 'home.RedirectPage']
 
+    class Meta:
+        verbose_name = 'New America Post'
+
 
 
 class ProgramSimplePage(AbstractSimplePage):
@@ -298,6 +301,9 @@ class ProgramSimplePage(AbstractSimplePage):
     """
     parent_page_types = ['programs.Program', 'ProgramSimplePage', 'programs.Subprogram']
     subpage_types = ['ProgramSimplePage', 'home.RedirectPage']
+
+    class Meta:
+        verbose_name = 'Post'
 
 
 class JobsPage(OrgSimplePage):

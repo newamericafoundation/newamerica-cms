@@ -232,6 +232,9 @@ class ProgramDetailSerializer(ModelSerializer):
             body = loader.get_template('components/post_body.html').render({ 'page': p })
             about_us_pages.append({ 'title': p.title, 'body': body, 'slug': p.slug })
 
+        if len(about_us_pages) == 0:
+            return None
+
         return about_us_pages
 
 
