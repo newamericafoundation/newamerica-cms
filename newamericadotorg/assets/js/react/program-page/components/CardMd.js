@@ -1,14 +1,21 @@
 import { Component } from 'react';
 
 export default class CardMd extends Component {
+  state = {
+    imageLoaded: false
+  }
+
+  onImageLoad = () => {
+    this.setState({ imageLoaded: true });
+  }
 
   render(){
     let { post, image_size } = this.props;
     return (
       <div className={`card md ${image_size || ''}`}>
         <a href={post.url}>
-          <div className="card__image">
-            <img className="card__image__background" src={post.story_image} />
+          <div className="card__image gray">
+            <img className={`card__image__background ${this.state.imageLoaded ? 'loaded' : ''}`} src={post.story_image} onLoad={this.onImageLoad}/>
           </div>
           <div className="card__text">
             <label className="card__text__title bold margin-top-0 block">{post.title}</label>

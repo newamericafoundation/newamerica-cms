@@ -1,6 +1,13 @@
 import { Component } from 'react';
 
 export default class CardLg extends Component {
+  state = {
+    imageLoaded: false
+  }
+
+  onImageLoad = () => {
+    this.setState({ imageLoaded: true });
+  }
 
   render(){
     let { post } = this.props;
@@ -8,8 +15,8 @@ export default class CardLg extends Component {
       <div className="card lg">
         <a href={post.url} className="row no-gutters">
           <div className="col-8" style={{paddingRight: '3px'}}>
-            <div className="card__image">
-              <img className="card__image__background" src={post.story_image}/>
+            <div className="card__image gray">
+              <img className={`card__image__background ${this.state.imageLoaded ? 'loaded' : ''}`} src={post.story_image} onLoad={this.onImageLoad}/>
             </div>
           </div>
           <div className="col-4">
