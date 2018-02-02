@@ -2,12 +2,15 @@
 
 <!-- BLOG -->
 {% image page.story_image width-800 as story_image %}
-
+{% image page.story_image width-30 as thumbnail %}
 {% if page.publication_cover_image %}
   {% include './post_book_heading.html' %}
 {% elif story_image and not page.publication_cover_image %}
   <div class="post-heading__image margin-bottom-60">
-    <img src="{{story_image.url}}" />
+    <div src="{{thumbnail.url}}" class="temp-image"
+      style="padding-bottom:{% widthratio story_image.image.height story_image.image.width 100 %}%;
+      background-image: url({{ thumbnail.url }})"></div>
+    <img src="{{story_image.url}}" onload="this.classList.add('loaded');"/>
     {% if story_image.image.source %}
       <label class="block caption">{{story_image.image.source}}</label>
     {% endif %}
