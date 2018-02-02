@@ -8,7 +8,7 @@ export const EventItem = ({ event }) => (
   <div className="card event">
     <a href={event.url}>
       <div className={`card__image ${!event.story_image ? 'no-image' : ''}`}>
-        <img className="card__image__background" src={event.story_image} />
+        <img src={event.story_image} />
       </div>
     </a>
     <div className="card__text">

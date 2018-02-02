@@ -4,12 +4,13 @@
 
 {% image post.story_image fill-600x460 as post_image_lg %}
 {% image post.story_image fill-400x306 as post_image_md %}
-{% image post.story_image fill-50x38 as post_image_thumb %}
+{% image post.story_image fill-30x23 as post_image_thumb %}
 
 <div class="card md">
   <a href="{{post.url}}">
-    <div class="card__image" style="background-image: url({{post_image_thumb.url}});">
-      <img class="card__image__background" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 600w, {{post_image_md.url}} 400w" onload="this.classList.add('loaded');"/>
+    <div class="card__image">
+      <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
+      <img src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 600w, {{post_image_md.url}} 400w" onload="this.classList.add('loaded');"/>
     </div>
     <div class="card__text">
       <label class="card__text__title bold margin-top-0 block">{{post.title}}</label>

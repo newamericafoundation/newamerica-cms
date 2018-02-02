@@ -4,7 +4,7 @@
     padding-bottom: 77.143%;
     position: relative;
   }
-  .card__image__background {
+  img {
     position: absolute;
     @include center;
   }
@@ -21,7 +21,7 @@
   &.landscape .card__image{
     padding-bottom: 70%;
 
-    .card__image__background {
+    img {
       width: 100%;
       height: auto;
     }

@@ -5,13 +5,14 @@
 {% image post.story_image fill-800x375 as post_image_lg %}
 {% image post.story_image fill-500x235 as post_image_md %}
 {% image post.story_image fill-300x140 as post_image_sm %}
-{% image post.story_image fill-50x37 as post_image_thumb %}
+{% image post.story_image fill-32x15 as post_image_thumb %}
 
 <div class="card lg">
   <a href="{{post.url}}" class="row no-gutters">
     <div class="col-8" style="padding-right: 3px;">
-      <div class="card__image" style="background-image: url({{post_image_thumb.url}});">
-        <img class="card__image__background" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 800w, {{post_image_md.url}} 500w, {{post_image_sm.url}} 300w" onload="this.classList.add('loaded');">
+      <div class="card__image">
+        <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
+        <img src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 800w, {{post_image_md.url}} 500w, {{post_image_sm.url}} 300w" onload="this.classList.add('loaded');">
       </div>
     </div>
     <div class="col-4">

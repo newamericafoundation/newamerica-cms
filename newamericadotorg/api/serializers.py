@@ -276,30 +276,25 @@ class SubprogramSerializer(ModelSerializer):
 
     def get_story_grid(self, obj):
         grid = []
-        if obj.lead_1:
-            context = self.context.copy()
+        context = self.context
+        if obj.template == 'simple_program.html':
             context['is_lead'] = True
-            grid.append(StoryGridItemSerializer(obj.lead_1.specific, context=context).data)
+        if obj.lead_1:
+            lead_context = self.context.copy()
+            lead_context['is_lead'] = True
+            grid.append(StoryGridItemSerializer(obj.lead_1.specific, context=lead_context).data)
         if obj.lead_2:
-            context = self.context
-            if obj.template == 'simple_program.html':
-                context = self.context.copy()
-                context['is_lead'] = True
             grid.append(StoryGridItemSerializer(obj.lead_2.specific, context=context).data)
         if obj.lead_3:
-            context = self.context
-            if obj.template == 'simple_program.html':
-                context = self.context.copy()
-                context['is_lead'] = True
             grid.append(StoryGridItemSerializer(obj.lead_3.specific, context=context).data)
         if obj.lead_4:
-            grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=self.context).data)
+            grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=context).data)
         if obj.feature_1:
-            grid.append(StoryGridItemSerializer(obj.feature_1.specific, context=self.context).data)
+            grid.append(StoryGridItemSerializer(obj.feature_1.specific, context=context).data)
         if obj.feature_2:
-            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
+            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=context).data)
         if obj.feature_3:
-            grid.append(StoryGridItemSerializer(obj.feature_3.specific, context=self.context).data)
+            grid.append(StoryGridItemSerializer(obj.feature_3.specific, context=context).data)
 
         return grid
 
