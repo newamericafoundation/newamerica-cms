@@ -38,7 +38,7 @@ class Heading extends Component {
               }}/>
               <img className={`${this.state.imageLoaded ? 'loaded' : ''}`}
                 src={report.story_image.url} onLoad={this.onImageLoad}/>
-              <label className="caption">Source: {report.story_image.source}</label>
+              {report.story_image.source && <label className="caption">{report.story_image.source}</label>}
             </div>
           }
         </div>

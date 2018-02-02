@@ -8,8 +8,8 @@
 
 <div class="card event">
   <a href="{{event.url}}">
-    <div class="card__image{% if not event.story_image %} no-image{%endif%}">
-      <img class="card__image__background" src="{{event_image_lg.url}}" srcset="{{event_image_lg.url}} 700w, {{event_image_md.url}} 350w" data-thumbnail="{{event_image_thumb.url}}" />
+    <div class="card__image{% if not event.story_image %} no-image{%endif%}" style="background-image: url({{event_image_thumb.url}});">
+      <img class="card__image__background" src="{{event_image_lg.url}}" srcset="{{event_image_lg.url}} 700w, {{event_image_md.url}} 350w" onload="this.classList.add('loaded');"/>
     </div>
   </a>
   <div class="card__text">

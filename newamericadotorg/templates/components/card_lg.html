@@ -10,8 +10,8 @@
 <div class="card lg">
   <a href="{{post.url}}" class="row no-gutters">
     <div class="col-8" style="padding-right: 3px;">
-      <div class="card__image">
-        <img class="card__image__background" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 800w, {{post_image_md.url}} 500w, {{post_image_sm.url}} 300w" data-thumbnail={{post_image_thumb.url}}/>
+      <div class="card__image" style="background-image: url({{post_image_thumb.url}});">
+        <img class="card__image__background" src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 800w, {{post_image_md.url}} 500w, {{post_image_sm.url}} 300w" onload="this.classList.add('loaded');">
       </div>
     </div>
     <div class="col-4">

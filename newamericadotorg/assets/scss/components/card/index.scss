@@ -11,7 +11,9 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
 
     &__background{
       width: auto;
@@ -44,6 +46,18 @@
       cursor: pointer;
       .card__text__title {
         color: color(turquoise);
+      }
+    }
+  }
+}
+
+.card {
+  &.event, &.md, &.sm, &.lg {
+    img {
+      opacity: 0;
+      @include transition(opacity 0.3s ease-in-out);
+      &.loaded {
+        opacity: 1;
       }
     }
   }
