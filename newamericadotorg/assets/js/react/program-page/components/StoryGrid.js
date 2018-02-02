@@ -26,16 +26,19 @@ export default class StoryGrid extends Component {
       </PromoMd>
     );
   }
-
+  cardMd = (index, size) =>{
+    let { loaded, story_grid } = this.props;
+    return ( <CardMd post={story_grid[index]} image_size={size} loaded={loaded} /> );
+  }
   cols = () => {
-    let { story_grid, program } = this.props;
+    let { story_grid, program, loaded } = this.props;
     let cols = [[this.subscribe()], [], []];
     let items = story_grid.length;
 
     switch(items){
       case 2:
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[1]} image_size="square" />
+          this.cardMd(1, "square")
         ]);
         cols[2] = cols[2].concat([
           this.about()
@@ -43,64 +46,64 @@ export default class StoryGrid extends Component {
         break;
       case 3:
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[1]} image_size="square"/>
+          this.cardMd(1, "square")
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[2]} image_size="landscape"/>,
+          this.cardMd(2, "landscape"),
           this.about()
         ]);
         break;
       case 4:
         cols[0] = cols[0].concat([
-          <CardMd post={story_grid[3]} image_size="square"/>
+          this.cardMd(3, "square")
         ]);
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[2]} image_size="landscape"/>,
+          this.cardMd(2, "landscape"),
           this.about()
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[1]} image_size="square"/>
+          this.cardMd(1, "square")
         ]);
         break;
       case 5:
         cols[0] = cols[0].concat([
-          <CardMd post={story_grid[3]} image_size="landscape"/>
+          this.cardMd(3, "landscape")
         ]);
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[2]} image_size="landscape"/>,
-          <CardMd post={story_grid[4]} image_size="square"/>
+          this.cardMd(2, "landscape"),
+          this.cardMd(4, "square")
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[1]} image_size="square"/>,
+          this.cardMd(1, "square"),
           this.about()
         ]);
         break;
       case 6:
         cols[0] = cols[0].concat([
-          <CardMd post={story_grid[3]} image_size="landscape"/>,
-          <CardMd post={story_grid[5]} image_size="landscape"/>
+          this.cardMd(3, "landscape"),
+          this.cardMd(5, "landscape")
         ]);
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[2]} image_size="landscape"/>,
-          <CardMd post={story_grid[4]} image_size="square"/>
+          this.cardMd(2, "landscape"),
+          this.cardMd(4, "square")
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[1]} image_size="square"/>,
+          this.cardMd(1, "square"),
           this.about()
         ]);
         break;
       case 7:
         cols[0] = cols[0].concat([
-          <CardMd post={story_grid[3]} image_size="landscape"/>,
-          <CardMd post={story_grid[5]} image_size="square"/>
+          this.cardMd(3, "landscape"),
+          this.cardMd(5, "square")
         ]);
         cols[1] = cols[1].concat([
-          <CardMd post={story_grid[2]} image_size="landscape"/>,
-          <CardMd post={story_grid[4]} image_size="square"/>,
-          <CardMd post={story_grid[6]} image_size="square"/>
+          this.cardMd(2, "landscape"),
+          this.cardMd(4, "square"),
+          this.cardMd(6, "square")
         ]);
         cols[2] = cols[2].concat([
-          <CardMd post={story_grid[1]} image_size="square"/>,
+          this.cardMd(1, "square"),
           this.about()
         ]);
         break;
@@ -115,7 +118,7 @@ export default class StoryGrid extends Component {
     return cols;
   }
   render(){
-    let { story_grid } = this.props;
+    let { story_grid, loaded } = this.props;
     if(story_grid.length===0){
       return (
         <div className="program__story-grid">
@@ -131,7 +134,7 @@ export default class StoryGrid extends Component {
       <div className="program__story-grid">
         <div className="row gutter-10">
           <div className="col-12">
-            <CardLg post={story_grid[0]} />
+            <CardLg post={story_grid[0]} loaded={loaded}/>
           </div>
           {this.cols()}
         </div>

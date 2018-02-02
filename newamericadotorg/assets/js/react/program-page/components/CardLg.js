@@ -1,8 +1,11 @@
 import { Component } from 'react';
 
 export default class CardLg extends Component {
-  state = {
-    imageLoaded: false
+ constructor(props){
+    super(props);
+    this.state = {
+      imageLoaded: props.loaded
+    }
   }
 
   onImageLoad = () => {

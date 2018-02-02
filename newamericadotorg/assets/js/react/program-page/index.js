@@ -14,6 +14,13 @@ import Subprograms from './components/Subprograms';
 import { TopicsList, Topic } from './components/Topics';
 
 class ProgramPage extends Component {
+  // only transition images on first load
+  state = {
+    loaded: false
+  }
+  componentDidMount(){
+    setTimeout(()=>{ this.setState({ 'loaded': true }); }, 1500);
+  }
   topicRoutes = (topics, ancestors=[]) => {
     if(!topics) return;
     let { response: { results }} = this.props;
@@ -58,7 +65,7 @@ class ProgramPage extends Component {
           <div className="program__content">
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
-            <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} story_grid={results.story_grid} />)} />
+            <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} />)} />
             {results.about && <Route path={`/${root}/about`} exact render={()=>(<About root={root} about={results.about} about_us_pages={results.about_us_pages} />)} /> }
             {this.aboutRoutes(results.about_us_pages, root)}
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />

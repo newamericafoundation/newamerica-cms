@@ -160,7 +160,7 @@ export const PublicationListItem = ({ post }) => (
   <div className="card list">
     <a href={post.url}>
       <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
-        <div className="card__image__background" style={{ backgroundImage: `url(${post.story_image})` }}></div>
+        <div className="card__image__img" style={{ backgroundImage: `url(${post.story_image})` }}></div>
       </div>
       </a>
     <div className="card__text">
