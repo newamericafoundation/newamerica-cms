@@ -7,25 +7,6 @@
   }
 }
 
-.report__heading__image {
-  width: 100%;
-  padding-bottom: 80%;
-  background-size: cover;
-  background-position: center;
-
-  @include media-breakpoint(tablet){
-    padding-bottom: 47%;
-  }
-
-  &__caption{
-    padding-left: 5px;
-    @include media-breakpoint(tablet){
-      padding-left: 0;
-    }
-  }
-
-}
-
 .report__heading{
   margin-left: -22.5px;
   margin-right: -22.5px;

@@ -16,7 +16,7 @@ from report.models import Report
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 
-from helpers import get_program_content_types, generate_image_url, get_subpages, get_content_type
+from helpers import get_program_content_types, generate_image_url, generate_image_rendition, get_subpages, get_content_type
 
 
 class ProgramSubprogramSerializer(ModelSerializer):
@@ -636,14 +636,30 @@ class ReportDetailSerializer(PostSerializer):
     sections = SerializerMethodField()
     body = SerializerMethodField()
     endnotes = SerializerMethodField()
+    story_image = SerializerMethodField()
+    story_image_thumbnail = SerializerMethodField()
 
     class Meta:
         model = Report
         fields = (
             'id', 'title', 'subheading', 'date', 'content_type',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
-            'story_image', 'topics', 'sections', 'body', 'endnotes'
+            'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail'
         )
+
+    def get_story_image(self, obj):
+        img = generate_image_rendition(obj.story_image, 'fill-1100x495')
+        if not img:
+            return None
+        return {
+            'url': img.url,
+            'height': img.height,
+            'width': img.width,
+            'source': img.image.source
+        }
+
+    def get_story_image_thumbnail(self, obj):
+        return generate_image_url(obj.story_image, 'fill-30x14')
 
     def get_body(self, obj):
         if obj.body:

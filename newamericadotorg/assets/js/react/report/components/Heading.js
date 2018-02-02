@@ -1,6 +1,14 @@
 import { Component } from 'react';
 
 class Heading extends Component {
+  state = {
+    imageLoaded: false
+  }
+
+  onImageLoad = () => {
+    this.setState({ imageLoaded: true });
+  }
+
   render(){
     let { report } = this.props;
     return (
@@ -22,8 +30,17 @@ class Heading extends Component {
               <label className="subtitle centered">{report.subheading}</label>
             }
           </div>
-          <div className="report__heading__image" style={{ backgroundImage: `url(${report.story_image})` }}/>
-          <div className="report__heading__image__caption margin-top-5 margin-top-lg-10"><label className="caption">Source: Lorem Ipsum Dolor Sit Amet / Caption</label></div>
+          {report.story_image &&
+            <div className="report__heading__image post-heading__image">
+              <div className="temp-image" style={{
+                paddingBottom: `45%`,
+                backgroundImage: `url(${report.story_image_thumbnail})`
+              }}/>
+              <img className={`${this.state.imageLoaded ? 'loaded' : ''}`}
+                src={report.story_image.url} onLoad={this.onImageLoad}/>
+              <label className="caption">Source: {report.story_image.source}</label>
+            </div>
+          }
         </div>
       </div>
     );

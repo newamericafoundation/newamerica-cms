@@ -38,23 +38,30 @@ programpage_contenttype_map = {
     'reportshomepage': newamericadotorg_content_types[9]
 }
 
-def generate_image_url(image, filter_spec=None):
+def generate_image_rendition(image, filter_spec=None):
     if not image:
         return None
     if not filter_spec:
-        return image.file.url
+        return image.file
     #return None;
     img = CustomImage.objects.get(pk=image.id);
     if not image:
-        return image.file.url
+        return image.file
     try:
         rendition = img.get_rendition(filter_spec)
         # signature = generate_signature(image.id, filter_spec)
         # url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
-
-        return rendition.url
+        return rendition
     except SourceImageIOError:
         return None
+
+def generate_image_url(image, filter_spec=None):
+    img = generate_image_rendition(image, filter_spec)
+    if not img:
+        return None
+
+    return img.url
+
 
 def get_content_type(api_name):
     for c in newamericadotorg_content_types:
