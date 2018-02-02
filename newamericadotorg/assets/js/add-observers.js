@@ -44,6 +44,16 @@ let observers = [
     });
   },
 
+  function isLoading(){
+    actions.addObserver({
+      stateName: 'site.isLoading',
+      onChange: (isLoading) => {
+        if(isLoading) document.body.classList.add('is-loading');
+        else document.body.classList.remove('is-loading');
+      }
+    });
+  },
+
   function menuOpen(){
     let menu = document.getElementById('mobile-menu__wrapper');
     if(!menu) return;

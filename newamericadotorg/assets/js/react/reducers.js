@@ -4,7 +4,7 @@ import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, TRIGGER_SCROLL_EVENTS, SET_AD_HOC_STATE,
   SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU,
-  SET_SITE_BASEURL
+  SET_SITE_BASEURL, SITE_IS_LOADING
 } from './constants';
 
 // reducers
@@ -77,11 +77,21 @@ const baseUrl = (state=false, action) => {
   }
 }
 
+const isLoading = (state=false, action) => {
+  switch(action.type){
+    case SITE_IS_LOADING:
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
 let reducer = combineReducers({
   scroll,
   searchIsOpen,
   mobileMenuIsOpen,
-  baseUrl
+  baseUrl,
+  isLoading
 });
 
 const siteReducer = (state, action) => {

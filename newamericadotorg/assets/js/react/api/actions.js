@@ -147,12 +147,18 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
     url.searchParams.append(k, params.query[k]);
 
   dispatch(setFetchingStatus(component, true));
+  let loadingTO = setTimeout(()=>{
+    dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: true });
+  }, 200);
+
 
   let request = `${url.pathname}${url.searchParams.toString()}`;
   if(cache.get(request)){
     let response = cache.get(request);
     callback(response);
     dispatch(setResponse(component, response));
+    clearTimeout(loadingTO);
+    dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
     return ()=>{};
   }
   return fetch(url, {
@@ -170,6 +176,8 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
       }
       callback(response);
       dispatch(setResponse(component, response));
+      clearTimeout(loadingTO);
+      dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
     });
 }
 
