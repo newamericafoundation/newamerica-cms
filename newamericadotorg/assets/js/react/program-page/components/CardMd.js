@@ -14,7 +14,7 @@ export default class CardMd extends Component {
     return (
       <div className={`card md ${image_size || ''}`}>
         <a href={post.url}>
-          <div className="card__image gray">
+          <div className="card__image" style={{ backgroundImage: `url(${post.story_image_thumbnail})`}}>
             <img className={`card__image__background ${this.state.imageLoaded ? 'loaded' : ''}`} src={post.story_image} onLoad={this.onImageLoad}/>
           </div>
           <div className="card__text">

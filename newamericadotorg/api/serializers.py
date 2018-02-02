@@ -104,6 +104,7 @@ class StoryGridItemSerializer(ModelSerializer):
     content_type = SerializerMethodField()
     story_image = SerializerMethodField()
     story_excerpt = SerializerMethodField()
+    story_image_thumbnail = SerializerMethodField()
 
     def get_story_excerpt(self, obj):
         return obj.specific.story_excerpt
@@ -112,6 +113,11 @@ class StoryGridItemSerializer(ModelSerializer):
         if 'is_lead' in self.context:
             return generate_image_url(obj.specific.story_image, 'fill-800x375')
         return generate_image_url(obj.specific.story_image, 'fill-600x460')
+
+    def get_story_image_thumbnail(self, obj):
+        if 'is_lead' in self.context:
+            return generate_image_url(obj.specific.story_image, 'fill-32x15')
+        return generate_image_url(obj.specific.story_image, 'fill-30x23')
 
     def get_content_type(self, obj):
         content_type = obj.get_ancestors().type(AbstractContentPage).first()
@@ -128,7 +134,7 @@ class StoryGridItemSerializer(ModelSerializer):
 
     class Meta:
         model = Page
-        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt')
+        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt', 'story_image_thumbnail')
 
 class ProgramDetailSerializer(ModelSerializer):
     story_grid = SerializerMethodField()
@@ -376,7 +382,6 @@ class PostSerializer(ModelSerializer):
     programs = SerializerMethodField()
     subprograms = SerializerMethodField()
     authors = SerializerMethodField()
-
     class Meta:
         model = Post
         fields = (
