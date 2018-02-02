@@ -5,15 +5,16 @@
       padding-top: 0 !important;
       padding-bottom: 0 !important;
       position: relative;
-      border-top: 1px solid color(black, base, 0.3);
+      box-shadow: inset 0px 1px 0px 0px color(black, base, 0.3);
 
       &:last-child {
-        border-bottom: 1px solid color(black, base, 0.3);
+        box-shadow: inset 0px 1px 0px 0px color(black, base, 0.3),
+        inset 0px -1px 0px 0px color(black, base, 0.3);
       }
 
       a {
         display: block;
-        padding-top: 25px;
+        padding-top: 26px;
         padding-bottom: 25px;
 
         &.active {
