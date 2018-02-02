@@ -419,7 +419,7 @@ class EventSerializer(ModelSerializer):
         model = Event
         fields = ('id', 'title', 'slug', 'date', 'end_date', 'start_time', 'end_time',
         'street_address','city', 'state', 'zipcode', 'rsvp_link', 'story_image',
-        'programs', 'subprograms', 'url'
+        'programs', 'subprograms', 'url', 'story_excerpt'
         )
 
     def get_story_image(self, obj):
