@@ -17,6 +17,7 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel)
+from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
@@ -289,6 +290,16 @@ class OrgSimplePage(AbstractSimplePage):
     """
     parent_page_types = ['home.HomePage', 'OrgSimplePage']
     subpage_types = ['OrgSimplePage', 'home.RedirectPage']
+
+    page_description = RichTextField(blank=True)
+
+    content_panels = [
+        MultiFieldPanel([
+            FieldPanel('title'),
+            FieldPanel('page_description'),
+        ]),
+        FieldPanel('body')
+    ]
 
     class Meta:
         verbose_name = 'New America Post'

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load wagtailcore_tags %}
 {% block body_class %}homepostpage{% endblock %}
 
 {% block content %}
@@ -10,7 +11,11 @@
       <div class="row gutter-20">
         <div class="home__heading__text col-9">
           <h1 class="promo margin-25">{% firstof a.title page.title %}</h1>
-          <p class="margin-25">{% firstof a.story_excerpt page.story_excerpt %}</p>
+          {% if a.page_description %}
+            {{ a.page_description|richtext }}
+          {% else %}
+            {{ page.page_description|richtext }}
+          {% endif %}
         </div>
       </div>
     </div>
