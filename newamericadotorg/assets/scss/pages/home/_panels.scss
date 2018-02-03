@@ -83,13 +83,22 @@
       vertical-align: middle;
       display: inline-block;
       width: calc(50vw - 10px);
-      margin-left: calc(-50vw + 540px);
+      margin-left: calc(-50vw + 525px);
       max-width: 800px;
       height: auto;
 
       &.grayscale {
         -webkit-filter: grayscale(40%); /* Safari 6.0 - 9.0 */
           filter: grayscale(40%);
+      }
+
+      @media (min-width:1600px) {
+        margin-left: calc(-800px + 515px);
+      }
+
+      @media (max-width: 1080px) {
+        width: calc(100% + 15px);
+        margin-left: -15px;
       }
     }
 
