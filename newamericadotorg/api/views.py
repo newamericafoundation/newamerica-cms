@@ -10,13 +10,14 @@ from django_filters.rest_framework import FilterSet
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.models import Query
 
-from home.models import Post, HomePage
+from home.models import Post, HomePage, OrgSimplePage
 from person.models import Person
 from serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
     SubprogramSerializer, HomeSerializer, TopicSerializer, TopicDetailSerializer, EventSerializer,
     WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer,
-    SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer, ReportDetailSerializer
+    SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer, ReportDetailSerializer,
+    HomeDetailSerializer
 )
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
@@ -260,6 +261,9 @@ class SubprogramDetail(generics.RetrieveAPIView):
     queryset = Subprogram.objects.live()
     serializer_class = SubprogramSerializer
 
+class HomeDetail(generics.RetrieveAPIView):
+    queryset = OrgSimplePage.objects.live()
+    serializer_class = HomeDetailSerializer
 
 @api_view(['POST'])
 def subscribe(request):

@@ -49,6 +49,7 @@ urlpatterns = [
     url(r'^api/report/(?P<pk>[\d]+)/$', cache_page(60 * 1440)(api_views.ReportDetail.as_view()), name='report'),
     url(r'^api/in-depth/$', api_views.InDepthProjectList.as_view()),
     url(r'^api/in-depth/(?P<pk>[\d]+)/$', api_views.InDepthProjectDetail.as_view()),
+    url(r'^api/home/(?P<pk>[\d]+)/$', api_views.HomeDetail.as_view()),
     url(r'^api/meta/$', api_views.MetaList.as_view()),
     url(r'^api/content-types/$', cache_page(60 * 10080)(api_views.ContentList.as_view())),
     url(r'^api/subscribe/$', api_views.subscribe),

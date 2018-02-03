@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.serializers import Serializer, ModelSerializer, SerializerMethodField
 
 from wagtail.wagtailcore.models import Page, ContentType
-from home.models import Post
+from home.models import Post, CustomImage
 from programs.models import Program, Subprogram, AbstractContentPage
 from person.models import Person
 from issue.models import IssueOrTopic
@@ -695,3 +695,44 @@ class ReportDetailSerializer(PostSerializer):
                     })
             sections.append(section)
         return sections
+
+
+class HomeDetailSerializer(PostSerializer):
+    data = SerializerMethodField()
+
+    class Meta:
+        model = Report
+        fields = (
+            'id', 'title', 'subheading', 'slug', 'url', 'story_excerpt',
+            'data'
+        )
+
+    def get_data(self, obj):
+        panels = None
+        for d in obj.body.stream_data:
+            # only the first panels is relevant
+            if d['type'] == 'panels':
+                panels = d['value']
+                break
+        if not panels:
+            return None
+
+        data = {}
+
+        for p in panels:
+            d = {}
+            panel_key = p['value']['title']
+            for b in p['value']['body']:
+                key = b['type']
+
+                if not key in d:
+                    d[key] = []
+
+                if key == 'inline_image':
+                    img = CustomImage.objects.get(pk=b['value']['image'])
+                    b['value']['url'] = generate_image_url(img, 'width-1100')
+                d[key].append(b['value'])
+
+            data[panel_key] = d
+
+        return data
