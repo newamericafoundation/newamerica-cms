@@ -139,8 +139,9 @@ export class Body extends Panel {
             <article className="col-md-7 post-body home__panel__body__text">
               {data.heading.map((h,i)=>(
                 <div className="">
-                  <h1>{data.heading[i]}</h1>
+                  <h1 className="margin-top-0">{data.heading[i]}</h1>
                   <p dangerouslySetInnerHTML={{__html: data.paragraph[i]}} />
+                  {this.props.children}
                 </div>
               ))}
             </article>

@@ -83,8 +83,8 @@ class FunderLists extends Component {
       <section className="funders-list post-body container--1080">
         <div className="row gutter-10">
           <div className="col-md-7">
-            <h1 className="margin-0">{funders_intro.heading[0]}</h1>
-            <p className="margin-top-25 margin-bottom-80" dangerouslySetInnerHTML={{__html: funders_intro.paragraph[0] }}/>
+            <h1 className="margin-top-0">{funders_intro.heading[0]}</h1>
+            <p className="margin-bottom-80" dangerouslySetInnerHTML={{__html: funders_intro.paragraph[0] }}/>
           </div>
         </div>
         {funders.heading.map((h,i)=>(
@@ -128,7 +128,7 @@ class CirclesAndCouncils extends Component {
     return (
       <div className="our-funding__intro row gutter-20">
         <div className="col-9">
-          <h1 className="margin-bottom-25">{intro.heading[0]}</h1>
+          <h1 className="margin-top-0 margin-bottom-25">{intro.heading[0]}</h1>
           <p className="margin-top-25 margin-bottom-80" dangerouslySetInnerHTML={{__html: intro.introduction[0] }}/>
         </div>
       </div>
@@ -183,13 +183,16 @@ export default class OurFunding extends Component {
 
   render(){
     let { response: { results : { data } } } = this.props;
+    let frame = data.donate.iframe[0];
     return (
       <div className="home__panels__content">
         <Nav />
         <Route path="/our-funding/" exact render={(props)=>( <Body data={data.gift_guidelines} /> )}/>
         <Route path="/our-funding/our-funders/" render={(props)=>( <FunderLists data={data} /> )}/>
         <Route path="/our-funding/circles-and-councils/" render={(props)=>( <CirclesAndCouncils data={data} /> )}/>
-        <Route path="/our-funding/donate/" exact render={(props)=>( <Body data={data.donate} /> )}/>
+        <Route path="/our-funding/donate/" exact render={(props)=>(
+          <Body data={data.donate}><iframe src={frame.source_url} width="100%" height="1200" /></Body>
+        )}/>
       </div>
     );
   }
