@@ -30,7 +30,6 @@ class ProgramSubprogramSerializer(ModelSerializer):
         fields = (
             'id', 'name', 'url', 'title', 'slug'
         )
-
     def get_name(self, obj):
         return obj.title
 
@@ -86,15 +85,23 @@ class TopicSerializer(ModelSerializer):
 class ProgramSerializer(ModelSerializer):
     description = SerializerMethodField()
     logo = SerializerMethodField()
+    subprograms = SerializerMethodField()
 
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'title', 'description', 'url', 'logo', 'slug'
+            'id', 'name', 'title', 'description', 'url', 'logo', 'slug', 'subprograms'
         )
 
     def get_description(self, obj):
-        return obj.story_excerpt
+        return obj.description
+
+    def get_subprograms(self, obj):
+        #horribly inefficient. may have to add a ManyToManyField to Program??
+        subprograms = ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live().in_menu(),many=True).data
+        if len(subprograms)==0:
+            return None
+        return subprograms
 
     def get_logo(self, obj):
         return ''
@@ -182,7 +189,7 @@ class ProgramDetailSerializer(ModelSerializer):
 
     def get_subprograms(self, obj):
         #horribly inefficient. may have to add a ManyToManyField to Program??
-        subprograms = ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live(),many=True).data
+        subprograms = ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live().in_menu(),many=True).data
         if len(subprograms)==0:
             return None
         return subprograms
