@@ -38,7 +38,7 @@
   }
 
   /* containers that are nested get no padding by default */
-  [class*="container--"], .container {
+  [class*="container--"]:not(.container--full-width) .container {
     padding-left: 0;
     padding-right: 0;
   }
@@ -48,6 +48,8 @@
   &--full-width{
     width: 100%;
     max-width: none;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   &--1080 {

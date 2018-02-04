@@ -23,8 +23,8 @@
 	</section>
 	<section class="container--full-width beige homepage__events-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="25vh">
 		<div class="container">
-			<div class="section-separator"><div class="section-separator__text"><label>Upcoming Events</label></div><div class="section-separator__line"></div></div>
-			<div class="row gutter-10">
+			<div class="section-separator"><div class="section-separator__text"><label class="margin-0">Upcoming Events</label></div><div class="section-separator__line"></div></div>
+			<div class="row gutter-10 margin-25">
 				{% for e in upcoming_events %}
 					<div class="col-4">
 						{% include 'components/card_event.html' with event=e %}
@@ -49,8 +49,8 @@
 	</section>
 	<section class="container--full-width beige homepage__publications-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="25vh">
 		<div class="container">
-			<div class="section-separator"><div class="section-separator__text"><label>Recent Publications</label></div><div class="section-separator__line"></div></div>
-			<div class="margin-bottom-35">
+			<div class="section-separator"><div class="section-separator__text"><label class="margin-0">Recent Publications</label></div><div class="section-separator__line"></div></div>
+			<div class="margin-25">
 				{% for p in recent_publications %}
 					<div class="card-wrapper">
 						{% include 'components/card_list.html' with post=p %}
@@ -58,7 +58,7 @@
 				{% endfor %}
 			</div>
 			<div class="homepage__publications-section__view-all">
-				<a class="button border-0" href="/publications">View All</a>
+				<a class="button" href="/publications">View All</a>
 			</div>
 		</div>
 	</section>
