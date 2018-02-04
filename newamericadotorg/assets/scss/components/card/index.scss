@@ -64,7 +64,7 @@
 }
 
 .card {
-  &.md, &.sm, &.lg {
+  &.md, &.sm, &.lg, &.list, &.person {
     img {
       opacity: 0;
       @include transition(opacity .2s);

@@ -1,13 +1,14 @@
 import { NAME } from '../constants';
 import { Component } from 'react';
 import { Fetch } from '../../components/API';
+import Image from '../../components/Image';
 
 export const Person = ({ person }) => (
   <div className="card person">
     <a href={person.url}>
       <div className={`card__image ${!person.profile_image ? 'no-image' : ''}`}>
         {person.profile_image &&
-          <img src={person.profile_image} />}
+          <Image image={person.profile_image} />}
       </div>
       <div className="card__text">
         <h3 className="card__text__title">{person.first_name} {person.last_name}</h3>

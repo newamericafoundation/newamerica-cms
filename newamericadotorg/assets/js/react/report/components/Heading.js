@@ -1,14 +1,7 @@
 import { Component } from 'react';
+import Image from '../../components/Image';
 
 class Heading extends Component {
-  state = {
-    imageLoaded: false
-  }
-
-  onImageLoad = () => {
-    this.setState({ imageLoaded: true });
-  }
-
   render(){
     let { report } = this.props;
     return (
@@ -33,12 +26,7 @@ class Heading extends Component {
           {report.story_image &&
             <div className="report__heading__image post-heading__image">
               <div className="post-heading__image__wrapper">
-                <div className="temp-image" style={{
-                  paddingBottom: `45%`,
-                  backgroundImage: `url(${report.story_image_thumbnail})`
-                }}/>
-                <img className={`${this.state.imageLoaded ? 'loaded' : ''}`}
-                  src={report.story_image.url} onLoad={this.onImageLoad}/>
+                <Image thumbnail={report.story_image_thumbnail} image={report.story_image.url}/>
               </div>
               {report.story_image.source && <label className="caption">{report.story_image.source}</label>}
             </div>

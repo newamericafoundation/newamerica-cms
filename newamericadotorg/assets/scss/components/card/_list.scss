@@ -7,12 +7,12 @@
     white-space: normal;
     vertical-align: middle;
     display: inline-block;
+    position: relative;
     width: 150px;
     height: 120px;
 
     &.no-image {
       background-color: color(black, base, 0.15);
-      position: relative;
       &:after {
         content: '\f1ea';
         @include center;
@@ -25,11 +25,11 @@
       }
     }
 
-    .card__image__img{
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
+    img {
+      height: 125%;
+      width: auto;
+      position: absolute;
+      @include center;
     }
   }
 

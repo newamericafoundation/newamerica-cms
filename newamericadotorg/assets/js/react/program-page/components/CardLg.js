@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Image from '../../components/Image';
 
 export default class CardLg extends Component {
  constructor(props){
@@ -13,14 +14,13 @@ export default class CardLg extends Component {
   }
 
   render(){
-    let { post } = this.props;
+    let { post, loaded } = this.props;
     return (
       <div className="card lg">
         <a href={post.url} className="row no-gutters">
           <div className="col-8" style={{paddingRight: '3px'}}>
             <div className="card__image">
-              <div className="card__image__background" style={{ backgroundImage: `url(${post.story_image_thumbnail})`}} />
-              <img className={`${this.state.imageLoaded ? 'loaded' : ''}`} src={post.story_image} onLoad={this.onImageLoad}/>
+              <Image thumbnail={post.story_image_thumbnail} image={post.story_image} loaded={loaded}/>
             </div>
           </div>
           <div className="col-4">

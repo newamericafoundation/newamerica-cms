@@ -3,7 +3,7 @@ import { format as formatDate } from 'date-fns';
 import { connect } from 'react-redux';
 import ScrollArea from 'react-scrollbar';
 import { RadioButton } from './Inputs';
-
+import Image from './Image';
 
 export class Filter extends Component {
   constructor(props){
@@ -147,7 +147,7 @@ export const PublicationListItem = ({ post }) => (
   <div className="card list">
     <a href={post.url}>
       <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
-        <div className="card__image__img" style={{ backgroundImage: `url(${post.story_image})` }}></div>
+        <Image image={post.story_image} />
       </div>
       </a>
     <div className="card__text">
