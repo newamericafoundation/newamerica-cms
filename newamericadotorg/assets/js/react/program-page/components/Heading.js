@@ -7,7 +7,7 @@ export default class Heading extends Component {
     let { program } = this.props;
 
     return (
-      <div className="program__header container margin-bottom-10">
+      <div className="program__header margin-bottom-10">
   			<div className="program__heading__wrapper">
   					<h1 className="margin-0 promo">
               {program.parent_programs &&
