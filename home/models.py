@@ -310,8 +310,32 @@ class ProgramSimplePage(AbstractSimplePage):
     """
     Simple Page at the Program level
     """
-    parent_page_types = ['programs.Program', 'ProgramSimplePage', 'programs.Subprogram']
-    subpage_types = ['ProgramSimplePage', 'home.RedirectPage']
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    subpage_types = ['home.RedirectPage']
+
+    def get_context(self, request):
+        context = super(ProgramSimplePage, self).get_context(request)
+        context['program'] = self.get_parent().specific
+
+        return context
+
+    def get_template(self, request):
+        parent = self.get_parent().specific
+
+        if type(parent) != Program and type(parent) != Subprogram:
+            return 'home/program_simple_page.html'
+
+        about_pages = parent.sidebar_menu_about_us_pages.stream_data
+        is_about_page = False
+        for a in about_pages:
+            if self.id == a['value']:
+                is_about_page = True
+                break
+
+        if is_about_page:
+            return 'programs/program.html'
+
+        return 'home/program_simple_page.html'
 
     class Meta:
         verbose_name = 'Post'

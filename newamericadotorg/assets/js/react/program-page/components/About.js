@@ -8,7 +8,7 @@ export default class About extends Component {
     }
   }
   render(){
-    let { about, about_us_pages, root } = this.props;
+    let { about, about_us_pages, program } = this.props;
 
     return (
       <div className={`program__about margin-top-10 ${about_us_pages ? 'with-menu' : ''}`}>
@@ -16,9 +16,12 @@ export default class About extends Component {
           {about_us_pages &&
             <div className="program__about__menu col-md-2">
               <div className="menu-list--padding-15">
+                <label className="block">
+                  <NavLink exact to={`${program.url}about/`}>About Us</NavLink>
+                </label>
               {about_us_pages.map((p,i)=>(
                   <label className="block">
-                    <NavLink to={`/${root}/about/${p.slug}/`}>{p.title}</NavLink>
+                    <NavLink to={`${program.url}${p.slug}/`}>{p.title}</NavLink>
                   </label>
               ))}
               </div>

@@ -41,9 +41,10 @@ class ProgramPage extends Component {
 
   aboutRoutes = (pages, root) => {
     if(!pages) return;
+    let { response: { results }} = this.props;
 
     return pages.map((p,i) => (
-      <Route path={`/${root}/about/${p.slug}/`} exact render={(props)=>(<About root={root} about={p} about_us_pages={pages} />)} />
+      <Route path={`/${root}/${p.slug}/`} exact render={(props)=>(<About program={results} about={p} about_us_pages={pages} />)} />
     ));
   }
 
@@ -66,7 +67,7 @@ class ProgramPage extends Component {
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
             <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} />)} />
-            {results.about && <Route path={`/${root}/about`} exact render={()=>(<About root={root} about={results.about} about_us_pages={results.about_us_pages} />)} /> }
+            {results.about && <Route path={`/${root}/about`} exact render={()=>(<About program={results} about={results.about} about_us_pages={results.about_us_pages} />)} /> }
             {this.aboutRoutes(results.about_us_pages, root)}
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
