@@ -23,7 +23,7 @@
 	</section>
 	<section class="container--full-width beige homepage__events-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="25vh">
 		<div class="container">
-			<h3 class="margin-0">Upcoming Events</h3>
+			<div class="section-separator"><div class="section-separator__text"><label>Upcomign Events</label></div><div class="section-separator__line"></div></div>
 			<div class="row gutter-10 margin-35">
 				{% for e in upcoming_events %}
 					<div class="col-4">
@@ -49,7 +49,7 @@
 	</section>
 	<section class="container--full-width beige homepage__publications-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="25vh">
 		<div class="container">
-			<h3 class="margin-0">Recent Publications</h3>
+			<div class="section-separator"><div class="section-separator__text"><label>Recent Publications</label></div><div class="section-separator__line"></div></div>
 			<div class="margin-35">
 				{% for p in recent_publications %}
 					<div class="card-wrapper">

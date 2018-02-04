@@ -15,6 +15,15 @@ class TopicHomePage(AbstractContentPage):
     parent_page_types = ['programs.Program', 'home.HomePage']
     subpage_types = ['IssueOrTopic']
 
+    def get_template(self, request):
+        return 'programs/program.html'
+
+    def get_context(self, request):
+        context = super(IssueOrTopic, self).get_context(request)
+        context['program'] = self.get_ancestors()[2].specific
+
+        return context
+
     class Meta:
         verbose_name = 'Topics'
 
@@ -30,6 +39,9 @@ class IssueOrTopic(ProgramSimplePage):
         related_name='topics'
     )
 
+    def get_template(self, request):
+        return 'programs/program.html'
+
     def get_context(self, request):
         context = super(IssueOrTopic, self).get_context(request)
         context['topics'] = self.get_children().live()
@@ -40,6 +52,8 @@ class IssueOrTopic(ProgramSimplePage):
             context['parent_topic'] = None
         else:
             context['parent_topic'] = ancestors[4]
+
+        context['program'] = ancestors[2].specific
 
         return context
 

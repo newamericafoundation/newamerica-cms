@@ -1,4 +1,5 @@
 export { default as ourPeople } from './our-people/index';
+export { default as personPublications } from './our-people/index.person-publications';
 export { default as publicationsHome } from './publications-home/index';
 export { default as eventsHome } from './events-home/index';
 export { default as weekly } from './weekly/index';

@@ -4,6 +4,7 @@ body:not(.homepage):not(.programpage) .footer > div{
 
 .footer.desktop{
   display: none;
+  background: color(white);
   @include media-breakpoint(desktop){
     display: block;
   }
@@ -19,6 +20,7 @@ body:not(.homepage):not(.programpage) .footer > div{
 }
 
 .footer.mobile{
+  background: color(white);
   @include media-breakpoint(desktop){
     display: none;
   }
