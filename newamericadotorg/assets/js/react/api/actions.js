@@ -155,6 +155,7 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
   let request = `${url.pathname}${url.searchParams.toString()}`;
   if(cache.get(request)){
     let response = cache.get(request);
+    response.pend = pend;
     callback(response);
     dispatch(setResponse(component, response));
     clearTimeout(loadingTO);

@@ -5,7 +5,7 @@ import LoadingIcon from './LoadingIcon';
 
 const LoadMoreButton = ({ onclick }) => (
   <div className="compose__infinite-load-more__load-more-button">
-    <a className="button transparent" onClick={onclick}>Load More</a>
+    <a className="button" onClick={onclick}>Load More</a>
   </div>
 );
 
@@ -37,15 +37,13 @@ class InfiniteLoadMore extends Component {
     infiniteOnMount: PropTypes.bool,
     promptToLoadMore: PropTypes.bool,
     onNextPage: PropTypes.func.required,
-    upperBoundOffset: PropTypes.number,
-    lowerBoundOffset: PropTypes.number
+    bottomOffset: PropTypes.number,
   }
 
   static defaultProps = {
     infiniteOnMount: false,
     onNextPage: ()=>{},
-    upperBoundOffset: -500,
-    lowerBoundOffset: 50,
+    bottomOffset: 0,
     promptToLoadMore: false
   }
 
@@ -102,15 +100,14 @@ class InfiniteLoadMore extends Component {
   nextPageOnEnd = () => {
     if(!this.el) return;
 
-    let { upperBoundOffset, lowerBoundOffset } = this.props;
+    let { bottomOffset } = this.props;
 
-    let distanceFromTop = -this.el.getBoundingClientRect().top;
-    let bottom = this.el.offsetHeight;
-    let end = bottom + upperBoundOffset;
-    let limit = bottom + lowerBoundOffset;
+    let distanceFromBottomOfView = -(this.el.getBoundingClientRect().top - document.documentElement.clientHeight + this.el.offsetHeight);
 
-    if(distanceFromTop>end && distanceFromTop<limit)
-      this.nextPage();
+    let limit = distanceFromBottomOfView - bottomOffset;
+
+     if(limit > 0)
+       this.nextPage();
 
   }
 
@@ -119,7 +116,7 @@ class InfiniteLoadMore extends Component {
     let classes = `${this.isInfinite ? ' is-infinite' : ''}${this.isLoadingMore ? ' is-loading-more' : '' } ${response.isFetching ? ' is-fetching' : ''}`;
 
     return (
-      <span
+      <div
         ref={(el) => { this.el = el; }}
         className={'compose__infinite-load-more' + classes + ' ' + (className||'')}>
         {(response.results.length===0 && !response.isFetching && response.hasResults) &&
@@ -128,10 +125,8 @@ class InfiniteLoadMore extends Component {
         {children}
         {(response.hasNext && !this.isInfinite && !response.isFetching) &&
           <LoadMoreButton onclick={this.loadMore}/>
-        }{response.isFetching &&
-          <LoadingIconWrapper />
         }
-      </span>
+      </div>
     );
   }
 }

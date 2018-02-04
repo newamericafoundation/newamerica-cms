@@ -20,8 +20,9 @@
       </div>
     </div>
   </section>
-
+  {% block reactcomponent %}
   <div id="compose__home-panels" data-replace-this="true" data-page-id="{% firstof a.id page.id %}"></div>
+  {% endblock %}
   </main>
 {% endwith %}
 {% endblock %}

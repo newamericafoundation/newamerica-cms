@@ -105,6 +105,9 @@ class TopicDetail(generics.RetrieveAPIView):
     serializer_class = TopicDetailSerializer
     queryset = IssueOrTopic.objects.live()
 
+BOOLEAN_CHOICES = (('false', 'False'), ('true', 'True'),)
+from distutils.util import strtobool
+
 class AuthorFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     slug = django_filters.CharFilter(name='slug', lookup_expr="iexact")
@@ -112,7 +115,7 @@ class AuthorFilter(FilterSet):
     program_slug = django_filters.CharFilter(name='belongs_to_these_programs__slug', lookup_expr='iexact')
     subprogram_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
     role = django_filters.CharFilter(name='role', lookup_expr='iexact')
-    leadership = django_filters.BooleanFilter(name='leadership')
+    leadership = django_filters.TypedChoiceFilter(choices=BOOLEAN_CHOICES,coerce=strtobool)
     name = django_filters.CharFilter(name='title', lookup_expr='icontains')
 
     class Meta:
@@ -156,7 +159,12 @@ class AuthorList(generics.ListAPIView):
 
     def get_queryset(self):
         topic_id = self.request.query_params.get('topic_id', None)
-        queryset = Person.objects.live().order_by('last_name').filter(former=False).exclude(role__icontains='External Author').distinct()
+        former = self.request.query_params.get('former', False)
+        if former == 'false':
+            former = False
+        elif former == 'true':
+            former = True
+        queryset = Person.objects.live().order_by('sort_priority', 'last_name').filter(former=former).exclude(role__icontains='External Author').distinct()
 
         if topic_id:
             topics = IssueOrTopic.objects.get(pk=topic_id)\

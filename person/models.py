@@ -274,6 +274,12 @@ class OurPeoplePage(Page):
         ImageChooserPanel('story_image'),
     ]
 
+    def get_context(self, request):
+        context = super(OurPeoplePage, self).get_context(request)
+        context['ourpeoplepage'] = OurPeoplePage.objects.filter(slug='our-people').first()
+
+        return context
+
     class Meta:
         verbose_name = "Homepage for All People in NAF"
 
@@ -365,6 +371,12 @@ class BoardAndLeadershipPeoplePage(Page):
     promote_panels = Page.promote_panels + [
         ImageChooserPanel('story_image')
     ]
+
+    def get_context(self, request):
+        context = super(BoardAndLeadershipPeoplePage, self).get_context(request)
+        context['ourpeoplepage'] = OurPeoplePage.objects.filter(slug='our-people').first()
+
+        return context
 
     class Meta:
         verbose_name = "Our People Page for Board of Directors, Central Staff, and Leadership Team"

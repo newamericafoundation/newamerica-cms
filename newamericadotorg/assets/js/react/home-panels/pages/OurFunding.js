@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ImageAside, Reel, Body } from '../components';
+import { ImageAside, Reel, Body, NavItem } from '../components';
 import { Route, NavLink } from 'react-router-dom';
 
 class FunderList extends Component {
@@ -97,15 +97,6 @@ class FunderLists extends Component {
     );
   }
 }
-
-const NavItem = ({ url, label, exact=false }) => (
-  <li>
-    <NavLink exact className={`button--text program__nav__link`} to={url}>
-      {label}
-    </NavLink>
-  </li>
-);
-
 
 class Nav extends Component {
 

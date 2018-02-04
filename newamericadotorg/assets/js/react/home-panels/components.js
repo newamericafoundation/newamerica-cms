@@ -1,5 +1,15 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+
+export const NavItem = ({ url, label, exact=false }) => (
+  <li>
+    <NavLink exact className={`button--text program__nav__link`} to={url}>
+      {label}
+    </NavLink>
+  </li>
+);
+
+
 class Panel extends Component {
   parseHTMLText = (html) => {
     let div = document.createElement('div');

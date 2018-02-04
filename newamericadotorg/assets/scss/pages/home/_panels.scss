@@ -14,6 +14,11 @@
   }
 }
 
+.home__panel__our-people {
+  //padding-top: 10px;
+  padding-bottom: 115px;
+}
+
 .home__panel__promo {
   background-color: color(beige);
   position: relative;
@@ -114,7 +119,7 @@
     }
 }
 
-.our-funding__nav a {
+.our-funding__nav a, .our-people__nav a{
   opacity: 0.3;
   &.active {
     opacity: 1;
