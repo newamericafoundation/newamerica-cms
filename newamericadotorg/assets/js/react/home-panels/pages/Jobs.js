@@ -6,17 +6,11 @@ export default class Jobs extends Component {
 
   render(){
     let { response: { results : { data } } } = this.props;
-    let frame = data.job.iframe[0]
+    //let frame = data.job_board.iframe[0]
     return (
-      <section className="home__panel__body">
-        <div className="container--1080">
-          <div className="row gutter-20">
-            <article className="col-md-7 post-body home__panel__body__text">
-              <iframe src={fram.source_url} />
-            </article>
-          </div>
-        </div>
-      </section>
+      <div className="home__panels__content">
+        <Body data={data.job_board} />
+      </div>
     );
   }
 }

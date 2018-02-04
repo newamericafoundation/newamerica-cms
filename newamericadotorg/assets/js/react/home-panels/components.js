@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 export const NavItem = ({ url, label, exact=false }) => (
@@ -23,7 +22,7 @@ export class ImageAside extends Panel {
   render(){
     let { data, grayscale } = this.props;
     return (
-      <section className="home__panel__image-aside">
+      <section className="home__panel__image-aside scroll-target" data-scroll-trigger-point="bottom" data-scroll-offset="35vh">
         <div className="container--1080">
           <div className="row gutter-20">
             <div className="col-md-6 home__panel__image-aside__image">
@@ -115,7 +114,7 @@ export class Reel extends Panel {
     let { data,  } = this.props;
     let { index, pause, len} = this.state;
     return (
-      <section className="home__panel__promo">
+      <section className="home__panel__promo scroll-target" data-scroll-trigger-point="bottom" data-scroll-offset="35vh">
         <div className="container--1080">
           <div className={`row gutter-20 home__reel`}>
             <div className="col-md-6">

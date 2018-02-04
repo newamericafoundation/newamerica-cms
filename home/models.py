@@ -298,7 +298,7 @@ class OrgSimplePage(AbstractSimplePage):
             FieldPanel('title'),
             FieldPanel('page_description'),
         ]),
-        FieldPanel('body')
+        StreamFieldPanel('body')
     ]
 
     class Meta:

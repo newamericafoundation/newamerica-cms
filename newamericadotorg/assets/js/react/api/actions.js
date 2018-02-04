@@ -168,6 +168,7 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
       return response.json();
     }).then(json => {
       let response = parseResponse(json);
+      dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
       cache.set(request, response, new Date().getTime() + 3600000); // expire in one hour
       response.pend = pend;
       if(json.error){
@@ -178,7 +179,6 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
       callback(response);
       dispatch(setResponse(component, response));
       clearTimeout(loadingTO);
-      dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
     });
 }
 

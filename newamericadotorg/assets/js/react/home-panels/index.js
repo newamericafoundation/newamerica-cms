@@ -1,4 +1,5 @@
 import { Fetch } from '../components/API';
+import actions from '../actions';
 import { NAME, ID } from './constants';
 import { Component } from 'react';
 import OurStory from './pages/OurStory';
@@ -21,6 +22,11 @@ const Routes = (props) => (
 );
 
 class APP extends Component {
+  componentDidMount(){
+    setTimeout(()=>{
+      actions.reloadScrollEvents();
+    });
+  }
   render(){
     let { pageId } = this.props;
     return (

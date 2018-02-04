@@ -5,6 +5,17 @@
   }
 }
 
+.home__panels {
+  section.scroll-target > div {
+    opacity: 0;
+    @include transition(opacity 1s ease);
+  }
+
+  section.scroll-target.scroll-triggered > div {
+    opacity: 1;
+  }
+}
+
 .home__heading {
   padding-top: 115px;
   padding-bottom: 115px;
