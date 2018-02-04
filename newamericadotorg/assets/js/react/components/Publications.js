@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, cloneElement } from 'react';
 import { format as formatDate } from 'date-fns';
 import { connect } from 'react-redux';
 import ScrollArea from 'react-scrollbar';
@@ -34,9 +34,9 @@ export class Filter extends Component {
 
 export class TypeFilter extends Filter {
   handleChange = (event) => {
-    let { history, location, program } = this.props;
+    let { history, location, programUrl } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
-    history.push(`${program ? program.url : '/'}${event.target.getAttribute('data-slug')}/?${params.toString()}`);
+    history.push(`${programUrl ? programUrl : '/'}${event.target.getAttribute('data-slug')}/?${params.toString()}`);
   }
 
   render(){
@@ -253,7 +253,7 @@ class _FilterGroup extends Component {
     if(location !== prevProps.location){
       this.reloadScrollEvents();
       if(window.scrollY > 300){
-        window.scrollTo(0, 300);
+        window.scrollTo(0, 0);
       }
       // if(+document.body.style.top.replace('px', '') < -365){
       //   this.state.lastScrollPosition = 365;
@@ -293,7 +293,7 @@ class _FilterGroup extends Component {
         onTouchEnd={this.enableScroll}>
         <div className={`program__publications-filters__sticky-wrapper`}>
           <ScrollArea className="program__publications-filters__scroll-area">
-            {this.props.children}
+            {this.props.children.map( (c,i)=>( c ? cloneElement(c, {...this.props}) : null ) )}
           </ScrollArea>
         </div>
       </div>

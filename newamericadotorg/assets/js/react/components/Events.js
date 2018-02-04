@@ -64,13 +64,16 @@ class AbstractFilter extends Filter {
 
 class Filters extends Component {
   render(){
-    let { program, response } = this.props;
+    let { program, response, history, location } = this.props;
     return (
-      <FilterGroup>
-        <AbstractFilter {...this.props} label="Date" />
-        {program.programs && <ProgramFilter {...this.props} programs={program.programs} label="Program" />}
-        {program.subprograms && <SubprogramFilter {...this.props} subprograms={program.subprograms} label="Project" />}
-        {program.topics && <TopicFilter {...this.props} label="Topic" />}
+      <FilterGroup
+          history={history}
+          location={location}
+          response={response}>
+        <AbstractFilter label="Date" />
+        {program.programs && <ProgramFilter programs={program.programs} label="Program" />}
+        {program.subprograms && <SubprogramFilter subprograms={program.subprograms} label="Project" />}
+        {program.topics && <TopicFilter label="Topic" />}
       </FilterGroup>
     );
   }

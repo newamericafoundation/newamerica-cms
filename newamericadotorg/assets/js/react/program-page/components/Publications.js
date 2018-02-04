@@ -4,15 +4,19 @@ import { Fetch, Response } from '../../components/API';
 import { TypeFilter, SubprogramFilter, DateFilter, TopicFilter, FilterGroup } from '../../components/Publications';
 import { PublicationsList } from '../../components/Publications';
 
-// must pass an API Component (Fetch or Response) props to Filters
+// must pass an response object from Fetch of Response component, history and location to FilterGroup
 const Filters = (props) => (
-  <FilterGroup>
-    <TypeFilter types={props.program.content_types} {...props} expanded={true} label="Type"/>
+  <FilterGroup
+    history={props.history}
+    location={props.location}
+    response={props.response}
+    programUrl={props.program.url}>
+    <TypeFilter types={props.program.content_types} expanded={true} label="Type"/>
     {props.program.subprograms &&
-    <SubprogramFilter subprograms={props.program.subprograms} {...props} label="Project"/>}
-    <DateFilter {...props} label="Date"/>
+    <SubprogramFilter subprograms={props.program.subprograms} label="Project"/>}
+    <DateFilter label="Date"/>
     {props.program.topics &&
-    <TopicFilter {...props} topics={props.program.topics} label="Topic"/>}
+    <TopicFilter topics={props.program.topics} label="Topic"/>}
   </FilterGroup>
 );
 
@@ -21,9 +25,6 @@ export default class Publications extends Component {
     if(window.scrollY > 300){
       window.scrollTo(0, 0);
     }
-  }
-  componentDidUpdate(){
-        //console.log('rerender')
   }
   initialQuery = () => {
     let { programType, program, location } = this.props;

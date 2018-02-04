@@ -7,13 +7,13 @@ import { FilterGroup, TypeFilter, ProgramFilter, DateFilter } from '../../compon
 // must pass an API Component (Fetch or Response) props to Filters
 class Filters extends Component {
   render(){
-    let { content_types, programs, response: { params: { query } }} = this.props;
+    let { content_types, programs, response: { params: { query } }, history, response, location} = this.props;
 
     return (
-      <FilterGroup>
-        <TypeFilter {...this.props} label="Type" expanded={true} types={content_types}/>
-        <ProgramFilter {...this.props} label="Program" expanded={query.program_id != '' && query.program_id != null} programs={programs} />
-        <DateFilter {...this.props} label="Date" />
+      <FilterGroup history={history} location={location} response={response}>
+        <TypeFilter label="Type" expanded={true} types={content_types}/>
+        <ProgramFilter label="Program" expanded={query.program_id != '' && query.program_id != null} programs={programs} />
+        <DateFilter label="Date" />
       </FilterGroup>
     );
   }
@@ -43,7 +43,7 @@ export default class Publications extends Component {
       initQuery.program_id = params.get('programId');
 
     if(type) initQuery.content_type = type.api_name;
-  
+
     return initQuery;
   }
 
