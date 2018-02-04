@@ -32,12 +32,14 @@ class Heading extends Component {
           </div>
           {report.story_image &&
             <div className="report__heading__image post-heading__image">
-              <div className="temp-image" style={{
-                paddingBottom: `45%`,
-                backgroundImage: `url(${report.story_image_thumbnail})`
-              }}/>
-              <img className={`${this.state.imageLoaded ? 'loaded' : ''}`}
-                src={report.story_image.url} onLoad={this.onImageLoad}/>
+              <div className="post-heading__image__wrapper">
+                <div className="temp-image" style={{
+                  paddingBottom: `45%`,
+                  backgroundImage: `url(${report.story_image_thumbnail})`
+                }}/>
+                <img className={`${this.state.imageLoaded ? 'loaded' : ''}`}
+                  src={report.story_image.url} onLoad={this.onImageLoad}/>
+              </div>
               {report.story_image.source && <label className="caption">{report.story_image.source}</label>}
             </div>
           }

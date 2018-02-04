@@ -7,10 +7,12 @@
   {% include './post_book_heading.html' %}
 {% elif story_image and not page.publication_cover_image %}
   <div class="post-heading__image margin-bottom-60">
-    <div src="{{thumbnail.url}}" class="temp-image"
-      style="padding-bottom:{% widthratio story_image.image.height story_image.image.width 100 %}%;
-      background-image: url({{ thumbnail.url }})"></div>
-    <img src="{{story_image.url}}" onload="this.classList.add('loaded');"/>
+    <div class="post-heading__image__wrapper">
+      <div src="{{thumbnail.url}}" class="temp-image"
+        style="padding-bottom:calc({% widthratio story_image.image.height story_image.image.width 100 %}% - 5px);
+        background-image: url({{ thumbnail.url }})"></div>
+      <img src="{{story_image.url}}" onload="this.classList.add('loaded');"/>
+    </div>
     {% if story_image.image.source %}
       <label class="block caption">{{story_image.image.source}}</label>
     {% endif %}
