@@ -16,7 +16,7 @@ class TopNav extends Component {
     return (
       <div className="report__top-nav scroll-target" data-scroll-offset="200%">
         <div className="report__top-nav__sticky-wrapper">
-        <div className="container no-padding">
+        <div className="container">
           <div className={`row gutter-45${this.state.openMenu ? ' menu-open' : ''}`}>
             <div className="report__top-nav__contents col-5 col-md-2">
               <div className={`report__top-nav__contents__menu-wrapper`}>

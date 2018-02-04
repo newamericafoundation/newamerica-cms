@@ -22,8 +22,8 @@ class Report extends Component {
       const el = document.getElementById(anchor);
       if (el) {
         const { top } = el.getBoundingClientRect();
-        const { pageYOffset } = window;
-        window.scrollTo(0,top+pageYOffset-50)
+        let positionY = top-140;
+        window.scrollTo(0, positionY);
       }
       return true;
     }
@@ -38,13 +38,14 @@ class Report extends Component {
   }
 
   componentDidUpdate(prevProps) {
+
     if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 50)
       this.props.dispatch({
         type: 'RELOAD_SCROLL_EVENTS',
         component: 'site'
       });
 
+      window.scrollTo(0, 70);
       this.anchorTag();
     }
   }
@@ -53,9 +54,8 @@ class Report extends Component {
     let { location, match, report } = this.props;
     let section = this.getSection();
     return (
-      <div className='report no-last-child-margin'>
+      <div className='report'>
         <TopNav section={section} report={report} />
-        <div className="container no-padding">
           {section.number===1 &&
             <Heading report={report}/>
           }
@@ -66,7 +66,6 @@ class Report extends Component {
             dispatch={this.props.dispatch}
             location={location}
             url={report.url}/>
-        </div>
         <BottomNav section={section} report={report} />
       </div>
     );

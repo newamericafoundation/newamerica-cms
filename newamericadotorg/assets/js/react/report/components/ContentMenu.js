@@ -11,18 +11,6 @@ class ContentMenu extends Component {
     });
   }
 
-  disableScroll = () => {
-    this.state.lastScrollPosition = this.props.windowScrollPosition;
-    document.body.classList.add('scroll-disabled');
-    document.body.style.top = -this.state.lastScrollPosition + 'px';
-  }
-
-  enableScroll = () => {
-    document.body.classList.remove('scroll-disabled');
-    document.body.style.top = '';
-    window.scrollTo(0, this.state.lastScrollPosition);
-  }
-
   toggleExpanded = (title) => {
     this.setState({ expanded: { ...this.state.expanded, [title]: !this.state.expanded[title] }});
   }
@@ -39,13 +27,11 @@ class ContentMenu extends Component {
   render(){
     let { report: { url, sections }, open, closeMenu, activeSection } = this.props;
     return (
-      <div className="report__content-menu"
-      onMouseEnter={this.disableScroll} onTouchStart={this.disableScroll}
-      onMouseLeave={this.enableScroll} onTouchEnd={this.enableScroll}>
+      <div className="report__content-menu">
         {sections.map((s,i)=>(
           <span className={this.state.expanded[s.title] ? 'expanded' : ''}>
             <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`}>
-              <Link to={`${url}${s.slug}`} onClick={()=>{this.closeMenu(s.title);}}>
+              <Link to={`${url}${s.slug}/`} onClick={()=>{this.closeMenu(s.title);}}>
                 <label className="white">{s.title}</label>
               </Link>
               {s.subsections.length>0 && <div className="report__content-menu__item__toggle fa fa-plus" onClick={()=>{this.toggleExpanded(s.title)}}/>}
@@ -54,7 +40,7 @@ class ContentMenu extends Component {
               style={{ maxHeight: this.state.expanded[s.title] ? `${80*(s.subsections.length)}px` : 0}}>
             {s.subsections.map((sub,i)=>(
               <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`} onClick={closeMenu}>
-                <Link to={`${url}${s.slug}#${sub.slug}`}>
+                <Link to={`${url}${s.slug}/#${sub.slug}`}>
                   <label className="report__content-menu__item__subsections__label block">{sub.title}</label>
                 </Link>
               </div>
