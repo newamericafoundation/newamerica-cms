@@ -96,24 +96,6 @@ export class EventsList extends Component {
     fontWeight: 'bold',
     fontStyle: 'italic'
   }
-  shouldComponentUpdate(nextProps){
-    let { location, setQuery } = this.props
-    if(location !== nextProps.location){
-      let nextParams = new URLSearchParams(nextProps.location.search.replace('?', ''));
-      let params = new URLSearchParams(location.search.replace('?', ''));
-      if(nextParams.get('period')==params.get('period')) return true;
-      let nextPeriod = nextParams.get('period') || 'future';
-      setQuery({
-        time_period: nextPeriod,
-        program_id: '',
-        page: 1,
-        image_rendition: nextPeriod=='future' ? 'fill-700x510' : 'fill-300x240'
-      }, true);
-      return false;
-    }
-
-    return true;
-  }
 
   render(){
     let { location, period, response } = this.props;

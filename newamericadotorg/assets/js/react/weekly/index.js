@@ -82,7 +82,8 @@ class Routes extends Component {
         {edition && <Route path="/weekly" render={()=>(
             <Fetch name="weekly.edition"
               endpoint={`weekly/${edition.id}`}
-              fetchOnMount={true} />
+              fetchOnMount={true}
+              eager={true} />
           )}/>
         }
         <Route path="/weekly/:edition" render={()=>(<Header isArticle={match.params.article ? true : false}/>)} />

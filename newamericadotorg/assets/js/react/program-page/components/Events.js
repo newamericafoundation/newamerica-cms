@@ -14,6 +14,7 @@ export default class Events extends Component {
         component={EventsList}
         endpoint="event"
         fetchOnMount={true}
+        eager={true}
         period={period}
         location={location}
         history={history}

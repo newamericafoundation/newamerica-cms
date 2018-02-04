@@ -22,24 +22,27 @@ export default class Publications extends Component {
       window.scrollTo(0, 0);
     }
   }
-
+  componentDidUpdate(){
+        //console.log('rerender')
+  }
   initialQuery = () => {
     let { programType, program, location } = this.props;
-    let params = new URLSearchParams(location.search.replace('?', ''));
-    let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
-    let type = program.content_types.find((t)=>(t.slug === slug ));
+    let program_id = programType == 'program' ? 'program_id' : 'subprogram_id';
 
     let initQuery = {
-      [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
+      [program_id]: program.id,
       image_rendition: 'max-300x240',
-      content_type: type ? type.api_name : '',
       page_size: 8,
       page: 1
     }
 
-    if(programType=='program'){
-      initQuery.subprogram_id = params.get('projectId') || '';
-    }
+    let params = new URLSearchParams(location.search.replace('?', ''));
+    if(programType=='program' && params.get('projectId'))
+      initQuery.subprogram_id = params.get('projectId');
+
+    let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
+    let type = program.content_types.find((t)=>(t.slug === slug ));
+    if(type) initQuery.content_type = type.api_name;
 
     return initQuery;
   }
@@ -53,6 +56,7 @@ export default class Publications extends Component {
           <Fetch component={Filters} name={`${NAME}.publications`}
             endpoint={'post'}
             fetchOnMount={true}
+            eager={true}
             program={program}
             history={history}
             location={location}

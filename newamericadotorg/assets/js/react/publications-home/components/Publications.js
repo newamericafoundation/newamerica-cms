@@ -28,19 +28,22 @@ export default class Publications extends Component {
 
   initialQuery = () => {
     let { location, content_types } = this.props;
-    let params = new URLSearchParams(location.search.replace('?', ''));
+
     let slug = location.pathname.match(/^\/(.+)\/$/i)[1];
     let type = content_types.find((t)=>(t.slug === slug ));
 
     let initQuery = {
       image_rendition: 'max-300x240',
-      content_type: type ? type.api_name : '',
       page_size: 8,
       page: 1
     }
 
-    initQuery.program_id = params.get('programId') || '';
+    let params = new URLSearchParams(location.search.replace('?', ''));
+    if(params.get('programId'))
+      initQuery.program_id = params.get('programId');
 
+    if(type) initQuery.content_type = type.api_name;
+  
     return initQuery;
   }
 
@@ -53,6 +56,7 @@ export default class Publications extends Component {
           <Fetch component={Filters} name={`${NAME}.publications`}
             endpoint={'post'}
             fetchOnMount={true}
+            eager={true}
             programs={programs}
             content_types={content_types}
             history={history}

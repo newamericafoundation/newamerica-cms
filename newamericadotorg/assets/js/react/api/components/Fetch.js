@@ -26,9 +26,9 @@ class Fetch extends Component {
   }
 
   componentDidUpdate(prevProps){
-    let { fetchData, setEndpoint, eager, resetQuery, endpoint, initialQuery, fetchOnMount } = this.props;
-    if(!eager && !fetchOnMount) return;
-    if( !Object.is(prevProps.endpoint, endpoint) || !Object.is(prevProps.initialQuery, initialQuery) ){
+    let { fetchData, eager, resetQuery,initialQuery, fetchOnMount, endpoint, setEndpoint } = this.props;
+    if(!eager || !fetchOnMount) return;
+    if(JSON.stringify(prevProps.initialQuery) != JSON.stringify(initialQuery)|| prevProps.endpoint != endpoint ){
       setEndpoint(endpoint);
       resetQuery(initialQuery);
       fetchData();

@@ -34,22 +34,18 @@ export class Filter extends Component {
 
 export class TypeFilter extends Filter {
   handleChange = (event) => {
-    let { setQuery, history, location, program } = this.props;
+    let { history, location, program } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
-    setQuery({
-      content_type: event.target.value,
-      page: 1
-    }, true);
     history.push(`${program ? program.url : '/'}${event.target.getAttribute('data-slug')}/?${params.toString()}`);
   }
 
   render(){
-    let { types, setQueryParam, location : { pathname }, response: { params: { query } } } = this.props;
+    let { types, location : { pathname }, response: { params: { query } } } = this.props;
     return (
       <div className={`program__publications-filters__filter type-filter ${this.state.expanded ? 'expanded' : ''}`}>
         {this.label()}
         <form>
-          <RadioButton label={'All'} value={''} data-slug="publications" checked={query.content_type=='' || pathname.indexOf('publications') != -1} onChange={this.handleChange} />
+          <RadioButton label={'All'} value={''} data-slug="publications" checked={query.content_type==undefined || pathname.indexOf('publications') != -1} onChange={this.handleChange} />
           {types.map((t,i)=>(
             <RadioButton label={t.title} value={t.api_name} data-slug={t.slug} checked={query.content_type==t.api_name || pathname.indexOf(`/${t.slug}/`) != -1} onChange={this.handleChange}/>
           ))}
@@ -61,7 +57,7 @@ export class TypeFilter extends Filter {
 
 export class ProgramFilter extends Filter {
   handleChange = (event) => {
-    let { setQuery, history, location } = this.props;
+    let { history, location } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
     if(event.target.value == '') {
       params.delete('programId');
@@ -70,10 +66,6 @@ export class ProgramFilter extends Filter {
     }
 
     history.push(`${location.pathname}?${params.toString()}`);
-    setQuery({
-      program_id: event.target.value,
-      page: 1,
-    }, true);
   }
 
   render(){
@@ -95,7 +87,7 @@ export class ProgramFilter extends Filter {
 
 export class SubprogramFilter extends Filter {
   handleChange = (event) => {
-    let { setQuery, history, location, program } = this.props;
+    let { history, location, program } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
 
     if(event.target.value == '') {
@@ -105,11 +97,6 @@ export class SubprogramFilter extends Filter {
     }
 
     history.push(`${location.pathname}?${params.toString()}`);
-    setQuery({
-      subprogram_id: event.target.value,
-      page: 1,
-    }, true);
-
   }
 
   render(){
@@ -118,7 +105,7 @@ export class SubprogramFilter extends Filter {
       <div className={`program__publications-filters__filter subprogram-filter ${this.state.expanded ? 'expanded' : ''}`}>
         {this.label()}
         <form>
-          <RadioButton label={'All'} value={''} checked={query.subprogram_id==''} onChange={this.handleChange} />
+          <RadioButton label={'All'} value={''} checked={query.subprogram_id==undefined} onChange={this.handleChange} />
           {subprograms.map((p,i)=>(
             <RadioButton label={p.name} value={p.id} checked={+query.subprogram_id===p.id} onChange={this.handleChange}/>
           ))}
@@ -261,21 +248,10 @@ class _FilterGroup extends Component {
   }
 
   componentDidUpdate(prevProps){
-    let { location, program, setQuery, response } = this.props;
+    let { location, program, response } = this.props;
 
     if(location !== prevProps.location){
       this.reloadScrollEvents();
-      let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
-      let type = program.content_types.find((t)=>(t.slug === slug));
-      // click on publications link in nav:
-      if(slug=='publications' && location.search==''){
-        setQuery({
-          content_type: '',
-          subprogram_id: '',
-          page: 1
-        }, true);
-      }
-
       if(window.scrollY > 300){
         window.scrollTo(0, 300);
       }
