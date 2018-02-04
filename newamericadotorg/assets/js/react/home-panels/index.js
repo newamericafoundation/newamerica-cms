@@ -1,5 +1,4 @@
 import { Fetch } from '../components/API';
-import actions from '../actions';
 import { NAME, ID } from './constants';
 import { Component } from 'react';
 import OurStory from './pages/OurStory';
@@ -9,24 +8,32 @@ import OurFunding from './pages/OurFunding';
 import Jobs from './pages/Jobs';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-const Routes = (props) => (
-  <Router>
-    <div className="home__panels">
-      <Route path="/our-story/" render={(_props)=>( <OurStory {...props} {..._props} /> )} />
-      <Route path="/share-our-space/" render={(_props)=>( <ShareOurSpace {...props} {..._props} /> )} />
-      <Route path="/press-room/" render={(_props)=>( <PressRoom {...props} {..._props} /> )} />
-      <Route path="/our-funding/" render={(_props)=>( <OurFunding {...props} {..._props} /> )} />
-      <Route path="/jobs/" render={(_props)=>( <Jobs {...props} {..._props} /> )} />
-    </div>
-  </Router>
-);
+
+class Routes extends Component {
+    componentDidMount(){
+      let { dispatch } = this.props;
+      dispatch({
+        type: 'RELOAD_SCROLL_EVENTS',
+        component: 'site'
+      });
+    }
+    render(){
+      let props = this.props;
+      return (
+          <Router>
+            <div className="home__panels">
+              <Route path="/our-story/" render={(_props)=>( <OurStory {...props} {..._props} /> )} />
+              <Route path="/share-our-space/" render={(_props)=>( <ShareOurSpace {...props} {..._props} /> )} />
+              <Route path="/press-room/" render={(_props)=>( <PressRoom {...props} {..._props} /> )} />
+              <Route path="/our-funding/" render={(_props)=>( <OurFunding {...props} {..._props} /> )} />
+              <Route path="/jobs/" render={(_props)=>( <Jobs {...props} {..._props} /> )} />
+            </div>
+          </Router>
+      );
+    }
+}
 
 class APP extends Component {
-  componentDidMount(){
-    setTimeout(()=>{
-      actions.reloadScrollEvents();
-    });
-  }
   render(){
     let { pageId } = this.props;
     return (
