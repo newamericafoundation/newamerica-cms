@@ -4,7 +4,7 @@
 
 {% image post.story_image fill-300x240 as post_image %}
 
-<div class="card list">
+<div class="card list {{post.content_type.model}}">
   <a href="{{post.url}}">
     <div class="card__image{% if not post.story_image %} no-image{%endif%}">
       <img src="{{post_image.url}}" class="fade-in-image"/>

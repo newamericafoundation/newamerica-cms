@@ -49,7 +49,7 @@ class OurPeople extends Component {
   query = () => {
     let { match : { params : { peoplePage } } } = this.props
     let q = {
-      page_size: 12,
+      page_size: 9,
       page: 1,
     };
 

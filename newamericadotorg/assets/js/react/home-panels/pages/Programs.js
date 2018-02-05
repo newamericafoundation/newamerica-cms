@@ -14,7 +14,7 @@ export default class Programs extends Component {
         {p.subprograms &&
           <div className="program-card__subprograms">
             <label className="block button--text">Projects</label>
-            <ul className="inline project-card__subprograms__list">
+            <ul className="inline program-card__subprograms__list">
               {p.subprograms.map((s,i)=>(
                 <li><label><a href={s.url}>{s.title}</a></label></li>
               ))}
@@ -26,7 +26,7 @@ export default class Programs extends Component {
   render(){
     let { response: { results } } = this.props;
     return (
-      <div className="home__panel__promo">
+      <div className="home__panel__promo home__panel__programs">
       <div className="container--1080">
       <div className="row gutter-10">
         <div className="col-md-6">

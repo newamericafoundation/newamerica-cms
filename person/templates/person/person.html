@@ -18,20 +18,22 @@
             <a class="person-heading__image__link-wrapper" href={{og_profile_image.url}}>
               <img src="{{profile_image.url}}"></a>
             </a>
-            <div class="person__social margin-top-25">
-              <ul class="inline">
-                 <a href="mailto:{{page.email}}" class="fa fa-envelope circle"></a>
-                {% for s in page.social_media %}
-                  <a href="{{s.vlaue}}" class="fa fa-{{s.block_type}} circle"></a>
-                {% endfor %}
-              </ul>
-            </div>
           {% endif %}
         </div>
         <div class="person__text push-1 col-7">
           <h1 class="person__text__heading margin-top-0">{{ page.first_name }} {{ page.last_name }}</h1>
           {% if page.position_at_new_america %}
               <label class="person-text__position caption">{{ page.position_at_new_america }}</label>
+          {% endif %}
+          {% if page.email or page.social_media|length > 0 %}
+          <div class="person__social margin-top-25">
+            <ul class="inline">
+               <a href="mailto:{{page.email}}" class="fa fa-envelope circle"></a>
+              {% for s in page.social_media %}
+                <a href="{{s.vlaue}}" class="fa fa-{{s.block_type}} circle"></a>
+              {% endfor %}
+            </ul>
+          </div>
           {% endif %}
           {% if page.topics.all|length > 0 %}
           <label class="block margin-top-25">Expertise:</label>

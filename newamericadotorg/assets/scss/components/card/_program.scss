@@ -2,3 +2,15 @@
   padding: 35px;
   padding-bottom: 70px;
 }
+
+.program-card__subprograms__list li{
+  padding-right: 0px !important;
+  &:not(:last-child):after{
+    content: '•';
+    font-weight: bold;
+    margin-left: 6px;
+    margin-right: 6px;
+    position: relative;
+    top: 1px;
+  }
+}

@@ -144,7 +144,7 @@ export class TopicFilter extends Filter {
 }
 
 export const PublicationListItem = ({ post }) => (
-  <div className="card list">
+  <div className={`card list ${post.content_type ? post.content_type.api_name : ''}`}>
     <a href={post.url}>
       <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
         <Image image={post.story_image} />
