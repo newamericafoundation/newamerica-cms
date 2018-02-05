@@ -37,6 +37,8 @@ from newamericadotorg.wagtailadmin.widgets import LocationWidget
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
+from subscribe.models import SubscriptionSegment
+
 class CustomImage(AbstractImage):
     # Add any extra fields to image here
 
@@ -69,6 +71,15 @@ def image_delete(sender, instance, **kwargs):
 def rendition_delete(sender, instance, **kwargs):
     instance.file.delete(False)
 
+class SubscriptionHomePageRelationship(models.Model):
+    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    program = ParentalKey('HomePage', related_name='subscriptions')
+    alternate_title = models.TextField(blank=True)
+    panels = [
+        FieldPanel('subscription_segment'),
+        FieldPanel('alternate_title')
+    ]
+
 class HomePage(Page):
     """
     Model for the homepage for the website. In Wagtail's parent
@@ -95,6 +106,12 @@ class HomePage(Page):
     'subscribe.SubscribePage',
     'programs.PublicationsPage'
     ]
+
+    subscription_segments = models.ManyToManyField(
+        SubscriptionSegment,
+        through=SubscriptionHomePageRelationship,
+        blank=True,
+    )
 
     # Up to four lead stories can be featured on the homepage.
     # Lead_1 will be featured most prominently.
@@ -186,6 +203,8 @@ class HomePage(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
+
+        InlinePanel('subscriptions', label=("Subscription Segments")),
     ]
 
     def get_context(self, request):

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Fetch } from '../components/API';
+import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';
 import OurStory from './pages/OurStory';
 import ShareOurSpace from './pages/ShareOurSpace';
@@ -8,7 +8,7 @@ import PressRoom from './pages/PressRoom';
 import OurFunding from './pages/OurFunding';
 import Jobs from './pages/Jobs';
 import Programs from './pages/Programs';
-
+import Subscribe from './pages/Subscribe';
 
 
 class Routes extends Component {
@@ -50,6 +50,9 @@ class APP extends Component {
               fetchOnMount={true}
               name={NAME}
               component={Programs} />
+          )}/>
+          <Route path="/subscribe/" render={()=>(
+            <Response name="meta" component={Subscribe} />
           )}/>
           <Route path="/(our-story|share-our-space|press-room|our-funding|jobs)/" render={(props)=>(
             <Fetch endpoint={`home/${pageId}`}

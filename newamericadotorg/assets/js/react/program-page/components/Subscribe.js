@@ -3,14 +3,35 @@ import { Link, NavLink } from 'react-router-dom';
 import { CheckBox, Text } from '../../components/Inputs';
 import { BASEURL } from '../../api/constants';
 
+export class List extends Component {
+
+  render(){
+    let { list, checked, toggle } = this.props;
+    return (
+      <span>
+      {list.map((s,i)=>(
+        <div className="subscribe__field">
+          <CheckBox checked={checked.indexOf(s.title)>=0}
+            name="subscriptions[]"
+            value={s.title}
+            label={s.alternate_title || s.title}
+            onChange={()=>{toggle(s.title); }}/>
+          <p>{s.search_description}</p>
+        </div>
+        ))}
+      </span>
+    );
+  }
+}
+
 export default class Subscribe extends Component {
 
   constructor(props){
     super(props);
     let params = new URLSearchParams(location.search.replace('?', ''))
     let subscriptions = null;
-    if(props.program.subscriptions){
-      subscriptions = props.program.subscriptions.map((s,i)=>(s.title))
+    if(props.subscriptions){
+      subscriptions = props.subscriptions.map((s,i)=>(s.title))
     }
     this.state = {
       csrf: '',
@@ -84,9 +105,9 @@ export default class Subscribe extends Component {
   }
 
   render(){
-    let { program, location } = this.props;
+    let { subscriptions } = this.props;
     let { params, posting, posted, status } = this.state;
-    if(!program.subscriptions) return (
+    if(!subscriptions) return (
       <div className={`program__about program__subscribe margin-top-10`}>
         <h1>We're sorry!<br/>We don't have any subscription lists for you, yet.</h1>
       </div>
@@ -97,7 +118,7 @@ export default class Subscribe extends Component {
         <div className="container--1080">
         <h1>Subscribe</h1>
         <form onSubmit={this.submit} className="subscribe">
-          <div className="row gutter-10">
+          <div className="row primary gutter-10">
             <div className="subscribe__fields col-md-6">
               <Text name="email" label="Email" value={params.email} onChange={this.change} />
               <Text name="name" label="First Name & Last Name" value={params.name} onChange={this.change} />
@@ -107,16 +128,7 @@ export default class Subscribe extends Component {
             </div>
             <div className="subscribe__lists push-md-1 col-md-5">
                 <label className="block button--text margin-35">Lists</label>
-                {program.subscriptions.map((s,i)=>(
-                <div className="subscribe__field">
-                  <CheckBox checked={this.state.subscriptions.indexOf(s.title)>=0}
-                    name="subscriptions[]"
-                    value={s.title}
-                    label={s.alternate_title || s.title}
-                    onChange={()=>{this.toggleSubscription(s.title); }}/>
-                  <p>{s.search_description}</p>
-                </div>
-                ))}
+                <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
                 <div className="subscribe__submit">
                   {(!posting && !posted) && <input type="submit" className="button turquoise" value="Sign Up" />}
                   {posting && <label className="button turquoise"><span className="loading-dots--absolute">

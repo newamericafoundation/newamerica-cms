@@ -77,7 +77,7 @@ class ProgramPage extends Component {
             {results.topics &&
               <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} /> )} />}
             {this.topicRoutes(results.topics)}
-            <Route path={`/${root}/subscribe/`} render={(props)=>(<Subscribe {...props} program={results} /> )} />
+            <Route path={`/${root}/subscribe/`} render={(props)=>(<Subscribe {...props} subscriptions={results.subscriptions} /> )} />
           </div>
         </Router>
       </div>
