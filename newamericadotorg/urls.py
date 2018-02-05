@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^api/author/$', api_views.AuthorList.as_view()),
     url(r'^api/program/(?P<pk>[\d]+)/$', cache_page(60 * 1440)(api_views.ProgramDetail.as_view()), name='program_page'),
     url(r'^api/program/$', cache_page(60 * 1440)(api_views.ProgramList.as_view()), name='program_list'),
+    url(r'^api/program/fellowships/$', cache_page(60 * 1440)(api_views.FellowshipList.as_view()), name='fellowship_list'),
     url(r'^api/topic/$', api_views.TopicList.as_view()),
     url(r'^api/topic/(?P<pk>[\d]+)/$', api_views.TopicDetail.as_view()),
     url(r'^api/subprogram/$', api_views.SubprogramList.as_view()),

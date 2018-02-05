@@ -39,6 +39,12 @@ class APP extends Component {
     return (
       <Router>
         <Switch>
+          <Route path="/fellowships/" render={()=>(
+            <Fetch endpoint={`program/fellowships`}
+              fetchOnMount={true}
+              name={NAME}
+              component={Programs} />
+          )}/>
           <Route path="/programs/" render={()=>(
             <Fetch endpoint={`program`}
               fetchOnMount={true}

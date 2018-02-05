@@ -154,6 +154,7 @@ class AbstractProgram(Page):
                 ImageChooserPanel('story_image'),
                 PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
                 FieldPanel('location'),
+                FieldPanel('fellowship'),
                 FieldPanel('description'),
                 FieldPanel('story_excerpt'),
             ],

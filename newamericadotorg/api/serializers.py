@@ -83,7 +83,6 @@ class TopicSerializer(ModelSerializer):
 
 
 class ProgramSerializer(ModelSerializer):
-    description = SerializerMethodField()
     logo = SerializerMethodField()
     subprograms = SerializerMethodField()
 
@@ -93,10 +92,9 @@ class ProgramSerializer(ModelSerializer):
             'id', 'name', 'title', 'description', 'url', 'logo', 'slug', 'subprograms'
         )
 
-    def get_description(self, obj):
-        return obj.description
-
     def get_subprograms(self, obj):
+        if type(obj) is not Program:
+            return None
         #horribly inefficient. may have to add a ManyToManyField to Program??
         subprograms = ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live().in_menu(),many=True).data
         if len(subprograms)==0:

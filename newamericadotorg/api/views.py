@@ -21,7 +21,7 @@ from serializers import (
 )
 from helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
-from programs.models import Program, Subprogram, AbstractContentPage
+from programs.models import Program, Subprogram, AbstractContentPage, AbstractProgram
 from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
@@ -256,6 +256,21 @@ class ProgramList(generics.ListAPIView):
     serializer_class = ProgramSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = ProgramFilter
+
+
+class FellowshipList(views.APIView):
+    def get(self, request, format=None):
+        fellow_programs = Program.objects.in_menu().live().filter(fellowship=True)
+        fellow_subprograms = Subprogram.objects.in_menu().live().filter(fellowship=True)
+        fellow_programs = ProgramSerializer(fellow_programs, many=True).data
+        fellow_subprograms = ProgramSerializer(fellow_subprograms, many=True).data
+        fellowships = fellow_programs + fellow_subprograms
+        return response.Response({
+            'count': len(fellowships),
+            'next': None,
+            'previous': None,
+            'results': fellowships
+        })
 
 class SubprogramFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
