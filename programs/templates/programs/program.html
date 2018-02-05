@@ -4,6 +4,7 @@
 {% block body_class %}programpage{% endblock %}
 
 {% block content %}
+	{% csrf_token %}
 	{% if program.template == 'simple_program.html' or page.template == 'simple_program.html' %}
 		<main class="program container--full-width">
 			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}

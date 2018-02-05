@@ -50,12 +50,12 @@
 	}
 
 	&.turquoise {
-		border: 1px solid color(turquoise, base, 0);
-		background: color(turquoise);
-		color: color(white) !important;
+		border: 1px solid color(turquoise, base, 1);
+		color: color(turquoise);
+		background: color(turquoise, base, 0);
 		&:hover{
-			border: 1px solid color(turquoise, base, 0);
-			background: color(turquoise, base, 0.75);
+			color: color(white) !important;
+			background: color(turquoise, base, 1);
 		}
 	}
 }

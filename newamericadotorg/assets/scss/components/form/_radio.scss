@@ -1,10 +1,10 @@
-.radio-button input{
+.radio-button input, .checkbox input{
   position: absolute;
 	z-index: -1;
 	opacity: 0;
 }
 
-.radio-button{
+.radio-button, .checkbox{
 	position: relative;
 	display: block;
 	cursor: pointer;
@@ -13,13 +13,16 @@
   margin-bottom: 15px;
 }
 
-.radio-button__indicator {
+.radio-button__indicator, .checkbox__indicator {
 	position: absolute;
 	top: 2px;
 	left: 0;
 	width: 12px;
 	height: 12px;
 	background: color(black, base, 0.3);
+}
+
+.radio-button__indicator {
 	border-radius: 50%;
 }
 
@@ -36,19 +39,23 @@
 
 /* Hover state whilst checked */
 .radio-button:hover input:not([disabled]):checked ~ .radio-button__indicator
-.radio-button input:checked:focus ~ .radio-button__indicator {
+.radio-button input:checked:focus ~ .radio-button__indicator,
+.checkbox:hover input:not([disabled]):checked ~ .checkbox__indicator
+.checkbox input:checked:focus ~ .checkbox__indicator{
 	background: #0e647d;
 }
 
 /* Disabled state */
-.radio-button input:disabled ~ .radio-button__indicator {
+.radio-button input:disabled ~ .radio-button__indicator,
+.checkbox input:disabled ~ .checkbox__indicator  {
 	pointer-events: none;
 	opacity: .6;
 	background: #e6e6e6;
 }
 
 /* Check mark */
-.radio-button__indicator:after {
+.radio-button__indicator:after,
+.checkbox__indicator:after {
 	position: absolute;
 	display: none;
 	content: '';
@@ -62,16 +69,21 @@
 }
 
 /* Radio button inner circle */
-.radio-button input:checked ~ .radio-button__indicator:after {
+.radio-button input:checked ~ .radio-button__indicator:after,
+.checkbox input:checked ~ .checkbox__indicator:after  {
 	top: 0px;
 	left: 0px;
 	width: 12px;
 	height: 12px;
-	border-radius: 50%;
 	background: color(black, base, 1);
 }
 
+.radio-button input:checked ~ .radio-button__indicator:after {
+  border-radius: 50%;
+}
+
 /* Disabled circle colour */
-.radio-button input:disabled ~ .radio-button__indicator:after {
+.radio-button input:disabled ~ .radio-button__indicator:after,
+.checkbox input:disabled ~ .checkbox__indicator:after {
 	background: #7b7b7b;
 }

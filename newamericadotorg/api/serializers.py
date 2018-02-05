@@ -12,6 +12,7 @@ from event.models import Event
 from weekly.models import WeeklyEdition, WeeklyArticle
 from in_depth.models import InDepthProject, InDepthSection
 from report.models import Report
+from subscribe.models import SubscriptionSegment
 
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
@@ -82,15 +83,37 @@ class TopicSerializer(ModelSerializer):
         )
 
 
+class SubscriptionSegmentSerializer(ModelSerializer):
+
+    class Meta:
+        model = SubscriptionSegment
+        fields = (
+            'id', 'title', 'ListID', 'SegmentID'
+        )
+
+
 class ProgramSerializer(ModelSerializer):
     logo = SerializerMethodField()
     subprograms = SerializerMethodField()
+    subscriptions = SerializerMethodField()
 
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'title', 'description', 'url', 'logo', 'slug', 'subprograms'
+            'id', 'name', 'title', 'description', 'url', 'logo', 'slug', 'subprograms', 'subscriptions'
         )
+
+    def get_subscriptions(self, obj):
+        segments = []
+        for s in obj.subscriptions.all():
+            seg = SubscriptionSegmentSerializer(s.subscription_segment).data
+            if s.alternate_title != '':
+                seg['alternate_title'] = s.alternate_title
+            segments.append(seg)
+
+        if len(segments) == 0:
+            return None
+        return segments
 
     def get_subprograms(self, obj):
         if type(obj) is not Program:
@@ -147,18 +170,19 @@ class ProgramDetailSerializer(ModelSerializer):
     subprograms = SerializerMethodField()
     logo = SerializerMethodField()
     content_types = SerializerMethodField()
-    leads = SerializerMethodField()
     features = SerializerMethodField()
     subpages = SerializerMethodField()
     topics = SerializerMethodField()
     about = SerializerMethodField()
     about_us_pages = SerializerMethodField()
+    subscriptions = SerializerMethodField()
 
     class Meta:
         model = Program
         fields = (
             'id', 'name', 'story_grid', 'description', 'url', 'subprograms', 'slug',
-            'content_types', 'leads', 'features', 'subpages', 'logo', 'topics', 'about', 'about_us_pages'
+            'content_types', 'features', 'subpages', 'logo', 'topics', 'about', 'about_us_pages',
+            'subscriptions'
         )
 
     def get_story_grid(self, obj):
@@ -201,14 +225,6 @@ class ProgramDetailSerializer(ModelSerializer):
     def get_content_types(self, obj):
         return get_program_content_types(obj.id)
 
-    def get_leads(self, obj):
-        leads = []
-        for i in range(4):
-            l = 'lead_' + str(i+1)
-            if getattr(obj,l,None):
-                leads.append(getattr(obj,l).id)
-        return leads
-
     def get_logo(self, obj):
         return ''
         return obj.desktop_program_logo
@@ -247,6 +263,18 @@ class ProgramDetailSerializer(ModelSerializer):
             return None
 
         return about_us_pages
+
+    def get_subscriptions(self, obj):
+        segments = []
+        for s in obj.subscriptions.all():
+            seg = SubscriptionSegmentSerializer(s.subscription_segment).data
+            if s.alternate_title != '':
+                seg['alternate_title'] = s.alternate_title
+            segments.append(seg)
+
+        if len(segments) == 0:
+            return None
+        return segments
 
 
 class SubprogramProgramSerializer(ModelSerializer):

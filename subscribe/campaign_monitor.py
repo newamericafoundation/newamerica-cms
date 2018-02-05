@@ -43,7 +43,9 @@ def update_subscriber(email, name, custom_fields):
                     exists = True
             if not exists:
                 custom_fields.append({ 'key': cf.Key, 'value': cf.Value })
-                
+
         subscriber.update(email, name, custom_fields, True)
+        return 'OK'
     except BadRequest:
         subscriber.add(CREATESEND_LISTID, email, name, custom_fields, True)
+        return 'BAD_REQUEST'

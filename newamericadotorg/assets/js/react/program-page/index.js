@@ -11,6 +11,7 @@ import Events from './components/Events';
 import StoryGrid from './components/StoryGrid';
 import People from './components/People';
 import Subprograms from './components/Subprograms';
+import Subscribe from './components/Subscribe';
 import { TopicsList, Topic } from './components/Topics';
 
 class ProgramPage extends Component {
@@ -76,6 +77,7 @@ class ProgramPage extends Component {
             {results.topics &&
               <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} /> )} />}
             {this.topicRoutes(results.topics)}
+            <Route path={`/${root}/subscribe/`} render={(props)=>(<Subscribe {...props} program={results} /> )} />
           </div>
         </Router>
       </div>

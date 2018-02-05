@@ -31,15 +31,17 @@ input[type="text"] {
 
 .input {
 	position: relative;
-	margin-top: 3em;
 	input {
 		width: 100%;
+		position: relative;
+		z-index: 1;
 	}
 	label.input__label {
 		position: absolute;
 		@include transition(all 0.15s ease);
-		top: 1.5em;
+		top: 1.75em;
 		left: 0;
+		z-index: 0;
 	}
 	input[type="text"]:active + label,
 	input[type="text"]:focus + label,

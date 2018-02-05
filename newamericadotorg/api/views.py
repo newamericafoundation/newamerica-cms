@@ -295,20 +295,25 @@ class HomeDetail(generics.RetrieveAPIView):
 
 @api_view(['POST'])
 def subscribe(request):
-    params = request.data
+    params = request.query_params
     subscriptions = params.getlist('subscriptions[]', None)
     job_title = params.get('job_title', None)
     org = params.get('organization', None)
+    zipcode = params.get('zipcode', None)
     custom_fields = []
 
     if job_title:
         custom_fields.append({ 'key': 'JobTitle', 'value': job_title })
     if org:
         custom_fields.append({ 'key': 'Organization', 'value': org })
+    if zipcode:
+        custom_fields.append({ 'key': 'MailingZip/PostalCode', 'value': zipcode })
     if subscriptions:
         for s in subscriptions:
             custom_fields.append({ 'key': 'Subscriptions', 'value': s })
 
-    update_subscriber(params.get('email'), params.get('name'), custom_fields)
+    status = update_subscriber(params.get('email'), params.get('name'), custom_fields)
 
-    return redirect('/thankyou')
+    return response.Response({
+        'status': status
+    });
