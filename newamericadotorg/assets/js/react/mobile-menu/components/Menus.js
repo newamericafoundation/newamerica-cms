@@ -14,23 +14,13 @@ const ProgramsTab = ({ response: { results }}) => {
   );
 };
 
-const AboutTab = () => (
+const AboutTab = ({ response: { results }}) => (
   <div className="menu-list about-tab">
-    <label className="block">
-      <a href="/our-story">Our Story</a>
-    </label>
-    <label className="block">
-      <a href="/our-people">Our People</a>
-    </label>
-    <label className="block">
-      <a href="/our-funding">Our Funding</a>
-    </label>
-    <label className="block">
-      <a href="/press">Press</a>
-    </label>
-    <label className="block">
-      <a href="/jobs">Jobs</a>
-    </label>
+    {results.about_pages.map((a,i)=>(
+      <label className="block">
+        <a href={a.url}>{a.title}</a>
+      </label>
+    ))}
   </div>
 );
 
@@ -79,7 +69,7 @@ class Menus extends Component {
             </div>
           </div>
           <div className="mobile-menu__secondary">
-            <AboutTab />
+            <Response name="meta" component={AboutTab} />
             <Response name="meta" component={ProgramsTab}/>
           </div>
         </div>

@@ -213,6 +213,10 @@ class MetaList(views.APIView):
     def get(self, request, format=None):
         programs = ProgramSerializer(Program.objects.live().in_menu(), many=True).data
         types = content_types(request)['content_types']
+        about_pages = HomePage.objects.first().about_pages
+        abouts = []
+        for a in about_pages:
+            abouts.append({ 'title': a.value.title, 'url': a.value.url })
 
         return response.Response({
             'count': None,
@@ -220,7 +224,8 @@ class MetaList(views.APIView):
             'previous': None,
             'results': {
                 'programs': programs,
-                'content_types': types
+                'content_types': types,
+                'about_pages': abouts
             }
         })
 

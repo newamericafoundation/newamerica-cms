@@ -2,6 +2,7 @@ from django.conf import settings
 from newamericadotorg.api.helpers import newamericadotorg_content_types
 from programs.models import Program, Subprogram
 from issue.models import IssueOrTopic
+from home.models import HomePage
 
 def debug(request):
     return {'DEBUG': settings.DEBUG}
@@ -21,6 +22,11 @@ def program_data(request):
         })
 
     return { 'program_data': program_data }
+
+def about_pages(request):
+    return {
+        'about_pages': HomePage.objects.first().about_pages
+    }
 
 def content_types(request):
     '''

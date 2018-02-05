@@ -35,6 +35,9 @@ class AbstractProgram(Page):
     by Program and Subprogram models
     """
     name = models.CharField(max_length=100, help_text='Name of Program')
+    fellowship = models.NullBooleanField(
+        help_text='Select if this is a fellowship program'
+    )
     location = models.NullBooleanField(
         help_text='Select if location based program i.e. New America NYC'
     )

@@ -113,6 +113,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'newamericadotorg.settings.context_processors.debug',
                 'newamericadotorg.settings.context_processors.program_data',
+                'newamericadotorg.settings.context_processors.about_pages',
                 'newamericadotorg.settings.context_processors.content_types'
             ]
         },

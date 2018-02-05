@@ -158,6 +158,14 @@ class HomePage(Page):
 
     featured_stories = [feature_1, feature_2, feature_3]
 
+    about_pages = StreamField([
+        ('page', PageChooserBlock()),
+    ], blank=True)
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('about_pages')
+    ]
+
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
