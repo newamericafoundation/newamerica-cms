@@ -40,15 +40,19 @@ class HomeSubscribe extends Subscribe {
             </div>
           </div>
           <div className="secondary">
-            {programs.map((p,i)=>{
-              if(!p.subscriptions) return null;
-              return (
-                <div className="subscribe__program-list">
-                  <label className="block button--text margin-35">{p.title}</label>
-                  <List list={p.subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
-                </div>
-              );
-            })}
+            <div className="secondary__wrapper">
+              <div>
+              {programs.map((p,i)=>{
+                if(!p.subscriptions) return null;
+                return (
+                  <div className="subscribe__program-list">
+                    <label className="block button--text margin-35">{p.title}</label>
+                    <List list={p.subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
           </div>
         </form>
         </div>
