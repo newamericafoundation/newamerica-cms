@@ -50,8 +50,7 @@ class OurPeople extends Component {
     let { match : { params : { peoplePage } } } = this.props
     let q = {
       page_size: 9,
-      page: 1,
-      image_rendition: 'fill-300x240'
+      page: 1
     };
 
     let role = this.getRole();
