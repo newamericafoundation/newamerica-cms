@@ -11,15 +11,15 @@
   <div class="person__card card">
     <div class="container--1080">
       <div class="row gutter-20">
+        {% if page.profile_image %}
         <div class="person__image col-4">
-          {% if page.profile_image %}
-              {% image page.profile_image original as og_profile_image %}
-              {% image page.profile_image fill-300x300 as profile_image %}
+            {% image page.profile_image original as og_profile_image %}
+            {% image page.profile_image fill-300x300 as profile_image %}
             <a class="person-heading__image__link-wrapper" href={{og_profile_image.url}}>
               <img src="{{profile_image.url}}"></a>
             </a>
-          {% endif %}
         </div>
+        {% endif %}
         <div class="person__text push-1 col-7">
           <h1 class="person__text__heading margin-top-0">{{ page.first_name }} {{ page.last_name }}</h1>
           {% if page.position_at_new_america %}
