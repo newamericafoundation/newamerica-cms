@@ -447,12 +447,13 @@ class EventSerializer(ModelSerializer):
     story_image = SerializerMethodField()
     programs = SerializerMethodField()
     subprograms = SerializerMethodField()
+    content_type = SerializerMethodField()
 
     class Meta:
         model = Event
         fields = ('id', 'title', 'slug', 'date', 'end_date', 'start_time', 'end_time',
         'street_address','city', 'state', 'zipcode', 'rsvp_link', 'story_image',
-        'programs', 'subprograms', 'url', 'story_excerpt'
+        'programs', 'subprograms', 'url', 'story_excerpt', 'content_type'
         )
 
     def get_story_image(self, obj):
@@ -465,6 +466,9 @@ class EventSerializer(ModelSerializer):
 
     def get_subprograms(self, obj):
         return PostSubprogramSerializer(obj.post_subprogram, many=True).data
+
+    def get_content_type(self, obj):
+        return get_content_type(obj.content_type.model)
 
 class HomeSerializer(ModelSerializer):
     leads = SerializerMethodField()
