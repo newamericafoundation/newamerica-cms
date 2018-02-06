@@ -43,7 +43,7 @@ export default {
               final
             );
           });
-        postcss([cssnano({ discardUnused: false, reduceIntents: { keyframes: false } })])
+        postcss([cssnano({ discardUnused: false, reduceIndents: false })])
           .process(styleNodes[1].content)
           .then(result => {
             writeFile(
