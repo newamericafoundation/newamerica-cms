@@ -32,7 +32,7 @@ body.is-loading {
   background-color: #ABEAD5;
   background-color: color(turquoise);
   //box-shadow: 0px 0px 2px 1px #ABEAD5;
-  animation: move 3s infinite cubic-bezier(.2,.64,.81,.23);
+  @include animation(slide-loading 3s infinite cubic-bezier(.2,.64,.81,.23));
 }
 .header__loading div:nth-child(2) {
   animation-delay: 100ms;
@@ -43,7 +43,8 @@ body.is-loading {
 .header__loading div:nth-child(4) {
   animation-delay: 300ms;
 }
-@keyframes move {
+
+@include keyframes(slide-loading) {
   0% {
     left: -125px
   }
