@@ -51,6 +51,7 @@ class OurPeople extends Component {
     let q = {
       page_size: 9,
       page: 1,
+      image_rendition: 'fill-300x240'
     };
 
     let role = this.getRole();
