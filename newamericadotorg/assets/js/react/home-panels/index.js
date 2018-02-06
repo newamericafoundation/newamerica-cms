@@ -9,7 +9,7 @@ import OurFunding from './pages/OurFunding';
 import Jobs from './pages/Jobs';
 import Programs from './pages/Programs';
 import Subscribe from './pages/Subscribe';
-
+import Search from './pages/Search';
 
 class Routes extends Component {
     componentDidMount(){
@@ -50,6 +50,9 @@ class APP extends Component {
               fetchOnMount={true}
               name={NAME}
               component={Programs} />
+          )}/>
+          <Route path="/search/" render={(props)=>(
+            <Search {...props} />
           )}/>
           <Route path="/subscribe/" render={()=>(
             <Response name="meta" component={Subscribe} />

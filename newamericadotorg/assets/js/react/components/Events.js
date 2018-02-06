@@ -1,29 +1,8 @@
-import { PublicationsList, LoadingDots } from './Publications';
+import { PublicationsList, LoadingDots, EventItem } from './Publications';
 import { Link, NavLink } from 'react-router-dom';
 import { Filter, SubprogramFilter, ProgramFilter, TopicFilter, FilterGroup } from './Publications';
 import { format as formatDate } from 'date-fns';
 import { Component } from 'react';
-
-export const EventItem = ({ event }) => (
-  <div className="card event">
-    <a href={event.url}>
-      <div className={`card__image ${!event.story_image ? 'no-image' : ''}`}>
-        <img src={event.story_image} />
-      </div>
-    </a>
-    <div className="card__text">
-      <a href={event.url}>
-        <label className="margin-top-0 block">{formatDate(event.date, 'MMM. Do, YYYY')}</label>
-        <label className="card__text__title bold block">{event.title}</label>
-        <label className="subtitle block">{event.story_excerpt}</label>
-        <label className="caption block">{event.city}, {event.state}</label>
-      </a>
-      <label className="event__rsvp button--text block margin-0">
-        <a href={event.url}>RSVP</a>
-      </label>
-    </div>
-  </div>
-);
 
 class Upcoming extends Component {
 

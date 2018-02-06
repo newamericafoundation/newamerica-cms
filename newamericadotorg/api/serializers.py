@@ -559,46 +559,66 @@ class WeeklyEditionSerializer(ModelSerializer):
         )
 
 class SearchSerializer(ModelSerializer):
-    specific = SerializerMethodField()
 
-    def get_specific(self, obj):
-        spec = {
-            'id': obj.id,
-            'title': obj.title,
-            'slug': obj.slug,
-            'url': obj.url,
-            'image': None,
-            'date': None,
-            'content_type': get_content_type(obj.content_type.model),
-            'authors': [],
-            'description': None,
-            'programs': []
-        }
-        if not self.context['request'].query_params.get('exclude_images', None)=='true':
-            if getattr(obj.specific, 'story_image', None):
-                spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
-            if getattr(obj.specific, 'profile_image', None):
-                spec['image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
-        if getattr(obj.specific, 'date', None):
-            spec['date'] = obj.specific.date
-        if getattr(obj.specific, 'post_author', None):
-            spec['authors'] = AuthorSerializer(obj.specific.post_author, many=True, context=self.context).data
-        if getattr(obj.specific, 'story_excerpt', None):
-            spec['description'] = obj.specific.story_excerpt
-        if getattr(obj.specific, 'short_bio', None):
-            spec['description'] = obj.specific.short_bio
-        if getattr(obj.specific, 'parent_programs', None):
-            spec['programs'] = PostProgramSerializer(obj.specific.parent_programs, many=True).data
-        if getattr(obj.specific, 'belongs_to_these_programs', None):
-            spec['programs'] = PostProgramSerializer(obj.specific.belongs_to_these_programs, many=True).data
-        if obj.content_type.model == 'person':
-            spec['content_type']['name'] = obj.specific.role
 
-        return spec
+    def to_representation(self, obj):
+        data = super(SearchSerializer, self).to_representation(obj)
+        obj = obj.specific
+
+        if type(obj) == Person:
+            data['profile_image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
+            data['first_name'] = obj.first_name
+            data['last_name'] = obj.last_name
+            data['position'] = obj.position_at_new_america
+        elif isinstance(obj, Post) or type(obj) == Event:
+            data['story_image'] = generate_image_url(obj.story_image, 'max-300x240')
+            data['date'] = obj.date
+            data['programs'] = PostProgramSerializer(obj.parent_programs, many=True).data
+        elif isinstance(obj, Post):
+            data['authors'] = AuthorSerializer(obj.post_author, many=True, context=self.context).data
+
+
+        data['content_type'] = get_content_type(obj.content_type.model)
+        return data
+
+    # def get_specific(self, obj):
+    #     spec = {
+    #         'id': obj.id,
+    #         'title': obj.title,
+    #         'slug': obj.slug,
+    #         'url': obj.url,
+    #         'image': None,
+    #         'date': None,
+    #         'content_type': get_content_type(obj.content_type.model),
+    #         'authors': [],
+    #         'description': None,
+    #         'programs': []
+    #     }
+    #     if not self.context['request'].query_params.get('exclude_images', None)=='true':
+    #         if getattr(obj.specific, 'story_image', None):
+    #             spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
+    #         if getattr(obj.specific, 'profile_image', None):
+    #             spec['image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
+    #     if getattr(obj.specific, 'date', None):
+    #         spec['date'] = obj.specific.date
+    #     if getattr(obj.specific, 'post_author', None):
+    #         spec['authors'] = AuthorSerializer(obj.specific.post_author, many=True, context=self.context).data
+    #     if getattr(obj.specific, 'story_excerpt', None):
+    #         spec['description'] = obj.specific.story_excerpt
+    #     if getattr(obj.specific, 'short_bio', None):
+    #         spec['description'] = obj.specific.short_bio
+    #     if getattr(obj.specific, 'parent_programs', None):
+    #         spec['programs'] = PostProgramSerializer(obj.specific.parent_programs, many=True).data
+    #     if getattr(obj.specific, 'belongs_to_these_programs', None):
+    #         spec['programs'] = PostProgramSerializer(obj.specific.belongs_to_these_programs, many=True).data
+    #     if obj.content_type.model == 'person':
+    #         spec['content_type']['name'] = obj.specific.role
+    #
+    #     return spec
 
     class Meta:
         model = Page
-        fields = ('id', 'title', 'slug', 'url', 'search_description', 'specific')
+        fields = ('id', 'title', 'slug', 'url', 'search_description')
 
 class InDepthSectionSerializer(ModelSerializer):
     body = SerializerMethodField()

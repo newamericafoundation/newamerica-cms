@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Fetch } from '../components/API';
 import { PERSON_NAME as NAME, PERSON_ID as ID } from './constants';
-import {PublicationsList} from '../components/Publications';
+import { PublicationsList } from '../components/Publications';
 
 
 const RecentPublications = (props) => (
@@ -17,7 +17,6 @@ const RecentPublications = (props) => (
 class APP extends Component {
   render(){
     let {authorId} = this.props;
-    console.log(authorId)
     return (
       <Fetch name={NAME} endpoint={'post'}
         component={RecentPublications}

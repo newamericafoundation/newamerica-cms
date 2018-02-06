@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ScrollArea from 'react-scrollbar';
 import { RadioButton } from './Inputs';
 import Image from './Image';
+import { Person } from './People';
 
 export class Filter extends Component {
   constructor(props){
@@ -143,6 +144,27 @@ export class TopicFilter extends Filter {
   }
 }
 
+export const EventItem = ({ event }) => (
+  <div className="card event-card">
+    <a href={event.url}>
+      <div className={`card__image ${!event.story_image ? 'no-image' : ''}`}>
+        <Image image={event.story_image} />
+      </div>
+    </a>
+    <div className="card__text">
+      <a href={event.url}>
+        <label className="margin-top-0 block">{formatDate(event.date, 'MMM. Do, YYYY')}</label>
+        <label className="card__text__title bold block">{event.title}</label>
+        <label className="subtitle block">{event.story_excerpt}</label>
+        <label className="caption block">{event.city}, {event.state}</label>
+      </a>
+      <label className="event__rsvp button--text block margin-0">
+        <a href={event.url}>RSVP</a>
+      </label>
+    </div>
+  </div>
+);
+
 export const PublicationListItem = ({ post }) => (
   <div className={`card list ${post.content_type ? post.content_type.api_name : ''}`}>
     <a href={post.url}>
@@ -167,9 +189,10 @@ export const PublicationListItem = ({ post }) => (
         ))}
       </label>}
       <a href={post.url}>
+        {post.programs &&
         <label className="card__text__program caption margin-bottom-0 block">
           {post.programs[0] ? post.programs[0].name : ''} {post.content_type ? post.content_type.title : ''}
-        </label>
+        </label>}
       </a>
     </div>
   </div>
@@ -222,9 +245,11 @@ export class PublicationsList extends Component {
     return (
       <div className="program__publications-list-wrapper">
         <div className="program__publications-list">
-            {results.map((post, i ) => (
-              <PublicationListItem post={post} />
-            ))}
+            {results.map((post, i ) => {
+              if(post.content_type.api_name == 'person')
+                return ( <Person person={post} /> );
+              return ( <PublicationListItem post={post} /> );
+            })}
         </div>
         {hasNext &&
         <div className="program__publications-list-load-more margin-top-10">

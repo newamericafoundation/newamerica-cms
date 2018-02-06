@@ -4,7 +4,7 @@ import { Fetch } from '../components/API';
 import { NAME, ID } from './constants';
 import Nav from './components/Nav';
 import InfiniteLoadMore from '../components/InfiniteLoadMore';
-import { PersonsList } from '../program-page/components/People';
+import { PersonsList } from '../components/People';
 
 class InfinitePersonsList extends Component {
   nextPage = () => {

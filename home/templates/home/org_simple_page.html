@@ -10,12 +10,14 @@
     <div class="container">
       <div class="row gutter-20">
         <div class="home__heading__text col-9">
+          {% block heading %}
           <h1 class="promo margin-25">{% firstof a.title page.title %}</h1>
           {% if a.page_description %}
             {{ a.page_description|richtext }}
           {% else %}
             {{ page.page_description|richtext }}
           {% endif %}
+          {% endblock %}
         </div>
       </div>
     </div>
