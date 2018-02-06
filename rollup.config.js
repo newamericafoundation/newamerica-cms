@@ -43,7 +43,7 @@ export default {
               final
             );
           });
-        postcss([cssnano()])
+        postcss([cssnano({ discardUnused: false })])
           .process(styleNodes[1].content)
           .then(result => {
             writeFile(
