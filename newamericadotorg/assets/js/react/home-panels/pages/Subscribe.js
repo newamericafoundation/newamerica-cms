@@ -18,18 +18,11 @@ class HomeSubscribe extends Subscribe {
               <Text name="organization" label="Organization" value={params.organization} onChange={this.change} />
               <Text name="job_title" label="Job Title" value={params.job_title} onChange={this.change} />
               <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} />
+              {this.submitButton()}
             </div>
             <div className="subscribe__lists push-md-1 col-md-5">
                 <label className="block button--text margin-35">Lists</label>
                 <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
-                <div className="subscribe__submit">
-                  {(!posting && !posted) && <input type="submit" className="button turquoise" value="Sign Up" />}
-                  {posting && <label className="button turquoise"><span className="loading-dots--absolute">
-                    <span>.</span><span>.</span><span>.</span>
-                  </span></label>}
-                  {(posted && status=='OK') && <h3>Thank you!</h3>}
-                  {status!='OK' && <label className='block'>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</label>}
-                </div>
             </div>
             <div className="home__subscribe__next">
               <a className={`button--text with-caret--${this.state.shifted ? 'left' : 'right'}`}

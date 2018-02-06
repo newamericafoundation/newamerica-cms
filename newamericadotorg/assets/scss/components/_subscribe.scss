@@ -39,7 +39,7 @@
 
   &__next{
     position: absolute;
-    right: 0px;
+    right: 15%;
     @include vertical-center;
     @include transition(right 0.5s ease);
     z-index: 2;
