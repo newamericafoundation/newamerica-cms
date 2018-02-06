@@ -7,7 +7,7 @@
 <div class="card list {{post.content_type.model}}">
   <a href="{{post.url}}">
     <div class="card__image{% if not post.story_image %} no-image{%endif%}">
-      <img src="{{post_image.url}}" class="fade-in-image"/>
+      <img src="{{post_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
     </div>
     </a>
   <div class="card__text">

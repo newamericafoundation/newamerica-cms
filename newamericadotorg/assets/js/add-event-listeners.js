@@ -17,14 +17,14 @@ let listeners = [
     window.addEventListener('touchmove', onscroll, true);
   },
 
-  function fadeInImages(){
-    let images = document.querySelectorAll('.fade-in-image');
-    if(images){
-      for(let i = 0; i<images.length; i++){
-        images[i].onload = function(){ this.classList.add('loaded'); }
-      }
-    }
-  },
+  // function fadeInImages(){
+  //   let images = document.querySelectorAll('.fade-in-image');
+  //   if(images){
+  //     for(let i = 0; i<images.length; i++){
+  //       images[i].onload = function(){ this.classList.add('loaded'); }
+  //     }
+  //   }
+  // },
 
   function openSearch(){
     let search = document.querySelector('.header__nav__search');

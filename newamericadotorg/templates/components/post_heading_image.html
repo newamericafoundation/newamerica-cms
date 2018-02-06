@@ -11,7 +11,7 @@
       <div src="{{thumbnail.url}}" class="temp-image"
         style="padding-bottom:calc({% widthratio story_image.image.height story_image.image.width 100 %}% - 5px);
         background-image: url({{ thumbnail.url }})"></div>
-      <img src="{{story_image.url}}" class="fade-in-image"/>
+      <img src="{{story_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
     </div>
     {% if story_image.image.source %}
       <label class="block caption">{{story_image.image.source}}</label>
