@@ -61,7 +61,7 @@ export default {
         'node_modules/**'
       ],
       namedExports: {
-        'node_modules/react/react.js': ['Children', 'Component', 'createElement'],
+        'node_modules/react/react.js': ['Children', 'Component', 'createElement', 'cloneElement'],
         'node_modules/react-dom/index.js': ['render'],
         'node_modules/date-fns/index.js': ['format']
       }
