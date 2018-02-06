@@ -15,6 +15,13 @@
           <div class="header__nav__donate">
             <a class="header__nav__donate__button"><label></label></a>
           </div>
+          <div class="search-box">
+            <div class="input">
+              <form action="/search/?query=value" method="get">
+                <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
+              </form>
+            </div>
+          </div>
           <div class="header__nav__search">
             {% include 'components/search-icon.html' %}
           </div>

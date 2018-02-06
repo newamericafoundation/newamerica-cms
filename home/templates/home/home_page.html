@@ -72,9 +72,11 @@
 			</h3>
 			<div class="homepage__subscribe-section__email-input margin-top-35">
 				<div class="input">
-					<input type="text" required/>
-					<label class="button--text input__label">Email Address</label>
-					<label class="button--text input__submit with-caret--right">Go</label>
+					<form action="/subscribe/?email=value" method="get">
+						<input type="text" name="email" required/>
+						<label class="button--text input__label">Email Address</label>
+						<button type="submit" class="button--text input__submit with-caret--right">Go</button>
+					</form>
 				</div>
 			</div>
 		</div>

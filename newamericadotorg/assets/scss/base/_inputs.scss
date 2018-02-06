@@ -50,10 +50,11 @@ input[type="text"] {
 		color: color(black, base, 0.3);
 	}
 
-	label.input__submit {
+	label.input__submit, button.input__submit {
 		position: absolute;
-		top: 1.5em;
+		top: 2.75em;
 		right: 0;
+		z-index: 2;
 	}
 }
 

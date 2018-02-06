@@ -1,0 +1,20 @@
+.search-box{
+  @include transition(width 0.3s ease);
+  overflow: hidden;
+  width: 0px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.header__nav__search {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.search-icon{
+  vertical-align: top;
+}
+
+body.search-is-open .search-box{
+  width: 250px;
+}

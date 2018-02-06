@@ -4,7 +4,7 @@ import store from './store';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, TRIGGER_SCROLL_EVENTS, SET_AD_HOC_STATE, SET_ANY_STATE,
-  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU, SET_SITE_BASEURL
+  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_IS_OPEN, TOGGLE_MOBILE_MENU, SET_SITE_BASEURL
 } from './constants';
 
 
@@ -143,9 +143,9 @@ class Actions {
   toggleSearch = (state) => {
     if(state===undefined) state = !this.getState('site.searchIsOpen');
     store.dispatch({
-      type: SET_SEARCH_STATE,
+      type: SET_SEARCH_IS_OPEN,
       component: 'site',
-      state
+      isOpen: state
     });
 
     return this;

@@ -3,8 +3,8 @@ import triggerScrollEvents from '../utils/trigger-scroll-events';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, TRIGGER_SCROLL_EVENTS, SET_AD_HOC_STATE,
-  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_STATE, TOGGLE_MOBILE_MENU,
-  SET_SITE_BASEURL, SITE_IS_LOADING
+  SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_IS_OPEN, TOGGLE_MOBILE_MENU,
+  SET_SITE_BASEURL, SITE_IS_LOADING, TOGGLE_SEARCH
 } from './constants';
 
 // reducers
@@ -50,19 +50,21 @@ const scroll = (state={position: 0, direction: 'FORWARD', events: [], isScrollin
   }
 }
 
-const searchIsOpen = (state=false, action) => {
+const mobileMenuIsOpen = (state=false, action) => {
   switch(action.type){
-    case SET_SEARCH_STATE:
-      return action.state;
+    case TOGGLE_MOBILE_MENU:
+      return !state;
     default:
       return state;
   }
 }
 
-const mobileMenuIsOpen = (state=false, action) => {
+const searchIsOpen = (state=false, action) => {
   switch(action.type){
-    case TOGGLE_MOBILE_MENU:
+    case TOGGLE_SEARCH:
       return !state;
+    case SET_SEARCH_IS_OPEN:
+      return action.isOpen;
     default:
       return state;
   }

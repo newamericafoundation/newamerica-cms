@@ -26,6 +26,30 @@ let listeners = [
     }
   },
 
+  function openSearch(){
+    let search = document.querySelector('.header__nav__search');
+    if(!search) return;
+    search.addEventListener('click', function(){
+      store.dispatch({
+        type: 'SET_SEARCH_IS_OPEN',
+        component: 'site',
+        isOpen: true
+      });
+    });
+  },
+
+  function closeSearch(){
+    let searchInput = document.getElementById('search-input');
+    if(!searchInput) return;
+    searchInput.addEventListener('blur', function(){
+      store.dispatch({
+        type: 'SET_SEARCH_IS_OPEN',
+        component: 'site',
+        isOpen: false
+      });
+    });
+  },
+
   function anchorLinkClick(){
     let anchors = document.getElementsByClassName('anchor-link');
     for(let i = 0; i < anchors.length; i++) {

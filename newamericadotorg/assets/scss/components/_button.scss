@@ -1,4 +1,11 @@
-.button, .tag {
+button {
+	border: none;
+	background: transparent;
+	padding: 0;
+	margin: 0;
+}
+
+.button, .tag{
 	text-align: center;
 	padding-top: 15px;
 	padding-bottom: 15px;

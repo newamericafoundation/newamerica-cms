@@ -74,6 +74,22 @@ let observers = [
         }
       }
     });
+  },
+
+  function searchOpen(){
+    let searchInput = document.getElementById('search-input');
+    if(!searchInput) return;
+    actions.addObserver({
+      stateName: 'site.searchIsOpen',
+      onChange: (searchIsOpen)=>{
+          if(searchIsOpen){
+            document.body.classList.add('search-is-open');
+            searchInput.focus();
+          } else {
+            document.body.classList.remove('search-is-open');
+          }
+      }
+    });
   }
 ];
 
