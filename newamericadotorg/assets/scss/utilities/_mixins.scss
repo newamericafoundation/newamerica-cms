@@ -1,3 +1,5 @@
+$type-adjustment: 0.16129032258em;
+
 %clearfix {
   &:after {
     content: "";
@@ -51,7 +53,7 @@
 
 // padding minus descender height, which for Platform bold is ~16% of line-height
 @function type-adjusted-padding($padding){
-  @return calc(#{$padding} - 0.16129032258em);
+  @return calc(#{$padding} - #{$type-adjustment});
 }
 
 //bootstrap

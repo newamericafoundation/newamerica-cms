@@ -23,29 +23,28 @@
 {% block breadcrumbs %}
 	{% include 'components/breadcrumbs.html' %}
 {% endblock %}
-<main class="post container margin-top-60 margin-bottom-80">
-	<div class="row gutter-30">
-		<div class="col-md-8 post-heading">
-			{% include 'components/post_heading_text.html' %}
-		</div>
-	</div>
+<main class="post container margin-80">
 	<div class="row gutter-30">
 		{% block post_left_aside %}
 			 <aside class="post-social col-md-2 ">
 				 {% include 'components/post_share.html' %}
 			 </aside>
 		{% endblock %}
-		 <div class="col-md-8">
-			{% include 'components/post_heading_image.html' %}
-			{% block post-body %}
-			<article class="post-body">
-				{% include 'components/post_body.html' %}
-				{% block post_extra_body_content %}{% endblock %}
-			</article>
-			{% endblock %}
-		 </div>
-			{% block post_right_aside %}
-			{% endblock %}
+		{% block post-body %}
+			 <div class="col-md-8">
+				 <div class="post-body-wrapper">
+					{% include 'components/post_heading_text.html' %}
+					{% include 'components/post_heading_image.html' %}
+
+					<article class="post-body">
+						{% include 'components/post_body.html' %}
+						{% block post_extra_body_content %}{% endblock %}
+					</article>
+				</div>
+			 </div>
+		{% endblock %}
+		{% block post_right_aside %}
+		{% endblock %}
 	</div>
 </main>
 {% endblock %}

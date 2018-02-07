@@ -5,8 +5,9 @@ class Heading extends Component {
   render(){
     let { report } = this.props;
     return (
-      <div className="report__heading row gutter-45">
-        <div className="col-12 col-md-10 col-lg-11 col-xl-10 offset-md-1 offset-lg-0p5 offset-xl-1">
+      <div className="container">
+      <div className="report__heading row gutter-30">
+        <div className="col-12">
           <div className="report__heading__title margin-80">
             <div className="report__heading__bug centered">
               <i className="fa fa-file-text-o lg"></i>
@@ -32,6 +33,7 @@ class Heading extends Component {
             </div>
           }
         </div>
+      </div>
       </div>
     );
   }

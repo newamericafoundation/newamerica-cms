@@ -1,26 +1,27 @@
 .report__body__endnote{
-  @include transition(opacity 0.5s ease, margin-top 0.5s ease);
+  @include transition(opacity 0.5s ease, transform 0.5s ease);
 
   position: absolute;
   opacity: 0;
   background: color(white);
-  margin-top: 35px;
-  @include transform(translateY(-50%));
+  @include transform(translateY(calc(-50% + 35px)));
   padding: 35px;
-  width: calc(100vw - 45px);
+  width: calc(100vw - 30px);
   z-index: 1;
   box-shadow: 0px 0px 20px 0px color(black, base, 0.15);
   border: 1px solid color(black, base, 0.15);
 
   @include media-breakpoint(tablet){
-    width: calc(83.333vw - 45px);
+    left: -350px;
+    width: 700px;
   }
 
   @include media-breakpoint(desktop){
     width: auto;
     box-shadow: none;
     border: 0px;
-    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
     left: 0;
     background: transparent;
   }
@@ -54,7 +55,7 @@
 
 .endnote-active{
   .report__body__endnote{
-    margin-top: 0px;
+    @include transform(translateY(-50%));
     opacity: 1;
   }
 

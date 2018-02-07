@@ -705,7 +705,7 @@ class ReportDetailSerializer(PostSerializer):
         )
 
     def get_story_image(self, obj):
-        img = generate_image_rendition(obj.story_image, 'fill-1100x495')
+        img = generate_image_rendition(obj.story_image, 'fill-1200x540')
         if not img:
             return None
         return {
