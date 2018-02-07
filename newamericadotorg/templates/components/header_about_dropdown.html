@@ -11,7 +11,7 @@
           <a href="{{a.value.url}}">
             <div class="about-image" style="background-image:url({{story_image_1.url}})"></div>
             <label class="subtitle block margin-0">
-              {{a.value.title}}
+              <span>{{a.value.title}}</span>
             </label>
             <label class="block margin-0">
               {{a.value.specific.search_description}}
@@ -26,7 +26,7 @@
           <a href="{{a.value.url}}">
             <div class="about-image" style="background-image:url({{story_image_2.url}})"></div>
             <label class="subtitle block margin-0">
-              {{a.value.title}}
+              <span>{{a.value.title}}</span>
             </label>
             <label class="block margin-0">
               {{a.value.specific.search_description}}
@@ -41,7 +41,9 @@
       {% if forloop.counter > 2 %}
       <div class="header-dropdown-links__link">
         <label class="subtitle block">
-          {{a}}
+          <a href="{{a.value.url}}">
+            <span>{{a.value.title}}</span>
+          </a>
         </label>
       </div>
       {% endif %}
