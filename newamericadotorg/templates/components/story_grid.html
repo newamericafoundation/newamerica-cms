@@ -6,15 +6,15 @@
     <div class="col-12">
       {% include 'components/card_lg.html' with post=page.lead_1.specific %}
     </div>
-    <div class="col-4">
-      {% include 'components/card_highlights.html' with stories=featured_stories %}
-    </div>
-    <div class="col-4">
-      {% include 'components/card_sm.html' with post=page.lead_3.specific %}
-      {% include 'components/card_sm.html' with post=page.lead_4.specific %}
-    </div>
-    <div class="col-4">
+    <div class="col-md-6 col-lg-4 push-lg-8">
       {% include 'components/card_md.html' with post=page.lead_2.specific %}
+    </div>
+    <div class="col-md-6 col-lg-4">
+          {% include 'components/card_sm.html' with post=page.lead_3.specific %}
+          {% include 'components/card_sm.html' with post=page.lead_4.specific %}
+    </div>
+    <div class="col-md-6 col-lg-4 pull-lg-8">
+      {% include 'components/card_highlights.html' with stories=featured_stories %}
     </div>
   </div>
 </div>

@@ -3,14 +3,29 @@
     margin-bottom: 10px;
   }
   &__story-grid-section{
-    max-height: 700px;
     position: relative;
     z-index: 1;
+    padding-bottom: 25px;
+    @include media-breakpoint(tablet){
+      max-height: 1005px;
+      padding-bottom: 0;
+    }
+    @include media-breakpoint(desktop){
+      max-height: 700px;
+    }
   }
 
   &__mission-statement-section {
-    padding-top: 155px;
+    padding-top: 105px;
     padding-bottom: 105px;
+
+    @include media-breakpoint(tablet){
+      padding-top: 250px;
+    }
+
+    @include media-breakpoint(desktop){
+      padding-top: 155px;
+    }
   }
 
   &__events-section, &__publications-section {
@@ -31,9 +46,9 @@
 .homepage__weekly-promo-section,
 .homepage__subscribe-section{
   .promo span, h3, .input{
-    @include transition(all 1.35s ease);
+    @include transition(opacity 1.35s ease, transform 1.35s ease);
     opacity: 0;
-    top: 50px;
+    @include transform(translateY(50px));
     position: relative;
   }
 
@@ -52,7 +67,7 @@
 
   &.scroll-triggered{
     .promo span, h3, .input{
-      top: 0;
+      @include transform(translateY(0px));
       opacity: 1;
     }
   }
@@ -72,9 +87,9 @@
 .homepage__events-section{
   .col-4{
     position: relative;
-    top: 50px;
+    @include transform(translateY(50px));
     opacity: 0;
-    @include transition(all 1s ease);
+    @include transition(opacity 1s ease, transform 1s ease);
 
     &:nth-child(2){
       @include transition-delay(0.25s);
@@ -87,7 +102,7 @@
 
   &.scroll-triggered {
     .col-4{
-      top: 0;
+      @include transform(translateY(0px));
       opacity: 1;
     }
   }
@@ -96,9 +111,9 @@
 .homepage__publications-section{
   .card-wrapper{
     position: relative;
-    top: 50px;
+    @include transform(translateY(50px));
     opacity: 0;
-    @include transition(all 1s ease);
+    @include transition(opacity 1s ease, transform 1s ease);
 
     &:nth-child(2){
       @include transition-delay(0.25s);
@@ -115,7 +130,7 @@
 
   &.scroll-triggered{
     .card-wrapper{
-      top: 0;
+      @include transform(translateY(0px));
       opacity: 1;
     }
   }

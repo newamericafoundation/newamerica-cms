@@ -1,11 +1,22 @@
 .card.lg {
-  height: 375px;
+
+  @include media-breakpoint(tablet){
+    height: 375px;
+  }
   .card__text{
     height: 100%;
+    padding-bottom: 50px;
+    @include media-breakpoint(tablet){
+      padding-bottom: 0px;
+    }
   }
 
   .card__image{
     position: relative;
+    height: 375px;
+    @include media-breakpoint(tablet){
+      height: 100%;
+    }
   }
 
   img {

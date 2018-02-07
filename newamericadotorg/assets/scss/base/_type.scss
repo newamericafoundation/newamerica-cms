@@ -29,15 +29,23 @@ h3, h4{
 }
 
 h1:not(.promo){
-  font-size: 2.5rem;
-  line-height: 2.5rem;
+  font-size: 1.875rem;
+  line-height: 1.875rem;
   letter-spacing: 0.03125rem;
+
+  @include media-breakpoint(tablet){
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
 }
 
 h1.promo {
-  font-size: 4.0625rem;
-  line-height: 4.375rem;
-
+  font-size: 2.5rem;
+  line-height: 2.65rem;
+  @include media-breakpoint(tablet){
+    font-size: 4.0625rem;
+    line-height: 4.375rem;
+  }
 }
 
 h1 {

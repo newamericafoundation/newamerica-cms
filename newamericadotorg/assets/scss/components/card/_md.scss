@@ -1,17 +1,35 @@
 .card.md {
   .card__image{
+    padding-bottom: 100%;
     width: 100%;
-    padding-bottom: 77.143%;
     position: relative;
+
+    @include media-breakpoint(tablet){
+      padding-bottom: 77.143%;
+      height: 380px;
+      width: auto;
+    }
   }
   img {
     position: absolute;
     @include center;
+    width: auto;
+    height: 100%;
   }
 
   .card__text{
-    max-width: 300px;
+    width: 100%;
     padding-bottom: 50px;
+    @include media-breakpoint(tablet){
+      position: absolute;
+      bottom: 0;
+      background: color(white);
+    }
+
+    @include media-breakpoint(desktop){
+      max-width: 300px;
+      position: static;
+    }
   }
 
   &.square .card__image{
