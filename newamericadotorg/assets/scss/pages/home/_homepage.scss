@@ -31,10 +31,9 @@
 .homepage__weekly-promo-section,
 .homepage__subscribe-section{
   .promo span, h3, .input{
-    @include transition(all 1.35s ease);
+    @include transition(opacity 1.35s ease, transform 1.35s ease);
     opacity: 0;
-    top: 50px;
-    position: relative;
+    @include transform(translateY(50px));
   }
 
   .promo span:nth-child(2){
@@ -52,7 +51,7 @@
 
   &.scroll-triggered{
     .promo span, h3, .input{
-      top: 0;
+      @include transform(translateY(0px));
       opacity: 1;
     }
   }
@@ -72,9 +71,9 @@
 .homepage__events-section{
   .col-4{
     position: relative;
-    top: 50px;
     opacity: 0;
-    @include transition(all 1s ease);
+    @include transition(opacity 1s ease, transform 1s ease);
+    @include transform(translateY(50px));
 
     &:nth-child(2){
       @include transition-delay(0.25s);
@@ -87,7 +86,7 @@
 
   &.scroll-triggered {
     .col-4{
-      top: 0;
+      @include transform(translateY(0px));
       opacity: 1;
     }
   }
@@ -96,9 +95,9 @@
 .homepage__publications-section{
   .card-wrapper{
     position: relative;
-    top: 50px;
+    @include transform(translateY(50px));
     opacity: 0;
-    @include transition(all 1s ease);
+    @include transition(opacity 1s ease, transform 1s ease);
 
     &:nth-child(2){
       @include transition-delay(0.25s);
@@ -115,7 +114,7 @@
 
   &.scroll-triggered{
     .card-wrapper{
-      top: 0;
+      @include transform(translateY(0px));
       opacity: 1;
     }
   }
