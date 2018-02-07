@@ -1,9 +1,9 @@
 {% load utilities %}
 {# find locations/program_data in settings/context_processors.py #}
 {% group_programs program_data as program_groups %}
-<div class="container--1080">
+<div class="programs-dropdown-wrapper">
 <div class="row no-gutters">
-  <div class="header-dropdown-links col-md-3">
+  <div class="header-dropdown-links col-auto">
     {% for p in locations %}
       <div class="header-dropdown-links__link">
         <label class="bold block">
@@ -15,7 +15,7 @@
     {% endfor %}
   </div>
 {% for pg in program_groups %}
-  <div class="header-dropdown-links col-md-3">
+  <div class="header-dropdown-links col-auto">
     {% for p in pg %}
     <div class="header-dropdown-links__link">
       <label class="subtitle block">

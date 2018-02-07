@@ -1,7 +1,9 @@
 .header-dropdown-links{
+
   &__link{
     cursor: pointer;
     overflow: hidden;
+    padding-right: 65px;
     border-bottom: 1px solid $link-border-color;
     label{
       margin-top: 0px;
@@ -36,4 +38,31 @@
       display: block;
     }
   }
+}
+
+.programs-dropdown, .about-dropdown{
+  text-align: center;
+}
+
+.programs-dropdown-wrapper{
+  display: inline-block;
+  text-align: left;
+  padding-left: 65px;
+  width: 1007px;
+}
+
+.about-dropdown-wrapper{
+  display: inline-block;
+  text-align: left;
+  padding-left: 65px;
+  width: 698px;
+
+  .col-auto{
+    padding-left: 15px;
+  }
+
+  .col-auto:not(:last-child){
+    padding-right: 15px;
+  }
+
 }

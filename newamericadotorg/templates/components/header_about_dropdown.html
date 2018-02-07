@@ -1,12 +1,11 @@
 {% load wagtailimages_tags %}
 {% image about_pages.0.value.specific.story_image fill-300x240 as story_image_1 %}
 {% image about_pages.1.value.specific.story_image fill-300x240 as story_image_2 %}
-<div class="container--700">
+<div class="about-dropdown-wrapper">
 <div class="row">
-    <div class="col-1"></div>
     {% for a in about_pages %}
       {% if forloop.counter == 1 %}
-      <div class="col-md-4">
+      <div class="col-auto">
         <div class="header-dropdown-links__image margin-15">
           <a href="{{a.value.url}}">
             <div class="about-image" style="background-image:url({{story_image_1.url}})"></div>
@@ -21,7 +20,7 @@
       </div>
       {% endif %}
        {% if forloop.counter == 2 %}
-       <div class="col-md-4">
+       <div class="col-auto">
         <div class="header-dropdown-links__image margin-15">
           <a href="{{a.value.url}}">
             <div class="about-image" style="background-image:url({{story_image_2.url}})"></div>
@@ -36,7 +35,7 @@
         </div>
        {% endif %}
     {% endfor %}
-  <div class="col-md-3">
+  <div class="col-auto">
     {% for a in about_pages %}
       {% if forloop.counter > 2 %}
       <div class="header-dropdown-links__link">

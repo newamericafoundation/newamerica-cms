@@ -37,11 +37,11 @@
         left: 50%;
         bottom: -2px;
         visibility: hidden;
+        opacity: 0;
         border-top: 1px solid color(black, base, 0.1);
         border-right: 1px solid color(black, base, 0.1);
         position: absolute;
         z-index: 300;
-        opacity: 0;
         @include transform(rotate(-45deg) translate(-40%, 0px));
         @include transition-delay(0.3s);
         @include transition(opacity 0.9s ease);
@@ -68,13 +68,13 @@
     z-index: 200;
     top: $header-height;
     visibility: hidden;
+    opacity: 0;
     width: 100vw;
     left: calc(-100vw + 1236px);
     padding: 25px;
     border-top: 1px solid color(black, base, 0.075);
     box-shadow: 0px 20px 40px 0px color(black, base, 0.15);
     background: $dropdown-background-color;
-    opacity: 0;
     @include transform(translateY(-10px));
     @include transition(transform 0.3s ease, opacity 0.3s ease, visibilty 0.3s ease);
 

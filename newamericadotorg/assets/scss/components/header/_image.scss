@@ -1,15 +1,18 @@
 .header-dropdown-links__image{
   overflow: hidden;
+  label{
+    max-width: 200px;
+  }
 
   .about-image {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     //filter: grayscale(100%);
-    width: 100%;
+    width: 200px;
     height: 75px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 8px;
+    padding-bottom: 9px;
   }
 
   .subtitle{
