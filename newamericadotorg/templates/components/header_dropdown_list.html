@@ -1,10 +1,12 @@
-<!-- <div class="header__nav__dropdown-list__dropdown">
-  <a class="header__nav__dropdown-list__dropdown__main-link box">Topics</a>
-  <div class="header__nav__dropdown-list__dropdown__links box wide">
-  </div>
-</div> -->
 <div class="header__nav__dropdown-list__dropdown">
-  <a class="header__nav__dropdown-list__dropdown__main-link" href="/programs">
+  <a class="header__nav__dropdown-list__dropdown__main-link drop">
+    <label>About</label></a>
+  <div class="header__nav__dropdown-list__dropdown__links">
+    {% include './header_about_dropdown.html' %}
+  </div>
+</div>
+<div class="header__nav__dropdown-list__dropdown">
+  <a class="header__nav__dropdown-list__dropdown__main-link drop" href="/programs">
     <label>Programs</label></a>
   <div class="header__nav__dropdown-list__dropdown__links wide">
     {% include './header_program_dropdown.html' %}
@@ -13,19 +15,9 @@
 <div class="header__nav__dropdown-list__dropdown">
   <a href="/publications" class="header__nav__dropdown-list__dropdown__main-link no-drop">
     <label>Publications</label></a>
-  <!-- <div class="header__nav__dropdown-list__dropdown__links">
-    {% include './header_publication_dropdown.html' %}
-  </div> -->
 </div>
 <div class="header__nav__dropdown-list__dropdown">
   <a href="/events" class="header__nav__dropdown-list__dropdown__main-link no-drop">
     <label>Events</label>
   </a>
-</div>
-<div class="header__nav__dropdown-list__dropdown">
-  <a class="header__nav__dropdown-list__dropdown__main-link">
-    <label>About</label></a>
-  <div class="header__nav__dropdown-list__dropdown__links">
-    {% include './header_about_dropdown.html' %}
-  </div>
 </div>

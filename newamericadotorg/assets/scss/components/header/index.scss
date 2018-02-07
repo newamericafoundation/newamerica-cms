@@ -1,7 +1,7 @@
-$dropdown-background-color: color(black, base);
-$dropdown-border-color: color(gray, base, 0);
-$link-border-color: color(gray, base, 0.1);
-$link-text-color: color(white);
+$dropdown-background-color: color(white, base);
+$dropdown-border-color: color(white, base, 0.075);
+$link-border-color: color(white, base, 0);
+$link-text-color: color(black);
 
 body:not(.homepage):not(.programpage):not(.homepostpage) .header__wrapper > div{
   box-shadow: 0px 1px 0px 0px color(black, base, 0.075);
@@ -71,3 +71,4 @@ body.scroll-reverse:not(.header--expanded):not(.scroll-disabled), body.mobile-me
 @import 'dropdown-links';
 @import 'nav';
 @import 'search-box';
+@import 'image';

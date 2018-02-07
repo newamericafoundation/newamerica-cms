@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import math
 from pytz import timezone
 from django import template
 from django.conf import settings
@@ -305,3 +306,19 @@ def split_program_list(start_list, max_size=6):
         temp_list.append(item)
 
     return final_list
+
+@register.simple_tag()
+def group_programs(programs):
+	length = len(programs)
+	l = length/3.0
+	max_items = math.ceil(l)
+
+	groups = [[],[],[]]
+	group_index = 0
+	for i, p in enumerate(programs):
+		groups[group_index].append(p)
+		if (i+1) % max_items == 0:
+			group_index += 1
+
+
+	return groups

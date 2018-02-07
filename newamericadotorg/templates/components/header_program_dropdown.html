@@ -1,29 +1,31 @@
 {% load utilities %}
-
-{% split_program_list program_data as program_groups %}
+{# find locations/program_data in settings/context_processors.py #}
+{% group_programs program_data as program_groups %}
+<div class="container--1080">
 <div class="row no-gutters">
+  <div class="header-dropdown-links col-md-3">
+    {% for p in locations %}
+      <div class="header-dropdown-links__link">
+        <label class="bold block">
+          <a href="{{p.program.url}}">
+            {{p.program.title}}
+          </a>
+        </label>
+      </div>
+    {% endfor %}
+  </div>
 {% for pg in program_groups %}
-  <div class="header-dropdown-links col-md-4">
+  <div class="header-dropdown-links col-md-3">
     {% for p in pg %}
     <div class="header-dropdown-links__link">
-      <label class="bold block">
+      <label class="subtitle block">
         <a href="{{p.program.url}}">
           {{p.program.title}}
         </a>
       </label>
-      <!-- <ul>
-      {% for subprogram in p.subprograms %}
-        <li>
-          <a class="header-link-list__item__subprogram-link" href="{{subprogram.url}}">
-            <label>
-              {{subprogram.title}}
-            </label>
-          </a>
-        </li>
-      {% endfor %}
-      </ul> -->
     </div>
     {% endfor %}
   </div>
 {% endfor %}
+</div>
 </div>
