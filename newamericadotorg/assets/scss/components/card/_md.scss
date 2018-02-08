@@ -20,11 +20,6 @@
   .card__text{
     width: 100%;
     padding-bottom: 50px;
-    @include media-breakpoint(tablet){
-      position: absolute;
-      bottom: 0;
-      background: color(white);
-    }
 
     @include media-breakpoint(desktop){
       max-width: 300px;
@@ -32,16 +27,19 @@
     }
   }
 
-  &.square .card__image{
-    padding-bottom: 100%;
-  }
+  @include media-breakpoint(desktop){
+    .card.md.square .card__image{
+      padding-bottom: 100%;
+    }
 
-  &.landscape .card__image{
-    padding-bottom: 70%;
+    .card.md.landscape .card__image{
+      padding-bottom: 70%;
 
-    img {
-      width: 100%;
-      height: auto;
+      img {
+        width: 100%;
+        height: auto;
+      }
     }
   }
+
 }
