@@ -15,7 +15,7 @@
     height: 65px;
     color: color(white);
     background: color(black);
-    @include transition(top 0.35s ease-in-out);
+    @include transition(transform 0.35s ease);
   }
 
   &.scroll-entered{
@@ -23,12 +23,13 @@
       z-index: 2;
       position: fixed;
       top: -65px;
+      @include transform(translateY(0));
     }
   }
 
   &.scroll-left{
     .report__top-nav__sticky-wrapper{
-      top: 0px;
+      @include transform(translateY(65px));
     }
   }
 }
@@ -37,6 +38,6 @@
   .report__top-nav.scroll-left .report__top-nav__sticky-wrapper{
     z-index: 1;
     position: fixed;
-    top: $header-height;
+    @include transform(translateY(calc(65px + #{$header-height})));
   }
 }
