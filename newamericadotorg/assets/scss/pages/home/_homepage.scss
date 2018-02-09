@@ -24,7 +24,7 @@
     }
 
     @include media-breakpoint(desktop){
-      padding-top: 155px;
+      padding-top: 190px;
     }
   }
 
@@ -85,8 +85,7 @@
 }
 
 .homepage__events-section{
-  .col-4{
-    position: relative;
+  .col-md-4{
     @include transform(translateY(50px));
     opacity: 0;
     @include transition(opacity 1s ease, transform 1s ease);
@@ -101,7 +100,7 @@
   }
 
   &.scroll-triggered {
-    .col-4{
+    .col-md-4{
       @include transform(translateY(0px));
       opacity: 1;
     }

@@ -58,6 +58,7 @@
 
     @include media-breakpoint(tablet){
       max-width: calc(100% - 150px);
+      height: auto;
     }
   }
 }
