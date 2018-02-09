@@ -1,0 +1,14 @@
+.homepage .story-grid{
+  .mobile-only{
+    @include media-breakpoint(desktop){
+      display: none;
+    }
+  }
+
+  .desktop-only{
+    display: none;
+    @include media-breakpoint(desktop){
+      display: block;
+    }
+  }
+}
