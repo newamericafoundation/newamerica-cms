@@ -9,6 +9,10 @@
       height: 380px;
       width: auto;
     }
+
+    @include media-breakpoint(desktop){
+      height: auto;
+    }
   }
   img {
     position: absolute;
@@ -26,20 +30,19 @@
       position: static;
     }
   }
+}
 
-  @include media-breakpoint(desktop){
-    .card.md.square .card__image{
-      padding-bottom: 100%;
-    }
-
-    .card.md.landscape .card__image{
-      padding-bottom: 70%;
-
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
+@include media-breakpoint(desktop){
+  .card.md.square .card__image{
+    padding-bottom: 100%;
   }
 
+  .card.md.landscape .card__image{
+    padding-bottom: 70%;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
 }
