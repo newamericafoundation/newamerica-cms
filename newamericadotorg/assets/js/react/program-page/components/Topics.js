@@ -8,7 +8,7 @@ import { PublicationListItem } from '../../components/Publications';
 const Breadcrumbs = ({ ancestors }) => (
   <div className="program__topic__breadcrumbs">
     {ancestors.map((t,i)=>(
-      <label className="program__topic__breadcrumbs__crumb">
+      <label key={`crumb-${i}`} className="program__topic__breadcrumbs__crumb">
         <Link to={t.url}>{t.title}</Link><span>/</span>
       </label>
     ))}
@@ -18,7 +18,7 @@ const Breadcrumbs = ({ ancestors }) => (
 const Subtopics = ({ subtopics }) => (
   <div className="program__topic__subtopic">
     {subtopics.map((s,i)=>(
-      <Link className="tag" to={s.url}>{s.title}</Link>
+      <Link key={`subtopic-${i}`} className="tag" to={s.url}>{s.title}</Link>
     ))}
   </div>
 );
@@ -47,7 +47,7 @@ class PublicationsList extends Component {
       <div className="program__topic__publications">
         <Separator text="Related Publications" />
         {results.map((p,i)=>(
-          <PublicationListItem post={p} />
+          <PublicationListItem key={`post-${i}`} post={p} />
         ))}
         {hasNext &&
           <div className="program__topic__publications__view-all margin-top-15">

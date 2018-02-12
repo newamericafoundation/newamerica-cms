@@ -20,7 +20,7 @@ export default class About extends Component {
                   <NavLink exact to={`${program.url}about/`}>About Us</NavLink>
                 </label>
               {about_us_pages.map((p,i)=>(
-                  <label className="block">
+                  <label key={i} className="block">
                     <NavLink to={`${program.url}${p.slug}/`}>{p.title}</NavLink>
                   </label>
               ))}

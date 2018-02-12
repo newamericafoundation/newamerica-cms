@@ -10,7 +10,7 @@ export class List extends Component {
     return (
       <span>
       {list.map((s,i)=>(
-        <div className="subscribe__field">
+        <div key={i} className="subscribe__field">
           <CheckBox checked={checked.indexOf(s.title)>=0}
             name="subscriptions[]"
             value={s.title}

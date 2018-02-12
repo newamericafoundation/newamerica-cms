@@ -4,6 +4,7 @@
   padding-bottom: 15px;
   padding-left: 25px;
   padding-right: 25px;
+  position: relative;
 
   ul.inline li {
     padding-right: 35px;
@@ -11,5 +12,33 @@
 
   &.active .program__nav__link:not(.active) {
     color: color(black, base, 0.3);
+  }
+
+  .slick-list{
+    width: 100%;
+  }
+
+  .slick-arrow {
+    position: absolute;
+    &:after{
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-top: 1px solid color(black, base, 0.3);
+      border-right: 1px solid color(black, base, 0.3);
+      @include transform(rotate(45deg));
+
+    }
+  }
+
+  .slick-prev{
+      left: 5px;
+      &:after {
+        @include transform(rotate(-90deg));
+      }
+  }
+  
+  .slick-next {
+    right: 5px;
   }
 }

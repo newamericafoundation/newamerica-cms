@@ -6,7 +6,7 @@ const ProgramsTab = ({ response: { results }}) => {
   return(
     <div className="menu-list programs-tab">
       {results.programs.map((p, i)=>(
-        <label className="block">
+        <label key={`program-${i}`} className="block">
           <a href={`/${p.slug}`}>{p.title}</a>
         </label>
       ))}
@@ -17,7 +17,7 @@ const ProgramsTab = ({ response: { results }}) => {
 const AboutTab = ({ response: { results }}) => (
   <div className="menu-list about-tab">
     {results.about_pages.map((a,i)=>(
-      <label className="block">
+      <label key={`about-${i}`} className="block">
         <a href={a.url}>{a.title}</a>
       </label>
     ))}
