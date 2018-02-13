@@ -6,7 +6,7 @@ export default class Programs extends Component {
     let isEven = i % 2 === 0;
     if(isEven !== even) return null;
     return (
-      <div className="card program-card">
+      <div className="card program-card" key={`program-${i}`}>
         <div className="program-card__description">
           <h1><a href={p.url}>{p.title}</a></h1>
           <p>{p.description}</p>
@@ -16,7 +16,7 @@ export default class Programs extends Component {
             <label className="block button--text">Projects</label>
             <ul className="inline program-card__subprograms__list">
               {p.subprograms.map((s,i)=>(
-                <li><label><a href={s.url}>{s.title}</a></label></li>
+                <li key={`program-${i}`}><label><a href={s.url}>{s.title}</a></label></li>
               ))}
             </ul>
           </div>}

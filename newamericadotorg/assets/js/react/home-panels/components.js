@@ -25,7 +25,7 @@ export class ImageAside extends Panel {
       <section className="home__panel__image-aside scroll-target" data-scroll-trigger-point="bottom" data-scroll-offset="35vh">
         <div className="container--1080">
           <div className="row gutter-20">
-            <div className="col-md-6 home__panel__image-aside__image">
+            <div className="col-md-6 home__panel__image-aside__image margin-bottom-35">
               <img src={data.inline_image[0].url} className={`${grayscale ? 'grayscale' : ''}`} />
             </div>
             <div className="col-md-5 push-md-1 home__panel__image-aside__text" >
@@ -45,8 +45,9 @@ export class ImageAside extends Panel {
 
 export class Reel extends Panel {
 
-  componentWillMount(){
-    let { data } = this.props;
+  constructor(props){
+    super(props);
+    let { data } = props;
     this.state = {
       len: data.paragraph.length+1,
       index: -1,
@@ -98,13 +99,13 @@ export class Reel extends Panel {
     let { index } = this.state;
     if(setHTML)
       return (
-        <div className={`home__reel__frame ${index===i ? 'active' : ''}`}>
+        <div className={`home__reel__frame ${index===i ? 'active' : ''}`} key={`frame-${i}`}>
           <div className="home__reel__frame__wrapper" dangerouslySetInnerHTML={{__html: p }} />
         </div>
       );
 
     return (
-      <div className={`home__reel__frame ${index===i ? 'active' : ''}`} >
+      <div className={`home__reel__frame ${index===i ? 'active' : ''}`} key={`frame-${i}`}>
         <h1 className="margin-0">{this.parseHTMLText(p)}</h1>
       </div>
     );
@@ -120,7 +121,7 @@ export class Reel extends Panel {
             <div className="col-md-6">
               <div className="home__panel__promo__text">
                 <h1 className="promo margin-top-0 margin-bottom-15">{data.heading[0]}</h1>
-                <p className="margin-bottom-0 margin-top-15">{this.parseHTMLText(data.introduction[0])}</p>
+                <p className="margin-bottom-35 margin-top-15">{this.parseHTMLText(data.introduction[0])}</p>
               </div>
             </div>
             <div className="col-md-5 push-md-1">
@@ -148,7 +149,7 @@ export class Body extends Panel {
           <div className="row gutter-20">
             <article className="col-md-7 post-body home__panel__body__text">
               {data.heading.map((h,i)=>(
-                <div className="">
+                <div className="" key={`heading-${i}`}>
                   <h1 className="margin-top-0">{data.heading[i]}</h1>
                   <p dangerouslySetInnerHTML={{__html: data.paragraph[i]}} />
                   {this.props.children}
@@ -161,7 +162,7 @@ export class Body extends Panel {
                 <label className="block bold margin-top-0">{data.resource_kit[0].title}</label>
                 <label className="block margin-bottom-25">{data.resource_kit[0].description}</label>
                 {data.resource_kit[0].resources.map((r,i)=>(
-                  <div className="aside__item">
+                  <div className="aside__item" key={`resource-${i}`}>
                     <h3><a>{r.value.name}</a></h3>
                     {r.value.description && <label className="block">{this.parseHTMLText(r.value.description)}</label>}
                   </div>

@@ -33,7 +33,7 @@ class FunderList extends Component {
     let funders = div.getElementsByTagName('li');
     if(type === 'funder' )
       return Array.from(funders).map((f,i)=>(
-        <label className="block margin-top-0">{f.innerText}</label>
+        <label key={`funder-${i}`} className="block margin-top-0">{f.innerText}</label>
       ));
 
     return Array.from(funders).map((f,i)=>{
@@ -42,7 +42,7 @@ class FunderList extends Component {
       let position = f.innerText.replace(name, '');
 
       return (
-        <div className="our-funding__council-list__item margin-bottom-25">
+        <div className="our-funding__council-list__item margin-bottom-25" key={`funder-${i}`}>
           <label className="block bold margin-top-0 margin-bottom-5">{name}</label>
           {position.length > 0 && <label className="caption margin-top-5">{position}</label>}
         </div>
@@ -56,14 +56,14 @@ class FunderList extends Component {
     return (
       <div className="home__panel__funders-list margin-bottom-80" >
         <div className="row gutter-20">
-          <div className="col-7">
+          <div className="col-lg-7">
             <h2 className="margin-bottom-25">{heading}</h2>
             <p dangerouslySetInnerHTML={{__html: intro}} />
           </div>
         </div>
         <div className="row gutter-20">
           {groupedLists.map((g,i)=>(
-            <div className="col-md-4">
+            <div className="col-md-4" key={`list-${i}`}>
               <ul className="no-list-style">
                 {g}
               </ul>
@@ -82,13 +82,13 @@ class FunderLists extends Component {
     return (
       <section className="funders-list post-body container--1080">
         <div className="row gutter-10">
-          <div className="col-md-7">
+          <div className="col-lg-7">
             <h1 className="margin-top-0">{funders_intro.heading[0]}</h1>
             <p className="margin-bottom-80" dangerouslySetInnerHTML={{__html: funders_intro.paragraph[0] }}/>
           </div>
         </div>
         {funders.heading.map((h,i)=>(
-          <FunderList type="funder"
+          <FunderList type="funder" key={`funder-${i}`}
             heading={h}
             paragraph={funders.paragraph[i]}
             intro={funders.introduction[i].indexOf("NULL")>=0 ? null : funders.introduction[i]} />
@@ -118,7 +118,7 @@ class CirclesAndCouncils extends Component {
   sectionIntro = (intro) => {
     return (
       <div className="our-funding__intro row gutter-20">
-        <div className="col-9">
+        <div className="col-lg-9">
           <h1 className="margin-top-0 margin-bottom-25">{intro.heading[0]}</h1>
           <p className="margin-top-25 margin-bottom-80" dangerouslySetInnerHTML={{__html: intro.introduction[0] }}/>
         </div>
@@ -139,7 +139,7 @@ class CirclesAndCouncils extends Component {
         {this.sectionIntro(circles_and_councils_intro)}
         <div className="our-funding__council">
           {councils.heading.map((h,i)=>(
-            <FunderList type="council" columns={2}
+            <FunderList type="council" columns={2} key={`funder-${i}`}
               heading={h}
               paragraph={councils.paragraph[i]}
               intro={councils.introduction[i].indexOf("NULL")>=0 ? null : councils.introduction[i]} />
@@ -148,7 +148,7 @@ class CirclesAndCouncils extends Component {
         {this.sectionIntro(program_councils_intro)}
         <div className="our-funding__council margin-top-25">
           {program_councils.heading.map((h,i)=>(
-            <FunderList type="council" columns={2}
+            <FunderList type="council" columns={2} key={`funder-${i}`}
               heading={h}
               paragraph={program_councils.paragraph[i]}
               intro={program_councils.introduction[i].indexOf("NULL")>=0 ? null : program_councils.introduction[i]} />
@@ -157,7 +157,7 @@ class CirclesAndCouncils extends Component {
         {this.sectionIntro(circles_intro)}
         <div className="our-funding__circle margin-top-25">
           {circles.heading.map((h,i)=>(
-            <FunderList type="funder" columns={2}
+            <FunderList type="funder" columns={2} key={`funder-${i}`}
               heading={h}
               paragraph={circles.paragraph[i]}
               intro={circles.introduction[i].indexOf("NULL")>=0 ? null : circles.introduction[i]} />
