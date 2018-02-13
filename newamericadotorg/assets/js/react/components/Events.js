@@ -37,10 +37,10 @@ class Filters extends Component {
           history={history}
           location={location}
           response={response}>
-        <DateFilter label="Date" />
-        {program.programs && <ProgramFilter programs={program.programs} label="Program" />}
-        {program.subprograms && <SubprogramFilter subprograms={program.subprograms} label="Project" />}
-        {program.topics && <TopicFilter label="Topic" />}
+        <DateFilter label="Date" expanded={response.params.query.after!==undefined}/>
+        {program.programs && <ProgramFilter programs={program.programs} expanded={response.params.query.program_id!==undefined} label="Program" />}
+        {program.subprograms && <SubprogramFilter subprograms={program.subprograms} expanded={response.params.query.subprogram_id!==undefined} label="Project" />}
+        {program.topics && <TopicFilter label="Topic" expanded={response.params.query.topic_id!==undefined} />}
       </FilterGroup>
     );
   }

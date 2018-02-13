@@ -11,12 +11,12 @@ const Filters = (props) => (
     location={props.location}
     response={props.response}
     programUrl={props.program.url}>
-    <TypeFilter types={props.program.content_types.sort((a,b) => a.name > b.name)} expanded={props.initialQuery.content_type != undefined} label="Type"/>
+    <TypeFilter types={props.program.content_types.sort((a,b) => a.name > b.name ? 1 : -1)} expanded={props.initialQuery.content_type != undefined} label="Type"/>
     {props.program.subprograms &&
-    <SubprogramFilter subprograms={props.program.subprograms} label="Project"/>}
-    <DateFilter label="Date"/>
+    <SubprogramFilter subprograms={props.program.subprograms} expanded={props.response.params.query.subprogram_id!==undefined} label="Project"/>}
+    <DateFilter label="Date" expanded={props.response.params.query.after!==undefined} />
     {props.program.topics &&
-    <TopicFilter topics={props.program.topics} label="Topic"/>}
+    <TopicFilter topics={props.program.topics} label="Topic" expanded={props.response.params.query.topic_id!==undefined}/>}
   </FilterGroup>
 );
 
@@ -40,6 +40,10 @@ export default class Publications extends PublicationsWrapper {
     let params = new URLSearchParams(location.search.replace('?', ''));
     if(programType=='program' && params.get('projectId'))
       initQuery.subprogram_id = params.get('projectId');
+    if(params.get('after'))
+      initQuery.after = params.get('after');
+    if(params.get('before'))
+      initQuery.before = params.get('before');
 
     let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
     let type = program.content_types.find((t)=>(t.slug === slug ));

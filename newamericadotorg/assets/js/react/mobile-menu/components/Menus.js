@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const ProgramsTab = ({ response: { results }}) => {
   return(
     <div className="menu-list programs-tab">
-      {results.programs.sort((a,b) => a.name > b.name).map((p, i)=>(
+      {results.programs.sort((a,b) => (a.title > b.title ? 1 : -1)).map((p, i)=>(
         <label key={`program-${i}`} className="block">
           <a href={`/${p.slug}`}>{p.title}</a>
         </label>

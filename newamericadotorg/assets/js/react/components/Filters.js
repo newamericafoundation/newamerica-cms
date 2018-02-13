@@ -1,6 +1,7 @@
 import { Component, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { RadioButton } from './Inputs';
+import { format as formatDate, subDays } from 'date-fns';
 
 class _FilterGroup extends Component {
   componentDidMount(){
@@ -124,7 +125,7 @@ export class ProgramFilter extends Filter {
       <div className={`program__publications-filters__filter program-filter ${this.state.expanded ? 'expanded' : ''}`}>
         {this.label()}
         <form>
-          <RadioButton label={'All'} value={''} checked={query.program_id==''} onChange={this.handleChange} />
+          <RadioButton label={'All'} value={''} checked={query.program_id==undefined} onChange={this.handleChange} />
           {programs.map((p,i)=>(
             <RadioButton key={`program-${i}`} label={p.title} value={p.id} checked={+query.program_id===p.id} onChange={this.handleChange}/>
           ))}
@@ -165,13 +166,40 @@ export class SubprogramFilter extends Filter {
 }
 
 export class DateFilter extends Filter {
-  handleChange = (event) => {}
+  constructor(props){
+    super(props);
+    this.state = {
+      ...this.state,
+      lastWeek: formatDate(subDays(new Date(), 7), 'YYYY-MM-DD'),
+      lastMonth: formatDate(subDays(new Date(), 31), 'YYYY-MM-DD'),
+      lastYear: formatDate(subDays(new Date(), 365), 'YYYY-MM-DD')
+    }
+  }
+  handleChange = (event) => {
+    let { history, location, program } = this.props;
+    let params = new URLSearchParams(location.search.replace('?', ''));
+
+    if(event.target.value == '') {
+      params.delete('after');
+    } else {
+      params.set('after', event.target.value);
+    }
+
+    history.push(`${location.pathname}?${params.toString()}`);
+
+  }
 
   render(){
+    let { response: { params: { query } } } = this.props;
+    let { lastWeek, lastMonth, lastYear } = this.state;
     return (
       <div className={`program__publications-filters__filter date-filter ${this.state.expanded ? 'expanded' : ''}`}>
         {this.label()}
         <form>
+          <RadioButton label={'All'} value={''} checked={query.after==undefined} onChange={this.handleChange} />
+          <RadioButton label={'In the Last Week'} value={lastWeek} checked={query.after==lastWeek} onChange={this.handleChange} />
+          <RadioButton label={'In the Last Month'} value={lastMonth} checked={query.after==lastMonth} onChange={this.handleChange} />
+          <RadioButton label={'In the Last Year'} value={lastYear} checked={query.after==lastYear} onChange={this.handleChange} />
         </form>
       </div>
     );

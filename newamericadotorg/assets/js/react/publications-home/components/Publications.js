@@ -11,7 +11,7 @@ class Filters extends Component {
 
     return (
       <FilterGroup history={history} location={location} response={response}>
-        <TypeFilter label="Type" expanded={true} types={content_types.sort((a,b) => a.name > b.name)}/>
+        <TypeFilter label="Type" expanded={true} types={content_types.sort((a,b) => a.name > b.name ? 1 : -1)}/>
         <ProgramFilter label="Program" expanded={query.program_id != '' && query.program_id != null} programs={programs} />
         <DateFilter label="Date" />
       </FilterGroup>
@@ -41,6 +41,10 @@ export default class Publications extends Component {
     let params = new URLSearchParams(location.search.replace('?', ''));
     if(params.get('programId'))
       initQuery.program_id = params.get('programId');
+    if(params.get('after'))
+      initQuery.after = params.get('after');
+    if(params.get('before'))
+      initQuery.before = params.get('before');
 
     if(type) initQuery.content_type = type.api_name;
 
