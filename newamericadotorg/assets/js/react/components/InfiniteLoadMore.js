@@ -33,10 +33,10 @@ class InfiniteLoadMore extends Component {
   isLoadingMore = false;
 
   static propTypes = {
-    response: PropTypes.object.required,
+    response: PropTypes.object,
     infiniteOnMount: PropTypes.bool,
     promptToLoadMore: PropTypes.bool,
-    onNextPage: PropTypes.func.required,
+    onNextPage: PropTypes.func,
     bottomOffset: PropTypes.number,
   }
 
@@ -65,8 +65,7 @@ class InfiniteLoadMore extends Component {
     if(!response.results) return false;
 
     if(response.results[0] && nextProps.response.results[0]){
-      // TODO better check for new data
-      if(response.results[0].id !== nextProps.response.results[0].id){
+      if(JSON.stringify(response.results) !== JSON.stringify(nextProps.response.results)){
         if(!this.props.infiniteOnMount) this.isInfinite = false;
         return true;
       }

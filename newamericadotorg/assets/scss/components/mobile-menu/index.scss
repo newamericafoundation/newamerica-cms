@@ -28,11 +28,11 @@
     display: inline-block;
     padding-left: 15px;
     padding-top: 22px;
-    left: 0;
+    @include transform(translateX(0));
     width: 100vw;
     vertical-align: top;
     opacity: 1;
-    @include transition(all 0.4s ease-in-out);
+    @include transition(transform 0.4s ease-in-out);
   }
 
   &__menus {
@@ -48,12 +48,12 @@
     display: inline-block;
     text-align: center;
     position: relative;
-    left: 0;
+    top: 50%;
+    @include transform(translateX(0) translateY(-50%));
     width: 100vw;
     opacity: 0;
     padding-left: 0px !important;
-    @include vertical-center;
-    @include transition(all 0.4s ease-in-out);
+    @include transition(transform 0.4s ease-in-out);
 
     &:before{
       position: absolute !important;
@@ -102,12 +102,12 @@
     }
 
     .logo__wrapper{
-      left: -100vw;
+      @include transform(translateX(-100vw));
       opacity: 0;
     }
 
     .tab-link-back {
-      left: -100vw;
+      @include transform(translateX(-100vw) translateY(-50%));
       opacity: 1;
     }
   }

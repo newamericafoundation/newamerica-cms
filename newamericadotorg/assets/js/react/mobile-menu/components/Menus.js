@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const ProgramsTab = ({ response: { results }}) => {
   return(
     <div className="menu-list programs-tab">
-      {results.programs.map((p, i)=>(
+      {results.programs.sort((a,b) => a.name > b.name).map((p, i)=>(
         <label key={`program-${i}`} className="block">
           <a href={`/${p.slug}`}>{p.title}</a>
         </label>
@@ -54,17 +54,17 @@ class Menus extends Component {
         <div className="mobile-menu__menus">
           <div className="mobile-menu__primary">
             <div className="menu-list">
+              <label className="block tab-link">
+                <a onClick={()=>{this.switchTab('About');}}>About</a>
+              </label>
+              <label className="block tab-link">
+                <a onClick={()=>{this.switchTab('Programs');}}>Programs</a>
+              </label>
               <label className="block">
                 <a href="/publications/">Publications</a>
               </label>
               <label className="block">
                 <a href="/events/">Events</a>
-              </label>
-              <label className="block tab-link">
-                <a onClick={()=>{this.switchTab('Programs');}}>Programs</a>
-              </label>
-              <label className="block tab-link">
-                <a onClick={()=>{this.switchTab('About');}}>About</a>
               </label>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { PublicationsList, PublicationsWrapper, LoadingDots } from './Publications';
 import { Link, NavLink } from 'react-router-dom';
-import { Filter, SubprogramFilter, ProgramFilter, TopicFilter, FilterGroup } from './Filters';
+import { SubprogramFilter, ProgramFilter, TopicFilter, DateFilter, FilterGroup } from './Filters';
 import { EventItem } from './ContentCards'
 import { format as formatDate } from 'date-fns';
 import { Component } from 'react';
@@ -20,23 +20,10 @@ class Upcoming extends Component {
     return (
       <div className="program__events__upcoming margin-top-35 row gutter-10">
         {events.map((e,i)=>(
-          <div className="col-md-4 col-12">
+          <div key={`event-${i}`} className="col-md-4 col-12">
             <EventItem event={e} />
           </div>
         ))}
-      </div>
-    );
-  }
-}
-
-class AbstractFilter extends Filter {
-  render(){
-    let { subprograms, response: { params: { query } } } = this.props;
-    return (
-      <div className={`program__publications-filters__filter type ${this.state.expanded ? 'expanded' : ''}`}>
-        {this.label()}
-        <form>
-        </form>
       </div>
     );
   }
@@ -50,7 +37,7 @@ class Filters extends Component {
           history={history}
           location={location}
           response={response}>
-        <AbstractFilter label="Date" />
+        <DateFilter label="Date" />
         {program.programs && <ProgramFilter programs={program.programs} label="Program" />}
         {program.subprograms && <SubprogramFilter subprograms={program.subprograms} label="Project" />}
         {program.topics && <TopicFilter label="Topic" />}
