@@ -11,16 +11,19 @@ const Filters = (props) => (
     location={props.location}
     response={props.response}
     programUrl={props.program.url}>
-    <TypeFilter types={props.program.content_types} expanded={true} label="Type"/>
+    <TypeFilter key="typefilter" types={props.program.content_types.sort((a,b) => a.name > b.name)} expanded={props.initialQuery.content_type != undefined} label="Type"/>
     {props.program.subprograms &&
-    <SubprogramFilter subprograms={props.program.subprograms} label="Project"/>}
-    <DateFilter label="Date"/>
+    <SubprogramFilter key="subprogramfilter" subprograms={props.program.subprograms} label="Project"/>}
+    <DateFilter key="datefilter" label="Date"/>
     {props.program.topics &&
-    <TopicFilter topics={props.program.topics} label="Topic"/>}
+    <TopicFilter key="topicfilter" topics={props.program.topics} label="Topic"/>}
   </FilterGroup>
 );
 
 export default class Publications extends Component {
+  state = {
+    filtersOpen: false
+  }
   componentWillMount(){
     if(window.scrollY > 300){
       window.scrollTo(0, 0);
@@ -48,12 +51,19 @@ export default class Publications extends Component {
     return initQuery;
   }
 
+  toggleMobileFilters = () => {
+    this.setState({ filtersOpen: !this.state.filtersOpen });
+  }
+
   render(){
     let { program, history, location, programType } = this.props;
 
     return (
-      <div className="program__publications row gutter-45 scroll-target margin-top-35" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="65">
-        <div className="col-3 program__publications__filter-col">
+      <div className="program__publications row gutter-45 margin-top-lg-35">
+        <div className={`program__publications__open-mobile-filter col-12 margin-top-15`}>
+          <a className="button--text" onClick={this.toggleMobileFilters}>{this.state.filtersOpen ? 'Hide Filters' : 'Show Filters'}</a>
+        </div>
+        <div className={`col-lg-3 margin-top-5 margin-bottom-15 program__publications__filter-col${this.state.filtersOpen ? ' open' : ''}`}>
           <Fetch component={Filters} name={`${NAME}.publications`}
             endpoint={'post'}
             fetchOnMount={true}
@@ -63,7 +73,7 @@ export default class Publications extends Component {
             location={location}
             initialQuery={this.initialQuery()}/>
         </div>
-        <div className='col-9 program__publications__list-col'>
+        <div className='col-12 col-lg-9 program__publications__list-col'>
           <Response name={`${NAME}.publications`} component={PublicationsList}/>
         </div>
       </div>

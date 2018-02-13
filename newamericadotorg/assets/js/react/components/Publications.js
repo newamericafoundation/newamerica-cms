@@ -1,7 +1,6 @@
 import { Component, cloneElement } from 'react';
 import { format as formatDate } from 'date-fns';
 import { connect } from 'react-redux';
-import ScrollArea from 'react-scrollbar';
 import { RadioButton } from './Inputs';
 import Image from './Image';
 import { Person } from './People';
@@ -48,7 +47,7 @@ export class TypeFilter extends Filter {
         <form>
           <RadioButton label={'All'} value={''} data-slug="publications" checked={query.content_type==undefined || pathname.indexOf('publications') != -1} onChange={this.handleChange} />
           {types.map((t,i)=>(
-            <RadioButton label={t.title} value={t.api_name} data-slug={t.slug} checked={query.content_type==t.api_name || pathname.indexOf(`/${t.slug}/`) != -1} onChange={this.handleChange}/>
+            <RadioButton key={`type-${i}`} label={t.title} value={t.api_name} data-slug={t.slug} checked={query.content_type==t.api_name || pathname.indexOf(`/${t.slug}/`) != -1} onChange={this.handleChange}/>
           ))}
         </form>
       </div>
@@ -78,7 +77,7 @@ export class ProgramFilter extends Filter {
         <form>
           <RadioButton label={'All'} value={''} checked={query.program_id==''} onChange={this.handleChange} />
           {programs.map((p,i)=>(
-            <RadioButton label={p.title} value={p.id} checked={+query.program_id===p.id} onChange={this.handleChange}/>
+            <RadioButton key={`program-${i}`} label={p.title} value={p.id} checked={+query.program_id===p.id} onChange={this.handleChange}/>
           ))}
         </form>
       </div>
@@ -108,7 +107,7 @@ export class SubprogramFilter extends Filter {
         <form>
           <RadioButton label={'All'} value={''} checked={query.subprogram_id==undefined} onChange={this.handleChange} />
           {subprograms.map((p,i)=>(
-            <RadioButton label={p.name} value={p.id} checked={+query.subprogram_id===p.id} onChange={this.handleChange}/>
+            <RadioButton key={`subprogram-${i}`} label={p.name} value={p.id} checked={+query.subprogram_id===p.id} onChange={this.handleChange}/>
           ))}
         </form>
       </div>
@@ -180,7 +179,7 @@ export const PublicationListItem = ({ post }) => (
       {post.authors &&
       <label className="card__text__description subtitle block">
         {post.authors.map((a, i)=>(
-          <span>
+          <span key={`author-${i}`}>
             <a href={a.url} className="inline">{a.first_name} {a.last_name}</a>
             {i != (post.authors.length-1) &&
               <span> + </span>
@@ -247,8 +246,8 @@ export class PublicationsList extends Component {
         <div className="program__publications-list">
             {results.map((post, i ) => {
               if(post.content_type.api_name == 'person')
-                return ( <Person person={post} /> );
-              return ( <PublicationListItem post={post} /> );
+                return ( <Person key={`post-${i}`} person={post} /> );
+              return ( <PublicationListItem key={`post-${i}`} post={post} /> );
             })}
         </div>
         {hasNext &&
@@ -266,8 +265,6 @@ export class PublicationsList extends Component {
 }
 
 class _FilterGroup extends Component {
-  state = { lastScrollPosition: 0, isLoadingMore: true }
-
   componentDidMount(){
     this.reloadScrollEvents();
   }
@@ -277,28 +274,10 @@ class _FilterGroup extends Component {
 
     if(location !== prevProps.location){
       this.reloadScrollEvents();
-      if(window.scrollY > 300){
+      if(window.scrollY > 300 && document.documentElement.clientWidth > 996){
         window.scrollTo(0, 0);
       }
-      // if(+document.body.style.top.replace('px', '') < -365){
-      //   this.state.lastScrollPosition = 365;
-      //   this.enableScroll();
-      //   this.disableScroll(false);
-      // }
-
     }
-  }
-
-  disableScroll = (update) => {
-    // if(update !== false) this.state.lastScrollPosition = this.props.windowScrollPosition;
-    // document.body.classList.add('scroll-disabled');
-    // document.body.style.top = -this.state.lastScrollPosition + 'px';
-  }
-
-  enableScroll = () => {
-    // document.body.classList.remove('scroll-disabled');
-    // document.body.style.top = '';
-    // window.scrollTo(0, this.state.lastScrollPosition);
   }
 
   reloadScrollEvents(){
@@ -309,17 +288,22 @@ class _FilterGroup extends Component {
   }
 
   render(){
+      let { windowScrollPosition } = this.props;
+      let remainder = document.body.offsetHeight - windowScrollPosition - 360 - 80;
+      let maxHeight = remainder <= document.documentElement.clientHeight ? remainder : "calc(100vh)";
+      if(document.documentElement.clientWidth < 996) maxHeight = 'none';
     return (
-      <div className={`program__publications-filters scroll-target`}
-        data-scroll-top-offset="-15"
-        onMouseEnter={this.disableScroll}
-        onTouchStart={this.disableScroll}
-        onMouseLeave={this.enableScroll}
-        onTouchEnd={this.enableScroll}>
+      <div className={`program__publications-filters scroll-target`} data-scroll-top-offset="-15"
+      ref={(el)=>{this.el = el}}>
         <div className={`program__publications-filters__sticky-wrapper`}>
-          <ScrollArea className="program__publications-filters__scroll-area">
+          <div className="program__publications-filters__scroll-wrapper">
+          <div className="program__publications-filters__scroll-area"
+            style={{
+              maxHeight
+            }}>
             {this.props.children.map( (c,i)=>( c ? cloneElement(c, {...this.props}) : null ) )}
-          </ScrollArea>
+          </div>
+          </div>
         </div>
       </div>
     )
@@ -327,7 +311,7 @@ class _FilterGroup extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  windowScrollPosition: state.site.scroll.position
+ windowScrollPosition: state.site.scroll.position
 });
 
 export const FilterGroup = connect(mapStateToProps)(_FilterGroup);

@@ -25,7 +25,7 @@ export class PersonsList extends Component {
       <div className="program__people__list row gutter-10">
         {children}
         {results.map((person, i) => (
-          <div className="col-md-4 col-12">
+          <div key={`person-${i}`} className="col-md-4 col-12">
             <Person person={person} />
           </div>
         ))}

@@ -1,6 +1,12 @@
 .program__publications__list-col {
+  padding-left: 0px !important;
   padding-right: 0px !important;
+
   min-height: calc(100vh - #{$header-height + 30px});
+
+  @include media-breakpoint(desktop){
+    padding-left: 22.5px !important;
+  }
 
   .card.list:first-child{
     margin-top: 0;
@@ -12,5 +18,14 @@
 
   .is-fetching .load-more-label {
     opacity: 0;
+  }
+}
+
+.program__publications__filter-col{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+
+  @include media-breakpoint(desktop){
+    padding-right: 22.5px !important;
   }
 }

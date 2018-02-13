@@ -16,7 +16,7 @@
 
   & > :nth-child(2){
     top: 2px;
-    @include transform(translateY(-50%) rotate(45deg));
+    @include transform(rotate(45deg));
     right: 0;
     width: 4px;
   }
