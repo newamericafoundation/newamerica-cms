@@ -1,201 +1,6 @@
 import { Component, cloneElement } from 'react';
-import { format as formatDate } from 'date-fns';
 import { connect } from 'react-redux';
-import { RadioButton } from './Inputs';
-import Image from './Image';
-import { Person } from './People';
-
-export class Filter extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      expanded: props.expanded || false
-    }
-  }
-
-  handleChange = (event) => {}
-
-  toggle = () => {
-    this.setState({ expanded: !this.state.expanded });
-  }
-
-  label = () => {
-    return (
-      <label className="program__publications-filters__filter__heading block bold margin-25" onClick={this.toggle}>
-        {this.props.label}
-        <div className="icon">
-          {this.state.expanded && <i className="fa fa-minus" />}
-          {!this.state.expanded && <i className="fa fa-plus" />}
-        </div>
-      </label>
-    );
-  }
-}
-
-export class TypeFilter extends Filter {
-  handleChange = (event) => {
-    let { history, location, programUrl } = this.props;
-    let params = new URLSearchParams(location.search.replace('?', ''));
-    history.push(`${programUrl ? programUrl : '/'}${event.target.getAttribute('data-slug')}/?${params.toString()}`);
-  }
-
-  render(){
-    let { types, location : { pathname }, response: { params: { query } } } = this.props;
-    return (
-      <div className={`program__publications-filters__filter type-filter ${this.state.expanded ? 'expanded' : ''}`}>
-        {this.label()}
-        <form>
-          <RadioButton label={'All'} value={''} data-slug="publications" checked={query.content_type==undefined || pathname.indexOf('publications') != -1} onChange={this.handleChange} />
-          {types.map((t,i)=>(
-            <RadioButton key={`type-${i}`} label={t.title} value={t.api_name} data-slug={t.slug} checked={query.content_type==t.api_name || pathname.indexOf(`/${t.slug}/`) != -1} onChange={this.handleChange}/>
-          ))}
-        </form>
-      </div>
-    );
-  }
-}
-
-export class ProgramFilter extends Filter {
-  handleChange = (event) => {
-    let { history, location } = this.props;
-    let params = new URLSearchParams(location.search.replace('?', ''));
-    if(event.target.value == '') {
-      params.delete('programId');
-    } else {
-      params.set('programId', event.target.value);
-    }
-
-    history.push(`${location.pathname}?${params.toString()}`);
-  }
-
-  render(){
-    let { programs, response: { params: { query } } } = this.props;
-
-    return (
-      <div className={`program__publications-filters__filter program-filter ${this.state.expanded ? 'expanded' : ''}`}>
-        {this.label()}
-        <form>
-          <RadioButton label={'All'} value={''} checked={query.program_id==''} onChange={this.handleChange} />
-          {programs.map((p,i)=>(
-            <RadioButton key={`program-${i}`} label={p.title} value={p.id} checked={+query.program_id===p.id} onChange={this.handleChange}/>
-          ))}
-        </form>
-      </div>
-    );
-  }
-}
-
-export class SubprogramFilter extends Filter {
-  handleChange = (event) => {
-    let { history, location, program } = this.props;
-    let params = new URLSearchParams(location.search.replace('?', ''));
-
-    if(event.target.value == '') {
-      params.delete('projectId');
-    } else {
-      params.set('projectId', event.target.value);
-    }
-
-    history.push(`${location.pathname}?${params.toString()}`);
-  }
-
-  render(){
-    let { subprograms, response: { params: { query } } } = this.props;
-    return (
-      <div className={`program__publications-filters__filter subprogram-filter ${this.state.expanded ? 'expanded' : ''}`}>
-        {this.label()}
-        <form>
-          <RadioButton label={'All'} value={''} checked={query.subprogram_id==undefined} onChange={this.handleChange} />
-          {subprograms.map((p,i)=>(
-            <RadioButton key={`subprogram-${i}`} label={p.name} value={p.id} checked={+query.subprogram_id===p.id} onChange={this.handleChange}/>
-          ))}
-        </form>
-      </div>
-    );
-  }
-}
-
-export class DateFilter extends Filter {
-  handleChange = (event) => {}
-
-  render(){
-    return (
-      <div className={`program__publications-filters__filter date-filter ${this.state.expanded ? 'expanded' : ''}`}>
-        {this.label()}
-        <form>
-        </form>
-      </div>
-    );
-  }
-}
-
-export class TopicFilter extends Filter {
-  handleChange = (event) => {}
-
-  render(){
-    return (
-      <div className={`program__publications-filters__filter topic-filter ${this.state.expanded ? 'expanded' : ''}`}>
-        {this.label()}
-        <form>
-        </form>
-      </div>
-    );
-  }
-}
-
-export const EventItem = ({ event }) => (
-  <div className="card event-card">
-    <a href={event.url}>
-      <div className={`card__image ${!event.story_image ? 'no-image' : ''}`}>
-        <Image image={event.story_image} />
-      </div>
-    </a>
-    <div className="card__text">
-      <a href={event.url}>
-        <label className="margin-top-0 block">{formatDate(event.date, 'MMM. Do, YYYY')}</label>
-        <label className="card__text__title bold block">{event.title}</label>
-        <label className="subtitle block">{event.story_excerpt}</label>
-        <label className="caption block">{event.city}, {event.state}</label>
-      </a>
-      <label className="event__rsvp button--text block margin-0">
-        <a href={event.url}>RSVP</a>
-      </label>
-    </div>
-  </div>
-);
-
-export const PublicationListItem = ({ post }) => (
-  <div className={`card list ${post.content_type ? post.content_type.api_name : ''}`}>
-    <a href={post.url}>
-      <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
-        <Image image={post.story_image} />
-      </div>
-      </a>
-    <div className="card__text">
-      <a href={post.url}>
-        <label className="card__text__date margin-top-0 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>
-        <label className="card__text__title bold block">{post.title}</label>
-      </a>
-      {post.authors &&
-      <label className="card__text__description subtitle block">
-        {post.authors.map((a, i)=>(
-          <span key={`author-${i}`}>
-            <a href={a.url} className="inline">{a.first_name} {a.last_name}</a>
-            {i != (post.authors.length-1) &&
-              <span> + </span>
-            }
-          </span>
-        ))}
-      </label>}
-      <a href={post.url}>
-        {post.programs &&
-        <label className="card__text__program caption margin-bottom-0 block">
-          {post.programs[0] ? post.programs[0].name : ''} {post.content_type ? post.content_type.title : ''}
-        </label>}
-      </a>
-    </div>
-  </div>
-);
+import { PublicationListItem, Person } from './ContentCards';
 
 export const LoadingDots = ({ color='black' }) => (
   <label className={`button--text loading-dots centered ${color} block`}>
@@ -264,54 +69,29 @@ export class PublicationsList extends Component {
   }
 }
 
-class _FilterGroup extends Component {
-  componentDidMount(){
-    this.reloadScrollEvents();
+export class PublicationsWrapper extends Component {
+  state = {
+    filtersOpen: false
   }
 
-  componentDidUpdate(prevProps){
-    let { location, program, response } = this.props;
 
-    if(location !== prevProps.location){
-      this.reloadScrollEvents();
-      if(window.scrollY > 300 && document.documentElement.clientWidth > 996){
-        window.scrollTo(0, 0);
-      }
-    }
+  toggleMobileFilters = () => {
+    this.setState({ filtersOpen: !this.state.filtersOpen });
   }
-
-  reloadScrollEvents(){
-    this.props.dispatch({
-      type: 'RELOAD_SCROLL_EVENTS',
-      component: 'site'
-    });
-  }
-
   render(){
-      let { windowScrollPosition } = this.props;
-      let remainder = document.body.offsetHeight - windowScrollPosition - 360 - 80;
-      let maxHeight = remainder <= document.documentElement.clientHeight ? remainder : "calc(100vh)";
-      if(document.documentElement.clientWidth < 996) maxHeight = 'none';
+    let { filters, publications } = this.props;
     return (
-      <div className={`program__publications-filters scroll-target`} data-scroll-top-offset="-15"
-      ref={(el)=>{this.el = el}}>
-        <div className={`program__publications-filters__sticky-wrapper`}>
-          <div className="program__publications-filters__scroll-wrapper">
-          <div className="program__publications-filters__scroll-area"
-            style={{
-              maxHeight
-            }}>
-            {this.props.children.map( (c,i)=>( c ? cloneElement(c, {...this.props}) : null ) )}
-          </div>
-          </div>
+      <div className="program__publications row gutter-45 margin-top-lg-35">
+        <div className={`program__publications__open-mobile-filter col-12 margin-top-15`}>
+          <a className="button--text" onClick={this.toggleMobileFilters}>{this.state.filtersOpen ? 'Hide Filters' : 'Show Filters'}</a>
+        </div>
+        <div className={`col-lg-3 margin-top-5 margin-bottom-15 program__publications__filter-col${this.state.filtersOpen ? ' open' : ''}`}>
+          {filters}
+        </div>
+        <div className='col-12 col-lg-9 program__publications__list-col'>
+          {publications}
         </div>
       </div>
-    )
+    );
   }
 }
-
-const mapStateToProps = (state) => ({
- windowScrollPosition: state.site.scroll.position
-});
-
-export const FilterGroup = connect(mapStateToProps)(_FilterGroup);

@@ -1,6 +1,7 @@
-import { PublicationsList, LoadingDots, EventItem } from './Publications';
+import { PublicationsList, PublicationsWrapper, LoadingDots } from './Publications';
 import { Link, NavLink } from 'react-router-dom';
-import { Filter, SubprogramFilter, ProgramFilter, TopicFilter, FilterGroup } from './Publications';
+import { Filter, SubprogramFilter, ProgramFilter, TopicFilter, FilterGroup } from './Filters';
+import { EventItem } from './ContentCards'
 import { format as formatDate } from 'date-fns';
 import { Component } from 'react';
 
@@ -61,14 +62,9 @@ class Filters extends Component {
 class Past extends Component {
   render(){
     return (
-      <div className="program__publications row gutter-45 scroll-target margin-top-35" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="65">
-        <div className="col-3 program__publications__filter-col">
-          <Filters {...this.props}/>
-        </div>
-        <div className='col-9 program__publications__list-col'>
-          <PublicationsList {...this.props}/>
-        </div>
-      </div>
+      <PublicationsWrapper
+          filters={<Filters {...this.props}/>}
+          publications={<PublicationsList {...this.props} />}/>
     );
   }
 }

@@ -10,7 +10,6 @@
 
   @include media-breakpoint(desktop){
     max-height: none;
-    @include transform(translateX(0) !important);
   }
 }
 
