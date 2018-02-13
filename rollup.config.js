@@ -27,6 +27,9 @@ export default [
       'store', 'prop-types', 'vanilla-lazyload', 'whatwg-fetch',
       'url-polyfill', 'store/plugins/expire'
     ],
+    watch: {
+      clearScreen: false
+    },
     // fetch polyfill should happen in window context
     moduleContext: { 'node_modules/whatwg-fetch/fetch.js': 'window' },
     onwarn: function(warn){

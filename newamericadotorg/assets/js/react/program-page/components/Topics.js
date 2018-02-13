@@ -104,7 +104,14 @@ export class TopicsList extends Component {
     return (
       <div className="program__topics menu-list with-arrow--right margin-top-35">
         {program.topics.map((topic,i)=>(
-          <h2><Link to={topic.url}>{topic.title}</Link></h2>
+          <h2>
+            <Link to={topic.url}>{topic.title}</Link>
+            <div className="icon-arrow">
+              <div />
+              <div />
+              <div />
+            </div>
+          </h2>
         ))}
       </div>
     );

@@ -23,13 +23,15 @@
       }
   }
 
-  &.with-arrow--right > *:after{
-    content: '\f178';
-    font-family: FontAwesome;
-    position: absolute;
-    right: 0;
-    @include vertical-center;
-    opacity: 0.3;
+  .icon-arrow{
+    display: none;
+
+    @include media-breakpoint(tablet){
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      @include vertical-center;
+    }
   }
 }
 
