@@ -21,7 +21,7 @@ class Weekly(AbstractContentPage):
         all_posts = WeeklyEdition.objects.all().live().order_by('-first_published_at')
 
         context['all_posts'] = paginate_results(request, all_posts)
-        context['latest_edition'] = int(all_posts.first().title.split(' ')[1])
+        context['latest_edition'] = all_posts.first()
         return context
 
     class Meta:
@@ -32,14 +32,6 @@ class WeeklyEdition(Page):
     parent_page_types = ['Weekly']
     subpage_types = ['WeeklyArticle']
 
-    def get_context(self, request):
-        context = super(WeeklyEdition, self).get_context(request)
-        all_posts = WeeklyEdition.objects.all().live().order_by('-first_published_at')
-
-        context['latest_edition'] = all_posts.first().title.split(' ')[1]
-        return context
-
-
 
 class WeeklyArticle(Post):
     parent_page_types = ['WeeklyEdition']
@@ -47,11 +39,7 @@ class WeeklyArticle(Post):
 
     def get_context(self, request):
         context = super(WeeklyArticle, self).get_context(request)
-
-        context['siblings'] = self.get_siblings(inclusive=True)
-        all_posts = WeeklyEdition.objects.all().live().order_by('-first_published_at')
-        context['latest_edition'] = all_posts.first().title.split(' ')[1]
-
+        context['edition'] = self.get_parent()
         return context
 
     def save(self, *args, **kwargs):

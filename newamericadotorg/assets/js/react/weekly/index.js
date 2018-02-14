@@ -7,115 +7,61 @@ import { NAME, ID } from './constants';
 import getNestedState from '../../utils/get-nested-state';
 import LoadingIcon from '../components/LoadingIcon';
 import Article from './components/Article';
-import EditionGrid from './components/EditionGrid';
+import Edition from './components/Edition';
+import EditionList from './components/EditionList';
 import Header from './components/Header';
-import Preload from './components/Preload';
-import LoadingPage from './components/LoadingPage';
 import ScrollToTop from './components/ScrollToTop';
-import * as REDUCERS from './reducers';
-
-
-class ArticleResponse extends Component {
-  getArticle = () => {
-    let edition = this.props.response.results;
-    let articleSlug = this.props.match.params.article;
-    return edition.articles.find((a)=>(a.slug==articleSlug));
-  }
-
-  render(){
-    let { response: { results }, dispatch } = this.props;
-    return(
-      <Article article={this.getArticle()} edition={results} dispatch={dispatch} />
-    );
-  }
-}
-
-class EditionResponse extends Component {
-  render(){
-    let { response: { results }, dispatch } = this.props;
-    return <EditionGrid edition={results} dispatch={dispatch} />
-  }
-}
-
-const Loading = () => (
-  <div className="weekly-loading-icon">
-    <LoadingIcon />
-  </div>
-);
-
-const Main = ({ location, match }) => (
-  <CSSTransitionGroup
-    transitionName="weekly-page-fade"
-    transitionEnterTimeout={1850}
-    transitionLeaveTimeout={800}>
-    <Switch key={match.params.article ? 'article' : 'edition'} location={location}>
-      <Route exact
-        path="/weekly/:edition"
-        render={()=>(
-          <Response name="weekly.edition" component={EditionResponse}/>
-        )}/>
-      <Route exact
-        path="/weekly/:edition/:article"
-        render={(props)=>(
-          <Response name="weekly.edition" match={props.match} component={ArticleResponse}/>
-        )}/>
-    </Switch>
-  </CSSTransitionGroup>
-);
-
-
 
 class Routes extends Component {
-
-  getEdition = (editionSlug) => {
-    let { response: { results }} = this.props;
-    return results.find((e)=>(e.slug==editionSlug)) || results[0];
-  }
-
   render(){
-    let { response: { results }, location, match, isReady } = this.props;
-    let edition = this.getEdition(match.params.edition);
+    let { response: { results }, location, match } = this.props;
     return (
-      <div>
-        <Preload match={match}/>
-        {/* <ScrollToTop location={location} /> */}
-        {edition && <Route path="/weekly" render={()=>(
-            <Fetch name="weekly.edition"
-              endpoint={`weekly/${edition.id}`}
-              fetchOnMount={true}
-              eager={true} />
-          )}/>
-        }
-        <Route path="/weekly/:edition" render={()=>(<Header isArticle={match.params.article ? true : false}/>)} />
-        {isReady && <Main location={location} match={match}/>}
-        {!isReady && <Route path="/weekly/:edition" component={Loading}/> }
-      </div>
+      <main>
+        <Route path="/weekly/:edition/" render={()=>(<Header edition={results} />)} />
+        <CSSTransitionGroup
+          className="weekly-page-fade-wrapper"
+          transitionName="weekly-page-fade"
+          transitionEnterTimeout={600}
+          transitionLeaveTimeout={600}>
+          <Switch key={match.params.articleSlug ? 'article' : 'edition'} location={location}>
+            <Route
+              path="/weekly/:editionSlug/:articleSlug/"
+              render={(props)=>(
+                <Article edition={results} {...props} />
+              )}/>
+            <Route
+              path="/weekly/:editionSlug/"
+              render={(props)=>(
+                <Edition edition={results} {...props} />
+              )}/>
+          </Switch>
+        </CSSTransitionGroup>
+      </main>
     );
   }
 }
-
-Routes = connect((state)=>({
-  isReady: getNestedState(state, 'weekly.edition.isReady')
-}))(Routes);
 
 class APP extends Component {
   render() {
+    let { editionId, editionSlug } = this.props;
     return (
       <Router>
-        <main>
-          <Route exact path="/weekly" component={LoadingPage} />
-          <Route path="/weekly/:edition?/:article?" render={({ location, match }) => (
-              <Fetch name='weekly.editionList'
-                endpoint='weekly'
+        <Switch>
+          <Route path="/weekly/" exact render={(props) => (
+            <Redirect to={`/weekly/${editionSlug}/`} />
+          )} />
+          <Route path="/weekly/:editionSlug?/:articleSlug?/" render={({ location, match }) => (
+              <Fetch name='weekly.edition'
+                endpoint={`weekly/${editionId}`}
                 fetchOnMount={true}
                 component={Routes}
                 location={location}
                 match={match}/>
             )}/>
-        </main>
+        </Switch>
       </Router>
     );
   }
 }
 
-export default { APP, NAME, ID, REDUCERS };
+export default { APP, NAME, ID };

@@ -1,13 +1,7 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-{% load utilities %}
+{% block body_class %}theweekly{% endblock %}
 
-{% block body_class %}template-weekly the-weekly{% endblock %}
-
-{% block header %}{% endblock %}
 {% block content %}
-  <span id="compose__weekly" data-latest-edition="{{latest_edition}}"></span>
+  <div id="compose__weekly" replace-this data-edition-slug="{{latest_edition.slug}}" data-edition-id="{{latest_edition.id}}"></div>
 {% endblock %}
-{% block footer %}{% endblock %}

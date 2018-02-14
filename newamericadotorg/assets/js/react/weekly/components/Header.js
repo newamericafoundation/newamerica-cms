@@ -1,49 +1,67 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import getNestedState from '../../../utils/get-nested-state';
-import { setMenuState } from '../actions';
+import { Route, Link } from 'react-router-dom';
+import { Fetch } from '../../components/API';
+import Image from '../../components/Image';
+import EditionList from './EditionList';
 
-class Header extends Component {
-  setMenuState = () => {
-    let { menuIsOpen } = this.props;
-    this.props.dispatch(setMenuState(!menuIsOpen));
-  }
-  render(){
-    let { menuIsOpen, isArticle } = this.props;
-
-    return(
-      <header className='weekly-header'>
-        <div className={`container weekly-header__container ${menuIsOpen ? 'with-open-menu' : ''}`}>
-          <div className="row">
-            <div className="col-3"><a href="/">
-              <div className="weekly-header__logo logo sm white"></div></a>
-            </div>
-            <div className="weekly-header__title col-6">
-              <div className="weekly-header__logo-wrapper">
-                {/* <a href="/"><div className="weekly-header__logo logo white sm"></div></a> */}
+const EditionHeader = ({ response: { results }, edition }) => (
+  <div className="container">
+    <div className="weekly-edition__header__nav">
+      <div className="weekly-edition__header__nav__btn">
+        <a className="button--text with-caret--down white">Past Editions</a>
+      </div>
+    </div>
+    <div className="weekly-edition__header__edition-list weekly-edition__edition-list row gutter-10 margin-top-25">
+      {results.map((e,i)=>(
+        <div key={`edition-${i}`} className="col-sm-6 col-lg-4">
+          <Link to={e.url}>
+            <div className="weekly-edition__edition-list__edition">
+              <div className="weekly-edition__edition-list__edition__image">
+                <Image image={e.story_image} />
               </div>
-              <div className="weekly-header__title__wrapper">
-                <a href="/weekly">
-                  <h4 className="weekly-header__heading margin-0">The Weekly</h4>
-                </a>
+              <div className="weekly-edition__edition-list__edition__text">
+                <label className="block bold white">{e.number}</label>
+                <label className="block white">{e.story_excerpt}</label>
               </div>
             </div>
-            <div className="col-3 weekly-header__more-editions">
-              {!isArticle &&
-                <button className={`weekly-header__more-editions__btn ${menuIsOpen ? 'active' : ''}`} onClick={this.setMenuState}>
-                  More Editions
-                </button>
-              }
-            </div>
-          </div>
+          </Link>
         </div>
+      ))}
+    </div>
+  </div>
+);
+
+const ArticleHeader = ({ edition }) => (
+  <div className="container">
+    <div className="weekly-edition__header__nav">
+      <div className="weekly-edition__header__nav__btn">
+        <Link className="button--text with-caret--left white" to={edition.url}>{edition.number}</Link>
+      </div>
+    </div>
+  </div>
+);
+
+
+export default class Header extends Component {
+  render(){
+    let { edition } = this.props;
+    return(
+      <header className='weekly-edition__header'>
+        <Route path="/weekly/:edition/" exact render={()=>(
+          <Fetch name="weekly.editionList"
+            component={EditionHeader}
+            endpoint="weekly"
+            fetchOnMount={true}
+            edition={edition}
+            initialQuery={{
+              page_size: 9
+            }}/>
+        )}/>
+        <Route path="/weekly/:edition/:article/" exact render={()=>(
+          <ArticleHeader edition={edition} />
+        )} />
       </header>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  menuIsOpen: getNestedState(state, 'weekly.edition.menuIsOpen')
-})
-
-export default connect(mapStateToProps)(Header);

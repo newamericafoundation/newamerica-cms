@@ -45,11 +45,11 @@ let addScrollEvent = (dispatch) => {
 class ScrollToTop extends Component {
   componentDidUpdate(prevProps) {
 
-    addScrollEvent(this.props.dispatch);
+    //addScrollEvent(this.props.dispatch);
   }
 
   componentDidMount(){
-    addScrollEvent(this.props.dispatch);
+    //addScrollEvent(this.props.dispatch);
   }
 
   render() {

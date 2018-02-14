@@ -134,7 +134,6 @@ class WeeklyPagination(pagination.LimitOffsetPagination):
 
 class WeeklyList(generics.ListAPIView):
     serializer_class = WeeklyEditionListSerializer
-    pagination_class = WeeklyPagination
 
     def get_queryset(self):
         queryset = WeeklyEdition.objects.live()

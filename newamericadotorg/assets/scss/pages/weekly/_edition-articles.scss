@@ -1,0 +1,25 @@
+.weekly-edition__articles__article{
+  cursor: pointer;
+
+  &__title{
+    margin: 10px auto 0 auto;
+    display: block;
+    cursor: pointer;
+  }
+  &__image img{
+    width: 100%;
+    height: auto;
+  }
+}
+
+.weekly-edition__lead {
+  &__text{
+
+  }
+
+  &__image img{
+    width: 100%;
+    height: auto;
+  }
+
+}
