@@ -75,9 +75,12 @@
     opacity: 0;
     width: 100vw;
     left: 0;
-    padding: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 65px;
+    padding-bottom: 50px;
     border-top: 1px solid color(black, base, 0.075);
-    box-shadow: 0px 20px 40px 0px color(black, base, 0.15);
+    box-shadow: 0px 2px 4px 1px color(black, base, 0.05);
     background: $dropdown-background-color;
     @include transform(translateY(-10px));
     @include transition(transform 0.3s ease, opacity 0.3s ease, visibilty 0.3s ease);
@@ -89,4 +92,8 @@
       display: block;
     }
   }
+
+    .column-heading {
+      padding-bottom: 25px;
+    }
 }

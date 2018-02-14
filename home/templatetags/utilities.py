@@ -308,17 +308,19 @@ def split_program_list(start_list, max_size=6):
     return final_list
 
 @register.simple_tag()
-def group_programs(programs):
+def group_programs(programs, cols=3):
 	length = len(programs)
-	l = length/3.0
+	l = length/float(cols)
 	max_items = math.ceil(l)
 
-	groups = [[],[],[]]
+	groups = []
+	for i in xrange(cols):
+		groups.append([])
+
 	group_index = 0
 	for i, p in enumerate(programs):
 		groups[group_index].append(p)
 		if (i+1) % max_items == 0:
 			group_index += 1
-
 
 	return groups

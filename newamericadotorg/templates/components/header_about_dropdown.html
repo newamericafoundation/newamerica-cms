@@ -1,52 +1,37 @@
 {% load wagtailimages_tags %}
-{% image about_pages.0.value.specific.story_image fill-300x240 as story_image_1 %}
-{% image about_pages.1.value.specific.story_image fill-300x240 as story_image_2 %}
+{% load utilities %}
+{% image about_pages.0.value.specific.story_image fill-200x170 as story_image %}
+
+{% group_programs about_pages 2 as about_groups %}
 <div class="about-dropdown-wrapper">
 <div class="row">
-    {% for a in about_pages %}
-      {% if forloop.counter == 1 %}
-      <div class="col-auto">
-        <div class="header-dropdown-links__image margin-15">
-          <a href="{{a.value.url}}">
-            <div class="about-image" style="background-image:url({{story_image_1.url}})"></div>
-            <label class="subtitle block margin-0">
-              <span>{{a.value.title}}</span>
-            </label>
-            <label class="block margin-0">
-              {{a.value.specific.search_description}}
-            </label>
-          </a>
-        </div>
-      </div>
-      {% endif %}
-       {% if forloop.counter == 2 %}
-       <div class="col-auto">
-        <div class="header-dropdown-links__image margin-15">
-          <a href="{{a.value.url}}">
-            <div class="about-image" style="background-image:url({{story_image_2.url}})"></div>
-            <label class="subtitle block margin-0">
-              <span>{{a.value.title}}</span>
-            </label>
-            <label class="block margin-0">
-              {{a.value.specific.search_description}}
-            </label>
-          </a>
-        </div>
-        </div>
-       {% endif %}
-    {% endfor %}
-  <div class="col-auto">
-    {% for a in about_pages %}
-      {% if forloop.counter > 2 %}
-      <div class="header-dropdown-links__link">
-        <label class="subtitle block">
-          <a href="{{a.value.url}}">
-            <span>{{a.value.title}}</span>
-          </a>
-        </label>
-      </div>
-      {% endif %}
-    {% endfor %}
+  <div class="col-8">
+    <div class="about-image">
+      <img src="{{story_image.url}}" />
+    </div>
+    <div class="about-text">
+      <label class="bold block column-heading margin-0"><a href="/our-funding/donate/">Support New America &mdash;</a></label>
+      <label class="block margin-top-0 margin-bottom-15">We are dedicated to renewing America by continuing the quest to realize our nation's highest ideals, honestly confronting the challenges caused by rapid technological and social change, and seizing the opportunities those changes create.</label>
+    </div>
   </div>
+  <div class="col-4">
+    <label class="bold column-heading margin-0"><a href="/our-story/">About &mdash;</a></label>
+    <div class="row">
+    {% for g in about_groups %}
+      <div class="col-6">
+        {% for a in g %}
+          <div class="header-dropdown-links__link">
+            <label class="block margin-bottom-5">
+              <a href="{{a.value.url}}">
+                <span>{{a.value.title}}</span>
+              </a>
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+
 </div>
 </div>

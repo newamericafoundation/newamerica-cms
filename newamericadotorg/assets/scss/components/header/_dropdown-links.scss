@@ -3,15 +3,13 @@
   &__link{
     cursor: pointer;
     overflow: hidden;
-    padding-right: 65px;
+    padding-bottom: 15px;
     border-bottom: 1px solid $link-border-color;
     label{
       margin-top: 0px;
       margin-bottom: 0px;
     }
     label a{
-      padding-top: 9px;
-      padding-bottom: 7.5px;
       position: relative;
       span {
         position: relative;
@@ -45,24 +43,33 @@
 }
 
 .programs-dropdown-wrapper{
-  display: inline-block;
   text-align: left;
-  padding-left: 65px;
-  width: 1007px;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
 .about-dropdown-wrapper{
-  display: inline-block;
   text-align: left;
-  padding-left: 65px;
-  width: 698px;
+  margin: 0 auto;
+  max-width: 1080px;
 
-  .col-auto{
-    padding-left: 15px;
+  .about-text, .about-image{
+    display: inline-block;
+    vertical-align: middle;
   }
 
-  .col-auto:not(:last-child){
-    padding-right: 15px;
+  .about-text{
+    width: 350px;
+    label {
+      line-height: 1.125rem;
+    }
   }
 
+  .about-image{
+    width: 210px;
+    img {
+      width: 170px;
+      height: auto;
+    }
+  }
 }
