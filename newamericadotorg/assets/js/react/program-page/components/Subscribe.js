@@ -29,7 +29,7 @@ export default class Subscribe extends Component {
   constructor(props){
     super(props);
     let params = new URLSearchParams(location.search.replace('?', ''))
-    let subscriptions = null;
+    let subscriptions = undefined;
     if(props.subscriptions){
       subscriptions = props.subscriptions.map((s,i)=>(s.title))
     }
@@ -39,11 +39,11 @@ export default class Subscribe extends Component {
       posted: false,
       status: 'OK',
       params: {
-        email: params.get('email'),
-        name: null,
-        organization: null,
-        job_title: null,
-        zipcode: null
+        email: params.get('email') || undefined,
+        name: undefined,
+        organization: undefined,
+        job_title: undefined,
+        zipcode: undefined
       },
       subscriptions
     }

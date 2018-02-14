@@ -4,51 +4,73 @@
   }
 }
 
+.desktop-submit{
+  display: none;
+  @include media-breakpoint(tablet){
+    display: block;
+  }
+}
+
+.mobile-submit{
+  display: block;
+  @include media-breakpoint(tablet){
+    display: none;
+  }
+}
 
 .home__subscribe{
   white-space: nowrap;
-  overflow: hidden;
   width: 100%;
-  margin-right: 100px;
-  margin-left: 100px;
   padding-bottom: 115px;
   .primary, .secondary {
     display: inline-block;
     white-space: normal;
-    vertical-align: middle;
-    width: 80%;
+    vertical-align: top;
+    width: 100%;
+    max-width: 925px;
     position: relative;
-    @include transition(left 0.5s ease);
-    left: 0;
+    visibility: visible;
+    @include transition(transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease);
+    @include transform(translateX(0));
+  }
+
+  .subscribe__lists {
+    max-height: 250px;
   }
 
   .secondary {
-    padding-left: 20%;
-    width: 100%;
-    height: calc(100vh - 50px);
-    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+  }
 
-    &__wrapper{
-      overflow-y: scroll;
-      overflow-x: hidden;
-      height: 100%;
-      width: calc(100% + 50vw);
-      padding-right: 50vw;
+  &__toggles{
+    span {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    label{
+      cursor: pointer;
     }
   }
 
-  &__next{
-    position: absolute;
-    right: 15%;
-    @include vertical-center;
-    @include transition(right 0.5s ease);
-    z-index: 2;
-    cursor: pointer;
-  }
-
   &.shifted{
+    .subscribe__lists {
+      max-height: none;
+    }
+
     .primary, .secondary {
-      left: -89%;
+      @include transform(translateX(-100%));
+    }
+
+    .primary{
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .secondary{
+      opacity: 1;
+      visibility: visible;
     }
 
     .home__subscribe__next{

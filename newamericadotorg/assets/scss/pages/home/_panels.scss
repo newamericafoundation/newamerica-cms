@@ -1,5 +1,5 @@
 .home__panels{
-  section:not(.home__panel__promo){
+  section:not(.home__panel__promo):not(.home__panel__subscribe){
     padding-top: 110px;
     padding-bottom: 110px;
   }
