@@ -13,7 +13,8 @@ select {
 }
 
 input[type="submit"] {
-	border: 0;
+	border: 1px solid color(black);
+	background: transparent;
 	outline: 0;
 }
 

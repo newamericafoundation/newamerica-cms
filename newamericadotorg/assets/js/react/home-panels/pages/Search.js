@@ -29,7 +29,7 @@ export default class Search extends Component {
     let params = new URLSearchParams(location.search.replace('?', ''));
 
     return (
-      <div className="home__panels__search container--1080">
+      <div className="home__panels__search container">
         <div className="input margin-bottom-35">
           <input type="text" required value={this.state.query} onChange={this.change}/>
           <label className="button--text input__label">Search</label>

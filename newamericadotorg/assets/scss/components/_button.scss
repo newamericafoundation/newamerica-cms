@@ -15,6 +15,7 @@ button {
 	display: inline-block;
 	border-radius: 2px;
 	position: relative;
+	background: transparent;
 	@include transition(all $transition-function);
 	cursor: pointer;
 }

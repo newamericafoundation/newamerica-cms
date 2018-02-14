@@ -108,7 +108,7 @@ export default class Subscribe extends Component {
     let { posting, posted, status } = this.state;
     return (
       <div className="subscribe__submit margin-top-25">
-        {(!posting && !posted) && <input type="submit" className="button turquoise" value="Sign Up" />}
+        {(!posting && !posted) && <input type="submit" className="button" value="Sign Up" />}
         {posting &&
           <label className="button turquoise">
             <span className="loading-dots--absolute">
