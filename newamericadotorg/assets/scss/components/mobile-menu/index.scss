@@ -32,7 +32,7 @@
     width: 100vw;
     vertical-align: top;
     opacity: 1;
-    @include transition(transform 0.4s ease-in-out);
+    @include transition(transform 0.4s ease-in-out, opacity 0.4s ease-in-out);
   }
 
   &__menus {
@@ -53,7 +53,7 @@
     width: 100vw;
     opacity: 0;
     padding-left: 0px !important;
-    @include transition(transform 0.4s ease-in-out);
+    @include transition(transform 0.4s ease-in-out, opacity 0.4s ease-in-out);
 
     &:before{
       position: absolute !important;

@@ -46,7 +46,7 @@ class Menus extends Component {
     return(
       <div className={`mobile-menu ${selectedTab ? `secondary-tab ${selectedTab.toLowerCase()}-tab-open` : ''} ${isOpen ? 'open' : ''}`}>
         <div className="mobile-menu__heading">
-          <div className="logo__wrapper"><div className="logo sm"></div></div>
+          <div className="logo__wrapper"><a href="/"><div className="logo sm"></div></a></div>
           <label className="tab-link-back button--text with-caret--left margin-0 block" onClick={()=>{this.switchTab(false);}}>
             {selectedTab}
           </label>
