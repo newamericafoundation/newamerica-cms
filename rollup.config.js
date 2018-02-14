@@ -9,70 +9,92 @@ import cssnano from 'cssnano';
 import fs from 'fs';
 import path from 'path';
 
-export default {
-  entry: 'newamericadotorg/assets/js/newamericadotorg.js',
-  dest: 'newamericadotorg/static/js/newamericadotorg.min.js',
-  format: 'iife',
-  moduleName: 'newamericadotorg',
-  // fetch polyfill should happen in window context
-  moduleContext: { 'node_modules/whatwg-fetch/fetch.js': 'window' },
-  onwarn: function(warn){
-    // this doesn't matter
-    if(warn.message=="'default' is not exported by 'node_modules/redux/es/index.js'") return;
-  },
-  plugins: [
-    sass({
-      output: 'newamericadotorg/static/css/newamericadotorg.css',
-      insert: false,
-      options: {
-        includePaths: [
-          'node_modules', // all for font-awesome
-          'newamericadotorg/assets/scss/settings/' + process.env.NODE_ENV,
-          'newamericadotorg/assets/scss'
-        ]
-      },
+var production = process.env.NODE_ENV == 'production';
+var development = process.env.NODE_ENV == 'development';
 
-      output: function(styles, styleNodes) {
-        postcss([cssnano({ discardUnused: false })])
-          .process(styleNodes[0].content)
-          .then(result => {
-            var final = '{% load static from staticfiles %}';
-            final += result.css.replace(/\/static\/(.+?\.(svg|otf|ttf))/g, "{% static '\$1' %}");
-            writeFile(
-              'newamericadotorg/templates/style.css',
-              final
-            );
-          });
-        postcss([cssnano({ discardUnused: false, reduceIndents: false })])
-          .process(styleNodes[1].content)
-          .then(result => {
-            writeFile(
-              'newamericadotorg/static/css/newamericadotorg.min.css',
-              result.css
-            );
-          });
-      }
-    }),
-    // import node_module dependencies
-    resolve(),
-    // shim for dependencies that are not written with es6-style exports
-    commonjs({
-      include: [
-        'node_modules/**'
-      ],
-      namedExports: {
-        'node_modules/react/react.js': ['Children', 'Component', 'createElement', 'cloneElement'],
-        'node_modules/react-dom/index.js': ['render'],
-        'node_modules/date-fns/index.js': ['format']
-      }
-    }),
-    babel({ exclude: 'node_modules/**' }),
-    replace({
-      'process.env.NODE_ENV': '\'' + process.env.NODE_ENV + '\''
-    }),
-    uglify()
-  ]
-};
+export default [
+  {
+    input: 'newamericadotorg/assets/js/newamericadotorg.js',
+    output: {
+      format: 'iife',
+      name: 'newamericadotorg',
+      file: 'newamericadotorg/static/js/newamericadotorg.min.js',
+    },
+    external: development && [
+      'react', 'react-dom', 'react-redux', 'redux', 'redux-thunk',
+      'react-router', 'react-router-dom', 'date-fns', 'react-slick',
+      'react-scrollbar', 'react-transition-group', 'expirePlugin',
+      'store', 'prop-types', 'vanilla-lazyload', 'whatwg-fetch',
+      'url-polyfill', 'store/plugins/expire'
+    ],
+    watch: {
+      clearScreen: false
+    },
+    // fetch polyfill should happen in window context
+    moduleContext: { 'node_modules/whatwg-fetch/fetch.js': 'window' },
+    onwarn: function(warn){
+      // this doesn't matter
+      if(warn.message=="'default' is not exported by 'node_modules/redux/es/index.js'") return;
+    },
+    plugins: [
+      development && replace({
+        'process.env.NODE_ENV': '\'' + process.env.NODE_ENV + '\'',
+        'import \'./../scss/newamericadotorg.scss\';': '',
+        'import \'./../scss/critical.scss\';': ''
+      }),
+      production && sass({
+        output: 'newamericadotorg/static/css/newamericadotorg.css',
+        insert: false,
+        options: {
+          includePaths: [
+            'node_modules', // all for font-awesome
+            'newamericadotorg/assets/scss/settings/' + process.env.NODE_ENV,
+            'newamericadotorg/assets/scss'
+          ]
+        },
+
+        output: function(styles, styleNodes) {
+          postcss([cssnano({ discardUnused: false })])
+            .process(styleNodes[0].content)
+            .then(result => {
+              var final = '{% load static from staticfiles %}';
+              final += result.css.replace(/\/static\/(.+?\.(svg|otf|ttf))/g, "{% static '\$1' %}");
+              writeFile(
+                'newamericadotorg/templates/style.css',
+                final
+              );
+            });
+          postcss([cssnano({ discardUnused: false, reduceIndents: false })])
+            .process(styleNodes[1].content)
+            .then(result => {
+              writeFile(
+                'newamericadotorg/static/css/newamericadotorg.min.css',
+                result.css
+              );
+            });
+        }
+      }),
+      // import node_module dependencies
+      production && resolve(),
+      // shim for dependencies that are not written with es6-style exports
+      production && commonjs({
+        include: [
+          'node_modules/**'
+        ],
+        namedExports: {
+          'node_modules/react/index.js': ['Children', 'Component', 'createElement', 'cloneElement'],
+          'node_modules/react-dom/index.js': ['render'],
+          'node_modules/date-fns/index.js': ['format', 'subDays']
+        }
+      }),
+      babel({ exclude: 'node_modules/**' }),
+      production && replace({
+        'process.env.NODE_ENV': '\'' + process.env.NODE_ENV + '\''
+      }),
+      production && uglify()
+    ]
+  }
+];
 
 function mkdirpath ( _path ) {
 	var dir = path.dirname( _path );

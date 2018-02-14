@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Fetch } from '../../components/API';
-import { Author } from '../../components/Content';
+import Author from '../../components/Author';
 import { NAME } from '../constants';
 
 const SubTopics = ({topic}) => (

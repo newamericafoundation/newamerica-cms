@@ -1,1 +1,20 @@
-{% extends "./org_simple_page.html" %}
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block body_class %}homepostpage subscribepage{% endblock %}
+
+{% block content %}
+<main class="home__panels container">
+  <div class="row gutter-10">
+    <section class="home__panel__subscribe col-12 margin-top-80 margin-bottom-35">
+      <div class="row gutter-20">
+        <div class="home__heading__text col-lg-9">
+          <h1 class="promo margin-25">Subscribe</h1>
+          {{ page.page_description|richtext }}
+        </div>
+      </div>
+    </section>
+
+    <div id="compose__home-panels" class="col-12" data-page-id="{{page.id}}"></div>
+  </div>
+</main>
+{% endblock %}

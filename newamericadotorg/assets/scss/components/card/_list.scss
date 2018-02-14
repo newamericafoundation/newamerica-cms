@@ -1,15 +1,24 @@
 .card.list {
   padding: 15px;
-  height: 150px;
+  height: auto;
   white-space: nowrap;
+
+  @include media-breakpoint(tablet){
+    height: 150px;
+  }
 
   .card__image {
     white-space: normal;
     vertical-align: middle;
     display: inline-block;
     position: relative;
-    width: 150px;
-    height: 120px;
+    width: 100px;
+    height: 75px;
+
+    @include media-breakpoint(tablet){
+      width: 150px;
+      height: 120px;
+    }
 
     &.no-image {
       background-color: color(black, base, 0.15);
@@ -43,6 +52,13 @@
     display: inline-block;
     padding-top: 0;
     padding-bottom: 0;
-    max-width: calc(100% - 200px);
+    padding-right: 0;
+    height: 100%;
+    max-width: calc(100% - 100px);
+
+    @include media-breakpoint(tablet){
+      max-width: calc(100% - 150px);
+      height: auto;
+    }
   }
 }

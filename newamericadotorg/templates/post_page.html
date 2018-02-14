@@ -25,13 +25,15 @@
 {% endblock %}
 <main class="post container margin-80">
 	<div class="row gutter-30">
-		{% block post_left_aside %}
-			 <aside class="post-social col-md-2 ">
-				 {% include 'components/post_share.html' %}
-			 </aside>
-		{% endblock %}
+
+		 <aside class="post__social col-md-6 col-lg-2 margin-bottom-15">
+			 {% block post_left_aside %}
+			 	{% include 'components/post_share.html' %}
+			 {% endblock %}
+		 </aside>
+
 		{% block post-body %}
-			 <div class="col-md-8">
+			 <div class="col-lg-8 margin-bottom-25">
 				 <div class="post-body-wrapper">
 					{% include 'components/post_heading_text.html' %}
 					{% include 'components/post_heading_image.html' %}
@@ -43,8 +45,10 @@
 				</div>
 			 </div>
 		{% endblock %}
-		{% block post_right_aside %}
-		{% endblock %}
+		<aside class="col-md-6 col-lg-2 ">
+			{% block post_right_aside %}
+			{% endblock %}
+		</aside>
 	</div>
 </main>
 {% endblock %}

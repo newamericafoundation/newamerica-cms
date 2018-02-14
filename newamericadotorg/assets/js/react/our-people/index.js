@@ -68,7 +68,7 @@ class OurPeople extends Component {
     let role = this.getRole();
     return (
       <section className="home__panel__promo home__panel__our-people">
-        <div className="container--1080">
+        <div className="container">
         <Nav />
         <Fetch name={NAME}
           endpoint={'author'}

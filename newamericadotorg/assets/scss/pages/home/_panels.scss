@@ -1,5 +1,5 @@
 .home__panels{
-  section:not(.home__panel__promo){
+  section:not(.home__panel__promo):not(.home__panel__subscribe){
     padding-top: 110px;
     padding-bottom: 110px;
   }
@@ -23,6 +23,8 @@
 .home__heading {
   padding-top: 115px;
   padding-bottom: 115px;
+  background-color: color(beige);
+
   p {
     margin-top: 25px !important;
     margin-bottom: 25px !important;
@@ -31,7 +33,7 @@
 
 .home__panel__our-people {
   //padding-top: 10px;
-  padding-bottom: 115px;
+  padding-bottom: 115px !important;
 }
 
 .home__panel__programs {
@@ -41,10 +43,19 @@
 .home__panel__promo {
   background-color: color(beige);
   position: relative;
+  padding-top: 110px;
+  padding-bottom: 110px;
+
+  @include media-breakpoint(tablet){
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
   &__text {
-    position: absolute;
-    @include vertical-center;
+    @include media-breakpoint(tablet){
+      position: absolute;
+      @include vertical-center;
+    }
   }
 }
 
@@ -55,13 +66,19 @@
 }
 
 .home__reel {
-  height: 475px;
-  overflow: hidden;
+
+  @include media-breakpoint(tablet){
+    height: 475px;
+    overflow: hidden;
+  }
 }
 
 .home__reel__frames{
-  position: relative;
-  @include transition(top 1.2s ease);
+  @include media-breakpoint(tablet){
+    @include transition(top 1.2s ease);
+    max-height: none;
+    position: relative;
+  }
 
   &.pause {
     @include transition(none);
@@ -69,16 +86,25 @@
 }
 
 .home__reel__frame {
-  height: 475px;
   position: relative;
+  display: none;
   opacity: 0;
-  @include transition(opacity 0.55s ease);
+  max-width: 600px;
+  @include transition(opacity 0.55s ease, visibility 0.55s ease);
+  @include media-breakpoint(tablet){
+    display: block;
+    height: 475px;
+  }
+
   &.active {
+    display: block;;
     opacity: 1;
   }
   h1, &__wrapper{
-    position: absolute;
-    @include vertical-center;
+    @include media-breakpoint(tablet){
+      position: absolute;
+      @include vertical-center;
+    }
   }
 
   h3 {
@@ -110,8 +136,8 @@
     img {
       vertical-align: middle;
       display: inline-block;
-      width: calc(50vw - 10px);
-      margin-left: calc(-50vw + 525px);
+      width: 100vw;
+      margin-left: -15px;
       max-width: 800px;
       height: auto;
 
@@ -120,14 +146,20 @@
           filter: grayscale(40%);
       }
 
+      @include media-breakpoint(tablet){
+        width: calc(100% + 15px);
+      }
+
+      @media (min-width: 1080px) {
+        width: calc(50vw - 10px);
+        margin-left: calc(-50vw + 525px);
+      }
+
       @media (min-width:1600px) {
         margin-left: calc(-800px + 515px);
       }
 
-      @media (max-width: 1080px) {
-        width: calc(100% + 15px);
-        margin-left: -15px;
-      }
+
     }
 
     &:after{

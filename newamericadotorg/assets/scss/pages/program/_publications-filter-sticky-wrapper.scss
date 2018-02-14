@@ -1,49 +1,68 @@
-.program__publications-filters__sticky-wrapper {
-  height: calc(100vh - #{$header-height + 30px});
-  min-height: 562px;
-  width: 277.5px;
-  overflow: hidden;
+.program__publications__filter-col{
   background: color(beige);
+  max-height: 0;
+  overflow: hidden;
+  @include transition(max-height 1s ease);
+
+  &.open{
+    max-height: 300vh;
+  }
+
+  @include media-breakpoint(desktop){
+    max-height: none;
+  }
 }
 
-.program__publications-filters.scroll-entered
-.program__publications-filters__sticky-wrapper {
-  @include transition(top 0.35s ease-in-out);
-  position: fixed;
-  top: 15px;
+.program__publications__open-mobile-filter{
+  padding: 0 !important;
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+
+  a {
+    line-height: 1em !important;
+  }
 }
 
-body.scroll-reverse:not(.scroll-disabled)
-.program__publications-filters.scroll-entered
-.program__publications-filters__sticky-wrapper{
-  top: #{$header-height + 15px};
-}
+@include media-breakpoint(desktop){
 
-body.scroll-reverse:not(.scroll-disabled)
-.program__publications-filters.scroll-entered{
-  position: relative;
-  top: -$header-height;
-}
+  .program__publications-filters__sticky-wrapper {
+    height: calc(100vh - #{$header-height + 30px});
+    min-height: 562px;
+    width: 277.5px;
+    overflow: hidden;
+    background: color(beige);
+  }
 
-.program__publications.scroll-left
-.program__publications-filters__sticky-wrapper {
-  position: absolute !important;
-  top: auto !important;
-  bottom: 0 !important;
-}
+  .program__publications-filters.scroll-entered
+  .program__publications-filters__sticky-wrapper {
+    @include transition(transform 0.35s ease);
+    position: fixed;
+    top: 15px;
+    @include transform(translateY(0));
+  }
 
+  body.scroll-reverse:not(.scroll-disabled)
+  .program__publications-filters.scroll-entered
+  .program__publications-filters__sticky-wrapper{
+    @include transform(translateY(#{$header-height}));
+  }
 
-body.scroll-reverse:not(.scroll-disabled)
-.program__publications.scroll-left
-.program__publications-filters__sticky-wrapper {
-  bottom: -#{$header-height} !important;
-}
+  body.scroll-reverse:not(.scroll-disabled)
+  .program__publications-filters.scroll-entered{
+    position: relative;
+    top: -$header-height;
+  }
 
-.program__publications.scroll-left
-.program__publications-filters__sticky-wrapper.is-fetching {
-  // for whatever reason, i have to switch out positioning so chrome can add publications
-  // while this is stuck to bottom
-  position: relative !important;
-  bottom: -100% !important;
-  @include transform(translateY(-100%));
+  .program__publications-filters__scroll-wrapper{
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .program__publications-filters__scroll-area {
+    padding-right: 35px;
+    width: calc(100% + 35px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
 }

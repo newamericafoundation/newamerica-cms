@@ -3,14 +3,29 @@
     margin-bottom: 10px;
   }
   &__story-grid-section{
-    max-height: 700px;
     position: relative;
     z-index: 1;
+    padding-bottom: 25px;
+    @include media-breakpoint(tablet){
+      max-height: 1005px;
+      padding-bottom: 0;
+    }
+    @include media-breakpoint(desktop){
+      max-height: 700px;
+    }
   }
 
   &__mission-statement-section {
-    padding-top: 155px;
+    padding-top: 105px;
     padding-bottom: 105px;
+
+    @include media-breakpoint(tablet){
+      padding-top: 250px;
+    }
+
+    @include media-breakpoint(desktop){
+      padding-top: 190px;
+    }
   }
 
   &__events-section, &__publications-section {
@@ -34,6 +49,7 @@
     @include transition(opacity 1.35s ease, transform 1.35s ease);
     opacity: 0;
     @include transform(translateY(50px));
+    position: relative;
   }
 
   .promo span:nth-child(2){
@@ -69,11 +85,18 @@
 }
 
 .homepage__events-section{
+<<<<<<< HEAD
   .col-4{
     position: relative;
     opacity: 0;
     @include transition(opacity 1s ease, transform 1s ease);
     @include transform(translateY(50px));
+=======
+  .col-md-4{
+    @include transform(translateY(50px));
+    opacity: 0;
+    @include transition(opacity 1s ease, transform 1s ease);
+>>>>>>> mobile
 
     &:nth-child(2){
       @include transition-delay(0.25s);
@@ -85,7 +108,11 @@
   }
 
   &.scroll-triggered {
+<<<<<<< HEAD
     .col-4{
+=======
+    .col-md-4{
+>>>>>>> mobile
       @include transform(translateY(0px));
       opacity: 1;
     }

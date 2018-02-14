@@ -1,15 +1,31 @@
 .card.sm {
-  height: 185px;
+
+  @include media-breakpoint(tablet){
+    height: 185px;
+  }
   .card__text{
-    height: 100%;
+    width: 100%;
+    padding-bottom: 50px;
+    @include media-breakpoint(tablet){
+      height: 100%;
+      width: auto;
+    }
   }
 
   .card__image{
     position: relative;
+    padding-bottom: 100%;
+    width: 100%;
+    @include media-breakpoint(tablet){
+      padding-bottom: 0;
+      width: auto;
+    }
   }
 
   img {
     position: absolute;
     @include center;
+    width: auto;
+    height: 100%;
   }
 }

@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 const ProgramsTab = ({ response: { results }}) => {
   return(
     <div className="menu-list programs-tab">
-      {results.programs.map((p, i)=>(
-        <label className="block">
+      {results.programs.sort((a,b) => (a.title > b.title ? 1 : -1)).map((p, i)=>(
+        <label key={`program-${i}`} className="block">
           <a href={`/${p.slug}`}>{p.title}</a>
         </label>
       ))}
@@ -17,7 +17,7 @@ const ProgramsTab = ({ response: { results }}) => {
 const AboutTab = ({ response: { results }}) => (
   <div className="menu-list about-tab">
     {results.about_pages.map((a,i)=>(
-      <label className="block">
+      <label key={`about-${i}`} className="block">
         <a href={a.url}>{a.title}</a>
       </label>
     ))}
@@ -46,7 +46,7 @@ class Menus extends Component {
     return(
       <div className={`mobile-menu ${selectedTab ? `secondary-tab ${selectedTab.toLowerCase()}-tab-open` : ''} ${isOpen ? 'open' : ''}`}>
         <div className="mobile-menu__heading">
-          <div className="logo__wrapper"><div className="logo sm"></div></div>
+          <div className="logo__wrapper"><a href="/"><div className="logo sm"></div></a></div>
           <label className="tab-link-back button--text with-caret--left margin-0 block" onClick={()=>{this.switchTab(false);}}>
             {selectedTab}
           </label>
@@ -54,17 +54,17 @@ class Menus extends Component {
         <div className="mobile-menu__menus">
           <div className="mobile-menu__primary">
             <div className="menu-list">
+              <label className="block tab-link">
+                <a onClick={()=>{this.switchTab('About');}}>About</a>
+              </label>
+              <label className="block tab-link">
+                <a onClick={()=>{this.switchTab('Programs');}}>Programs</a>
+              </label>
               <label className="block">
                 <a href="/publications/">Publications</a>
               </label>
               <label className="block">
                 <a href="/events/">Events</a>
-              </label>
-              <label className="block tab-link">
-                <a onClick={()=>{this.switchTab('Programs');}}>Programs</a>
-              </label>
-              <label className="block tab-link">
-                <a onClick={()=>{this.switchTab('About');}}>About</a>
               </label>
             </div>
           </div>

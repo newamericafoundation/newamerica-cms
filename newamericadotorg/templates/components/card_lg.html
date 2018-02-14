@@ -9,13 +9,13 @@
 
 <div class="card lg">
   <a href="{{post.url}}" class="row no-gutters">
-    <div class="col-8" style="padding-right: 3px;">
+    <div class="col-md-7 col-lg-8" style="padding-right: 3px;">
       <div class="card__image">
         <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
         <img src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 800w, {{post_image_md.url}} 500w, {{post_image_sm.url}} 300w" class="fade-in-image" onload="this.classList.add('loaded');">
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-5 col-lg-4">
       <div class="card__text">
         <h2 class="card__text__title margin-top-0 block">{{post.title}}</h2>
         <label class="card__text__subtitle subtitle block">{{post.story_excerpt}}</label>

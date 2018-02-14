@@ -29,7 +29,7 @@ class ProgramPage extends Component {
 
     topics.map((t,i)=>{
       routes.push(
-        <Route path={t.url} exact render={(props)=>(
+        <Route key={`${t.slug}-${i}`} path={t.url} exact render={(props)=>(
           <Topic {...props} program={results} ancestors={ancestors} topic={t}/>
         )} />
       );
@@ -45,7 +45,7 @@ class ProgramPage extends Component {
     let { response: { results }} = this.props;
 
     return pages.map((p,i) => (
-      <Route path={`/${root}/${p.slug}/`} exact render={(props)=>(<About program={results} about={p} about_us_pages={pages} />)} />
+      <Route key={`page-${i}`} path={`/${root}/${p.slug}/`} exact render={(props)=>(<About program={results} about={p} about_us_pages={pages} />)} />
     ));
   }
 

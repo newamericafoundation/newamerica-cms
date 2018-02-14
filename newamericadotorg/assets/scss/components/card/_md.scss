@@ -1,24 +1,43 @@
 .card.md {
   .card__image{
+    padding-bottom: 100%;
     width: 100%;
-    padding-bottom: 77.143%;
     position: relative;
+
+    @include media-breakpoint(tablet){
+      padding-bottom: 77.143%;
+      height: 380px;
+      width: auto;
+    }
+
+    @include media-breakpoint(desktop){
+      height: auto;
+    }
   }
   img {
     position: absolute;
     @include center;
+    width: auto;
+    height: 100%;
   }
 
   .card__text{
-    max-width: 300px;
+    width: 100%;
     padding-bottom: 50px;
-  }
 
-  &.square .card__image{
+    @include media-breakpoint(desktop){
+      max-width: 300px;
+      position: static;
+    }
+  }
+}
+
+@include media-breakpoint(desktop){
+  .card.md.square .card__image{
     padding-bottom: 100%;
   }
 
-  &.landscape .card__image{
+  .card.md.landscape .card__image{
     padding-bottom: 70%;
 
     img {

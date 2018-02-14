@@ -7,14 +7,18 @@
 {% image post.story_image fill-30x23 as post_image_thumb %}
 
 <div class="card md">
-  <a href="{{post.url}}">
-    <div class="card__image">
-      <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
-      <img src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 600w, {{post_image_md.url}} 400w" class="fade-in-image" onload="this.classList.add('loaded');"/>
+  <a href="{{post.url}}" class="row gutter-0">
+    <div class="col-6 col-md-12">
+      <div class="card__image">
+        <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
+        <img src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 600w, {{post_image_md.url}} 400w" class="fade-in-image" onload="this.classList.add('loaded');"/>
+      </div>
     </div>
-    <div class="card__text">
-      <label class="card__text__title bold margin-top-0 block">{{post.title}}</label>
-      <label class="card__text__program caption margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
+    <div class="col-6 col-md-12">
+      <div class="card__text">
+        <label class="card__text__title bold margin-top-0 block">{{post.title}}</label>
+        <label class="card__text__program caption margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
+      </div>
     </div>
   </a>
 </div>

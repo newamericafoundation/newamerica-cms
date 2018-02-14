@@ -10,7 +10,7 @@ export class List extends Component {
     return (
       <span>
       {list.map((s,i)=>(
-        <div className="subscribe__field">
+        <div key={i} className="subscribe__field">
           <CheckBox checked={checked.indexOf(s.title)>=0}
             name="subscriptions[]"
             value={s.title}
@@ -29,7 +29,7 @@ export default class Subscribe extends Component {
   constructor(props){
     super(props);
     let params = new URLSearchParams(location.search.replace('?', ''))
-    let subscriptions = null;
+    let subscriptions = undefined;
     if(props.subscriptions){
       subscriptions = props.subscriptions.map((s,i)=>(s.title))
     }
@@ -39,11 +39,11 @@ export default class Subscribe extends Component {
       posted: false,
       status: 'OK',
       params: {
-        email: params.get('email'),
-        name: null,
-        organization: null,
-        job_title: null,
-        zipcode: null
+        email: params.get('email') || undefined,
+        name: undefined,
+        organization: undefined,
+        job_title: undefined,
+        zipcode: undefined
       },
       subscriptions
     }
@@ -108,7 +108,7 @@ export default class Subscribe extends Component {
     let { posting, posted, status } = this.state;
     return (
       <div className="subscribe__submit margin-top-25">
-        {(!posting && !posted) && <input type="submit" className="button turquoise" value="Sign Up" />}
+        {(!posting && !posted) && <input type="submit" className="button" value="Sign Up" />}
         {posting &&
           <label className="button turquoise">
             <span className="loading-dots--absolute">

@@ -12,4 +12,45 @@
   &.active .program__nav__link:not(.active) {
     color: color(black, base, 0.3);
   }
+
+  .slick-list{
+    width: 100%; 
+  }
+
+  .slick-arrow {
+    position: absolute;
+    width: 15px;
+    height: 100%;
+    &.slick-disabled{
+      display: none !important;
+    }
+    &:after{
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-top: 1px solid color(black, base, 1);
+      border-right: 1px solid color(black, base, 1);
+      top: 50%;
+      position: relative;
+      @include transform(rotate(45deg));
+
+    }
+  }
+
+  .slick-prev{
+      left: -15px;
+      &:after {
+        right: 0;
+        @include transform(rotate(-135deg));
+      }
+  }
+
+  .slick-next {
+    right: -15px;
+
+    &:after{
+      left: calc(100% - 5px);
+    }
+  }
 }

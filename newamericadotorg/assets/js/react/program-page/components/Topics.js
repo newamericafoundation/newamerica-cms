@@ -3,12 +3,12 @@ import { Link, BrowserRouter as Router, Route, Switch, Redirect } from 'react-ro
 import { Component } from 'react';
 import { Fetch } from  '../../components/API';
 import { PersonsList } from '../../components/People';
-import { PublicationListItem } from '../../components/Publications';
+import { PublicationListItem } from '../../components/ContentCards';
 
 const Breadcrumbs = ({ ancestors }) => (
   <div className="program__topic__breadcrumbs">
     {ancestors.map((t,i)=>(
-      <label className="program__topic__breadcrumbs__crumb">
+      <label key={`crumb-${i}`} className="program__topic__breadcrumbs__crumb">
         <Link to={t.url}>{t.title}</Link><span>/</span>
       </label>
     ))}
@@ -18,7 +18,7 @@ const Breadcrumbs = ({ ancestors }) => (
 const Subtopics = ({ subtopics }) => (
   <div className="program__topic__subtopic">
     {subtopics.map((s,i)=>(
-      <Link className="tag" to={s.url}>{s.title}</Link>
+      <Link key={`subtopic-${i}`} className="tag" to={s.url}>{s.title}</Link>
     ))}
   </div>
 );
@@ -47,7 +47,7 @@ class PublicationsList extends Component {
       <div className="program__topic__publications">
         <Separator text="Related Publications" />
         {results.map((p,i)=>(
-          <PublicationListItem post={p} />
+          <PublicationListItem key={`post-${i}`} post={p} />
         ))}
         {hasNext &&
           <div className="program__topic__publications__view-all margin-top-15">
@@ -104,7 +104,14 @@ export class TopicsList extends Component {
     return (
       <div className="program__topics menu-list with-arrow--right margin-top-35">
         {program.topics.map((topic,i)=>(
-          <h2><Link to={topic.url}>{topic.title}</Link></h2>
+          <h2>
+            <Link to={topic.url}>{topic.title}</Link>
+            <div className="icon-arrow">
+              <div />
+              <div />
+              <div />
+            </div>
+          </h2>
         ))}
       </div>
     );

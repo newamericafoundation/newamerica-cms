@@ -1,6 +1,7 @@
-import { PublicationsList, LoadingDots, EventItem } from './Publications';
+import { PublicationsList, PublicationsWrapper, LoadingDots } from './Publications';
 import { Link, NavLink } from 'react-router-dom';
-import { Filter, SubprogramFilter, ProgramFilter, TopicFilter, FilterGroup } from './Publications';
+import { SubprogramFilter, ProgramFilter, TopicFilter, DateFilter, FilterGroup } from './Filters';
+import { EventItem } from './ContentCards'
 import { format as formatDate } from 'date-fns';
 import { Component } from 'react';
 
@@ -19,23 +20,10 @@ class Upcoming extends Component {
     return (
       <div className="program__events__upcoming margin-top-35 row gutter-10">
         {events.map((e,i)=>(
-          <div className="col-md-4 col-12">
+          <div key={`event-${i}`} className="col-md-4 col-12">
             <EventItem event={e} />
           </div>
         ))}
-      </div>
-    );
-  }
-}
-
-class AbstractFilter extends Filter {
-  render(){
-    let { subprograms, response: { params: { query } } } = this.props;
-    return (
-      <div className={`program__publications-filters__filter type ${this.state.expanded ? 'expanded' : ''}`}>
-        {this.label()}
-        <form>
-        </form>
       </div>
     );
   }
@@ -49,10 +37,10 @@ class Filters extends Component {
           history={history}
           location={location}
           response={response}>
-        <AbstractFilter label="Date" />
-        {program.programs && <ProgramFilter programs={program.programs} label="Program" />}
-        {program.subprograms && <SubprogramFilter subprograms={program.subprograms} label="Project" />}
-        {program.topics && <TopicFilter label="Topic" />}
+        <DateFilter label="Date" expanded={response.params.query.after!==undefined}/>
+        {program.programs && <ProgramFilter programs={program.programs} expanded={response.params.query.program_id!==undefined} label="Program" />}
+        {program.subprograms && <SubprogramFilter subprograms={program.subprograms} expanded={response.params.query.subprogram_id!==undefined} label="Project" />}
+        {program.topics && <TopicFilter label="Topic" expanded={response.params.query.topic_id!==undefined} />}
       </FilterGroup>
     );
   }
@@ -61,14 +49,9 @@ class Filters extends Component {
 class Past extends Component {
   render(){
     return (
-      <div className="program__publications row gutter-45 scroll-target margin-top-35" data-scroll-trigger-point="bottom" data-scroll-bottom-offset="65">
-        <div className="col-3 program__publications__filter-col">
-          <Filters {...this.props}/>
-        </div>
-        <div className='col-9 program__publications__list-col'>
-          <PublicationsList {...this.props}/>
-        </div>
-      </div>
+      <PublicationsWrapper
+          filters={<Filters {...this.props}/>}
+          publications={<PublicationsList {...this.props} />}/>
     );
   }
 }

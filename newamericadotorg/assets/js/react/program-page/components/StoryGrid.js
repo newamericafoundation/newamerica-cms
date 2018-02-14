@@ -3,24 +3,31 @@ import CardMd from './CardMd';
 import CardLg from './CardLg';
 import { PromoMd } from './CardPromo';
 
+
+const Mobile = (props) => (
+  <div className="mobile-only">
+    {props.children}
+  </div>
+);
+
 export default class StoryGrid extends Component {
   state = {
     email: null
   }
-  about(){
+  about(k=0){
     let { program } = this.props;
 
     return (
-      <PromoMd title="About" link={{ to: 'about', label: 'Read More'}}>
+      <PromoMd key={`0-${k}`} title="About" link={{ to: 'about', label: 'Read More'}}>
         <h2 className="margin-25">{program.description}</h2>
       </PromoMd>
     );
   }
 
-  subscribe(){
+  subscribe(k=0){
     let { program } = this.props;
     return (
-      <PromoMd title="Subscribe" link={{ to: `subscribe/?email=${this.state.email}`, label: 'Go'}}>
+      <PromoMd key={`1-${k}`} title="Subscribe" link={{ to: `subscribe/?email=${this.state.email}`, label: 'Go'}}>
         <h2 className="margin-25">{`Be the first to hear about the latest events and research from ${program.name}`}</h2>
         <div className="input">
           <input type="text" value={this.state.email||''} required onChange={(e)=>{this.setState({email: e.target.value})}}/>
@@ -29,9 +36,9 @@ export default class StoryGrid extends Component {
       </PromoMd>
     );
   }
-  cardMd = (index, size) =>{
+  cardMd = (index, size, k=0) =>{
     let { loaded, story_grid } = this.props;
-    return ( <CardMd post={story_grid[index]} image_size={size} loaded={loaded} /> );
+    return ( <CardMd post={story_grid[index]} key={`${index}-${k}`} image_size={size} loaded={loaded} /> );
   }
   cols = () => {
     let { story_grid, program, loaded } = this.props;
@@ -40,6 +47,9 @@ export default class StoryGrid extends Component {
 
     switch(items){
       case 2:
+        cols[0] = cols[0].concat([
+          <Mobile>{this.about(1)}</Mobile>
+        ]);
         cols[1] = cols[1].concat([
           this.cardMd(1, "square")
         ]);
@@ -48,8 +58,12 @@ export default class StoryGrid extends Component {
         ]);
         break;
       case 3:
+        cols[0] = cols[0].concat([
+          <Mobile key={501}>{this.cardMd(1, "square")}</Mobile>
+        ]);
         cols[1] = cols[1].concat([
-          this.cardMd(1, "square")
+          this.cardMd(1, "square"),
+          <Mobile key={500}>{this.about(1)}</Mobile>
         ]);
         cols[2] = cols[2].concat([
           this.cardMd(2, "landscape"),
@@ -58,7 +72,8 @@ export default class StoryGrid extends Component {
         break;
       case 4:
         cols[0] = cols[0].concat([
-          this.cardMd(3, "square")
+          this.cardMd(3, "square"),
+          <Mobile key={500}>{this.cardMd(1, "square", 1)}</Mobile>
         ]);
         cols[1] = cols[1].concat([
           this.cardMd(2, "landscape"),
@@ -70,11 +85,13 @@ export default class StoryGrid extends Component {
         break;
       case 5:
         cols[0] = cols[0].concat([
-          this.cardMd(3, "landscape")
+          this.cardMd(3, "landscape"),
+          <Mobile key={501}>{this.cardMd(1, "square", 1)}</Mobile>
         ]);
         cols[1] = cols[1].concat([
           this.cardMd(2, "landscape"),
-          this.cardMd(4, "square")
+          this.cardMd(4, "square"),
+          <Mobile key={500}>{this.about(1)}</Mobile>
         ]);
         cols[2] = cols[2].concat([
           this.cardMd(1, "square"),
@@ -84,11 +101,13 @@ export default class StoryGrid extends Component {
       case 6:
         cols[0] = cols[0].concat([
           this.cardMd(3, "landscape"),
-          this.cardMd(5, "landscape")
+          this.cardMd(5, "landscape"),
+          <Mobile key={501}>{this.cardMd(1, "square", 1)}</Mobile>
         ]);
         cols[1] = cols[1].concat([
           this.cardMd(2, "landscape"),
-          this.cardMd(4, "square")
+          this.cardMd(4, "square"),
+          <Mobile key={500}>{this.about(1)}</Mobile>
         ]);
         cols[2] = cols[2].concat([
           this.cardMd(1, "square"),
@@ -98,12 +117,15 @@ export default class StoryGrid extends Component {
       case 7:
         cols[0] = cols[0].concat([
           this.cardMd(3, "landscape"),
-          this.cardMd(5, "square")
+          this.cardMd(5, "square"),
+          <Mobile key={501}>{this.cardMd(1, "square", 1)}</Mobile>
+
         ]);
         cols[1] = cols[1].concat([
           this.cardMd(2, "landscape"),
           this.cardMd(4, "square"),
-          this.cardMd(6, "square")
+          this.cardMd(6, "square"),
+          <Mobile key={500}>{this.about(1)}</Mobile>
         ]);
         cols[2] = cols[2].concat([
           this.cardMd(1, "square"),
@@ -113,7 +135,7 @@ export default class StoryGrid extends Component {
     }
 
     cols = cols.map((col,i)=>(
-      <div className='col-lg-4'>
+      <div key={i} className={`col-md-6 col-lg-4 ${i==2 ? 'desktop-only' : ''}`}>
         {col}
       </div>
     ));

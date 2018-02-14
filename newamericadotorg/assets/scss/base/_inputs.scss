@@ -13,9 +13,9 @@ select {
 }
 
 input[type="submit"] {
-	border: 0;
+	border: 1px solid color(black);
+	background: transparent;
 	outline: 0;
-	font-size: 1rem;
 }
 
 input[type="text"], select {
@@ -38,7 +38,8 @@ input[type="text"] {
 	}
 	label.input__label {
 		position: absolute;
-		@include transition(all 0.15s ease);
+		@include transition(transform 0.15s ease);
+		@include transform(translateY(0));
 		top: 1.75em;
 		left: 0;
 		z-index: 0;
@@ -46,7 +47,7 @@ input[type="text"] {
 	input[type="text"]:active + label,
 	input[type="text"]:focus + label,
 	input[type="text"]:valid + label {
-		top: -1em;
+		@include transform(translateY(-2.75em));
 		color: color(black, base, 0.3);
 	}
 

@@ -1,0 +1,25 @@
+
+.program__story-grid{
+  .mobile-only{
+    display: none;
+
+    @include media-breakpoint(tablet){
+      display: block;
+    }
+
+    @include media-breakpoint(desktop){
+        display: none;
+    }
+  }
+
+  .desktop-only{
+    display: block;
+    @include media-breakpoint(tablet){
+      display: none;
+    }
+
+    @include media-breakpoint(desktop){
+      display: block;
+    }
+  }
+}
