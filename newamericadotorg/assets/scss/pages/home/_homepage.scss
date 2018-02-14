@@ -85,18 +85,11 @@
 }
 
 .homepage__events-section{
-<<<<<<< HEAD
-  .col-4{
-    position: relative;
-    opacity: 0;
-    @include transition(opacity 1s ease, transform 1s ease);
-    @include transform(translateY(50px));
-=======
+
   .col-md-4{
     @include transform(translateY(50px));
     opacity: 0;
     @include transition(opacity 1s ease, transform 1s ease);
->>>>>>> mobile
 
     &:nth-child(2){
       @include transition-delay(0.25s);
@@ -108,11 +101,7 @@
   }
 
   &.scroll-triggered {
-<<<<<<< HEAD
-    .col-4{
-=======
     .col-md-4{
->>>>>>> mobile
       @include transform(translateY(0px));
       opacity: 1;
     }
