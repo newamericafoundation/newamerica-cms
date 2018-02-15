@@ -24,8 +24,8 @@ const Lead = ({ article }) => (
       <div className="weekly-edition__lead__image">
         <Image image={article.story_image_lg} />
       </div>
-      <h1>{article.title}</h1>
-      <h3>{article.story_excerpt}</h3>
+      <h1 className="margin-25">{article.title}</h1>
+      <h3 className="margin-25">{article.story_excerpt}</h3>
       <ArticleAuthors authors={article.authors} />
     </Link>
   </div>
@@ -38,7 +38,7 @@ const Article = ({ article, index }) => (
       <div className="weekly-edition__articles__article__image">
         <Image image={article.story_image_sm} />
       </div>
-      <h3>
+      <h3 className="margin-15">
         {article.title}
       </h3>
       <ArticleAuthors authors={article.authors} />
@@ -71,7 +71,7 @@ export default class Edition extends Component {
         <CSSTransition
           classNames="weekly-edition-stagger"
           timeout={600}>
-          <div className="row gutter-10 scroll-target" {...attrs} key={edition.id}>
+          <div className="row margin-top-25 gutter-10 scroll-target" {...attrs} key={edition.id}>
             <div className="col-12">
               <Lead article={edition.articles[0]} edition={edition} />
             </div>

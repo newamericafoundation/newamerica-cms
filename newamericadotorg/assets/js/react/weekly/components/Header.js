@@ -103,7 +103,7 @@ export default class Header extends Component {
     let { edition } = this.props;
     let { editionListOpen } = this.state;
     return(
-      <header className={`weekly-edition__header${editionListOpen ? ' open' : ''}`}>
+      <header id="weekly__header" className={`weekly-edition__header${editionListOpen ? ' open' : ''}`}>
         <Route path="/weekly/:edition/" exact render={()=>(
           <Fetch name="weekly.editionList"
             component={EditionHeader}

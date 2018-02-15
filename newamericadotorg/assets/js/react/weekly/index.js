@@ -16,6 +16,12 @@ const Slide = ({children, ...props}) => (
   <CSSTransition
     {...props}
     classNames="weekly-slide"
+    onExiting={(el, isAppearing) => {
+      // if(el.classList.contains('weekly-edition')){
+      //   el.scrollTop = window.scrollY + 65 - 75;
+      //   console.log(window.scrollY);
+      // }
+    }}
     timeout={600}>
     {children}
   </CSSTransition>

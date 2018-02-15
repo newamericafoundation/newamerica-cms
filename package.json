@@ -46,6 +46,7 @@
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "smooth-scroll": "^12.1.5",
     "store": "^2.0.12",
     "url-polyfill": "^1.0.5",
     "vanilla-lazyload": "^7.2.1",

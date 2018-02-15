@@ -1,10 +1,8 @@
 .weekly-edition__articles__article{
   cursor: pointer;
 
-  &__title{
-    margin: 10px auto 0 auto;
-    display: block;
-    cursor: pointer;
+  h3, label{
+    max-width: 90%;
   }
   &__image img{
     width: 100%;
@@ -13,8 +11,8 @@
 }
 
 .weekly-edition__lead {
-  &__text{
-
+  h1, h3{
+    max-width: 90%;
   }
 
   &__image img{

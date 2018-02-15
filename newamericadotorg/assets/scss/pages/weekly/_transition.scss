@@ -34,9 +34,8 @@ $transition-function: .6s ease;
 
 .weekly-slide-exit{
   &.weekly-edition{
-    max-height: calc(100vh - #{$header-height});
-    overflow-x: hidden;
-    overflow-y: scroll;
+    // max-height: calc(100vh);
+    // overflow: hidden;
     @include transform(translate3d(-100vw, 0, 0));
   }
   &.weekly-article{
