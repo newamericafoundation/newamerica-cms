@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import Image from '../../components/Image';
+import { Doc } from '../../components/Icons';
 
 class Heading extends Component {
   render(){
@@ -10,7 +11,7 @@ class Heading extends Component {
         <div className="col-12">
           <div className="report__heading__title margin-80">
             <div className="report__heading__bug centered">
-              <i className="fa fa-file-text-o lg"></i>
+              <Doc />
               <label className="bold block centered margin-top-10 margin-bottom-25">Report</label>
             </div>
             <div className='report__heading__programs centered'>

@@ -6,3 +6,13 @@ export const Arrow = ({ direction }) => (
     <div />
   </div>
 );
+
+export const Doc = ({}) => (
+  <div className={`icon-doc`}>
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+);
