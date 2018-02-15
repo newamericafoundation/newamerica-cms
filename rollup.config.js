@@ -54,7 +54,7 @@ export default [
         },
 
         output: function(styles, styleNodes) {
-          postcss([cssnano({ discardUnused: false })])
+          postcss([cssnano({ discardUnused: false, zindex: false })])
             .process(styleNodes[0].content)
             .then(result => {
               var final = '{% load static from staticfiles %}';
@@ -64,7 +64,7 @@ export default [
                 final
               );
             });
-          postcss([cssnano({ discardUnused: false, reduceIndents: false })])
+          postcss([cssnano({ discardUnused: false, zindex: false })])
             .process(styleNodes[1].content)
             .then(result => {
               writeFile(

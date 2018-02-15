@@ -72,3 +72,26 @@
 		padding-left: 15px;
 	}
 }
+
+.weekly-edition__header__nav__sticky {
+	top: -$weekly-header-height;
+}
+
+.weekly-edition__header__nav.scroll-left .weekly-edition__header__nav__sticky {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: color(black);
+	width: 100vw;
+	@include transition(transform 0.35s ease, top 0.35s ease);
+	@include transform(translateY(0));
+
+	.container {
+		padding-left: 15px !important;
+		padding-right: 15px !important;
+	}
+}
+
+body.scroll-reverse .weekly-edition__header__nav.scroll-left .weekly-edition__header__nav__sticky {
+	@include transform(translateY(#{$header-height}));
+}

@@ -50,8 +50,14 @@ class Edition extends Component {
   state = {
     scrollPosition: 0
   }
+
+  componentWillMount(){
+    if(window.scrollY > 135)
+      window.scrollTo(0, 70)
+  }
+
   componentWillUpdate(prevProps){
-    if(this.props.scrollPosition != 70 && prevProps.scrollPosition != this.props.scrollPosition){
+    if(this.props.scrollPosition != 71 && this.state.scrollPosition != this.props.scrollPosition){
       this.setState({ scrollPosition: this.props.scrollPosition });
     }
   }

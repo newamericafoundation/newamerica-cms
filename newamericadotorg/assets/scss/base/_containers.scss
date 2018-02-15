@@ -37,12 +37,13 @@
     // padding-right: 0;
   }
 
+}
+
   /* containers that are nested get no padding by default */
-  [class*="container--"]:not(.container--full-width) .container {
+  [class*="container--"]:not(.container--full-width) .container, .container .container {
     padding-left: 0;
     padding-right: 0;
   }
-}
 
 .container {
   &--full-width{

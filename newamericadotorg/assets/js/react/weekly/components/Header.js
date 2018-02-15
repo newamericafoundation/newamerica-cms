@@ -56,16 +56,28 @@ const EditionHeader = ({ response: { results, hasNext, hasPrevious, params: { qu
   </div>
 );
 
-const ArticleHeader = ({ edition }) => (
-  <div className="container">
-    <div className="weekly-edition__header__nav">
-      <div className="weekly-edition__header__nav__btn">
-        <Link className="button--text with-caret--left white" to={edition.url}>{edition.number}</Link>
+class ArticleHeader extends Component {
+  componentDidMount(){
+    this.props.reloadScrollEvents();
+  }
+  render(){
+    let { edition } = this.props;
+    return (
+      <div className="container">
+        <div className="weekly-edition__header__nav scroll-target">
+          <div className="weekly-edition__header__nav__sticky">
+            <div className="container">
+              <div className="weekly-edition__header__nav__btn">
+                <Link className="button--text with-caret--left white" to={edition.url}>{edition.number}</Link>
+              </div>
+              <label className="button--text white margin-0 weekly-edition__header__nav__heading">New America Weekly</label>
+            </div>
+          </div>
+        </div>
       </div>
-      <label className="button--text white margin-0 weekly-edition__header__nav__heading">New America Weekly</label>
-    </div>
-  </div>
-);
+    );
+  }
+};
 
 
 export default class Header extends Component {
@@ -100,6 +112,13 @@ export default class Header extends Component {
     if(match.params.articleSlug && !prevProps.match.params.articleSlug) this.closeEditionList();
   }
 
+  reloadScrollEvents = () => {
+    this.props.dispatch({
+      type: 'RELOAD_SCROLL_EVENTS',
+      component: 'site'
+    });
+  }
+
   render(){
     let { edition } = this.props;
     let { editionListOpen } = this.state;
@@ -122,7 +141,7 @@ export default class Header extends Component {
             }}/>
         )}/>
         <Route path="/weekly/:edition/:article/" exact render={()=>(
-          <ArticleHeader edition={edition} />
+          <ArticleHeader edition={edition} reloadScrollEvents={this.reloadScrollEvents} />
         )} />
       </header>
     );

@@ -35,7 +35,9 @@ class Routes extends Component {
     let { response: { results }, location, match } = this.props;
     return (
       <main>
-        <Route path="/weekly/:editionSlug/:articleSlug?" render={(props)=>(<Header {...props} edition={results} />)} />
+        <Route path="/weekly/:editionSlug/:articleSlug?" render={(props)=>(
+          <Header dispatch={this.props.dispatch} {...props} edition={results} />
+        )} />
         <TransitionGroup className="weekly-slide-wrapper">
           <Slide key={match.params.articleSlug ? 'article' : 'edition'}>
             <Switch location={location}>

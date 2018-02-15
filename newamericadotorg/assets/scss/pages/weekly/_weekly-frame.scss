@@ -1,8 +1,15 @@
 .weekly-frame {
   width: 100vw;
   white-space: normal;
+  background: color(white);
+  opacity: 1;
 }
 
 .weekly-edition {
   padding-top: 150px;
+  z-index: 1;
+}
+
+.weekly-article {
+  z-index: 0;
 }
