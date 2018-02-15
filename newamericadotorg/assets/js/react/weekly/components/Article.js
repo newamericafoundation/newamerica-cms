@@ -23,10 +23,6 @@ class Article extends Component {
     if(this.props.scrollPosition != 70 && this.state.scrollPosition != this.props.scrollPosition){
       this.setState({ scrollPosition: this.props.scrollPosition });
     }
-      console.log(prevProps.scrollPosition);
-      console.log(this.props.scrollPosition);
-      console.log(this.state.scrollPosition);
-      console.log('\n');
   }
 
   getArticle = () => {
@@ -37,7 +33,7 @@ class Article extends Component {
   render(){
     let { edition } = this.props;
     let { article } = this.state;
-    //console.log(this.state.scrollPosition)
+    
     return (
       <section className="weekly-article weekly-frame" style={{ top: `${-this.state.scrollPosition + 65 + 70}px`}}
         dangerouslySetInnerHTML={{__html: article.post }}>

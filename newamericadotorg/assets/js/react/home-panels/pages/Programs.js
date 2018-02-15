@@ -59,7 +59,6 @@ class Programs extends Component {
 
   render(){
     let { windowWidth } = this.props;
-    console.log(windowWidth);
     return (
       <div className="home__panel__promo home__panel__programs">
         <div className="container--1080">

@@ -38,6 +38,7 @@ class Fetch extends Component {
     let { className, showLoading, component, transition, fetchOnMount, renderIfNoResults, children } = this.props;
     let { isFetching, results, hasResults} = this.props.response;
 
+    if(component===null) return null;
     if(!hasResults && fetchOnMount){
       if(showLoading) return (<div className="loading-icon-container"><LoadingIcon /></div>);
       return null;

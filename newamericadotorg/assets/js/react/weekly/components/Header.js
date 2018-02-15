@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Fetch } from '../../components/API';
+import { Fetch, Response } from '../../components/API';
 import Image from '../../components/Image';
 import { Arrow } from '../../components/Icons';
 import EditionList from './EditionList';
@@ -124,21 +124,23 @@ export default class Header extends Component {
     let { editionListOpen } = this.state;
     return(
       <header id="weekly__header" className={`weekly-edition__header${editionListOpen ? ' open' : ''}`}>
+        <Fetch name="weekly.editionList"
+          component={null}
+          endpoint="weekly"
+          fetchOnMount={true}
+          eager={true}
+          initialQuery={{
+            page_size: 9,
+            page: this.state.page
+          }}/>
         <Route path="/weekly/:edition/" exact render={()=>(
-          <Fetch name="weekly.editionList"
-            component={EditionHeader}
-            endpoint="weekly"
-            fetchOnMount={true}
-            eager={true}
-            edition={edition}
-            editionListOpen={this.state.editionListOpen}
-            toggleEditionList={this.toggleEditionList}
-            prevEditionPage={this.prevEditionPage}
-            nextEditionPage={this.nextEditionPage}
-            initialQuery={{
-              page_size: 9,
-              page: this.state.page
-            }}/>
+          <Response name="weekly.editionList"
+              component={EditionHeader}
+              edition={edition}
+              editionListOpen={this.state.editionListOpen}
+              toggleEditionList={this.toggleEditionList}
+              prevEditionPage={this.prevEditionPage}
+              nextEditionPage={this.nextEditionPage}/>
         )}/>
         <Route path="/weekly/:edition/:article/" exact render={()=>(
           <ArticleHeader edition={edition} reloadScrollEvents={this.reloadScrollEvents} />
