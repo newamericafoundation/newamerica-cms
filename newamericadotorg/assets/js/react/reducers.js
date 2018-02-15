@@ -4,7 +4,7 @@ import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, TRIGGER_SCROLL_EVENTS, SET_AD_HOC_STATE,
   SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_IS_OPEN, TOGGLE_MOBILE_MENU,
-  SET_SITE_BASEURL, SITE_IS_LOADING, TOGGLE_SEARCH
+  SET_SITE_BASEURL, SITE_IS_LOADING, TOGGLE_SEARCH, SET_WINDOW_WIDTH
 } from './constants';
 
 // reducers
@@ -88,12 +88,22 @@ const isLoading = (state=false, action) => {
   }
 }
 
+const windowWidth = (state=document.documentElement.clientWidth, action) => {
+  switch(action.type){
+    case SET_WINDOW_WIDTH:
+      return action.width;
+    default:
+      return state;
+  }
+}
+
 let reducer = combineReducers({
   scroll,
   searchIsOpen,
   mobileMenuIsOpen,
   baseUrl,
-  isLoading
+  isLoading,
+  windowWidth
 });
 
 const siteReducer = (state, action) => {

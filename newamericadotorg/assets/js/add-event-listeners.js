@@ -17,6 +17,17 @@ let listeners = [
     window.addEventListener('touchmove', onscroll, true);
   },
 
+
+  function onResize() {
+    let timeout = 0;
+    let onresize = (e) => {
+      requestAnimationFrame(()=>{
+        actions.setWindowWidth(document.documentElement.clientWidth);
+      });
+    }
+    window.addEventListener('resize', onresize );
+  },
+
   // function fadeInImages(){
   //   let images = document.querySelectorAll('.fade-in-image');
   //   if(images){
