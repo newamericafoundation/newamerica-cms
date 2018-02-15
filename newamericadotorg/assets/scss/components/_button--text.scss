@@ -3,7 +3,7 @@
     border-bottom: 1.5px solid color(turquoise);
   }
   $caret-padding: 10px;
-  &.with-caret, &.with-caret--right {
+  &.with-caret, &.with-caret--right, &.with-caret--down, &.with-caret--up{
     padding-right: $caret-padding;
     &:after {
       content: ' ';
@@ -20,10 +20,18 @@
     }
   }
 
-  &.with-caret--right {
-    &:after{
-      @include transform(rotate(-45deg));
-    }
+  &.with-caret--right:after {
+    @include transform(rotate(-45deg));
+  }
+
+  &.with-caret--down:after {
+    top: -2px;
+    @include transform(rotate(45deg));
+  }
+
+  &.with-caret--up:after {
+    top: 1px;
+    @include transform(rotate(-135deg));
   }
 
   &.with-caret--left{
@@ -44,14 +52,25 @@
   }
 }
 
+.button--text.with-caret--right,
+.button--text.with-caret--down,
+.button--text.with-caret--up,
+label.bold.with-caret--right
+label.bold.with-caret--down,
+label.bold.with-caret--up{
+  &:after{
+    border-right: 1.5px solid color(black);
+    border-bottom: 1.5px solid color(black);
+  }
+}
+
 .button--text.with-caret--left:before,
 label.bold.with-caret--left:before{
   border-left: 1.5px solid color(black);
   border-bottom: 1.5px solid color(black);
 }
 
-.button--text.with-caret--right:after,
-label.bold.with-caret--right:after{
-  border-right: 1.5px solid color(black);
-  border-bottom: 1.5px solid color(black);
+.white[class*="with-caret"]:after,
+.white[class*="with-caret"]:before{
+  border-color: color(white);
 }

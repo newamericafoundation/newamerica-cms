@@ -17,7 +17,7 @@ class Routes extends Component {
     let { response: { results }, location, match } = this.props;
     return (
       <main>
-        <Route path="/weekly/:edition/" render={()=>(<Header edition={results} />)} />
+        <Route path="/weekly/:editionSlug/:articleSlug?" render={(props)=>(<Header {...props} edition={results} />)} />
         <CSSTransitionGroup
           className="weekly-page-fade-wrapper"
           transitionName="weekly-page-fade"
@@ -54,6 +54,7 @@ class APP extends Component {
               <Fetch name='weekly.edition'
                 endpoint={`weekly/${editionId}`}
                 fetchOnMount={true}
+                eager={true}
                 component={Routes}
                 location={location}
                 match={match}/>
