@@ -36,6 +36,8 @@ $transition-function: .6s ease;
   &.weekly-edition{
     // max-height: calc(100vh);
     // overflow: hidden;
+    position: fixed;
+    z-index: 0;
     @include transform(translate3d(-100vw, 0, 0));
   }
   &.weekly-article{
@@ -77,41 +79,45 @@ $transition-function: .6s ease;
   }
 }
 
-.weekly-edition-stagger-enter, .weekly-edition-stagger-appear{
-  .weekly-edition-grid__article-list__item{
-    @include transform(translate3d(0, 300px, 0));
-    opacity: 0;
-  }
-  .weekly-edition-grid__lead, .weekly-edition-grid__edition-list{
-    opacity: 0;
-  }
-  &.weekly-edition-stagger-enter-active, &.weekly-edition-stagger-appear-active{
-    .weekly-edition-grid__article-list__item{
-      @include transition(all 1s ease);
-      transition-delay: 5s;
+.weekly-edition__heading{
+    h1, p {
+      @include transition(transform $transition-function, opacity $transition-function);
       opacity: 1;
-      @include transform(translate3d(0, 0, 0));
+      @include transform(translateY(0));
     }
 
-    .weekly-edition-grid__lead, .weekly-edition-grid__edition-list{
-      @include transition(all 1s ease);
-      opacity: 1;
+    p {
+      @include transition-delay(0.3s);
     }
-    .weekly-edition-grid__edition-list{
-      @include transition-delay(.1s);
-    }
-  }
 }
 
-.weekly-edition-stagger-leave{
-  & > * {
-    opacity: 1;
-  }
+.section-separator {
+  @include transition(transform $transition-function, opacity $transition-function);
+  @include transition-delay(0.6s);
+  opacity: 1;
+  @include transform(translateY(0));
+}
 
-  &.weekly-edition-stagger-leave-active{
-    & > * {
-      @include transition(all .6s ease);
+.weekly-edition__articles {
+  @include transition(opacity 2s ease);
+  @include transition-delay(1.1s);
+  opacity: 1;
+}
+
+.weekly-stagger-enter{
+  .weekly-edition__heading{
+    h1, p {
+      @include transform(translateY(40px));
       opacity: 0;
     }
+  }
+
+  .section-separator {
+    @include transform(translateY(40px));
+    opacity: 0;
+  }
+
+  .weekly-edition__articles {
+    opacity: 0;
   }
 }

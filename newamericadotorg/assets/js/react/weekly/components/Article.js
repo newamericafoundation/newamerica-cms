@@ -20,10 +20,8 @@ export default class Article extends Component {
   }
 
   componentWillMount(){
-    //setTimeout(()=>{ this.state.smoothScroll.animateScroll(70, { speed: 600 }) }, 600 );
-    //setTimeout(()=>{ window.scrollTo(0, 70); }, 150);
-    window.scrollTo(0, 70)
-    //this.props.dispatch(reloadScrollEvents());
+    if(window.scrollY > 135)
+      window.scrollTo(0, 70)
   }
 
   render(){

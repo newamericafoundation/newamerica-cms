@@ -3,7 +3,7 @@
   .report__social__item {
     @include media-breakpoint-down(desktop){
         box-shadow: inset 0px 1px 0px 0px color(black, base, 0.0),
-        inset 0px -1px 0px 0px color(black, base, 0.0);
+        inset 0px -1px 0px 0px color(black, base, 0.0) !important;
     }
   }
 

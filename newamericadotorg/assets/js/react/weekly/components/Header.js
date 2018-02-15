@@ -62,6 +62,7 @@ const ArticleHeader = ({ edition }) => (
       <div className="weekly-edition__header__nav__btn">
         <Link className="button--text with-caret--left white" to={edition.url}>{edition.number}</Link>
       </div>
+      <label className="button--text white margin-0 weekly-edition__header__nav__heading">New America Weekly</label>
     </div>
   </div>
 );

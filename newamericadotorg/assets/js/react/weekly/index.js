@@ -16,18 +16,21 @@ const Slide = ({children, ...props}) => (
   <CSSTransition
     {...props}
     classNames="weekly-slide"
-    onExiting={(el, isAppearing) => {
-      // if(el.classList.contains('weekly-edition')){
-      //   el.scrollTop = window.scrollY + 65 - 75;
-      //   console.log(window.scrollY);
-      // }
-    }}
     timeout={600}>
     {children}
   </CSSTransition>
 );
 
 class Routes extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      mounted: false
+    }
+  }
+  componentDidMount(){
+    this.setState({ mounted: true });
+  }
   render(){
     let { response: { results }, location, match } = this.props;
     return (
@@ -44,7 +47,7 @@ class Routes extends Component {
               <Route
                 path="/weekly/:editionSlug/"
                 render={(props)=>(
-                  <Edition edition={results} {...props} />
+                  <Edition transition={this.state.mounted} edition={results} {...props} />
                 )}/>
             </Switch>
           </Slide>

@@ -46,45 +46,53 @@ const Article = ({ article, index }) => (
   </div>
 );
 
-export default class Edition extends Component {
-  componentDidMount(){
-    //this.props.dispatch(reloadScrollEvents());
+class Edition extends Component {
+  state = {
+    scrollPosition: 0
   }
-  componentWillLeave() {
-    console.log('leave!');
+  componentWillUpdate(prevProps){
+    if(this.props.scrollPosition != 70 && prevProps.scrollPosition != this.props.scrollPosition){
+      this.setState({ scrollPosition: this.props.scrollPosition });
+    }
   }
   render(){
-    let { edition } = this.props;
+    let { edition, transition, scrollPosition } = this.props;
     let articles = edition.articles.slice(1,edition.articles.length);
-    let attrs =  {
-      'data-scroll-top-offset':'-25',
-      'data-scroll-bottom-offset': '-100vh'
-    }
     return(
-      <section className="weekly-edition weekly-frame">
-        <div className="container--1080">
-        <div className="weekly-edition__heading margin-bottom-80">
-          <h1 className="centered promo margin-top-0 margin-bottom-25">New America Weekly</h1>
-          <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>
-        </div>
-        <Separator text={edition.number}/>
-        <CSSTransition
-          classNames="weekly-edition-stagger"
-          timeout={600}>
-          <div className="row margin-top-25 gutter-10 scroll-target" {...attrs} key={edition.id}>
-            <div className="col-12">
-              <Lead article={edition.articles[0]} edition={edition} />
-            </div>
-            {articles.map((a,i) => (
-              <div key={`artcile-${i}`} className="col-6 col-md-4">
-                <Article key={`article-${i}`} article={a} index={i}/>
-              </div>
-            ))}
+      <CSSTransition
+        classNames="weekly-stagger"
+        in={transition}
+        appear={true}
+        onExiting={(e,a)=>{ this.setState({ scrollPosition: scrollPosition }); }}
+        timeout={600}>
+        <section className="weekly-edition weekly-frame" style={{ top: `${-this.state.scrollPosition + 65 + 70}px`}}>
+          <div className="container--1080">
+          <div className="weekly-edition__heading margin-bottom-80">
+            <h1 className="centered promo margin-top-0 margin-bottom-25">New America Weekly</h1>
+            <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>
           </div>
-        </CSSTransition>
-        <ScrollToTop />
-        </div>
-      </section>
+          <Separator text={edition.number}/>
+
+            <div className="row margin-top-25 gutter-10 weekly-edition__articles" key={edition.id}>
+              <div className="col-12">
+                <Lead article={edition.articles[0]} edition={edition} />
+              </div>
+              {articles.map((a,i) => (
+                <div key={`artcile-${i}`} className="col-6 col-md-4">
+                  <Article key={`article-${i}`} article={a} index={i}/>
+                </div>
+              ))}
+            </div>
+          <ScrollToTop />
+          </div>
+        </section>
+      </CSSTransition>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  scrollPosition : state.site.scroll.position
+});
+
+export default Edition = connect(mapStateToProps)(Edition);
