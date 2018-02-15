@@ -2,7 +2,7 @@ const Authors = ({ authors }) => (
   <div className="report__authors">
     <div className="report__authors__desktop">
     <label className="block margin-top-0 margin-bottom-25">Authors</label>
-    {authors.map((a)=>(
+    {authors.map((a, i)=>(
       <div className="report__authors__item margin-bottom-25" key={`author-${i}`}>
         <label className="block bold">{`${a.first_name} ${a.last_name}`}</label>
         <label className="block caption">{a.position}</label>

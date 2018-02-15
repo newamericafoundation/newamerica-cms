@@ -12,7 +12,7 @@ class Social extends Component {
   render(){
     return (
       <div className="report__social">
-        {this.social().map((s)=>(
+        {this.social().map((s, i)=>(
           <div className={`report__social__item margin-bottom-15 ${s.id}`} key={`social-${i}`}>
             <a href={s.url} target="_blank" >
               <i className={`fa ${s.icon}`} />
