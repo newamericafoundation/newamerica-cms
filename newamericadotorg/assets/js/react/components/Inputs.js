@@ -13,9 +13,10 @@ export const CheckBox = (props) => (
   </label>
 );
 
-export const Text = (props) => (
+export const Text = ({ children, ...props}) => (
   <div className="input">
     <input type="text" required {...props} />
     <label className="input__label button--text">{props.label}</label>
+    {children}
   </div>
 );

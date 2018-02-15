@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import ScrollToTop from './ScrollToTop';
 import Image from '../../components/Image';
 import Separator from '../../components/Separator';
+import { Text } from '../../components/Inputs'
 
 const ArticleAuthors = ({ authors }) => (
   <label className="block subtitle">
@@ -46,6 +47,21 @@ const Article = ({ article, index }) => (
   </div>
 );
 
+const Subscribe = () => (
+		<div className="weekly-edition__subscribe margin-top-60">
+			<h1 className="margin-top-35 margin-bottom-0">
+				Be the first to hear about the latest events and research from New America.
+			</h1>
+			<div className="homepage__subscribe-section__email-input margin-top-35">
+				<form action="/subscribe/?email=value" method="get">
+          <Text name="email" label="Email Address">
+            <button type="submit" className="button--text input__submit with-caret--right">Go</button>
+          </Text>
+				</form>
+			</div>
+		</div>
+)
+
 class Edition extends Component {
   state = {
     scrollPosition: 0
@@ -73,13 +89,12 @@ class Edition extends Component {
         timeout={600}>
         <section className="weekly-edition weekly-frame" style={{ top: `${-this.state.scrollPosition + 65 + 70}px`}}>
           <div className="container--1080">
-          <div className="weekly-edition__heading margin-bottom-80">
-            <h1 className="centered promo margin-top-0 margin-bottom-25">New America Weekly</h1>
-            <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>
-          </div>
-          <Separator text={edition.number}/>
-
-            <div className="row margin-top-25 gutter-10 weekly-edition__articles" key={edition.id}>
+            <div className="weekly-edition__heading margin-bottom-80">
+              <h1 className="centered promo margin-top-0 margin-bottom-25">New America Weekly</h1>
+              <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>
+            </div>
+            <Separator text={edition.number}/>
+            <div className="row margin-top-25 margin-bottom-35 gutter-10 weekly-edition__articles" key={edition.id}>
               <div className="col-12">
                 <Lead article={edition.articles[0]} edition={edition} />
               </div>
@@ -89,7 +104,8 @@ class Edition extends Component {
                 </div>
               ))}
             </div>
-          <ScrollToTop />
+            <Separator text="Subscribe"/>
+            <Subscribe />
           </div>
         </section>
       </CSSTransition>
