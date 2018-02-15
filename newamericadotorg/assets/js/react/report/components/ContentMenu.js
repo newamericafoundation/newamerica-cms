@@ -29,7 +29,7 @@ class ContentMenu extends Component {
     return (
       <div className="report__content-menu">
         {sections.map((s,i)=>(
-          <span className={this.state.expanded[s.title] ? 'expanded' : ''}>
+          <span className={this.state.expanded[s.title] ? 'expanded' : ''} key={`section-${i}`}>
             <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`}>
               <Link to={`${url}${s.slug}/`} onClick={()=>{this.closeMenu(s.title);}}>
                 <label className="white">{s.title}</label>
@@ -39,7 +39,7 @@ class ContentMenu extends Component {
             <span className='report__content-menu__item__subsections'
               style={{ maxHeight: this.state.expanded[s.title] ? `${80*(s.subsections.length)}px` : 0}}>
             {s.subsections.map((sub,i)=>(
-              <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`} onClick={closeMenu}>
+              <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`} onClick={closeMenu} key={`sub-${i}`}>
                 <Link to={`${url}${s.slug}/#${sub.slug}`}>
                   <label className="report__content-menu__item__subsections__label block">{sub.title}</label>
                 </Link>
