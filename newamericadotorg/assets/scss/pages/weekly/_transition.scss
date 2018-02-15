@@ -1,18 +1,18 @@
 $transition-function: .6s ease;
 
-.weekly-page-fade-wrapper {
+.weekly-slide-wrapper {
   white-space: nowrap;
   display: block;
 }
 
-.weekly-page-fade-enter-active, .weekly-page-fade-leave-active{
+.weekly-slide-enter-active, .weekly-slide-exit-active{
   &.weekly-frame {
     display: inline-block;
     vertical-align: top;
   }
 }
 
-.weekly-page-fade-enter{
+.weekly-slide-enter{
 
   &.weekly-edition{
     @include transform(translate3d(-125vw, 0, 0));
@@ -20,7 +20,7 @@ $transition-function: .6s ease;
   &.weekly-article{
     @include transform(translate3d(125vw, 0, 0));
   }
-  &.weekly-page-fade-enter-active{
+  &.weekly-slide-enter-active{
     &.weekly-edition{
       @include transform(translate3d(0, 0, 0));
       @include transition(transform $transition-function);
@@ -32,7 +32,7 @@ $transition-function: .6s ease;
   }
 }
 
-.weekly-page-fade-leave{
+.weekly-slide-exit{
   &.weekly-edition{
     max-height: calc(100vh - #{$header-height});
     overflow-x: hidden;
@@ -42,7 +42,7 @@ $transition-function: .6s ease;
   &.weekly-article{
     @include transform(translate3d(-100vw, 0, 0));
   }
-  &.weekly-page-fade-leave-active{
+  &.weekly-slide-exit-active{
     &.weekly-edition{
       @include transform(translate3d(-225vw, 0, 0));
       @include transition(transform $transition-function);
@@ -51,6 +51,30 @@ $transition-function: .6s ease;
       @include transform(translate3d(0, 0, 0));
       @include transition(transform $transition-function);
     }
+  }
+}
+
+.edition-list-fade-wrapper{
+  display: block;
+  position: relative;
+}
+
+.weekly-edition__edition-list{
+  @include transition(opacity 0.3s ease);
+  opacity: 1;
+}
+
+.edition-list-fade-exit{
+  position: absolute;
+  top: -25px;
+  left: 0;
+  opacity: 0;
+}
+
+.edition-list-fade-enter{
+  opacity: 0;
+  &.edition-list-appear-enter-active{
+    opacity: 1;
   }
 }
 

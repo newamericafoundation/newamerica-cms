@@ -1,5 +1,7 @@
 $weekly-header-height: 65px;
-
+#compose__weekly{
+  min-height: 100vh;
+}
 @import 'mixins';
 @import 'article';
 @import 'header';

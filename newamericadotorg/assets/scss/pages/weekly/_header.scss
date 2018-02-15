@@ -6,8 +6,10 @@
 	overflow-x: hidden;
 
 	&.open {
-		max-height: 800px;
-		overflow-y: scroll;
+		max-height: 2000px;
+		@include media-breakpoint(desktop){
+			max-height: 800px;
+		}
 	}
 
 	&__nav{
@@ -17,10 +19,49 @@
 	&__nav__btn {
 		height: 100%;
 		display: inline-block;
+		vertical-align: top;
 		cursor: pointer;
 		label, a {
 			display: block;
 			line-height: $weekly-header-height;
 		}
+	}
+
+	&__page{
+		display: inline-block;
+		vertical-align: top;
+		float: right;
+		@extend %clearfix;
+
+		@include media-breakpoint(desktop){
+			margin-right: 65px;
+		}
+	}
+
+	.next-page, .prev-page{
+		display: inline-block;
+		cursor: pointer;
+		line-height: $weekly-header-height;
+
+		.icon-arrow, span {
+			vertical-align: middle;
+			display: inline-block;
+		}
+	}
+
+	.next-page{
+		float: right;
+	}
+
+	.prev-page{
+		padding-right: 35px;
+	}
+
+	.next-page span{
+		padding-right: 15px;
+	}
+
+	.prev-page span {
+		padding-left: 15px;
 	}
 }

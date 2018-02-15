@@ -18,7 +18,7 @@ export default class Article extends Component {
   }
 
   componentWillMount(){
-    window.scrollTo(0,75);
+    window.scrollTo(0,70);
     //this.props.dispatch(reloadScrollEvents());
   }
 

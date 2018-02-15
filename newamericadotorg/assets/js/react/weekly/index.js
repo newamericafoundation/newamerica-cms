@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
-import { CSSTransitionGroup } from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fetch, Response } from '../components/API';
@@ -12,30 +12,37 @@ import EditionList from './components/EditionList';
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 
+const Slide = ({children, ...props}) => (
+  <CSSTransition
+    {...props}
+    classNames="weekly-slide"
+    timeout={600}>
+    {children}
+  </CSSTransition>
+);
+
 class Routes extends Component {
   render(){
     let { response: { results }, location, match } = this.props;
     return (
       <main>
         <Route path="/weekly/:editionSlug/:articleSlug?" render={(props)=>(<Header {...props} edition={results} />)} />
-        <CSSTransitionGroup
-          className="weekly-page-fade-wrapper"
-          transitionName="weekly-page-fade"
-          transitionEnterTimeout={600}
-          transitionLeaveTimeout={600}>
-          <Switch key={match.params.articleSlug ? 'article' : 'edition'} location={location}>
-            <Route
-              path="/weekly/:editionSlug/:articleSlug/"
-              render={(props)=>(
-                <Article edition={results} {...props} />
-              )}/>
-            <Route
-              path="/weekly/:editionSlug/"
-              render={(props)=>(
-                <Edition edition={results} {...props} />
-              )}/>
-          </Switch>
-        </CSSTransitionGroup>
+        <TransitionGroup className="weekly-slide-wrapper">
+          <Slide key={match.params.articleSlug ? 'article' : 'edition'}>
+            <Switch location={location}>
+              <Route
+                path="/weekly/:editionSlug/:articleSlug/"
+                render={(props)=>(
+                  <Article edition={results} {...props} />
+                )}/>
+              <Route
+                path="/weekly/:editionSlug/"
+                render={(props)=>(
+                  <Edition edition={results} {...props} />
+                )}/>
+            </Switch>
+          </Slide>
+        </TransitionGroup>
       </main>
     );
   }

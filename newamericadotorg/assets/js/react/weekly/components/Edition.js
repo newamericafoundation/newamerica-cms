@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Component } from 'react';
 import smoothScroll from '../../../utils/smooth-scroll';
 import { Response } from '../../components/API';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import { reloadScrollEvents, setMenuState } from '../actions';
 import { connect } from 'react-redux';
 import ScrollToTop from './ScrollToTop';
@@ -68,12 +68,9 @@ export default class Edition extends Component {
           <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>
         </div>
         <Separator text={edition.number}/>
-        <CSSTransitionGroup
-          transitionAppear={true}
-          transitionAppearTimeout={2000}
-          transitionName="weekly-edition-stagger"
-          transitionEnterTimeout={2000}
-          transitionLeaveTimeout={600}>
+        <CSSTransition
+          classNames="weekly-edition-stagger"
+          timeout={600}>
           <div className="row gutter-10 scroll-target" {...attrs} key={edition.id}>
             <div className="col-12">
               <Lead article={edition.articles[0]} edition={edition} />
@@ -84,7 +81,7 @@ export default class Edition extends Component {
               </div>
             ))}
           </div>
-        </CSSTransitionGroup>
+        </CSSTransition>
         <ScrollToTop />
         </div>
       </section>

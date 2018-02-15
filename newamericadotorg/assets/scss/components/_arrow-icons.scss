@@ -9,6 +9,10 @@
     background: color(black, base, 1);
   }
 
+  &.white > * {
+    background: color(white, base, 1);
+  }
+
   & > :first-child{
     @include vertical-center;
     width: 100%;
