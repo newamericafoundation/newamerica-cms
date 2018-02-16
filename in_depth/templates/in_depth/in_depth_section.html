@@ -11,7 +11,15 @@
 	{% endif %}
     <script>
       $(document).ready(function(){
-        newamericadotorg.actions.addScrollEvent({
+      	newamericadotorgEvents();
+      });
+
+			function newamericadotorgEvents(){
+				if(!newamericadotorg){
+					setTimeout(newamericadotorgEvents, 500);
+					return;
+				}
+				newamericadotorg.actions.addScrollEvent({
           selector: '.in-depth__panel',
           triggerPoint: 'bottom',
           onEnter: function(el){
@@ -34,7 +42,7 @@
           var panel = document.querySelector(id);
           newamericadotorg.actions.smoothScroll(panel);
         });
-      });
+			}
 
     </script>
 {% endblock %}
