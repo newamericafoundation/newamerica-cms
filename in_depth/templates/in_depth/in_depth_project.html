@@ -42,7 +42,7 @@
 				{% if page.buttons %}
 					<div class="title-panel__button-container margin-top-35">
 						{% for button in page.buttons %}
-							<a class="button white-outline" href="{{ button.value.button_url }}">{{ button.value.button_text }}</a>
+							<a class="button white-outline margin-bottom-5" href="{{ button.value.button_url }}">{{ button.value.button_text }}</a>
 						{% endfor %}
 					</div>
 				{% endif %}
@@ -50,7 +50,11 @@
 		</div>
 	</section>
 	{% if story_image.image.source %}
+		{% if page.body %}
 		<label class="caption" style="padding-left:10px">Photo: {{ story_image.image.source}}</label>
+		{% else %}
+			<label class="caption white" style="padding-left:10px; position: absolute;z-index: 5;">Photo: {{ story_image.image.source}}</label>
+		{% endif %}
 	{% endif %}
 
 	{% if page.body %}
@@ -70,7 +74,7 @@
 	{% endif %}
 
 	{% if project_sections|length > 0 %}
-		<section class="in-depth__panel contents-panel container--full-width black margin-top-80">
+		<section class="in-depth__panel contents-panel container--full-width black{% if page.body %}margin-top-80{% endif %}">
 			<div class="container--800">
 				<h2 class="contents-panel__heading white margin-bottom-35">Contents</h2>
 				{% for section in project_sections.specific %}
