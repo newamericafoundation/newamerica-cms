@@ -20,9 +20,9 @@
 .title-panel__text-box{
   position: absolute;
   z-index: 10;
+  max-width: 700px;
 
   &.home-title{
-    max-width: 600px;
     @include center;
   }
 
