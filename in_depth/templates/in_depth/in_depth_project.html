@@ -74,7 +74,7 @@
 	{% endif %}
 
 	{% if project_sections|length > 0 %}
-		<section class="in-depth__panel contents-panel container--full-width black{% if page.body %}margin-top-80{% endif %}">
+		<section class="in-depth__panel contents-panel container--full-width black{% if page.body %} margin-top-80{% endif %}">
 			<div class="container--800">
 				<h2 class="contents-panel__heading white margin-bottom-35">Contents</h2>
 				{% for section in project_sections.specific %}
