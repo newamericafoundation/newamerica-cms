@@ -1,7 +1,7 @@
-	
+
 	<div class="dataviz">
 		<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}">
-			{% if self.title %}	
+			{% if self.title %}
 				<a id="{{ self.title|slugify }}" class="in-depth__panel__anchor"></a>
 				<div class="dataviz__icon">{% include 'components/svg/new-america-mini.html' %}</div>
 			{% else %}
@@ -16,13 +16,12 @@
 				<a class="dataviz__icon dataviz__share-link" id="{{ self.container_id }}__share-link">{% include 'components/svg/share.html' %}</a>
 				<h5 class="dataviz__icon-label dataviz__share-link-label" id="{{ self.container_id }}__share-link">Share</h5>
 
-				<div class="dataviz__share-popup">
+				<!-- <div class="dataviz__share-popup">
 					<div class="dataviz__popup__icons"></div>
-				</div>
-				<div class="dataviz__embed-popup">	
+				</div> -->
+				<div class="dataviz__embed-popup">
 					<div class="dataviz__embed-popup__content">&lt;iframe width=&quot;{{ self.max_width }}&quot; height=&quot;{{ self.max_width }}&quot; src=&quot;https://newamericafoundation.github.io/newamerica-data-projects/?project={{ page.data_project_external_script|cut:".js" }}&amp;vizId={{ self.container_id }}&quot;&gt;&lt;/iframe&gt;</div>
 				</div>
-
 			{% endif %}
 
 			{% if self.title %}

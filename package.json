@@ -32,8 +32,12 @@
   },
   "homepage": "https://github.com/newamericafoundation/newamerica-cms#readme",
   "dependencies": {
+    "bowser": "^1.9.2",
     "date-fns": "^1.28.5",
+    "detect-browser": "^2.0.0",
+    "dom-to-image": "^2.6.0",
     "moment": "^2.18.1",
+    "os": "^0.1.1",
     "prop-types": "^15.5.10",
     "react": "^16.2.0",
     "react-addons-shallow-compare": "^15.6.0",

@@ -45,6 +45,10 @@ export default class Publications extends Component {
       initQuery.after = params.get('after');
     if(params.get('before'))
       initQuery.before = params.get('before');
+    if(params.get('dataViz'))
+      initQuery.data_viz = params.get('dataViz');
+
+    console.log(initQuery);
 
     if(type) initQuery.content_type = type.api_name;
 

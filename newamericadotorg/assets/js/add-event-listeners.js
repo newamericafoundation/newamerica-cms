@@ -1,6 +1,7 @@
 import actions from './react/actions';
 import store from './react/store';
 import triggerScrollEvents from './utils/trigger-scroll-events';
+import dataVizEvents from './data-viz-events';
 
 let listeners = [
   function onScroll() {
@@ -28,15 +29,6 @@ let listeners = [
     window.addEventListener('resize', onresize );
   },
 
-  // function fadeInImages(){
-  //   let images = document.querySelectorAll('.fade-in-image');
-  //   if(images){
-  //     for(let i = 0; i<images.length; i++){
-  //       images[i].onload = function(){ this.classList.add('loaded'); }
-  //     }
-  //   }
-  // },
-
   function openSearch(){
     let search = document.querySelector('.header__nav__search');
     if(!search) return;
@@ -61,17 +53,6 @@ let listeners = [
     });
   },
 
-  function anchorLinkClick(){
-    let anchors = document.getElementsByClassName('anchor-link');
-    for(let i = 0; i < anchors.length; i++) {
-      anchors[i].addEventListener('click', function(e){
-        let offset = this.getAttribute('data-anchor-offset') || 0;
-        actions.smoothScroll(this.getAttribute('href'), { offset: +offset });
-        e.preventDefault();
-      });
-    }
-  },
-
   function menuToggle(){
     let menu = document.getElementById('mobile-menu-toggle');
     if(!menu) return;
@@ -82,6 +63,8 @@ let listeners = [
       });
     });
   },
+
+  dataVizEvents,
 
   function scrollTarget(){
     actions.addScrollEvent({

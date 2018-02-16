@@ -16,6 +16,8 @@ import store from 'store';
 import expirePlugin from 'store/plugins/expire';
 import LazyLoad from 'vanilla-lazyload';
 import SmoothScroll from 'smooth-scroll';
+import bowser from 'bowser';
+import domtoimage from 'dom-to-image';
 
 window.React = window.React$1 = React;
 window.reactDom = ReactDOM;
@@ -35,3 +37,5 @@ window.store = store;
 window.expirePlugin = expirePlugin;
 window.LazyLoad = LazyLoad;
 window.SmoothScroll = SmoothScroll;
+window.bowser = bowser;
+window.domtoimage = domtoimage;

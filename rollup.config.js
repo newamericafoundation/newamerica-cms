@@ -25,7 +25,8 @@ export default [
       'react-router', 'react-router-dom', 'date-fns', 'react-slick',
       'react-scrollbar', 'react-transition-group', 'expirePlugin',
       'store', 'prop-types', 'vanilla-lazyload', 'whatwg-fetch',
-      'url-polyfill', 'store/plugins/expire', 'smooth-scroll'
+      'url-polyfill', 'store/plugins/expire', 'smooth-scroll',
+      'bowser', 'dom-to-image'
     ],
     watch: {
       clearScreen: false

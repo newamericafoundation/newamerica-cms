@@ -1,3 +1,10 @@
+.chart-wrapper{
+	max-width: calc(100vw - 50px);
+	@include media-breakpoint(tablet){
+		max-width: calc(100vw - 100px);
+	}
+}
+
 .dataviz {
 	$icon-horizontal-spacing: 32px;
 	$icon-vertical-spacing: 30px;
