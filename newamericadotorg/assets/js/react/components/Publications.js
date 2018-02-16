@@ -82,8 +82,8 @@ export class PublicationsWrapper extends Component {
     let { filters, publications } = this.props;
     return (
       <div className="program__publications row gutter-45 margin-top-lg-35">
-        <div className={`program__publications__open-mobile-filter col-12 margin-top-15`}>
-          <a className="button--text" onClick={this.toggleMobileFilters}>{this.state.filtersOpen ? 'Hide Filters' : 'Show Filters'}</a>
+        <div className={`program__publications__open-mobile-filter col-12 margin-top-35`}>
+          <a className={`button--text with-caret--${this.state.filtersOpen ? 'up' : 'down'}`} onClick={this.toggleMobileFilters}>Filters</a>
         </div>
         <div className={`col-lg-3 margin-top-5 margin-bottom-15 program__publications__filter-col${this.state.filtersOpen ? ' open' : ''}`}>
           {filters}
