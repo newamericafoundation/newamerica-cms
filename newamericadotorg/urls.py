@@ -8,12 +8,16 @@ from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtailimages import urls as wagtailimages_urls
 from wagtail.wagtailimages.views.serve import ServeView
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic import TemplateView
 
 from search.views import search as search_view
 from rss_feed.feeds import GenericFeed, ContentFeed, AuthorFeed, ProgramFeed, SubprogramFeed, EventFeed, EventProgramFeed
 from newamericadotorg.api import views as api_views
 
 import report.utils.views as report_views
+import programs.views as program_views
 
 urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
@@ -56,6 +60,8 @@ urlpatterns = [
     url(r'^api/subscribe/$', api_views.subscribe),
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
 
+    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics)/$', program_views.redirect_to_subprogram),
+    url(r'^(?P<program>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics)/$', program_views.redirect_to_program),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/(?P<report_section>[a-zA-Z0-9_\.\-]*)/$', report_views.redirect_report_section),
     url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
@@ -66,9 +72,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    from django.conf.urls.static import static
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    from django.views.generic import TemplateView
 
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()

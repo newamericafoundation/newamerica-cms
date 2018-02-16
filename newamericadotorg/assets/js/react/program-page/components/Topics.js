@@ -47,7 +47,7 @@ class PublicationsList extends Component {
       <div className="program__topic__publications">
         <Separator text="Related Publications" />
         {results.map((p,i)=>(
-          <PublicationListItem key={`post-${i}`} post={p} />
+          <PublicationListItem key={`post-${i}`} post={p} key={`publication-${i}`} />
         ))}
         {hasNext &&
           <div className="program__topic__publications__view-all margin-top-15">
@@ -104,7 +104,7 @@ export class TopicsList extends Component {
     return (
       <div className="program__topics menu-list with-arrow--right margin-top-35">
         {program.topics.map((topic,i)=>(
-          <h2>
+          <h2 key={`topic-${i}`}>
             <Link to={topic.url}>{topic.title}</Link>
             <div className="icon-arrow">
               <div />
