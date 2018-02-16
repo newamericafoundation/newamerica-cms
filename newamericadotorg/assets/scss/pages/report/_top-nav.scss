@@ -14,8 +14,7 @@
     width: 100vw;
     height: 65px;
     color: color(white);
-    background: color(black);
-    @include transition(transform 0.35s ease);
+    background: color(black);  
   }
 
   &.scroll-entered{
@@ -23,6 +22,7 @@
       z-index: 2;
       position: fixed;
       top: -65px;
+      @include transition(transform 0.35s ease);
       @include transform(translateY(0));
     }
   }

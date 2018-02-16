@@ -21,8 +21,11 @@
 
   &.active, &:hover {
     background: color(turquoise);
-    color: color(turquoise);
+    color: color(white);
+    font-weight: normal;
+  }
 
+  &.active {
     .icon-plus {
       display: block;
       position: absolute;
