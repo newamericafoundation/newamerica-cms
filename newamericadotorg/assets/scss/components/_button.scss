@@ -47,6 +47,15 @@ button {
 		}
 	}
 
+	&.white-outline{
+		border: 1px solid color(white, base, 1);
+		color: color(white);
+		&:hover {
+			background: color(white);
+			color: color(black);
+		}
+	}
+
 	&.black {
 		border: 1px solid color(black, base, 0);
 		background: color(black);

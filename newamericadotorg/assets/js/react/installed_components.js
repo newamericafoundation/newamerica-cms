@@ -11,3 +11,4 @@ export { default as report } from './report/index';
 export { default as programPage } from './program-page/index';
 export { default as simpleProgramPage } from './program-page/simple.index';
 export { default as homePanels } from './home-panels/index';
+export { default as inDetphSectionNav } from './in-depth/section-nav.index';

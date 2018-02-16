@@ -1,14 +1,85 @@
 {% extends "base.html" %}
-{% block body_class %}template-indepthproject{% endblock %}
 
-{% block header %}{% endblock %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
 
-{% block content %}
-	{% include './splash_page.html' %}
-	<section id="compose__in-depth" data-project-id="{{project_root.id}}"></section>
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	{% if page.data_project_external_script %}
+		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
+	{% endif %}
 {% endblock %}
 
+{% block body_class %}template-indepthproject{% endblock %}
+{% block sidemenu_status %}no_sidemenu{% endblock %}
 
-{% block footer %}
-<footer></footer>
+{% block content %}
+	<section class="in-depth__panel title-panel home-title-panel">
+
+    {% if page.project_logo %}
+		{% image page.project_logo min-200x100 as logo %}
+		<div class="title-panel__logo-wrapper">
+			<div class="title-panel__logo">
+				<a href="{% if page.project_logo_link %}{{ page.project_logo_link }}{% endif %}">
+				    <img class="sidemenu__logo" src="{{ logo.url }}">
+				</a>
+			</div>
+		</div>
+		{% endif %}
+		<div class="title-panel__image">
+				{% image page.story_image fill-32x15 as story_image_thumb %}
+				<div class="title-panel__image__background" style="background-image: url({{story_image_thumb.url}});"></div>
+				<img src="{{story_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');document.querySelector('.title-panel__image__background').classList.add('loaded');">
+		</div>
+		<div class="container">
+			<div class="title-panel__text-box home-title">
+				<label class="block button--text centered white margin-bottom-35">In Depth</label>
+				<h1 class="title-panel__title white promo centered">{{ page.title }}</h1>
+				{% if page.subheading %}
+				<label class="title-panel__subheading block pullquote white centered">{{ page.subheading|richtext }}</label>
+				{% endif %}
+				{% if page.buttons %}
+					<div class="title-panel__button-container margin-top-35">
+						{% for button in page.buttons %}
+							<a class="button white-outline" href="{{ button.value.button_url }}">{{ button.value.button_text }}</a>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	{% if story_image.image.source %}
+		<label class="caption" style="padding-left:10px">Photo: {{ story_image.image.source}}</label>
+	{% endif %}
+
+	{% if page.body %}
+		<section class="in-depth__panel margin-top-80 container--800">
+			<div class="in-depth__panel__body post-body">
+			    {% for block in page.body %}
+            {% if block.block_type == "inline_image" %}
+              {% include_block block %}
+            {% else %}
+              <div class="block-{{ block.block_type }}">
+                 {% include_block block %}
+              </div>
+            {% endif %}
+          {% endfor %}
+			</div>
+		</section>
+	{% endif %}
+
+	{% if project_sections|length > 0 %}
+		<section class="in-depth__panel contents-panel container--full-width black margin-top-80">
+			<div class="container--800">
+				<h2 class="contents-panel__heading white margin-bottom-35">Contents</h2>
+				{% for section in project_sections.specific %}
+					<div class="contents-panel__item margin-bottom-35">
+						<label class="contents-panel__item__title block bold white"><a href="{{ section.url }}">{{ section.title }}</a></label>
+						<label class="contents-panel__item__description block paragraph white">{{ section.story_excerpt }}</label>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+	{% endif %}
 {% endblock %}

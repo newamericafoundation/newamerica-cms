@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+import json
 
 from wagtail.wagtailcore.models import Page
 from home.models import Post
@@ -18,6 +19,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results, get_org_wide_posts
+from rest_framework.serializers import Serializer, ModelSerializer, SerializerMethodField
 
 class InDepthSection(Page):
     """
@@ -66,13 +68,15 @@ class InDepthSection(Page):
         context['project_root'] = project_root
         context['authors'] = project_root.authors.order_by('pk')
         siblings = self.get_siblings(inclusive=True).live().type(InDepthSection)
+        siblings_json = json.dumps(SectionSerializer(siblings, many=True).data)
         index = 0
         for i, item in enumerate(siblings):
-            if (item.title == self.title):
+            if item.id == self.id:
                 index = i
 
         context['index'] = index
         context['siblings'] = siblings
+        context['siblings_json'] = siblings_json
         if (index != 0 and len(siblings) > 1):
             context['previous_sibling'] = siblings[(index - 1)]
         if (index != len(siblings) - 1 and len(siblings) > 1):
@@ -83,6 +87,10 @@ class InDepthSection(Page):
     class Meta:
         verbose_name = "In-Depth Project Section"
 
+class SectionSerializer(ModelSerializer):
+    class Meta:
+        model = InDepthSection
+        fields = ('id', 'title', 'subheading', 'slug', 'url')
 
 class InDepthProject(Post):
     """

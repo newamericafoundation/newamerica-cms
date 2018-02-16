@@ -1,0 +1,46 @@
+.dot-nav{
+  position: fixed;
+  right: 25px;
+  @include vertical-center;
+  white-space: nowrap;
+  z-index: 100;
+  text-align: right;
+
+  &__dot:hover{
+    .dot-nav__label{
+      @include transform(scale(1) translateY(0));
+      opacity: 1;
+    }
+
+    .dot-nav__dot-icon{
+      background-color: color(black, base, 1);
+      @include transform(scale(1.2) translateY(10%));
+    }
+  }
+
+  &__dot.active .dot-nav__dot-icon{
+    background-color: color(black, base, 1);
+  }
+
+  &__label{
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px;
+    background: color(black);
+    color: color(white);
+    @include transform(scale(0.70) translateY(-15%));
+    opacity: 0;
+    @include transition(transform 0.35s ease, opacity 0.35s ease);
+  }
+  &__dot-icon{
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    border-radius: 20px;
+    background-color: color(black, base, 0);
+    border: 1px solid color(black);
+    @include transition(transform 0.35s ease, background-color 0.35s ease);
+  }
+}

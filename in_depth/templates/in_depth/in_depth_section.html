@@ -1,3 +1,281 @@
-{% extends "./in_depth_project.html" %}
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	{% if project_root.specific.data_project_external_script %}
+		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ project_root.specific.data_project_external_script }}"></script>
+	{% endif %}
+    <script>
+      $(document).ready(function(){
+        newamericadotorg.actions.addScrollEvent({
+          selector: '.in-depth__panel',
+          triggerPoint: 'bottom',
+          onEnter: function(el){
+            var s = '.dot-nav__' + el.getAttribute('id');
+            var dot = document.querySelector(s);
+            if(dot)
+              dot.classList.add('active');
+          },
+          onLeave: function(el){
+            var s = '.dot-nav__' + el.getAttribute('id');
+            var dot = document.querySelector(s);
+            if(dot)
+              dot.classList.remove('active');
+          }
+        });
+
+        $('.dot-nav__link').click(function(e){
+          e.preventDefault();
+          var id = this.getAttribute('href');
+          var panel = document.querySelector(id);
+          newamericadotorg.actions.smoothScroll(panel);
+        });
+      });
+
+    </script>
+{% endblock %}
 
 {% block body_class %}template-indepthsection{% endblock %}
+{% block sidemenu_status %}no_sidemenu{% endblock %}
+
+{% block content %}
+
+	<!-- side navigation -->
+
+	{% if page.panels|length > 1 %}
+		<nav class="dot-nav">
+
+				{% if page.generate_title_panel %}
+					<div class="dot-nav__dot dot-nav__title-panel">
+						<a href="#title-panel" class="dot-nav__link" data-number="0">
+							<label class="dot-nav__label">Title</label>
+              <div class="dot-nav__dot-icon"></div>
+						</a>
+					</div>
+				{% endif %}
+
+				{% for panel in page.panels %}
+					<div class="dot-nav__dot dot-nav__{{ panel.value.panel_title|slugify }}">
+						<a href="#{{ panel.value.panel_title|slugify }}" class="dot-nav__link" data-number="{% if page.generate_title_panel %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %} ">
+							<label class="dot-nav__label">{{ panel.value.panel_title }}</label>
+              <div class="dot-nav__dot-icon"></div>
+						</a>
+					</div>
+				{% endfor %}
+			</ul>
+		</nav>
+	{% endif %}
+
+	<!-- header navigation -->
+
+	<div class="in-depth__header">
+		<div class="in-depth__panel__max-width-wrapper">
+			<div class="in-depth__header__left">
+				{% if project_root.specific.project_logo %}
+					{% image project_root.specific.project_logo min-200x100 as logo %}
+					<div class="in-depth__title-block__logo">
+						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
+						    <img class="sidemenu__logo" src="{{ logo.url }}">
+	  					</a>
+					</div>
+					<div class="in-depth__title-block__text has-logo">
+				{% else %}
+					<div class="in-depth__title-block__text">
+				{% endif %}
+						<label class="in-depth__navigation-subheading button--text block white">In Depth</label>
+						<label class="in-depth__navigation-heading block bold white"><a href="{{ project_root.url }}">{{ project_root }}</a></label>
+					</div>
+			</div>
+
+			{% if siblings|length > 1 %}
+				<div class="in-depth__header__right">
+          <div id="compose__in-depth-section-nav" data-sections='{{ siblings_json|safe }}' data-current-slide="{{ index }}"></div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+
+	<!-- page content -->
+
+	{% if page.generate_title_panel %}
+    {% image page.story_image fill-32x15 as story_image_thumb %}
+		<section id="title-panel" class="in-depth__panel title-panel">
+        <div class="title-panel__image">
+            <div class="title-panel__image__background" style="background-image: url({{story_image_thumb.url}});"></div>
+            <img src="{{story_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');document.querySelector('.title-panel__image__background').classList.add('loaded');">
+        </div>
+        <div class="container">
+  		    <div class="title-panel__text-box">
+    				<h1 class="title-panel__title white">{{ page.title }}</h1>
+    				<label class="title-panel__subheading block pullquote white">{{ page.subheading|richtext }}</label>
+  			  </div>
+        </div>
+			{% if page.panels %}
+				<a class="title-panel__scroll-down button--text with-caret--down" href="#{{ page.panels.0.value.panel_title|slugify }}"></a>
+			{% endif %}
+		</section>
+		{% if story_image.image.source %}
+			<label class="block caption" style="padding-left:10px">Photo: {{ story_image.image.source}}</label>
+		{% endif %}
+	{% endif %}
+	{% for panel in page.panels %}
+		<a id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel__anchor"></a>
+		<section id="{{ panel.value.panel_title|slugify }}" class="in-depth__panel {{ panel.value.panel_color_theme }} container--800 margin-top-80">
+			<div class="in-depth__panel__max-width-wrapper">
+				<h2 class="in-depth__panel__title">{{ panel.value.panel_title }}<a class="in-depth__panel__title-link" href="#{{ panel.value.panel_title|slugify }}" title="Link to this Heading"><i class="fa fa-link"></i></a></h2>
+				<div class="in-depth__panel__body post-body">
+          {% for block in panel.value.panel_body %}
+            {% if block.block_type == "inline_image" %}
+              {% include_block block %}
+            {% else %}
+              <div class="block-{{ block.block_type }}">
+                 {% include_block block %}
+              </div>
+            {% endif %}
+          {% endfor %}
+				</div>
+			</div>
+		</section>
+	{% endfor %}
+
+	<!-- footer -->
+
+	<div class="in-depth__footer margin-top-80">
+		{% if previous_sibling or next_sibling %}
+		<div class="in-depth__footer__next-prev container {% if previous_sibling and next_sibling %}has-both{% endif %}">
+      <div class="row gutter-45">
+        <div class="col-6">
+			{% if previous_sibling %}
+      <div class="in-depth__footer__next-prev__block">
+					<a href="{{ previous_sibling.specific.url }}">
+						<div class="in-depth__footer__next-prev__link">
+							<label class="block button--text with-caret--left margin-bottom-25">Previous Section</label>
+              <div class="prev-image-block">
+                {% if previous_sibling.specific.story_image %}
+                  {% image previous_sibling.specific.story_image fill-100x100 as prev_background %}
+                  <div class="in-depth__footer__next-prev__image">
+                    <img src="{{ prev_background.url }}" />
+                  </div>
+                {% endif %}
+							   <label>{{ previous_sibling }}</label>
+              </div>
+						</div>
+					</a>
+        </div>
+			{% endif %}
+    </div>
+    <div class="col-6">
+			{% if next_sibling %}
+        <div class="in-depth__footer__next-prev__block next">
+					<a href="{{ next_sibling.specific.url }}">
+						<div class="in-depth__footer__next-prev__link">
+							<label class="button--text with-caret--right margin-bottom-25">Next Section</label>
+              <div class="next-image-block">
+							   <label>{{ next_sibling }}</label>
+                 {% if next_sibling.specific.story_image %}
+         					{% image next_sibling.specific.story_image fill-100x100 as next_background %}
+         					<div class="in-depth__footer__next-prev__image">
+                     <img src="{{ next_background.url }}" />
+                   </div>
+         				{% endif %}
+              </div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+    </div>
+  </div>
+		</div>
+		{% endif %}
+		<div class="in-depth__footer__main margin-top-80">
+			<div class="in-depth__footer__main-wrapper container">
+				<div class="in-depth__footer__main__content">
+          <div class='row gutter-45'>
+            <div class="col-12">
+              <div class="in-depth__footer__title-block margin-bottom-35">
+      					{% if project_root.specific.project_logo %}
+      						{% image project_root.specific.project_logo min-200x100 as logo %}
+      						<div class="in-depth__title-block__logo">
+      							<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
+      							    <img class="sidemenu__logo" src="{{ logo.url }}">
+      		  					</a>
+      						</div>
+      						<div class="in-depth__title-block__text has-logo">
+      					{% else %}
+      						<div class="in-depth__title-block__text">
+      					{% endif %}
+      							<label class="block white button--text">In Depth</label>
+      							<label class="block bold white"><a href="{{ project_root.url }}">{{ project_root }}</a></label>
+      						</div>
+      				</div>
+            </div>
+  					<div class="col-md-6">
+  						{% if project_root.specific.about_the_project %}
+  							<label class="block white">About this Project</label>
+  							<div class="in-depth__footer__about post-body margin-bottom-35">{{ project_root.specific.about_the_project | richtext }}</div>
+  						{% endif %}
+  						{% if authors %}
+  							<label class="in-depth__navigation-subheading white">Authors</label>
+
+  							<div class="post-person-container">
+  								{% for author in authors %}
+										<a href="{{ author.author.url }}">
+											<div class="post-person">
+                        {% if author.author.profile_image %}
+  												<div class="post-person__image">
+  													{% image author.author.profile_image fill-200x200 as author_image %}
+  											     <img src="{{ author_image.url }}" />
+  												</div>
+                          {% endif %}
+												<label class="post-person__text paragraph">
+													{% if author.author.short_bio %}
+														{{ author.author.short_bio | richtext }}
+													{% else %}
+														{{ author.author.first_name }} {{ author.author.last_name }}
+													{% endif %}
+												</label>
+											</div>
+										</a>
+  								{% endfor %}
+  							</div>
+  						{% endif %}
+
+  					</div>
+  					<div class="push-md-1 col-md-5">
+              <label class="block">Project Outline:</label>
+  						<ul class="in-depth__footer__main__directory no-list-style margin-bottom-35">
+  								<li class="in-depth__footer__main__directory__item">
+  									<label class="white"><a href="{{ project_root.url }}">Home Page</a></label>
+  								</li>
+  							{% for sibling in siblings %}
+  								<li class="in-depth__footer__main__directory__item">
+  									<label class="white"><a {% if sibling.pk == page.pk %}class="active"{% endif %} href="{{ sibling.url }}">{{ sibling.title }}</a></label>
+  								</li>
+  							{% endfor %}
+  						</ul>
+
+  						{% if project_root.specific.show_data_download_links %}
+  							<label class="in-depth__navigation-subheading white">Dataset:</label>
+  							<ul class="in-depth__footer__main__directory no-list-style">
+  								<li class="in-depth__footer__main__directory__item">
+  									<label class="white"><a name="download-data" id="in-depth__download__csv" download="{{ project_root.slug }}.zip">Download as CSV</a></label>
+  								</li>
+  								<li class="in-depth__footer__main__directory__item">
+  									<label class="white"><a id="in-depth__download__json"  download="{{ project_root.slug }}.json">Download as JSON</a></label>
+  								</li>
+  							</ul>
+  							<p class="white in-depth__footer__subordinate-text in-depth__footer__download-data-message">* If using Safari or Internet Explorer, right-click download link and select "Download Linked File"</p>
+  						{% endif %}
+  					</div>
+  				</div>
+        </div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

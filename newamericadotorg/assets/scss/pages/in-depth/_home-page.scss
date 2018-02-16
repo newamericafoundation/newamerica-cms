@@ -1,0 +1,55 @@
+.in-depth__home-page {
+	&__header {
+		height: 314px;
+		padding: 50px 0px;
+		background-color: palette-get(na-black);
+		text-align: center;
+		background-repeat: no-repeat;
+		background-position: center;
+
+		&__text {
+			max-width: 750px;
+			padding-left: $desktop-padding;
+			padding-right: $desktop-padding;
+			margin: auto;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+
+			.post-header__text__heading {
+				color: white;
+				padding-bottom: 5px;
+			}
+			.post-header__text__subheading {
+				color: white;
+				line-height: 130%;
+				font-size: 17px;
+
+				@include breakpoint(medium) {
+					font-size: 20px;
+				}
+			}
+
+		}
+	}
+
+	&__content {
+		max-width: $max-site-width;
+		margin: auto;
+
+		@include breakpoint(medium) {
+			padding-left: $desktop-padding;
+			padding-right: $desktop-padding;
+		}
+
+		.content-grid__controls {
+			margin-bottom: $desktop-padding;
+
+			@include breakpoint(medium) {
+				margin-top: 35px;
+				margin-left: 0px;
+			}
+
+		}
+	}
+}

@@ -36,6 +36,6 @@ window.ScrollArea = ScrollArea;
 window.store = store;
 window.expirePlugin = expirePlugin;
 window.LazyLoad = LazyLoad;
-window.SmoothScroll = SmoothScroll;
+window.smoothScroll = SmoothScroll;
 window.bowser = bowser;
 window.domtoimage = domtoimage;

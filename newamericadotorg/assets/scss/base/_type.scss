@@ -97,6 +97,10 @@ p {
   &.gray{
     color: color(gray, dark);
   }
+
+  &.white{
+    color: color(white);
+  }
 }
 
 li p {
@@ -234,6 +238,10 @@ label, input {
     margin-bottom: 0.75rem;
   }
 
+  &.paragraph {
+    line-height: 1.15rem;
+  }
+
   &.with-seperator, &.with-separator {
     &:after{
       content: '|';
@@ -243,7 +251,7 @@ label, input {
     }
   }
 
-  p, a{
+  p, a, .rich-text, li{
     margin-top: 0;
     margin-bottom: 0;
     line-height: inherit;

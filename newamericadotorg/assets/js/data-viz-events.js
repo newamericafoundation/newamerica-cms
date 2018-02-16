@@ -15,21 +15,15 @@ export default function dataVizEvents() {
 			embedLink = v.querySelector('.dataviz__embed-link'),
 			shareLink = v.querySelector('.dataviz__share-link');
 
-		if(downloadlink)
+		if(downloadLink){
 			downloadLink.onclick = () => { handleDownloadClickEvent(chartArea) };
-
+			// hides download links on Internet Explorer
+			hideDownloadLink(downloadLink);
+		}
 		if(embedLink)
 			embedLink.onclick = shareLink.onclick = function(){
 				this.style.display == 'none' ? this.style.display = '' : this.style.display = 'none';
 			}
-
-		document.body.onclick = function(e){
-			embedPopup.style.display = 'none';
-			sharePopup.style.display = 'none';
-		}
-		// hides download links on Internet Explorer
-		hideDownloadLink(downloadLink);
-
 	}
 }
 

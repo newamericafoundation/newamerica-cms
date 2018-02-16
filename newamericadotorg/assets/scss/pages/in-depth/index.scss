@@ -1,30 +1,10 @@
-.in-depth-label{
-  font-weight: bold;
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: color(black);
-}
-
-$in-depth-color: #F1FFFB;
-
-@import 'heading';
-@import 'project-header';
-@import 'project-body';
-@import 'project-heading';
-@import 'section-heading';
-@import 'section-header';
-@import 'section-body';
-@import 'transition';
-@import 'splash';
-@import 'window';
-@import 'intro';
+@import 'profile';
 @import 'header';
-@import 'logo';
-@import 'header-nav';
+@import 'footer';
+@import 'home-page';
 @import 'panel';
-@import 'about';
-@import 'table-of-contents';
-@import 'author';
-@import 'loading';
-@import 'section-nav';
+@import 'section';
+@import 'title-block';
+@import 'title-panel';
+@import 'dot-nav';
+@import 'contents';

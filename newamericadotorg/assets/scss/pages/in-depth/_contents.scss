@@ -1,0 +1,12 @@
+.contents-panel__item__description{
+  max-width: 400px;
+}
+
+.contents-panel{
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  .contents-panel__item:last-child{
+    margin-bottom: 0 !important;
+  }
+}

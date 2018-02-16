@@ -1,5 +1,6 @@
 import { fetchData, setParams } from './api/actions';
-import { getNestedState, smoothScroll } from '../utils/index';
+import { getNestedState } from '../utils/index';
+import SmoothScroll from 'smooth-scroll';
 import store from './store';
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
@@ -33,6 +34,8 @@ const observerFactory = function(stateName, onChange){
     }
   }
 }
+
+const scroll = new SmoothScroll();
 
 // actions
 class Actions {
@@ -73,8 +76,6 @@ class Actions {
     return this;
   }
 
-  smoothScroll = smoothScroll
-
   setScrollDirection = (direction) => {
     store.dispatch({
       type: SET_SCROLL_DIRECTION,
@@ -105,6 +106,11 @@ class Actions {
       event
     });
 
+    return this;
+  }
+
+  smoothScroll = (anchor) => {
+    scroll.animateScroll(anchor);
     return this;
   }
 
