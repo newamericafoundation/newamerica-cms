@@ -15,26 +15,23 @@
   font-variant-numeric: lining-nums;
   font-family: $label-font-family;
 
-  &:before{
-    font-family: 'FontAwesome';
-    content: '\f00d';
-    font-size: 0.8em;
+  .icon-plus {
     display: none;
-    position: absolute;
-    color: color(white);
-    @include center;
   }
 
-  &:hover {
-    background: color(turquoise);
-    color: color(white);
-  }
-
-  &.active {
+  &.active, &:hover {
     background: color(turquoise);
     color: color(turquoise);
-    &:before{
+
+    .icon-plus {
       display: block;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+    }
+
+    .citation-number {
+      opacity: 0;
     }
   }
 }

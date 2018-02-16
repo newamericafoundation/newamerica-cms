@@ -44,15 +44,15 @@ class Menus extends Component {
     let { isOpen } = this.props;
     let { selectedTab } = this.state;
     return(
-      <div className={`mobile-menu ${selectedTab ? `secondary-tab ${selectedTab.toLowerCase()}-tab-open` : ''} ${isOpen ? 'open' : ''}`}>
+      <div className={`mobile-menu ${selectedTab ? `secondary-tab-active ${selectedTab.toLowerCase()}-tab-open` : ''} ${isOpen ? 'open' : ''}`}>
         <div className="mobile-menu__heading">
           <div className="logo__wrapper"><a href="/"><div className="logo sm"></div></a></div>
           <label className="tab-link-back button--text with-caret--left margin-0 block" onClick={()=>{this.switchTab(false);}}>
             {selectedTab}
           </label>
         </div>
-        <div className="mobile-menu__menus">
-          <div className="mobile-menu__primary">
+        <div className="mobile-menu__tabs-wrapper">
+          <div className="mobile-menu__primary-tab">
             <div className="menu-list">
               <label className="block tab-link">
                 <a onClick={()=>{this.switchTab('About');}}>About</a>
@@ -68,7 +68,7 @@ class Menus extends Component {
               </label>
             </div>
           </div>
-          <div className="mobile-menu__secondary">
+          <div className="mobile-menu__secondary-tab">
             <Response name="meta" component={AboutTab} />
             <Response name="meta" component={ProgramsTab}/>
           </div>

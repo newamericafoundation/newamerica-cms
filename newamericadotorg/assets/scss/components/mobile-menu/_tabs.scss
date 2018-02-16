@@ -1,0 +1,58 @@
+.mobile-menu__primary-tab, .mobile-menu__secondary-tab{
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  position: relative;
+  left: 0;
+  z-index: 0;
+  @include transition(transform 0.4s ease-in-out, opacity 1.2s ease);
+}
+
+.mobile-menu__primary-tab {
+  opacity: 1;
+  white-space: normal;
+}
+
+.mobile-menu__secondary-tab {
+  opacity: 0;
+  width: 200vw;
+  max-height: calc(100vh - #{$header-height});
+  overflow: hidden;
+}
+
+.mobile-menu.secondary-tab-active{
+  .mobile-menu__primary-tab, .mobile-menu__secondary-tab{
+    @include transform(translateX(-100vw));
+  }
+
+  .mobile-menu__primary-tab {
+    opacity: 0;
+  }
+
+  .mobile-menu__secondary-tab {
+    opacity: 1;
+  }
+}
+
+.programs-tab, .about-tab{
+  vertical-align: top;
+  display: inline-block;
+  position: relative;
+  white-space: normal;
+  min-height: calc(100vh - #{$header-height});
+  width: 100vw;
+  right: -100vw;
+  @include transition(right 0.3s ease-in-out);
+}
+
+.programs-tab-open .programs-tab {
+  right: 100vw;
+}
+
+.programs-tab-open .mobile-menu__secondary-tab{
+  max-height: none;
+}
+
+.about-tab-open .about-tab {
+  right: 0vw;
+}

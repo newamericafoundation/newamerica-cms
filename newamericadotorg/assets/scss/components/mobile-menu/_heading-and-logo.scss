@@ -1,0 +1,21 @@
+.mobile-menu__heading{
+  top: 0;
+  left: 0;
+  position: absolute;
+  background: color(white);
+  height: $header-height;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.mobile-menu .logo__wrapper {
+  position: relative;
+  display: inline-block;
+  padding-left: 15px;
+  padding-top: 22px;
+  @include transform(translateX(0));
+  width: 100vw;
+  vertical-align: top;
+  opacity: 1;
+  @include transition(transform 0.4s ease-in-out, opacity 0.4s ease-in-out);
+}

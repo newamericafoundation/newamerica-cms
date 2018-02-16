@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { PlusX } from '../../components/Icons';
 
 class ContentMenu extends Component {
   state = { expanded: {}, lastScrollPosition: 0 }
@@ -34,7 +35,11 @@ class ContentMenu extends Component {
               <Link to={`${url}${s.slug}/`} onClick={()=>{this.closeMenu(s.title);}}>
                 <label className="white">{s.title}</label>
               </Link>
-              {s.subsections.length>0 && <div className="report__content-menu__item__toggle fa fa-plus" onClick={()=>{this.toggleExpanded(s.title)}}/>}
+              {s.subsections.length>0 &&
+                <label className="expand-toggle" onClick={()=>{this.toggleExpanded(s.title)}}>
+                  <PlusX x={this.state.expanded[s.title]} white={true}/>
+                </label>
+              }
             </div>
             <span className='report__content-menu__item__subsections'
               style={{ maxHeight: this.state.expanded[s.title] ? `${80*(s.subsections.length)}px` : 0}}>
