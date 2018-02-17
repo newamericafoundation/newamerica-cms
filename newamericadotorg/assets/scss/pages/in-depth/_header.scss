@@ -17,6 +17,8 @@ $section-header-height: 80px;
 
 #compose__in-depth-section-nav{
 	width: 100%;
+  padding-left: 50px;
+  padding-right: 50px;
   .in-depth-section-nav{
     width: 100%;
   }
@@ -30,11 +32,6 @@ $section-header-height: 80px;
       right: -65px;
     }
   }
-  // .slick-slider{
-  //   height: $section-header-height;
-  //   padding-left: 50px;
-  //   padding-right: 50px;
-  // }
   .slick-list{
     width: 100%;
   }
@@ -57,32 +54,12 @@ $section-header-height: 80px;
 
 .in-depth__header {
 
-    $header-right-width: (
-		small: 300px,
-		medium: 450px,
-		large: 600px,
-    );
-
 	background-color: color(black);
 	color: white;
 	padding: $desktop-padding;
 	z-index: 15;
 	position: relative;
   padding: 0 !important;
-
-    @include desktop-header {
-        height: $section-header-height;
-        padding-top: 0px;
-        padding-bottom: 0px;
-
-        .in-depth__panel__max-width-wrapper {
-            height: $section-header-height;
-        }
-    }
-
-	&__left {
-
-	}
 
 	&__right {
 		height: $section-header-height;

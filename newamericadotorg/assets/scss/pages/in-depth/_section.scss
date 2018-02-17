@@ -2,18 +2,36 @@
    width: 100%;
 
    &__mobile-selector {
-      background-color: palette-get(na-black);
-      padding: 0px $desktop-padding $desktop-padding;
       z-index: 15;
+      width: 100%;
       position: relative;
+      height: 80px;
 
-      @include desktop-header {
-         display: none;
+      &:after{
+        content: '';
+        border-right: 1px solid color(white);
+        border-bottom: 1px solid color(white);
+        top: 50%;
+        @include transform(translateY(-50%) rotate(45deg));
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        margin-top: -2px;
+        right: 15px;
       }
 
       select {
-         border: 2px solid palette-get(na-black-40);
-         background: url(shape-urls-get(down-arrow-na-white)) no-repeat;
+        width: 100%;
+        background: transparent;
+        position: absolute;
+        border-radius: 2px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+        @include vertical-center;
+         border: 1px solid color(white);
          background-size: 12px 12px;
          padding-right: 30px;
          background-position-y: center;

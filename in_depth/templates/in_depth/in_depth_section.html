@@ -44,10 +44,11 @@
           var id = this.getAttribute('href');
           var panel = document.querySelector(id);
           newamericadotorg.actions.smoothScroll(panel);
-					setTimeout(function(){
-						$el.blur()
-					}, 600);
         });
+
+				$('.dot-nav').click(function(e){
+					$(this).toggleClass('expanded');
+				});
 			}
 
     </script>
@@ -65,8 +66,8 @@
 
 				{% if page.generate_title_panel %}
 					<div class="dot-nav__dot dot-nav__title-panel">
-						<label class="dot-nav__label">Title</label>
 						<a href="#title-panel" class="dot-nav__link" data-number="0">
+							<label class="dot-nav__label">Title</label>
             	<div class="dot-nav__dot-icon"></div>
 						</a>
 					</div>
@@ -74,8 +75,8 @@
 
 				{% for panel in page.panels %}
 					<div class="dot-nav__dot dot-nav__{{ panel.value.panel_title|slugify }}">
-						<label class="dot-nav__label">{{ panel.value.panel_title }}</label>
 						<a href="#{{ panel.value.panel_title|slugify }}" class="dot-nav__link" data-number="{% if page.generate_title_panel %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %} ">
+							<label class="dot-nav__label">{{ panel.value.panel_title }}</label>
             	<div class="dot-nav__dot-icon"></div>
 						</a>
 					</div>
@@ -89,7 +90,7 @@
 	<div class="in-depth__header">
 		<div class="in-depth__panel__max-width-wrapper container">
 			<div class="row gutter-0">
-				<div class="in-depth__header__left col-5">
+				<div class="in-depth__header__left col-md-5">
 					{% if project_root.specific.project_logo %}
 						{% image project_root.specific.project_logo min-200x100 as logo %}
 						<div class="in-depth__title-block__logo">
@@ -107,7 +108,7 @@
 				</div>
 
 				{% if siblings|length > 1 %}
-					<div class="in-depth__header__righ col-7">
+					<div class="in-depth__header__righ col-md-7">
 	          <div id="compose__in-depth-section-nav" data-sections='{{ siblings_json|safe }}' data-current-slide="{{ index }}"></div>
 					</div>
 				{% endif %}

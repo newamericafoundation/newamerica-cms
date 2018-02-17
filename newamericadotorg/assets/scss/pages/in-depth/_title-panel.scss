@@ -1,6 +1,6 @@
 .title-panel{
   width: 100vw;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 160px);
   position: relative;
   @include media-breakpoint(tablet){
     max-height: 500px;
@@ -8,6 +8,7 @@
 
   @include media-breakpoint(desktop){
     max-height: 600px;
+    height: calc(100vh - 80px);
   }
 
   &.home-title-panel{

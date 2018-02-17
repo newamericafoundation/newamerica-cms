@@ -1,57 +1,135 @@
 .dot-nav{
-  position: fixed;
-  right: 25px;
-  @include vertical-center;
-  white-space: nowrap;
-  z-index: 100;
-  text-align: right;
-
-  &__dot:hover{
-    .dot-nav__label{
-      @include transform(scale(1) translate(0, 0));
-      visibility: visible;
-      max-width: none;
-      right: 0;
-      opacity: 1;
-    }
-
-    .dot-nav__dot-icon{
-      background-color: color(black, base, 1);
-      @include transform(scale(1.2) translateY(10%));
-    }
-  }
-
-  &__dot.active .dot-nav__dot-icon{
-    background-color: color(black, base, 1);
-  }
-
-  &__label{
-    display: inline-block;
-    vertical-align: middle;
-    padding: 5px;
+  @include media-breakpoint-down(desktop){
+    max-height: 25px;
+    max-width: 25px;
+    @include transition(all 0.35s ease);
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 100;
+    box-shadow: 0px 0px 10px 3px color(black, base, 0.15);
+    width: calc(100vw - 50px);
     background: color(black);
-    color: color(white);
-    @include transform(scale(0.70) translate(15%, -15%));
-    visibility: hidden;
-    opacity: 0;
-    max-width: 0;
-    overflow: hidden;
-    position: relative;
-    right: -10px;
-    z-index: 1;
-    @include transition(transform 0.35s ease, max-width 0.35s ease);
+    padding: 25px;
+    border-radius: 25px;
+    .dot-nav__dot-icon{
+      display: none;
+    }
+    .dot-nav__label{
+      display: block;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin: 0;
+      opacity: 0;
+      position: relative;
+      left: -100vw;
+      @include transition(opacity 0.35s ease);
+      color: color(white);
+    }
+    .active .dot-nav__label{
+      font-weight: bold;
+    }
   }
-  &__dot-icon{
-    margin-left: 10px;
-    display: inline-block;
-    vertical-align: middle;
-    width: 11px;
-    height: 11px;
-    border-radius: 20px;
-    position: relative;
-    z-index: 2;
-    background-color: color(black, base, 0);
-    border: 1px solid color(black);
-    @include transition(transform 0.35s ease, background-color 0.35s ease);
+
+  &.expanded {
+    max-height: 65vh;
+    max-width: 100vw;
+    padding-right: 50px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 0;
+
+    .dot-nav__label{
+      opacity: 1;
+      left: 0;
+    }
+
+    &:after{
+      display: none;
+    }
+
+    &:before{
+      content: '\f00d';
+      font-family: 'FontAwesome';
+      font-size: 1.4rem;
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+      color: color(white);
+    }
+  }
+
+
+
+  &:after{
+    @include media-breakpoint-down(desktop){
+      content: '\f142';
+      font-family: 'FontAwesome';
+      display: block;
+      color: color(white);
+      position: absolute;
+      font-size: 1.4rem;
+      @include center;
+    }
+  }
+}
+
+.dot-nav {
+  @include media-breakpoint(desktop){
+    position: fixed;
+    right: 25px;
+    @include vertical-center;
+    white-space: nowrap;
+    z-index: 100;
+    text-align: right;
+
+    &__dot:hover{
+      .dot-nav__label{
+        @include transform(scale(1) translate(0, 0));
+        visibility: visible;
+        max-width: none;
+        right: 0;
+        opacity: 1;
+      }
+
+      .dot-nav__dot-icon{
+        background-color: color(black, base, 1);
+        @include transform(scale(1.2) translateY(10%));
+      }
+    }
+
+    &__dot.active .dot-nav__dot-icon{
+      background-color: color(black, base, 1);
+    }
+
+    &__label{
+      display: inline-block;
+      vertical-align: middle;
+      padding: 5px;
+      background: color(black);
+      color: color(white);
+      @include transform(scale(0.70) translate(15%, -15%));
+      visibility: hidden;
+      opacity: 0;
+      max-width: 0;
+      overflow: hidden;
+      position: relative;
+      right: -10px;
+      z-index: 1;
+      @include transition(transform 0.35s ease, max-width 0.35s ease);
+    }
+    &__dot-icon{
+      margin-left: 10px;
+      display: inline-block;
+      vertical-align: middle;
+      width: 11px;
+      height: 11px;
+      border-radius: 20px;
+      position: relative;
+      z-index: 2;
+      background-color: color(black, base, 0);
+      border: 1px solid color(black);
+      @include transition(transform 0.35s ease, background-color 0.35s ease);
+    }
   }
 }
