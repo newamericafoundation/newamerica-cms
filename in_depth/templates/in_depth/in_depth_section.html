@@ -46,7 +46,7 @@
           newamericadotorg.actions.smoothScroll(panel);
         });
 
-				$('.dot-nav').click(function(e){
+				$('.dot-nav').on('click touch', function(e){
 					$(this).toggleClass('expanded');
 				});
 			}
@@ -63,7 +63,8 @@
 
 	{% if page.panels|length > 1 %}
 		<nav class="dot-nav">
-
+				<div class="dot-nav__menu-icon"></div>
+				<div class='dot-nav__dots'>
 				{% if page.generate_title_panel %}
 					<div class="dot-nav__dot dot-nav__title-panel">
 						<a href="#title-panel" class="dot-nav__link" data-number="0">
@@ -81,7 +82,7 @@
 						</a>
 					</div>
 				{% endfor %}
-			</ul>
+			</div>
 		</nav>
 	{% endif %}
 
