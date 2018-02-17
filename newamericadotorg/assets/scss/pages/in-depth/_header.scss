@@ -17,12 +17,33 @@ $section-header-height: 80px;
 
 #compose__in-depth-section-nav{
 	width: 100%;
+  .in-depth-section-nav{
+    width: 100%;
+  }
+  .slick-arrow{
+    position: absolute;
+    @include vertical-center;
+    &.slick-prev{
+      left: -65px;
+    }
+    &.slick-next{
+      right: -65px;
+    }
+  }
+  // .slick-slider{
+  //   height: $section-header-height;
+  //   padding-left: 50px;
+  //   padding-right: 50px;
+  // }
+  .slick-list{
+    width: 100%;
+  }
 	.slick-slide {
-		position: relative;
 		height: $section-header-height;
 		label {
 			margin: 0;
 			width: 100%;
+      padding: 10px;
 			position: relative;
 	    top: 50%;
 	    @include transform(translateY(-50%));
@@ -47,6 +68,7 @@ $section-header-height: 80px;
 	padding: $desktop-padding;
 	z-index: 15;
 	position: relative;
+  padding: 0 !important;
 
     @include desktop-header {
         height: $section-header-height;
@@ -59,60 +81,13 @@ $section-header-height: 80px;
     }
 
 	&__left {
- 		display: inline-block;
- 		color: white;
-		width: 100%;
-
-		@include breakpoint(medium) {
-			height: $section-header-height-medium;
-		}
-
-	    @include desktop-header {
-	        width: calc(100% - #{map-get($header-right-width, small)});
-	       	height: $section-header-height;
-	    }
-
-	    @include breakpoint(large) {
-	        width:  calc(100% - #{map-get($header-right-width, medium)});
-	    }
-
-	    @media screen and (min-width: 1200px) {
-	        width:  calc(100% - #{map-get($header-right-width, large)});
-	    }
-
-	    .in-depth__title-block {
-	    	/*&__logo, &__text {
-	    		@include desktop-header {
-		           position: relative;
-		           top: 50%;
-		           transform: translateY(-50%);
-		        }
-	    	}*/
-
-	    }
 
 	}
 
 	&__right {
-		float: right;
 		height: $section-header-height;
 		overflow: hidden;
 		position: relative;
-		display: none;
-		padding-left: $desktop-padding;
-
-        @include desktop-header {
-            display: inline-block;
-	 		width: map-get($header-right-width, small);
-        }
-	 	@include breakpoint(large) {
-	 		width: map-get($header-right-width, medium);
-	 	}
-
-	 	@media screen and (min-width: 1200px) {
-	 		width: map-get($header-right-width, large);
-	 	}
-
 	}
 
  	&__item-container {

@@ -9,7 +9,7 @@
 		.next-image-block > *, .prev-image-block > *{
 			display: inline-block;
 			vertical-align: middle;
-			max-width: 150px;
+			max-width: 175px;
 		}
 
 		.next-image-block{
@@ -20,18 +20,24 @@
 			padding-left: 15px;
 		}
 
-		.next-image-block label{
-			padding-right: 25px;
-		}
+		@include media-breakpoint(tablet){
+			.next-image-block label.image-padding{
+				padding-right: 25px;
+			}
 
-		.prev-image-block label{
-			padding-left: 25px;
+			.prev-image-block label.image-padding{
+				padding-left: 25px;
+			}
 		}
 
 		&__image {
+			display: none !important;
 			width: 75px;
 			height: 75px;
 			overflow: hidden;
+			@include media-breakpoint(tablet){
+				display: inline-block !important;
+			}
 			img {
 				width: 100%;
 				height: auto;

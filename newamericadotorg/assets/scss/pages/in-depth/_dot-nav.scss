@@ -8,7 +8,10 @@
 
   &__dot:hover{
     .dot-nav__label{
-      @include transform(scale(1) translateY(0));
+      @include transform(scale(1) translate(0, 0));
+      visibility: visible;
+      max-width: none;
+      right: 0;
       opacity: 1;
     }
 
@@ -28,9 +31,15 @@
     padding: 5px;
     background: color(black);
     color: color(white);
-    @include transform(scale(0.70) translateY(-15%));
+    @include transform(scale(0.70) translate(15%, -15%));
+    visibility: hidden;
     opacity: 0;
-    @include transition(transform 0.35s ease, opacity 0.35s ease);
+    max-width: 0;
+    overflow: hidden;
+    position: relative;
+    right: -10px;
+    z-index: 1;
+    @include transition(transform 0.35s ease, max-width 0.35s ease);
   }
   &__dot-icon{
     margin-left: 10px;
@@ -39,6 +48,8 @@
     width: 11px;
     height: 11px;
     border-radius: 20px;
+    position: relative;
+    z-index: 2;
     background-color: color(black, base, 0);
     border: 1px solid color(black);
     @include transition(transform 0.35s ease, background-color 0.35s ease);

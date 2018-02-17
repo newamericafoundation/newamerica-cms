@@ -5,7 +5,9 @@
 {% load utilities %}
 
 {% block extra_js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	{% if not DEBUG %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	{% endif %}
 	{% if project_root.specific.data_project_external_script %}
 		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ project_root.specific.data_project_external_script }}"></script>
 	{% endif %}
@@ -37,10 +39,14 @@
         });
 
         $('.dot-nav__link').click(function(e){
+					var $el = $(this);
           e.preventDefault();
           var id = this.getAttribute('href');
           var panel = document.querySelector(id);
           newamericadotorg.actions.smoothScroll(panel);
+					setTimeout(function(){
+						$el.blur()
+					}, 600);
         });
 			}
 
@@ -59,18 +65,18 @@
 
 				{% if page.generate_title_panel %}
 					<div class="dot-nav__dot dot-nav__title-panel">
+						<label class="dot-nav__label">Title</label>
 						<a href="#title-panel" class="dot-nav__link" data-number="0">
-							<label class="dot-nav__label">Title</label>
-              <div class="dot-nav__dot-icon"></div>
+            	<div class="dot-nav__dot-icon"></div>
 						</a>
 					</div>
 				{% endif %}
 
 				{% for panel in page.panels %}
 					<div class="dot-nav__dot dot-nav__{{ panel.value.panel_title|slugify }}">
+						<label class="dot-nav__label">{{ panel.value.panel_title }}</label>
 						<a href="#{{ panel.value.panel_title|slugify }}" class="dot-nav__link" data-number="{% if page.generate_title_panel %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %} ">
-							<label class="dot-nav__label">{{ panel.value.panel_title }}</label>
-              <div class="dot-nav__dot-icon"></div>
+            	<div class="dot-nav__dot-icon"></div>
 						</a>
 					</div>
 				{% endfor %}
@@ -81,29 +87,31 @@
 	<!-- header navigation -->
 
 	<div class="in-depth__header">
-		<div class="in-depth__panel__max-width-wrapper">
-			<div class="in-depth__header__left">
-				{% if project_root.specific.project_logo %}
-					{% image project_root.specific.project_logo min-200x100 as logo %}
-					<div class="in-depth__title-block__logo">
-						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
-						    <img class="sidemenu__logo" src="{{ logo.url }}">
-	  					</a>
-					</div>
-					<div class="in-depth__title-block__text has-logo">
-				{% else %}
-					<div class="in-depth__title-block__text">
-				{% endif %}
-						<label class="in-depth__navigation-subheading button--text block white">In Depth</label>
-						<label class="in-depth__navigation-heading block bold white"><a href="{{ project_root.url }}">{{ project_root }}</a></label>
-					</div>
-			</div>
-
-			{% if siblings|length > 1 %}
-				<div class="in-depth__header__right">
-          <div id="compose__in-depth-section-nav" data-sections='{{ siblings_json|safe }}' data-current-slide="{{ index }}"></div>
+		<div class="in-depth__panel__max-width-wrapper container">
+			<div class="row gutter-0">
+				<div class="in-depth__header__left col-5">
+					{% if project_root.specific.project_logo %}
+						{% image project_root.specific.project_logo min-200x100 as logo %}
+						<div class="in-depth__title-block__logo">
+							<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
+							    <img class="sidemenu__logo" src="{{ logo.url }}">
+		  					</a>
+						</div>
+						<div class="in-depth__title-block__text has-logo">
+					{% else %}
+						<div class="in-depth__title-block__text">
+					{% endif %}
+							<label class="in-depth__navigation-subheading button--text block white">In Depth</label>
+							<label class="in-depth__navigation-heading block bold white"><a href="{{ project_root.url }}">{{ project_root }}</a></label>
+						</div>
 				</div>
-			{% endif %}
+
+				{% if siblings|length > 1 %}
+					<div class="in-depth__header__righ col-7">
+	          <div id="compose__in-depth-section-nav" data-sections='{{ siblings_json|safe }}' data-current-slide="{{ index }}"></div>
+					</div>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 
@@ -156,13 +164,13 @@
 	<div class="in-depth__footer margin-top-80">
 		{% if previous_sibling or next_sibling %}
 		<div class="in-depth__footer__next-prev container {% if previous_sibling and next_sibling %}has-both{% endif %}">
-      <div class="row gutter-45">
+      <div class="row gutter-0">
         <div class="col-6">
 			{% if previous_sibling %}
       <div class="in-depth__footer__next-prev__block">
 					<a href="{{ previous_sibling.specific.url }}">
 						<div class="in-depth__footer__next-prev__link">
-							<label class="block button--text with-caret--left margin-bottom-25">Previous Section</label>
+							<label class="block button--text with-caret--left margin-bottom-md-25">Prev. Section</label>
               <div class="prev-image-block">
                 {% if previous_sibling.specific.story_image %}
                   {% image previous_sibling.specific.story_image fill-100x100 as prev_background %}
@@ -170,7 +178,7 @@
                     <img src="{{ prev_background.url }}" />
                   </div>
                 {% endif %}
-							   <label>{{ previous_sibling }}</label>
+							   <label class="{% if next_sibling.specific.story_image %}image-padding{% endif %}">{{ previous_sibling }}</label>
               </div>
 						</div>
 					</a>
@@ -182,9 +190,9 @@
         <div class="in-depth__footer__next-prev__block next">
 					<a href="{{ next_sibling.specific.url }}">
 						<div class="in-depth__footer__next-prev__link">
-							<label class="button--text with-caret--right margin-bottom-25">Next Section</label>
+							<label class="button--text with-caret--right margin-bottom-md-25">Next Section</label>
               <div class="next-image-block">
-							   <label>{{ next_sibling }}</label>
+							   <label class="{% if next_sibling.specific.story_image %}image-padding{% endif %}">{{ next_sibling }}</label>
                  {% if next_sibling.specific.story_image %}
          					{% image next_sibling.specific.story_image fill-100x100 as next_background %}
          					<div class="in-depth__footer__next-prev__image">

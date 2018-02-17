@@ -18,6 +18,7 @@ import LazyLoad from 'vanilla-lazyload';
 import SmoothScroll from 'smooth-scroll';
 import bowser from 'bowser';
 import domtoimage from 'dom-to-image';
+import $ from 'jquery';
 
 window.React = window.React$1 = React;
 window.reactDom = ReactDOM;
@@ -36,6 +37,7 @@ window.ScrollArea = ScrollArea;
 window.store = store;
 window.expirePlugin = expirePlugin;
 window.LazyLoad = LazyLoad;
-window.smoothScroll = SmoothScroll;
+window.smoothScroll = window.SmoothScroll = SmoothScroll;
 window.bowser = bowser;
 window.domtoimage = domtoimage;
+window.$ = window.jQuery = $;

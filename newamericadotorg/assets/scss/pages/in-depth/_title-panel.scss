@@ -2,6 +2,13 @@
   width: 100vw;
   height: calc(100vh - 80px);
   position: relative;
+  @include media-breakpoint(tablet){
+    max-height: 500px;
+  }
+
+  @include media-breakpoint(desktop){
+    max-height: 600px;
+  }
 
   &.home-title-panel{
     height: 100vh;
@@ -20,15 +27,29 @@
 .title-panel__text-box{
   position: absolute;
   z-index: 10;
-  max-width: 700px;
+  width: 100%;
+
 
   &.home-title{
+    max-width: 700px;
     @include center;
   }
 
   &:not(.home-title){
-    left: 0;
-    bottom: 65px;
+    max-width: 600px;
+    left: 15px;
+    bottom: type-adjusted-padding(65px);
+  }
+}
+
+.title-panel__logo{
+  width: 125px;
+  position: absolute;
+  z-index: 20;
+  top: 15px;
+  left: 15px;
+  img {
+    width: 100%;
   }
 }
 
@@ -44,14 +65,18 @@
   background: color(black);
 
   &__background{
-    background-size:cover;
+    background-size: auto 100%;
     background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
     height: 100%;
     -webkit-filter: blur(5px);
     filter: blur(5px);
     opacity: 0.6;
     @include transition(opacity 0.35s ease);
+    @include media-breakpoint(tablet){
+      background-size: 125% auto;
+    }
 
     &.loaded{
       opacity: 0;
@@ -60,11 +85,16 @@
   img {
     position: absolute;
     z-index: 1;
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
     @include center;
     @include transition(opacity 0.35s ease);
     opacity: 0;
+
+    @include media-breakpoint(tablet){
+      width: 125%;
+      height: auto;
+    }
 
     &.loaded{
       opacity: 0.6;

@@ -14,9 +14,12 @@ class APP extends Component {
       <div className="in-depth-section-nav">
           <Slider
             initialSlide={+currentSlide}
-            slidesToShow={4}
             slideToScroll={1}
             infinite={false}
+            responsive={[
+              {breakpoint: 768, settings: {slidesToShow: 1}},
+              {breakpoint: 100000, settings: {slidesToShow: 3}}
+            ]}
             nextArrow={<div><label className="with-caret--right white"/></div>}
             prevArrow={<div><label className="with-caret--left white"/></div>}>
             {sections.map((s,i)=>(
