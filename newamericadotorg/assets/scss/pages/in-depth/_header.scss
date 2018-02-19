@@ -17,8 +17,11 @@ $section-header-height: 80px;
 
 #compose__in-depth-section-nav{
 	width: 100%;
-  padding-left: 50px;
-  padding-right: 50px;
+  
+  @include media-breakpoint(tablet){
+    padding-left: 50px;
+    padding-right: 50px;
+  }
   .in-depth-section-nav{
     width: 100%;
   }

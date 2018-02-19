@@ -11,7 +11,7 @@
       z-index: 100;
       border-radius: 25px;
       background: color(black);
-      @include transition(border-radius 0.35s ease);
+      @include transition(border-radius 0.2s ease);
       box-shadow: 0px 0px 10px 3px color(black, base, 0.15);
       &:after{
         content: '\f142';
@@ -30,8 +30,8 @@
       bottom: 40px;
       right: 40px;
       padding: 25px;
-      width: 25px;
-      max-height: 25px;
+      width: calc(100vw - 50px);
+      max-height: 65vh;
       padding-right: 50px;
       background: color(black);
       box-shadow: 0px 0px 10px 3px color(black, base, 0.15);
@@ -41,7 +41,7 @@
       -ms-transform-origin: right bottom;
       -o-transform-origin: right bottom;
       transform-origin: right bottom;
-      @include transition(all 0.35s ease);
+      @include transition(all 0.2s ease);
     }
     .dot-nav__dot-icon{
       display: none;
@@ -65,8 +65,6 @@
         bottom: 25px;
         right: 25px;
         border-radius: 0;
-        width: calc(100vw - 50px);
-        max-height: 65vh;
         opacity: 1;
         @include transform(scale(1));
       }

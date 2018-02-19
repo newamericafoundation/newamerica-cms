@@ -133,9 +133,6 @@
     				<label class="title-panel__subheading block pullquote white">{{ page.subheading|richtext }}</label>
   			  </div>
         </div>
-			{% if page.panels %}
-				<a class="title-panel__scroll-down button--text with-caret--down" href="#{{ page.panels.0.value.panel_title|slugify }}"></a>
-			{% endif %}
 		</section>
 		{% if story_image.image.source %}
 			<label class="block caption" style="padding-left:10px">Photo: {{ story_image.image.source}}</label>

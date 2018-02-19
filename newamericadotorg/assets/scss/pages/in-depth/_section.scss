@@ -5,7 +5,7 @@
       z-index: 15;
       width: 100%;
       position: relative;
-      height: 80px;
+      height: 60px;
 
       &:after{
         content: '';
@@ -14,8 +14,8 @@
         top: 50%;
         @include transform(translateY(-50%) rotate(45deg));
         display: inline-block;
-        width: 10px;
-        height: 10px;
+        width: 5px;
+        height: 5px;
         position: absolute;
         margin-top: -2px;
         right: 15px;
@@ -34,6 +34,7 @@
          border: 1px solid color(white);
          background-size: 12px 12px;
          padding-right: 30px;
+         padding-left: 15px;
          background-position-y: center;
          background-position-x: 97%;
          margin-bottom: 0px;

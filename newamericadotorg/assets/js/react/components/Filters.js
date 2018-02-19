@@ -2,6 +2,7 @@ import { Component, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { RadioButton } from './Inputs';
 import { format as formatDate, subDays } from 'date-fns';
+import { PlusX } from './Icons';
 
 class _FilterGroup extends Component {
   componentDidMount(){
@@ -74,8 +75,7 @@ export class Filter extends Component {
       <label className="program__publications-filters__filter__heading block bold margin-25" onClick={this.toggle}>
         {this.props.label}
         <div className="icon">
-          {this.state.expanded && <i className="fa fa-minus" />}
-          {!this.state.expanded && <i className="fa fa-plus" />}
+          <PlusX x={this.state.expanded} />
         </div>
       </label>
     );
