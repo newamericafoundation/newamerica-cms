@@ -8,26 +8,27 @@
       }
   }
 	&__logo {
-        width: $logo-width;
-        padding-bottom: $desktop-padding;
-        float: left;
-        padding-bottom: 0px;
-        margin-right: $desktop-padding;
+        width: 75px;
+        margin-right: 25px;
+				vertical-align: middle;
         display: none;
 
-        @include breakpoint(medium) {
+        @include media-breakpoint(desktop) {
            display: inline-block;
         }
 
-        .sidemenu__logo {
-           margin: 0px;
-        }
+        img {
+					width: 100%;
+					height: auto;
+					display: block;
+				}
 
     }
 
     &__text {
         display: inline-block;
-        width: 100%;
+				vertical-align: middle;
+        width: calc(100% - 100px);
 
         &.has-logo {
            @include breakpoint(medium) {
