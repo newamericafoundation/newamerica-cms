@@ -103,7 +103,7 @@ export class TopicsList extends Component {
     let { program } = this.props;
     return (
       <div className="program__topics menu-list with-arrow--right margin-top-35">
-        {program.topics.map((topic,i)=>(
+        {program.topics.sort((a,b) => a.title > b.title ? 1 : -1).map((topic,i)=>(
           <h2 key={`topic-${i}`}>
             <Link to={topic.url}>{topic.title}</Link>
             <div className="icon-arrow">
