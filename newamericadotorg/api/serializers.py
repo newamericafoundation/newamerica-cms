@@ -733,14 +733,21 @@ class ReportDetailSerializer(PostSerializer):
     endnotes = SerializerMethodField()
     story_image = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
+    report_pdf = SerializerMethodField()
 
     class Meta:
         model = Report
         fields = (
             'id', 'title', 'subheading', 'date', 'content_type',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
-            'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail'
+            'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
+            'report_pdf'
         )
+
+    def get_report_pdf(self, obj):
+        if not obj.report_pdf:
+            return None
+        return obj.report_pdf.file.url
 
     def get_story_image(self, obj):
         img = generate_image_rendition(obj.story_image, 'fill-1200x540')

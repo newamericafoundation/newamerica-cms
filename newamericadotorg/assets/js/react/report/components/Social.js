@@ -2,12 +2,17 @@ import { Component } from 'react';
 
 class Social extends Component {
   social = () => {
-    return [
+    let icons = [
       { label: 'Share', icon: 'fa-facebook', id: 'social__facebook', url: '' },
-      { label: 'Tweet', icon: 'fa-twitter', id: 'social__twitter', url: '' },
-      { label: 'Download', icon: 'fa-download', id: 'social__download', url: `${this.props.url}pdf/`  },
-      { label: 'Print', icon: 'fa-print', id: 'social__print', url: '' }
+      { label: 'Tweet', icon: 'fa-twitter', id: 'social__twitter', url: '' }
     ];
+    
+    if(this.props.report_pdf){
+      icons.push(
+        { label: 'Download', icon: 'fa-download', id: 'social__download', url: `${this.props.report_pdf}`  }
+      );
+    }
+    return icons;
   }
   render(){
     return (

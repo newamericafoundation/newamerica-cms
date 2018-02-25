@@ -68,7 +68,7 @@ class Body extends Component {
   }
 
   render(){
-    let { section, authors, endnotes, date, url } = this.props;
+    let { section, authors, endnotes, date, url, report_pdf } = this.props;
     let { endnote, top } = this.state;
     return (
       <div className="container margin-top-35 margin-top-lg-80 ">
@@ -80,7 +80,7 @@ class Body extends Component {
         </div>
         <div className={"report__body__aside col-6 col-md-6 col-lg-2 pull-lg-2"}>
           <div className="post-aside-wrapper">
-            <Social url={url}/>
+            <Social url={url} report_pdf={report_pdf}/>
             <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
           </div>
         </div>

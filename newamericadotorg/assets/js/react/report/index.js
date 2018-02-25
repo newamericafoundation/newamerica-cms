@@ -63,6 +63,7 @@ class Report extends Component {
             authors={report.authors}
             endnotes={report.endnotes}
             date={report.date}
+            report_pdf={report.report_pdf}
             dispatch={this.props.dispatch}
             location={location}
             url={report.url}/>
