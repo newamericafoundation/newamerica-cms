@@ -29,8 +29,7 @@ def list_separator(i):
 		return ""
 
 
-# this function will be removed, here now so we don't have to do a massive
-# migration to change image-size options.
+# this function is to support old inline image block width values
 @register.filter()
 def temp_image_width_map(width):
 	if width == '60%':
@@ -39,7 +38,7 @@ def temp_image_width_map(width):
 		return 'width-166'
 	if width == '33.333%':
 		return 'width-133'
-	return ''
+	return width
 
 @register.filter()
 def ellipsize(text, max_length):

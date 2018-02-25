@@ -28,17 +28,18 @@ class CustomJSONEncoder(json.JSONEncoder):
 class CustomImageBlock(blocks.StructBlock):
 	image = ImageChooserBlock(icon="image", required=True)
 	align = blocks.ChoiceBlock(choices=[
+		('centered', 'Centered'),
 		('left', 'Left'),
-		('right', 'Right'),
-		('full-width', 'Full Width')
-	], required=True)
+		('right', 'Right')	
+	], default='centered', required=True)
 	width = blocks.ChoiceBlock([
 		('initial', 'Auto'),
-		('60%', '60%'),
-		('50%', '50%'),
-		('33.333%', '33%'),
-		('25%', '25%')
+		('width-133', 'Medium'),
+		('width-166', 'Large'),
+		('width-200', 'X-Large')
 	], default="initial", required=True)
+	figure_number = blocks.CharBlock(required=False, max_length=3)
+	figure_title = blocks.CharBlock(required=False, max_length=100)
 	open_image_on_click = blocks.BooleanBlock(default=False, required=False)
 
 	class Meta:

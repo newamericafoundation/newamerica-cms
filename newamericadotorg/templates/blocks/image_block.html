@@ -10,23 +10,39 @@
 {% endif %}
 
 <figure class="figure {{value.align}} margin-35 margin-lg-60">
-  <div class="figure__title margin-bottom-15">
-    <label class="bold with-seperator">Figure X</label><label>Lorem Ipsum Dolor Sit Amet</label>
-  </div>
+  {% if value.figure_number or value.figure_title %}
+    <div class="figure__title margin-bottom-15">
+      {% if value.figure_number %}
+        <label class="bold{% if value.figure_title %} with-separator{% endif %}">Figure {{ value.figure_number }}</label>
+      {% endif %}
+      {% if value.figure_title %}
+        <label>{{ value.figure_title }}</label>
+      {% endif %}
+    </div>
+  {% endif %}
   <div class="figure__image {{value.width|temp_image_width_map}}">
     {% if value.open_image_on_click %}
-      <a href={{ img_original.url }} target='_blank' >
-        <img {{ img_original.attrs }}/>
+      <a href="{{ img_original.url }}" target='_blank' >
+        <img src="{{img.url}}"/>
       </a>
     {% else %}
-      <img {{ img_original.attrs }}/>
+      <img src="{{img.url}}"/>
     {% endif %}
   </div>
-  <figcaption class="margin-top-10">
-    <label class="caption block">
-      Source: Lorem Ipsum Dolor Sit Amet / Caption
-    </label>
-  </figcaption>
+  {% if img.caption or img.source %}
+    <figcaption class="margin-top-10">
+      {% if img.caption %}
+        <label class="block">
+          {{ img.caption }}
+        </label>
+      {% endif %}
+      {% if img.source %}
+        <label class="caption block">
+          Source: {{ img.source }}
+        </label>
+      {% endif %}
+    </figcaption>
+  {% endif %}
 </figure>
 {% if value.caption or value.source or value.image.caption or value.image.source %}
 

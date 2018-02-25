@@ -11,3 +11,8 @@ def pdf(request, **kwargs):
     path = request.path.split('/')[:-2]
     report = Report.objects.filter(slug=path[len(path)-1]).first()
     return generate_pdf_response(report, request)
+
+def pdf_html(request, **kwargs):
+    path = request.path.split('/')[:-3]
+    report = Report.objects.filter(slug=path[len(path)-1]).first()
+    return render(request, 'report/pdf.html', context={ 'page': report })

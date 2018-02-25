@@ -3,6 +3,14 @@ from newamericadotorg.helpers import is_json
 from logdna import LogDNAHandler as LogDNA
 from django.http import JsonResponse
 
+
+class LoggerFilter(logging.Filter):
+    def filter(self, record):
+        print(record.getMessage())
+
+logger = logging.getLogger('weasyprint')
+logger.addFilter(LoggerFilter())
+
 class APIExceptionMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
