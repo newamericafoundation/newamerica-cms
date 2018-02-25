@@ -28,9 +28,9 @@ class CustomJSONEncoder(json.JSONEncoder):
 class CustomImageBlock(blocks.StructBlock):
 	image = ImageChooserBlock(icon="image", required=True)
 	align = blocks.ChoiceBlock(choices=[
-		('centered', 'Centered'),
+		('center', 'Centered'),
 		('left', 'Left'),
-		('right', 'Right')	
+		('right', 'Right')
 	], default='centered', required=True)
 	width = blocks.ChoiceBlock([
 		('initial', 'Auto'),

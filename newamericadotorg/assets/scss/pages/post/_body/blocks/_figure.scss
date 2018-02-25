@@ -2,6 +2,15 @@
   @include transition(opacity 0.35s ease);
 }
 
+.figure figcaption{
+  text-align: left;
+}
+
+.figure.center .figure__image,
+.figure.centered .figure__image{
+  max-width: none !important;
+}
+
 .figure__image{
   width: 100%;
 
@@ -68,8 +77,13 @@
       margin-bottom: 35px;
       width: 50%;
 
-      .figure__image > img {
+      .figure__image, figcaption, .figure__title {
         display: inline-block;
+        width: 100%;
+        text-align: left;
+      }
+
+      .figure__image > img {
         margin: 0 !important;
       }
     }
@@ -91,6 +105,7 @@
       float: left;
       margin-right: 50px;
       margin-left: -4.166667vw;
+      text-align: right;
     }
 
     @include media-breakpoint(desktop){
@@ -99,11 +114,6 @@
 
     @include media-breakpoint(large-desktop){
       margin-left: -33.3333%;
-    }
-
-
-    .figure__image {
-      text-align: right;
     }
   }
 
@@ -120,10 +130,6 @@
 
     @include media-breakpoint(large-desktop){
       margin-right: -33.3333%;
-    }
-
-    .figure__image {
-      text-align: left;
     }
   }
 }
