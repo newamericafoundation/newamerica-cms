@@ -21,7 +21,7 @@
 
   @include media-breakpoint(tablet){
     &.width-200{
-      margin-left: calc(-8.33333vw - 22.5px);
+      margin-left: calc(-50vw - 350px);
     }
   }
 
@@ -39,7 +39,7 @@
     &.width-200{
     //  width: calc(140% + 140px);
     //  margin-left: calc(-20% - 70px);
-     margin-left: calc(-20.83333vw - 22.5px);
+     //margin-left: calc(-20.83333vw - );
     }
   }
 
