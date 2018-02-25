@@ -151,6 +151,12 @@
       font-family: 'Circular';
     }
 
+    label.with-separator:after{
+      content: '|';
+      display: inline;
+      padding-left: 0.5em;
+    }
+
     label.caption {
       font-family: 'Lyon';
       font-style: italic;
@@ -208,16 +214,28 @@
 
     .figure {
       display: block;
-      background: black;
     }
 
     .figure:not(.left):not(.right){
       margin: 35pt auto;
     }
 
+    .figure__title{
+      margin-bottom: 10pt;
+      text-align: left;
+    }
+
+    .figure figcaption {
+      margin-top: 10pt;
+      text-align: left;
+    }
+
+    .figure figcaption label:first-child{
+      margin-top: 0;
+    }
+
     .figure__image{
       width: 100%;
-      background: grey;
     }
 
     .figure__image > img {

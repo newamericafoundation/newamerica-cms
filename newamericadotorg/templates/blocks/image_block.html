@@ -29,16 +29,16 @@
       <img src="{{img.url}}"/>
     {% endif %}
   </div>
-  {% if img.caption or img.source %}
+  {% if value.image.caption or value.image.source %}
     <figcaption class="margin-top-10">
-      {% if img.caption %}
+      {% if value.image.caption %}
         <label class="block">
-          {{ img.caption }}
+          {{ value.image.caption }}
         </label>
       {% endif %}
-      {% if img.source %}
+      {% if value.image.source %}
         <label class="caption block">
-          Source: {{ img.source }}
+          Source: {{ value.image.source }}
         </label>
       {% endif %}
     </figcaption>
