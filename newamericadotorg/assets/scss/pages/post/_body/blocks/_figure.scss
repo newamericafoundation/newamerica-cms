@@ -67,6 +67,11 @@
       margin-top: 35px;
       margin-bottom: 35px;
       width: 50%;
+
+      .figure__image > img {
+        display: inline-block;
+        margin: 0 !important;
+      }
     }
 
     @include media-breakpoint(desktop){
@@ -78,11 +83,6 @@
     .figure__image{
       width: 100% !important;
       margin-left: 0 !important;
-
-      & > img {
-        display: inline-block;
-        margin: 0 !important;
-      }
     }
   }
 
