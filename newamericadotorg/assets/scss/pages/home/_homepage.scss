@@ -1,3 +1,4 @@
+$home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
 .homepage{
   section:not(:last-child) {
     margin-bottom: 10px;
@@ -46,22 +47,22 @@
 .homepage__weekly-promo-section,
 .homepage__subscribe-section{
   .promo span, h3, .input{
-    @include transition(opacity 1.35s ease, transform 1.35s ease);
+    @include transition(opacity $home-transition-func, transform $home-transition-func);
     opacity: 0;
     @include transform(translateY(50px));
     position: relative;
   }
 
   .promo span:nth-child(2){
-    @include transition-delay(0.25s);
+    @include transition-delay(0.15s);
   }
 
   h3{
-    @include transition-delay(0.5s);
+    @include transition-delay(0.3s);
   }
 
   .input{
-    @include transition-delay(0.75s);
+    @include transition-delay(0.45s);
   }
 
 
@@ -89,14 +90,14 @@
   .col-md-4{
     @include transform(translateY(50px));
     opacity: 0;
-    @include transition(opacity 1s ease, transform 1s ease);
+    @include transition(opacity $home-transition-func, transform $home-transition-func);
 
     &:nth-child(2){
-      @include transition-delay(0.25s);
+      @include transition-delay(0.15s);
     }
 
     &:nth-child(3){
-      @include transition-delay(0.5s);
+      @include transition-delay(0.3s);
     }
   }
 
@@ -113,18 +114,18 @@
     position: relative;
     @include transform(translateY(50px));
     opacity: 0;
-    @include transition(opacity 1s ease, transform 1s ease);
+    @include transition(opacity $home-transition-func, transform $home-transition-func);
 
     &:nth-child(2){
-      @include transition-delay(0.25s);
+      @include transition-delay(0.15s);
     }
 
     &:nth-child(3){
-      @include transition-delay(0.5s);
+      @include transition-delay(0.3s);
     }
 
     &:nth-child(4){
-      @include transition-delay(0.75s);
+      @include transition-delay(0.45s);
     }
   }
 
