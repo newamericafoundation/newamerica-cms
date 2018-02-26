@@ -18,11 +18,16 @@ input[type="submit"] {
 	outline: 0;
 }
 
+textarea {
+	margin-top: 25px;
+	margin-bottom: 15px;
+}
+
 input[type="text"], select {
 	height: $default-input-height;
 }
 
-input[type="text"] {
+input[type="text"], textarea {
 	border: none;
 	outline: none;
 	border-bottom: 1px solid color(black, base, 0.3);
@@ -31,7 +36,7 @@ input[type="text"] {
 
 .input {
 	position: relative;
-	input {
+	input, textarea{
 		width: 100%;
 		position: relative;
 		z-index: 1;
@@ -46,7 +51,10 @@ input[type="text"] {
 	}
 	input[type="text"]:active + label,
 	input[type="text"]:focus + label,
-	input[type="text"]:valid + label {
+	input[type="text"]:valid + label,
+	textarea:active + label,
+	textarea:focus + label,
+	textarea:valid + label {
 		@include transform(translateY(-2.75em));
 		color: color(black, base, 0.3);
 	}

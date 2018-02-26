@@ -20,3 +20,11 @@ export const Text = ({ children, ...props}) => (
     {children}
   </div>
 );
+
+export const TextArea = ({ children, ...props}) => (
+  <div className="input">
+    <textarea type="text" rows="6" required {...props} />
+    <label className="input__label button--text">{props.label}</label>
+    {children}
+  </div>
+);
