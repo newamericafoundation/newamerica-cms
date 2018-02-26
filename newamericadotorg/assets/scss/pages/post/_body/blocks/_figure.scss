@@ -6,9 +6,12 @@
   text-align: left;
 }
 
-.figure.center .figure__image,
-.figure.centered .figure__image{
-  max-width: none !important;
+.figure.center,
+.figure.centered,
+.figure.full-width{
+  .figure__image, .figure__title, figcaption{
+    max-width: none !important;
+  }
 }
 
 .figure__image{
