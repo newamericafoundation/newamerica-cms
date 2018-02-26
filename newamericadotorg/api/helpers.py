@@ -4,6 +4,7 @@ from event.models import ProgramEventsPage, AllEventsHomePage
 from issue.models import TopicHomePage
 from person.models import ProgramPeoplePage
 from issue.models import IssueOrTopic
+from other_content.models import ProgramOtherPostsPage, OtherPostCategory
 
 from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.views.serve import generate_signature
@@ -83,6 +84,12 @@ def get_program_content_types(program):
             'api_name': c.content_model.__name__.lower(),
             'name': name
         }
+        if type(c) == ProgramOtherPostsPage:
+            categories = c.get_children().type(OtherPostCategory).specific()
+            cats = []
+            for cat in categories:
+                cats.append(cat.title)
+            content_type['categories'] = cats
         content_types.append(content_type)
 
     return content_types

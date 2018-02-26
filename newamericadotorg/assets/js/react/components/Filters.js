@@ -86,6 +86,12 @@ export class TypeFilter extends Filter {
   handleChange = (event) => {
     let { history, location, programUrl } = this.props;
     let params = new URLSearchParams(location.search.replace('?', ''));
+    if(event.target.value == 'otherpost'){
+      params.delete('projectId');
+      params.delete('topicId');
+    } else {
+      params.delete('category');
+    }
     history.push(`${programUrl ? programUrl : '/'}${event.target.getAttribute('data-slug')}/?${params.toString()}`);
   }
 
@@ -98,6 +104,36 @@ export class TypeFilter extends Filter {
           <RadioButton label={'All'} value={''} data-slug="publications" checked={query.content_type==undefined || pathname.indexOf('publications') != -1} onChange={this.handleChange} />
           {types.map((t,i)=>(
             <RadioButton key={`type-${i}`} label={t.title} value={t.api_name} data-slug={t.slug} checked={(query.content_type==t.api_name && (query.other_content_type_title==t.title || query.other_content_type_title==undefined))|| pathname.indexOf(`/${t.slug}/`) != -1} onChange={this.handleChange}/>
+          ))}
+        </form>
+      </div>
+    );
+  }
+}
+
+export class CategoryFilter extends Filter {
+  handleChange = (event) => {
+    let { history, location, program } = this.props;
+    let params = new URLSearchParams(location.search.replace('?', ''));
+
+    if(event.target.value == '') {
+      params.delete('category');
+    } else {
+      params.set('category', event.target.value);
+    }
+
+    history.push(`${location.pathname}?${params.toString()}`);
+  }
+
+  render(){
+    let { categories, location : { pathname }, response: { params: { query } } } = this.props;
+    return (
+      <div className={`program__publications-filters__filter type-filter ${this.state.expanded ? 'expanded' : ''}`}>
+        {this.label()}
+        <form>
+          <RadioButton label={'All'} value={''} checked={query.category==undefined} onChange={this.handleChange} />
+          {categories.map((c,i)=>(
+            <RadioButton key={`category-${i}`} label={c} value={c} checked={c==query.category} onChange={this.handleChange}/>
           ))}
         </form>
       </div>

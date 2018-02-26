@@ -55,12 +55,14 @@ class PostList(generics.ListAPIView):
         ids = self.request.query_params.getlist('id[]', None)
         topic_id = self.request.query_params.get('topic_id', None)
         content_type_id = self.request.query_params.get('content_type_id', None)
-        category_id = self.request.query_params.get('category_id', None)
+        category = self.request.query_params.get('category', None)
         data_viz = self.request.query_params.get('data_viz', None)
 
         if other_content_type_title:
             posts = OtherPost.objects.live()\
                 .filter(other_content_type__title=other_content_type_title)
+            if category:
+                posts = posts.filter(category__title=category)
         else:
             posts = Post.objects.live().not_type(Event)
 
@@ -84,9 +86,6 @@ class PostList(generics.ListAPIView):
 
         if content_type_id:
             posts = posts.descendant_of(Page.objects.get(pk=content_type_id))
-
-        if category_id:
-            posts = posts.descendant_of(Page.objects.get(pk=category_id))
 
         if data_viz == 'true':
             posts = posts.exclude(data_project_external_script__isnull=True).exclude(data_project_external_script='')

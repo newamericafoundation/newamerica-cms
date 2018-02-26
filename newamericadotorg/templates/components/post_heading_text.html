@@ -6,6 +6,6 @@
     <label class="pullquote">{{ page.subheading }}</label>
   {% endif %}
   {% if page.content_type.name != 'New America Post' %}
-  <label class="block button--text">{{page.content_type}}{% if page.source %} in {{ page.source }}{% endif %}</label>
+  <label class="block button--text">{% firstof page.other_content_type.singular_title page.content_type %}{% if page.source %} in {{ page.source }}{% endif %}</label>
   {% endif %}
 </div>

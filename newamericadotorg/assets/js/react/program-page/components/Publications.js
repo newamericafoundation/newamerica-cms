@@ -1,7 +1,7 @@
 import { NAME } from '../constants';
 import { Component } from 'react';
 import { Fetch, Response } from '../../components/API';
-import { TypeFilter, SubprogramFilter, DateFilter, TopicFilter, FilterGroup } from '../../components/Filters';
+import { TypeFilter, SubprogramFilter, DateFilter, TopicFilter, CategoryFilter, FilterGroup } from '../../components/Filters';
 import { PublicationsList, PublicationsWrapper } from '../../components/Publications';
 
 // must pass an response object from Fetch of Response component, history and location to FilterGroup
@@ -12,7 +12,9 @@ const Filters = (props) => (
     response={props.response}
     programUrl={props.program.url}>
     <TypeFilter types={props.program.content_types.sort((a,b) => a.name > b.name ? 1 : -1)} expanded={props.initialQuery.content_type != undefined} label="Type"/>
-    {props.program.subprograms &&
+    {props.categories &&
+      <CategoryFilter categories={props.categories.sort((a,b) => a.name > b.name ? 1 : -1)} expanded={props.initialQuery.category != undefined} label="Category"/>}
+    {(props.program.subprograms && !props.categories) &&
     <SubprogramFilter subprograms={props.program.subprograms} expanded={props.response.params.query.subprogram_id!==undefined} label="Project"/>}
     <DateFilter label="Date" expanded={props.response.params.query.after!==undefined} />
     {props.program.topics &&
@@ -21,13 +23,28 @@ const Filters = (props) => (
 );
 
 export default class Publications extends PublicationsWrapper {
+  state = {
+    categories: undefined,
+    initQuery: {}
+  }
   componentWillMount(){
     if(window.scrollY > 300){
       window.scrollTo(0, 0);
     }
+    this.setState({ initQuery: this.initialQuery(this.props) })
   }
-  initialQuery = () => {
-    let { programType, program, location } = this.props;
+
+  componentWillReceiveProps(nextProps){
+    if(JSON.stringify(nextProps.location) != JSON.stringify(this.props.location))
+      this.setState({ initQuery: this.initialQuery(nextProps) })
+  }
+
+  setCategories = (cats) =>{
+    this.setState({ categories: cats });
+  }
+
+  initialQuery = (props) => {
+    let { programType, program, location } = props;
     let program_id = programType == 'program' ? 'program_id' : 'subprogram_id';
 
     let initQuery = {
@@ -44,13 +61,20 @@ export default class Publications extends PublicationsWrapper {
       initQuery.after = params.get('after');
     if(params.get('before'))
       initQuery.before = params.get('before');
+    if(params.get('category'))
+      initQuery.category = params.get('category');
 
     let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
     let type = program.content_types.find((t)=>(t.slug === slug ));
     if(type){
       initQuery.content_type = type.api_name;
-      if(type.api_name == 'otherpost')
+      if(type.api_name == 'otherpost'){
         initQuery.other_content_type_title = type.title;
+        if(type.categories)
+          this.setState({ categories: type.categories });
+      } else {
+        this.setState({ categories: undefined });
+      }
     }
 
     return initQuery;
@@ -69,8 +93,9 @@ export default class Publications extends PublicationsWrapper {
               eager={true}
               program={program}
               history={history}
+              categories={this.state.categories}
               location={location}
-              initialQuery={this.initialQuery()}/>
+              initialQuery={this.state.initQuery}/>
           }
           publications={
             <Response name={`${NAME}.publications`} component={PublicationsList}/>
