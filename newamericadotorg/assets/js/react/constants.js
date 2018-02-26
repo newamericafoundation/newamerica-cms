@@ -15,3 +15,4 @@ export const SITE_IS_LOADING = 'SITE_IS_LOADING';
 export const TOGGLE_SEARCH = 'TOGGLE_SEARCH';
 export const SET_SEARCH_IS_OPEN = 'SET_SEARCH_IS_OPEN';
 export const SET_WINDOW_WIDTH = 'SET_WINDOW_WIDTH';
+export const SET_IP = 'SET_IP';

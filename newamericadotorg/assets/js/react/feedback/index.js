@@ -49,8 +49,8 @@ class APP extends Component {
 
   submit = () => {
     if(this.state.isSubmitting) return false;
-    let { email, level, message, type, browser, os, page } = this.props;
-    let props = { email, level, message, type, browser, os, page};
+    let { contact, level, message, type, browser, os, page, ip } = this.props;
+    let props = { contact, level, message, type, browser, os, page, ip};
     let url = new URL('https://script.google.com/macros/s/AKfycbzayhkZNORzDqeMyRQgEXsc1_OAU6i4yU8DuxShl_900U71iI4/exec');
     for(let k in props)
       url.searchParams.append(k, props[k]);
@@ -59,11 +59,8 @@ class APP extends Component {
     fetch(url, {
         method: 'GET',
         credentials: 'same-origin',
-        mode: 'cors', // no-cors, *same-origin
-        redirect: 'follow',
-        headers: {
-        //  'content-type': 'application/json'
-        }
+        mode: 'cors',
+        redirect: 'follow'
       }).then(response => {
         return response.json();
       }).then( response => {
@@ -81,7 +78,7 @@ class APP extends Component {
   }
 
   render(){
-    let { email, level, message, type } = this.props;
+    let { contact, level, message, type } = this.props;
     let { isOpen, isSubmitting } = this.state;
     return (
       <div className={`global-feedback${isOpen? ' open' : ''}`}>
@@ -101,7 +98,7 @@ class APP extends Component {
               <a title="bug" className={`fa fa-bug${type=='bug' ? ' selected' : ''}`} onClick={()=>{this.setType('bug');}}/>
           </div>
           <div className="global-feedback__email margin-top-25">
-            <Text label="Email or Name" value={email} onChange={(e)=>{this.setEmail(e.target.value)}} type="text" />
+            <Text label="Email or Name" value={contact} onChange={(e)=>{this.setEmail(e.target.value)}} type="text" />
           </div>
           <div className="global-feedback__message margin-top-25">
             <TextArea label="Feedback" value={message} onChange={(e)=>{this.setMessage(e.target.value)}} type="text" />
@@ -120,13 +117,14 @@ class APP extends Component {
 
 
 const mapStateToProps = (state) => ({
-  email: state.feedback.email || cache.get('feedback_email') || '',
+  contact: state.feedback.email || cache.get('feedback_email') || '',
   level: state.feedback.level || 'sitewide',
   message: state.feedback.message || '',
   type: state.feedback.type || '',
   browser: `${bowser.name} ${bowser.version}`,
   os: `${bowser.osname} ${bowser.osversion}`,
-  page: location.href
+  page: location.href,
+  ip: state.site.ip
 });
 
 APP = connect(mapStateToProps)(APP);

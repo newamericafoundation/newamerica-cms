@@ -6,11 +6,16 @@
   overflow: hidden;
   @include transition(all 0.3s cubic-bezier(.33,0,.2,1));
   position: fixed;
-  bottom: 25px;
-  left: 25px;
+  bottom: 15px;
+  left: 15px;
   width: 110px;
   height: 40px;
   z-index: 1000;
+
+  @include media-breakpoint(tablet){
+    bottom: 25px;
+    left: 25px;
+  }
 
 
   &__type {
@@ -40,10 +45,12 @@
   }
 
   &.open{
-    padding: 25px;
-    width: 500px;
-    height: 545px;
     border-radius: 0px;
+    height: 545px;
+    width: calc(100vw - 30px);
+    @include media-breakpoint(tablet){
+      width: 500px;
+    }
   }
 
   &.open form {
