@@ -1,8 +1,8 @@
 from django.conf import settings
-from newamericadotorg.api.helpers import newamericadotorg_content_types
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, AbstractContentPage
 from issue.models import IssueOrTopic
-from home.models import HomePage
+from wagtail.wagtailcore.models import Page
+from home.models import HomePage, AbstractHomeContentPage
 
 def debug(request):
     return {'DEBUG': settings.DEBUG}
@@ -41,4 +41,15 @@ def content_types(request):
     For sitewide context_processor
     All available content_types
     '''
-    return { 'content_types': newamericadotorg_content_types }
+    typepages = Page.objects.live().type(AbstractHomeContentPage)
+    types = []
+    for p in typepages:
+        p = p.specific
+        types.append({
+            'name': p.content_model._meta.verbose_name.title(),
+            'api_name': p.content_model.__name__.lower(),
+            'title': p.title,
+            'slug': p.slug,
+            'url': p.url
+        })
+    return { 'content_types':  types }

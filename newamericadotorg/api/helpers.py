@@ -10,34 +10,6 @@ from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import SourceImageIOError
 
-# eventually hard encode these values into respective the ContentTypePage model
-newamericadotorg_content_types = [
-    { 'name': 'Blog Post', 'api_name': 'blogpost', 'slug': 'blogs', 'title': 'Blogs'  },
-    { 'name': 'Policy Paper', 'api_name': 'policypaper', 'slug': 'policy-papers', 'title': 'Policy Papers'  },
-    { 'name': 'Book', 'api_name': 'book', 'slug': 'books', 'title': 'Books'  },
-    { 'name': 'In Depth Project', 'api_name': 'indepthproject', 'slug': 'in-depth', 'title': 'In Depth Projects'  },
-    { 'name': 'In the News Piece', 'api_name': 'quoted', 'slug': 'in-the-news', 'title': 'In the News'  },
-    { 'name': 'Press Release', 'api_name': 'pressrelease', 'slug': 'press-releases', 'title': 'Press Releases'  },
-    { 'name': 'Article/Op-Ed', 'api_name': 'article', 'slug': 'articles', 'title': 'Articles and Op-Eds' },
-    { 'name': 'Podcast', 'api_name': 'podcast', 'slug': 'podcasts', 'title': 'Podcasts' },
-    { 'name': 'Weekly Article', 'api_name': 'weeklyarticle', 'slug': 'weekly-articles', 'title': 'Weekly Articles' },
-    { 'name': 'Other', 'api_name': 'customcontenttype', 'slug': 'other', 'title': 'Other'},
-    { 'name': 'Report', 'api_name': 'report', 'slug': 'reports', 'title': 'Reports' }
-]
-
-
-programpage_contenttype_map = {
-    'programblogpostspage': newamericadotorg_content_types[0],
-    'programpolicypaperspage': newamericadotorg_content_types[1],
-    'programbookspage': newamericadotorg_content_types[2],
-    'programquotedpage': newamericadotorg_content_types[4],
-    'programpressreleasespage': newamericadotorg_content_types[5],
-    'programarticlespage': newamericadotorg_content_types[6],
-    'programpodcastspage': newamericadotorg_content_types[7],
-    'programcustomcontenttypepage': newamericadotorg_content_types[8],
-    'reportshomepage': newamericadotorg_content_types[9]
-}
-
 def generate_image_rendition(image, filter_spec=None):
     if not image:
         return None
@@ -63,21 +35,30 @@ def generate_image_url(image, filter_spec=None):
     return img.url
 
 
-def get_content_type(api_name):
-    for c in newamericadotorg_content_types:
-        if c['api_name'] == api_name:
-            return c;
-
-    if api_name == 'person':
-        return { 'name': 'Person', 'api_name': 'person', 'slug': 'our-people', 'title': 'People'  }
-
-    if api_name == 'event':
-        return { 'name': 'Event', 'api_name': 'event', 'slug': 'events', 'title': 'Events'  }
-
-    if(getattr(programpage_contenttype_map, api_name, None)):
-        return programpage_contenttype_map[api_name]
-
-    return { 'name': 'Homepage', 'api_name': api_name, 'slug': None, 'title': 'Homepages' }
+def get_content_type(obj):
+    content_type = obj.get_ancestors().type(AbstractContentPage).first()
+    if content_type:
+        content_type = content_type.specific
+        name = getattr(content_type, 'singular_title', None)
+        name = obj.content_type.name if not name else name
+        return {
+            'id': content_type.id,
+            'name': name,
+            'title': content_type.title,
+            'api_name': obj.content_type.model,
+            'url': content_type.url,
+            'slug': content_type.slug
+            }
+    name = getattr(obj, 'singular_title', None)
+    name = obj.content_type.name if not name else name
+    return {
+        'id': obj.id,
+        'name': name,
+        'title': obj.content_type.name.title(),
+        'api_name': obj.content_type.model,
+        'url': obj.url,
+        'slug': obj.slug
+        }
 
 
 def get_program_content_types(program):
@@ -91,22 +72,17 @@ def get_program_content_types(program):
 
     content_types = []
     for c in children:
+        c = c.specific
+        name = getattr(c, 'singular_title', None)
+        name = c.content_model._meta.verbose_name.title() if not name else name
         content_type = {
             'id': c.id,
             'url': c.url,
             'slug': c.slug,
             'title': c.title,
-            'api_name': programpage_contenttype_map[c.content_type.model]['api_name'],
-            'name': programpage_contenttype_map[c.content_type.model]['name'],
-            'categories': [] # for custom content types
+            'api_name': c.content_model.__name__.lower(),
+            'name': name
         }
-        if c.content_type.model == 'programcustomcontenttypepage':
-            for cat in c.get_children():
-                content_type['categories'].append({
-                    'name': cat.title,
-                    'id': cat.id,
-                    'slug': cat.slug
-                })
         content_types.append(content_type)
 
     return content_types

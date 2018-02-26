@@ -104,7 +104,8 @@ class HomePage(Page):
     'JobsPage',
     'RedirectPage',
     'subscribe.SubscribePage',
-    'programs.PublicationsPage'
+    'programs.PublicationsPage',
+    'other_content.AllOtherPostsHomePage'
     ]
 
     subscription_segments = models.ManyToManyField(
@@ -329,7 +330,7 @@ class OrgSimplePage(AbstractSimplePage):
     ]
 
     class Meta:
-        verbose_name = 'New America Post'
+        verbose_name = 'Post'
 
 
 
@@ -599,13 +600,19 @@ class Post(Page):
             if created:
                 relationship.save()
 
-        if len(self.get_ancestors()) >= 5:
-            subprogram_title = self.get_ancestors()[3]
-            subprogram = Subprogram.objects.get(slug=subprogram_title.slug)
-
+        subprogram = self.get_ancestors().type(Subprogram)
+        if subprogram:
             if isinstance(subprogram, AbstractProgram):
                 relationship, created=PostSubprogramRelationship.objects.get_or_create(
-                    subprogram=subprogram, post=self
+                    subprogram=subprogram[0].specific, post=self
                 )
                 if created:
                     relationship.save()
+
+class AbstractHomeContentPage(Page):
+    """
+    Convenience Class for querying all Content homepages
+    """
+
+    class Meta:
+        abstract=True

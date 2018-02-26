@@ -148,17 +148,7 @@ class StoryGridItemSerializer(ModelSerializer):
         return generate_image_url(obj.specific.story_image, 'fill-30x23')
 
     def get_content_type(self, obj):
-        content_type = obj.get_ancestors().type(AbstractContentPage).first()
-        if content_type:
-            return {
-                'id': content_type.id,
-                'name': content_type.title,
-                'title': obj.content_type.name.title(),
-                'api_name': obj.content_type.model,
-                'url': content_type.url,
-                'slug': content_type.slug
-                }
-        return get_content_type(obj.content_type.model)
+        get_content_type(obj)
 
     class Meta:
         model = Page
@@ -419,15 +409,7 @@ class PostSerializer(ModelSerializer):
         )
 
     def get_content_type(self, obj):
-        content_type = obj.get_ancestors().type(AbstractContentPage).first()
-        return {
-            'id': content_type.id,
-            'name': content_type.title,
-            'title': obj.content_type.name.title(),
-            'api_name': obj.content_type.model,
-            'url': content_type.url,
-            'slug': content_type.slug
-            }
+        return get_content_type(obj)
 
     def get_story_image(self, obj):
         rendition = self.context['request'].query_params.get('image_rendition', None)
@@ -468,7 +450,7 @@ class EventSerializer(ModelSerializer):
         return PostSubprogramSerializer(obj.post_subprogram, many=True).data
 
     def get_content_type(self, obj):
-        return get_content_type(obj.content_type.model)
+        return get_content_type(obj)
 
 class HomeSerializer(ModelSerializer):
     leads = SerializerMethodField()
@@ -602,7 +584,6 @@ class WeeklyEditionSerializer(ModelSerializer):
 
 class SearchSerializer(ModelSerializer):
 
-
     def to_representation(self, obj):
         data = super(SearchSerializer, self).to_representation(obj)
         obj = obj.specific
@@ -620,43 +601,13 @@ class SearchSerializer(ModelSerializer):
             data['authors'] = AuthorSerializer(obj.post_author, many=True, context=self.context).data
 
 
-        data['content_type'] = get_content_type(obj.content_type.model)
+        data['content_type'] = {
+            'name': 'Event',
+            'api_name': 'event',
+            'slug': 'events',
+            'title': 'Events'
+        }
         return data
-
-    # def get_specific(self, obj):
-    #     spec = {
-    #         'id': obj.id,
-    #         'title': obj.title,
-    #         'slug': obj.slug,
-    #         'url': obj.url,
-    #         'image': None,
-    #         'date': None,
-    #         'content_type': get_content_type(obj.content_type.model),
-    #         'authors': [],
-    #         'description': None,
-    #         'programs': []
-    #     }
-    #     if not self.context['request'].query_params.get('exclude_images', None)=='true':
-    #         if getattr(obj.specific, 'story_image', None):
-    #             spec['image'] = generate_image_url(obj.specific.story_image, 'min-650x200')
-    #         if getattr(obj.specific, 'profile_image', None):
-    #             spec['image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
-    #     if getattr(obj.specific, 'date', None):
-    #         spec['date'] = obj.specific.date
-    #     if getattr(obj.specific, 'post_author', None):
-    #         spec['authors'] = AuthorSerializer(obj.specific.post_author, many=True, context=self.context).data
-    #     if getattr(obj.specific, 'story_excerpt', None):
-    #         spec['description'] = obj.specific.story_excerpt
-    #     if getattr(obj.specific, 'short_bio', None):
-    #         spec['description'] = obj.specific.short_bio
-    #     if getattr(obj.specific, 'parent_programs', None):
-    #         spec['programs'] = PostProgramSerializer(obj.specific.parent_programs, many=True).data
-    #     if getattr(obj.specific, 'belongs_to_these_programs', None):
-    #         spec['programs'] = PostProgramSerializer(obj.specific.belongs_to_these_programs, many=True).data
-    #     if obj.content_type.model == 'person':
-    #         spec['content_type']['name'] = obj.specific.role
-    #
-    #     return spec
 
     class Meta:
         model = Page

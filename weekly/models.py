@@ -9,7 +9,7 @@ from wagtail.wagtailcore.blocks import PageChooserBlock
 
 from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results
-
+from home.models import AbstractHomeContentPage
 
 class Weekly(AbstractContentPage):
     parent_page_types = ['home.HomePage']
@@ -25,13 +25,12 @@ class Weekly(AbstractContentPage):
         return context
 
     class Meta:
-        verbose_name = "Homepage for all Weekly Editions"
+        verbose_name = "Weekly Editions"
 
 
 class WeeklyEdition(Page):
     parent_page_types = ['Weekly']
     subpage_types = ['WeeklyArticle']
-
 
 class WeeklyArticle(Post):
     parent_page_types = ['WeeklyEdition']
@@ -47,3 +46,11 @@ class WeeklyArticle(Post):
 
     class Meta:
         verbose_name = 'Weekly Article'
+
+class AllWeeklyArticlesHomePage(AbstractHomeContentPage):
+    parent_page_types = ['home.HomePage']
+    subpage_types = []
+
+    @property
+    def content_model(self):
+        return WeeklyArticle

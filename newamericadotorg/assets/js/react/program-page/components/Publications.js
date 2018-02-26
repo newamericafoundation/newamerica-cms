@@ -47,7 +47,11 @@ export default class Publications extends PublicationsWrapper {
 
     let slug = location.pathname.match(/.+\/(.+)\/$/i)[1];
     let type = program.content_types.find((t)=>(t.slug === slug ));
-    if(type) initQuery.content_type = type.api_name;
+    if(type){
+      initQuery.content_type = type.api_name;
+      if(type.api_name == 'otherpost')
+        initQuery.other_content_type_title = type.title;
+    }
 
     return initQuery;
   }

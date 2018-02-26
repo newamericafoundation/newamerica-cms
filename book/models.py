@@ -7,6 +7,7 @@ from home.models import Post
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class Book(Post):
     """
@@ -32,7 +33,7 @@ class Book(Post):
         verbose_name = 'Book'
 
 
-class AllBooksHomePage(Page):
+class AllBooksHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Book in the Book model
@@ -48,6 +49,10 @@ class AllBooksHomePage(Page):
             Book
         )
 
+    @property
+    def content_model(self):
+        return Book
+
     class Meta:
         verbose_name = "Homepage for all Books"
 
@@ -62,6 +67,10 @@ class ProgramBooksPage(AbstractContentPage):
 
     def get_context(self, request):
         return get_program_and_subprogram_posts(self, request, ProgramBooksPage, Book)
+
+    @property
+    def content_model(self):
+        return Book
 
     class Meta:
         verbose_name = "Books Homepage for Program and Subprogram"

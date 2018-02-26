@@ -9,16 +9,14 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
 from home.models import AbstractHomeContentPage
 
-class BlogPost(Post):
+
+class OtherPost(Post):
     """
-    Blog class that inherits from the abstract
-    Post model and creates pages for blog posts.
     """
-    parent_page_types = ['ProgramBlogPostsPage']
+    parent_page_types = ['ProgramOtherPostsPage', 'OtherPostCategory']
     subpage_types = []
 
     attachment = StreamField([
@@ -29,36 +27,49 @@ class BlogPost(Post):
         StreamFieldPanel('attachment'),
     ]
 
+    other_content_type = models.ForeignKey(
+        'other_content.ProgramOtherPostsPage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    category = models.ForeignKey(
+        'other_content.OtherPostCategory',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    def save(self, *args, **kwargs):
+        parent = self.get_parent().specific
+        if type(parent) == OtherPostCategory:
+            self.category = parent
+            self.other_content_type = parent.get_parent().specific
+        else:
+             self.other_content_type = parent
+
+        super(OtherPost, self).save(*args, **kwargs)
+
     class Meta:
-        verbose_name = 'Blog Post'
+        verbose_name = 'Other Post'
 
-
-class AllBlogPostsHomePage(AbstractHomeContentPage):
+class AllOtherPostsHomePage(AbstractHomeContentPage):
     """
-    A page which inherits from the abstract Page model and
-    returns every Blog post in the BlogPost model for the
-    Blog posts homepage
     """
     parent_page_types = ['home.HomePage', ]
     subpage_types = []
 
-    def get_context(self, request):
-        return get_org_wide_posts(
-            self,
-            request,
-            AllBlogPostsHomePage,
-            BlogPost
-        )
-
     @property
     def content_model(self):
-        return BlogPost
+        return OtherPost
 
     class Meta:
-        verbose_name = "Homepage for all Blog Posts"
+        verbose_name = "Homepage for all Other Posts"
 
-
-class ProgramBlogPostsPage(AbstractContentPage):
+class ProgramOtherPostsPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and returns
     all Blog Posts associated with a specific Program or
@@ -66,8 +77,9 @@ class ProgramBlogPostsPage(AbstractContentPage):
     """
 
     parent_page_types = ['programs.Program', 'programs.Subprogram']
-    subpage_types = ['BlogPost']
+    subpage_types = ['OtherPost', 'OtherPostCategory']
 
+    singular_title = models.CharField(max_length=255)
     subheading = RichTextField(blank=True, null=True)
 
     # Story excerpt and story image fields are to provide information
@@ -84,6 +96,7 @@ class ProgramBlogPostsPage(AbstractContentPage):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('singular_title'),
         FieldPanel('subheading'),
     ]
 
@@ -92,16 +105,18 @@ class ProgramBlogPostsPage(AbstractContentPage):
         ImageChooserPanel('story_image'),
     ]
 
-    def get_context(self, request):
-        return get_program_and_subprogram_posts(
-            self,
-            request,
-            ProgramBlogPostsPage,
-            BlogPost)
-
     @property
     def content_model(self):
-        return BlogPost
+        return OtherPost
 
     class Meta:
-        verbose_name = "Blog Homepage for Program and Subprograms"
+        verbose_name = "Homepage for Other Posts Program and Subprograms"
+
+class OtherPostCategory(Page):
+    """
+    """
+    parent_page_types = ['ProgramOtherPostsPage']
+    subpage_types = ['OtherPost']
+
+    class Meta:
+        verbose_name = 'Category'

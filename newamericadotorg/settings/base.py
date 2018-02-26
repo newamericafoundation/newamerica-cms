@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'issue',
     'weekly',
     'in_depth',
+    'other_content',
     'storages',
     'rss_feed',
     'subscribe',

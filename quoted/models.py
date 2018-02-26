@@ -7,6 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class Quoted(Post):
     """
@@ -29,7 +30,7 @@ class Quoted(Post):
         verbose_name = "In The News Piece"
 
 
-class AllQuotedHomePage(Page):
+class AllQuotedHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Quoted piece from the Quoted model
@@ -45,6 +46,10 @@ class AllQuotedHomePage(Page):
             AllQuotedHomePage,
             Quoted
         )
+
+    @property
+    def content_model(self):
+        return Quoted
 
     class Meta:
         verbose_name = "Homepage for all In The News Pieces"
@@ -66,6 +71,10 @@ class ProgramQuotedPage(AbstractContentPage):
             ProgramQuotedPage,
             Quoted
         )
+
+    @property
+    def content_model(self):
+        return Quoted
 
     class Meta:
         verbose_name = "In the News Homepage for Programs and Subprogram"

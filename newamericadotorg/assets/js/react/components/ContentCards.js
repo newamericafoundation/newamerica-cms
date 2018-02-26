@@ -64,7 +64,7 @@ export const PublicationListItem = ({ post }) => (
       <a href={post.url}>
         {post.programs &&
         <label className="card__text__program caption margin-bottom-0 block">
-          {post.programs[0] ? post.programs[0].name : ''} {post.content_type ? post.content_type.title : ''}
+          {post.programs[0] ? post.programs[0].name : ''} {post.content_type ? post.content_type.name : ''}
         </label>}
       </a>
     </div>

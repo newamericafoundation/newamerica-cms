@@ -203,6 +203,7 @@ class Program(AbstractProgram):
     'home.RedirectPage',
     'report.ReportsHomepage',
     'PublicationsPage',
+    'other_content.ProgramOtherPostsPage'
     ]
 
     desktop_program_logo = models.ForeignKey(
@@ -265,6 +266,7 @@ class Program(AbstractProgram):
 
     class Meta:
         ordering = ('title',)
+        verbose_name = 'Program Homepage'
 
 
 # Through relationship for Programs to Subprogram
@@ -297,7 +299,8 @@ class Subprogram(AbstractProgram):
     'person.ProgramPeoplePage',
     'issue.IssueOrTopic',
     'home.RedirectPage',
-    'PublicationsPage'
+    'PublicationsPage',
+    'other_content.ProgramOtherPostsPage'
     ]
 
     TEMPLATE_OPTIONS =  (
@@ -338,7 +341,7 @@ class Subprogram(AbstractProgram):
         return 'programs/program.html'
 
     class Meta:
-        verbose_name = "Subprogram Page"
+        verbose_name = 'Project Homepage'
         ordering = ('title',)
 
     def save(self, *args, **kwargs):

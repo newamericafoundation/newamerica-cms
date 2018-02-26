@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^api/post/$', cache_page(60 * 10)(api_views.PostList.as_view()), name='post_list'),
     url(r'^api/search/$', api_views.SearchList.as_view()),
     url(r'^api/event/$', api_views.EventList.as_view()),
-    url(r'^api/author/$', cache_page(60 * 1440)(api_views.AuthorList.as_view()), name='author_list'),
+    url(r'^api/author/$', cache_page(60 * 1440 * 30)(api_views.AuthorList.as_view()), name='author_list'),
     url(r'^api/program/(?P<pk>[\d]+)/$', cache_page(60 * 1440)(api_views.ProgramDetail.as_view()), name='program_page'),
     url(r'^api/program/$', cache_page(60 * 1440)(api_views.ProgramList.as_view()), name='program_list'),
     url(r'^api/program/fellowships/$', cache_page(60 * 1440)(api_views.FellowshipList.as_view()), name='fellowship_list'),

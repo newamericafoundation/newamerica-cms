@@ -7,6 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 from django.db import models
 
@@ -34,7 +35,7 @@ class Podcast(Post):
         verbose_name = 'Podcast'
 
 
-class AllPodcastsHomePage(Page):
+class AllPodcastsHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model
     and returns every Podcast in the Podcast model for
@@ -51,6 +52,10 @@ class AllPodcastsHomePage(Page):
             AllPodcastsHomePage,
             Podcast
         )
+
+    @property
+    def content_model(self):
+        return Podcast
 
     class Meta:
         verbose_name = "Homepage for all Podcasts"
@@ -73,6 +78,10 @@ class ProgramPodcastsPage(AbstractContentPage):
             ProgramPodcastsPage,
             Podcast
         )
+    
+    @property
+    def content_model(self):
+        return Podcast
 
     class Meta:
         verbose_name = "Podcast Homepage for Program and Subprograms"

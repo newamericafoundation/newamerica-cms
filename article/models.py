@@ -7,6 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 from newamericadotorg.helpers import get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class Article(Post):
     """
@@ -28,7 +29,7 @@ class Article(Post):
         verbose_name = "Article/Op-Ed"
 
 
-class AllArticlesHomePage(Page):
+class AllArticlesHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Article in the Article model for the Article
@@ -45,6 +46,10 @@ class AllArticlesHomePage(Page):
             AllArticlesHomePage,
             Article
         )
+
+    @property
+    def content_model(self):
+        return Article
 
     class Meta:
         verbose_name = "Homepage for all Articles and Op-Eds"
@@ -67,6 +72,10 @@ class ProgramArticlesPage(AbstractContentPage):
             ProgramArticlesPage,
             Article
         )
+
+    @property
+    def content_model(self):
+        return Article
 
     class Meta:
         verbose_name = "Articles and Op-Eds Homepage for Program and Subprograms"

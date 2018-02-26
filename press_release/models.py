@@ -7,6 +7,7 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class PressRelease(Post):
     """
@@ -28,7 +29,7 @@ class PressRelease(Post):
         verbose_name = 'Press Release'
 
 
-class AllPressReleasesHomePage(Page):
+class AllPressReleasesHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Press Release in the PressRelease model
@@ -44,6 +45,10 @@ class AllPressReleasesHomePage(Page):
             AllPressReleasesHomePage,
             PressRelease
         )
+
+    @property
+    def content_model(self):
+        return PressRelease
 
     class Meta:
         verbose_name = "Homepage for all Press Releases"
@@ -65,6 +70,10 @@ class ProgramPressReleasesPage(AbstractContentPage):
             ProgramPressReleasesPage,
             PressRelease
         )
+
+    @property
+    def content_model(self):
+        return PressRelease
 
     class Meta:
         verbose_name = "Press Release Homepage for Program and Subprograms"

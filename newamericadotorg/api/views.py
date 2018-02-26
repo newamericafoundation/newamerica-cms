@@ -27,6 +27,7 @@ from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
 from in_depth.models import InDepthProject
 from report.models import Report
+from other_content.models import OtherPost
 from subscribe.campaign_monitor import update_subscriber
 
 class PostFilter(FilterSet):
@@ -37,11 +38,11 @@ class PostFilter(FilterSet):
     author_slug = django_filters.CharFilter(name='post_author__slug', lookup_expr="iexact")
     after = django_filters.DateFilter(name='date', lookup_expr='gte')
     before = django_filters.DateFilter(name='date', lookup_expr='lte')
-    content_type = django_filters.CharFilter(name='content_type__model')
+
 
     class Meta:
         model = Post
-        fields = ['id', 'program_id', 'subprogram_id', 'before', 'after', 'content_type']
+        fields = ['id', 'program_id', 'subprogram_id', 'before', 'after']
 
 class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
@@ -49,12 +50,28 @@ class PostList(generics.ListAPIView):
     filter_class = PostFilter
 
     def get_queryset(self):
+        content_type = self.request.query_params.get('content_type', None)
+        other_content_type_title = self.request.query_params.get('other_content_type_title', None)
         ids = self.request.query_params.getlist('id[]', None)
         topic_id = self.request.query_params.get('topic_id', None)
-        posts = Post.objects.live().order_by('-date').not_type(Event).distinct()
         content_type_id = self.request.query_params.get('content_type_id', None)
         category_id = self.request.query_params.get('category_id', None)
         data_viz = self.request.query_params.get('data_viz', None)
+
+        if other_content_type_title:
+            posts = OtherPost.objects.live()\
+                .filter(other_content_type__title=other_content_type_title)
+        else:
+            posts = Post.objects.live().not_type(Event)
+
+        if content_type:
+            if content_type == 'report':
+                posts = posts.filter(content_type__model__in=['report', 'policypaper', 'indepthproject'])
+            else:
+                posts = posts.filter(content_type__model=content_type)
+
+
+        posts = posts.order_by('-date').distinct()
 
         if topic_id:
             topics = IssueOrTopic.objects.get(pk=topic_id)\
@@ -72,7 +89,6 @@ class PostList(generics.ListAPIView):
             posts = posts.descendant_of(Page.objects.get(pk=category_id))
 
         if data_viz == 'true':
-            print data_viz
             posts = posts.exclude(data_project_external_script__isnull=True).exclude(data_project_external_script='')
 
         return posts;

@@ -27,6 +27,8 @@ from django.core.files.uploadedfile import UploadedFile
 from wagtail.wagtaildocs.models import get_document_model
 from time import gmtime, strftime
 
+from home.models import AbstractHomeContentPage
+
 class Report(Post):
     """
     Report class that inherits from the abstract
@@ -141,7 +143,7 @@ class Report(Post):
         verbose_name = 'Report'
 
 
-class AllReportsHomePage(Page):
+class AllReportsHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Report in the Report model
@@ -149,6 +151,10 @@ class AllReportsHomePage(Page):
     """
     parent_page_types = ['home.Homepage']
     subpage_types = []
+
+    @property
+    def content_model(self):
+        return Report
 
     class Meta:
         verbose_name = "Organization-wide Reports Homepage"
@@ -163,6 +169,9 @@ class ReportsHomepage(AbstractContentPage):
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['Report']
 
+    @property
+    def content_model(self):
+        return Report
 
     class Meta:
         verbose_name = "Reports Homepage"

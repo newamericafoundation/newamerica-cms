@@ -174,6 +174,9 @@ class AllInDepthHomePage(AbstractContentPage):
             AllInDepthHomePage,
             InDepthProject
         )
+    @property
+    def content_model(self):
+        return InDepthProject
 
     class Meta:
         verbose_name = "Homepage for all In-Depth Projects"
