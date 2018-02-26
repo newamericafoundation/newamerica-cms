@@ -51,7 +51,7 @@
     }
   }
 
-  & > img {
+  img {
     display: block;
     width: auto;
     height: auto;
@@ -74,7 +74,7 @@
         text-align: left;
       }
 
-      .figure__image > img {
+      .figure__image img {
         margin: 0 !important;
       }
     }
