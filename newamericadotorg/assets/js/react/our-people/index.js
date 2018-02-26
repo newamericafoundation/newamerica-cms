@@ -22,7 +22,7 @@ class InfinitePersonsList extends Component {
         onNextPage={this.nextPage}
 				response={this.props.response}
         infiniteOnMount={true}
-        bottomOffset={-document.documentElement.clientHeight*0.6}>
+        bottomOffset={-document.documentElement.clientHeight*0.75}>
         <PersonsList response={this.props.response} />
       </InfiniteLoadMore>
     );
@@ -49,7 +49,7 @@ class OurPeople extends Component {
   query = () => {
     let { match : { params : { peoplePage } } } = this.props
     let q = {
-      page_size: 9,
+      page_size: 6,
       page: 1
     };
 

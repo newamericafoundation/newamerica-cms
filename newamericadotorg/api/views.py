@@ -162,13 +162,13 @@ class AuthorList(generics.ListAPIView):
     filter_class = AuthorFilter
 
     def get_queryset(self):
+        queryset = Person.objects.live().order_by('sort_priority', 'last_name').exclude(role__icontains='External Author')
         topic_id = self.request.query_params.get('topic_id', None)
-        former = self.request.query_params.get('former', False)
+        former = self.request.query_params.get('former', None)
         if former == 'false':
-            former = False
+            queryset = queryset.filter(former=False)
         elif former == 'true':
-            former = True
-        queryset = Person.objects.live().order_by('sort_priority', 'last_name').filter(former=former).exclude(role__icontains='External Author').distinct()
+            queryset = queryset.filter(former=True)
 
         if topic_id:
             topics = IssueOrTopic.objects.get(pk=topic_id)\

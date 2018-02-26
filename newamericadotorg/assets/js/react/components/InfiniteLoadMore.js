@@ -45,6 +45,11 @@ class InfiniteLoadMore extends Component {
     this.isInfinite = this.props.infiniteOnMount===true ? true : false;
   }
 
+  componentDidMount(){
+    if(this.isInfinite && !this.isLoadingMore && !this.props.promptToLoadMore)
+      this.nextPageOnEnd();
+  }
+
   shouldComponentUpdate(nextProps) {
     let { response, promptToLoadMore } = this.props;
     /**
