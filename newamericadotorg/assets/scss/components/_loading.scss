@@ -106,6 +106,9 @@ $loading-animation-delay: 0.1s;
   }
 }
 
+.loading-dots span {
+  font-size: 1.15rem;
+}
 
 .loading-dots, [class*='loading-dots--']{
   display: inline-block;

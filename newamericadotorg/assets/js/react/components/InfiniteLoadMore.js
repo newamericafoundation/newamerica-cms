@@ -1,17 +1,11 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import LoadingIcon from './LoadingIcon';
+import { LoadingDots } from './Icons';
 
 const LoadMoreButton = ({ onclick }) => (
   <div className="compose__infinite-load-more__load-more-button">
     <a className="button" onClick={onclick}>Load More</a>
-  </div>
-);
-
-const LoadingIconWrapper = () => (
-  <div className="compose__infinite-load-more__loading-icon-wrapper">
-    <LoadingIcon />
   </div>
 );
 
@@ -125,6 +119,7 @@ class InfiniteLoadMore extends Component {
         {(response.hasNext && !this.isInfinite && !response.isFetching) &&
           <LoadMoreButton onclick={this.loadMore}/>
         }
+        {response.isFetching && <div className="margin-top-35"><LoadingDots /></div> }
       </div>
     );
   }

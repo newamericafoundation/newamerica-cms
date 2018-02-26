@@ -1,12 +1,7 @@
 import { Component, cloneElement } from 'react';
 import { connect } from 'react-redux';
+import { LoadingDots } from './Icons';
 import { PublicationListItem, Person } from './ContentCards';
-
-export const LoadingDots = ({ color='black' }) => (
-  <label className={`button--text loading-dots centered ${color} block`}>
-    <span>.</span><span>.</span><span>.</span>
-  </label>
-);
 
 export class PublicationsList extends Component {
   loadMore = () => {

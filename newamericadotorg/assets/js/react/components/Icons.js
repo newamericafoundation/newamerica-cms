@@ -23,3 +23,9 @@ export const PlusX = ({x, white, ...props}) => (
     <div />
   </div>
 );
+
+export const LoadingDots = ({ color='black' }) => (
+  <label className={`button--text loading-dots centered ${color} block`}>
+    <span>.</span><span>.</span><span>.</span>
+  </label>
+);

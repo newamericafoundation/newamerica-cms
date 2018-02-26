@@ -1,4 +1,5 @@
-import { PublicationsList, PublicationsWrapper, LoadingDots } from './Publications';
+import { PublicationsList, PublicationsWrapper } from './Publications';
+import { LoadingDots } from './Icons';
 import { Link, NavLink } from 'react-router-dom';
 import { SubprogramFilter, ProgramFilter, TopicFilter, DateFilter, FilterGroup } from './Filters';
 import { EventItem } from './ContentCards'
