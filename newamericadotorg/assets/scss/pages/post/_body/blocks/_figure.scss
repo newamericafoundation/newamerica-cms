@@ -16,13 +16,7 @@
 
   &.width-200 {
      width: 100vw;
-     margin-left: -22.5px;
-  }
-
-  @include media-breakpoint(tablet){
-    &.width-200{
-      margin-left: calc(-50vw + 50%);
-    }
+     margin-left: calc(-50vw + 50%);
   }
 
   @include media-breakpoint(desktop){
