@@ -148,7 +148,7 @@ class StoryGridItemSerializer(ModelSerializer):
         return generate_image_url(obj.specific.story_image, 'fill-30x23')
 
     def get_content_type(self, obj):
-        get_content_type(obj)
+        return get_content_type(obj)
 
     class Meta:
         model = Page

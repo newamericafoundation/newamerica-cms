@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 export default class About extends Component {
   componentWillMount(){
-    if(window.scrollY > 300){
+    if(window.scrollY > 300 || window.pageYOffset > 300){
       window.scrollTo(0, 0);
     }
   }

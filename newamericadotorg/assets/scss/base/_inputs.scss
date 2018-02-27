@@ -1,3 +1,11 @@
+select, input, textarea {
+	outline: 0px none transparent;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	border: 0px;
+	box-shadow: none !important;
+}
+
 select {
 	font-family: $label-font-family;
 	border: $standard-border;

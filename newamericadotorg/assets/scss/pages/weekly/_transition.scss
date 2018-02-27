@@ -77,28 +77,30 @@ $transition-function: .6s ease;
   }
 }
 
+$transition-function-2: 0.5s cubic-bezier(.33,0,.2,1);
+
 .weekly-edition__heading{
     h1, p {
-      @include transition(transform $transition-function, opacity $transition-function);
+      @include transition(transform $transition-function-2, opacity $transition-function-2);
       opacity: 1;
       @include transform(translateY(0));
     }
 
     p {
-      @include transition-delay(0.3s);
+      @include transition-delay(0.15s);
     }
 }
 
 .section-separator {
-  @include transition(transform $transition-function, opacity $transition-function);
-  @include transition-delay(0.6s);
+  @include transition(transform $transition-function-2, opacity $transition-function-2);
+  @include transition-delay(0.3s);
   opacity: 1;
   @include transform(translateY(0));
 }
 
 .weekly-edition__articles {
-  @include transition(opacity 2s ease);
-  @include transition-delay(1.1s);
+  @include transition(opacity 1s ease);
+  @include transition-delay(0.7s);
   opacity: 1;
 }
 

@@ -103,7 +103,7 @@ class APP extends Component {
           <div className="global-feedback__message margin-top-25">
             <TextArea label="Feedback" value={message} onChange={(e)=>{this.setMessage(e.target.value)}} type="text" />
           </div>
-          <label className="button margin-top-25" onClick={this.submit}>
+          <label className="button margin-top-25 margin-bottom-0" onClick={this.submit}>
             {!isSubmitting && <span>Send</span>}
             {isSubmitting && <span className="loading-dots--absolute">
               <span>.</span><span>.</span><span>.</span>

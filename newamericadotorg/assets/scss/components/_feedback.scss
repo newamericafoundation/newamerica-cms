@@ -46,7 +46,7 @@
 
   &.open{
     border-radius: 0px;
-    height: 545px;
+    height: 480px;
     width: calc(100vw - 30px);
     @include media-breakpoint(tablet){
       width: 500px;

@@ -61,7 +61,7 @@ class PublicationsList extends Component {
 export class Topic extends Component {
 
   componentWillMount(){
-    if(window.scrollY > 300) window.scrollTo(0, 245);
+    if(window.scrollY > 300 || window.pageYOffset > 300) window.scrollTo(0, 245);
   }
 
   render(){

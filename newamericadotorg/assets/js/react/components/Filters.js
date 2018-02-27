@@ -14,7 +14,7 @@ class _FilterGroup extends Component {
 
     if(location !== prevProps.location){
       this.reloadScrollEvents();
-      if(window.scrollY > 300 && document.documentElement.clientWidth > 992){
+      if((window.scrollY > 300 || window.pageYOffset > 300) && document.documentElement.clientWidth > 992){
         window.scrollTo(0, 0);
       }
     }

@@ -1,6 +1,7 @@
 import './../scss/critical.scss';
 import './../scss/newamericadotorg.scss';
 
+import 'babel-polyfill';
 import * as React from 'react';
 import 'whatwg-fetch';
 import 'url-polyfill';

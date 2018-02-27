@@ -53,7 +53,7 @@ export default class Subscribe extends Component {
   }
 
   componentDidMount(){
-    if(window.scrollY > 300) window.scrollTo(0, 70);
+    if(window.scrollY > 300 || window.pageYOffset > 300) window.scrollTo(0, 70);
   }
   submit = (e) => {
     e.preventDefault();
