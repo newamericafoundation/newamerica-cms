@@ -59,7 +59,7 @@ export default [
             .process(styleNodes[0].content)
             .then(result => {
               var final = '{% load static from staticfiles %}';
-              final += result.css.replace(/\/static\/(.+?\.(svg|otf|ttf))/g, "{% static '\$1' %}");
+              final += result.css.replace(/\/static\/(.+?\.(svg|otf|ttf|eot|woff))/g, "{% static '\$1' %}");
               writeFile(
                 'newamericadotorg/templates/style.css',
                 final
