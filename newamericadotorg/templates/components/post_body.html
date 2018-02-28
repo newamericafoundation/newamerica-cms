@@ -1,7 +1,6 @@
 {% load wagtailcore_tags %}
 {% load utilities %}
-
-{% if page.authors|length > 0 and page.content_type.name != 'Event' and page.content_type.name != "Press Release" and page.content_type.name != "Report" %}
+{% if page.authors.all|length > 0 and page.content_type.name != 'Event' and page.content_type.name != "Press Release" and page.content_type.name != "Report" %}
   <label>By</label>
   {% generate_byline page.content_type page.authors.all %}
 {% endif %}
