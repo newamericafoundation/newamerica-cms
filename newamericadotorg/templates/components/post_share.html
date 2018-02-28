@@ -13,10 +13,12 @@
       <label>Tweet</label>
     </a>
   </div>
+  {% if page.attachment|length > 0 %}
   <div class="report__social__item margin-bottom-15">
-    <a href="" target="_blank" >
+    <a href="{{page.attachment.0.value.url}}" target="_blank" >
       <i class="fa fa-download"></i>
       <label>Download</label>
     </a>
   </div>
+  {% endif %}
 </div>
