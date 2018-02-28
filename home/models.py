@@ -105,6 +105,7 @@ class HomePage(Page):
     'RedirectPage',
     'subscribe.SubscribePage',
     'programs.PublicationsPage',
+    'report.AllReportsHomePage',
     'other_content.AllOtherPostsHomePage'
     ]
 
