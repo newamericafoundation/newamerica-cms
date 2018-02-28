@@ -15,7 +15,7 @@
   </div>
   {% if page.attachment|length > 0 %}
   <div class="report__social__item margin-bottom-15">
-    <a href="{{page.attachment.0.value.url}}" target="_blank" >
+    <a href="{% if page.attachment.0.value.url|make_list|first == '/' %}https://newamerica.org{{page.attachment.0.value.url}}{% else %}{{page.attachment.0.value.url}}{% endif %}" target="_blank" >
       <i class="fa fa-download"></i>
       <label>Download</label>
     </a>
