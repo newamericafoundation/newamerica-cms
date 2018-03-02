@@ -18,7 +18,7 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 
 from helpers import get_program_content_types, generate_image_url, generate_image_rendition, get_subpages, get_content_type
-
+import datetime
 
 class ProgramSubprogramSerializer(ModelSerializer):
     '''
@@ -355,12 +355,14 @@ class SubprogramSerializer(ModelSerializer):
 class AuthorSerializer(ModelSerializer):
     position = SerializerMethodField()
     profile_image = SerializerMethodField()
+    fellowship_year = SerializerMethodField()
 
     class Meta:
         model = Person
         fields = (
             'id', 'first_name', 'last_name', 'position', 'role',
-            'short_bio', 'profile_image', 'url', 'leadership', 'topics'
+            'short_bio', 'profile_image', 'url', 'leadership', 'topics',
+            'fellowship_year'
         )
 
     def get_position(self, obj):
@@ -369,6 +371,12 @@ class AuthorSerializer(ModelSerializer):
     def get_profile_image(self, obj):
         if obj.profile_image:
             return generate_image_url(obj.profile_image, 'fill-200x200')
+
+    def get_fellowship_year(self, obj):
+        if obj.fellowship_year:
+            if not obj.former and obj.fellowship_year != datetime.date.today().year:
+                return 'Returning'
+            return obj.fellowship_year
 
 class PostProgramSerializer(ModelSerializer):
     name = SerializerMethodField()

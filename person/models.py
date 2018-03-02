@@ -16,6 +16,7 @@ from programs.models import Program, Subprogram, AbstractContentPage
 from newamericadotorg.helpers import paginate_results
 
 from django.db.models import Q
+import datetime
 
 
 # Through relationship that connects the Person model
@@ -139,9 +140,12 @@ class Person(Page):
         ('Program Staff', 'Program Staff'),
         ('External Author/Former Staff', 'External Author')
     )
+    YEAR_CHOICES = [(r,r) for r in range(1999, datetime.date.today().year+1)]
+    YEAR_CHOICES.reverse()
+    
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
     former = models.BooleanField(default=False, help_text="Select if person no longer serves above role.")
-
+    fellowship_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     # Up to three featured work pages to appear on bio page
     feature_work_1 = models.ForeignKey(
         'wagtailcore.Page',
@@ -180,6 +184,7 @@ class Person(Page):
             FieldPanel('position_at_new_america'),
                 FieldPanel('role'),
                 FieldPanel('former'),
+                FieldPanel('fellowship_year'),
                 FieldPanel('expert'),
                 FieldPanel('leadership'),
                 FieldPanel('sort_priority'),

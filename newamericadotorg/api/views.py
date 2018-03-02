@@ -177,13 +177,43 @@ class AuthorList(generics.ListAPIView):
     filter_class = AuthorFilter
 
     def get_queryset(self):
-        queryset = Person.objects.live().order_by('sort_priority', 'last_name').exclude(role__icontains='External Author')
+        queryset = Person.objects.live().order_by('sort_priority', 'last_name').exclude(role__icontains='External Author')\
+            .exclude(role__icontains='fellow').exclude(former=True)
         topic_id = self.request.query_params.get('topic_id', None)
         former = self.request.query_params.get('former', None)
         if former == 'false':
             queryset = queryset.filter(former=False)
         elif former == 'true':
             queryset = queryset.filter(former=True)
+
+        if topic_id:
+            topics = IssueOrTopic.objects.get(pk=topic_id)\
+                .get_descendants(inclusive=True).live()
+
+            queryset = queryset.filter(expertise__in=topics)
+
+        return queryset
+
+class FellowList(generics.ListAPIView):
+    serializer_class = AuthorSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
+    filter_class = AuthorFilter
+
+    def get_queryset(self):
+        queryset = Person.objects.live().order_by('fellowship_year', 'sort_priority', 'last_name').filter(role='Fellow')
+        fellowship_year = self.request.query_params.get('fellowship_year', None)
+        topic_id = self.request.query_params.get('topic_id', None)
+        former = self.request.query_params.get('former', None)
+        if former == 'false':
+            queryset = queryset.filter(former=False)
+        elif former == 'true':
+            queryset = queryset.filter(former=True)
+
+        if fellowship_year:
+            try:
+                queryset = queryset.filter(fellowship_year=int(fellowship_year))
+            except ValueError:
+                pass
 
         if topic_id:
             topics = IssueOrTopic.objects.get(pk=topic_id)\
