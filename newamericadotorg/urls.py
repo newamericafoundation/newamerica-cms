@@ -59,6 +59,7 @@ urlpatterns = [
     url(r'^api/meta/$', api_views.MetaList.as_view()),
     url(r'^api/content-types/$', cache_page(60 * 10080)(api_views.ContentList.as_view())),
     url(r'^api/subscribe/$', api_views.subscribe),
+    url(r'^api/jobs/$', api_views.JobsList.as_view()),
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
 
     url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics)/$', program_views.redirect_to_subprogram),

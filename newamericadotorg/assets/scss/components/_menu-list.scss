@@ -12,7 +12,7 @@
         inset 0px -1px 0px 0px color(black, base, 0.3);
       }
 
-      a {
+      & > a {
         display: block;
         padding-top: 26px;
         padding-bottom: 25px;
@@ -27,6 +27,7 @@
     display: none;
 
     @include media-breakpoint(tablet){
+      top: 30px;
       display: inline-block;
       position: absolute;
       right: 0;
@@ -35,7 +36,7 @@
   }
 }
 
-.menu-list--padding-15 > * a {
+.menu-list--padding-15 > * > a {
   padding-top: 15px;
   padding-bottom: 15px;
 }

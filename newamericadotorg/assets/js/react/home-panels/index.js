@@ -27,7 +27,6 @@ class Routes extends Component {
             <Route path="/share-our-space/" render={(_props)=>( <ShareOurSpace {...props} {..._props} /> )} />
             <Route path="/press-room/" render={(_props)=>( <PressRoom {...props} {..._props} /> )} />
             <Route path="/our-funding/" render={(_props)=>( <OurFunding {...props} {..._props} /> )} />
-            <Route path="/jobs/" render={(_props)=>( <Jobs {...props} {..._props} /> )} />
           </div>
       );
     }
@@ -39,12 +38,9 @@ class APP extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/fellowships/" render={()=>(
-            <Fetch endpoint={`program/fellowships`}
-              fetchOnMount={true}
-              name={NAME}
-              component={Programs} />
-          )}/>
+          <Route path="/(jobs|fellowships)/" render={(props)=>(
+            <Jobs pageId={pageId} {...props} />
+          )} />
           <Route path="/programs/" render={()=>(
             <Fetch endpoint={`program`}
               fetchOnMount={true}
@@ -57,7 +53,7 @@ class APP extends Component {
           <Route path="/subscribe/" render={()=>(
             <Response name="meta" component={Subscribe} />
           )}/>
-          <Route path="/(our-story|share-our-space|press-room|our-funding|jobs)/" render={(props)=>(
+          <Route path="/(our-story|share-our-space|press-room|our-funding)/" render={(props)=>(
             <Fetch endpoint={`home/${pageId}`}
               fetchOnMount={true}
               {...props}

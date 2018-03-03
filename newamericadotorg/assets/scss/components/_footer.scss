@@ -1,5 +1,5 @@
-body:not(.homepage):not(.programpage):not(.homepostpage) .footer > div,
-body:not(.homepage):not(.programpage):not(.homepostpage) .footer.mobile{
+body:not(.homepage):not(.programpage) .footer > div,
+body:not(.homepage):not(.programpage) .footer.mobile{
   box-shadow: 0px -1px 0px 0px color(black, base, 0.075);
 }
 

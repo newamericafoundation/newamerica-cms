@@ -300,6 +300,21 @@ class ContentList(views.APIView):
             'results': types
         })
 
+import os
+import urllib2
+import json
+class JobsList(views.APIView):
+    def get(self, request, format=None):
+        JAZZ_API_KEY = os.getenv('JAZZ_API_KEY')
+        url = "https://api.resumatorapi.com/v1/jobs/status/open?apikey=%s" % JAZZ_API_KEY
+        jobs = urllib2.urlopen(url).read()
+        return response.Response({
+            'count': 0,
+            'next': None,
+            'previous': None,
+            'results': json.loads(jobs)
+        })
+
 class ProgramFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
     slug = django_filters.CharFilter(name='slug', lookup_expr='iexact')
