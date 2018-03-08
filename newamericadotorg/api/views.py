@@ -57,6 +57,7 @@ class PostList(generics.ListAPIView):
         content_type_id = self.request.query_params.get('content_type_id', None)
         category = self.request.query_params.get('category', None)
         data_viz = self.request.query_params.get('data_viz', None)
+        has_image = self.request.query_params.get('has_image', None)
 
         if other_content_type_title:
             posts = OtherPost.objects.live()\
@@ -65,6 +66,9 @@ class PostList(generics.ListAPIView):
                 posts = posts.filter(category__title=category)
         else:
             posts = Post.objects.live().not_type(Event)
+
+        if has_image == 'true':
+            queryset = queryset.filter(story_image__isnull=False)
 
         if content_type:
             if content_type == 'report':
@@ -181,10 +185,14 @@ class AuthorList(generics.ListAPIView):
             .exclude(role__icontains='fellow').exclude(former=True)
         topic_id = self.request.query_params.get('topic_id', None)
         former = self.request.query_params.get('former', None)
+        has_image = self.request.query_params.get('has_image', None)
+
         if former == 'false':
             queryset = queryset.filter(former=False)
         elif former == 'true':
             queryset = queryset.filter(former=True)
+        if has_image == 'true':
+            queryset = queryset.filter(profile_image__isnull=False)
 
         if topic_id:
             topics = IssueOrTopic.objects.get(pk=topic_id)\
@@ -246,6 +254,7 @@ class EventList(generics.ListAPIView):
         ids = self.request.query_params.getlist('id[]', None)
         time_period = self.request.query_params.get('time_period', None)
         events = Event.objects.live().distinct()
+        has_image = self.request.query_params.get('has_image', None)
 
         if time_period:
             today = localtime(now()).date()
@@ -253,6 +262,10 @@ class EventList(generics.ListAPIView):
                 return events.filter(Q(date__gte=today)).order_by('date', 'start_time')
             elif time_period=='past':
                 return events.filter(date__lt=today).order_by('-date', '-start_time')
+
+        if has_image == 'true':
+            events = events.filter(story_image__isnull=False)
+
         if not ids:
             return events.order_by('-date', '-start_time')
 
