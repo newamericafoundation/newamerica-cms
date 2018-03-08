@@ -356,14 +356,18 @@ class AuthorSerializer(ModelSerializer):
     position = SerializerMethodField()
     profile_image = SerializerMethodField()
     fellowship_year = SerializerMethodField()
+    full_name = SerializerMethodField()
 
     class Meta:
         model = Person
         fields = (
             'id', 'first_name', 'last_name', 'position', 'role',
             'short_bio', 'profile_image', 'url', 'leadership', 'topics',
-            'fellowship_year'
+            'fellowship_year', 'full_name'
         )
+
+    def get_full_name(self, obj):
+        return obj.first_name + ' ' + obj.last_name;
 
     def get_position(self, obj):
         return obj.position_at_new_america
