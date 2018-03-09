@@ -18,34 +18,35 @@ export default class Composer {
   __addMulti__(name, id, App) {
     let selector = `compose__${id}`;
     let els = document.getElementsByClassName(selector);
-    this.components[name] = { components: [], multi: true };
+    if(!this.components[selector])
+      this.components[selector] = { components: [], multi: true };
 
     for(let i=0; i<els.length; i++){
       let app = this.__render__(els[i], App, i);
-      this.components[name].components.push({ name:`name.${i}`, selector, el: els[i], app });
+      this.components[selector].components.push({ name:`name.${i}`, selector, el: els[i], app });
     }
 
     if(els.length===0)
-      this.components[name].render = () => { this.__addMulti__(name, id, App); }
+      this.components[selector].render = () => { this.__addMulti__(name, id, App); }
     else
-      this.components[name].render = () => { console.warn(`${name} is already rendered!`); }
+      this.components[selector].render = () => { console.warn(`${name} is already rendered!`); }
   }
 
   __add__(name, id, App) {
     let selector = `compose__${id}`;
     let el = document.getElementById(selector);
-    this.components[name] = { name, selector, el, multi: false }
+    this.components[selector] = { name, selector, el, multi: false }
 
     if(el){
-      this.components[name].app = this.__render__(el, App);
+      this.components[selector].app = this.__render__(el, App);
 
       if(el.getAttribute('replace-this')){
         el.parentNode.insertBefore(el.firstChild, el);
         el.parentNode.removeChild(el);
       }
-      this.components[name].render = () => { console.warn(`${name} is already rendered!`); }
+      this.components[selector].render = () => { console.warn(`${name} is already rendered!`); }
     } else {
-      this.components[name].render = () => { this.__add__(name, id, App); }
+      this.components[selector].render = () => { this.__add__(name, id, App); }
     }
   }
 

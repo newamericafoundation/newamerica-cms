@@ -13,3 +13,9 @@ export { default as simpleProgramPage } from './program-page/simple.index';
 export { default as homePanels } from './home-panels/index';
 export { default as inDetphSectionNav } from './in-depth/section-nav.index';
 export { default as feedback } from './feedback/index';
+
+/**
+  blocks must be exported last to allow in case compose__ component is included
+  as html with Django template
+**/
+export { default as resourcesBlock } from './blocks/resources';

@@ -11,6 +11,8 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailcore.blocks import stream_block
 
+import home.models
+
 from operator import itemgetter, attrgetter
 import json, datetime
 
@@ -129,6 +131,27 @@ def getJSCompatibleList(input_list, is_era, sort):
 
 	return retList
 
+def PersonBlockSerializer(block_value):
+	people = []
+	for block in block_value.stream_data:
+		d = {}
+		value = block['value']
+
+		for key, val in value.iteritems():
+			if key == 'image':
+				img = home.models.CustomImage.objects.get(pk=val)
+				img = img.get_rendition('fill-200x200')
+				d['image'] = img.file.url
+			elif key == 'description':
+				d['description'] = json.dumps(val)
+			else:
+				d[key] = val
+		people.append(d)
+
+	j = json.dumps(people)
+	return j
+
+
 class TimelineEventBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=True)
 	italicize_title = blocks.BooleanBlock(default=False, required=False)
@@ -200,11 +223,18 @@ class PersonBlock(blocks.StructBlock):
     image = ImageChooserBlock(icon='image', required=False)
     twitter = blocks.URLBlock(required=False)
 
-class PeopleBlock(blocks.StreamBlock):
-    person = PersonBlock();
 
-    class Meta:
-        template = 'blocks/people.html'
+class PeopleBlock(blocks.StreamBlock):
+	person = PersonBlock()
+
+	def get_context(self, value):
+		context = super(PeopleBlock, self).get_context(value)
+		context['json'] = PersonBlockSerializer(value)
+		return context
+
+	class Meta:
+		template = 'blocks/people.html'
+
 
 class GoogleMapBlock(blocks.StructBlock):
     use_page_address = blocks.BooleanBlock(default=False, required=False, help_text="If selected, map will use the address already defined for this page, if applicable. For most posts besides events, this should be left unchecked and the form below should be completed.")
