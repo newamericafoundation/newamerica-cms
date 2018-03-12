@@ -24,6 +24,10 @@ export default class Composer {
     for(let i=0; i<els.length; i++){
       let app = this.__render__(els[i], App, i);
       this.components[selector].components.push({ name:`name.${i}`, selector, el: els[i], app });
+      // if(els[i].hasAttribute('replace-this')){
+      //   els[i].parentNode.insertBefore(els[i].firstChild, els[i]);
+      //   els[i].parentNode.removeChild(els[i]);
+      // }
     }
 
     if(els.length===0)
@@ -40,7 +44,7 @@ export default class Composer {
     if(el){
       this.components[selector].app = this.__render__(el, App);
 
-      if(el.getAttribute('replace-this')){
+      if(el.hasAttribute('replace-this')){
         el.parentNode.insertBefore(el.firstChild, el);
         el.parentNode.removeChild(el);
       }
