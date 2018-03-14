@@ -12,6 +12,8 @@ from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailcore.blocks import stream_block
 
 import home.models
+from wagtail.wagtaildocs.models import Document
+from wagtail.wagtailcore.models import Page
 
 from operator import itemgetter, attrgetter
 import json, datetime
@@ -83,26 +85,69 @@ class DatavizBlock(blocks.StructBlock):
 		icon = 'site'
 		label = 'Dataviz'
 
+def ResourceKitSerializer(r):
+	resources = []
+	for block in r.stream_data:
+		d = {}
+		block_type = block['type']
+		value = block['value']
+
+		for key, val in value.iteritems():
+			if key == 'image' and val is not None:
+				img = home.models.CustomImage.objects.get(pk=val)
+				img = img.get_rendition('fill-200x200')
+				d['image'] = img.file.url
+			elif key == 'resource':
+				if block_type == 'post':
+					pg = Page.objects.get(pk=val).specific
+					d['url'] = pg.url
+					if not d['image']:
+						img = getattr(pg, 'story_image', None)
+						if img == None:
+							img = getattr(pg, 'profile_image', None)
+						if img:
+							d['image'] = img.file.url
+
+				elif block_type == 'external_resource':
+					print val
+					d['url'] = val
+				else:
+					d['url'] = Document.objects.get(pk=val).file.url
+			else:
+				d[key] = val
+		resources.append(d)
+
+	j = json.dumps(resources, ensure_ascii=False)
+	return j
+
 class ResourceKit(blocks.StructBlock):
 	title = blocks.CharBlock(required=True)
 	description = blocks.TextBlock(required=False)
 	resources = blocks.StreamBlock([
 		('post', blocks.StructBlock([
 			('name', blocks.CharBlock(required=True)),
+			('image', ImageChooserBlock(icon='image', required=False)),
 			('description', blocks.RichTextBlock(required=False)),
 			('resource', blocks.PageChooserBlock(required=True))
 		], icon='redirect', label='Post')),
 		('external_resource', blocks.StructBlock([
 			('name', blocks.CharBlock(required=True)),
+			('image', ImageChooserBlock(icon='image', required=False)),
 			('description', blocks.RichTextBlock(required=False)),
 			('resource', blocks.URLBlock(required=True))
 		], icon='site', label='External resource')),
 		('attachment', blocks.StructBlock([
 			('name', blocks.CharBlock(required=True)),
+			('image', ImageChooserBlock(icon='image', required=False)),
 			('description', blocks.RichTextBlock(required=False)),
 			('resource', DocumentChooserBlock(required=True))
 		], icon='doc-full', label='Attachment'))
     ])
+
+	def get_context(self, value):
+		context = super(ResourceKit, self).get_context(value)
+		context['resources'] = ResourceKitSerializer(value['resources'])
+		return context
 
 	class Meta:
 		template = 'blocks/resource_kit.html'
@@ -142,13 +187,11 @@ def PersonBlockSerializer(block_value):
 				img = home.models.CustomImage.objects.get(pk=val)
 				img = img.get_rendition('fill-200x200')
 				d['image'] = img.file.url
-			elif key == 'description':
-				d['description'] = json.dumps(val)
 			else:
 				d[key] = val
 		people.append(d)
 
-	j = json.dumps(people)
+	j = json.dumps(people, ensure_ascii=False)
 	return j
 
 
@@ -225,11 +268,13 @@ class PersonBlock(blocks.StructBlock):
 
 
 class PeopleBlock(blocks.StreamBlock):
+	title = blocks.CharBlock(required=True)
+	description = blocks.TextBlock(required=False)
 	person = PersonBlock()
 
 	def get_context(self, value):
 		context = super(PeopleBlock, self).get_context(value)
-		context['json'] = PersonBlockSerializer(value)
+		context['people'] = PersonBlockSerializer(value)
 		return context
 
 	class Meta:

@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { PlusX } from '../components/Icons';
+import { PlusX, Arrow } from '../components/Icons';
 import { connect } from 'react-redux';
 
 const NAME = 'resourcesBlock';
@@ -11,16 +11,17 @@ class ResourceItem extends Component {
     if(!this.el) return {};
     let top, left, width
     let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
     let rect = this.el.getBoundingClientRect();
     let parent = this.el.parentNode.parentNode;
 
+    top = windowHeight * .05 - rect.top;
+
     if(windowWidth<992){
       width = '100vw';
-      top = 50 - rect.top;
       left = 0 - rect.left + 5;
     } else {
       width = '300%';
-      top = 200 - rect.top;
       left = parent.getBoundingClientRect().left - rect.left + 10;
     }
 
@@ -43,16 +44,20 @@ class ResourceItem extends Component {
                 <img src={resource.image} />
               </div>}
             {resource.description &&
-              <div className="resources-block__item__top__description post-body">
-                <div dangerouslySetInnerHTML={{ __html: resource.description.slice(1,-1)}} />
+              <div className={`resources-block__item__top__description post-body ${!resource.image ? 'no-image' : ''}`}>
+                <div dangerouslySetInnerHTML={{ __html: resource.description}} />
               </div>}
           </div>
           <div className="resources-block__item__bottom">
             <div className="resources-block__item__bottom__buttons">
               {resource.description &&
-                <div className="resources-block__item__bottom__buttons__button" onClick={()=>{expand(index)}}>
+                <div className="resources-block__item__bottom__buttons__button expand" onClick={()=>{expand(index)}}>
                   <PlusX x={expanded} />
                 </div>
+              }{resource.url &&
+                <a href={resource.url} className="resources-block__item__bottom__buttons__button link">
+                  <Arrow direction="right" />
+                </a>
               }
             </div>
           </div>
@@ -77,12 +82,16 @@ class APP extends Component {
       this.setState({ expanded: resourceIndex });
   }
   render(){
-    let { resources, type } = this.props;
+    let { resources, type, title, description } = this.props;
     if(!resources) return null;
     resources = JSON.parse(resources);
     return (
       <div className={`resources-block row gutter-10 ${this.state.expanded !== false ? 'expanded' : ''}`}>
         <div className="resources-block__overlay" onClick={()=>{this.expand(this.state.expanded)}}/>
+        {title && <div className="resources-block__title col-12 margin-bottom-60">
+          <h1 className="centered">{title}</h1>
+          <p className="centered">{description}</p>
+        </div>}
         {resources.map((r,i)=>(
           <ResourceItem resource={r} type={type} key={`resource-${i}`} index={i} expanded={this.state.expanded===i} expand={this.expand}/>
         ))}

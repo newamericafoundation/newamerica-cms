@@ -1,42 +1,7 @@
 {% load wagtailimages_tags %}
 
-<div class="resource-kit">
-  {{ json }}
-  <h2 class="resource-kit__title">{{value.title}}</h2>
-  <p class="resource-kit__description">{{value.description}}</p>
-  <div class="resource-kit__resources-container">
-  {% for resource in value.resources %}
-    {% if forloop.counter0|divisibleby:3 and forloop.counter0 != 0 %}
-      </div>
-    {% endif %}
-    {% if forloop.counter0|divisibleby:3 %}
-      <div class="row">
-    {% endif %}
-    <div class="resource-kit__resource {% if not resource.value.description %}no-description{% endif %}">
-      <div class="resource-kit__resource__wrapper">
-      {% if resource.block_type == 'post' %}
-        <a class="resource-kit__resource__link-wrapper" href="{{resource.value.resource.url}}">
-          <div class="resource-kit__resource__link--post"> </div>
-      {% elif resource.block_type == 'external_resource' %}
-        <a class="resource-kit__resource__link-wrapper" target="_blank" href="{{resource.value.resource}}">
-          <div class="resource-kit__resource__link--external"></div>
-      {% else %}
-        <a class="resource-kit__resource__link-wrapper" target="_blank" href="{{resource.value.resource.url}}">
-          <div class="resource-kit__resource__link--attachment"></div>
-      {% endif %}
-
-      <div class="resource-kit__resource__text">
-        <label class="resource-kit__resource__text__name lg active">{{resource.value.name}}</label>
-        {% if resource.value.description %}
-        <div class="resource-kit__resource__text__description">{{resource.value.description}}</div>
-        {% endif %}
-      </div>
-      </a>
-      </div>
-    </div>
-    {% if forloop.counter == value.resources|length %}
-      </div>
-    {% endif %}
-  {% endfor %}
-  </div>
-</div>
+<div class="compose__resources-block"
+  data-title='{{value.title}}'
+  data-description='{{value.description}}'
+  data-resources='{{resources}}'
+  data-type="resource"></div>

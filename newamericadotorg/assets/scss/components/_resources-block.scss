@@ -7,12 +7,16 @@
   }
 
   .resources-block__item__top__description{
-    margin-top: 50px;
-    max-height: calc(100% - 275px);
+    margin-top: 60px;
+    max-height: calc(100% - 270px);
     overflow-y: scroll;
     visibility: hidden;
     padding-top: 25px;
     position: relative;
+
+    &.no-image{
+      max-height: calc(100% - 100px);
+    }
 
     @include media-breakpoint(tablet){
       padding-left: 16.66666%;
@@ -33,10 +37,8 @@
       width: 125px;
       height: 125px;
       top: 25px;
-      overflow: hidden;
       @include transition(top 0.15s ease);
-      //border-radius: 150px;
-      box-shadow: 0px 0px 3px 0px color(black, base, .05);
+
 
       img {
         @include center;
@@ -47,7 +49,6 @@
 
 
       }
-
     }
   }
 
@@ -70,23 +71,25 @@
     @include transition(transform 0.15s ease, top 0.15s ease, left 0.15s ease, height 0.15s ease, width 0.15s ease, padding 0.15s ease);
     &.open {
       width: calc(300% - 10px);
-      height: calc(100vh - 100px);
-      max-height: 730px;
+      height: 90vh;
+      max-height: 675px;
       min-height: 400px;
       z-index: 10;
       box-shadow: 0px 0px 2px 1px color(black, base, 0.15);
 
-      @include media-breakpoint(tablet){
-        height: calc(100vh - 400px);
-
-      }
 
       @include media-breakpoint(desktop){
         box-shadow: none;
       }
 
-      .resources-block__item__top__image{
-        //top: 0;
+      .resources-block__item__top__image:after{
+        content: '';
+        width: 75px;
+        height: 1px;
+        background: color(black, base, 0.5);
+        position: absolute;
+        bottom: -35px;
+        @include horizontal-center;
       }
 
       .resources-block__item__top__description{
@@ -124,15 +127,29 @@
 .resources-block__item__bottom__buttons__button{
   height: 25px;
   width: 25px;
-  padding-left: 6px;
-  padding-right: 5px;
+  vertical-align: middle;
   display: inline-block;
   border: 1px solid color(black, base, 0.5);
   border-radius: 100px;
   position: relative;
   cursor: pointer;
 
-  .icon-plus{
+  &.expand{
+    padding-left: 6px;
+    padding-right: 5px;
+  }
+
+  &.link {
+    padding-top: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  &:first-child{
+    margin-right: 10px;
+  }
+
+  .icon-plus, .icon-arrow{
 
     & > div {
       background: color(black, base, 0.5);
@@ -142,8 +159,16 @@
   &:hover{
     background: color(black, base, 1);
 
-    .icon-plus > div{
+    .icon-plus > div, .icon-arrow > div{
       background: color(white, base, 1);
     }
+  }
+}
+
+.resources-block.expanded .resources-block__item__bottom__buttons__button{
+  position: static;
+  &__buttons{
+    top: 10px;
+    bottom: auto;
   }
 }
