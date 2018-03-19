@@ -291,6 +291,11 @@ class GoogleMapBlock(blocks.StructBlock):
     class Meta:
         template = 'blocks/google_map.html'
 
+class SessionSpeakerBlock(blocks.StructBlock):
+    name = blocks.TextBlock(required=True)
+    twitter = blocks.URLBlock(required=False)
+    title = blocks.TextBlock(required=False)
+
 class SessionTypesBlock(blocks.ChoiceBlock):
     choices = (
         ('panel', 'Panel'),
@@ -301,13 +306,29 @@ class SessionTypesBlock(blocks.ChoiceBlock):
         ('registration', 'Registration')
     )
 
-class SessionSpeakerBlock(blocks.StructBlock):
-    name = blocks.TextBlock(required=True)
-    title = blocks.TextBlock(required=False)
+def SessionsSerializer(s):
+	sessions = []
+	for block in s:
+		d = {}
+		value = block['value']
+
+		for key, val in value.iteritems():
+			if key == 'speakers':
+				d['speakers'] = []
+				for speakerBlock in val:
+					speaker = {}
+					for k, v in speakerBlock['value'].iteritems():
+						speaker[k] = v
+					d['speakers'].append(speaker)
+			else:
+				d[key] = val
+		sessions.append(d)
+
+ 	return sessions
 
 class SessionBlock(blocks.StructBlock):
-    name = blocks.TextBlock()
-    session_type = SessionTypesBlock()
+    name = blocks.TextBlock(required=False)
+    #session_type = SessionTypesBlock()
     description = blocks.RichTextBlock(required=False)
     start_time = blocks.TimeBlock(required=False)
     end_time = blocks.TimeBlock(required=False)
@@ -326,7 +347,16 @@ class SessionDayBlock(blocks.StructBlock):
     ])
 
 class SessionsBlock(blocks.StreamBlock):
-	days = SessionDayBlock()
+	days = SessionDayBlock(help_text='for multi-day events')
+	def get_context(self, value):
+		context = super(SessionsBlock, self).get_context(value)
+		days = []
+		for day in value.stream_data:
+			days.append(SessionsSerializer(day['value']['sessions']))
+
+		context['days'] = json.dumps(days, ensure_ascii=False)
+
+		return context
 	class Meta:
 		template = 'blocks/schedule.html'
 
@@ -355,7 +385,7 @@ class PanelsBlock(blocks.StreamBlock):
 		template='blocks/panels.html'
 
 class BodyBlock(Body):
-	schedule = SessionsBlock(help_text="1 to 2 day schedule of events", icon="date")
+	#schedule = SessionsBlock(help_text="1 to 2 day schedule of events", icon="date")
 	people = PeopleBlock(help_text="Grid of people with short bios that appear on click", icon="group")
 	panels = PanelsBlock(icon="list-ul")
 	image = ImageChooserBlock(template='blocks/image_block.html', help_text='Legacy option. Consider using Inline Image instead.', icon="placeholder")

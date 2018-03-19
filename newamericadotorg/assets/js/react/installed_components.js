@@ -19,3 +19,4 @@ export { default as feedback } from './feedback/index';
   as html with Django template
 **/
 export { default as resourcesBlock } from './blocks/resources';
+export { default as scheduleBlock } from './blocks/schedule';

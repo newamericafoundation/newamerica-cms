@@ -1,0 +1,26 @@
+.conference__header{
+  background: color(turquoise);
+  position: relative;
+  height: $header-height;
+
+  label{
+    line-height: 50px;
+    padding-right: 15px;
+  }
+
+  .button{
+    line-height: 37px;
+    border-radius: 0 !important;
+  }
+
+  // &:before {
+  //   content: '';
+  //   background: color(black, base, 0.1);
+  //   left: 0;
+  //   top: 0;
+  //   bottom: 0;
+  //   right: 0;
+  //   position: absolute;
+  //   display: block;
+  // }
+}

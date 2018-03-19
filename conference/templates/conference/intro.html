@@ -2,51 +2,48 @@
 {% load wagtailimages_tags %}
 
 {% image page.story_image original as cover %}
-<section id="hero" style="background-image:url({{cover.url}});" class="hero-section bg1 bg-cover window-height light-text">
+<section id="hero" style="background-image:url({{cover.url}});" class="conference__intro">
 
   <div class="heading-block centered-block align-center">
-    <div class="container">
-      <div class="na-logo-wrapper">
+      <div class="conference__title">
         <div class="na-logo">
           <a href="http://newamerica.org/" target="_blank">
           {% if page.alternate_logo %}
             {% image page.alternate_logo original as alt_logo %}
             <img src="{{alt_logo.url}}" />
           {% else %}
-            {% include 'ui_elements/svg/new-america-white.html' %}
+            <!-- <h1 class="centered margin-bottom-60">
+              <div class="logo white" style="width:150px;height: 37px"></div>
+            </h1> -->
           {% endif %}
           </a>
       	</div>
-      </div>
-      <h5 class="heading-alt" style="margin-bottom: 8px;">
-        <span>
-          <span class="fa fa-calendar-o base-clr-txt"></span>
-          {% if page.end_date %}
-            {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
-          {% else %}
-            {{ page.date|date:'F' }} {{ page.date|date:'j' }}, {{ page.date|date:'Y' }}
-          {% endif %}
-        </span>
-        <span>
-          <span class="fa fa-map-marker base-clr-txt" style="margin-left: 14px;"></span>
-          {{page.city}}, {{page.state}}
-        </span>
-      </h5>
-      <h1 class="extra-heading">{{page.title}}</h1>
-      <h2 class="sub-heading">{{ page.subheading }}</h2>
-      <h6 class="thin base-font">{{page.search_description}}</h6>
-      <div class="btns-container row {%if page.invitation_only %}invite-only{% endif %}">
-        <div class="columns small-6">
+        <label class="bold block white margin-0 centered" >
+          <span>
+            <span class="fa fa-calendar-o base-clr-txt"></span>
+            {% if page.end_date %}
+              {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
+            {% else %}
+              {{ page.date|date:'F' }} {{ page.date|date:'j' }}, {{ page.date|date:'Y' }}
+            {% endif %}
+          </span>
+          <span>
+            <span class="fa fa-map-marker base-clr-txt" style="margin-left: 14px;"></span>
+            {{page.city}}, {{page.state}}
+          </span>
+        </label>
+        <h1 class="promo white centered margin-35">{{page.title}}</h1>
+        <label class="pullquote white centered">{{ page.subheading }}</label>
+        <p class="white centered">{{page.search_description}}</p>
+        <div class="btns-container {%if page.invitation_only %}invite-only{% endif %}" style="text-align:center;">
           {% if page.invitation_only %}
-            <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button">Request Invitation</a>
+            <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button white-outline" style="width:175px;">Request Invitation</a>
           {% elif page.rsvp_link %}
-            <a href="{{page.rsvp_link}}" target="_blank" class="button">Register</a>
+            <a href="{{page.rsvp_link}}" target="_blank" class="button white-outline" style="width:175px;">Register</a>
           {% endif %}
-        </div>
-        <div class="columns small-6">
-          <a href="#about" class="button go-to-about" >About </a>
+            <a href="#about" class="button white-outline" style="width:175px;">About </a>
         </div>
       </div>
-    </div>
+
   </div>
 </section>

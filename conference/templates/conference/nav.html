@@ -1,39 +1,63 @@
-<header class="header header-white">
-  <div class="header-wrapper">
-    <div class="container row">
-      <div class="small-12 medium-2 columns navigation-header">
-        <a href="http://newamerica.org" target="_blank" class="logo">
-          {% include 'components/svg/new-america-white.html' %}
-        </a>
-      </div>
-
-      <div class="medium-12 large-10 columns navigation-container">
-        <div class="navbar">
-          <ul class="navigation-list pull-left light-text">
-            <li class="navigation-item active"><a href="#about" class="navigation-link">About</a></li>
-            <li class="navigation-item"><a href="#speakers" class="navigation-link">Speakers</a></li>
-            <li class="navigation-item"><a href="#schedule" class="navigation-link">Schedule</a></li>
-            {% if page.partners|length > 0 %}
-              <li class="navigation-item"><a href="#sponsors" class="navigation-link">{{ page.partner_heading }}</a></li>
-            {% endif %}
-            {% if page.venue_details %}
-              {% if page.hotel_details %}
-                <li class="navigation-item"><a href="#venue" class="navigation-link">Venue & Hotel</a></li>
-              {% else %}
-                <li class="navigation-item"><a href="#venue" class="navigation-link">Venue</a></li>
+<header class="conference__header">
+    <div class="container">
+      <div class="row">
+        <div class="conference__nav col-9">
+            <ul class="inline">
+              <li class="navigation-item active">
+                <label class="white">
+                  <a href="#about" class="navigation-link">About</a>
+                </label>
+              </li>
+              <li class="navigation-item">
+                <label class="white">
+                  <a href="#speakers" class="navigation-link">Speakers</a>
+                </label>
+              </li>
+              <li class="navigation-item">
+                <label class="white">
+                  <a href="#schedule" class="navigation-link">Schedule</a>
+                </label>
+              </li>
+              {% if page.partners|length > 0 %}
+                <li class="navigation-item">
+                  <label class="white">
+                    <a href="#sponsors" class="navigation-link">{{ page.partner_heading }}</a>
+                  </label>
+                </li>
               {% endif %}
-            {% endif %}
-            {% if page.directions %}
-              <li class="navigation-item"><a href="#directions" class="navigation-link">Directions</a></li>
-            {% endif %}
-          </ul>
+              {% if page.venue_details %}
+                {% if page.hotel_details %}
+                  <li class="navigation-item">
+                    <label class="white">
+                      <a href="#venue" class="navigation-link">Venue & Hotel</a>
+                    </label>
+                  </li>
+                {% else %}
+                  <li class="navigation-item">
+                    <label class="white">
+                      <a href="#venue" class="navigation-link">Venue</a>
+                    </label>
+                  </li>
+                {% endif %}
+              {% endif %}
+              {% if page.directions %}
+                <li class="navigation-item">
+                  <label class="white">
+                    <a href="#directions" class="navigation-link">Directions</a>
+                  </label>
+                </li>
+              {% endif %}
+            </ul>
+        </div>
+        <div class="col-3">
+          {% if page.invitation_only %}
+          <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="pull-right button black register">Request Invitation</a>
+          {% elif page.rsvp_link %}
+          <a href="{{page.rsvp_link}}" target="_blank" class="pull-right button black register">Register</a>
+          {% endif %}
         </div>
       </div>
-      {% if page.invitation_only %}
-      <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="pull-right button register">Request Invitation</a>
-      {% elif page.rsvp_link %}
-      <a href="{{page.rsvp_link}}" target="_blank" class="pull-right button register">Register</a>
-      {% endif %}
+
     </div>
-  </div>
+
 </header>
