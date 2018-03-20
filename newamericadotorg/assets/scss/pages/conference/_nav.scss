@@ -9,8 +9,15 @@
   }
 
   .button{
-    line-height: 37px;
+    line-height: 40px;
     border-radius: 0 !important;
+    border: 0;
+    background: #40ad8e;
+    &:hover{
+      background: color(white);
+      color: color(black) !important;
+      border: 0;
+    }
   }
 
   // &:before {

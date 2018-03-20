@@ -12,7 +12,7 @@
   <main class="container--1080">
     {% include 'conference/about.html' %}
 
-    <section id="speakers" class="section section-nav align-center">
+    <section id="speakers" class="conference__section section-nav align-center">
         <span class="line-icon section-icon line-icon-faces-users-04"></span>
         <h1 class="centered">Speakers</h1>
 
@@ -23,7 +23,7 @@
       {% endif %}
     </section>
 
-    <section id="schedule" class="section section-nav schedule-section align-center">
+    <section id="schedule" class="conference__section section-nav schedule-section align-center">
 
       <span class="line-icon section-icon line-icon-office-21"></span>
       <h1 class="centered">Schedule</h1>
@@ -35,7 +35,7 @@
     </section>
 
     {% if page.partners|length > 0 %}
-    <section id="sponsors" class="section section-nav align-center">
+    <section id="sponsors" class="conference__section section-nav align-center">
       <span class="line-icon section-icon line-icon-seo-icons-24"></span>
       <h1 class="centered">{{ page.partner_heading }}</h1>
       {{ page.partners }}
@@ -43,13 +43,13 @@
     {% endif %}
 
     {% if page.venue_details %}
-    <section id="venue" class="section section-nav align-center">
+    <section id="venue" class="conference__section section-nav align-center">
       {% include './venue_and_hotel.html' %}
     </section>
     {% endif %}
 
     {% if page.directions %}
-    <section id="directions" class="section align-center">
+    <section id="directions" class="conference__section align-center">
         <span class="line-icon section-icon line-icon-seo-icons-36"></span>
         <h1 class="centered">Directions</h1>
         {{ page.directions }}

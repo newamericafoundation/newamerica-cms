@@ -12,16 +12,18 @@ class Session extends Component {
       <div className={`schedule-block__sessions__session ${expanded ? 'expanded' : ''}`}>
         <PlusX onClick={expand} x={expanded} />
         <div className="schedule-block__sessions__session__heading margin-bottom-35">
-          <label className="block button--text">{start_time}{end_time && ' - '}{end_time}</label>
-          <h3 className="margin-15">{name}</h3>
-          {description && <div className="post-body" dangerouslySetInnerHTML={{__html: description}} />}
+          <div className="schedule-block__sessions__session__heading__title">
+            <label className="block button--text">{start_time}{end_time && ' - '}{end_time}</label>
+            <h3 className="margin-15">{name}</h3>
+          </div>
+          {description && <div className="post-body margin-35" dangerouslySetInnerHTML={{__html: description}} />}
         </div>
         {speakers &&
           <span>
-            <label className="block button--text">Speakers</label>
+            <label className="block button--text margin-bottom-35">Speakers</label>
             <div className="schedule-block__sessions__session__speakers">
               {speakers.map((s,i)=>(
-                <div className="schedule-block__sessions__session__speakers__speaker">
+                <div className="schedule-block__sessions__session__speakers__speaker margin-bottom-25">
                   <label className="bold block">{s.name}
                   {s.twitter &&
                     <a href={s.twitter} target="_blank">
