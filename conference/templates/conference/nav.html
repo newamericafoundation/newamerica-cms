@@ -1,27 +1,28 @@
-<header class="conference__header">
+<header class="conference__header scroll-target">
+  <div class='conference__header__sticky-wrapper'>
     <div class="container--1080">
       <div class="row">
         <div class="conference__nav col-9">
             <ul class="inline">
               <li class="navigation-item active">
                 <label class="white">
-                  <a href="#about" class="navigation-link">About</a>
+                  <a href="#about" id="nav__about" class="navigation-link">About</a>
                 </label>
               </li>
               <li class="navigation-item">
                 <label class="white">
-                  <a href="#speakers" class="navigation-link">Speakers</a>
+                  <a href="#speakers" id="nav__speakers" class="navigation-link">Speakers</a>
                 </label>
               </li>
               <li class="navigation-item">
                 <label class="white">
-                  <a href="#schedule" class="navigation-link">Schedule</a>
+                  <a href="#schedule" id="nav__schedule" class="navigation-link">Schedule</a>
                 </label>
               </li>
               {% if page.partners|length > 0 %}
                 <li class="navigation-item">
                   <label class="white">
-                    <a href="#sponsors" class="navigation-link">{{ page.partner_heading }}</a>
+                    <a href="#sponsors" id="nav__sponsors" class="navigation-link">{{ page.partner_heading }}</a>
                   </label>
                 </li>
               {% endif %}
@@ -29,13 +30,13 @@
                 {% if page.hotel_details %}
                   <li class="navigation-item">
                     <label class="white">
-                      <a href="#venue" class="navigation-link">Venue & Hotel</a>
+                      <a href="#venue" id="nav__venue" class="navigation-link">Venue & Hotel</a>
                     </label>
                   </li>
                 {% else %}
                   <li class="navigation-item">
                     <label class="white">
-                      <a href="#venue" class="navigation-link">Venue</a>
+                      <a href="#venue" id="nav__venue" class="navigation-link">Venue</a>
                     </label>
                   </li>
                 {% endif %}
@@ -43,7 +44,7 @@
               {% if page.directions %}
                 <li class="navigation-item">
                   <label class="white">
-                    <a href="#directions" class="navigation-link">Directions</a>
+                    <a href="#directions" id="nav__directions" class="navigation-link">Directions</a>
                   </label>
                 </li>
               {% endif %}
@@ -59,5 +60,5 @@
       </div>
 
     </div>
-
+  </div>
 </header>

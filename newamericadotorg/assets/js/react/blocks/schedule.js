@@ -1,24 +1,35 @@
 import { Component } from 'react';
 import { PlusX, Arrow } from '../components/Icons';
 import { connect } from 'react-redux';
+import { format as formatDate } from 'date-fns';
 
 const NAME = 'scheduleBlock';
 const ID = 'schedule-block';
 
 class Session extends Component {
+  formatTime = (t) => {
+    let time = t.split(':');
+    let d = new Date(2000,1,1, ...time);
+    return formatDate(d, 'hh:mma');
+  };
   render() {
-    let { name, description, start_time, end_time, speakers, expanded, expand } = this.props;
+    let { name, description, start_time, end_time, speakers, expanded, expand, hasDesc } = this.props;
     return (
-      <div className={`schedule-block__sessions__session ${expanded ? 'expanded' : ''}`}>
-        <PlusX onClick={expand} x={expanded} />
-        <div className="schedule-block__sessions__session__heading margin-bottom-35">
-          <div className="schedule-block__sessions__session__heading__title">
-            <label className="block button--text">{start_time}{end_time && ' - '}{end_time}</label>
+      <div className={`schedule-block__sessions__session ${expanded && hasDesc ? 'expanded' : ''}`}>
+        <div className="schedule-block__sessions__session__heading">
+          <div className="schedule-block__sessions__session__heading__title" onClick={expand}>
+            <label className="block button--text">
+              {this.formatTime(start_time)}{end_time && ' - '}{this.formatTime(end_time)}
+            </label>
             <h3 className="margin-15">{name}</h3>
+            {hasDesc &&
+              <PlusX x={expanded} />
+            }
           </div>
-          {description && <div className="post-body margin-35" dangerouslySetInnerHTML={{__html: description}} />}
         </div>
-        {speakers &&
+        <span className="schedule-block__sessions__session__description">
+          {description && <div className="post-body margin-bottom-35" dangerouslySetInnerHTML={{__html: description}} />}
+        {speakers.length>0 &&
           <span>
             <label className="block button--text margin-bottom-35">Speakers</label>
             <div className="schedule-block__sessions__session__speakers">
@@ -36,6 +47,7 @@ class Session extends Component {
             </div>
           </span>
         }
+        </span>
       </div>
     );
   }
@@ -58,7 +70,7 @@ class APP extends Component {
           <div className="schedule-block__day">
             <div className="schedule-block__sessions">
               {sessions.map((s,i)=>(
-                <Session expanded={this.state[i]} expand={()=>{this.expand(i)}} {...s} />
+                <Session hasDesc={s.description || s.speakers.length > 0} expanded={this.state[i]} expand={()=>{this.expand(i)}} {...s} />
               ))}
             </div>
           </div>

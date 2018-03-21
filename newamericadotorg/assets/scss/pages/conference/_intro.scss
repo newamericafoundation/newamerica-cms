@@ -7,9 +7,18 @@
 
 
 .conference__title{
-  max-width: 600px;
+  max-width: 650px;
   width: 100%;
   margin: 0 auto;
   position: absolute;
   @include center;
+
+  .na-logo img{
+    max-width: 350px;
+    display: block;
+    left: 50%;
+    @include transform(translateX(-50%));
+    position: absolute;
+    top: -80px;
+  }
 }

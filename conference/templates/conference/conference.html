@@ -4,9 +4,48 @@
 {% load wagtailimages_tags %}
 
 {% block body_class %}{% endblock %}
+{% block extra_js %}
+    <script>
+      newamericadotorgEvents();
+
+			function newamericadotorgEvents(){
+				if(!newamericadotorg){
+					setTimeout(newamericadotorgEvents, 500);
+					return;
+				}
+				newamericadotorg.actions.addScrollEvent({
+          selector: '.section-nav',
+          triggerPoint: 'bottom',
+          onEnter: function(el){
+            var s = '#nav__' + el.getAttribute('id');
+            var a = document.querySelector(s);
+            if(a)
+              a.classList.add('active');
+          },
+          onLeave: function(el){
+            var s = '#nav__' + el.getAttribute('id');
+            var a = document.querySelector(s);
+            if(a)
+              a.classList.remove('active');
+          }
+        });
+
+        var navs = document.querySelectorAll('.navigation-link')
+        console.log(navs);
+        for(var i=0; i<navs.length;i++){
+          navs[i].addEventListener('click', function(e){
+            e.preventDefault();
+            var id = this.getAttribute('href');
+            var panel = document.querySelector(id);
+            newamericadotorg.actions.smoothScroll(panel);
+          });
+        }
+			}
+    </script>
+{% endblock %}
+
 
 {% block content %}
-
   {% include 'conference/intro.html' %}
   {% include 'conference/nav.html' %}
   <main class="container--1080">
@@ -49,7 +88,7 @@
     {% endif %}
 
     {% if page.directions %}
-    <section id="directions" class="conference__section align-center">
+    <section id="directions" class="conference__section section-nav align-center">
         <span class="line-icon section-icon line-icon-seo-icons-36"></span>
         <h1 class="centered">Directions</h1>
         {{ page.directions }}

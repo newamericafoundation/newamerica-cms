@@ -10,7 +10,7 @@
           <a href="http://newamerica.org/" target="_blank">
           {% if page.alternate_logo %}
             {% image page.alternate_logo original as alt_logo %}
-            <img src="{{alt_logo.url}}" />
+            <img class="" src="{{alt_logo.url}}" />
           {% else %}
             <!-- <h1 class="centered margin-bottom-60">
               <div class="logo white" style="width:150px;height: 37px"></div>
@@ -18,20 +18,24 @@
           {% endif %}
           </a>
       	</div>
-        <label class="bold block white margin-0 centered" >
-          <span>
-            <span class="fa fa-calendar-o base-clr-txt"></span>
-            {% if page.end_date %}
-              {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
-            {% else %}
-              {{ page.date|date:'F' }} {{ page.date|date:'j' }}, {{ page.date|date:'Y' }}
-            {% endif %}
-          </span>
-          <span>
-            <span class="fa fa-map-marker base-clr-txt" style="margin-left: 14px;"></span>
-            {{page.city}}, {{page.state}}
-          </span>
-        </label>
+        <div class="conference__title__location-date row">
+          <label class="bold block white margin-0 col-6" style="text-align:right">
+            <span>
+              <span class="fa fa-calendar-o base-clr-txt" style="padding-right: 10px;"></span>
+              {% if page.end_date %}
+                {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
+              {% else %}
+                {{ page.date|date:'F' }} {{ page.date|date:'j' }}, {{ page.date|date:'Y' }}
+              {% endif %}
+            </span>
+          </label>
+          <label class="bold block white margin-0 col-6">
+            <span>
+              <span class="fa fa-map-marker base-clr-txt" style="padding-right: 10px;"></span>
+              {{page.city}}, {{page.state}}
+            </span>
+          </label>
+        </div>
         <h1 class="promo white centered margin-35">{{page.title}}</h1>
         <label class="pullquote white centered">{{ page.subheading }}</label>
         <p class="white centered">{{page.search_description}}</p>

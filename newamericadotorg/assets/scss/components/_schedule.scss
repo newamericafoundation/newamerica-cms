@@ -1,14 +1,50 @@
 .schedule-block{
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
 }
 
+.schedule-block__sessions__session{
 
-.schedule-block__sessions__session {
-  border-bottom: color(black, base, 0.3);
+  &__description{
+    max-height: 0px;
+    display: block;
+    opacity: 0;
+    overflow: hidden;
+    & > :first-child{
+      padding-top: 35px;
+      display: block;
+    }
+    @include transition(max-height 0.25s ease, opacity 0.25s ease);
+  }
+
+  &.expanded{
+    .schedule-block__sessions__session__description{
+
+      max-height: 300vh;
+      opacity: 1;
+    }
+  }
+}
+
+.schedule-block__sessions__session__heading__title{
+  position: relative;
+  cursor: pointer;
+
+  .icon-plus{
+    position: absolute;
+    top: 50%;
+    right: 0;
+  }
+}
+
+
+.schedule-block__sessions__session{
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid color(black, base, 0.3);
 
   &:first-child {
-    border
+    border-top: 1px solid color(black, base, 0.3);
   }
 }

@@ -1,0 +1,8 @@
+.direction-block__item{
+  padding-top: 35px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid color(black, base, 0.3);
+  &:first-child{
+    border-top: 1px solid color(black, base, 0.3);
+  }
+}

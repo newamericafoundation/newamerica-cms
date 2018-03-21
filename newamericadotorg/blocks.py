@@ -95,7 +95,10 @@ def ResourceKitSerializer(r):
 		for key, val in value.iteritems():
 			if key == 'image' and val is not None:
 				img = home.models.CustomImage.objects.get(pk=val)
-				img = img.get_rendition('fill-200x200')
+				try:
+					img = img.get_rendition('fill-200x200')
+				except:
+					img = img
 				d['image'] = img.file.url
 			elif key == 'resource':
 				if block_type == 'post':
@@ -185,7 +188,10 @@ def PersonBlockSerializer(block_value):
 		for key, val in value.iteritems():
 			if key == 'image':
 				img = home.models.CustomImage.objects.get(pk=val)
-				img = img.get_rendition('fill-200x200')
+				try:
+					img = img.get_rendition('fill-200x200')
+				except:
+					img = img
 				d['image'] = img.file.url
 			else:
 				d[key] = val
