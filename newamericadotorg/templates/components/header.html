@@ -1,7 +1,7 @@
 {% load cache %}
 <!-- 86400 header  -->
 <header class="header scroll-target {% block with-subheader-class %}{% endblock %}" data-scroll-offset="65">
-  <div class="header__wrapper">
+  <div class="header__wrapper {% if transparent %}transparent{% endif %}">
     <div class="container--wide">
     <div class="row no-gutters">
       <div class="header__logo-wrapper col-lg-2 col-11">

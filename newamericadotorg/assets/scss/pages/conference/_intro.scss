@@ -1,12 +1,14 @@
 .conference__intro{
-  height: calc(100vh - #{$header-height});
+  height: 100vh;
   background-size: cover;
   background-position: 50% 50%;
   position: relative;
+  margin-top:#{-$header-height};
 }
 
 
 .conference__title{
+  padding-top: $header-height;
   max-width: 650px;
   width: 100%;
   margin: 0 auto;
@@ -14,11 +16,11 @@
   @include center;
 
   .na-logo img{
-    max-width: 350px;
+    max-width: 400px;
     display: block;
     left: 50%;
     @include transform(translateX(-50%));
     position: absolute;
-    top: -80px;
+    top: -45px;
   }
 }

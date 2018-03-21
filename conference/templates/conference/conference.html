@@ -3,7 +3,10 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% block body_class %}{% endblock %}
+{% block body_class %}conference{% endblock %}
+{% block header %}
+  {% include 'components/header.html' with transparent=True %}
+{% endblock %}
 {% block extra_js %}
     <script>
       newamericadotorgEvents();

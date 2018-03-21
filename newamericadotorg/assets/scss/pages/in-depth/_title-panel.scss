@@ -1,18 +1,19 @@
 .title-panel{
   width: 100vw;
-  height: calc(100vh - 160px);
+  height: calc(100vh - #{80px + $header-height});
+  min-height: 400px;
   position: relative;
   @include media-breakpoint(tablet){
     max-height: 500px;
   }
 
   @include media-breakpoint(desktop){
-    max-height: 600px;
-    height: calc(100vh - 80px);
+    max-height: 700px;
   }
 
   &.home-title-panel{
     height: 100vh;
+    margin-top: -#{$header-height};
   }
 
   .container{
@@ -66,7 +67,7 @@
   background: color(black);
 
   &__background{
-    background-size: auto 125%;
+    background-size: auto 140%;
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
@@ -76,7 +77,7 @@
     opacity: 0.6;
     @include transition(opacity 0.35s ease);
     @include media-breakpoint(tablet){
-      background-size: 125% auto;
+      background-size: auto 110%;
     }
 
     &.loaded{
@@ -87,14 +88,14 @@
     position: absolute;
     z-index: 1;
     width: auto;
-    height: 125%;
+    height: 100%;
     @include center;
     @include transition(opacity 0.35s ease);
     opacity: 0;
 
     @include media-breakpoint(tablet){
-      width: 125%;
-      height: auto;
+      width: auto;
+      height: 110%;
     }
 
     &.loaded{
