@@ -49,3 +49,41 @@
       }
     }
 }
+
+.topic-filter{
+  .clear-topics{
+    opacity: 0.3;
+    cursor: pointer;
+    &:hover{
+      opacity: 1;
+    }
+  }
+  &__selected-topics {
+    list-style: none;
+    padding: 0;
+    li {
+      opacity: 0.3;
+      cursor: pointer;
+
+      label {
+        vertical-align: middle;
+        display: inline-block;
+        width: 90%;
+        padding-left: 15px;
+      }
+      &:before{
+        content: "\2022  ";
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      &:hover{
+        opacity: 1;
+      }
+    }
+
+    li:last-child{
+      opacity: 1;
+    }
+  }
+}

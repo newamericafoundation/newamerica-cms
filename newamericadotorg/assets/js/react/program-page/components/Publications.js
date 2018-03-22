@@ -11,14 +11,14 @@ const Filters = (props) => (
     location={props.location}
     response={props.response}
     programUrl={props.program.url}>
-    <TypeFilter types={props.program.content_types.sort((a,b) => a.name > b.name ? 1 : -1)} expanded={props.initialQuery.content_type != undefined} label="Type"/>
+    <TypeFilter types={props.program.content_types.sort((a,b) => a.name > b.name ? 1 : -1)} expanded={props.initialQuery.content_type !== undefined} label="Type"/>
     {props.categories &&
-      <CategoryFilter categories={props.categories.sort((a,b) => a.name > b.name ? 1 : -1)} expanded={props.initialQuery.category != undefined} label="Category"/>}
+      <CategoryFilter categories={props.categories.sort((a,b) => a.name > b.name ? 1 : -1)} expanded={props.initialQuery.category !== undefined} label="Category"/>}
     {(props.program.subprograms && !props.categories) &&
     <SubprogramFilter subprograms={props.program.subprograms} expanded={props.response.params.query.subprogram_id!==undefined} label="Project"/>}
     <DateFilter label="Date" expanded={props.response.params.query.after!==undefined} />
     {props.program.topics &&
-    <TopicFilter topics={props.program.topics} label="Topic" expanded={props.response.params.query.topic_id!==undefined}/>}
+    <TopicFilter topics={props.program.topics} label="Topic" topicId={props.initialQuery.topic_id} expanded={props.response.params.query.topic_id!==undefined}/>}
   </FilterGroup>
 );
 
@@ -61,6 +61,8 @@ export default class Publications extends PublicationsWrapper {
       initQuery.after = params.get('after');
     if(params.get('before'))
       initQuery.before = params.get('before');
+    if(params.get('topicId'))
+      initQuery.topic_id = params.get('topicId');
     if(params.get('category'))
       initQuery.category = params.get('category');
 

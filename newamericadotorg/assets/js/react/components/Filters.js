@@ -4,6 +4,7 @@ import { RadioButton } from './Inputs';
 import { format as formatDate, subDays } from 'date-fns';
 import { PlusX } from './Icons';
 
+// must pass an response object from Fetch of Response component, history and location to FilterGroup
 class _FilterGroup extends Component {
   componentDidMount(){
     this.reloadScrollEvents();
@@ -243,15 +244,81 @@ export class DateFilter extends Filter {
 }
 
 export class TopicFilter extends Filter {
-  handleChange = (event) => {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.state,
+      topicArray: findTopicArray(+props.topicId, props.topics)
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.topicId != this.props.topicId)
+      this.setState({ topicArray: findTopicArray(+nextProps.topicId, nextProps.topics)});
+  }
+
+  handleChange = (event) => {
+    let { history, location, program } = this.props;
+    let params = new URLSearchParams(location.search.replace('?', ''));
+
+    if(event.target.value == '') {
+      params.delete('topicId');
+    } else {
+      params.set('topicId', event.target.value);
+    }
+
+    history.push(`${location.pathname}?${params.toString()}`);
+  }
 
   render(){
+    let { topics, topicId } = this.props;
+    let { topicArray } = this.state;
+
+    let topicOptions = topicArray ? topicArray[topicArray.length-1].subtopics : topics;
     return (
       <div className={`program__publications-filters__filter topic-filter ${this.state.expanded ? 'expanded' : ''}`}>
         {this.label()}
         <form>
+          {topicArray && <label className="button--text clear-topics margin-top-0 margin-bottom-5" onClick={()=>{ this.handleChange({ target: { value: ''}}) }}>Reset</label>}
+          {topicArray && <ul className="topic-filter__selected-topics margin-bottom-25 margin-top-0">
+            {topicArray.map((t,i)=>(
+              <li key={`selected-topic-${i}`} onClick={()=>{ this.handleChange({ target: { value: t.id }}) }}>
+                <label className="button--text margin-0">{t.title}</label>
+              </li>
+            ))}
+          </ul>}
+          <div className="topic-filter__topic-options">
+            {topicOptions.map((t,i)=>(
+              <RadioButton key={`topic-option-${i}`} label={t.title} value={t.id} checked={false} onChange={this.handleChange} />
+            ))}
+          </div>
         </form>
       </div>
     );
   }
+}
+
+function findTopic(id, topics){
+  let queue = [...topics];
+  let t;
+
+  while(queue.length > 0){
+    t = queue.shift();
+    if(t.id == id) return t;
+    for(let i = 0; i<t.subtopics.length; i++)
+      queue.push(t.subtopics[i]);
+  }
+
+  return false;
+}
+
+function findTopicArray(id, topics, lineage=[]){
+
+  for(let i = 0; i<topics.length; i++){
+    if(topics[i].id==id) return [...lineage, topics[i]];
+    let subtopic = findTopicArray(id, topics[i].subtopics, [...lineage, topics[i]]);
+    if(subtopic) return subtopic;
+  }
+
+  return false;
 }

@@ -39,6 +39,7 @@ class TopicDetailSerializer(ModelSerializer):
     description = SerializerMethodField()
     program = SerializerMethodField()
     body = SerializerMethodField()
+    depth = SerializerMethodField()
 
     def get_subtopics(self, obj):
         return TopicDetailSerializer(obj.get_children().live().specific(), many=True).data
@@ -55,10 +56,13 @@ class TopicDetailSerializer(ModelSerializer):
             return None
         return loader.get_template('components/post_body.html').render({ 'page': obj })
 
+    def get_depth(self, obj):
+        return obj.depth - 5
+
     class Meta:
         model = IssueOrTopic
         fields = (
-            'id', 'url', 'title', 'slug', 'subtopics', 'description', 'body', 'program'
+            'id', 'url', 'title', 'slug', 'subtopics', 'description', 'body', 'program', 'depth'
         )
 
 class TopicSerializer(ModelSerializer):
