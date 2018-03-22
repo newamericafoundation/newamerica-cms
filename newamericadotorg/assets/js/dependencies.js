@@ -19,6 +19,7 @@ import LazyLoad from 'vanilla-lazyload';
 import SmoothScroll from 'smooth-scroll';
 import bowser from 'bowser';
 import domtoimage from 'dom-to-image';
+import documentMeta from 'react-document-meta';
 import $ from 'jquery';
 
 window.React = window.React$1 = React;
@@ -42,3 +43,4 @@ window.smoothScroll = window.SmoothScroll = SmoothScroll;
 window.bowser = bowser;
 window.domtoimage = domtoimage;
 window.$ = window.jQuery = $;
+window.DocumentMeta = documentMeta;

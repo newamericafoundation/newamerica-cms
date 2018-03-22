@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Slider } from '../../components/Carousel';
+import DocumentMeta from 'react-document-meta';
 
 const NavItem = ({ url, label, active }) => (
   <NavLink className={`button--text program__nav__link ${active ? 'active' : ''}`} to={url}>
@@ -23,27 +24,34 @@ export default class Nav extends Component {
     ];
   }
 
+  getMeta = () => {
+    let { match, program } = this.props;
+
+
+  }
+
   render(){
     let { program, match } = this.props;
     let subpage = match.params.subpage;
     return (
-      <div className={`program__nav ${subpage ? 'active' : ''}`}>
-        <ul className="inline">
-          <Slider
-              variableWidth={true}
-              infinite={false}
-              slide={'li'}
-              prevArrow={<div></div>}
-              nextArrow={<div></div>}
-              responsive={[
-                { breakpoint: 625, settings: { slidesToShow: 3, slidesToScroll: 3 } },
-                { breakpoint: 1000000, settings: 'unslick' }
-              ]}>
-                {this.items()}
-              </Slider>
-
-        </ul>
-      </div>
+      <DocumentMeta {...this.getMeta()}>
+        <div className={`program__nav ${subpage ? 'active' : ''}`}>
+            <ul className="inline">
+              <Slider
+                  variableWidth={true}
+                  infinite={false}
+                  slide={'li'}
+                  prevArrow={<div></div>}
+                  nextArrow={<div></div>}
+                  responsive={[
+                    { breakpoint: 625, settings: { slidesToShow: 3, slidesToScroll: 3 } },
+                    { breakpoint: 1000000, settings: 'unslick' }
+                  ]}>
+                    {this.items()}
+                  </Slider>
+            </ul>
+        </div>
+      </DocumentMeta>
     );
   }
 }

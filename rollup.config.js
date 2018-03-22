@@ -26,7 +26,7 @@ export default [
       'react-scrollbar', 'react-transition-group', 'expirePlugin',
       'store', 'prop-types', 'vanilla-lazyload', 'whatwg-fetch',
       'url-polyfill', 'store/plugins/expire', 'smooth-scroll',
-      'bowser', 'dom-to-image', 'babel-polyfill'
+      'bowser', 'dom-to-image', 'babel-polyfill', 'react-document-meta'
     ],
     watch: {
       clearScreen: false

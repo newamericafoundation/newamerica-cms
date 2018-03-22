@@ -103,7 +103,8 @@ def get_subpages(page):
             'id': c.id,
             'slug': c.slug,
             'url': c.url,
-            'title': c.title
+            'title': c.title,
+            'search_description': c.search_description
         })
 
     return pages

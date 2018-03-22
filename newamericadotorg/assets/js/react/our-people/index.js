@@ -5,6 +5,7 @@ import { NAME, ID } from './constants';
 import Nav from './components/Nav';
 import InfiniteLoadMore from '../components/InfiniteLoadMore';
 import { PersonsList } from '../components/People';
+import DocumentMeta from 'react-document-meta';
 
 class InfinitePersonsList extends Component {
   nextPage = () => {
@@ -46,6 +47,24 @@ class OurPeople extends Component {
     }
   }
 
+  getTitle = () => {
+    let { match: { params }} = this.props;
+    switch(params.peoplePage){
+      case 'board':
+        return 'Board of Directors';
+      case 'board-emeriti':
+        return 'Board Emeriti';
+      case 'program-staff':
+        return 'Program Staff';
+      case 'central-staff':
+        return 'Central Staff';
+      case 'leadership':
+        return 'Leadership';
+      default:
+        return false;
+    }
+  }
+
   query = () => {
     let { match : { params : { peoplePage } } } = this.props
     let q = {
@@ -66,18 +85,21 @@ class OurPeople extends Component {
     let leadership = match.params.peoplePage == 'leadership' ? true : null;
     let former = match.params.peoplePage == 'board-emeriti';
     let role = this.getRole();
+    let title = this.getTitle();
     return (
-      <section className="home__panel__promo home__panel__our-people">
-        <div className="container">
-        <Nav />
-        <Fetch name={NAME}
-          endpoint={'author'}
-          fetchOnMount={true}
-          eager={true}
-          component={InfinitePersonsList}
-          initialQuery={this.query()}/>
-          </div>
-      </section>
+      <DocumentMeta title={`Our People${title ? ': ' + title : ''}`}>
+        <section className="home__panel__promo home__panel__our-people">
+          <div className="container">
+            <Nav />
+            <Fetch name={NAME}
+              endpoint={'author'}
+              fetchOnMount={true}
+              eager={true}
+              component={InfinitePersonsList}
+              initialQuery={this.query()}/>
+            </div>
+        </section>
+      </DocumentMeta>
     );
   }
 }

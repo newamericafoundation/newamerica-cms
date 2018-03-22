@@ -201,7 +201,7 @@ class ProgramDetailSerializer(ModelSerializer):
         return grid
 
     def get_description(self, obj):
-        return obj.description or obj.story_excerpt
+        return obj.description or obj.story_excerpt or obj.search_description
 
     def get_subprograms(self, obj):
         #horribly inefficient. may have to add a ManyToManyField to Program??
