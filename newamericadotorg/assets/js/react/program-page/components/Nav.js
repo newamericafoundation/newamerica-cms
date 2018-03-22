@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Slider } from '../../components/Carousel';
 import DocumentMeta from 'react-document-meta';
+import titlefy from '../../../utils/titlefy';
 
 const NavItem = ({ url, label, active }) => (
   <NavLink className={`button--text program__nav__link ${active ? 'active' : ''}`} to={url}>
@@ -26,7 +27,10 @@ export default class Nav extends Component {
 
   getMeta = () => {
     let { match, program } = this.props;
-
+    let title = titlefy(match.)
+    return {
+      title: `${program.name}`
+    }
 
   }
 
