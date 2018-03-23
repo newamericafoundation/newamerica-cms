@@ -1,5 +1,5 @@
 // convert slug to title
-export default titlefy(slug) {
+const titlefy = function(slug) {
   var words = slug.split('-');
 
   for(var i = 0; i < words.length; i++) {
@@ -9,3 +9,5 @@ export default titlefy(slug) {
 
   return words.join(' ');
 }
+
+export default titlefy;

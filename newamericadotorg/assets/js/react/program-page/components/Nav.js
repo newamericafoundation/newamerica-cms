@@ -26,10 +26,10 @@ export default class Nav extends Component {
   }
 
   getMeta = () => {
-    let { match, program } = this.props;
-    let title = titlefy(match.)
+    let { match: { params: { subpage } }, program } = this.props;
     return {
-      title: `${program.name}`
+      title: `${program.name}${subpage ? `: ${titlefy(subpage)}`: ''}`,
+      description: program.description
     }
 
   }

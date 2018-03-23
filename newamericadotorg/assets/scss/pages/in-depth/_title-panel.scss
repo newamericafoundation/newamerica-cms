@@ -67,7 +67,7 @@
   background: color(black);
 
   &__background{
-    background-size: auto 140%;
+    background-size: auto 100%;
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
@@ -77,7 +77,7 @@
     opacity: 0.6;
     @include transition(opacity 0.35s ease);
     @include media-breakpoint(tablet){
-      background-size: auto 110%;
+      background-size: 110% auto;
     }
 
     &.loaded{
@@ -87,15 +87,15 @@
   img {
     position: absolute;
     z-index: 1;
-    width: auto;
-    height: 100%;
+    width: 100%;
+    height: auto;
     @include center;
     @include transition(opacity 0.35s ease);
     opacity: 0;
 
     @include media-breakpoint(tablet){
-      width: auto;
-      height: 110%;
+      width: 110%;
+      height: auto;
     }
 
     &.loaded{

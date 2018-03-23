@@ -16,9 +16,9 @@ const Filters = (props) => (
       <CategoryFilter categories={props.categories.sort((a,b) => a.name > b.name ? 1 : -1)} expanded={props.initialQuery.category !== undefined} label="Category"/>}
     {(props.program.subprograms && !props.categories) &&
     <SubprogramFilter subprograms={props.program.subprograms} expanded={props.response.params.query.subprogram_id!==undefined} label="Project"/>}
-    <DateFilter label="Date" expanded={props.response.params.query.after!==undefined} />
     {props.program.topics &&
     <TopicFilter topics={props.program.topics} label="Topic" topicId={props.initialQuery.topic_id} expanded={props.response.params.query.topic_id!==undefined}/>}
+    <DateFilter label="Date" expanded={props.response.params.query.after!==undefined} />
   </FilterGroup>
 );
 
