@@ -1,8 +1,10 @@
 import { NAME } from '../constants';
 import { Component } from 'react';
 import { Fetch, Response } from '../../components/API';
+import DocumentMeta from 'react-document-meta';
 import { PublicationsList, PublicationsWrapper } from '../../components/Publications';
 import { FilterGroup, TypeFilter, ProgramFilter, DateFilter } from '../../components/Filters';
+import titlefy from '../../../utils/titlefy';
 
 // must pass an API Component (Fetch or Response) props to Filters
 class Filters extends Component {
@@ -48,34 +50,34 @@ export default class Publications extends Component {
     if(params.get('dataViz'))
       initQuery.data_viz = params.get('dataViz');
 
-    console.log(initQuery);
-
     if(type) initQuery.content_type = type.api_name;
 
     return initQuery;
   }
 
   render(){
-    let { program, history, location, content_types, programs } = this.props;
+    let { program, history, location, content_types, programs, match } = this.props;
 
     return (
-      <PublicationsWrapper
-          filters={
-            <Fetch name={`${NAME}.publications`}
-              component={Filters}
-              endpoint={'post'}
-              fetchOnMount={true}
-              eager={true}
-              programs={programs}
-              content_types={content_types}
-              history={history}
-              location={location}
-              initialQuery={this.initialQuery()}/>
-          }
-          publications={
-            <Response name={`${NAME}.publications`} component={PublicationsList}/>
-          }
-      />
+      <DocumentMeta title={titlefy(match.params.contentType)}>
+        <PublicationsWrapper
+            filters={
+              <Fetch name={`${NAME}.publications`}
+                component={Filters}
+                endpoint={'post'}
+                fetchOnMount={true}
+                eager={true}
+                programs={programs}
+                content_types={content_types}
+                history={history}
+                location={location}
+                initialQuery={this.initialQuery()}/>
+            }
+            publications={
+              <Response name={`${NAME}.publications`} component={PublicationsList}/>
+            }
+        />
+      </DocumentMeta>
     );
   }
 }

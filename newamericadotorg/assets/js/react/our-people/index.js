@@ -6,6 +6,7 @@ import Nav from './components/Nav';
 import InfiniteLoadMore from '../components/InfiniteLoadMore';
 import { PersonsList } from '../components/People';
 import DocumentMeta from 'react-document-meta';
+import GARouter from '../ga-router';
 
 class InfinitePersonsList extends Component {
   nextPage = () => {
@@ -108,9 +109,9 @@ class OurPeople extends Component {
 class APP extends Component {
   render(){
     return (
-      <Router>
+      <GARouter>
         <Route path="/:peoplePage?/" component={OurPeople}/>
-      </Router>
+      </GARouter>
     );
   }
 }

@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import GARouter from '../ga-router';
 import { Component } from 'react';
 import { Fetch, Response} from '../components/API';
 import { NAME, ID } from './constants';
@@ -9,11 +10,11 @@ class Routes extends Component {
     let { response : { results }} = this.props;
     return (
       <div className="container">
-        <Router>
+        <GARouter>
           <div className="homepage__publications">
             <Route path="/:contentType/" render={(props)=> (<Publications content_types={results.content_types} programs={results.programs} {...props} />)} />
           </div>
-        </Router>
+        </GARouter>
       </div>
     );
   }

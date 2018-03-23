@@ -708,7 +708,7 @@ class ReportDetailSerializer(PostSerializer):
             'id', 'title', 'subheading', 'date', 'content_type',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
             'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
-            'report_pdf'
+            'report_pdf', 'search_description'
         )
 
     def get_report_pdf(self, obj):

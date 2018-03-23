@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import GARouter from 'ga-router';
 import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';
 import OurStory from './pages/OurStory';
@@ -36,7 +37,7 @@ class APP extends Component {
   render(){
     let { pageId } = this.props;
     return (
-      <Router>
+      <GARouter>
         <Switch>
           <Route path="/(jobs|fellowships)/" render={(props)=>(
             <Jobs pageId={pageId} {...props} />
@@ -61,7 +62,7 @@ class APP extends Component {
               component={Routes} />
           )}/>
         </Switch>
-      </Router>
+      </GARouter>
     );
   }
 }

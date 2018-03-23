@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import { NAME, ID } from './constants';
 import { Fetch } from '../components/API';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import GARouter from '../ga-router';
+import DocumentMeta from 'react-document-meta';
 import Heading from './components/Heading';
 import Body from './components/Body';
 import TopNav from './components/TopNav';
@@ -54,21 +56,23 @@ class Report extends Component {
     let { location, match, report } = this.props;
     let section = this.getSection();
     return (
-      <div className='report'>
-        <TopNav section={section} report={report} />
-          {section.number===1 &&
-            <Heading report={report}/>
-          }
-          <Body section={section}
-            authors={report.authors}
-            endnotes={report.endnotes}
-            date={report.date}
-            report_pdf={report.report_pdf}
-            dispatch={this.props.dispatch}
-            location={location}
-            url={report.url}/>
-        <BottomNav section={section} report={report} />
-      </div>
+      <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
+        <div className='report'>
+          <TopNav section={section} report={report} />
+            {section.number===1 &&
+              <Heading report={report}/>
+            }
+            <Body section={section}
+              authors={report.authors}
+              endnotes={report.endnotes}
+              date={report.date}
+              report_pdf={report.report_pdf}
+              dispatch={this.props.dispatch}
+              location={location}
+              url={report.url}/>
+          <BottomNav section={section} report={report} />
+        </div>
+      </DocumentMeta>
     );
   }
 }
@@ -86,14 +90,14 @@ class Routes extends Component {
 
   render(){
     return (
-      <Router>
+      <GARouter>
         <Switch>
           <Route path='/:program/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
           <Route path='/:program/reports/:reportTitle' render={this.redirect} />
           <Route path='/:program/:subprogram/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
           <Route path='/:program/:subprogram/reports/:reportTitle' render={this.redirect} />
         </Switch>
-      </Router>
+      </GARouter>
     );
   }
 }

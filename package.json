@@ -36,6 +36,7 @@
     "bowser": "^1.9.2",
     "date-fns": "^1.28.5",
     "dom-to-image": "^2.6.0",
+    "history": "^4.7.2",
     "moment": "^2.18.1",
     "os": "^0.1.1",
     "prop-types": "^15.5.10",
@@ -43,7 +44,7 @@
     "react-addons-shallow-compare": "^15.6.0",
     "react-document-meta": "^3.0.0-beta.2",
     "react-dom": "^16.2.0",
-    "react-helmet": "^5.2.0",
+    "react-ga": "^2.4.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -55,7 +56,6 @@
     "smooth-scroll": "^12.1.5",
     "store": "^2.0.12",
     "url-polyfill": "^1.0.5",
-    "vanilla-lazyload": "^7.2.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

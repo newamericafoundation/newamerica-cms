@@ -20,6 +20,8 @@ import SmoothScroll from 'smooth-scroll';
 import bowser from 'bowser';
 import domtoimage from 'dom-to-image';
 import documentMeta from 'react-document-meta';
+import createBrowserHistory from 'history/createBrowserHistory';
+import ReactGA from 'react-ga';
 import $ from 'jquery';
 
 window.React = window.React$1 = React;
@@ -44,3 +46,5 @@ window.bowser = bowser;
 window.domtoimage = domtoimage;
 window.$ = window.jQuery = $;
 window.DocumentMeta = documentMeta;
+window.createBrowserHistory = createBrowserHistory
+window.ReactGA = ReactGA;

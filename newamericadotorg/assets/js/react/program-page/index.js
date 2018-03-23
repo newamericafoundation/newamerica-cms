@@ -1,8 +1,11 @@
+/* DocumentMeta defined in ./components/Nav.js */
+
 import { NAME, ID } from './constants';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Fetch } from '../components/API';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import GARouter from '../ga-router';
 import Publications from './components/Publications';
 import Nav from './components/Nav';
 import Heading from './components/Heading';
@@ -63,7 +66,7 @@ class ProgramPage extends Component {
 
     return (
       <div className="container">
-        <Router>
+        <GARouter>
           <div className="program__content">
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
@@ -79,7 +82,7 @@ class ProgramPage extends Component {
             {this.topicRoutes(results.topics)}
             <Route path={`/${root}/subscribe/`} render={(props)=>(<Subscribe {...props} subscriptions={results.subscriptions} /> )} />
           </div>
-        </Router>
+        </GARouter>
       </div>
     );
   }
