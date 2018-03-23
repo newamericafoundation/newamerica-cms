@@ -11,7 +11,12 @@ auth = {'api_key': CREATESEND_API_KEY}
 def update_segments():
     newamerica_list = List(auth, CREATESEND_LISTID)
 
-    cs_segments = newamerica_list.segments()
+    fields = newamerica_list.custom_fields()
+    segments = None
+    for f in fields:
+        if f.FieldName=='Subscriptions':
+            segments=f.FieldOptions
+
     existing_segments = SubscriptionSegment.objects.all()
 
     parent = SubscribePage.objects.first()
@@ -19,17 +24,15 @@ def update_segments():
         home = HomePage.objects.first()
         parent = home.add_child(instance=SubscribePage(title='New America Subscription Lists'))
 
-    for cs_s in cs_segments:
+    for segment in segments:
         exists = False
-        for s in existing_segments:
-            if s.SegmentID == cs_s.SegmentID:
+        for e_segment in existing_segments:
+            if e_segment.title == segment:
                 exists = True
-                s.title = cs_s.title
-                s.update()
 
         if not exists:
-            segment = SubscriptionSegment(title=cs_s.Title, SegmentID=cs_s.SegmentID, ListID=CREATESEND_LISTID)
-            parent.add_child(instance=segment)
+            seg = SubscriptionSegment(title=segment, SegmentID=segment, ListID=CREATESEND_LISTID)
+            parent.add_child(instance=seg)
 
 def update_subscriber(email, name, custom_fields):
     subscriber = Subscriber(auth, CREATESEND_LISTID, email)
