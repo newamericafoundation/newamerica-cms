@@ -45,12 +45,14 @@ class PostFilter(FilterSet):
         model = Post
         fields = ['id', 'program_id', 'subprogram_id', 'before', 'after']
 
+from newamericadotorg.api.expire_page_cache import expire_page_cache
 class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = PostFilter
 
     def get_queryset(self):
+        expire_page_cache('program', args=[59])
         content_type = self.request.query_params.get('content_type', None)
         other_content_type_title = self.request.query_params.get('other_content_type_title', None)
         ids = self.request.query_params.getlist('id[]', None)
