@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import GARouter from 'ga-router';
+import GARouter from '../ga-router';
 import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';
 import OurStory from './pages/OurStory';

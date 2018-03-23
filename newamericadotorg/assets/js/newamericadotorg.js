@@ -10,7 +10,6 @@ window.React = window.react = React;
 
 import composer from './react/index';
 import actions from './react/actions';
-import lazyload from './react/components/LazyLoad';
 import cache from './react/cache';
 
 import addEventListeners from './add-event-listeners';
@@ -29,7 +28,6 @@ function init(){
 
 const newamericadotorg = {
   composer,
-  lazyload,
   actions,
   cache
 };
