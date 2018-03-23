@@ -4,7 +4,7 @@
   <label>By</label>
   {% generate_byline page.content_type page.authors.all %}
 {% endif %}
-{% if page.date %}
+{% if page.date and page.content_type.name != 'Event' %}
   <label class="post-body__date block">{{ page.date }}</label>
 {% endif %}
 {% for block in page.body %}

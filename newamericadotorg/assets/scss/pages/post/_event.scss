@@ -2,3 +2,16 @@
   display: block;
   margin-top: 0.5em;
 }
+
+.event__mobile-date-time{
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+}
+
+.event__desktop-date-time{
+  display: none;
+  @include media-breakpoint(desktop){
+    display: block;
+  }
+}
