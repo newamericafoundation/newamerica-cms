@@ -24,6 +24,7 @@ function init(){
   addObservers();
   composer.init();
   actions.triggerScrollEvents();
+  if(window.user_is_authenticated) cache.clearAll();
 }
 
 const newamericadotorg = {

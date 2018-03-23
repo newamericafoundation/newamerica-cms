@@ -169,7 +169,8 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
     }).then(json => {
       let response = parseResponse(json);
       dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
-      cache.set(request, response, new Date().getTime() + 3600000); // expire in one hour
+      if(!window.user_is_authenticated)
+        cache.set(request, response, new Date().getTime() + 3600000); // expire in one hour
       response.pend = pend;
       if(json.error){
         console.log(json);
