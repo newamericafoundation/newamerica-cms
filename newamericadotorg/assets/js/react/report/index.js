@@ -68,6 +68,7 @@ class Report extends Component {
               date={report.date}
               report_pdf={report.report_pdf}
               dispatch={this.props.dispatch}
+              title={report.title}
               location={location}
               url={report.url}/>
           <BottomNav section={section} report={report} />
