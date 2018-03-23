@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { CheckBox, Text } from '../../components/Inputs';
 import { BASEURL } from '../../api/constants';
+import Recaptcha from 'react-recaptcha';
 
 export class List extends Component {
 
@@ -39,11 +40,12 @@ export default class Subscribe extends Component {
       posted: false,
       status: 'OK',
       params: {
-        email: params.get('email') || undefined,
-        name: undefined,
-        organization: undefined,
-        job_title: undefined,
-        zipcode: undefined
+        email: params.get('email') || '',
+        name: '',
+        organization: '',
+        job_title: '',
+        zipcode: '',
+        'g-recaptcha-response': undefined
       },
       subscriptions
     }
@@ -54,7 +56,16 @@ export default class Subscribe extends Component {
 
   componentDidMount(){
     if(window.scrollY > 300 || window.pageYOffset > 300) window.scrollTo(0, 70);
+    window.onloadCallback = this.onloadCallback;
+    const script = document.createElement("script");
+
+    script.src = "https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit";
+    script.async = true;
+    script.defer = true;
+
+    document.body.appendChild(script);
   }
+
   submit = (e) => {
     e.preventDefault();
     if(this.state.posting || this.state.posted) return false;
@@ -83,6 +94,28 @@ export default class Subscribe extends Component {
       });
   }
 
+  verify = (response) => {
+    this.setState({ params: {
+      ...this.state.params,
+      'g-recaptcha-response': response
+    }});
+  }
+
+  onloadCallback = (response) => {
+    //
+  }
+
+  recaptcha = () => {
+    return (
+      <Recaptcha
+        sitekey="6LeZg04UAAAAAGmXngof3LCn4FJUYTfDnxv7qmSg"
+        render="explicit"
+        onloadCallback={this.onloadCallback}
+        verifyCallback={this.verify}
+      />
+    )
+  }
+
   change = (e, field) => {
     this.setState({
       params: {
@@ -106,6 +139,7 @@ export default class Subscribe extends Component {
 
   submitButton = () => {
     let { posting, posted, status } = this.state;
+    if(!this.state.params['g-recaptcha-response']) return null;
     return (
       <div className="subscribe__submit margin-top-25">
         {(!posting && !posted) && <input type="submit" className="button" value="Sign Up" />}
@@ -115,8 +149,9 @@ export default class Subscribe extends Component {
               <span>.</span><span>.</span><span>.</span>
             </span>
           </label>}
-        {(posted && status=='OK') && <h3>Thank you!</h3>}
-        {status!='OK' && <label className='block'>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</label>}
+        {(posted && status=='OK') && <span><h3>Thank you!</h3><label className="block">Please check your inbox to verify your subscription.</label></span>}
+        {status=='UNVERIFIED' && <label className="block">We're sorry. We were unable to verify that you're not a robot.</label>}
+        {(status!='OK' && status!='UNVERIFIED') && <label className='block'>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</label>}
       </div>
     );
   }
@@ -142,6 +177,7 @@ export default class Subscribe extends Component {
               <Text name="organization" label="Organization" value={params.organization} onChange={this.change} />
               <Text name="job_title" label="Job Title" value={params.job_title} onChange={this.change} />
               <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} />
+              {this.recaptcha()}
               {this.submitButton()}
             </div>
             <div className="subscribe__lists push-md-1 col-md-5">

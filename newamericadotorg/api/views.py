@@ -29,6 +29,7 @@ from in_depth.models import InDepthProject
 from report.models import Report
 from other_content.models import OtherPost
 from subscribe.campaign_monitor import update_subscriber
+from ipware import get_client_ip
 
 class PostFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
@@ -385,6 +386,22 @@ class HomeDetail(generics.RetrieveAPIView):
 @api_view(['POST'])
 def subscribe(request):
     params = request.query_params
+    recaptcha_response = params.get('g-recaptcha-response', None)
+    if not recaptcha_response:
+        return response.Response({
+            'status': 'UNVERIFIED'
+        });
+
+    RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
+    recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify?response=%s&secret=%s' % (recaptcha_response, RECAPTCHA_SECRET_KEY)
+    verification = urllib2.urlopen(recaptcha_url).read()
+    verification = json.loads(verification)
+
+    if not verification['success']:
+        return response.Response({
+            'status': 'UNVERIFIED'
+        });
+
     subscriptions = params.getlist('subscriptions[]', None)
     job_title = params.get('job_title', None)
     org = params.get('organization', None)

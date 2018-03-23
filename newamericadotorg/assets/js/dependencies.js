@@ -21,6 +21,7 @@ import domtoimage from 'dom-to-image';
 import documentMeta from 'react-document-meta';
 import createBrowserHistory from 'history/createBrowserHistory';
 import ReactGA from 'react-ga';
+import Recaptcha from 'react-recaptcha';
 import $ from 'jquery';
 
 window.React = window.React$1 = React;
@@ -46,3 +47,4 @@ window.$ = window.jQuery = $;
 window.DocumentMeta = documentMeta;
 window.createBrowserHistory = createBrowserHistory
 window.ReactGA = ReactGA;
+window.Recaptcha = Recaptcha;

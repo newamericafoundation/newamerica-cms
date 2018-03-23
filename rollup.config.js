@@ -27,7 +27,7 @@ export default [
       'store', 'prop-types', 'vanilla-lazyload', 'whatwg-fetch',
       'url-polyfill', 'store/plugins/expire', 'smooth-scroll',
       'bowser', 'dom-to-image', 'babel-polyfill', 'react-document-meta',
-      'history/createBrowserHistory', 'react-ga'
+      'history/createBrowserHistory', 'react-ga', 'react-recaptcha'
     ],
     watch: {
       clearScreen: false

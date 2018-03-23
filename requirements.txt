@@ -111,3 +111,4 @@ WeasyPrint==0.41
 psycopg2==2.7.3.2
 django-htmlmin==0.10.0
 django-redis==4.8.0
+django-ipware==2.0.1
