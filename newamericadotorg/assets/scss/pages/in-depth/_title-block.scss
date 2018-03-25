@@ -1,14 +1,7 @@
 .in-depth__title-block {
-	$logo-width: 180px;
-  &__logo, &__text {
-    @include media-breakpoint(tablet) {
-         position: relative;
-         top: 50%;
-         transform: translateY(-50%);
-      }
-  }
+	$logo-width: 100px;
 	&__logo {
-        width: 75px;
+        width: $logo-width;
         margin-right: 25px;
 				vertical-align: middle;
         display: none;
@@ -44,7 +37,7 @@
   	line-height: 1.2;
 		a {
 			color: white;
-     	
+
      	}
 	}
 }

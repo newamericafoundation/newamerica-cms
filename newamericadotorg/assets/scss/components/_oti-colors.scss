@@ -1,15 +1,15 @@
 body.oti {
-  a:not(.tag):not(.button){
+  a:not(.tag):not(.button):not(.button--text){
     color: color(oti-blue);
   }
 
   h1,h2,h3,h4,h5,h6{
-     > a:not(.tag):not(.button){
+     > a:not(.tag):not(.button):not(.button--text){
       color: inherit;
     }
   }
 
-  label a:not(.tag):not(.button){
+  label a:not(.tag):not(.button):not(.button--text){
     color: inherit;
   }
 

@@ -27,6 +27,7 @@ $section-header-height: 80px;
   }
   .slick-arrow{
     position: absolute;
+    cursor: pointer;
     @include vertical-center;
     &.slick-prev{
       left: -65px;

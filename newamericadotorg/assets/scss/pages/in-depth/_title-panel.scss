@@ -8,7 +8,7 @@
   }
 
   @include media-breakpoint(desktop){
-    max-height: 700px;
+    max-height: none;
   }
 
   &.home-title-panel{
@@ -46,11 +46,17 @@
 
 .title-panel__logo{
   width: 125px;
-  position: absolute;
-  z-index: 20;
-  top: 15px;
-  left: 15px;
+  display: inline-block;
+  float: right;
+  // position: absolute;
+  // z-index: 20;
+  // top: 15px;
+  // left: 15px;
+  a {
+    display: block;
+  }
   img {
+    display: block;
     width: 100%;
   }
 }
@@ -77,8 +83,12 @@
     opacity: 0.6;
     @include transition(opacity 0.35s ease);
     @include media-breakpoint(tablet){
-      background-size: 110% auto;
+      background-size: 150% auto;
     }
+
+    // @include media-breakpoint(desktop){
+    //   background-size: auto 100%;
+    // }
 
     &.loaded{
       opacity: 0;
@@ -94,9 +104,14 @@
     opacity: 0;
 
     @include media-breakpoint(tablet){
-      width: 110%;
+      width: 150%;
       height: auto;
     }
+
+    // @include media-breakpoint(desktop){
+    //   height: 100%;
+    //   width: auto;
+    // }
 
     &.loaded{
       opacity: 0.6;
