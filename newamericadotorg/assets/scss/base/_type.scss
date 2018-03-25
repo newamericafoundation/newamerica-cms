@@ -176,14 +176,6 @@ a {
   line-height: 1.875rem;
   color: color(turquoise);
 
-  &.underlined {
-    box-shadow: 0px 1.5px 0px color(turquoise);
-  }
-
-  &:hover.underlined--on-hover{
-    box-shadow: 0px 1.5px 0px color(turquoise);
-  }
-
   &.inline {
     display: inline !important;
   }
@@ -261,6 +253,7 @@ label, input, textarea {
       display: inline-block;
       overflow: hidden;
       position: relative;
+      top: 2px;
       padding-bottom: 2px;
       &:after{
         content: '';

@@ -23,10 +23,6 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
     @include media-breakpoint(tablet){
       padding-top: 250px;
     }
-
-    @include media-breakpoint(desktop){
-      padding-top: 190px;
-    }
   }
 
   &__events-section, &__publications-section {

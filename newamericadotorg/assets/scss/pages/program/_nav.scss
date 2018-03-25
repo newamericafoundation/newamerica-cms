@@ -9,30 +9,6 @@
     padding-right: 35px;
   }
 
-  .program__nav__link {
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    vertical-align: middle;
-    padding-bottom: 2px;
-    @include transition(color 0.15s ease);
-    &:after{
-      content: '';
-      height: 1px;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      position: absolute;
-      background: color(turquoise);
-      @include transition(transform 0.15s ease);
-      @include transform(translateX(-105%));
-    }
-
-    &.active:after, &:hover:after{
-      @include transform(translateX(0%));
-    }
-  }
-
   &.active .program__nav__link:not(.active):not(:hover) {
     color: color(black, base, 0.3);
   }

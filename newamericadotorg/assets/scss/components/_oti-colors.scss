@@ -1,0 +1,47 @@
+body.oti {
+  a {
+    color: color(oti-blue);
+  }
+
+  h1,h2,h3,h4,h5,h6{
+     > a{
+      color: inherit;
+    }
+  }
+
+  label a {
+    color: inherit;
+  }
+
+  label.link a:after{
+    background: color(oti-blue);
+  }
+
+  .column-heading, .header__nav__dropdown-list__dropdown__main-link{
+    a:after, label:after{
+      background: color(oti-blue);
+    }
+  }
+
+  .program__heading__wrapper h1 > a:before{
+    background: color(oti-blue);
+  }
+
+  .card {
+    box-shadow: inset 0px -4px 0px 0px color(oti-blue, base, 0),
+      0px 2px 6px 0px color(black, base, 0);
+
+    &:hover:not(.highlights):not(.person__card){
+      box-shadow: inset 0px -3px 0px 0px color(oti-blue, base, 1),
+        0px 2px 6px 0px color(black, base, 0.15);
+    }
+  }
+
+  .header__logo-wrapper:before{
+    background: color(oti-blue);
+  }
+
+  .header__loading div:first-child {
+    background-color: color(oti-blue);
+  }
+}

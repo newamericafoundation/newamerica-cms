@@ -62,7 +62,7 @@ export const PublicationListItem = ({ post }) => (
         <h3 className="card__text__title bold block">{post.title}</h3>
       </a>
       {post.authors &&
-      <label className="card__text__authors subtitle">
+      <label className="card__text__authors link subtitle">
         {post.authors.map((a, i)=>(
           <span className="subtitle inline" key={`author-${i}`}>
             <a href={a.url}>{a.first_name} {a.last_name}</a>

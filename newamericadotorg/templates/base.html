@@ -65,7 +65,7 @@
   {% endblock %}
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
+<body class="{% if self.get_ancestors.2.slug == 'oti' or page.slug == 'oti'%}oti{% endif %} {% block body_class %}{% endblock %}">
   {% wagtailuserbar %}
   {% block header %}
     {% include 'components/header.html' %}

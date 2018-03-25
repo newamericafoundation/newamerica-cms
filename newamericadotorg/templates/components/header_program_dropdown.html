@@ -9,9 +9,9 @@
     <div class="header-dropdown-links">
       {% for p in locations %}
         <div class="header-dropdown-links__link">
-          <label class="block">
+          <label class="block link">
             <a href="{{p.program.url}}">
-              <span>{{p.program.title}}</span>
+              {{p.program.title}}
             </a>
           </label>
         </div>
@@ -25,9 +25,9 @@
       <div class="header-dropdown-links col-4">
         {% for p in pg %}
         <div class="header-dropdown-links__link">
-          <label class="block">
+          <label class="block link">
             <a href="{{p.program.url}}">
-              <span>{{p.program.title}}</span>
+              {{p.program.title}}
             </a>
           </label>
         </div>
