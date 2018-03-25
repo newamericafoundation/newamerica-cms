@@ -58,8 +58,8 @@
     background: $dropdown-background-color;
     @include transform(translateY(-10px));
     @include transition(transform 0.3s ease, opacity 0.3s ease, visibilty 0.3s ease);
-    @include media-breakpoint(large-desktop){
-      @include transform(translateY(-10px) translateX(calc(-50vw + 600px)));
+    @include breakpoint($max-site-width){
+      @include transform(translateY(-10px) translateX(calc(-50vw + #{$max-site-width/2})));
     }
 
     a {
@@ -116,8 +116,8 @@ body:not(.dropdown-active) .header__nav__dropdown-list__dropdown:hover,
       opacity: 1;
 
       @include transform(translateY(0px));
-      @include media-breakpoint(large-desktop){
-        @include transform(translateY(0px) translateX(calc(-50vw + 600px)));
+      @include breakpoint($max-site-width){
+        @include transform(translateY(0px) translateX(calc(-50vw + #{$max-site-width/2})));
       }
     }
 

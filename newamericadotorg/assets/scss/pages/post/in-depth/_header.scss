@@ -7,9 +7,9 @@
 		large: 600px,
     );
    
-	background-color: palette-get(na-black);
+	background-color: color(black);
 	color: white;
-	padding: $desktop-padding;
+	padding: 25px;
 	z-index: 15;
 	position: relative;
 
@@ -28,7 +28,7 @@
  		color: white;
 		width: 100%;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			height: $section-header-height-medium;
 		}
 
@@ -37,7 +37,7 @@
 	       	height: $section-header-height;
 	    }
 
-	    @include breakpoint(large) {
+	    @include media-breakpoint(desktop) {
 	        width:  calc(100% - #{map-get($header-right-width, medium)});
 	    }
 
@@ -64,13 +64,13 @@
 		overflow: hidden;
 		position: relative;
 		display: none;
-		padding-left: $desktop-padding;
+		padding-left: 25px;
 
         @include desktop-header {
             display: inline-block;
 	 		width: map-get($header-right-width, small);
         }
-	 	@include breakpoint(large) {
+	 	@include media-breakpoint(desktop) {
 	 		width: map-get($header-right-width, medium);
 	 	}
 
@@ -98,7 +98,7 @@
         	text-align: center;
 
  			a {
- 				color: palette-get(na-black-40);
+ 				color: color(black);
 	 			font-weight: bold;
 	 			font-size: 1.1rem;
 

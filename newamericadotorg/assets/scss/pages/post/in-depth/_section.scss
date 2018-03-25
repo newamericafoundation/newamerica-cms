@@ -2,8 +2,8 @@
    width: 100%;
 	
    &__mobile-selector {
-      background-color: palette-get(na-black);
-      padding: 0px $desktop-padding $desktop-padding;
+      background-color: color(black);
+      padding: 0px 25px 25px;
       z-index: 15;
       position: relative;
 
@@ -12,7 +12,7 @@
       }
 
       select {
-         border: 2px solid palette-get(na-black-40);
+         border: 2px solid color(black);
          background: url(shape-urls-get(down-arrow-na-white)) no-repeat;
          background-size: 12px 12px;
          padding-right: 30px;

@@ -15,13 +15,13 @@
 
 	&__description {
 		font-weight: normal;
-		color: palette-get(na-black-40);
+		color: color(black);
 		margin: 0px 10px 20px 10px;
 	}
 	&__section-heading {
 		font-size: 18px;
 		font-weight: bold;
-		color: palette-get(na-black);
+		color: color(black);
 		margin-left: 10px;
 		margin-bottom: 15px;
 	}
@@ -34,7 +34,7 @@
 			text-align: center;
 			height: 100%;
 			/*background-color: white;*/
-			@include breakpoint(medium) {
+			@include media-breakpoint(tablet) {
 				height: 200px;
 			}
 
@@ -55,7 +55,7 @@
 			&__description {
 				font-weight: normal;
 				font-size: 16px;
-				color: palette-get(na-black-40);
+				color: color(black);
 				margin-bottom: 5px;
 				line-height: 120%;
 			}
@@ -131,7 +131,7 @@
 		transform: rotate(45deg);
 		-webkit-transform: rotate(45deg);
     	-ms-transform: rotate(45deg);
-		border: solid palette-get(na-black);
+		border: solid color(black);
 		border-width: 0 3px 3px 0;
 	}
 }

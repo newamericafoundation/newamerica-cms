@@ -13,8 +13,8 @@
 	}
 
 	&.active {
-		color: palette-get(na-black) !important;
-		border: 2px solid palette-get(na-black) !important;
+		color: color(black) !important;
+		border: 2px solid color(black) !important;
 		border-right: none;
 		background-color: white !important;
 		cursor: auto !important;
@@ -22,18 +22,18 @@
 	}
 
 	&:hover {
-		color: palette-get(na-white);
-		background-color: palette-get(na-black);
-		border: 2px solid palette-get(na-black);
+		color: color(white);
+		background-color: color(black);
+		border: 2px solid color(black);
 		border-right: none;
 	}
 }
 
 .timeline__split-button-container {
-	max-width: $max-body-width + 2*$desktop-padding;
+	max-width: $max-body-width + 2*25px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 0px $desktop-padding 15px;
+	padding: 0px 25px 15px;
 
 	.list-view & {
 		padding-bottom: 0px;

@@ -1,7 +1,6 @@
 .block-table {
-  max-width: $max-site-width - $max-sidemenu-width;
-  margin-top: $desktop-padding;
-  margin-bottom: $desktop-padding;
+  margin-top: 25px;
+  margin-bottom: 25px;
   overflow-x: scroll;
 
   tbody tr:nth-of-type(odd) {
@@ -14,8 +13,6 @@
     vertical-align: top;
     text-align: left;
     line-height: 1.3;
-    border-left: $standard-border;
-    border-right: $standard-border;
 
     &:first-child {
       border-left: none;
@@ -26,6 +23,6 @@
   }
 
   th {
-    color: palette-get(na-black);
+    color: color(black);
   }
 }

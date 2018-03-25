@@ -3,6 +3,10 @@
   @include media-breakpoint(tablet){
     height: 375px;
   }
+
+  @include media-breakpoint(large-desktop){
+    height: 430px;
+  }
   .card__text{
     height: 100%;
     padding-bottom: 50px;

@@ -47,7 +47,7 @@
 
 	&__title-block {
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			height: 85px;
 		}
 	}
@@ -65,13 +65,6 @@
 			display: table;
 			width: 100%;
 
-		}
-
-		&__left, &__right {
-			@include desktop-header {
-				display: table-cell;
-				width: 50%;
-	    	}
 		}
 
 		.post-person {
@@ -111,19 +104,14 @@
 		a:not(.button) {
 			color: white;
 		    font-weight: 800;
-		    border-bottom: $standard-border;
 		    padding-bottom: 2px;
 		    opacity: 1;
-		}
-
-		a:not(.button):hover {
-			@include set-color(color);
 		}
 	}
 
 	&__subordinate-text {
 		padding-top: 10px;
-		color: palette-get(na-black-40);
+		color: color(black);
 		font-size: 12px;
 		width: 60%;
 		line-height: 130%;

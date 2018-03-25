@@ -4,21 +4,21 @@
 	font-size: 2rem;
 	line-height: 1.2;
 
-	@include breakpoint(medium) {
+	@include media-breakpoint(tablet) {
 		font-size: 2.35rem;
 	}
 }
 
 .in-depth__panel {
-	$panel-padding: 2*$desktop-padding;
+	$panel-padding: 2*25px;
 
-	padding: $panel-padding $desktop-padding;
-	@include breakpoint(medium) {
+	padding: $panel-padding 25px;
+	@include media-breakpoint(tablet) {
 		padding: $panel-padding;
 	}
 	
    	&__max-width-wrapper {
-    	max-width: $max-site-width - 2*$desktop-padding;
+    	max-width: $max-site-width - 2*25px;
     	margin: auto;
     	width: 100%;
     }
@@ -30,7 +30,7 @@
 		background-color: rgba(224, 224, 225, .5);
 	}
 	&.black {
-		background-color: palette-get(na-black);
+		background-color: color(black);
 
 		.post-body {
 			color: white;
@@ -45,7 +45,7 @@
 		}
 
 		a:not(.button):hover {
-			color: palette-get(na-turquoise);
+			color: color(turquoise);
 		}
 
 		.in-depth__panel__title-label {
@@ -56,7 +56,7 @@
 	&__title-label {
 		text-align: center;
 		font-weight: bold;
-		color: palette-get(na-black-40);
+		color: color(black);
 		opacity: .8;
 		font-size: 1rem;
 		line-height: 1;
@@ -102,34 +102,34 @@
 		& > svg {
 			width: 20px;
 			height: 20px;
-			fill: palette-get(na-black-40);
+			fill: color(black);
 			opacity: .8;
 			position: relative;
 			top: -4px;
 
 			&:hover {
-				fill: palette-get(na-turquoise);
+				fill: color(turquoise);
 			}
 		}
 	}
 }
 
 .title-panel {
-	background-color: palette-get(na-black);
+	background-color: color(black);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 50% 50%;
-	margin-left: -$desktop-padding;
-	margin-right: -$desktop-padding;
-	padding: 0px $desktop-padding;
+	margin-left: -25px;
+	margin-right: -25px;
+	padding: 0px 25px;
 	text-align: center;
 	position: relative;
 
-	@include breakpoint(medium) {
+	@include media-breakpoint(tablet) {
 		height: 500px;
 	}
 
-	@include breakpoint(large) {
+	@include media-breakpoint(desktop) {
 		height: 700px;
 	}
 
@@ -140,7 +140,7 @@
 		margin: auto;
 		display: none;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			display: block;
 		}
 		
@@ -155,10 +155,10 @@
 		}
 
 		@include desktop-header {
-			top: $desktop-padding;
+			top: 25px;
 
 			.sidemenu__logo {
-				margin-left: $desktop-padding;
+				margin-left: 25px;
 			}
 		}
 	}
@@ -168,13 +168,13 @@
 		text-align: center;
 		max-width: 1000px;
 		margin: auto;
-		padding: 5*$desktop-padding $desktop-padding;
+		padding: 5*25px 25px;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			position: relative;
 			top: 50%;
 			transform: translateY(-50%);
-			padding: 0px $desktop-padding;
+			padding: 0px 25px;
 		}
 		
 	}
@@ -184,7 +184,7 @@
 
 		padding: 0px;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			font-size: 3rem;
 		}
 	}
@@ -216,7 +216,7 @@
 
 			&:not(:first-child) {
 				background-color: white;
-				color: palette-get(na-black);
+				color: color(black);
 			}
 		}
 	}
@@ -227,7 +227,7 @@
 		left: 45%;
 		right: 45%;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			bottom: 50px;
 		}
 		
@@ -245,11 +245,11 @@
 .contents-panel {
 	&__heading {
 		@include page-subheading-text(grey);
-		padding-bottom: $desktop-padding;
+		padding-bottom: 25px;
 	}
 
 	&__item-container {
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 		  	-moz-column-count:2; 
   			-webkit-column-count:2; 
   			column-count:2;
@@ -261,7 +261,7 @@
 		padding: 5px 0px;
 		display: inline-block;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			padding-right: 20px;
 		}
 
@@ -276,7 +276,7 @@
 
 		&__description {
 			font-size: 16px;
-			color: palette-get(na-black-40);
+			color: color(black);
 			line-height: 150%;
 		}
 	}

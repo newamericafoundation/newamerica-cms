@@ -1,7 +1,7 @@
 .in-depth__title-block {
 	$logo-width: 180px;
   &__logo, &__text {
-    @include breakpoint(medium) {
+    @include media-breakpoint(tablet) {
          position: relative;
          top: 50%;
          transform: translateY(-50%);
@@ -31,8 +31,8 @@
         width: calc(100% - 100px);
 
         &.has-logo {
-           @include breakpoint(medium) {
-              width: calc(100% - #{$logo-width} - #{$desktop-padding});
+           @include media-breakpoint(tablet) {
+              width: calc(100% - #{$logo-width} - #{25px});
            }
         }
     }
@@ -44,9 +44,7 @@
   	line-height: 1.2;
 		a {
 			color: white;
-     		@include desktop-header {
-        		@include line-clamp(2, 1.3);
-        	}
+     	
      	}
 	}
 }

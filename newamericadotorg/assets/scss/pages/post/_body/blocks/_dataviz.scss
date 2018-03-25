@@ -12,18 +12,13 @@
 	position: relative;
 
 	&__title-container {
-		@include limit-body-width;
 
-		@include is-in-depth-template {
-			margin-left: auto;
-			margin-right: auto;
-		}
 		position: relative;
 		z-index: 20;
 
 		&.with-buttons {
 			.dataviz__title, .dataviz__subheading {
-				@include breakpoint(medium) {
+				@include media-breakpoint(tablet) {
 					margin-right: 3*$icon-horizontal-spacing;
 				}
 			}
@@ -31,21 +26,21 @@
 	}
 
 	.dataviz__title, .dataviz__subheading {
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			margin-left: $icon-horizontal-spacing;
 		}
 	}
 
 
 	&__title {
-		color: palette-get(na-black);
+		color: color(black);
 		font-weight: 700;
 		font-size: 1.4rem;
 		line-height: 130%;
 	}
 
 	&__subheading {
-		color: palette-get(na-black-40);
+		color: color(black);
 		margin-bottom: 10px;
 
 		p {
@@ -62,7 +57,7 @@
 		border: none !important;
 		display: none;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			display: block;
 		}
 
@@ -94,7 +89,7 @@
 			width: 23px;
 
 			&:hover {
-				fill: palette-get(na-black);
+				fill: color(black);
 			}
 		}
 	}
@@ -114,7 +109,7 @@
 			margin-top: 6px;
 			width: 20px;
 			&:hover {
-				fill: 2*palette-get(na-black);
+				fill: color(black);
 			}
 		}
 	}
@@ -133,7 +128,7 @@
 			height: 25px;
 
 			&:hover {
-				fill: palette-get(na-black);
+				fill: color(black);
 			}
 		}
 	}
@@ -145,7 +140,7 @@
 		line-height: 1;
 		display: none;
 		text-align: center;
-		color: palette-get(na-black);
+		color: color(black);
 	}
 
 	&__share-popup, &__embed-popup {
@@ -155,7 +150,6 @@
 		top: 0px;
 		right: 30px;
 		background-color: white;
-		@include standard-shadow;
 		padding: 10px 20px;
 
 		&__title, &__item {
@@ -171,10 +165,10 @@
 
 		&__item {
 			padding-left: 7px;
-			color: palette-get(na-black-40);
+			color: color(black);
 
 			&:hover {
-				color: palette-get(na-turquoise);
+				color: color(turquoise);
 			}
 		}
 	}
@@ -190,9 +184,6 @@
 	}
 
 	&__chart-container {
-		@include is-in-depth-template {
-			margin: auto;
-		}
 		position: relative;
 	}
 
@@ -237,6 +228,6 @@
 }
 
 .block-dataviz {
-    margin-top: $desktop-padding;
-    margin-bottom: $desktop-padding;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }

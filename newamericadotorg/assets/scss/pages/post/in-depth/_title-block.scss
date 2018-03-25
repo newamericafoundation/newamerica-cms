@@ -1,7 +1,7 @@
 .in-depth__title-block {
 	$logo-width: 180px;
   &__logo, &__text {
-    @include breakpoint(medium) {
+    @include media-breakpoint(tablet) {
          position: relative;
          top: 50%;
          transform: translateY(-50%);
@@ -9,13 +9,13 @@
   }
 	&__logo {
         width: $logo-width;
-        padding-bottom: $desktop-padding;
+        padding-bottom: 25px;
         float: left;
         padding-bottom: 0px;
-        margin-right: $desktop-padding;
+        margin-right: 25px;
         display: none;
 
-        @include breakpoint(medium) {
+        @include media-breakpoint(tablet) {
            display: inline-block;
         }
 
@@ -30,8 +30,8 @@
         width: 100%;
 
         &.has-logo {
-           @include breakpoint(medium) {
-              width: calc(100% - #{$logo-width} - #{$desktop-padding});
+           @include media-breakpoint(tablet) {
+              width: calc(100% - #{$logo-width} - #{25px});
            }
         }
     }

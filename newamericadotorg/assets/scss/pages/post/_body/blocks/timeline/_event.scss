@@ -4,10 +4,10 @@
 	
 	.list-view & {
 		float: none;
-		padding-bottom: $desktop-padding;
+		padding-bottom: 25px;
 	}
 
-	@include breakpoint(medium) {
+	@include media-breakpoint(tablet) {
 		max-width: $max-body-width;
 		min-height: 100px;
 	}
@@ -18,7 +18,7 @@
 
 	&__title {
 		font-size: 20px;
-		color: palette-get(na-black);
+		color: color(black);
 		font-weight: bold;
 		padding-bottom: 10px;
 
@@ -31,7 +31,7 @@
 		padding-top: 0px;
 		& p {
 			font-size: .9rem;
-			color: palette-get(na-black) !important;
+			color: color(black) !important;
 
 			&:first-child {
 				img.left, img.right {

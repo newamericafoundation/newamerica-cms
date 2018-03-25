@@ -1,7 +1,0 @@
-.block-iframe {
-  margin-bottom: $desktop-padding;
-  &__responsive-container {
-    /* aspect ratio set inline by user input height and width */
-    @include responsive-iframe(null);
-  }
-}

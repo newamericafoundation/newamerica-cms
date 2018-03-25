@@ -1,6 +1,6 @@
 .in-depth__profile {
-	padding-left: $desktop-padding;
-	padding-right: $desktop-padding;
+	padding-left: 25px;
+	padding-right: 25px;
 	max-width: $max-body-width;
 	margin: auto;
 
@@ -24,14 +24,14 @@
 		width: calc(100% - 250px);
 		&__subheading {
 			margin-bottom: 0px;
-			color: palette-get(na-black-40);
+			color: color(black);
 			font-size: 14px;
 			line-height: 1;
 		}
 		&__title {
 			margin-bottom: 0px;
 			font-size: 32px;
-			color: palette-get(na-black);
+			color: color(black);
 		}
 	}
 

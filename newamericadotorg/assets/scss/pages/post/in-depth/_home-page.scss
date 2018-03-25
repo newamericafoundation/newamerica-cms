@@ -2,15 +2,15 @@
 	&__header {
 		height: 314px;
 		padding: 50px 0px;
-		background-color: palette-get(na-black);
+		background-color: color(black);
 		text-align: center;
 		background-repeat: no-repeat; 
 		background-position: center; 
 
 		&__text {
 			max-width: 750px;
-			padding-left: $desktop-padding;
-			padding-right: $desktop-padding;
+			padding-left: 25px;
+			padding-right: 25px;
 			margin: auto;
 			position: relative;
 			top: 50%;
@@ -25,7 +25,7 @@
 				line-height: 130%;
 				font-size: 17px;
 
-				@include breakpoint(medium) {
+				@include media-breakpoint(tablet) {
 					font-size: 20px;
 				}
 			}
@@ -37,15 +37,15 @@
 		max-width: $max-site-width;
 		margin: auto;
 
-		@include breakpoint(medium) {
-			padding-left: $desktop-padding;
-			padding-right: $desktop-padding;
+		@include media-breakpoint(tablet) {
+			padding-left: 25px;
+			padding-right: 25px;
 		}
 
 		.content-grid__controls {
-			margin-bottom: $desktop-padding;
+			margin-bottom: 25px;
 
-			@include breakpoint(medium) {
+			@include media-breakpoint(tablet) {
 				margin-top: 35px;
 				margin-left: 0px;
 			}

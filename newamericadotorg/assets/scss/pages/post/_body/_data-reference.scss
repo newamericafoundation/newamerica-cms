@@ -25,11 +25,11 @@
 
 	&__label {
 		font-weight: bold;
-		color: palette-get(na-black);
+		color: color(black);
 		width: 50%;
 		border-right: 1px solid palette-get(na-black-30);
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			width: 30%;
 		}
 
@@ -39,7 +39,7 @@
 		width: 50%;
 		padding-left: 15px;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			width: 70%;
 		}
 	}
@@ -53,7 +53,7 @@
 
 		&__label {
 			font-size: 9px;
-			color: palette-get(na-black-40);
+			color: color(black);
 			font-weight: normal;
 			padding-left: 3px;
 		}

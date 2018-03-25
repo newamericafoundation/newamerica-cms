@@ -1,29 +1,29 @@
 .in-depth__footer {
-	background-color: palette-get(na-black);
+	background-color: color(black);
 	color: white;
-	/*border-top: 2px solid palette-get(na-black-40);*/
+	/*border-top: 2px solid color(black);*/
 
 
 	&__next-prev {
-		
+
 		width: 100%;
 
 		display: table;
 
 		&__wrapper {
-			
+
 			background-repeat: no-repeat;
 		    background-size: cover;
 		    background-position: 50% 50%;
 
-			@include breakpoint(medium) {
+			@include media-breakpoint(tablet) {
 				display: table-cell;
 				width: 50%;
 			}
 
 			&.no-image {
-				border-top: 2px solid palette-get(na-black-40);
-				border-bottom: 2px solid palette-get(na-black-40);
+				border-top: 2px solid color(black);
+				border-bottom: 2px solid color(black);
 			}
 		}
 
@@ -31,7 +31,7 @@
 			width: 100%;
 			max-width: $max-site-width;
 			margin: auto;
-			padding: 95px $desktop-padding;
+			padding: 95px 25px;
 			.has-both & {
 				max-width: $max-site-width/2;
 				margin: 0px;
@@ -48,28 +48,28 @@
 	}
 
 	&__title-block {
-		padding: 0px $desktop-padding;
+		padding: 0px 25px;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			height: 85px;
 		}
 	}
 
 	&__main {
-		padding: 2*$desktop-padding 0px;
+		padding: 2*25px 0px;
 
 		&__content {
 			display: table;
 			width: 100%;
 
 			.in-depth__navigation-subheading {
-				margin: $desktop-padding 0px 15px 0px;
+				margin: 25px 0px 15px 0px;
 			}
 		}
 
 		&__left, &__right {
-			padding-left: $desktop-padding;
-	    	padding-right: $desktop-padding;
+			padding-left: 25px;
+	    	padding-right: 25px;
 
 			@include desktop-header {
 				display: table-cell;
@@ -79,8 +79,6 @@
 
 		.post-person {
 			&__text {
-				color: palette-get(na-black-10);
-
 				b, strong {
 					color: white;
 				}
@@ -91,17 +89,13 @@
 			&__item {
 				width: 100%;
 				margin-bottom: 3px;
-					a {
-						color: palette-get(na-black-10);
-					}
-
 					a.active {
 						font-weight: bold;
 						color: white;
 					}
 			}
 		}
-		
+
 	}
 
 	&__about {
@@ -125,9 +119,9 @@
 
 	&__subordinate-text {
 		padding-top: 10px;
-		color: palette-get(na-black-40); 
-		font-size: 12px; 
-		width: 60%; 
+		color: color(black);
+		font-size: 12px;
+		width: 60%;
 		line-height: 130%;
 		margin-bottom: 0px;
 	}

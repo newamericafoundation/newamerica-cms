@@ -15,14 +15,14 @@
 		}
 		/*&:not(.hovered) {
 			fill: white !important;
-			stroke: palette-get(na-black) !important;
+			stroke: color(black) !important;
 		}*/
 	}
 
 	&__hover-info {
 		display: block;
 		font-size: $subtext-size;
-		/*color: palette-get(na-black);*/
+		/*color: color(black);*/
 
 		&.hidden {
 			display: none;

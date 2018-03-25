@@ -1,9 +1,8 @@
 .panel {
   padding: 60px 20px;
-  margin-top: $desktop-padding;
-  background-color: palette-get(na-black-10);
+  margin-top: 25px;
 
-  @include breakpoint(medium) {
+  @include media-breakpoint(tablet) {
     margin-left: -1000px;
     margin-right:-1000px;
 
@@ -18,14 +17,13 @@
     text-align: center;
     max-width: 600px;
     margin: auto;
-    @include handle-text-overflow;
   }
   h1 {
     font-weight: bold;
-    color: palette-get(na-black);
+    color: color(black);
     font-size: 1.75rem;
     line-height: 100%;
-    @include breakpoint(medium) {
+    @include media-breakpoint(tablet) {
       font-size: 2rem;
     }
   }
@@ -36,7 +34,7 @@
     font-size: rem-calc(20);
   }
   &__link {
-    margin-top: $desktop-padding;
+    margin-top: 25px;
     text-align: center;
   }
 }

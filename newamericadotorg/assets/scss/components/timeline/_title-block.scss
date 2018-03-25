@@ -1,9 +1,9 @@
 .timeline__title-block {
-	max-width: $max-body-width + 2*$desktop-padding;
+	max-width: $max-body-width + 2*25px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: $desktop-padding;
-	padding: 0px $desktop-padding;
+	margin-bottom: 25px;
+	padding: 0px 25px;
 
 	&__pre-text {
 		@include timeline-subtext;
@@ -11,13 +11,13 @@
 	}
 
 	&__title {
-		color: palette-get(na-black);
+		color: color(black);
 		font-size: 26px;
 		font-weight: bold;
 		margin-bottom: 5px;
 	}
 	&__subheading {
 		font-size: .9rem;
-		color: palette-get(na-black) !important;
+		color: color(black) !important;
 	}
 }

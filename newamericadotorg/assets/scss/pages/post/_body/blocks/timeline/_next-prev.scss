@@ -4,7 +4,7 @@
 		display: table;
 		margin: auto;
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			display: block;
 			position: absolute;
 			top: 0px;
@@ -36,7 +36,7 @@
 	width: 50%;
 	cursor: pointer;
 
-	@include breakpoint(medium) {
+	@include media-breakpoint(tablet) {
 		display: block;
 		position: absolute;
 		width: $desktop-next-prev-width;
@@ -47,8 +47,8 @@
 	}
 	&:hover {
 		* {
-			fill: palette-get(na-black);
-			color: palette-get(na-black);
+			fill: color(black);
+			color: color(black);
 		}
 	}
 }
@@ -56,7 +56,7 @@
 .timeline__next {
 	padding-left: 20px;
 	text-align: right;
-	@include breakpoint(medium) {
+	@include media-breakpoint(tablet) {
 		right: 0px;
 		text-align: left;
 	}
@@ -74,7 +74,7 @@
 	padding-right: 20px;
 
 	text-align: left;
-	@include breakpoint(medium) {
+	@include media-breakpoint(tablet) {
 		left: 0px;
 		text-align: right;
 	}

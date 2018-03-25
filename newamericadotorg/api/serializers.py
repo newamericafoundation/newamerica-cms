@@ -143,7 +143,7 @@ class StoryGridItemSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         if 'is_lead' in self.context:
-            return generate_image_url(obj.specific.story_image, 'fill-800x375')
+            return generate_image_url(obj.specific.story_image, 'fill-925x430')
         return generate_image_url(obj.specific.story_image, 'fill-600x460')
 
     def get_story_image_thumbnail(self, obj):
@@ -528,7 +528,7 @@ class WeeklyArticleSerializer(ModelSerializer):
 
     def get_story_image_lg(self, obj):
         if obj.story_image:
-            return generate_image_url(obj.story_image, 'fill-1200x450')
+            return generate_image_url(obj.story_image, 'fill-1400x525')
 
     def get_story_image_sm(self, obj):
         if obj.story_image:

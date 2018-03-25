@@ -1,0 +1,129 @@
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@function color($color, $tone: 'base', $opacity: 1) {
+    @return rgba(map-get(map-get($colors, $color), $tone), $opacity);
+}
+
+@mixin breakpoint($px){
+  @media (min-width: $px) { @content; }
+}
+
+@mixin breakpoint-down($px){
+  @media (max-width: $px) { @content; }
+}
+
+@mixin media-breakpoint($point){
+  @media (min-width: map-get($media-breakpoints, $point)) { @content; }
+}
+
+@mixin media-breakpoint-down($point){
+  @media (max-width: map-get($media-breakpoints, $point)) { @content; }
+}
+
+@mixin transform($args){
+  -webkit-transform: $args;
+  -moz-transform: $args;
+  -o-transform: $args;
+  transform: $args;
+}
+
+@mixin transition($args...){
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin transition-delay($seconds){
+  -webkit-transition-delay: $seconds;
+  transition-delay: $seconds;
+}
+
+@mixin vertical-center {
+  top: 50%;
+  @include transform(translateY(-50%));
+}
+
+@mixin horizontal-center {
+  left: 50%;
+  @include transform(translateX(-50%));
+}
+
+@mixin center {
+  left: 50%;
+  top: 50%;
+  @include transform(translate(-50%,-50%));
+}
+
+@mixin flex-order($order){
+  -webkit-box-ordinal-group: $order;
+  -moz-box-ordinal-group: $order;
+  -ms-flex-order: $order;
+  -webkit-order: $order;
+  order: $order;
+}
+
+// padding minus descender height, which for Platform bold is ~16% of line-height
+@function type-adjusted-padding($padding){
+  @return calc(#{$padding} - #{$type-adjustment});
+}
+
+//bootstrap
+@mixin linear-gradient-horizontal($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Opera 12
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+}
+
+@mixin linear-gradient-vertical($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+}
+
+@mixin animation($animate...) {
+    $max: length($animate);
+    $animations: '';
+
+    @for $i from 1 through $max {
+        $animations: #{$animations + nth($animate, $i)};
+
+        @if $i < $max {
+            $animations: #{$animations + ", "};
+        }
+    }
+    -webkit-animation: $animations;
+    -moz-animation:    $animations;
+    -o-animation:      $animations;
+    animation:         $animations;
+}
+
+@mixin animation-delay($delay) {
+  -webkit-animation-delay: $delay;
+  -moz-animation-delay: $delay;
+  -o-animation-delay: $delay;
+  animation-delay: $delay;
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}

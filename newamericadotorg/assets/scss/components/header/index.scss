@@ -3,7 +3,7 @@ $dropdown-border-color: color(white, base, 0.075);
 $link-border-color: color(white, base, 0);
 $link-text-color: color(black);
 
-body:not(.homepage):not(.programpage):not(.homepostpage) .header__wrapper > .container{
+body:not(.homepage):not(.programpage):not(.homepostpage) .header__wrapper:not(.transparent) > .container{
   box-shadow: 0px 1px 0px 0px color(black, base, 0.075);
 }
 
@@ -35,7 +35,7 @@ body:not(.homepage):not(.programpage):not(.homepostpage) .header__wrapper > .con
 
 body:not(.header--expanded){
   .scroll-entered{
-    .header__wrapper{
+    .header__wrapper:not(.transparent) {
       position: fixed;
       top: -$header-height;
       @include transform(translateY(0));

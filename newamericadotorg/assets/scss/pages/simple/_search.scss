@@ -4,7 +4,7 @@
 
 	&__no-results {
 		@include page-body-text;
-		padding-left: $desktop-padding;
+		padding-left: 25px;
 
 		@include desktop-header {
 			padding-left: 0px;

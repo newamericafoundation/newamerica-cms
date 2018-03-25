@@ -13,7 +13,7 @@
 		}
 	}
 
-	@include breakpoint(medium) {
+	@include media-breakpoint(tablet) {
 		display: block;
 		height: 450px;
 		margin-bottom: 40px;

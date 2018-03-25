@@ -8,16 +8,7 @@ select, input, textarea {
 
 select {
 	font-family: $label-font-family;
-	border: $standard-border;
 	cursor: pointer;
-	background-size: 12px 12px;
-	padding-right: 30px;
-	background-position-y: center;
-	background-position-x: 97%;
-
-	@include breakpoint(medium) {
-		background-position-x: 95%;
-	}
 }
 
 input[type="submit"] {
@@ -31,8 +22,8 @@ textarea {
 	margin-bottom: 15px;
 }
 
-input[type="text"], select {
-	height: $default-input-height;
+input[type="text"] {
+	height: 46px;
 }
 
 input[type="text"], textarea {

@@ -1,6 +1,6 @@
 .timeline {
-	padding: 45px 0px $desktop-padding 0px;
-	margin: $desktop-padding 0px;
+	padding: 45px 0px 25px 0px;
+	margin: 25px 0px;
 	border: 2px solid palette-get(na-black-10);
 	position: relative;
 	max-width: $max-site-width;
@@ -19,7 +19,7 @@
 	    -o-transition: $transition;
 	    transition: $transition;
 
-	    margin: 0px $desktop-padding;
+	    margin: 0px 25px;
 
 	}
 
@@ -31,7 +31,7 @@
 		position: relative;
 
 
-		@include breakpoint(medium) {
+		@include media-breakpoint(tablet) {
 			width: calc(100% - #{2*$desktop-next-prev-width});
 
 			.list-view & {
