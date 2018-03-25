@@ -104,12 +104,15 @@ def ResourceKitSerializer(r):
 				if block_type == 'post':
 					pg = Page.objects.get(pk=val).specific
 					d['url'] = pg.url
-					if not d['image']:
+					if not getattr(d, 'image', False):
 						img = getattr(pg, 'story_image', None)
 						if img == None:
 							img = getattr(pg, 'profile_image', None)
 						if img:
-							d['image'] = img.file.url
+							try:
+								d['image'] = img.get_rendition('fill-200x200').file.url
+							except:
+								d['image'] = img.file.url
 
 				elif block_type == 'external_resource':
 					print val
