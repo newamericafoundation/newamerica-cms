@@ -14,7 +14,10 @@ class Upcoming extends Component {
       return (
 
         <div className="margin-top-60 centered">
-          <label>No upcoming events. </label> <NavLink className="button--text" to={{ search:"?period=past" }}>See past events</NavLink>.
+          <label>No upcoming events. </label>
+          <label className="button--text">
+            <NavLink to={{ search:"?period=past" }}>&nbsp;See past events</NavLink>
+          </label>.
         </div>
       )
     }
