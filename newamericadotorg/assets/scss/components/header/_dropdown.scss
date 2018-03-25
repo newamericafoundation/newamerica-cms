@@ -7,18 +7,14 @@
     position: relative;
     line-height: $header-height;
     border-bottom: none !important;
-    margin: 0 2.2em 0 0;
+    margin: 0 2.4em 0 0;
 
     cursor: pointer;
     text-decoration: none;
-
-    &.drop {
-      margin: 0 calc(2.2em - 15px) 0 0;
-    }
   }
 
   &:last-child > a{
-    margin: 0 1.1em 0 0;
+    margin: 0 1.2em 0 0;
   }
 
   .column-heading, .header__nav__dropdown-list__dropdown__main-link{
@@ -81,7 +77,8 @@
       // down arrow
       display: inline-block;
       content: '';
-      position: relative;
+      position: absolute;
+      top: calc(50% + 2px);
       @include transform(rotate(45deg) translateY(-3.5px));
       border-right: 1px solid color(gray, dark);
       border-bottom: 1px solid color(gray, dark);
