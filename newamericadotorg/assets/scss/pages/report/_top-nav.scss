@@ -7,19 +7,19 @@
 
   &__contents{
     position: relative;
-    z-index: 2;
+    z-index: 3;
   }
 
   &__sticky-wrapper{
     width: 100vw;
     height: 65px;
     color: color(white);
-    background: color(black);  
+    background: color(black);
   }
 
   &.scroll-entered{
     .report__top-nav__sticky-wrapper{
-      z-index: 2;
+      z-index: 3;
       position: fixed;
       top: -65px;
       @include transition(transform 0.35s ease);
@@ -36,7 +36,7 @@
 
 .scroll-reverse:not(.scroll-disabled) {
   .report__top-nav.scroll-left .report__top-nav__sticky-wrapper{
-    z-index: 1;
+    z-index: 2;
     position: fixed;
     @include transform(translateY(calc(65px + #{$header-height})));
   }

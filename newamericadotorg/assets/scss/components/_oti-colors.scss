@@ -17,6 +17,10 @@ body.oti {
     background: color(oti-blue);
   }
 
+  .button--text.with-border, label.with-border {
+    border-bottom: 1.5px solid color(oti-blue);
+}
+
   .column-heading, .header__nav__dropdown-list__dropdown__main-link{
     a:after, label:after{
       background: color(oti-blue);
@@ -43,5 +47,17 @@ body.oti {
 
   .header__loading div:first-child {
     background-color: color(oti-blue);
+  }
+
+  .report__citation{
+    color: color(oti-blue);
+    &.active, &:hover{
+      color: color(white);
+      background: color(oti-blue);
+    }
+  }
+
+  .report__content-menu__item.active {
+    box-shadow: inset 4px 0 0 0 color(oti-blue);
   }
 }

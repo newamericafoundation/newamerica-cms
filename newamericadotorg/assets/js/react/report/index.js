@@ -37,6 +37,8 @@ class Report extends Component {
       component: 'site'
     });
     this.anchorTag();
+    // react-router shim for oti colors
+    if(this.props.report.programs[0].slug == 'oti') document.body.classList.add('oti');
   }
 
   componentDidUpdate(prevProps) {

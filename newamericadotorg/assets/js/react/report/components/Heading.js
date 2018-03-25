@@ -15,10 +15,15 @@ class Heading extends Component {
               <label className="bold block centered margin-top-10 margin-bottom-25">Report</label>
             </div>
             <div className='report__heading__programs centered'>
-              <a className="button--text" href={report.programs[0].url}>{report.programs[0].name}</a>
-              {report.subprograms.length>0 && <a className="button--text" href={report.subprograms[0].url}>
-                {report.programs[0].name}
-              </a>}
+              <label className="button--text">
+                <a href={report.programs[0].url}>{report.programs[0].name}</a>
+              </label>
+              {report.subprograms.length>0 && <label className="button--text">
+                ,&nbsp;
+                <a className="" href={report.subprograms[0].url}>
+                  {report.programs[0].name}
+                </a>
+              </label>}
             </div>
             <h1 className="margin-25 centered">{report.title}</h1>
             {report.subheading &&
