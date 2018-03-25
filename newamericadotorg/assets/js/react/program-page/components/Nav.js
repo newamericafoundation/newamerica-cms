@@ -5,11 +5,11 @@ import DocumentMeta from 'react-document-meta';
 import titlefy from '../../../utils/titlefy';
 
 const NavItem = ({ url, label, active }) => (
-  <label className={`button--text link ${active ? 'bold' : ''}`}>
-    <NavLink className={`program__nav__link`} to={url}>
+  <label className={`button--text link`}>
+    <NavLink className={`program__nav__link ${active ? 'active' : ''}`} to={url}>
       {label}
     </NavLink>
-  </label> 
+  </label>
 );
 
 

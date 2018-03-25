@@ -3,9 +3,11 @@ import { Component } from 'react';
 import { Slider } from '../../components/Carousel';
 
 const NavItem = ({ url, label, exact=false }) => (
-  <NavLink exact className={`button--text program__nav__link`} to={url}>
-    {label}
-  </NavLink>
+  <label className="button--text link">
+    <NavLink exact className={`program__nav__link`} to={url}>
+      {label}
+    </NavLink>
+  </label>
 );
 
 export default class Nav extends Component {

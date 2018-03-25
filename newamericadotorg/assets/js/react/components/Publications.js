@@ -78,7 +78,9 @@ export class PublicationsWrapper extends Component {
     return (
       <div className="program__publications row gutter-45 margin-top-lg-35">
         <div className={`program__publications__open-mobile-filter col-12 margin-top-35`}>
-          <a className={`button--text with-caret--${this.state.filtersOpen ? 'up' : 'down'}`} onClick={this.toggleMobileFilters}>Filters</a>
+          <label className={`button--text with-caret--${this.state.filtersOpen ? 'up' : 'down'}`}>
+            <a onClick={this.toggleMobileFilters}>Filters</a>
+          </label>
         </div>
         <div className={`col-lg-3 margin-top-5 margin-bottom-15 program__publications__filter-col${this.state.filtersOpen ? ' open' : ''}`}>
           {filters}

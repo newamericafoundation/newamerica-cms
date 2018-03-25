@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { LoadingDots } from './Icons';
 
 const LoadMoreButton = ({ onclick }) => (
-  <div className="compose__infinite-load-more__load-more-button">
+  <div className="centered">
     <a className="button" onClick={onclick}>Load More</a>
   </div>
 );
 
 const NoResults = () => (
-  <div className="compose__infinite-load-more__no-results">
-    <label className="active lg">No results found</label>
+  <div className="centered margin-top-25">
+    <label className="bold">No results found</label>
   </div>
 );
 

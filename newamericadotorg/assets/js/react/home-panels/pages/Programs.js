@@ -16,7 +16,11 @@ class Programs extends Component {
             <label className="block button--text">Projects</label>
             <ul className="inline program-card__subprograms__list">
               {p.subprograms.map((s,i)=>(
-                <li key={`program-${i}`}><label><a href={s.url}>{s.title}</a></label></li>
+                <li key={`program-${i}`}>
+                  <label className="link">
+                    <a href={s.url}>{s.title}</a>
+                  </label>
+                </li>
               ))}
             </ul>
           </div>}

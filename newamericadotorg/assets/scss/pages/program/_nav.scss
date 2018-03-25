@@ -9,7 +9,7 @@
     padding-right: 35px;
   }
 
-  &.active .program__nav__link:not(.active):not(:hover) {
+  &.active .program__nav__link:not(.active):not(:hover){
     color: color(black, base, 0.3);
   }
 
@@ -40,6 +40,7 @@
 
   .slick-prev{
       left: -15px;
+      top: -2px;
       &:after {
         right: 0;
         @include transform(rotate(-135deg));
@@ -48,7 +49,7 @@
 
   .slick-next {
     right: -15px;
-
+    top: -2px;
     &:after{
       left: calc(100% - 5px);
     }

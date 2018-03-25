@@ -168,7 +168,9 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
     @include transition-delay(0.2s);
   }
   &:hover span:before{
-    @include transform(translateX(0%));
+    @include media-breakpoint(desktop){
+      @include transform(translateX(0%));
+    }
   }
 }
 

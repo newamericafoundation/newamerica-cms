@@ -11,7 +11,7 @@ export default class Heading extends Component {
   			<div className="program__heading__wrapper">
   					<h1 className="margin-0 promo">
               {program.parent_programs &&
-                <label className="block margin-top-0 margin-bottom-15 with-caret--left">
+                <label className="block link margin-top-0 margin-bottom-15 with-caret--left">
                   <a href={program.parent_programs[0].url}>
                     {program.parent_programs[0].title}
                   </a>

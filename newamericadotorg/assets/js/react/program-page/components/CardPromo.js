@@ -31,7 +31,7 @@ export class PromoMd extends Component {
           {this.props.children}
         </div>
         <div className="card__link-to">
-          <label className="button--text with-caret--right">
+          <label className="button--text link with-caret--right">
             <Link to={to}>{label}</Link>
           </label>
         </div>

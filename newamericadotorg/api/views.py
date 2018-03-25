@@ -185,7 +185,7 @@ class AuthorList(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Person.objects.live().order_by('sort_priority', 'last_name').exclude(role__icontains='External Author')\
-            .exclude(role__icontains='fellow').exclude(former=True)
+            .exclude(role__icontains='fellow')
         topic_id = self.request.query_params.get('topic_id', None)
         former = self.request.query_params.get('former', None)
         has_image = self.request.query_params.get('has_image', None)
@@ -194,6 +194,8 @@ class AuthorList(generics.ListAPIView):
             queryset = queryset.filter(former=False)
         elif former == 'true':
             queryset = queryset.filter(former=True)
+        else:
+            queryset.exclude(former=True)
         if has_image == 'true':
             queryset = queryset.filter(profile_image__isnull=False)
 

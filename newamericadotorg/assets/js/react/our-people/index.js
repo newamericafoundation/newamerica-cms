@@ -83,9 +83,6 @@ class OurPeople extends Component {
 
   render(){
     let { match } = this.props;
-    let leadership = match.params.peoplePage == 'leadership' ? true : null;
-    let former = match.params.peoplePage == 'board-emeriti';
-    let role = this.getRole();
     let title = this.getTitle();
     return (
       <DocumentMeta title={`Our People${title ? ': ' + title : ''}`}>

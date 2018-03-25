@@ -33,7 +33,9 @@
       }
 
       &:hover:before{
-        @include transform(translateX(0%));
+        @include media-breakpoint(desktop){
+          @include transform(translateX(0%));
+        }
       }
 
     }

@@ -167,9 +167,10 @@
 }
 
 .our-funding__nav a, .our-people__nav a{
-  opacity: 0.3;
-  &.active {
-    opacity: 1;
+  color: color(black, base, 0.3);
+  @include transition(color 0.15s ease);
+  &.active, &:hover {
+    color: color(black, base, 1);
   }
 }
 

@@ -1,7 +1,7 @@
 {% if self.get_ancestors|length > 2 %}
 {% with a=self.get_ancestors %}
   <div class="container margin-top-25 breadcrumb">
-    <label class="block with-caret--left">
+    <label class="block link with-caret--left">
       {% if a.3.content_type.name == "Subprogram Page" %}
       <a href="{{ a.3.url }}">{{a.3.title }}</a>
       {% else %}
