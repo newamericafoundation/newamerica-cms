@@ -1,0 +1,57 @@
+.header__logo{
+  position: absolute;
+  @include vertical-center;
+  line-height: $header-height;
+  // width: 94px;
+  // height: 24px;
+  width: 110px;
+  height: 27px;
+  @include transition(background-image 0.15s ease);
+  &:after{
+    //preload white logo
+    content: '';
+    background: url(/static/logo-white.svg) no-repeat -9999px -9999px;
+  }
+}
+
+.header__logo-wrapper{
+  height: $header-height;
+  position: relative;
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+
+  &:before{
+    display: none;
+  }
+  @include media-breakpoint(desktop){
+    &:before{
+      content: '';
+      z-index: 0;
+      background: color(turquoise);
+      height: $header-height;
+      width: calc(100% + 100vw - 962px);
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      left: calc(-100vw + 962px);
+      box-shadow: inset -1px 0px 0px 0px color(black, base, 0.1);
+      @include transform(translateX(calc(-100% - 100vw + 962px)));
+      @include transition(transform 0.15s ease);
+    }
+    &:hover{
+      .header__logo{
+        background-image: url(/static/logo-white.svg);
+      }
+      &:before{
+        @include transform(translateX(0));
+      }
+    }
+  }
+}

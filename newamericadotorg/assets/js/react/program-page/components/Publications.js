@@ -28,7 +28,7 @@ export default class Publications extends PublicationsWrapper {
     initQuery: {}
   }
   componentWillMount(){
-    if(window.scrollY > 300 || window.pageYOffset > 300){
+    if(window.scrollY > 400 || window.pageYOffset > 400){
       window.scrollTo(0, 0);
     }
     this.setState({ initQuery: this.initialQuery(this.props) })

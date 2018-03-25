@@ -23,6 +23,7 @@
       height: 100%;
       -webkit-filter: grayscale(100%);
       filter: grayscale(100%);
+      @include transition(filter 0.15s ease);
     }
 
     &.no-image{
@@ -37,6 +38,13 @@
         font-size: 3rem;
         content: '\f007';
       }
+    }
+  }
+
+  &:hover{
+    img {
+      -webkit-filter: grayscale(0%);
+      filter: grayscale(0%);
     }
   }
 }

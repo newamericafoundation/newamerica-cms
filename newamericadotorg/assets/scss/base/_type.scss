@@ -9,10 +9,13 @@ body, html{
 h1,h2,h3,h4,h5,h6,
 p,blockquote,label,li,figcaption, a{
   color: color(black);
+  text-decoration: none;
   text-shadow: 1px 1px 1px color(black, base, 0.004);
+  font-weight: normal;
 }
 
 h1,h2,h3,h4,h5,h6{
+  font-weight: bold;
   &.white{
     color: white !important;
   }
@@ -20,12 +23,10 @@ h1,h2,h3,h4,h5,h6{
 
 h1, h2{
   font-family: $header-font-family;
-  font-weight: bold;
 }
 
 h3, h4{
   font-family: $label-font-family;
-  font-weight: bold;
 }
 
 h1:not(.promo){
@@ -184,7 +185,7 @@ a {
   }
 
   &.inline {
-    display: inline;
+    display: inline !important;
   }
 
   &.white {
@@ -220,7 +221,7 @@ label, input, textarea {
   }
 
   &.inline {
-    display: inline;
+    display: inline !important;
   }
 
   &.block, &.centered, &.subtitle{
@@ -252,6 +253,30 @@ label, input, textarea {
       display: inline;
       padding-left: 0.5em;
       padding-right: 0.5em;
+    }
+  }
+
+  &.link {
+    a {
+      display: inline-block;
+      overflow: hidden;
+      position: relative;
+      padding-bottom: 2px;
+      &:after{
+        content: '';
+        display: block;
+        left: 0;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        height: 1px;
+        background: color(turquoise);
+        @include transition(transform 0.15s ease);
+        @include transform(translateX(-100%));
+      }
+      &:hover:after, &.active:after{
+        @include transform(translateX(0%));
+      }
     }
   }
 

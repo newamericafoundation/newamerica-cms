@@ -1,6 +1,11 @@
 .card {
   background: color(white);
+  box-shadow: inset 0px -4px 0px 0px color(turquoise, base, 0),
+    0px 2px 6px 0px color(black, base, 0);
+  @include transform(translateY(0));
+  @include transition(box-shadow 0.15s ease, transform 0.15s ease);
   margin-top: 10px;
+  cursor: default;
 
   & > a {
     width: 100%;
@@ -46,7 +51,7 @@
     }
   }
 
-  &:not(.highlights) {
+  &:not(.highlights):not(.person__card) {
     position: relative;
     top: 0;
 
@@ -55,10 +60,14 @@
     }
 
     &:hover{
-      cursor: pointer;
       .card__text__title {
-        color: color(turquoise);
+      //  color: color(black, base, 0.6);
       }
+
+      box-shadow: 0px 2px 6px 0px color(black, base, 0.15);
+      box-shadow: inset 0px -3px 0px 0px color(turquoise, base, 1),
+        0px 2px 6px 0px color(black, base, 0.15);
+      @include transform(translateY(-3px));
     }
   }
 }
@@ -67,7 +76,7 @@
   &.md, &.sm, &.lg, &.list, &.person {
     img {
       opacity: 0;
-      @include transition(opacity .2s);
+      @include transition(transform 0.15s ease, opacity 0.15s ease);
       &.loaded {
         opacity: 1;
       }

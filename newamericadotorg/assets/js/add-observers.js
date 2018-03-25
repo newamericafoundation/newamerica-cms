@@ -90,6 +90,21 @@ let observers = [
           }
       }
     });
+  },
+
+  function toggleActiveDropdown(){
+    actions.addObserver({
+      stateName: 'site.activeDropdown',
+      onChange: (activeDropdown, prevActiveDropdown)=>{
+          if(prevActiveDropdown) prevActiveDropdown.classList.remove('active');
+          if(activeDropdown){
+            document.body.classList.add('dropdown-active');
+            activeDropdown.classList.add('active');
+          } else {
+            document.body.classList.remove('dropdown-active');
+          }
+      }
+    });
   }
 ];
 

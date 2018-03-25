@@ -7,6 +7,35 @@
     height: 150px;
   }
 
+  .card__text__authors {
+    span.punc {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: -2px;
+    }
+    a {
+      vertical-align: middle;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+      &:after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background: color(turquoise);
+        bottom: 0;
+        left: 0;
+        @include transform(translateX(-100%));
+        @include transition(transform 0.15s ease);
+      }
+
+      &:hover:after{
+        @include transform(translateX(0%));
+      }
+    }
+  }
+
   .card__image {
     white-space: normal;
     vertical-align: middle;

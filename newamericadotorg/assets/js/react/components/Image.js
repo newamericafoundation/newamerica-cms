@@ -8,6 +8,12 @@ export default class Image extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.image != this.props.image){
+      this.setState({ imageLoaded: false });
+    }
+  }
+
   onImageLoad = () => {
     this.setState({ imageLoaded: true });
   }

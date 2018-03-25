@@ -8,7 +8,7 @@ import { NAME } from '../constants';
 const List = ({ people }) => (
 	<div className="row">
 		{people.map((p,i)=>(
-			<div className="our-people__list__item col-sm-12 col-md-3">
+			<div className="our-people__list__item col-sm-12 col-md-3" key={`author-${p.slug}`}>
         <Author author={p} classes="card" />
 			</div>
 		))}

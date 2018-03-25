@@ -2,6 +2,7 @@
   @include transition(width 0.3s ease);
   overflow: hidden;
   width: 0px;
+  padding-top: 3px;
   display: inline-block;
   vertical-align: top;
 }

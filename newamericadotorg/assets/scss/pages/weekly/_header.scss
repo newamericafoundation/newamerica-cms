@@ -1,7 +1,7 @@
 .weekly-edition__header{
 	background: color(black);
 	max-height: $weekly-header-height;
-	@include transition(max-height 0.6s ease);
+	@include transition(max-height 0.4s cubic-bezier(.33,0,.2,1));
 	overflow-y: hidden;
 	overflow-x: hidden;
 	position: relative;

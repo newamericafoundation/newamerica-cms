@@ -70,6 +70,30 @@ let listeners = [
     actions.addScrollEvent({
       selector: '.scroll-target'
     });
+  },
+
+  function activeDropdownToggle(){
+    let drops = document.querySelectorAll('.header__nav__dropdown-list__dropdown');
+    if(!drops) return;
+
+    for(let drop of drops){
+      drop.addEventListener('click', function(e){
+        e.stopPropagation();
+        store.dispatch({
+          type: 'TOGGLE_ACTIVE_DROPDOWN',
+          component: 'site',
+          el: this
+        });
+      });
+    }
+
+    document.body.addEventListener('click', () => {
+      store.dispatch({
+        type: 'TOGGLE_ACTIVE_DROPDOWN',
+        component: 'site',
+        el: null
+      });
+    });
   }
 ];
 

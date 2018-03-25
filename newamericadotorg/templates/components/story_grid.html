@@ -10,8 +10,12 @@
       {% include 'components/card_md.html' with post=page.lead_2.specific %}
     </div>
     <div class="col-md-6 col-lg-4">
-          {% include 'components/card_sm.html' with post=page.lead_3.specific %}
-          {% include 'components/card_sm.html' with post=page.lead_4.specific %}
+          {% if page.lead_4 %}
+            {% include 'components/card_sm.html' with post=page.lead_3.specific %}
+            {% include 'components/card_sm.html' with post=page.lead_4.specific %}
+          {% else %}
+            {% include 'components/card_md.html' with post=page.lead_3.specific %}
+          {% endif %}
           <span class="mobile-only">
             {% include 'components/card_highlights.html' with stories=featured_stories %}
           </span>

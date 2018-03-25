@@ -48,7 +48,7 @@ const EditionHeader = ({ response: { results, hasNext, hasPrevious, params: { qu
         className="weekly-edition__header__edition-list weekly-edition__edition-list row gutter-10 margin-top-25">
         <div>
           {results.map((e,i)=>(
-            <EditionListItem edition={e} key={`edition-${i}`}/>
+            <EditionListItem edition={e} key={`edition-${e.slug}`}/>
           ))}
         </div>
       </Fade>

@@ -31,9 +31,19 @@
       display: inline-block;
       position: absolute;
       right: 0;
-      @include vertical-center;
+      top: 50%;
+      opacity: 0;
+      @include transition(transform 0.3s ease, opacity 0.3s ease);
+      @include transform(translate(-15px, 50%));
     }
   }
+
+  .menu-list__item:hover .icon-arrow,
+  & > *:hover .icon-arrow {
+    opacity: 1;
+    @include transform(translate(0px, 50%));
+  }
+
 }
 
 .menu-list--padding-15 > * > a {

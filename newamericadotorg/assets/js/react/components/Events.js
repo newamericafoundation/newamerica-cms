@@ -41,7 +41,7 @@ class Filters extends Component {
         <DateFilter label="Date" expanded={response.params.query.after!==undefined}/>
         {program.programs && <ProgramFilter programs={program.programs} expanded={response.params.query.program_id!==undefined} label="Program" />}
         {program.subprograms && <SubprogramFilter subprograms={program.subprograms} expanded={response.params.query.subprogram_id!==undefined} label="Project" />}
-        {program.topics && <TopicFilter label="Topic" expanded={response.params.query.topic_id!==undefined} />}
+        {program.topics && <TopicFilter label="Topic" topics={program.topics} topicId={response.params.query.topic_id} expanded={response.params.query.topic_id!==undefined} />}
       </FilterGroup>
     );
   }
@@ -59,8 +59,7 @@ class Past extends Component {
 
 export class EventsList extends Component {
   activeStyle = {
-    fontWeight: 'bold',
-    fontStyle: 'italic'
+    fontWeight: 'bold'
   }
 
   render(){

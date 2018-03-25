@@ -20,6 +20,8 @@ export default class Events extends Component {
 
     if(params.get('projectId'))
       initQuery.subprogram_id = params.get('projectId');
+    if(params.get('topicId'))
+      initQuery.topic_id = params.get('topicId');
     if(params.get('after'))
       initQuery.after = params.get('after');
     if(params.get('before'))

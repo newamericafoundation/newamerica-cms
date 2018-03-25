@@ -13,10 +13,10 @@ export default class Heading extends Component {
               {program.parent_programs &&
                 <label className="block margin-top-0 margin-bottom-15 with-caret--left">
                   <a href={program.parent_programs[0].url}>
-                    {program.parent_programs[0].name}
+                    {program.parent_programs[0].title}
                   </a>
                 </label>}
-              <Link to={program.url}>{program.name}</Link>
+              <Link to={program.url}><em>{program.title}</em></Link>
             </h1>
   			</div>
   		</div>

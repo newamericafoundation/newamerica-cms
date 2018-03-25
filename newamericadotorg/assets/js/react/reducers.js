@@ -4,7 +4,8 @@ import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, TRIGGER_SCROLL_EVENTS, SET_AD_HOC_STATE,
   SET_SCROLL, SET_IS_SCROLLING, SET_SEARCH_IS_OPEN, TOGGLE_MOBILE_MENU,
-  SET_SITE_BASEURL, SITE_IS_LOADING, TOGGLE_SEARCH, SET_WINDOW_WIDTH, SET_IP
+  SET_SITE_BASEURL, SITE_IS_LOADING, TOGGLE_SEARCH, SET_WINDOW_WIDTH, SET_IP,
+  TOGGLE_ACTIVE_DROPDOWN
 } from './constants';
 
 // reducers
@@ -106,6 +107,17 @@ const windowWidth = (state=document.documentElement.clientWidth, action) => {
   }
 }
 
+const activeDropdown = (state=null, action) => {
+  switch(action.type){
+    case TOGGLE_ACTIVE_DROPDOWN:
+      if(state==action.el)
+        return null;
+      return action.el;
+    default:
+      return state;
+  }
+}
+
 let reducer = combineReducers({
   scroll,
   searchIsOpen,
@@ -113,7 +125,8 @@ let reducer = combineReducers({
   baseUrl,
   isLoading,
   windowWidth,
-  ip
+  ip,
+  activeDropdown
 });
 
 const siteReducer = (state, action) => {

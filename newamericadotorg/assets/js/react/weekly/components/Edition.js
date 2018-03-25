@@ -11,12 +11,12 @@ import Separator from '../../components/Separator';
 import { Text } from '../../components/Inputs'
 
 const ArticleAuthors = ({ authors }) => (
-  <label className="block subtitle">
+  <p className="margin-0">
     <span>By: </span>
     {authors.map((a,i)=>(
       <span key={`author-${i}`}>{a.first_name} {a.last_name}</span>
     ))}
-  </label>
+  </p>
 );
 
 const Lead = ({ article }) => (
@@ -88,7 +88,7 @@ class Edition extends Component {
         onExiting={(e,a)=>{ this.setState({ scrollPosition: scrollPosition }); }}
         timeout={600}>
         <section className="weekly-edition weekly-frame" style={{ top: `${-this.state.scrollPosition + 65 + 70}px`}}>
-          <div className="container--1080">
+          <div className="container">
             <div className="weekly-edition__heading margin-bottom-80">
               <h1 className="centered promo margin-top-0 margin-bottom-25">New America Weekly</h1>
               <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>

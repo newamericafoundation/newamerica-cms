@@ -3,7 +3,7 @@
 {% image about_pages.0.value.specific.story_image fill-200x170 as story_image %}
 
 {% group_programs about_pages 2 as about_groups %}
-<div class="about-dropdown-wrapper">
+<div class="about-dropdown-wrapper container">
 <div class="row">
   <div class="col-8">
     <div class="about-image">
@@ -18,7 +18,7 @@
     <label class="bold column-heading margin-0"><a href="/our-story/">About &mdash;</a></label>
     <div class="row">
     {% for g in about_groups %}
-      <div class="col-6">
+      <div class="col-xl-5 col-lg-6">
         {% for a in g %}
           <div class="header-dropdown-links__link">
             <label class="block margin-bottom-5">

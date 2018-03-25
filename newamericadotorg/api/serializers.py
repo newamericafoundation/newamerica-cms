@@ -174,7 +174,7 @@ class ProgramDetailSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'story_grid', 'description', 'url', 'subprograms', 'slug',
+            'id', 'name', 'title', 'story_grid', 'description', 'url', 'subprograms', 'slug',
             'content_types', 'features', 'subpages', 'logo', 'topics', 'about', 'about_us_pages',
             'subscriptions'
         )
@@ -275,7 +275,7 @@ class SubprogramProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'url', 'slug'
+            'id', 'name', 'url', 'slug', 'title'
         )
 
 class SubprogramSerializer(ModelSerializer):
@@ -292,7 +292,7 @@ class SubprogramSerializer(ModelSerializer):
         model = Subprogram
         fields = (
             'id', 'name', 'story_grid', 'parent_programs', 'url', 'slug', 'content_types',
-             'description', 'leads', 'features', 'subpages', 'about'
+             'description', 'leads', 'features', 'subpages', 'about', 'title'
         )
 
     def get_parent_programs(self, obj):

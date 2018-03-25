@@ -14,7 +14,7 @@ export default class CardMd extends Component {
           </div>
           <div className="col-6 col-md-12">
             <div className="card__text">
-              <label className="card__text__title bold margin-top-0 block">{post.title}</label>
+              <h3 className="card__text__title bold margin-top-0 block">{post.title}</h3>
               <label className="card__text__program caption margin-bottom-0 block">
                 {post.programs ? post.programs[0].name : ''} {post.content_type ? post.content_type.name : ''}
               </label>

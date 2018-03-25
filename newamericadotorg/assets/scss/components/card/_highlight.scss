@@ -1,5 +1,16 @@
 .card .highlights__highlight{
   background: color(white);
+  position: relative;
+
+  &:before{
+    content: '';
+    width: 3px;
+    height: 100%;
+    position: absolute;
+    left: -25px;
+    background: color(turquoise, base, 0);
+    @include transition(background 0.15s ease);
+  }
 
   &:last-child{
     margin-bottom: 0 !important;
@@ -7,8 +18,12 @@
 
   &:hover {
     cursor: pointer;
+    &:before{
+      background: color(turquoise, base, 1);
+    }
     .card__text__title {
-      color: color(turquoise);
+    //  color: color(turquoise);
+      //color: color(black, base, 0.6);
     }
   }
 }

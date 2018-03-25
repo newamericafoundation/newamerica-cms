@@ -1,5 +1,5 @@
 $transition-function: .6s ease;
-
+$transition-function: 0.4s cubic-bezier(.33,0,.2,1);
 .weekly-slide-wrapper {
   white-space: nowrap;
   display: block;

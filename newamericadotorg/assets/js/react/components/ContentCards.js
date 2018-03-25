@@ -27,16 +27,27 @@ export const EventItem = ({ event }) => (
     <div className="card__text">
       <a href={event.url}>
         <label className="margin-top-0 block">{formatDate(event.date, 'MMM. Do, YYYY')}</label>
-        <label className="card__text__title bold block">{event.title}</label>
+        <h3 className="card__text__title bold block">{event.title}</h3>
         <label className="subtitle block">{event.story_excerpt}</label>
         <label className="caption block">{event.city}, {event.state}</label>
       </a>
       <label className="event__rsvp button--text block margin-0">
-        <a href={event.url}>RSVP</a>
+        <a className="with-caret" href={event.url}>RSVP</a>
       </label>
     </div>
   </div>
 );
+
+const punctuation = (i, authors) => {
+  let len = authors.length;
+  if(i == len-2 && len > 2)
+    return (<span className="punc">&nbsp;, &&nbsp;</span>);
+  if(i == len-2 && len>1)
+    return (<span className="punc">&nbsp;&nbsp;&&nbsp;</span>);
+  if(i != len-1)
+    return (<span className="punc">&nbsp;,&nbsp;</span>)
+
+}
 
 export const PublicationListItem = ({ post }) => (
   <div className={`card list ${post.content_type ? post.content_type.api_name : ''}`}>
@@ -48,16 +59,14 @@ export const PublicationListItem = ({ post }) => (
     <div className="card__text">
       <a href={post.url}>
         <label className="card__text__date margin-top-0 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>
-        <label className="card__text__title bold block">{post.title}</label>
+        <h3 className="card__text__title bold block">{post.title}</h3>
       </a>
       {post.authors &&
-      <label className="card__text__description subtitle block">
+      <label className="card__text__authors subtitle">
         {post.authors.map((a, i)=>(
-          <span key={`author-${i}`}>
-            <a href={a.url} className="inline">{a.first_name} {a.last_name}</a>
-            {i != (post.authors.length-1) &&
-              <span> + </span>
-            }
+          <span className="subtitle inline" key={`author-${i}`}>
+            <a href={a.url}>{a.first_name} {a.last_name}</a>
+            {punctuation(i, post.authors)}
           </span>
         ))}
       </label>}

@@ -15,11 +15,11 @@
   <div class="card__text">
     <a href="{{event.url}}">
       <label class="margin-top-0 block">{{event.date|date:"M. jS, Y"}}</label>
-      <label class="card__text__title bold block">{{event.title}}</label>
+      <h3 class="card__text__title bold block">{{event.title}}</h3>
       <label class="subtitle block">{{event.story_excerpt}}</label>
       <label class="caption block">{{event.city}}, {{event.state}}</label>
     </a>
-    <label class="event__rsvp button--text block margin-0">
+    <label class="event__rsvp button--text with-caret--right block margin-0">
       <a href="{{event.url}}">RSVP</a>
     </label>
   </div>

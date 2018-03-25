@@ -23,7 +23,7 @@
           display: block;
           @include transform(translateX(-100%));
           box-shadow: 0px 1px 0px 0px color(turquoise);
-          @include transition(transform 0.3s ease);
+          @include transition(transform 0.15s ease);
         }
       }
     }
@@ -42,16 +42,20 @@
   text-align: center;
 }
 
-.programs-dropdown-wrapper{
+.programs-dropdown-wrapper.container{
   text-align: left;
-  max-width: 1080px;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  // max-width: 1200px;
   margin: 0 auto;
 }
 
-.about-dropdown-wrapper{
+.about-dropdown-wrapper.container{
   text-align: left;
   margin: 0 auto;
-  max-width: 1080px;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  // max-width: 1200px;
 
   .about-text, .about-image{
     display: inline-block;

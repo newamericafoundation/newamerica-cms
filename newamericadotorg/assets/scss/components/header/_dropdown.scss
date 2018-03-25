@@ -1,4 +1,4 @@
-&__dropdown{
+.header__nav__dropdown-list__dropdown{
   float: left;
   // position: relative;
 
@@ -7,66 +7,44 @@
     position: relative;
     line-height: $header-height;
     border-bottom: none !important;
-    padding: 0 0.85em;
+    margin: 0 2.2em 0 0;
 
     cursor: pointer;
     text-decoration: none;
+
+    &.drop {
+      margin: 0 calc(2.2em - 15px) 0 0;
+    }
   }
 
-  &__main-link.drop {
-      &:after{
-        // down arrow
-        display: inline-block;
-        content: '';
-        position: relative;
-        @include transform(rotate(45deg) translateY(-3.5px));
-        border-right: 1px solid color(gray, dark);
-        border-bottom: 1px solid color(gray, dark);
-        height: 4px;
-        width: 4px;
-        margin: 0 5px 0 5px;
-      }
+  &:last-child > a{
+    margin: 0 1.1em 0 0;
+  }
 
-      &:before{
-        // caret
+  .column-heading, .header__nav__dropdown-list__dropdown__main-link{
+    a, label {
+      display: inline-block;
+      overflow: hidden;
+      position: relative;
+      vertical-align: middle;
+
+      &:after{
         content: '';
         display: block;
-        height: 12px;
-        width: 12px;
-        background: color(white);
-        left: 50%;
-        bottom: -2px;
-        visibility: hidden;
-        opacity: 0;
-        border-top: 1px solid color(black, base, 0.1);
-        border-right: 1px solid color(black, base, 0.1);
-        position: absolute;
-        z-index: 300;
-        @include transform(rotate(-45deg) translate(-40%, 0px));
-        @include transition-delay(0.3s);
-        @include transition(opacity 0.9s ease);
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 1px;
+        background: color(turquoise);
+        @include transition(transform 0.15s ease);
+        @include transform(translateX(-100%));
       }
-  }
 
-  &:hover, &.active{
-    // dropdown hover/active state
-    .header__nav__dropdown-list__dropdown__links{
-      visibility: visible;
-      opacity: 1;
-
-      @include transform(translateY(0px));
-      @include media-breakpoint(large-desktop){
-        @include transform(translateY(0px) translateX(calc(-50vw + 600px)));
+      &:hover:after{
+        @include transform(translateX(0%));
       }
     }
-
-    .header__nav__dropdown-list__dropdown__main-link.drop:before{
-      opacity: 1;
-      visibility: visible;
-      @include transform(rotate(-45deg) translate(-50%, 0px));
-    }
   }
-
   &__links{
     position: absolute;
     z-index: 200;
@@ -75,8 +53,8 @@
     opacity: 0;
     width: 100vw;
     left: 0;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-top: 65px;
     padding-bottom: 50px;
     border-top: 1px solid color(black, base, 0.075);
@@ -93,7 +71,67 @@
     }
   }
 
-    .column-heading {
-      padding-bottom: 25px;
+  .column-heading{
+    padding-bottom: 25px;
+  }
+}
+
+.header__nav__dropdown-list__dropdown__main-link.drop {
+    &:after{
+      // down arrow
+      display: inline-block;
+      content: '';
+      position: relative;
+      @include transform(rotate(45deg) translateY(-3.5px));
+      border-right: 1px solid color(gray, dark);
+      border-bottom: 1px solid color(gray, dark);
+      height: 4px;
+      width: 4px;
+      margin: 0 5px 0 5px;
     }
+
+    &:before{
+      // caret
+      content: '';
+      display: block;
+      height: 12px;
+      width: 12px;
+      background: color(white);
+      left: calc(50% - 6px);
+      bottom: -2px;
+      visibility: hidden;
+      opacity: 0;
+      border-top: 1px solid color(black, base, 0.1);
+      border-right: 1px solid color(black, base, 0.1);
+      position: absolute;
+      z-index: 300;
+      @include transform(rotate(-45deg));
+      @include transition-delay(0.3s);
+      @include transition(opacity 0.9s ease);
+    }
+}
+
+body:not(.dropdown-active) .header__nav__dropdown-list__dropdown:hover,
+.header__nav__dropdown-list__dropdown.active {
+    // dropdown hover/active state
+    .header__nav__dropdown-list__dropdown__links{
+      visibility: visible;
+      opacity: 1;
+
+      @include transform(translateY(0px));
+      @include media-breakpoint(large-desktop){
+        @include transform(translateY(0px) translateX(calc(-50vw + 600px)));
+      }
+    }
+
+    .header__nav__dropdown-list__dropdown__main-link label:after{
+      @include transform(translateX(0%));
+    }
+
+    .header__nav__dropdown-list__dropdown__main-link.drop:before{
+      opacity: 1;
+      visibility: visible;
+      @include transform(rotate(-45deg) translate(-50%, 0px));
+    }
+
 }
