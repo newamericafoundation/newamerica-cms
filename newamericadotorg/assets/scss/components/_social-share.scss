@@ -6,16 +6,24 @@
 }
 
 .fa.circle{
-  width: 28px;
-  height: 28px;
-  border-radius: 28px;
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
   font-size: 0.75rem;
   text-align: center;
   color: color(white);
   background-color: color(black);
+  @include transition(background-color 0.15s ease);
   position: relative;
+  &:hover{
+    background-color: color(turquoise);
+  }
   &:before{
     position: absolute;
     @include center;
   }
+}
+
+a:hover > .fa.circle {
+  background-color: color(turquoise);
 }

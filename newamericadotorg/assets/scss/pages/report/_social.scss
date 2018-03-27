@@ -7,8 +7,13 @@
      vertical-align: middle;
    }
 
+   .fa{
+     margin-right: 25px;
+   }
+
    label{
      display: none;
+     padding-top: $type-adjustment;
    }
 
    @include media-breakpoint(desktop){
@@ -23,29 +28,6 @@
        display: inline-block;
      }
    }
-
-  .fa{
-    //color: color(turquoise);
-    color: color(black);
-    //width: 32px;
-    height: 20px;
-    //height: 32px;
-    padding: 0;
-    //border: 1px solid color(turquoise);
-    border-radius: 16px;
-    position: relative;
-    margin-right: 25px;
-    &:before{
-      //position: absolute;
-      font-size: 0.9rem;
-      //@include center;
-    }
-
-    &:hover{
-      color: color(turquoise);
-      //background: color(black);
-    }
-  }
 }
 
 .report__social{

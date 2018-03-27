@@ -2,21 +2,21 @@
 
   <div class="report__social__item margin-bottom-15">
     <a href="https://www.facebook.com/dialog/share?app_id=1650004735115559&display=popup&href={{page.full_url}}" target="_blank" >
-      <i class="fa fa-facebook"></i>
+      <i class="fa circle fa-facebook"></i>
       <label>Share</label>
     </a>
   </div>
 
   <div class="report__social__item margin-bottom-15">
     <a href="https://twitter.com/intent/tweet/?url={{page.full_url}}&text={{page.title}}&via=newamerica" target="_blank" >
-      <i class="fa fa-twitter"></i>
+      <i class="fa circle fa-twitter"></i>
       <label>Tweet</label>
     </a>
   </div>
   {% if page.attachment|length > 0 %}
   <div class="report__social__item margin-bottom-15">
     <a href="{% if page.attachment.0.value.url|make_list|first == '/' %}https://newamerica.org{{page.attachment.0.value.url}}{% else %}{{page.attachment.0.value.url}}{% endif %}" target="_blank" >
-      <i class="fa fa-download"></i>
+      <i class="fa circle fa-download"></i>
       <label>Download</label>
     </a>
   </div>

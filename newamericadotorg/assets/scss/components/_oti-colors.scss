@@ -21,6 +21,14 @@ body.oti {
     }
   }
 
+  .fa.circle:hover{
+    background-color: color(oti-blue);
+  }
+
+  a:hover > .fa.circle {
+    background-color: color(oti-blue);
+  }
+
   label.card__text__title.link u{
     @include linear-gradient-horizontal(color(oti-blue), transparent, 100%, 100%);
   }
