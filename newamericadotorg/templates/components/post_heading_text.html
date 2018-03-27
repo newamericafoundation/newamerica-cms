@@ -8,4 +8,9 @@
   {% if page.content_type.name != 'New America Post' %}
   <label class="block button--text">{% firstof page.other_content_type.singular_title page.content_type %}{% if page.source %} in {{ page.source }}{% endif %}</label>
   {% endif %}
+  {% if page.source %}
+    <div class="margin-top-35">
+      <a href="{{page.source}}" class="button">Read Full Article</a>
+    </div>
+  {% endif %}
 </div>
