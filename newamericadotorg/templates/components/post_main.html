@@ -35,9 +35,11 @@
                   {{ page.host_organization }}<br/>{{ page.street_address }} {{ page.city }}, {{ page.state }} {{ page.zipcode }}
                 </label>
               </div>
-              <div class="post-authors__rsvp margin-top-15">
-                <a class="button block" href="">RSVP</a>
-              </div>
+              {% if page.rsvp_link %}
+                <div class="post-authors__rsvp margin-top-15">
+                  <a class="button block" href="{{page.rsvp_link}}" target="_blank">RSVP</a>
+                </div>
+              {% endif %}
             </div>
           </div>
         {% endif %}

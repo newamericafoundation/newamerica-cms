@@ -38,7 +38,7 @@ export const EventItem = ({ event }) => (
         <label className="caption block">{event.city}, {event.state}</label>
       </a>
       <label className="event__rsvp button--text block link margin-0">
-        <a className="with-caret" href={event.url}>RSVP</a>
+        <a className="with-caret" href={event.rsvp_link} target="_blank">RSVP</a>
       </label>
     </div>
   </div>
