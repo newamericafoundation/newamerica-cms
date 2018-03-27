@@ -10,6 +10,20 @@ import TopNav from './components/TopNav';
 import BottomNav from './components/BottomNav';
 
 class Report extends Component {
+  state = { menuOpen: false }
+
+  openMenu = (e) => {
+    this.setState({ menuOpen: true });
+  }
+
+  closeMenu = (e) => {
+    this.setState({ menuOpen: false });
+  }
+
+  toggleMenu = () => {
+    this.setState({ menuOpen: !this.state.menuOpen });
+  }
+
   getSection = () => {
     let { report, match: { params } } = this.props;
 
@@ -60,19 +74,19 @@ class Report extends Component {
     return (
       <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
         <div className='report'>
-          <TopNav section={section} report={report} />
+          <TopNav section={section} report={report}
+            openMenu={this.openMenu}
+            closeMenu={this.closeMenu}
+            toggleMenu={this.toggleMenu}
+            menuOpen={this.state.menuOpen} />
             {section.number===1 &&
               <Heading report={report}/>
             }
             <Body section={section}
-              authors={report.authors}
-              endnotes={report.endnotes}
-              date={report.date}
-              report_pdf={report.report_pdf}
+              report={report}
               dispatch={this.props.dispatch}
-              title={report.title}
               location={location}
-              url={report.url}/>
+              closeMenu={this.closeMenu}/>
           <BottomNav section={section} report={report} />
         </div>
       </DocumentMeta>

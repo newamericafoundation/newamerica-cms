@@ -12,11 +12,12 @@ class ContentMenu extends Component {
     });
   }
 
-  toggleExpanded = (title) => {
+
+  toggleExpanded = (e, title) => {
     this.setState({ expanded: { ...this.state.expanded, [title]: !this.state.expanded[title] }});
   }
 
-  closeMenu = (title) => {
+  goTo = (e, title) => {
     let expanded = {};
     this.props.report.sections.map((s)=>{
       expanded[s.title] = s.title == title;
@@ -26,17 +27,19 @@ class ContentMenu extends Component {
   }
 
   render(){
-    let { report: { url, sections }, open, closeMenu, activeSection } = this.props;
+    let { report: { url, sections }, openMenu, closeMenu, activeSection } = this.props;
     return (
       <div className="report__content-menu">
         {sections.map((s,i)=>(
           <span className={this.state.expanded[s.title] ? 'expanded' : ''} key={`section-${i}`}>
             <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`}>
-              <Link className="report__content-menu__section" to={`${url}${s.slug}/`} onClick={()=>{this.closeMenu(s.title);}}>
+              <Link className="report__content-menu__section" to={`${url}${s.slug}/`} onClickCapture={(e)=>{this.goTo(e, s.title);}}>
                 <label className="white">{s.title}</label>
               </Link>
               {s.subsections.length>0 &&
-                <label className="expand-toggle" onClick={()=>{this.toggleExpanded(s.title)}}>
+                <label className="expand-toggle" onClickCapture={(e)=>{
+                  this.toggleExpanded(e, s.title);
+                }}>
                   <PlusX x={this.state.expanded[s.title]} white={true}/>
                 </label>
               }

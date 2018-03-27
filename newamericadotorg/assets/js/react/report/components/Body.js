@@ -16,7 +16,7 @@ class Body extends Component {
     let _this = this;
 
     return function(){
-      let endnotes = _this.props.endnotes;
+      let endnotes = _this.props.report.endnotes;
       let number = +this.getAttribute('data-citation-number');
       if(_this.state.citeEl==this){
         _this.closeEndnote();
@@ -68,10 +68,11 @@ class Body extends Component {
   }
 
   render(){
-    let { section, authors, endnotes, date, url, report_pdf, title } = this.props;
+    let { section, report, closeMenu } = this.props;
+    let { authors, endnotes, date, url, report_pdf, title } = report;
     let { endnote, top } = this.state;
     return (
-      <div className="container margin-top-35 margin-top-lg-80 ">
+      <div className="container margin-top-35 margin-top-lg-80" onClick={closeMenu}>
       <div className={"report__body row gutter-30 " + (endnote ? 'endnote-active' : '')}>
         <div className="report__body__aside col-11 col-md-6 col-lg-2 push-lg-10">
           <div className="post-aside-wrapper">
