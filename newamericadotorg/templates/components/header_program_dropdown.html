@@ -5,13 +5,13 @@
 <div class="row">
 
   <div class="col-3">
-    <label class="bold block column-heading margin-0"><a href="">Nat'l Network &mdash;</a></label>
+    <label class="bold block link column-heading margin-0"><a href=""><u>Nat'l Network &mdash;</u></a></label>
     <div class="header-dropdown-links">
       {% for p in locations %}
         <div class="header-dropdown-links__link">
           <label class="block link">
             <a href="{{p.program.url}}">
-              {{p.program.title}}
+              <u>{{p.program.title}}</u>
             </a>
           </label>
         </div>
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="col-9">
-    <label class="bold block column-heading margin-0"><a href="/programs/">Programs &mdash;</a></label>
+    <label class="bold block link column-heading margin-0"><a href="/programs/"><u>Programs &mdash;</u></a></label>
     <div class="row">
     {% for pg in program_groups %}
       <div class="header-dropdown-links col-4">
@@ -27,7 +27,7 @@
         <div class="header-dropdown-links__link">
           <label class="block link">
             <a href="{{p.program.url}}">
-              {{p.program.title}}
+              <u>{{p.program.title}}</u>
             </a>
           </label>
         </div>

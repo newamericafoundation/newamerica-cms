@@ -13,13 +13,17 @@ body.oti {
     color: inherit;
   }
 
-  label.link a:after{
-    background: color(oti-blue);
+  label, h1,h2,h3,h4,h5,h6 {
+    &.link {
+      > a:after, > span:after {
+        background: color(oti-blue);
+      }
+    }
   }
 
   .button--text.with-border, label.with-border {
     border-bottom: 1.5px solid color(oti-blue);
-}
+  }
 
   .column-heading, .header__nav__dropdown-list__dropdown__main-link{
     a:after, label:after{
@@ -31,15 +35,15 @@ body.oti {
     background: color(oti-blue);
   }
 
-  .card {
-    box-shadow: inset 0px -4px 0px 0px color(oti-blue, base, 0),
-      0px 2px 6px 0px color(black, base, 0);
-
-    &:hover:not(.highlights):not(.person__card){
-      box-shadow: inset 0px -3px 0px 0px color(oti-blue, base, 1),
-        0px 2px 6px 0px color(black, base, 0.15);
-    }
-  }
+  // .card {
+  //   box-shadow: inset 0px -4px 0px 0px color(oti-blue, base, 0),
+  //     0px 2px 6px 0px color(black, base, 0);
+  //
+  //   &:hover:not(.highlights):not(.person__card){
+  //     box-shadow: inset 0px -3px 0px 0px color(oti-blue, base, 1),
+  //       0px 2px 6px 0px color(black, base, 0.15);
+  //   }
+  // }
 
   .header__logo-wrapper:before{
     background: color(oti-blue);

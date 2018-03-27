@@ -13,7 +13,10 @@
   <div class="card__text">
     <a href="{{post.url}}">
       <label class="card__text__date margin-top-0 block">{{post.date|date:"M. jS, Y"}}</label>
-      <h3 class="card__text__title bold block">{{post.title}}</h3>
+      <!-- <h3 class="card__text__title bold block">{{post.title}}</h3> -->
+      <label class="card__text__title bold block link">
+        <span><u>{{post.title}}</u></span>
+      </label>
     </a>
     <label class="card__text__authors link subtitle">
       {% for author in post.post_author.all %}<a href="{{author.url}}">{{author.first_name}} {{author.last_name}}</a>

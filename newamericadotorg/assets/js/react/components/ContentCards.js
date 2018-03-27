@@ -9,7 +9,10 @@ export const Person = ({ person }) => (
           <Image image={person.profile_image} />}
       </div>
       <div className="card__text">
-        <h3 className="card__text__title">{person.first_name} {person.last_name}</h3>
+        {/* <h3 className="card__text__title">{person.first_name} {person.last_name}</h3> */}
+        <label className="card__text__title bold block link">
+          <span><u>{person.first_name} {person.last_name}</u></span>
+        </label>
         <label className="caption block">{person.position}</label>
       </div>
     </a>
@@ -27,7 +30,10 @@ export const EventItem = ({ event }) => (
     <div className="card__text">
       <a href={event.url}>
         <label className="margin-top-0 block">{formatDate(event.date, 'MMM. Do, YYYY')}</label>
-        <h3 className="card__text__title bold block">{event.title}</h3>
+        {/* <h3 className="card__text__title bold block">{event.title}</h3> */}
+        <label className="card__text__title bold block link">
+          <span><u>{event.title}</u></span>
+        </label>
         <label className="subtitle block">{event.story_excerpt}</label>
         <label className="caption block">{event.city}, {event.state}</label>
       </a>
@@ -38,15 +44,32 @@ export const EventItem = ({ event }) => (
   </div>
 );
 
-const punctuation = (i, authors) => {
-  let len = authors.length;
+const punctuation = (i, len) => {
   if(i == len-2 && len > 2)
-    return (<span className="punc">&nbsp;, &&nbsp;</span>);
+    return (<span className="punc" key={`punc-${i}`}>&nbsp;, &&nbsp;</span>);
   if(i == len-2 && len>1)
-    return (<span className="punc">&nbsp;&nbsp;&&nbsp;</span>);
+    return (<span className="punc" key={`punc-${i}`}>&nbsp;&nbsp;&&nbsp;</span>);
   if(i != len-1)
-    return (<span className="punc">&nbsp;,&nbsp;</span>)
+    return (<span className="punc" key={`punc-${i}`}>&nbsp;,&nbsp;</span>)
 
+  return false;
+
+}
+
+const generateAuthors = (authors) => {
+  let authorElements = [];
+  let len = authors.length;
+  authors.forEach((a,i)=>{
+    authorElements.push(
+      <span className="subtitle inline" key={`author-${i}`}>
+        <a href={a.url}>{a.first_name} {a.last_name}</a>
+      </span>
+    );
+    let punc = punctuation(i,len);
+    if(punc) authorElements.push(punc);
+  });
+
+  return authorElements;
 }
 
 export const PublicationListItem = ({ post }) => (
@@ -59,16 +82,14 @@ export const PublicationListItem = ({ post }) => (
     <div className="card__text">
       <a href={post.url}>
         <label className="card__text__date margin-top-0 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>
-        <h3 className="card__text__title bold block">{post.title}</h3>
+        {/* <h3 className="card__text__title bold block">{post.title}</h3> */}
+        <label className="card__text__title bold block link">
+          <span><u>{post.title}</u></span>
+        </label>
       </a>
       {post.authors &&
       <label className="card__text__authors link subtitle">
-        {post.authors.map((a, i)=>(
-          <span className="subtitle inline" key={`author-${i}`}>
-            <a href={a.url}>{a.first_name} {a.last_name}</a>
-            {punctuation(i, post.authors)}
-          </span>
-        ))}
+        {generateAuthors(post.authors)}
       </label>}
       <a href={post.url}>
         {post.programs &&

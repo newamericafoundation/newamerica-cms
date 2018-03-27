@@ -4,7 +4,7 @@
     {% for story in stories %}
       <div class="highlights__highlight margin-25">
         <a href="{{story.url}}">
-          <label class="card__text__title block bold">{{story.title}}</label>
+          <label class="card__text__title block bold link"><span><u>{{story.title}}</u></span></label>
           <label class="subtitle paragraph margin-bottom-0">{{story.specific.story_excerpt}}</label>
         </a>
       </div>

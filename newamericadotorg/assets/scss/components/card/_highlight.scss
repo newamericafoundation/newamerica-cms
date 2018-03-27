@@ -16,14 +16,14 @@
     margin-bottom: 0 !important;
   }
 
-  &:hover {
-    cursor: pointer;
-    &:before{
-      background: color(turquoise, base, 1);
-    }
-    .card__text__title {
-    //  color: color(turquoise);
-      //color: color(black, base, 0.6);
-    }
-  }
+  // &:hover {
+  //   cursor: pointer;
+  //   &:before{
+  //     background: color(turquoise, base, 1);
+  //   }
+  //   .card__text__title {
+  //   //  color: color(turquoise);
+  //     //color: color(black, base, 0.6);
+  //   }
+  // }
 }

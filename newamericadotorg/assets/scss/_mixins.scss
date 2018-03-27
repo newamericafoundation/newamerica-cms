@@ -74,6 +74,7 @@
   @return calc(#{$padding} - #{$type-adjustment});
 }
 
+
 //bootstrap
 @mixin linear-gradient-horizontal($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
   background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+

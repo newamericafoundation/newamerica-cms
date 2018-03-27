@@ -17,30 +17,6 @@
     margin: 0 1.2em 0 0;
   }
 
-  .column-heading, .header__nav__dropdown-list__dropdown__main-link{
-    a, label {
-      display: inline-block;
-      overflow: hidden;
-      position: relative;
-      vertical-align: middle;
-
-      &:after{
-        content: '';
-        display: block;
-        width: 100%;
-        left: 0;
-        bottom: 0;
-        height: 1px;
-        background: color(turquoise);
-        @include transition(transform 0.15s ease);
-        @include transform(translateX(-100%));
-      }
-
-      &:hover:after{
-        @include transform(translateX(0%));
-      }
-    }
-  }
   &__links{
     position: absolute;
     z-index: 200;
