@@ -55,7 +55,7 @@ class AllBlogPostsHomePage(AbstractHomeContentPage):
         return BlogPost
 
     class Meta:
-        verbose_name = "Homepage for all Blog Posts"
+        verbose_name = "New America Blog"
 
 
 class ProgramBlogPostsPage(AbstractContentPage):
@@ -104,4 +104,4 @@ class ProgramBlogPostsPage(AbstractContentPage):
         return BlogPost
 
     class Meta:
-        verbose_name = "Blog Homepage for Program and Subprograms"
+        verbose_name = "Blog Posts Homepage"

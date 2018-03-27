@@ -93,10 +93,10 @@ class ProgramPolicyPapersPage(AbstractContentPage):
             ProgramPolicyPapersPage,
             PolicyPaper
         )
-        
+
     @property
     def content_model(self):
         return PolicyPaper
 
     class Meta:
-        verbose_name = "Policy Paper Homepage for Programs and Subprograms"
+        verbose_name = "Policy Papers Homepage"

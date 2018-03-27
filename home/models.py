@@ -331,7 +331,7 @@ class OrgSimplePage(AbstractSimplePage):
     ]
 
     class Meta:
-        verbose_name = 'Post'
+        verbose_name = 'About Page'
 
 
 
@@ -370,7 +370,7 @@ class ProgramSimplePage(AbstractSimplePage):
         return 'home/program_simple_page.html'
 
     class Meta:
-        verbose_name = 'Post'
+        verbose_name = 'About Page'
 
 
 class JobsPage(OrgSimplePage):
@@ -378,6 +378,9 @@ class JobsPage(OrgSimplePage):
     Jobs Page at the organization level
     """
     parent_page_types = ['home.HomePage']
+
+    class Meta:
+        verbose_name = 'Jobs Page'
 
 
 class SubscribePage(OrgSimplePage):
@@ -408,6 +411,9 @@ class SubscribePage(OrgSimplePage):
         StreamFieldPanel('newsletter_subscriptions'),
         StreamFieldPanel('event_subscriptions')
     ]
+
+    class Meta:
+        verbose_name = 'Subscribe Page'
 
 
 class PostAuthorRelationship(models.Model):

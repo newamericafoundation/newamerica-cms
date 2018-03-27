@@ -78,10 +78,10 @@ class ProgramPodcastsPage(AbstractContentPage):
             ProgramPodcastsPage,
             Podcast
         )
-    
+
     @property
     def content_model(self):
         return Podcast
 
     class Meta:
-        verbose_name = "Podcast Homepage for Program and Subprograms"
+        verbose_name = "Podcasts Homepage"

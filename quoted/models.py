@@ -52,7 +52,7 @@ class AllQuotedHomePage(AbstractHomeContentPage):
         return Quoted
 
     class Meta:
-        verbose_name = "Homepage for all In The News Pieces"
+        verbose_name = "In The News Homepage"
 
 
 class ProgramQuotedPage(AbstractContentPage):
@@ -77,4 +77,4 @@ class ProgramQuotedPage(AbstractContentPage):
         return Quoted
 
     class Meta:
-        verbose_name = "In the News Homepage for Programs and Subprogram"
+        verbose_name = "In the News Homepage"

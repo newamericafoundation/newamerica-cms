@@ -157,7 +157,7 @@ class AllReportsHomePage(AbstractHomeContentPage):
         return Report
 
     class Meta:
-        verbose_name = "Organization-wide Reports Homepage"
+        verbose_name = "Reports Homepage"
 
 
 class ReportsHomepage(AbstractContentPage):

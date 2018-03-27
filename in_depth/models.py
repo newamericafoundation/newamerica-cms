@@ -85,7 +85,7 @@ class InDepthSection(Page):
         return context
 
     class Meta:
-        verbose_name = "In-Depth Project Section"
+        verbose_name = "In-Depth Report Section"
 
 class SectionSerializer(ModelSerializer):
     class Meta:
@@ -141,7 +141,7 @@ class InDepthProject(Post):
         super(Post, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = "In-Depth Project"
+        verbose_name = "In-Depth Report"
 
 
 class AllInDepthHomePage(AbstractContentPage):
@@ -179,7 +179,7 @@ class AllInDepthHomePage(AbstractContentPage):
         return InDepthProject
 
     class Meta:
-        verbose_name = "Homepage for all In-Depth Projects"
+        verbose_name = "In-Depth Reports Homepage"
 
 class InDepthProfile(Page):
     parent_page_types = ['InDepthProject']
@@ -225,4 +225,4 @@ class InDepthProfile(Page):
         return context
 
     class Meta:
-        verbose_name = "In-Depth Profile Page"
+        verbose_name = "In-Depth Report Profile"

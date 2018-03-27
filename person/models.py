@@ -142,7 +142,7 @@ class Person(Page):
     )
     YEAR_CHOICES = [(r,r) for r in range(1999, datetime.date.today().year+1)]
     YEAR_CHOICES.reverse()
-    
+
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
     former = models.BooleanField(default=False, help_text="Select if person no longer serves above role.")
     fellowship_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
@@ -251,6 +251,7 @@ class Person(Page):
 
     class Meta:
         ordering = ('last_name',)
+        verbose_name = 'Person'
 
 
 class OurPeoplePage(Page):
@@ -286,7 +287,7 @@ class OurPeoplePage(Page):
         return context
 
     class Meta:
-        verbose_name = "Homepage for All People in NAF"
+        verbose_name = "Our People Page"
 
 
 class ExpertPage(Page):
@@ -338,7 +339,7 @@ class ProgramPeoplePage(AbstractContentPage):
     ]
 
     class Meta:
-        verbose_name = "Our People Page for Programs and Subprograms"
+        verbose_name = "Our People Page"
 
 
 class BoardAndLeadershipPeoplePage(Page):
@@ -384,4 +385,4 @@ class BoardAndLeadershipPeoplePage(Page):
         return context
 
     class Meta:
-        verbose_name = "Our People Page for Board of Directors, Central Staff, and Leadership Team"
+        verbose_name = "Our Staff and Leadership Page"

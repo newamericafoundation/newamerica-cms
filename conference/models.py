@@ -18,7 +18,7 @@ class AllConferencesHomePage(Page):
     subpage_types = ['Conference']
 
     class Meta:
-        verbose_name = "Homepage for all Conferences"
+        verbose_name = "Conferences Homepage"
 
 class Conference(Page):
     """

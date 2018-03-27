@@ -73,4 +73,4 @@ class ProgramBooksPage(AbstractContentPage):
         return Book
 
     class Meta:
-        verbose_name = "Books Homepage for Program and Subprogram"
+        verbose_name = "Books Homepage"

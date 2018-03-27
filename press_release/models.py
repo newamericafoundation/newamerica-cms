@@ -76,4 +76,4 @@ class ProgramPressReleasesPage(AbstractContentPage):
         return PressRelease
 
     class Meta:
-        verbose_name = "Press Release Homepage for Program and Subprograms"
+        verbose_name = "Press Releases Homepage"

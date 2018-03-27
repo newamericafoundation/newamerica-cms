@@ -95,7 +95,7 @@ class AllEventsHomePage(RoutablePageMixin, AbstractContentPage):
         )
 
     class Meta:
-        verbose_name = "Homepage for all Events"
+        verbose_name = "Events Homepage"
 
 
 class ProgramEventsPage(RoutablePageMixin, AbstractContentPage):
@@ -125,7 +125,7 @@ class ProgramEventsPage(RoutablePageMixin, AbstractContentPage):
         )
 
     class Meta:
-        verbose_name = "Events Homepage for Program and Subprograms"
+        verbose_name = "Events Homepage"
 
 
 def get_org_wide_events(self, request, tense):
