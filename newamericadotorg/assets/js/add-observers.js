@@ -96,10 +96,10 @@ let observers = [
     actions.addObserver({
       stateName: 'site.activeDropdown',
       onChange: (activeDropdown, prevActiveDropdown)=>{
-          if(prevActiveDropdown) prevActiveDropdown.classList.remove('active');
+          if(prevActiveDropdown) prevActiveDropdown.parentNode.classList.remove('active');
           if(activeDropdown){
             document.body.classList.add('dropdown-active');
-            activeDropdown.classList.add('active');
+            activeDropdown.parentNode.classList.add('active')
           } else {
             document.body.classList.remove('dropdown-active');
           }

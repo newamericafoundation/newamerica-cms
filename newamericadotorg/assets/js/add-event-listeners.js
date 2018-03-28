@@ -73,9 +73,8 @@ let listeners = [
   },
 
   function activeDropdownToggle(){
-    let drops = document.querySelectorAll('.header__nav__dropdown-list__dropdown');
+    let drops = document.querySelectorAll('.header__nav__dropdown-list__dropdown__main-link.drop');
     if(!drops) return;
-
     for(let drop of drops){
       drop.addEventListener('click', function(e){
         e.stopPropagation();
