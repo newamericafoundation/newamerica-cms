@@ -11,22 +11,13 @@
   <div class="person__card card">
     <div class="container--1080">
       <div class="row gutter-20">
-        {% if page.profile_image %}
-        <div class="person__image col-lg-4 margin-bottom-35">
-            {% image page.profile_image original as og_profile_image %}
-            {% image page.profile_image fill-300x300 as profile_image %}
-            <a class="person-heading__image__link-wrapper" href={{og_profile_image.url}}>
-              <img src="{{profile_image.url}}"></a>
-            </a>
-        </div>
-        {% endif %}
-        <div class="person__text push-lg-1 col-lg-7">
-          <h1 class="person__text__heading margin-top-0">{{ page.first_name }} {{ page.last_name }}</h1>
+        <div class="person__text col-lg-7">
+          <h1 class="person__text__heading margin-top-0 margin-bottom-15">{{ page.first_name }} {{ page.last_name }}</h1>
           {% if page.position_at_new_america %}
-              <label class="person-text__position caption">{{ page.position_at_new_america }}</label>
+              <label class="person-text__position caption margin-top-0 margin-bottom-15">{{ page.position_at_new_america }}</label>
           {% endif %}
           {% if page.email or page.social_media|length > 0 %}
-          <div class="person__social margin-top-25">
+          <div class="person__social margin-0">
             <ul class="inline">
                <a href="mailto:{{page.email}}" class="fa fa-envelope circle"></a>
               {% for s in page.social_media %}
@@ -35,17 +26,26 @@
             </ul>
           </div>
           {% endif %}
+          <div class="post-body person__text__body margin-top-35">
+            {{page.long_bio|richtext}}
+          </div>
+        </div>
+        <div class="push-lg-1 col-lg-4">
+          {% if page.profile_image %}
+            {% image page.profile_image original as og_profile_image %}
+            {% image page.profile_image fill-300x300 as profile_image %}
+            <a class="person-heading__image__link-wrapper" href={{og_profile_image.url}}>
+              <img src="{{profile_image.url}}"></a>
+            </a>
+          {% endif %}
           {% if page.topics.all|length > 0 %}
-          <label class="block margin-top-25">Expertise:</label>
-          <div class="person__expertise">
+            <label class="block {% if page.profile_image %}margin-top-15{% else %}margin-top-0{% endif %}">Expertise:</label>
+            <div class="person__expertise">
               {% for t in page.topics.all %}
                 <a href="{{t.topic.url}}" class="tag">{{t.topic.title}}</a>
               {% endfor %}
-          </div>
+            </div>
           {% endif %}
-          <div class="post-body person__text__body margin-top-25">
-            {{page.long_bio|richtext}}
-          </div>
         </div>
       </div>
     </div>
