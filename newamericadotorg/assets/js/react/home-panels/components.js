@@ -165,7 +165,7 @@ export class Body extends Panel {
                 <label className="block margin-bottom-25">{data.resource_kit[0].description}</label>
                 {data.resource_kit[0].resources.map((r,i)=>(
                   <div className="aside__item" key={`resource-${i}`}>
-                    <h3><a>{r.value.name}</a></h3>
+                    <h3 className="link"><a href={r.value.resource}><u>{r.value.name}</u></a></h3>
                     {r.value.description && <label className="block">{this.parseHTMLText(r.value.description)}</label>}
                   </div>
                 ))}

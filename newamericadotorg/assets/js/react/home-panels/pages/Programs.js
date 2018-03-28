@@ -8,17 +8,17 @@ class Programs extends Component {
     return (
       <div className="card program-card" key={`program-${i}`}>
         <div className="program-card__description">
-          <h1><a href={p.url}>{p.title}</a></h1>
+          <h1 className="link card__text__title"><a href={p.url}><u>{p.title}</u></a></h1>
           <p>{p.description}</p>
         </div>
         {p.subprograms &&
           <div className="program-card__subprograms">
-            <label className="block button--text">Projects</label>
+            <label className="block bold">Initiative & Projects</label>
             <ul className="inline program-card__subprograms__list">
               {p.subprograms.map((s,i)=>(
                 <li key={`program-${i}`}>
                   <label className="link">
-                    <a href={s.url}>{s.title}</a>
+                    <a href={s.url}><u>{s.title}</u></a>
                   </label>
                 </li>
               ))}

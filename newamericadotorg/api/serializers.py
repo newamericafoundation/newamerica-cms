@@ -4,6 +4,7 @@ from rest_framework import serializers
 from rest_framework.serializers import Serializer, ModelSerializer, SerializerMethodField
 
 from wagtail.wagtailcore.models import Page, ContentType
+from wagtail.wagtaildocs.models import Document
 from home.models import Post, CustomImage
 from programs.models import Program, Subprogram, AbstractContentPage
 from person.models import Person
@@ -800,6 +801,15 @@ class HomeDetailSerializer(PostSerializer):
                 if key == 'inline_image':
                     img = CustomImage.objects.get(pk=b['value']['image'])
                     b['value']['url'] = generate_image_url(img, 'width-1100')
+                elif key == 'resource_kit':
+                    for r in b['value']['resources']:
+                        id = r['value']['resource']
+                        if r['type'] == 'attachment':
+                            resource = Document.objects.get(pk=id)
+                            r['value']['resource'] = resource.url
+                        elif r['type'] == 'post':
+                            resource = Page.objects.get(pk=id)
+                            r['value']['resource'] = resource.url
                 d[key].append(b['value'])
 
             data[panel_key] = d

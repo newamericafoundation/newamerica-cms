@@ -37,6 +37,14 @@ label.link.active > span{
   }
 }
 
+h1,h2,h3,h4,h5,h6{
+  &.link:hover {
+    > a:before, > span:before{
+      @include transform(translateX(0%));
+    }
+  }
+}
+
 label.card__text__title.link{
     u {
       display: inline;
@@ -54,6 +62,7 @@ label.card__text__title.link{
     }
 }
 
+h1.card__text__title.link,
 h2.card__text__title.link{
   &:hover u {
     text-decoration: underline;

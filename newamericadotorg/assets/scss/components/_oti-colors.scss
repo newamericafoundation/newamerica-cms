@@ -32,7 +32,7 @@ body.oti {
   label.card__text__title.link u{
     @include linear-gradient-horizontal(color(oti-blue), transparent, 100%, 100%);
   }
-
+  h1.card__text__title.link:hover u,
   h2.card__text__title.link:hover u{
     -webkit-text-decoraction-color: color(oti-blue);
     text-decoration-color: color(oti-blue);
