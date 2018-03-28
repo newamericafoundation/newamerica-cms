@@ -20,7 +20,6 @@ body:not(.homepage):not(.programpage):not(.homepostpage) .header__wrapper:not(.t
     width: 100%;
     margin: 0 !important;
     z-index: 175;
-    @include transition(transform 0.35s ease);
     & > .row{
       width: 100%;
       max-width: $max-site-width;
@@ -34,8 +33,9 @@ body:not(.homepage):not(.programpage):not(.homepostpage) .header__wrapper:not(.t
 }
 
 body:not(.header--expanded){
-  .scroll-entered{
+  .header.scroll-entered{
     .header__wrapper:not(.transparent) {
+      @include transition(transform $header-transition-function);
       position: fixed;
       top: -$header-height;
       @include transform(translateY(0));
@@ -48,7 +48,7 @@ body:not(.header--expanded){
 }
 
 body.scroll-reverse:not(.header--expanded):not(.scroll-disabled), body.mobile-menu-open:not(.header--expanded){
-  .scroll-left{
+  .header.scroll-left{
     .header__wrapper{
       @include transform(translateY(#{$header-height}));
     }
