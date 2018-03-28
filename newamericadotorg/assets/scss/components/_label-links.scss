@@ -29,6 +29,7 @@ label,h1,h2,h3,h4,h5,h6{
 .header__nav__dropdown-list__dropdown.active .header__nav__dropdown-list__dropdown__main-link label.link > span,
 label.link > a:hover,
 label.link.active > a,
+label.link > a.active,
 label.link > span:hover,
 label.link.active > span{
   &:before,{
