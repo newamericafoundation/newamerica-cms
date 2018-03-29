@@ -20,7 +20,7 @@ export default class Nav extends Component {
     return [
       program.about && <li key={0}><NavItem url={`${program.url}about/`} label="About"/></li>,
       <li key={1}><NavItem url={`${program.url}our-people/`} label="Our People"/></li>,
-      program.subprograms && <li key={2}><NavItem url={`${program.url}projects/`} label="Projects"/></li>,
+      program.subprograms && <li key={2}><NavItem url={`${program.url}projects/`} label="Initiatives & Projects"/></li>,
       <li key={3}><NavItem url={`${program.url}publications/`} label="Publications" active={program.content_types.find((c)=>(c.slug===subpage))}/></li>,
       <li key={4}><NavItem url={`${program.url}events/`} label="Events"/></li>,
       program.topics && <li key={5}><NavItem url={`${program.url}topics/`} label="Topics"/></li>
