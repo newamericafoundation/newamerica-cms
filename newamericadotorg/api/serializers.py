@@ -800,7 +800,7 @@ class HomeDetailSerializer(PostSerializer):
 
                 if key == 'inline_image':
                     img = CustomImage.objects.get(pk=b['value']['image'])
-                    b['value']['url'] = generate_image_url(img, 'width-1100')
+                    b['value']['url'] = generate_image_url(img, 'fill-800x550')
                 elif key == 'resource_kit':
                     for r in b['value']['resources']:
                         id = r['value']['resource']
