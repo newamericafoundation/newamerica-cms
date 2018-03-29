@@ -29,29 +29,4 @@
   &:before{
     display: none;
   }
-  @include media-breakpoint(desktop){
-    &:before{
-      content: '';
-      z-index: 0;
-      background: color(turquoise);
-      height: $header-height;
-      width: calc(100% + 100vw - 962px);
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      left: calc(-100vw + 962px);
-      box-shadow: inset -1px 0px 0px 0px color(black, base, 0.1);
-      @include transform(translateX(calc(-100% - 100vw + 962px)));
-      @include transition(transform 0.15s ease);
-    }
-    &:hover{
-      .header__logo{
-        background-image: url(/static/logo-white.svg);
-      }
-      &:before{
-        @include transform(translateX(0));
-      }
-    }
-  }
 }

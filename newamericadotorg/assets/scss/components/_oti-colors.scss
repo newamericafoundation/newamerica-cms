@@ -57,7 +57,7 @@ body.oti {
   }
 
   .header__loading div:first-child {
-    background-color: color(oti-blue);
+    background: linear-gradient(to right, transparent, color(oti-blue) 100%);
   }
 
   .report__citation{
