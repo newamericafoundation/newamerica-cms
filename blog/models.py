@@ -18,7 +18,7 @@ class BlogPost(Post):
     Blog class that inherits from the abstract
     Post model and creates pages for blog posts.
     """
-    parent_page_types = ['ProgramBlogPostsPage']
+    parent_page_types = ['ProgramBlogPostsPage', 'programs.BlogProject', 'programs.BlogSeries']
     subpage_types = []
 
     attachment = StreamField([

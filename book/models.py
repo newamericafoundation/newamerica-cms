@@ -26,7 +26,7 @@ class Book(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
-    parent_page_types = ['ProgramBooksPage', ]
+    parent_page_types = ['ProgramBooksPage', 'programs.BlogProject', 'programs.BlogSeries' ]
     subpage_types = []
 
     class Meta:

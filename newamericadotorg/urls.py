@@ -64,6 +64,7 @@ urlpatterns = [
 
     url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics)/$', program_views.redirect_to_subprogram),
     url(r'^(?P<program>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics)/$', program_views.redirect_to_program),
+    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/$', program_views.redirect_project_page),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/html/$', report_views.pdf_html),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/(?P<report_section>[a-zA-Z0-9_\.\-]*)/$', report_views.redirect_report_section),

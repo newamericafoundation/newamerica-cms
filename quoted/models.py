@@ -15,7 +15,7 @@ class Quoted(Post):
     Post model and creates pages for Quoted pages
     where New America was in the news.
     """
-    parent_page_types = ['ProgramQuotedPage']
+    parent_page_types = ['ProgramQuotedPage', 'programs.BlogProject', 'programs.BlogSeries']
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)

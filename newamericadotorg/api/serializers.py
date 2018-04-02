@@ -6,7 +6,7 @@ from rest_framework.serializers import Serializer, ModelSerializer, SerializerMe
 from wagtail.wagtailcore.models import Page, ContentType
 from wagtail.wagtaildocs.models import Document
 from home.models import Post, CustomImage
-from programs.models import Program, Subprogram, AbstractContentPage
+from programs.models import Program, Subprogram, Project, BlogProject, AbstractContentPage
 from person.models import Person
 from issue.models import IssueOrTopic
 from event.models import Event
@@ -26,14 +26,23 @@ class ProgramSubprogramSerializer(ModelSerializer):
     Nested under program serializer
     '''
     name = SerializerMethodField()
+    type = SerializerMethodField()
 
     class Meta:
         model = Page
         fields = (
-            'id', 'name', 'url', 'title', 'slug'
+            'id', 'name', 'url', 'title', 'slug', 'type'
         )
     def get_name(self, obj):
         return obj.title
+
+    def get_type(self, obj):
+        t = type(obj.specific)
+        print t
+        if t == Project or t == BlogProject:
+            return 'Project'
+
+        return 'Initiative'
 
 class TopicDetailSerializer(ModelSerializer):
     subtopics = SerializerMethodField()

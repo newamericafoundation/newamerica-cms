@@ -14,7 +14,7 @@ class Article(Post):
     Article class that inherits from the abstract Post
     model and creates pages for Articles.
     """
-    parent_page_types = ['ProgramArticlesPage']
+    parent_page_types = ['ProgramArticlesPage', 'programs.BlogProject', 'programs.BlogSeries']
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
@@ -52,7 +52,7 @@ class AllArticlesHomePage(AbstractHomeContentPage):
         return Article
 
     class Meta:
-        verbose_name = "Homepage for all Articles and Op-Eds"
+        verbose_name = "Articles/Op-Eds Homepage"
 
 
 class ProgramArticlesPage(AbstractContentPage):

@@ -199,6 +199,8 @@ class Program(AbstractProgram):
     'home.ProgramSimplePage',
     'person.ProgramPeoplePage',
     'Subprogram',
+    'Project',
+    'BlogProject',
     'issue.TopicHomepage',
     'home.RedirectPage',
     'report.ReportsHomepage',
@@ -305,7 +307,8 @@ class Subprogram(AbstractProgram):
 
     TEMPLATE_OPTIONS =  (
         ('programs/program.html', 'Full'),
-        ('simple_program.html', 'Simple'),
+        ('simple_program.html', 'Efficiency'),
+        ('programs/program.html', 'Collection')
     )
 
     template = models.CharField(choices=TEMPLATE_OPTIONS, default='programs/program.html', max_length=100)
@@ -363,6 +366,49 @@ class Subprogram(AbstractProgram):
             )
             if created:
                 relationship.save()
+
+class BlogSeries(Page):
+    parent_page_types = ['BlogProject']
+    subpage_types = [
+    'article.Article',
+    'book.Book',
+    'blog.BlogPost',
+    'podcast.Podcast',
+    'quoted.Quoted',
+    ]
+
+class Project(Subprogram):
+    redirect_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Select a report or other post that you would like to show up as a project in your Initiatives & Projects list'
+    )
+
+    content_panels = [
+        PageChooserPanel('redirect_page')
+    ] + Subprogram.content_panels
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(Subprogram.featured_panels, heading='Featured'),
+        ObjectList(Subprogram.promote_panels, heading='Promote'),
+        ObjectList(Subprogram.settings_panels, heading='Settings', classname='settings'),
+    ])
+
+class BlogProject(Subprogram):
+    subpage_types = [
+    'article.Article',
+    'book.Book',
+    'blog.BlogPost',
+    'podcast.Podcast',
+    'quoted.Quoted',
+    'BlogSeries'
+    ]
+    class Meta:
+        verbose_name = 'Blog'
 
 class AbstractContentPage(Page):
     """

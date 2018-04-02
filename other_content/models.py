@@ -67,7 +67,7 @@ class AllOtherPostsHomePage(AbstractHomeContentPage):
         return OtherPost
 
     class Meta:
-        verbose_name = "Homepage for all Other Posts"
+        verbose_name = "Other Posts Homepage"
 
 class ProgramOtherPostsPage(AbstractContentPage):
     """
