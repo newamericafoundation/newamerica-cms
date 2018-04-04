@@ -24,7 +24,7 @@ class InfinitePersonsList extends Component {
         onNextPage={this.nextPage}
 				response={this.props.response}
         infiniteOnMount={true}
-        bottomOffset={-document.documentElement.clientHeight*0.75}>
+        bottomOffset={-document.documentElement.clientHeight*0.5}>
         <PersonsList response={this.props.response} />
       </InfiniteLoadMore>
     );
