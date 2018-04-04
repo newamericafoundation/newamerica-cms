@@ -20,11 +20,14 @@ if(document.readyState != 'loading') init();
 else document.addEventListener('DOMContentLoaded', init);
 
 function init(){
-  addEventListeners();
-  addObservers();
   composer.init();
   actions.triggerScrollEvents();
-  if(window.user_is_authenticated) cache.clearAll();
+  addEventListeners();
+  addObservers();
+  if(window.user_is_authenticated){
+    cache.clearAll();
+    console.log('cache cleared');
+  }
 }
 
 const newamericadotorg = {

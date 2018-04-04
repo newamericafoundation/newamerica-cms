@@ -1,7 +1,9 @@
 .promo__people-carousel__person{
   white-space: nowrap;
   text-align: center;
-  width: 80%;
+  @include media-breakpoint(desktop){
+    width: 80%;
+  }
 
   &__image, &__text{
     white-space: normal;

@@ -2,19 +2,33 @@
   .promo__heading{
     width: 170px;
     background: color(black);
+    @include media-breakpoint(desktop){
+      width: 170px;
+    }
     label {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      @include transform(translate(-50%, -50%) rotate(-90deg));
+      text-align: center;
+      padding-top: 25px;
+      padding-bottom: 25px;
+      @include media-breakpoint(desktop){
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include transform(translate(-50%, -50%) rotate(-90deg));
+      }
     }
   }
   .card__text{
-    padding-left: 80px;
-    padding-right: 80px;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    width: calc(100% - 170px);
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    @include media-breakpoint(desktop){
+      padding-left: 80px;
+      padding-right: 80px;
+      padding-top: 80px;
+      padding-bottom: 80px;
+      width: calc(100% - 170px);
+    }
   }
 
   .promo__subscribe{

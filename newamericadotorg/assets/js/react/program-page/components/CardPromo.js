@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Slider } from '../../components/Carousel';
 import { Link } from 'react-router-dom';
+import { Arrow } from '../../components/Icons';
 
 export class Promo extends Component {
 
@@ -9,10 +10,11 @@ export class Promo extends Component {
 
     return (
       <div className="card promo row gutter-0">
-        <div className="promo__heading col-2">
-          <label className="block button--text white margin-top-0">{title}</label>
+        <div className="promo__heading col-12 col-lg-2">
+          <label className="block button--text white margin-0">{title}</label>
         </div>
-        <div className="card__text col-10">
+
+        <div className="card__text col-12 col-lg-10">
           {this.props.children}
         </div>
       </div>
@@ -67,8 +69,8 @@ export class PeopleCarousel extends Component {
             speed={500}
             slidesToShow={1}
             slidesToScroll={1}
-            prevArrow={<div className="slider-arrow--left"><i className="fa fa-long-arrow-left"/></div>}
-            nextArrow={<div className="slider-arrow--right"><i className="fa fa-long-arrow-right"/></div>}>
+            prevArrow={<div className="slider-arrow--left"><Arrow direction="left"/></div>}
+            nextArrow={<div className="slider-arrow--right"><Arrow direction="right"/></div>}>
             {persons}
           </Slider>
         </div>

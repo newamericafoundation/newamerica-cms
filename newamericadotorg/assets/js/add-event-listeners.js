@@ -93,6 +93,16 @@ let listeners = [
         el: null
       });
     });
+  },
+
+  function loadFadeInImage(){
+    let images = document.querySelectorAll('.fade-in-image');
+    if(!images) return;
+    for(let i=0; i<images.length; i++){
+      images[i].addEventListener('load', function(){
+        this.classList.add('loaded');
+      });
+    }
   }
 ];
 
