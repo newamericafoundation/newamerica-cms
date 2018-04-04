@@ -1,7 +1,7 @@
 .global-feedback{
   padding: 25px;
   background: color(white);
-  box-shadow: 0px 0px 20px 1px color(black, base, 0.15);
+  @include box-shadow( 0px 0px 20px 1px color(black, base, 0.15) );
   border-radius: 4px;
   overflow: hidden;
   @include transition(all 0.3s cubic-bezier(.33,0,.2,1));
@@ -21,7 +21,7 @@
   &__type {
     padding-top: 10px;
     padding-bottom: 10px;
-    box-shadow: 0px 1px 0px 0px color(black, base, 0.1), 0px -1px 0px 0px color(black, base, 0.1);
+    @include box-shadow( 0px 1px 0px 0px color(black, base, 0.1), 0px -1px 0px 0px color(black, base, 0.1) );
     a {
       cursor: pointer;
       padding-right: 25px;

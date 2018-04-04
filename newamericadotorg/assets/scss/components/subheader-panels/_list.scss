@@ -3,13 +3,13 @@
   left: 0;
   right: 0;
   top: $subheader-height;
-  box-shadow: 0px 0px 3px 0px color(black, base, 0.15);
+  @include box-shadow( 0px 0px 3px 0px color(black, base, 0.15) );
 
   @include media-breakpoint(desktop){
     max-width: 70%;
     position: relative;
     top: 0;
-    box-shadow: none;
+    @include box-shadow( none );
     display: inline-block;
   }
   &:before, &:after{
@@ -77,7 +77,7 @@
   a{
     &:hover, &.active{
       background-color: color(gray, ultra-light);
-      box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+      @include box-shadow( 0px 0px 0px 1px rgba(0, 0, 0, 0.1) );
     }
     padding: 15px 10px !important;
     display: block;

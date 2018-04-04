@@ -19,7 +19,7 @@
     padding: 0 22.5px;
 
     &.active{
-      box-shadow: inset 4px 0 0 0 color(turquoise);
+      @include box-shadow( inset 4px 0 0 0 color(turquoise) );
     }
 
     a {

@@ -99,6 +99,11 @@ let listeners = [
     let images = document.querySelectorAll('.fade-in-image');
     if(!images) return;
     for(let i=0; i<images.length; i++){
+      let img = images[i];
+      if(img.complete || img.readyState === 4){
+        img.classList.add('loaded');
+        continue;
+      }
       images[i].addEventListener('load', function(){
         this.classList.add('loaded');
       });

@@ -18,8 +18,9 @@
   .card__image{
     position: relative;
     height: 375px;
-    @include media-breakpoint(tablet){
-      height: 100%;
+
+    @include media-breakpoint(large-desktop){
+      height: 430px;
     }
   }
 

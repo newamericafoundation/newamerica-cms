@@ -3,7 +3,7 @@ select, input, textarea {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	border: 0px;
-	box-shadow: none !important;
+	@include box-shadow( none !important );
 }
 
 select {

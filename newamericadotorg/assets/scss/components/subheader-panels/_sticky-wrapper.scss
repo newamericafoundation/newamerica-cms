@@ -9,7 +9,7 @@
   border-bottom: $border;
   background: color(white);
   width: 100%;
-  box-shadow: 0px 0px 3px 0px color(black, base, 0.15);
+  @include box-shadow( 0px 0px 3px 0px color(black, base, 0.15) );
   z-index: 0;
   display: none;
 

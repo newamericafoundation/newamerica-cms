@@ -37,7 +37,7 @@
   padding-left: 25px;
   padding-right: 25px;
   position: relative;
-  box-shadow: inset 0px 1px 0px 0px color(black, base, 0.1) !important;
+  @include box-shadow( inset 0px 1px 0px 0px color(black, base, 0.1) !important );
 
   &:last-child{
     box-shadow: inset 0px 1px 0px 0px color(black, base, 0.1),

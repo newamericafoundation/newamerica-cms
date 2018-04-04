@@ -32,7 +32,7 @@ body.is-loading {
   background-color: #ABEAD5;
   background-color: color(turquoise);
   background: linear-gradient(to right, transparent, color(turquoise) 100%);
-  //box-shadow: 0px 0px 2px 1px #ABEAD5;
+  //@include box-shadow( 0px 0px 2px 1px #ABEAD5 );
   @include animation(header-loading-slide 2s infinite linear);
 }
 .header__loading div:nth-child(2) {

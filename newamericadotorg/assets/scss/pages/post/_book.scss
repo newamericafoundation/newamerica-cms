@@ -5,6 +5,6 @@
     display: block;
     width: 200px;
     height: auto;
-    box-shadow: 0px 2px 4px 1px color(black, base, 0.25);
+    @include box-shadow( 0px 2px 4px 1px color(black, base, 0.25) );
   }
 }

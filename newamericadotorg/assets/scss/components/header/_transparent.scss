@@ -19,7 +19,7 @@
   .search-icon{
     .glass{
 
-      box-shadow: 0px 0px 0px 2px color(white);
+      @include box-shadow( 0px 0px 0px 2px color(white) );
     }
     .handle{
       background: color(white);
@@ -31,7 +31,7 @@
 .header__wrapper.transparent{
   position: relative !important;
   .container--wide{
-    box-shadow: none !important;
+    @include box-shadow( none !important );
   }
 
   a:after{

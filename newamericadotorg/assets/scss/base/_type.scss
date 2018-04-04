@@ -183,11 +183,11 @@ a {
   &.white {
     color: color(white);
     &.underlined {
-      box-shadow: 0px 1.5px 0px color(white);
+      @include box-shadow( 0px 1.5px 0px color(white) );
     }
 
     &:hover.underlined--on-hover{
-      box-shadow: 0px 1.5px 0px color(white);
+      @include box-shadow( 0px 1.5px 0px color(white) );
     }
   }
 }
