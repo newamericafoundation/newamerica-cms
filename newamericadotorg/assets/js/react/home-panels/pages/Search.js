@@ -27,7 +27,7 @@ export default class Search extends Component {
   }
   render(){
     let params = new URLSearchParams(location.search.replace('?', ''));
-
+    let query = params.get('query');
     return (
       <div className="home__panels__search container">
         <div className="input margin-bottom-35">
@@ -41,8 +41,7 @@ export default class Search extends Component {
             eager={true}
             initialQuery={{
               page_size: 8,
-              type: params.get('type'),
-              query: params.get('query')
+              query
             }}/>}
       </div>
     );
