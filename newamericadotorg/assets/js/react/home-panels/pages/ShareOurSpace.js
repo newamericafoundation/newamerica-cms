@@ -9,7 +9,7 @@ export default class ShareOurSpace extends Component {
     return (
       <div className="home__panels__content">
         <ImageAside data={data.partnerships} />
-        <Reel data={data.amenities} setHTML={true} interval={7000}/>
+        <Reel data={data.amenities} setHTML={true} interval={7000} panelName="share-our-space"/>
         <ImageAside data={data.host} />
       </div>
     );

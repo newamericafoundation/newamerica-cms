@@ -112,12 +112,12 @@ export class Reel extends Panel {
   }
 
   render(){
-    let { data,  } = this.props;
+    let { data, panelName='' } = this.props;
     let { index, pause, len} = this.state;
     return (
-      <section className="home__panel__promo scroll-target" data-scroll-trigger-point="bottom" data-scroll-offset="35vh">
+      <section className={`home__panel__promo scroll-target`} data-scroll-trigger-point="bottom" data-scroll-offset="35vh">
         <div className="container--1080">
-          <div className={`row gutter-20 home__reel`}>
+          <div className={`row gutter-20 home__reel ${panelName}`}>
             <div className="col-md-6">
               <div className="home__panel__promo__text">
                 <h1 className="promo margin-top-0 margin-bottom-15">{data.heading[0]}</h1>

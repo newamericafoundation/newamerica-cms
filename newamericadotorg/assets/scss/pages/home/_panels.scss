@@ -67,6 +67,10 @@
     height: 90px;
   }
 
+  &.share-our-space > *:nth-child(2){
+    height: 270px;
+  }
+
   @include media-breakpoint(tablet){
     height: 475px;
     overflow: hidden;
