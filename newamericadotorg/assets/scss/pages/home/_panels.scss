@@ -62,7 +62,9 @@
 }
 
 .home__reel {
-
+  > * {
+    height: 475px;
+  }
   @include media-breakpoint(tablet){
     height: 475px;
     overflow: hidden;
