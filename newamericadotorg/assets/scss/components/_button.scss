@@ -23,6 +23,43 @@ button {
 	padding-right: 25px;
 }
 
+.button.with-caret--left:before {
+	content: ' ';
+	position: relative;
+	top: type-adjusted-padding(1px);
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 15px;
+	width: 5px;
+	height: 5px;
+	border-right: 1px solid color(black);
+	border-bottom: 1px solid color(black);
+	@include transform(rotate(135deg));
+	left: -5px;
+}
+
+.button.with-caret--right:after {
+	content: ' ';
+	position: relative;
+	top: type-adjusted-padding(1px);
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 15px;
+	width: 5px;
+	height: 5px;
+	border-right: 1px solid color(black);
+	border-bottom: 1px solid color(black);
+	@include transform(rotate(-45deg));
+	right: -15px;
+}
+
+.button:hover{
+	&:after, &:before{
+		border-right: 1px solid color(white);
+		border-bottom: 1px solid color(white);
+	}
+}
+
 .tag{
 	padding-top: 10px;
 	padding-bottom: 10px;
