@@ -71,6 +71,7 @@ class Menus extends Component {
                 <form action="/search/?query=value" method="get">
                   <Search />
                   <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
+                  <button type="submit" className="button--text with-caret--right">Go</button>
                 </form>
               </div>
             </div>
