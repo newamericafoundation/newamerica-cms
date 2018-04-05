@@ -32,6 +32,9 @@ body:not(.homepage):not(.programpage) .footer.mobile{
   }
   .footer-mobile__content-list {
     text-align: center;
+    padding: 0;
+    max-width: 450px;
+    margin: 0 auto;
     li{
       display: inline-block;
       label{
