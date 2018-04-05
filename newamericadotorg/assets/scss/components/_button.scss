@@ -7,10 +7,6 @@ button {
 
 .button, .tag{
 	text-align: center;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	padding-left: 25px;
-	padding-right: 25px;
 	white-space: nowrap;
 	display: inline-block;
 	border-radius: 2px;
@@ -18,6 +14,26 @@ button {
 	background: transparent;
 	@include transition(all $transition-function);
 	cursor: pointer;
+}
+
+.button {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.tag{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	@include media-breakpoint(desktop){
+		padding-top: 15px;
+		padding-bottom: 15px;
+		padding-left: 25px;
+		padding-right: 25px;
+	}
 }
 
 .tag {
