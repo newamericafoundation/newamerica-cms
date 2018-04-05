@@ -40,7 +40,7 @@ $bar-spacing: 6px;
 }
 
 
-#mobile-menu__wrapper.open {
+#mobile-menu__wrapper.open .mobile-menu-icon{
 
   span:first-child{
     background: color(black, base, 0);

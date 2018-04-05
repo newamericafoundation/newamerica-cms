@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Response } from '../../components/API';
 import { connect } from 'react-redux';
+import { Search } from '../../components/Icons';
 
 const ProgramsTab = ({ response: { results }}) => {
   return(
@@ -66,6 +67,12 @@ class Menus extends Component {
               <label className="block">
                 <a href="/events/">Events</a>
               </label>
+              <div class="input">
+                <form action="/search/?query=value" method="get">
+                  <Search />
+                  <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
+                </form>
+              </div>
             </div>
           </div>
           <div className="mobile-menu__secondary-tab">

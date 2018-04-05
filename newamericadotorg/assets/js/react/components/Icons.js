@@ -29,3 +29,10 @@ export const LoadingDots = ({ color='black' }) => (
     <span>.</span><span>.</span><span>.</span>
   </label>
 );
+
+export const Search = () => (
+  <div className="search-icon">
+    <span className="glass"></span>
+    <span className="handle"></span>
+  </div>
+);
