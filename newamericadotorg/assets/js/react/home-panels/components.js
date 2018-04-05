@@ -157,7 +157,7 @@ export class Body extends Panel {
               ))}
             </article>
             {data.resource_kit &&
-            <div className="col-md-4 push-md-1 home__panel__body__aside">
+            <div className="col-md-4 push-md-1 margin-top-35 margin-top-md-0 home__panel__body__aside">
               <div className="aside">
                 <label className="block bold margin-top-0">{data.resource_kit[0].title}</label>
                 <label className="block margin-bottom-25">{data.resource_kit[0].description}</label>
