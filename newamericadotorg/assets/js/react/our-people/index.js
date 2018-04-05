@@ -86,7 +86,7 @@ class OurPeople extends Component {
     let title = this.getTitle();
     return (
       <DocumentMeta title={`Our People${title ? ': ' + title : ''}`}>
-        <section className="home__panel__promo home__panel__our-people">
+        <section className="beige home__panel__our-people">
           <div className="container">
             <Nav />
             <Fetch name={NAME}

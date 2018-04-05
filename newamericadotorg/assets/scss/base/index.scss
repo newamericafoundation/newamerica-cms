@@ -81,6 +81,12 @@ hr {
 	border-bottom: 1px solid color(black, base, 0.3);
 }
 
+section {
+  &.beige {
+    background-color: color(beige);
+  }
+}
+
 @import 'fonts';
 @import 'type';
 @import 'containers';
