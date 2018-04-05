@@ -45,6 +45,7 @@
   &:hover{
     img {
       -webkit-filter: grayscale(0%);
+      filter: none;
       filter: grayscale(0%);
     }
   }
