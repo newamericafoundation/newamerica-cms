@@ -2,13 +2,11 @@ import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export const NavItem = ({ url, label, exact=false }) => (
-  <li>
-    <label className="button--text link">
-      <NavLink exact className={`button--text program__nav__link`} to={url}>
-        {label}
-      </NavLink>
-    </label>
-  </li>
+  <label className="button--text link">
+    <NavLink exact className={`button--text program__nav__link`} to={url}>
+      {label}
+    </NavLink>
+  </label>
 );
 
 

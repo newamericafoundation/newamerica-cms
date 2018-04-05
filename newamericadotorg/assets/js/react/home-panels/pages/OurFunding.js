@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ImageAside, Reel, Body, NavItem } from '../components';
 import { Route, NavLink } from 'react-router-dom';
+import { Slider } from '../../components/Carousel';
 
 class FunderList extends Component {
   parseFunderList = (html, cols=3) => {
@@ -102,12 +103,23 @@ class Nav extends Component {
 
   render(){
     return (
-      <div className={`container--1080 our-funding__nav margin-top-15`}>
+      <div className={`container--1080 our-funding__nav program__nav margin-top-15`}>
         <ul className="inline">
-          <NavItem url={`/our-funding/`} exact={true} label="Gift Guidelines"/>
-          <NavItem url={`/our-funding/our-funders/`} label="Funders"/>
-          <NavItem url={`/our-funding/circles-and-councils/`} label="Circles and Councils"/>
-          <NavItem url={`/our-funding/donate/`} label="Donate"/>
+          <Slider
+              variableWidth={true}
+              infinite={false}
+              slide={'li'}
+              prevArrow={<div></div>}
+              nextArrow={<div></div>}
+              responsive={[
+                { breakpoint: 625, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+                { breakpoint: 1000000, settings: 'unslick' }
+              ]}>
+                <li><NavItem url={`/our-funding/`} exact={true} label="Gift Guidelines"/></li>
+                <li><NavItem url={`/our-funding/our-funders/`} label="Funders"/></li>
+                <li><NavItem url={`/our-funding/circles-and-councils/`} label="Circles and Councils"/></li>
+                <li><NavItem url={`/our-funding/donate/`} label="Donate"/></li>
+              </Slider>
         </ul>
       </div>
     );

@@ -94,8 +94,8 @@ class Nav extends Component {
     return (
       <div className={`container--1080 our-funding__nav margin-top-15`}>
         <ul className="inline">
-          <NavItem url={`/jobs/`} exact={true} label="Jobs"/>
-          <NavItem url={`/fellowships/`} exact={true} label="Fellowships"/>
+          <li><NavItem url={`/jobs/`} exact={true} label="Jobs"/></li>
+          <li><NavItem url={`/fellowships/`} exact={true} label="Fellowships"/></li>
         </ul>
       </div>
     );

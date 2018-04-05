@@ -20,10 +20,10 @@ if(document.readyState != 'loading') init();
 else document.addEventListener('DOMContentLoaded', init);
 
 function init(){
-  composer.init();
-  actions.triggerScrollEvents();
   addEventListeners();
   addObservers();
+  composer.init();
+  actions.triggerScrollEvents();
   if(window.user_is_authenticated){
     cache.clearAll();
     console.log('cache cleared');
