@@ -14,6 +14,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Timezone settings
 TIME_ZONE = 'America/New_York'
 USE_TZ = True
+REDIS_URL = os.getenv('REDIS_URL')
 
 CACHES = {
     'default': {

@@ -20,291 +20,59 @@
   <meta property="og:site_name" content="New America" />
 
   <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-
-  <style>
-    @font-face {
-        font-family: 'Circular';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Bold.otf');
-        font-weight: bold;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Circular';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Book.ttf');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    @font-face {
-      font-family: 'Platform';
-      src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/Platform-Medium.otf');
-      font-weight: bold;
-    }
-
-    @font-face {
-        font-family: 'Lyon';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-Regular.otf');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Lyon';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-Bold.otf');
-        font-weight: bold;
-        font-style: normal;
-    }
-
-
-    @font-face {
-        font-family: 'Lyon';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-RegularItalic.otf');
-        font-weight: normal;
-        font-style: italic;
-    }
-
-    @page {
-      margin: 65pt 100pt;
-      size: letter;
-    }
-
-
-    html{
-      color: #333333;
-    }
-
-    section{
-      page-break-after: always;
-    }
-
-    section:after{
-      content: '';
-      display: block;
-      clear: both;
-    }
-
-    h1, h2, h3, h4{
-      font-family: 'Platform';
-    }
-
-    h1 {
-      font-size: 20pt;
-      line-height: 26pt;
-      letter-spacing: 0.33pt;
-    }
-
-    #cover-page h1{
-      font-size: 46pt;
-      line-height: 52pt;
-      margin: 60pt 0pt;
-      max-width: 425pt;
-      letter-spacing: 0.11pt;
-    }
-
-    #cover-page .logo .wrapper{
-      display: inline-block;
-    }
-
-    #cover-page .logo .wrapper .logo-img-wrapper,
-    #cover-page .logo .wrapper .logo-label-wrapper {
-      display: inline-block;
-      vertical-align: middle;
-      height: 30pt;
-      padding-left: 5pt;
-      padding-right: 5pt;
-      background: #333333;
-
-    }
-
-    #cover-page .logo .wrapper .logo-img-wrapper{
-      width: 20pt;
-      margin-right: 1pt;
-    }
-
-    #cover-page .logo .wrapper .logo-img-wrapper img{
-      width: 100%;
-      height: auto;
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    #cover-page .logo .wrapper .logo-label-wrapper {
-      color: white;
-      width: 100pt;
-      text-align: left;
-    }
-
-    #cover-page .logo .wrapper .logo-label-wrapper label {
-      position: relative;
-      top: 50%;
-      line-height: 1.2em;
-      transform: translateY(-50%);
-      margin: 0;
-      padding: 0;
-    }
-
-    label {
-      font-size: 10pt;
-      line-height: 16pt;
-      font-family: 'Circular';
-    }
-
-    label.with-separator:after{
-      content: '|';
-      display: inline;
-      padding-left: 0.5em;
-    }
-
-    label.caption {
-      font-family: 'Lyon';
-      font-style: italic;
-    }
-
-    p, ul, li {
-      font-size: 10pt;
-      line-height: 16pt;
-      font-family: 'Lyon';
-    }
-
-    li {
-      margin: 1pt 0;
-    }
-
-    a {
-      text-decoration: none;
-      color: #20E1B6;
-      font-weight: bold;
-    }
-
-    .bold{
-      font-weight: bold;
-    }
-
-    .centered {
-      text-align: center;
-    }
-
-    .bottom-margin{
-      margin-bottom: 20pt;
-    }
-    .bottom-margin-30{
-      margin-bottom: 30pt;
-    }
-
-    .bottom-margin-75{
-      margin-bottom: 75pt;
-    }
-
-    .block {
-      display: block;
-    }
-
-    #cover-page .title{
-      margin: 165pt 0;
-    }
-
-    .report__citation{
-      font-size: 7pt;
-      position: relative;
-      display: inline-block;
-      top: -5pt;
-    }
-
-    .figure {
-      display: block;
-    }
-
-    .figure:not(.left):not(.right){
-      margin: 35pt auto;
-    }
-
-    .figure__title{
-      margin-bottom: 10pt;
-      text-align: left;
-    }
-
-    .figure figcaption {
-      margin-top: 10pt;
-      text-align: left;
-    }
-
-    .figure figcaption label:first-child{
-      margin-top: 0;
-    }
-
-    .figure__image{
-      width: 100%;
-    }
-
-    .figure__image > img {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 0 auto;
-    }
-
-    .figure.left, .figure.right{
-      margin-top: 35pt;
-      margin-bottom: 35pt;
-      width: 200pt;
-    }
-
-    .figure.left .figure__image,
-    .figure.right .figure__image{
-      width: 100% !important;
-      margin-left: 0 !important;
-    }
-
-    .figure.left .figure__image > img,
-    .figure.right .figure__image > img {
-      margin: 0 !important;
-    }
-
-    .figure.left{
-      float: left;
-      margin-right: 35pt;
-      margin-left: -50pt;
-    }
-
-    .figure.right {
-        float: right;
-        margin-left: 35pt;
-        margin-right: -50pt;
-    }
-
-  </style>
+  {% include './pdf_style.html' %}
 </head>
 <body>
   <main>
-    <section id="cover-page">
-      <div class="new-america"><label class="block centered bold">New America Report</label></div>
+    <section id="cover-page" class="break-after">
+      <div class="logo">
+        <div class="logo-img-wrapper">
+          <img src="{% static 'logo-black.svg'%}"/></div>
+        </div>
+      </div>
       <div class="title">
-        <div class="logo centered">
-          <div class="wrapper">
-            <div class="logo-img-wrapper"><img src="{% static 'logo-bug-white.svg'%}"/></div><div class="logo-label-wrapper"><label class="block">{{page.parent_programs.all.0.specific.name}}</label></div>
+        <div class="title-wrapper">
+          <label class="date block">{{page.date}}</label>
+          <h1>{{page.title}}</h1>
+          <p class="subtitle">{{page.subheading}}</p>
+          <div class="authors">
+            {% for a in page.authors.all %}
+              <label class="">{{a.author.first_name}} {{a.author.last_name}}</label>,&nbsp;
+            {% endfor %}
           </div>
         </div>
-        <h1 class="centered">{{page.title}}</h1>
-        <label class="centered block">{{page.subheading}}</label>
       </div>
-      <div class="date"><label class="block centered bold">{{page.date}}</label></div>
+      <div class="cover-page__footer">
+        {% for p in page.parent_programs.all %}
+        <label class="bold">{{p.program.title}}</label>,&nbsp;
+        {% endfor %}
+      </div>
     </section>
-    <section id="contents-authors">
-      <div class="authors bottom-margin-75">
-        <label class="block bold bottom-margin-30">Authors</label>
-        <div class="contents__list">
-          {% for a in page.authors.all %}
-            <div class="contents__list__item bottom-margin">
-              <label class="block">{{a.author.title}}</label>
-              <label class="block caption">{{a.author.position_at_new_america}}</label>
-            </div>
-          {% endfor %}
-        </div>
+    <section id="about-page" class="break-after col">
+      <div class="about-page__section">
+        <label class="block bold">About the Author(s)</label>
+        {% for a in page.authors.all %}
+          <div class="contents__list__item bottom-margin">
+            <div class="about-page__author-bio">{{a.author.short_bio|safe}}</div>
+          </div>
+        {% endfor %}
       </div>
-      <div class="contents">
-        <label class="block bold bottom-margin bottom-margin-30">Contents</label>
+      <div class="about-page__section">
+        <label class="block bold">Acknowledgements</label>
+
+      </div>
+      <div class="about-page__section">
+        <label class="block bold">About New America</label>
+
+      </div>
+      <div class="about-page__section">
+        <label class="block bold">About {{page.parent_programs.all.0.program.title}}</label>
+
+      </div>
+    </section>
+    <section id="contents-page" class="break-after">
+      <div class="contents-wrapper">
+        <label class="block bold bottom-margin">Contents</label>
         <div class="contents__list">
           {% for s in page.sections %}
             <div class="contents__list__item bottom-margin">
@@ -316,14 +84,16 @@
     </section>
     {% for s in page.sections %}
       <section class="section">
-        <h1>{{forloop.counter}}. {{s.value.title}}</h1>
-        {% for block in s.value.body %}
-          {% if block.block_type == 'paragraph' %}
-            {{ block.value|cited_html|safe }}
-          {% elif block.block_type == 'inline_image' %}
-            {% include_block block %}
-          {% endif %}
-        {% endfor %}
+        <div class="section-content">
+          <h2 class="heading-{{forloop.counter}}">{{forloop.counter}}. {{s.value.title}}</h2>
+          {% for block in s.value.body %}
+            {% if block.block_type == 'paragraph' %}
+              {{ block.value|cited_html|safe }}
+            {% elif block.block_type == 'inline_image' %}
+              {% include_block block %}
+            {% endif %}
+          {% endfor %}
+        </div>
       </section>
     {% endfor %}
   </main>

@@ -18,7 +18,8 @@
     "build:production": "NODE_ENV=production rollup -c",
     "heroku-postbuild": "npm run build:production",
     "brew": "brew install cairo && brew install pango && brew install gdk-pixbuf && brew install redis",
-    "redis": "redis-server --daemonize yes",
+    "redis-dev": "redis-server --daemonize yes",
+    "celery-dev": "celery -A newamericadotorg worker --loglevel=info --broker=redis://127.0.0.1:6379/0",
     "get-static": "aws s3 sync s3://na-preview-static/static/ newamericadotorg/static --exclude 'wagtail*' --exclude 'rest_framework/*' --exclude 'admin/*' --exclude 'table_block/*'"
   },
   "repository": {

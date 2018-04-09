@@ -69,8 +69,9 @@ class Report extends Component {
   }
 
   render(){
-    let { location, match, report } = this.props;
+    let { location, match, report, redirect } = this.props;
     let section = this.getSection();
+    if(!section) return (<Redirect to={`${report.url}${report.sections[0].slug}`} />)
     return (
       <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
         <div className='report'>

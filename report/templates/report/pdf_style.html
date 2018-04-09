@@ -1,0 +1,318 @@
+  <style>
+    @font-face {
+        font-family: 'Circular';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Black.otf');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Circular';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Book.ttf');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Platform';
+      src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/Platform-Medium.otf');
+      font-weight: bold;
+    }
+
+    @font-face {
+        font-family: 'Lyon';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-Regular.otf');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Lyon';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-Bold.otf');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+
+    @font-face {
+        font-family: 'Lyon';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-RegularItalic.otf');
+        font-weight: normal;
+        font-style: italic;
+    }
+
+    @page {
+      margin: 60pt;
+      size: letter;
+    }
+
+
+    html{
+      color: #333333;
+    }
+
+    main {
+      margin: 0 auto;
+      width: 492pt;
+    }
+
+    .break-after{
+      page-break-after: always;
+    }
+
+    section:after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .section-content{
+      width: calc(66.6666% + 24pt);
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4, h5, h6{
+      font-family: 'Platform';
+    }
+
+    h1 {
+      font-size: 46pt;
+      line-height: 46pt;
+      letter-spacing: 0pt;
+    }
+
+    h2 {
+      font-size: 16pt;
+      line-height: 19.2pt;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+    }
+
+    h2:not(.heading-1){
+      margin-top: 40pt;
+    }
+
+    .row {
+      margin-left: -12pt;
+      margin-right: -12pt;
+    }
+
+    .row > * {
+      padding-left: 12pt;
+      padding-right: 12pt;
+    }
+
+    .col-6{
+      max-width: 50%;
+    }
+
+    .col {
+      column-count: 2;
+      column-gap: 12pt;
+    }
+
+    #cover-page{
+      position: relative;
+      height: 672pt;
+    }
+
+    #cover-page .logo .logo-img-wrapper{
+      width: 72pt;
+    }
+
+    #cover-page .logo .wrapper .logo-img-wrapper img{
+      width: 100%;
+      height: auto;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .title{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+
+    .title-wrapper{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .title h1{
+      margin-top: 25pt;
+      margin-bottom: 25pt;
+    }
+
+    .authors {
+      margin-top: 35pt;
+    }
+
+    .cover-page__footer{
+      position: absolute;
+      bottom: 0;
+      padding-right: 12pt;
+      max-width: 66.6666%;
+    }
+
+    #about-page{
+      height: 672pt;
+      column-fill: auto;
+    }
+
+    .about-page__author-bio * {
+      font-family: 'Circular' !important;
+      font-size: 10pt !important;
+      line-height: 14pt !important;
+    }
+
+    #contents-page{
+      height: 672pt;
+      position: relative;
+    }
+
+    #contents-page .contents-wrapper{
+      width: 66.6666%;
+      padding-left: 12pt;
+      padding-right: 12pt;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    label {
+      font-size: 10pt;
+      line-height: 14pt;
+      font-family: 'Circular';
+    }
+
+    label.with-separator:after{
+      content: '|';
+      display: inline;
+      padding-left: 0.5em;
+    }
+
+    label.caption {
+      font-family: 'Lyon';
+      font-style: italic;
+    }
+
+    p, ul, li {
+      font-size: 10pt;
+      line-height: 14pt;
+      font-family: 'Lyon';
+    }
+
+    p.subtitle{
+      font-family: 'Lyon';
+      font-size: 24pt;
+      line-height: 24pt;
+    }
+
+    li {
+      margin: 1pt 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #20E1B6;
+      font-weight: bold;
+    }
+
+    .bold{
+      font-weight: bold;
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .bottom-margin{
+      margin-bottom: 20pt;
+    }
+    .bottom-margin-30{
+      margin-bottom: 30pt;
+    }
+
+    .bottom-margin-75{
+      margin-bottom: 75pt;
+    }
+
+    .block {
+      display: block;
+    }
+
+    .report__citation{
+      font-size: 7pt;
+      position: relative;
+      display: inline-block;
+      top: -5pt;
+    }
+
+    .figure {
+      display: block;
+    }
+
+    .figure:not(.left):not(.right){
+      margin: 35pt auto;
+    }
+
+    .figure__title{
+      margin-bottom: 10pt;
+      text-align: left;
+    }
+
+    .figure figcaption {
+      margin-top: 10pt;
+      text-align: left;
+    }
+
+    .figure figcaption label:first-child{
+      margin-top: 0;
+    }
+
+    .figure__image{
+      width: 100%;
+    }
+
+    .figure__image > img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .figure.left, .figure.right{
+      margin-top: 35pt;
+      margin-bottom: 35pt;
+      width: 200pt;
+    }
+
+    .figure.left .figure__image,
+    .figure.right .figure__image{
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
+
+    .figure.left .figure__image > img,
+    .figure.right .figure__image > img {
+      margin: 0 !important;
+    }
+
+    .figure.left{
+      float: left;
+      margin-right: 35pt;
+      margin-left: -50pt;
+    }
+
+    .figure.right {
+        float: right;
+        margin-left: 35pt;
+        margin-right: -50pt;
+    }
+
+  </style>

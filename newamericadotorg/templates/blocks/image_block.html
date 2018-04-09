@@ -28,7 +28,7 @@
         <img src="{{img.url}}"/>
       </a>
     {% else %}
-      <img src="{{img.url}}"/>
+      <img src="{% if img.url|make_list|first == '/' %}{{page.get_site.root_url}}:8000{% endif %}{{img.url}}"/>
     {% endif %}
   </div>
   {% if value.image.caption or value.image.source %}

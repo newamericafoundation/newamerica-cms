@@ -19,15 +19,10 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from wagtail.wagtailsearch import index
-from weasyprint import HTML
-from django.template import loader
-import tempfile
-from django.core.files.base import ContentFile, File
-from django.core.files.uploadedfile import UploadedFile
-from wagtail.wagtaildocs.models import get_document_model
-from time import gmtime, strftime
 
 from home.models import AbstractHomeContentPage
+
+from report.tasks import generate_pdf
 
 class Report(Post):
     """
@@ -121,23 +116,12 @@ class Report(Post):
             self.save_revision()
             self.revising = False
 
-        if not self.revising and not self.has_unpublished_changes and self.generate_pdf_on_publish:
-            self.revising = True
-            html = loader.get_template('report/pdf.html').render({ 'page': self })
-            pdf = HTML(string=html).write_pdf()
-            with tempfile.NamedTemporaryFile(delete=True) as output:
-                output.write(pdf)
-                output.flush()
-                pdf = open(output.name, 'r')
-                Document = get_document_model()
-                doc = Document(title=self.title)
-                last_edited = ' %s.pdf' % strftime('%Y-%m-%d %H:%M:%S', gmtime())
-                doc.file.save(self.title + last_edited, pdf)
-                self.report_pdf = doc
-                self.save_revision()
-                self.revising = False
-
         super(Report, self).save(*args, **kwargs)
+
+        if not self.revising and not self.has_unpublished_changes and self.generate_pdf_on_publish:
+            generate_pdf.apply_async(args=(self.id,))
+
+
 
     class Meta:
         verbose_name = 'Report'
