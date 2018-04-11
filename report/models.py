@@ -4,7 +4,7 @@ from django.dispatch import receiver
 
 from home.models import Post
 from programs.models import AbstractContentPage
-from newamericadotorg.blocks import PanelBlock
+from newamericadotorg.blocks import ReportSectionBlock
 from .utils.docx_save import generate_docx_streamfields
 from .blocks import EndnoteBlock
 
@@ -33,8 +33,10 @@ class Report(Post):
     subpage_types = []
 
     sections = StreamField([
-        ('section', PanelBlock(template="components/report_section_body.html")),
+        ('section', ReportSectionBlock(template="components/report_section_body.html"))
     ])
+
+    acknowledgements = models.TextField(blank=True, null=True)
 
     source_word_doc = models.ForeignKey(
         'wagtaildocs.Document',
@@ -78,7 +80,9 @@ class Report(Post):
         related_name='+',
     )
 
-    content_panels = Post.content_panels
+    content_panels = Post.content_panels + [
+        FieldPanel('acknowledgements'),
+    ]
 
     sections_panels = [
         MultiFieldPanel([
@@ -106,7 +110,6 @@ class Report(Post):
     search_fields = Post.search_fields + [index.SearchField('sections')]
 
     def save(self, *args, **kwargs):
-
         if not self.revising and self.source_word_doc is not None and self.overwrite_sections_on_save:
             self.revising = True
             self.overwrite_sections_on_save = False

@@ -383,9 +383,30 @@ class Body(blocks.StreamBlock):
 	google_map = GoogleMapBlock(icon="site")
 	resource_kit = ResourceKit(icon="folder")
 
+class BoxBody(blocks.StreamBlock):
+	paragraph = blocks.RichTextBlock()
+	inline_image = CustomImageBlock(icon='image')
+	video = EmbedBlock(icon='media')
+	iframe = IframeBlock(icon="link")
+	dataviz = DatavizBlock(icon="code")
+
+class BoxBlock(blocks.StructBlock):
+	title = blocks.TextBlock()
+	body = BoxBody()
+
+	class Meta:
+		template = 'blocks/box.html'
+
+class ReportBody(Body):
+	box = BoxBlock()
+
 class PanelBlock(blocks.StructBlock):
 	title = blocks.TextBlock()
 	body = Body()
+
+class ReportSectionBlock(blocks.StructBlock):
+	title = blocks.TextBlock()
+	body = ReportBody()
 
 class PanelsBlock(blocks.StreamBlock):
 	panel = PanelBlock(icon="doc-empty-inverse")

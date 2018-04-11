@@ -5,7 +5,7 @@
       <div class="block-{{ block.block_type }}">
         {{ block.value|cited_html|safe }}
       </div>
-    {% elif block.block_type == 'inline_image' %}
+    {% elif block.block_type == 'inline_image' or block.block_type == 'box' %}
       {% include_block block %}
     {% else %}
       <div class="block-{{ block.block_type }}">
