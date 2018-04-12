@@ -1,5 +1,6 @@
 from docx import Document
 from docx.text.run import Run
+from docx.table import Table
 import xml.etree.ElementTree as ET
 
 class DocxParse():
@@ -74,6 +75,13 @@ class DocxParse():
                 # and reinstantiate Run in loop
                 for c in p._element.getchildren():
                     elements.append((c,p))
+
+                next = p._element.getnext();
+                if next:
+                    if next.tag == '{%s}tbl' % self._namespaces['w']:
+                        tbl = Table(next, self.doc._body)
+                        elements.append((tbl, p))
+
                 section['elements'] = section['elements'] + elements
 
         for s in sections:
@@ -86,10 +94,20 @@ class DocxParse():
         blocks = []
         block = None
         prev_paragraph = None # track when there is a new w:p in order to reset html
-        r_index = 0 # track run index within a w:p. resets to 0 with new w:p or after a heading or figure
+        r_index = 0 # track run index within a w:p. resets to 0 with new w:p or after a heading, figure, or table
         this_list = None
         prev_list = None
         for child, paragraph in section['elements']:
+            if type(child) == Table:
+                self.__closeblock__(block, prev_list)
+                blocks.append({
+                    'type': 'table',
+                    'data': self.__table2data__(child)
+                })
+                block = None
+                r_index = None
+                this_list = None
+                continue
             # only parsing tags specified in self._tags
             tag = self._tags.get(child.tag, None)
             link = None
@@ -97,7 +115,7 @@ class DocxParse():
             if tag == 'hyperlink':
                 rId = child.get('{%s}id' % self._namespaces['r'])
                 link = self._links.get(rId, None)
-                child = child.getchildren()[0]
+                child = child.find('.//w:r', self._namespaces)
                 if child is None: continue
 
             run = Run(child, paragraph)
@@ -114,6 +132,12 @@ class DocxParse():
                 continue
 
             if paragraph.style.name == 'Heading 2':
+                # sometimes headings are split into multiple runs
+                if len(blocks) > 0:
+                    prev_block = blocks[len(blocks)-1]
+                    if prev_block['type'] == 'heading':
+                        prev_block['text'] += run.text
+                        continue
                 self.__closeblock__(block, prev_list)
                 blocks.append({ 'type': 'heading', 'text': run.text })
                 block = None
@@ -149,7 +173,7 @@ class DocxParse():
             html = self.__run2html__(run, r_index)
             if link:
                 html = '<a href=\"%s\">%s</a>' % (link, html)
-            if block['html'] == '':
+            if block['html'] == '' or block['html'][-8:] == '</table>':
                 html = '<p>' + html
 
             block['html'] += html
@@ -185,6 +209,20 @@ class DocxParse():
             text = '<b>%s</b>' % text
 
         return text
+
+    def __table2data__(self, table):
+        data = []
+        for i,row in enumerate(table.rows):
+            data.append([])
+            r = data[len(data)-1]
+            for cell in row.cells:
+                r.append(cell.text)
+        #print data
+        return {
+            'data': data,
+            'first_row_is_table_header': True
+        }
+
 
     def __getruntext__(self, run, r_index):
         texts = run.element.findall('.//w:t', self._namespaces)

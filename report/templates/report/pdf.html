@@ -104,6 +104,11 @@
               {{ block.value|cited_html|safe }}
             {% elif block.block_type == 'inline_image' or block.block_type == 'box' %}
               {% include_block block %}
+            {% elif block.block_type == 'table' %}
+              <div class="block-table">
+                <label class="bold">Table {% counter %}</label>
+                {% include_block block %}
+              </div>
             {% endif %}
           {% endfor %}
         </div>

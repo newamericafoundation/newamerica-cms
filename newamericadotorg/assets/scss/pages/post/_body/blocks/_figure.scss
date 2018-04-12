@@ -2,6 +2,10 @@
   @include transition(opacity 0.35s ease);
 }
 
+.figure img.original{
+  max-height: none !important;
+}
+
 .figure figcaption{
   text-align: left;
 }

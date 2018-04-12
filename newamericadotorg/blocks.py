@@ -35,13 +35,14 @@ class CustomImageBlock(blocks.StructBlock):
 		('center', 'Centered'),
 		('left', 'Left'),
 		('right', 'Right')
-	], default='centered', required=True)
+	], default='center', required=True)
 	width = blocks.ChoiceBlock([
 		('initial', 'Auto'),
 		('width-133', 'Medium'),
 		('width-166', 'Large'),
 		('width-200', 'X-Large')
 	], default="initial", required=True)
+	use_original = blocks.BooleanBlock(required=False, help_text="check if you do not want image compressed. Should be checked for all figures.")
 	figure_number = blocks.CharBlock(required=False, max_length=3)
 	figure_title = blocks.CharBlock(required=False, max_length=100)
 	open_image_on_click = blocks.BooleanBlock(default=False, required=False)
