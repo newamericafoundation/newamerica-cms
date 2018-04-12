@@ -119,10 +119,11 @@ class Report(Post):
             self.save_revision()
             self.revising = False
 
-        super(Report, self).save(*args, **kwargs)
-
         if not self.revising and not self.has_unpublished_changes and self.generate_pdf_on_publish:
+            self.revising = True # generate_pdf resets this to False
             generate_pdf.apply_async(args=(self.id,))
+
+        super(Report, self).save(*args, **kwargs)
 
 
 

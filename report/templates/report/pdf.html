@@ -41,12 +41,12 @@
             <h1 class="promo">{{page.title}}</h1>
             <p class="subtitle">{{page.subheading}}</p>
             <div class="authors">
-              {% for a in page.authors.all %}<label class="">{{a.author.first_name}} {{a.author.last_name}}</label>{% if page.authors.all|length > 1 and forloop.counter < page.authors.all|length %}<span>,&nbsp;</span>{% endif %}{% if forloop.counter == page.authors.all|length|add:"-1" and page.authors.all|length > 1 %}<span>&&nbsp;</span>{% endif %}{% endfor %}
+              {% for a in page.authors.all %}<label class="">{{a.author.first_name}} {{a.author.last_name}}</label>{% if page.authors.all|length > 2 and forloop.counter < page.authors.all|length %}<span>,&nbsp;</span>{% endif %}{% if forloop.counter == page.authors.all|length|add:"-1" and page.authors.all|length > 1 %}<span>&&nbsp;</span>{% endif %}{% endfor %}
             </div>
           </div>
         </div>
         <div class="cover-page__footer">
-          {% for p in page.parent_programs.all %}<label class="bold">{{p.program.title}}</label>{% if page.parent_programs.all|length > 1 and forloop.counter < page.parent_programs.all|length %}<span>,&nbsp;</span>{% endif %}{% if forloop.counter == page.parent_programs.all|length|add:"-1" and page.parent_programs.all|length > 1 %}<span>&&nbsp;</span>{% endif %}{% endfor %}
+          {% for p in page.parent_programs.all %}<label class="bold">{{p.program.title}}</label>{% if page.parent_programs.all|length > 2 and forloop.counter < page.parent_programs.all|length %}<span>,&nbsp;</span>{% endif %}{% if forloop.counter == page.parent_programs.all|length|add:"-1" and page.parent_programs.all|length > 1 %}<span>&&nbsp;</span>{% endif %}{% endfor %}
           <label class="block last-edited">Last edited on {% now "F d, Y \a\t g:i a e" %}
         </div>
       </div>

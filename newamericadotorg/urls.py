@@ -52,7 +52,7 @@ urlpatterns = [
     url(r'^api/subprogram/(?P<pk>[\d]+)/$', cache_page(60 * 1440, key_prefix='subprogram_page')(api_views.SubprogramDetail.as_view()), name='subprogram'),
     url(r'^api/weekly/$', cache_page(60 * 5040, key_prefix='weekly_articles')(api_views.WeeklyList.as_view()), name='weekly_list'),
     url(r'^api/weekly/(?P<pk>[\d]+)/$', cache_page(60 * 5040, key_prefix='weekly_page')(api_views.WeeklyDetail.as_view()), name='weekly'),
-    url(r'^api/report/(?P<pk>[\d]+)/$', cache_page(60 * 1440, key_prefix='report')(api_views.ReportDetail.as_view()), name='report'),
+    url(r'^api/report/(?P<pk>[\d]+)/$', cache_page(1, key_prefix='report')(api_views.ReportDetail.as_view()), name='report'),
     url(r'^api/in-depth/$', api_views.InDepthProjectList.as_view()),
     url(r'^api/in-depth/(?P<pk>[\d]+)/$', api_views.InDepthProjectDetail.as_view()),
     url(r'^api/home/(?P<pk>[\d]+)/$', api_views.HomeDetail.as_view()),

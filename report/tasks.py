@@ -25,9 +25,8 @@ def generate_pdf(report_id):
         last_edited = ' %s.pdf' % strftime('%Y-%m-%d %H:%M:%S', gmtime())
         doc.file.save(report.title + last_edited, pdf)
         report.report_pdf = doc
-        report.revising = True
         report.generate_pdf_on_publish = False
+        report.revising = False
         revision = report.save_revision()
         revision.publish()
-        report.revising = False
         print('Generated PDF for %s' % report.title)
