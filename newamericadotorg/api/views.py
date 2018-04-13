@@ -52,7 +52,6 @@ class PostList(generics.ListAPIView):
     filter_class = PostFilter
 
     def get_queryset(self):
-        expire_page_cache('program', args=[59])
         content_type = self.request.query_params.get('content_type', None)
         other_content_type_title = self.request.query_params.get('other_content_type_title', None)
         ids = self.request.query_params.getlist('id[]', None)
@@ -368,10 +367,11 @@ class FellowshipList(views.APIView):
 
 class SubprogramFilter(FilterSet):
     id = django_filters.CharFilter(name='id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
 
     class Meta:
         model = Subprogram
-        fields = ['id',]
+        fields = ['id', 'program_id']
 
 class SubprogramList(generics.ListAPIView):
     queryset = Subprogram.objects.live().order_by('title')

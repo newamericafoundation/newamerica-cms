@@ -15,7 +15,7 @@ import StoryGrid from './components/StoryGrid';
 import People from './components/People';
 import Subprograms from './components/Subprograms';
 import Subscribe from './components/Subscribe';
-import { TopicsList, Topic } from './components/Topics';
+import { TopicsList, TopicRoutes } from './components/Topics';
 
 class ProgramPage extends Component {
   // only transition images on first load
@@ -24,23 +24,6 @@ class ProgramPage extends Component {
   }
   componentDidMount(){
     setTimeout(()=>{ this.setState({ 'loaded': true }); }, 1500);
-  }
-  topicRoutes = (topics, ancestors=[]) => {
-    if(!topics) return;
-    let { response: { results }} = this.props;
-    let routes = [];
-
-    topics.map((t,i)=>{
-      routes.push(
-        <Route key={`${t.slug}-${i}`} path={t.url} exact render={(props)=>(
-          <Topic {...props} program={results} ancestors={ancestors} topic={t}/>
-        )} />
-      );
-      let subtopics = this.topicRoutes(t.subtopics, [...ancestors, t]);
-      routes = routes.concat(subtopics);
-    });
-
-    return routes;
   }
 
   aboutRoutes = (pages, root) => {
@@ -78,8 +61,18 @@ class ProgramPage extends Component {
             <Route path={`/${root}/projects/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />
             <Route path={`/${root}/(publications${this.contentSlugs()})/`} render={(props)=>(<Publications programType={programType} {...props} program={results} /> )} />
             {results.topics &&
-              <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} /> )} />}
-            {this.topicRoutes(results.topics)}
+            <Route render={(props)=>(
+              <Fetch name={`${NAME}.topics`}
+                component={TopicRoutes}
+                endpoint={'topic'}
+                fetchOnMount={true}
+                program={results}
+                initialQuery={{
+                  program_id: results.id
+                }}/>
+            )}/>}
+            {results.topics &&
+              <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} root={root} /> )} />}
             <Route path={`/${root}/subscribe/`} render={(props)=>(<Subscribe {...props} subscriptions={results.subscriptions} /> )} />
           </div>
         </GARouter>

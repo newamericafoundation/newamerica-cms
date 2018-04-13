@@ -4,6 +4,10 @@ import { Fetch, Response } from '../../components/API';
 import { TypeFilter, SubprogramFilter, DateFilter, TopicFilter, CategoryFilter, FilterGroup } from '../../components/Filters';
 import { PublicationsList, PublicationsWrapper } from '../../components/Publications';
 
+const TopicFilterWrapper = ({ response: { results }, topicId, expanded, location, history }) => (
+  <TopicFilter topics={results} label="Topic" topicId={topicId} expanded={expanded} location={location} history={history} />
+);
+
 // must pass an response object from Fetch of Response component, history and location to FilterGroup
 const Filters = (props) => (
   <FilterGroup
@@ -17,7 +21,13 @@ const Filters = (props) => (
     {(props.program.subprograms && !props.categories) &&
     <SubprogramFilter subprograms={props.program.subprograms} expanded={props.response.params.query.subprogram_id!==undefined} label="Project"/>}
     {props.program.topics &&
-    <TopicFilter topics={props.program.topics} label="Topic" topicId={props.initialQuery.topic_id} expanded={props.response.params.query.topic_id!==undefined}/>}
+      <Response name={`${NAME}.topics`}
+        component={TopicFilterWrapper}
+        program={props.program}
+        history={props.history}
+        location={props.location}
+        topicId={props.initialQuery.topic_id}
+        expanded={props.response.params.query.topic_id!==undefined}/>}
     <DateFilter label="Date" expanded={props.response.params.query.after!==undefined} />
   </FilterGroup>
 );

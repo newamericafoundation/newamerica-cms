@@ -88,7 +88,7 @@ class TopicSerializer(ModelSerializer):
 
     def get_program(self, obj):
         if obj.parent_program:
-            return ProgramSubprogramSerializer(obj.parent_program).data
+            return obj.parent_program.id
 
     class Meta:
         model = IssueOrTopic
@@ -185,8 +185,8 @@ class ProgramDetailSerializer(ModelSerializer):
         model = Program
         fields = (
             'id', 'name', 'title', 'story_grid', 'description', 'url', 'subprograms', 'slug',
-            'content_types', 'features', 'subpages', 'logo', 'topics', 'about', 'about_us_pages',
-            'subscriptions'
+            'content_types', 'features', 'subpages', 'logo', 'about', 'about_us_pages',
+            'subscriptions', 'topics'
         )
 
     def get_story_grid(self, obj):
@@ -221,10 +221,15 @@ class ProgramDetailSerializer(ModelSerializer):
         return subprograms
 
     def get_topics(self, obj):
-        topics = TopicDetailSerializer(obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live(), many=True).data
-        if len(topics)==0:
-            return None
-        return topics
+        topics = obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live().count()
+        if topics > 0:
+            return True
+
+        return False
+        # topics = TopicDetailSerializer(obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live(), many=True).data
+        # if len(topics)==0:
+        #     return None
+        # return topics
 
     def get_content_types(self, obj):
         return get_program_content_types(obj.id)

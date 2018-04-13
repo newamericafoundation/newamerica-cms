@@ -35,7 +35,7 @@ class Upcoming extends Component {
 
 class Filters extends Component {
   render(){
-    let { program, response, history, location } = this.props;
+    let { program, response, history, location, topics } = this.props;
     return (
       <FilterGroup
           history={history}
@@ -44,7 +44,7 @@ class Filters extends Component {
         <DateFilter label="Date" expanded={response.params.query.after!==undefined}/>
         {program.programs && <ProgramFilter programs={program.programs} expanded={response.params.query.program_id!==undefined} label="Program" />}
         {program.subprograms && <SubprogramFilter subprograms={program.subprograms} expanded={response.params.query.subprogram_id!==undefined} label="Project" />}
-        {program.topics && <TopicFilter label="Topic" topics={program.topics} topicId={response.params.query.topic_id} expanded={response.params.query.topic_id!==undefined} />}
+        {topics && <TopicFilter label="Topic" topics={topics} topicId={response.params.query.topic_id} expanded={response.params.query.topic_id!==undefined} />}
       </FilterGroup>
     );
   }

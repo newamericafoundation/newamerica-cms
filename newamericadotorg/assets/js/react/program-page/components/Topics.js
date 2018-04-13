@@ -1,7 +1,7 @@
 import { NAME } from '../constants';
 import { Link, BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Component } from 'react';
-import { Fetch } from  '../../components/API';
+import { Fetch, Response } from  '../../components/API';
 import { PersonsList } from '../../components/People';
 import { PublicationListItem } from '../../components/ContentCards';
 
@@ -66,7 +66,6 @@ export class Topic extends Component {
 
   render(){
     let { ancestors, topic, program } = this.props;
-
     return(
       <div className="program__topic">
         {ancestors.length > 0 && <Breadcrumbs ancestors={ancestors} />}
@@ -98,22 +97,73 @@ export class Topic extends Component {
   }
 }
 
-export class TopicsList extends Component {
+class Topics extends Component {
+
   render(){
-    let { program } = this.props;
+    let { program, response: { results }, root } = this.props;
     return (
-      <div className="program__topics menu-list with-arrow--right margin-top-35">
-        {program.topics.sort((a,b) => a.title > b.title ? 1 : -1).map((topic,i)=>(
-          <h2 key={`topic-${i}`}>
-            <Link to={topic.url}>{topic.title}</Link>
-            <div className="icon-arrow">
-              <div />
-              <div />
-              <div />
+      <div className="program__topics-wrapper">
+          <Route path={`/${root}/topics/`} exact render={()=>(
+            <div className="program__topics menu-list with-arrow--right margin-top-35">
+              {results.sort((a,b) => a.title > b.title ? 1 : -1).map((topic,i)=>(
+                <h2 key={`topic-${i}`}>
+                  <Link to={topic.url}>{topic.title}</Link>
+                  <div className="icon-arrow">
+                    <div />
+                    <div />
+                    <div />
+                  </div>
+                </h2>
+              ))}
             </div>
-          </h2>
-        ))}
+          )}/>
       </div>
+    );
+  }
+}
+
+export class TopicRoutes extends Component {
+  topicRoutes = (topics, ancestors=[]) => {
+    if(!topics) return;
+    let { program } = this.props;
+    let routes = [];
+    topics.map((t,i)=>{
+      routes.push(
+        <Route key={`${t.slug}-${i}`} exact path={t.url} render={(props)=>(
+          <Topic {...props} program={program} ancestors={ancestors} topic={t}/>
+        )} />
+      );
+      let subtopics = this.topicRoutes(t.subtopics, [...ancestors, t]);
+      routes = routes.concat(subtopics);
+    });
+    return routes;
+  }
+
+  render() {
+    let { response: { results }} = this.props;
+    let routes = this.topicRoutes(results);
+    return (
+      <div className="program__topics-wrapper">
+        {routes}
+      </div>
+    );
+  }
+}
+
+export class TopicDetail extends Component {
+  render(){
+    return (
+      <Response name={`${NAME}.topics`} component={TopicRoutes} program={this.props.program} />
+    );
+  }
+}
+
+export class TopicsList extends Component {
+
+  render(){
+    let { program, root } = this.props;
+    return (
+      <Response name={`${NAME}.topics`} component={Topics} program={program} root={root}/>
     );
   }
 }
