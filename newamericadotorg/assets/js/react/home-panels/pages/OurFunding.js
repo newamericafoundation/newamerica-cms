@@ -76,6 +76,28 @@ class FunderList extends Component {
   }
 }
 
+class OurFunderLists extends Component {
+
+  render(){
+    let { data : { donors_and_partners }, heading } = this.props;
+    return (
+      <section className="funders-list post-body container--1080">
+        <div className="row gutter-10">
+          <div className="col-lg-7">
+            <h1 className="margin-top-0">{heading}</h1>
+          </div>
+        </div>
+        {donors_and_partners.heading.map((h,i)=>(
+          <FunderList type="funder" key={`funder-${i}`}
+            heading={h}
+            paragraph={donors_and_partners.paragraph[i]}
+            intro={donors_and_partners.introduction[i].indexOf("NULL")>=0 ? null : donors_and_partners.introduction[i]} />
+        ))}
+      </section>
+    );
+  }
+}
+
 class FunderLists extends Component {
 
   render(){
@@ -116,6 +138,7 @@ class Nav extends Component {
                 { breakpoint: 1000000, settings: 'unslick' }
               ]}>
                 <li><NavItem url={`/our-funding/`} exact={true} label="How We're Funded"/></li>
+                <li><NavItem url={`/our-funding/our-funders/`} exact={true} label="Our Funders"/></li>
                 <li><NavItem url={`/our-funding/corporate-circle/`} label="Corporate Circle"/></li>
                 <li><NavItem url={`/our-funding/new-america-councils/`} label="New America Councils"/></li>
                 <li><NavItem url={`/our-funding/donate/`} label="Donate"/></li>
@@ -234,6 +257,7 @@ export default class OurFunding extends Component {
       <div className="home__panels__content">
         <Nav />
         <Route path="/our-funding/" exact render={(props)=>( <OurFundingMain data={results.data} dataScript={results.data_project_external_script}/> )}/>
+        <Route path="/our-funding/our-funders/" render={(props)=>( <OurFunderLists data={this.findSubpage('our-funders').data} heading={this.findSubpage('our-funders').title}/> )}/>
         <Route path="/our-funding/corporate-circle/" render={(props)=>( <FunderLists data={this.findSubpage('corporate-circle').data} /> )}/>
         <Route path="/our-funding/new-america-councils/" render={(props)=>( <Councils data={this.findSubpage('new-america-councils').data} /> )}/>
         <Route path="/our-funding/donate/" exact render={(props)=>(

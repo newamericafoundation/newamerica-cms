@@ -194,7 +194,7 @@ class AuthorList(generics.ListAPIView):
         elif former == 'true':
             queryset = queryset.filter(former=True)
         else:
-            queryset.exclude(former=True)
+            queryset = queryset.exclude(former=True)
         if has_image == 'true':
             queryset = queryset.filter(profile_image__isnull=False)
 
