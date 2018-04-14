@@ -110,7 +110,7 @@ class ProgramOtherPostsPage(AbstractContentPage):
         return OtherPost
 
     class Meta:
-        verbose_name = "Homepage for Other Posts Program and Subprograms"
+        verbose_name = "Other Posts Homepage"
 
 class OtherPostCategory(Page):
     """
