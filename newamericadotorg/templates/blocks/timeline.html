@@ -2,7 +2,7 @@
 {% load timeline %}
 {% load wagtailimages_tags %}
 {% load static from staticfiles %}
-<div class="timeline {% if self.default_view == 'list' %}list-view{% endif %}" id="tl_{{ self.title|slugify }}">
+<div class="timeline {% if self.default_view == 'list' %}list-view{% endif %} timelineViz" data-timeline-data='{{ settings_json|safe }}'  id="tl_{{ self.title|slugify }}">
 	<div class="timeline__title-block">
 		<div class="timeline__see-all-button"></div>
 		{% if self.title %}
@@ -65,8 +65,3 @@
 </div>
 
 <script src="{% static 'js/timeline.js' %}"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		new window.Timeline({{ settings_json|safe }}, "tl_{{ self.title|slugify }}");
-	});
-</script>
