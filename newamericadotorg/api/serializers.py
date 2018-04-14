@@ -455,11 +455,6 @@ class PostSerializer(ModelSerializer):
     def get_story_image(self, obj):
         rendition = self.context['request'].query_params.get('image_rendition', None)
         if obj.story_image:
-            #temp for prerender
-            generate_image_url(obj.story_image, 'width-800')
-            generate_image_url(obj.story_image, 'width-30')
-            generate_image_url(obj.story_image, 'fill-300x230')
-            ###
             return generate_image_url(obj.story_image, rendition)
 
     def get_programs(self, obj):
@@ -486,11 +481,6 @@ class EventSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         if obj.story_image:
-            #temp for prerender
-            generate_image_url(obj.story_image, 'width-800')
-            generate_image_url(obj.story_image, 'width-30')
-            generate_image_url(obj.story_image, 'fill-300x230')
-            ###
             rendition = self.context['request'].query_params.get('image_rendition', None)
             return generate_image_url(obj.story_image, rendition)
 
