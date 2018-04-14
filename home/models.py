@@ -254,7 +254,7 @@ class AbstractSimplePage(Page):
     """
     body = StreamField(BodyBlock())
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
-
+    custom_interface = models.BooleanField(default=False)
     story_image = models.ForeignKey(
         'home.CustomImage',
         null=True,
@@ -276,6 +276,7 @@ class AbstractSimplePage(Page):
 
     settings_panels = Page.settings_panels + [
         FieldPanel('data_project_external_script'),
+        FieldPanel('custom_interface')
     ]
 
     class Meta:
@@ -329,6 +330,16 @@ class OrgSimplePage(AbstractSimplePage):
         ]),
         StreamFieldPanel('body')
     ]
+
+    def get_context(self, request):
+        context = super(OrgSimplePage, self).get_context(request)
+        print self.custom_interface
+        if self.custom_interface == True:
+            context['template'] = 'home/custom_simple_interface.html'
+        else:
+            context['template'] = 'post_page.html'
+
+        return context
 
     class Meta:
         verbose_name = 'About Page'
