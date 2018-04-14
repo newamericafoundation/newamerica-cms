@@ -638,16 +638,12 @@ class SearchSerializer(ModelSerializer):
             data['story_image'] = generate_image_url(obj.story_image, 'max-300x240')
             data['date'] = obj.date
             data['programs'] = PostProgramSerializer(obj.parent_programs, many=True).data
-        elif isinstance(obj, Post):
+
+        if isinstance(obj, Post):
             data['authors'] = AuthorSerializer(obj.post_author, many=True, context=self.context).data
 
 
-        data['content_type'] = {
-            'name': 'Event',
-            'api_name': 'event',
-            'slug': 'events',
-            'title': 'Events'
-        }
+        data['content_type'] = get_content_type(obj)
         return data
 
     class Meta:
