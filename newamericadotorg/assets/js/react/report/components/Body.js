@@ -77,7 +77,7 @@ class Body extends Component {
     if(prevProps.location != this.props.location){
       this.citationEvents();
       this.closeEndnote();
-      this.loadScript();
+      this.loadScripts();
     }
 
   }
