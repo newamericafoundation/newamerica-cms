@@ -2,6 +2,14 @@ import { Component } from 'react';
 import Image from '../../components/Image';
 
 export default class CardMd extends Component {
+  contentType = () => {
+    let { post } = this.props;
+    if(post.content_type){
+      return post.content_type.name == 'redirect page' ? 'External Website' : post.content_type.name;
+    }
+
+    return '';
+  }
   render(){
     let { post, image_size, loaded } = this.props;
     return (
@@ -19,7 +27,7 @@ export default class CardMd extends Component {
                 <span><u>{post.title}</u></span>
               </label>
               <label className="card__text__program caption margin-bottom-0 block">
-                {post.programs ? post.programs[0].name : ''} {post.content_type ? post.content_type.name : ''}
+                {post.programs ? post.programs[0].name : ''} {this.contentType()}
               </label>
             </div>
           </div>

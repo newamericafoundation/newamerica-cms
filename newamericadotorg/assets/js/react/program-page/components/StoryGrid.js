@@ -38,7 +38,7 @@ export default class StoryGrid extends Component {
   }
   cardMd = (index, size, k=0) =>{
     let { loaded, story_grid } = this.props;
-    return ( <CardMd post={story_grid[index]} key={`${index}-${k}`} image_size={"landscape"} loaded={loaded} /> );
+    return ( <CardMd post={story_grid[index]} key={`${index}-${k}`} image_size={size} loaded={loaded} /> );
   }
   cols = () => {
     let { story_grid, program, loaded } = this.props;

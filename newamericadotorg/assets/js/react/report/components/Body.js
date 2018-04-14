@@ -58,7 +58,7 @@ class Body extends Component {
   componentDidMount(){
     this.citationEvents();
     if(!this.el) return;
-    let scripts = section.body.match(/<script.*?src="(.*?)"/);
+    let scripts = this.props.section.body.match(/<script.*?src="(.*?)"/);
     if(scripts){
       const script = document.createElement("script");
 
