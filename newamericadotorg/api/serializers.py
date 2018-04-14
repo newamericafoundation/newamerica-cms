@@ -5,7 +5,7 @@ from rest_framework.serializers import Serializer, ModelSerializer, SerializerMe
 
 from wagtail.wagtailcore.models import Page, ContentType
 from wagtail.wagtaildocs.models import Document
-from home.models import Post, CustomImage
+from home.models import Post, CustomImage, OrgSimplePage
 from programs.models import Program, Subprogram, Project, BlogProject, AbstractContentPage
 from person.models import Person
 from issue.models import IssueOrTopic
@@ -803,13 +803,20 @@ class ReportDetailSerializer(PostSerializer):
 
 class HomeDetailSerializer(PostSerializer):
     data = SerializerMethodField()
+    subpages = SerializerMethodField()
 
     class Meta:
         model = Report
         fields = (
             'id', 'title', 'subheading', 'slug', 'url', 'story_excerpt',
-            'data'
+            'data', 'subpages', 'data_project_external_script'
         )
+
+    def get_subpages(self, obj):
+
+        subpages = OrgSimplePage.objects.child_of(obj).filter(custom_interface=True)
+
+        return HomeDetailSerializer(subpages, many=True).data
 
     def get_data(self, obj):
         panels = None
