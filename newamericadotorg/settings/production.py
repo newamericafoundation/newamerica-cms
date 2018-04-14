@@ -36,15 +36,14 @@ MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 # static file settings
-STATIC_BUCKET_NAME = os.getenv('STATIC_S3_BUCKET_NAME')
-S3_STATIC_DOMAIN = '%s.s3.amazonaws.com' % STATIC_BUCKET_NAME
 # AWS_S3_OBJECT_PARAMETERS = {
 #     'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
 #     'CacheControl': 'max-age=94608000',
 # }
-
+STATIC_BUCKET_NAME = os.getenv('STATIC_S3_BUCKET_NAME')
 STATICFILES_LOCATION='static'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+S3_STATIC_DOMAIN = '%s.s3.amazonaws.com' % STATIC_BUCKET_NAME
 STATIC_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
 
 COMPRESS_URL = STATIC_URL
