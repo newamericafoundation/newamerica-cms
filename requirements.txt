@@ -3,8 +3,8 @@ awscli==1.10.24
 awsebcli==3.7.6
 beautifulsoup4==4.5.1
 blessed==1.9.5
-boto==2.39.0
-botocore==1.4.13
+boto3==1.7.4
+botocore==1.10.4
 cement==2.8.2
 colorama==0.3.3
 coverage==3.7.1
@@ -78,7 +78,7 @@ requests==2.9.1
 requests-cache==0.4.12
 rjsmin==1.0.12
 rsa==3.3
-s3transfer==0.0.1
+s3transfer==0.1.13
 semantic-version==2.5.0
 simplegeneric==0.8.1
 simplejson==3.8.2

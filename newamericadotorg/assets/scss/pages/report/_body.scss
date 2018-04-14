@@ -1,19 +1,5 @@
 .report__body{
   position: relative;
-
-  blockquote{
-    position: relative;
-    &:before{
-      content: '';
-      display: inline-block;
-      width: 16.666666%;
-      border: 1px solid color(turquoise);
-      position: absolute;
-      left: -22.5px;
-      @include transform(translateX(-100%));
-      top: calc(0.5em + 2px);
-    }
-  }
 }
 
 .report__body__section{

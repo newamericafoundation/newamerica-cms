@@ -92,7 +92,7 @@ li{
 }
 
 p {
-  
+
   &.gray{
     color: color(gray, dark);
   }
@@ -108,13 +108,18 @@ li p {
 }
 
 blockquote{
-  font-family: $label-font-family;
-  font-size: 1.375rem;
-  line-height: 1.75rem;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-left: 35px;
+  margin-right: 35px;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+
+  &.pullquote {
+    font-family: $header-font-family;
+    font-weight: bold;
+    font-size: 1.375rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
 
   &.white {
     color: color(white);
@@ -232,7 +237,7 @@ label, input, textarea {
     font-style: italic;
   }
 
-  &.pullquote {
+  &.subheader{
     font-size: 1.375rem;
     line-height: 1.75rem;
     margin-top: 0.75rem;
