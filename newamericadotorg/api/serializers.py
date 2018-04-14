@@ -272,7 +272,10 @@ class ProgramDetailSerializer(ModelSerializer):
 
         about_us_pages = []
         for p in obj.sidebar_menu_about_us_pages:
-            p = p.value.specific
+            try:
+                p = p.value.specific
+            except:
+                continue
             if p.title == 'About Us' or p.title == 'Our People':
                 continue
             body = loader.get_template('components/post_body.html').render({ 'page': p })

@@ -255,8 +255,8 @@ class Program(AbstractProgram):
 
     sidebar_panels = [
         StreamFieldPanel('sidebar_menu_about_us_pages'),
-        StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
-        StreamFieldPanel('sidebar_menu_our_work_pages'),
+        # StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
+        # StreamFieldPanel('sidebar_menu_our_work_pages'),
     ]
 
     edit_handler = TabbedInterface([
@@ -264,6 +264,7 @@ class Program(AbstractProgram):
         ObjectList(AbstractProgram.featured_panels, heading="Featured"),
         ObjectList(promote_panels, heading="Promote"),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+        ObjectList(sidebar_panels, heading="Sidebar")
     ])
 
     class Meta:
