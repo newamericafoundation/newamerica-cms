@@ -1,7 +1,8 @@
 import $ from 'jquery';
 
 import { Timeline } from './timeline';
+window.$ = $;
 
-export default function() {
-	
-}
+console.log(Timeline, '!!!!!!');
+
+export default Timeline;

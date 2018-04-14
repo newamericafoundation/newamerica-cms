@@ -6,6 +6,23 @@ $desktop-next-prev-width: 120px;
 	font-size: $subtext-size;
 }
 
+.timeline{
+		border-top: 2px solid color(black);
+		border-bottom: 2px solid color(black);
+}
+
+.block-timeline {
+	position: relative;
+	z-index: 5;
+	
+	@include media-breakpoint(desktop){
+		width: 150%;
+		margin-left: -25%;
+	}
+}
+
+
+
 @import 'main';
 @import 'event';
 @import 'nav';

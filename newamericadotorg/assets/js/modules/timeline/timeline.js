@@ -8,7 +8,7 @@ import { nest } from 'd3-collection';
 import { timeFormat } from 'd3-time-format';
 import { timeDay, timeMonth, timeYear } from 'd3-time';
 import { transition } from 'd3-transition';
-const Hammer = require('hammerjs');
+import Hammer from 'hammerjs';
 
 import { dimensions, margin, parseDate } from './constants';
 import { formatDateLine, setColor, whichEraOrSplit, isTouchDevice } from './utilities';

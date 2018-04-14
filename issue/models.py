@@ -40,7 +40,8 @@ class IssueOrTopic(ProgramSimplePage):
     )
 
     def get_template(self, request):
-        return 'programs/program.html'
+        return 'post_page.html'
+        #return 'programs/program.html'
 
     def get_context(self, request):
         context = super(IssueOrTopic, self).get_context(request)

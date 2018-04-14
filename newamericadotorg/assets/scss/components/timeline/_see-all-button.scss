@@ -1,16 +1,12 @@
 .timeline__see-all-button {
-	border-left: 2px solid palette-get(na-black-10);
-	border-bottom: 2px solid palette-get(na-black-10);
-	position: absolute;
-	top: 0px;
-	right: 0px;
+	border-left: 2px solid color(black, base, 1);
+	border-bottom: 2px solid color(black, base, 1);
+	border-right: 2px solid color(black, base, 1);
+	display: inline-block;
 	@include timeline-subtext
 	cursor: pointer;
 	padding: 3px 5px;
-
-	&:hover {
-		color: color(black);
-	}
+	color: color(black) !important;
 
 	&:after {
 		content: "See List View";

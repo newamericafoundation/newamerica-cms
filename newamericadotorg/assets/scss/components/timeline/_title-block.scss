@@ -8,6 +8,7 @@
 	&__pre-text {
 		@include timeline-subtext;
 		margin-bottom: 0px;
+		color: color(black) !important;
 	}
 
 	&__title {

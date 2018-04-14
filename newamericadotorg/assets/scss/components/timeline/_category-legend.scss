@@ -1,5 +1,14 @@
 .timeline__category-legend {
 	text-align: center;
+	li {
+		display: inline-block !important;
+		list-style: none !important;
+	}
+
+	h5 {
+		margin-top: 0 !important;
+		font-family: $label-font-family !important;
+	}
 
 	.list-view & {
 		text-align: left;

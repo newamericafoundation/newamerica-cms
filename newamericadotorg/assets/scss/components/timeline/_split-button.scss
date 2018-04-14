@@ -1,15 +1,16 @@
 .timeline__split-button {
 	color: $sub-color;
 	font-size: 14px;
-	border-left: 2px solid palette-get(na-black-10);
-	border-top: 2px solid palette-get(na-black-10);
-	border-bottom: 2px solid palette-get(na-black-10);
+	border-left: 2px solid color(black, base, 0.15);
+	border-top: 2px solid color(black, base, 0.15);
+	border-bottom: 2px solid color(black, base, 0.15);
 	border-right: none;
 	padding: 5px 10px;
 	cursor: pointer;
+	font-family: $label-font-family !important;
 
 	&:last-child {
-		border-right: 2px solid palette-get(na-black-10);
+		border-right: 2px solid color(black, base, 0.15);
 	}
 
 	&.active {
@@ -38,4 +39,9 @@
 	.list-view & {
 		padding-bottom: 0px;
 	}
+}
+
+.timeline__split-button-list li{
+	list-style-type: none !important;
+	display: inline-block !important;
 }
