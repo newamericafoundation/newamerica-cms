@@ -57,6 +57,16 @@ class Body extends Component {
 
   componentDidMount(){
     this.citationEvents();
+    if(!this.el) return;
+    let scripts = section.body.match(/<script.*?src="(.*?)"/);
+    if(scripts){
+      const script = document.createElement("script");
+
+      script.src = scripts[1];
+      script.async = true;
+
+      this.el.appendChild(script);
+    }
   }
 
   componentDidUpdate(prevProps){
@@ -72,7 +82,7 @@ class Body extends Component {
     let { authors, endnotes, date, url, report_pdf, title } = report;
     let { endnote, top } = this.state;
     return (
-      <div className="container margin-top-35 margin-top-lg-80" onClick={closeMenu}>
+      <div className="container margin-top-35 margin-top-lg-80" onClick={closeMenu} ref={(el)=>{this.el = el; }}>
       <div className={"report__body row gutter-30 " + (endnote ? 'endnote-active' : '')}>
         <div className="report__body__aside col-11 col-md-6 col-lg-2 push-lg-10">
           <div className="post-aside-wrapper">
