@@ -116,7 +116,6 @@ class Report(Post):
             streamfields = generate_docx_streamfields(self.source_word_doc.file)
             self.sections = streamfields['sections']
             self.endnotes = streamfields['endnotes']
-            self.save_revision()
             self.revising = False
 
         if not self.revising and not self.has_unpublished_changes and self.generate_pdf_on_publish:
