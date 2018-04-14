@@ -14,8 +14,10 @@ $desktop-next-prev-width: 120px;
 .block-timeline {
 	position: relative;
 	z-index: 1;
-	margin-top: 35px;
-	margin-bottom: 35px;
+	margin-top: 60px;
+	margin-bottom: 60px;
+
+	padding-bottom: 40px !important;
 
 	@include media-breakpoint(desktop){
 		width: 150%;
