@@ -35,7 +35,7 @@ export default class Publications extends Component {
     let type = content_types.find((t)=>(t.slug === slug ));
 
     let initQuery = {
-      image_rendition: 'max-300x240',
+      image_rendition: 'fill-300x230',
       page_size: 8,
       page: 1
     }

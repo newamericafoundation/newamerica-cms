@@ -13,7 +13,7 @@ export default class Events extends Component {
       time_period: period,
       page_size: 6,
       page: 1,
-      image_rendition: period=='future' ? 'fill-700x510' : 'fill-300x240'
+      image_rendition: period=='future' ? 'fill-700x510' : 'fill-300x230'
     };
 
     if(params.get('programId'))

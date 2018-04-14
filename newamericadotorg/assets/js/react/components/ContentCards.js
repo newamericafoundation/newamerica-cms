@@ -34,7 +34,7 @@ export const EventItem = ({ event }) => (
         <label className="card__text__title bold block link">
           <span><u>{event.title}</u></span>
         </label>
-        <label className="subtitle block">{event.story_excerpt}</label>
+        <label className="block">{event.story_excerpt}</label>
         <label className="caption block">{event.city}, {event.state}</label>
       </a>
       <label className="event__rsvp button--text block link margin-0">
@@ -46,9 +46,9 @@ export const EventItem = ({ event }) => (
 
 const punctuation = (i, len) => {
   if(i == len-2 && len > 2)
-    return (<span className="punc" key={`punc-${i}`}>&nbsp;, &&nbsp;</span>);
+    return (<span className="punc" key={`punc-${i}`}>&nbsp;, and&nbsp;</span>);
   if(i == len-2 && len>1)
-    return (<span className="punc" key={`punc-${i}`}>&nbsp;&nbsp;&&nbsp;</span>);
+    return (<span className="punc" key={`punc-${i}`}>&nbsp;&nbsp;and&nbsp;</span>);
   if(i != len-1)
     return (<span className="punc" key={`punc-${i}`}>&nbsp;,&nbsp;</span>)
 
@@ -81,21 +81,28 @@ export const PublicationListItem = ({ post }) => (
       </a>
     <div className="card__text">
       <a href={post.url}>
-        {post.date && <label className="card__text__date margin-top-0 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>}
+        {post.date && <label className="card__text__date margin-top-0 margin-bottom-15 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>}
         {/* <h3 className="card__text__title bold block">{post.title}</h3> */}
-        <label className="card__text__title bold block link">
+        <label className="card__text__title bold block link margin-0">
           <span><u>{post.title}</u></span>
         </label>
+        {post.story_excerpt &&
+          <label className="block margin-top-5 margin-bottom-0">
+            {post.story_excerpt}
+          </label>
+        }
       </a>
-      {post.authors &&
-      <label className="card__text__authors link subtitle">
-        {generateAuthors(post.authors)}
-      </label>}
-      {post.programs && <a href={post.url}>
-        <label className="card__text__program caption margin-bottom-0 block">
+
+      {post.authors && <span>
+        {post.authors.length > 0 &&
+          <label className="card__text__authors link margin-top-5 margin-bottom-0">
+            <span className="punc by">By:&nbsp;</span>{generateAuthors(post.authors)}
+          </label>
+        }
+      </span>}
+      {post.programs && <label className="card__text__program caption margin-top-15 margin-bottom-0 block">
           {post.programs[0] ? post.programs[0].name : ''} {post.content_type ? post.content_type.name : ''}
-        </label>
-      </a>}
+        </label>}
     </div>
   </div>
 );

@@ -59,7 +59,7 @@ export default class Publications extends PublicationsWrapper {
 
     let initQuery = {
       [program_id]: program.id,
-      image_rendition: 'max-300x240',
+      image_rendition: 'fill-300x230',
       page_size: 8,
       page: 1
     }

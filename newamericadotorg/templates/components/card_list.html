@@ -12,22 +12,28 @@
     </a>
   <div class="card__text">
     <a href="{{post.url}}">
-      <label class="card__text__date margin-top-0 block">{{post.date|date:"M. jS, Y"}}</label>
+      <label class="card__text__date margin-top-0 margin-bottom-15 block">{{post.date|date:"M. jS, Y"}}</label>
       <!-- <h3 class="card__text__title bold block">{{post.title}}</h3> -->
-      <label class="card__text__title bold block link">
+      <label class="card__text__title bold block link margin-0">
         <span><u>{{post.title}}</u></span>
       </label>
+      {% if post.story_excerpt %}
+      <label class="card__text__excerpt block margin-top-5 margin-bottom-0">
+        {{post.story_excerpt}}
+      </label>
+      {% endif %}
     </a>
-    <label class="card__text__authors link subtitle">
+    {% if post.post_author.all|length > 0 %}
+    <label class="card__text__authors margin-top-5 margin-bottom-0 link">
+      <span class="punc by">By: </span>
       {% for author in post.post_author.all %}<a href="{{author.url}}">{{author.first_name}} {{author.last_name}}</a>
-      {% if forloop.counter == post.authors.all|length|add:"-1" and post.authors.all|length > 2 %}<span class="punc">, &</span>
-      {% elif forloop.counter == post.authors.all|length|add:"-1" %}<span class="punc">&nbsp;&</span>
+      {% if forloop.counter == post.authors.all|length|add:"-1" and post.authors.all|length > 2 %}<span class="punc">, and</span>
+      {% elif forloop.counter == post.authors.all|length|add:"-1" %}<span class="punc">&nbsp;and</span>
       {% elif forloop.counter != post.authors.all|length %}<span class="punc">,</span>{% endif %}
       {% endfor %}
     </label>
-    <a href="{{post.url}}">
-      <label class="card__text__program caption margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
-    </a>
+    {% endif %}
+    <label class="card__text__program caption margin-top-15 margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
   </div>
 
 </div>

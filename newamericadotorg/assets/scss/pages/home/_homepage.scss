@@ -21,7 +21,7 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
     padding-bottom: 105px;
 
     @include media-breakpoint(tablet){
-      padding-top: 250px;
+      padding-top: 300px;
     }
   }
 
@@ -42,32 +42,32 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
 .homepage__mission-statement-section,
 .homepage__weekly-promo-section,
 .homepage__subscribe-section{
-  // .promo > span, h3, .input{
-  //   @include transition(opacity $home-transition-func, transform $home-transition-func);
-  //   opacity: 0;
-  //   @include transform(translateY(50px));
-  //   position: relative;
-  // }
-  //
-  // .promo > span:nth-child(2){
-  //   @include transition-delay(0.15s);
-  // }
-  //
-  // h3{
-  //   @include transition-delay(0.3s);
-  // }
-  //
-  // .input{
-  //   @include transition-delay(0.45s);
-  // }
-  //
-  //
-  // &.scroll-triggered{
-  //   .promo > span, h3, .input{
-  //     @include transform(translateY(0px));
-  //     opacity: 1;
-  //   }
-  // }
+  .promo > span, h3, .input{
+    @include transition(opacity $home-transition-func, transform $home-transition-func);
+    opacity: 0;
+    @include transform(translateY(50px));
+    position: relative;
+  }
+
+  .promo > span:nth-child(2){
+    @include transition-delay(0.15s);
+  }
+
+  h3{
+    @include transition-delay(0.3s);
+  }
+
+  .input{
+    @include transition-delay(0.45s);
+  }
+
+
+  &.scroll-triggered{
+    .promo > span, h3, .input{
+      @include transform(translateY(0px));
+      opacity: 1;
+    }
+  }
 }
 
 .homepage__subscribe-section__email-input{

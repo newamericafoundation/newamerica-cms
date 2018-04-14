@@ -28,7 +28,7 @@ export default class CardLg extends Component {
               <h2 className="card__text__title margin-top-0 block link">
                 <span><u>{post.title}</u></span>
               </h2>
-              <label className="card__text__subtitle subtitle block">{post.story_excerpt}</label>
+              <label className="card__text__subtitle block">{post.story_excerpt}</label>
               <label className="card__text__program caption margin-bottom-0 block">
                 {post.programs ? post.programs[0].title : ''}
                 {post.content_type ? post.content_type.name : ''}</label>
