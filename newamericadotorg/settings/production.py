@@ -73,6 +73,13 @@ DEFAULT_FROM_EMAIL = POSTMARK_SENDER
 SERVER_EMAIL = POSTMARK_SENDER
 REDIS_URL = os.getenv('REDIS_URL')
 
+WAGTAILFRONTENDCACHE = {
+    'cloudfront': {
+        'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+        'DISTRIBUTION_ID': 'E3IZZ8NUJMHTIF',
+    },
+}
+
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
