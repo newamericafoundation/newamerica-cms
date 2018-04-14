@@ -55,6 +55,13 @@ class Menus extends Component {
         <div className="mobile-menu__tabs-wrapper">
           <div className="mobile-menu__primary-tab">
             <div className="menu-list">
+              <div class="input">
+                <form action="/search/?query=value" method="get">
+                  <Search />
+                  <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
+                  <button type="submit" className="button--text with-caret--right">Go</button>
+                </form>
+              </div>
               <label className="block tab-link">
                 <a onClick={()=>{this.switchTab('About');}}>About</a>
               </label>
@@ -67,13 +74,6 @@ class Menus extends Component {
               <label className="block">
                 <a href="/events/">Events</a>
               </label>
-              <div class="input">
-                <form action="/search/?query=value" method="get">
-                  <Search />
-                  <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
-                  <button type="submit" className="button--text with-caret--right">Go</button>
-                </form>
-              </div>
             </div>
           </div>
           <div className="mobile-menu__secondary-tab">

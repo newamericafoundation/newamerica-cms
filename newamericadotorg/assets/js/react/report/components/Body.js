@@ -55,8 +55,7 @@ class Body extends Component {
     this.setState({ endnote: null, top: -1000, citeEl: null });
   }
 
-  componentDidMount(){
-    this.citationEvents();
+  loadScripts = () => {
     if(!this.el) return;
     let scripts = this.props.section.body.match(/<script.*?src="(.*?)"/);
     if(scripts){
@@ -69,10 +68,16 @@ class Body extends Component {
     }
   }
 
+  componentDidMount(){
+    this.citationEvents();
+    this.loadScripts();
+  }
+
   componentDidUpdate(prevProps){
     if(prevProps.location != this.props.location){
       this.citationEvents();
       this.closeEndnote();
+      this.loadScript();
     }
 
   }

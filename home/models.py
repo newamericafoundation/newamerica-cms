@@ -333,7 +333,6 @@ class OrgSimplePage(AbstractSimplePage):
 
     def get_context(self, request):
         context = super(OrgSimplePage, self).get_context(request)
-        print self.custom_interface
         if self.custom_interface == True:
             context['template'] = 'home/custom_simple_interface.html'
         else:

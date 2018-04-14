@@ -97,8 +97,8 @@
   img {
     position: absolute;
     z-index: 1;
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
     @include center;
     @include transition(opacity 0.35s ease);
     opacity: 0;

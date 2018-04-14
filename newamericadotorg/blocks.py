@@ -116,7 +116,6 @@ def ResourceKitSerializer(r):
 								d['image'] = img.file.url
 
 				elif block_type == 'external_resource':
-					print val
 					d['url'] = val
 				else:
 					d['url'] = Document.objects.get(pk=val).file.url

@@ -127,10 +127,10 @@ blockquote{
 }
 
 .subheading, [class*="subheading--"] {
-  color: color(gray, dark);
   font-weight: normal;
   margin: 0;
-
+  font-size: 1.475rem;
+  line-height: 1.75rem;
   &.white{
     color: white !important;
   }

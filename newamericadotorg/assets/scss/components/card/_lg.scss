@@ -25,6 +25,8 @@
   }
 
   img {
+    width: 125%;
+    height: auto;
     position: absolute;
     @include center;
   }

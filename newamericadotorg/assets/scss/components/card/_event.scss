@@ -31,6 +31,14 @@
 
   .card__text{
     height: 230px;
+
+    @include media-breakpoint(tablet){
+      height: 300px;
+    }
+
+    @include media-breakpoint(desktop){
+      height: 230px;
+    }
   }
 
   position: relative;

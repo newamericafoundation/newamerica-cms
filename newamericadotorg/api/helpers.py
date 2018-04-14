@@ -5,6 +5,7 @@ from issue.models import TopicHomePage
 from person.models import ProgramPeoplePage
 from issue.models import IssueOrTopic
 from other_content.models import ProgramOtherPostsPage, OtherPostCategory
+from policy_paper.models import ProgramPolicyPapersPage
 
 from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.views.serve import generate_signature
@@ -69,7 +70,7 @@ def get_program_content_types(program):
         page = Page.objects.get(pk=program)
 
     children = page.get_children().type(AbstractContentPage).not_type(PublicationsPage).not_type(ProgramPeoplePage)\
-        .not_type(TopicHomePage).not_type(ProgramEventsPage).not_type(AllEventsHomePage)
+        .not_type(TopicHomePage).not_type(ProgramEventsPage).not_type(AllEventsHomePage).not_type(ProgramPolicyPapersPage)
 
     content_types = []
     for c in children:

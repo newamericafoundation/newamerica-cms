@@ -38,7 +38,6 @@ class ProgramSubprogramSerializer(ModelSerializer):
 
     def get_type(self, obj):
         t = type(obj.specific)
-        print t
         if t == Project or t == BlogProject:
             return 'Project'
 
