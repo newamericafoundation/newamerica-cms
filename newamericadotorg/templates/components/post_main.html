@@ -36,9 +36,11 @@
                 </label>
               </div>
               {% if page.rsvp_link %}
-                <div class="post-authors__rsvp margin-top-15">
-                  <a class="button block" href="{{page.rsvp_link}}" target="_blank">RSVP</a>
-                </div>
+                {% if not page.is_past %}
+                  <div class="post-authors__rsvp margin-top-15">
+                    <a class="button block" href="{{page.rsvp_link}}" target="_blank">RSVP</a>
+                  </div>
+                {% endif %}
               {% endif %}
             </div>
           </div>

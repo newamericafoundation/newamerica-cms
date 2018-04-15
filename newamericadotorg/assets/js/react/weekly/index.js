@@ -11,6 +11,7 @@ import Edition from './components/Edition';
 import EditionList from './components/EditionList';
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
+import bowser from 'bowser';
 
 const Slide = ({children, ...props}) => (
   <CSSTransition
@@ -34,7 +35,7 @@ class Routes extends Component {
   render(){
     let { response: { results }, location, match } = this.props;
     return (
-      <main>
+      <main class={`${bowser.chrome ? 'transition-enabled' : ''}`}>
         <Route path="/weekly/:editionSlug/:articleSlug?" render={(props)=>(
           <Header dispatch={this.props.dispatch} {...props} edition={results} />
         )} />

@@ -25,9 +25,13 @@
   }
 
   img {
-    width: 125%;
-    height: auto;
+    width: auto;
+    height: 105%;
     position: absolute;
     @include center;
+    @include media-breakpoint(desktop){
+      width: 125%;
+      height: auto;
+    }
   }
 }

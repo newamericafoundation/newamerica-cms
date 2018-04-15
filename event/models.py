@@ -1,4 +1,5 @@
 import json
+from datetime import date
 
 from django.db import models
 from django.db.models import Q
@@ -63,6 +64,10 @@ class Event(Post):
         ], heading='Location'),
         FieldPanel('soundcloud_url'),
     ]
+
+    @property
+    def is_past(self):
+        return date.today() > self.date
 
     class Meta:
         verbose_name = 'Event'
