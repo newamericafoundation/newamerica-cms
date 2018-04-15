@@ -6,7 +6,7 @@
 
 {% block extra_js %}
 	{% if page.data_project_external_script %}
-		{% include 'in-depth/style-shim.html' %}
+		{% include 'in_depth/style-shim.html' %}
 		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
 	{% endif %}
 {% endblock %}
