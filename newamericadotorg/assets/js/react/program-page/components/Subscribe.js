@@ -34,13 +34,14 @@ export default class Subscribe extends Component {
     if(props.subscriptions){
       subscriptions = props.subscriptions.map((s,i)=>(s.title))
     }
+    let email = params.get('email') == 'null' ? '' : params.get('email');
     this.state = {
       csrf: '',
       posting: false,
       posted: false,
       status: 'OK',
       params: {
-        email: params.get('email') || '',
+        email: email || '',
         name: '',
         organization: '',
         job_title: '',
