@@ -21,7 +21,7 @@ class Heading extends Component {
               {report.subprograms.length>0 && <label className="button--text">
                 ,&nbsp;
                 <a className="" href={report.subprograms[0].url}>
-                  {report.programs[0].name}
+                  {report.subprograms[0].name}
                 </a>
               </label>}
             </div>
