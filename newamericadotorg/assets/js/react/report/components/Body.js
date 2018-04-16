@@ -56,8 +56,18 @@ class Body extends Component {
   }
 
   loadScripts = () => {
+    let { report, section } = this.props;
     if(!this.el) return;
-    let scripts = this.props.section.body.match(/<script.*?src="(.*?)"/);
+    if(report.data_project_external_script){
+
+      const dataScript = document.createElement("script");
+
+      dataScript.src = `https://na-data-projects.s3.amazonaws.com/projects/${report.data_project_external_script}`;
+      dataScript.async = true;
+
+      this.el.appendChild(dataScript);
+    }
+    let scripts = section.body.match(/<script.*?src="(.*?)"/);
     if(scripts){
       const script = document.createElement("script");
 

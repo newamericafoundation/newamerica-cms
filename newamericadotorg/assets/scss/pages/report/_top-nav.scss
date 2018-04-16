@@ -19,7 +19,7 @@
 
   &.scroll-entered{
     .report__top-nav__sticky-wrapper{
-      z-index: 3;
+      z-index: 150;
       position: fixed;
       top: -65px;
       @include transition(transform $header-transition-function);
@@ -36,7 +36,7 @@
 
 .scroll-reverse:not(.scroll-disabled) {
   .report__top-nav.scroll-left .report__top-nav__sticky-wrapper{
-    z-index: 2;
+    z-index: 150;
     position: fixed;
     @include transform(translateY(calc(65px + #{$header-height})));
   }
