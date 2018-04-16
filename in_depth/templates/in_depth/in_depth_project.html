@@ -12,7 +12,8 @@
 	{% endif %}
 	{% if page.data_project_external_script %}
 		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
-	{% endif %}
+    {% include './style-shim.html' %}
+  {% endif %}
 {% endblock %}
 
 {% block body_class %}template-indepthproject{% endblock %}
