@@ -62,12 +62,12 @@ class PostList(generics.ListAPIView):
         has_image = self.request.query_params.get('has_image', None)
 
         if other_content_type_title:
-            posts = OtherPost.objects.live()\
+            posts = OtherPost.objects.live().public()\
                 .filter(other_content_type__title=other_content_type_title)
             if category:
                 posts = posts.filter(category__title=category)
         else:
-            posts = Post.objects.live().not_type(Event)
+            posts = Post.objects.live().not_type(Event).public()
 
         if has_image == 'true':
             queryset = queryset.filter(story_image__isnull=False)
@@ -100,7 +100,7 @@ class PostList(generics.ListAPIView):
 
 class ReportDetail(generics.RetrieveAPIView):
     serializer_class = ReportDetailSerializer
-    queryset = Report.objects.live()
+    queryset = Report.objects.live().public()
 
 class SearchList(generics.ListAPIView):
     serializer_class = SearchSerializer
@@ -108,7 +108,7 @@ class SearchList(generics.ListAPIView):
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
-        results = Page.objects.live().search(search)
+        results = Page.objects.live().public().search(search)
         query = Query.get(search)
         query.add_hit()
         return results
@@ -171,7 +171,7 @@ class WeeklyDetail(generics.RetrieveAPIView):
 
 class InDepthProjectList(generics.ListAPIView):
     serializer_class = InDepthProjectListSerializer
-    queryset = InDepthProject.objects.live().order_by('-date')
+    queryset = InDepthProject.objects.live().public().order_by('-date')
 
 class InDepthProjectDetail(generics.RetrieveAPIView):
     queryset = InDepthProject.objects.live()
@@ -257,7 +257,7 @@ class EventList(generics.ListAPIView):
     def get_queryset(self):
         ids = self.request.query_params.getlist('id[]', None)
         time_period = self.request.query_params.get('time_period', None)
-        events = Event.objects.live().distinct()
+        events = Event.objects.live().public().distinct()
         has_image = self.request.query_params.get('has_image', None)
 
         if time_period:
@@ -345,7 +345,7 @@ class ProgramDetail(generics.RetrieveAPIView):
     serializer_class = ProgramDetailSerializer
 
 class ProgramList(generics.ListAPIView):
-    queryset = Program.objects.in_menu().live().order_by('title').exclude(location=True)
+    queryset = Program.objects.in_menu().live().public().order_by('title').exclude(location=True)
     serializer_class = ProgramSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = ProgramFilter
