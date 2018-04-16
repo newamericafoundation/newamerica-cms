@@ -87,7 +87,7 @@ export const PublicationListItem = ({ post }) => (
           <span><u>{post.title}</u></span>
         </label>
         {post.story_excerpt &&
-          <label className="block margin-top-5 margin-bottom-0">
+          <label className="block margin-top-5 margin-bottom-0 card__text__excerpt">
             {post.story_excerpt}
           </label>
         }
