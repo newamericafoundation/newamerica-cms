@@ -108,7 +108,7 @@ class SearchList(generics.ListAPIView):
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
-        results = Page.objects.live().public().search(search)
+        results = Page.objects.live().search(search)
         query = Query.get(search)
         query.add_hit()
         return results

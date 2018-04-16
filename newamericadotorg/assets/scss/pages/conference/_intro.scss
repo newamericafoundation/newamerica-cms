@@ -6,6 +6,24 @@
   margin-top:#{-$header-height};
 }
 
+.conference__intro__background {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: auto;
+    @include media-breakpoint(desktop) {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
 
 .conference__title{
   padding-top: $header-height;
