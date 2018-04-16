@@ -42,8 +42,8 @@ class HomeSubscribe extends Subscribe {
                   {programs.map((p,i)=>{
                     if(!p.subscriptions) return null;
                     return (
-                      <div key={`list-${i}`} className="subscribe__program-list">
-                        <label className="block button--text margin-bottom-35">{p.title}</label>
+                      <div key={`list-${i}`} className="subscribe__program-list margin-bottom-25">
+                        <label className="block button--text margin-bottom-10">{p.title}</label>
                         <List list={p.subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
                       </div>
                     );
