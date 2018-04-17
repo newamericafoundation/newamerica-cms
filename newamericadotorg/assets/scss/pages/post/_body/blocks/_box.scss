@@ -1,0 +1,17 @@
+.block-box{
+  margin-top: 60px;
+  margin-bottom: 60px;
+  border-top: 2px solid color(black);
+  border-bottom: 2px solid color(black);
+  padding-bottom: 25px;
+
+  p, li {
+    font-family: $label-font-family !important;
+  }
+
+  h5 {
+    text-transform: uppercase;
+    font-family: $label-font-family;
+    font-size: 0.9rem;
+  }
+}

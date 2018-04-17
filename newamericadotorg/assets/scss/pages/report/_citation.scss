@@ -30,7 +30,7 @@
       display: block;
       position: absolute;
       top: 4px;
-      left: 4px;
+      left: calc(50% - 5px);
     }
 
     .citation-number {

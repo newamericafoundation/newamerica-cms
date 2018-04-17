@@ -1,5 +1,5 @@
 from .docx_parse import DocxParse
-from newamericadotorg.blocks import PanelBlock, ReportBody
+from newamericadotorg.blocks import PanelBlock, ReportBody, BoxBody
 from report.blocks import EndnoteBlock
 from wagtail.wagtailcore.blocks.stream_block import StreamValue
 from wagtail.wagtailcore.rich_text import RichText
@@ -10,19 +10,22 @@ def generate_docx_streamfields(document):
     parsed = DocxParse(document)
     panels = []
     figure_index = 1
+    box_num = 0
     for s in parsed.sections:
         body = []
         for b in s['blocks']:
             val = None
-            if b['type'] == 'paragraph':
-                val = ('paragraph', RichText(b['html']))
-            elif b['type'] == 'heading':
-                val = ('heading', b['text'])
-            elif b['type'] == 'table':
-                val = ('table', b['data'])
-            elif b['type'] == 'inline_image':
-                val = ('paragraph', RichText('<em>[[Figure %s]]</em>' % figure_index))
-                figure_index += 1
+            if b['type'] == 'box':
+                box_num += 1
+                box_body = []
+                for box_block in b['blocks']:
+                    v = parse_block(box_block, figure_index)
+                    if v:
+                        box_body.append(v)
+                title = 'Box %s' % box_num
+                val = ('box', { 'title': title, 'body': StreamValue(BoxBody(), box_body) })
+            else:
+                val = parse_block(b, figure_index)
 
             if val is not None:
                 body.append(val)
@@ -35,3 +38,17 @@ def generate_docx_streamfields(document):
         endnotes.append(('endnote', { 'number': e['number'], 'note': RichText(e['note']) }))
 
     return { 'endnotes': endnotes, 'sections': panels }
+
+def parse_block(b, figure_index):
+    val = None
+    if b['type'] == 'paragraph':
+        val = ('paragraph', RichText(b['html']))
+    elif b['type'] == 'heading':
+        val = ('heading', b['text'])
+    elif b['type'] == 'table':
+        val = ('table', b['data'])
+    elif b['type'] == 'inline_image':
+        val = ('paragraph', RichText('<em>[[Figure %s]]</em>' % figure_index))
+        figure_index += 1
+
+    return val

@@ -102,6 +102,7 @@ class DocxParse():
         r_index = 0 # track run index within a w:p. resets to 0 with new w:p or after a heading, figure, or table
         this_list = None
         prev_list = None
+        is_box = False
         for child, paragraph in section['elements']:
             if type(child) == Table:
                 self.__closeblock__(block, prev_list)
@@ -127,7 +128,7 @@ class DocxParse():
 
             if self.__runisfigure__(run):
                 self.__closeblock__(block, prev_list)
-                blocks.append({ 'type': 'inline_image' })
+                blocks.append({ 'type': 'inline_image', 'box': None })
                 block = None
                 r_index = 0
                 this_list = None
@@ -137,6 +138,24 @@ class DocxParse():
                 continue
 
             if paragraph.style.name == 'Heading 2':
+                text = run.text.lower().strip()
+                if text == 'box':
+                    is_box = True
+                    self.__closeblock__(block, prev_list)
+                    blocks.append({
+                        'type': 'box',
+                        'blocks': []
+                    })
+                    block = None
+                    r_index = 0
+                    this_list = None
+                    continue
+                elif text == 'end box' or text == 'endbox':
+                    self.__closeblock__(block, prev_list)
+                    block = None
+                    is_box = False
+                    continue
+
                 # sometimes headings are split into multiple runs
                 if len(blocks) > 0:
                     prev_block = blocks[len(blocks)-1]
@@ -144,6 +163,7 @@ class DocxParse():
                         prev_block['text'] += run.text
                         continue
                 self.__closeblock__(block, prev_list)
+
                 blocks.append({ 'type': 'heading', 'text': run.text })
                 block = None
                 r_index = 0
@@ -151,11 +171,12 @@ class DocxParse():
                 continue
 
             if block is None:
-                blocks.append({
-                    'type': 'paragraph',
-                    'html': ''
-                })
-                block = blocks[len(blocks)-1]
+                block = self.__appendblock__(blocks, block, { 'type': 'paragraph', 'html': '' }, is_box)
+                # blocks.append({
+                #     'type': 'paragraph',
+                #     'html': ''
+                # })
+                # block = blocks[len(blocks)-1]
 
             if prev_paragraph != paragraph:
                 r_index = 0
@@ -190,6 +211,15 @@ class DocxParse():
 
         return blocks
 
+    def __appendblock__(self, blocks, block, d, is_box):
+        if is_box:
+            blocks[len(blocks)-1]['blocks'].append(d)
+            i = len(blocks[len(blocks)-1]['blocks'])-1
+            return blocks[len(blocks)-1]['blocks'][i]
+        else:
+            blocks.append(d)
+            return blocks[len(blocks)-1]
+
     def __closeblock__(self, block, last_list=None):
         if block is not None:
             if block['type'] == 'paragraph':
@@ -198,8 +228,6 @@ class DocxParse():
                     block['html'] += l
                 elif block['html'] != '':
                     block['html'] += '</p>'
-
-
 
     def __run2html__(self, run, r_index, style_name):
 
@@ -217,7 +245,7 @@ class DocxParse():
         if style_name == 'Heading 4':
             text = '<h4>%s</h4>' % text
         if style_name == 'Heading 5':
-            text = '<h5>%s</h5>'
+            text = '<h5>%s</h5>' % text
 
         return text
 
