@@ -18,7 +18,7 @@ def redirect_project_page(request, **kwargs):
     if not subprogram or not program:
         return views.serve(request, request.path)
 
-    subprogram = program.specific
+    subprogram = subprogram.specific
     redirect_page = getattr(subprogram, 'redirect_page', None)
     if redirect_page:
         return HttpResponseRedirect(redirect_page.url)
