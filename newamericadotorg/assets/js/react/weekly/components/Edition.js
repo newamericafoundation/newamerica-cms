@@ -11,17 +11,17 @@ import Separator from '../../components/Separator';
 import { Text } from '../../components/Inputs'
 
 const ArticleAuthors = ({ authors }) => (
-  <p className="margin-0">
-    <span>By: </span>
+  <div className="weekly__authors-list margin-0">
     {authors.map((a,i)=>(
-      <span key={`author-${i}`}>
-        <span>{a.first_name} {a.last_name}</span>
+      <span key={`author-${i}`} className="weekly__authors-list__author">
+        {i==0 && <span>By:&nbsp;</span>}
+        <label className="link"><a href={a.url}><u>{a.first_name} {a.last_name}</u></a></label>
         {(authors.length == 2 && i == 0) && <span>&nbsp;and&nbsp;</span>}
         {(authors.length > 2 && i < authors.length-2)  && <span>,&nbsp;</span>}
         {(authors.length > 2 && i == authors.length-2)  && <span>, and&nbsp;</span>}
       </span>
     ))}
-  </p>
+  </div>
 );
 
 const Lead = ({ article }) => (
