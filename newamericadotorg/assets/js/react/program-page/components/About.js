@@ -29,7 +29,7 @@ export default class About extends Component {
             </span>
           }
           </div>
-          <div className="program__about__body post-body col-md-8" dangerouslySetInnerHTML={{__html: about.body || about}} />
+          <div className="program__about__body post-body col-md-8" dangerouslySetInnerHTML={{__html: about.body }} />
         </div>
       </div>
     );

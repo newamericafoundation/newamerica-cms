@@ -261,7 +261,12 @@ class ProgramDetailSerializer(ModelSerializer):
     def get_about(self, obj):
         if not obj.about_us_page:
             return None;
-        return loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
+        return {
+            'url': obj.about_us_page.url,
+            'slug': obj.about_us_page.slug,
+            'title': obj.about_us_page.title,
+            'body': loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
+        }
 
     def get_about_us_pages(self, obj):
         if not obj.sidebar_menu_about_us_pages:
@@ -380,7 +385,12 @@ class SubprogramSerializer(ModelSerializer):
     def get_about(self, obj):
         if not obj.about_us_page:
             return None;
-        return loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
+        return {
+            'url': obj.about_us_page.url,
+            'slug': obj.about_us_page.slug,
+            'title': obj.about_us_page.title,
+            'body': loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
+        }
 
 
 class AuthorSerializer(ModelSerializer):

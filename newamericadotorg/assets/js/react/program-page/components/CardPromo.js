@@ -6,17 +6,23 @@ import { Arrow } from '../../components/Icons';
 export class Promo extends Component {
 
   render(){
-    let { title } = this.props;
+    let { title, linkTo } = this.props;
 
     return (
       <div className="card promo row gutter-0">
-        <div className="promo__heading col-12 col-lg-2">
-          <label className="block button--text white margin-0">{title}</label>
-        </div>
 
-        <div className="card__text col-12 col-lg-10">
-          {this.props.children}
-        </div>
+          <div className="promo__heading col-12 col-lg-2">
+            <a href={linkTo}>
+              <label className="block button--text white margin-0">{title}</label>
+            </a>
+          </div>
+
+          <div className="card__text col-12 col-lg-10">
+            <a href={linkTo}>
+              {this.props.children}
+            </a>
+          </div>
+
       </div>
     );
   }

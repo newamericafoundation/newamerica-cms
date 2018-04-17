@@ -17,6 +17,7 @@ class StoryGrid extends Component {
     let { program, match, programType } = this.props;
     if(match.params.subpage) return null;
     let promos = program.story_grid || [];
+    let aboutUrl = program.about ? program.about.url : null;
     return (
       <DocumentMeta title={program.title} description={program.description}>
         <div className="program__story-grid">
@@ -30,7 +31,7 @@ class StoryGrid extends Component {
               limit: 100
             }}/>
           {promos[1] && <CardLg post={promos[1]} />}
-          <Promo title="About">
+          <Promo title="About" linkTo={aboutUrl}>
             <p>{program.description}</p>
           </Promo>
           {promos[2] && <CardLg post={promos[2]} />}
@@ -60,7 +61,6 @@ class ProgramPage extends Component {
         <GARouter>
           <div className="program__content">
             <Heading program={results} />
-            <Route path={`/${root}/about/`} render={(props)=>(<About {...props} program={results} />)} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<StoryGrid {...props} program={results} />)} />
           </div>
         </GARouter>
