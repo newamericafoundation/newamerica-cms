@@ -23,4 +23,4 @@ def redirect_project_page(request, **kwargs):
     if redirect_page:
         return HttpResponseRedirect(redirect_page.url)
     else:
-        return render(request, 'programs/program.html', context={ 'page': program })
+        return render(request, 'programs/program.html', context={ 'page': subprogram })
