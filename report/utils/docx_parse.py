@@ -39,6 +39,7 @@ class DocxParse():
         notes_tree = ET.fromstring(part.blob)
         notes = notes_tree.findall('.//w:footnote', self._namespaces)
 
+        note_index = 0;
         for i, n in enumerate(notes):
             note = ''
             for r in n.findall('.//w:r', self._namespaces):
@@ -48,7 +49,11 @@ class DocxParse():
                 if r.find('.//w:i', self._namespaces) is not None:
                     text = '<em>%s</em>' % text
                 note += text
-            endnotes.append({ 'number': i+1, 'note': note.strip() })
+
+            if note=='':
+                continue
+            note_index += 1
+            endnotes.append({ 'number': note_index, 'note': note.strip() })
 
         return endnotes
 
@@ -170,7 +175,7 @@ class DocxParse():
                     block['html'] += '<p>'
 
 
-            html = self.__run2html__(run, r_index)
+            html = self.__run2html__(run, r_index, paragraph.style.name)
             if link:
                 html = '<a href=\"%s\">%s</a>' % (link, html)
             if block['html'] == '' or block['html'][-8:] == '</table>':
@@ -196,7 +201,7 @@ class DocxParse():
 
 
 
-    def __run2html__(self, run, r_index):
+    def __run2html__(self, run, r_index, style_name):
 
         if self.__runisfootnote__(run):
             self._footnoteindex+=1
@@ -207,6 +212,12 @@ class DocxParse():
             text = '<em>%s</em>' % text
         if run.bold:
             text = '<b>%s</b>' % text
+        if style_name == 'Heading 3':
+            text = '<h3>%s</h3>' % text
+        if style_name == 'Heading 4':
+            text = '<h4>%s</h4>' % text
+        if style_name == 'Heading 5':
+            text = '<h5>%s</h5>'
 
         return text
 

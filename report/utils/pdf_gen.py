@@ -10,7 +10,7 @@ def generate_pdf_response(page, request=None):
     response['Content-Transfer-Encoding'] = 'binary'
     protocol = 'https://' if request.is_secure() else 'http://'
     base_url = protocol + request.get_host()
-    
+
     html = loader.get_template('report/pdf.html').render({ 'page': page })
     pdf = HTML(string=html, base_url=base_url).write_pdf(response)
 

@@ -7,7 +7,7 @@ from wagtail.wagtaildocs.models import get_document_model
 from newamericadotorg.celery import app as celery_app
 from django.apps import apps
 from wagtail.wagtailcore.models import PageRevision
-
+from .utils.docx_save import generate_docx_streamfields
 
 @celery_app.task
 def generate_pdf(report_id):
@@ -30,3 +30,10 @@ def generate_pdf(report_id):
         revision = report.save_revision()
         revision.publish()
         print('Generated PDF for %s' % report.title)
+
+@celery_app.task
+def parse_pdf(page):
+    page.overwrite_sections_on_save = False
+    streamfields = generate_docx_streamfields(page.source_word_doc.file)
+    page.sections = streamfields['sections']
+    page.endnotes = streamfields['endnotes']

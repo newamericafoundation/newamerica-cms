@@ -5,7 +5,6 @@ from django.dispatch import receiver
 from home.models import Post
 from programs.models import AbstractContentPage
 from newamericadotorg.blocks import ReportSectionBlock
-from .utils.docx_save import generate_docx_streamfields
 from .blocks import EndnoteBlock
 
 from wagtail.wagtailcore.models import Page
@@ -22,7 +21,7 @@ from wagtail.wagtailsearch import index
 
 from home.models import AbstractHomeContentPage
 
-from report.tasks import generate_pdf
+from report.tasks import generate_pdf, parse_pdf
 
 class Report(Post):
     """
@@ -110,19 +109,19 @@ class Report(Post):
     search_fields = Post.search_fields + [index.SearchField('sections')]
 
     def save(self, *args, **kwargs):
+        super(Report, self).save(*args, **kwargs)
+
         if not self.revising and self.source_word_doc is not None and self.overwrite_sections_on_save:
             self.revising = True
-            self.overwrite_sections_on_save = False
-            streamfields = generate_docx_streamfields(self.source_word_doc.file)
-            self.sections = streamfields['sections']
-            self.endnotes = streamfields['endnotes']
+            parse_pdf(self)
+            self.save_revision()
             self.revising = False
 
         if not self.revising and not self.has_unpublished_changes and self.generate_pdf_on_publish:
             self.revising = True # generate_pdf resets this to False
             generate_pdf.apply_async(args=(self.id,))
 
-        super(Report, self).save(*args, **kwargs)
+
 
 
 
