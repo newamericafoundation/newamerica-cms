@@ -8,22 +8,6 @@
     padding-right: 25px;
     padding-bottom: type-adjusted-padding(25px);
 
-    > a {
-      display: inline-block;
-      overflow: hidden;
-      position: relative;
-      vertical-align: middle;
-      // margin-top: -6px;
-      // margin-bottom: -6px;
-      // padding-top: 6px;
-      // padding-bottom: 6px;
-      em {
-        font-style: normal;
-        position: relative;
-        z-index: 1;
-      }
-    }
-
     label {
       line-height: 1em;
       position: relative;
