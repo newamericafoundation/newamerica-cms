@@ -1,0 +1,97 @@
+{% load static from staticfiles %}
+{% load wagtailuserbar  %}
+{% load top_menu %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+  <meta property="og:site_name" content="New America" />
+
+  <link rel="canonical" href="{{ self.url }}" />
+  <meta property="og:url" content="{{ self.url }}">
+  <meta name="twitter:url" content="{{ self.url }}">
+
+  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+  <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+  <meta name="twitter:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+
+  <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
+  <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
+  <meta name="twitter:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
+
+  {% if self.story_image %}
+    {% image self.story_image original as story_image %}
+    <meta property="og:image" content='{{ story_image.url }}' />
+    <meta name="twitter:image" content='{{ story_image.url }}' />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@NewAmerica">
+  {% endif %}
+
+  {% if DEBUG %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.css' %}">
+    <script type="text/javascript" src="{% static 'js/dependencies.js' %}"></script>
+  {% else %}
+    <style class="newamericadotorg">{% include './style.css' %}</style>
+    <link rel="preload" href="{% static 'css/newamericadotorg.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    {# css preload polyfill (cssrelpreloadCSS) https://github.com/filamentgroup/loadCSS/blob/v2.0.1/src/cssrelpreload.js #}
+    <script>!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);</script>
+    <noscript><link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.min.css' %}"></link></noscript>
+  {% endif %}
+
+  <script>
+    {% if user.is_authenticated %}
+    window.user_is_authenticated=true;
+    {% endif %}
+    var newamericadotorg = null;
+  </script>
+  <script type="text/javascript" src="{% static 'js/newamericadotorg.min.js' %}" async></script>
+  {% block extra_scripts %}
+      {# Override this in templates to add extra scripts and stylesheets #}
+  {% endblock %}
+</head>
+
+<body class="{% if self.get_ancestors.2.slug == 'oti' or page.slug == 'oti'%}oti{% endif %} {% block body_class %}{% endblock %}">
+  {% wagtailuserbar %}
+  {% block header %}
+    {% include 'components/header.html' %}
+  {% endblock %}
+
+  {% block content %}{% endblock %}
+
+  {% block footer %}
+    {% include 'components/footer_mobile.html' %}
+    {% include 'components/footer.html' %}
+  {% endblock %}
+
+  {% if not DEBUG %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MMGT6BG');</script>
+    <!-- End Google Tag Manager -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMGT6BG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+  {% endif %}
+  {% block extra_js %}
+      {# Override this in templates to add extra javascript #}
+  {% endblock %}
+</body>
+</html>

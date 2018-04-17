@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block post_container_class %}container--medium{% endblock %}
+
+{% block post_left_aside %}
+
+{% endblock %}
+
+{% block content %}
+  <main>
+    {% block breadcrumbs %}
+      {% include 'components/breadcrumbs.html' %}
+    {% endblock %}
+  	{% block post-heading %}
+  		{% include 'components/post_heading.html' %}
+  	{% endblock %}
+
+    <section class="container--medium"/>
+      <div class="post-social simple-page-social container--medium">
+        <label class="lg">Share</label>
+        {% include 'components/social_share.html' %}
+      </div>
+    	<article class="post-body simple-page-body with-dropcap container--medium">
+    		{% include 'components/post_body.html' %}
+    		{% block post_extra_body_content %}{% endblock %}
+    	</article>
+    </section>
+  </main>
+{% endblock %}
+
+{% block post_right_aside %}
+{% endblock %}

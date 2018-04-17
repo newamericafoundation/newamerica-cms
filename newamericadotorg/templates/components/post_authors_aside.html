@@ -1,0 +1,14 @@
+<aside class="post-authors col-md-2">
+  {% if authors %}
+    <div class="post-authors__list">
+      {% with authors|length as authors_len %}
+        <label class="margin-top-0">
+          {% pluralize authors_len "Author" %}
+        </label>
+      {% endwith %}
+      {% for author in authors %}
+          {% include 'components/post_person.html' with author=author.author %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</aside>

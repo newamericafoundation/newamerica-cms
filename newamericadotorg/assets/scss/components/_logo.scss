@@ -1,0 +1,36 @@
+.logo{
+  display: inline-block;
+  background-size: cover;
+  background-image: url('/static/logo-black.svg');
+
+  &.lg {
+    width: 200px;
+    height: 50px;
+  }
+
+  &.md{
+    width: 134px;
+    height: 34px;
+  }
+
+  &.sm{
+    width: 100px;
+    height: 24px;
+    //background-image: url('/static/logo-black-mini.svg');
+  }
+
+  &.white{
+    background-image: url('/static/logo-white.svg');
+  }
+
+  &.bug{
+    background-image: url('/static/logo-bug.svg');
+    &.white {
+      background-image: url('/static/logo-bug-white.svg');
+    }
+
+    &.white-transparent {
+        background-image: url('/static/logo-white-transparent.svg');
+    }
+  }
+}

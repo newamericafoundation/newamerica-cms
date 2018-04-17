@@ -1,0 +1,37 @@
+.panel-group {
+  .panel-nav{
+    opacity: 0;
+    transition: 0.35s opacity ease-in;
+    -webkit-transition: 0.35s opacity ease-in;
+    -moz-transition: 0.35s opacity ease-in;
+    -o-transition: 0.35s opacity ease-in;
+  }
+
+  &.active{
+    .panel-nav{
+      opacity: 1;
+    }
+  }
+}
+
+.panel-section{
+  
+  padding: 75px 0 0 0;
+
+  .panel-title{
+    a { border: none };
+    margin-bottom: 25px;
+    position: relative;
+
+    .fa-link{
+      display: none;
+    }
+
+    &:hover{
+      .fa-link{
+        display: inline-block;
+      }
+    }
+
+  }
+}

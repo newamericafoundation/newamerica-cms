@@ -5,8 +5,9 @@ from home.models import Post
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class Quoted(Post):
     """
@@ -14,7 +15,7 @@ class Quoted(Post):
     Post model and creates pages for Quoted pages
     where New America was in the news.
     """
-    parent_page_types = ['ProgramQuotedPage']
+    parent_page_types = ['ProgramQuotedPage', 'programs.BlogProject', 'programs.BlogSeries']
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
@@ -29,7 +30,7 @@ class Quoted(Post):
         verbose_name = "In The News Piece"
 
 
-class AllQuotedHomePage(Page):
+class AllQuotedHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Quoted piece from the Quoted model
@@ -45,12 +46,16 @@ class AllQuotedHomePage(Page):
             AllQuotedHomePage,
             Quoted
         )
-    
+
+    @property
+    def content_model(self):
+        return Quoted
+
     class Meta:
-        verbose_name = "Homepage for all In The News Pieces"
+        verbose_name = "In The News Homepage"
 
 
-class ProgramQuotedPage(Page):
+class ProgramQuotedPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Quoted pieces associated with a specific Program
@@ -67,5 +72,9 @@ class ProgramQuotedPage(Page):
             Quoted
         )
 
+    @property
+    def content_model(self):
+        return Quoted
+
     class Meta:
-        verbose_name = "In the News Homepage for Programs and Subprogram"
+        verbose_name = "In the News Homepage"

@@ -1,0 +1,47 @@
+.timeline__split-button {
+	color: $sub-color;
+	font-size: 14px;
+	border-left: 2px solid color(black, base, 0.15);
+	border-top: 2px solid color(black, base, 0.15);
+	border-bottom: 2px solid color(black, base, 0.15);
+	border-right: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-family: $label-font-family !important;
+
+	&:last-child {
+		border-right: 2px solid color(black, base, 0.15);
+	}
+
+	&.active {
+		color: color(black) !important;
+		border: 2px solid color(black) !important;
+		border-right: none;
+		background-color: white !important;
+		cursor: auto !important;
+		pointer-events: none !important;
+	}
+
+	&:hover {
+		color: color(white);
+		background-color: color(black);
+		border: 2px solid color(black);
+		border-right: none;
+	}
+}
+
+.timeline__split-button-container {
+	max-width: $max-body-width + 2*25px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0px 25px 15px;
+
+	.list-view & {
+		padding-bottom: 0px;
+	}
+}
+
+.timeline__split-button-list li{
+	list-style-type: none !important;
+	display: inline-block !important;
+}

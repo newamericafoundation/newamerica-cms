@@ -1,0 +1,8 @@
+<div class="post__topics post__aside-section">
+  <label class="lg block">Topics</label>
+  <div class="post__topics__tags social-share">
+    {% for topic in page.topics.all %}
+      <a href="{{topic.topic.url}}" class="tag">{{topic.topic.title}}</a>
+    {% endfor %}
+  </div>
+</div>

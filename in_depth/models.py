@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+import json
 
 from wagtail.wagtailcore.models import Page
 from home.models import Post
@@ -10,13 +11,15 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
-from mysite.blocks import ButtonBlock, IframeBlock, DatavizBlock
+from newamericadotorg.blocks import ButtonBlock, IframeBlock, DatavizBlock
 from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock, VideoDataReferenceBlock
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from mysite.helpers import paginate_results, get_org_wide_posts
+from programs.models import AbstractContentPage
+from newamericadotorg.helpers import paginate_results, get_org_wide_posts
+from rest_framework.serializers import Serializer, ModelSerializer, SerializerMethodField
 
 class InDepthSection(Page):
     """
@@ -61,17 +64,19 @@ class InDepthSection(Page):
 
     def get_context(self, request):
         context = super(InDepthSection, self).get_context(request)
-        project_root = self.get_parent()
+        project_root = self.get_parent().specific
         context['project_root'] = project_root
-        context['authors'] = project_root.specific.authors.order_by('pk')
+        context['authors'] = project_root.authors.order_by('pk')
         siblings = self.get_siblings(inclusive=True).live().type(InDepthSection)
+        siblings_json = json.dumps(SectionSerializer(siblings, many=True).data)
         index = 0
         for i, item in enumerate(siblings):
-            if (item.title == self.title):
+            if item.id == self.id:
                 index = i
 
         context['index'] = index
         context['siblings'] = siblings
+        context['siblings_json'] = siblings_json
         if (index != 0 and len(siblings) > 1):
             context['previous_sibling'] = siblings[(index - 1)]
         if (index != len(siblings) - 1 and len(siblings) > 1):
@@ -80,8 +85,12 @@ class InDepthSection(Page):
         return context
 
     class Meta:
-        verbose_name = "In-Depth Project Section"
+        verbose_name = "In-Depth Report Section"
 
+class SectionSerializer(ModelSerializer):
+    class Meta:
+        model = InDepthSection
+        fields = ('id', 'title', 'subheading', 'slug', 'url')
 
 class InDepthProject(Post):
     """
@@ -125,17 +134,17 @@ class InDepthProject(Post):
         context = super(InDepthProject, self).get_context(request)
 
         context['project_sections'] = self.get_children().live().type(InDepthSection)
-
+        context['project_root'] = self
         return context
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = "In-Depth Project"
+        verbose_name = "In-Depth Report"
 
 
-class AllInDepthHomePage(Page):
+class AllInDepthHomePage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every In Depth Page
@@ -165,9 +174,12 @@ class AllInDepthHomePage(Page):
             AllInDepthHomePage,
             InDepthProject
         )
+    @property
+    def content_model(self):
+        return InDepthProject
 
     class Meta:
-        verbose_name = "Homepage for all In-Depth Projects"
+        verbose_name = "In-Depth Reports Homepage"
 
 class InDepthProfile(Page):
     parent_page_types = ['InDepthProject']
@@ -213,4 +225,4 @@ class InDepthProfile(Page):
         return context
 
     class Meta:
-        verbose_name = "In-Depth Profile Page"
+        verbose_name = "In-Depth Report Profile"

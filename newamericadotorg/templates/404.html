@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% block body_class %}template-404{% endblock %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+    <div class="container--1080 margin-80">
+      <div>
+      	<h1>Page not found</h1>
+      	<h2>Sorry, this page could not be found.</h2>
+      </div>
+    </div>
+{% endblock %}

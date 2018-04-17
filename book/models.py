@@ -5,8 +5,9 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from home.models import Post
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class Book(Post):
     """
@@ -25,14 +26,14 @@ class Book(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
-    parent_page_types = ['ProgramBooksPage', ]
+    parent_page_types = ['ProgramBooksPage', 'programs.BlogProject', 'programs.BlogSeries' ]
     subpage_types = []
 
     class Meta:
         verbose_name = 'Book'
 
 
-class AllBooksHomePage(Page):
+class AllBooksHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Book in the Book model
@@ -48,11 +49,15 @@ class AllBooksHomePage(Page):
             Book
         )
 
+    @property
+    def content_model(self):
+        return Book
+
     class Meta:
         verbose_name = "Homepage for all Books"
 
 
-class ProgramBooksPage(Page):
+class ProgramBooksPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Books associated with a specific program or Subprogram
@@ -63,5 +68,9 @@ class ProgramBooksPage(Page):
     def get_context(self, request):
         return get_program_and_subprogram_posts(self, request, ProgramBooksPage, Book)
 
+    @property
+    def content_model(self):
+        return Book
+
     class Meta:
-        verbose_name = "Books Homepage for Program and Subprogram"
+        verbose_name = "Books Homepage"

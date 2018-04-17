@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block body_class %}programpage{% endblock %}
+
+
+<main class="program container--full-width">
+	{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
+	<div id="compose__simple-program-page"
+		data-program-type="subprogram"
+		data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
+</main>

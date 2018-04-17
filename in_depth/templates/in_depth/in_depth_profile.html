@@ -5,6 +5,9 @@
 {% load utilities %}
 
 {% block extra_js %}
+	{% if not DEBUG %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	{% endif %}
 	{% if project_root.specific.data_project_external_script %}
 		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ project_root.specific.data_project_external_script }}"></script>
 	{% endif %}
@@ -20,7 +23,7 @@
 				{% if project_root.specific.project_logo %}
 					{% image project_root.specific.project_logo min-200x100 as logo %}
 					<div class="in-depth__title-block__logo">
-						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">				      
+						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
 						    <img class="sidemenu__logo" src="{{ logo.url }}">
 	  					</a>
 					</div>
@@ -51,9 +54,7 @@
 			</div>
 		</div>
 		<div class="in-depth__profile__body post-body">
-			{% for block in page.body %}
-		    	{% include 'ui_elements/post_body_block.html' %}
-		    {% endfor %}
+			{% include 'components/post_body.html' %}
 		</div>
 	</div>
 

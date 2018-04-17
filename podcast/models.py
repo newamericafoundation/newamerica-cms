@@ -5,7 +5,9 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 from django.db import models
 
@@ -15,7 +17,7 @@ class Podcast(Post):
     Podcast class that inherits from the abstract Post
     model and creates pages for Podcasts.
     """
-    parent_page_types = ['ProgramPodcastsPage']
+    parent_page_types = ['ProgramPodcastsPage', 'programs.BlogProject', 'programs.BlogSeries']
     subpage_types = []
 
     soundcloud = StreamField([
@@ -33,7 +35,7 @@ class Podcast(Post):
         verbose_name = 'Podcast'
 
 
-class AllPodcastsHomePage(Page):
+class AllPodcastsHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model
     and returns every Podcast in the Podcast model for
@@ -51,11 +53,15 @@ class AllPodcastsHomePage(Page):
             Podcast
         )
 
+    @property
+    def content_model(self):
+        return Podcast
+
     class Meta:
         verbose_name = "Homepage for all Podcasts"
 
 
-class ProgramPodcastsPage(Page):
+class ProgramPodcastsPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Podcasts associated with a sepcific program
@@ -73,5 +79,9 @@ class ProgramPodcastsPage(Page):
             Podcast
         )
 
+    @property
+    def content_model(self):
+        return Podcast
+
     class Meta:
-        verbose_name = "Podcast Homepage for Program and Subprograms"
+        verbose_name = "Podcasts Homepage"

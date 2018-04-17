@@ -1,0 +1,150 @@
+$loading-icon-height: 0.5em;
+$loading-icon-width: 3.5em;
+$loading-icon-spacing: 0.5em;
+$loading-icon-circle-margin: #{$loading-icon-spacing - .1em};
+$loading-animation-delay: 0.1s;
+@import 'header/loading';
+.fetch-transition{
+  position: relative;
+  display: block;
+
+  & > *{
+    @include transition(opacity .3s ease-in-out);
+    opacity: 1;
+  }
+
+  & .loading-icon-container{
+    display: none;
+    position: absolute;
+    z-index: 4;
+    @include horizontal-center;
+    top: 75px;
+  }
+}
+
+.fetch-transition.is-fetching{
+   > *:not(.is-loading-more) {
+    opacity: 0.15;
+  }
+
+  & .loading-icon-container{
+    display: block;
+    opacity: 1;
+  }
+}
+
+.no-results{
+  text-align: center;
+  margin-top: 25px;
+}
+
+.loading-icon-container{
+  margin-top: 50px;
+  text-align: center;
+  opacity: 1 !important;
+}
+
+.loading-icon{
+  font-size: 0.55rem;
+  display: inline-block;
+  &__row{
+    margin-bottom: $loading-icon-spacing;
+    height: $loading-icon-height;
+    width: $loading-icon-width;
+    position: relative;
+    @include animation(loading-icon-animation .4s alternate infinite);
+
+    &__circle, &__rect{
+      background: color(turquoise, base, 0.75);
+      height: $loading-icon-height;
+    }
+
+    &__circle{
+      width: $loading-icon-height;
+      border-radius: 100px;
+      margin-right: $loading-icon-circle-margin;
+    }
+
+    &__rect{
+      width: 100%;
+    }
+
+    &:first-child {
+      white-space: nowrap;
+      @include animation-delay($loading-animation-delay);
+      .loading-icon__row__rect{
+        width: calc(100% - 0.9em);
+      }
+      .loading-icon__row{
+        &__rect, &__circle{
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+    }
+
+    &:nth-child(2) {
+      @include animation-delay($loading-animation-delay*2);
+    }
+
+    &:nth-child(3) {
+      @include animation-delay($loading-animation-delay*3);
+    }
+
+  }
+}
+
+@include keyframes(loading-icon-animation) {
+  0% {
+    top: 0em;
+    opacity: 1;
+  }
+
+  100% {
+    top: $loading-icon-spacing/1.5;
+    opacity: 0.25;
+  }
+}
+
+.loading-dots span {
+  font-size: 1.15rem;
+}
+
+.loading-dots, [class*='loading-dots--']{
+  display: inline-block;
+  span {
+    display: inline-block;
+    padding-right: 5px;
+    position: relative;
+    position: relative;
+    top: -$loading-icon-spacing/3;
+    @include animation(loading-dots-animation .4s alternate infinite);
+
+    &:first-child {
+      @include animation-delay(0);
+    }
+
+    &:nth-child(2) {
+      @include animation-delay($loading-animation-delay*2);
+    }
+
+    &:nth-child(3) {
+      @include animation-delay($loading-animation-delay*4);
+    }
+  }
+}
+
+.loading-dots--absolute{
+  position: absolute;
+  @include center;
+}
+
+@include keyframes(loading-dots-animation) {
+  0% {
+    @include transform(translateY(0px));
+  }
+
+  100% {
+    @include transform(translateY($loading-icon-spacing/1.5));
+  }
+}

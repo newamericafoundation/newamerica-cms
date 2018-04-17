@@ -1,0 +1,51 @@
+.in-depth__title-block {
+	$logo-width: 180px;
+  &__logo, &__text {
+    @include media-breakpoint(tablet) {
+         position: relative;
+         top: 50%;
+         transform: translateY(-50%);
+      }
+  }
+	&__logo {
+        width: $logo-width;
+        padding-bottom: 25px;
+        float: left;
+        padding-bottom: 0px;
+        margin-right: 25px;
+        display: none;
+
+        @include media-breakpoint(tablet) {
+           display: inline-block;
+        }
+
+        .sidemenu__logo {
+           margin: 0px;
+        }
+        
+    }
+
+    &__text {
+        display: inline-block;
+        width: 100%;
+
+        &.has-logo {
+           @include media-breakpoint(tablet) {
+              width: calc(100% - #{$logo-width} - #{25px});
+           }
+        }
+    }
+
+	&__title {
+		font-size: 28px;
+		font-weight: bold;
+		margin-bottom: 0px;
+  	line-height: 1.2;
+		a {
+			color: white;
+     		@include desktop-header {
+        		@include line-clamp(2, 1.3);
+        	}
+     	}
+	}
+}

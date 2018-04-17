@@ -1,0 +1,22 @@
+{% load wagtailcore_tags %}
+<div class="panel-group">
+  <div class="panel-sections">
+    {% for panel in value %}
+      <section id="{{ panel.value.title|slugify }}" class="panel-section">
+        <h2 class="panel-title">
+          <a href="#{{panel.value.title|slugify}}" class="panel-anchor-link">
+            {{ panel.value.title }}
+            <i class="fa fa-link"></i>
+          </a>
+        </h2>
+        <div class="panel-body-block">
+          {% for block in panel.value.body %}
+            <div class="block-{{ block.block_type }}">
+                {% include_block block %}
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+</div>

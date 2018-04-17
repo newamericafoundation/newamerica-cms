@@ -9,8 +9,8 @@ from wagtail.wagtailcore.blocks import URLBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from programs.models import AbstractContentPage
 
 class PolicyPaper(Post):
     """
@@ -42,6 +42,13 @@ class PolicyPaper(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
+    def get_context(self, request):
+        context = super(PolicyPaper, self).get_context(request);
+        for block in self.body:
+            if block.block_type == 'panels':
+                context['panels'] = block.value;
+        return context;
+
     class Meta:
         verbose_name = 'Policy Paper'
 
@@ -62,11 +69,15 @@ class AllPolicyPapersHomePage(Page):
             PolicyPaper
         )
 
+    @property
+    def content_model(self):
+        return PolicyPaper
+
     class Meta:
         verbose_name = "Homepage for all Policy Papers"
 
 
-class ProgramPolicyPapersPage(Page):
+class ProgramPolicyPapersPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Policy Papers associated with a specific
@@ -83,5 +94,9 @@ class ProgramPolicyPapersPage(Page):
             PolicyPaper
         )
 
+    @property
+    def content_model(self):
+        return PolicyPaper
+
     class Meta:
-        verbose_name = "Policy Paper Homepage for Programs and Subprograms"
+        verbose_name = "Policy Papers Homepage"

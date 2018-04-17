@@ -4,13 +4,13 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
 
-	entry: './mysite/assets/js/mysite.js',
+	entry: './newamericadotorg/assets/js/newamericadotorg.js',
 
 	output: {
-		path: path.resolve('./mysite/static/js'),
+		path: path.resolve('./newamericadotorg/static/js'),
 		publicPath: 'http://localhost:8000/',
-		filename: 'mysite.js',
-		sourceMapFilename: 'mysite.js.map'
+		filename: 'newamericadotorg.js',
+		sourceMapFilename: 'newamericadotorg.js.map'
 	},
 
 	module: {

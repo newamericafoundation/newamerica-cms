@@ -1,0 +1,31 @@
+.program-heading__mobile-menu-toggle{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 25px;
+  margin-bottom: 7px;
+  border-right: 1px solid color(gray, dark);
+  border-bottom: 1px solid color(gray, dark);
+  @include transition(transform $transition-function);
+  @include transform(rotate(45deg));
+
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+}
+
+.program-heading__heading-wrapper.open {
+  .program-heading__mobile-menu-toggle{
+    @include transform(rotate(-135deg));
+  }
+}
+
+.program-heading.scroll-entered{
+  .program-heading__mobile-menu-toggle{
+    margin-bottom: 2px;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 1;
+  }
+}

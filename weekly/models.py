@@ -7,36 +7,30 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.blocks import PageChooserBlock
 
-from mysite.helpers import paginate_results
+from programs.models import AbstractContentPage
+from newamericadotorg.helpers import paginate_results
+from home.models import AbstractHomeContentPage
 
-
-class Weekly(Page):
+class Weekly(AbstractContentPage):
     parent_page_types = ['home.HomePage']
     subpage_types = ['WeeklyEdition']
 
     def get_context(self, request):
         context = super(Weekly, self).get_context(request)
 
-        all_posts = WeeklyEdition.objects.all().live()
+        all_posts = WeeklyEdition.objects.all().live().order_by('-first_published_at')
 
         context['all_posts'] = paginate_results(request, all_posts)
-
+        context['latest_edition'] = all_posts.first()
         return context
 
     class Meta:
-        verbose_name = "Homepage for all Weekly Editions"
+        verbose_name = "Weekly Editions"
 
 
 class WeeklyEdition(Page):
     parent_page_types = ['Weekly']
     subpage_types = ['WeeklyArticle']
-
-    def get_context(self, request):
-        context = super(WeeklyEdition, self).get_context(request)
-
-        return context
-
-
 
 class WeeklyArticle(Post):
     parent_page_types = ['WeeklyEdition']
@@ -44,9 +38,7 @@ class WeeklyArticle(Post):
 
     def get_context(self, request):
         context = super(WeeklyArticle, self).get_context(request)
-
-        context['siblings'] = self.get_siblings(inclusive=True)
-
+        context['edition'] = self.get_parent()
         return context
 
     def save(self, *args, **kwargs):
@@ -54,3 +46,11 @@ class WeeklyArticle(Post):
 
     class Meta:
         verbose_name = 'Weekly Article'
+
+class AllWeeklyArticlesHomePage(AbstractHomeContentPage):
+    parent_page_types = ['home.HomePage']
+    subpage_types = []
+
+    @property
+    def content_model(self):
+        return WeeklyArticle

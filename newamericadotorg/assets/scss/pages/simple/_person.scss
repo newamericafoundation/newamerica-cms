@@ -1,0 +1,36 @@
+.person-heading{
+  padding-bottom: 25px;
+
+  @include media-breakpoint(tablet){
+    padding-bottom: 75px;
+  }
+
+  &__image{
+    margin-bottom: 25px;
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 175px;
+      height: 175px;
+      border-radius: 175px;
+    }
+  }
+}
+
+.person-contact{
+  &__item{
+    margin-bottom: 10px;
+  }
+}
+
+.person-body{
+  padding-top: 0px;
+}
+
+.person-featured-work{
+  padding: 75px 0 1px 0;
+}
+
+.person-publications-list{
+  padding: 75px 0;
+}

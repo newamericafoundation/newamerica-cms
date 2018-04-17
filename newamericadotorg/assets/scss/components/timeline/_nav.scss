@@ -1,0 +1,80 @@
+.timeline__nav {
+	.list-view & {
+		display: none !important;
+	}
+	&__dot {
+		cursor: pointer;
+		/*fill: white;*/
+		/*stroke: $sub-color;*/
+
+		&:not(.selected)  {
+			&:not(.hovered) {
+				fill: white !important;
+			}
+			/*stroke: none !important;*/
+		}
+		/*&:not(.hovered) {
+			fill: white !important;
+			stroke: color(black) !important;
+		}*/
+	}
+
+	&__hover-info {
+		display: block;
+		font-size: $subtext-size;
+		/*color: color(black);*/
+
+		&.hidden {
+			display: none;
+		}
+
+		&.italicize {
+			font-style: italic;
+		}
+	}
+
+	&__axis {
+		&.year-axis {
+			/*path {
+				display: none;
+			}*/
+		}
+		path {
+			stroke: $sub-color;
+			stroke-width: .7px;
+		}
+		.tick {
+			text {
+				font-family: Simplon;
+				fill: $sub-color;
+				font-size: $subtext-size;
+				line-height: .7;
+			}
+			line {
+				stroke: $sub-color;
+				stroke-width: .7px;
+			}
+		}
+
+	}
+
+	&__era-section {
+
+	}
+	&__era-divider {
+		stroke: $sub-color;
+		stroke-dasharray: 4, 4;
+	}
+	&__era-text {
+		font-family: Simplon;
+		fill: $sub-color;
+		font-size: $subtext-size;
+		line-height: .7;
+		text-anchor: middle;
+		display: none;
+
+		&.visible {
+			display: block;
+		}
+	}
+}

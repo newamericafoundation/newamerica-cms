@@ -1,0 +1,15 @@
+.in-depth__panel__title{
+	cursor: pointer;
+	.fa{
+		display: none;
+		padding-left: 15px;
+		font-size: 1rem;
+		line-height: 1.4rem;
+		position: relative;
+		top: -2px;
+		color: color(black, base, 0.5);
+	}
+	&:hover .fa{
+		display: inline-block;
+	}
+}

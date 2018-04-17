@@ -1,0 +1,17 @@
+.block-image {
+  padding: 40px 0px;
+
+  .block-inline_image__wrapper{
+    padding: 0;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+p > img {
+  max-width: 100%;
+  height: auto;
+}

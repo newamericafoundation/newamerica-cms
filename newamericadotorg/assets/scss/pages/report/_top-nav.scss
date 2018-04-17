@@ -1,0 +1,43 @@
+.report__top-nav{
+  height: 65px;
+
+  &__contents, &__title{
+    height: 65px;
+  }
+
+  &__contents{
+    position: relative;
+    z-index: 3;
+  }
+
+  &__sticky-wrapper{
+    width: 100vw;
+    height: 65px;
+    color: color(white);
+    background: color(black);
+  }
+
+  &.scroll-entered{
+    .report__top-nav__sticky-wrapper{
+      z-index: 150;
+      position: fixed;
+      top: -65px;
+      @include transition(transform $header-transition-function);
+      @include transform(translateY(0));
+    }
+  }
+
+  &.scroll-left{
+    .report__top-nav__sticky-wrapper{
+      @include transform(translateY(65px));
+    }
+  }
+}
+
+.scroll-reverse:not(.scroll-disabled) {
+  .report__top-nav.scroll-left .report__top-nav__sticky-wrapper{
+    z-index: 150;
+    position: fixed;
+    @include transform(translateY(calc(65px + #{$header-height})));
+  }
+}

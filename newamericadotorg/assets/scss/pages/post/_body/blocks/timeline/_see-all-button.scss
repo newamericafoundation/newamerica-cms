@@ -1,0 +1,21 @@
+.timeline__see-all-button {
+	border-left: 2px solid palette-get(na-black-10);
+	border-bottom: 2px solid palette-get(na-black-10);
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	@include timeline-subtext
+	cursor: pointer;
+	padding: 3px 5px;
+
+	&:hover {
+		color: color(black);
+	}
+
+	&:after {
+		content: "See List View";
+		.list-view & {
+			content: "See Interactive View";
+		}
+	}
+}

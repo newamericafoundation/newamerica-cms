@@ -1,0 +1,8 @@
+.program__about {
+  background-color: color(white);
+  padding: 35px;
+
+  @include media-breakpoint(desktop){
+    padding: 80px;
+  }
+}

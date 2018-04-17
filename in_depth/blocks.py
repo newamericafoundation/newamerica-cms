@@ -1,5 +1,5 @@
 from wagtail.wagtailcore import blocks
-from mysite.blocks import BodyBlock
+from newamericadotorg.blocks import BodyBlock
 
 import json
 

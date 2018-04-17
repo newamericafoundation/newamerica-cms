@@ -1,38 +1,6 @@
 {% extends "post_page.html" %}
 
-{% load wagtailcore_tags %}
-{% load wagtailcore_tags wagtailimages_tags %}
-
-{% block body_class %}template-book{% endblock %}
-
+{% block body_class %}postpage bookpage{% endblock %}
 {% block post-header %}
-	{% if page.publication_cover_image %}
-		<div class="book-container">
-			<div class="book">
-			{% image page.publication_cover_image min-95x155 as cover_image %}
-				<img src="{{ cover_image.url }}" />
-			</div>
-		</div>
-	{% endif %}
-	<div class="post-header-container">
-		<div class="post-header">
-			<div class="post-header__text">
-		    	<h1 class="post-header__text__heading">{{ page.title }}</h1>
-		    	{% if page.subheading %}
-		    		<h2 class="post-header__text__subheading">{{ page.subheading }}</h2>
-		    	{% endif %}
-			</div>
-		</div>
-	</div>
-
-{% endblock %}
-
-{% block post-body %}
-
-    <div class="post-body with-dropcap">
-	    {% for block in self.body %}
-	    	{% include 'ui_elements/post_body_block.html' %}
-	    {% endfor %}
-	</div>
-
+	{% include 'components/post_book_heading.html' %}
 {% endblock %}

@@ -1,0 +1,146 @@
+{% load static from staticfiles %}
+{% load wagtailuserbar  %}
+{% load top_menu %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+{% load cited_html %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta property="og:site_name" content="New America" />
+
+  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+  {% include './pdf_style.html' %}
+</head>
+<body>
+  <main>
+    <footer>
+      <span id="report-url">newamerica.org{{page.url}}</span>
+      <span id="page-count"></span>
+    </footer>
+    <section id="cover-page" class="break-after hide-footer">
+      <div class="cover-page">
+        <div class="logo">
+          <div class="logo-img-wrapper">
+            <img src="{% static 'logo-black.svg'%}"/>
+          </div>
+        </div>
+        <div class="title">
+          <div class="title-wrapper">
+            <label class="date block">{{page.date|date:"F, Y"}}</label>
+            <h1 class="promo">{{page.title}}</h1>
+            <p class="subtitle">{{page.subheading}}</p>
+            <div class="authors">
+              {% for a in page.authors.all %}<label class="">{{a.author.first_name}} {{a.author.last_name}}</label>{% if page.authors.all|length > 2 and forloop.counter < page.authors.all|length %}<span>,&nbsp;</span>{% endif %}{% if forloop.counter == page.authors.all|length|add:"-1" and page.authors.all|length > 1 %}<span>&&nbsp;</span>{% endif %}{% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="cover-page__footer">
+          {% for p in page.parent_programs.all %}<label class="bold">{{p.program.title}}</label>{% if page.parent_programs.all|length > 2 and forloop.counter < page.parent_programs.all|length %}<span>,&nbsp;</span>{% endif %}{% if forloop.counter == page.parent_programs.all|length|add:"-1" and page.parent_programs.all|length > 1 %}<span>&&nbsp;</span>{% endif %}{% endfor %}
+          <label class="block last-edited">Last edited on {% now "F d, Y \a\t g:i a e" %}
+        </div>
+      </div>
+    </section>
+    {% if page.acknowledgements %}
+      <section id="acknowledgements" class="break-after col hide-footer">
+        <div class="about-page__section">
+          <h2>Acknowledgements</h2>
+          <div class="contents__list__item bottom-margin"></div>
+        </div>
+      </section>
+    {% endif %}
+    <section id="about-page" class="break-after col auto hide-footer">
+      <div class="about-page__section">
+        <h2>About the Author(s)</h2>
+        {% for a in page.authors.all %}
+          <div class="contents__list__item bottom-margin">
+            {{a.author.short_bio|safe}}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="about-page__section">
+        <h2>About New America</h2>
+        <div class="contents__list__item bottom-margin">
+          We are dedicated to renewing America by continuing the quest to realize our nation’s highest ideals, honestly confronting the challenges caused by rapid technological and social change, and seizing the opportunities those changes create.
+        </div>
+      </div>
+      <div class="about-page__section">
+        <h2>About {{page.parent_programs.all.0.program.title}}</h2>
+        <div class="contents__list__item bottom-margin">
+          {{page.parent_programs.all.0.program.description}}
+        </div>
+      </div>
+    </section>
+    <section id="contents-page" class="break-after hide-footer">
+      <div class="contents-page">
+        <div class="contents-wrapper">
+          <h2 class="bottom-margin">Contents</h2>
+          <div class="contents__list">
+            {% for s in page.sections %}
+              <div class="contents__list__item bottom-margin">
+                <label class="block">{{ forloop.counter}}. {{s.value.title}}</label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+    {% for s in page.sections %}
+      <section class="section">
+        <div class="section-content">
+          <h1 class="heading-{{forloop.counter}}">{{forloop.counter}}. {{s.value.title}}</h1>
+          {% for block in s.value.body %}
+            {% if block.block_type == 'paragraph' %}
+              {{ block.value|cited_html|safe }}
+            {% elif block.block_type == 'inline_image' or block.block_type == 'box' %}
+              {% include_block block %}
+            {% elif block.block_type == 'table' %}
+              <div class="block-table">
+                <label class="bold">Table {% counter %}</label>
+                {% include_block block %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+    <section class="endnotes break-before break-after">
+      <div class="endotes-col col">
+        <h2>Notes</h2>
+        {% for note in page.endnotes %}
+          <div class="endnote"><span class="endnote__number">{{note.value.number}}</span> {{note.value.note|safe}}</div>
+        {% endfor %}
+      </div>
+    </section>
+    <section class="attribution">
+      <div class="attribution-col col auto">
+        <div class="logo">
+          <div class="logo-img-wrapper">
+            <img src="{% static 'logo-black.svg'%}"/>
+          </div>
+        </div>
+        <div class="cc-logo">
+          <div class="cc-logo-img-wrapper">
+            <img src="{% static 'cc-logo.png'%}"/>
+          </div>
+        </div>
+        <p>This report carries a Creative Commons Attribution 4.0 International license, which permits re-use of New America content when proper attribution is provided. This means you are free to share and adapt New America’s work, or include our content in derivative works, under the following conditions:</p>
+        <p>• <strong>Attribution.</strong> You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</p>
+        <p>For the full legal code of this Creative Commons license, please visit <strong>creativecommons.org</strong>.</p>
+        <p>If you have any questions about citing or reusing New America content, please visit <strong>www.newamerica.org</strong>.</p>
+        <p>All photos in this report are supplied by, and licensed to, <strong>shutterstock.com</strong> unless otherwise stated. Photos from federal government sources are used under section 105 of the Copyright Act.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

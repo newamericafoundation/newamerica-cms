@@ -1,0 +1,80 @@
+select, input, textarea {
+	outline: 0px none transparent;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	border: 0px;
+	@include box-shadow( none !important );
+}
+
+select {
+	font-family: $label-font-family;
+	cursor: pointer;
+}
+
+input[type="submit"] {
+	border: 1px solid color(black);
+	background: transparent;
+	outline: 0;
+}
+
+textarea {
+	margin-top: 25px;
+	margin-bottom: 15px;
+}
+
+input[type="text"] {
+	height: 46px;
+}
+
+input[type="text"], textarea {
+	border: none;
+	outline: none;
+	border-bottom: 1px solid color(black, base, 0.3);
+	background: transparent;
+}
+
+.input {
+	position: relative;
+	input, textarea{
+		width: 100%;
+		position: relative;
+		z-index: 1;
+	}
+	label.input__label {
+		position: absolute;
+		@include transition(transform 0.15s ease);
+		@include transform(translateY(0));
+		top: 1.75em;
+		left: 0;
+		z-index: 0;
+	}
+	input[type="text"]:active + label,
+	input[type="text"]:focus + label,
+	input[type="text"]:valid + label,
+	textarea:active + label,
+	textarea:focus + label,
+	textarea:valid + label {
+		@include transform(translateY(-2.75em));
+		color: color(black, base, 0.3);
+	}
+
+	label.input__submit, button.input__submit {
+		position: absolute;
+		top: 2.75em;
+		right: 5px;
+		z-index: 2;
+	}
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: color(gray,light);
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: color(gray,light);
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: color(gray,light);
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: color(gray,light);
+}

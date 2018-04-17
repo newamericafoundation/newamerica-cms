@@ -1,0 +1,84 @@
+.timeline__event {
+	float: left;
+	padding: 0px 10px;
+	
+	.list-view & {
+		float: none;
+		padding-bottom: 25px;
+	}
+
+	@include media-breakpoint(tablet) {
+		max-width: $max-body-width;
+		min-height: 100px;
+	}
+
+	&__date {
+		@include timeline-subtext;
+	}
+
+	&__title {
+		font-size: 20px;
+		color: color(black);
+		font-weight: bold;
+		padding-bottom: 10px;
+
+		&.italicize {
+			font-style: italic;
+		}
+	}
+
+	&__description {
+		padding-top: 0px;
+		& p {
+			font-size: .9rem;
+			color: color(black) !important;
+
+			&:first-child {
+				img.left, img.right {
+		    		padding-top: 5px !important;
+		    	}
+		    }
+		}
+
+		blockquote {
+			font-size: .9rem !important;
+			line-height: 1.65 !important;
+		}
+
+		img {
+			@media screen and (max-width: 600px) {
+		        width: 100% !important;
+		        padding-left: 0px !important;
+		        padding-right: 0px !important;
+		    }
+			
+		}
+	}
+
+	&__media {
+		text-align: center;
+		&__image {
+			max-height: 400px;
+			width: auto;
+			margin: auto;
+		}
+	}
+
+	&__list-view-era-header {
+		font-weight: bold;
+		font-size: 22px;
+		margin: 10px;
+		color: $sub-color;
+		display: none;
+
+		.list-view & {
+			display: block;
+		}
+	}
+
+	&::after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+}

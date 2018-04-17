@@ -1,0 +1,18 @@
+{% load wagtailcore_tags %}
+{% load cited_html %}
+<div class="block-box">
+  <h5>→&nbsp;{{value.title}}</h5>
+  {% for block in value.body %}
+      {% if block.block_type == 'paragraph' %}
+        <div class="block-{{ block.block_type }}">
+          {{ block.value|cited_html|safe }}
+        </div>
+      {% elif block.block_type == 'inline_image' %}
+        {% include_block block %}
+      {% else %}
+        <div class="block-{{ block.block_type }}">
+          {% include_block block %}
+        </div>
+      {% endif %}
+  {% endfor %}
+</div>

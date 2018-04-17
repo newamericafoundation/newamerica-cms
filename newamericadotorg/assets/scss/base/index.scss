@@ -1,0 +1,95 @@
+@-ms-viewport {
+  width: device-width;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+html, body{
+  color: color(black);
+  background: color(white);
+  font-family: $label-font-family;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+body.scroll-disabled {
+  position: fixed;
+  overflow: hidden;
+}
+
+body.scroll-md-disabled {
+  position: fixed;
+  overflow: hidden;
+  @include media-breakpoint(desktop){
+    position: static;
+    overflow: auto;
+  }
+}
+
+ul, ol {
+  &.no-list-style, &.inline {
+    margin: 0;
+  	padding: 0;
+    list-style-type: none;
+    li {
+    	padding: 0;
+    }
+  }
+
+  &.inline li {
+    display: inline-block;
+    padding-right: 25px;
+  }
+}
+
+main {
+  min-height: 100vh;
+}
+
+span {
+  &.block {
+    display: block;
+  }
+}
+
+figure {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+iframe{
+  border: 0;
+}
+
+hr {
+	border-bottom: 1px solid color(black, base, 0.3);
+}
+
+section {
+  &.beige {
+    background-color: color(beige);
+  }
+}
+
+@import 'fonts';
+@import 'type';
+@import 'containers';
+@import 'inputs';
+@import 'margins-critical';
+//@import 'print';

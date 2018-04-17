@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% block body_class %}template-postpage{% endblock %}
+
+{% block content %}
+	<main class="with-margin">
+		{% include 'components/breadcrumbs.html' %}
+		{% include 'components/react/content-list.html' %}
+	</main>
+{% endblock %}

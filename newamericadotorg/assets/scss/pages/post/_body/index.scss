@@ -1,0 +1,30 @@
+.post-body {
+  & > *:first-child {
+    margin-top: 0 !important;
+
+    & > *:first-child {
+      margin-top: 0 !important;
+
+      & > *:first-child {
+        margin-top: 0 !important;
+      }
+    }
+  }
+
+  & > *:last-child p:last-child{
+    margin-bottom: 0 !important;
+  }
+
+  @import 'lists';
+  @import 'data-reference';
+  @import 'toggles';
+}
+
+.post-body-wrapper{
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@import 'attachment';
+@import 'aside';
+@import 'blocks/index';

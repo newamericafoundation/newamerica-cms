@@ -1,0 +1,42 @@
+{% load cache %}
+<!-- 86400 header  -->
+<header class="header scroll-target {% block with-subheader-class %}{% endblock %}" data-scroll-offset="125">
+  <div class="header__wrapper {% if transparent %}transparent{% endif %}">
+    <div class="container">
+    <div class="row no-gutters">
+      <div class="header__logo-wrapper col-lg-2 col-11">
+        <a href="/">
+          <div class="header__logo logo"></div>
+        </a>
+      </div>
+      <nav class="header__nav col-md-10">
+        <!-- floated right, so this is in opposite order -->
+        <div class="header__nav__button-and-icons">
+          <div class="search-box">
+            <div class="input">
+              <form action="/search/?query=value" method="get">
+                <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
+              </form>
+            </div>
+          </div>
+          <div class="header__nav__search">
+            {% include 'components/search-icon.html' %}
+          </div>
+        </div>
+        <div class="header__nav__dropdown-list">
+          {% include './header_dropdown_list.html' %}
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div id="mobile-menu__wrapper">
+    {%  include 'components/mobile-menu-icon.html' %}
+    <div id="compose__mobile-menu" data-replace-this="true"></div>
+  </div>
+  <div class="header__loading">
+    <div></div>
+  </div>
+  </div>
+
+  {% block subheader %}{% endblock %}
+</header>

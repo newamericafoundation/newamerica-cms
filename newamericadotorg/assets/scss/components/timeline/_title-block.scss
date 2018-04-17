@@ -1,0 +1,24 @@
+.timeline__title-block {
+	max-width: $max-body-width + 2*25px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 25px;
+	padding: 0px 25px;
+
+	&__pre-text {
+		@include timeline-subtext;
+		margin-bottom: 0px;
+		color: color(black) !important;
+	}
+
+	&__title {
+		color: color(black);
+		font-size: 26px;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+	&__subheading {
+		font-size: .9rem;
+		color: color(black) !important;
+	}
+}

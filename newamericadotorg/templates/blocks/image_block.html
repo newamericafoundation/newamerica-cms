@@ -1,0 +1,56 @@
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% if value.image %}
+  {% image value.image min-800x800 as img %}
+  {% image value.image original as img_original %}
+{% else %}
+  {% image value min-800x800 as img %}
+  {% image value original as img_original %}
+{% endif %}
+
+{% widthratio value.image.width value.image.height 420 as maxWidth %}
+
+<figure class="figure {{value.align}} margin-35 margin-lg-60">
+  {% if value.figure_number or value.figure_title %}
+    <div class="figure__title margin-bottom-15" style="max-width: {{maxWidth}}px;">
+      {% if value.figure_number %}
+        <label class="bold margin-0{% if value.figure_title %} with-separator{% endif %}">Figure {{ value.figure_number }}</label>
+      {% endif %}
+      {% if value.figure_title %}
+        <label class="margin-0">{{ value.figure_title }}</label>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="figure__image {{value.width|temp_image_width_map}}" style="max-width: {{maxWidth}}px;">
+    {% if value.open_image_on_click %}
+      <a href="{{ img_original.url }}" target='_blank' >
+        {% if value.use_original %}
+          <img src="{{img_original.url}}" class="original"/>
+        {% else %}
+          <img src="{{img.url}}"/>
+        {% endif %}
+      </a>
+    {% else %}
+      {% if value.use_original %}
+        <img src="{{img_original.url}}" class="original"/>
+      {% else %}
+        <img src="{{img.url}}"/>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% if value.image.caption or value.image.source %}
+    <figcaption class="margin-top-10" style="max-width: {{maxWidth}}px;">
+      {% if value.image.caption %}
+        <label class="block margin-top-0">
+          {{ value.image.caption }}
+        </label>
+      {% endif %}
+      {% if value.image.source %}
+        <label class="caption block margin-top-0">
+          Source: {{ value.image.source }}
+        </label>
+      {% endif %}
+    </figcaption>
+  {% endif %}
+</figure>

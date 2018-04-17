@@ -9,15 +9,16 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class BlogPost(Post):
     """
     Blog class that inherits from the abstract
     Post model and creates pages for blog posts.
     """
-    parent_page_types = ['ProgramBlogPostsPage']
+    parent_page_types = ['ProgramBlogPostsPage', 'programs.BlogProject', 'programs.BlogSeries']
     subpage_types = []
 
     attachment = StreamField([
@@ -32,7 +33,7 @@ class BlogPost(Post):
         verbose_name = 'Blog Post'
 
 
-class AllBlogPostsHomePage(Page):
+class AllBlogPostsHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Blog post in the BlogPost model for the
@@ -49,11 +50,15 @@ class AllBlogPostsHomePage(Page):
             BlogPost
         )
 
+    @property
+    def content_model(self):
+        return BlogPost
+
     class Meta:
-        verbose_name = "Homepage for all Blog Posts"
+        verbose_name = "New America Blog"
 
 
-class ProgramBlogPostsPage(Page):
+class ProgramBlogPostsPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and returns
     all Blog Posts associated with a specific Program or
@@ -94,5 +99,9 @@ class ProgramBlogPostsPage(Page):
             ProgramBlogPostsPage,
             BlogPost)
 
+    @property
+    def content_model(self):
+        return BlogPost
+
     class Meta:
-        verbose_name = "Blog Homepage for Program and Subprograms"
+        verbose_name = "Blog Posts Homepage"

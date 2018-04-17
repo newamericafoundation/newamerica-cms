@@ -1,0 +1,36 @@
+{% load utilities %}
+
+<div class='story-grid-item__text'>
+  {% if story.specific.rsvp_link %}
+    {% if story.specific|is_future %}
+     {% comment %}
+        for whatever reason, using an <a></a> tag here causes django to
+        render this entire block outside of the parent template's link-wrapper.
+        Resorting to js.
+      {% endcomment %}
+      <div class="story-grid-item__text__button button"
+          onclick="window.location='{{story.specific.rsvp_link}}'; return false;">
+          RSVP
+      </div>
+    {% endif %}
+  {% endif %}
+  <label class='story-grid-item__text__program-content {{which}}'>
+      {% comment %}grid_type passed from include tag{% endcomment %}
+      {% if page_context == 'homepage' %}
+        {% if story.specific.parent_programs %}
+          {% for program in story.specific.parent_programs.all %}
+            {{ program }}
+            {% list_separator forloop.revcounter0 %}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% generate_content_type_line story.content_type %}
+  </label>
+  <p class='story-grid-item__text__heading {{which}}'>
+    {% if story.seo_title %}
+      {{ story.seo_title }}
+    {% else %}
+      {{ story.title }}
+    {% endif %}
+  </p>
+</div>

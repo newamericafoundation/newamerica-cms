@@ -1,0 +1,61 @@
+.header__wrapper.transparent:not(:hover){
+  background: transparent;
+  .logo{
+    background-image: url(/static/logo-white.svg);
+  }
+
+  a:after{
+    border-right: 1px solid color(white);
+    border-bottom: 1px solid color(white);
+  }
+  label{
+    color: color(white) !important;
+  }
+
+  .mobile-menu-icon > span {
+    background: color(white);
+  }
+
+  .search-icon{
+    .glass{
+
+      @include box-shadow( 0px 0px 0px 2px color(white) );
+    }
+    .handle{
+      background: color(white);
+    }
+  }
+}
+
+
+.header__wrapper.transparent{
+  position: relative !important;
+  .container--wide{
+    @include box-shadow( none !important );
+  }
+
+  a:after{
+    @include transition(border-color 0.15s ease);
+  }
+
+  @include transition(background 0.15s ease);
+
+  .mobile-menu-icon > span {
+    @include transition(background 0.15s ease);
+  }
+
+  .logo{
+    @include transition(background-image 0.15s ease);
+  }
+
+  label{
+    @include transition(color 0.15s ease);
+  }
+  .glass{
+    @include transition(box-shadow 0.15s ease);
+  }
+
+  .handle{
+    @include transition(background 0.15s ease);
+  }
+}

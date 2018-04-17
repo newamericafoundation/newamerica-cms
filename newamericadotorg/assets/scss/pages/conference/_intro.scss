@@ -1,0 +1,44 @@
+.conference__intro{
+  height: 100vh;
+  background-size: cover;
+  background-position: 50% 50%;
+  position: relative;
+  margin-top:#{-$header-height};
+}
+
+.conference__intro__background {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: auto;
+    @include media-breakpoint(desktop) {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+
+.conference__title{
+  padding-top: $header-height;
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+  position: absolute;
+  @include center;
+
+  .na-logo img{
+    max-width: 400px;
+    display: block;
+    left: 50%;
+    @include transform(translateX(-50%));
+    position: absolute;
+    top: -45px;
+  }
+}

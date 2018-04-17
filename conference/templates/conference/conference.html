@@ -3,64 +3,99 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% block body_class %}conference-template{% endblock %}
+{% block body_class %}conference{% endblock %}
+{% block header %}
+  {% include 'components/header.html' with transparent=True %}
+{% endblock %}
+{% block extra_js %}
+    <script>
+      newamericadotorgEvents();
+
+			function newamericadotorgEvents(){
+				if(!newamericadotorg){
+					setTimeout(newamericadotorgEvents, 500);
+					return;
+				}
+				newamericadotorg.actions.addScrollEvent({
+          selector: '.section-nav',
+          triggerPoint: 'bottom',
+          onEnter: function(el){
+            var s = '#nav__' + el.getAttribute('id');
+            var a = document.querySelector(s);
+            if(a)
+              a.classList.add('active');
+          },
+          onLeave: function(el){
+            var s = '#nav__' + el.getAttribute('id');
+            var a = document.querySelector(s);
+            if(a)
+              a.classList.remove('active');
+          }
+        });
+
+        var navs = document.querySelectorAll('.navigation-link')
+        console.log(navs);
+        for(var i=0; i<navs.length;i++){
+          navs[i].addEventListener('click', function(e){
+            e.preventDefault();
+            var id = this.getAttribute('href');
+            var panel = document.querySelector(id);
+            newamericadotorg.actions.smoothScroll(panel);
+          });
+        }
+			}
+    </script>
+{% endblock %}
+
 
 {% block content %}
-
   {% include 'conference/intro.html' %}
   {% include 'conference/nav.html' %}
-  {% include 'conference/about.html' %}
+  <main class="container--1080">
+    {% include 'conference/about.html' %}
 
-  <section id="speakers" class="section section-nav align-center">
-    <div class="container">
-      <span class="line-icon section-icon line-icon-faces-users-04"></span>
-      <h3>Speakers</h3>
-    </div>
-    {% if page.publish_speakers %}
-      {{ page.speakers }}
-    {% else %}
-      <div class="tba container"><h4><i>To be announced.</i></h4></div>
-    {% endif %}
-  </section>
+    <section id="speakers" class="conference__section section-nav align-center">
+        <span class="line-icon section-icon line-icon-faces-users-04"></span>
+        <h1 class="centered">Speakers</h1>
 
-  <section id="schedule" class="section section-nav schedule-section align-center">
-    <div class="container">
+      {% if page.publish_speakers %}
+        {{ page.speakers }}
+      {% else %}
+        <h4><i>To be announced.</i></h4>
+      {% endif %}
+    </section>
+
+    <section id="schedule" class="conference__section section-nav schedule-section align-center">
+
       <span class="line-icon section-icon line-icon-office-21"></span>
-      <h3>Schedule</h3>
-    </div>
-    {% if page.publish_sessions %}
-      {% include_block page.sessions %}
-    {% else %}
-      <div class="tba container"><h4><i>To be announced.</i></h4></div>
-    {% endif %}
-  </section>
+      <h1 class="centered">Schedule</h1>
+      {% if page.publish_sessions %}
+        {% include_block page.sessions %}
+      {% else %}
+        <h4><i>To be announced.</i></h4>
+      {% endif %}
+    </section>
 
-  {% if page.partners|length > 0 %}
-  <section id="sponsors" class="section section-nav align-center">
-    <div class="container">
+    {% if page.partners|length > 0 %}
+    <section id="sponsors" class="conference__section section-nav align-center">
       <span class="line-icon section-icon line-icon-seo-icons-24"></span>
-      <h3>{{ page.partner_heading }}</h3>
-    </div>
-    {{ page.partners }}
-  </section>
-  {% endif %}
+      <h1 class="centered">{{ page.partner_heading }}</h1>
+      {{ page.partners }}
+    </section>
+    {% endif %}
 
-  {% if page.venue_details %}
-  <section id="venue" class="section section-nav align-center">
-    {% include './venue_and_hotel.html' %}
-  </section>
-  {% endif %}
+    {% if page.venue_details %}
+    <section id="venue" class="conference__section section-nav align-center">
+      {% include './venue_and_hotel.html' %}
+    </section>
+    {% endif %}
 
-  {% if page.directions %}
-  <section id="directions" class="section align-center">
-    <div class="container">
-      <span class="line-icon section-icon line-icon-seo-icons-36"></span>
-      <h3>Directions</h3>
-    </div>
-    <div class="container">
-      {{ page.directions }}
-    </div>
-  </section>
-  {% endif %}
-
+    {% if page.directions %}
+    <section id="directions" class="conference__section section-nav align-center">
+        <span class="line-icon section-icon line-icon-seo-icons-36"></span>
+        <h1 class="centered">Directions</h1>
+        {{ page.directions }}
+    </section>
+    {% endif %}
+  </main>
 {% endblock %}

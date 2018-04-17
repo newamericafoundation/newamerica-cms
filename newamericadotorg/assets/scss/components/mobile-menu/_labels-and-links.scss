@@ -1,0 +1,64 @@
+.mobile-menu .tab-link-back {
+  height: 12px;
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  @include transform(translateX(0) translateY(-50%));
+  width: 100vw;
+  opacity: 0;
+  padding-left: 0px !important;
+  @include transition(transform 0.4s ease-in-out, opacity 0.4s ease-in-out);
+
+  &:before{
+    position: absolute !important;
+    margin-top: 1.5px;
+    left: 15px !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-left: 1px solid color(black, base, 0.5) !important;
+    border-bottom: 1px solid color(black, base, 0.5) !important;
+  }
+}
+
+.mobile-menu.secondary-tab-active {
+  .logo__wrapper{
+    @include transform(translateX(-100vw));
+    opacity: 0;
+  }
+  .tab-link-back {
+    @include transform(translateX(-100vw) translateY(-50%));
+    opacity: 1;
+  }
+}
+
+.mobile-menu .menu-list > * {
+  padding-left: 25px;
+  padding-right: 25px;
+  position: relative;
+  @include box-shadow( inset 0px 1px 0px 0px color(black, base, 0.1) !important );
+
+  &:last-child{
+    box-shadow: inset 0px 1px 0px 0px color(black, base, 0.1),
+    inset 0px -1px 0px 0px color(black, base, 0.1) !important;
+  }
+
+  a {
+    padding-top: 27px;
+    padding-bottom: 27px;
+  }
+
+  &.tab-link a:after{
+    content: '';
+    height: 10px;
+    width: 10px;
+    border-top: 1px solid color(black, base, 0.5);
+    border-right: 1px solid color(black, base, 0.5);
+    position: absolute;
+    right: 15px;
+    margin-bottom: 5px;
+    top: 50%;
+    @include transform(translateY(-50%) rotate(45deg));
+  }
+}

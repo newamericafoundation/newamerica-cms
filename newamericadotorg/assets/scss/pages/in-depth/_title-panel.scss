@@ -1,0 +1,120 @@
+.title-panel{
+  width: 100vw;
+  height: calc(100vh - #{80px + $header-height});
+  min-height: 400px;
+  position: relative;
+  @include media-breakpoint(tablet){
+    max-height: 500px;
+  }
+
+  @include media-breakpoint(desktop){
+    max-height: none;
+  }
+
+  &.home-title-panel{
+    height: 100vh;
+    margin-top: -#{$header-height};
+  }
+
+  .container{
+    position: relative;
+    height: 100%;
+  }
+
+  &__button-container{
+    text-align: center;
+  }
+}
+
+.title-panel__text-box{
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+
+
+  &.home-title{
+    max-width: 700px;
+    @include center;
+  }
+
+  &:not(.home-title){
+    max-width: 600px;
+    left: 15px;
+    bottom: type-adjusted-padding(65px);
+  }
+}
+
+.title-panel__logo{
+  width: 125px;
+  display: inline-block;
+  float: right;
+  // position: absolute;
+  // z-index: 20;
+  // top: 15px;
+  // left: 15px;
+  a {
+    display: block;
+  }
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+
+.in-depth__panel .title-panel__image{
+
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: color(black);
+
+  &__background{
+    background-size: auto 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    opacity: 0.6;
+    @include transition(opacity 0.35s ease);
+    @include media-breakpoint(tablet){
+      background-size: 150% auto;
+    }
+
+    // @include media-breakpoint(desktop){
+    //   background-size: auto 100%;
+    // }
+
+    &.loaded{
+      opacity: 0;
+    }
+  }
+  img {
+    position: absolute;
+    z-index: 1;
+    width: auto;
+    height: 100%;
+    @include center;
+    @include transition(opacity 0.35s ease);
+    opacity: 0;
+
+    @include media-breakpoint(tablet){
+      width: 150%;
+      height: auto;
+    }
+
+    // @include media-breakpoint(desktop){
+    //   height: 100%;
+    //   width: auto;
+    // }
+
+    &.loaded{
+      opacity: 0.6;
+    }
+  }
+}

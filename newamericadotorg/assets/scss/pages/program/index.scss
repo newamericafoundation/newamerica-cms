@@ -1,0 +1,17 @@
+.program {
+  background: color(beige);
+  padding-top: 10px;
+  padding-bottom: 100px;
+  min-height: 100vh;
+}
+
+@import 'about';
+@import 'heading';
+@import 'nav';
+@import 'publications-list';
+@import 'publications-filter';
+@import 'publications-filter-sticky-wrapper';
+@import 'events';
+@import 'topic';
+@import 'story-grid';
+@import 'people-carousel';

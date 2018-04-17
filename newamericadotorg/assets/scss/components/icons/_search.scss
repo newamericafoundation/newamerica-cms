@@ -1,0 +1,25 @@
+.search-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  .glass, .handle{
+    position: absolute;
+    display: block;
+  }
+  .glass {
+    width: 9px;
+    height: 9px;
+    border-radius: 8px;
+    @include box-shadow( 0px 0px 0px 2px color(black) );
+  }
+
+  .handle{
+    height: 5.5px;
+    width: 2px;
+    background: color(black);
+    @include transform(rotate(-45deg));
+    top: 8px;
+    right: 8px;
+  }
+}

@@ -1,0 +1,65 @@
+.report__content-menu{
+  min-width: 300px;
+  margin-left: -22.5px;
+  padding: 12.5px 20px 12.5px 0;
+  background: color(gray);
+  z-index: 0;
+  max-height: calc(100vh - #{$header-height + 65px});
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &__item{
+    white-space: nowrap;
+    * {
+      cursor: pointer;
+    }
+
+    position: relative;
+    border-top: 1px solid color(black, base, 0.1);
+    padding: 0 22.5px;
+
+    &.active{
+      @include box-shadow( inset 4px 0 0 0 color(turquoise) );
+    }
+
+    a {
+      max-width: 215px;
+      display: inline-block;
+      padding-top: 12.5px;
+      padding-bottom: 12.5px;
+      padding-right: 15px;
+    }
+    &__toggle{
+      font-size: 0.7rem;
+      position: absolute;
+      top: calc(50% - 0.25em);
+      display: inline-block;
+      @include transition(transform 0.25s ease);
+      @include transform(rotate(0deg));
+    }
+  }
+}
+
+.report__content-menu__item__subsections{
+  display: block;
+  overflow: hidden;
+  @include transition(max-height 0.35s ease);
+  &__label{
+    color: color(gray, light);
+    padding-left: 15px;
+    white-space: normal;
+  }
+}
+.expanded {
+  .report__content-menu__item__subsections{
+  }
+
+  .report__content-menu__item__toggle{
+    @include transform(rotate(45deg));
+  }
+}
+
+.scroll-reverse:not(.scroll-disabled) .report__top-nav.scroll-left .report__content-menu,
+.report__top-nav:not(.scroll-entered) .report_content-menu{
+  max-height: calc(100vh - 130px);
+}

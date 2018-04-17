@@ -1,0 +1,25 @@
+.report__authors{
+  @include transition(opacity 0.35s ease);
+}
+
+.report__authors__item{
+  .caption {
+    //display: none;
+    @include media-breakpoint(large-desktop){
+      //display: block;
+    }
+  }
+}
+
+.report__authors__desktop{
+  display: none;
+  @include media-breakpoint(desktop){
+    display: block;
+  }
+}
+
+.report__authors__mobile{
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+}

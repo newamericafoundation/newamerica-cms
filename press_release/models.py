@@ -5,8 +5,9 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 
-from mysite.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
-
+from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
+from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class PressRelease(Post):
     """
@@ -28,7 +29,7 @@ class PressRelease(Post):
         verbose_name = 'Press Release'
 
 
-class AllPressReleasesHomePage(Page):
+class AllPressReleasesHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Press Release in the PressRelease model
@@ -45,11 +46,15 @@ class AllPressReleasesHomePage(Page):
             PressRelease
         )
 
+    @property
+    def content_model(self):
+        return PressRelease
+
     class Meta:
         verbose_name = "Homepage for all Press Releases"
 
 
-class ProgramPressReleasesPage(Page):
+class ProgramPressReleasesPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Press Releases associated with a specific
@@ -66,5 +71,9 @@ class ProgramPressReleasesPage(Page):
             PressRelease
         )
 
+    @property
+    def content_model(self):
+        return PressRelease
+
     class Meta:
-        verbose_name = "Press Release Homepage for Program and Subprograms"
+        verbose_name = "Press Releases Homepage"

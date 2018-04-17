@@ -1,0 +1,8 @@
+{% load wagtailimages_tags %}
+{% image project_root.story_image max-1920x1080 as tmp_image %}
+
+<section id="splash">
+  <div class="splash__image-wrapper">
+    <div class="splash__image" style="background-image: url({{tmp_image.url}});"></div>
+  </div>
+</section>

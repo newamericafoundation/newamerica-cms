@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'Circular';
+    src: url('/static/fonts/CircularStd-Black.otf');
+    src: url('/static/fonts/CircularStd-Black.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/CircularStd-Black.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circular';
+    src: url('/static/fonts/CircularStd-Book.ttf');
+    src: url('/static/fonts/CircularStd-Book.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/CircularStd-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: 'Platform';
+  src: url('/static/fonts/Platform-Medium.otf');
+  src: url('/static/fonts/Platform-Medium.eot?#iefix') format('embedded-opentype'),
+       url('/static/fonts/Platform-Medium.woff') format('woff');
+  font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Lyon';
+    src: url('/static/fonts/LyonText-Regular.otf');
+    src: url('/static/fonts/LyonText-Regular.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/LyonText-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: none;
+}
+
+@font-face {
+    font-family: 'Lyon';
+    src: url('/static/fonts/LyonText-Bold.otf');
+    src: url('/static/fonts/LyonText-Bold.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/LyonText-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: none;
+}
+
+
+@font-face {
+    font-family: 'Lyon';
+    src: url('/static/fonts/LyonText-RegularItalic.otf');
+    src: url('/static/fonts/LyonText-RegularItalic.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/LyonText-RegularItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}

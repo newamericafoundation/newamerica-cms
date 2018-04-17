@@ -1,0 +1,54 @@
+.report__social__item{
+   display: inline-block;
+   position: relative;
+
+   .fa, label{
+     display: inline-block;
+     vertical-align: middle;
+   }
+
+   .fa{
+     margin-right: 25px;
+   }
+
+   label{
+     display: none;
+     padding-top: $type-adjustment;
+   }
+
+   @include media-breakpoint(desktop){
+     display: block;
+     label{
+       display: inline-block;;
+     }
+   }
+
+   @include media-breakpoint(large-desktop){
+     label {
+       display: inline-block;
+     }
+   }
+}
+
+.report__social{
+  display: none;
+  @include transition(opacity 0.35s ease);
+  text-align: right;
+  height: 0px;
+  top: 0px;
+  right: 22.5px;
+  @include media-breakpoint(tablet){
+    display: block;
+  }
+  @include media-breakpoint(desktop){
+    height: auto;
+    text-align: left;
+  }
+}
+
+.social__print, .social__download{
+  display: none;
+  @include media-breakpoint(desktop){
+    display: block;
+  }
+}

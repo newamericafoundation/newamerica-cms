@@ -1,0 +1,23 @@
+.icon-doc{
+  width: 28px;
+  height: 30px;
+  display: inline-block;
+  @include box-shadow( 0px 0px 0px 2px color(black) );
+
+  & > div {
+    width: 56%;
+    margin-left: calc(22%);
+    height: 2px;
+    background: color(black);
+    margin-bottom: 2px;
+  }
+
+  & > div:first-child {
+    margin-top: calc(25% - 1px);
+  }
+
+  & > div:last-child {
+    width: 42%;
+    margin-bottom: 0px;
+  }
+}

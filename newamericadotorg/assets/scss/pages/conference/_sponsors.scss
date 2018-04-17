@@ -1,0 +1,17 @@
+.conference__section .sponsor-row {
+  text-align: center;
+}
+.conference__section .sponsor{
+  display: inline-block;
+  width: 160px;
+  height: 160px;
+  margin: 25px;
+  vertical-align: center;
+  position: relative;
+  img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    @include center;
+  }
+}

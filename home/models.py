@@ -17,6 +17,7 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel)
+from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
@@ -30,10 +31,13 @@ from person.models import Person
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from mysite.blocks import BodyBlock
+from newamericadotorg.blocks import BodyBlock
+from newamericadotorg.wagtailadmin.widgets import LocationWidget
 
 import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
+
+from subscribe.models import SubscriptionSegment
 
 class CustomImage(AbstractImage):
     # Add any extra fields to image here
@@ -67,6 +71,15 @@ def image_delete(sender, instance, **kwargs):
 def rendition_delete(sender, instance, **kwargs):
     instance.file.delete(False)
 
+class SubscriptionHomePageRelationship(models.Model):
+    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    program = ParentalKey('HomePage', related_name='subscriptions')
+    alternate_title = models.TextField(blank=True)
+    panels = [
+        FieldPanel('subscription_segment'),
+        FieldPanel('alternate_title')
+    ]
+
 class HomePage(Page):
     """
     Model for the homepage for the website. In Wagtail's parent
@@ -89,9 +102,18 @@ class HomePage(Page):
     'quoted.AllQuotedHomePage',
     'in_depth.AllInDepthHomePage',
     'JobsPage',
-    'SubscribePage',
     'RedirectPage',
+    'subscribe.SubscribePage',
+    'programs.PublicationsPage',
+    'report.AllReportsHomePage',
+    'other_content.AllOtherPostsHomePage'
     ]
+
+    subscription_segments = models.ManyToManyField(
+        SubscriptionSegment,
+        through=SubscriptionHomePageRelationship,
+        blank=True,
+    )
 
     # Up to four lead stories can be featured on the homepage.
     # Lead_1 will be featured most prominently.
@@ -155,6 +177,14 @@ class HomePage(Page):
 
     featured_stories = [feature_1, feature_2, feature_3]
 
+    about_pages = StreamField([
+        ('page', PageChooserBlock()),
+    ], blank=True)
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('about_pages')
+    ]
+
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
@@ -175,6 +205,8 @@ class HomePage(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
+
+        InlinePanel('subscriptions', label=("Subscription Segments")),
     ]
 
     def get_context(self, request):
@@ -210,7 +242,8 @@ class HomePage(Page):
         curr_date = datetime.now(eastern).date()
         date_filter = Q(date__gt=curr_date) | (Q(date=curr_date) & Q(start_time__gte=curr_time))
 
-        context['upcoming_events'] = Event.objects.live().filter(date_filter).order_by("date", "start_time")[:5]
+        context['upcoming_events'] = Event.objects.live().public().filter(date_filter).order_by("date", "start_time")[:3]
+        context['recent_publications'] = Post.objects.live().public().specific().not_type(Event).order_by("-date")[:4]
 
         return context
 
@@ -221,7 +254,7 @@ class AbstractSimplePage(Page):
     """
     body = StreamField(BodyBlock())
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
-
+    custom_interface = models.BooleanField(default=False)
     story_image = models.ForeignKey(
         'home.CustomImage',
         null=True,
@@ -243,6 +276,7 @@ class AbstractSimplePage(Page):
 
     settings_panels = Page.settings_panels + [
         FieldPanel('data_project_external_script'),
+        FieldPanel('custom_interface')
     ]
 
     class Meta:
@@ -287,14 +321,66 @@ class OrgSimplePage(AbstractSimplePage):
     parent_page_types = ['home.HomePage', 'OrgSimplePage']
     subpage_types = ['OrgSimplePage', 'home.RedirectPage']
 
+    page_description = RichTextField(blank=True)
+
+    content_panels = [
+        MultiFieldPanel([
+            FieldPanel('title'),
+            FieldPanel('page_description'),
+        ]),
+        StreamFieldPanel('body')
+    ]
+
+    def get_context(self, request):
+        context = super(OrgSimplePage, self).get_context(request)
+        if self.custom_interface == True:
+            context['template'] = 'home/custom_simple_interface.html'
+        else:
+            context['template'] = 'post_page.html'
+
+        return context
+
+    class Meta:
+        verbose_name = 'About Page'
+
 
 
 class ProgramSimplePage(AbstractSimplePage):
     """
     Simple Page at the Program level
     """
-    parent_page_types = ['programs.Program', 'ProgramSimplePage', 'programs.Subprogram']
-    subpage_types = ['ProgramSimplePage', 'home.RedirectPage']
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    subpage_types = ['home.RedirectPage']
+
+    def get_context(self, request):
+        context = super(ProgramSimplePage, self).get_context(request)
+        context['program'] = self.get_parent().specific
+
+        return context
+
+    def get_template(self, request):
+        parent = self.get_parent().specific
+
+        if type(parent) != Program and type(parent) != Subprogram:
+            return 'home/program_simple_page.html'
+
+        ## should load program page if page is added to "sidebar_menu_about_us_pages"
+        ## TODO need a better check for this
+        if type(parent) == Program:
+            about_pages = parent.sidebar_menu_about_us_pages.stream_data
+            is_about_page = False
+            for a in about_pages:
+                if self.id == a['value']:
+                    is_about_page = True
+                    break
+
+            if is_about_page:
+                return 'programs/program.html'
+
+        return 'home/program_simple_page.html'
+
+    class Meta:
+        verbose_name = 'About Page'
 
 
 class JobsPage(OrgSimplePage):
@@ -302,6 +388,9 @@ class JobsPage(OrgSimplePage):
     Jobs Page at the organization level
     """
     parent_page_types = ['home.HomePage']
+
+    class Meta:
+        verbose_name = 'Jobs Page'
 
 
 class SubscribePage(OrgSimplePage):
@@ -333,6 +422,9 @@ class SubscribePage(OrgSimplePage):
         StreamFieldPanel('event_subscriptions')
     ]
 
+    class Meta:
+        verbose_name = 'Subscribe Page'
+
 
 class PostAuthorRelationship(models.Model):
     """
@@ -343,7 +435,7 @@ class PostAuthorRelationship(models.Model):
     post = ParentalKey('Post', related_name='authors')
 
     panels = [
-        FieldPanel('author'),
+        PageChooserPanel('author'),
     ]
 
 
@@ -382,6 +474,50 @@ class PostSubprogramRelationship(models.Model):
     class meta:
         unique_together = (("subprogram", "post"),)
 
+class PostTopicRelationship(models.Model):
+    topic = models.ForeignKey('issue.IssueOrTopic', related_name="+")
+    post = ParentalKey('home.Post', related_name="topics")
+
+    panels = [
+        PageChooserPanel('topic', 'issue.IssueOrTopic')
+    ]
+
+class Location(models.Model):
+    location = models.CharField(max_length=999)
+    formatted_address = models.CharField(max_length=999,blank=True, null=True)
+    street_number = models.CharField(max_length=999,blank=True, null=True)
+    street = models.CharField(max_length=999,blank=True, null=True)
+    city = models.CharField(max_length=999,blank=True, null=True)
+    state_or_province = models.CharField(max_length=999,blank=True, null=True)
+    zipcode = models.CharField(max_length=999,blank=True, null=True)
+    county = models.CharField(max_length=999,blank=True, null=True)
+    country = models.CharField(max_length=999,blank=True, null=True)
+    latitude = models.CharField(max_length=999,blank=True, null=True)
+    longitude = models.CharField(max_length=999,blank=True, null=True)
+
+    post = ParentalKey(
+        'Post',
+        related_name='location',
+        blank=True,
+        null=True
+    )
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('location', widget=LocationWidget),
+            FieldPanel('formatted_address', classname="disabled-input"),
+            FieldPanel('street_number', classname="disabled-input field-col col6",),
+            FieldPanel('street', classname="disabled-input field-col col6"),
+            FieldPanel('county', classname="disabled-input field-col col6"),
+            FieldPanel('zipcode', classname="disabled-input field-col col6"),
+            FieldPanel('city', classname="disabled-input field-col col12"),
+            FieldPanel('state_or_province', classname="disabled-input field-col col12"),
+            FieldPanel('country', classname="disabled-input field-col col12"),
+            FieldPanel('latitude', classname="disabled-input field-col col6"),
+            FieldPanel('longitude', classname="disabled-input field-col col6"),
+        ])
+    ]
+
 class Post(Page):
     """
     Abstract Post class that inherits from Page
@@ -404,6 +540,9 @@ class Post(Page):
     post_author = models.ManyToManyField(
         Person, through=PostAuthorRelationship, blank=True)
 
+    post_topic = models.ManyToManyField(
+        'issue.IssueOrTopic', through=PostTopicRelationship, blank=True)
+
     story_excerpt = models.CharField(blank=True, null=True, max_length=140)
 
     story_image = models.ForeignKey(
@@ -423,11 +562,13 @@ class Post(Page):
         InlinePanel('programs', label=("Programs")),
         InlinePanel('subprograms', label=("Subprograms")),
         InlinePanel('authors', label=("Authors")),
+        InlinePanel('topics', label=("Topics")),
     ]
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
+        InlinePanel('location', label=("Locations"),)
     ]
 
     settings_panels = Page.settings_panels + [
@@ -476,13 +617,19 @@ class Post(Page):
             if created:
                 relationship.save()
 
-        if len(self.get_ancestors()) >= 5:
-            subprogram_title = self.get_ancestors()[3]
-            subprogram = Subprogram.objects.get(slug=subprogram_title.slug)
-
+        subprogram = self.get_ancestors().type(Subprogram)
+        if subprogram:
             if isinstance(subprogram, AbstractProgram):
                 relationship, created=PostSubprogramRelationship.objects.get_or_create(
-                    subprogram=subprogram, post=self
+                    subprogram=subprogram[0].specific, post=self
                 )
                 if created:
                     relationship.save()
+
+class AbstractHomeContentPage(Page):
+    """
+    Convenience Class for querying all Content homepages
+    """
+
+    class Meta:
+        abstract=True

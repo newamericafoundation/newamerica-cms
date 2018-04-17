@@ -1,0 +1,141 @@
+.dot-nav{
+  @include media-breakpoint-down(desktop){
+
+    .dot-nav__menu-icon{
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 25px;
+      height: 25px;
+      padding: 25px;
+      z-index: 100;
+      border-radius: 25px;
+      background: color(black);
+      @include transition(border-radius 0.2s ease);
+      @include box-shadow( 0px 0px 10px 3px color(black, base, 0.15) );
+      &:after{
+        content: '\f142';
+        font-family: 'FontAwesome';
+        display: block;
+        color: color(white);
+        font-size: 1.4rem;
+        position: absolute;
+        @include center;
+      }
+    }
+
+    .dot-nav__dots{
+      position: fixed;
+      z-index: 90;
+      bottom: 40px;
+      right: 40px;
+      padding: 25px;
+      width: calc(100vw - 50px);
+      max-height: 65vh;
+      padding-right: 50px;
+      background: color(black);
+      @include box-shadow( 0px 0px 10px 3px color(black, base, 0.15) );
+      @include transform(scale(0));
+      border-radius: 25px;
+      -moz-transform-origin: right bottom;
+      -ms-transform-origin: right bottom;
+      -o-transform-origin: right bottom;
+      transform-origin: right bottom;
+      @include transition(all 0.2s ease);
+    }
+    .dot-nav__dot-icon{
+      display: none;
+    }
+    .dot-nav__label{
+      display: block;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin: 0;
+      position: relative;
+      color: color(white);
+    }
+    .active .dot-nav__label{
+      font-weight: bold;
+    }
+  }
+
+  &.expanded {
+    @include media-breakpoint-down(desktop){
+      .dot-nav__dots{
+        bottom: 25px;
+        right: 25px;
+        border-radius: 0;
+        opacity: 1;
+        @include transform(scale(1));
+      }
+
+      .dot-nav__menu-icon{
+        border-radius: 0;
+      }
+
+      .dot-nav__menu-icon:after{
+        content: '\f00d';
+      }
+    }
+  }
+}
+
+.dot-nav {
+  @include media-breakpoint(desktop){
+    position: fixed;
+    right: 25px;
+    @include vertical-center;
+    white-space: nowrap;
+    z-index: 100;
+    text-align: right;
+
+    &__dot:hover{
+      .dot-nav__label{
+        @include transform(scale(1) translate(0, 0));
+        visibility: visible;
+        max-width: none;
+        right: 0;
+        opacity: 1;
+      }
+
+      .dot-nav__dot-icon{
+        background-color: color(black, base, 1);
+        @include transform(scale(1.2) translateY(10%));
+      }
+    }
+
+    &__dot.active .dot-nav__dot-icon{
+      background-color: color(black, base, 1);
+    }
+
+    &__label{
+      display: inline-block;
+      vertical-align: middle;
+      padding: 5px;
+      background: color(black);
+      color: color(white);
+      @include transform(scale(0.70) translate(15%, -15%));
+      visibility: hidden;
+      opacity: 0;
+      max-width: 0;
+      overflow: hidden;
+      position: relative;
+      right: -10px;
+      z-index: 1;
+      @include transition(transform 0.35s ease, max-width 0.35s ease);
+    }
+    &__dot-icon{
+      margin-left: 10px;
+      display: inline-block;
+      vertical-align: middle;
+      width: 11px;
+      height: 11px;
+      border-radius: 20px;
+      position: relative;
+      z-index: 2;
+      background-color: color(black, base, 0);
+      border: 1px solid color(black);
+      @include transition(transform 0.35s ease, background-color 0.35s ease);
+    }
+  }
+}

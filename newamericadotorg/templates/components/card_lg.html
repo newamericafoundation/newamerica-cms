@@ -1,0 +1,28 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% image post.story_image fill-925x430 as post_image_lg %}
+{% image post.story_image fill-500x235 as post_image_md %}
+{% image post.story_image fill-300x140 as post_image_sm %}
+{% image post.story_image fill-32x15 as post_image_thumb %}
+
+<div class="card lg">
+  <a href="{{post.url}}" class="row no-gutters">
+    <div class="col-md-7 col-lg-8" style="padding-right: 3px;">
+      <div class="card__image">
+        <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
+        <img src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 800w, {{post_image_md.url}} 500w, {{post_image_sm.url}} 300w" class="fade-in-image" onload="this.classList.add('loaded');">
+      </div>
+    </div>
+    <div class="col-md-5 col-lg-4">
+      <div class="card__text">
+        <h2 class="card__text__title margin-top-0 block link">
+          <span><u>{{post.title}}</u></span>
+        </h2>
+        <label class="card__text__subtitle block">{{post.story_excerpt}}</label>
+        <label class="card__text__program caption margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
+      </div>
+    </div>
+    </a>
+</div>

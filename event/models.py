@@ -1,4 +1,5 @@
 import json
+from datetime import date
 
 from django.db import models
 from django.db.models import Q
@@ -13,7 +14,8 @@ from wagtail.wagtailcore.models import Page
 
 from home.models import Post
 from conference.models import Conference
-from mysite.helpers import paginate_results, generate_url, is_json, is_int
+from newamericadotorg.helpers import paginate_results, generate_url, is_json, is_int
+from programs.models import AbstractContentPage
 
 class Event(Post):
     """
@@ -63,11 +65,15 @@ class Event(Post):
         FieldPanel('soundcloud_url'),
     ]
 
+    @property
+    def is_past(self):
+        return date.today() > self.date
+
     class Meta:
         verbose_name = 'Event'
 
 
-class AllEventsHomePage(RoutablePageMixin, Page):
+class AllEventsHomePage(RoutablePageMixin, AbstractContentPage):
     """
     Page which inherits from abstract Page model and returns every
     Event in the Event model for the Events homepage
@@ -94,10 +100,10 @@ class AllEventsHomePage(RoutablePageMixin, Page):
         )
 
     class Meta:
-        verbose_name = "Homepage for all Events"
+        verbose_name = "Events Homepage"
 
 
-class ProgramEventsPage(RoutablePageMixin, Page):
+class ProgramEventsPage(RoutablePageMixin, AbstractContentPage):
     """
     Page which inherits from abstract Page model and returns every
     Event associated with a specific Program or Subprogram
@@ -124,7 +130,7 @@ class ProgramEventsPage(RoutablePageMixin, Page):
         )
 
     class Meta:
-        verbose_name = "Events Homepage for Program and Subprograms"
+        verbose_name = "Events Homepage"
 
 
 def get_org_wide_events(self, request, tense):

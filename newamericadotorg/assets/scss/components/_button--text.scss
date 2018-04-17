@@ -1,0 +1,76 @@
+.button--text, label{
+  &.with-border {
+    border-bottom: 1.5px solid color(turquoise);
+  }
+  $caret-padding: 10px;
+  &.with-caret, &.with-caret--right, &.with-caret--down, &.with-caret--up{
+    padding-right: $caret-padding;
+    &:after {
+      content: ' ';
+      position: relative;
+      right: -$caret-padding;
+      top: type-adjusted-padding(2px);
+      display: inline-block;
+      vertical-align: middle;
+      width: 5px;
+      height: 5px;
+      border-right: 1px solid color(black);
+      border-bottom: 1px solid color(black);
+      @include transform(rotate(45deg));
+    }
+  }
+
+  &.with-caret--right:after {
+    @include transform(rotate(-45deg));
+  }
+
+  &.with-caret--down:after {
+    top: -2px;
+    @include transform(rotate(45deg));
+  }
+
+  &.with-caret--up:after {
+    top: 1px;
+    @include transform(rotate(-135deg));
+  }
+
+  &.with-caret--left{
+    padding-left: $caret-padding;
+    &:before{
+      content: ' ';
+      position: relative;
+      left: -$caret-padding;
+      top: type-adjusted-padding(3px);
+      vertical-align: middle;
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-left: 1px solid color(black);
+      border-bottom: 1px solid color(black);
+      @include transform(rotate(45deg));
+    }
+  }
+}
+
+.button--text.with-caret--right,
+.button--text.with-caret--down,
+.button--text.with-caret--up,
+label.bold.with-caret--right
+label.bold.with-caret--down,
+label.bold.with-caret--up{
+  &:after{
+    border-right: 1.5px solid color(black);
+    border-bottom: 1.5px solid color(black);
+  }
+}
+
+.button--text.with-caret--left:before,
+label.bold.with-caret--left:before{
+  border-left: 1.5px solid color(black);
+  border-bottom: 1.5px solid color(black);
+}
+
+.white[class*="with-caret"]:after,
+.white[class*="with-caret"]:before{
+  border-color: color(white);
+}

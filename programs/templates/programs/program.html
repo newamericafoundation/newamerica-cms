@@ -1,188 +1,23 @@
-{% extends "program_base.html" %}
-
+{% extends "base.html" %}
 {% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-{% load utilities %}
 
-{% block body_class %}template-programhomepage{% endblock %}
-{% block sidemenu_status %}has_sidemenu{% endblock %}
+{% block body_class %}programpage{% endblock %}
 
 {% block content %}
-<section class='section section--fixed-width'>
-	<div class='row'>
-		<div class='columns hero-grid-container'>
-			<div class='hero-grid has-{{ other_lead_stories|length|add:"1" }}-children'>
-
-				<div class='hero-grid__main'>
-
-					<div class='hero-grid__element'>
-					<a href="{{ page.lead_1.url }}">
-						<div class='hero-grid__element__wrapper'>
-							{% if page.lead_1.specific.story_image %}
-								{% image page.lead_1.specific.story_image min-1100x500 as lead1_image %}
-								<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
-							{% else %}
-								<div class='hero-grid__element__background'></div>
-							{% endif %}
-							<div class='hero-grid__element__overlay'></div>
-							<div class='hero-grid__element__text-bar'>
-
-								{% if page.lead_1.specific.rsvp_link and page.lead_1.specific.start_time %}
-										{% if page.lead_1.specific|is_future %}
-										<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
-										{% endif %}
-								{% endif %}
-								<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line page.lead_1.content_type %}</p>
-								<h1 class='hero-grid__element__text-bar__heading'>{% if page.lead_1.seo_title %}{{ page.lead_1.seo_title }}{% else %}{{ page.lead_1.title }}{% endif %}</h1>
-							</div>
-						</div>
-					</a>
-					</div>
-
-				</div>
-
-				{% if other_lead_stories %}
-				<div class='hero-grid__secondary'>
-				{% for other_lead_story in other_lead_stories %}
-					{% if other_lead_story %}
-						<div class='hero-grid__element'>
-							<a href="{{ other_lead_story.url }}" class='hero-grid__element__content'>
-								{% if other_lead_story.specific.story_image %}
-									{% image other_lead_story.specific.story_image min-550x500 as other_lead_story_image %}
-									<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
-								{% else %}
-									<div class='hero-grid__element__background'></div>
-								{% endif %}
-								<div class='hero-grid__element__overlay'></div>
-								<div class='hero-grid__element__text-bar'>
-									{% if other_lead_story.specific.rsvp_link and other_lead_story.specific.start_time %}
-				    					{% if other_lead_story.specific|is_future %}
-											<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
-										{% endif %}
-									{% endif %}
-									<p class='hero-grid__element__text-bar__subheading'>{% generate_content_type_line other_lead_story.content_type %}</p>
-									<h1 class='hero-grid__element__text-bar__heading'>{% if other_lead_story.seo_title %}{{ other_lead_story.seo_title }}{% else %}{{ other_lead_story.title }}{% endif %}</h1>
-
-								</div>
-							</a>
-						</div>
-					{% endif %}
-				{% endfor %}
-				</div>
-				{% endif %}
-
-			</div>
-
-		</div>
-	</div>
-
-</section>
-
-{% if featured_stories %}
-
-	<section class='section section--fixed-width'>
-
-		<div class='row picture-link-container'>
-
-			{% for feature_story in featured_stories %}
-			<div class='small-12 large-4 columns'>
-
-				<div class='picture-link'>
-					<a href="{{ feature_story.url }}">
-						{% if feature_story.specific.story_image %}
-							{% image feature_story.specific.story_image fill-75x75 as feature_story_image %}
-							<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'></div>
-						{% else %}
-							<div class='picture-link__picture'></div>
-						{% endif %}
-					</a>
-					<div class='picture-link__content'>
-						<h1><a href="{{ feature_story.url }}">{% if feature_story.seo_title %}{{ feature_story.seo_title }}{% else %}{{ feature_story.title }}{% endif %}</a></h1>
-						<p>{{ feature_story.specific.story_excerpt }}</p>
-					</div>
-				</div>
-
-			</div>
-			{% endfor %}
-
-		</div>
-
-	</section>
-
-{% endif %}
-
-<section class='section section--fixed-width'>
-
-	<div class='row border-panel-container'>
-
-	{% if page.feature_carousel %}
-		<div class='small-12 large-6 columns'>
-
-			<div class='border-panel'>
-
-				<ul class='border-panel__list has-{{ page.feature_carousel|length }}-children'>
-					{% for item in page.feature_carousel %}
-					<li class='border-panel__item'>
-
-						<div class='border-panel__content'>
-							<div class='border-panel__text'>
-								<div class='border-panel__info'>
-									<h5 class='border-panel__info__content-type'>{% generate_content_type_line item.value.content_type %}</h5>
-									{% if item.value.post.date %}
-										<h5 class='border-panel__info__date'>{{ item.value.post.date }}</h5>
-									{% endif %}
-								</div>
-								<div class='border-panel__title'><a href="{{ item.value.url }}">{{ item.value.title }}</a></div>
-
-								<p class='border-panel__description'>{{ item.value.post.story_excerpt }}</p>
-								<a href="{{ item.value.url }}"><div class='button black'>Read More</div></a>
-							</div>
-						</div>
-					</li>
-					{% endfor %}
-
-				</ul>
-
-			</div>
-
-		</div>
-
-		<div class='small-12 large-6 columns'>
+	{% csrf_token %}
+	{% if program.template == 'simple_program.html' or page.template == 'simple_program.html' %}
+		<main class="program container--full-width">
+			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
+			<div id="compose__simple-program-page"
+				data-program-type="subprogram"
+				data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
+		</main>
 	{% else %}
-		<div class='small-12 large-12 columns'>
+		<main class="program container--full-width">
+			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
+			<div id="compose__program-page"
+				data-program-type="{% if page.parent_programs is not None or program.parent_programs is not None %}subprogram{% else %}program{% endif %}"
+				data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
+		</main>
 	{% endif %}
-			<div class='border-panel'>
-				<ul class='border-panel__list has-1-children'>
-					<li class='border-panel__item'>
-						<div class='border-panel__content'>
-							<div class='border-panel__text'>
-								<div class='border-panel__info'>STAY CONNECTED</div>
-								<div class='border-panel__title'><a href='/subscribe/'>Subscribe</a></div>
-								<p>Get our weekly digital magazine and events lineup in your inbox.</p>
-								<form class="subscribe-form" action="/subscribe/">
-									<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
-									<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
-								</form>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-</section>
-
-<div class='panel'>
-
-	<h1>About {{ page.name }}</h1>
-	<p>{{ page.description }}</p>
-	{% if page.about_us_page %}
-		<div class='panel__link'>
-			<a href='{{ page.about_us_page.url }}' class='button black'>Read our Story</a>
-		</div>
-	{% endif %}
-
-</div>
-
 {% endblock %}

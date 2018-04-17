@@ -1,0 +1,15 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+<div class="story-grid-item story-grid__{{which}}__item">
+  <a class="story-grid-item__link-wrapper" href="{{ story.url }}">
+    {% if story.specific.story_image %}
+      {% image story.specific.story_image min-1350x500 as story_image %}
+      <div class="story-grid-item__image" style="background-image: url({{story_image.url}})"></div>
+    {% else %}
+      <div class="story-grid-item__image"></div>
+    {% endif %}
+    {% include './story_grid_item_text.html' with which=which story=story %}
+  </a>
+</div>

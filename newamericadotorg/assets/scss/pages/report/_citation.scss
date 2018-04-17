@@ -1,0 +1,40 @@
+.report__citation{
+  color: color(turquoise);
+  font-weight: bold;
+  font-size: 0.7em;
+  position: relative;
+  top: -.6em;
+  border-radius: 1.5em;
+  min-width: 18px;
+  height: 18px;
+  text-align: center;
+  line-height: 17px;
+  display: inline-block;
+  padding: 0 2px;
+  cursor: pointer;
+  font-variant-numeric: lining-nums;
+  font-family: $label-font-family;
+
+  .icon-plus {
+    display: none;
+  }
+
+  &.active, &:hover {
+    background: color(turquoise);
+    color: color(white);
+    font-weight: normal;
+  }
+
+  &.active {
+    .icon-plus {
+      display: block;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+    }
+
+    .citation-number {
+      opacity: 0;
+    }
+  }
+}

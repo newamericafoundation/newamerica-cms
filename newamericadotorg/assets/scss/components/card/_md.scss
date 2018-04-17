@@ -1,0 +1,48 @@
+.card.md {
+  .card__image{
+    padding-bottom: 100%;
+    width: 100%;
+    position: relative;
+
+    @include media-breakpoint(tablet){
+      padding-bottom: 77.143%;
+      height: 380px;
+      width: auto;
+    }
+
+    @include media-breakpoint(desktop){
+      height: auto;
+    }
+  }
+  img {
+    position: absolute;
+    @include center;
+    width: auto;
+    height: 100%;
+  }
+
+  .card__text{
+    width: 100%;
+    padding-bottom: 50px;
+
+    @include media-breakpoint(desktop){
+      max-width: 90%;
+      position: static;
+    }
+  }
+}
+
+@include media-breakpoint(desktop){
+  .card.md.square .card__image{
+    padding-bottom: 100%;
+  }
+
+  .card.md.landscape .card__image{
+    padding-bottom: 70%;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

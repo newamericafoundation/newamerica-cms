@@ -1,0 +1,10 @@
+.post-heading__book{
+  width: 100%;
+  &__image{
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    height: auto;
+    @include box-shadow( 0px 2px 4px 1px color(black, base, 0.25) );
+  }
+}

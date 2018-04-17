@@ -1,0 +1,18 @@
+.post__attachment {
+  &__text {
+    padding: 10px 0;
+    font-size: 0.9rem;
+    &__link{
+      margin-right: 5px;
+    }
+  }
+}
+
+.post__aside-section{
+  background: color(white, base, 0.65);
+  padding-bottom: 5px;
+  padding-top: 15px;
+  @include media-breakpoint(tablet){
+    border-bottom: 1px solid color(black, base, 0.075);
+  }
+}

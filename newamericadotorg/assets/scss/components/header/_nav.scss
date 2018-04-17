@@ -1,0 +1,22 @@
+.header__nav{
+  display: none;
+  @include media-breakpoint(desktop){
+    display: block;
+  }
+  position: static;
+  @extend %clearfix;
+
+  & > * {
+    float: right;
+  }
+
+  @import 'button-and-icons';
+
+  &__dropdown-list{
+    @extend %clearfix;
+  }
+
+  &__mobile-menu-icon {
+    text-align: center;
+  }
+}

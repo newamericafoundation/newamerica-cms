@@ -1,0 +1,133 @@
+.figure{
+  @include transition(opacity 0.35s ease);
+}
+
+.figure img.original{
+  max-height: none !important;
+}
+
+.figure figcaption{
+  text-align: left;
+}
+
+.figure.center,
+.figure.centered,
+.figure.full-width{
+  .figure__image, .figure__title, figcaption{
+    max-width: none !important;
+  }
+}
+
+.figure__image{
+  width: 100%;
+
+  &.width-200 {
+     width: 100vw;
+     margin-left: calc(-50vw + 50%);
+  }
+
+  @include media-breakpoint(desktop){
+    &.width-133 {
+      width: 120%;
+      margin-left: -10%;
+    }
+
+    &.width-166 {
+      width: 140%;
+      margin-left: -20%;
+    }
+  }
+
+  @include media-breakpoint(large-desktop){
+    &.width-133 {
+      width: 133.3333%;
+      margin-left: -16.6666%;
+    }
+
+    &.width-166 {
+      width: 166.6666%;
+      margin-left: -33.3333%;
+    }
+
+    &.width-200{
+      width: 200%;
+      margin-left: -50%;
+    }
+  }
+
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: calc(100vh - 150px);
+    margin: 0 auto;
+  }
+}
+
+.figure {
+  &.left, &.right {
+    @include media-breakpoint(tablet){
+      margin-top: 35px;
+      margin-bottom: 35px;
+      width: 50%;
+
+      .figure__image, figcaption, .figure__title {
+        display: inline-block;
+        width: 100%;
+        text-align: left;
+      }
+
+      .figure__image img {
+        margin: 0 !important;
+      }
+    }
+
+    @include media-breakpoint(desktop){
+      margin-top: 35px;
+      margin-bottom: 35px;
+      width: 60%;
+    }
+
+    .figure__image{
+      width: 100% !important;
+
+      @include media-breakpoint-down(tablet){
+        max-width: none !important;
+      }
+    }
+  }
+
+  &.left {
+    @include media-breakpoint(tablet){
+      float: left;
+      margin-right: 50px;
+      margin-left: -4.166667vw;
+      text-align: right;
+    }
+
+    @include media-breakpoint(desktop){
+      margin-left: -25%;
+    }
+
+    @include media-breakpoint(large-desktop){
+      margin-left: -33.3333%;
+    }
+  }
+
+  &.right {
+    @include media-breakpoint(tablet){
+      float: right;
+      margin-left: 50px;
+      margin-right: -4.166667vw;
+    }
+
+    @include media-breakpoint(desktop){
+      margin-right: -25%;
+    }
+
+    @include media-breakpoint(large-desktop){
+      margin-right: -33.3333%;
+    }
+  }
+}

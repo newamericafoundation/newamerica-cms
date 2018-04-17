@@ -1,0 +1,43 @@
+.in-depth__title-block {
+	$logo-width: 100px;
+	&__logo {
+        width: $logo-width;
+        margin-right: 25px;
+				vertical-align: middle;
+        display: none;
+
+        @include media-breakpoint(desktop) {
+           display: inline-block;
+        }
+
+        img {
+					width: 100%;
+					height: auto;
+					display: block;
+				}
+
+    }
+
+    &__text {
+        display: inline-block;
+				vertical-align: middle;
+        width: calc(100% - 100px);
+
+        &.has-logo {
+           @include media-breakpoint(tablet) {
+              width: calc(100% - #{$logo-width} - #{25px});
+           }
+        }
+    }
+
+	&__title {
+		font-size: 28px;
+		font-weight: bold;
+		margin-bottom: 0px;
+  	line-height: 1.2;
+		a {
+			color: white;
+
+     	}
+	}
+}

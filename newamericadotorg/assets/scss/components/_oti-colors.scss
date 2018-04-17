@@ -1,0 +1,74 @@
+body.oti {
+  a:not(.tag):not(.button):not(.button--text){
+    color: color(oti-blue);
+  }
+
+  h1,h2,h3,h4,h5,h6{
+     > a:not(.tag):not(.button):not(.button--text){
+      color: inherit;
+    }
+  }
+
+  label a:not(.tag):not(.button):not(.button--text){
+    color: inherit;
+  }
+
+  label, h1,h2,h3,h4,h5,h6 {
+    &.link {
+      > a:before, > span:before {
+        background: color(oti-blue);
+      }
+    }
+  }
+
+  .fa.circle:hover{
+    background-color: color(oti-blue);
+  }
+
+  a:hover > .fa.circle {
+    background-color: color(oti-blue);
+  }
+
+  label.card__text__title.link u{
+    @include linear-gradient-horizontal(color(oti-blue), transparent, 100%, 100%);
+  }
+  h1.card__text__title.link:hover u,
+  h2.card__text__title.link:hover u{
+    -webkit-text-decoraction-color: color(oti-blue);
+    text-decoration-color: color(oti-blue);
+  }
+
+  .button--text.with-border, label.with-border {
+    border-bottom: 1.5px solid color(oti-blue);
+  }
+
+  .column-heading, .header__nav__dropdown-list__dropdown__main-link{
+    a:after, label:after{
+      background: color(oti-blue);
+    }
+  }
+
+  .program__heading__wrapper h1 > a:before{
+    background: color(oti-blue);
+  }
+
+  .header__logo-wrapper:before{
+    background: color(oti-blue);
+  }
+
+  .header__loading div:first-child {
+    background: linear-gradient(to right, transparent, color(oti-blue) 100%);
+  }
+
+  .report__citation{
+    color: color(oti-blue);
+    &.active, &:hover{
+      color: color(white);
+      background: color(oti-blue);
+    }
+  }
+
+  .report__content-menu__item.active {
+    @include box-shadow( inset 4px 0 0 0 color(oti-blue) );
+  }
+}

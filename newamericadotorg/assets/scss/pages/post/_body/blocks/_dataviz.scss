@@ -1,0 +1,233 @@
+.chart-wrapper{
+	max-width: calc(100vw - 50px);
+	@include media-breakpoint(tablet){
+		max-width: calc(100vw - 100px);
+	}
+}
+
+.dataviz {
+	$icon-horizontal-spacing: 32px;
+	$icon-vertical-spacing: 30px;
+	$icon-horizontal-padding: 20px;
+	position: relative;
+
+	&__title-container {
+
+		position: relative;
+		z-index: 20;
+
+		&.with-buttons {
+			.dataviz__title, .dataviz__subheading {
+				@include media-breakpoint(tablet) {
+					margin-right: 3*$icon-horizontal-spacing;
+				}
+			}
+		}
+	}
+
+	.dataviz__title, .dataviz__subheading {
+		@include media-breakpoint(tablet) {
+			margin-left: $icon-horizontal-spacing;
+		}
+	}
+
+
+	&__title {
+		color: color(black);
+		font-weight: 700;
+		font-size: 1.4rem;
+		line-height: 130%;
+	}
+
+	&__subheading {
+		color: color(black);
+		margin-bottom: 10px;
+
+		p {
+			border-left: 2px solid rgba(169, 169, 169, 0.47);
+		    padding-left: 15px;
+		    margin-left: 1px;
+		    font-size: 16px;
+		    line-height: 140%;
+		}
+	}
+
+	&__icon {
+		position: absolute;
+		border: none !important;
+		display: none;
+
+		@include media-breakpoint(tablet) {
+			display: block;
+		}
+
+		svg {
+			margin-top: 3px;
+			width: 21px;
+			fill: palette-get(na-black-30);
+
+			& > path, & > line {
+				stroke: palette-get(na-black-30);
+				stroke-width: 5px;
+			}
+		}
+	}
+
+	&__share-link, &__share-link-label {
+		right: -2px;
+	}
+
+	&__share-link {
+		top: 4px;
+
+		&:hover + .dataviz__share-link-label {
+			display: block;
+		}
+
+		svg {
+			height: 25px;
+			width: 23px;
+
+			&:hover {
+				fill: color(black);
+			}
+		}
+	}
+
+	&__download-link, &__download-link-label {
+		right: 2*$icon-horizontal-spacing;
+	}
+
+	&__download-link {
+		top: 0px;
+
+		&:hover + .dataviz__download-link-label {
+			display: block;
+		}
+
+		svg {
+			margin-top: 6px;
+			width: 20px;
+			&:hover {
+				fill: color(black);
+			}
+		}
+	}
+
+	&__embed-link, &__embed-link-label {
+		right: $icon-horizontal-spacing;
+	}
+
+	&__embed-link {
+		top: 4px;
+		&:hover + .dataviz__embed-link-label {
+			display: block;
+		}
+
+		svg {
+			height: 25px;
+
+			&:hover {
+				fill: color(black);
+			}
+		}
+	}
+
+	&__icon-label {
+		position: absolute;
+		top: -6px;
+		font-size: 11px;
+		line-height: 1;
+		display: none;
+		text-align: center;
+		color: color(black);
+	}
+
+	&__share-popup, &__embed-popup {
+		display: none;
+		position: absolute;
+		z-index: 10;
+		top: 0px;
+		right: 30px;
+		background-color: white;
+		padding: 10px 20px;
+
+		&__title, &__item {
+			width: 100%;
+			display: block;
+			padding-top: 3px;
+			padding-bottom: 3px;
+		}
+
+		&__title {
+			font-weight: bold;
+		}
+
+		&__item {
+			padding-left: 7px;
+			color: color(black);
+
+			&:hover {
+				color: color(turquoise);
+			}
+		}
+	}
+
+	&__embed-popup {
+		padding: 12px;
+		right: 60px;
+		&__content {
+			line-height: 1.3;
+			font-size: 13px;
+			max-width: 400px;
+		}
+	}
+
+	&__chart-container {
+		position: relative;
+	}
+
+	&__chart-area {
+		position: relative;
+		visibility: hidden;
+		min-height: 300px;
+	}
+
+	&__loading-gif {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 1000;
+	}
+}
+
+.chart-wrapper {
+	overflow-x: scroll;
+	padding-bottom: 15px;
+
+	&::-webkit-scrollbar {
+    	-webkit-appearance: none;
+    	width: 7px;
+    	height: 7px;
+	}
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+	    border-radius: 10px;
+		background-color: rgba(0,0,0,.2);
+		@include box-shadow( 0 0 1px rgba(255,255,255,.2) );
+	}
+	&::-webkit-scrollbar-thumb:window-inactive {
+		background-color: rgba(0,0,0,.2);
+		@include box-shadow( 0 0 1px rgba(255,255,255,.2) );
+	}
+	& > svg {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+.block-dataviz {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}

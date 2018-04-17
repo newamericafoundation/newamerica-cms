@@ -1,0 +1,36 @@
+<form action="/api/subscribe/" method="post" class="subscribe">{% csrf_token %}
+  <div class="subscribe__fields">
+    <div class="subscribe__field">
+      <label class="subscribe__field__label required">Name</label>
+      <input class="subscribe__field__input" type="text" name="name" required />
+    </div>
+    <div class="subscribe__field">
+      <label class="subscribe__field__label required">Email</label>
+      <input class="subscribe__field__input" type="text" name="email" required />
+    </div>
+  </div>
+  <div class="subscribe__subscription-lists">
+    <div class="row">
+    {% for s in subscriptions %}
+      <div class="subscribe__field checkbox col-sm-4">
+        <div class="row">
+          <div class="subscribe__field__checkbox-wrapper col-1">
+            <input type="checkbox" checked="true" name="subscriptions[]" value="{{s.subscription_segment.title}}" />
+          </div>
+          <div class="subscribe__field__checkbox-label-wrapper col-10">
+            <label class="active block">
+              {% firstof s.subscription_segment.alternate_title s.subscription_segment.title %}
+            </label>
+            <p class="narrow-margin">
+              {{ s.subscription_segment.search_description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+  <div class="subscribe__submit-wrapper">
+    <input type="submit" class="button black" value="Sign Up" />
+  </div>
+</form>

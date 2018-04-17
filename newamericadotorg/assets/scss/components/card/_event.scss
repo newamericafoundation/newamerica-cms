@@ -1,0 +1,51 @@
+.card.event-card {
+
+  .card__image {
+    width: 100%;
+    padding-bottom: 72.857%;
+    position: relative;
+  }
+
+  img{
+      position: absolute;
+  }
+
+  .card__image.no-image {
+    background-color: color(black, base, 0.15);
+    position: relative;
+
+    &:after{
+      content: '\f073';
+      font-family: 'FontAwesome';
+      position: absolute;
+      @include center;
+      color: color(black, base, 0.075);
+      font-weight: normal;
+      font-size: 3rem;
+    }
+
+    .card__image__background{
+      display: none;
+    }
+  }
+
+  .card__text{
+    height: 230px;
+
+    @include media-breakpoint(tablet){
+      height: 300px;
+    }
+
+    @include media-breakpoint(desktop){
+      height: 230px;
+    }
+  }
+
+  position: relative;
+
+  .event__rsvp{
+    position: absolute;
+    line-height: 1em;
+    bottom: type-adjusted-padding(25px);
+  }
+}

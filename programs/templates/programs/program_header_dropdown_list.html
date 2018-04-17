@@ -1,0 +1,57 @@
+{% if page.sidebar_menu_initiatives_and_projects_pages %}
+<div class="header__nav__dropdown-list__dropdown">
+  <a class="header__nav__dropdown-list__dropdown__main-link box">
+    <label>Subprograms</label>
+  </a>
+  <div class="header__nav__dropdown-list__dropdown__links box">
+    {% include './subprogram_dropdown_list.html' %}
+  </div>
+</div>
+{% endif %}
+{% if topics %}
+<div class="header__nav__dropdown-list__dropdown">
+  <a class="header__nav__dropdown-list__dropdown__main-link box">
+    <label>Topics</label>
+  </a>
+  <div class="header__nav__dropdown-list__dropdown__links box">
+    {% include './topic_dropdown_list.html' %}
+  </div>
+</div>
+{% endif %}
+{% if page.sidebar_our_work_pages %}
+<div class="header__nav__dropdown-list__dropdown">
+    <a class="header__nav__dropdown-list__dropdown__main-link box">
+      <label>Publications</label>
+    </a>
+    <div class="header__nav__dropdown-list__dropdown__links box">
+      {% include './publications_dropdown_list.html' %}
+    </div>
+</div>
+{% endif %}
+{% if page.content_type.model == 'program' %}
+<div class="header__nav__dropdown-list__dropdown">
+  <a href="{{page.url}}events/" class="header__nav__dropdown-list__dropdown__main-link no-drop">
+    <label>Events</label>
+  </a>
+</div>
+{% endif %}
+<div class="header__nav__dropdown-list__dropdown">
+  <a href="#publications" class="header__nav__dropdown-list__dropdown__main-link no-drop">
+    <label>Publications</label>
+  </a>
+</div>
+<!-- <div class="header__nav__dropdown-list__dropdown">
+  <a href="" class="header__nav__dropdown-list__dropdown__main-link no-drop">Fellowships</a>
+</div> -->
+<div class="header__nav__dropdown-list__dropdown">
+  <a href="{{ page.about_us_page.url }}" class="header__nav__dropdown-list__dropdown__main-link no-drop">
+    <label>About</label>
+  </a>
+</div>
+{% if page.subscriptions.all|length > 0 %}
+<div class="header__nav__dropdown-list__dropdown">
+  <a href="#subscribe" class="header__nav__dropdown-list__dropdown__main-link no-drop">
+    <label class="button black">Subscribe</label>
+  </a>
+</div>
+{% endif %}

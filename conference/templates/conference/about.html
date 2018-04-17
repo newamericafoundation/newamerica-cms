@@ -1,23 +1,21 @@
 {% load wagtailcore_tags wagtailimages_tags utilities %}
-<section id="about" class="section section-nav align-center">
-  <div class="container">
-    {% if page.live_stream %}
-      <div class="block-video">
-      {% include 'blocks/embed.html' with value=page.live_stream %}
-      </div>
-    {% endif %}
-    <span class="line-icon section-icon line-icon-multimedia-12"></span>
-    <h3>About the Event</h3>
-    <div class="row">
-      {% image page.about_image original as about_image %}
-      {% if about_image %}
-      <div class="small-12 medium-5 columns">
+<section id="about" class="conference__section section-nav margin-top-80">
+  {% if page.live_stream %}
+    <div class="block-video">
+    {% include 'blocks/embed.html' with value=page.live_stream %}
+    </div>
+  {% endif %}
+  <span class="line-icon section-icon line-icon-multimedia-12"></span>
+  <h1 class="centered">About the Event</h1>
+  <div class="">
+    {% image page.about_image original as about_image %}
+    {% if about_image %}
+      <div class="about__image">
         <img src="{{about_image.url}}" alt="{{about_image.alt}}" class="img-responsive" />
       </div>
-      {% endif %}
-      <div class="small-12{% if not about_image %} medium-12 {% else %} medium-7 {% endif %} columns">
-        {{ page.description|richtext }}
-      </div>
+    {% endif %}
+    <div class="post-body">
+      {{ page.description|richtext }}
     </div>
   </div>
 </section>

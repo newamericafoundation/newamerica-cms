@@ -1,0 +1,10 @@
+.post-authors__list{
+  padding-top: 25px;
+  padding-bottom: 25px;
+  box-shadow: inset 0px 1px 0px 0px color(black, base, 0.3),
+  inset 0px -1px 0px 0px color(black, base, 0.3);
+
+  .report__authors__item:not(:last-child){
+    margin-bottom: 25px;
+  }
+}

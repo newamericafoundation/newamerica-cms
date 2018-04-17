@@ -1,0 +1,67 @@
+.personpage{
+  background: color(beige);
+}
+
+.person {
+  padding-bottom: 115px;
+}
+
+.person__card{
+  padding: 35px 10px;
+  @include media-breakpoint(tablet){
+    padding: 60px 35px;
+  }
+  @include media-breakpoint(desktop){
+    padding: 80px;
+    margin-bottom: 10px;
+  }
+}
+
+.person__card .post-body{
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.person__text__heading,
+.person__text__position,
+.person__social{
+  text-align: center;
+  @include media-breakpoint(desktop){
+    text-align: left;
+  }
+}
+
+.person__expertise.desktop-only{
+  display: none;
+  @include media-breakpoint(desktop){
+    display: block;
+  }
+}
+
+.person__expertise.mobile-only{
+  display: block;
+  text-align: center;
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+}
+
+.person-heading__image__link-wrapper img{
+  width: auto;
+  display: block;
+  height: 125px;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  @include media-breakpoint(desktop){
+    max-width: 100%;
+    height: auto;
+    margin:0;
+    position: static;
+  }
+}
+
+
+.person__social a {
+  margin-right: 15px;
+}

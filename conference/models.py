@@ -11,14 +11,14 @@ from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailembeds.blocks import EmbedBlock
 
 from blocks import VenueBlock, DirectionsBlock, PartnersBlock
-from mysite.blocks import IntegerBlock, PeopleBlock, SessionsBlock
+from newamericadotorg.blocks import IntegerBlock, PeopleBlock, SessionsBlock
 
 class AllConferencesHomePage(Page):
     parent_page_types = ['home.HomePage']
     subpage_types = ['Conference']
 
     class Meta:
-        verbose_name = "Homepage for all Conferences"
+        verbose_name = "Conferences Homepage"
 
 class Conference(Page):
     """

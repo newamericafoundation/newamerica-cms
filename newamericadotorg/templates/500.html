@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+{% block title %}Internal server error{% endblock %}
+
+{% block content %}
+    <div class="container--1080 margin-80">
+      <div>
+      	<h1>Something's gone wrong.</h1>
+      	<h2>We have logged this issue and are working to resolve it as soon as possible.<br>Thank you for your patience and please try again soon.</h2>
+      </div>
+    </div>
+{% endblock %}

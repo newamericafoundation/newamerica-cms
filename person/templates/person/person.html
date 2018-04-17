@@ -4,178 +4,59 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load utilities %}
 
-{% block body_class %}template-person{% endblock %}
+{% block body_class %}homepostpage personpage{% endblock %}
 
 {% block content %}
-<div class="bio-page">
-    {% if page.profile_image %}
-        {% image page.profile_image original as large_bio_image %}
-        {% image page.profile_image min-150x150 as small_bio_image %}
-        <div class="bio-page__heading with-image">
-            <a class="bio-page__heading__icon-link" href="{{ large_bio_image.url }}">
-                <div class='bio-page__heading__icon'>
-                    <div class='bio-page__heading__icon__photo' style='background: no-repeat center/100% url({{ small_bio_image.url }})'>
-                    </div>
-                </div>
+<main class="person container">
+  <div class="person__card card">
+    <div class="container--1080">
+      <div class="row gutter-20">
+        <div class="push-lg-8 col-lg-4">
+          {% if page.profile_image %}
+            {% image page.profile_image original as og_profile_image %}
+            {% image page.profile_image fill-300x300 as profile_image %}
+            <a class="person-heading__image__link-wrapper" href={{og_profile_image.url}}>
+              <img src="{{profile_image.url}}"></a>
             </a>
-            <div class="bio-page__heading__text">
-                <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
-                {% if page.position_at_new_america %}
-                    <h3 class= "bio-page__heading__text__position">{{ page.position_at_new_america }}</h3>
-                {% endif %}
+          {% endif %}
+          {% if page.topics.all|length > 0 %}
+            <div class="person__expertise desktop-only">
+              <label class="block {% if page.profile_image %}margin-top-15{% else %}margin-top-0{% endif %}">Expertise:</label>
+              {% for t in page.topics.all %}
+                <a href="{{t.topic.url}}" class="tag">{{t.topic.title}}</a>
+              {% endfor %}
             </div>
+          {% endif %}
         </div>
-    {% else %}
-        <div class="bio-page__heading">
-            <div class="bio-page__heading__text">
-                <h1 class= "bio-page__heading__text__name">{{ page.first_name }} {{ page.last_name }}</h1>
-                {% if page.position_at_new_america %}
-                    <h3 class= "bio-page__heading__text__position">{{ page.position_at_new_america }}</h3>
-                {% endif %}
+        <div class="person__text pull-lg-4 col-lg-7">
+          <h1 class="person__text__heading margin-top-0 margin-bottom-15">{{ page.first_name }} {{ page.last_name }}</h1>
+          {% if page.position_at_new_america %}
+              <label class="person__text__position caption block margin-top-0 margin-bottom-15">{{ page.position_at_new_america }}</label>
+          {% endif %}
+          {% if page.email or page.social_media|length > 0 %}
+          <div class="person__social margin-0">
+            <ul class="inline margin-top-5">
+               <a href="mailto:{{page.email}}" class="fa fa-envelope circle"></a>
+              {% for s in page.social_media %}
+                <a href="{{s.vlaue}}" class="fa fa-{{s.block_type}} circle"></a>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          {% if page.topics.all|length > 0 %}
+            <div class="person__expertise mobile-only margin-top-35">
+              {% for t in page.topics.all %}
+                <a href="{{t.topic.url}}" class="tag">{{t.topic.title}}</a>
+              {% endfor %}
             </div>
+          {% endif %}
+          <div class="post-body person__text__body margin-top-35">
+            {{page.long_bio|richtext}}
+          </div>
         </div>
-    {% endif %}
-    <div class="bio-page__content">
-        <div class="post-body">
-            {% if page.long_bio %}
-                {{ page.long_bio|richtext|linebreaks }}
-            {% endif %}
-        </div>
+      </div>
     </div>
-
-    {% person_display_contact_info page as display_contact_info %}
-        {% if display_contact_info %}
-            <div class="bio-page__contact">
-                <a class= "button" href="mailto:{{ page.email }}">Contact {{ page.first_name }} {{ page.last_name }}</a>
-            </div>
-        {% endif %}
-    
-    <div class="bio-page__work">
-        {% if featured_work.0.title %}
-            <div class="bio-page__work__featured">
-                <h3 class="bio-page__work__title">Featured Work</h3>
-
-                <div class="content-grid__entries">
-                    {% for item in featured_work %}
-                        {% if item.title %}
-                            <div class="content-entry {{ item.post.get_page_type }}">
-                                {% if item.post.story_image %}
-                                    {% image item.post.story_image min-650x200 as post_image %}
-
-                                    <a href="{{ item.post.url }}">
-                                        <div class="content-entry__image-container" style="background-image: url('{{ post_image.url }}') ">
-                                        </div>
-                                    </a>
-                                <div class="content-entry__text-container has-image">
-                                
-                                {% else %}
-                                <div class="content-entry__text-container">
-                                {% endif %}
-                                    <div class="content-entry__text">
-                                        {% if item.post.specific.parent_programs.all %}
-                                            <h5 class="content-entry__text__program">
-                                            {% for program in item.post.specific.parent_programs.all %}
-                                                <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
-                                            {% endfor %}
-                                            {% generate_content_type_line item.post.specific.content_type %}</h5>
-                                        {% else %}
-                                            <h5 class="content-entry__text__program">{% generate_content_type_line item.post.specific.content_type %}</h5>
-                                        {% endif %}
-                                        <h5 class= "content-entry__text__title"><a href="{{ item.post.url }}">{{ item.post.title }}</a></h5>
-
-                                        {% if item.post.authors.all %}
-                                            <h5 class= "content-entry__text__author">{% generate_byline item.post.content_type item.post.authors.all %}</h5>
-                                        {% endif %}
-                                        <h5 class= "content-entry__text__date-time">{% generate_dateline item.post.specific %}</h5>
-                                        <p class= "content-entry__text__excerpt">{{ item.post.story_excerpt }}</p>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-
-        {% endif %}
-        {% if posts %}
-            <div class="bio-page__work__stream">
-                <h3 class="bio-page__work__title">All Work</h3>
-                <div class="content-grid__entries">
-                    {% for post in posts %}
-                        <div class="content-entry {{ post.get_page_type }}">
-                            {% if post.story_image %}
-                                {% image post.story_image min-650x200 as post_image %}
-
-                                <a href="{{ post.url }}">
-                                    <div class="content-entry__image-container" style="background-image: url('{{post_image.url}}') ">
-                                    </div>
-                                </a>
-                            <div class="content-entry__text-container has-image">
-                            {% else %}
-                            <div class="content-entry__text-container">
-                            {% endif %}
-                                <div class="content-entry__text">
-                                    {% if post.parent_programs.all %}
-                                        <h5 class="content-entry__text__program">
-                                        {% for program in post.parent_programs.all %}
-                                            <a href="{{ program.url }}"> {{ program | upper }}</a>{% list_separator forloop.revcounter0 %}
-                                        {% endfor %}
-                                        </h5>
-                                    {% endif %}
-
-                                    <h5 class= "content-entry__text__title"><a href="{{ post.url }}">{{ post.title }}</a></h5>
-                                    
-                                    {% if post.authors.all %}
-                                        <h5 class= "content-entry__text__author">{% generate_byline post.content_type post.authors.all %}</h5>
-                                    {% endif %}
-
-                                    <h5 class= "content-entry__text__date-time">{% generate_dateline post.specific %}</h5>
-                                    {% if post.story_excerpt %}
-                                        <p class= "content-entry__text__excerpt">{{ post.story_excerpt }}</p>
-                                    {% endif %}
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    {% endfor %}
-                </div>
-
-                <div class="content-grid__footer">
-                    <div class="pagination">
-                        {% if posts.has_previous %}
-                            <a class="pagination__arrow" href="?page={{ posts.previous_page_number }}&{{ query_url }}">
-                                {% include 'ui_elements/svg/arrow-left.html' %}
-                            </a>
-                        {% endif %}
-
-                        <span>Page</span>
-                        <form class="pagination__form" action="?page=value" method="get">
-                            <input class="pagination__input" type="text" placeholder="{{ posts.number }}" name="page">
-                            {% if request.GET.program_id %}
-                                <input type="hidden" value="{{request.GET.program_id}}" name="program_id">
-                            {% endif %}
-                            {% if request.GET.date %}
-                                <input type="hidden" value="{{request.GET.date}}" name="date">
-                            {% endif %}
-                        </form>
-
-                        <span>of</span>
-                        <a href="?page={{ posts.paginator.num_pages|get_range|last }}&{{ query_url }}">{{ posts.paginator.num_pages|get_range|last }}</a>
-
-                        {% if posts.has_next %}
-                            <a class="pagination__arrow" href="?page={{ posts.next_page_number }}&{{ query_url }}">
-                                {% include 'ui_elements/svg/arrow-right.html' %}
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    </div>
-</div>
-
-
+  </div>
+  <div id="compose__person-publications" data-author-id="{{page.id}}"></div>
+</main>
 {% endblock %}

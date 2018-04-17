@@ -1,0 +1,31 @@
+.report__heading__title{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 350px;
+  @include media-breakpoint(desktop){
+    max-width: 475px;
+  }
+}
+
+.report__heading__image{
+  margin-left: -25px;
+  margin-right: -25px;
+
+  label {
+    margin-left: 15px;
+    @include media-breakpoint(desktop){
+      margin-left: 0px;
+    }
+  }
+  
+  @include media-breakpoint(desktop){
+    margin-left: 0px;
+    margin-right: 0px;
+
+  }
+}
+
+.report__heading__image .card__image__background{
+  padding-bottom: 45%;
+  position: static;
+}

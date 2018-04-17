@@ -1,21 +1,20 @@
-{% extends "about_sidemenu.html" %}
+{% extends "base.html" %}
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-expertpage{% endblock %}
 
-
 {% block content %}
     {% image page.story_image 1100x300 as story_image %}
-    
+
     <div class="post-header-container">
         {% if story_image %}
 
             <div class="post-header with-image" style="background-image: linear-gradient(
                   rgba(0, 0, 0, 0),
                   rgba(0, 0, 0, 0.15)
-                ), 
+                ),
                 url({{ story_image.url }})">
 
                 <div class="post-header__text">
@@ -45,7 +44,7 @@
         <hr>
         <h3>Find Experts by Program</h3>
         <p>Find out more about our distinctive community of thinkers, writers, researchers, technologists, and community activists:</p>
-    
+
 
         <div class="row our-people__item-list">
             <ul class="our-people__item-list__list">

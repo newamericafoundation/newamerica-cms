@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block body_class %}homepostpage{% endblock %}
+
+
+
+{% block content %}
+{% with self.get_ancestors.specific.2 as a %}
+  <main class="home__panels">
+  <section class="home__heading">
+    <div class="container">
+      <div class="row gutter-20">
+        <div class="home__heading__text col-lg-9">
+          {% block heading %}
+          <h1 class="promo margin-25">{% firstof a.title page.title %}</h1>
+          {% if a.page_description %}
+            {{ a.page_description|richtext }}
+          {% else %}
+            {{ page.page_description|richtext }}
+          {% endif %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </section>
+  {% block reactcomponent %}
+    <div id="compose__home-panels" data-replace-this="true" data-page-id="{% firstof a.id page.id %}"></div>
+  {% endblock %}
+  </main>
+{% endwith %}
+{% endblock %}

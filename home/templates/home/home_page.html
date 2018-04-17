@@ -1,211 +1,106 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-{% load utilities %}
+{% load utilities cache wagtailimages_tags wagtailcore_tags %}
 
-{% block body_class %}template-homepage header--expanded{% endblock %}
-{% block sidemenu_status %}no_sidemenu{% endblock %}
+{% block body_class %}homepage{% endblock %}
 
 {% block content %}
-<section class='section section--fixed-width'>
-	<div class='row'>
-		<div class='columns hero-grid-container'>
-			<div class='hero-grid has-{{ other_lead_stories|length|add:"1" }}-children'>
-
-				<div class='hero-grid__main'>
-
-					<div class='hero-grid__element'>
-					<a href="{{ page.lead_1.url }}">
-						<div class='hero-grid__element__wrapper'>
-							{% if page.lead_1.specific.story_image %}
-								{% image page.lead_1.specific.story_image min-1350x500 as lead1_image %}
-								<div class='hero-grid__element__background' style='background-image: url({{ lead1_image.url }})'></div>
-							{% else %}
-								<div class='hero-grid__element__background'></div>
-							{% endif %}
-							<div class='hero-grid__element__overlay'></div>
-							<div class='hero-grid__element__text-bar'>
-								{% if page.lead_1.specific.rsvp_link %}
-			    					{% if page.lead_1.specific|is_future %}
-										<a class="hero-grid__element__text-bar__button button" href='{{ page.lead_1.specific.rsvp_link }}'>RSVP</a>
-									{% endif %}
-								{% endif %}
-								<p class='hero-grid__element__text-bar__subheading'>
-										{% if page.lead_1.specific.parent_programs %}
-											{% for program in page.lead_1.specific.parent_programs.all %}
-	                                          	{{ program }}{% list_separator forloop.revcounter0 %}
-	                                        {% endfor %}
-	                                    {% endif %}
-                                        {% generate_content_type_line page.lead_1.content_type %}</p>
-								<h1 class='hero-grid__element__text-bar__heading'>{% if page.lead_1.seo_title %}{{ page.lead_1.seo_title }}{% else %}{{ page.lead_1.title }}{% endif %}</h1>
-							</div>
-						</div>
-					</a>
-					</div>
-
-				</div>
-
-				{% if other_lead_stories %}
-				<div class='hero-grid__secondary'>
-				{% for other_lead_story in other_lead_stories %}
-					{% if other_lead_story %}
-						<div class='hero-grid__element'>
-							<a href="{{ other_lead_story.url }}" class='hero-grid__element__content'>
-								{% if other_lead_story.specific.story_image %}
-									{% image other_lead_story.specific.story_image min-650x450 as other_lead_story_image %}
-									<div class='hero-grid__element__background' style='background-image: url({{ other_lead_story_image.url }})'></div>
-								{% else %}
-									<div class='hero-grid__element__background'></div>
-								{% endif %}
-								<div class='hero-grid__element__overlay'></div>
-								<div class='hero-grid__element__text-bar'>
-									{% if other_lead_story.specific.rsvp_link %}
-				    					{% if other_lead_story.specific|is_future %}
-											<a class="hero-grid__element__text-bar__button button" href='{{ other_lead_story.specific.rsvp_link }}'>RSVP</a>
-										{% endif %}
-									{% endif %}
-									<p class='hero-grid__element__text-bar__subheading'>
-										{% if other_lead_story.specific.parent_programs %}
-											{% for program in other_lead_story.specific.parent_programs.all %}
-	                                          	{{ program }}{% list_separator forloop.revcounter0 %}
-	                                        {% endfor %}
-	                                    {% endif %}
-                                        {% generate_content_type_line other_lead_story.content_type %}</p>
-									<h1 class='hero-grid__element__text-bar__heading'>{% if other_lead_story.seo_title %}{{ other_lead_story.seo_title }}{% else %}{{ other_lead_story.title }}{% endif %}</h1>
-								</div>
-							</a>
-						</div>
-					{% endif %}
-				{% endfor %}
-				</div>
-				{% endif %}
-
-			</div>
-
-		</div>
-	</div>
-
-</section>
-
-{% if featured_stories %}
-
-	<section class='section section--fixed-width'>
-
-		<div class='row picture-link-container'>
-
-			{% for feature_story in featured_stories %}
-			<div class='small-12 large-4 columns'>
-
-				<div class='picture-link'>
-					<a href="{{ feature_story.url }}">
-						{% if feature_story.specific.story_image %}
-							{% image feature_story.specific.story_image fill-75x75 as feature_story_image %}
-							<div class='picture-link__picture' style='background-image: url({{ feature_story_image.url }})'></div>
-						{% else %}
-							<div class='picture-link__picture'></div>
-						{% endif %}
-					</a>
-					<div class='picture-link__content'>
-						<h1><a href="{{ feature_story.url }}">{% if feature_story.seo_title %}{{ feature_story.seo_title }}{% else %}{{ feature_story.title }}{% endif %}</a></h1>
-						<p>{{ feature_story.specific.story_excerpt }}</p>
-					</div>
-				</div>
-
-			</div>
-			{% endfor %}
-
-		</div>
-
+<main>
+	<section class="container--full-width beige homepage__story-grid-section">
+		{% include 'components/story_grid.html' with page_context='homepage' %}
 	</section>
-
-{% endif %}
-
-<section class='section section--fixed-width'>
-
-	<div class='row border-panel-container'>
-
-	{% if upcoming_events %}
-		<div class='small-12 large-6 columns'>
-
-			<div class='border-panel'>
-
-				<ul class='border-panel__list has-{{ upcoming_events|length }}-children'>
-					{% for item in upcoming_events %}
-						<li class='border-panel__item'>
-
-							<div class='border-panel__content'>
-								<div class='border-panel__text'>
-									<div class='border-panel__info'>
-										<h5 class='border-panel__info__content-type'>
-											{% if item.parent_programs %}
-												{% for program in item.parent_programs.all %}
-		                                          	{{ program }}{% list_separator forloop.revcounter0 %}
-		                                        {% endfor %}
-		                                    {% endif %}
-	                                        {% generate_content_type_line item.content_type %}
-	                                    </h5>
-										{% if item.date %}
-											<h5 class='border-panel__info__date'>{{ item.date }}</h5>
-										{% endif %}
-									</div>
-
-									<div class='border-panel__title'><a href="{{ item.url }}">{{ item.title }}</a></div>
-
-									<p class='border-panel__description'>{{ item.story_excerpt }}</p>
-
-									<a href="{{ item.url }}"><div class='button black'>Read More</div></a>
-								</div>
-							</div>
-						</li>
-					{% endfor %}
-
-				</ul>
-
-			</div>
-
+	<section class="container--full-width beige homepage__mission-statement-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="50vh">
+		<div class="container">
+			<a href="/our-story" class="homepage__promo-link">
+				<h1 class="promo margin-0">
+					<span class="block">
+						<span><em>We are dedicated to</em></span>
+					</span>
+					<span class="block">
+						<span><em>renewing America</em></span>
+					</span>
+				</h1>
+				<h3 class="margin-top-35 margin-bottom-0">
+					<span class="block">
+						<span><em>Read about our mission.</em></span>
+					</span>
+				</h3>
+			</a>
 		</div>
-
-		<div class='small-12 large-6 columns'>
-	{% else %}
-		<div class='small-12 large-12 columns'>
-	{% endif %}
-
-			<div class='border-panel'>
-				<ul class='border-panel__list has-1-children'>
-					<li class='border-panel__item'>
-
-						<div class='border-panel__content'>
-							<div class='border-panel__text'>
-								<div class='border-panel__info'>STAY CONNECTED</div>
-								<div class='border-panel__title'><a href='/subscribe/'>Subscribe to New America Weekly</a></div>
-								<p>Get our weekly digital magazine, program newsletters, and events lineups in your inbox.</p>
-								<form class="subscribe-form" action="/subscribe/">
-									<input type='text' placeholder='Your Email' name='email' id='border-panel__content__email-field'></input>
-									<button class='button black' id='border-panel__content__link' type="submit" value="Submit">Sign Up</button>
-								</form>
-							</div>
-						</div>
-
-					</li>
-				</ul>
+	</section>
+	<section class="container--full-width beige homepage__events-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="30vh">
+		<div class="container">
+			<div class="section-separator"><div class="section-separator__text"><label class="margin-0">Upcoming Events</label></div><div class="section-separator__line"></div></div>
+			<div class="row gutter-10 margin-25">
+				{% for e in upcoming_events %}
+					<div class="col-md-4">
+						{% include 'components/card_event.html' with event=e %}
+					</div>
+				{% endfor %}
 			</div>
-
+			<div class="homepage__events-section__view-all">
+				<a class="button" href="/events">View All</a>
+			</div>
 		</div>
-
-	</div>
-
-</section>
-
-<div class='panel'>
-
-	<h1>Our Story</h1>
-	<p>Founded in 1999, New America is a think tank and civic enterprise committed to renewing American politics, prosperity, and purpose in the Digital Age. We generate big ideas, bridge the gap between technology and policy, and curate broad public conversation.</p>
-
-	<div class='panel__link'>
-		<a class='button black' href="/our-story/">Read our Story</a>
-	</div>
-
-</div>
-
+	</section>
+	<section class="container--full-width beige homepage__weekly-promo-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="25vh">
+		<div class="container">
+			<a href="/weekly" class="homepage__promo-link">
+				<h1 class="promo margin-0">
+					<span class="block">
+						<span><em>New ideas & voices in policy,</em></span>
+					</span>
+					<span class="block">
+						<span><em>delivered every Thursday</em></span>
+					</span>
+				</h1>
+				<h3 class="margin-top-35 margin-bottom-0 homepage__promo-link">
+					<span class="block">
+						<span><em>Read our digital magazine, The Weekly</em></span>
+					</span>
+				</h3>
+			</a>
+		</div>
+	</section>
+	<section class="container--full-width beige homepage__publications-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="30vh">
+		<div class="container">
+			<div class="section-separator"><div class="section-separator__text"><label class="margin-0">Recent Publications</label></div><div class="section-separator__line"></div></div>
+			<div class="margin-25">
+				{% for p in recent_publications %}
+					<div class="card-wrapper">
+						{% include 'components/card_list.html' with post=p %}
+					</div>
+				{% endfor %}
+			</div>
+			<div class="homepage__publications-section__view-all">
+				<a class="button" href="/publications">View All</a>
+			</div>
+		</div>
+	</section>
+	<section class="container--full-width beige homepage__subscribe-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="25vh">
+		<div class="container">
+			<span class="homepage__promo-link">
+				<h1 class="promo margin-0">
+					<span class="block">
+						<span><em>Stay in touch</em></span>
+					</span>
+				</h1>
+				<h3 class="margin-top-35 margin-bottom-0">
+					<span class="block">
+						<span><em>Be the first to hear about the latest events and research from New America.</em></span>
+					</span>
+				</h3>
+				<div class="homepage__subscribe-section__email-input margin-top-35">
+					<div class="input">
+						<form action="/subscribe/?email=value" method="get">
+							<input type="text" name="email" required/>
+							<label class="button--text input__label">Email Address</label>
+							<button type="submit" class="button--text input__submit with-caret--right">Go</button>
+						</form>
+					</div>
+				</div>
+			</span>
+		</div>
+	</section>
+</main>
 {% endblock %}

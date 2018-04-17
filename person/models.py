@@ -11,11 +11,12 @@ from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, AbstractContentPage
 
-from mysite.helpers import paginate_results
+from newamericadotorg.helpers import paginate_results
 
 from django.db.models import Q
+import datetime
 
 
 # Through relationship that connects the Person model
@@ -39,6 +40,13 @@ class PersonSubprogramRelationship(models.Model):
         FieldPanel('subprogram'),
     ]
 
+class PersonTopicRelationship(models.Model):
+    topic = models.ForeignKey('issue.IssueOrTopic', related_name="+")
+    person = ParentalKey('person.Person', related_name="topics")
+
+    panels = [
+        PageChooserPanel('topic', 'issue.IssueOrTopic')
+    ]
 
 class Person(Page):
     first_name = models.CharField(max_length=150)
@@ -76,6 +84,12 @@ class Person(Page):
     belongs_to_these_subprograms = models.ManyToManyField(
         Subprogram,
         through=PersonSubprogramRelationship,
+        blank=True,
+    )
+
+    expertise = models.ManyToManyField(
+        'issue.IssueOrTopic',
+        through=PersonTopicRelationship,
         blank=True,
     )
 
@@ -126,9 +140,12 @@ class Person(Page):
         ('Program Staff', 'Program Staff'),
         ('External Author/Former Staff', 'External Author')
     )
+    YEAR_CHOICES = [(r,r) for r in range(1999, datetime.date.today().year+1)]
+    YEAR_CHOICES.reverse()
+
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
     former = models.BooleanField(default=False, help_text="Select if person no longer serves above role.")
-
+    fellowship_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     # Up to three featured work pages to appear on bio page
     feature_work_1 = models.ForeignKey(
         'wagtailcore.Page',
@@ -167,6 +184,7 @@ class Person(Page):
             FieldPanel('position_at_new_america'),
                 FieldPanel('role'),
                 FieldPanel('former'),
+                FieldPanel('fellowship_year'),
                 FieldPanel('expert'),
                 FieldPanel('leadership'),
                 FieldPanel('sort_priority'),
@@ -174,8 +192,8 @@ class Person(Page):
 
         InlinePanel('programs',
             label=("Belongs to these Programs")),
-        InlinePanel('subprograms',
-            label=("Belongs to these Subprograms/Initiatives")),
+        InlinePanel('subprograms', label=("Belongs to these Subprograms/Initiatives")),
+        InlinePanel('topics', label="Expert in these topics"),
 
         MultiFieldPanel([
             FieldPanel('email'),
@@ -233,6 +251,7 @@ class Person(Page):
 
     class Meta:
         ordering = ('last_name',)
+        verbose_name = 'Person'
 
 
 class OurPeoplePage(Page):
@@ -241,7 +260,7 @@ class OurPeoplePage(Page):
     returns everyone from the Person model
     """
     parent_page_types = ['home.HomePage']
-    subpage_types = ['Person']
+    subpage_types = ['Person', 'BoardAndLeadershipPeoplePage']
 
     page_description = RichTextField(blank=True, null=True)
 
@@ -263,18 +282,12 @@ class OurPeoplePage(Page):
 
     def get_context(self, request):
         context = super(OurPeoplePage, self).get_context(request)
-
-        context['people'] = Person.objects.live().filter(former=False).exclude(
-            role='External Author/Former Staff')
-
-        context['all_programs'] = Program.objects.live()
-
-        context['all_our_people_pages'] = ProgramPeoplePage.objects.live()
+        context['ourpeoplepage'] = OurPeoplePage.objects.filter(slug='our-people').first()
 
         return context
 
     class Meta:
-        verbose_name = "Homepage for All People in NAF"
+        verbose_name = "Our People Page"
 
 
 class ExpertPage(Page):
@@ -305,23 +318,7 @@ class ExpertPage(Page):
         ImageChooserPanel('story_image'),
     ]
 
-    def get_context(self, request):
-        context = super(ExpertPage, self).get_context(request)
-
-        context['non_program_experts'] = Person.objects\
-            .live()\
-            .filter(belongs_to_these_programs=None)\
-            .filter(expert=True)\
-            .order_by('-title')
-
-        context['all_programs'] = Program.objects.live()
-
-        context['all_our_people_pages'] = ProgramPeoplePage.objects.live()
-
-        return context
-
-
-class ProgramPeoplePage(Page):
+class ProgramPeoplePage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and returns
     everyone from the Person model for a specific program or Subprogram
@@ -329,34 +326,20 @@ class ProgramPeoplePage(Page):
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = []
 
-    def get_context(self, request):
-        context = super(ProgramPeoplePage, self).get_context(request)
+    story_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
-        if self.depth == 4:
-            program_title = self.get_ancestors()[2]
-            program = Program.objects.get(title=program_title)
-            all_posts = Person.objects\
-                .live()\
-                .filter(belongs_to_these_programs=program, former=False)\
-                .exclude(role__icontains='External Author')\
-                .order_by('sort_priority', 'last_name', 'first_name')
-        else:
-            subprogram_title = self.get_ancestors()[3]
-            program = Subprogram.objects.get(title=subprogram_title)
-            all_posts = Person.objects\
-                .live()\
-                .filter(belongs_to_these_subprograms=program, former=False)\
-                .exclude(role__icontains='External Author')\
-                .order_by('sort_priority', 'last_name', 'first_name')
-
-        context['people'] = paginate_results(request, all_posts)
-
-        context['program'] = program
-
-        return context
+    promote_panels = Page.promote_panels + [
+        ImageChooserPanel('story_image')
+    ]
 
     class Meta:
-        verbose_name = "Our People Page for Programs and Subprograms"
+        verbose_name = "Our People Page"
 
 
 class BoardAndLeadershipPeoplePage(Page):
@@ -364,8 +347,16 @@ class BoardAndLeadershipPeoplePage(Page):
     A page which inherits from the abstract Page model and returns
     everyone from the Person model for a specific program or Subprogram
     """
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ['home.HomePage', 'OurPeoplePage']
     subpage_types = []
+
+    story_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     page_description = RichTextField(blank=True, null=True)
 
@@ -383,27 +374,15 @@ class BoardAndLeadershipPeoplePage(Page):
         FieldPanel('former_query')
     ]
 
+    promote_panels = Page.promote_panels + [
+        ImageChooserPanel('story_image')
+    ]
+
     def get_context(self, request):
         context = super(BoardAndLeadershipPeoplePage, self).get_context(request)
-
-        which_role = self.role_query
-        is_former = self.former_query
-
-        all_people = Person.objects.live()\
-            .filter(former=is_former)\
-            .order_by('last_name', 'first_name')
-
-        if which_role == 'Leadership Team':
-            all_people = all_people.filter(leadership=True).order_by('sort_priority', 'last_name')
-        elif which_role == 'Board Member':
-            all_people = all_people.filter(Q(role=which_role) | Q(role='Board Chair')).order_by('sort_priority', 'last_name')
-        else:
-            all_people = all_people.filter(role=which_role).order_by('sort_priority', 'last_name')
-
-
-        context['people'] = paginate_results(request, all_people)
+        context['ourpeoplepage'] = OurPeoplePage.objects.filter(slug='our-people').first()
 
         return context
 
     class Meta:
-        verbose_name = "Our People Page for Board of Directors, Central Staff, and Leadership Team"
+        verbose_name = "Our Staff and Leadership Page"

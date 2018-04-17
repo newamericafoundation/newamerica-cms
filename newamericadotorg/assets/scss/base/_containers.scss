@@ -1,0 +1,71 @@
+[class*="container--"], .container{
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $max-site-width;
+  display: block;
+
+  &.beige {
+    background-color: color(beige);
+  }
+
+  &.turquoise {
+    background-color: color(turquoise);
+  }
+
+  &.blue {
+    background-color: color(blue);
+  }
+
+  &.purple {
+    background-color: color(purple);
+  }
+
+  &.black {
+    background-color: color(black);
+  }
+
+  &.gray{
+    background-color: color(gray, ultra-light);
+  }
+
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @include media-breakpoint(large-desktop){
+    // padding-left: 0;
+    // padding-right: 0;
+  }
+
+}
+
+  /* containers that are nested get no padding by default */
+  [class*="container--"]:not(.container--full-width) .container, .container .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+.container {
+  &--full-width{
+    width: 100%;
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &--1080 {
+    max-width: 1080px;
+  }
+
+  &--700 {
+    max-width: 700px;
+  }
+
+  &--800 {
+    max-width: 800px;
+  }
+
+  &--900 {
+    max-width: 900px;
+  }
+}

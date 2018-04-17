@@ -1,0 +1,52 @@
+.menu-list, [class*="menu-list--"] {
+  & > *, .menu-list__item {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      position: relative;
+      @include box-shadow( inset 0px 1px 0px 0px color(black, base, 0.3) );
+
+      &:last-child {
+        box-shadow: inset 0px 1px 0px 0px color(black, base, 0.3),
+        inset 0px -1px 0px 0px color(black, base, 0.3);
+      }
+
+      & > a {
+        display: block;
+        padding-top: 26px;
+        padding-bottom: 25px;
+
+        &.active {
+          font-weight: bold;
+        }
+      }
+  }
+
+  .icon-arrow{
+    display: none;
+
+    @include media-breakpoint(tablet){
+      top: 30px;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      opacity: 0;
+      @include transition(transform 0.3s ease, opacity 0.3s ease);
+      @include transform(translate(-15px, 50%));
+    }
+  }
+
+  .menu-list__item:hover .icon-arrow,
+  & > *:hover .icon-arrow {
+    opacity: 1;
+    @include transform(translate(0px, 50%));
+  }
+
+}
+
+.menu-list--padding-15 > * > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}

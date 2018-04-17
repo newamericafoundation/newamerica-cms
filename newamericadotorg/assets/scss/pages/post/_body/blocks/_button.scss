@@ -1,0 +1,15 @@
+.block-button {
+  .button {
+    margin-bottom: 1rem;
+
+    &.center-aligned {
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &.post-body__read-less {
+      display: none;
+    }
+  }
+}

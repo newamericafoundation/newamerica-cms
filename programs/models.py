@@ -1,12 +1,32 @@
 from django.db import models
-
+from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.wagtailcore.blocks import PageChooserBlock
+from wagtail.wagtailcore.blocks import PageChooserBlock, ChoiceBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
+from subscribe.models import SubscriptionSegment
 from modelcluster.fields import ParentalKey
+from newamericadotorg.blocks import BodyBlock
+
+class SubscriptionProgramRelationship(models.Model):
+    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    program = ParentalKey('Program', related_name='subscriptions')
+    alternate_title = models.TextField(blank=True)
+    panels = [
+        FieldPanel('subscription_segment'),
+        FieldPanel('alternate_title')
+    ]
+
+class SubscriptionSubprogramRelationship(models.Model):
+    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    subprogram = ParentalKey('Subprogram', related_name='subscriptions')
+    alternate_name = models.TextField(blank=True)
+    panels = [
+        FieldPanel('subscription_segment'),
+        FieldPanel('alternate_name')
+    ]
 
 
 class AbstractProgram(Page):
@@ -15,6 +35,9 @@ class AbstractProgram(Page):
     by Program and Subprogram models
     """
     name = models.CharField(max_length=100, help_text='Name of Program')
+    fellowship = models.NullBooleanField(
+        help_text='Select if this is a fellowship program'
+    )
     location = models.NullBooleanField(
         help_text='Select if location based program i.e. New America NYC'
     )
@@ -108,76 +131,49 @@ class AbstractProgram(Page):
         related_name='+'
     )
 
-    promote_panels = Page.promote_panels + [
-        FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+    featured_panels = [
         MultiFieldPanel(
             [
                 PageChooserPanel('lead_1'),
                 PageChooserPanel('lead_2'),
                 PageChooserPanel('lead_3'),
                 PageChooserPanel('lead_4'),
+                PageChooserPanel('feature_1'),
+                PageChooserPanel('feature_2'),
+                PageChooserPanel('feature_3')
             ],
             heading="Lead Stories",
             classname="collapsible"
         ),
-        MultiFieldPanel(
-            [
-                PageChooserPanel('feature_1'),
-                PageChooserPanel('feature_2'),
-                PageChooserPanel('feature_3'),
-            ],
-            heading="Featured Stories",
-            classname="collapsible"
-        ),
-        StreamFieldPanel('feature_carousel'),
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('name', classname='full title'),
-        FieldPanel('location'),
-        FieldPanel('description'),
-        PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
+        MultiFieldPanel(
+            [
+                FieldPanel('name', classname='full title'),
+                ImageChooserPanel('story_image'),
+                PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
+                FieldPanel('location'),
+                FieldPanel('fellowship'),
+                FieldPanel('description'),
+                FieldPanel('story_excerpt'),
+            ],
+            heading="Setup",
+            classname="collapsible"
+        ),
     ]
 
-    def get_context(self, request):
-        context = super(AbstractProgram, self).get_context(request)
-
-        # In order to apply different styling to main lead story
-        # versus the other lead stories, we needed to separate them out
-        context['other_lead_stories'] = []
-
-        # Solution to account for null values for the stories 
-        # so that the div in the template wouldn't attempt to add styling to nothing
-        if self.lead_2:
-            context['other_lead_stories'].append(self.lead_2)
-        if self.lead_3:
-            context['other_lead_stories'].append(self.lead_3)
-        if self.lead_4:
-            context['other_lead_stories'].append(self.lead_4)
-
-        # In order to preserve style, minimum and maximum of feature stories is 3
-        # If there are less than 3 feature stories - none show up even if they're added.
-        if self.feature_1 and self.feature_2 and self.feature_3:
-            context['featured_stories'] = [
-                self.feature_1, self.feature_2, self.feature_3
-            ]
-        else:
-            context['featured_stories'] = []
-
-        return context
-
     def get_experts(self):
-        """ 
+        """
         Method for the Program and Subprogram models to be able to access
-        people from Person model who have been marked as experts  
+        people from Person model who have been marked as experts
         """
         return self.person_set.filter(expert=True).order_by('-title')
 
     def get_subprograms(self):
-        """ 
+        """
         Method that returns the subprograms that live underneath
-        a particular program 
+        a particular program
         """
         return self.get_children().type(Subprogram).live().in_menu()
 
@@ -187,8 +183,8 @@ class AbstractProgram(Page):
 
 class Program(AbstractProgram):
     """
-    Program model which creates the parent program pages 
-    that live under the homepage. 
+    Program model which creates the parent program pages
+    that live under the homepage.
     """
     parent_page_types = ['home.HomePage']
     subpage_types = [
@@ -203,8 +199,13 @@ class Program(AbstractProgram):
     'home.ProgramSimplePage',
     'person.ProgramPeoplePage',
     'Subprogram',
-    'issue.IssueOrTopic',
+    'Project',
+    'BlogProject',
+    'issue.TopicHomepage',
     'home.RedirectPage',
+    'report.ReportsHomepage',
+    'PublicationsPage',
+    'other_content.ProgramOtherPostsPage'
     ]
 
     desktop_program_logo = models.ForeignKey(
@@ -235,24 +236,40 @@ class Program(AbstractProgram):
         ('Item', PageChooserBlock()),
     ], blank=True)
 
+    subscription_segments = models.ManyToManyField(
+        SubscriptionSegment,
+        through=SubscriptionProgramRelationship,
+        blank=True,
+    )
+
     content_panels = AbstractProgram.content_panels + [
-        ImageChooserPanel('desktop_program_logo'),
-        ImageChooserPanel('mobile_program_logo'),
+        MultiFieldPanel([
+            ImageChooserPanel('desktop_program_logo'),
+            ImageChooserPanel('mobile_program_logo'),
+        ], heading="Logos")
     ]
 
     promote_panels = AbstractProgram.promote_panels + [
-        StreamFieldPanel('sidebar_menu_about_us_pages'),
-        StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
-        StreamFieldPanel('sidebar_menu_our_work_pages'),
+        InlinePanel('subscriptions', label=("Subscription Segments")),
     ]
 
-    def get_context(self, request):
-        context = super(Program, self).get_context(request)
-        
-        return context
+    sidebar_panels = [
+        StreamFieldPanel('sidebar_menu_about_us_pages'),
+        # StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
+        # StreamFieldPanel('sidebar_menu_our_work_pages'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading="Content"),
+        ObjectList(AbstractProgram.featured_panels, heading="Featured"),
+        ObjectList(promote_panels, heading="Promote"),
+        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+        ObjectList(sidebar_panels, heading="Sidebar")
+    ])
 
     class Meta:
         ordering = ('title',)
+        verbose_name = 'Program Homepage'
 
 
 # Through relationship for Programs to Subprogram
@@ -266,7 +283,7 @@ class ProgramSubprogramRelationship(models.Model):
 
 class Subprogram(AbstractProgram):
     """
-    Subprograms model which can be created under programs and 
+    Subprograms model which can be created under programs and
     also be connected to multiple programs. Can also create content homepages
     underneath subprograms in the same way they can be created under programs.
     """
@@ -277,6 +294,7 @@ class Subprogram(AbstractProgram):
     'blog.ProgramBlogPostsPage',
     'event.ProgramEventsPage',
     'podcast.ProgramPodcastsPage',
+    'report.ReportsHomepage',
     'policy_paper.ProgramPolicyPapersPage',
     'press_release.ProgramPressReleasesPage',
     'quoted.ProgramQuotedPage',
@@ -284,22 +302,50 @@ class Subprogram(AbstractProgram):
     'person.ProgramPeoplePage',
     'issue.IssueOrTopic',
     'home.RedirectPage',
+    'PublicationsPage',
+    'other_content.ProgramOtherPostsPage'
     ]
+
+    TEMPLATE_OPTIONS =  (
+        ('programs/program.html', 'Full'),
+        ('simple_program.html', 'Efficiency'),
+        ('programs/program.html', 'Collection')
+    )
+
+    template = models.CharField(choices=TEMPLATE_OPTIONS, default='programs/program.html', max_length=100)
 
     parent_programs = models.ManyToManyField(
         Program,
         through=ProgramSubprogramRelationship,
         blank=True
     )
-    content_panels = AbstractProgram.content_panels + [
+
+    subscription_segments = models.ManyToManyField(
+        SubscriptionSegment,
+        through=SubscriptionSubprogramRelationship,
+        blank=True,
+    )
+
+    content_panels = [ FieldPanel('template') ] + AbstractProgram.content_panels + [
         InlinePanel('programs', label=("Programs")),
     ]
+
+    promote_panels = AbstractProgram.promote_panels + [
+        InlinePanel('subscriptions', label=("Subscription Segments")),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(AbstractProgram.featured_panels, heading='Featured'),
+        ObjectList(promote_panels, heading='Promote'),
+        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+    ])
 
     def get_template(self, request):
         return 'programs/program.html'
 
     class Meta:
-        verbose_name = "Subprogram/Initiative Page"
+        verbose_name = 'Initiative Homepage'
         ordering = ('title',)
 
     def save(self, *args, **kwargs):
@@ -316,8 +362,79 @@ class Subprogram(AbstractProgram):
 
         if isinstance(program, AbstractProgram):
             relationship, created=ProgramSubprogramRelationship.objects.get_or_create(
-                program=program, 
+                program=program,
                 subprogram=self
             )
             if created:
                 relationship.save()
+
+class BlogSeries(Page):
+    parent_page_types = ['BlogProject']
+    subpage_types = [
+    'article.Article',
+    'book.Book',
+    'blog.BlogPost',
+    'podcast.Podcast',
+    'quoted.Quoted',
+    ]
+
+class Project(Subprogram):
+    redirect_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Select a report or other post that you would like to show up as a project in your Initiatives & Projects list'
+    )
+
+    content_panels = [
+        PageChooserPanel('redirect_page')
+    ] + Subprogram.content_panels
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(Subprogram.featured_panels, heading='Featured'),
+        ObjectList(Subprogram.promote_panels, heading='Promote'),
+        ObjectList(Subprogram.settings_panels, heading='Settings', classname='settings'),
+    ])
+
+class BlogProject(Subprogram):
+    subpage_types = [
+    'article.Article',
+    'book.Book',
+    'blog.BlogPost',
+    'podcast.Podcast',
+    'quoted.Quoted',
+    'BlogSeries'
+    ]
+    class Meta:
+        verbose_name = 'Blog'
+
+class AbstractContentPage(Page):
+    """
+    Convenience Class for querying all Content homepages
+    """
+
+    def get_context(self, request):
+        context = super(AbstractContentPage, self).get_context(request)
+        context['program'] = self.get_parent().specific
+
+        return context
+
+    class Meta:
+        abstract=True
+
+class PublicationsPage(AbstractContentPage):
+    '''
+    '''
+    parent_page_types = ['home.HomePage', 'Program', 'Subprogram']
+
+    def get_template(self, request):
+        parent = self.get_parent()
+        if parent.content_type.model == 'program':
+            return 'programs/publications_page.html'
+        return 'home/publications_page.html'
+
+    class Meta:
+        verbose_name = 'Publications Homepage'

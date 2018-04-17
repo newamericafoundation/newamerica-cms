@@ -1,0 +1,516 @@
+  <style>
+    @font-face {
+        font-family: 'Circular';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Black.otf');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Circular';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Medium.otf');
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Circular';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Book.ttf');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Circular';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-BookItalic.ttf');
+        font-weight: normal;
+        font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Platform';
+      src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/Platform-Medium.otf');
+      font-weight: bold;
+    }
+
+    @font-face {
+        font-family: 'Lyon';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-Regular.otf');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Lyon';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-Bold.otf');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+
+    @font-face {
+        font-family: 'Lyon';
+        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-RegularItalic.otf');
+        font-weight: normal;
+        font-style: italic;
+    }
+
+    @page {
+      margin-top: 60pt;
+      margin-bottom: 95pt;
+      margin-left: 60pt;
+      margin-right: 60pt;
+      size: letter;
+      @bottom-right{
+        content: counter(page);
+        font-family: 'Circular';
+        font-size: 9pt;
+        font-weight: bold;
+      }
+    }
+
+    @page:first{
+      @bottom-right:{
+        content: '';
+      }
+    }
+
+    footer {
+      position: fixed;
+      width: 792pt;
+      bottom: -50pt;
+      left: 0;
+      z-index: 0;
+      font-family: 'Circular';
+      font-size: 9pt;
+      font-weight: bold;
+    }
+
+    .hide-footer:after{
+      content: '';
+      position: absolute;
+      background: #ffffff;
+      z-index: 5000;
+      bottom: -95pt;
+      width: 1000pt;
+      left: -70pt;
+      height: 60pt;
+    }
+
+
+    html{
+      color: #000;
+    }
+
+    main {
+      margin: 0 auto;
+      width: 492pt;
+    }
+
+    .break-before{
+      page-break-before: always;
+    }
+
+    .break-after{
+      page-break-after: always;
+    }
+
+    section:after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .section-content{
+      width: 348pt;
+      padding-left: 72pt;
+      padding-right: 72pt;
+      margin-bottom: 40pt;
+    }
+
+    h1{
+      font-family: 'Platform';
+    }
+
+    h2, h3, h4, h5, h6{
+      font-family: 'Circular';
+    }
+
+    h1.promo {
+      font-size: 46pt;
+      line-height: 46pt;
+      letter-spacing: 0pt;
+    }
+
+    h1 {
+      font-size: 16pt;
+      line-height: 19.2pt;
+      letter-spacing: 0.025em;
+    }
+
+    h2 {
+      font-size: 12pt;
+      line-height: 14.4pt;
+    }
+
+    h3 {
+      font-size: 11pt;
+      line-height: 13.2pt;
+      font-weight: 600;
+    }
+
+    h4 {
+      font-weight: normal;
+      font-style: italic;
+      font-size: 10pt;
+      line-height: 12pt;
+    }
+
+    h5 {
+      text-transform: uppercase;
+      font-size: 9pt;
+      letter-spacing: 0.05em;
+    }
+
+    blockquote:not(.pullquote) {
+      margin-left: 20pt;
+      margin-right: 20pt;
+      margin-top: 20pt;
+      font-size: 10pt;
+      line-height: 14pt;
+    }
+
+    blockquote.pullquote{
+      margin-left: 20pt;
+      margin-right: 20pt;
+      margin-top: 20pt;
+      font-family: 'Platform';
+      font-size: 14pt;
+      line-height: 18pt;
+      font-weight: bold;
+    }
+
+    .block-box{
+      margin: 25px 0;
+      padding: 25px 0;
+      border-top: 1pt solid #000;
+      border-bottom: 1pt solid #000;
+    }
+
+    .block-box h5{
+      margin-top: 0;
+    }
+
+    .block-box *{
+      font-family: 'Circular';
+    }
+
+    .block-box > *:last-child,
+    .block-box > *:last-child > *:last-child,
+    .block-box > *:last-child > *:last-child > *:last-child{
+      margin-bottom: 0;
+    }
+
+    .row {
+      margin-left: -12pt;
+      margin-right: -12pt;
+    }
+
+    .row > * {
+      padding-left: 12pt;
+      padding-right: 12pt;
+    }
+
+    .col-6{
+      max-width: 50%;
+    }
+
+    .col {
+      column-count: 2;
+      column-gap: 12pt;
+    }
+
+    .col.auto {
+      column-fill: auto;
+    }
+
+    .cover-page{
+      position: relative;
+      height: 672pt;
+    }
+
+    .logo .logo-img-wrapper{
+      height: 18pt;
+    }
+
+    .logo img {
+      height: 100%;
+      width: auto;
+    }
+
+    .cover-page .logo .wrapper .logo-img-wrapper img{
+      width: 100%;
+      height: auto;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .title{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+
+    .title-wrapper{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .title h1{
+      margin-top: 25pt;
+      margin-bottom: 25pt;
+    }
+
+    .authors {
+      margin-top: 35pt;
+    }
+
+    .cover-page__footer{
+      position: absolute;
+      bottom: -35pt;
+      padding-right: 12pt;
+      max-width: 66.6666%;
+    }
+
+    .last-edited {
+      font-size: 9pt;
+      margin-top: 5pt;
+    }
+
+    #about-page{
+      height: 672pt;
+    }
+
+    .about-page__section{
+      margin-bottom: 35pt;
+    }
+
+    .about-page__section h2{
+      margin-top: 0;
+    }
+
+    .contents__list__item *, .contents__list__item{
+      font-family: 'Circular' !important;
+      font-size: 10pt !important;
+      line-height: 13pt !important;
+    }
+
+    .contents-page{
+      height: 672pt;
+      position: relative;
+    }
+
+    .contents-page .contents-wrapper{
+      width: 348pt;
+      padding-left: 72pt;
+      padding-right: 72pt;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    label {
+      font-size: 10pt;
+      line-height: 14pt;
+      font-family: 'Circular';
+    }
+
+    label.with-separator:after{
+      content: '|';
+      display: inline;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
+
+    label.caption {
+      font-family: 'Lyon';
+      font-style: italic;
+    }
+
+    p, ul, li {
+      font-size: 10pt;
+      line-height: 14pt;
+      font-family: 'Lyon';
+    }
+
+    p.subtitle{
+      font-family: 'Lyon';
+      font-size: 24pt;
+      line-height: 24pt;
+    }
+
+    li {
+      margin: 1pt 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #22C8A3;
+      font-weight: bold;
+    }
+
+    .bold{
+      font-weight: bold;
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .bottom-margin{
+      margin-bottom: 20pt;
+    }
+    .bottom-margin-30{
+      margin-bottom: 30pt;
+    }
+
+    .bottom-margin-75{
+      margin-bottom: 75pt;
+    }
+
+    .block {
+      display: block;
+    }
+
+    .report__citation{
+      font-size: 7pt;
+      position: relative;
+      display: inline-block;
+      top: -5pt;
+    }
+
+    .figure {
+      margin-top: 25pt;
+      margin-bottom: 25pt;
+      margin-left: 0;
+      margin-right: 0;
+      display: block;
+      width: 100%;
+      page-break-inside: avoid;
+    }
+
+    .figure__title{
+      margin-bottom: 10pt;
+      text-align: left;
+    }
+
+    .figure figcaption {
+      margin-top: 10pt;
+      text-align: left;
+    }
+
+    .figure figcaption label:first-child{
+      margin-top: 0;
+    }
+
+    .figure__image{
+      width: 100%;
+    }
+
+    .figure .figure__image.width-200{
+      width: 492pt;
+      margin-left: -72pt;
+    }
+
+    .figure__image > img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .endnotes h2{
+      margin-top: 0;
+    }
+
+    .endnote {
+      font-family: 'Circular';
+      font-size: 10pt;
+      line-height: 14pt;
+      margin-bottom: 12pt;
+    }
+
+    .endnote__number{
+      padding-right: 5pt;
+    }
+
+    .endnote .rich-text{
+      display: inline;
+    }
+
+    .attribution-col{
+      height: 672pt;
+    }
+
+    .attribution .logo {
+      margin-bottom: 20pt;
+    }
+
+    .attribution .cc-logo {
+      margin-bottom: 20pt;
+    }
+
+    .cc-logo img{
+      height: 23pt;
+      width: auto;
+    }
+
+    .attribution p {
+      font-family: 'Circular';
+      font-size: 10pt;
+      line-height: 14pt;
+    }
+
+    .block-table{
+      margin-top: 25pt;
+      margin-bottom: 25pt;
+      width: 492pt;
+      margin-left: -72pt;
+    }
+
+    .block-table label{
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      border-collapse: collapse;
+    }
+    tbody tr:nth-of-type(odd) {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    th, td {
+      font-family: 'Circular';
+      padding: 7pt;
+      max-width: 288pt;
+      font-size: 10pt;
+      line-height: 14pt;
+      vertical-align: middle;
+      text-align: left;
+    }
+
+    th {
+      font-weight: 600;
+      vertical-align: bottom;
+      border-bottom: 1pt solid #000;
+    }
+
+
+  </style>

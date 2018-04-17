@@ -5,15 +5,16 @@ from home.models import Post
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from mysite.helpers import get_program_and_subprogram_posts, get_org_wide_posts
-
+from newamericadotorg.helpers import get_program_and_subprogram_posts, get_org_wide_posts
+from programs.models import AbstractContentPage
+from home.models import AbstractHomeContentPage
 
 class Article(Post):
     """
     Article class that inherits from the abstract Post
     model and creates pages for Articles.
     """
-    parent_page_types = ['ProgramArticlesPage']
+    parent_page_types = ['ProgramArticlesPage', 'programs.BlogProject', 'programs.BlogSeries']
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
@@ -25,10 +26,10 @@ class Article(Post):
     ]
 
     class Meta:
-        verbose_name = "Article and Op-Ed"
+        verbose_name = "Article/Op-Ed"
 
 
-class AllArticlesHomePage(Page):
+class AllArticlesHomePage(AbstractHomeContentPage):
     """
     A page which inherits from the abstract Page model and
     returns every Article in the Article model for the Article
@@ -46,11 +47,15 @@ class AllArticlesHomePage(Page):
             Article
         )
 
+    @property
+    def content_model(self):
+        return Article
+
     class Meta:
-        verbose_name = "Homepage for all Articles and Op-Eds"
+        verbose_name = "Articles/Op-Eds Homepage"
 
 
-class ProgramArticlesPage(Page):
+class ProgramArticlesPage(AbstractContentPage):
     """
     A page which inherits from the abstract Page model and
     returns all Articles associated with a specific Program
@@ -68,5 +73,9 @@ class ProgramArticlesPage(Page):
             Article
         )
 
+    @property
+    def content_model(self):
+        return Article
+
     class Meta:
-        verbose_name = "Articles and Op-Eds Homepage for Program and Subprograms"
+        verbose_name = "Articles/Op-Eds Homepage"

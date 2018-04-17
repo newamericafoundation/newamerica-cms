@@ -1,0 +1,46 @@
+.header__subheader{
+  position: relative;
+  z-index: 0;
+  height: 5px;
+
+  &__title{
+    display: inline-block;
+    width: calc(100% - 40px);
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+
+    &:after{
+      display: block;
+      content: ' ';
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      bottom: 4px;
+      right: 0;
+      width: 25px;
+      @include linear-gradient-horizontal(color(white, base, 0), color(white, base, 1));
+    }
+
+    @include media-breakpoint(desktop){
+      max-width: 30%;
+      width: auto;
+      padding-right: 15px !important;
+    }
+    label {
+      line-height: $subheader-height;
+    }
+  }
+
+  &.scroll-entered{
+    height: $subheader-height;
+  }
+}
+
+body.scroll-reverse:not(.scroll-disabled) {
+  .header__subheader.scroll-entered{
+    .header__subheader__sticky-wrapper{
+      top: $header-height !important;
+    }
+  }
+}

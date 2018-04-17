@@ -4,6 +4,7 @@
 *.pyc
 *.DS_Store
 *.env
+*.rdb
 
 
 node_modules
@@ -13,10 +14,8 @@ npm-debug.log
 media/
 static/
 
-mysite/static/js/
 newamericadotorg/static/js/
 newamericadotorg/templates/style.css
-
 
 venv
 *.log
@@ -29,5 +28,6 @@ venv
 home/management/api/article_images/
 home/management/api/images/
 home/management/api/documents/
+report/utils/test.docx
 
 links.py

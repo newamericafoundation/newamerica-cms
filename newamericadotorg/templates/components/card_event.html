@@ -1,0 +1,29 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+
+{% image event.story_image fill-700x510 as event_image_lg %}
+{% image event.story_image fill-350x255 as event_image_md %}
+{% image event.story_image fill-150x110 as event_image_thumb %}
+
+<div class="card event-card">
+  <a href="{{event.url}}">
+    <div class="card__image{% if not event.story_image %} no-image{%endif%}">
+      <img src="{{event_image_lg.url}}" srcset="{{event_image_lg.url}} 700w, {{event_image_md.url}} 350w" class="fade-in-image" onload="this.classList.add('loaded');"/>
+    </div>
+  </a>
+  <div class="card__text">
+    <a href="{{event.url}}">
+      <label class="margin-top-0 block">{{event.date|date:"M. jS, Y"}}</label>
+      <!-- <h3 class="card__text__title bold block">{{event.title}}</h3> -->
+      <label class="card__text__title bold block link">
+        <span><u>{{event.title}}</u></span>
+      </label>
+      <label class="block">{{event.story_excerpt}}</label>
+      <label class="caption block">{{event.city}}, {{event.state}}</label>
+    </a>
+    <label class="event__rsvp button--text link with-caret--right block margin-0">
+      <a href="{{event.rsvp_link}}" target="_blank"><u>RSVP</u></a>
+    </label>
+  </div>
+</div>

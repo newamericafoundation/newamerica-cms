@@ -1,0 +1,33 @@
+.block-table {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  overflow-x: scroll;
+
+  table {
+    border-collapse: collapse;
+  }
+
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(44, 47, 53, 0.05);
+  }
+
+  th, td {
+    padding: 10px;
+    min-width: 130px;
+    vertical-align: middle;
+    text-align: left;
+    line-height: 1.3;
+
+    &:first-child {
+      border-left: none;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  th {
+    vertical-align: bottom;
+    border-bottom: 1px solid color(black);
+  }
+}

@@ -1,0 +1,45 @@
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  left: 125vw;
+  z-index: 200;
+  background: color(white);
+  overflow: hidden;
+  white-space: nowrap;
+  @include transform(translateX(0));
+  @include transition(transform 0.25s ease-in-out);
+
+  &__tabs-wrapper {
+    padding-top: $header-height;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}
+
+#mobile-menu__wrapper.open {
+  .mobile-menu {
+    @include transform(translateX(-125vw));
+    @include media-breakpoint(desktop){
+      @include transform(translateX(0));
+    }
+  }
+
+  .mobile-menu__overlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    background: color(black, base, 0.75);
+  }
+}
+
+@import 'icon';
+@import 'heading-and-logo';
+@import 'labels-and-links';
+@import 'tabs';
+@import 'search';
