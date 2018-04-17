@@ -100,7 +100,7 @@ class PostList(generics.ListAPIView):
 
 class ReportDetail(generics.RetrieveAPIView):
     serializer_class = ReportDetailSerializer
-    queryset = Report.objects.live().public()
+    queryset = Report.objects.live()
 
 class SearchList(generics.ListAPIView):
     serializer_class = SearchSerializer
