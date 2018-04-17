@@ -1,6 +1,10 @@
 .report__body__endnote{
   @include transition(opacity 0.5s ease, transform 0.5s ease);
 
+  * {
+    display: inline;
+  }
+
   position: absolute;
   opacity: 0;
   background: color(white);
@@ -17,7 +21,8 @@
   }
 
   @include media-breakpoint(desktop){
-    width: auto;
+    width: 100%;
+    word-wrap: break-word;
     @include box-shadow( none );
     border: 0px;
     padding-left: 15px;
