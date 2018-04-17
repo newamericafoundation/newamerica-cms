@@ -14,7 +14,12 @@ const ArticleAuthors = ({ authors }) => (
   <p className="margin-0">
     <span>By: </span>
     {authors.map((a,i)=>(
-      <span key={`author-${i}`}>{a.first_name} {a.last_name}</span>
+      <span key={`author-${i}`}>
+        <span>{a.first_name} {a.last_name}</span>
+        {(authors.length == 2 && i == 0) && <span>&nbsp;and&nbsp;</span>}
+        {(authors.length > 2 && i < authors.length-2)  && <span>,&nbsp;</span>}
+        {(authors.length > 2 && i == authors.length-2)  && <span>, and&nbsp;</span>}
+      </span>
     ))}
   </p>
 );
@@ -27,8 +32,8 @@ const Lead = ({ article }) => (
       </div>
       <h1 className="margin-25">{article.title}</h1>
       <h3 className="margin-25">{article.story_excerpt}</h3>
-      <ArticleAuthors authors={article.authors} />
     </Link>
+    <ArticleAuthors authors={article.authors} />
   </div>
 );
 
@@ -42,8 +47,9 @@ const Article = ({ article, index }) => (
       <h3 className="margin-15">
         {article.title}
       </h3>
-      <ArticleAuthors authors={article.authors} />
     </Link>
+    <ArticleAuthors authors={article.authors} />
+
   </div>
 );
 
