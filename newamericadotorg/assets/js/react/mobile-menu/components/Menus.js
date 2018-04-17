@@ -55,10 +55,10 @@ class Menus extends Component {
         <div className="mobile-menu__tabs-wrapper">
           <div className="mobile-menu__primary-tab">
             <div className="menu-list">
-              <div class="input">
+              <div className="input">
                 <form action="/search/?query=value" method="get">
                   <Search />
-                  <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
+                  <input type="text" autoComplete="off" name="query" id="search-input" placeholder="Search" />
                   <button type="submit" className="button--text with-caret--right">Go</button>
                 </form>
               </div>
