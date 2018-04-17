@@ -20,11 +20,13 @@ def get_range(num):
 
 # generates appropriate list separators for list items (no oxford commas :) )
 @register.simple_tag()
-def list_separator(i):
+def list_separator(i, length):
 	if i >= 2:
-		return ", "
+		return "<span class='punc'>,&nbsp;</span>"
+	elif length == 2 and i == 1:
+		return "<span class='punc'>&nbsp;and&nbsp;</span>"
 	elif i == 1:
-		return " and "
+		return "<span class='punc'>,&nbsp;and&nbsp;</span>"
 	else:
 		return ""
 
@@ -101,8 +103,8 @@ def generate_byline(ptype, authors):
 	# counter is used to determine appropriate list separator
 	counter = 1
 	for author in authors:
-		ret_string += '<label class="bold link margin-top-0">&nbsp;<a href="' + author.author.url + '"><u>' + author.author.first_name + ' ' + author.author.last_name + '</u></a>&nbsp;</label>'
-		ret_string += list_separator(num_authors - counter)
+		ret_string += '<label class="bold link margin-top-0"><a href="' + author.author.url + '"><u>' + author.author.first_name + ' ' + author.author.last_name + '</u></a></label>'
+		ret_string += list_separator(num_authors - counter, num_authors)
 		counter += 1
 
 	return mark_safe(ret_string)
