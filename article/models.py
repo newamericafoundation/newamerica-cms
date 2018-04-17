@@ -78,4 +78,4 @@ class ProgramArticlesPage(AbstractContentPage):
         return Article
 
     class Meta:
-        verbose_name = "Articles and Op-Eds Homepage for Program and Subprograms"
+        verbose_name = "Articles/Op-Eds Homepage"
