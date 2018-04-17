@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 {% load utilities %}
 {% if page.authors.all|length > 0 and page.content_type.name != 'Event' and page.content_type.name != "Press Release" and page.content_type.name != "Report" %}
-  <div class="post__byline margin-bottom-15"><span>By</span>
+  <div class="post__byline margin-bottom-15"><span>By&nbsp;</span>
     {% generate_byline page.content_type page.authors.all %}
   </div>
 {% endif %}
