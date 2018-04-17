@@ -27,6 +27,7 @@ class ProgramSubprogramSerializer(ModelSerializer):
     '''
     name = SerializerMethodField()
     type = SerializerMethodField()
+    url = SerializerMethodField()
 
     class Meta:
         model = Page
@@ -42,6 +43,11 @@ class ProgramSubprogramSerializer(ModelSerializer):
             return 'Project'
 
         return 'Initiative'
+    def get_url(self, obj):
+        if getattr(obj.specific, 'redirect_page', None):
+            return obj.specific.redirect_page.url
+
+        return obj.url
 
 class TopicDetailSerializer(ModelSerializer):
     subtopics = SerializerMethodField()
