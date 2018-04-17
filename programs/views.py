@@ -15,11 +15,13 @@ def redirect_to_subprogram(request, **kwargs):
 def redirect_project_page(request, **kwargs):
     program = Program.objects.filter(slug=kwargs['program']).first()
     subprogram = Subprogram.objects.filter(slug=kwargs['subprogram']).first()
+
     if not subprogram or not program:
         return views.serve(request, request.path)
 
     subprogram = subprogram.specific
     redirect_page = getattr(subprogram, 'redirect_page', None)
+
     if redirect_page:
         return HttpResponseRedirect(redirect_page.url)
     else:

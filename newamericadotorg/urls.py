@@ -70,14 +70,14 @@ urlpatterns = [
     url(r'^api/jobs/$', api_views.JobsList.as_view()),
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
 
-    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/(our-people|events|projects|publications|topics|subscribe)/$', program_views.redirect_to_subprogram),
+    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/(our-people|events|projects|publications|topics|subscribe)/$', program_views.redirect_to_subprogram),
     url(r'^(?P<program>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics|subscribe)/$', program_views.redirect_to_program),
-    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/$', program_views.redirect_project_page),
+    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/$', program_views.redirect_project_page),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/html/$', report_views.pdf_html),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/(?P<report_section>[a-zA-Z0-9_\.\-]*)/$', report_views.redirect_report_section),
-    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
-    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/(?P<report_section>[a-zA-Z0-9_\.\-]*)/$', report_views.redirect_report_section),
+    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
+    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/(?P<report_section>[a-zA-Z0-9_\.\-]*)/$', report_views.redirect_report_section),
 
     url(r'', include(wagtail_urls)),
 
