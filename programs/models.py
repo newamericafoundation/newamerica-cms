@@ -345,7 +345,7 @@ class Subprogram(AbstractProgram):
         return 'programs/program.html'
 
     class Meta:
-        verbose_name = 'Initiative/Project Homepage'
+        verbose_name = 'Initiative Homepage'
         ordering = ('title',)
 
     def save(self, *args, **kwargs):

@@ -435,7 +435,7 @@ class PostAuthorRelationship(models.Model):
     post = ParentalKey('Post', related_name='authors')
 
     panels = [
-        FieldPanel('author'),
+        PageChooserPanel('author'),
     ]
 
 
