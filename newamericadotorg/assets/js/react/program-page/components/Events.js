@@ -13,7 +13,7 @@ export default class Events extends Component {
     let initQuery = {
       [programId]: program.id,
       time_period: period,
-      page_size: 6,
+      page_size: 12,
       page: 1,
       image_rendition: period=='future' ? 'fill-700x510' : 'fill-300x230'
     };
