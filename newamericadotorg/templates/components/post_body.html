@@ -8,6 +8,11 @@
 {% if page.date and page.content_type.name != 'Event' %}
   <label class="post-body__date block">{{ page.date }}</label>
 {% endif %}
+{% if page.soundcloud %}
+  <div class="margin-35">
+    {{ page.soundcloud }}
+  </div>
+{% endif %}
 {% for block in page.body %}
   {% if block.block_type == "inline_image" %}
     {% include_block block %}

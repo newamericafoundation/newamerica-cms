@@ -13,14 +13,6 @@
 
 {% block body_class %}postpage{% endblock %}
 
-{% block header %}
-	{% if panels %}
-		{% include './blocks/panels_subheader.html' with value=panels %}
-	{% else %}
-		{% include 'components/header.html' %}
-	{% endif %}
-{% endblock %}
-
 {% block content %}
 	{% block breadcrumbs %}
 		{% include 'components/breadcrumbs.html' %}
