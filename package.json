@@ -58,6 +58,7 @@
     "smooth-scroll": "^12.1.5",
     "store": "^2.0.12",
     "url-polyfill": "^1.0.5",
+    "url-search-params-polyfill": "^3.0.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
