@@ -325,12 +325,13 @@ class SubprogramSerializer(ModelSerializer):
     features = SerializerMethodField()
     subpages = SerializerMethodField()
     about = SerializerMethodField()
+    subscriptions = SerializerMethodField()
 
     class Meta:
         model = Subprogram
         fields = (
             'id', 'name', 'story_grid', 'parent_programs', 'url', 'slug', 'content_types',
-             'description', 'leads', 'features', 'subpages', 'about', 'title'
+             'description', 'leads', 'features', 'subpages', 'about', 'title', 'subscriptions'
         )
 
     def get_parent_programs(self, obj):
@@ -397,6 +398,18 @@ class SubprogramSerializer(ModelSerializer):
             'title': obj.about_us_page.title,
             'body': loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
         }
+
+    def get_subscriptions(self, obj):
+        segments = []
+        for s in obj.subscriptions.all():
+            seg = SubscriptionSegmentSerializer(s.subscription_segment).data
+            if s.alternate_name != '':
+                seg['alternate_title'] = s.alternate_name
+            segments.append(seg)
+
+        if len(segments) == 0:
+            return None
+        return segments
 
 
 class AuthorSerializer(ModelSerializer):

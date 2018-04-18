@@ -12,15 +12,19 @@ export class Promo extends Component {
       <div className="card promo row gutter-0">
 
           <div className="promo__heading col-12 col-lg-2">
-            <a href={linkTo}>
+            {linkTo && <Link to={linkTo}>
               <label className="block button--text white margin-0">{title}</label>
-            </a>
+            </Link>}
+            {!linkTo &&
+              <label className="block button--text white margin-0">{title}</label>
+            }
           </div>
 
           <div className="card__text col-12 col-lg-10">
-            <a href={linkTo}>
+            {linkTo && <Link to={linkTo}>
               {this.props.children}
-            </a>
+            </Link>}
+            {!linkTo && this.props.children}
           </div>
 
       </div>

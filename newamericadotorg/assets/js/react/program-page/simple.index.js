@@ -1,7 +1,7 @@
 import { SIMPLE_NAME as NAME, SIMPLE_ID as ID } from './constants';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import GARouter from '../ga-router';
 import DocumentMeta from 'react-document-meta';
 import { Fetch } from '../components/API';
@@ -9,10 +9,12 @@ import Heading from './components/Heading';
 import CardLg from './components/CardLg';
 import { Promo, PeopleCarousel } from './components/CardPromo';
 import About from './components/About';
-
+import Subscribe from './components/Subscribe';
 
 class StoryGrid extends Component {
-
+  state = {
+    email: null
+  }
   render(){
     let { program, match, programType } = this.props;
     if(match.params.subpage) return null;
@@ -35,16 +37,19 @@ class StoryGrid extends Component {
             <p>{program.description}</p>
           </Promo>
           {promos[2] && <CardLg post={promos[2]} />}
+          {program.subscriptions &&
           <Promo title="Subscribe">
             <div className="promo__subscribe">
               <h2>Be the first to hear about the latest events and research from {program.name}</h2>
               <div className="input">
-                <input type="text" required />
+                <input type="text" required onChange={(e)=>{this.setState({email: e.target.value})}} />
                 <label className="input__label button--text">Email Address</label>
-                <label className="input__submit button--text with-caret--right">Go</label>
+                <label className="input__submit button--text with-caret--right">
+                  <Link to={`subscribe/?email=${this.state.email}`}>Go</Link>
+                </label>
               </div>
             </div>
-          </Promo>
+          </Promo>}
         </div>
       </DocumentMeta>
     );
@@ -62,6 +67,7 @@ class ProgramPage extends Component {
           <div className="program__content">
             <Heading program={results} />
             {results.about && <Route path={`/${root}/about`} render={(props)=>(<About about={results.about} />)} />}
+            {results.subscriptions && <Route path={`/${root}/subscribe`} render={(props)=>(<Subscribe subscriptions={results.subscriptions}/>)} />}
             <Route path={`/${root}/:subpage?`} render={(props)=>(<StoryGrid {...props} program={results} />)} />
           </div>
         </GARouter>
