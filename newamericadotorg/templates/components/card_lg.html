@@ -3,8 +3,6 @@
 {% load utilities %}
 
 {% image post.story_image fill-925x430 as post_image_lg %}
-{% image post.story_image fill-500x235 as post_image_md %}
-{% image post.story_image fill-300x140 as post_image_sm %}
 {% image post.story_image fill-32x15 as post_image_thumb %}
 
 <div class="card lg">
@@ -12,7 +10,7 @@
     <div class="col-md-7 col-lg-8" style="padding-right: 3px;">
       <div class="card__image">
         <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
-        <img src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 800w, {{post_image_md.url}} 500w, {{post_image_sm.url}} 300w" class="fade-in-image" onload="this.classList.add('loaded');">
+        <img src="{{post_image_lg.url}}" class="fade-in-image" onload="this.classList.add('loaded');">
       </div>
     </div>
     <div class="col-md-5 col-lg-4">
