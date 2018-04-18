@@ -48,7 +48,7 @@
       </div>
     </section>
     {% if page.acknowledgements %}
-      <section id="acknowledgements" class="break-after col">
+      <section id="acknowledgements" class="break-after acknowledgements-col col auto">
         <div class="about-page__section">
           <h2>Acknowledgements</h2>
           <div class="contents__list__item bottom-margin">{{page.acknowledgements}}</div>
@@ -141,7 +141,7 @@
       </section>
     {% endfor %}
     <section class="endnotes break-before break-after">
-      <div class="endotes-col col">
+      <div class="endnotes-col col auto">
         <h2>Notes</h2>
         {% for note in page.endnotes %}
           <div class="endnote"><span class="endnote__number">{{note.value.number}}</span> {{note.value.note|safe}}</div>
