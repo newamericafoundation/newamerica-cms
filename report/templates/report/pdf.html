@@ -98,7 +98,37 @@
           {% for block in s.value.body %}
             {% if block.block_type == 'paragraph' %}
               {{ block.value|cited_html|safe }}
-            {% elif block.block_type == 'inline_image' or block.block_type == 'box' or block.block_type == 'heading' %}
+            {% elif block.block_type == 'inline_image' %}
+              <figure class="figure">
+                {% if block.value.figure_number or block.value.figure_title %}
+                  <div class="figure__title">
+                    {% if block.value.figure_number %}
+                      <label class="bold {% if block.value.figure_title %} with-separator{% endif %}">Figure {{ block.value.figure_number }}</label>
+                    {% endif %}
+                    {% if block.value.figure_title %}
+                      <label>{{ block.value.figure_title }}</label>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                <div class="figure__image">
+                    <img src="https://s3.amazonaws.com/newamericadotorg/{{block.value.image.file.name}}"/>
+                </div>
+                {% if block.value.image.caption or block.value.image.source %}
+                  <figcaption>
+                    {% if block.value.image.caption %}
+                      <label class="block">
+                        {{ block.value.image.caption }}
+                      </label>
+                    {% endif %}
+                    {% if block.value.image.source %}
+                      <label class="caption block">
+                        Source: {{ block.value.image.source }}
+                      </label>
+                    {% endif %}
+                  </figcaption>
+                {% endif %}
+              </figure>
+            {% elif block.block_type == 'box' or block.block_type == 'heading' %}
               {% include_block block %}
             {% elif block.block_type == 'table' %}
               <div class="block-table">
