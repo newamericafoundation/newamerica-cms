@@ -18,7 +18,7 @@ class Weekly(AbstractContentPage):
     def get_context(self, request):
         context = super(Weekly, self).get_context(request)
 
-        all_posts = WeeklyEdition.objects.all().live().order_by('-first_published_at')
+        all_posts = WeeklyEdition.objects.all().live().public().order_by('-first_published_at')
 
         context['all_posts'] = paginate_results(request, all_posts)
         context['latest_edition'] = all_posts.first()
