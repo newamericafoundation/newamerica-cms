@@ -12,6 +12,7 @@ import EditionList from './components/EditionList';
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 import bowser from 'bowser';
+import GARouter from '../ga-router';
 
 const Slide = ({children, ...props}) => (
   <CSSTransition
@@ -64,7 +65,7 @@ class APP extends Component {
   render() {
     let { editionId, editionSlug } = this.props;
     return (
-      <Router>
+      <GARouter>
         <Switch>
           <Route path="/admin/pages/" render={(props) => (
             <Redirect to={`/weekly/${editionSlug}/`} />
@@ -82,7 +83,7 @@ class APP extends Component {
                 match={match}/>
             )}/>
         </Switch>
-      </Router>
+      </GARouter>
     );
   }
 }
