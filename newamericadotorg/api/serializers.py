@@ -635,7 +635,7 @@ class WeeklyEditionSerializer(ModelSerializer):
     number = SerializerMethodField()
 
     def get_articles(self, obj):
-        return WeeklyArticleSerializer(obj.get_children().type(WeeklyArticle).specific().live(), many=True).data
+        return WeeklyArticleSerializer(obj.get_children().type(WeeklyArticle).specific().all(), many=True).data
 
     def get_title(self, obj):
         first_child = obj.get_children().first().specific
