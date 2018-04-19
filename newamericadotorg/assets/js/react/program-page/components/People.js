@@ -98,7 +98,7 @@ export default class People extends Component {
           fetchOnMount={true}
           initialQuery={{
             [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
-            limit: 100
+            page_size: 100
           }}/>
           <Fetch name={`${NAME}.fellow`}
             endpoint="fellow"
@@ -106,7 +106,7 @@ export default class People extends Component {
             fetchOnMount={true}
             initialQuery={{
               [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
-              limit: 250,
+              page_size: 250,
               former: false
             }}/>
           {(!this.state.showAllFellows && program.slug == 'fellows') &&
@@ -122,7 +122,7 @@ export default class People extends Component {
               fetchOnMount={true}
               initialQuery={{
                 [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
-                limit: 25,
+                page_size: 25,
                 former: true
               }}/>
           }
