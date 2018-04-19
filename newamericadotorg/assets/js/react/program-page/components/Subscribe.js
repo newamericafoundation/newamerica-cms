@@ -75,6 +75,7 @@ export default class Subscribe extends Component {
     script.defer = true;
 
     document.body.appendChild(script);
+    if(this.reloadScrollEvents) this.reloadScrollEvents()
   }
 
   submit = (e) => {

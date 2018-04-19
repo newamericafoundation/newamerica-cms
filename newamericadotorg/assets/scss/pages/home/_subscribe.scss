@@ -1,0 +1,21 @@
+.subscribe__fields__sticky-wrapper{
+  @include media-breakpoint(tablet){
+    width: 380px;
+  }
+  @include media-breakpoint(desktop){
+    width: 500px;
+  }
+  @include transition(transform $transition-function);
+  @include transform(translateY(0));
+}
+
+@include media-breakpoint(tablet){
+  .scroll-entered > .shifted .subscribe__fields__sticky-wrapper{
+    position: fixed;
+    top: 0px;
+  }
+
+  .scroll-reverse .scroll-entered > .shifted .subscribe__fields__sticky-wrapper {
+    @include transform(translateY($header-height));
+  }
+}
