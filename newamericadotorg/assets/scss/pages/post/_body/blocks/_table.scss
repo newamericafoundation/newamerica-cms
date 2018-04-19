@@ -1,6 +1,6 @@
 .block-table {
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   overflow-x: scroll;
 
   table {
@@ -28,6 +28,7 @@
 
   th {
     vertical-align: bottom;
+    border-top: 1px solid color(black, base, 0.3);
     border-bottom: 1px solid color(black);
   }
 }

@@ -87,12 +87,13 @@ p, .rich-text,
 li{
   font-family: $paragraph-font-family;
   font-size: 1.125rem;
-  line-height: 1.875rem;
+  line-height: 2rem;
   text-rendering: optimizeLegibility !important;
 }
 
 p {
-
+  margin-top: 25px;
+  margin-bottom: 25px;
   &.gray{
     color: color(gray, dark);
   }
@@ -108,8 +109,8 @@ li p {
 }
 
 blockquote{
-  margin-left: 35px;
-  margin-right: 35px;
+  margin-left: 50px;
+  margin-right: 50px;
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
 

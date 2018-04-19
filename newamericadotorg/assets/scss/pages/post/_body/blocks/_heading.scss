@@ -1,3 +1,26 @@
 .block-heading {
-  margin-top: 65px;
+  margin-top: 50px;
+}
+
+.post_body, .report__body{
+  h2 {
+    font-size: 1.875rem;
+  }
+
+  h3 {
+    margin-top: 50px;
+    font-size: 1.25rem;
+  }
+
+  h4 {
+    margin-top: 45px;
+    font-size: 0.9375rem;
+  }
+
+  h5 {
+    margin-top: 40px;
+    font-size: 0.75rem;
+    letter-spacing: 0.046875rem;
+    text-transform: uppercase;
+  }
 }
