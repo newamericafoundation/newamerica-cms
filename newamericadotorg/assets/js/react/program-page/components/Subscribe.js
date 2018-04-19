@@ -4,6 +4,16 @@ import { CheckBox, Text } from '../../components/Inputs';
 import { BASEURL } from '../../api/constants';
 import Recaptcha from 'react-recaptcha';
 
+
+
+const ConfirmationList = ({ subscriptions }) => (
+    <ul>
+      {subscriptions.map((s,i)=>(
+        <li key={`list-${i}`}><label>{s}</label></li>
+      ))}
+    </ul>
+  );
+
 export class List extends Component {
 
   render(){
@@ -150,7 +160,12 @@ export default class Subscribe extends Component {
               <span>.</span><span>.</span><span>.</span>
             </span>
           </label>}
-        {(posted && status=='OK') && <span><h3>Thank you!</h3><label className="block">Please check your inbox to verify your subscription.</label></span>}
+        {(posted && status=='OK') && <span>
+            <h3>Thank you!</h3>
+            <label className="block">You'll now start receiving emails from:</label>
+            <ConfirmationList subscriptions={this.state.subscriptions}/>
+          </span>
+        }
         {status=='UNVERIFIED' && <label className="block">We're sorry. We were unable to verify that you're not a robot.</label>}
         {(status!='OK' && status!='UNVERIFIED') && <label className='block'>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</label>}
       </div>

@@ -1,7 +1,9 @@
-import os
+import logging, traceback, os, sys
+from django.conf import settings
 from createsend import *
 from home.models import HomePage
 from subscribe.models import SubscriptionSegment, SubscribePage
+
 
 CREATESEND_API_KEY = os.getenv('CREATESEND_API_KEY')
 CREATESEND_CLIENTID = os.getenv('CREATESEND_CLIENTID')
@@ -50,5 +52,38 @@ def update_subscriber(email, name, custom_fields):
         subscriber.update(email, name, custom_fields, True)
         return 'OK'
     except BadRequest:
-        subscriber.add(CREATESEND_LISTID, email, name, custom_fields, True)
-        return 'BAD_REQUEST'
+        try:
+            subscriber.add(CREATESEND_LISTID, email, name, custom_fields, True)
+            return 'OK'
+        except:
+            if not settings.DEBUG:
+                handler = LogDNA(API_KEY,{
+                    'index_meta': True,
+                    'app': 'newamerica-cms',
+                    'level': 'Error',
+                    'hostname': os.getenv('HOSTNAME') or 'na-errors'
+                })
+                log = logging.getLogger('logdna')
+                log.addHandler(handler)
+                error = get_error(sys.exc_info())
+                log.error(error['msg'], {'context': error['context']})
+            return 'BAD_REQUEST'
+
+def get_error(exc_info):
+    exc_type, exc_val, exc_tb = exc_info
+    tb = traceback.extract_tb(exc_tb)
+    cause = tb[len(tb)-1]
+
+    filename = cause[0]
+    line = cause[1]
+    msg = traceback.format_exception_only(exc_type, exc_val)[0].replace('\n','; ')
+
+    error = 'file=%s line=%s msg="%s"' % (filename, line, msg)
+    context = {
+        'traceback': traceback.format_tb(exc_tb)
+    }
+
+    return {
+        'msg': error,
+        'context': context
+    }
