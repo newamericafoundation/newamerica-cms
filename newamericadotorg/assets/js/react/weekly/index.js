@@ -66,6 +66,9 @@ class APP extends Component {
     return (
       <Router>
         <Switch>
+          <Route path="/admin/pages/" render={(props) => (
+            <Redirect to={`/weekly/${editionSlug}/`} />
+          )} />
           <Route path="/weekly/" exact render={(props) => (
             <Redirect to={`/weekly/${editionSlug}/`} />
           )} />

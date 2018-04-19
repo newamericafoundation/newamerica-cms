@@ -162,11 +162,11 @@ class WeeklyList(generics.ListAPIView):
     serializer_class = WeeklyEditionListSerializer
 
     def get_queryset(self):
-        queryset = WeeklyEdition.objects.live()
+        queryset = WeeklyEdition.objects.live().public()
         return sorted(queryset, key=lambda edition: get_edition_number(edition));
 
 class WeeklyDetail(generics.RetrieveAPIView):
-    queryset = WeeklyEdition.objects.live()
+    queryset = WeeklyEdition.objects.all()
     serializer_class = WeeklyEditionSerializer
 
 class InDepthProjectList(generics.ListAPIView):

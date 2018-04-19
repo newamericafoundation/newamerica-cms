@@ -5,7 +5,7 @@ import 'babel-polyfill';
 import * as React from 'react';
 import 'whatwg-fetch';
 import 'url-polyfill';
-import 'url-search-params-polyfill';
+// import 'url-search-params-polyfill';
 
 window.React = window.react = React;
 
