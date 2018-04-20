@@ -1,7 +1,7 @@
 .timeline__see-all-button {
-	border-left: 2px solid color(black, base, 1);
-	border-bottom: 2px solid color(black, base, 1);
-	border-right: 2px solid color(black, base, 1);
+	border-left: 1px solid color(black, base, 1);
+	border-bottom: 1px solid color(black, base, 1);
+	border-right: 1px solid color(black, base, 1);
 	display: inline-block;
 	@include timeline-subtext
 	cursor: pointer;
