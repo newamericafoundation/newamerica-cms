@@ -153,7 +153,7 @@ export default class Subscribe extends Component {
     let { posting, posted, status } = this.state;
     if(!this.state.params['g-recaptcha-response']) return null;
     return (
-      <div className="subscribe__submit margin-top-25">
+      <div className="subscribe__submit margin-top-15">
         {(!posting && !posted) && <input type="submit" className="button" value="Sign Up" />}
         {posting &&
           <label className="button turquoise">
