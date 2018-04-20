@@ -2,8 +2,6 @@
   & > *, .menu-list__item {
       margin-top: 0 !important;
       margin-bottom: 0 !important;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
       position: relative;
       @include box-shadow( inset 0px 1px 0px 0px color(black, base, 0.3) );
 
