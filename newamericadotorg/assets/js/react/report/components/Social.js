@@ -14,7 +14,7 @@ class Social extends Component {
 
     if(this.props.report_pdf){
       icons.push(
-        { label: 'Download', icon: 'fa-download', id: 'social__download', url: `${this.props.report_pdf}`  }
+        { label: 'Download', icon: 'fa-download', id: 'social__download', url: `${this.props.url}pdf/`  }
       );
     }
     return icons;
