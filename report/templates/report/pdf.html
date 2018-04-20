@@ -83,8 +83,13 @@
           <h2 class="bottom-margin">Contents</h2>
           <div class="contents__list">
             {% for s in page.sections %}
-              <div class="contents__list__item bottom-margin">
-                <label class="block">{{ forloop.counter}}. {{s.value.title}}</label>
+              <div class="contents__list__item">
+                <label class="block">{{s.value.title}}</label>
+                {% for block in s.value.body %}
+                  {% if block.block_type == 'heading' %}
+                    <label class="block subsection">{{block.value}}</label>
+                  {% endif %}
+                {% endfor %}
               </div>
             {% endfor %}
           </div>
@@ -94,7 +99,7 @@
     {% for s in page.sections %}
       <section class="section break-after">
         <div class="section-content">
-          <h1 class="heading-{{forloop.counter}}">{{forloop.counter}}. {{s.value.title}}</h1>
+          <h1 class="heading-{{forloop.counter}}">{{s.value.title}}</h1>
           {% for block in s.value.body %}
             {% if block.block_type == 'paragraph' %}
               {{ block.value|cited_html|safe }}
@@ -132,7 +137,7 @@
               {% include_block block %}
             {% elif block.block_type == 'table' %}
               <div class="block-table">
-                <label class="bold">Table {% counter %}</label>
+                <!-- <label class="bold">Table {% counter %}</label> -->
                 {% include_block block %}
               </div>
             {% endif %}

@@ -32,6 +32,10 @@ def generate_pdf(report_id):
         print('Generated PDF for %s' % report.title)
 
 @celery_app.task
+def write_pdf(response, html, base_url):
+    return HTML(string=html, base_url=base_url).write_pdf(response)
+
+@celery_app.task
 def parse_pdf(page):
     page.overwrite_sections_on_save = False
     streamfields = generate_docx_streamfields(page.source_word_doc.file)
