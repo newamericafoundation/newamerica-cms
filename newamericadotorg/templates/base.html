@@ -78,7 +78,7 @@
     {% include 'components/footer.html' %}
   {% endblock %}
 
-  {% if not DEBUG %}
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -89,7 +89,7 @@
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMGT6BG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-  {% endif %}
+
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}
   {% endblock %}
