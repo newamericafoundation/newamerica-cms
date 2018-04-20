@@ -22,9 +22,9 @@
 
   <meta property="og:site_name" content="New America" />
 
-  <link rel="canonical" href="{{ self.url }}" />
-  <meta property="og:url" content="{{ self.url }}">
-  <meta name="twitter:url" content="{{ self.url }}">
+  <link rel="canonical" href="https://www.newamerica.org{{ self.url }}" />
+  <meta property="og:url" content="https://www.newamerica.org{{ self.url }}">
+  <meta name="twitter:url" content="https://www.newamerica.org{{ self.url }}">
 
   <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
   <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
@@ -35,9 +35,8 @@
   <meta name="twitter:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
 
   {% if self.story_image %}
-    {% image self.story_image original as story_image %}
-    <meta property="og:image" content='{{ story_image.url }}' />
-    <meta name="twitter:image" content='{{ story_image.url }}' />
+    <meta property="og:image" content='https://s3.amazonaws.com/newamericadotorg/{{ self.story_image.file.name }}' />
+    <meta name="twitter:image" content='https://s3.amazonaws.com/newamericadotorg/{{ self.story_image.file.name }}' />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@NewAmerica">
   {% endif %}
