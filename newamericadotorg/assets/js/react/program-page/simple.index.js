@@ -66,7 +66,7 @@ class ProgramPage extends Component {
         <GARouter>
           <div className="program__content">
             <Heading program={results} />
-            {results.about && <Route path={`/${root}/about`} render={(props)=>(<About about={results.about} />)} />}
+            {results.about && <Route path={`/${root}/${about.slug}/`} render={(props)=>(<About about={results.about} />)} />}
             {results.subscriptions && <Route path={`/${root}/subscribe`} render={(props)=>(<Subscribe subscriptions={results.subscriptions}/>)} />}
             <Route path={`/${root}/:subpage?`} render={(props)=>(<StoryGrid {...props} program={results} />)} />
           </div>
