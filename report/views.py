@@ -15,7 +15,8 @@ def pdf(request, **kwargs):
     report = Report.objects.filter(slug=path[len(path)-1]).first()
     if not report.report_pdf:
         return pdf_render(request, **kwargs)
-    return redirect(report.report_pdf.file.url)
+    url = 'https://s3.amazonaws.com/newamericadotorg/' + report.report_pdf.file.name
+    return redirect(url)
 
 def pdf_render(request, **kwargs):
     path = request.path.split('/')[:-3]
