@@ -366,16 +366,15 @@ class ProgramSimplePage(AbstractSimplePage):
 
         ## should load program page if page is added to "sidebar_menu_about_us_pages"
         ## TODO need a better check for this
+        if self.id == getattr(parent.about_us_page, 'id', None):
+            return 'programs/program.html'
+
         if type(parent) == Program:
             about_pages = parent.sidebar_menu_about_us_pages.stream_data
             is_about_page = False
             for a in about_pages:
                 if self.id == a['value']:
-                    is_about_page = True
-                    break
-
-            if is_about_page:
-                return 'programs/program.html'
+                    return 'programs/program.html'
 
         return 'home/program_simple_page.html'
 

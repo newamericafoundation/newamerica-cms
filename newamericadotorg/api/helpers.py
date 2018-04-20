@@ -70,7 +70,8 @@ def get_program_content_types(program):
         page = Page.objects.get(pk=program)
 
     children = page.get_children().type(AbstractContentPage).not_type(PublicationsPage).not_type(ProgramPeoplePage)\
-        .not_type(TopicHomePage).not_type(ProgramEventsPage).not_type(AllEventsHomePage).not_type(ProgramPolicyPapersPage)
+        .not_type(TopicHomePage).not_type(ProgramEventsPage).not_type(AllEventsHomePage).not_type(ProgramPolicyPapersPage)\
+        .live()
 
     content_types = []
     for c in children:
@@ -96,7 +97,7 @@ def get_program_content_types(program):
     return content_types
 
 def get_subpages(page):
-    children = page.get_children().not_type(AbstractContentPage)
+    children = page.get_children().not_type(AbstractContentPage).live()
     pages = []
 
     for c in children:

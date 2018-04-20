@@ -286,7 +286,7 @@ class ProgramDetailSerializer(ModelSerializer):
                 p = p.value.specific
             except:
                 continue
-            if p.title == 'About Us' or p.title == 'Our People':
+            if p.title == 'About Us' or p.title == 'Our People' or not p.live:
                 continue
             body = loader.get_template('components/post_body.html').render({ 'page': p })
             about_us_pages.append({ 'title': p.title, 'body': body, 'slug': p.slug })
@@ -831,7 +831,7 @@ class HomeDetailSerializer(PostSerializer):
 
     def get_subpages(self, obj):
 
-        subpages = OrgSimplePage.objects.child_of(obj).filter(custom_interface=True)
+        subpages = OrgSimplePage.objects.child_of(obj).filter(custom_interface=True).live()
 
         return HomeDetailSerializer(subpages, many=True).data
 

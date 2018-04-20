@@ -54,7 +54,7 @@ class ProgramPage extends Component {
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
             <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} />)} />
-            {results.about && <Route path={`/${root}/about`} exact render={()=>(<About program={results} about={results.about} about_us_pages={results.about_us_pages} />)} /> }
+            {results.about && <Route path={`/${root}/(about|${results.about.slug})`} exact render={()=>(<About program={results} about={results.about} about_us_pages={results.about_us_pages} />)} /> }
             {this.aboutRoutes(results.about_us_pages, root)}
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
