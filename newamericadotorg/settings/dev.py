@@ -22,6 +22,11 @@ CACHES = {
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'newamericadotorg.api.pagination.CustomPagination',
+}
+
+
 try:
     from .local import *
 except ImportError:
