@@ -2,8 +2,8 @@ import { Component } from 'react';
 import { PlusX, Arrow } from '../components/Icons';
 import { connect } from 'react-redux';
 
-const NAME = 'resourcesBlock';
-const ID = 'resources-block';
+export const NAME = 'resourcesBlock';
+export const ID = 'resources-block';
 
 class ResourceItem extends Component {
 
@@ -74,7 +74,7 @@ class ResourceItem extends Component {
 // ResourceItem  = connect(mapStateToProps)(ResourceItem);
 
 
-class APP extends Component {
+export class APP extends Component {
   state = { expanded: false }
   expand = (resourceIndex) => {
     if(this.state.expanded === resourceIndex ) this.setState({ expanded: false });

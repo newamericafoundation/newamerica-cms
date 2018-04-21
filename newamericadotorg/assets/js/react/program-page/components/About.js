@@ -1,10 +1,27 @@
 import { Component } from 'react';
+import { render } from 'react-dom';
 import { Link, NavLink } from 'react-router-dom';
+import { APP as Resources, ID as resourcesDOMId }  from '../../blocks/resources';
+import getProps from '../../../utils/get-props';
 
 export default class About extends Component {
   componentWillMount(){
     if(window.scrollY > 300 || window.pageYOffset > 300){
       window.scrollTo(0, 0);
+    }
+  }
+
+  componentDidMount(){
+    let resources = document.querySelectorAll(`.compose__${resourcesDOMId}`);
+    console.log(`compose__${resourcesDOMId}`)
+    if(!resources) return;
+
+    for(let r of resources){
+      if(r.hasChildNodes()) continue;
+      let props = getProps(r);
+      render(
+        <Resources {...props} />, r
+      );
     }
   }
   render(){
