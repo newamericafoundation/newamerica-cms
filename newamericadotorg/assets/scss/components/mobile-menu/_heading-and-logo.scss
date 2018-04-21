@@ -6,13 +6,18 @@
   height: $header-height;
   white-space: nowrap;
   z-index: 1;
+
+  .logo {
+    width: 120px !important;
+    height: 40px !important;
+  }
 }
 
 .mobile-menu .logo__wrapper {
   position: relative;
   display: inline-block;
   padding-left: 15px;
-  padding-top: 22px;
+  padding-top: 15px;
   @include transform(translateX(0));
   width: 100vw;
   vertical-align: top;

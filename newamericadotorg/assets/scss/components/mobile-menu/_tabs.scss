@@ -22,7 +22,7 @@
 
 .mobile-menu.secondary-tab-active{
   .mobile-menu__primary-tab, .mobile-menu__secondary-tab{
-    @include transform(translateX(-100vw));
+    @include transform(translateX(-100vw) translateZ(0));
   }
 
   .mobile-menu__primary-tab {

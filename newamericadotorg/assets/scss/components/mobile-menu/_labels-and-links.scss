@@ -5,7 +5,7 @@
   text-align: center;
   position: relative;
   top: 50%;
-  @include transform(translateX(0) translateY(-50%));
+  @include transform(translateX(0) translateY(-50%) translateZ(0));
   width: 100vw;
   opacity: 0;
   padding-left: 0px !important;
@@ -24,11 +24,11 @@
 
 .mobile-menu.secondary-tab-active {
   .logo__wrapper{
-    @include transform(translateX(-100vw));
+    @include transform(translateX(-100vw) translateZ(0));
     opacity: 0;
   }
   .tab-link-back {
-    @include transform(translateX(-100vw) translateY(-50%));
+    @include transform(translateX(-100vw) translateY(-50%) translateZ(0));
     opacity: 1;
   }
 }
@@ -59,6 +59,6 @@
     right: 15px;
     margin-bottom: 5px;
     top: 50%;
-    @include transform(translateY(-50%) rotate(45deg));
+    @include transform(translateY(-50%) rotate(45deg) translateZ(0));
   }
 }

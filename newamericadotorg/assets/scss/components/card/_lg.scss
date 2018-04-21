@@ -1,5 +1,11 @@
 .card.lg {
 
+  .col-lg-8 {
+    @include media-breakpoint(tablet){
+      padding-right: 3px;
+    }
+  }
+
   @include media-breakpoint(tablet){
     height: 375px;
   }
