@@ -78,7 +78,8 @@ iframe{
 }
 
 hr {
-	border-bottom: 1px solid color(black, base, 0.3);
+  border: none;
+	border-bottom: 1px solid color(black, base, 1);
 }
 
 section {
@@ -86,6 +87,7 @@ section {
     background-color: color(beige);
   }
 }
+
 
 @import 'fonts';
 @import 'type';

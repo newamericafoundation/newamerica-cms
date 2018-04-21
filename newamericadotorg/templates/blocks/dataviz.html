@@ -1,6 +1,6 @@
 
 	<div class="dataviz">
-		<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}">
+		<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}" style="max-width: {{ self.max_width }}px">
 			{% if self.title %}
 				<a id="{{ self.title|slugify }}" class="in-depth__panel__anchor"></a>
 				<div class="dataviz__icon">{% include 'components/svg/new-america-mini.html' %}</div>

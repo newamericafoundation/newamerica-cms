@@ -28,11 +28,9 @@
 
 .filter-group__category,
 li.filter-group__variable {
-    border-left: 1px solid #e0e0e1;
-    border-bottom: 1px solid #e0e0e1;
-    border-top: 1px solid #e0e0e1;
     cursor: pointer
 }
+
 
 .fact-box.simple {
     height: auto;
@@ -275,7 +273,6 @@ h3.tooltip__category__list-item__label {
     display: inline-block;
     padding: 10px 12px;
     margin: 0;
-    border-right: none;
     color: #333;
     font-size: .95rem;
     font-family: circular;
@@ -283,23 +280,22 @@ h3.tooltip__category__list-item__label {
     line-height: 1.8rem
 }
 
-li.filter-group__variable:last-child,
-p.filter-group__category:last-child {
-    border-right: 1px solid #e0e0e1
-}
 
 li.filter-group__variable {
     display: inline-block!important;
-    padding: 7px;
+    padding: 5px;
     margin-top: 0!important;
-    margin-bottom: 0!important;
-    margin: 0;
+    margin-bottom: 25!important;
+    margin-right :5px;
     color: #333;
     list-style-type: none!important;
     font-size: .85rem;
     font-family: circular;
     font-weight: 300;
     line-height: .98rem
+}
+li.filter-group__variable.active{
+  border: 1px solid #333;
 }
 
 .tooltip__category__name {
@@ -316,7 +312,8 @@ svg.us-states-svg text {
 }
 
 li.filter-group__variable:hover {
-    background-color: #e0e0e1;
+    border: 1px solid #333;
+    cursor: pointer;
     color: #333
 }
 
@@ -528,13 +525,6 @@ li.dot-chart__layout-selector__option {
 }
 
 
-rect.dot-chart__histogram-annotation__box {
-
-   display: none;
-
-} /* temporary fix */
-
-
 text.dot-chart__histogram-annotation__text {
 
    font-size: 13px;
@@ -548,4 +538,102 @@ text.dot-chart__histogram-annotation__text {
    fill: #ddd;
 
 }
+
+.legend__cell-contents > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.template-indepthproject .block-dataviz, .template-indepthsection .block-dataviz {
+  width: 200%;
+  max-width: calc(100vw - 30px);
+  margin-left: calc(-50vw + 50% + 15px);
+}
+
+@media (min-width: 1600px){
+  .template-indepthproject .block-dataviz,
+  .template-indepthsection .block-dataviz{
+    margin-left: -50%;
+  }
+}
+
+.dataviz {
+  width: 100%;
+}
+
+.dataviz__chart-area{
+  width: 100%;
+}
+
+.legend__cell__label{
+  margin-top: 0;
+}
+
+.dataviz__chart-container{
+  margin: 0 auto;
+}
+
+.content-stream{
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow-x: hidden;
+}
+
+.content-stream__container{
+  padding: 25px 15px;
+}
+
+.content-stream__filter-val__label, .content-stream__entry__date{
+  font-weight: normal;
+}
+.content-stream__entry__title{
+  margin-top: 0;
+}
+
+.content-stream__entry{
+  width: 100%;
+  display: block;
+}
+
+.content-stream__entry h5 {
+  font-family: 'Circular';
+}
+
+.content-stream__entry__source a{
+  line-height: 1.05em;
+}
+
+.content-stream__entry__text-container{
+  display: block;
+  width: auto;
+}
+
+.content-stream__filter-val > * {
+  margin-top: 0;
+}
+
+#dataTable_wrapper{
+  margin: 0 auto;
+}
+
+.in-depth__panel {
+  background: #fff !important;
+}
+
+.dataviz__title-container{
+  margin: 0 auto !important;
+}
+
+.dataviz .dataviz__title, .dataviz .dataviz__subheading {
+    margin-left: 0px !important;
+}
+
+.callout-box .dot-chart__axis-categorical__text {
+    font-size: .45em!important;
+  }
+
+.container--800 {
+  max-width: 830px !important;
+}
+
 </style>

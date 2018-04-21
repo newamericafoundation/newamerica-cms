@@ -11,7 +11,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	{% endif %}
 	{% if page.data_project_external_script %}
-		<script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
+		<script type="text/javascript" async="true" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}"></script>
     {% include './style-shim.html' %}
   {% endif %}
 {% endblock %}
@@ -21,9 +21,8 @@
 
 {% block content %}
 	<section class="in-depth__panel title-panel home-title-panel">
-
-
 		<div class="title-panel__image">
+        {% image page.story_image original as story_image %}
 				{% image page.story_image fill-32x15 as story_image_thumb %}
 				<div class="title-panel__image__background" style="background-image: url({{story_image_thumb.url}});"></div>
 				<img src="{{story_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');document.querySelector('.title-panel__image__background').classList.add('loaded');">
