@@ -77,7 +77,8 @@ export class Topic extends Component {
             fetchOnMount={true}
             component={PersonsList}
             initialQuery={{
-              topic_id: topic.id
+              topic_id: topic.id,
+              include_fellows: true
             }}>
             <Separator text="Topic Experts" />
           </Fetch>
