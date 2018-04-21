@@ -25,6 +25,37 @@
   margin: 0 auto;
 }
 
+.post-body p > img {
+  margin-bottom: 25px;
+  margin-top: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+
+  &:not(.right):not(.left):last-child{
+    margin-bottom: 0px;
+  }
+
+  &:not(.right):not(.left):first-child{
+    margin-top: 0px;
+  }
+
+  &.right{
+    float: right;
+    margin-left: 15px;
+    margin-right: 0px;
+    max-width: 50%;
+  }
+
+  &.left {
+    float: left;
+    max-width: 50%;
+    margin-right: 15px;
+    margin-left: 0px;
+  }
+}
+
 @import 'attachment';
 @import 'aside';
 @import 'blocks/index';
