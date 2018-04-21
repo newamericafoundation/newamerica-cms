@@ -1,6 +1,8 @@
 .logo{
   display: inline-block;
-  background-size: cover;
+  background-size: 95% auto;
+  background-position: 0 center;
+  background-repeat: no-repeat;
   background-image: url('/static/logo-black.svg');
 
   &.lg {

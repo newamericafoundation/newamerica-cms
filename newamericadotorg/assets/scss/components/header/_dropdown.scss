@@ -54,12 +54,12 @@
       display: inline-block;
       content: '';
       position: absolute;
-      top: calc(50% + 2px);
+      top: calc(50% + 1px);
       @include transform(rotate(45deg) translateY(-3.5px));
-      border-right: 1px solid color(gray, dark);
-      border-bottom: 1px solid color(gray, dark);
-      height: 4px;
-      width: 4px;
+      border-right: 2px solid color(black);
+      border-bottom: 2px solid color(black);
+      height: 6px;
+      width: 6px;
       margin: 0 5px 0 5px;
     }
 
