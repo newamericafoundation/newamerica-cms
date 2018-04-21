@@ -42,14 +42,27 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
 .homepage__mission-statement-section,
 .homepage__weekly-promo-section,
 .homepage__subscribe-section{
-  .promo > span, h3, .input{
-    @include transition(opacity $home-transition-func, transform $home-transition-func);
+  .promo > div, h3, .input{
+    @include transition(opacity $home-transition-func, transform $home-transition-func, top $home-transition-func);
     opacity: 0;
-    @include transform(translateY(50px));
+    top: 50px;
+    @include transform(translateZ(0px));
     position: relative;
   }
 
-  .promo > span:nth-child(2){
+    &.scroll-triggered{
+      .promo > div, h3, .input{
+        top: 0;
+        //@include transform(translateY(0px));
+        opacity: 1;
+      }
+    }
+
+  .promo > div:first-child{
+    @include transition-delay(0s);
+  }
+
+  .promo > div:nth-child(2){
     @include transition-delay(0.15s);
   }
 
@@ -59,14 +72,6 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
 
   .input{
     @include transition-delay(0.45s);
-  }
-
-
-  &.scroll-triggered{
-    .promo > span, h3, .input{
-      @include transform(translateY(0px));
-      opacity: 1;
-    }
   }
 }
 
@@ -141,7 +146,7 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
     z-index: 2;
   }
 
-  span > span{
+  div > span{
     position: relative;
     display: inline-block;
     vertical-align: top;
@@ -152,7 +157,7 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
     // padding-top: 6px;
     // padding-bottom: 6px;
   }
-  span > span:before{
+  div > span:before{
     content: '';
     z-index: 0;
     background: color(turquoise, base, 1);
@@ -166,15 +171,15 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
     @include transition(transform 0.3s cubic-bezier(.33,0,.2,1));
   }
 
-  span:nth-child(2) > span:before{
+  div:nth-child(2) > span:before{
     @include transition-delay(0.1s);
   }
 
-  h3 span > span:before{
+  h3 div > span:before{
     display: none;
     @include transition-delay(0.2s);
   }
-  &:hover span:before{
+  &:hover div:before{
     @include media-breakpoint(desktop){
       @include transform(translateX(0%));
     }

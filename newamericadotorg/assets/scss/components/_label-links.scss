@@ -64,9 +64,9 @@ label.card__text__title.link{
 
 h1.card__text__title.link,
 h2.card__text__title.link{
-  &:hover u {
+  &:hover u{
     text-decoration: underline;
-    -webkit-text-decoraction-color: color(turquoise);
+    -webkit-text-decoration-color: color(turquoise);
     text-decoration-color: color(turquoise);
   }
 
