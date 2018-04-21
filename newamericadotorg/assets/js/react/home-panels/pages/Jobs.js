@@ -20,7 +20,7 @@ class Jobs extends Component {
     let { expanded } = this.state
 
     return (
-      <section>
+      <section className="padding-80">
         <div className="container--1080 home__fellowships">
           <div className="menu-list">
             {results.sort((a,b)=>(a.title > b.title ? 1 : -1)).map((j,i)=>(
