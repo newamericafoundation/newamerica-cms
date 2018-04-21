@@ -7,11 +7,10 @@ class FunderList extends Component {
   parseFunderList = (html, cols=2) => {
     let funders = this.getJSXFromHTML(html);
     let len = Math.ceil(funders.length/cols)-1;
-
     let groups = [];
     for(let i=0; i<cols; i++){
       let start = len*i + i*1;
-      let end = i===cols-1 ? funders.length-1 : len * (i+1) + i;
+      let end = i===cols-1 ? funders.length : len * (i+1) + 1;
       groups.push(funders.slice(start, end));
     }
 
@@ -30,7 +29,6 @@ class FunderList extends Component {
 
     let div = document.createElement('div');
     div.innerHTML = html;
-
     let funders = div.getElementsByTagName('li');
     if(type === 'funder' )
       return Array.from(funders).map((f,i)=>(
@@ -59,7 +57,7 @@ class FunderList extends Component {
         <div className="row gutter-20">
           <div className="col-lg-7">
             {heading != 'NULL' && <h2 className="margin-bottom-25">{heading}</h2>}
-            <p dangerouslySetInnerHTML={{__html: intro}} />
+            <div className="home__panel__funders-list__body" dangerouslySetInnerHTML={{__html: intro}} />
           </div>
         </div>
         <div className="row gutter-20">
@@ -81,7 +79,7 @@ class OurFunderLists extends Component {
   render(){
     let { data : { donors_and_partners }, heading } = this.props;
     return (
-      <section className="funders-list post-body container--1080">
+      <section className="funders-list post-body container--1080 margin-80">
         <div className="row gutter-10">
           <div className="col-lg-7">
             <h1 className="margin-top-0">{heading}</h1>
@@ -103,11 +101,11 @@ class FunderLists extends Component {
   render(){
     let { data : { intro, circles } } = this.props;
     return (
-      <section className="funders-list post-body container--1080">
+      <section className="funders-list post-body container--1080 margin-80">
         <div className="row gutter-10">
           <div className="col-lg-7">
             {/* <h1 className="margin-top-0">{funders_intro.heading[0]}</h1> */}
-            <p className="margin-bottom-35" dangerouslySetInnerHTML={{__html: intro.paragraph[0] }}/>
+            <div className="margin-bottom-35 home__panel__funders-list__body" dangerouslySetInnerHTML={{__html: intro.paragraph[0] }}/>
           </div>
         </div>
         {circles.heading.map((h,i)=>(
@@ -172,7 +170,7 @@ class Councils extends Component {
       circles
     }} = this.props;
     return (
-      <section className="container--1080 our-funding__circles_and_councils">
+      <section className="container--1080 our-funding__circles_and_councils margin-80">
         {this.sectionIntro(leadership_council_intro)}
         <div className="our-funding__council">
           {leadership_council.heading.map((h,i)=>(

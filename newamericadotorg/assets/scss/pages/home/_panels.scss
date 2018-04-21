@@ -1,8 +1,15 @@
-.home__panels{
-  section:not(.home__panel__promo):not(.home__panel__subscribe){
-    padding-top: 110px;
-    padding-bottom: 110px;
-  }
+.home__panels__content{
+  min-height: 100vh;
+}
+
+.home__panels section.padding-110{
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+
+.home__panels section.padding-80{
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .home__panels {
@@ -32,16 +39,13 @@
 }
 
 .home__panel__our-people, .home__panel__programs {
-  padding-top: 0 !important;
-  padding-bottom: 115px !important;
+  padding-bottom: 115px;
 }
 
 
 .home__panel__promo {
   background-color: color(beige);
   position: relative;
-  padding-top: 110px;
-  padding-bottom: 110px;
 
   @include media-breakpoint(tablet){
     padding-top: 0;
@@ -170,6 +174,10 @@
       content: '';
       height: 100%;
     }
+}
+
+.home__panel__funders-list__body > *:first-child{
+  margin-top: 0;
 }
 
 .our-funding__nav a, .our-people__nav a{
