@@ -65,6 +65,9 @@ class ProgramPage extends Component {
       <div className="container">
         <GARouter>
           <div className="program__content">
+            <Route path="/admin/pages/" render={()=>(
+              <Redirect to={results.url} />
+            )}/>
             <Heading program={results} />
             {results.about && <Route path={`/${root}/(about|${results.about.slug})/`} render={(props)=>(<About about={results.about} />)} />}
             {results.subscriptions && <Route path={`/${root}/subscribe`} render={(props)=>(<Subscribe subscriptions={results.subscriptions}/>)} />}

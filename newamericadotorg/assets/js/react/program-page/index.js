@@ -51,6 +51,9 @@ class ProgramPage extends Component {
       <div className="container">
         <GARouter>
           <div className="program__content">
+            <Route path="/admin/pages/" render={()=>(
+              <Redirect to={results.url} />
+            )}/>
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
             <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} />)} />

@@ -110,6 +110,9 @@ class Routes extends Component {
     return (
       <GARouter>
         <Switch>
+          <Route path='/admin/pages/' render={()=>(
+            <Redirect to={`${this.props.response.results.url}`} />
+          )} />
           <Route path='/:program/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
           <Route path='/:program/reports/:reportTitle' render={this.redirect} />
           <Route path='/:program/:subprogram/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
