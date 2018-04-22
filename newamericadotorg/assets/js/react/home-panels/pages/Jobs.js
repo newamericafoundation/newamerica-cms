@@ -70,7 +70,7 @@ class Fellowships extends Component {
     let { response: { results } } = this.props;
     let { expanded } = this.state
     return (
-      <section>
+      <section className="padding-80">
         <div className="container--1080 home__fellowships">
           <div className="menu-list">
             {results.map((f,i)=>(
