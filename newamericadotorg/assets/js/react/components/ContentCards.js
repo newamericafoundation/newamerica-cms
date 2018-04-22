@@ -81,7 +81,7 @@ export const PublicationListItem = ({ post }) => (
       </a>
     <div className="card__text">
       <a href={post.url}>
-        {post.date && <label className="card__text__date margin-top-0 margin-bottom-15 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>}
+        {post.date && <label className="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>}
         {/* <h3 className="card__text__title bold block">{post.title}</h3> */}
         <label className="card__text__title bold block link margin-0">
           <span><u>{post.title}</u></span>
@@ -100,7 +100,7 @@ export const PublicationListItem = ({ post }) => (
           </label>
         }
       </span>}
-      {post.programs && <label className="card__text__program caption margin-top-15 margin-bottom-0 block">
+      {post.programs && <label className="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0 block">
           {post.programs[0] ? post.programs[0].name : ''} {post.content_type ? post.content_type.name : ''}
         </label>}
     </div>

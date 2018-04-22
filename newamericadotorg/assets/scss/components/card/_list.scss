@@ -50,8 +50,8 @@
     vertical-align: middle;
     display: inline-block;
     position: relative;
-    height: 150px;
-    width: calc(50% - 25px);
+    height: 75px;
+    width: 90px;
 
 
     @include media-breakpoint(tablet){
@@ -94,7 +94,7 @@
     padding-bottom: 0;
     padding-right: 0;
     height: 100%;
-    max-width: 50%;
+    max-width: calc(100% - 90px);
 
     @include media-breakpoint(tablet){
       max-width: calc(100% - 257px);

@@ -12,7 +12,7 @@
     </a>
   <div class="card__text">
     <a href="{{post.url}}">
-      <label class="card__text__date margin-top-0 margin-bottom-15 block">{{post.date|date:"M. jS, Y"}}</label>
+      <label class="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15 block">{{post.date|date:"M. jS, Y"}}</label>
       <!-- <h3 class="card__text__title bold block">{{post.title}}</h3> -->
       <label class="card__text__title bold block link margin-0">
         <span><u>{{post.title}}</u></span>
@@ -33,7 +33,7 @@
       {% endfor %}
     </label>
     {% endif %}
-    <label class="card__text__program caption margin-top-15 margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
+    <label class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
   </div>
 
 </div>
