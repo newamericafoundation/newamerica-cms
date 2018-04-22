@@ -51,6 +51,9 @@ class AllWeeklyArticlesHomePage(AbstractHomeContentPage):
     parent_page_types = ['home.HomePage']
     subpage_types = []
 
+    class Meta:
+        verbose_name = 'Weekly Articles Homepage'
+
     @property
     def content_model(self):
         return WeeklyArticle
