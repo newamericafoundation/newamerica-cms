@@ -17,6 +17,8 @@
   img {
     height: 100%;
     width: auto;
+    position: absolute;
+    @include center;
     @include media-breakpoint(desktop) {
       width: 115%;
       height: auto;

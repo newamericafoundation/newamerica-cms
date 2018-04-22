@@ -36,7 +36,7 @@ class Routes extends Component {
   render(){
     let { response: { results }, location, match } = this.props;
     return (
-      <main class={`${bowser.chrome ? 'transition-enabled' : ''}`}>
+      <main class={`${bowser.chrome && bowser.osname == 'macOS' ? 'transition-enabled' : ''}`}>
         <Route path="/weekly/:editionSlug/:articleSlug?" render={(props)=>(
           <Header dispatch={this.props.dispatch} {...props} edition={results} />
         )} />

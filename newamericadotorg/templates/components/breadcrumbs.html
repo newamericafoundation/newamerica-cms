@@ -2,7 +2,7 @@
 {% with a=self.get_ancestors %}
   <div class="container margin-top-25 breadcrumb">
     <label class="block link with-caret--left">
-      {% if a.3.content_type.name == "Subprogram Page" %}
+      {% if a.3.content_type.name == "Initiative Homepage" or a.3.content_type.name == "Blog" or a.3.content_type.name == "Project" %}
       <a href="{{ a.3.url }}"><u>{{a.3.title }}</u></a>
       {% else %}
       <a href="{{ a.2.url }}"><u>{{a.2.title }}</u></a>
