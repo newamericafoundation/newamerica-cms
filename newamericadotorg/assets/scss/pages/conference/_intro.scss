@@ -18,8 +18,13 @@
     height: 100%;
     width: auto;
     @include media-breakpoint(desktop) {
-      width: 100%;
+      width: 115%;
       height: auto;
+    }
+
+    @media (min-height: 700px){
+      height: 100%;
+      width: auto;
     }
   }
 }
@@ -34,11 +39,15 @@
   @include center;
 
   .na-logo img{
-    max-width: 400px;
+    max-width: calc(100vw - 30px);
     display: block;
     left: 50%;
     @include transform(translateX(-50%));
     position: absolute;
     top: -45px;
+
+    @media (min-width: 430px){
+      max-width: 400px;
+    }
   }
 }

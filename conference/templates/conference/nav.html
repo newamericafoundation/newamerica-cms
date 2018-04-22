@@ -2,7 +2,7 @@
   <div class='conference__header__sticky-wrapper'>
     <div class="container--1080">
       <div class="row">
-        <div class="conference__nav col-9">
+        <div class="conference__nav col-12 col-md-9">
             <ul class="inline">
               <li class="navigation-item active">
                 <label class="white">
@@ -50,7 +50,7 @@
               {% endif %}
             </ul>
         </div>
-        <div class="col-3">
+        <div class="col-0 col-md-3">
           {% if page.invitation_only %}
           <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="pull-right button black register">Request Invitation</a>
           {% elif page.rsvp_link %}

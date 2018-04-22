@@ -24,6 +24,9 @@
 
 .conference__header{
   height: $header-height;
+  .inline{
+    overflow-x: scroll;
+  }
   .navigation-link.active{
     font-weight: bold;
     @include box-shadow( 0px 2px 0px 0px color(white) );
@@ -35,4 +38,24 @@
     z-index: 200;
     width: 100%;
   }
+
+  .col-0{
+    display: none;
+    @include media-breakpoint(tablet){
+      display: block;
+    }
+  }
+
+  .navigation-item{
+    padding-right: 10px;
+    @include media-breakpoint(tablet){
+      padding-right: 25px;
+    }
+  }
+
+}
+
+
+.conference__nav{
+  white-space: nowrap;
 }
