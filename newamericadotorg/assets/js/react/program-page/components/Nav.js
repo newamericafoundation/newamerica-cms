@@ -50,7 +50,7 @@ export default class Nav extends Component {
                   prevArrow={<div></div>}
                   nextArrow={<div></div>}
                   responsive={[
-                    { breakpoint: 625, settings: { slidesToShow: 3, slidesToScroll: 3 } },
+                    { breakpoint: 625, settings: { slidesToShow: 3, slidesToScroll: 1 } },
                     { breakpoint: 1000000, settings: 'unslick' }
                   ]}>
                     {this.items()}

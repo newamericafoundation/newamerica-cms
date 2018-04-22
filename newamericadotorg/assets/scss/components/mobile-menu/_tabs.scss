@@ -40,6 +40,7 @@
   position: relative;
   white-space: normal;
   min-height: calc(100vh - #{$header-height});
+  padding-bottom: 50px;
   width: 100vw;
   right: -100vw;
   @include transition(right 0.3s ease-in-out);
