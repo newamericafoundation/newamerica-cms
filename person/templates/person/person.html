@@ -36,9 +36,9 @@
           {% if page.email or page.social_media|length > 0 %}
           <div class="person__social margin-0">
             <ul class="inline margin-top-5">
-               <a href="mailto:{{page.email}}" class="fa fa-envelope circle"></a>
+               <a href="mailto:{{page.email}}" target="_blank" class="fa fa-envelope circle"></a>
               {% for s in page.social_media %}
-                <a href="{{s.vlaue}}" class="fa fa-{{s.block_type}} circle"></a>
+                <a href="{{s.value}}" target="_blank" class="fa fa-{{s.block_type}} circle"></a>
               {% endfor %}
             </ul>
           </div>
