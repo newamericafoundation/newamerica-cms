@@ -179,13 +179,13 @@ $home-transition-func: 0.5s cubic-bezier(.33,0,.2,1);
     display: none;
     @include transition-delay(0.2s);
   }
-  &:hover div:before{
+  &:hover div > span:before{
     @include media-breakpoint(desktop){
       @include transform(translateX(0%));
     }
   }
 }
 
-.homepage__subscribe-section h3 span > span:before{
+.homepage__subscribe-section h3 div > span:before{
   @include transition-delay(0.1s);
 }

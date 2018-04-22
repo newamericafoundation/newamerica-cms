@@ -90,6 +90,7 @@ class HomePage(Page):
     'programs.Program',
     'article.AllArticlesHomePage',
     'weekly.Weekly',
+    'weekly.AllWeeklyArticlesHomePage',
     'event.AllEventsHomePage',
     'conference.AllConferencesHomePage',
     'blog.AllBlogPostsHomePage',
