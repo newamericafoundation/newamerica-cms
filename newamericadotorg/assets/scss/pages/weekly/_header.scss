@@ -41,6 +41,7 @@
 		display: inline-block;
 		vertical-align: top;
 		float: right;
+		white-space: nowrap;
 		@extend %clearfix;
 
 		@include media-breakpoint(desktop){

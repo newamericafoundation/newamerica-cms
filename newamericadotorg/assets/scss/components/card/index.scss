@@ -2,8 +2,10 @@
   background: color(white);
   box-shadow: inset 0px -4px 0px 0px color(turquoise, base, 0),
     0px 2px 6px 0px color(black, base, 0);
-  @include transform(translateY(0));
-  @include transition(box-shadow 0.15s ease, transform 0.15s ease);
+  @include transform(translateZ(0));
+  @include transition(box-shadow 0.15s ease, top 0.15s ease);
+  top: 0;
+  position: relative;
   margin-top: 10px;
   cursor: default;
 
@@ -68,7 +70,7 @@
       // box-shadow: inset 0px -3px 0px 0px color(turquoise, base, 1),
       //   0px 2px 6px 0px color(black, base, 0.15);
       @include box-shadow( 0px 2px 6px 0px color(black, base, 0.15) );
-      @include transform(translateY(-3px));
+      top: -3px;
     }
   }
 }
