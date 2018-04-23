@@ -45,11 +45,13 @@ class Routes extends Component {
             <Switch location={location}>
               <Route
                 path="/weekly/:editionSlug/:articleSlug/"
+                exact
                 render={(props)=>(
                   <Article edition={results} {...props} />
                 )}/>
               <Route
                 path="/weekly/:editionSlug/"
+                exact
                 render={(props)=>(
                   <Edition transition={this.state.mounted} edition={results} {...props} />
                 )}/>

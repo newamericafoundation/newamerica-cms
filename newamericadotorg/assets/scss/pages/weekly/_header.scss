@@ -2,10 +2,13 @@
 	background: color(black);
 	max-height: $weekly-header-height;
 	@include transition(max-height 0.4s cubic-bezier(.33,0,.2,1));
-	overflow-y: hidden;
-	overflow-x: hidden;
 	position: relative;
 	z-index: 10;
+
+	&:not(.article-header){
+		overflow-y: hidden;
+		overflow-x: hidden;
+	}
 
 	&.open {
 		max-height: 2000px;
@@ -84,7 +87,7 @@
 	background: color(black);
 	width: 100vw;
 	@include transition(transform 0.35s ease, top 0.35s ease);
-	@include transform(translateY(0));
+	@include transform(translateY(0) translateZ(0));
 
 	.container {
 		padding-left: 15px !important;
@@ -93,5 +96,5 @@
 }
 
 body.scroll-reverse .weekly-edition__header__nav.scroll-left .weekly-edition__header__nav__sticky {
-	@include transform(translateY(#{$header-height}));
+	@include transform(translateY(#{$header-height}) translateZ(0));
 }

@@ -64,7 +64,7 @@ class ArticleHeader extends Component {
     let { edition } = this.props;
     return (
       <div className="container">
-        <div className="weekly-edition__header__nav scroll-target">
+        <div className="weekly-edition__header__nav scroll-target" data-scroll-offset="125">
           <div className="weekly-edition__header__nav__sticky">
             <div className="container">
               <div className="weekly-edition__header__nav__btn">
@@ -120,10 +120,10 @@ export default class Header extends Component {
   }
 
   render(){
-    let { edition } = this.props;
+    let { edition, match: { params } } = this.props;
     let { editionListOpen } = this.state;
     return(
-      <header id="weekly__header" className={`weekly-edition__header${editionListOpen ? ' open' : ''}`}>
+      <header id="weekly__header" className={`weekly-edition__header${editionListOpen ? ' open' : ''}${params.articleSlug ? ' article-header': ''}`}>
         <Fetch name="weekly.editionList"
           component={null}
           endpoint="weekly"

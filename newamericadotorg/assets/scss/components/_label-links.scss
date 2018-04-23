@@ -4,6 +4,8 @@ label,h1,h2,h3,h4,h5,h6{
       display: inline-block;
       position: relative;
       overflow: hidden;
+      padding-bottom: 1px;
+      margin-bottom: -1px;
       vertical-align: middle;
       u {
         position: relative;

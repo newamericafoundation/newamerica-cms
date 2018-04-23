@@ -27,7 +27,7 @@ export default class CardLg extends Component {
     return (
       <div className="card lg">
         <a href={post.url} className="row no-gutters">
-          <div className="col-12 col-md-8" style={{paddingRight: '3px'}}>
+          <div className="col-12 col-md-8">
             <div className="card__image">
               <Image thumbnail={post.story_image_thumbnail} image={post.story_image} loaded={loaded}/>
             </div>

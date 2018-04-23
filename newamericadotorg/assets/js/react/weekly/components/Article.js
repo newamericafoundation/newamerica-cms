@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Component } from 'react';
 import { reloadScrollEvents } from '../actions';
 import { connect } from 'react-redux';
+import bowser from 'bowser';
 
 class Article extends Component {
   constructor(props){
@@ -13,9 +14,11 @@ class Article extends Component {
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
+    console.log(bowser);
     if(window.scrollY > 135){
-      window.scrollTo(0, 71);
+      if(bowser.safari) setTimeout(()=>{window.scrollTo(0, 71);},1);
+      else window.scrollTo(0, 71);
     }
   }
 
@@ -33,7 +36,7 @@ class Article extends Component {
   render(){
     let { edition } = this.props;
     let { article } = this.state;
-    
+
     return (
       <section className="weekly-article weekly-frame" style={{ top: `${-this.state.scrollPosition + 65 + 70}px`}}
         dangerouslySetInnerHTML={{__html: article.post }}>
