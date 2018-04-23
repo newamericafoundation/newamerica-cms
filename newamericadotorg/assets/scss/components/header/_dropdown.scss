@@ -49,6 +49,7 @@
 }
 
 .header__nav__dropdown-list__dropdown__main-link.drop {
+    margin-right: calc(2.4em + 11px);
     &:after{
       // down arrow
       display: inline-block;
