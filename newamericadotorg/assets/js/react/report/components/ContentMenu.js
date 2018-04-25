@@ -45,7 +45,7 @@ class ContentMenu extends Component {
               }
             </div>
             <span className='report__content-menu__item__subsections'
-              style={{ maxHeight: this.state.expanded[s.title] ? `${80*(s.subsections.length)}px` : 0}}>
+              style={{ maxHeight: this.state.expanded[s.title] ? `${100*(s.subsections.length)}px` : 0}}>
             {s.subsections.map((sub,i)=>(
               <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`} onClick={closeMenu} key={`sub-${i}`}>
                 <Link to={`${url}${s.slug}/#${sub.slug}`}>

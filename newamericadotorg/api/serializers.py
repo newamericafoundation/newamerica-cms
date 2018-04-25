@@ -816,6 +816,14 @@ class ReportDetailSerializer(PostSerializer):
                         'slug': slugify(block.value)
                     })
             sections.append(section)
+        if obj.acknowledgements:
+            sections.append({
+                'title': 'Acknowledgements',
+                'number': len(sections),
+                'slug': 'acknowledgements',
+                'body': obj.acknowledgements,
+                'subsections': []
+            })
         return sections
 
 
