@@ -201,7 +201,7 @@ class ProgramDetailSerializer(ModelSerializer):
         fields = (
             'id', 'name', 'title', 'story_grid', 'description', 'url', 'subprograms', 'slug',
             'content_types', 'features', 'subpages', 'logo', 'about', 'about_us_pages',
-            'subscriptions', 'topics'
+            'subscriptions', 'topics', 'hide_subscription_card', 'subscription_card_text'
         )
 
     def get_story_grid(self, obj):
@@ -331,7 +331,8 @@ class SubprogramSerializer(ModelSerializer):
         model = Subprogram
         fields = (
             'id', 'name', 'story_grid', 'parent_programs', 'url', 'slug', 'content_types',
-             'description', 'leads', 'features', 'subpages', 'about', 'title', 'subscriptions'
+             'description', 'leads', 'features', 'subpages', 'about', 'title', 'subscriptions',
+             'hide_subscription_card', 'subscription_card_text'
         )
 
     def get_parent_programs(self, obj):

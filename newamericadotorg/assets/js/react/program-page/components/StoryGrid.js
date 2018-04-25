@@ -12,13 +12,13 @@ const Mobile = (props) => (
 
 export default class StoryGrid extends Component {
   state = {
-    email: null
+    email: null,
   }
-  about(k=0){
+  about(force){
     let { program } = this.props;
-
+    if(program.hide_subscription_card && !force) return null;
     return (
-      <PromoMd key={`0-${k}`} title="About" link={{ to: 'about', label: 'Read More'}}>
+      <PromoMd key={`0-0`} title="About" link={{ to: 'about', label: 'Read More'}}>
         <h2 className="margin-25">{program.description}</h2>
       </PromoMd>
     );
@@ -26,9 +26,10 @@ export default class StoryGrid extends Component {
 
   subscribe(k=0){
     let { program } = this.props;
+    let sub_text = program.subscription_card_text || `Be the first to hear about the latest events and research from ${program.name}`;
     return (
       <PromoMd key={`1-${k}`} title="Subscribe" link={{ to: `subscribe/?email=${this.state.email}`, label: 'Go'}}>
-        <h2 className="margin-25">{`Be the first to hear about the latest events and research from ${program.name}`}</h2>
+        <h2 className="margin-25">{sub_text}</h2>
         <div className="input">
           <input type="text" value={this.state.email||''} required onChange={(e)=>{this.setState({email: e.target.value})}}/>
           <label className="input__label button--text">Email Address</label>
@@ -42,7 +43,8 @@ export default class StoryGrid extends Component {
   }
   cols = () => {
     let { story_grid, program, loaded } = this.props;
-    let cols = [[this.subscribe()], [], []];
+    let col0 = program.hide_subscription_card ? [this.about(true)] : [this.subscribe()];
+    let cols = [col0, [], []];
     let items = story_grid.length;
 
     switch(items){
@@ -91,7 +93,7 @@ export default class StoryGrid extends Component {
         cols[1] = cols[1].concat([
           this.cardMd(2, "landscape"),
           this.cardMd(4, "square"),
-          <Mobile key={500}>{this.about(1)}</Mobile>
+          <Mobile key={500}>{this.about()}</Mobile>
         ]);
         cols[2] = cols[2].concat([
           this.cardMd(1, "square"),

@@ -131,6 +131,9 @@ class AbstractProgram(Page):
         related_name='+'
     )
 
+    hide_subscription_card = models.BooleanField(default=False)
+    subscription_card_text = models.TextField(blank=True, null=True, max_length=100)
+
     featured_panels = [
         MultiFieldPanel(
             [
@@ -250,7 +253,11 @@ class Program(AbstractProgram):
     ]
 
     promote_panels = AbstractProgram.promote_panels + [
-        InlinePanel('subscriptions', label=("Subscription Segments")),
+        MultiFieldPanel([
+            FieldPanel('hide_subscription_card'),
+            FieldPanel('subscription_card_text'),
+            InlinePanel('subscriptions', label=("Subscription Segments")),
+        ])
     ]
 
     sidebar_panels = [
@@ -331,7 +338,11 @@ class Subprogram(AbstractProgram):
     ]
 
     promote_panels = AbstractProgram.promote_panels + [
-        InlinePanel('subscriptions', label=("Subscription Segments")),
+        MultiFieldPanel([
+            FieldPanel('hide_subscription_card'),
+            FieldPanel('subscription_card_text'),
+            InlinePanel('subscriptions', label=("Subscription Segments")),
+        ])
     ]
 
     edit_handler = TabbedInterface([
