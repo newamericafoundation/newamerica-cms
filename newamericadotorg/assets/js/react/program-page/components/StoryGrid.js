@@ -16,7 +16,6 @@ export default class StoryGrid extends Component {
   }
   about(force){
     let { program } = this.props;
-    if(program.hide_subscription_card && !force) return null;
     return (
       <PromoMd key={`0-0`} title="About" link={{ to: 'about', label: 'Read More'}}>
         <h2 className="margin-25">{program.description}</h2>
@@ -43,14 +42,14 @@ export default class StoryGrid extends Component {
   }
   cols = () => {
     let { story_grid, program, loaded } = this.props;
-    let col0 = program.hide_subscription_card ? [this.about(true)] : [this.subscribe()];
+    let col0 = program.hide_subscription_card ? [] : [this.subscribe()];
     let cols = [col0, [], []];
     let items = story_grid.length;
 
     switch(items){
       case 2:
         cols[0] = cols[0].concat([
-          <Mobile>{this.about(1)}</Mobile>
+          <Mobile>{this.about()}</Mobile>
         ]);
         cols[1] = cols[1].concat([
           this.cardMd(1, "square")
