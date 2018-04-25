@@ -37,7 +37,7 @@ class StoryGrid extends Component {
             <p>{program.description}</p>
           </Promo>
           {promos[2] && <CardLg post={promos[2]} />}
-          {program.subscriptions &&
+          {(program.subscriptions && !program.hide_subscription_card) &&
           <Promo title="Subscribe">
             <div className="promo__subscribe">
               <h2>Be the first to hear about the latest events and research from {program.name}</h2>

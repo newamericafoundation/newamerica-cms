@@ -13,6 +13,7 @@ from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel, TabbedInterface, ObjectList)
 from wagtail.wagtailcore.blocks import URLBlock, RichTextBlock
+from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
@@ -35,7 +36,7 @@ class Report(Post):
         ('section', ReportSectionBlock(template="components/report_section_body.html"))
     ])
 
-    acknowledgements = models.TextField(blank=True, null=True)
+    acknowledgements = RichTextField(blank=True, null=True)
 
     source_word_doc = models.ForeignKey(
         'wagtaildocs.Document',
