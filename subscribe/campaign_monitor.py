@@ -3,7 +3,7 @@ from django.conf import settings
 from createsend import *
 from home.models import HomePage
 from subscribe.models import SubscriptionSegment, SubscribePage
-
+from logdna import LogDNAHandler as LogDNA
 
 CREATESEND_API_KEY = os.getenv('CREATESEND_API_KEY')
 CREATESEND_CLIENTID = os.getenv('CREATESEND_CLIENTID')
