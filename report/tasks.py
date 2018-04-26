@@ -13,7 +13,8 @@ from .utils.docx_save import generate_docx_streamfields
 def generate_pdf(report_id):
     Report = apps.get_model('report', 'Report')
     report = Report.objects.get(pk=report_id)
-    html = loader.get_template('report/pdf.html').render({ 'page': report })
+    contents = generate_report_contents(report)
+    html = loader.get_template('report/pdf.html').render({ 'page': report, 'contents': contents })
 
     pdf = HTML(string=html).write_pdf()
     with tempfile.NamedTemporaryFile(delete=True) as output:
@@ -41,3 +42,26 @@ def parse_pdf(page):
     streamfields = generate_docx_streamfields(page.source_word_doc.file)
     page.sections = streamfields['sections']
     page.endnotes = streamfields['endnotes']
+
+
+def generate_report_contents(report):
+    contents = [[]]
+    contents_count = 0;
+    for s in report.sections:
+        contents_count += 1
+        if contents_count > 14:
+            contents_count = 0;
+            contents.append([])
+        c = {
+            'title': s.value['title'],
+            'subsections': []
+        }
+
+        for sub in s.value['body']:
+            if sub.block_type == 'heading':
+                contents_count += 1
+                c['subsections'].append(sub.value)
+
+        contents[len(contents)-1].append(c)
+
+    return contents

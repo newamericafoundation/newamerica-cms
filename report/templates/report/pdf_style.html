@@ -339,6 +339,10 @@
       position: relative;
     }
 
+    .content-count{
+      display: none;
+    }
+
     .contents-page .contents-wrapper{
       width: 348pt;
       padding-left: 72pt;
@@ -418,14 +422,21 @@
       top: -5pt;
     }
 
+    h1 + .figure {
+      margin-top: 0pt !important;
+    }
+
     .figure {
-      margin-top: 25pt;
-      margin-bottom: 25pt;
-      margin-left: 0;
-      margin-right: 0;
       display: block;
-      width: 100%;
-      page-break-inside: avoid;
+    }
+
+    .figure.width-166, .figure.width-200{
+      width: 492pt;
+      margin-left: -72pt !important;
+    }
+
+    .figure:not(.left):not(.right){
+      margin: 25pt auto;
     }
 
     .figure__title{
@@ -446,16 +457,44 @@
       width: 100%;
     }
 
-    .figure .figure__image.width-200{
-      width: 492pt;
-      margin-left: -72pt;
-    }
-
     .figure__image > img {
       display: block;
       width: 100%;
       height: auto;
       margin: 0 auto;
+    }
+
+    .figure.left, .figure.right{
+      margin-top: 15pt;
+      margin-bottom: 15pt;
+      width: 200pt;
+    }
+
+    .figure.left .figure__image,
+    .figure.right .figure__image{
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
+
+    .figure.left .figure__image > img,
+    .figure.right .figure__image > img {
+      margin: 0 !important;
+    }
+
+    .figure.left{
+      float: left;
+      margin-top: 10pt;
+      margin-bottom: 10pt;
+      margin-right: 25pt;
+      margin-left: -46pt;
+    }
+
+    .figure.right {
+        float: right;
+        margin-top: 10pt;
+        margin-bottom: 10pt;
+        margin-left: 25pt;
+        margin-right: -46pt;
     }
 
     .endnotes h2{
@@ -490,6 +529,12 @@
 
     .attribution-col, .endnotes-col, .acknowledgements-col{
       height: 672pt;
+    }
+
+    #acknowledgements .contents__list__item * {
+      font-family: 'Circular' !important;
+      font-size: 10pt;
+      line-height: 14pt;
     }
 
     .attribution .logo {

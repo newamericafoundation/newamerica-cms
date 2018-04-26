@@ -11,7 +11,7 @@
 
 {% widthratio value.image.width value.image.height 420 as maxWidth %}
 
-<figure class="figure {{value.align}} margin-35 margin-lg-60">
+<figure class="figure {{value.align}} {{value.width|temp_image_width_map}} {% if value.align == 'centered'%}margin-35 margin-lg-60{% endif %}">
   {% if value.figure_number or value.figure_title %}
     <div class="figure__title margin-bottom-15" style="max-width: {{maxWidth}}px;">
       {% if value.figure_number %}
@@ -22,7 +22,7 @@
       {% endif %}
     </div>
   {% endif %}
-  <div class="figure__image {{value.width|temp_image_width_map}}" style="max-width: {{maxWidth}}px;">
+  <div class="figure__image" style="max-width: {{maxWidth}}px;">
     {% if value.open_image_on_click %}
       <a href="{{ img_original.url }}" target='_blank' >
         {% if value.use_original %}
