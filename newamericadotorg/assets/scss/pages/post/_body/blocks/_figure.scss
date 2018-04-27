@@ -67,9 +67,12 @@
 
 .figure {
   &.left, &.right {
+    margin-top: 35px;
+    margin-bottom: 35px;
+
     @include media-breakpoint(tablet){
-      margin-top: 35px;
-      margin-bottom: 35px;
+      margin-top: 15px;
+      margin-bottom: 15px;
       width: 50%;
 
       .figure__image, figcaption, .figure__title {
@@ -84,8 +87,6 @@
     }
 
     @include media-breakpoint(desktop){
-      margin-top: 35px;
-      margin-bottom: 35px;
       width: 60%;
     }
 
