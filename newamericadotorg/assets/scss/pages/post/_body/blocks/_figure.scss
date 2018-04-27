@@ -13,6 +13,8 @@
 .figure.center,
 .figure.centered,
 .figure.full-width{
+  margin-top: 50px;
+  margin-bottom: 50px;
   .figure__image, .figure__title, figcaption{
     max-width: none !important;
   }
