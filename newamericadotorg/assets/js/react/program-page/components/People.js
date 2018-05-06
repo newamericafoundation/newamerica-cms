@@ -20,7 +20,7 @@ class Fellows extends Component {
     let i = 0;
     for(let k in fellowGroups){
       let y = new Date().getFullYear();
-      let year = k === 'null' ? '' : (y == k ? 'Current ' : k + ' ');
+      let year = k === 'null' ? (fellowGroups[k][0].former ? 'Former ' : 'Related ') : (y == k ? 'Current ' : k + ' ');
       components.push(
         <div className="program__people__fellows__list margin-top-35" key={`fellows-${i}`} >
           <Separator text={`${year}Fellows`}/>
@@ -109,7 +109,7 @@ export default class People extends Component {
               page_size: 250,
               former: false
             }}/>
-          {(!this.state.showAllFellows && program.slug == 'fellows') &&
+          {(!this.state.showAllFellows && (program.slug == 'fellows' || program.slug == 'ca')) &&
             <div className="program__publications-list-load-more margin-top-10">
               <label className={`button`} onClick={this.showAllFellows}>
                 <span className="load-more-label">Former Fellows</span>
