@@ -110,12 +110,11 @@ class SearchList(generics.ListAPIView):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
 
     def get_queryset(self):
-        s = get_search_backend()
         search = self.request.query_params.get('query', None)
-        results = s.search(search, Page.objects.live().public())
+        results = Page.objects.live().search(search)
         query = Query.get(search)
         query.add_hit()
-        return results
+        return results.get_queryset().public()
 
 
 class TopicFilter(django_filters.rest_framework.FilterSet):
