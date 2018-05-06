@@ -18,7 +18,7 @@ export default [
     output: {
       format: 'iife',
       name: 'newamericadotorg',
-      file: 'newamericadotorg/static/js/newamericadotorg-v1.0.min.js',
+      file: 'newamericadotorg/static/js/newamericadotorg-v1.0.1.min.js',
     },
     external: development && [
       'react', 'react-dom', 'react-redux', 'redux', 'redux-thunk',
