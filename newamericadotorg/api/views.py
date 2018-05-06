@@ -102,13 +102,17 @@ class ReportDetail(generics.RetrieveAPIView):
     serializer_class = ReportDetailSerializer
     queryset = Report.objects.live()
 
+
+from wagtail.wagtailsearch.backends import get_search_backend
+
 class SearchList(generics.ListAPIView):
     serializer_class = SearchSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
 
     def get_queryset(self):
+        s = get_search_backend()
         search = self.request.query_params.get('query', None)
-        results = Page.objects.live().search(search)
+        results = s.search(search, Page.objects.live().public())
         query = Query.get(search)
         query.add_hit()
         return results
