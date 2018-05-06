@@ -114,7 +114,20 @@ class SearchList(generics.ListAPIView):
         results = Page.objects.live().search(search)
         query = Query.get(search)
         query.add_hit()
-        return results.get_queryset().public()
+        from wagtail.wagtailcore.models import PageViewRestriction
+        public_results =[]
+        restrictions = PageViewRestriction.objects.all()
+        for obj in results:
+            private = False
+            for restriction in restrictions:
+                if obj.id == restriction.page.id or obj.is_descendant_of(restriction.page):
+                    private = True
+
+            if not private:
+                public_results.append(obj)
+
+        return public_results
+
 
 
 class TopicFilter(django_filters.rest_framework.FilterSet):
