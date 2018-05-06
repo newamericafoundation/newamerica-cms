@@ -21,7 +21,7 @@ $desktop-next-prev-width: 120px;
 
 	@include media-breakpoint(desktop){
 		width: 150%;
-		margin-left: -25%;
+		margin-left: -25% !important;
 	}
 }
 

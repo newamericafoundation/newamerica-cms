@@ -243,7 +243,6 @@ class TimelineBlock(blocks.StructBlock):
 		context = super(TimelineBlock, self).get_context(value)
 		context["sorted_event_list"] = sorted(value["event_list"], key=lambda member: member['start_date'])
 		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"], False, True), "defaultView": value["default_view"], "eraList":getJSCompatibleList(value["event_eras"], True, True), "splitList":getJSCompatibleList(value["major_timeline_splits"], True, False), "categoryList":value["event_categories"]})
-
 		return context
 
 	class Meta:
