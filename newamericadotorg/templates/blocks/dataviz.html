@@ -1,4 +1,6 @@
-
+{% if 'viz__' in self.container_id %}
+	<div class="na-dataviz dataviz {{self.width}}" id="{{ self.container_id }}"></div>
+{% else %}
 	<div class="dataviz">
 		<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}" style="max-width: {{ self.max_width }}px">
 			{% if self.title %}
@@ -36,3 +38,4 @@
 			<div class="dataviz__chart-area" id="{{ self.container_id }}"></div>
 		</div>
 	</div>
+{% endif %}

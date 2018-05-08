@@ -8,10 +8,12 @@ import postcss from 'postcss'
 import cssnano from 'cssnano';
 
 export default {
-  entry: 'newamericadotorg/assets/js/newamericadotorg--standalone.js',
-  dest: 'newamericadotorg/static/js/newamericadotorg-standalone.min.js',
-  format: 'iife',
-  moduleName: 'newamericadotorg',
+  input: 'newamericadotorg/assets/js/newamericadotorg--standalone.js',
+  output: {
+    format: 'iife',
+    name: 'newamericadotorg',
+    file: 'newamericadotorg/static/js/newamericadotorg-standalone.min.js',
+  },
   // fetch polyfill should happen in window context
   moduleContext: { 'node_modules/whatwg-fetch/fetch.js': 'window' },
   onwarn: function(warn){
@@ -38,9 +40,9 @@ export default {
         'node_modules/**'
       ],
       namedExports: {
-        'node_modules/react/react.js': ['Children', 'Component', 'createElement', 'cloneElement'],
+        'node_modules/react/index.js': ['Children', 'Component', 'createElement', 'cloneElement'],
         'node_modules/react-dom/index.js': ['render'],
-        'node_modules/date-fns/index.js': ['format']
+        'node_modules/date-fns/index.js': ['format', 'subDays']
       }
     }),
     babel({ exclude: 'node_modules/**' }),

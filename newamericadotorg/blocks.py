@@ -78,6 +78,10 @@ class DatavizBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=False)
 	subheading = blocks.RichTextBlock(required=False)
 	max_width = IntegerBlock()
+	width = blocks.ChoiceBlock([
+		('column-width', 'Column Width'),
+		('full-width', 'Full Width')
+	], default='year', required=False)
 	show_chart_buttons = blocks.BooleanBlock(default=False, required=False)
 	container_id = blocks.CharBlock(required=True)
 

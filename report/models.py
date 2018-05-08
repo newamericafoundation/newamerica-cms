@@ -56,6 +56,8 @@ class Report(Post):
         verbose_name='Report PDF'
     )
 
+    dataviz_src = models.CharField(blank=True, null=True, max_length=300, help_text="")
+
     overwrite_sections_on_save = models.BooleanField(default=False, help_text='If checked, sections and endnote fields will be overwritten with Word document source on save. Use with CAUTION!')
     generate_pdf_on_publish = models.BooleanField(default=False, help_text='If checked, the "Report PDF" field will be filled with a generated pdf. Otherwise, leave this unchecked and upload a pdf to the "Report PDF" field')
     revising = False
@@ -99,12 +101,14 @@ class Report(Post):
 
     endnote_panels = [StreamFieldPanel('endnotes')]
 
+    settings_panels = Post.settings_panels + [FieldPanel('dataviz_src')]
+
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading="Content"),
         ObjectList(sections_panels, heading="Sections"),
         ObjectList(endnote_panels, heading="Endnotes"),
         ObjectList(Post.promote_panels, heading="Promote"),
-        ObjectList(Post.settings_panels, heading='Settings', classname="settings"),
+        ObjectList(settings_panels, heading='Settings', classname="settings"),
     ])
 
     search_fields = Post.search_fields + [index.SearchField('sections')]
