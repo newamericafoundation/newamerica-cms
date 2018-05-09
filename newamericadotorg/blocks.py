@@ -90,6 +90,10 @@ class DatavizBlock(blocks.StructBlock):
 		icon = 'site'
 		label = 'Dataviz'
 
+
+class ReportDataVizBlock(DatavizBlock):
+	static_image_fallback = CustomImageBlock(icon='image')
+
 def ResourceKitSerializer(r):
 	resources = []
 	for block in r.stream_data:
@@ -391,7 +395,7 @@ class BoxBody(blocks.StreamBlock):
 	inline_image = CustomImageBlock(icon='image')
 	video = EmbedBlock(icon='media')
 	iframe = IframeBlock(icon="link")
-	dataviz = DatavizBlock(icon="code")
+	dataviz = ReportDataVizBlock(icon="code")
 
 class BoxBlock(blocks.StructBlock):
 	title = blocks.TextBlock()
@@ -401,6 +405,7 @@ class BoxBlock(blocks.StructBlock):
 		template = 'blocks/box.html'
 
 class ReportBody(Body):
+	dataviz = ReportDataVizBlock(icon="code")
 	box = BoxBlock()
 
 class PanelBlock(blocks.StructBlock):
