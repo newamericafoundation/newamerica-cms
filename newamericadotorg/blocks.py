@@ -50,6 +50,27 @@ class CustomImageBlock(blocks.StructBlock):
 	class Meta:
 		template = 'blocks/image_block.html'
 
+class CustomDataVizImageBlock(blocks.StructBlock):
+	image = ImageChooserBlock(icon="image", required=False)
+	align = blocks.ChoiceBlock(choices=[
+		('center', 'Centered'),
+		('left', 'Left'),
+		('right', 'Right')
+	], default='center', required=False)
+	width = blocks.ChoiceBlock([
+		('initial', 'Auto'),
+		('width-133', 'Medium'),
+		('width-166', 'Large'),
+		('width-200', 'X-Large')
+	], default="initial", required=False)
+	use_original = blocks.BooleanBlock(required=False, help_text="check if you do not want image compressed. Should be checked for all figures.")
+	figure_number = blocks.CharBlock(required=False, max_length=3)
+	figure_title = blocks.CharBlock(required=False, max_length=100)
+	open_image_on_click = blocks.BooleanBlock(default=False, required=False)
+
+	class Meta:
+		template = 'blocks/image_block.html'
+
 class ButtonBlock(blocks.StructBlock):
 	button_text = blocks.CharBlock(required=True, max_length=50)
 	button_link = blocks.URLBlock(required=True, default="https://www.")
@@ -92,7 +113,7 @@ class DatavizBlock(blocks.StructBlock):
 
 
 class ReportDataVizBlock(DatavizBlock):
-	static_image_fallback = CustomImageBlock(icon='image')
+	static_image_fallback = CustomDataVizImageBlock(icon='image')
 
 def ResourceKitSerializer(r):
 	resources = []

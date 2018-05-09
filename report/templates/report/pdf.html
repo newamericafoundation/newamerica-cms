@@ -104,9 +104,38 @@
             {% if block.block_type == 'paragraph' %}
               {{ block.value|cited_html|safe }}
             {% elif block.block_type == 'dataviz' %}
-              {% if block.value.static_image_fallback is not None %}
-                {% include_block block.value.static_image_fallback %}
-              {% endif %}
+
+                {% if block.value.static_image_fallback.image %}
+                  <figure class="figure {{block.value.static_image_fallback.value.align}} {{block.value.static_image_fallback.width|temp_image_width_map}}">
+                    {% if block.value.static_image_fallback.figure_number or block.value.static_image_fallback.figure_title %}
+                      <div class="figure__title">
+                        {% if block.value.static_image_fallback.figure_number %}
+                          <label class="bold {% if block.value.figure_title %} with-separator{% endif %}">Figure {{ block.value.static_image_fallback.figure_number }}</label>
+                        {% endif %}
+                        {% if block.value.static_image_fallback.figure_title %}
+                          <label>{{ block.value.static_image_fallback.figure_title }}</label>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                    <div class="figure__image">
+                        <img src="https://s3.amazonaws.com/newamericadotorg/{{block.value.static_image_fallback.image.file.name}}"/>
+                    </div>
+                    {% if block.value.static_image_fallback.image.caption or block.value.static_image_fallback.image.source %}
+                      <figcaption>
+                        {% if block.value.static_image_fallback.image.caption %}
+                          <label class="block">
+                            {{ block.value.static_image_fallback.image.caption }}
+                          </label>
+                        {% endif %}
+                        {% if block.value.static_image_fallback.image.source %}
+                          <label class="caption block">
+                            Source: {{ block.value.static_image_fallback.image.source }}
+                          </label>
+                        {% endif %}
+                      </figcaption>
+                    {% endif %}
+                  </figure>
+                {% endif %}
             {% elif block.block_type == 'inline_image' %}
               <figure class="figure {{block.value.align}} {{block.value.width|temp_image_width_map}}">
                 {% if block.value.figure_number or block.value.figure_title %}
@@ -140,37 +169,7 @@
             {% elif block.block_type == 'box' or block.block_type == 'heading' %}
               {% include_block block %}
             {% elif block.block_type == 'dataviz' %}
-              {% if block.value.static_image_fallback is not None %}
-                <figure class="figure {{block.value.static_image_fallback.value.align}} {{block.value.static_image_fallback.value.width|temp_image_width_map}}">
-                  {% if block.value.static_image_fallback.value.figure_number or block.value.static_image_fallback.value.figure_title %}
-                    <div class="figure__title">
-                      {% if block.value.static_image_fallback.value.figure_number %}
-                        <label class="bold {% if block.value.figure_title %} with-separator{% endif %}">Figure {{ block.value.static_image_fallback.value.figure_number }}</label>
-                      {% endif %}
-                      {% if block.value.static_image_fallback.value.figure_title %}
-                        <label>{{ block.value.static_image_fallback.value.figure_title }}</label>
-                      {% endif %}
-                    </div>
-                  {% endif %}
-                  <div class="figure__image">
-                      <img src="https://s3.amazonaws.com/newamericadotorg/{{block.value.static_image_fallback.value.image.file.name}}"/>
-                  </div>
-                  {% if block.value.static_image_fallback.value.image.caption or block.value.static_image_fallback.value.image.source %}
-                    <figcaption>
-                      {% if block.value.static_image_fallback.value.image.caption %}
-                        <label class="block">
-                          {{ block.value.static_image_fallback.value.image.caption }}
-                        </label>
-                      {% endif %}
-                      {% if block.value.static_image_fallback.value.image.source %}
-                        <label class="caption block">
-                          Source: {{ block.value.static_image_fallbackvalue.image.source }}
-                        </label>
-                      {% endif %}
-                    </figcaption>
-                  {% endif %}
-                </figure>
-              {% endif %}
+
             {% elif block.block_type == 'table' %}
               <div class="block-table">
                 <!-- <label class="bold">Table {% counter %}</label> -->
