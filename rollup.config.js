@@ -18,7 +18,7 @@ export default [
     output: {
       format: 'iife',
       name: 'newamericadotorg',
-      file: 'newamericadotorg/static/js/newamericadotorg-v1.0.1.min.js',
+      file: 'newamericadotorg/static/js/newamericadotorg-v1.0.2.min.js',
     },
     external: development && [
       'react', 'react-dom', 'react-redux', 'redux', 'redux-thunk',
@@ -70,7 +70,7 @@ export default [
             .process(styleNodes[1].content)
             .then(result => {
               writeFile(
-                'newamericadotorg/static/css/newamericadotorg-v1.0.1.min.css',
+                'newamericadotorg/static/css/newamericadotorg-v1.0.2.min.css',
                 result.css
               );
             });

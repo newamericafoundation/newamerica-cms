@@ -71,7 +71,7 @@ class Body extends Component {
     let { report, section } = this.props;
     this.renderDataViz();
     if(!this.el) return;
-    if(report.data_project_external_script){
+    if(report.data_project_external_script && document.querySelectorAll('.dataviz-project').length){
 
       const dataScript = document.createElement("script");
 
