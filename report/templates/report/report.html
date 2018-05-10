@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
-{% if page.dataviz_src %}
-  {% block extra_js %}
+
+{% block extra_scripts %}
+  {% if page.data_project_external_script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  {% endif %}
+{% endblock %}
+{% block extra_js %}
+  {% if page.dataviz_src %}
     <script type="text/javascript" src="{{page.dataviz_src}}"></script>
-  {% endblock %}
-{% endif %}
+  {% endif %}
+{% endblock %}
+
 {% block content %}
   <main id="compose__report" data-report-id="{{page.id}}"></main>
 {% endblock %}
