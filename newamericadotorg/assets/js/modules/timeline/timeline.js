@@ -677,5 +677,3 @@ export class Timeline {
 		return currIndex;
 	}
 }
-
-global.Timeline = Timeline;
