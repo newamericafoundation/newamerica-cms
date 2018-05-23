@@ -1,3 +1,5 @@
+{% load utilities %}
+
 <figure class="figure {{block.value.align}} {{block.value.width|temp_image_width_map}}">
   {% if block.value.figure_number or block.value.figure_title %}
     <div class="figure__title">

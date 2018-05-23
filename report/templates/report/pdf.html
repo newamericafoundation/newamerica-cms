@@ -127,7 +127,7 @@
                 {% for box_block in block.value.body %}
                     {% if box_block.block_type == 'paragraph' %}
                       <div class="block-{{ box_block.block_type }}">
-                        {{ block.value|cited_html|safe }}
+                        {{ box_block.value|cited_html|safe }}
                       </div>
                     {% elif box_block.block_type == 'inline_image' %}
                       {% include './figure.html' with value=box_block.value %}
