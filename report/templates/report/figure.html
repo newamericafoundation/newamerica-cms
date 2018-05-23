@@ -3,7 +3,7 @@
 <figure class="figure {{value.align}} {{value.width|temp_image_width_map}}">
   {% if value.figure_number or value.figure_title %}
     <div class="figure__title">
-      {% if block.value.figure_number %}
+      {% if value.figure_number %}
         <label class="bold {% if value.figure_title %} with-separator{% endif %}">Figure {{ value.figure_number }}</label>
       {% endif %}
       {% if value.figure_title %}
