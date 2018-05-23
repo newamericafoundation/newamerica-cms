@@ -5,7 +5,7 @@ from rest_framework.serializers import Serializer, ModelSerializer, SerializerMe
 
 from wagtail.wagtailcore.models import Page, ContentType
 from wagtail.wagtaildocs.models import Document
-from home.models import Post, CustomImage, OrgSimplePage
+from home.models import Post, CustomImage, OrgSimplePage, PostAuthorRelationship
 from programs.models import Program, Subprogram, Project, BlogProject, AbstractContentPage
 from person.models import Person
 from issue.models import IssueOrTopic
@@ -496,7 +496,11 @@ class PostSerializer(ModelSerializer):
         return PostSubprogramSerializer(obj.post_subprogram, many=True).data
 
     def get_authors(self, obj):
-        return AuthorSerializer(obj.post_author, many=True, context=self.context).data
+        authors_rel = obj.authors.order_by('pk')
+        if authors_rel is None:
+            return None
+        authors = [rel.author for rel in authors_rel]
+        return AuthorSerializer(authors, many=True, context=self.context).data
 
 class EventSerializer(ModelSerializer):
     story_image = SerializerMethodField()
@@ -819,7 +823,7 @@ class ReportDetailSerializer(PostSerializer):
         if obj.acknowledgements:
             sections.append({
                 'title': 'Acknowledgements',
-                'number': len(sections),
+                'number': len(sections)+1,
                 'slug': 'acknowledgements',
                 'body': obj.acknowledgements,
                 'subsections': []
