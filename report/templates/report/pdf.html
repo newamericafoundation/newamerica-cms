@@ -111,73 +111,33 @@
         <div class="section-content">
           <h1 class="heading-{{forloop.counter}}">{{s.value.title}}</h1>
           {% for block in s.value.body %}
-            {% if block.block_type == 'paragraph' %}
+            {% if block.block_type == 'heading' %}
+              {% include_block block %}
+            {% elif block.block_type == 'paragraph' %}
               {{ block.value|cited_html|safe }}
             {% elif block.block_type == 'dataviz' %}
-
                 {% if block.value.static_image_fallback.image %}
-                  <figure class="figure {{block.value.static_image_fallback.value.align}} {{block.value.static_image_fallback.width|temp_image_width_map}}">
-                    {% if block.value.static_image_fallback.figure_number or block.value.static_image_fallback.figure_title %}
-                      <div class="figure__title">
-                        {% if block.value.static_image_fallback.figure_number %}
-                          <label class="bold {% if block.value.figure_title %} with-separator{% endif %}">Figure {{ block.value.static_image_fallback.figure_number }}</label>
-                        {% endif %}
-                        {% if block.value.static_image_fallback.figure_title %}
-                          <label>{{ block.value.static_image_fallback.figure_title }}</label>
-                        {% endif %}
-                      </div>
-                    {% endif %}
-                    <div class="figure__image">
-                        <img src="https://s3.amazonaws.com/newamericadotorg/{{block.value.static_image_fallback.image.file.name}}"/>
-                    </div>
-                    {% if block.value.static_image_fallback.image.caption or block.value.static_image_fallback.image.source %}
-                      <figcaption>
-                        {% if block.value.static_image_fallback.image.caption %}
-                          <label class="block">
-                            {{ block.value.static_image_fallback.image.caption }}
-                          </label>
-                        {% endif %}
-                        {% if block.value.static_image_fallback.image.source %}
-                          <label class="caption block">
-                            Source: {{ block.value.static_image_fallback.image.source }}
-                          </label>
-                        {% endif %}
-                      </figcaption>
-                    {% endif %}
-                  </figure>
+                  {% include './figure.html' with value=block.value.static_image_fallback %}
                 {% endif %}
             {% elif block.block_type == 'inline_image' %}
-              <figure class="figure {{block.value.align}} {{block.value.width|temp_image_width_map}}">
-                {% if block.value.figure_number or block.value.figure_title %}
-                  <div class="figure__title">
-                    {% if block.value.figure_number %}
-                      <label class="bold {% if block.value.figure_title %} with-separator{% endif %}">Figure {{ block.value.figure_number }}</label>
+              {% include './figure.html' with value=block.value %}
+            {% elif block.block_type == 'box' %}
+              <div class="block-box">
+                <h5>→&nbsp;{{block.value.title}}</h5>
+                {% for box_block in block.value.body %}
+                    {% if box_block.block_type == 'paragraph' %}
+                      <div class="block-{{ box_block.block_type }}">
+                        {{ block.value|cited_html|safe }}
+                      </div>
+                    {% elif box_block.block_type == 'inline_image' %}
+                      {% include './figure.html' with value=box_block.value %}
+                    {% else %}
+                      <div class="block-{{ block.block_type }}">
+                        {% include_block box_block %}
+                      </div>
                     {% endif %}
-                    {% if block.value.figure_title %}
-                      <label>{{ block.value.figure_title }}</label>
-                    {% endif %}
-                  </div>
-                {% endif %}
-                <div class="figure__image">
-                    <img src="https://s3.amazonaws.com/newamericadotorg/{{block.value.image.file.name}}"/>
-                </div>
-                {% if block.value.image.caption or block.value.image.source %}
-                  <figcaption>
-                    {% if block.value.image.caption %}
-                      <label class="block">
-                        {{ block.value.image.caption }}
-                      </label>
-                    {% endif %}
-                    {% if block.value.image.source %}
-                      <label class="caption block">
-                        Source: {{ block.value.image.source }}
-                      </label>
-                    {% endif %}
-                  </figcaption>
-                {% endif %}
-              </figure>
-            {% elif block.block_type == 'box' or block.block_type == 'heading' %}
-              {% include_block block %}
+                {% endfor %}
+              </div>
             {% elif block.block_type == 'dataviz' %}
 
             {% elif block.block_type == 'table' %}

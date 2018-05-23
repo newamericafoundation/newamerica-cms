@@ -1,0 +1,29 @@
+<figure class="figure {{block.value.align}} {{block.value.width|temp_image_width_map}}">
+  {% if block.value.figure_number or block.value.figure_title %}
+    <div class="figure__title">
+      {% if block.value.figure_number %}
+        <label class="bold {% if block.value.figure_title %} with-separator{% endif %}">Figure {{ block.value.figure_number }}</label>
+      {% endif %}
+      {% if block.value.figure_title %}
+        <label>{{ block.value.figure_title }}</label>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="figure__image">
+      <img src="https://s3.amazonaws.com/newamericadotorg/{{block.value.image.file.name}}"/>
+  </div>
+  {% if block.value.image.caption or block.value.image.source %}
+    <figcaption>
+      {% if block.value.image.caption %}
+        <label class="block">
+          {{ block.value.image.caption }}
+        </label>
+      {% endif %}
+      {% if block.value.image.source %}
+        <label class="caption block">
+          Source: {{ block.value.image.source }}
+        </label>
+      {% endif %}
+    </figcaption>
+  {% endif %}
+</figure>
