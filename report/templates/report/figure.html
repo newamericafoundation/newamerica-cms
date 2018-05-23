@@ -1,29 +1,29 @@
 {% load utilities %}
 
-<figure class="figure {{block.value.align}} {{block.value.width|temp_image_width_map}}">
-  {% if block.value.figure_number or block.value.figure_title %}
+<figure class="figure {{value.align}} {{value.width|temp_image_width_map}}">
+  {% if value.figure_number or value.figure_title %}
     <div class="figure__title">
       {% if block.value.figure_number %}
-        <label class="bold {% if block.value.figure_title %} with-separator{% endif %}">Figure {{ block.value.figure_number }}</label>
+        <label class="bold {% if value.figure_title %} with-separator{% endif %}">Figure {{ value.figure_number }}</label>
       {% endif %}
-      {% if block.value.figure_title %}
-        <label>{{ block.value.figure_title }}</label>
+      {% if value.figure_title %}
+        <label>{{ value.figure_title }}</label>
       {% endif %}
     </div>
   {% endif %}
   <div class="figure__image">
-      <img src="https://s3.amazonaws.com/newamericadotorg/{{block.value.image.file.name}}"/>
+      <img src="https://s3.amazonaws.com/newamericadotorg/{{value.image.file.name}}"/>
   </div>
-  {% if block.value.image.caption or block.value.image.source %}
+  {% if value.image.caption or value.image.source %}
     <figcaption>
-      {% if block.value.image.caption %}
+      {% if value.image.caption %}
         <label class="block">
-          {{ block.value.image.caption }}
+          {{ value.image.caption }}
         </label>
       {% endif %}
-      {% if block.value.image.source %}
+      {% if value.image.source %}
         <label class="caption block">
-          Source: {{ block.value.image.source }}
+          Source: {{ value.image.source }}
         </label>
       {% endif %}
     </figcaption>
