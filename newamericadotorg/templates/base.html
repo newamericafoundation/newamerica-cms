@@ -53,8 +53,11 @@
   {% endif %}
 
   <script>
+    window.user = {
+      ip_address: "{{ ip_address }}",
+    };
     {% if user.is_authenticated %}
-    window.user_is_authenticated=true;
+      window.user.isAuthenticated = true;
     {% endif %}
     var newamericadotorg = null;
   </script>
@@ -88,6 +91,8 @@
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMGT6BG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
+
+    <div id="compose__cookies-notification"></div>
 
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}

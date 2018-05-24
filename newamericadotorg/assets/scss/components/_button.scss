@@ -91,12 +91,13 @@ button {
 	}
 
 	&.white {
-		border: 1px solid color(white, base, 0);
-		background: color(white);
-		color: color(black);
+		border: 1px solid color(white, base, 1);
+		background: transparent;
+		color: color(white);
 		&:hover {
 			border: 1px solid color(white, base, 0);
 			background: color(white);
+			color: color(black);
 		}
 	}
 

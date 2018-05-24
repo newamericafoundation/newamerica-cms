@@ -1,0 +1,23 @@
+.cookies-notification{
+    position: fixed;
+    background: color(black);
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    z-index: 100;
+    @include transition(bottom 0.35s ease);
+
+    a {
+      padding-left: 15px;
+    }
+
+    .col-4{
+      text-align: right;
+    }
+
+    &.hidden{
+      bottom: -200px;
+    }
+}

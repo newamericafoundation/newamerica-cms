@@ -53,3 +53,16 @@ def content_types(request):
             'url': p.url
         })
     return { 'content_types':  types }
+
+def ip_address(request):
+    ip = None
+    try:
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[1]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+    except:
+        ip = None
+
+    return { 'ip_address': ip }

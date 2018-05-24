@@ -13,7 +13,7 @@ export { default as simpleProgramPage } from './program-page/simple.index';
 export { default as homePanels } from './home-panels/index';
 export { default as inDetphSectionNav } from './in-depth/section-nav.index';
 export { default as feedback } from './feedback/index';
-
+export { default as cookiesNotification } from './cookies-notification/index';
 /**
   blocks must be exported last to allow in case compose__ component is included
   as html with Django template

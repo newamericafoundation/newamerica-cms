@@ -25,7 +25,7 @@ function init(){
   addObservers();
   composer.init();
   actions.triggerScrollEvents();
-  if(window.user_is_authenticated){
+  if(window.user.isAuthenticated){
     cache.clearAll();
     console.log('cache cleared');
   }
