@@ -40,10 +40,10 @@ export default class Subscribe extends Component {
   constructor(props){
     super(props);
     let params = new URLSearchParams(location.search.replace('?', ''))
-    let subscriptions = undefined;
-    if(props.subscriptions){
-      subscriptions = props.subscriptions.map((s,i)=>(s.title))
-    }
+    let subscriptions = [];
+    // if(props.subscriptions){
+    //   subscriptions = props.subscriptions.map((s,i)=>(s.title))
+    // }
     let email = params.get('email') == 'null' ? '' : params.get('email');
     this.state = {
       csrf: '',
