@@ -25,7 +25,7 @@ class APP extends Component {
       <div className={`cookies-notification ${this.state.hidden ? 'hidden' : ''}`}>
         <div className='container'>
           <div className='row'>
-            <div className='col-8'>
+            <div className='col-12 col-md-8'>
               <label className="block bold white margin-0">
                 This website uses cookies to give you the best experience.
               </label>
@@ -33,7 +33,7 @@ class APP extends Component {
                 By clicking "OK, I understand," you are giving your consent.
               </label>
             </div>
-            <div className='col-4'>
+            <div className='col-12 col-md-4 margin-top-10 margin-top-md-0'>
               <button className="button white" onClick={this.iunderstand}>OK, I understand</button>
               <label className="white"><a href='/policies-and-procedures/'>Read more</a></label>
             </div>
