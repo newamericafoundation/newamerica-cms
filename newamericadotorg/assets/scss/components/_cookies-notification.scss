@@ -13,8 +13,14 @@
       padding-left: 15px;
     }
 
-    .col-4{
-      text-align: right;
+    .col-md-8 {
+      margin-top: 3px;
+    }
+
+    .col-md-4{
+      @include media-breakpoint(tablet){
+        text-align: right;
+      }
     }
 
     &.hidden{
