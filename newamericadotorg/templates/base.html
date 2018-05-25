@@ -53,9 +53,7 @@
   {% endif %}
 
   <script>
-    window.user = {
-      ip_address: "{{ ip_address }}",
-    };
+    window.user = {};
     {% if user.is_authenticated %}
       window.user.isAuthenticated = true;
     {% endif %}
