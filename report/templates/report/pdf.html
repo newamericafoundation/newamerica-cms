@@ -80,9 +80,9 @@
       {% endfor %}
       {% for p in page.post_subprogram.all %}
         <div class="about-page__section">
-          <h2>About {{p.program.title}}</h2>
+          <h2>About {{p.subprogram.title}}</h2>
           <div class="contents__list__item bottom-margin">
-            {{p.program.description}}
+            {{p.subprogram.description}}
           </div>
         </div>
       {% endfor %}
