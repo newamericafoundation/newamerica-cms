@@ -150,7 +150,7 @@ class DocxParse():
                     r_index = 0
                     this_list = None
                     continue
-                elif text == 'end box' or text == 'endbox':
+                elif text == 'end box' or text == 'endbox' or text == 'box end' or text == 'boxend':
                     self.__closeblock__(block, prev_list)
                     block = None
                     is_box = False
