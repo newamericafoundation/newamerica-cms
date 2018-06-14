@@ -3,7 +3,7 @@ from django.template import loader
 from django.http import HttpResponse
 
 from report.models import Report
-from .tasks import write_pdf, generate_report_contents
+from .tasks import write_pdf, generate_report_contents, get_report_authors
 
 def redirect_report_section(request, **kwargs):
     path = request.path.split('/')[:-2]
@@ -29,8 +29,13 @@ def pdf_render(request, **kwargs):
     base_url = protocol + request.get_host()
 
     contents = generate_report_contents(report)
+    authors = get_report_authors(report)
 
-    html = loader.get_template('report/pdf.html').render({ 'page': report, 'contents': contents })
+    html = loader.get_template('report/pdf.html').render({
+        'page': report,
+        'contents': contents,
+        'authors': authors
+    })
     pdf = write_pdf(response, html, base_url)
 
     return response
@@ -39,4 +44,7 @@ def pdf_html(request, **kwargs):
     path = request.path.split('/')[:-3]
     report = Report.objects.filter(slug=path[len(path)-1]).first()
     contents = generate_report_contents(report)
-    return render(request, 'report/pdf.html', context={ 'page': report, 'contents': contents })
+
+    authors = get_report_authors(report)
+
+    return render(request, 'report/pdf.html', context={ 'page': report, 'contents': contents, 'authors': authors })
