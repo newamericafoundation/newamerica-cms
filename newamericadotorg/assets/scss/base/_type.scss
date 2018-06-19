@@ -115,9 +115,10 @@ blockquote{
   margin-bottom: 2.5rem;
 
   &.pullquote {
-    font-family: $header-font-family;
+    font-family: $paragraph-font-family;
     font-weight: bold;
-    font-size: 1.375rem;
+    font-size: 1.75rem;
+    line-height: 1.875rem;
     margin-left: 0;
     margin-right: 0;
   }
