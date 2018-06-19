@@ -30,12 +30,18 @@
           <div class="logo-img-wrapper">
             <img src="{% static 'logo-black.svg'%}"/>
           </div>
+          {% if page.partner_logo %}
+            {% image page.partner_logo height-36 as partner_logo %}
+            <div class="logo-img-wrapper">
+              <img src="https://s3.amazonaws.com/newamericadotorg/{{ partner_logo.file.name }}"/>
+            </div>
+          {% endif %}
         </div>
         <div class="title">
           <div class="title-wrapper">
             <div class="cover-photo">
               {% image page.story_image fill-984x450 as cover_img %}
-              <img src="{{ cover_img.url }}" />
+              <img src="https://s3.amazonaws.com/newamericadotorg/{{ cover_img.file.name }}" />
             </div>
             <label class="date block">{{page.date|date:"F Y"}}</label>
             <h1 class="promo">{{page.title}}</h1>
