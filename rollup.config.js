@@ -70,7 +70,7 @@ export default [
             .process(styleNodes[1].content)
             .then(result => {
               writeFile(
-                'newamericadotorg/static/css/newamericadotorg-v1.0.2.min.css',
+                'newamericadotorg/static/css/newamericadotorg-v1.0.3.min.css',
                 result.css
               );
             });
