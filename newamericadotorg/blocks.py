@@ -117,43 +117,43 @@ class ReportDataVizBlock(DatavizBlock):
 
 def ResourceKitSerializer(r):
 	resources = []
-	for block in r.stream_data:
-		d = {}
-		block_type = block['type']
-		value = block['value']
+	try:
+		for block in r.stream_data:
+			d = {}
+			block_type = block['type']
+			value = block['value']
+			for key, val in value.iteritems():
+				if key == 'image' and val is not None:
+					img = home.models.CustomImage.objects.get(pk=val)
+					try:
+						img = img.get_rendition('fill-200x200')
+					except:
+						img = img
+					d['image'] = img.file.url
+				elif key == 'resource':
+					if block_type == 'post':
+						pg = Page.objects.get(pk=val).specific
+						d['url'] = pg.url
+						if not getattr(d, 'image', False):
+							img = getattr(pg, 'story_image', None)
+							if img == None:
+								img = getattr(pg, 'profile_image', None)
+							if img:
+								try:
+									d['image'] = img.get_rendition('fill-200x200').file.url
+								except:
+									d['image'] = img.file.url
 
-		for key, val in value.iteritems():
-			if key == 'image' and val is not None:
-				img = home.models.CustomImage.objects.get(pk=val)
-				try:
-					img = img.get_rendition('fill-200x200')
-				except:
-					img = img
-				d['image'] = img.file.url
-			elif key == 'resource':
-				if block_type == 'post':
-					pg = Page.objects.get(pk=val).specific
-					d['url'] = pg.url
-					if not getattr(d, 'image', False):
-						img = getattr(pg, 'story_image', None)
-						if img == None:
-							img = getattr(pg, 'profile_image', None)
-						if img:
-							try:
-								d['image'] = img.get_rendition('fill-200x200').file.url
-							except:
-								d['image'] = img.file.url
-
-				elif block_type == 'external_resource':
-					d['url'] = val
+					elif block_type == 'external_resource':
+						d['url'] = val
+					else:
+						d['url'] = Document.objects.get(pk=val).file.url
 				else:
-					d['url'] = Document.objects.get(pk=val).file.url
-			else:
-				d[key] = val
-		resources.append(d)
-
-	j = json.dumps(resources, ensure_ascii=False)
-	return j
+					d[key] = val
+			resources.append(d)
+		return json.dumps(resources, ensure_ascii=False)
+	except:
+		return '[]'
 
 class ResourceKit(blocks.StructBlock):
 	title = blocks.CharBlock(required=True)
@@ -213,24 +213,27 @@ def getJSCompatibleList(input_list, is_era, sort):
 
 def PersonBlockSerializer(block_value):
 	people = []
-	for block in block_value.stream_data:
-		d = {}
-		value = block['value']
+	try:
+		for block in block_value.stream_data:
+			d = {}
 
-		for key, val in value.iteritems():
-			if key == 'image':
-				img = home.models.CustomImage.objects.get(pk=val)
-				try:
-					img = img.get_rendition('fill-200x200')
-				except:
-					img = img
-				d['image'] = img.file.url
-			else:
-				d[key] = val
-		people.append(d)
+			value = block['value']
 
-	j = json.dumps(people, ensure_ascii=False)
-	return j
+			for key, val in value.iteritems():
+				if key == 'image' and val is not None:
+					img = home.models.CustomImage.objects.get(pk=val)
+					try:
+						img = img.get_rendition('fill-200x200')
+					except:
+						img = img
+					d['image'] = img.file.url
+				else:
+					d[key] = val
+			people.append(d)
+
+			return json.dumps(people, ensure_ascii=False)
+	except:
+		return '[]'
 
 
 class TimelineEventBlock(blocks.StructBlock):
@@ -388,8 +391,11 @@ class SessionsBlock(blocks.StreamBlock):
 	def get_context(self, value):
 		context = super(SessionsBlock, self).get_context(value)
 		days = []
-		for day in value.stream_data:
-			days.append(SessionsSerializer(day['value']['sessions']))
+		try:
+			for day in value.stream_data:
+				days.append(SessionsSerializer(day['value']['sessions']))
+		except:
+			pass
 
 		context['days'] = json.dumps(days, ensure_ascii=False)
 
