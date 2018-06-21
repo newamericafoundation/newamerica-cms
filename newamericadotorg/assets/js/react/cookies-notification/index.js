@@ -7,7 +7,7 @@ class APP extends Component {
   constructor(props){
     super(props);
     this.state = {
-      cookiesConsent: store.get('cookiesConsent') || false,
+      cookiesConsent: store.get('cookiesConsent') || window.user.isAuthenticated || false,
       hidden: true
     }
 
