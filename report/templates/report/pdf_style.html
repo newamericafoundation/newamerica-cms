@@ -196,6 +196,10 @@
       font-family: 'Lyon';
     }
 
+    blockquote:not(.pullquote) + blockquote:not(.pullquote){
+      margin-top: -10pt;
+    }
+
     blockquote.pullquote{
       page-break-inside: avoid;
       margin-left: 0pt;
@@ -232,6 +236,10 @@
     .block-box > *:last-child > *:last-child,
     .block-box > *:last-child > *:last-child > *:last-child{
       margin-bottom: 0;
+    }
+
+    .block-box blockquote{
+      font-family: 'Circular';
     }
 
     .row {

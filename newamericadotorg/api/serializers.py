@@ -822,9 +822,9 @@ class ReportDetailSerializer(PostSerializer):
             sections.append(section)
         if obj.acknowledgements:
             sections.append({
-                'title': 'Acknowledgements',
+                'title': 'Acknowledgments',
                 'number': len(sections)+1,
-                'slug': 'acknowledgements',
+                'slug': 'acknowledgments',
                 'body': obj.acknowledgements,
                 'subsections': []
             })

@@ -126,6 +126,10 @@ blockquote{
   &.white {
     color: color(white);
   }
+
+  & + blockquote {
+    margin-top: -1.25rem;
+  }
 }
 
 .subheading, [class*="subheading--"] {

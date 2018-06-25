@@ -5,7 +5,7 @@
   border-bottom: 1px solid color(black);
   padding-bottom: 20px;
 
-  p, li {
+  p, li, blockquote{
     font-family: $label-font-family !important;
     font-size: 0.9375rem !important;
     line-height: 1.75rem !important;
@@ -14,5 +14,10 @@
   p {
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+
+  blockquote {
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 }
