@@ -65,3 +65,12 @@ def generate_report_contents(report):
         contents[len(contents)-1].append(c)
 
     return contents
+
+
+def get_report_authors(report):
+    authors = None
+
+    if report.authors:
+        authors = report.authors.order_by('pk')
+
+    return authors

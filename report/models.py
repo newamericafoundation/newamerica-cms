@@ -82,11 +82,27 @@ class Report(Post):
         related_name='+',
     )
 
+    partner_logo = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Post.content_panels + [
         FieldPanel('acknowledgements'),
     ]
 
     sections_panels = [
+        StreamFieldPanel('sections')
+    ]
+
+    endnote_panels = [StreamFieldPanel('endnotes')]
+
+    settings_panels = Post.settings_panels + [FieldPanel('dataviz_src')]
+
+    pdf_panels = [
         MultiFieldPanel([
             DocumentChooserPanel('source_word_doc'),
             FieldPanel('overwrite_sections_on_save'),
@@ -96,12 +112,8 @@ class Report(Post):
             DocumentChooserPanel('report_pdf'),
             StreamFieldPanel('attachment')
         ]),
-        StreamFieldPanel('sections')
+        ImageChooserPanel('partner_logo')
     ]
-
-    endnote_panels = [StreamFieldPanel('endnotes')]
-
-    settings_panels = Post.settings_panels + [FieldPanel('dataviz_src')]
 
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading="Content"),
@@ -109,6 +121,7 @@ class Report(Post):
         ObjectList(endnote_panels, heading="Endnotes"),
         ObjectList(Post.promote_panels, heading="Promote"),
         ObjectList(settings_panels, heading='Settings', classname="settings"),
+        ObjectList(pdf_panels, heading="PDF Publishing")
     ])
 
     search_fields = Post.search_fields + [index.SearchField('sections')]
