@@ -67,18 +67,20 @@ class Fellowships extends Component {
   }
 
   render(){
-    let { response: { results } } = this.props;
-    let { expanded } = this.state
+    let { data : { fellowships_list: { resource_kit } } } = this.props;
+    let { expanded } = this.state;
+
     return (
       <section className="padding-80">
         <div className="container--1080 home__fellowships">
           <div className="menu-list">
-            {results.map((f,i)=>(
+            {resource_kit[0].resources.map((f,i)=>(
               <div key={`fellowship-${i}`} className={`${expanded[i] ? 'expanded ' : ''}home__fellowship`}>
                 <PlusX x={expanded[i]} />
-                <h2 onClick={()=>{ this.toggleExpand(i) }}>{f.title}</h2>
+                <h2 onClick={()=>{ this.toggleExpand(i) }}>{f.value.name}</h2>
                 <div className="home__fellowship__more">
-                  <p className="margin-0 home__fellowship__more__description">{f.description}</p>
+                  <div dangerouslySetInnerHTML={{__html: f.value.description}} />
+                  {f.value.resource !== '/' && <a className="button" href={f.value.resource}>See Fellowship Page</a>}
                 </div>
               </div>
             ))}
@@ -95,7 +97,7 @@ class Nav extends Component {
       <div className={`container--1080 our-funding__nav margin-top-15`}>
         <ul className="inline">
           <li><NavItem url={`/jobs/`} exact={true} label="Jobs"/></li>
-          <li><NavItem url={`/fellowships/`} exact={true} label="Fellowships"/></li>
+          <li><NavItem url={`/jobs/fellowships/`} exact={true} label="Fellowships"/></li>
         </ul>
       </div>
     );
@@ -103,21 +105,22 @@ class Nav extends Component {
 }
 
 export default class JobsAndFellowships extends Component {
+  findSubpage = (slug) => {
+    let { response: { results } } = this.props;
+    return results.subpages.find(s=>s.slug===slug);
+  }
   render(){
     return (
       <div className="home__panels__content">
         <Nav />
-        <Route path="/jobs/" render={()=>(
+        <Route exact path="/jobs/" render={()=>(
           <Fetch endpoint={`jobs`}
             fetchOnMount={true}
             name={`${NAME}.jobs`}
             component={Jobs} />
         )}/>
-        <Route path="/fellowships/" render={()=>(
-          <Fetch endpoint={`program/fellowships`}
-            fetchOnMount={true}
-            name={`${NAME}.fellowships`}
-            component={Fellowships} />
+        <Route exact path="/jobs/fellowships/" render={()=>(
+          <Fellowships data={this.findSubpage('fellowships').data} />
         )}/>
       </div>
     );
