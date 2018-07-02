@@ -14,7 +14,8 @@ def generate_pdf(report_id):
     Report = apps.get_model('report', 'Report')
     report = Report.objects.get(pk=report_id)
     contents = generate_report_contents(report)
-    html = loader.get_template('report/pdf.html').render({ 'page': report, 'contents': contents })
+    authors = get_report_authors(report)
+    html = loader.get_template('report/pdf.html').render({ 'page': report, 'contents': contents, 'authors': authors })
 
     pdf = HTML(string=html).write_pdf()
     with tempfile.NamedTemporaryFile(delete=True) as output:
