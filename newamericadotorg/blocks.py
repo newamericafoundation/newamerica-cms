@@ -231,8 +231,9 @@ def PersonBlockSerializer(block_value):
 					d[key] = val
 			people.append(d)
 
-			return json.dumps(people, ensure_ascii=False)
+		return json.dumps(people, ensure_ascii=False)
 	except:
+		print 'block render failed';
 		return '[]'
 
 
