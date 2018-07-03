@@ -319,7 +319,7 @@ class OrgSimplePage(AbstractSimplePage):
     """
     Simple Page at the organization level
     """
-    parent_page_types = ['home.HomePage', 'OrgSimplePage']
+    parent_page_types = ['home.HomePage', 'OrgSimplePage', 'JobsPage']
     subpage_types = ['OrgSimplePage', 'home.RedirectPage']
 
     page_description = RichTextField(blank=True)
@@ -387,7 +387,6 @@ class JobsPage(OrgSimplePage):
     """
     Jobs Page at the organization level
     """
-    parent_page_types = ['home.HomePage']
 
     class Meta:
         verbose_name = 'Jobs Page'

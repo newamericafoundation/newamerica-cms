@@ -24,6 +24,7 @@ class Routes extends Component {
       let props = this.props;
       return (
           <div className="home__panels">
+            <Route path="/jobs/" render={(_props)=>( <Jobs {...props} {..._props} /> )} />
             <Route path="/our-story/" render={(_props)=>( <OurStory {...props} {..._props} /> )} />
             <Route path="/share-our-space/" render={(_props)=>( <ShareOurSpace {...props} {..._props} /> )} />
             <Route path="/press-room/" render={(_props)=>( <PressRoom {...props} {..._props} /> )} />
@@ -35,13 +36,10 @@ class Routes extends Component {
 
 class APP extends Component {
   render(){
-    let { pageId } = this.props;
+    let { pageId, title, slug } = this.props;
     return (
       <GARouter>
         <Switch>
-          <Route path="/(jobs|fellowships)/" render={(props)=>(
-            <Jobs pageId={pageId} {...props} />
-          )} />
           <Route path="/programs/" render={()=>(
             <Fetch endpoint={`program`}
               fetchOnMount={true}
@@ -54,10 +52,10 @@ class APP extends Component {
           <Route path="/subscribe/" render={()=>(
             <Response name="meta" component={Subscribe} />
           )}/>
-          <Route path="/(our-story|share-our-space|press-room|our-funding)/" render={(props)=>(
+          <Route path="/(jobs|our-story|share-our-space|press-room|our-funding)/" render={(props)=>(
             <Fetch endpoint={`home/${pageId}`}
               fetchOnMount={true}
-              {...props}
+              {...props }
               name={NAME}
               component={Routes} />
           )}/>
