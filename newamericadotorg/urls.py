@@ -19,6 +19,8 @@ from newamericadotorg.api import views as api_views
 import report.views as report_views
 import programs.views as program_views
 
+import newamericadotorg.redirects as redirects
+
 urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
 
@@ -69,6 +71,8 @@ urlpatterns = [
     url(r'^api/subscribe/$', api_views.subscribe),
     url(r'^api/jobs/$', api_views.JobsList.as_view()),
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
+
+    url(r'^international-security/future-property-rights/[^.]*$', redirects.future_property_rights),
 
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
     url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/render/$', report_views.pdf_render),
