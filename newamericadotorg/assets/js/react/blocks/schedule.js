@@ -35,13 +35,13 @@ class Session extends Component {
             <div className="schedule-block__sessions__session__speakers">
               {speakers.map((s,i)=>(
                 <div className="schedule-block__sessions__session__speakers__speaker margin-bottom-25">
-                  <h4>{s.name}
+                  <h4 className="margin-10">{s.name}
                   {s.twitter &&
                     <a href={s.twitter} target="_blank">
                       <i className="fa fa-twitter"></i>
                     </a>}
                   </h4>
-                  {s.title && <h6 className="caption">{s.title}</h6>}
+                  {s.title && <h6 className="caption margin-10">{s.title}</h6>}
                 </div>
               ))}
             </div>

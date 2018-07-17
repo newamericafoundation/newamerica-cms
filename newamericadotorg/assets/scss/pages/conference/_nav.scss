@@ -4,8 +4,8 @@
   height: $header-height;
   @include box-shadow( inset 0px -1px 0px 0px color(black, base, 0.1) );
 
-  label{
-    line-height: 50px;
+  h6{
+    line-height: 65px;
     padding-right: 15px;
   }
 
