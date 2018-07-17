@@ -24,8 +24,8 @@ const EditionListItem = ({ edition }) => (
           <Image image={edition.story_image} />
         </div>
         <div className="weekly-edition__edition-list__edition__text">
-          <label className="block bold white">{edition.number}</label>
-          <label className="block white">{edition.story_excerpt}</label>
+          <h4 className="white margin-top-0 margin-bottom-10">{edition.number}</h4>
+          <h6 className="white margin-0">{edition.story_excerpt}</h6>
         </div>
       </div>
     </a>
@@ -36,11 +36,19 @@ const EditionHeader = ({ response: { results, hasNext, hasPrevious, params: { qu
   <div className="container">
     <div className="weekly-edition__header__nav">
       <div className="weekly-edition__header__nav__btn" onClick={toggleEditionList}>
-        <label className={`button--text with-caret--${editionListOpen ? 'up' : 'down'} margin-0 white`}>Past Editions</label>
+        <a className={`button--text with-caret--${editionListOpen ? 'up' : 'down'} white`}>Past Editions</a>
       </div>
       {editionListOpen && <div className="weekly-edition__header__page">
-          {hasPrevious && <label className="prev-page button--text white margin-0" onClick={()=>{prevEditionPage(hasPrevious)}}><Arrow direction={"left white"}/><span>Prev.</span></label>}
-          {hasNext && <label className="next-page button--text white margin-0" onClick={()=>{nextEditionPage(hasNext)}}><span>Next</span><Arrow direction={"right white"}/></label>}
+          {hasPrevious &&
+            <h5 className="prev-page inline white margin-0" onClick={()=>{prevEditionPage(hasPrevious)}}>
+              <Arrow direction={"left white"}/><span>Prev.</span>
+            </h5>
+          }
+          {hasNext &&
+            <h5 className="next-page inline white margin-0" onClick={()=>{nextEditionPage(hasNext)}}>
+              <span>Next</span><Arrow direction={"right white"}/>
+            </h5>
+          }
         </div>}
     </div>
     <TransitionGroup className="edition-list-fade-wrapper">
@@ -70,7 +78,7 @@ class ArticleHeader extends Component {
               <div className="weekly-edition__header__nav__btn">
                 <Link className="button--text with-caret--left white" to={edition.url}>{edition.number}</Link>
               </div>
-              <label className="button--text white margin-0 weekly-edition__header__nav__heading">New America Weekly</label>
+              <h5 className="inline white margin-0 weekly-edition__header__nav__heading">New America Weekly</h5>
             </div>
           </div>
         </div>

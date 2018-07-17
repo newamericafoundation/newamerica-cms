@@ -13,9 +13,9 @@ const Text = ({ author: { url, short_bio, first_name, last_name, position }}) =>
       <p className="author__text__name">
         {first_name + ' ' + last_name}
       </p>
-      <label className="author__text__position">
+      <h6 className="author__text__position">
         {position}
-      </label>
+      </h6>
     </a>
   </div>
 );

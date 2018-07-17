@@ -14,10 +14,10 @@ class Upcoming extends Component {
       return (
 
         <div className="margin-top-60 centered">
-          <label>No upcoming events. </label>
-          <label className="button--text link">
-            <Link to={{ search:"?period=past" }}>&nbsp;See past events</Link>
-          </label>.
+          <h6 className="inline">No upcoming events. </h6>
+          <h5 className="inline link">
+            <Link to={{ search:"?period=past" }}>See past events</Link>
+          </h5>.
         </div>
       )
     }
@@ -70,12 +70,12 @@ export class EventsList extends Component {
     return (
       <div className="program__events margin-top-35">
         <div className="program__events__period-toggles">
-          <label className="inline with-separator">
+          <h6 className="inline with-separator">
             <NavLink style={period=='future' ? this.activeStyle : {}} to={{ pathname: location.pathname, search:`?period=future`}}>Upcoming</NavLink>
-          </label>
-          <label className="inline">
+          </h6>
+          <h6 className="inline">
             <NavLink style={period=='past' ? this.activeStyle : {}} to={{ pathname: location.pathname, search:`?period=past`}}>Past</NavLink>
-          </label>
+          </h6>
         </div>
         {(response.isFetching && period=='future') && <div className="margin-top-35 centered"><LoadingDots /></div>}
         {(!response.isFetching && period=='future') && <Upcoming events={response.results}/>}

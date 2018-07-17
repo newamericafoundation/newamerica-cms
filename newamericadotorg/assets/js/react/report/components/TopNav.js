@@ -22,8 +22,8 @@ class TopNav extends Component {
           </div>
             <div className="report__top-nav__title col-7 col-md-10">
               <div className="report__top-nav__title__wrapper">
-                <label className="bold white margin-0">{report.title}</label>
-                <label className="white margin-0 report__top-nav__title__chapter">{` (${section.title})`}</label>
+                <h4 className="white margin-0">{report.title}</h4>
+                <h6 className="white margin-0 report__top-nav__title__chapter">{` (${section.title})`}</h6>
               </div>
             </div>
           </div>

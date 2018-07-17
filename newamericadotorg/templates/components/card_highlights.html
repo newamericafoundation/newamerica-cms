@@ -1,11 +1,11 @@
 <div class="card highlights">
   <div class="card__text">
-    <label class="block margin-0 caption">Highlights</label>
+    <h6 class="margin-0 caption">Highlights</h6>
     {% for story in stories %}
       <div class="highlights__highlight margin-25">
         <a href="{{story.url}}">
-          <label class="card__text__title block bold link"><span><u>{{story.title}}</u></span></label>
-          <label class="margin-0 block">{{story.specific.story_excerpt}}</label>
+          <h4 class="card__text__title margin-5"><span><u>{{story.title}}</u></span></h4>
+          <h6 class="margin-0">{{story.specific.story_excerpt}}</h6>
         </a>
       </div>
     {% endfor %}

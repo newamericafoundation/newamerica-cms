@@ -10,10 +10,10 @@ export const Person = ({ person }) => (
       </div>
       <div className="card__text">
         {/* <h3 className="card__text__title">{person.first_name} {person.last_name}</h3> */}
-        <label className="card__text__title bold block link">
+        <h4 className="card__text__title">
           <span><u>{person.first_name} {person.last_name}</u></span>
-        </label>
-        <label className="caption block">{person.position}</label>
+        </h4>
+        <h6 className="caption">{person.position}</h6>
       </div>
     </a>
   </div>
@@ -29,28 +29,28 @@ export const EventItem = ({ event }) => (
     </a>
     <div className="card__text">
       <a href={event.url}>
-        <label className="margin-top-0 block">{formatDate(event.date, 'MMM. Do, YYYY')}</label>
+        <h6 className="margin-0">{formatDate(event.date, 'MMM. Do, YYYY')}</h6>
         {/* <h3 className="card__text__title bold block">{event.title}</h3> */}
-        <label className="card__text__title bold block link">
+        <h4 className="card__text__title margin-10">
           <span><u>{event.title}</u></span>
-        </label>
-        <label className="block">{event.story_excerpt}</label>
-        <label className="caption block">{event.city}, {event.state}</label>
+        </h4>
+        <h6 className="margin-10">{event.story_excerpt}</h6>
+        <h6 className="caption margin-0">{event.city}, {event.state}</h6>
       </a>
-      <label className="event__rsvp button--text block link margin-0">
+      <h6 className="event__rsvp button--text link margin-0">
         <a className="with-caret" href={event.rsvp_link} target="_blank"><u>RSVP</u></a>
-      </label>
+      </h6>
     </div>
   </div>
 );
 
 const punctuation = (i, len) => {
   if(i == len-2 && len > 2)
-    return (<span className="punc" key={`punc-${i}`}>&nbsp;, and&nbsp;</span>);
+    return (<h6 className="inline margin-0" key={`punc-${i}`}>, and&nbsp;</h6>);
   if(i == len-2 && len>1)
-    return (<span className="punc" key={`punc-${i}`}>&nbsp;&nbsp;and&nbsp;</span>);
+    return (<h6 className="inline margin-0" key={`punc-${i}`}>&nbsp;and&nbsp;</h6>);
   if(i != len-1)
-    return (<span className="punc" key={`punc-${i}`}>&nbsp;,&nbsp;</span>)
+    return (<h6 className="inline margin-0" key={`punc-${i}`}>,&nbsp;</h6>)
 
   return false;
 
@@ -61,9 +61,9 @@ const generateAuthors = (authors) => {
   let len = authors.length;
   authors.forEach((a,i)=>{
     authorElements.push(
-      <span className="subtitle inline" key={`author-${i}`}>
-        <a href={a.url}>{a.first_name} {a.last_name}</a>
-      </span>
+      <h6 className="inline link margin-0" key={`author-${i}`}>
+        <a href={a.url}><u>{a.first_name} {a.last_name}</u></a>
+      </h6>
     );
     let punc = punctuation(i,len);
     if(punc) authorElements.push(punc);
@@ -81,28 +81,29 @@ export const PublicationListItem = ({ post }) => (
       </a>
     <div className="card__text">
       <a href={post.url}>
-        {post.date && <label className="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15 block">{formatDate(post.date, 'MMM. Do, YYYY')}</label>}
+        {post.date && <h6 className="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">{formatDate(post.date, 'MMM. Do, YYYY')}</h6>}
         {/* <h3 className="card__text__title bold block">{post.title}</h3> */}
-        <label className="card__text__title bold block link margin-0">
+        <h4 className="card__text__title margin-0">
           <span><u>{post.title}</u></span>
-        </label>
+        </h4>
         {post.story_excerpt &&
-          <label className="block margin-top-5 margin-bottom-0 card__text__excerpt">
+          <h6 className="margin-top-5 margin-bottom-0 card__text__excerpt">
             {post.story_excerpt}
-          </label>
+          </h6>
         }
       </a>
 
-      {post.authors && <span>
+      {post.authors && <div className="card__text__authors margin-top-5 margin-bottom-0">
         {post.authors.length > 0 &&
-          <label className="card__text__authors link margin-top-5 margin-bottom-0">
-            <span className="punc by">By:&nbsp;</span>{generateAuthors(post.authors)}
-          </label>
+          <span>
+            <h6 className="inline margin-0">By:&nbsp;</h6>
+            {generateAuthors(post.authors)}
+          </span>
         }
-      </span>}
-      {post.programs && <label className="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0 block">
+      </div>}
+      {post.programs && <h6 className="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">
           {post.programs[0] ? post.programs[0].name : ''} {post.content_type ? post.content_type.name : ''}
-        </label>}
+        </h6>}
     </div>
   </div>
 );

@@ -8,7 +8,7 @@
     border-right: 1px solid color(white);
     border-bottom: 1px solid color(white);
   }
-  label{
+  h4, h6{
     color: color(white) !important;
   }
 
@@ -48,7 +48,7 @@
     @include transition(background-image 0.15s ease);
   }
 
-  label{
+  h4,h6{
     @include transition(color 0.15s ease);
   }
   .glass{

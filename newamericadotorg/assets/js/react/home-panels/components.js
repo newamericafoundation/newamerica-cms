@@ -2,11 +2,11 @@ import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export const NavItem = ({ url, label, exact=false }) => (
-  <label className="button--text link">
+  <h5 className="inline link">
     <NavLink exact className={`button--text program__nav__link`} to={url}>
       {label}
     </NavLink>
-  </label>
+  </h5>
 );
 
 
@@ -164,12 +164,12 @@ export class Body extends Panel {
                 </div>
               }
               {data.resource_kit && <div className="aside">
-                <label className="block bold margin-top-0">{data.resource_kit[0].title}</label>
-                <label className="block margin-bottom-25">{data.resource_kit[0].description}</label>
+                <h4 className="margin-top-0">{data.resource_kit[0].title}</h4>
+                <h6 className="margin-bottom-25">{data.resource_kit[0].description}</h6>
                 {data.resource_kit[0].resources.map((r,i)=>(
                   <div className="aside__item" key={`resource-${i}`}>
                     <h3 className="link"><a href={r.value.resource}><u>{r.value.name}</u></a></h3>
-                    {r.value.description && <label className="block">{this.parseHTMLText(r.value.description)}</label>}
+                    {r.value.description && <h6 className="block">{this.parseHTMLText(r.value.description)}</h6>}
                   </div>
                 ))}
               </div>}

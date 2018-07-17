@@ -34,12 +34,12 @@ export default class CardLg extends Component {
           </div>
           <div className="col-12 col-md-4">
             <div className="card__text">
-              <h2 className="card__text__title margin-top-0 block link">
+              <h2 className="card__text__title margin-0 block">
                 <span><u>{post.title}</u></span>
               </h2>
-              <label className="card__text__subtitle block">{post.story_excerpt}</label>
-              <label className="card__text__program caption margin-bottom-0 block">
-                {post.programs ? post.programs[0].title : ''} {this.contentType()}</label>
+              <h6 className="card__text__subtitle margin-10">{post.story_excerpt}</h6>
+              <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
+                {post.programs ? post.programs[0].title : ''} {this.contentType()}</h6>
             </div>
           </div>
           </a>

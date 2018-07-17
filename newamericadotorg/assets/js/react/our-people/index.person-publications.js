@@ -7,7 +7,9 @@ import { PublicationsList } from '../components/Publications';
 const RecentPublications = (props) => (
   <div className="person__recent-publications">
     <div className="section-separator margin-35">
-      <div className="section-separator__text"><label className="margin-0">Recent Publications</label></div>
+      <div className="section-separator__text">
+        <h6 className="margin-0 inline">Recent Publications</h6>
+      </div>
       <div className="section-separator__line"></div>
     </div>
     <PublicationsList {...props} />

@@ -36,8 +36,8 @@ class ResourceItem extends Component {
         <div className={`resources-block__item ${expanded ? 'open' : ''}`} style={expanded ? rect : {}} ref={(el)=>{this.el=el;}}>
           <div className="resources-block__item__top">
             <div className="resources-block__item__top__heading">
-              <label className="block bold centered margin-top-0">{resource.name}</label>
-              {type=='person' && <label className="block caption centered">{resource.title}</label>}
+              <h4 className="centered margin-top-0">{resource.name}</h4>
+              {type=='person' && <h4 className="caption centered">{resource.title}</h4>}
             </div>
             {resource.image &&
               <div className="resources-block__item__top__image">

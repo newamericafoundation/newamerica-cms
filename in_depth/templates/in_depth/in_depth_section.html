@@ -69,7 +69,7 @@
 				{% if page.generate_title_panel %}
 					<div class="dot-nav__dot dot-nav__title-panel">
 						<a href="#title-panel" class="dot-nav__link" data-number="0">
-							<label class="dot-nav__label">Title</label>
+							<h6 class="dot-nav__label margin-10">Title</h6>
             	<div class="dot-nav__dot-icon"></div>
 						</a>
 					</div>
@@ -78,7 +78,7 @@
 				{% for panel in page.panels %}
 					<div class="dot-nav__dot dot-nav__{{ panel.value.panel_title|slugify }}">
 						<a href="#{{ panel.value.panel_title|slugify }}" class="dot-nav__link" data-number="{% if page.generate_title_panel %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %} ">
-							<label class="dot-nav__label">{{ panel.value.panel_title }}</label>
+							<h6 class="dot-nav__label margin-15">{{ panel.value.panel_title }}</h6>
             	<div class="dot-nav__dot-icon"></div>
 						</a>
 					</div>
@@ -104,8 +104,8 @@
 					{% else %}
 						<div class="in-depth__title-block__text">
 					{% endif %}
-							<label class="in-depth__navigation-subheading button--text block white">In Depth</label>
-							<label class="in-depth__navigation-heading block bold white"><a href="{{ project_root.url }}">{{ project_root }}</a></label>
+							<h5 class="in-depth__navigation-subheading white margin-top-0 margin-bottom-10">In Depth</h6>
+							<h4 class="in-depth__navigation-heading white margin-0"><a href="{{ project_root.url }}">{{ project_root }}</a></h4>
 						</div>
 				</div>
 
@@ -132,12 +132,12 @@
         <div class="container">
   		    <div class="title-panel__text-box">
     				<h1 class="title-panel__title white">{{ page.title }}</h1>
-    				<label class="title-panel__subheading block pullquote white">{{ page.subheading|richtext }}</label>
+    				<h6 class="title-panel__subheading pullquote white">{{ page.subheading|richtext }}</h6>
   			  </div>
         </div>
 		</section>
 		{% if story_image.image.source %}
-			<label class="block caption" style="padding-left:10px">Photo: {{ story_image.image.source}}</label>
+			<h6 class="caption margin-5" style="padding-left:10px">Photo: {{ story_image.image.source}}</h6>
 		{% endif %}
 	{% endif %}
 	{% for panel in page.panels %}
@@ -171,7 +171,7 @@
       <div class="in-depth__footer__next-prev__block">
 					<a href="{{ previous_sibling.specific.url }}">
 						<div class="in-depth__footer__next-prev__link">
-							<label class="block button--text with-caret--left margin-bottom-md-25">Prev. Section</label>
+							<h5 class="with-caret--left margin-bottom-md-25">Prev. Section</h5>
               <div class="prev-image-block">
                 {% if previous_sibling.specific.story_image %}
                   {% image previous_sibling.specific.story_image fill-100x100 as prev_background %}
@@ -179,7 +179,7 @@
                     <img src="{{ prev_background.url }}" />
                   </div>
                 {% endif %}
-							   <label class="{% if prev_background %}image-padding{% endif %}">{{ previous_sibling }}</label>
+							   <h6 class="inline {% if prev_background %}image-padding{% endif %}">{{ previous_sibling }}</h6>
               </div>
 						</div>
 					</a>
@@ -191,9 +191,9 @@
         <div class="in-depth__footer__next-prev__block next">
 					<a href="{{ next_sibling.specific.url }}">
 						<div class="in-depth__footer__next-prev__link">
-							<label class="button--text with-caret--right margin-bottom-md-25">Next Section</label>
+							<h5 class="with-caret--right margin-bottom-md-25">Next Section</h5>
               <div class="next-image-block">
-							   <label class="{% if next_sibling.specific.story_image %}image-padding{% endif %}">{{ next_sibling }}</label>
+							   <h6 class="margin-5 {% if next_sibling.specific.story_image %}image-padding{% endif %}">{{ next_sibling }}</h6>
                  {% if next_sibling.specific.story_image %}
          					{% image next_sibling.specific.story_image fill-100x100 as next_background %}
          					<div class="in-depth__footer__next-prev__image">
@@ -226,18 +226,18 @@
       					{% else %}
       						<div class="in-depth__title-block__text">
       					{% endif %}
-      							<label class="block white button--text">In Depth</label>
-      							<label class="block bold white"><a href="{{ project_root.url }}">{{ project_root }}</a></label>
+      							<h5 class="white button--text margin-5">In Depth</h5>
+      							<h4 class="white margin-5"><a href="{{ project_root.url }}">{{ project_root }}</a></h4>
       						</div>
       				</div>
             </div>
   					<div class="col-md-6">
   						{% if project_root.specific.about_the_project %}
-  							<label class="block white">About this Project</label>
+  							<h4 class="white margin-15">About this Project</h4>
   							<div class="in-depth__footer__about post-body margin-bottom-35">{{ project_root.specific.about_the_project | richtext }}</div>
   						{% endif %}
   						{% if authors %}
-  							<label class="in-depth__navigation-subheading white">Authors</label>
+  							<h6 class="in-depth__navigation-subheading white margin-5">Authors</h6>
 
   							<div class="post-person-container">
   								{% for author in authors %}
@@ -249,13 +249,13 @@
   											     <img src="{{ author_image.url }}" />
   												</div>
                           {% endif %}
-												<label class="post-person__text paragraph">
+												<h6 class="post-person__text paragraph margin-5">
 													{% if author.author.short_bio %}
 														{{ author.author.short_bio | richtext }}
 													{% else %}
 														{{ author.author.first_name }} {{ author.author.last_name }}
 													{% endif %}
-												</label>
+												</h6>
 											</div>
 										</a>
   								{% endfor %}
@@ -264,26 +264,26 @@
 
   					</div>
   					<div class="push-md-1 col-md-5">
-              <label class="block">Project Outline:</label>
+              <h4 class="margin-15">Project Outline:</h4>
   						<ul class="in-depth__footer__main__directory no-list-style margin-bottom-35">
   								<li class="in-depth__footer__main__directory__item">
-  									<label class="white"><a href="{{ project_root.url }}">Home Page</a></label>
+  									<h6 class="white margin-15"><a href="{{ project_root.url }}">Home Page</a></h6>
   								</li>
   							{% for sibling in siblings %}
   								<li class="in-depth__footer__main__directory__item">
-  									<label class="white"><a {% if sibling.pk == page.pk %}class="active"{% endif %} href="{{ sibling.url }}">{{ sibling.title }}</a></label>
+  									<h6 class="white margin-15"><a {% if sibling.pk == page.pk %}class="active"{% endif %} href="{{ sibling.url }}">{{ sibling.title }}</a></h6>
   								</li>
   							{% endfor %}
   						</ul>
 
   						{% if project_root.specific.show_data_download_links %}
-  							<label class="in-depth__navigation-subheading white">Dataset:</label>
+  							<h4 class="in-depth__navigation-subheading white margin-15">Dataset:</h4>
   							<ul class="in-depth__footer__main__directory no-list-style">
   								<li class="in-depth__footer__main__directory__item">
-  									<label class="white"><a name="download-data" id="in-depth__download__csv" download="{{ project_root.slug }}.zip">Download as CSV</a></label>
+  									<h6 class="white margin-15"><a name="download-data" id="in-depth__download__csv" download="{{ project_root.slug }}.zip">Download as CSV</a></h6>
   								</li>
   								<li class="in-depth__footer__main__directory__item">
-  									<label class="white"><a id="in-depth__download__json"  download="{{ project_root.slug }}.json">Download as JSON</a></label>
+  									<h6 class="white margin-15"><a id="in-depth__download__json"  download="{{ project_root.slug }}.json">Download as JSON</a></h6>
   								</li>
   							</ul>
   							<p class="white in-depth__footer__subordinate-text in-depth__footer__download-data-message">* If using Safari or Internet Explorer, right-click download link and select "Download Linked File"</p>

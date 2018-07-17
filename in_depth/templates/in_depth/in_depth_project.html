@@ -40,17 +40,17 @@
         			</div>
             </div>
             <div class="col-6">
-              <label class="block button--text white" style="line-height:25px;">
+              <h5 class="white" style="line-height:25px;">
           {% else %}
             <div class="col-12">
-              <label class="block button--text centered white">
+              <h5 class="centered white">
     			{% endif %}
-				      In Depth</label>
+				      In Depth</h6>
             </div>
         </div>
 				<h1 class="title-panel__title white promo margin-bottom-35 centered">{{ page.title }}</h1>
 				{% if page.subheading %}
-				<label class="title-panel__subheading block pullquote white centered">{{ page.subheading|richtext }}</label>
+				<h6 class="title-panel__subheading pullquote white centered">{{ page.subheading|richtext }}</h6>
 				{% endif %}
 				{% if page.buttons %}
 					<div class="title-panel__button-container margin-top-35">
@@ -64,9 +64,9 @@
 	</section>
 	{% if story_image.image.source %}
 		{% if page.body %}
-		<label class="caption" style="padding-left:10px">Photo: {{ story_image.image.source}}</label>
+		<h6 class="caption inline" style="padding-left:10px">Photo: {{ story_image.image.source}}</h6>
 		{% else %}
-			<label class="caption white" style="padding-left:10px; position: absolute;z-index: 5;">Photo: {{ story_image.image.source}}</label>
+			<h6 class="caption inline white" style="padding-left:10px; position: absolute;z-index: 5;">Photo: {{ story_image.image.source}}</h6>
 		{% endif %}
 	{% endif %}
 
@@ -93,7 +93,7 @@
 				{% for section in project_sections.specific %}
 					<div class="contents-panel__item margin-bottom-35">
 						<h3 class="contents-panel__item__title block bold white"><a href="{{ section.url }}">{{ section.title }}</a></h3>
-						<label class="contents-panel__item__description block paragraph white">{{ section.story_excerpt }}</label>
+						<h6 class="contents-panel__item__description paragraph white">{{ section.story_excerpt }}</h6>
 					</div>
 				{% endfor %}
 			</div>

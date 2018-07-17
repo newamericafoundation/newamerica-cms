@@ -15,10 +15,10 @@
   {% if value.figure_number or value.figure_title %}
     <div class="figure__title margin-bottom-15" style="max-width: {{maxWidth}}px;">
       {% if value.figure_number %}
-        <label class="bold margin-0{% if value.figure_title %} with-separator{% endif %}">Figure {{ value.figure_number }}</label>
+        <h4 class="inline margin-0{% if value.figure_title %} with-separator{% endif %}">Figure {{ value.figure_number }}</h4>
       {% endif %}
       {% if value.figure_title %}
-        <label class="margin-0">{{ value.figure_title }}</label>
+        <h4 class="inline margin-0">{{ value.figure_title }}</h4>
       {% endif %}
     </div>
   {% endif %}
@@ -42,14 +42,14 @@
   {% if value.image.caption or value.image.source %}
     <figcaption class="margin-top-10" style="max-width: {{maxWidth}}px;">
       {% if value.image.caption %}
-        <label class="block margin-top-0">
+        <h6 class="margin-top-0">
           {{ value.image.caption }}
-        </label>
+        </h6>
       {% endif %}
       {% if value.image.source %}
-        <label class="caption block margin-top-0">
+        <h6 class="caption margin-top-0">
           Source: {{ value.image.source }}
-        </label>
+        </h6>
       {% endif %}
     </figcaption>
   {% endif %}

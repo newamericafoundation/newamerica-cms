@@ -23,12 +23,12 @@ export default class CardMd extends Component {
           <div className="col-6 col-md-12">
             <div className="card__text">
               {/* <h3 className="card__text__title bold margin-top-0 block">{post.title}</h3> */}
-              <label className="card__text__title bold margin-top-0 block link">
+              <h4 className="card__text__title margin-0">
                 <span><u>{post.title}</u></span>
-              </label>
-              <label className="card__text__program caption margin-bottom-0 block">
+              </h4>
+              <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
                 {post.programs ? post.programs[0].name : ''} {this.contentType()}
-              </label>
+              </h6>
             </div>
           </div>
         </a>

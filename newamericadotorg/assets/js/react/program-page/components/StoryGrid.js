@@ -30,8 +30,8 @@ export default class StoryGrid extends Component {
       <PromoMd key={`1-${k}`} title="Subscribe" link={{ to: `subscribe/?email=${this.state.email}`, label: 'Go'}}>
         <h2 className="margin-25">{sub_text}</h2>
         <div className="input">
-          <input type="text" value={this.state.email||''} required onChange={(e)=>{this.setState({email: e.target.value})}}/>
-          <label className="input__label button--text">Email Address</label>
+          <input type="text" name="email" value={this.state.email||''} required onChange={(e)=>{this.setState({email: e.target.value})}}/>
+          <label className="input__label" htmlFor="email"><h5 className="margin-0">Email Address</h5></label>
         </div>
       </PromoMd>
     );

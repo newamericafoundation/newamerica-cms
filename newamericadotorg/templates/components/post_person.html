@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="report__authors__item">
   <a href="{{author.url}}">
-    <label class="block bold">{{ author.first_name }} {{ author.last_name }}</label>
-    <label class="block caption margin-bottom-0">{{author.position_at_new_america}}</label>
+    <h4 class="margin-5">{{ author.first_name }} {{ author.last_name }}</h4>
+    <h6 class="caption margin-top-0 margin-bottom-0">{{author.position_at_new_america}}</h6>
   </a>
 </div>

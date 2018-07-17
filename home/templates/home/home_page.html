@@ -30,7 +30,7 @@
 	</section>
 	<section class="container--full-width beige homepage__events-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="30vh">
 		<div class="container">
-			<div class="section-separator"><div class="section-separator__text"><label class="margin-0">Upcoming Events</label></div><div class="section-separator__line"></div></div>
+			<div class="section-separator"><div class="section-separator__text"><h6 class="inline margin-0">Upcoming Events</h6></div><div class="section-separator__line"></div></div>
 			<div class="row gutter-10 margin-25">
 				{% for e in upcoming_events %}
 					<div class="col-md-4">
@@ -64,7 +64,7 @@
 	</section>
 	<section class="container--full-width beige homepage__publications-section scroll-target" data-scroll-trigger-point="bottom" data-scroll-top-offset="30vh">
 		<div class="container">
-			<div class="section-separator"><div class="section-separator__text"><label class="margin-0">Recent Publications</label></div><div class="section-separator__line"></div></div>
+			<div class="section-separator"><div class="section-separator__text"><h6 class="inline margin-0">Recent Publications</h6></div><div class="section-separator__line"></div></div>
 			<div class="margin-25">
 				{% for p in recent_publications %}
 					<div class="card-wrapper">
@@ -94,7 +94,7 @@
 					<div class="input">
 						<form action="/subscribe/?email=value" method="get">
 							<input type="text" name="email" required/>
-							<label class="button--text input__label">Email Address</label>
+							<label class="input__label" for="email"><h5 class="margin-0">Email Address<h5></label>
 							<button type="submit" class="button--text input__submit with-caret--right">Go</button>
 						</form>
 					</div>

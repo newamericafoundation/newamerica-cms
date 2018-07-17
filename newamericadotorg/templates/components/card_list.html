@@ -12,28 +12,35 @@
     </a>
   <div class="card__text">
     <a href="{{post.url}}">
-      <label class="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15 block">{{post.date|date:"M. jS, Y"}}</label>
+      <h6 class="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">{{post.date|date:"M. jS, Y"}}</h6>
       <!-- <h3 class="card__text__title bold block">{{post.title}}</h3> -->
-      <label class="card__text__title bold block link margin-0">
+      <h4 class="card__text__title margin-0">
         <span><u>{{post.title}}</u></span>
-      </label>
+      </h4>
       {% if post.story_excerpt %}
-      <label class="card__text__excerpt block margin-top-5 margin-bottom-0">
+      <h6 class="card__text__excerpt margin-top-5 margin-bottom-0">
         {{post.story_excerpt}}
-      </label>
+      </h6>
       {% endif %}
     </a>
     {% if post.post_author.all|length > 0 %}
-    <label class="card__text__authors margin-top-5 margin-bottom-0 link">
-      <span class="punc by">By: </span>
-      {% for author in post.post_author.all %}<a href="{{author.url}}">{{author.first_name}} {{author.last_name}}</a>
-      {% if forloop.counter == post.authors.all|length|add:"-1" and post.authors.all|length > 2 %}<span class="punc">, and</span>
-      {% elif forloop.counter == post.authors.all|length|add:"-1" %}<span class="punc">&nbsp;and</span>
-      {% elif forloop.counter != post.authors.all|length %}<span class="punc">,</span>{% endif %}
+    <div class="card__text__authors margin-top-5 margin-bottom-0">
+      <h6 class="inline margin-0">By:&nbsp;</h6>
+      {% for author in post.post_author.all %}
+        <h6 class="link inline margin-0">
+          <a href="{{author.url}}">{{author.first_name}} {{author.last_name}}</a>
+        </h6>
+        {% if forloop.counter == post.authors.all|length|add:"-1" and post.authors.all|length > 2 %}
+          <h6 class="inline margin-0">, and&nbsp;</h6>
+        {% elif forloop.counter == post.authors.all|length|add:"-1" %}
+          <h6 class="inline margin-0">&nbsp;and&nbsp;</h6>
+        {% elif forloop.counter != post.authors.all|length %}
+          <h6 class="inline margin-0">,&nbsp;</h6>
+        {% endif %}
       {% endfor %}
-    </label>
+    </div>
     {% endif %}
-    <label class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0 block">{{post.parent_programs.all.0.title}} {{post.content_type}}</label>
+    <h6 class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post.content_type}}</h6>
   </div>
 
 </div>

@@ -5,47 +5,47 @@
         <div class="conference__nav col-12 col-md-9">
             <ul class="inline">
               <li class="navigation-item active">
-                <label class="white">
+                <h6 class="inline margin-0 white">
                   <a href="#about" id="nav__about" class="navigation-link">About</a>
-                </label>
+                </h6>
               </li>
               <li class="navigation-item">
-                <label class="white">
+                <h6 class="inline margin-0 white">
                   <a href="#speakers" id="nav__speakers" class="navigation-link">Speakers</a>
                 </label>
               </li>
               <li class="navigation-item">
-                <label class="white">
+                <h6 class="inline margin-0 white">
                   <a href="#schedule" id="nav__schedule" class="navigation-link">Schedule</a>
-                </label>
+                </h6>
               </li>
               {% if page.partners|length > 0 %}
                 <li class="navigation-item">
-                  <label class="white">
+                  <h6 class="inline margin-0 white">
                     <a href="#sponsors" id="nav__sponsors" class="navigation-link">{{ page.partner_heading }}</a>
-                  </label>
+                  </h6>
                 </li>
               {% endif %}
               {% if page.venue_details %}
                 {% if page.hotel_details %}
                   <li class="navigation-item">
-                    <label class="white">
+                    <h6 class="inline margin-0 white">
                       <a href="#venue" id="nav__venue" class="navigation-link">Venue & Hotel</a>
-                    </label>
+                    </h6>
                   </li>
                 {% else %}
                   <li class="navigation-item">
-                    <label class="white">
+                    <h6 class="inline margin-0 white">
                       <a href="#venue" id="nav__venue" class="navigation-link">Venue</a>
-                    </label>
+                    </h6>
                   </li>
                 {% endif %}
               {% endif %}
               {% if page.directions %}
                 <li class="navigation-item">
-                  <label class="white">
+                  <h6 class="inline margin-0 white">
                     <a href="#directions" id="nav__directions" class="navigation-link">Directions</a>
-                  </label>
+                  </h6>
                 </li>
               {% endif %}
             </ul>

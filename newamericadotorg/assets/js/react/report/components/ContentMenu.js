@@ -34,14 +34,14 @@ class ContentMenu extends Component {
           <span className={this.state.expanded[s.title] ? 'expanded' : ''} key={`section-${i}`}>
             <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`}>
               <Link className="report__content-menu__section" to={`${url}${s.slug}/`} onClickCapture={(e)=>{this.goTo(e, s.title);}}>
-                <label className="white">{s.title}</label>
+                <h6 className="white margin-10">{s.title}</h6>
               </Link>
               {s.subsections.length>0 &&
-                <label className="expand-toggle" onClickCapture={(e)=>{
+                <h6 className="expand-toggle" onClickCapture={(e)=>{
                   this.toggleExpanded(e, s.title);
                 }}>
                   <PlusX x={this.state.expanded[s.title]} white={true}/>
-                </label>
+                </h6>
               }
             </div>
             <span className='report__content-menu__item__subsections'
@@ -49,7 +49,8 @@ class ContentMenu extends Component {
             {s.subsections.map((sub,i)=>(
               <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`} onClick={closeMenu} key={`sub-${i}`}>
                 <Link to={`${url}${s.slug}/#${sub.slug}`}>
-                  <label className="report__content-menu__item__subsections__label block">{sub.title}</label>
+                  <h6 className="report__content-menu__item__subsections__label margin-10">
+                    {sub.title}</h6>
                 </Link>
               </div>
             ))}

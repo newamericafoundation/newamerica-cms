@@ -8,9 +8,9 @@ import { PublicationListItem } from '../../components/ContentCards';
 const Breadcrumbs = ({ ancestors }) => (
   <div className="program__topic__breadcrumbs">
     {ancestors.map((t,i)=>(
-      <label key={`crumb-${i}`} className="program__topic__breadcrumbs__crumb">
+      <h6 key={`crumb-${i}`} className="program__topic__breadcrumbs__crumb inline">
         <Link to={t.url}>{t.title}</Link><span>/</span>
-      </label>
+      </h6>
     ))}
   </div>
 );
@@ -34,7 +34,7 @@ const Body = ({ body }) => (
 
 const Separator = ({ text }) => (
   <div className="section-separator">
-    <div className="section-separator__text"><label>{text}</label></div>
+    <div className="section-separator__text"><h6 className="inline">{text}</h6></div>
     <div className="section-separator__line"></div>
   </div>
 );

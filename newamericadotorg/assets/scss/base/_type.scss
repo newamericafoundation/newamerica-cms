@@ -25,7 +25,7 @@ h1, h2{
   font-family: $header-font-family;
 }
 
-h3, h4{
+h3, h4, h5, h6{
   font-family: $label-font-family;
 }
 
@@ -68,19 +68,77 @@ h3 {
   margin-bottom: 0.625rem;
 }
 
-h4 {
+h4, h5, h6 {
   font-size: 0.9375rem;
-  line-height: 1.2rem;
+  line-height: 1.125rem;
+
+  &.white{
+    color: color(white);
+  }
+
+  &.inline {
+    display: inline !important;
+  }
+}
+
+h4 {
+
 }
 
 h5 {
-  font-size: 1.1rem;
-  line-height: 1.25rem;
+  font-variant-numeric: lining-nums;
+  font-family: $label-font-family;
+  font-size: 0.625rem;
+  font-weight: bold;
+  line-height: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.0625rem;
 }
 
 h6 {
-  font-size: 1rem;
-  line-height: 1.1rem;
+  font-weight: normal;
+
+  &.bold{
+    font-weight: bold;
+  }
+
+  &.subtitle, &.caption {
+    font-family: $paragraph-font-family;
+  }
+
+  &.caption {
+    font-style: italic;
+  }
+
+  &.subheader{
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &.paragraph {
+    line-height: 1.25rem;
+  }
+
+  &.with-seperator, &.with-separator {
+    &:after{
+      content: '|';
+      display: inline;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
+  }
+  p, a, .rich-text, li{
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    text-decoration: inherit;
+    color: inherit;
+    font-weight: inherit;
+  }
 }
 
 p, .rich-text,
@@ -206,8 +264,6 @@ em, u {
 }
 
 label, input, textarea {
-  font-size: 0.875rem;
-  line-height: 1rem;
   font-size: 0.9375rem;
   line-height: 1.125rem;
   font-weight: normal;
@@ -218,60 +274,6 @@ label, input, textarea {
   text-decoration: none;
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
-
-  &.white{
-    color: color(white);
-  }
-
-  &.bold{
-    font-weight: bold;
-  }
-
-  &.inline {
-    display: inline !important;
-  }
-
-  &.block, &.centered, &.subtitle{
-    display: block;
-  }
-
-  &.subtitle, &.caption {
-    font-family: $paragraph-font-family;
-  }
-
-  &.caption {
-    font-style: italic;
-  }
-
-  &.subheader{
-    font-size: 1.375rem;
-    line-height: 1.75rem;
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  &.paragraph {
-    line-height: 1.15rem;
-  }
-
-  &.with-seperator, &.with-separator {
-    &:after{
-      content: '|';
-      display: inline;
-      padding-left: 0.5em;
-      padding-right: 0.5em;
-    }
-  }
-  p, a, .rich-text, li{
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    text-decoration: inherit;
-    color: inherit;
-    font-weight: inherit;
-  }
 }
 
 h1 > a,

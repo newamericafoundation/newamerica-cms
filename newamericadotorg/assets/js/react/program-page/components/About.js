@@ -34,13 +34,13 @@ export default class About extends Component {
           {about_us_pages &&
             <span>
               <div className="">
-                <label className="block link margin-top-5 margin-bottom-15">
+                <h6 className="link margin-top-5 margin-bottom-15">
                   <NavLink exact to={`${program.url}about/`}>About Us</NavLink>
-                </label>
+                </h6>
               {about_us_pages.map((p,i)=>(
-                  <label key={i} className="block link margin-top-0 margin-bottom-15">
+                  <h6 key={i} className="link margin-top-0 margin-bottom-15">
                     <NavLink to={`${program.url}${p.slug}/`}>{p.title}</NavLink>
-                  </label>
+                  </h6>
               ))}
               </div>
             </span>

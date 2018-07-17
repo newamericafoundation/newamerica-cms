@@ -5,10 +5,6 @@
     overflow: hidden;
     padding-bottom: 15px;
     border-bottom: 1px solid $link-border-color;
-    label{
-      margin-top: 0px;
-      margin-bottom: 0px;
-    }
 
     li {
       display: block;
@@ -42,9 +38,6 @@
 
   .about-text{
     width: 350px;
-    label {
-      line-height: 1.125rem;
-    }
   }
 
   .about-image{

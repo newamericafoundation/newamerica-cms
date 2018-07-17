@@ -29,16 +29,16 @@ class Jobs extends Component {
                 <h2 onClick={()=>{ this.toggleExpand(i) }}>{j.title}</h2>
                 <div>
                   <span className="home__fellowship__more__label">
-                    <label className="bold">Location: </label>
-                    <label>{j.city ? `${j.city}, ` : ''}{j.state} </label>
+                    <h4 className="inline">Location: </h4>
+                    <h6 className="inline">{j.city ? `${j.city}, ` : ''}{j.state} </h6>
                   </span>
                   <span className="home__fellowship__more__label">
-                    <label className="bold">Department:</label>
-                    <label>{j.department}</label>
+                    <h4 className="inline">Department:</h4>
+                    <h6 className="inline">{j.department}</h6>
                   </span>
                   <span className="home__fellowship__more__label">
-                    <label className="bold">Type:</label>
-                    <label>{j.type}</label>
+                    <h4 className="inline">Type:</h4>
+                    <h6 className="inline">{j.type}</h6>
                   </span>
                 </div>
                 <div className="home__fellowship__more">

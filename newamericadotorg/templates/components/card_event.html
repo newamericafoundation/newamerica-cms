@@ -13,16 +13,18 @@
   </a>
   <div class="card__text">
     <a href="{{event.url}}">
-      <label class="margin-top-0 block">{{event.date|date:"M. jS, Y"}}</label>
+      <h6 class="margin-0">{{event.date|date:"M. jS, Y"}}</h6>
       <!-- <h3 class="card__text__title bold block">{{event.title}}</h3> -->
-      <label class="card__text__title bold block link">
+      <h4 class="card__text__title link margin-10">
         <span><u>{{event.title}}</u></span>
-      </label>
-      <label class="block">{{event.story_excerpt}}</label>
-      <label class="caption block">{{event.city}}, {{event.state}}</label>
+      </h4>
+      <h6 class="margin-10">{{event.story_excerpt}}</h6>
+      <h6 class="caption margin-0">{{event.city}}, {{event.state}}</h6>
     </a>
-    <label class="event__rsvp button--text link with-caret--right block margin-0">
-      <a href="{{event.rsvp_link}}" target="_blank"><u>RSVP</u></a>
-    </label>
+    <div class="event__rsvp">
+      <a href="{{event.rsvp_link}}" target="_blank" className="link">
+        <h5 class="with-caret--right margin-0"><u>RSVP</u></h5>
+      </a>
+    </div>
   </div>
 </div>

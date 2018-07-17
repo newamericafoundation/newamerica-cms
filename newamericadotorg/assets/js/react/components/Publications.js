@@ -27,7 +27,7 @@ export class PublicationsList extends Component {
     let { results, isFetching, hasNext } = response;
     if(results.length===0 && !isFetching){
       return (
-        <label className="bold block centered">No results found</label>
+        <h4 className="centered">No results found</h4>
       );
     }
 
@@ -52,12 +52,12 @@ export class PublicationsList extends Component {
         </div>
         {hasNext &&
         <div className="program__publications-list-load-more margin-top-10">
-          <label className={`button ${isFetching ? 'is-fetching' : ''}`} onClick={this.loadMore}>
+          <a className={`button${isFetching ? ' is-fetching' : ''}`} onClick={this.loadMore}>
             <span className="load-more-label">Load More</span>
             {isFetching && <span className="loading-dots--absolute">
               <span>.</span><span>.</span><span>.</span>
             </span>}
-          </label>
+          </a>
         </div>}
       </div>
     );
@@ -78,9 +78,10 @@ export class PublicationsWrapper extends Component {
     return (
       <div className="program__publications row gutter-45 margin-top-lg-35">
         <div className={`program__publications__open-mobile-filter col-12 margin-top-35`}>
-          <label className={`button--text with-caret--${this.state.filtersOpen ? 'up' : 'down'}`}>
-            <a onClick={this.toggleMobileFilters}>Filters</a>
-          </label>
+          <a className={`button--text with-caret--${this.state.filtersOpen ? 'up' : 'down'}`}
+            onClick={this.toggleMobileFilters}>
+            Filters
+          </a>
         </div>
         <div className={`col-lg-3 margin-top-5 margin-bottom-15 program__publications__filter-col${this.state.filtersOpen ? ' open' : ''}`}>
           {filters}

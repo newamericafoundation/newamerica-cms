@@ -9,13 +9,13 @@ export default class Heading extends Component {
     return (
       <div className="program__header margin-bottom-10">
   			<div className="program__heading__wrapper">
-  					<h1 className="margin-0 promo">
-              {program.parent_programs &&
-                <label className="block link margin-top-0 margin-bottom-15 with-caret--left">
-                  <a href={program.parent_programs[0].url}>
-                    <u>{program.parent_programs[0].title}</u>
-                  </a>
-                </label>}
+            {program.parent_programs &&
+              <h6 className="program__header__back link margin-0 with-caret--left">
+                <a href={program.parent_programs[0].url}>
+                  <u>{program.parent_programs[0].title}</u>
+                </a>
+              </h6>}
+            <h1 className="margin-0 promo">
               <Link to={program.url}>{program.title}</Link>
             </h1>
   			</div>

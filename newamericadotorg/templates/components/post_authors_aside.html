@@ -2,9 +2,9 @@
   {% if authors %}
     <div class="post-authors__list">
       {% with authors|length as authors_len %}
-        <label class="margin-top-0">
+        <h6 class="margin-top-0">
           {% pluralize authors_len "Author" %}
-        </label>
+        </h6>
       {% endwith %}
       {% for author in authors %}
           {% include 'components/post_person.html' with author=author.author %}

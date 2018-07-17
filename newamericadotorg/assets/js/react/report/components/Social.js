@@ -26,7 +26,7 @@ class Social extends Component {
           <div className={`report__social__item margin-bottom-25 ${s.id}`} key={`social-${i}`}>
             <a href={s.url} target="_blank" >
               <i className={`fa circle ${s.icon}`} />
-              <label className="margin-0">{s.label}</label>
+              <h6 className="margin-0 inline">{s.label}</h6>
             </a>
           </div>
         ))}

@@ -10,22 +10,26 @@
       <img src="{{story_image.url}}" />
     </div>
     <div class="about-text">
-      <label class="bold block link column-heading margin-0"><a href="/our-funding/donate/"><u>Support New America &mdash;</u></a></label>
-      <label class="block margin-top-0 margin-bottom-15">We are dedicated to renewing America by continuing the quest to realize our nation's highest ideals, honestly confronting the challenges caused by rapid technological and social change, and seizing the opportunities those changes create.</label>
+      <h4 class="inline link column-heading">
+        <a href="/our-funding/donate/"><u>Support New America &mdash;</u></a>
+      </h4>
+      <h6 class="margin-top-25 margin-bottom-15">We are dedicated to renewing America by continuing the quest to realize our nation's highest ideals, honestly confronting the challenges caused by rapid technological and social change, and seizing the opportunities those changes create.</h6>
     </div>
   </div>
   <div class="col-4">
-    <label class="bold link column-heading margin-0"><a href="/our-story/"><u>About &mdash;</u></a></label>
-    <div class="row">
+    <h4 class="inline link column-heading">
+      <a href="/our-story/"><u>About &mdash;</u></a>
+    </h4>
+    <div class="row margin-top-25">
     {% for g in about_groups %}
       <div class="col-xl-5 col-lg-6">
         {% for a in g %}
           <div class="header-dropdown-links__link">
-            <label class="block link margin-bottom-5">
+            <h6 class="link margin-top-0 margin-bottom-5">
               <a href="{{a.value.url}}">
                 {{a.value.title}}
               </a>
-            </label>
+            </h6>
           </div>
         {% endfor %}
       </div>

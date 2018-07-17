@@ -21,11 +21,11 @@
 		}
 
 		@include media-breakpoint(tablet){
-			.next-image-block label.image-padding{
+			.next-image-block h6.image-padding{
 				padding-right: 25px;
 			}
 
-			.prev-image-block label.image-padding{
+			.prev-image-block h6.image-padding{
 				padding-left: 25px;
 			}
 		}

@@ -7,13 +7,13 @@ const Heading = ({ post : { authors, title, url, story_image, date } }) => (
         <h1 className="margin-5">{title}</h1>
       </div>
       <div className="weekly-heading__text__date-author-wrapper">
-        <label className="weekly-heading__text__date">
+        <h6 className="weekly-heading__text__date inline">
           {formatDate(date, 'MMMM D, YYYY')}
-        </label>
+        </h6>
       {authors.length &&
-        <label className="active weekly-heading__text__author">
+        <h6 className="active weekly-heading__text__author inline">
           <a href={authors[0].url}>{authors[0].first_name} {authors[0].last_name}</a>
-        </label>
+        </h6>
       }
       </div>
     </div>

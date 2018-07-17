@@ -7,9 +7,9 @@ const ProgramsTab = ({ response: { results }}) => {
   return(
     <div className="menu-list programs-tab">
       {results.programs.sort((a,b) => (a.title > b.title ? 1 : -1)).map((p, i)=>(
-        <label key={`program-${i}`} className="block">
+        <h6 key={`program-${i}`}>
           <a href={`/${p.slug}`}>{p.title}</a>
-        </label>
+        </h6>
       ))}
     </div>
   );
@@ -18,9 +18,9 @@ const ProgramsTab = ({ response: { results }}) => {
 const AboutTab = ({ response: { results }}) => (
   <div className="menu-list about-tab">
     {results.about_pages.map((a,i)=>(
-      <label key={`about-${i}`} className="block">
+      <h6 key={`about-${i}`}>
         <a href={a.url}>{a.title}</a>
-      </label>
+      </h6>
     ))}
   </div>
 );
@@ -48,9 +48,9 @@ class Menus extends Component {
       <div className={`mobile-menu ${selectedTab ? `secondary-tab-active ${selectedTab.toLowerCase()}-tab-open` : ''} ${isOpen ? 'open' : ''}`}>
         <div className="mobile-menu__heading">
           <div className="logo__wrapper"><a href="/"><div className="logo sm"></div></a></div>
-          <label className="tab-link-back button--text with-caret--left margin-0 block" onClick={()=>{this.switchTab(false);}}>
+          <a className="tab-link-back button--text with-caret--left margin-0 block" onClick={()=>{this.switchTab(false);}}>
             {selectedTab}
-          </label>
+          </a>
         </div>
         <div className="mobile-menu__tabs-wrapper">
           <div className="mobile-menu__primary-tab">
@@ -62,18 +62,18 @@ class Menus extends Component {
                   <button type="submit" className="button--text with-caret--right">Go</button>
                 </form>
               </div>
-              <label className="block tab-link">
+              <h6 className="tab-link">
                 <a onClick={()=>{this.switchTab('About');}}>About</a>
-              </label>
-              <label className="block tab-link">
+              </h6>
+              <h6 className="tab-link">
                 <a onClick={()=>{this.switchTab('Programs');}}>Programs</a>
-              </label>
-              <label className="block">
+              </h6>
+              <h6>
                 <a href="/publications/">Publications</a>
-              </label>
-              <label className="block">
+              </h6>
+              <h6>
                 <a href="/events/">Events</a>
-              </label>
+              </h6>
             </div>
           </div>
           <div className="mobile-menu__secondary-tab">

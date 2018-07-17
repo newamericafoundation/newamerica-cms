@@ -66,9 +66,6 @@
       //  color: color(black, base, 0.6);
       }
 
-      // @include box-shadow( 0px 2px 6px 0px color(black, base, 0.15) );
-      // box-shadow: inset 0px -3px 0px 0px color(turquoise, base, 1),
-      //   0px 2px 6px 0px color(black, base, 0.15);
       @include box-shadow( 0px 2px 6px 0px color(black, base, 0.15) );
       top: -3px;
     }
@@ -85,6 +82,20 @@
       }
     }
   }
+}
+
+:not(h2).card__text__title:hover u{
+  display: inline;
+  background-image: linear-gradient(90deg,color(turquoise) 100%,transparent 0);
+  background-position: 0 1.04em;
+  background-repeat: repeat-x;
+  background-size: 100% 2px;
+}
+
+h2.card__text__title:hover u{
+  text-decoration: underline;
+  text-decoration-color: color(turquoise);
+  -webkit-text-decoration-color: color(turquoise);
 }
 
 @import 'event';

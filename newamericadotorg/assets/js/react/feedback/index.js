@@ -84,13 +84,13 @@ class APP extends Component {
       <div className={`global-feedback${isOpen? ' open' : ''}`}>
         <div className="open-close" onClick={this.toggle}>
           {isOpen && <PlusX x={true} />}
-          {!isOpen && <label className="block button--text margin-0">Feedback</label>}
+          {!isOpen && <h5 className="margin-0">Feedback</h5>}
         </div>
         <form>
           <div className="global-feedback__level">
-            <label className="block">Related to:</label>
-            <label onClick={()=>{this.setLevel('sitewide')}} className={`${level=='sitewide' ? 'selected ' : ''}button--text`}>The whole site</label>
-            <label onClick={()=>{this.setLevel('thispage')}} className={`${level=='thispage' ? 'selected ' : ''}button--text`}>This page</label>
+            <h6>Related to:</h6>
+            <a onClick={()=>{this.setLevel('sitewide')}} className={`${level=='sitewide' ? 'selected ' : ''}button--text`}>The whole site</a>
+            <a onClick={()=>{this.setLevel('thispage')}} className={`${level=='thispage' ? 'selected ' : ''}button--text`}>This page</a>
           </div>
           <div className="global-feedback__type margin-top-25">
               <a title="like" className={`fa fa-thumbs-up${type=='like' ? ' selected' : ''}`} onClick={()=>{this.setType('like');}}/>
@@ -103,12 +103,12 @@ class APP extends Component {
           <div className="global-feedback__message margin-top-25">
             <TextArea label="Feedback" value={message} onChange={(e)=>{this.setMessage(e.target.value)}} type="text" />
           </div>
-          <label className="button margin-top-25 margin-bottom-0" onClick={this.submit}>
+          <a className="button margin-top-25 margin-bottom-0" onClick={this.submit}>
             {!isSubmitting && <span>Send</span>}
             {isSubmitting && <span className="loading-dots--absolute">
               <span>.</span><span>.</span><span>.</span>
             </span>}
-          </label>
+          </a>
         </form>
       </div>
     )

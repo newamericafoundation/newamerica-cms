@@ -24,8 +24,8 @@ class Endnote extends Component {
           <PlusX x={true} />
         </div>
         {endnote &&<span>
-          <label className="inline" >{`${endnote.number} `}</label>
-          <label className="inline" dangerouslySetInnerHTML={{__html: this.cleanEndnote()}}></label>
+          <h6 className="inline" >{`${endnote.number} `}</h6>
+          <h6 className="inline" dangerouslySetInnerHTML={{__html: this.cleanEndnote()}}></h6>
         </span>}
       </div>
     );

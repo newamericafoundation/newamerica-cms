@@ -12,22 +12,22 @@ class Heading extends Component {
           <div className="report__heading__title margin-80">
             <div className="report__heading__bug centered">
               <Doc />
-              <label className="bold block centered margin-top-10 margin-bottom-25">Report</label>
+              <h4 className="centered margin-top-10 margin-bottom-25">Report</h4>
             </div>
             <div className='report__heading__programs centered'>
-              <label className="button--text">
+              <h5 className="inline">
                 <a href={report.programs[0].url}>{report.programs[0].name}</a>
-              </label>
-              {report.subprograms.length>0 && <label className="button--text">
+              </h5>
+              {report.subprograms.length>0 && <h5 className="inline">
                 ,&nbsp;
                 <a className="" href={report.subprograms[0].url}>
                   {report.subprograms[0].name}
                 </a>
-              </label>}
+              </h5>}
             </div>
             <h1 className="margin-25 centered">{report.title}</h1>
             {report.subheading &&
-              <label className="subtitle centered">{report.subheading}</label>
+              <h6 className="subtitle centered">{report.subheading}</h6>
             }
           </div>
           {report.story_image &&
@@ -35,7 +35,7 @@ class Heading extends Component {
               <div className="post-heading__image__wrapper">
                 <Image thumbnail={report.story_image_thumbnail} image={report.story_image.url}/>
               </div>
-              {report.story_image.source && <label className="caption">{report.story_image.source}</label>}
+              {report.story_image.source && <h6 className="caption inline">{report.story_image.source}</h6>}
             </div>
           }
         </div>

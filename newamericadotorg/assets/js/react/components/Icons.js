@@ -25,9 +25,9 @@ export const PlusX = ({x, white, ...props}) => (
 );
 
 export const LoadingDots = ({ color='black' }) => (
-  <label className={`button--text loading-dots centered ${color} block`}>
+  <h5 className={`loading-dots centered ${color} block`}>
     <span>.</span><span>.</span><span>.</span>
-  </label>
+  </h5>
 );
 
 export const Search = () => (

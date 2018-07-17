@@ -9,7 +9,7 @@ import Recaptcha from 'react-recaptcha';
 const ConfirmationList = ({ subscriptions }) => (
     <ul>
       {subscriptions.map((s,i)=>(
-        <li key={`list-${i}`}><label>{s}</label></li>
+        <li key={`list-${i}`}><h6>{s}</h6></li>
       ))}
     </ul>
   );
@@ -156,19 +156,19 @@ export default class Subscribe extends Component {
       <div className="subscribe__submit margin-top-15">
         {(!posting && !posted) && <input type="submit" className="button" value="Sign Up" />}
         {posting &&
-          <label className="button turquoise">
+          <h6 className="button inline turquoise">
             <span className="loading-dots--absolute">
               <span>.</span><span>.</span><span>.</span>
             </span>
-          </label>}
+          </h6>}
         {(posted && status=='OK') && <span>
             <h3>Thank you!</h3>
-            <label className="block">You'll now start receiving emails from:</label>
+            <h6>You'll now start receiving emails from:</h6>
             <ConfirmationList subscriptions={this.state.subscriptions}/>
           </span>
         }
-        {status=='UNVERIFIED' && <label className="block">We're sorry. We were unable to verify that you're not a robot.</label>}
-        {(status!='OK' && status!='UNVERIFIED') && <label className='block'>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</label>}
+        {status=='UNVERIFIED' && <h6>We're sorry. We were unable to verify that you're not a robot.</h6>}
+        {(status!='OK' && status!='UNVERIFIED') && <h6>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</h6>}
       </div>
     );
   }
@@ -198,7 +198,7 @@ export default class Subscribe extends Component {
               {this.submitButton()}
             </div>
             <div className="subscribe__lists push-md-1 col-md-5">
-                <label className="block button--text margin-35">Lists</label>
+                <h5 className="margin-35">Lists</h5>
                 <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
             </div>
           </div>

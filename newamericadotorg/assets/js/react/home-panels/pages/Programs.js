@@ -13,13 +13,13 @@ class Programs extends Component {
         </div>
         {p.subprograms &&
           <div className="program-card__subprograms">
-            <label className="block bold">Initiative & Projects</label>
+            <h4>Initiative & Projects</h4>
             <ul className="inline program-card__subprograms__list">
               {p.subprograms.map((s,i)=>(
                 <li key={`program-${i}`}>
-                  <label className="link">
+                  <h6 className="inline link">
                     <a href={s.url}><u>{s.title}</u></a>
-                  </label>
+                  </h6>
                 </li>
               ))}
             </ul>

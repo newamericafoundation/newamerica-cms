@@ -13,10 +13,10 @@ export class Promo extends Component {
 
           <div className="promo__heading col-12 col-lg-2">
             {linkTo && <Link to={linkTo}>
-              <label className="block button--text white margin-0">{title}</label>
+              <h5 className="white margin-0">{title}</h5>
             </Link>}
             {!linkTo &&
-              <label className="block button--text white margin-0">{title}</label>
+              <h5 className="white margin-0">{title}</h5>
             }
           </div>
 
@@ -39,13 +39,13 @@ export class PromoMd extends Component {
     return (
       <div className="card promo-md">
         <div className="card__text">
-          <label className="block margin-top-0">{title}</label>
+          <h6 className="margin-top-0">{title}</h6>
           {this.props.children}
         </div>
         <div className="card__link-to">
-          <label className="button--text link with-caret--right">
-            <Link to={to}>{label}</Link>
-          </label>
+          <Link to={to} className="button--text link with-caret--right">
+            {label}
+          </Link>
         </div>
       </div>
     );
@@ -59,8 +59,8 @@ const Person = ({ person }) => (
     </div>
     <div className="promo__people-carousel__person__text">
       <h3 className="margin-top-0">{person.first_name} {person.last_name}</h3>
-      <label className="block caption">{person.position}</label>
-      <label className="block">{person.description}</label>
+      <h6 className="caption">{person.position}</h6>
+      <h6>{person.description}</h6>
     </div>
   </div>
 );

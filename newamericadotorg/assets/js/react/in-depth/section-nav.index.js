@@ -35,13 +35,13 @@ class APP extends Component {
               {breakpoint: 960, settings: {slidesToShow: 2}},
               {breakpoint: 100000, settings: {slidesToShow: 3}}
             ]}
-            nextArrow={<div><label className="with-caret--right white"/></div>}
-            prevArrow={<div><label className="with-caret--left white"/></div>}>
+            nextArrow={<div><a className="button--text with-caret--right white"/></div>}
+            prevArrow={<div><a className="button--text with-caret--left white"/></div>}>
             {sections.map((s,i)=>(
               <div key={`section-${i}`}>
-                <label className={`white centered${+currentSlide==i ? ' bold' : ''}`}>
+                <h6 className={`white centered${+currentSlide==i ? ' bold' : ''}`}>
                   <a href={s.url}>{s.title}</a>
-                </label>
+                </h6>
               </div>
             ))}
             <div />

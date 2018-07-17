@@ -32,15 +32,15 @@ class HomeSubscribe extends Subscribe {
             </div>
             <div className="subscribe__lists push-md-1 col-md-5">
               <div className="home__subscribe__toggles margin-top-25 margin-top-lg-0">
-                <label className={`${this.state.shifted ? '' : 'bold'}`}
+                <h6 className={`${this.state.shifted ? '' : 'bold'}`}
                   onClick={()=>{this.setState({ shifted: false})}}>
                   New America Lists
-                </label>
+                </h6>
                 <span>|</span>
-                <label className={`${this.state.shifted ? 'bold' : ''}`}
+                <h6 className={`${this.state.shifted ? 'bold' : ''}`}
                   onClick={()=>{this.setState({ shifted: true})}}>
                   Program Lists
-                </label>
+                </h6>
               </div>
               <div className="primary margin-25">
                 <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
@@ -51,7 +51,7 @@ class HomeSubscribe extends Subscribe {
                     if(!p.subscriptions) return null;
                     return (
                       <div key={`list-${i}`} className="subscribe__program-list margin-bottom-25">
-                        <label className="block button--text margin-bottom-10">{p.title}</label>
+                        <h5 className="margin-bottom-10">{p.title}</h5>
                         <List list={p.subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
                       </div>
                     );

@@ -1,4 +1,4 @@
-.button--text, label{
+.button--text, h5, h6{
   &.with-border {
     border-bottom: 1.5px solid color(turquoise);
   }
@@ -55,9 +55,9 @@
 .button--text.with-caret--right,
 .button--text.with-caret--down,
 .button--text.with-caret--up,
-label.bold.with-caret--right
-label.bold.with-caret--down,
-label.bold.with-caret--up{
+h5.with-caret--right,
+h5.with-caret--down,
+h5.with-caret--up{
   &:after{
     border-right: 1.5px solid color(black);
     border-bottom: 1.5px solid color(black);
@@ -65,7 +65,7 @@ label.bold.with-caret--up{
 }
 
 .button--text.with-caret--left:before,
-label.bold.with-caret--left:before{
+h5.with-caret--left:before{
   border-left: 1.5px solid color(black);
   border-bottom: 1.5px solid color(black);
 }

@@ -18,9 +18,9 @@ class Session extends Component {
       <div className={`schedule-block__sessions__session ${expanded && hasDesc ? 'expanded' : ''}`}>
         <div className="schedule-block__sessions__session__heading">
           <div className="schedule-block__sessions__session__heading__title" onClick={expand}>
-            <label className="block button--text">
+            <h5>
               {this.formatTime(start_time)}{end_time && ' - '}{this.formatTime(end_time)}
-            </label>
+            </h5>
             <h3 className="margin-15">{name}</h3>
             {hasDesc &&
               <PlusX x={expanded} />
@@ -31,17 +31,17 @@ class Session extends Component {
           {description && <div className="post-body margin-bottom-35" dangerouslySetInnerHTML={{__html: description}} />}
         {speakers.length>0 &&
           <span>
-            <label className="block button--text margin-bottom-35">Speakers</label>
+            <h5 className="margin-bottom-35">Speakers</h5>
             <div className="schedule-block__sessions__session__speakers">
               {speakers.map((s,i)=>(
                 <div className="schedule-block__sessions__session__speakers__speaker margin-bottom-25">
-                  <label className="bold block">{s.name}
+                  <h4>{s.name}
                   {s.twitter &&
                     <a href={s.twitter} target="_blank">
                       <i className="fa fa-twitter"></i>
                     </a>}
-                  </label>
-                  {s.title && <label className="caption block">{s.title}</label>}
+                  </h4>
+                  {s.title && <h6 className="caption">{s.title}</h6>}
                 </div>
               ))}
             </div>

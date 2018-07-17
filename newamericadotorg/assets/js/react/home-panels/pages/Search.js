@@ -31,8 +31,10 @@ export default class Search extends Component {
     return (
       <div className="home__panels__search container">
         <div className="input margin-bottom-35">
-          <input type="text" required value={this.state.query} onChange={this.change}/>
-          <label className="button--text input__label">Search</label>
+          <input type="text" required value={this.state.query} name="query" onChange={this.change}/>
+          <h5 className="input__label">
+            <label htmlFor="query">Search</label>
+          </h5>
         </div>
         {this.state.query &&
         <Fetch name={NAME} endpoint={"search"}

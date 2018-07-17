@@ -1,11 +1,13 @@
 const Authors = ({ authors }) => (
   <div className="report__authors">
     <div className="report__authors__desktop">
-    <label className="block margin-top-0 margin-bottom-25">Authors</label>
+    <h6 className="margin-top-0 margin-bottom-25">Authors</h6>
     {authors.map((a, i)=>(
       <div className="report__authors__item margin-bottom-25" key={`author-${i}`}>
-        <label className="block bold link"><a href={a.url}><u>{`${a.first_name} ${a.last_name}`}</u></a></label>
-        <label className="block caption">{a.position}</label>
+        <h4 className="link">
+          <a href={a.url}><u>{`${a.first_name} ${a.last_name}`}</u></a>
+        </h4>
+        <h6 className="caption">{a.position}</h6>
       </div>
     ))}
     </div>
@@ -13,7 +15,9 @@ const Authors = ({ authors }) => (
       <span>by </span>
     {authors.map((a,i)=>(
       <span className="report__authors__item--mobile" key={`author-${i}`}>
-        <label className="bold link"><a href={a.url}><u>{`${a.first_name} ${a.last_name}`}</u></a></label>
+        <h4 className="link">
+          <a href={a.url}><u>{`${a.first_name} ${a.last_name}`}</u></a>
+        </h4>
         {(i==0 && authors.length==2) && <span> & </span>}
         {(i<authors.length-2 && authors.length>2) && <span>, </span>}
         {(i==authors.length-2 && authors.length>2) && <span> & </span>}

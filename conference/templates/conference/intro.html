@@ -21,7 +21,7 @@
           </a>
       	</div>
         <div class="conference__title__location-date row">
-          <label class="bold block white margin-0 col-6" style="text-align:right">
+          <h4 class="white margin-0 col-6" style="text-align:right">
             <span>
               <span class="fa fa-calendar-o base-clr-txt" style="padding-right: 10px;"></span>
               {% if page.end_date %}
@@ -30,16 +30,16 @@
                 {{ page.date|date:'F' }} {{ page.date|date:'j' }}, {{ page.date|date:'Y' }}
               {% endif %}
             </span>
-          </label>
-          <label class="bold block white margin-0 col-6">
+          </h4>
+          <h4 class="white margin-0 col-6">
             <span>
               <span class="fa fa-map-marker base-clr-txt" style="padding-right: 10px;"></span>
               {{page.city}}, {{page.state}}
             </span>
-          </label>
+          </h4>
         </div>
         <h1 class="promo white centered margin-35">{{page.title}}</h1>
-        <label class="pullquote white centered">{{ page.subheading }}</label>
+        <h6 class="pullquote white centered">{{ page.subheading }}</h6>
         <p class="white centered">{{page.search_description}}</p>
         <div class="btns-container {%if page.invitation_only %}invite-only{% endif %}" style="text-align:center;">
           {% if page.invitation_only %}

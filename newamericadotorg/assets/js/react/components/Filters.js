@@ -73,12 +73,12 @@ export class Filter extends Component {
 
   label = () => {
     return (
-      <label className="program__publications-filters__filter__heading block bold margin-25" onClick={this.toggle}>
+      <h4 className="program__publications-filters__filter__heading margin-25" onClick={this.toggle}>
         {this.props.label}
         <div className="icon">
           <PlusX x={this.state.expanded} />
         </div>
-      </label>
+      </h4>
     );
   }
 }
@@ -279,11 +279,11 @@ export class TopicFilter extends Filter {
       <div className={`program__publications-filters__filter topic-filter ${this.state.expanded ? 'expanded' : ''}`}>
         {this.label()}
         <form>
-          {topicArray && <label className="button--text clear-topics margin-top-0 margin-bottom-5" onClick={()=>{ this.handleChange({ target: { value: ''}}) }}>Reset</label>}
+          {topicArray && <h5 className="clear-topics margin-top-0 margin-bottom-5" onClick={()=>{ this.handleChange({ target: { value: ''}}) }}>Reset</h5>}
           {topicArray && <ul className="topic-filter__selected-topics margin-bottom-25 margin-top-0">
             {topicArray.map((t,i)=>(
               <li key={`selected-topic-${i}`} onClick={()=>{ this.handleChange({ target: { value: t.id }}) }}>
-                <label className="button--text margin-0">{t.title}</label>
+                <h5 className="margin-0">{t.title}</h5>
               </li>
             ))}
           </ul>}

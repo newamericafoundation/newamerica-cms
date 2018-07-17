@@ -26,16 +26,16 @@ class APP extends Component {
         <div className='container'>
           <div className='row'>
             <div className='col-12 col-md-8'>
-              <label className="block bold white margin-0">
+              <h4 className="white margin-0">
                 This website uses cookies to give you the best experience.
-              </label>
-              <label className="block white margin-0">
+              </h4>
+              <h6 className="white margin-0">
                 By clicking "OK, I understand," you are giving your consent.
-              </label>
+              </h6>
             </div>
             <div className='col-12 col-md-4 margin-top-10 margin-top-md-0'>
               <button className="button white" onClick={this.iunderstand}>OK, I understand</button>
-              <label className="white"><a href='/policies-and-procedures/'>Read more</a></label>
+              <h6 className="white inline"><a href='/policies-and-procedures/'>Read more</a></h6>
             </div>
           </div>
         </div>

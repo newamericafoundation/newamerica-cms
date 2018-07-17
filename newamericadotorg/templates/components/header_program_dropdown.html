@@ -5,31 +5,33 @@
 <div class="row">
 
   <div class="col-3">
-    <label class="bold block link column-heading margin-0"><a href="/national-network/"><u>Nat'l Network &mdash;</u></a></label>
-    <div class="header-dropdown-links">
+    <h4 class="link column-heading margin-0"><a href="/national-network/"><u>Nat'l Network &mdash;</u></a></h4>
+    <div class="header-dropdown-links margin-top-25">
       {% for p in locations %}
         <div class="header-dropdown-links__link">
-          <label class="block link">
+          <h6 class="link margin-0">
             <a href="{{p.program.url}}">
               <u>{{p.program.title}}</u>
             </a>
-          </label>
+          </h6>
         </div>
       {% endfor %}
     </div>
   </div>
   <div class="col-9">
-    <label class="bold block link column-heading margin-0"><a href="/programs/"><u>Programs &mdash;</u></a></label>
-    <div class="row">
+    <h4 class="link column-heading margin-0">
+      <a href="/programs/"><u>Programs &mdash;</u></a>
+    </h4>
+    <div class="row margin-top-25">
     {% for pg in program_groups %}
       <div class="header-dropdown-links col-4">
         {% for p in pg %}
         <div class="header-dropdown-links__link">
-          <label class="block link">
+          <h6 class="link margin-0">
             <a href="{{p.program.url}}">
               <u>{{p.program.title}}</u>
             </a>
-          </label>
+          </h6>
         </div>
         {% endfor %}
       </div>

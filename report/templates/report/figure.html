@@ -4,10 +4,10 @@
   {% if value.figure_number or value.figure_title %}
     <div class="figure__title">
       {% if value.figure_number %}
-        <label class="bold {% if value.figure_title %} with-separator{% endif %}">Figure {{ value.figure_number }}</label>
+        <h4 class="inline {% if value.figure_title %} with-separator{% endif %}">Figure {{ value.figure_number }}</h4>
       {% endif %}
       {% if value.figure_title %}
-        <label>{{ value.figure_title }}</label>
+        <h6 class="inline">{{ value.figure_title }}</h6>
       {% endif %}
     </div>
   {% endif %}
@@ -17,14 +17,14 @@
   {% if value.image.caption or value.image.source %}
     <figcaption>
       {% if value.image.caption %}
-        <label class="block">
+        <h6>
           {{ value.image.caption }}
-        </label>
+        </h6>
       {% endif %}
       {% if value.image.source %}
-        <label class="caption block">
+        <h6 class="caption">
           Source: {{ value.image.source }}
-        </label>
+        </h6>
       {% endif %}
     </figcaption>
   {% endif %}

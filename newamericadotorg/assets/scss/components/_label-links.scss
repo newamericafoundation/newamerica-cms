@@ -4,9 +4,10 @@ label,h1,h2,h3,h4,h5,h6{
       display: inline-block;
       position: relative;
       overflow: hidden;
+      top: 1px;
       padding-bottom: 1px;
-      margin-bottom: -1px;
-      vertical-align: middle;
+    //  margin-bottom: -1px;
+      vertical-align: bottom;
       u {
         position: relative;
         z-index: 1;

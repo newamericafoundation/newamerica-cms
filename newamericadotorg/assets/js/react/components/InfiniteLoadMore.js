@@ -11,7 +11,7 @@ const LoadMoreButton = ({ onclick }) => (
 
 const NoResults = () => (
   <div className="centered margin-top-25">
-    <label className="bold">No results found</label>
+    <h4>No results found</h4>
   </div>
 );
 

@@ -41,13 +41,17 @@ class StoryGrid extends Component {
           <Promo title="Subscribe">
             <div className="promo__subscribe">
               <h2>Be the first to hear about the latest events and research from {program.name}</h2>
-              <div className="input">
-                <input type="text" required onChange={(e)=>{this.setState({email: e.target.value})}} />
-                <label className="input__label button--text">Email Address</label>
-                <label className="input__submit button--text with-caret--right">
-                  <Link to={`subscribe/?email=${this.state.email}`}>Go</Link>
-                </label>
-              </div>
+              <form>
+                <div className="input">
+                  <input type="text" name="email" required onChange={(e)=>{this.setState({email: e.target.value})}} />
+                  <label className="input__label" htmlFor="email">
+                    <h5 className="margin-0">Email Address</h5>
+                  </label>
+                  <div className="input__submit ">
+                    <Link className="button--text with-caret--right" to={`subscribe/?email=${this.state.email}`}>Go</Link>
+                  </div>
+                </div>
+              </form>
             </div>
           </Promo>}
         </div>

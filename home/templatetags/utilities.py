@@ -103,7 +103,7 @@ def generate_byline(ptype, authors):
 	# counter is used to determine appropriate list separator
 	counter = 1
 	for author in authors:
-		ret_string += '<label class="bold link margin-top-0"><a href="' + author.author.url + '"><u>' + author.author.first_name + ' ' + author.author.last_name + '</u></a></label>'
+		ret_string += '<h4 class="inline margin-0 link"><a href="' + author.author.url + '"><u>' + author.author.first_name + ' ' + author.author.last_name + '</u></a></h4>'
 		ret_string += list_separator(num_authors - counter, num_authors)
 		counter += 1
 

@@ -111,9 +111,9 @@ export default class People extends Component {
             }}/>
           {(!this.state.showAllFellows && (program.slug == 'fellows' || program.slug == 'ca')) &&
             <div className="program__publications-list-load-more margin-top-10">
-              <label className={`button`} onClick={this.showAllFellows}>
+              <a className={`button`} onClick={this.showAllFellows}>
                 <span className="load-more-label">Former Fellows</span>
-              </label>
+              </a>
             </div>
           }{this.state.showAllFellows &&
             <Fetch name={`${NAME}.allFellow`}
