@@ -31,13 +31,13 @@ from subscribe.campaign_monitor import update_subscriber
 from ipware import get_client_ip
 
 class PostFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
-    subprogram_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
-    author_id = django_filters.CharFilter(name='post_author__id', lookup_expr='iexact')
-    author_slug = django_filters.CharFilter(name='post_author__slug', lookup_expr="iexact")
-    after = django_filters.DateFilter(name='date', lookup_expr='gte')
-    before = django_filters.DateFilter(name='date', lookup_expr='lte')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(field_name='parent_programs__id', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(field_name='post_subprogram__id', lookup_expr='iexact')
+    author_id = django_filters.CharFilter(field_name='post_author__id', lookup_expr='iexact')
+    author_slug = django_filters.CharFilter(field_name='post_author__slug', lookup_expr="iexact")
+    after = django_filters.DateFilter(field_name='date', lookup_expr='gte')
+    before = django_filters.DateFilter(field_name='date', lookup_expr='lte')
 
 
     class Meta:
@@ -130,7 +130,7 @@ class SearchList(generics.ListAPIView):
 
 
 class TopicFilter(django_filters.rest_framework.FilterSet):
-    program_id = django_filters.CharFilter(name='parent_program__id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(field_name='parent_program__id', lookup_expr='iexact')
 
     class Meta:
         model = IssueOrTopic
@@ -150,14 +150,14 @@ BOOLEAN_CHOICES = (('false', 'False'), ('true', 'True'),)
 from distutils.util import strtobool
 
 class AuthorFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    slug = django_filters.CharFilter(name='slug', lookup_expr="iexact")
-    program_id = django_filters.CharFilter(name='belongs_to_these_programs__id', lookup_expr='iexact')
-    program_slug = django_filters.CharFilter(name='belongs_to_these_programs__slug', lookup_expr='iexact')
-    subprogram_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
-    role = django_filters.CharFilter(name='role', lookup_expr='iexact')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    slug = django_filters.CharFilter(field_name='slug', lookup_expr="iexact")
+    program_id = django_filters.CharFilter(field_name='belongs_to_these_programs__id', lookup_expr='iexact')
+    program_slug = django_filters.CharFilter(field_name='belongs_to_these_programs__slug', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(field_name='belongs_to_these_subprograms__id', lookup_expr='iexact')
+    role = django_filters.CharFilter(field_name='role', lookup_expr='iexact')
     leadership = django_filters.TypedChoiceFilter(choices=BOOLEAN_CHOICES,coerce=strtobool)
-    name = django_filters.CharFilter(name='title', lookup_expr='icontains')
+    name = django_filters.CharFilter(field_name='title', lookup_expr='icontains')
 
     class Meta:
         model = Person
@@ -248,14 +248,14 @@ class FellowList(generics.ListAPIView):
         return queryset
 
 class EventFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
-    subprogram_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
-    program_slug = django_filters.CharFilter(name='parent_programs__slug', lookup_expr='iexact')
-    subprogram_slug = django_filters.CharFilter(name='post_subprogram__slug', lookup_expr='iexact')
-    topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
-    after = django_filters.DateFilter(name='date', lookup_expr='gte')
-    before = django_filters.DateFilter(name='date', lookup_expr='lte')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(field_name='parent_programs__id', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(field_name='post_subprogram__id', lookup_expr='iexact')
+    program_slug = django_filters.CharFilter(field_name='parent_programs__slug', lookup_expr='iexact')
+    subprogram_slug = django_filters.CharFilter(field_name='post_subprogram__slug', lookup_expr='iexact')
+    topic_id = django_filters.CharFilter(field_name='topic__id', lookup_expr='iexact')
+    after = django_filters.DateFilter(field_name='date', lookup_expr='gte')
+    before = django_filters.DateFilter(field_name='date', lookup_expr='lte')
 
     class Meta:
         model = Post
@@ -345,8 +345,8 @@ class JobsList(views.APIView):
         })
 
 class ProgramFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    slug = django_filters.CharFilter(name='slug', lookup_expr='iexact')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    slug = django_filters.CharFilter(field_name='slug', lookup_expr='iexact')
 
     class Meta:
         model = Program
@@ -380,8 +380,8 @@ class FellowshipList(views.APIView):
         })
 
 class SubprogramFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(field_name='parent_programs__id', lookup_expr='iexact')
 
     class Meta:
         model = Subprogram
