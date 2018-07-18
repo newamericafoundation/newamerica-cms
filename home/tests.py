@@ -5,7 +5,7 @@ import datetime
 from datetime import date, timedelta
 
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, PostAuthorRelationship
 

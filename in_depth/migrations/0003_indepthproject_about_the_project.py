@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.wagtailcore.fields
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='indepthproject',
             name='about_the_project',
-            field=wagtail.wagtailcore.fields.RichTextField(blank=True, null=True),
+            field=wagtail.core.fields.RichTextField(blank=True, null=True),
         ),
     ]

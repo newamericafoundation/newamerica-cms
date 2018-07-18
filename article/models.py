@@ -2,8 +2,8 @@ from django.db import models
 
 from home.models import Post
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.core.models import Page
+from wagtail.admin.edit_handlers import FieldPanel
 
 from newamericadotorg.helpers import get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage

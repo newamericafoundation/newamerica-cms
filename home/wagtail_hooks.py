@@ -1,8 +1,8 @@
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html, format_html_join
 from django.conf import settings
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
+from wagtail.core import hooks
+from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
 
 @hooks.register('construct_whitelister_element_rules')
 def whitelister_element_rules():

@@ -8,9 +8,9 @@ from other_content.models import ProgramOtherPostsPage, OtherPostCategory
 from policy_paper.models import ProgramPolicyPapersPage
 
 from django.core.urlresolvers import reverse
-from wagtail.wagtailimages.views.serve import generate_signature
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import SourceImageIOError
+from wagtail.images.views.serve import generate_signature
+from wagtail.core.models import Page
+from wagtail.images.models import SourceImageIOError
 
 def generate_image_rendition(image, filter_spec=None):
     if not image:

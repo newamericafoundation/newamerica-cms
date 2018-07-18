@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.wagtailcore.fields
-import wagtail.wagtailembeds.blocks
+import wagtail.core.fields
+import wagtail.embeds.blocks
 
 
 class Migration(migrations.Migration):
@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='podcast',
             name='soundcloud',
-            field=wagtail.wagtailcore.fields.StreamField((('soundcloud_embed', wagtail.wagtailembeds.blocks.EmbedBlock()),), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('soundcloud_embed', wagtail.embeds.blocks.EmbedBlock()),), blank=True, null=True),
         ),
     ]

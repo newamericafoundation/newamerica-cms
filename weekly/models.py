@@ -2,10 +2,10 @@ from __future__ import unicode_literals
 
 from home.models import Post
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailcore.blocks import PageChooserBlock
+from wagtail.core.models import Page
+from wagtail.admin.edit_handlers import StreamFieldPanel
+from wagtail.core.fields import StreamField
+from wagtail.core.blocks import PageChooserBlock
 
 from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results

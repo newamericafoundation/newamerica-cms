@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
+import wagtail.core.blocks
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='program',
             name='feature_carousel',
-            field=wagtail.wagtailcore.fields.StreamField((('page', wagtail.wagtailcore.blocks.PageChooserBlock()),), blank=True),
+            field=wagtail.core.fields.StreamField((('page', wagtail.core.blocks.PageChooserBlock()),), blank=True),
         ),
         migrations.AlterField(
             model_name='program',
@@ -38,17 +38,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='program',
             name='sidebar_menu_about_us_pages',
-            field=wagtail.wagtailcore.fields.StreamField((('Item', wagtail.wagtailcore.blocks.PageChooserBlock()),), blank=True),
+            field=wagtail.core.fields.StreamField((('Item', wagtail.core.blocks.PageChooserBlock()),), blank=True),
         ),
         migrations.AlterField(
             model_name='program',
             name='sidebar_menu_initiatives_and_projects_pages',
-            field=wagtail.wagtailcore.fields.StreamField((('Item', wagtail.wagtailcore.blocks.PageChooserBlock()),), blank=True),
+            field=wagtail.core.fields.StreamField((('Item', wagtail.core.blocks.PageChooserBlock()),), blank=True),
         ),
         migrations.AlterField(
             model_name='program',
             name='sidebar_menu_our_work_pages',
-            field=wagtail.wagtailcore.fields.StreamField((('Item', wagtail.wagtailcore.blocks.PageChooserBlock()),), blank=True),
+            field=wagtail.core.fields.StreamField((('Item', wagtail.core.blocks.PageChooserBlock()),), blank=True),
         ),
         migrations.AlterField(
             model_name='project',
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='subprogram',
             name='feature_carousel',
-            field=wagtail.wagtailcore.fields.StreamField((('page', wagtail.wagtailcore.blocks.PageChooserBlock()),), blank=True),
+            field=wagtail.core.fields.StreamField((('page', wagtail.core.blocks.PageChooserBlock()),), blank=True),
         ),
         migrations.AlterField(
             model_name='subprogram',

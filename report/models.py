@@ -7,18 +7,18 @@ from programs.models import AbstractContentPage
 from newamericadotorg.blocks import ReportSectionBlock
 from .blocks import EndnoteBlock
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel, TabbedInterface, ObjectList)
-from wagtail.wagtailcore.blocks import URLBlock, RichTextBlock
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtaildocs.blocks import DocumentChooserBlock
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.core.blocks import URLBlock, RichTextBlock
+from wagtail.core.fields import RichTextField
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 
-from wagtail.wagtailsearch import index
+from wagtail.search import index
 
 from home.models import AbstractHomeContentPage
 

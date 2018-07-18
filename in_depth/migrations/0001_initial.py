@@ -6,10 +6,10 @@ from django.db import migrations, models
 import django.db.models.deletion
 import home.blocks
 import wagtail.contrib.table_block.blocks
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
-import wagtail.wagtailembeds.blocks
-import wagtail.wagtailimages.blocks
+import wagtail.core.blocks
+import wagtail.core.fields
+import wagtail.embeds.blocks
+import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
             name='InDepthProject',
             fields=[
                 ('post_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='home.Post')),
-                ('buttons', wagtail.wagtailcore.fields.StreamField([('button', wagtail.wagtailcore.blocks.StructBlock([('button_text', wagtail.wagtailcore.blocks.CharBlock(max_length=50, required=True)), ('button_url', wagtail.wagtailcore.blocks.URLBlock(default='https://www.', required=True))]))], blank=True, null=True)),
+                ('buttons', wagtail.core.fields.StreamField([('button', wagtail.core.blocks.StructBlock([('button_text', wagtail.core.blocks.CharBlock(max_length=50, required=True)), ('button_url', wagtail.core.blocks.URLBlock(default='https://www.', required=True))]))], blank=True, null=True)),
                 ('project_logo', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='home.CustomImage')),
             ],
             options={
@@ -50,9 +50,9 @@ class Migration(migrations.Migration):
             name='InDepthSection',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('subheading', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
+                ('subheading', wagtail.core.fields.RichTextField(blank=True, null=True)),
                 ('generate_title_panel', models.BooleanField(default=False, help_text='Will create a title panel before the first panel if checked')),
-                ('panels', wagtail.wagtailcore.fields.StreamField([('panel', wagtail.wagtailcore.blocks.StructBlock([('panel_title', wagtail.wagtailcore.blocks.CharBlock(required=True)), ('panel_color_theme', wagtail.wagtailcore.blocks.ChoiceBlock(choices=[('white', 'White'), ('grey', 'Grey'), ('black', 'Black')])), ('panel_body', wagtail.wagtailcore.blocks.StreamBlock([(b'heading', wagtail.wagtailcore.blocks.CharBlock(classname='full title')), (b'paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), (b'image', wagtail.wagtailimages.blocks.ImageChooserBlock(icon='image')), (b'video', wagtail.wagtailembeds.blocks.EmbedBlock(icon='media')), (b'table', wagtail.contrib.table_block.blocks.TableBlock()), (b'button', wagtail.wagtailcore.blocks.StructBlock([(b'button_text', wagtail.wagtailcore.blocks.CharBlock(max_length=50, required=True)), (b'button_link', wagtail.wagtailcore.blocks.URLBlock(default=b'https://www.', required=True)), (b'alignment', wagtail.wagtailcore.blocks.ChoiceBlock(choices=[(b'left-aligned', b'Left'), (b'center-aligned', b'Center')]))])), (b'iframe', wagtail.wagtailcore.blocks.StructBlock([(b'source_url', wagtail.wagtailcore.blocks.URLBlock(required=True)), (b'width', home.blocks.IntegerBlock(help_text=b'The maximum possible iframe width is 1050', max_value=1050)), (b'height', home.blocks.IntegerBlock())]))]))]))], blank=True, null=True)),
+                ('panels', wagtail.core.fields.StreamField([('panel', wagtail.core.blocks.StructBlock([('panel_title', wagtail.core.blocks.CharBlock(required=True)), ('panel_color_theme', wagtail.core.blocks.ChoiceBlock(choices=[('white', 'White'), ('grey', 'Grey'), ('black', 'Black')])), ('panel_body', wagtail.core.blocks.StreamBlock([(b'heading', wagtail.core.blocks.CharBlock(classname='full title')), (b'paragraph', wagtail.core.blocks.RichTextBlock()), (b'image', wagtail.images.blocks.ImageChooserBlock(icon='image')), (b'video', wagtail.embeds.blocks.EmbedBlock(icon='media')), (b'table', wagtail.contrib.table_block.blocks.TableBlock()), (b'button', wagtail.core.blocks.StructBlock([(b'button_text', wagtail.core.blocks.CharBlock(max_length=50, required=True)), (b'button_link', wagtail.core.blocks.URLBlock(default=b'https://www.', required=True)), (b'alignment', wagtail.core.blocks.ChoiceBlock(choices=[(b'left-aligned', b'Left'), (b'center-aligned', b'Center')]))])), (b'iframe', wagtail.core.blocks.StructBlock([(b'source_url', wagtail.core.blocks.URLBlock(required=True)), (b'width', home.blocks.IntegerBlock(help_text=b'The maximum possible iframe width is 1050', max_value=1050)), (b'height', home.blocks.IntegerBlock())]))]))]))], blank=True, null=True)),
                 ('story_excerpt', models.CharField(blank=True, max_length=140, null=True)),
                 ('story_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='home.CustomImage')),
             ],

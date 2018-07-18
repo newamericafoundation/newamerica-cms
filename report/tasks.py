@@ -3,10 +3,10 @@ from time import gmtime, strftime
 from weasyprint import HTML
 from django.template import loader
 import tempfile
-from wagtail.wagtaildocs.models import get_document_model
+from wagtail.documents.models import get_document_model
 from newamericadotorg.celery import app as celery_app
 from django.apps import apps
-from wagtail.wagtailcore.models import PageRevision
+from wagtail.core.models import PageRevision
 from .utils.docx_save import generate_docx_streamfields
 
 @celery_app.task

@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
+import wagtail.core.blocks
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -17,11 +17,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='subscribepage',
             name='event_subscriptions',
-            field=wagtail.wagtailcore.fields.StreamField([('subscription', wagtail.wagtailcore.blocks.StructBlock([('title', wagtail.wagtailcore.blocks.CharBlock(required=True)), ('description', wagtail.wagtailcore.blocks.CharBlock(max_length=120, required=False)), ('id', wagtail.wagtailcore.blocks.CharBlock(help_text='Enter the unique campaign monitor ID', max_length=6, required=True)), ('checked_by_default', wagtail.wagtailcore.blocks.BooleanBlock(default=False, help_text='Controls whether subscription is checked by default on the Subscribe Page', required=False))], icon='placeholder'))], blank=True, null=True),
+            field=wagtail.core.fields.StreamField([('subscription', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(required=True)), ('description', wagtail.core.blocks.CharBlock(max_length=120, required=False)), ('id', wagtail.core.blocks.CharBlock(help_text='Enter the unique campaign monitor ID', max_length=6, required=True)), ('checked_by_default', wagtail.core.blocks.BooleanBlock(default=False, help_text='Controls whether subscription is checked by default on the Subscribe Page', required=False))], icon='placeholder'))], blank=True, null=True),
         ),
         migrations.AddField(
             model_name='subscribepage',
             name='newsletter_subscriptions',
-            field=wagtail.wagtailcore.fields.StreamField([('subscription', wagtail.wagtailcore.blocks.StructBlock([('title', wagtail.wagtailcore.blocks.CharBlock(required=True)), ('description', wagtail.wagtailcore.blocks.CharBlock(max_length=120, required=False)), ('id', wagtail.wagtailcore.blocks.CharBlock(help_text='Enter the unique campaign monitor ID', max_length=6, required=True)), ('checked_by_default', wagtail.wagtailcore.blocks.BooleanBlock(default=False, help_text='Controls whether subscription is checked by default on the Subscribe Page', required=False))], icon='placeholder'))], blank=True, null=True),
+            field=wagtail.core.fields.StreamField([('subscription', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(required=True)), ('description', wagtail.core.blocks.CharBlock(max_length=120, required=False)), ('id', wagtail.core.blocks.CharBlock(help_text='Enter the unique campaign monitor ID', max_length=6, required=True)), ('checked_by_default', wagtail.core.blocks.BooleanBlock(default=False, help_text='Controls whether subscription is checked by default on the Subscribe Page', required=False))], icon='placeholder'))], blank=True, null=True),
         ),
     ]

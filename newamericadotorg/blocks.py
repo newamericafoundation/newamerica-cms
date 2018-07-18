@@ -1,19 +1,19 @@
 from django.db import models
 from django import forms
 
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailembeds.blocks import EmbedBlock
-from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.core import blocks
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.wagtailcore.blocks import IntegerBlock
-from wagtail.wagtaildocs.blocks import DocumentChooserBlock
-from wagtail.wagtailcore.rich_text import RichText
-from wagtail.wagtailcore.blocks import stream_block
+from wagtail.core.blocks import IntegerBlock
+from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.core.rich_text import RichText
+from wagtail.core.blocks import stream_block
 
 import home.models
-from wagtail.wagtaildocs.models import Document
-from wagtail.wagtailcore.models import Page
+from wagtail.documents.models import Document
+from wagtail.core.models import Page
 
 from operator import itemgetter, attrgetter
 import json, datetime

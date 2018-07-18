@@ -7,8 +7,8 @@ from rest_framework.decorators import api_view
 from django.shortcuts import redirect
 from django_filters.rest_framework import FilterSet
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch.models import Query
+from wagtail.core.models import Page
+from wagtail.search.models import Query
 
 from home.models import Post, HomePage, OrgSimplePage
 from person.models import Person
@@ -102,7 +102,7 @@ class ReportDetail(generics.RetrieveAPIView):
     queryset = Report.objects.live()
 
 
-from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.search.backends import get_search_backend
 
 class SearchList(generics.ListAPIView):
     serializer_class = SearchSerializer
@@ -113,7 +113,7 @@ class SearchList(generics.ListAPIView):
         results = Page.objects.live().search(search)
         query = Query.get(search)
         query.add_hit()
-        from wagtail.wagtailcore.models import PageViewRestriction
+        from wagtail.core.models import PageViewRestriction
         public_results =[]
         restrictions = PageViewRestriction.objects.all()
         for obj in results:

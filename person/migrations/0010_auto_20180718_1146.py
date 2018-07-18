@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
+import wagtail.core.blocks
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='person',
             name='social_media',
-            field=wagtail.wagtailcore.fields.StreamField((('twitter', wagtail.wagtailcore.blocks.URLBlock(help_text='Twitter Profile Link', icon='user', required=False)), ('facebook', wagtail.wagtailcore.blocks.URLBlock(help_text='Facebook Profile', icon='user', required=False)), ('youtube', wagtail.wagtailcore.blocks.URLBlock(help_text='YouTube Channel', icon='media', required=False)), ('google_plus', wagtail.wagtailcore.blocks.URLBlock(help_text='Google+ Profile', icon='user', required=False)), ('linkedin', wagtail.wagtailcore.blocks.URLBlock(help_text='LinkedIn Profile', icon='user', required=False)), ('tumblr', wagtail.wagtailcore.blocks.URLBlock(help_text='Tumblr', icon='user', required=False))), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('twitter', wagtail.core.blocks.URLBlock(help_text='Twitter Profile Link', icon='user', required=False)), ('facebook', wagtail.core.blocks.URLBlock(help_text='Facebook Profile', icon='user', required=False)), ('youtube', wagtail.core.blocks.URLBlock(help_text='YouTube Channel', icon='media', required=False)), ('google_plus', wagtail.core.blocks.URLBlock(help_text='Google+ Profile', icon='user', required=False)), ('linkedin', wagtail.core.blocks.URLBlock(help_text='LinkedIn Profile', icon='user', required=False)), ('tumblr', wagtail.core.blocks.URLBlock(help_text='Tumblr', icon='user', required=False))), blank=True, null=True),
         ),
     ]

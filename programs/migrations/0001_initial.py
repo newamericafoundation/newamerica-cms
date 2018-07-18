@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
+import wagtail.core.blocks
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -26,11 +26,11 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(help_text=b'Name of Program', max_length=100)),
                 ('location', models.NullBooleanField(help_text=b'Select if location based program i.e. New America NYC')),
                 ('description', models.TextField()),
-                ('feature_carousel', wagtail.wagtailcore.fields.StreamField([(b'page', wagtail.wagtailcore.blocks.PageChooserBlock())], blank=True)),
+                ('feature_carousel', wagtail.core.fields.StreamField([(b'page', wagtail.core.blocks.PageChooserBlock())], blank=True)),
                 ('story_excerpt', models.CharField(blank=True, max_length=500, null=True)),
-                ('sidebar_menu_initiatives_and_projects_pages', wagtail.wagtailcore.fields.StreamField([(b'Item', wagtail.wagtailcore.blocks.PageChooserBlock())], blank=True)),
-                ('sidebar_menu_our_work_pages', wagtail.wagtailcore.fields.StreamField([(b'Item', wagtail.wagtailcore.blocks.PageChooserBlock())], blank=True)),
-                ('sidebar_menu_about_us_pages', wagtail.wagtailcore.fields.StreamField([(b'Item', wagtail.wagtailcore.blocks.PageChooserBlock())], blank=True)),
+                ('sidebar_menu_initiatives_and_projects_pages', wagtail.core.fields.StreamField([(b'Item', wagtail.core.blocks.PageChooserBlock())], blank=True)),
+                ('sidebar_menu_our_work_pages', wagtail.core.fields.StreamField([(b'Item', wagtail.core.blocks.PageChooserBlock())], blank=True)),
+                ('sidebar_menu_about_us_pages', wagtail.core.fields.StreamField([(b'Item', wagtail.core.blocks.PageChooserBlock())], blank=True)),
             ],
             options={
                 'ordering': ('title',),
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(help_text=b'Name of Program', max_length=100)),
                 ('location', models.NullBooleanField(help_text=b'Select if location based program i.e. New America NYC')),
                 ('description', models.TextField()),
-                ('feature_carousel', wagtail.wagtailcore.fields.StreamField([(b'page', wagtail.wagtailcore.blocks.PageChooserBlock())], blank=True)),
+                ('feature_carousel', wagtail.core.fields.StreamField([(b'page', wagtail.core.blocks.PageChooserBlock())], blank=True)),
                 ('story_excerpt', models.CharField(blank=True, max_length=500, null=True)),
                 ('about_us_page', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page')),
                 ('feature_1', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page')),

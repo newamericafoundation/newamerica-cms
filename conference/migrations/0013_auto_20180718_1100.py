@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
-import wagtail.wagtailimages.blocks
+import wagtail.core.blocks
+import wagtail.core.fields
+import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
@@ -40,12 +40,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='conference',
             name='description',
-            field=wagtail.wagtailcore.fields.RichTextField(help_text='This will be the ABOUT text'),
+            field=wagtail.core.fields.RichTextField(help_text='This will be the ABOUT text'),
         ),
         migrations.AlterField(
             model_name='conference',
             name='directions',
-            field=wagtail.wagtailcore.fields.StreamField((('direction', wagtail.wagtailcore.blocks.StructBlock((('transportation_type', wagtail.wagtailcore.blocks.CharBlock(help_text='e.g car, metro, taxi')), ('directions', wagtail.wagtailcore.blocks.RichTextBlock())))),), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('direction', wagtail.core.blocks.StructBlock((('transportation_type', wagtail.core.blocks.CharBlock(help_text='e.g car, metro, taxi')), ('directions', wagtail.core.blocks.RichTextBlock())))),), blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='conference',
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='conference',
             name='hotel_details',
-            field=wagtail.wagtailcore.fields.RichTextField(blank=True, help_text='must be filled for header and section to appear', null=True),
+            field=wagtail.core.fields.RichTextField(blank=True, help_text='must be filled for header and section to appear', null=True),
         ),
         migrations.AlterField(
             model_name='conference',
@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='conference',
             name='partners',
-            field=wagtail.wagtailcore.fields.StreamField((('partner', wagtail.wagtailcore.blocks.StructBlock((('name', wagtail.wagtailcore.blocks.TextBlock()), ('type', wagtail.wagtailcore.blocks.ChoiceBlock(choices=[('no_type', 'None'), ('premier_sponsor', 'Premier Sponsor'), ('sponsor', 'Sponsor'), ('media_partner', 'Media Partner'), ('recognized_partner', 'Recognized Partner')])), ('logo', wagtail.wagtailimages.blocks.ImageChooserBlock(icon='image', required=False))))),), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('partner', wagtail.core.blocks.StructBlock((('name', wagtail.core.blocks.TextBlock()), ('type', wagtail.core.blocks.ChoiceBlock(choices=[('no_type', 'None'), ('premier_sponsor', 'Premier Sponsor'), ('sponsor', 'Sponsor'), ('media_partner', 'Media Partner'), ('recognized_partner', 'Recognized Partner')])), ('logo', wagtail.images.blocks.ImageChooserBlock(icon='image', required=False))))),), blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='conference',
@@ -115,12 +115,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='conference',
             name='sessions',
-            field=wagtail.wagtailcore.fields.StreamField((('days', wagtail.wagtailcore.blocks.StructBlock((('collapsible', wagtail.wagtailcore.blocks.BooleanBlock(default=True, help_text='Allow schedule sessions to expand and collapse', required=False)), ('day', wagtail.wagtailcore.blocks.ChoiceBlock(choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6')], help_text='What day of the conference is this session on?', required=False)), ('start_time', wagtail.wagtailcore.blocks.TimeBlock(required=False)), ('end_time', wagtail.wagtailcore.blocks.TimeBlock(required=False)), ('sessions', wagtail.wagtailcore.blocks.StreamBlock((('session', wagtail.wagtailcore.blocks.StructBlock((('name', wagtail.wagtailcore.blocks.TextBlock(required=False)), ('description', wagtail.wagtailcore.blocks.RichTextBlock(required=False)), ('start_time', wagtail.wagtailcore.blocks.TimeBlock(required=False)), ('end_time', wagtail.wagtailcore.blocks.TimeBlock(required=False)), ('speakers', wagtail.wagtailcore.blocks.StreamBlock((('speaker', wagtail.wagtailcore.blocks.StructBlock((('name', wagtail.wagtailcore.blocks.TextBlock(required=True)), ('twitter', wagtail.wagtailcore.blocks.URLBlock(required=False)), ('title', wagtail.wagtailcore.blocks.TextBlock(required=False))))),))), ('archived_video_link', wagtail.wagtailcore.blocks.URLBlock(help_text='Enter youtube link after conference', required=False))))),)))), help_text='for multi-day events')),), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('days', wagtail.core.blocks.StructBlock((('collapsible', wagtail.core.blocks.BooleanBlock(default=True, help_text='Allow schedule sessions to expand and collapse', required=False)), ('day', wagtail.core.blocks.ChoiceBlock(choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6')], help_text='What day of the conference is this session on?', required=False)), ('start_time', wagtail.core.blocks.TimeBlock(required=False)), ('end_time', wagtail.core.blocks.TimeBlock(required=False)), ('sessions', wagtail.core.blocks.StreamBlock((('session', wagtail.core.blocks.StructBlock((('name', wagtail.core.blocks.TextBlock(required=False)), ('description', wagtail.core.blocks.RichTextBlock(required=False)), ('start_time', wagtail.core.blocks.TimeBlock(required=False)), ('end_time', wagtail.core.blocks.TimeBlock(required=False)), ('speakers', wagtail.core.blocks.StreamBlock((('speaker', wagtail.core.blocks.StructBlock((('name', wagtail.core.blocks.TextBlock(required=True)), ('twitter', wagtail.core.blocks.URLBlock(required=False)), ('title', wagtail.core.blocks.TextBlock(required=False))))),))), ('archived_video_link', wagtail.core.blocks.URLBlock(help_text='Enter youtube link after conference', required=False))))),)))), help_text='for multi-day events')),), blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='conference',
             name='speakers',
-            field=wagtail.wagtailcore.fields.StreamField((('title', wagtail.wagtailcore.blocks.CharBlock(required=True)), ('description', wagtail.wagtailcore.blocks.TextBlock(required=False)), ('person', wagtail.wagtailcore.blocks.StructBlock((('name', wagtail.wagtailcore.blocks.TextBlock(required=True)), ('title', wagtail.wagtailcore.blocks.TextBlock(help_text='125 character limit', max_length=125, required=False)), ('description', wagtail.wagtailcore.blocks.RichTextBlock(required=False)), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock(icon='image', required=False)), ('twitter', wagtail.wagtailcore.blocks.URLBlock(required=False)))))), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('title', wagtail.core.blocks.CharBlock(required=True)), ('description', wagtail.core.blocks.TextBlock(required=False)), ('person', wagtail.core.blocks.StructBlock((('name', wagtail.core.blocks.TextBlock(required=True)), ('title', wagtail.core.blocks.TextBlock(help_text='125 character limit', max_length=125, required=False)), ('description', wagtail.core.blocks.RichTextBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image', required=False)), ('twitter', wagtail.core.blocks.URLBlock(required=False)))))), blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='conference',
@@ -145,7 +145,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='conference',
             name='venue',
-            field=wagtail.wagtailcore.fields.StreamField((('paragraph', wagtail.wagtailcore.blocks.RichTextBlock()), ('columns', wagtail.wagtailcore.blocks.StructBlock((('left_column', wagtail.wagtailcore.blocks.RichTextBlock()), ('right_column', wagtail.wagtailcore.blocks.RichTextBlock()))))), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('paragraph', wagtail.core.blocks.RichTextBlock()), ('columns', wagtail.core.blocks.StructBlock((('left_column', wagtail.core.blocks.RichTextBlock()), ('right_column', wagtail.core.blocks.RichTextBlock()))))), blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='conference',

@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from django.test import Client
 
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 from .models import Event, AllEventsHomePage, ProgramEventsPage
 

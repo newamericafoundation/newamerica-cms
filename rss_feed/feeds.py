@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Rss201rev2Feed, Atom1Feed
 from django.http import Http404
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 from home.models import Post
 from person.models import Person

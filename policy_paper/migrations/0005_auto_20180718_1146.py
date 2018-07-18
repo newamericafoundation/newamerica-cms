@@ -3,9 +3,9 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
-import wagtail.wagtaildocs.blocks
+import wagtail.core.blocks
+import wagtail.core.fields
+import wagtail.documents.blocks
 
 
 class Migration(migrations.Migration):
@@ -18,11 +18,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='policypaper',
             name='attachment',
-            field=wagtail.wagtailcore.fields.StreamField((('attachment', wagtail.wagtaildocs.blocks.DocumentChooserBlock(null=True, required=False)),), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('attachment', wagtail.documents.blocks.DocumentChooserBlock(null=True, required=False)),), blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='policypaper',
             name='paper_url',
-            field=wagtail.wagtailcore.fields.StreamField((('policy_paper_url', wagtail.wagtailcore.blocks.URLBlock(null=True, required=False)),), blank=True, null=True),
+            field=wagtail.core.fields.StreamField((('policy_paper_url', wagtail.core.blocks.URLBlock(null=True, required=False)),), blank=True, null=True),
         ),
     ]

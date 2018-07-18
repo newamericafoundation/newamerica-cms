@@ -1,10 +1,10 @@
 from django.db import models
-from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.wagtailcore.blocks import PageChooserBlock, ChoiceBlock
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
+from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.core.blocks import PageChooserBlock, ChoiceBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from subscribe.models import SubscriptionSegment
 from modelcluster.fields import ParentalKey

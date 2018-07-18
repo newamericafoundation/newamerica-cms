@@ -1,7 +1,7 @@
 from django.conf import settings
 from programs.models import Program, Subprogram, AbstractContentPage
 from issue.models import IssueOrTopic
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from home.models import HomePage, AbstractHomeContentPage
 
 def debug(request):

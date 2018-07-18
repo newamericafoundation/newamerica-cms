@@ -57,7 +57,7 @@ es_url = os.getenv('SEARCHBOX_URL', "http://localhost:9200/")
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+        'BACKEND': 'wagtail.search.backends.elasticsearch2',
         'URLS': [es_url],
         'INDEX': 'elasticsearch',
         'TIMEOUT': 1500,
@@ -77,7 +77,7 @@ REDIS_URL = os.getenv('REDIS_URL')
 
 WAGTAILFRONTENDCACHE = {
     'cloudfront': {
-        'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
         'DISTRIBUTION_ID': 'E3IZZ8NUJMHTIF',
     },
 }

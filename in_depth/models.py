@@ -3,19 +3,19 @@ from __future__ import unicode_literals
 from django.db import models
 import json
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from home.models import Post
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.fields import StreamField, RichTextField
-from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.core import blocks
+from wagtail.core.fields import StreamField, RichTextField
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 
 from newamericadotorg.blocks import ButtonBlock, IframeBlock, DatavizBlock
 from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock, VideoDataReferenceBlock
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results, get_org_wide_posts

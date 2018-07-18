@@ -3,8 +3,8 @@ from django.template import loader
 from rest_framework import serializers
 from rest_framework.serializers import Serializer, ModelSerializer, SerializerMethodField
 
-from wagtail.wagtailcore.models import Page, ContentType
-from wagtail.wagtaildocs.models import Document
+from wagtail.core.models import Page, ContentType
+from wagtail.documents.models import Document
 from home.models import Post, CustomImage, OrgSimplePage, PostAuthorRelationship
 from programs.models import Program, Subprogram, Project, BlogProject, AbstractContentPage
 from person.models import Person
