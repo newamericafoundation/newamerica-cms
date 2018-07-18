@@ -357,10 +357,12 @@ class ProgramDetail(generics.RetrieveAPIView):
     serializer_class = ProgramDetailSerializer
 
 class ProgramList(generics.ListAPIView):
-    queryset = Program.objects.in_menu().live().public().order_by('title').exclude(location=True)
     serializer_class = ProgramSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = ProgramFilter
+
+    def get_queryset(self):
+        return Program.objects.in_menu().live().public().order_by('title').exclude(location=True)
 
 
 class FellowshipList(views.APIView):
