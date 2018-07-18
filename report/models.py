@@ -34,7 +34,7 @@ class Report(Post):
 
     sections = StreamField([
         ('section', ReportSectionBlock(template="components/report_section_body.html"))
-    ])
+    ], null=True, blank=True)
 
     acknowledgements = RichTextField(blank=True, null=True)
 
@@ -64,15 +64,15 @@ class Report(Post):
 
     endnotes = StreamField([
         ('endnote', EndnoteBlock()),
-    ])
+    ], null=True, blank=True)
 
     report_url = StreamField([
         ('report_url', URLBlock(required=False, null=True)),
-    ])
+    ], null=True, blank=True)
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False, null=True)),
-    ])
+    ], null=True, blank=True)
 
     publication_cover_image = models.ForeignKey(
         'home.CustomImage',

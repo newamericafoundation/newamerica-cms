@@ -130,7 +130,7 @@ class Person(Page):
                 help_text='Tumblr',
                 icon='user'
             )),
-    ])
+    ], null=True, blank=True)
 
     ROLE_OPTIONS = (
         ('Board Chair', 'Board Chair'),

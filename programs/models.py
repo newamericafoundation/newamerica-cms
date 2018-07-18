@@ -108,7 +108,7 @@ class AbstractProgram(Page):
     # Carousel of pages to feature on the landing page
     feature_carousel = StreamField([
         ('page', PageChooserBlock()),
-    ], blank=True)
+    ], null=True, blank=True)
 
     about_us_page = models.ForeignKey(
         'wagtailcore.Page',
@@ -229,15 +229,15 @@ class Program(AbstractProgram):
 
     sidebar_menu_initiatives_and_projects_pages = StreamField([
         ('Item', PageChooserBlock()),
-    ], blank=True)
+    ], null=True, blank=True)
 
     sidebar_menu_our_work_pages = StreamField([
         ('Item', PageChooserBlock()),
-    ], blank=True)
+    ], null=True, blank=True)
 
     sidebar_menu_about_us_pages = StreamField([
         ('Item', PageChooserBlock()),
-    ], blank=True)
+    ], null=True, blank=True)
 
     subscription_segments = models.ManyToManyField(
         SubscriptionSegment,

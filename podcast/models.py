@@ -22,7 +22,7 @@ class Podcast(Post):
 
     soundcloud = StreamField([
         ('soundcloud_embed', EmbedBlock()),
-    ])
+    ], null=True, blank=True)
 
     itunes_url = models.URLField(blank=True, null=True)
 

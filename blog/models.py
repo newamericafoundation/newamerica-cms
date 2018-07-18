@@ -23,7 +23,7 @@ class BlogPost(Post):
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False)),
-    ], null=True)
+    ], null=True, blank=True)
 
     content_panels = Post.content_panels + [
         StreamFieldPanel('attachment'),
