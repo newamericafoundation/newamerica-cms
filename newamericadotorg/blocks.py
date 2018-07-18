@@ -122,7 +122,7 @@ def ResourceKitSerializer(r):
 			d = {}
 			block_type = block['type']
 			value = block['value']
-			for key, val in value.iteritems():
+			for key, val in value.items():
 				if key == 'image' and val is not None:
 					img = home.models.CustomImage.objects.get(pk=val)
 					try:
@@ -219,7 +219,7 @@ def PersonBlockSerializer(block_value):
 
 			value = block['value']
 
-			for key, val in value.iteritems():
+			for key, val in value.items():
 				if key == 'image' and val is not None:
 					img = home.models.CustomImage.objects.get(pk=val)
 					try:
@@ -233,7 +233,7 @@ def PersonBlockSerializer(block_value):
 
 		return json.dumps(people, ensure_ascii=False)
 	except:
-		print 'block render failed';
+		print('block render failed');
 		return '[]'
 
 
@@ -353,19 +353,19 @@ def SessionsSerializer(s):
 		d = {}
 		value = block['value']
 
-		for key, val in value.iteritems():
+		for key, val in value.items():
 			if key == 'speakers':
 				d['speakers'] = []
 				for speakerBlock in val:
 					speaker = {}
-					for k, v in speakerBlock['value'].iteritems():
+					for k, v in speakerBlock['value'].items():
 						speaker[k] = v
 					d['speakers'].append(speaker)
 			else:
 				d[key] = val
 		sessions.append(d)
 
- 	return sessions
+	return sessions
 
 class SessionBlock(blocks.StructBlock):
     name = blocks.TextBlock(required=False)

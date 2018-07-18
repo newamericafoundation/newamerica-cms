@@ -315,7 +315,7 @@ def group_programs(programs, cols=3):
 	max_items = math.ceil(l)
 
 	groups = []
-	for i in xrange(cols):
+	for i in range(cols):
 		groups.append([])
 
 	group_index = 0

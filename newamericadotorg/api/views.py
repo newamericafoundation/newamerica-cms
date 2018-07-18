@@ -12,20 +12,19 @@ from wagtail.wagtailsearch.models import Query
 
 from home.models import Post, HomePage, OrgSimplePage
 from person.models import Person
-from serializers import (
+from .serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
     SubprogramSerializer, HomeSerializer, TopicSerializer, TopicDetailSerializer, EventSerializer,
     WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer,
-    SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer, ReportDetailSerializer,
+    SearchSerializer, ReportDetailSerializer,
     HomeDetailSerializer, SubscriptionSegmentSerializer
 )
-from helpers import get_subpages
+from .helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
 from programs.models import Program, Subprogram, AbstractContentPage, AbstractProgram
 from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
-from in_depth.models import InDepthProject
 from report.models import Report
 from other_content.models import OtherPost
 from subscribe.campaign_monitor import update_subscriber
@@ -185,13 +184,6 @@ class WeeklyDetail(generics.RetrieveAPIView):
     queryset = WeeklyEdition.objects.all()
     serializer_class = WeeklyEditionSerializer
 
-class InDepthProjectList(generics.ListAPIView):
-    serializer_class = InDepthProjectListSerializer
-    queryset = InDepthProject.objects.live().public().order_by('-date')
-
-class InDepthProjectDetail(generics.RetrieveAPIView):
-    queryset = InDepthProject.objects.live()
-    serializer_class = InDepthProjectSerializer
 
 class AuthorList(generics.ListAPIView):
     serializer_class = AuthorSerializer
@@ -338,18 +330,18 @@ class ContentList(views.APIView):
         })
 
 import os
-import urllib2
+import requests
 import json
 class JobsList(views.APIView):
     def get(self, request, format=None):
         JAZZ_API_KEY = os.getenv('JAZZ_API_KEY')
         url = "https://api.resumatorapi.com/v1/jobs/status/open?apikey=%s" % JAZZ_API_KEY
-        jobs = urllib2.urlopen(url).read()
+        jobs = requests.get(url).json()
         return response.Response({
             'count': 0,
             'next': None,
             'previous': None,
-            'results': json.loads(jobs)
+            'results': jobs
         })
 
 class ProgramFilter(FilterSet):

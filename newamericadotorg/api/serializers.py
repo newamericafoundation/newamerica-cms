@@ -18,7 +18,7 @@ from subscribe.models import SubscriptionSegment
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 
-from helpers import get_program_content_types, generate_image_url, generate_image_rendition, get_subpages, get_content_type
+from .helpers import get_program_content_types, generate_image_url, generate_image_rendition, get_subpages, get_content_type
 import datetime
 
 class ProgramSubprogramSerializer(ModelSerializer):

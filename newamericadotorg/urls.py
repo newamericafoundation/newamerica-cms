@@ -61,8 +61,6 @@ urlpatterns = [
     url(r'^api/weekly/$', api_views.WeeklyList.as_view()),
     url(r'^api/weekly/(?P<pk>[\d]+)/$', api_views.WeeklyDetail.as_view()),
     url(r'^api/report/(?P<pk>[\d]+)/$', api_views.ReportDetail.as_view()),
-    url(r'^api/in-depth/$', api_views.InDepthProjectList.as_view()),
-    url(r'^api/in-depth/(?P<pk>[\d]+)/$', api_views.InDepthProjectDetail.as_view()),
     url(r'^api/home/(?P<pk>[\d]+)/$', api_views.HomeDetail.as_view()),
     #url(r'^api/meta/$', cache_page(60 * 10080)(api_views.MetaList.as_view())),
     url(r'^api/meta/$', api_views.MetaList.as_view()),

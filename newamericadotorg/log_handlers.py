@@ -80,7 +80,7 @@ class LogDNAMiddleware(object):
             'path': request.path
         }
 
-        for k,v in request.META.iteritems():
+        for k,v in request.META.items():
             if isinstance(v, str):
                 context[k] = v;
 

@@ -10,7 +10,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailembeds.blocks import EmbedBlock
 
-from blocks import VenueBlock, DirectionsBlock, PartnersBlock
+from .blocks import VenueBlock, DirectionsBlock, PartnersBlock
 from newamericadotorg.blocks import IntegerBlock, PeopleBlock, SessionsBlock
 
 class AllConferencesHomePage(Page):
