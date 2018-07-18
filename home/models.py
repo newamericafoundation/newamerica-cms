@@ -59,17 +59,17 @@ class CustomRendition(AbstractRendition):
             ('image', 'filter_spec', 'focal_point_key'),
         )
 
-
-# Delete the source image file when an image is deleted
-@receiver(pre_delete, sender=CustomImage)
-def image_delete(sender, instance, **kwargs):
-    instance.file.delete(False)
-
-
-# Delete the rendition image file when a rendition is deleted
-@receiver(pre_delete, sender=CustomRendition)
-def rendition_delete(sender, instance, **kwargs):
-    instance.file.delete(False)
+## unnecessary with wagtail 1.10
+# # Delete the source image file when an image is deleted
+# @receiver(pre_delete, sender=CustomImage)
+# def image_delete(sender, instance, **kwargs):
+#     instance.file.delete(False)
+#
+#
+# # Delete the rendition image file when a rendition is deleted
+# @receiver(pre_delete, sender=CustomRendition)
+# def rendition_delete(sender, instance, **kwargs):
+#     instance.file.delete(False)
 
 class SubscriptionHomePageRelationship(models.Model):
     subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
