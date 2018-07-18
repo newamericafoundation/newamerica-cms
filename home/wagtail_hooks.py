@@ -18,7 +18,7 @@ def editor_js():
     js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
         ((settings.STATIC_URL, filename) for filename in js_files)
     )
- 
+
     return js_includes + format_html(
         """
         <script>
@@ -30,4 +30,92 @@ def editor_js():
 
 @hooks.register('insert_editor_css')
 def editor_css():
+    return format_html('<style>{}</style>', '''
+        .Draftail-block--blockquote {
+            color: rgba(0,0,0,0.4);
+            border-left: 1px solid #ccc;
+            margin-left: 10px;
+            padding-left: 40px;
+        }
+
+        .Draftail-block--pullquote{
+            padding-top: 25px;
+            padding-bottom: 25px;
+            padding-left: 40px;
+            padding-right: 40px;
+            margin-left: 0;
+            margin-right: 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    ''')
     return format_html('<link rel="stylesheet" href="'+ settings.STATIC_URL + 'css/font-awesome.min.css" type="text/css">')
+
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler, BlockElementHandler
+
+@hooks.register('register_rich_text_features')
+def register_pullquote_feature(features):
+    """
+    Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
+    and is stored as HTML with a `<blockquote>` tag.
+    """
+    feature_name = 'pullquote'
+    type_ = 'pullquote'
+    tag = 'blockquote'
+
+    control = {
+        'type': type_,
+        'icon': 'icon icon-openquote',
+        'description': 'Pullquote',
+        'element': 'blockquote'
+    }
+
+    features.register_editor_plugin(
+        'draftail', feature_name, draftail_features.BlockFeature(control)
+    )
+
+    features.default_features.append(feature_name)
+    features.register_converter_rule('contentstate', feature_name, {
+        'from_database_format': {'blockquote[class="pullquote"]': BlockElementHandler(type_)},
+        'to_database_format': {
+            'block_map': {
+                type_: {
+                    'element': tag,
+                    'props': {
+                        'class': 'pullquote'
+                    }
+                }
+            }
+        },
+    })
+
+@hooks.register('register_rich_text_features')
+def register_blockquote_feature(features):
+    """
+    Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
+    and is stored as HTML with a `<blockquote>` tag.
+    """
+    feature_name = 'blockquote'
+    type_ = 'blockquote'
+    tag = 'blockquote'
+
+    control = {
+        'type': type_,
+        'icon': 'icon icon-arrow-right',
+        'description': 'Blockquote',
+        'element': 'blockquote',
+    }
+
+    features.register_editor_plugin(
+        'draftail', feature_name, draftail_features.BlockFeature(control)
+    )
+
+    features.default_features.append(feature_name)
+
+    features.register_converter_rule('contentstate', feature_name, {
+        'from_database_format': {tag: BlockElementHandler(type_)},
+        'to_database_format': {'block_map': {type_: tag}},
+    })
