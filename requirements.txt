@@ -88,14 +88,14 @@ texttable==0.8.4
 traitlets==4.1.0
 Unidecode==0.4.19
 urllib3<1.24,>=1.21.1
-wagtail==1.12.3
+wagtail==1.13.1
 waitress==0.9.0
 wcwidth==0.1.6
 webassets>=0.11
 websocket-client==0.37.0
 Werkzeug==0.10.1
 whitenoise==3.0
-Willow==0.4
+Willow<1.1,>=1.0
 Wand==0.4.4
 logdna==1.0.2
 django-cors-headers==1.2.2
