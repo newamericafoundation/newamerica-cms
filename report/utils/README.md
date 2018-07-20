@@ -45,7 +45,7 @@ At the top level, Docx is made up of `<w:p>` paragraph elements that are *not* a
 
 Inside a run, the child elements of `<w:rPr>` determine the formatting (so in the example above "Some text" would be bolded because inside the run's `<w:rPr>` element is a `<w:b/>` element). `<strong>`, `<em>`, and all heading HTML elements can be determined by what's inside the `<w:rPr>` element.
 
-Most of the time, what we want to be an HTML paragraph or a Wagtail block spans multiple `<w:p>` elements, so this solution flattens the structure so that runs are the top level element and not `<w:p>`, then regroups the runs based on which Wagtail block_type it should be added to.
+Most of the time, what we want to be an HTML paragraph or a Wagtail block spans multiple `<w:p>` elements, so this solution flattens the structure. Runs become the top level element instead of `<w:p>`, and are regrouped based on which HTML element or Wagtail block_type the run corresponds to.
 
 Endnotes and hyperlinks are stored in a separate xml file that can be parsed and referenced by their id.
 
