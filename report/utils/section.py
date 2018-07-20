@@ -16,7 +16,7 @@ class Section():
     def add_paragraph(self, paragraph):
         self._paragraphs.append(paragraph)
         # sometimes something that should be a single wagtail block
-        # spans multipe docx Paragraphs
+        # spans multiple docx Paragraphs
         # flatten structure then compile elements into blocks
         # so <section><Paragraph><elements></Paragraph></section>
         # is <section><elements></section>
