@@ -181,8 +181,8 @@ blockquote{
 a {
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.125rem;
-  line-height: 1.875rem;
+  font-size: inherit;
+  line-height: inherit;
   color: color(turquoise);
 
   &.inline {

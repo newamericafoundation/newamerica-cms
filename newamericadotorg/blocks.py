@@ -410,7 +410,7 @@ class Body(blocks.StreamBlock):
 	paragraph = blocks.RichTextBlock()
 	inline_image = CustomImageBlock(icon='image')
 	video = EmbedBlock(icon='media')
-	table = TableBlock()
+	table = TableBlock(template="blocks/table.html")
 	button = ButtonBlock()
 	iframe = IframeBlock(icon="link")
 	dataviz = DatavizBlock(icon="code")
