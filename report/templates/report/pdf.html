@@ -151,7 +151,7 @@
             {% elif block.block_type == 'dataviz' %}
 
             {% elif block.block_type == 'table' %}
-              <div class="block-table">
+              <div class="block-table {% if block.value.table_header|length < 2 %}table-sm{% endif %}">
                 <!-- <label class="bold">Table {% counter %}</label> -->
                 {% include_block block %}
               </div>

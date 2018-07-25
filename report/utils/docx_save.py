@@ -1,4 +1,4 @@
-from .docx_parse import DocxParse
+from .docx_parse2 import DocxParse
 from newamericadotorg.blocks import PanelBlock, ReportBody, BoxBody
 from report.blocks import EndnoteBlock
 from wagtail.wagtailcore.blocks.stream_block import StreamValue
@@ -9,11 +9,13 @@ from wagtail.contrib.table_block.blocks import TableBlock
 def generate_docx_streamfields(document):
     parsed = DocxParse(document)
     panels = []
-    figure_index = 1
+    figure_index = { 'i': 1 }
     box_num = 0
     for s in parsed.sections:
+        if len(s.blocks) == 0:
+            continue
         body = []
-        for b in s['blocks']:
+        for b in s.blocks:
             val = None
             if b['type'] == 'box':
                 box_num += 1
@@ -30,7 +32,7 @@ def generate_docx_streamfields(document):
             if val is not None:
                 body.append(val)
 
-        panel = ('section', { 'title': s['title'], 'body': StreamValue(ReportBody(), body) })
+        panel = ('section', { 'title': s.title, 'body': StreamValue(ReportBody(), body) })
         panels.append(panel)
 
     endnotes = []
@@ -48,7 +50,7 @@ def parse_block(b, figure_index):
     elif b['type'] == 'table':
         val = ('table', b['data'])
     elif b['type'] == 'inline_image':
-        val = ('paragraph', RichText('<em>[[Figure %s]]</em>' % figure_index))
-        figure_index += 1
+        val = ('paragraph', RichText('<em>[[Figure %s]]</em>' % figure_index['i']))
+        figure_index['i'] += 1
 
     return val
