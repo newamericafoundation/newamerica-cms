@@ -1,19 +1,19 @@
 from django.db import models
 from django import forms
 
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailembeds.blocks import EmbedBlock
-from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.core import blocks
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.wagtailcore.blocks import IntegerBlock
-from wagtail.wagtaildocs.blocks import DocumentChooserBlock
-from wagtail.wagtailcore.rich_text import RichText
-from wagtail.wagtailcore.blocks import stream_block
+from wagtail.core.blocks import IntegerBlock
+from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.core.rich_text import RichText
+from wagtail.core.blocks import stream_block
 
 import home.models
-from wagtail.wagtaildocs.models import Document
-from wagtail.wagtailcore.models import Page
+from wagtail.documents.models import Document
+from wagtail.core.models import Page
 
 from operator import itemgetter, attrgetter
 import json, datetime
@@ -122,7 +122,7 @@ def ResourceKitSerializer(r):
 			d = {}
 			block_type = block['type']
 			value = block['value']
-			for key, val in value.iteritems():
+			for key, val in value.items():
 				if key == 'image' and val is not None:
 					img = home.models.CustomImage.objects.get(pk=val)
 					try:
@@ -179,8 +179,8 @@ class ResourceKit(blocks.StructBlock):
 		], icon='doc-full', label='Attachment'))
     ])
 
-	def get_context(self, value):
-		context = super(ResourceKit, self).get_context(value)
+	def get_context(self, value, parent_context=None):
+		context = super(ResourceKit, self).get_context(value, parent_context=parent_context)
 		context['resources'] = ResourceKitSerializer(value['resources'])
 		return context
 
@@ -219,7 +219,7 @@ def PersonBlockSerializer(block_value):
 
 			value = block['value']
 
-			for key, val in value.iteritems():
+			for key, val in value.items():
 				if key == 'image' and val is not None:
 					img = home.models.CustomImage.objects.get(pk=val)
 					try:
@@ -233,7 +233,7 @@ def PersonBlockSerializer(block_value):
 
 		return json.dumps(people, ensure_ascii=False)
 	except:
-		print 'block render failed';
+		print('block render failed');
 		return '[]'
 
 
@@ -272,8 +272,8 @@ class TimelineBlock(blocks.StructBlock):
 	event_eras = blocks.ListBlock(TimelineEraBlock(), default='', required=False)
 	event_categories = blocks.ListBlock(blocks.CharBlock(), default='', required=False)
 	event_list = blocks.ListBlock(TimelineEventBlock())
-	def get_context(self, value):
-		context = super(TimelineBlock, self).get_context(value)
+	def get_context(self, value, parent_context=None):
+		context = super(TimelineBlock, self).get_context(value, parent_context=parent_context)
 		context["sorted_event_list"] = sorted(value["event_list"], key=lambda member: member['start_date'])
 		context["settings_json"] = json.dumps({"eventList":getJSCompatibleList(value["event_list"], False, True), "defaultView": value["default_view"], "eraList":getJSCompatibleList(value["event_eras"], True, True), "splitList":getJSCompatibleList(value["major_timeline_splits"], True, False), "categoryList":value["event_categories"]})
 		return context
@@ -313,8 +313,8 @@ class PeopleBlock(blocks.StreamBlock):
 	description = blocks.TextBlock(required=False)
 	person = PersonBlock()
 
-	def get_context(self, value):
-		context = super(PeopleBlock, self).get_context(value)
+	def get_context(self, value, parent_context=None):
+		context = super(PeopleBlock, self).get_context(value, parent_context=parent_context)
 		context['people'] = PersonBlockSerializer(value)
 		return context
 
@@ -353,19 +353,19 @@ def SessionsSerializer(s):
 		d = {}
 		value = block['value']
 
-		for key, val in value.iteritems():
+		for key, val in value.items():
 			if key == 'speakers':
 				d['speakers'] = []
 				for speakerBlock in val:
 					speaker = {}
-					for k, v in speakerBlock['value'].iteritems():
+					for k, v in speakerBlock['value'].items():
 						speaker[k] = v
 					d['speakers'].append(speaker)
 			else:
 				d[key] = val
 		sessions.append(d)
 
- 	return sessions
+	return sessions
 
 class SessionBlock(blocks.StructBlock):
     name = blocks.TextBlock(required=False)
@@ -389,8 +389,8 @@ class SessionDayBlock(blocks.StructBlock):
 
 class SessionsBlock(blocks.StreamBlock):
 	days = SessionDayBlock(help_text='for multi-day events')
-	def get_context(self, value):
-		context = super(SessionsBlock, self).get_context(value)
+	def get_context(self, value, parent_context=None):
+		context = super(SessionsBlock, self).get_context(value, parent_context=parent_context)
 		days = []
 		try:
 			for day in value.stream_data:

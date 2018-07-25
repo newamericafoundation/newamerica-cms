@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
+import wagtail.core.blocks
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             name='BoardAndLeadershipPeoplePage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('page_description', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
+                ('page_description', wagtail.core.fields.RichTextField(blank=True, null=True)),
                 ('role_query', models.CharField(choices=[(b'Board Member', b'Board Members'), (b'Leadership Team', b'Leadership Team'), (b'Central Staff', b'Central Staff')], default=b'Board Members', max_length=50)),
             ],
             options={
@@ -34,8 +34,8 @@ class Migration(migrations.Migration):
             name='ExpertPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('page_description', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
-                ('contact_information', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
+                ('page_description', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('contact_information', wagtail.core.fields.RichTextField(blank=True, null=True)),
             ],
             options={
                 'abstract': False,
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
             name='OurPeoplePage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('page_description', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
+                ('page_description', wagtail.core.fields.RichTextField(blank=True, null=True)),
             ],
             options={
                 'verbose_name': 'Homepage for All People in NAF',
@@ -61,11 +61,11 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=150)),
                 ('position_at_new_america', models.CharField(blank=True, help_text=b'Position or Title at New America', max_length=500, null=True)),
                 ('email', models.EmailField(blank=True, max_length=254, null=True)),
-                ('short_bio', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
-                ('long_bio', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
+                ('short_bio', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('long_bio', wagtail.core.fields.RichTextField(blank=True, null=True)),
                 ('expert', models.BooleanField(default=False)),
                 ('leadership', models.BooleanField(default=False)),
-                ('social_media', wagtail.wagtailcore.fields.StreamField([(b'twitter', wagtail.wagtailcore.blocks.URLBlock(help_text=b'Twitter Profile Link', icon=b'user', required=False)), (b'facebook', wagtail.wagtailcore.blocks.URLBlock(help_text=b'Facebook Profile', icon=b'user', required=False)), (b'youtube', wagtail.wagtailcore.blocks.URLBlock(help_text=b'YouTube Channel', icon=b'media', required=False)), (b'google_plus', wagtail.wagtailcore.blocks.URLBlock(help_text=b'Google+ Profile', icon=b'user', required=False)), (b'linkedin', wagtail.wagtailcore.blocks.URLBlock(help_text=b'LinkedIn Profile', icon=b'user', required=False)), (b'tumblr', wagtail.wagtailcore.blocks.URLBlock(help_text=b'Tumblr', icon=b'user', required=False))])),
+                ('social_media', wagtail.core.fields.StreamField([(b'twitter', wagtail.core.blocks.URLBlock(help_text=b'Twitter Profile Link', icon=b'user', required=False)), (b'facebook', wagtail.core.blocks.URLBlock(help_text=b'Facebook Profile', icon=b'user', required=False)), (b'youtube', wagtail.core.blocks.URLBlock(help_text=b'YouTube Channel', icon=b'media', required=False)), (b'google_plus', wagtail.core.blocks.URLBlock(help_text=b'Google+ Profile', icon=b'user', required=False)), (b'linkedin', wagtail.core.blocks.URLBlock(help_text=b'LinkedIn Profile', icon=b'user', required=False)), (b'tumblr', wagtail.core.blocks.URLBlock(help_text=b'Tumblr', icon=b'user', required=False))])),
                 ('role', models.CharField(choices=[(b'Board Member', b'Board Member'), (b'Fellow', b'Fellow'), (b'Central Staff', b'Central Staff'), (b'Program Staff', b'Program Staff'), (b'External Author/Former Staff', b'External Author/Former Staff')], max_length=50)),
             ],
             options={

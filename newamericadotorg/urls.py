@@ -3,11 +3,11 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.decorators.cache import cache_page
 
-from wagtail.wagtailadmin import urls as wagtailadmin_urls
-from wagtail.wagtaildocs import urls as wagtaildocs_urls
-from wagtail.wagtailcore import urls as wagtail_urls
-from wagtail.wagtailimages import urls as wagtailimages_urls
-from wagtail.wagtailimages.views.serve import ServeView
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.images import urls as wagtailimages_urls
+from wagtail.images.views.serve import ServeView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
@@ -61,8 +61,6 @@ urlpatterns = [
     url(r'^api/weekly/$', api_views.WeeklyList.as_view()),
     url(r'^api/weekly/(?P<pk>[\d]+)/$', api_views.WeeklyDetail.as_view()),
     url(r'^api/report/(?P<pk>[\d]+)/$', api_views.ReportDetail.as_view()),
-    url(r'^api/in-depth/$', api_views.InDepthProjectList.as_view()),
-    url(r'^api/in-depth/(?P<pk>[\d]+)/$', api_views.InDepthProjectDetail.as_view()),
     url(r'^api/home/(?P<pk>[\d]+)/$', api_views.HomeDetail.as_view()),
     #url(r'^api/meta/$', cache_page(60 * 10080)(api_views.MetaList.as_view())),
     url(r'^api/meta/$', api_views.MetaList.as_view()),

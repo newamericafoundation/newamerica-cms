@@ -7,38 +7,37 @@ from rest_framework.decorators import api_view
 from django.shortcuts import redirect
 from django_filters.rest_framework import FilterSet
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch.models import Query
+from wagtail.core.models import Page
+from wagtail.search.models import Query
 
 from home.models import Post, HomePage, OrgSimplePage
 from person.models import Person
-from serializers import (
+from .serializers import (
     PostSerializer, AuthorSerializer, ProgramSerializer, ProgramDetailSerializer,
     SubprogramSerializer, HomeSerializer, TopicSerializer, TopicDetailSerializer, EventSerializer,
     WeeklyEditionSerializer, WeeklyArticleSerializer, WeeklyEditionListSerializer,
-    SearchSerializer, InDepthProjectListSerializer, InDepthProjectSerializer, ReportDetailSerializer,
+    SearchSerializer, ReportDetailSerializer,
     HomeDetailSerializer, SubscriptionSegmentSerializer
 )
-from helpers import get_subpages
+from .helpers import get_subpages
 from newamericadotorg.settings.context_processors import content_types
 from programs.models import Program, Subprogram, AbstractContentPage, AbstractProgram
 from issue.models import IssueOrTopic
 from event.models import Event
 from weekly.models import WeeklyArticle, WeeklyEdition
-from in_depth.models import InDepthProject
 from report.models import Report
 from other_content.models import OtherPost
 from subscribe.campaign_monitor import update_subscriber
 from ipware import get_client_ip
 
 class PostFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
-    subprogram_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
-    author_id = django_filters.CharFilter(name='post_author__id', lookup_expr='iexact')
-    author_slug = django_filters.CharFilter(name='post_author__slug', lookup_expr="iexact")
-    after = django_filters.DateFilter(name='date', lookup_expr='gte')
-    before = django_filters.DateFilter(name='date', lookup_expr='lte')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(field_name='parent_programs__id', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(field_name='post_subprogram__id', lookup_expr='iexact')
+    author_id = django_filters.CharFilter(field_name='post_author__id', lookup_expr='iexact')
+    author_slug = django_filters.CharFilter(field_name='post_author__slug', lookup_expr="iexact")
+    after = django_filters.DateFilter(field_name='date', lookup_expr='gte')
+    before = django_filters.DateFilter(field_name='date', lookup_expr='lte')
 
 
     class Meta:
@@ -103,7 +102,7 @@ class ReportDetail(generics.RetrieveAPIView):
     queryset = Report.objects.live()
 
 
-from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.search.backends import get_search_backend
 
 class SearchList(generics.ListAPIView):
     serializer_class = SearchSerializer
@@ -114,7 +113,7 @@ class SearchList(generics.ListAPIView):
         results = Page.objects.live().search(search)
         query = Query.get(search)
         query.add_hit()
-        from wagtail.wagtailcore.models import PageViewRestriction
+        from wagtail.core.models import PageViewRestriction
         public_results =[]
         restrictions = PageViewRestriction.objects.all()
         for obj in results:
@@ -131,7 +130,7 @@ class SearchList(generics.ListAPIView):
 
 
 class TopicFilter(django_filters.rest_framework.FilterSet):
-    program_id = django_filters.CharFilter(name='parent_program__id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(field_name='parent_program__id', lookup_expr='iexact')
 
     class Meta:
         model = IssueOrTopic
@@ -151,14 +150,14 @@ BOOLEAN_CHOICES = (('false', 'False'), ('true', 'True'),)
 from distutils.util import strtobool
 
 class AuthorFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    slug = django_filters.CharFilter(name='slug', lookup_expr="iexact")
-    program_id = django_filters.CharFilter(name='belongs_to_these_programs__id', lookup_expr='iexact')
-    program_slug = django_filters.CharFilter(name='belongs_to_these_programs__slug', lookup_expr='iexact')
-    subprogram_id = django_filters.CharFilter(name='belongs_to_these_subprograms__id', lookup_expr='iexact')
-    role = django_filters.CharFilter(name='role', lookup_expr='iexact')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    slug = django_filters.CharFilter(field_name='slug', lookup_expr="iexact")
+    program_id = django_filters.CharFilter(field_name='belongs_to_these_programs__id', lookup_expr='iexact')
+    program_slug = django_filters.CharFilter(field_name='belongs_to_these_programs__slug', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(field_name='belongs_to_these_subprograms__id', lookup_expr='iexact')
+    role = django_filters.CharFilter(field_name='role', lookup_expr='iexact')
     leadership = django_filters.TypedChoiceFilter(choices=BOOLEAN_CHOICES,coerce=strtobool)
-    name = django_filters.CharFilter(name='title', lookup_expr='icontains')
+    name = django_filters.CharFilter(field_name='title', lookup_expr='icontains')
 
     class Meta:
         model = Person
@@ -185,13 +184,6 @@ class WeeklyDetail(generics.RetrieveAPIView):
     queryset = WeeklyEdition.objects.all()
     serializer_class = WeeklyEditionSerializer
 
-class InDepthProjectList(generics.ListAPIView):
-    serializer_class = InDepthProjectListSerializer
-    queryset = InDepthProject.objects.live().public().order_by('-date')
-
-class InDepthProjectDetail(generics.RetrieveAPIView):
-    queryset = InDepthProject.objects.live()
-    serializer_class = InDepthProjectSerializer
 
 class AuthorList(generics.ListAPIView):
     serializer_class = AuthorSerializer
@@ -256,14 +248,14 @@ class FellowList(generics.ListAPIView):
         return queryset
 
 class EventFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
-    subprogram_id = django_filters.CharFilter(name='post_subprogram__id', lookup_expr='iexact')
-    program_slug = django_filters.CharFilter(name='parent_programs__slug', lookup_expr='iexact')
-    subprogram_slug = django_filters.CharFilter(name='post_subprogram__slug', lookup_expr='iexact')
-    topic_id = django_filters.CharFilter(name='topic__id', lookup_expr='iexact')
-    after = django_filters.DateFilter(name='date', lookup_expr='gte')
-    before = django_filters.DateFilter(name='date', lookup_expr='lte')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(field_name='parent_programs__id', lookup_expr='iexact')
+    subprogram_id = django_filters.CharFilter(field_name='post_subprogram__id', lookup_expr='iexact')
+    program_slug = django_filters.CharFilter(field_name='parent_programs__slug', lookup_expr='iexact')
+    subprogram_slug = django_filters.CharFilter(field_name='post_subprogram__slug', lookup_expr='iexact')
+    topic_id = django_filters.CharFilter(field_name='topic__id', lookup_expr='iexact')
+    after = django_filters.DateFilter(field_name='date', lookup_expr='gte')
+    before = django_filters.DateFilter(field_name='date', lookup_expr='lte')
 
     class Meta:
         model = Post
@@ -338,23 +330,23 @@ class ContentList(views.APIView):
         })
 
 import os
-import urllib2
+import requests
 import json
 class JobsList(views.APIView):
     def get(self, request, format=None):
         JAZZ_API_KEY = os.getenv('JAZZ_API_KEY')
         url = "https://api.resumatorapi.com/v1/jobs/status/open?apikey=%s" % JAZZ_API_KEY
-        jobs = urllib2.urlopen(url).read()
+        jobs = requests.get(url).json()
         return response.Response({
             'count': 0,
             'next': None,
             'previous': None,
-            'results': json.loads(jobs)
+            'results': jobs
         })
 
 class ProgramFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    slug = django_filters.CharFilter(name='slug', lookup_expr='iexact')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    slug = django_filters.CharFilter(field_name='slug', lookup_expr='iexact')
 
     class Meta:
         model = Program
@@ -365,10 +357,12 @@ class ProgramDetail(generics.RetrieveAPIView):
     serializer_class = ProgramDetailSerializer
 
 class ProgramList(generics.ListAPIView):
-    queryset = Program.objects.in_menu().live().public().order_by('title').exclude(location=True)
     serializer_class = ProgramSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter)
     filter_class = ProgramFilter
+
+    def get_queryset(self):
+        return Program.objects.in_menu().live().public().order_by('title').exclude(location=True)
 
 
 class FellowshipList(views.APIView):
@@ -386,8 +380,8 @@ class FellowshipList(views.APIView):
         })
 
 class SubprogramFilter(FilterSet):
-    id = django_filters.CharFilter(name='id', lookup_expr='iexact')
-    program_id = django_filters.CharFilter(name='parent_programs__id', lookup_expr='iexact')
+    id = django_filters.CharFilter(field_name='id', lookup_expr='iexact')
+    program_id = django_filters.CharFilter(field_name='parent_programs__id', lookup_expr='iexact')
 
     class Meta:
         model = Subprogram

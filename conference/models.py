@@ -4,13 +4,13 @@ from django.utils import timezone
 from django.utils.timezone import localtime, now
 from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailcore.fields import StreamField, RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.core.fields import StreamField, RichTextField
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.core.models import Page, Orderable
+from wagtail.embeds.blocks import EmbedBlock
 
-from blocks import VenueBlock, DirectionsBlock, PartnersBlock
+from .blocks import VenueBlock, DirectionsBlock, PartnersBlock
 from newamericadotorg.blocks import IntegerBlock, PeopleBlock, SessionsBlock
 
 class AllConferencesHomePage(Page):

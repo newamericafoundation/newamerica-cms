@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.test import TestCase
 
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 from .models import Book, AllBooksHomePage, ProgramBooksPage
 

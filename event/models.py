@@ -8,9 +8,9 @@ from django.utils import timezone
 from django.utils.timezone import localtime, now
 
 from programs.models import Program, Subprogram
-from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
-from wagtail.wagtailcore.models import Page
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
+from wagtail.core.models import Page
 
 from home.models import Post
 from conference.models import Conference

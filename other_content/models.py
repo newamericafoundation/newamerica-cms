@@ -2,12 +2,12 @@ from django.db import models
 
 from home.models import Post
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
-from wagtail.wagtaildocs.blocks import DocumentChooserBlock
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.core.fields import RichTextField
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from programs.models import AbstractContentPage
 from home.models import AbstractHomeContentPage
@@ -21,7 +21,7 @@ class OtherPost(Post):
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False)),
-    ], null=True)
+    ], null=True, blank=True)
 
     content_panels = Post.content_panels + [
         StreamFieldPanel('attachment'),

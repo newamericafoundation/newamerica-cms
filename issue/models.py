@@ -6,8 +6,8 @@ from programs.models import Program, Subprogram, AbstractProgram, AbstractConten
 
 from home.models import Post, ProgramSimplePage
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, PageChooserPanel
+from wagtail.core.models import Page
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
 
 from programs.models import Program
 

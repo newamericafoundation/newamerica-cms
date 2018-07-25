@@ -2,12 +2,12 @@ from django.db import models
 
 from home.models import Post
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
-from wagtail.wagtailcore.blocks import URLBlock
-from wagtail.wagtaildocs.blocks import DocumentChooserBlock
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import StreamFieldPanel
+from wagtail.core.blocks import URLBlock
+from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
@@ -30,11 +30,11 @@ class PolicyPaper(Post):
 
     paper_url = StreamField([
         ('policy_paper_url', URLBlock(required=False, null=True)),
-    ])
+    ], null=True, blank=True)
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False, null=True)),
-    ])
+    ], null=True, blank=True)
 
     content_panels = Post.content_panels + [
         StreamFieldPanel('paper_url'),

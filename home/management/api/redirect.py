@@ -13,8 +13,8 @@ sys.path.append(
 from newamerica_api_client import NAClient
 from transfer_script_helpers import load_users_mapping
 
-from wagtail.wagtailredirects.models import Redirect
-from wagtail.wagtailcore.models import Page
+from wagtail.contrib.redirects.models import Redirect
+from wagtail.core.models import Page
 
 from person.models import Person
 from django.utils.text import slugify

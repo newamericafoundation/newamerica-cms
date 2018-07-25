@@ -5,7 +5,7 @@ from django import template
 from django.conf import settings
 from programs.models import Program
 from django.utils.safestring import mark_safe
-from wagtail.wagtailcore.blocks import StreamValue
+from wagtail.core.blocks import StreamValue
 
 import json
 
@@ -265,8 +265,8 @@ def get_location_data(passed_location,value,page):
 	return value
 
 from django.template.loader import render_to_string
-from wagtail.wagtailembeds import embeds
-from wagtail.wagtailembeds.exceptions import EmbedException
+from wagtail.embeds import embeds
+from wagtail.embeds.exceptions import EmbedException
 
 @register.simple_tag()
 def oembed(url):
@@ -315,7 +315,7 @@ def group_programs(programs, cols=3):
 	max_items = math.ceil(l)
 
 	groups = []
-	for i in xrange(cols):
+	for i in range(cols):
 		groups.append([])
 
 	group_index = 0

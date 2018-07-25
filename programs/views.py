@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from programs.models import Program, Subprogram, Project
 from django.http import HttpResponseRedirect
-from wagtail.wagtailcore import views
+from wagtail.core import views
 
 def redirect_to_program(request, **kwargs):
     program = Program.objects.filter(slug=kwargs['program']).first()

@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.wagtailcore.fields
-import wagtail.wagtaildocs.blocks
+import wagtail.core.fields
+import wagtail.documents.blocks
 
 
 class Migration(migrations.Migration):
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             name='BlogPost',
             fields=[
                 ('post_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='home.Post')),
-                ('attachment', wagtail.wagtailcore.fields.StreamField([(b'attachment', wagtail.wagtaildocs.blocks.DocumentChooserBlock(required=False))], null=True)),
+                ('attachment', wagtail.core.fields.StreamField([(b'attachment', wagtail.documents.blocks.DocumentChooserBlock(required=False))], null=True)),
             ],
             options={
                 'abstract': False,
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             name='ProgramBlogPostsPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('subheading', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
+                ('subheading', wagtail.core.fields.RichTextField(blank=True, null=True)),
                 ('story_excerpt', models.CharField(blank=True, max_length=500, null=True)),
                 ('story_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='home.CustomImage')),
             ],

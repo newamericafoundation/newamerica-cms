@@ -1,5 +1,5 @@
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 from .models import Podcast, AllPodcastsHomePage, ProgramPodcastsPage
 

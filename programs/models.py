@@ -1,10 +1,10 @@
 from django.db import models
-from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.wagtailcore.blocks import PageChooserBlock, ChoiceBlock
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
+from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.core.blocks import PageChooserBlock, ChoiceBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from subscribe.models import SubscriptionSegment
 from modelcluster.fields import ParentalKey
@@ -108,7 +108,7 @@ class AbstractProgram(Page):
     # Carousel of pages to feature on the landing page
     feature_carousel = StreamField([
         ('page', PageChooserBlock()),
-    ], blank=True)
+    ], null=True, blank=True)
 
     about_us_page = models.ForeignKey(
         'wagtailcore.Page',
@@ -229,15 +229,15 @@ class Program(AbstractProgram):
 
     sidebar_menu_initiatives_and_projects_pages = StreamField([
         ('Item', PageChooserBlock()),
-    ], blank=True)
+    ], null=True, blank=True)
 
     sidebar_menu_our_work_pages = StreamField([
         ('Item', PageChooserBlock()),
-    ], blank=True)
+    ], null=True, blank=True)
 
     sidebar_menu_about_us_pages = StreamField([
         ('Item', PageChooserBlock()),
-    ], blank=True)
+    ], null=True, blank=True)
 
     subscription_segments = models.ManyToManyField(
         SubscriptionSegment,

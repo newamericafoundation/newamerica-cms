@@ -23,7 +23,7 @@ class DocxParse():
     def __links__(self):
         links = {}
         rels = self.doc.part.rels
-        for rId, rel in rels.iteritems():
+        for rId, rel in rels.items():
             links[rId] = rel.target_ref
 
         return links

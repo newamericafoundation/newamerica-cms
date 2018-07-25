@@ -1,9 +1,9 @@
 from home.models import Post
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailembeds.blocks import EmbedBlock
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
@@ -22,7 +22,7 @@ class Podcast(Post):
 
     soundcloud = StreamField([
         ('soundcloud_embed', EmbedBlock()),
-    ])
+    ], null=True, blank=True)
 
     itunes_url = models.URLField(blank=True, null=True)
 

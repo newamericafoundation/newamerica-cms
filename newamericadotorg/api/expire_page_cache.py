@@ -24,6 +24,6 @@ def expire_page_cache(view_name, args=None):
         for key in caches:
             if cache.has_key(key):
                 cache.delete(key)
-        print 'EXPIRED_CACHE: ' + url
+        print('EXPIRED_CACHE: ' + url)
     except:
-        print 'FAILED_EXPIRED_CACHE: ' + view_name
+        print('FAILED_EXPIRED_CACHE: ' + view_name)

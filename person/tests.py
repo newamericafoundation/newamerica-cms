@@ -1,5 +1,5 @@
 from wagtail.tests.utils import WagtailPageTests
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 from django.test import Client
 

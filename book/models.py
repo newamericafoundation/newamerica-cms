@@ -1,7 +1,7 @@
 from django.db import models
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.core.models import Page
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from home.models import Post
 

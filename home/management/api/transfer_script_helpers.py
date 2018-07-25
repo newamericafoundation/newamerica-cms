@@ -4,7 +4,7 @@ import os
 import urllib
 import datetime
 
-from wagtail.wagtaildocs.models import Document
+from wagtail.documents.models import Document
 
 from django.utils.text import slugify
 from django.core.files import File

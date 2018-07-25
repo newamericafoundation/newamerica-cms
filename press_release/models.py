@@ -1,9 +1,9 @@
 from home.models import Post
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
-from wagtail.wagtaildocs.blocks import DocumentChooserBlock
+from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import StreamFieldPanel
+from wagtail.documents.blocks import DocumentChooserBlock
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
@@ -19,7 +19,7 @@ class PressRelease(Post):
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False, null=True)),
-    ])
+    ], null=True, blank=True)
 
     content_panels = Post.content_panels + [
         StreamFieldPanel('attachment'),

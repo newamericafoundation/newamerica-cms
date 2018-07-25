@@ -7,20 +7,20 @@ from datetime import datetime
 from pytz import timezone
 from django.db.models import Q
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailcore.blocks import PageChooserBlock
-from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.core import blocks
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.core.blocks import PageChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
     PageChooserPanel, MultiFieldPanel)
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
+from wagtail.core.fields import RichTextField
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
+from wagtail.images.models import Image, AbstractImage, AbstractRendition
 
 from modelcluster.fields import ParentalKey
 
@@ -59,17 +59,17 @@ class CustomRendition(AbstractRendition):
             ('image', 'filter_spec', 'focal_point_key'),
         )
 
-
-# Delete the source image file when an image is deleted
-@receiver(pre_delete, sender=CustomImage)
-def image_delete(sender, instance, **kwargs):
-    instance.file.delete(False)
-
-
-# Delete the rendition image file when a rendition is deleted
-@receiver(pre_delete, sender=CustomRendition)
-def rendition_delete(sender, instance, **kwargs):
-    instance.file.delete(False)
+## unnecessary with wagtail 1.10
+# # Delete the source image file when an image is deleted
+# @receiver(pre_delete, sender=CustomImage)
+# def image_delete(sender, instance, **kwargs):
+#     instance.file.delete(False)
+#
+#
+# # Delete the rendition image file when a rendition is deleted
+# @receiver(pre_delete, sender=CustomRendition)
+# def rendition_delete(sender, instance, **kwargs):
+#     instance.file.delete(False)
 
 class SubscriptionHomePageRelationship(models.Model):
     subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
@@ -180,7 +180,7 @@ class HomePage(Page):
 
     about_pages = StreamField([
         ('page', PageChooserBlock()),
-    ], blank=True)
+    ], blank=True, null=True)
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('about_pages')
@@ -253,7 +253,7 @@ class AbstractSimplePage(Page):
     Abstract Simple page class that inherits from the Page model and
     creates simple, generic pages.
     """
-    body = StreamField(BodyBlock())
+    body = StreamField(BodyBlock(), blank=True, null=True)
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
     custom_interface = models.BooleanField(default=False)
     story_image = models.ForeignKey(
@@ -528,7 +528,7 @@ class Post(Page):
 
     date = models.DateField("Post date")
 
-    body = StreamField(BodyBlock())
+    body = StreamField(BodyBlock(), blank=True, null=True)
 
     parent_programs = models.ManyToManyField(
         Program, through=PostProgramRelationship, blank=True)

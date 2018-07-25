@@ -4,10 +4,10 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import wagtail.contrib.table_block.blocks
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
-import wagtail.wagtailembeds.blocks
-import wagtail.wagtailimages.blocks
+import wagtail.core.blocks
+import wagtail.core.fields
+import wagtail.embeds.blocks
+import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
