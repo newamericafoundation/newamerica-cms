@@ -1,6 +1,6 @@
 from django import template
 import re
-from wagtail.wagtailcore.rich_text import RichText
+from wagtail.core.rich_text import RichText
 
 register = template.Library()
 
