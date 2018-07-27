@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.core.blocks import PageChooserBlock, ChoiceBlock
@@ -28,6 +28,19 @@ class SubscriptionSubprogramRelationship(models.Model):
         FieldPanel('alternate_name')
     ]
 
+class FeaturedProgramPage(Orderable):
+    page = models.ForeignKey(Page, related_name="+")
+    program = ParentalKey('Program', related_name='featured_pages')
+    panels = [
+        PageChooserPanel('page')
+    ]
+
+class FeaturedSubprogramPage(Orderable):
+    page = models.ForeignKey(Page, related_name="+")
+    program = ParentalKey('Subprogram', related_name='featured_pages')
+    panels = [
+        PageChooserPanel('page')
+    ]
 
 class AbstractProgram(Page):
     """
@@ -135,6 +148,7 @@ class AbstractProgram(Page):
     subscription_card_text = models.TextField(blank=True, null=True, max_length=100)
 
     featured_panels = [
+        InlinePanel('featured_pages', label="Featured Pages", help_text="First page becomes lead story"),
         MultiFieldPanel(
             [
                 PageChooserPanel('lead_1'),
@@ -145,7 +159,7 @@ class AbstractProgram(Page):
                 PageChooserPanel('feature_2'),
                 PageChooserPanel('feature_3')
             ],
-            heading="Lead Stories",
+            heading="(legacy) Lead Stories",
             classname="collapsible"
         ),
     ]

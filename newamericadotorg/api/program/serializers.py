@@ -103,24 +103,20 @@ class ProgramSerializer(ModelSerializer):
         return ''
         return obj.desktop_program_logo
 
-class StoryGridItemSerializer(ModelSerializer):
+class FeaturedPageSerializer(ModelSerializer):
     content_type = SerializerMethodField()
     story_image = SerializerMethodField()
     story_excerpt = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
 
     def get_story_excerpt(self, obj):
-        return obj.specific.story_excerpt
+        return obj.story_excerpt
 
     def get_story_image(self, obj):
-        if 'is_lead' in self.context:
-            return generate_image_url(obj.specific.story_image, 'fill-925x430')
-        return generate_image_url(obj.specific.story_image, 'fill-600x460')
+        return generate_image_url(obj.story_image, 'fill-600x460')
 
     def get_story_image_thumbnail(self, obj):
-        if 'is_lead' in self.context:
-            return generate_image_url(obj.specific.story_image, 'fill-32x15')
-        return generate_image_url(obj.specific.story_image, 'fill-30x23')
+        return generate_image_url(obj.story_image, 'fill-30x23')
 
     def get_content_type(self, obj):
         return get_content_type(obj)
@@ -129,13 +125,19 @@ class StoryGridItemSerializer(ModelSerializer):
         model = Page
         fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt', 'story_image_thumbnail')
 
+class FeaturedLeadPageSerializer(FeaturedPageSerializer):
+    def get_story_image(self, obj):
+        return generate_image_url(obj.specific.story_image, 'fill-925x430')
+
+    def get_story_image_thumbnail(self, obj):
+        return generate_image_url(obj.specific.story_image, 'fill-32x15')
+
 class ProgramDetailSerializer(ModelSerializer):
     story_grid = SerializerMethodField()
     description = SerializerMethodField()
     subprograms = SerializerMethodField()
     logo = SerializerMethodField()
     content_types = SerializerMethodField()
-    features = SerializerMethodField()
     subpages = SerializerMethodField()
     topics = SerializerMethodField()
     about = SerializerMethodField()
@@ -146,12 +148,18 @@ class ProgramDetailSerializer(ModelSerializer):
         model = Program
         fields = (
             'id', 'name', 'title', 'story_grid', 'description', 'url', 'subprograms', 'slug',
-            'content_types', 'features', 'subpages', 'logo', 'about', 'about_us_pages',
+            'content_types', 'subpages', 'logo', 'about', 'about_us_pages',
             'subscriptions', 'topics', 'hide_subscription_card', 'subscription_card_text'
         )
 
     def get_story_grid(self, obj):
-        grid = []
+        featured_pages = [rel.page.specific for rel in obj.featured_pages.all()]
+        if len(featured_pages) == 0:
+            return None
+
+        lead = FeaturedLeadPageSerializer(featured_pages.pop(0)).data
+        return [lead] + FeaturedPageSerializer(featured_pages, many=True).data
+
         if obj.lead_1:
             context = self.context.copy()
             context['is_lead'] = True
@@ -194,14 +202,6 @@ class ProgramDetailSerializer(ModelSerializer):
     def get_logo(self, obj):
         return ''
         return obj.desktop_program_logo
-
-    def get_features(self, obj):
-        features = []
-        for i in range(3):
-            f = 'features_' + str(i+1)
-            if getattr(obj,f,None):
-                features.append(getattr(obj,f).id)
-        return features
 
     def get_subpages(self, obj):
         return get_subpages(obj)
@@ -263,8 +263,6 @@ class SubprogramSerializer(ModelSerializer):
     parent_programs = SerializerMethodField()
     content_types = SerializerMethodField()
     description = SerializerMethodField()
-    leads = SerializerMethodField()
-    features = SerializerMethodField()
     subpages = SerializerMethodField()
     about = SerializerMethodField()
     subscriptions = SerializerMethodField()
@@ -273,7 +271,7 @@ class SubprogramSerializer(ModelSerializer):
         model = Subprogram
         fields = (
             'id', 'name', 'story_grid', 'parent_programs', 'url', 'slug', 'content_types',
-             'description', 'leads', 'features', 'subpages', 'about', 'title', 'subscriptions',
+             'description', 'subpages', 'about', 'title', 'subscriptions',
              'hide_subscription_card', 'subscription_card_text'
         )
 
@@ -284,6 +282,13 @@ class SubprogramSerializer(ModelSerializer):
         return parents
 
     def get_story_grid(self, obj):
+        featured_pages = [rel.page.specific for rel in obj.featured_pages.all()]
+        if len(featured_pages) == 0:
+            return None
+
+        lead = FeaturedLeadPageSerializer(featured_pages.pop(0)).data
+        return [lead] + FeaturedPageSerializer(featured_pages, many=True).data
+
         grid = []
         context = self.context
         if obj.template == 'simple_program.html':
@@ -312,22 +317,6 @@ class SubprogramSerializer(ModelSerializer):
 
     def get_description(self, obj):
         return obj.description or obj.story_excerpt
-
-    def get_leads(self, obj):
-        leads = []
-        for i in range(4):
-            l = 'lead_' + str(i+1)
-            if getattr(obj,l,None):
-                leads.append(getattr(obj,l).id)
-        return leads
-
-    def get_features(self, obj):
-        features = []
-        for i in range(3):
-            f = 'features_' + str(i+1)
-            if getattr(obj,f,None):
-                features.append(getattr(obj,f).id)
-        return features
 
     def get_subpages(self, obj):
         return get_subpages(obj)
