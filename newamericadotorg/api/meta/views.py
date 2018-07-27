@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from home.models import HomePage
+from programs.models import Program
 
 from newamericadotorg.settings.context_processors import content_types
 from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer

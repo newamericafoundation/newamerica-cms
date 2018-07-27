@@ -1,9 +1,10 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from wagtail.core.models import Page, ContentType
+from django.template import loader
 
 from programs.models import Program, Subprogram, Project, BlogProject, AbstractContentPage
 from subscribe.models import SubscriptionSegment
-from newamericadotorg.api.helpers import generate_image_url, get_content_type
+from newamericadotorg.api.helpers import generate_image_url, get_content_type, get_program_content_types, get_subpages
 
 class PostProgramSerializer(ModelSerializer):
     name = SerializerMethodField()

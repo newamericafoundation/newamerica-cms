@@ -34,12 +34,8 @@ class PostList(ListAPIView):
     def get_queryset(self):
         content_type = self.request.query_params.get('content_type', None)
         other_content_type_title = self.request.query_params.get('other_content_type_title', None)
-        ids = self.request.query_params.getlist('id[]', None)
         topic_id = self.request.query_params.get('topic_id', None)
-        content_type_id = self.request.query_params.get('content_type_id', None)
         category = self.request.query_params.get('category', None)
-        data_viz = self.request.query_params.get('data_viz', None)
-        has_image = self.request.query_params.get('has_image', None)
 
         if other_content_type_title:
             posts = OtherPost.objects.live().public()\
@@ -48,9 +44,6 @@ class PostList(ListAPIView):
                 posts = posts.filter(category__title=category)
         else:
             posts = Post.objects.live().not_type(Event).public()
-
-        if has_image == 'true':
-            queryset = queryset.filter(story_image__isnull=False)
 
         if content_type:
             if content_type == 'report':
@@ -66,14 +59,5 @@ class PostList(ListAPIView):
                 .get_descendants(inclusive=True).live()
 
             posts = posts.filter(post_topic__in=topics)
-
-        if ids:
-            posts = posts.filter(id__in=ids)
-
-        if content_type_id:
-            posts = posts.descendant_of(Page.objects.get(pk=content_type_id))
-
-        if data_viz == 'true':
-            posts = posts.exclude(data_project_external_script__isnull=True).exclude(data_project_external_script='')
 
         return posts
