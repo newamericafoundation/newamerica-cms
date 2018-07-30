@@ -8,7 +8,7 @@ register = template.Library()
 def cited_html(html):
     if type(html) == RichText:
         html = html.__html__()
-    elif type(html) != unicode:
+    elif type(html) != str:
         html = str(html)
 
     match = re.search('\{\{([0-9]+)\}\}', html)
@@ -25,7 +25,7 @@ def cited_html(html):
 def markdown_link(html):
     if type(html) == RichText:
         html = html.__html__()
-    elif type(html) != unicode:
+    elif type(html) != str:
         html = str(html)
 
     name_regex = "[^]]+"
