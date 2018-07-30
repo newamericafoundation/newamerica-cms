@@ -359,29 +359,26 @@ class ProgramSimplePage(AbstractSimplePage):
 
         return context
 
-    def get_template(self, request):
-        parent = self.get_parent().specific
-
-        if type(parent) != Program and type(parent) != Subprogram:
-            return 'home/program_simple_page.html'
-
-        ## should load program page if page is added to "sidebar_menu_about_us_pages"
-        ## TODO need a better check for this
-        if self.id == getattr(parent.about_us_page, 'id', None):
-            return 'programs/program.html'
-
-        if type(parent) == Program:
-            about_pages = parent.sidebar_menu_about_us_pages.stream_data
-            is_about_page = False
-            for a in about_pages:
-                if self.id == a['value']:
-                    return 'programs/program.html'
-
-        return 'home/program_simple_page.html'
-
     class Meta:
         verbose_name = 'About Page'
 
+class ProgramAboutHomePage(ProgramSimplePage):
+    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    subpage_types = [
+        'home.ProgramAboutPage'
+    ]
+
+class ProgramAboutPage(ProgramSimplePage):
+    parent_page_types = ['home.ProgramAboutHomePage']
+    subpage_types = [
+        'home.ProgramSimplePage'
+    ]
+
+    def get_context(self, request):
+        context = super(ProgramSimplePage, self).get_context(request)
+        context['program'] = self.get_parent().get_parent().specific
+
+        return context
 
 class JobsPage(OrgSimplePage):
     """

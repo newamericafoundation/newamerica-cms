@@ -26,15 +26,6 @@ class ProgramPage extends Component {
     setTimeout(()=>{ this.setState({ 'loaded': true }); }, 1500);
   }
 
-  aboutRoutes = (pages, root) => {
-    if(!pages) return;
-    let { response: { results }} = this.props;
-
-    return pages.map((p,i) => (
-      <Route key={`page-${i}`} path={`/${root}/${p.slug}/`} exact render={(props)=>(<About program={results} about={p} about_us_pages={pages} />)} />
-    ));
-  }
-
   contentSlugs = () => {
     let { response: { results }} = this.props;
 
@@ -57,8 +48,7 @@ class ProgramPage extends Component {
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
             <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} />)} />
-            {results.about && <Route path={`/${root}/(about|${results.about.slug})`} exact render={()=>(<About program={results} about={results.about} about_us_pages={results.about_us_pages} />)} /> }
-            {this.aboutRoutes(results.about_us_pages, root)}
+            {results.about && <Route path={`/${root}/about/`} render={()=>(<About program={results} about={results.about} root={root} />)} /> }
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/projects/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />

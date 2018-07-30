@@ -2,9 +2,22 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from wagtail.core.models import Page, ContentType
 from django.template import loader
 
+from home.models import ProgramAboutHomePage, ProgramAboutPage
 from programs.models import Program, Subprogram, Project, BlogProject, AbstractContentPage
 from subscribe.models import SubscriptionSegment
 from newamericadotorg.api.helpers import generate_image_url, get_content_type, get_program_content_types, get_subpages
+
+class AboutPageSerializer(ModelSerializer):
+    body = SerializerMethodField()
+
+    class Meta:
+        model = ProgramAboutHomePage
+        fields = (
+            'id', 'url', 'slug', 'body', 'title'
+        )
+
+    def get_body(self, obj):
+        return loader.get_template('components/post_body.html').render({ 'page': obj })
 
 class PostProgramSerializer(ModelSerializer):
     name = SerializerMethodField()
@@ -141,14 +154,13 @@ class ProgramDetailSerializer(ModelSerializer):
     subpages = SerializerMethodField()
     topics = SerializerMethodField()
     about = SerializerMethodField()
-    about_us_pages = SerializerMethodField()
     subscriptions = SerializerMethodField()
 
     class Meta:
         model = Program
         fields = (
             'id', 'name', 'title', 'story_grid', 'description', 'url', 'subprograms', 'slug',
-            'content_types', 'subpages', 'logo', 'about', 'about_us_pages',
+            'content_types', 'subpages', 'logo', 'about',
             'subscriptions', 'topics', 'hide_subscription_card', 'subscription_card_text'
         )
 
@@ -207,36 +219,14 @@ class ProgramDetailSerializer(ModelSerializer):
         return get_subpages(obj)
 
     def get_about(self, obj):
-        if not obj.about_us_page:
-            return None;
-        return {
-            'url': obj.about_us_page.url,
-            'slug': obj.about_us_page.slug,
-            'title': obj.about_us_page.title,
-            'body': loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
-        }
-
-    def get_about_us_pages(self, obj):
-        if not obj.sidebar_menu_about_us_pages:
-            return None
-        if len(obj.sidebar_menu_about_us_pages) == 0:
+        about = ProgramAboutHomePage.objects.descendant_of(obj).live().first()
+        if not about:
             return None
 
-        about_us_pages = []
-        for p in obj.sidebar_menu_about_us_pages:
-            try:
-                p = p.value.specific
-            except:
-                continue
-            if p.title == 'About Us' or p.title == 'Our People' or not p.live:
-                continue
-            body = loader.get_template('components/post_body.html').render({ 'page': p })
-            about_us_pages.append({ 'title': p.title, 'body': body, 'slug': p.slug })
+        about_page = AboutPageSerializer(about).data
+        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(about).in_menu().live(), many=True).data
 
-        if len(about_us_pages) == 0:
-            return None
-
-        return about_us_pages
+        return about_page
 
     def get_subscriptions(self, obj):
         segments = []
@@ -322,14 +312,14 @@ class SubprogramSerializer(ModelSerializer):
         return get_subpages(obj)
 
     def get_about(self, obj):
-        if not obj.about_us_page: return None
+        about = ProgramAboutHomePage.objects.descendant_of(obj).live().first()
+        if not about:
+            return None
 
-        return {
-            'url': obj.about_us_page.url,
-            'slug': obj.about_us_page.slug,
-            'title': obj.about_us_page.title,
-            'body': loader.get_template('components/post_body.html').render({ 'page': obj.about_us_page.specific })
-        }
+        about_page = AboutPageSerializer(about).data
+        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(about).in_menu().live(), many=True).data
+
+        return about_page
 
     def get_subscriptions(self, obj):
         segments = []
