@@ -84,12 +84,15 @@ class PostFactory():
 
     @staticmethod
     def create_content(n, content_page, post_type, post_data={}):
+        content = []
         for i in range(n):
             post = content_page.add_child(instance=post_type(
                 **PostFactory.post_data(**post_data)
             ))
 
-            post.save()
+            content.append(post)
+
+        return content
 
     @staticmethod
     def create_program_content(n, program, content_page_type, post_type, content_page_data={}, post_data={} ):
@@ -97,16 +100,31 @@ class PostFactory():
             **PostFactory.page_data(**content_page_data)
         ))
 
-        content_page.save()
-
+        content = []
         for i in range(n):
             post = content_page.add_child(instance=post_type(
                 **PostFactory.post_data(**post_data)
             ))
 
-            post.save()
+            content.append(post)
 
-        return content_page
+        return content
+
+    @staticmethod
+    def create_program(home_page, program_data={}):
+        program = home_page.add_child(instance=Program(
+            **PostFactory.program_data(**program_data)
+        ))
+
+        return program
+
+    @staticmethod
+    def create_subprogram(program, subprogram_data={}):
+        subprogram = program.add_child(instance=Subprogram(
+            **PostFactory.program_data(**subprogram_data)
+        ))
+
+        return subprogram
 
     @staticmethod
     def create_person(**kwargs):
@@ -116,13 +134,10 @@ class PostFactory():
             people_page = home_page.add_child(instance=OurPeoplePage(
                 title='Our People'
             ))
-            people_page.save()
 
         person = people_page.add_child(instance=Person(
             **PostFactory.person_data(**kwargs)
         ))
-
-        person.save()
 
         return person
 

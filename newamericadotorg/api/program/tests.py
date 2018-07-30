@@ -10,14 +10,6 @@ class ProgramAPITests(APITestCase):
     def setUpTestData(cls):
         home_page = PostFactory.create_homepage()
 
-        program = home_page.add_child(instance=Program(
-            **PostFactory.program_data()
-        ))
-
-        program.save()
-
-        subprogram = program.add_child(instance=Subprogram(
-            **PostFactory.program_data()
-        ))
-
-        subprogram.save()
+        program = PostFactory.create_program()
+        subprogram = PostFactory.create_subprogram(program=program)
+        

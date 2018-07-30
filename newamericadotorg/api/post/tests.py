@@ -21,11 +21,7 @@ class PostAPITests(APITestCase):
     def setUpTestData(cls):
         home_page = PostFactory.create_homepage()
 
-        program = home_page.add_child(instance=Program(
-            **PostFactory.program_data()
-        ))
-
-        program.save();
+        program = PostFactory.create_program(home_page=home_page)
 
         indepthpage = home_page.add_child(instance=AllInDepthHomePage(
             title='In Depth Home Page'
