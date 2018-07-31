@@ -30,10 +30,8 @@ class EventList(ListAPIView):
     filter_class = EventFilter
 
     def get_queryset(self):
-        ids = self.request.query_params.getlist('id[]', None)
         time_period = self.request.query_params.get('time_period', None)
         events = Event.objects.live().public().distinct()
-        has_image = self.request.query_params.get('has_image', None)
 
         if time_period:
             today = localtime(now()).date()
@@ -42,10 +40,4 @@ class EventList(ListAPIView):
             elif time_period=='past':
                 return events.filter(date__lt=today).order_by('-date', '-start_time')
 
-        if has_image == 'true':
-            events = events.filter(story_image__isnull=False)
-
-        if not ids:
-            return events.order_by('-date', '-start_time')
-
-        return events.filter(id__in=ids).order_by('-date', '-start_time')
+        return events.order_by('-date', '-start_time')

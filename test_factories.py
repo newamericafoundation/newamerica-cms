@@ -1,5 +1,4 @@
-import factory
-from faker import Factory
+from faker import Faker
 from django.utils.text import slugify
 from PIL import Image
 from django.utils.six import BytesIO
@@ -25,27 +24,27 @@ from press_release.models import PressRelease
 from quoted.models import Quoted
 from weekly.models import WeeklyArticle, WeeklyEdition
 
-faker = Factory.create()
+fake = Faker()
 
 class PostFactory():
     @staticmethod
     def post_data(**kwargs):
         args = {
-            'title': faker.text(max_nb_chars=10),
-            'date': faker.date(),
-            'slug': slugify(faker.text(max_nb_chars=10)),
-            'story_excerpt': faker.text(max_nb_chars=140)
+            'title': fake.text(max_nb_chars=10),
+            'date': fake.date(),
+            'slug': slugify(fake.words(nb=2)),
+            'story_excerpt': fake.text(max_nb_chars=140)
         }
-
+        
         return { **args, **kwargs }
 
     @staticmethod
     def program_data(**kwargs):
         args = {
-            'title': faker.company(),
-            'name': faker.company(),
-            'slug': slugify(faker.company()),
-            'description': faker.text(max_nb_chars=140),
+            'title': fake.company(),
+            'name': fake.company(),
+            'slug': slugify(fake.words(nb=2)),
+            'description': fake.text(max_nb_chars=140),
             'depth': 3,
             'show_in_menus': True
         }
@@ -55,7 +54,7 @@ class PostFactory():
     @staticmethod
     def page_data(**kwargs):
         args = {
-            'title': faker.text(max_nb_chars=15)
+            'title': fake.text(max_nb_chars=15)
         }
 
         return { **args, **kwargs }
@@ -63,9 +62,9 @@ class PostFactory():
     @staticmethod
     def person_data(**kwargs):
         args = {
-            'title': faker.text(max_nb_chars=15),
-            'first_name': faker.name(),
-            'last_name': faker.name(),
+            'title': fake.text(max_nb_chars=15),
+            'first_name': fake.name(),
+            'last_name': fake.name(),
             'role': 'Program Staff'
         }
 
