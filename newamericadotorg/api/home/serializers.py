@@ -5,32 +5,6 @@ from programs.models import Program
 from report.models import Report
 from newamericadotorg.api.post.serializers import PostSerializer
 
-class HomeSerializer(ModelSerializer):
-    leads = SerializerMethodField()
-    features = SerializerMethodField()
-
-    class Meta:
-        model = Program
-        fields = (
-            'leads', 'features'
-        )
-
-    def get_leads(self, obj):
-        leads = []
-        for i in range(4):
-            l = 'lead_' + str(i+1)
-            if getattr(obj,l,None):
-                leads.append(getattr(obj,l).id)
-        return leads
-
-    def get_features(self, obj):
-        features = []
-        for i in range(3):
-            f = 'features_' + str(i+1)
-            if getattr(obj,f,None):
-                features.append(getattr(obj,f).id)
-        return features
-
 class HomeDetailSerializer(PostSerializer):
     data = SerializerMethodField()
     subpages = SerializerMethodField()
