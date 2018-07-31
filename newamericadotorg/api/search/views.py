@@ -17,6 +17,7 @@ class SearchList(ListAPIView):
         query = Query.get(search)
         query.add_hit()
 
+        # search queryset does not allow .public(). manually exclude restricted pages
         public_results =[]
         restrictions = PageViewRestriction.objects.all()
         for obj in results:
@@ -24,6 +25,7 @@ class SearchList(ListAPIView):
             for restriction in restrictions:
                 if obj.id == restriction.page.id or obj.is_descendant_of(restriction.page):
                     private = True
+                    break
 
             if not private:
                 public_results.append(obj)

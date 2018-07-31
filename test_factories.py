@@ -95,6 +95,12 @@ class PostFactory():
         return content
 
     @staticmethod
+    def create_program_content_page(program, content_page_type, content_page_data={}):
+        return program.add_child(instance=content_page_type(
+            **PostFactory.page_data(**content_page_data)
+        ))
+
+    @staticmethod
     def create_program_content(n, program, content_page_type, post_type, content_page_data={}, post_data={} ):
         content_page = program.add_child(instance=content_page_type(
             **PostFactory.page_data(**content_page_data)
