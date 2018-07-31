@@ -5,6 +5,7 @@ from home.models import HomePage
 from subscribe.models import SubscriptionSegment, SubscribePage
 from logdna import LogDNAHandler as LogDNA
 
+LOGDNA_KEY = os.getenv('LOGDNA_KEY')
 CREATESEND_API_KEY = os.getenv('CREATESEND_API_KEY')
 CREATESEND_CLIENTID = os.getenv('CREATESEND_CLIENTID')
 CREATESEND_LISTID = os.getenv('CREATESEND_LISTID')
@@ -57,7 +58,7 @@ def update_subscriber(email, name, custom_fields):
             return 'OK'
         except:
             if not settings.DEBUG:
-                handler = LogDNA(API_KEY,{
+                handler = LogDNA(LOGDNA_KEY,{
                     'index_meta': True,
                     'app': 'newamerica-cms',
                     'level': 'Error',
