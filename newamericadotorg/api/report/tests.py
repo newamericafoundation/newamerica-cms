@@ -4,14 +4,10 @@ from test_factories import PostFactory
 
 from report.models import Report, ReportsHomepage
 from wagtail.core.blocks.stream_block import StreamValue
-from newamericadotorg.blocks import PanelBlock, ReportBody, BoxBody
-from report.blocks import EndnoteBlock
-from wagtail.core.blocks.stream_block import StreamValue
+from newamericadotorg.blocks import ReportBody
 from wagtail.core.rich_text import RichText
-from wagtail.core import blocks
 
-
-class AuthorAPITests(APITestCase):
+class ReportAPITests(APITestCase):
     @classmethod
     def setUpTestData(cls):
         home_page = PostFactory.create_homepage()
