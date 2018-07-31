@@ -6,7 +6,7 @@ from test_factories import PostFactory
 
 from blog.models import ProgramBlogPostsPage, BlogPost
 
-class PostAPITests(APITestCase):
+class SearchAPITests(APITestCase):
     @classmethod
     def setUpTestData(cls):
         home_page = PostFactory.create_homepage()
@@ -35,6 +35,6 @@ class PostAPITests(APITestCase):
 
         url = '/api/search/?query=unique%20query'
         result = self.client.get(url).json()
-        
+
         self.assertEquals(getattr(result, 'error', False), False)
         self.assertEquals(result['count'], 25)
