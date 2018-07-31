@@ -8,7 +8,7 @@ from wagtail.core.models import Page, Site
 from home.models import Post, HomePage
 from programs.models import Program, Subprogram
 from person.models import Person, OurPeoplePage
-from issue.models import IssueOrTopic
+from issue.models import IssueOrTopic, TopicHomePage
 from conference.models import Conference
 
 from report.models import Report
@@ -35,7 +35,7 @@ class PostFactory():
             'slug': slugify(fake.words(nb=2)),
             'story_excerpt': fake.text(max_nb_chars=140)
         }
-        
+
         return { **args, **kwargs }
 
     @staticmethod
@@ -127,7 +127,7 @@ class PostFactory():
         return subprogram
 
     @staticmethod
-    def create_person(**kwargs):
+    def create_person(person_data={}):
         people_page = OurPeoplePage.objects.first()
         if people_page == None:
             home_page = HomePage.objects.first()
@@ -136,7 +136,7 @@ class PostFactory():
             ))
 
         person = people_page.add_child(instance=Person(
-            **PostFactory.person_data(**kwargs)
+            **PostFactory.person_data(**person_data)
         ))
 
         return person
@@ -149,3 +149,33 @@ class PostFactory():
         data.seek(0)
 
         return data
+
+    @staticmethod
+    def create_program_topics(n, program, topic_home_data={}, topic_data={}):
+
+        topic_home = program.add_child(instance=TopicHomePage(
+            **PostFactory.page_data(**topic_home_data)
+        ))
+
+        topics = []
+        for i in range(n):
+            topic = topic_home.add_child(instance=IssueOrTopic(
+                **PostFactory.page_data(**topic_data)
+            ))
+
+            topics.append(topic)
+
+        return topics
+
+    @staticmethod
+    def create_subtopics(n, parent_topic, topic_data={}):
+
+        topics = []
+        for i in range(n):
+            topic = parent_topic.add_child(instance=IssueOrTopic(
+                **PostFactory.page_data(**topic_data)
+            ))
+
+            topics.append(topic)
+
+        return topics

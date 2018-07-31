@@ -32,10 +32,9 @@ class AuthorList(ListAPIView):
 
     def get_queryset(self):
         queryset = Person.objects.live().order_by('sort_priority', 'last_name')\
-            .exclude(role__icontains='External Author').distinct()
+            .exclude(role__icontains='External Author')
         topic_id = self.request.query_params.get('topic_id', None)
-        former = self.request.query_params.get('former', None)
-        has_image = self.request.query_params.get('has_image', None)
+        former = self.request.query_params.get('former', 'false')
         include_fellows = self.request.query_params.get('include_fellows', None)
 
         if not include_fellows or include_fellows == 'false':
@@ -45,18 +44,19 @@ class AuthorList(ListAPIView):
             queryset = queryset.filter(former=False)
         elif former == 'true':
             queryset = queryset.filter(former=True)
-        else:
-            queryset = queryset.exclude(former=True)
-        if has_image == 'true':
-            queryset = queryset.filter(profile_image__isnull=False)
 
-        if topic_id:
-            topics = IssueOrTopic.objects.get(pk=topic_id)\
-                .get_descendants(inclusive=True).live()
+        if topic_id is not None:
+            # rollup topic tags
+            try:
+                topics = IssueOrTopic.objects.get(pk=topic_id)\
+                    .get_descendants(inclusive=True).live()
 
-            queryset = queryset.filter(expertise__in=topics)
+                queryset = queryset.filter(expertise__in=[t.id for t in topics])
+            except:
+                return queryset.none()
 
-        return queryset
+
+        return queryset.distinct()
 
 class FellowList(ListAPIView):
     serializer_class = AuthorSerializer
@@ -67,7 +67,8 @@ class FellowList(ListAPIView):
         queryset = Person.objects.live().order_by('fellowship_year', 'sort_priority', 'last_name').filter(role='Fellow')
         fellowship_year = self.request.query_params.get('fellowship_year', None)
         topic_id = self.request.query_params.get('topic_id', None)
-        former = self.request.query_params.get('former', None)
+        former = self.request.query_params.get('former', 'false')
+
         if former == 'false':
             queryset = queryset.filter(former=False)
         elif former == 'true':
@@ -80,9 +81,12 @@ class FellowList(ListAPIView):
                 pass
 
         if topic_id:
-            topics = IssueOrTopic.objects.get(pk=topic_id)\
-                .get_descendants(inclusive=True).live()
+            try:
+                topics = IssueOrTopic.objects.get(pk=topic_id)\
+                    .get_descendants(inclusive=True).live()
 
-            queryset = queryset.filter(expertise__in=topics)
+                queryset = queryset.filter(expertise__in=[t.id for t in topics])
+            except:
+                return queryset.none()
 
-        return queryset
+        return queryset.distinct()
