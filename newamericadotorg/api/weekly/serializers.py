@@ -6,23 +6,6 @@ from weekly.models import WeeklyEdition, WeeklyArticle
 from newamericadotorg.api.author.serializers import AuthorSerializer
 from newamericadotorg.api.helpers import generate_image_url
 
-class WeeklyEditionArticleSerializer(ModelSerializer):
-    authors = SerializerMethodField()
-    story_image = SerializerMethodField()
-
-    def get_authors(self, obj):
-        return AuthorSerializer(obj.post_author, many=True, context=self.context).data
-
-    def get_story_image(self, obj):
-        if(obj.story_image):
-            return generate_image_url(obj.story_image, 'fill-300x300')
-
-    class Meta:
-        model = WeeklyArticle
-        fields = (
-            'id', 'title', 'search_description', 'authors', 'slug', 'story_image', 'url'
-        )
-
 class WeeklyArticleSerializer(ModelSerializer):
     authors = SerializerMethodField()
     body = SerializerMethodField()
@@ -96,7 +79,7 @@ class WeeklyEditionSerializer(ModelSerializer):
     def get_title(self, obj):
         first_child = obj.get_children().first().specific
         if not first_child:
-            return data
+            return obj.title
 
         return first_child.title
 
