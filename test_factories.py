@@ -46,7 +46,8 @@ class PostFactory():
             'name': faker.company(),
             'slug': slugify(faker.company()),
             'description': faker.text(max_nb_chars=140),
-            'depth': 3
+            'depth': 3,
+            'show_in_menus': True
         }
 
         return { **args, **kwargs }
