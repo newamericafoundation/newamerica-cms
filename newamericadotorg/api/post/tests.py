@@ -98,14 +98,18 @@ class PostAPITests(APITestCase):
     def test_author_serialization(self):
         blog_post = BlogPost.objects.first()
         author1 = PostFactory.create_person(
-            title='Albert Zeta',
-            first_name='Albert',
-            last_name='Zeta'
+            person_data={
+                'title': 'Albert Zeta',
+                'first_name': 'Albert',
+                'last_name': 'Zeta'
+            }
         )
         author2 = PostFactory.create_person(
-            title='Albert Alpha',
-            first_name='Albert',
-            last_name='Alpha'
+            person_data={
+                'title': 'Albert Alpha',
+                'first_name': 'Albert',
+                'last_name': 'Alpha'
+            }
         )
 
         author_rel1 = PostAuthorRelationship(
