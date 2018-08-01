@@ -3,7 +3,7 @@ from wagtail.core.models import Page
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, BlogProject, BlogSeries
 
 from .models import Quoted, AllQuotedHomePage, ProgramQuotedPage
 
@@ -37,11 +37,11 @@ class QuotedTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
             depth=3
             )
         )
@@ -74,7 +74,11 @@ class QuotedTests(WagtailPageTests):
      # Test allowed parent Page types
     def test_quoted_parent_page(self):
         self.assertAllowedParentPageTypes(
-            Quoted, {ProgramQuotedPage}
+            Quoted, {
+                ProgramQuotedPage,
+                BlogProject,
+                BlogSeries
+            }
         )
 
     def test_program_quoted_parent_page(self):
@@ -179,4 +183,3 @@ class QuotedTests(WagtailPageTests):
                 post=quoted,
                 program=self.second_program).first(), None
         )
-

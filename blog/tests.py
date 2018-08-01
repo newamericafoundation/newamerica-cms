@@ -7,7 +7,7 @@ from .models import BlogPost, AllBlogPostsHomePage, ProgramBlogPostsPage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, BlogProject, BlogSeries
 
 class BlogPostTests(WagtailPageTests):
     """
@@ -35,25 +35,25 @@ class BlogPostTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
             depth=3
             )
-        )       
+        )
         self.program_blog_posts_page = self.program_page_1.add_child(instance=ProgramBlogPostsPage(title='OTI Blog'))
         self.blog_post = self.program_blog_posts_page.add_child(
             instance=BlogPost(
-                title='Blog Post 1', 
+                title='Blog Post 1',
                 date='2016-02-10'
             )
         )
 
 
-    # Test that a particular child Page can be created under 
-    # the appropriate parent Page 
+    # Test that a particular child Page can be created under
+    # the appropriate parent Page
     def test_can_create_blog_post_under_program_blog_posts_page(self):
         self.assertCanCreateAt(ProgramBlogPostsPage, BlogPost)
 
@@ -66,7 +66,11 @@ class BlogPostTests(WagtailPageTests):
 
     # Test allowed parent page types
     def test_blog_post_parent_page(self):
-        self.assertAllowedParentPageTypes(BlogPost, {ProgramBlogPostsPage})
+        self.assertAllowedParentPageTypes(BlogPost, {
+            ProgramBlogPostsPage,
+            BlogProject,
+            BlogSeries
+        })
 
     def test_program_blog_post_parent_page(self):
         self.assertAllowedParentPageTypes(ProgramBlogPostsPage, {Program, Subprogram})
@@ -81,7 +85,7 @@ class BlogPostTests(WagtailPageTests):
 
     def test_program_blog_post_subpages(self):
         self.assertAllowedSubpageTypes(ProgramBlogPostsPage, {BlogPost})
-    
+
     def test_all_blog_post_subpages(self):
         self.assertAllowedSubpageTypes(AllBlogPostsHomePage, {})
 

@@ -3,7 +3,7 @@ from wagtail.core.models import Page
 
 from home.models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
 
-from .models import Program, Subprogram, ProgramSubprogramRelationship
+from .models import Program, Subprogram, ProgramSubprogramRelationship, BlogProject, PublicationsPage, Project
 
 from weekly.models import Weekly
 
@@ -25,16 +25,19 @@ from press_release.models import AllPressReleasesHomePage, ProgramPressReleasesP
 
 from quoted.models import AllQuotedHomePage, ProgramQuotedPage
 
-from issue.models import IssueOrTopic
+from issue.models import IssueOrTopic, TopicHomePage
 
+from report.models import ReportsHomepage
+
+from other_content.models import ProgramOtherPostsPage
 
 class ProgramsTests(WagtailPageTests):
     """
-    Testing hierarchies between pages and whether it is possible 
-    to create a Program and all the allowed subpages 
+    Testing hierarchies between pages and whether it is possible
+    to create a Program and all the allowed subpages
     underneath Programs and Subprograms.
 
-    Testing functionality of lead, feature, and feature carousels on 
+    Testing functionality of lead, feature, and feature carousels on
     the landing page.
 
     Also testing for Programs adding items the sidebar menu.
@@ -69,12 +72,12 @@ class ProgramsTests(WagtailPageTests):
         )
         self.article = self.program_articles_page.add_child(
             instance=Article(
-                title='Article 1', 
+                title='Article 1',
                 date='2016-02-02'
             )
         )
 
-    # Test that a particular child Page type 
+    # Test that a particular child Page type
     # can be created under a parent Page type
     def test_program_parent_page_type(self):
         self.assertCanCreateAt(HomePage, Program)
@@ -85,11 +88,11 @@ class ProgramsTests(WagtailPageTests):
     def test_subprogram_not_parent_page(self):
         self.assertCanNotCreateAt(HomePage, Subprogram)
 
-    # Test that the only page types that can be created 
+    # Test that the only page types that can be created
     # under parent_model are child_models
     def test_program_subpages(self):
         self.assertAllowedSubpageTypes(
-            Program, 
+            Program,
             {
                 ProgramArticlesPage,
                 ProgramBooksPage,
@@ -102,14 +105,19 @@ class ProgramsTests(WagtailPageTests):
                 ProgramSimplePage,
                 ProgramPeoplePage,
                 Subprogram,
-                IssueOrTopic,
                 RedirectPage,
+                ReportsHomepage,
+                BlogProject,
+                PublicationsPage,
+                ProgramOtherPostsPage,
+                Project,
+                TopicHomePage
             }
         )
 
     def test_subprogram_subpages(self):
         self.assertAllowedSubpageTypes(
-            Subprogram, 
+            Subprogram,
             {
                 ProgramArticlesPage,
                 ProgramBooksPage,
@@ -121,24 +129,10 @@ class ProgramsTests(WagtailPageTests):
                 ProgramQuotedPage,
                 ProgramSimplePage,
                 ProgramPeoplePage,
-                IssueOrTopic,
                 RedirectPage,
-            }
-        )
-
-    # Test that pages can be created with POST data
-    def test_can_create_program_under_homepage(self):
-        self.assertCanCreate(self.home_page, Program, {
-            'title': 'Test Program 1',
-            'name': 'Test Program 1',
-            'slug': 'test-program-1',
-            'description': 'Test description',
-            'depth': 3,
-            'location': False,
-            'feature_carousel-count': 0,
-            'sidebar_menu_initiatives_and_projects_pages-count': 0,
-            'sidebar_menu_our_work_pages-count': 0,
-            'sidebar_menu_about_us_pages-count': 0,
+                PublicationsPage,
+                ProgramOtherPostsPage,
+                ReportsHomepage
             }
         )
 
@@ -171,7 +165,7 @@ class ProgramsTests(WagtailPageTests):
             }
         )
         self.assertEqual(
-            self.program_page.feature_carousel.stream_data[0]['value'], 
+            self.program_page.feature_carousel.stream_data[0]['value'],
             self.article.id
         )
 
@@ -183,11 +177,11 @@ class ProgramsTests(WagtailPageTests):
             }
         )
         self.assertEqual(
-            self.subprogram_page.feature_carousel.stream_data[0]['value'], 
+            self.subprogram_page.feature_carousel.stream_data[0]['value'],
             self.article.id
         )
 
-    # Test adding pages to the Program sidebar menu 
+    # Test adding pages to the Program sidebar menu
     def test_adding_about_us_pages_to_program_sidebar_menu(self):
         self.program_page.sidebar_menu_about_us_pages.stream_data.append(
             {
@@ -196,7 +190,7 @@ class ProgramsTests(WagtailPageTests):
             }
         )
         self.assertEqual(
-            self.program_page.sidebar_menu_about_us_pages.stream_data[0]['value'], 
+            self.program_page.sidebar_menu_about_us_pages.stream_data[0]['value'],
             self.article.id
         )
 
@@ -208,7 +202,7 @@ class ProgramsTests(WagtailPageTests):
             }
         )
         self.assertEqual(
-            self.program_page.sidebar_menu_initiatives_and_projects_pages.stream_data[0]['value'], 
+            self.program_page.sidebar_menu_initiatives_and_projects_pages.stream_data[0]['value'],
             self.article.id
         )
 
@@ -220,6 +214,6 @@ class ProgramsTests(WagtailPageTests):
             }
         )
         self.assertEqual(
-            self.program_page.sidebar_menu_our_work_pages.stream_data[0]['value'], 
+            self.program_page.sidebar_menu_our_work_pages.stream_data[0]['value'],
             self.article.id
         )

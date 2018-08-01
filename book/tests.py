@@ -9,7 +9,7 @@ from .models import Book, AllBooksHomePage, ProgramBooksPage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, BlogProject, BlogSeries
 
 class BookTests(WagtailPageTests):
     """
@@ -37,11 +37,11 @@ class BookTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
             depth=3
             )
         )
@@ -49,8 +49,8 @@ class BookTests(WagtailPageTests):
         self.book = self.program_books_page.add_child(instance=Book(title='Test Book 1', date='2016-02-10'))
 
 
-    # Test that a particular child Page can be created under 
-    # the appropriate parent Page 
+    # Test that a particular child Page can be created under
+    # the appropriate parent Page
     def test_can_create_book_under_program_books_page(self):
         self.assertCanCreateAt(ProgramBooksPage, Book)
 
@@ -63,7 +63,11 @@ class BookTests(WagtailPageTests):
 
     # Test allowed parent page types
     def test_book_parent_page(self):
-        self.assertAllowedParentPageTypes(Book, {ProgramBooksPage})
+        self.assertAllowedParentPageTypes(Book, {
+            ProgramBooksPage,
+            BlogProject,
+            BlogSeries
+        })
 
     def test_program_book_parent_page(self):
         self.assertAllowedParentPageTypes(ProgramBooksPage, {Program, Subprogram})
@@ -78,7 +82,7 @@ class BookTests(WagtailPageTests):
 
     def test_program_book_subpages(self):
         self.assertAllowedSubpageTypes(ProgramBooksPage, {Book})
-    
+
     def test_all_book_homepage_subpages(self):
         self.assertAllowedSubpageTypes(AllBooksHomePage, {})
 
@@ -131,4 +135,3 @@ class BookTests(WagtailPageTests):
         self.assertNotIn(book, ProgramBooksPage.objects.filter(title='OTI Books').first().get_children())
         self.assertEqual(PostProgramRelationship.objects.filter(post=book, program=self.program_page_1).first(), None)
         self.assertEqual(PostProgramRelationship.objects.filter(post=book, program=self.second_program).first(), None)
-

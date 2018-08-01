@@ -5,8 +5,7 @@ from .models import Podcast, AllPodcastsHomePage, ProgramPodcastsPage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram
-
+from programs.models import Program, Subprogram, BlogProject, BlogSeries
 
 class PodcastTests(WagtailPageTests):
     """
@@ -37,11 +36,11 @@ class PodcastTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
             depth=3
             )
         )
@@ -64,7 +63,11 @@ class PodcastTests(WagtailPageTests):
     # Test allowed parent page types
     def test_podcast_parent_page(self):
         self.assertAllowedParentPageTypes(
-            Podcast, {ProgramPodcastsPage}
+            Podcast, {
+                ProgramPodcastsPage,
+                BlogProject,
+                BlogSeries
+            }
         )
 
     def test_program_podcasts_parent_page(self):

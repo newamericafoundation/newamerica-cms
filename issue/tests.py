@@ -1,7 +1,7 @@
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.core.models import Page
 
-from .models import IssueOrTopic
+from .models import IssueOrTopic, TopicHomePage
 
 from home.models import HomePage, PostProgramRelationship
 
@@ -35,9 +35,14 @@ class IssueOrTopicTests(WagtailPageTests):
     # Test allowed parent page types
     def test_issue_parent_page(self):
         self.assertAllowedParentPageTypes(
-            IssueOrTopic, {Program, IssueOrTopic, Subprogram}
+            IssueOrTopic, {
+                TopicHomePage,
+                IssueOrTopic
+            }
         )
 
     # Test allowed subpage types
     def test_issue_subpages(self):
-        self.assertAllowedSubpageTypes(IssueOrTopic, {IssueOrTopic})
+        self.assertAllowedSubpageTypes(IssueOrTopic, {
+            IssueOrTopic
+        })

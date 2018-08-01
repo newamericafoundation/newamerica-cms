@@ -104,6 +104,7 @@ class HomePage(Page):
     'in_depth.AllInDepthHomePage',
     'JobsPage',
     'RedirectPage',
+    'home.SubscribePage',
     'subscribe.SubscribePage',
     'programs.PublicationsPage',
     'report.AllReportsHomePage',

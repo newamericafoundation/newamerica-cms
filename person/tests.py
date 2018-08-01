@@ -3,7 +3,7 @@ from wagtail.core.models import Page, Site
 
 from django.test import Client
 
-from .models import Person, OurPeoplePage, PersonProgramRelationship, PersonSubprogramRelationship
+from .models import Person, OurPeoplePage, PersonProgramRelationship, PersonSubprogramRelationship, BoardAndLeadershipPeoplePage
 
 from article.models import ProgramArticlesPage, Article
 
@@ -145,7 +145,10 @@ class PersonTests(WagtailPageTests):
         self.assertAllowedSubpageTypes(Person, {})
 
     def test_our_people_page_subpages(self):
-        self.assertAllowedSubpageTypes(OurPeoplePage, {Person})
+        self.assertAllowedSubpageTypes(OurPeoplePage, {
+            Person,
+            BoardAndLeadershipPeoplePage
+        })
 
     # Test you can create a Person object with data
     def test_can_create_person_under_our_people_page(self):
@@ -280,6 +283,3 @@ class PersonTests(WagtailPageTests):
     # Test that the second page of the person bio page has no bio and only content results
     def test_second_person_page_of_bio_has_no_bio_only_content_results(self):
         pass
-
-
-

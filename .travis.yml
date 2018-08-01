@@ -3,7 +3,7 @@ language: python
 sudo: true
 
 python:
-- '2.7'
+- '3.6'
 
 addons:
   postgresql: '9.4'
@@ -26,7 +26,3 @@ install:
 script:
 - python manage.py migrate --noinput --settings=newamericadotorg.settings.test
 - python manage.py test --noinput --settings=newamericadotorg.settings.test
-
-notifications:
-  slack:
-    secure: Gx6+s4boppJOysDdduzh0AWbEFUDWVnNM5Sk23wA9rF/4xvGa7KF84zz93rqKBCT+sySVt88eUmX8LCdIyJmQjMoBm80kPmyvQAlmUM8H4zHn8YinvatF/gnGkf9UvDRvpARvQ85/a3YEreNaLKXRVQqbhVIR4cXKiKPqz5S4jKIkG2c7m+mcnanN5XeEcQTfuaQzQT2BjjeqTadITh3lJ5A6RWM9RnMoQjKJmM3eR4CPwjmnlKZeInQ5IPyzoqIWMN4TwW5ZIG1UyvJ30lJ8Uu9wOB+CMFLtlOFXCM1Tq2DiFOIFZd9zIOhWYdEAUy4bavTuPrAng2EUPN3ekNpG6ZXfHGpga8KU0pIxfLdWAUPYiky6XGtdFbae/cDn+4Gq4jcqAIkq19QII5a3gOQ8mHyQfj0ShMgMjYvlHlSNfd7rUIcILZRgLqPrxuMG37gJzFUT0EgCYDwZca/fcFCKCgE9fsxfFTfj7ju0DhVmDoP2H3fdJ75Neb43iNcVq5bvzud3hEBZQbhMaYRvRzlJAkcWLWSoGRJb83UEechlupVOeUz7mb5Shvv2B3apLszIwJ9H2eojJrXCdqf777NRI3eTWlB2LH9kdAnmptvQGVFfhMwTiW/OYg/Fnf8wjgf0gNwXxXgiUUhjeOYVS5ll4aJafElS82bJWfFjBlwtJY=

@@ -5,7 +5,7 @@ from .models import Article, ProgramArticlesPage, AllArticlesHomePage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, BlogProject, BlogSeries
 
 
 class ArticleTests(WagtailPageTests):
@@ -62,7 +62,11 @@ class ArticleTests(WagtailPageTests):
 
     #Test that the only page types that child_model can be created under are parent_models
     def test_article_parent_page(self):
-        self.assertAllowedParentPageTypes(Article, {ProgramArticlesPage})
+        self.assertAllowedParentPageTypes(Article, {
+            ProgramArticlesPage,
+            BlogProject,
+            BlogSeries
+        })
 
     def test_program_article_parent_page(self):
         self.assertAllowedParentPageTypes(ProgramArticlesPage, {Program, Subprogram})

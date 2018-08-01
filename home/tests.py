@@ -6,14 +6,15 @@ from datetime import date, timedelta
 
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.core.models import Page, Site
+from wagtail.tests.utils.form_data import nested_form_data, streamfield
 
 from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, PostAuthorRelationship
 
 from .templatetags.utilities import generate_byline
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, PublicationsPage
 
-from weekly.models import Weekly
+from weekly.models import Weekly, AllWeeklyArticlesHomePage
 
 from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 
@@ -36,6 +37,12 @@ from press_release.models import AllPressReleasesHomePage
 from quoted.models import AllQuotedHomePage
 
 from conference.models import AllConferencesHomePage
+
+from report.models import AllReportsHomePage
+
+from other_content.models import AllOtherPostsHomePage
+
+from subscribe.models import SubscribePage as SubscribeHome
 
 class HomeTests(WagtailPageTests):
     """
@@ -169,29 +176,68 @@ class HomeTests(WagtailPageTests):
             SubscribePage,
             Weekly,
             RedirectPage,
+            SubscribeHome,
+            AllReportsHomePage,
+            PublicationsPage,
+            AllOtherPostsHomePage,
+            AllWeeklyArticlesHomePage
             })
 
     # Test that pages can be created with POST data
     def test_can_create_homepage_under_page(self):
-        self.assertCanCreate(self.root_page, HomePage, {
+        self.assertCanCreate(self.root_page, HomePage, nested_form_data({
             'title': 'New America 2',
             'slug': 'new-america-2',
-            'recent_carousel-count': 0,
+            'subscriptions': {
+                'TOTAL_FORMS': 0,
+                'INITIAL_FORMS': 0,
+                'MIN_NUM_FORMS': 0,
+                'MAX_NUM_FORMS': 1000
+            },
+            'recent_carousel': {
+                'count': 0
+            },
+            'about_pages': {
+                'count': 0
             }
+          })
         )
 
     def test_can_create_program_under_homepage_with_data(self):
-        self.assertCanCreate(self.home_page, Program, {
+        self.assertCanCreate(self.home_page, Program, nested_form_data({
             'title': 'OTI2',
             'name': 'OTI2',
             'description': 'OTI2',
             'slug': 'oti-2',
             'depth': 3,
-            'feature_carousel-count': 0,
-            'sidebar_menu_initiatives_and_projects_pages-count': 0,
-            'sidebar_menu_our_work_pages-count': 0,
-            'sidebar_menu_about_us_pages-count': 0,
+            'featured_pages': {
+                'TOTAL_FORMS': 0,
+                'INITIAL_FORMS': 0,
+                'MIN_NUM_FORMS': 0,
+                'MAX_NUM_FORMS': 1000
+            },
+            'subscriptions': {
+                'TOTAL_FORMS': 0,
+                'INITIAL_FORMS': 0,
+                'MIN_NUM_FORMS': 0,
+                'MAX_NUM_FORMS': 1000
+            },
+            'feature_carousel': {
+                'count': 0
+            },
+            'sidebar_menu_initiatives_and_projects_pages' : {
+                'count': 0
+            },
+            'sidebar_menu_our_work_pages': {
+                'count': 0
+            },
+            'sidebar_menu_our_work_pages': {
+                'count': 0
+            },
+            'sidebar_menu_about_us_pages': {
+                'count': 0
             }
+          })
         )
 
     def test_adding_lead_story_to_homepage(self):
@@ -283,33 +329,3 @@ class HomeTests(WagtailPageTests):
         c = Client()
         response = c.get('http://localhost:8000/simple/google')
         self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
-
-    def test_correct_number_of_events_in_carousel(self):
-        c = Client()
-        response = c.get('/', follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['upcoming_events']), 3)
-
-    def test_order_of_events_in_carousel(self):
-        c = Client()
-        response = c.get('/', follow=True)
-        self.assertEqual(response.status_code, 200)
-        events = response.context['upcoming_events']
-
-        for i in range(1, len(events)):
-            curr_event = events[i]
-            prev_event = events[i-1]
-            if (prev_event.date == curr_event.date):
-                self.assertTrue(prev_event.start_time <= curr_event.start_time)
-            else:
-                self.assertTrue(prev_event.date <= curr_event.date)
-
-    def test_adding_subscribe_page(self):
-        subscribe_page = SubscribePage(
-            title='Subscribe Page Test'
-        )
-        self.home_page.add_child(instance=subscribe_page)
-        self.assertEqual(subscribe_page.content_type,
-            self.home_page.get_children().filter(
-            title='Subscribe Page Test')[0].content_type
-        )
