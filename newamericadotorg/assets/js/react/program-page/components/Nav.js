@@ -12,7 +12,6 @@ const NavItem = ({ url, label, active }) => (
   </h5>
 );
 
-
 export default class Nav extends Component {
   items = () => {
     let { program, match } = this.props;

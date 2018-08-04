@@ -1,5 +1,6 @@
 import './PeopleCarousel.scss';
 
+import React, { Component } from 'react';
 import Promo from './CardPromo';
 import { Slider } from '../../components/Carousel';
 import { Arrow } from '../../components/Icons';
