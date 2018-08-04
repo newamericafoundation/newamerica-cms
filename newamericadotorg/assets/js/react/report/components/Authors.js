@@ -1,3 +1,5 @@
+import './Authors.scss';
+
 import React from 'react';
 
 const Authors = ({ authors }) => (

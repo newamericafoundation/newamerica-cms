@@ -1,3 +1,5 @@
+import './Body.scss';
+
 import React, { Component } from 'react';
 import Social from './Social';
 import Authors from './Authors'

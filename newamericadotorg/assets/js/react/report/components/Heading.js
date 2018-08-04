@@ -1,3 +1,5 @@
+import './Heading.scss';
+
 import React, { Component } from 'react';
 import Image from '../../components/Image';
 import { Doc } from '../../components/Icons';

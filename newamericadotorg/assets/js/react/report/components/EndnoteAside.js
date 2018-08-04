@@ -1,3 +1,5 @@
+import './EndnoteAside.scss';
+
 import React, { Component } from 'react';
 import { PlusX } from '../../components/Icons';
 

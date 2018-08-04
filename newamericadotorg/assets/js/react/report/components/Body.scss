@@ -1,3 +1,15 @@
+.report__body{
+  position: relative;
+
+  .post-body-wrapper {
+    max-width: 650px;
+  }
+
+  .block-table{
+    margin-top: 25px;
+  }
+}
+
 .report__citation{
   color: color(turquoise);
   font-weight: bold;
