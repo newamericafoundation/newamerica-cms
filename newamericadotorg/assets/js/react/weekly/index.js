@@ -1,3 +1,5 @@
+import './index.scss';
+
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import React, { Component } from 'react';
@@ -8,7 +10,6 @@ import getNestedState from '../../utils/get-nested-state';
 import LoadingIcon from '../components/LoadingIcon';
 import Article from './components/Article';
 import Edition from './components/Edition';
-import EditionList from './components/EditionList';
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 import bowser from 'bowser';

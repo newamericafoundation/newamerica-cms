@@ -1,3 +1,27 @@
-.edition-style{
-  float: left;
+.weekly-edition__subscribe h1{
+    max-width: 90%;
+}
+
+.weekly-edition__articles__article{
+  cursor: pointer;
+
+  h3, label{
+    max-width: 90%;
+  }
+  &__image img{
+    width: 100%;
+    height: auto;
+  }
+}
+
+.weekly-edition__lead {
+  h1, h3{
+    max-width: 90%;
+  }
+
+  &__image img{
+    width: 100%;
+    height: auto;
+  }
+
 }

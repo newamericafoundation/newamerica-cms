@@ -1,3 +1,5 @@
+$weekly-header-height: 65px;
+
 .weekly-edition__header{
 	background: color(black);
 	max-height: $weekly-header-height;
@@ -15,10 +17,6 @@
 		@include media-breakpoint(desktop){
 			max-height: 800px;
 		}
-	}
-
-	&__nav{
-		height: $weekly-header-height;
 	}
 
 	&__nav__btn {

@@ -1,34 +1,24 @@
+import './Header.scss';
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Fetch, Response } from '../../components/API';
-import Image from '../../components/Image';
 import { Arrow } from '../../components/Icons';
-import EditionList from './EditionList';
+import HeaderEditionList from './HeaderEditionList';
 
-const Fade = ({children, ...props}) => (
-  <CSSTransition
-    {...props}
-    timeout={300}
-    classNames="edition-list-fade">
-    {children}
-  </CSSTransition>
-);
-
-const EditionListItem = ({ edition }) => (
-  <div className="col-sm-6 col-lg-4">
-    <a href={edition.url}>
-      <div className="weekly-edition__edition-list__edition">
-        <div className="weekly-edition__edition-list__edition__image">
-          <Image image={edition.story_image} />
-        </div>
-        <div className="weekly-edition__edition-list__edition__text">
-          <h4 className="white margin-top-0 margin-bottom-10">{edition.number}</h4>
-          <h6 className="white margin-0">{edition.story_excerpt}</h6>
-        </div>
-      </div>
-    </a>
+const EditionHeaderNavButtons = ({hasPrevious, hasNext, prevEditionPage, nextEditionPage}) => (
+  <div className="weekly-edition__header__page">
+      {hasPrevious &&
+        <h5 className="prev-page inline white margin-0" onClick={()=>{prevEditionPage(hasPrevious)}}>
+          <Arrow direction={"left white"}/><span>Prev.</span>
+        </h5>
+      }
+      {hasNext &&
+        <h5 className="next-page inline white margin-0" onClick={()=>{nextEditionPage(hasNext)}}>
+          <span>Next</span><Arrow direction={"right white"}/>
+        </h5>
+      }
   </div>
 );
 
@@ -38,29 +28,16 @@ const EditionHeader = ({ response: { results, hasNext, hasPrevious, params: { qu
       <div className="weekly-edition__header__nav__btn" onClick={toggleEditionList}>
         <a className={`button--text with-caret--${editionListOpen ? 'up' : 'down'} white`}>Past Editions</a>
       </div>
-      {editionListOpen && <div className="weekly-edition__header__page">
-          {hasPrevious &&
-            <h5 className="prev-page inline white margin-0" onClick={()=>{prevEditionPage(hasPrevious)}}>
-              <Arrow direction={"left white"}/><span>Prev.</span>
-            </h5>
-          }
-          {hasNext &&
-            <h5 className="next-page inline white margin-0" onClick={()=>{nextEditionPage(hasNext)}}>
-              <span>Next</span><Arrow direction={"right white"}/>
-            </h5>
-          }
-        </div>}
+      {editionListOpen &&
+        <EditionHeaderNavButtons
+          hasPrevious={hasPrevious}
+          hasNext={hasNext}
+          prevEditionPage={prevEditionPage}
+          nextEditionPage={nextEditionPage} />
+      }
+      <HeaderEditionList query={query} editions={results} />
     </div>
-    <TransitionGroup className="edition-list-fade-wrapper">
-      <Fade key={query.page}
-        className="weekly-edition__header__edition-list weekly-edition__edition-list row gutter-10 margin-top-25">
-        <div>
-          {results.map((e,i)=>(
-            <EditionListItem edition={e} key={`edition-${e.slug}`}/>
-          ))}
-        </div>
-      </Fade>
-    </TransitionGroup>
+
   </div>
 );
 
