@@ -60,6 +60,7 @@ module.exports = {
     minimize: false,
 		splitChunks: {
       chunks: 'all',
+      minSize: 10000,
 			cacheGroups: {
         default: false,
         vendors: {

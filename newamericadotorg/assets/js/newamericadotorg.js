@@ -1,4 +1,5 @@
 import '../scss/critical.scss';
+import(/* webpackChunkName: "na-page-styles" */ '../scss/newamericadotorg.scss');
 
 import 'babel-polyfill';
 import 'whatwg-fetch';
