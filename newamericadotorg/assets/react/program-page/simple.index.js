@@ -1,5 +1,5 @@
 import { SIMPLE_NAME as NAME, SIMPLE_ID as ID } from './constants';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import GARouter from '../ga-router';
