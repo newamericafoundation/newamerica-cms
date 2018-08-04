@@ -1,3 +1,5 @@
+import './index.scss';
+
 /* DocumentMeta defined in ./components/Nav.js */
 
 import { NAME, ID } from './constants';

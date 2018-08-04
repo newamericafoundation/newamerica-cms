@@ -1,4 +1,4 @@
-.program__nav {
+.horizontal-nav {
   background-color: color(white);
   padding-top: 15px;
   padding-bottom: 15px;
@@ -9,7 +9,7 @@
     padding-right: 35px;
   }
 
-  &.active .program__nav__link:not(.active):not(:hover){
+  &.active .horizontal-nav__link:not(.active):not(:hover){
     color: color(black, base, 0.3);
   }
 

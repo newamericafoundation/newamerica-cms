@@ -1,3 +1,5 @@
+import './Events.scss';
+
 import { NAME } from '../constants';
 import React, { Component } from 'react';
 import { Fetch } from '../../components/API';

@@ -7,7 +7,8 @@ import DocumentMeta from 'react-document-meta';
 import { Fetch } from '../components/API';
 import Heading from './components/Heading';
 import CardLg from './components/CardLg';
-import { Promo, PeopleCarousel } from './components/CardPromo';
+import { Promo } from './components/CardPromo';
+import PeopleCarousel from './components/PeopleCarousel';
 import About from './components/About';
 import Subscribe from './components/Subscribe';
 

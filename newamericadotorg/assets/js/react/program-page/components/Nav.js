@@ -6,7 +6,7 @@ import titlefy from '../../../utils/titlefy';
 
 const NavItem = ({ url, label, active }) => (
   <h5 className="link">
-    <NavLink className={`program__nav__link ${active ? 'active' : ''}`} to={url}>
+    <NavLink className={`horizontal-nav__link ${active ? 'active' : ''}`} to={url}>
       {label}
     </NavLink>
   </h5>
@@ -41,7 +41,7 @@ export default class Nav extends Component {
     let subpage = match.params.subpage;
     return (
       <DocumentMeta {...this.getMeta()}>
-        <div className={`program__nav ${subpage ? 'active' : ''}`}>
+        <div className={`horizontal-nav ${subpage ? 'active' : ''}`}>
             <ul className="inline">
               <Slider
                   variableWidth={true}

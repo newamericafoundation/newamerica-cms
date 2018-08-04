@@ -123,7 +123,7 @@ class Nav extends Component {
 
   render(){
     return (
-      <div className={`container--1080 our-funding__nav program__nav margin-top-15`}>
+      <div className={`container--1080 our-funding__nav horizontal-nav margin-top-15`}>
         <ul className="inline">
           <Slider
               variableWidth={true}

@@ -1,3 +1,5 @@
+import './Topics.scss';
+
 import { NAME } from '../constants';
 import { Link, BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import React, { Component } from 'react';

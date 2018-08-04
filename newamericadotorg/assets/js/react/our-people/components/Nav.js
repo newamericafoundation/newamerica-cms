@@ -4,7 +4,7 @@ import { Slider } from '../../components/Carousel';
 
 const NavItem = ({ url, label, exact=false }) => (
   <h5 className="inline link">
-    <NavLink exact className={`program__nav__link`} to={url}>
+    <NavLink exact className={`horizontal-nav__link`} to={url}>
       {label}
     </NavLink>
   </h5>
@@ -24,7 +24,7 @@ export default class Nav extends Component {
   }
   render(){
     return (
-      <div className={`our-people__nav program__nav`}>
+      <div className={`our-people__nav horizontal-nav`}>
         <ul className="inline">
           <Slider
               variableWidth={true}

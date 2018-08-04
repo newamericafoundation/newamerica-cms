@@ -1,3 +1,5 @@
+import './Publications.scss';
+
 import React, { Component, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { LoadingDots } from './Icons';
