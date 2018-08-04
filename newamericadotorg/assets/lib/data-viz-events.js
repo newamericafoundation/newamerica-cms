@@ -1,4 +1,3 @@
-
 import bowser from 'bowser';
 import domtoimage from 'dom-to-image';
 

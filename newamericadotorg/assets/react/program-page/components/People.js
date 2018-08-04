@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Fetch } from '../../components/API';
 import { Person, PersonsList } from '../../components/People'
 import Image from '../../components/Image';
-import groupBy from '../../../utils/group-by';
+import groupBy from '../../../lib/utils/group-by';
 import Separator from '../../components/Separator';
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import { LoadingDots } from '../../components/Icons';

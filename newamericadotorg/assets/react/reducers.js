@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import triggerScrollEvents from '../utils/trigger-scroll-events';
+import triggerScrollEvents from '../lib/utils/trigger-scroll-events';
 import apiReducers from './api/reducers';
 
 import {

@@ -1,5 +1,5 @@
-import '../scss/critical.scss';
-import '../scss/newamericadotorg.scss';
+import './scss/critical.scss';
+import './scss/index.scss';
 //import(/* webpackChunkName: "na-page-styles" */ '../scss/newamericadotorg.scss');
 
 import 'babel-polyfill';
@@ -11,8 +11,8 @@ import reactRenderer from './react/react-renderer';
 import actions from './react/actions';
 import cache from './react/cache';
 
-import addEventListeners from './add-event-listeners';
-import addObservers from './add-observers';
+import addEventListeners from './lib/add-event-listeners';
+import addObservers from './lib/add-observers';
 
 // initialize on ready
 if(document.readyState != 'loading') init();

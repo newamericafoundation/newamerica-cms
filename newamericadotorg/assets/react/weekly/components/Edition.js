@@ -2,7 +2,7 @@ import './Edition.scss';
 
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import smoothScroll from '../../../utils/smooth-scroll';
+import smoothScroll from '../../../lib/utils/smooth-scroll';
 import { Response } from '../../components/API';
 import { CSSTransition } from 'react-transition-group';
 import { reloadScrollEvents, setMenuState } from '../actions';

@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';
-import getNestedState from '../../utils/get-nested-state';
+import getNestedState from '../../lib/utils/get-nested-state';
 import LoadingIcon from '../components/LoadingIcon';
 import Article from './components/Article';
 import Edition from './components/Edition';

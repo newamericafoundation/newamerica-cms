@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Slider } from '../../components/Slider';
 import DocumentMeta from 'react-document-meta';
-import titlefy from '../../../utils/titlefy';
+import titlefy from '../../../lib/utils/titlefy';
 
 const NavItem = ({ url, label, active }) => (
   <h5 className="link">

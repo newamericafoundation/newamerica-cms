@@ -3,7 +3,7 @@ import {
   setQuery, resetQuery, setBase, receiveResults, setFetchingStatus
 } from '../actions';
 import { BASEURL } from '../constants';
-import getNestedState from '../../../utils/get-nested-state';
+import getNestedState from '../../../lib/utils/get-nested-state';
 
 let defaultResponse = { isFetching: false, hasNext: false, hasPrevious: false, count: 0 };
 

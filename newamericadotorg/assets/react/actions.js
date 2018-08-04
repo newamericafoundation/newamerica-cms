@@ -1,5 +1,5 @@
 import { fetchData, setParams } from './api/actions';
-import { getNestedState } from '../utils/index';
+import { getNestedState } from '../lib/utils/index';
 import SmoothScroll from 'smooth-scroll';
 import store from './store';
 import {

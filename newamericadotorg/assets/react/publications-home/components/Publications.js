@@ -4,7 +4,7 @@ import { Fetch, Response } from '../../components/API';
 import DocumentMeta from 'react-document-meta';
 import { PublicationsList, PublicationsWrapper } from '../../components/Publications';
 import { FilterGroup, TypeFilter, ProgramFilter, DateFilter } from '../../components/Filters';
-import titlefy from '../../../utils/titlefy';
+import titlefy from '../../../lib/utils/titlefy';
 
 // must pass an API Component (Fetch or Response) props to Filters
 class Filters extends Component {

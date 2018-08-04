@@ -1,7 +1,7 @@
 import React from 'react';
 
-import addEventListeners from './add-event-listeners';
-import addObservers from './add-observers';
+import addEventListeners from './lib/add-event-listeners';
+import addObservers from './lib/add-observers';
 
 import reactRenderer from './react/react-renderer';
 import actions from './react/actions';

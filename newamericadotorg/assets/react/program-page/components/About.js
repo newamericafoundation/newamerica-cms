@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Link, NavLink, Route } from 'react-router-dom';
 import { APP as Resources, ID as resourcesDOMId }  from '../../blocks/resources';
-import getProps from '../../../utils/get-props';
+import getProps from '../../../lib/utils/get-props';
 
 class AboutBody extends Component {
   // hack for loading resources react component inside defined in django template

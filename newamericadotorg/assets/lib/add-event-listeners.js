@@ -1,5 +1,5 @@
-import actions from './react/actions';
-import store from './react/store';
+import actions from '../react/actions';
+import store from '../react/store';
 import triggerScrollEvents from './utils/trigger-scroll-events';
 import dataVizEvents from './data-viz-events';
 

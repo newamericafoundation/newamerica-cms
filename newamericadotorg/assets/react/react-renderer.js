@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { camelize, getProps } from '../utils/index';
+import { camelize, getProps } from '../lib/utils/index';
 import { fetchData, setParams } from './api/actions';
 import React from 'react';
 import { siteReducer } from './reducers';
