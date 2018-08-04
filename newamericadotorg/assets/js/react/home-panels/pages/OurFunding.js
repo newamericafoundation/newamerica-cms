@@ -6,7 +6,7 @@ import Reel from '../components/Reel';
 import Body from '../components/Body';
 import NavItem from '../components/NavItem';
 import { Route, NavLink } from 'react-router-dom';
-import { Slider } from '../../components/Carousel';
+import { Slider } from '../../components/Slider';
 
 class FunderList extends Component {
   parseFunderList = (html, cols=2) => {

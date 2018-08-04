@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
-import { Slider } from '../../components/Carousel';
+import { Slider } from '../../components/Slider';
 
 const NavItem = ({ url, label, exact=false }) => (
   <h5 className="inline link">

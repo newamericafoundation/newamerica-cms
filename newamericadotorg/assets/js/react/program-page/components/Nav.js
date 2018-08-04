@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Slider } from '../../components/Carousel';
+import { Slider } from '../../components/Slider';
 import DocumentMeta from 'react-document-meta';
 import titlefy from '../../../utils/titlefy';
 

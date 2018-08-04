@@ -2,7 +2,7 @@ import './PeopleCarousel.scss';
 
 import React, { Component } from 'react';
 import Promo from './CardPromo';
-import { Slider } from '../../components/Carousel';
+import { Slider } from '../../components/Slider';
 import { Arrow } from '../../components/Icons';
 
 const Person = ({ person }) => (

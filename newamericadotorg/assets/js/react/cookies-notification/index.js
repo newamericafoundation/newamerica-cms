@@ -1,3 +1,5 @@
+import './index.scss';
+
 import React, { Component } from 'react';
 import store from '../cache';
 const ID = 'cookies-notification';

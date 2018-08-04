@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Slider } from '../components/Carousel';
+import { Slider } from '../components/Slider';
 import { connect } from 'react-redux';
 
 const NAME = 'inDepthSectionNav';

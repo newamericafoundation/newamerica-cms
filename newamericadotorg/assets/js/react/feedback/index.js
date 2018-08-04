@@ -1,3 +1,5 @@
+import './index.scss';
+
 const NAME = 'feedback';
 const ID = 'feedback';
 

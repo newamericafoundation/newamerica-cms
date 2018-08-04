@@ -1,3 +1,5 @@
+import './resources.scss';
+
 import React, { Component } from 'react';
 import { PlusX, Arrow } from '../components/Icons';
 import { connect } from 'react-redux';
