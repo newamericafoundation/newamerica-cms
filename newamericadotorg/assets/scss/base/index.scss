@@ -39,6 +39,10 @@ body.scroll-md-disabled {
   }
 }
 
+body.bg-beige{
+  background-color: color(beige);
+}
+
 ul, ol {
   &.no-list-style, &.inline {
     margin: 0;
