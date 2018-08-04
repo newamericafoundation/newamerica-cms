@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Social from './Social';
 import Authors from './Authors'
 import Endnote from './EndnoteAside';

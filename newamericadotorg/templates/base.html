@@ -41,16 +41,10 @@
     <meta name="twitter:site" content="@NewAmerica">
   {% endif %}
 
-  {% if DEBUG %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.css' %}">
-    <script type="text/javascript" src="{% static 'js/dependencies.js' %}"></script>
-  {% else %}
     <style class="newamericadotorg">{% include './style.css' %}</style>
-    <link rel="preload" href="{% static 'css/newamericadotorg-v1.0.4.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     {# css preload polyfill (cssrelpreloadCSS) https://github.com/filamentgroup/loadCSS/blob/v2.0.1/src/cssrelpreload.js #}
     <script>!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);</script>
-    <noscript><link rel="stylesheet" type="text/css" href="{% static 'css/newamericadotorg.min.css' %}"></link></noscript>
-  {% endif %}
+    <noscript><link rel="stylesheet" type="text/css" href="{% static 'css/na-components.css' %}"></link></noscript>
 
   <script>
     window.user = {};
@@ -59,13 +53,9 @@
     {% endif %}
     var newamericadotorg = null;
   </script>
-  <script type="text/javascript" src="{% static 'js/newamericadotorg-v1.0.5.min.js' %}" async></script>
-  {% block extra_scripts %}
-      {# Override this in templates to add extra scripts and stylesheets #}
-  {% endblock %}
 </head>
 
-<body class="{% if self.get_ancestors.2.slug == 'oti' or page.slug == 'oti'%}oti{% endif %} {% block body_class %}{% endblock %}">
+<body class="{% block body_class %}{% endblock %} {% if self.get_ancestors.2.slug == 'oti' or page.slug == 'oti'%}oti{% endif %}" id="{% block body_id %}{% endblock %}">
   {% wagtailuserbar %}
   {% block header %}
     {% include 'components/header.html' %}
@@ -90,10 +80,18 @@
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMGT6BG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
 
-    <div id="compose__cookies-notification"></div>
+    <div id="na-react__cookies-notification"></div>
 
+  <script type="text/javascript" src="{% static 'js/vendors.js' %}"></script>
+  <!-- <script type="text/javascript" src="{% static 'js/na-core-components.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/na-program-components.js' %}"></script> -->
+  <script type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
+  {% block extra_scripts %}
+      {# Override this in templates to add extra scripts and stylesheets #}
+  {% endblock %}
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}
   {% endblock %}
+
 </body>
 </html>

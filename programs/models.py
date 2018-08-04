@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.core.models import Page, Orderable
@@ -9,6 +11,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from subscribe.models import SubscriptionSegment
 from modelcluster.fields import ParentalKey
 from newamericadotorg.blocks import BodyBlock
+
+from newamericadotorg import api
 
 class SubscriptionProgramRelationship(models.Model):
     subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
@@ -287,6 +291,13 @@ class Program(AbstractProgram):
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
         ObjectList(sidebar_panels, heading="Sidebar")
     ])
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        data = api.program.serializers.ProgramDetailSerializer(self).data
+        context['initialState'] = json.dumps(data)
+
+        return context
 
     class Meta:
         ordering = ('title',)

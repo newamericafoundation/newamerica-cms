@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { NAME, ID } from './constants';
 import { Fetch, Response } from '../components/API';

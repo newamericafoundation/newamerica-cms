@@ -4,6 +4,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load utilities %}
 
+{% block body_id %}na-home{% endblock %}
 {% block body_class %}homepostpage personpage{% endblock %}
 
 {% block content %}
@@ -57,6 +58,6 @@
       </div>
     </div>
   </div>
-  <div id="compose__person-publications" data-author-id="{{page.id}}"></div>
+  <div id="na-react__person-publications" data-author-id="{{page.id}}"></div>
 </main>
 {% endblock %}

@@ -3,7 +3,7 @@
   background-size: 95% auto;
   background-position: 0 center;
   background-repeat: no-repeat;
-  background-image: url('/static/logo-black.svg');
+  background-image: url('#{$static}/logo-black.svg');
 
   &.lg {
     width: 200px;
@@ -18,21 +18,21 @@
   &.sm{
     width: 100px;
     height: 24px;
-    //background-image: url('/static/logo-black-mini.svg');
+    //background-image: url('#{$static}/logo-black-mini.svg');
   }
 
   &.white{
-    background-image: url('/static/logo-white.svg');
+    background-image: url('#{$static}/logo-white.svg');
   }
 
   &.bug{
-    background-image: url('/static/logo-bug.svg');
+    background-image: url('#{$static}/logo-bug.svg');
     &.white {
-      background-image: url('/static/logo-bug-white.svg');
+      background-image: url('#{$static}/logo-bug-white.svg');
     }
 
     &.white-transparent {
-        background-image: url('/static/logo-white-transparent.svg');
+        background-image: url('#{$static}/logo-white-transparent.svg');
     }
   }
 }

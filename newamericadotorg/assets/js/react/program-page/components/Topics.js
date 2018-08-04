@@ -1,6 +1,6 @@
 import { NAME } from '../constants';
 import { Link, BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Fetch, Response } from  '../../components/API';
 import { PersonsList } from '../../components/People';
 import { PublicationListItem } from '../../components/ContentCards';

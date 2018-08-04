@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Fetch } from '../components/API';
 import { PERSON_NAME as NAME, PERSON_ID as ID } from './constants';
 import { PublicationsList } from '../components/Publications';

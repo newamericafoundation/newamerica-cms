@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { format as formatDate } from 'date-fns';
 import Image from './Image'
 

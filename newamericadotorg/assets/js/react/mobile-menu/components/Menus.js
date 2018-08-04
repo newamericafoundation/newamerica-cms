@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Response } from '../../components/API';
 import { connect } from 'react-redux';
 import { Search } from '../../components/Icons';

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import store from '../cache';
 const ID = 'cookies-notification';
 const NAME = 'cookiesNotification';

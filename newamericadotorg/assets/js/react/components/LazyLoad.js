@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import LazyLoad from 'vanilla-lazyload';
 import PropTypes from 'prop-types';
 
@@ -32,7 +32,7 @@ export class LazyLoadImages extends Component {
   render() {
     let { className, children } = this.props;
     return (
-      <this.props.component {...this.props} className={'compose__lazyload-images-wrapper ' + (className||'')}>
+      <this.props.component {...this.props} className={'na-react__lazyload-images-wrapper ' + (className||'')}>
         {children}
       </this.props.component>
     );

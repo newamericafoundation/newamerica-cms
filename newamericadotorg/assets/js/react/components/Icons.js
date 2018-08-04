@@ -1,3 +1,4 @@
+import React from 'react';
 
 export const Arrow = ({ direction, ...props }) => (
   <div className={`icon-arrow ${direction}`} {...props}>

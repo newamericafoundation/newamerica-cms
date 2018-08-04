@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Image = ({ author: { profile_image }}) => (
   <div className="author__image-wrapper">
     <div className="author__image" style={{backgroundImage : `url(${profile_image})`}} />

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 class BottomNav extends Component {
 

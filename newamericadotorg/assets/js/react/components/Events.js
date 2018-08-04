@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { SubprogramFilter, ProgramFilter, TopicFilter, DateFilter, FilterGroup } from './Filters';
 import { EventItem } from './ContentCards'
 import { format as formatDate } from 'date-fns';
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 class Upcoming extends Component {
 

@@ -1,5 +1,5 @@
 import Image from './Image';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Person } from './ContentCards';
 
 export class PersonsList extends Component {

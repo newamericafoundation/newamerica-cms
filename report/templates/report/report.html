@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block body_id %}na-report{% endblock %}
+
 {% block extra_scripts %}
   {% if page.data_project_external_script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -12,5 +14,5 @@
 {% endblock %}
 
 {% block content %}
-  <main id="compose__report" data-report-id="{{page.id}}"></main>
+  <main id="na-react__report" data-report-id="{{page.id}}"></main>
 {% endblock %}

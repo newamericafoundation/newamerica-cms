@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import CardMd from './CardMd';
 import CardLg from './CardLg';
 import { PromoMd } from './CardPromo';

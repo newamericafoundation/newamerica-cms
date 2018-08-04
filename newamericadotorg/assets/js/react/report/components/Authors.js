@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Authors = ({ authors }) => (
   <div className="report__authors">
     <div className="report__authors__desktop">

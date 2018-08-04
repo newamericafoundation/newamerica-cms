@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Slider } from '../components/Carousel';
 import { connect } from 'react-redux';
 

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { ImageAside, Reel, Body, NavItem } from '../components';
 import { Route, NavLink } from 'react-router-dom';
 import { Slider } from '../../components/Carousel';

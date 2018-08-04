@@ -1,5 +1,5 @@
 import { NAME } from '../constants';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Fetch, Response } from '../../components/API';
 import { TypeFilter, SubprogramFilter, DateFilter, TopicFilter, CategoryFilter, FilterGroup } from '../../components/Filters';
 import { PublicationsList, PublicationsWrapper } from '../../components/Publications';

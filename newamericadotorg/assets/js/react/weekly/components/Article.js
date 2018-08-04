@@ -1,6 +1,8 @@
+import './Article.scss';
+
 import Heading from './Heading';
 import { Link } from 'react-router-dom';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { reloadScrollEvents } from '../actions';
 import { connect } from 'react-redux';
 import bowser from 'bowser';
@@ -15,7 +17,6 @@ class Article extends Component {
   }
 
   componentDidMount(){
-    console.log(bowser);
     if(window.scrollY > 135){
       if(bowser.safari) setTimeout(()=>{window.scrollTo(0, 71);},1);
       else window.scrollTo(0, 71);

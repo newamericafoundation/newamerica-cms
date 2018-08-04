@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Slider } from '../../components/Carousel';
 
 const NavItem = ({ url, label, exact=false }) => (

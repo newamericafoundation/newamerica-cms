@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LoadingIcon from '../../components/LoadingIcon';
@@ -36,7 +36,7 @@ class Response extends Component {
     if(hasResults && results.length===0 && !renderIfNoResults && !this.hasLoaded) return null;
     this.hasLoaded = true;
 
-    let classes = 'compose__fetch-response' + (transition ? ' fetch-transition ' : '') + (className ? ' ' + className : '') + (isFetching ? ' is-fetching': '');
+    let classes = 'na-react__fetch-response' + (transition ? ' fetch-transition ' : '') + (className ? ' ' + className : '') + (isFetching ? ' is-fetching': '');
 
     if(!showLoading){
       return (<this.props.component {...this.props}/>);

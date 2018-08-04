@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Arrow } from '../../components/Icons';
 
 export default class Subprograms extends Component {

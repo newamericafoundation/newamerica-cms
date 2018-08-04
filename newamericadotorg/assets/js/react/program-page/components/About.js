@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Link, NavLink, Route } from 'react-router-dom';
 import { APP as Resources, ID as resourcesDOMId }  from '../../blocks/resources';
@@ -7,7 +7,7 @@ import getProps from '../../../utils/get-props';
 class AboutBody extends Component {
   // hack for loading resources react component inside defined in django template
   addResourcesBlocks = () => {
-    let resources = document.querySelectorAll(`.compose__${resourcesDOMId}`);
+    let resources = document.querySelectorAll(`.na-react__${resourcesDOMId}`);
     if(!resources) return;
 
     for(let r of resources){

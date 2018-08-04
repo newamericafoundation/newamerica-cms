@@ -1,22 +1,30 @@
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { camelize, getProps } from '../utils/index';
+import { fetchData, setParams } from './api/actions';
+import React from 'react';
+import { siteReducer } from './reducers';
+import store from './store';
 
-export default class Composer {
+class ReactRenderer {
   constructor(store){
     this.store = store;
     this.components = {};
+    store.dispatch(setParams('meta', { endpoint: 'meta' } ));
+    store.dispatch(fetchData('meta'));
   }
 
   add(COMPONENT) {
+    siteReducer.addComponentReducer(COMPONENT);
+
     if(COMPONENT.MULTI)
-      this.__addMulti__(COMPONENT.NAME, COMPONENT.ID, COMPONENT.APP);
+      this.__addMulti__(COMPONENT.NAME, COMPONENT.ID, COMPONENT.APP, COMPONENT.REDUCERS);
     else
-      this.__add__(COMPONENT.NAME, COMPONENT.ID, COMPONENT.APP);
+      this.__add__(COMPONENT.NAME, COMPONENT.ID, COMPONENT.APP, COMPONENT.REDUCERS);
   }
 
   __addMulti__(name, id, App) {
-    let selector = `compose__${id}`;
+    let selector = `na-react__${id}`;
     let els = document.getElementsByClassName(selector);
     if(!this.components[selector])
       this.components[selector] = { components: [], multi: true };
@@ -36,21 +44,21 @@ export default class Composer {
       this.components[selector].render = () => { console.warn(`${name} is already rendered!`); }
   }
 
-  __add__(name, id, App) {
-    let selector = `compose__${id}`;
+  __add__(name, id, App, reducers) {
+    let selector = `na-react__${id}`;
     let el = document.getElementById(selector);
-    this.components[selector] = { name, selector, el, multi: false }
+    this.components[name] = { name, selector, el, multi: false, reducers }
 
     if(el){
-      this.components[selector].app = this.__render__(el, App);
+      this.components[name].app = this.__render__(el, App);
 
       if(el.hasAttribute('replace-this')){
         el.parentNode.insertBefore(el.firstChild, el);
         el.parentNode.removeChild(el);
       }
-      this.components[selector].render = () => { console.warn(`${name} is already rendered!`); }
+      this.components[name].render = () => { console.warn(`${name} is already rendered!`); }
     } else {
-      this.components[selector].render = () => { this.__add__(name, id, App); }
+      this.components[name].render = () => { this.__add__(name, id, App); }
     }
   }
 
@@ -63,3 +71,5 @@ export default class Composer {
     );
   }
 }
+
+export default new ReactRenderer(store);

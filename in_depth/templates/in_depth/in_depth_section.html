@@ -55,7 +55,7 @@
     </script>
 {% endblock %}
 
-{% block body_class %}template-indepthsection{% endblock %}
+{% block body_id %}na-indepth{% endblock %}
 {% block sidemenu_status %}no_sidemenu{% endblock %}
 
 {% block content %}
@@ -111,7 +111,7 @@
 
 				{% if siblings|length > 1 %}
 					<div class="in-depth__header__righ col-md-7">
-	          <div id="compose__in-depth-section-nav" data-sections='{{ siblings_json|safe }}' data-current-slide="{{ index }}"></div>
+	          <div id="na-react__in-depth-section-nav" data-sections='{{ siblings_json|safe }}' data-current-slide="{{ index }}"></div>
 					</div>
 				{% endif %}
 			</div>

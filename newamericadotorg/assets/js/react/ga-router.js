@@ -1,6 +1,6 @@
 import createBrowserHistory from 'history/createBrowserHistory';
 
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Router } from 'react-router-dom';
 
 export default class GARouter extends Component {

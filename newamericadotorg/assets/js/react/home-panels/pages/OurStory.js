@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { ImageAside, Reel, Body } from '../components';
 
 

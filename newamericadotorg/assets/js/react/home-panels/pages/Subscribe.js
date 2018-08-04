@@ -1,6 +1,6 @@
 import Subscribe, { List } from '../../program-page/components/Subscribe';
 import { CheckBox, Text } from '../../components/Inputs';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Recaptcha from 'react-recaptcha';
 
 class HomeSubscribe extends Subscribe {

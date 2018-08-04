@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export const NavItem = ({ url, label, exact=false }) => (

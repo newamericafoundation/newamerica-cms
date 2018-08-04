@@ -1,7 +1,7 @@
 import { Fetch, Response } from '../components/API';
 import { EventListItem } from '../components/Content';
 import { Slider } from '../components/Carousel';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const EventCarousel = ({ response }) => (

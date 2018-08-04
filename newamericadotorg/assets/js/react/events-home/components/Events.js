@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { EventsList } from '../../components/Events';
 import { Fetch } from '../../components/API';
 import { NAME } from '../constants';

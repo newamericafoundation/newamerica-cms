@@ -1,6 +1,6 @@
 import getNestedState from '../../../utils/get-nested-state';
 import { loadArticleImage, clearArticleImages } from '../actions';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 

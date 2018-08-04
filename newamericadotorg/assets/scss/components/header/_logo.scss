@@ -10,12 +10,12 @@
   &:after{
     //preload white logo
     content: '';
-    background: url(/static/logo-white.svg) no-repeat -9999px -9999px;
+    background: url(#{$static}/logo-white.svg) no-repeat -9999px -9999px;
   }
   &:after{
     //preload white logo
     content: '';
-    background: url(/static/logo-black.svg) no-repeat -9999px -9999px;
+    background: url(#{$static}/logo-black.svg) no-repeat -9999px -9999px;
   }
 }
 

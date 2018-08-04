@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Image from '../../components/Image';
 
 export default class CardLg extends Component {

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import getNestedState from '../../../utils/get-nested-state';
 import { loadArticleImage, setIsReady, clearArticleImages } from '../actions';

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Response } from '../components/API';
 import { NAME, ID } from './constants';
 import Menu from './components';

@@ -1,7 +1,7 @@
 .header__wrapper.transparent:not(:hover){
   background: transparent;
   .logo{
-    background-image: url(/static/logo-white.svg);
+    background-image: url(#{$static}/logo-white.svg);
   }
 
   a:after{

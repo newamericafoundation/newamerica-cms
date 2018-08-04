@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { PlusX } from '../../components/Icons';
 
 class Endnote extends Component {

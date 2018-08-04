@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { LoadingDots } from './Icons';
@@ -116,7 +116,7 @@ class InfiniteLoadMore extends Component {
     return (
       <div
         ref={(el) => { this.el = el; }}
-        className={'compose__infinite-load-more' + classes + ' ' + (className||'')}>
+        className={'na-react__infinite-load-more' + classes + ' ' + (className||'')}>
         {(response.results.length===0 && !response.isFetching && response.hasResults) &&
           <NoResults />
         }

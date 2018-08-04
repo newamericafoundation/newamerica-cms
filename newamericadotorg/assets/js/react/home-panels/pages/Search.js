@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { PublicationsList, PublicationListItem, FilterGroup } from '../../components/Publications';
 import { Person } from '../../components/People';
 import { Fetch } from '../../components/API';

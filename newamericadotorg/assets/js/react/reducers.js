@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import triggerScrollEvents from '../utils/trigger-scroll-events';
+import apiReducers from './api/reducers';
+
 import {
   SET_SCROLL_POSITION, SET_SCROLL_DIRECTION, ADD_SCROLL_EVENT,
   RELOAD_SCROLL_EVENT, RELOAD_SCROLL_EVENTS, TRIGGER_SCROLL_EVENTS, SET_AD_HOC_STATE,
@@ -129,11 +131,80 @@ let reducer = combineReducers({
   activeDropdown
 });
 
-const siteReducer = (state, action) => {
-  return{
-    ...state,
-    ...reducer(state, action)
+import { SET_ANY_STATE } from './constants';
+const setAnyState = (state) => {
+  if(state instanceof Array)
+    return [...state];
+  if(state instanceof Object)
+    return {...state};
+  return state;
+}
+
+class SiteReducer {
+  constructor(){
+    this.componentReducers = {
+      site: (state, action) => {
+        return{
+          ...state,
+          ...reducer(state, action)
+        }
+      },
+      default: combineReducers(apiReducers)
+    };
+  }
+
+  setNestedState = (state, componentName, action, rdcr) => {
+    let i = componentName.indexOf('.');
+    let name = i === -1 ? componentName : componentName.slice(0,i);
+    let componentState = state[name] || {};
+
+    if(!rdcr) rdcr = this.getComponentReducer(name) || this.getComponentReducer('default');
+
+    if(i===-1){
+      if(rdcr===SET_ANY_STATE) return { [name]: setAnyState(action.state) };
+      return { [name]: rdcr(componentState, action) };
+    }
+
+    let subName = componentName.slice(i+1, componentName.length);
+
+    return {
+      [name]: {
+        ...componentState,
+        ...this.setNestedState(componentState, subName, action, rdcr)
+      }
+    };
+  }
+
+  reducer = (state={ site: {} }, action) => {
+    // Each action needs the name of the component in action.component
+    if(action.type && action.component){
+      let rdcr = action.type == SET_ANY_STATE ? SET_ANY_STATE : false;
+      let _state = {
+        ...state,
+        ...this.setNestedState(state, action.component, action, rdcr)
+      }
+
+      return _state;
+    }
+
+    return state;
+  }
+
+
+  getComponentReducer(name){
+    return this.componentReducers[name];
+  }
+
+  addComponentReducer(component){
+    let name = component.NAME.split('.')[0];
+
+    if(component.REDUCERS)
+      this.componentReducers[name] = combineReducers({ ...apiReducers, ...component.REDUCERS });
+    else
+      this.componentReducers[name] = combineReducers(apiReducers);
+
+    return this;
   }
 }
 
-export default siteReducer;
+export const siteReducer = new SiteReducer();

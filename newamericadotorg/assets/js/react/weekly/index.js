@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fetch, Response } from '../components/API';
 import { NAME, ID } from './constants';

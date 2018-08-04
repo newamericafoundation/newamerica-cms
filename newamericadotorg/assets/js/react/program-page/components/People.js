@@ -1,5 +1,5 @@
 import { NAME } from '../constants';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Fetch } from '../../components/API';
 import { Person, PersonsList } from '../../components/People'
 import Image from '../../components/Image';

@@ -1,4 +1,4 @@
-import { Component, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { LoadingDots } from './Icons';
 import { PublicationListItem, Person } from './ContentCards';

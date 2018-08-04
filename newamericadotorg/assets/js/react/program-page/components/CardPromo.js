@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Slider } from '../../components/Carousel';
 import { Link } from 'react-router-dom';
 import { Arrow } from '../../components/Icons';

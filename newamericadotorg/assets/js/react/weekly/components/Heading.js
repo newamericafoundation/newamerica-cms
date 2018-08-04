@@ -1,3 +1,4 @@
+import React from 'react';
 import { format as formatDate } from 'date-fns';
 const Heading = ({ post : { authors, title, url, story_image, date } }) => (
   <section className="container--medium weekly-heading">

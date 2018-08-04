@@ -1,5 +1,7 @@
+import './Edition.scss';
+
 import { Link } from 'react-router-dom';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import smoothScroll from '../../../utils/smooth-scroll';
 import { Response } from '../../components/API';
 import { CSSTransition } from 'react-transition-group';

@@ -1,5 +1,5 @@
 import { NAME } from '../constants';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Fetch, Response } from '../../components/API';
 import DocumentMeta from 'react-document-meta';
 import { PublicationsList, PublicationsWrapper } from '../../components/Publications';

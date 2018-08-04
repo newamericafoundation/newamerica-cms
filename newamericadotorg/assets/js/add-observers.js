@@ -1,6 +1,6 @@
 import actions from './react/actions';
-import store from './react/store';
 import triggerScrollEvents from './utils/trigger-scroll-events';
+import store from './react/store'
 
 let observers = [
   function scroll(){

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Fetch } from '../components/API';
 import { NAME, ID } from './constants';
 import Nav from './components/Nav';

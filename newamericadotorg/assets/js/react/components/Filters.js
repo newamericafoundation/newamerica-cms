@@ -1,4 +1,4 @@
-import { Component, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { RadioButton } from './Inputs';
 import { format as formatDate, subDays } from 'date-fns';

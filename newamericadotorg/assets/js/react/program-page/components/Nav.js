@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Slider } from '../../components/Carousel';
 import DocumentMeta from 'react-document-meta';

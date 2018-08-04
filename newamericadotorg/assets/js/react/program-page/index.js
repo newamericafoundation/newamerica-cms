@@ -1,7 +1,7 @@
 /* DocumentMeta defined in ./components/Nav.js */
 
 import { NAME, ID } from './constants';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Fetch } from '../components/API';
 import { Route, Switch, Redirect } from 'react-router-dom';

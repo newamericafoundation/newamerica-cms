@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { CheckBox, Text } from '../../components/Inputs';
 import { BASEURL } from '../../api/constants';

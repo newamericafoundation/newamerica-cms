@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const RadioButton = (props) => (
   <div className="inline radio-button">
     <label htmlFor={props.name} className="margin-0">
