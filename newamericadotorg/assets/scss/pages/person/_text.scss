@@ -1,0 +1,26 @@
+.person__text__heading,
+.person__text__position,
+.person__social{
+  text-align: center;
+  @include media-breakpoint(desktop){
+    text-align: left;
+  }
+}
+
+.person__expertise.desktop-only{
+  display: none;
+  @include media-breakpoint(desktop){
+    display: block;
+  }
+}
+
+.person__expertise.mobile-only{
+  display: block;
+  text-align: center;
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+}
+.person__social a {
+  margin-right: 15px;
+}

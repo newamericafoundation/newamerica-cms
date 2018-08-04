@@ -16,3 +16,18 @@
     }
   }
 }
+
+.person-heading__image__link-wrapper img{
+  width: auto;
+  display: block;
+  height: 125px;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  @include media-breakpoint(desktop){
+    max-width: 100%;
+    height: auto;
+    margin:0;
+    position: static;
+  }
+}
