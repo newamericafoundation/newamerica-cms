@@ -1,0 +1,11 @@
+.home__panel__funders-list__body > *:first-child{
+  margin-top: 0;
+}
+
+.our-funding__nav a, .our-people__nav a{
+  color: color(black, base, 0.3);
+  @include transition(color 0.15s ease);
+  &.active, &:hover {
+    color: color(black, base, 1);
+  }
+}

@@ -1,0 +1,51 @@
+.home__fellowship{
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  position: relative;
+
+  h2 {
+    cursor: pointer;
+  }
+
+  &__more {
+    max-height: 0;
+    overflow: hidden;
+    @include transition(all 0.3s ease);
+    opacity: 0;
+
+    u {
+      text-decoration: none;
+    }
+
+    &__description{
+      margin-top: 25px !important;
+      margin-bottom: 25px !important;
+    }
+
+    &__button{
+      padding-bottom: 25px;
+    }
+
+    &__label{
+      .bold {
+        padding-right: 5px;
+      }
+      display: inline-block;
+      margin-right: 25px;
+    }
+  }
+
+  &.expanded {
+    .home__fellowship__more{
+      max-height: none;
+      opacity: 1;
+    }
+  }
+
+  .icon-plus {
+    top: 35px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+}

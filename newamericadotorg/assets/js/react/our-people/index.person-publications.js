@@ -1,3 +1,5 @@
+import './index.person-publications.scss';
+
 import React, { Component } from 'react';
 import { Fetch } from '../components/API';
 import { PERSON_NAME as NAME, PERSON_ID as ID } from './constants';

@@ -1,5 +1,10 @@
+import './OurFunding.scss';
+
 import React, { Component } from 'react';
-import { ImageAside, Reel, Body, NavItem } from '../components';
+import ImageAside from '../components/ImageAside';
+import Reel from '../components/Reel';
+import Body from '../components/Body';
+import NavItem from '../components/NavItem';
 import { Route, NavLink } from 'react-router-dom';
 import { Slider } from '../../components/Carousel';
 

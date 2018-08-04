@@ -1,7 +1,12 @@
+import './Jobs.scss';
+
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 import { Fetch } from '../../components/API'
-import { ImageAside, Reel, Body, NavItem } from '../components';
+import ImageAside from '../components/ImageAside';
+import Reel from '../components/Reel';
+import Body from '../components/Body';
+import NavItem from '../components/NavItem';
 import Programs from './Programs';
 import { NAME } from '../constants';
 import { PlusX } from '../../components/Icons';

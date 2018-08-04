@@ -1,3 +1,5 @@
+import './Subscribe.scss';
+
 import Subscribe, { List } from '../../program-page/components/Subscribe';
 import { CheckBox, Text } from '../../components/Inputs';
 import React, { Component } from 'react';

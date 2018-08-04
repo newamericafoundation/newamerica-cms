@@ -1,4 +1,5 @@
 @import 'homepage';
 @import 'story-grid';
-@import 'panels';
 @import 'person';
+@import 'promo-link';
+@import 'search';

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { ImageAside, Reel, Body } from '../components';
+import ImageAside from '../components/ImageAside';
+import Reel from '../components/Reel';
+import Body from '../components/Body';
 
 
 export default class ShareOurSpace extends Component {

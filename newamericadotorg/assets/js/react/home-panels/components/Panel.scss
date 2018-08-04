@@ -1,0 +1,43 @@
+.home__panels {
+  section.scroll-target > div {
+    opacity: 0;
+    @include transition(opacity 1s ease);
+  }
+
+  section.scroll-target.scroll-triggered > div {
+    opacity: 1;
+  }
+}
+
+.home__panels__content{
+  min-height: 100vh;
+}
+
+.home__panels section.padding-110{
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+
+.home__panels section.padding-80{
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.home__panel__promo {
+  background-color: color(beige);
+  position: relative;
+
+  @include media-breakpoint(tablet){
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  &__text {
+    max-width: 400px;
+
+    @include media-breakpoint(tablet){
+      position: absolute;
+      @include vertical-center;
+    }
+  }
+}

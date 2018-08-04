@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Body } from '../components';
 
+import Body from '../components/Body';
 
 export default class PressRoom extends Component {
 

@@ -1,9 +1,10 @@
+import './Search.scss';
+
 import React, { Component } from 'react';
 import { PublicationsList, PublicationListItem, FilterGroup } from '../../components/Publications';
 import { Person } from '../../components/People';
 import { Fetch } from '../../components/API';
 import { NAME } from '../constants';
-
 
 export default class Search extends Component {
   timeout = 0;

@@ -1,3 +1,5 @@
+import './index.scss';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Fetch } from '../components/API';
