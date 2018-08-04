@@ -3,7 +3,7 @@ $loading-icon-width: 3.5em;
 $loading-icon-spacing: 0.5em;
 $loading-icon-circle-margin: #{$loading-icon-spacing - .1em};
 $loading-animation-delay: 0.1s;
-@import 'header/loading';
+@import '../header/loading';
 .fetch-transition{
   position: relative;
   display: block;

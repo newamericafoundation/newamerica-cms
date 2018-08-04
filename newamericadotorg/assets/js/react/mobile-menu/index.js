@@ -1,3 +1,5 @@
+import './index.scss';
+
 import React, { Component } from 'react';
 import { NAME, ID } from './constants';
 import Menus from './components/Menus';
