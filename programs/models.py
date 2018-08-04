@@ -292,13 +292,6 @@ class Program(AbstractProgram):
         ObjectList(sidebar_panels, heading="Sidebar")
     ])
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        data = api.program.serializers.ProgramDetailSerializer(self).data
-        context['initialState'] = json.dumps(data)
-
-        return context
-
     class Meta:
         ordering = ('title',)
         verbose_name = 'Program Homepage'
