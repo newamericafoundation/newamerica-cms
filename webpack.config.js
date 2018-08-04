@@ -8,7 +8,8 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
   entry: {
-		"newamericadotorg": "./newamericadotorg/assets/js/newamericadotorg.js"
+		"newamericadotorg": "./newamericadotorg/assets/js/newamericadotorg.js",
+    "newamericadotorg.lite": "./newamericadotorg/assets/js/newamericadotorg.lite.js"
 	},
   output: {
 		filename: "static/js/[name].js",

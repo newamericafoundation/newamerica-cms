@@ -1,3 +1,5 @@
+import './scss/index.scss';
+
 import $ from 'jquery';
 
 import { Timeline } from './timeline';
@@ -10,4 +12,4 @@ $('.timelineViz').each(function(){
 });
 
 
-export default Timeline;
+window.Timeline = Timeline;

@@ -1,5 +1,3 @@
-import './scss/index.scss';
-
 import $ from 'jquery';
 
 import { axisBottom } from 'd3-axis';
