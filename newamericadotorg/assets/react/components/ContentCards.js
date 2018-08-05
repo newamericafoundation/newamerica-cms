@@ -12,10 +12,10 @@ export const Person = ({ person }) => (
       </div>
       <div className="card__text">
         {/* <h3 className="card__text__title">{person.first_name} {person.last_name}</h3> */}
-        <h4 className="card__text__title">
+        <h4 className="card__text__title margin-10">
           <span><u>{person.first_name} {person.last_name}</u></span>
         </h4>
-        <h6 className="caption">{person.position}</h6>
+        <h6 className="caption margin-10">{person.position}</h6>
       </div>
     </a>
   </div>
