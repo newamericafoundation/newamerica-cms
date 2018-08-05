@@ -1,28 +1,19 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Slider } from '../../components/Slider';
+import HorizontalNav from '../../components/HorizontalNav';
 import DocumentMeta from 'react-document-meta';
 import titlefy from '../../../lib/utils/titlefy';
-
-const NavItem = ({ url, label, active }) => (
-  <h5 className="link">
-    <NavLink className={`horizontal-nav__link ${active ? 'active' : ''}`} to={url}>
-      {label}
-    </NavLink>
-  </h5>
-);
 
 export default class Nav extends Component {
   items = () => {
     let { program, match } = this.props;
     let subpage = match.params.subpage;
     return [
-      program.about && <li key={0}><NavItem url={`${program.url}about/`} label="About"/></li>,
-      <li key={1}><NavItem url={`${program.url}our-people/`} label="Our People"/></li>,
-      program.subprograms && <li key={2}><NavItem url={`${program.url}projects/`} label="Initiatives & Projects"/></li>,
-      <li key={3}><NavItem url={`${program.url}publications/`} label="Publications" active={program.content_types.find((c)=>(c.slug===subpage))}/></li>,
-      <li key={4}><NavItem url={`${program.url}events/`} label="Events"/></li>,
-      program.topics && <li key={5}><NavItem url={`${program.url}topics/`} label="Topics"/></li>
+      program.about && { url: `${program.url}about/`, label: 'About' },
+      { url: `${program.url}our-people/`, label: 'Our People' },
+      program.subprograms && { url: `${program.url}projects/`, label: 'Initiatives & Projects' },
+      { url: `${program.url}publications/`, label: 'Publications' },
+      { url: `${program.url}events/`, label: 'Events' },
+      program.topics && { url: `${program.url}topics/`, label: 'Topics', active: program.content_types.find((c)=>(c.slug===subpage)) }
     ];
   }
 
@@ -40,22 +31,7 @@ export default class Nav extends Component {
     let subpage = match.params.subpage;
     return (
       <DocumentMeta {...this.getMeta()}>
-        <div className={`horizontal-nav ${subpage ? 'active' : ''}`}>
-            <ul className="inline">
-              <Slider
-                  variableWidth={true}
-                  infinite={false}
-                  slide={'li'}
-                  prevArrow={<div></div>}
-                  nextArrow={<div></div>}
-                  responsive={[
-                    { breakpoint: 625, settings: { slidesToShow: 3, slidesToScroll: 1 } },
-                    { breakpoint: 1000000, settings: 'unslick' }
-                  ]}>
-                    {this.items()}
-                  </Slider>
-            </ul>
-        </div>
+        <HorizontalNav className={subpage ? 'active' : ''} items={this.items()} />
       </DocumentMeta>
     );
   }

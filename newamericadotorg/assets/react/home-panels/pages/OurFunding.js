@@ -4,9 +4,8 @@ import React, { Component } from 'react';
 import ImageAside from '../components/ImageAside';
 import Reel from '../components/Reel';
 import Body from '../components/Body';
-import NavItem from '../components/NavItem';
 import { Route, NavLink } from 'react-router-dom';
-import { Slider } from '../../components/Slider';
+import HorizontalNav from '../../components/HorizontalNav';
 
 class FunderList extends Component {
   parseFunderList = (html, cols=2) => {
@@ -128,25 +127,14 @@ class Nav extends Component {
 
   render(){
     return (
-      <div className={`container--1080 our-funding__nav horizontal-nav margin-top-15`}>
-        <ul className="inline">
-          <Slider
-              variableWidth={true}
-              infinite={false}
-              slide={'li'}
-              prevArrow={<div></div>}
-              nextArrow={<div></div>}
-              responsive={[
-                { breakpoint: 625, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-                { breakpoint: 1000000, settings: 'unslick' }
-              ]}>
-                <li><NavItem url={`/our-funding/`} exact={true} label="How We're Funded"/></li>
-                <li><NavItem url={`/our-funding/our-funders/`} exact={true} label="Our Funders"/></li>
-                <li><NavItem url={`/our-funding/corporate-circle/`} label="Corporate Circle"/></li>
-                <li><NavItem url={`/our-funding/new-america-councils/`} label="New America Councils"/></li>
-                <li><NavItem url={`/our-funding/donate/`} label="Donate"/></li>
-              </Slider>
-        </ul>
+      <div className={`container--1080 margin-top-15`}>
+        <HorizontalNav className={`our-funding__nav`} items={[
+          { url: '/our-funding/', label: 'How We\'re Funded', exact: true },
+          { url: '/our-funding/our-funders/', label: 'Our Funders'},
+          { url: '/our-funding/corporate-circles/', label: 'Corporate Circle'},
+          { url: '/our-funding/new-america-councils/', label: 'New America Councils'},
+          { url: '/our-funding/donate/', label: 'Donate' }
+        ]} />
       </div>
     );
   }

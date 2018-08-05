@@ -13,27 +13,7 @@
       display: block;
     }
   }
-
-  .card__text__authors {
-    span.punc{
-      display: inline-block;
-      vertical-align: middle;
-
-      &:not(.by){
-        margin-left: -2px;
-      }
-    }
-
-    a {
-    //  vertical-align: middle;
-    }
-  }
-  .punc {
-    display: none !important;
-    @include media-breakpoint(tablet){
-      display: inline-block !important;
-    }
-  }
+    
   .card__text__authors > *{
     display: none !important;
     @include media-breakpoint(tablet){

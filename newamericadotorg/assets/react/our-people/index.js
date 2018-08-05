@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Fetch } from '../components/API';
 import { NAME, ID } from './constants';
-import Nav from './components/Nav';
+import HorizontalNav from '../components/HorizontalNav';
 import InfiniteLoadMore from '../components/InfiniteLoadMore';
 import { PersonsList } from '../components/People';
 import DocumentMeta from 'react-document-meta';
@@ -90,7 +90,14 @@ class OurPeople extends Component {
       <DocumentMeta title={`Our People${title ? ': ' + title : ''}`}>
         <section className="beige home__panel__our-people">
           <div className="container">
-            <Nav />
+            <HorizontalNav items={[
+              { url: '/our-people/', label: 'All People'},
+              { url: '/board/', label: 'Board of Directors' },
+              { url: '/leadership/', label: 'Leadership' },
+              { url: '/program-staff/', label: 'Program Staff' },
+              { url: '/central-staff/', label: 'Central Staff' },
+              { url: '/board-emeriti/', label: 'Board Emeriti' }
+            ]}/>
             <Fetch name={NAME}
               endpoint={'author'}
               fetchOnMount={true}

@@ -1,17 +1,17 @@
-label,h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6{
   &.link {
-    > a, > span:not(.punc) {
+    > a, > span{
       display: inline-block;
       position: relative;
       overflow: hidden;
       top: 1px;
       padding-bottom: 1px;
-    //  margin-bottom: -1px;
       vertical-align: bottom;
       u {
         position: relative;
         z-index: 1;
       }
+
       &:before {
         content: '';
         display: block;
@@ -25,48 +25,26 @@ label,h1,h2,h3,h4,h5,h6{
         @include transition(transform 0.15s ease);
         @include transform(translateX(-100%));
       }
+
+      &:hover:before,
+      &:active:before,
+      &.active:before{
+        @include transform(translateX(0%));
+      }
+    }
+
+    &:hover, &.active, &:active {
+      > a:before, > span:before{
+        @include transform(translateX(0%));
+      }
     }
   }
-}
-
-.header__nav__dropdown-list__dropdown.active .header__nav__dropdown-list__dropdown__main-link label.link > span,
-label.link > a:hover,
-label.link.active > a,
-label.link > a.active,
-label.link > span:hover,
-label.link.active > span{
-  &:before,{
-    @include transform(translateX(0%));
-  }
-}
-
-h1,h2,h3,h4,h5,h6{
-  &.link:hover {
-    > a:before, > span:before{
-      @include transform(translateX(0%));
-    }
-  }
-}
-
-label.card__text__title.link{
-    u {
-      display: inline;
-      @include linear-gradient-horizontal(color(turquoise), transparent, 100%, 100%);
-      background-position: 0 1.04em;
-      background-repeat: repeat-x;
-      background-size: 0% 2px;
-    }
-    &:hover u {
-      background-size: 100% 2px;
-    }
-
-    > a:before, > span:before{
-      display: none;
-    }
 }
 
 h1.card__text__title.link,
-h2.card__text__title.link{
+h2.card__text__title.link,
+h3.card__text__title.link,
+h4.card__text__title.link{
   &:hover u{
     text-decoration: underline;
     -webkit-text-decoration-color: color(turquoise);
@@ -78,9 +56,6 @@ h2.card__text__title.link{
   }
 }
 
-label.card__text__authors.link:not(.punc) > a {
-  margin-bottom: 0;
-  margin-top: 0;
-  padding-bottom: 0;
-  padding-top: 0;
+.header__nav__dropdown.active .link span:before{
+  @include transform(translateX(0%));
 }
