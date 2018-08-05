@@ -1,23 +1,21 @@
-<div class="menu-list--padding-15 post-aside-wrapper post__social__wrapper">
-
-  <div class="report__social__item margin-bottom-15">
-    <a href="https://www.facebook.com/dialog/share?app_id=1650004735115559&display=popup&href=https://newamerica.org{{page.url}}" target="_blank" >
+<div class="menu-list post-aside-wrapper post__social__wrapper">
+  <div>
+    <a class="social--inline" href="https://www.facebook.com/dialog/share?app_id=1650004735115559&display=popup&href=https://newamerica.org{{page.url}}" target="_blank" >
       <i class="fa circle fa-facebook"></i>
-      <h6 class="inline">Share</h6>
+      <h6>Share</h6>
     </a>
   </div>
-
-  <div class="report__social__item margin-bottom-15">
-    <a href="https://twitter.com/intent/tweet/?url=https://newamerica.org{{page.url}}&text={{page.title}}&via=newamerica" target="_blank" >
+  <div>
+    <a class="social--inline" href="https://twitter.com/intent/tweet/?url=https://newamerica.org{{page.url}}&text={{page.title}}&via=newamerica" target="_blank" >
       <i class="fa circle fa-twitter"></i>
-      <h6 class="inline">Tweet</h6>
+      <h6>Tweet</h6>
     </a>
   </div>
   {% if page.attachment|length > 0 %}
-  <div class="report__social__item margin-bottom-15">
-    <a href="{% if page.attachment.0.value.url|make_list|first == '/' %}https://newamerica.org{{page.attachment.0.value.url}}{% else %}{{page.attachment.0.value.url}}{% endif %}" target="_blank" >
+  <div>
+    <a class="social--inline" href="{% if page.attachment.0.value.url|make_list|first == '/' %}https://newamerica.org{{page.attachment.0.value.url}}{% else %}{{page.attachment.0.value.url}}{% endif %}" target="_blank" >
       <i class="fa circle fa-download"></i>
-      <h6 class="inline">Download</h6>
+      <h6>Download</h6>
     </a>
   </div>
   {% endif %}

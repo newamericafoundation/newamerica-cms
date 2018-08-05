@@ -5,6 +5,18 @@
   }
 }
 
+.social--inline{
+  line-height: 0;
+  h6 {
+    margin: 0;
+    margin-left: 15px;
+    display: inline-block;
+  }
+  .fa.circle, h6{
+    vertical-align: middle;
+  }
+}
+
 .fa.circle{
   width: 22px;
   height: 22px;
