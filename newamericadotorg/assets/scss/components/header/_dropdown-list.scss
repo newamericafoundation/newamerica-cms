@@ -1,14 +1,11 @@
-.header-dropdown-links{
+.header__nav__dropdown__list__item{
+  cursor: pointer;
+  overflow: hidden;
+  padding-bottom: 15px;
+  border-bottom: 1px solid $link-border-color;
 
-  &__link{
-    cursor: pointer;
-    overflow: hidden;
-    padding-bottom: 15px;
-    border-bottom: 1px solid $link-border-color;
-
-    li {
-      display: block;
-    }
+  li {
+    display: block;
   }
 }
 

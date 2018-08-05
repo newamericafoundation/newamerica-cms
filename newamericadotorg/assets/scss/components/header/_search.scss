@@ -1,0 +1,30 @@
+.header__nav__search {
+  white-space: nowrap;
+  padding-left: 1.2em;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+
+  & > div {
+    display: inline-block;
+  }
+}
+
+.header__nav__search__icon{
+  padding-top: 30px;
+  vertical-align: top;
+}
+
+.header__nav__search__input{
+  @include transition(width 0.3s ease);
+  overflow: hidden;
+  width: 0px;
+  padding-top: 3px;
+  display: inline-block;
+  vertical-align: top;
+  height: $header-height;
+}
+
+body.search-is-open .header__nav__search__input{
+  width: 250px;
+}

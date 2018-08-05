@@ -1,14 +1,15 @@
-.header__nav__dropdown-list__dropdown{
+.header__nav__dropdown{
   float: left;
   // position: relative;
 
-  &__main-link{
+  &__header{
     display: block;
     position: relative;
     border-bottom: none !important;
-    margin-right: 2.4em;
-    padding-top: 15px;
-    padding-bottom: 25px;
+    margin-right: 1.2em;
+    margin-left: 1.2em;
+    padding-top: 25px;
+    height: $header-height;
 
     cursor: pointer;
     text-decoration: none;
@@ -18,7 +19,7 @@
     margin-right: 1.2em;
   }
 
-  &__links{
+  &__list-wrapper{
     position: absolute;
     z-index: 200;
     top: $header-height;
@@ -45,14 +46,14 @@
   }
 }
 
-.header__nav__dropdown-list__dropdown__main-link.drop {
-    margin-right: calc(2.4em + 11px);
+.header__nav__dropdown__header.drop {
+    margin-right: calc(1.2em + 11px);
     &:after{
       // down arrow
       display: inline-block;
       content: '';
       position: absolute;
-      top: calc(50% + 0px);
+      top: calc(50% - 0px);
       @include transform(rotate(45deg) translateY(-3.5px));
       border-right: 2px solid color(black);
       border-bottom: 2px solid color(black);
@@ -82,10 +83,10 @@
     }
 }
 
-body:not(.dropdown-active) .header__nav__dropdown-list__dropdown:hover,
-.header__nav__dropdown-list__dropdown.active {
+body:not(.dropdown-active) .header__nav__dropdown:hover,
+.header__nav__dropdown.active {
     // dropdown hover/active state
-    .header__nav__dropdown-list__dropdown__links{
+    .header__nav__dropdown__list-wrapper{
       visibility: visible;
       opacity: 1;
 
@@ -95,11 +96,11 @@ body:not(.dropdown-active) .header__nav__dropdown-list__dropdown:hover,
       }
     }
 
-    .header__nav__dropdown-list__dropdown__main-link .link:after{
+    .header__nav__dropdown__header .link:after{
       @include transform(translateX(0%));
     }
 
-    .header__nav__dropdown-list__dropdown__main-link.drop:before{
+    .header__nav__dropdown__header.drop:before{
       opacity: 1;
       visibility: visible;
       @include transform(rotate(-45deg) translate(-50%, 0px));

@@ -10,9 +10,7 @@
     float: right;
   }
 
-  @import 'button-and-icons';
-
-  &__dropdown-list{
+  &__links{
     @extend %clearfix;
   }
 

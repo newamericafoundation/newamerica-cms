@@ -6,9 +6,9 @@
 
   <div class="col-3">
     <h4 class="link column-heading margin-0"><a href="/national-network/"><u>Nat'l Network &mdash;</u></a></h4>
-    <div class="header-dropdown-links margin-top-25">
+    <div class="header__nav__dropdown__list margin-top-25">
       {% for p in locations %}
-        <div class="header-dropdown-links__link">
+        <div class="header__nav__dropdown__list__item">
           <h6 class="link margin-0">
             <a href="{{p.program.url}}">
               <u>{{p.program.title}}</u>
@@ -24,9 +24,9 @@
     </h4>
     <div class="row margin-top-25">
     {% for pg in program_groups %}
-      <div class="header-dropdown-links col-4">
+      <div class="header__nav__dropdown__list col-4">
         {% for p in pg %}
-        <div class="header-dropdown-links__link">
+        <div class="header__nav__dropdown__list__item">
           <h6 class="link margin-0">
             <a href="{{p.program.url}}">
               <u>{{p.program.title}}</u>

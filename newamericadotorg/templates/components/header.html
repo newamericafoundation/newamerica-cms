@@ -10,22 +10,8 @@
         </a>
       </div>
       <nav class="header__nav col-md-10">
-        <!-- floated right, so this is in opposite order -->
-        <div class="header__nav__button-and-icons">
-          <div class="search-box">
-            <div class="input">
-              <form action="/search/?query=value" method="get">
-                <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
-              </form>
-            </div>
-          </div>
-          <div class="header__nav__search">
-            {% include 'components/search-icon.html' %}
-          </div>
-        </div>
-        <div class="header__nav__dropdown-list">
-          {% include './header_dropdown_list.html' %}
-        </div>
+        {% include './header_search.html' %}
+        {% include './header_dropdowns.html' %}
       </nav>
     </div>
   </div>
