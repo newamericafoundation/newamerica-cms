@@ -15,7 +15,7 @@ const NavItem = ({ url, label, exact=false, active }) => (
 export default class Nav extends Component {
   getItems = () => {
     let { items, exact } = this.props;
-    return items.filter(item => item !== false).map((item, i)=>(
+    return items.filter(item => item).map((item, i)=>(
       <li key={i}><NavItem exact={exact} {...item}/></li>
     ));
   }

@@ -21,7 +21,7 @@ export default class Subprograms extends Component {
     return (
       <div className="initiatives-and-projects">
         <div className="initiatives margin-top-35">
-          {subprograms.Project.length > 0 && <h6>Initiatives</h6>}
+          {subprograms.Project.length > 0 && <h6 className="margin-bottom-15">Initiatives</h6>}
           <div className="menu-list">
             {subprograms.Initiative.map((s,i)=>(
               <h2 key={`subprogram-${i}`}>
@@ -32,7 +32,7 @@ export default class Subprograms extends Component {
           </div>
         </div>
         {subprograms.Project.length > 0 && <div className="projects margin-top-60">
-          <h6>Projects</h6>
+          <h6 className="margin-bottom-15">Projects</h6>
           <div className="menu-list">
             {subprograms.Project.map((s,i)=>(
               <h2 key={`subprogram-${i}`}>
