@@ -5,7 +5,9 @@ import {
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
   SET_FETCHING_STATUS, SET_HAS_RESULTS
 } from './constants';
+
 import getNestedState from '../../lib/utils/get-nested-state';
+import { handleResponse, generateUrl, parseResponse } from './action-helpers';
 import cache from '../cache';
 
 export const setParams = (component, {endpoint, query, baseUrl}) => ({
@@ -109,77 +111,37 @@ export const receiveTemplate = (component, template) => ({
   template
 });
 
-const parseResponse = (json) => {
-  let results, hasNext, hasPrevious, page, count;
-  if(json.results){
-    results = json.results;
-    hasNext = json.next!==null;
-    hasPrevious = json.previous!==null;
-    page = 1;
-    count = json.count;
-    let re = /.+page=([0-9]+)/;
-
-    if(hasNext){
-      let next = re.exec(json.next);
-      page = next ? +next[1]-1 : 1;
-    } else if(hasPrevious){
-      let next = re.exec(json.previous);
-      page = next ? +next[1]+1 : 2;
-    }
-  } else {
-    results = json;
-    hasNext = false;
-    hasPrevious = false;
-    page = 1;
-    count = null;
-  }
-
-  return {
-    hasNext, hasPrevious, page, results, count
-  }
-};
-
 export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getState) => {
   let state = getNestedState(getState(), component);
-  let params = state.params;
-  let url = new URL(`${params.baseUrl}${params.endpoint}/`);
-  for(let k in params.query)
-    url.searchParams.append(k, params.query[k]);
-
-  dispatch(setFetchingStatus(component, true));
-  let loadingTO = setTimeout(()=>{
-    dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: true });
-  }, 200);
-
-
+  let url = generateUrl(state.params)
   let request = `${url.pathname}${url.searchParams.toString()}`;
-  if(cache.get(request)){
-    let response = cache.get(request);
+  let response = cache.get(request);
+
+  if(response){
     response.pend = pend;
     callback(response);
     dispatch(setResponse(component, response));
-    clearTimeout(loadingTO);
     dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
     return ()=>{};
   }
-  return fetch(url, {
+
+  dispatch(setFetchingStatus(component, true));
+  dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: true });
+
+  return fetch(url.toString(), {
       headers: {'X-Requested-With': 'XMLHttpRequest'}
     }).then(response => {
       return response.json();
     }).then(json => {
       let response = parseResponse(json);
-      dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
-      if(!window.user.isAuthenticated)
-        cache.set(request, response, new Date().getTime() + 3600000); // expire in one hour
       response.pend = pend;
-      if(json.error){
-        console.log(json);
-        response.error = json.error;
-        response.message = json.message;
-      }
+
+      if(!window.user.isAuthenticated && !response.error)
+        cache.set(request, response, new Date().getTime() + 600); // expire in 10 minues
+
+      dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
       callback(response);
       dispatch(setResponse(component, response));
-      clearTimeout(loadingTO);
     });
 }
 
