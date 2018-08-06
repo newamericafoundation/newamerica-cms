@@ -137,7 +137,8 @@ export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getStat
       response.pend = pend;
 
       if(!window.user.isAuthenticated && !response.error)
-        cache.set(request, response, new Date().getTime() + 600); // expire in 10 minues
+        cache.set(request, response, new Date().getTime() + 6000); // expire in 10 minues
+
 
       dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
       callback(response);
