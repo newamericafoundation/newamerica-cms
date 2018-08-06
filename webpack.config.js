@@ -7,6 +7,7 @@ const WebpackBabelExternalsPlugin = require('webpack-babel-external-helpers-2');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
+  mode: NODE_ENV,
   entry: {
 		"newamericadotorg": "./newamericadotorg/assets/newamericadotorg.js",
     "newamericadotorg.lite": "./newamericadotorg/assets/newamericadotorg.lite.js"
@@ -30,7 +31,7 @@ module.exports = {
 					{
 						loader: 'sass-loader',
 						options: {
-							data: `$static: ${NODE_ENV==='development' ? '"/static"' : '' };`
+							data: `$static: ${NODE_ENV==='development' ? '"/static"' : '"https://s3.amazonaws.com/newamericadotorg-static/static"' };`
 						}
 					},
           {

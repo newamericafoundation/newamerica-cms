@@ -18,7 +18,7 @@
     "brew": "brew install cairo && brew install pango && brew install gdk-pixbuf && brew install redis",
     "redis-dev": "redis-server --daemonize yes",
     "celery-dev": "celery -A newamericadotorg worker --loglevel=info --broker=redis://127.0.0.1:6379/0",
-    "get-static": "aws s3 sync s3://na-preview-static/static/ newamericadotorg/static --exclude 'wagtail*' --exclude 'rest_framework/*' --exclude 'admin/*' --exclude 'table_block/*'"
+    "get-static": "aws s3 sync s3://newamericadotorg-static/static/ newamericadotorg/static --exclude 'wagtail*' --exclude 'rest_framework/*' --exclude 'admin/*' --exclude 'table_block/*'"
   },
   "repository": {
     "type": "git",
@@ -63,6 +63,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-jest": "^23.4.2",
+    "babel-loader": "^7.1.5",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
