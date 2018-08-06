@@ -112,6 +112,10 @@ $loading-animation-delay: 0.1s;
 
 .loading-dots, [class*='loading-dots--']{
   display: inline-block;
+  &.block {
+    display: block;
+    width: 100%;
+  }
   span {
     display: inline-block;
     padding-right: 5px;

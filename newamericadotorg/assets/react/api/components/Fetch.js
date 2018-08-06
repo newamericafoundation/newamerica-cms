@@ -35,11 +35,12 @@ class Fetch extends Component {
     }
   }
   render() {
-    let { className, showLoading, component, transition, fetchOnMount, renderIfNoResults, children } = this.props;
+    let { className, showLoading, component, transition, fetchOnMount, renderIfNoResults, children, loadingState } = this.props;
     let { isFetching, results, hasResults} = this.props.response;
 
     if(component===null) return null;
     if(!hasResults && fetchOnMount){
+      if(loadingState) return ( loadingState );
       if(showLoading) return (<div className="loading-icon-container"><LoadingIcon /></div>);
       return null;
     }
@@ -74,6 +75,7 @@ class FetchWrapper extends Component{
       PropTypes.func,
       PropTypes.string
     ]),
+    loadingState: PropTypes.func,
     eager: PropTypes.bool,
     baseUrl: PropTypes.string,
     clear: PropTypes.bool,

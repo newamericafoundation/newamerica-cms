@@ -17,7 +17,7 @@ export default class CardMd extends Component {
         <a href={post.url} className="row gutter-0">
           <div className="col-6 col-md-12">
             <div className="card__image">
-              <Image thumbnail={post.story_image_thumbnail} image={post.story_image} loaded={loaded}/>
+              <Image thumbnail={post.story_image_thumbnail.url} image={post.story_image.url} loaded={loaded}/>
             </div>
           </div>
           <div className="col-6 col-md-12">

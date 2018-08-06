@@ -5,7 +5,7 @@ import {
 import { BASEURL } from '../constants';
 import getNestedState from '../../../lib/utils/get-nested-state';
 
-let defaultResponse = { isFetching: false, hasNext: false, hasPrevious: false, count: 0 };
+let defaultResponse = { isFetching: false, hasNext: false, hasPrevious: false, count: 0, results: [] };
 
 export const mapStateToProps = (state, { name, baseUrl }) => {
   let componentState = getNestedState(state, name);

@@ -15,6 +15,16 @@ import ScrollToTop from './components/ScrollToTop';
 import bowser from 'bowser';
 import GARouter from '../ga-router';
 
+const browser = bowser.getParser(window.navigator.userAgent);
+const isValidBrowser = browser.satisfies({
+  macos: {
+    chrome: '>57'
+  },
+  mobile: {
+    chrome: '>57'
+  }
+});
+
 const Slide = ({children, ...props}) => (
   <CSSTransition
     {...props}
@@ -37,7 +47,7 @@ class Routes extends Component {
   render(){
     let { response: { results }, location, match } = this.props;
     return (
-      <main className={`${bowser.chrome && bowser.osname == 'macOS' ? 'transition-enabled' : ''}`}>
+      <main className={`${isValidBrowser ? 'transition-enabled' : ''}`}>
         <Route path="/weekly/:editionSlug/:articleSlug?" render={(props)=>(
           <Header dispatch={this.props.dispatch} {...props} edition={results} />
         )} />

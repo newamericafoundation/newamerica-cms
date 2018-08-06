@@ -1,14 +1,4 @@
 .horizontal-nav {
-  background-color: color(white);
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 25px;
-  padding-right: 25px;
-
-  ul.inline li {
-    padding-right: 35px;
-  }
-
   &.active .horizontal-nav__link:not(.active):not(:hover){
     color: color(black, base, 0.3);
   }

@@ -32,13 +32,15 @@ class InfiniteLoadMore extends Component {
     promptToLoadMore: PropTypes.bool,
     onNextPage: PropTypes.func,
     bottomOffset: PropTypes.number,
+    showLoadingDots: PropTypes.bool
   }
 
   static defaultProps = {
     infiniteOnMount: false,
     onNextPage: ()=>{},
     bottomOffset: 0,
-    promptToLoadMore: false
+    promptToLoadMore: false,
+    showLoadingDots: true
   }
 
   componentWillMount() {
@@ -110,7 +112,7 @@ class InfiniteLoadMore extends Component {
   }
 
   render(){
-    let { children, className, response } = this.props;
+    let { children, className, response, showLoadingDots } = this.props;
     let classes = `${this.isInfinite ? ' is-infinite' : ''}${this.isLoadingMore ? ' is-loading-more' : '' } ${response.isFetching ? ' is-fetching' : ''}`;
 
     return (
@@ -124,7 +126,7 @@ class InfiniteLoadMore extends Component {
         {(response.hasNext && !this.isInfinite && !response.isFetching) &&
           <LoadMoreButton onclick={this.loadMore}/>
         }
-        {response.isFetching && <div className="margin-top-35"><LoadingDots /></div> }
+        {(response.isFetching && showLoadingDots) && <div className="margin-top-35"><LoadingDots /></div> }
       </div>
     );
   }

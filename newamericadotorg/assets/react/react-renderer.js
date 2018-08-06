@@ -32,7 +32,7 @@ class ReactRenderer {
     for(let i=0; i<els.length; i++){
       let app = this.__render__(els[i], App, i);
       this.components[selector].components.push({ name:`name.${i}`, selector, el: els[i], app });
-      // if(els[i].hasAttribute('replace-this')){
+      // if(els[i].hasAttribute('data-replace-this')){
       //   els[i].parentNode.insertBefore(els[i].firstChild, els[i]);
       //   els[i].parentNode.removeChild(els[i]);
       // }
@@ -52,10 +52,10 @@ class ReactRenderer {
     if(el){
       this.components[name].app = this.__render__(el, App);
 
-      if(el.hasAttribute('replace-this')){
-        el.parentNode.insertBefore(el.firstChild, el);
-        el.parentNode.removeChild(el);
-      }
+      // if(el.hasAttribute('data-replace-this')){
+      //   el.parentNode.insertBefore(el.firstChild, el);
+      //   el.parentNode.removeChild(el);
+      // }
       this.components[name].render = () => { console.warn(`${name} is already rendered!`); }
     } else {
       this.components[name].render = () => { this.__add__(name, id, App); }

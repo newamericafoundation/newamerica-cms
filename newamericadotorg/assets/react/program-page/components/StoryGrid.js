@@ -1,153 +1,176 @@
 import './StoryGrid.scss';
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CardMd from './CardMd';
 import CardLg from './CardLg';
+import CardVariable from './CardVariable';
 import { PromoMd } from './CardPromo';
+import { Fetch } from '../../components/API';
+import InfiniteLoadMore from '../../components/InfiniteLoadMore';
+import { NAME } from '../constants';
+import bowser from 'bowser';
 
+const browser = bowser.getParser(window.navigator.userAgent);
+const isValidBrowser = browser.satisfies({
+  windows: {
+    "internet explorer": ">9",
+    "edge": ">12"
+  },
+  macos: {
+    safari: ">10"
+  },
+  mobile: {
+    safari: '>10.2'
+  },
+  chrome: ">49",
+  firefox: ">51",
+  opera: ">43"
+});
 
-const Mobile = (props) => (
-  <div className="mobile-only">
-    {props.children}
-  </div>
+const AboutCard = ({ program }) => (
+  <PromoMd title="About" link={{ to: 'about', label: 'Read More'}}>
+    <h2 className="margin-25">
+      <span className="desktop-about-text">{program.description}</span>
+      <span className="tablet-about-text">
+        {program.description.length > 270 ? program.description.slice(0,270) + ' ...' : program.description}
+      </span>
+      <span className="mobile-about-text">
+        {program.description.length > 170 ? program.description.slice(0,170) + ' ...' : program.description}
+      </span>
+    </h2>
+  </PromoMd>
 );
 
-export default class StoryGrid extends Component {
+class SubscribeCard extends Component {
   state = {
-    email: null,
-  }
-  about(force){
-    let { program } = this.props;
-    return (
-      <PromoMd key={`0-0`} title="About" link={{ to: 'about', label: 'Read More'}}>
-        <h2 className="margin-25">{program.description}</h2>
-      </PromoMd>
-    );
+    email: null
   }
 
-  subscribe(k=0){
+  render(){
     let { program } = this.props;
     let sub_text = program.subscription_card_text || `Be the first to hear about the latest events and research from ${program.name}`;
+
     return (
-      <PromoMd key={`1-${k}`} title="Subscribe" link={{ to: `subscribe/?email=${this.state.email}`, label: 'Go'}}>
+      <PromoMd title="Subscribe" link={{ to: `subscribe/?email=${this.state.email}`, label: 'Go'}}>
         <h2 className="margin-25">{sub_text}</h2>
         <div className="input">
-          <input type="text" name="email" value={this.state.email||''} required onChange={(e)=>{this.setState({email: e.target.value})}}/>
+          <input required type="text" name="email"
+            onChange={(e)=>{this.setState({email: e.target.value})}}
+            value={this.state.email||''} />
           <label className="input__label" htmlFor="email"><h5 className="margin-0">Email Address</h5></label>
         </div>
       </PromoMd>
     );
   }
-  cardMd = (index, size, k=0) =>{
-    let { loaded, story_grid } = this.props;
-    return ( <CardMd post={story_grid[index]} key={`${index}-${k}`} image_size={size} loaded={loaded} /> );
+}
+
+class MoreStories extends Component {
+  state = {
+    rowHeight: 2
   }
-  cols = () => {
-    let { story_grid, program, loaded } = this.props;
-    let col0 = program.hide_subscription_card ? [] : [this.subscribe()];
-    let cols = [col0, [], []];
-    let items = story_grid.length;
 
-    switch(items){
-      case 2:
-        cols[0] = cols[0].concat([
-          <Mobile>{this.about()}</Mobile>
-        ]);
-        cols[1] = cols[1].concat([
-          this.cardMd(1, "square")
-        ]);
-        cols[2] = cols[2].concat([
-          this.about()
-        ]);
-        break;
-      case 3:
-        cols[0] = cols[0].concat([
-          <Mobile key={501}>{this.cardMd(1, "square")}</Mobile>
-        ]);
-        cols[1] = cols[1].concat([
-          this.cardMd(1, "square"),
-          <Mobile key={500}>{this.about(1)}</Mobile>
-        ]);
-        cols[2] = cols[2].concat([
-          this.cardMd(2, "landscape"),
-          this.about()
-        ]);
-        break;
-      case 4:
-        cols[0] = cols[0].concat([
-          this.cardMd(3, "square"),
-          <Mobile key={500}>{this.cardMd(1, "square", 1)}</Mobile>
-        ]);
-        cols[1] = cols[1].concat([
-          this.cardMd(2, "landscape"),
-          this.about()
-        ]);
-        cols[2] = cols[2].concat([
-          this.cardMd(1, "square")
-        ]);
-        break;
-      case 5:
-        cols[0] = cols[0].concat([
-          this.cardMd(3, "landscape"),
-          <Mobile key={501}>{this.cardMd(1, "square", 1)}</Mobile>
-        ]);
-        cols[1] = cols[1].concat([
-          this.cardMd(2, "landscape"),
-          this.cardMd(4, "square"),
-          <Mobile key={500}>{this.about()}</Mobile>
-        ]);
-        cols[2] = cols[2].concat([
-          this.cardMd(1, "square"),
-          this.about()
-        ]);
-        break;
-      case 6:
-        cols[0] = cols[0].concat([
-          this.cardMd(3, "landscape"),
-          this.cardMd(5, "landscape"),
-          <Mobile key={501}>{this.cardMd(1, "square", 1)}</Mobile>
-        ]);
-        cols[1] = cols[1].concat([
-          this.cardMd(2, "landscape"),
-          this.cardMd(4, "square"),
-          <Mobile key={500}>{this.about(1)}</Mobile>
-        ]);
-        cols[2] = cols[2].concat([
-          this.cardMd(1, "square"),
-          this.about()
-        ]);
-        break;
-      case 7:
-        cols[0] = cols[0].concat([
-          this.cardMd(3, "landscape"),
-          this.cardMd(5, "square"),
-          <Mobile key={501}>{this.cardMd(1, "square", 1)}</Mobile>
+  getMoreStories = () => {
+    let { setQueryParam, fetchAndAppend, response, program, count } = this.props;
+    if((!response.hasNext && response.page !== 1) || count <= 7) return false;
 
-        ]);
-        cols[1] = cols[1].concat([
-          this.cardMd(2, "landscape"),
-          this.cardMd(4, "square"),
-          this.cardMd(6, "square"),
-          <Mobile key={500}>{this.about(1)}</Mobile>
-        ]);
-        cols[2] = cols[2].concat([
-          this.cardMd(1, "square"),
-          this.about()
-        ]);
-        break;
+    setQueryParam('page', response.page+1);
+    return fetchAndAppend;
+  }
+
+  getCardRowSpan = (item) => {
+    let { windowWidth } = this.props;
+    let { rowHeight } = this.state;
+    let imgSize, textSize;
+    let len = item.title.length;
+
+    if(len > 115) textSize = 150;
+    else if(len > 75) textSize = 134;
+    else if(len > 42) textSize = 114;
+    else textSize = 96;
+
+    if(!item.story_image) {
+      imgSize = 0;
+    } else {
+      let ratio = item.story_image.height / item.story_image.width;
+      imgSize = ratio * Math.min(1180/3 - 5, (windowWidth - 30)/3 - 5);
     }
 
-    cols = cols.map((col,i)=>(
-      <div key={i} className={`col-md-6 col-lg-4 ${i==2 ? 'desktop-only' : ''}`}>
-        {col}
-      </div>
-    ));
-
-    return cols;
+    return Math.round((imgSize+textSize)/rowHeight);
   }
+
+  renderGridItem = (item, i) => {
+    let { rowHeight } = this.state;
+    let padding = Math.round(10/rowHeight);
+    let { program } = this.props;
+
+    switch(item){
+      case 'about':
+        let aboutSpan = program.description.length / 24 * 30.5 + 75;
+        aboutSpan = Math.max(400,Math.round(aboutSpan))
+        aboutSpan = Math.round(aboutSpan/rowHeight) + padding;
+        return (
+          <div className="masonry__item" key={`mason-item-${i}`} style={{
+            gridRowEnd: `span ${aboutSpan}`}}>
+            <AboutCard program={program} />
+          </div>
+        );
+      case 'subscribe':
+        let subSpan = Math.round(400/rowHeight) + padding;
+        return (
+          <div className="masonry__item" key={`mason-item-${i}`} style={{
+            gridRowEnd: `span ${subSpan}`}}>
+            <SubscribeCard program={program} />
+          </div>
+        );
+      default:
+        let span = this.getCardRowSpan(item) + padding;
+        return (
+            <div className="masonry__item" key={`mason-item-${i}`} style={{
+              gridRowEnd: `span ${span}`}}>
+              <CardVariable post={item}/>
+            </div>
+        );
+    }
+  }
+
   render(){
-    let { story_grid, loaded } = this.props;
-    if(story_grid.length===0){
+    let { response, features, count } = this.props;
+    return(
+        <div class={`masonry ${!isValidBrowser ? 'disabled' : ''}`}>
+          {features.map((p,i)=>(
+            this.renderGridItem(p,i)
+          ))}
+          {response.results.map((f,i)=>(
+            this.renderGridItem(f, `more-${i}`)
+          ))}
+          <InfiniteLoadMore
+            onNextPage={this.getMoreStories}
+            response={this.props.response}
+            infiniteOnMount={true}
+            showLoadingDots={false}
+            bottomOffset={-400}/>
+       </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  windowWidth: state.site.windowWidth
+});
+
+MoreStories = connect(mapStateToProps)(MoreStories);
+
+export default class StoryGrid extends Component {
+
+  render(){
+    let { story_grid, loaded, program } = this.props;
+
+    let features = [...story_grid.pages];
+    let lead = features.shift(0);
+    features = ['subscribe', ...features.splice(0,3), 'about', ...features];
+
+    if(story_grid.pages.length===0){
       return (
         <div className="program__story-grid">
           <div className="row gutter-10">
@@ -162,9 +185,20 @@ export default class StoryGrid extends Component {
       <div className="program__story-grid">
         <div className="row gutter-10">
           <div className="col-12">
-            <CardLg post={story_grid[0]} loaded={loaded}/>
+            <CardLg post={lead} loaded={loaded}/>
           </div>
-          {this.cols()}
+          <div className="col-12">
+            <Fetch component={MoreStories}
+              name={`${NAME}.featured`}
+              renderGridItem={this.renderGridItem}
+              count={story_grid.count}
+              features={features}
+              program={program}
+              endpoint={`program/${program.id}/featured`}
+              initialQuery={{
+                page_size: 7
+              }}/>
+          </div>
         </div>
       </div>
     );

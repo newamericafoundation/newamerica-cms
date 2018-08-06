@@ -73,7 +73,7 @@
 }
 
 .card {
-  &.md, &.sm, &.lg, &.list, &.person {
+  &.md, &.sm, &.lg, &.list, &.person, &.variable {
     img {
       opacity: 0;
       @include transition(transform 0.15s ease, opacity 0.15s ease);
@@ -104,6 +104,7 @@ h2.card__text__title:hover u{
 @import 'lg';
 @import 'md';
 @import 'sm';
+@import 'variable';
 @import 'person';
 @import 'promo';
 @import 'program';

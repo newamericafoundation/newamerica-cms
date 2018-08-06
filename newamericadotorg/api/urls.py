@@ -22,6 +22,7 @@ api_urls = [
     #url(r'^api/fellow/$', cache_page(60 * 10, key_prefix='fellow_list')(api_views.FellowList.as_view())),
     url(r'^fellow/$', author_views.FellowList.as_view()),
     #url(r'^api/program/(?P<pk>[\d]+)/$', cache_page(60 * 1440, key_prefix='program_page')(api_views.ProgramDetail.as_view()), name='program'),
+    url(r'^program/(?P<pk>[\d]+)/featured/$', program_views.ProgramFeaturedPageList.as_view()),
     url(r'^program/(?P<pk>[\d]+)/$', program_views.ProgramDetail.as_view()),
     #url(r'^api/program/$', cache_page(60 * 1440, key_prefix='program_list')(api_views.ProgramList.as_view()), name='program_list'),
     url(r'^program/$', program_views.ProgramList.as_view()),

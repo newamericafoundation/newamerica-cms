@@ -124,7 +124,7 @@ const parseResponse = (json) => {
       page = next ? +next[1]-1 : 1;
     } else if(hasPrevious){
       let next = re.exec(json.previous);
-      page = next ? +next[1]+1 : 1;
+      page = next ? +next[1]+1 : 2;
     }
   } else {
     results = json;

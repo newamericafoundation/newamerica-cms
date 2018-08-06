@@ -3,9 +3,11 @@ from django_filters import CharFilter
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.filters import SearchFilter
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, FeaturedProgramPage, FeaturedSubprogramPage
+from home.models import Post
 
-from .serializers import ProgramSerializer, SubprogramSerializer, ProgramDetailSerializer
+from .serializers import ProgramSerializer, SubprogramSerializer, ProgramDetailSerializer, FeaturedPageSerializer
+from newamericadotorg.api.post.serializers import PostSerializer
 
 class ProgramFilter(FilterSet):
     id = CharFilter(field_name='id', lookup_expr='iexact')
@@ -44,3 +46,9 @@ class SubprogramList(ListAPIView):
 class SubprogramDetail(RetrieveAPIView):
     queryset = Subprogram.objects.live()
     serializer_class = SubprogramSerializer
+
+class ProgramFeaturedPageList(ListAPIView):
+    serializer_class = FeaturedPageSerializer
+
+    def get_queryset(self):
+        return FeaturedProgramPage.objects.filter(program__id=self.kwargs['pk']).order_by('sort_order')

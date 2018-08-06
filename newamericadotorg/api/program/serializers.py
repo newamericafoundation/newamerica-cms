@@ -5,7 +5,7 @@ from django.template import loader
 from home.models import ProgramAboutHomePage, ProgramAboutPage
 from programs.models import Program, Subprogram, Project, BlogProject, AbstractContentPage
 from subscribe.models import SubscriptionSegment
-from newamericadotorg.api.helpers import generate_image_url, get_content_type, get_program_content_types, get_subpages
+from newamericadotorg.api.helpers import generate_image_url, get_content_type, get_program_content_types, get_subpages, generate_image_rendition
 
 class AboutPageSerializer(ModelSerializer):
     body = SerializerMethodField()
@@ -117,22 +117,60 @@ class ProgramSerializer(ModelSerializer):
         return obj.desktop_program_logo
 
 class FeaturedPageSerializer(ModelSerializer):
+    id = SerializerMethodField()
+    title = SerializerMethodField()
+    url = SerializerMethodField()
+    slug = SerializerMethodField()
     content_type = SerializerMethodField()
     story_image = SerializerMethodField()
     story_excerpt = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
 
+    def get_id(self, obj):
+        return obj.page.id
+
+    def get_title(self, obj):
+        return obj.page.title
+
+    def get_url(self,obj):
+        return obj.page.url
+
+    def get_slug(self, obj):
+        return obj.page.slug
+
     def get_story_excerpt(self, obj):
-        return obj.story_excerpt
+        return getattr(obj.page.specific, 'story_excerpt', None)
 
     def get_story_image(self, obj):
-        return generate_image_url(obj.story_image, 'fill-600x460')
+        #return generate_image_url(obj.story_image, 'fill-600x460')
+        story_image = getattr(obj.page.specific, 'story_image', None)
+        if not story_image: return None
+
+        img = generate_image_rendition(story_image, 'width-600')
+        if img:
+            return {
+                'width': img.width,
+                'height': img.height,
+                'url': img.url
+            }
+        return None
 
     def get_story_image_thumbnail(self, obj):
-        return generate_image_url(obj.story_image, 'fill-30x23')
+        #return generate_image_url(obj.story_image, 'fill-30x23')
+        story_image = getattr(obj.page.specific, 'story_image', None)
+        if not story_image: return None
+
+        img = generate_image_rendition(story_image, 'width-30')
+        if img:
+            return {
+                'width': img.width,
+                'height': img.height,
+                'url': img.url
+            }
+        return None
 
     def get_content_type(self, obj):
-        return get_content_type(obj)
+        return get_content_type(obj.page.specific)
 
     class Meta:
         model = Page
@@ -140,10 +178,30 @@ class FeaturedPageSerializer(ModelSerializer):
 
 class FeaturedLeadPageSerializer(FeaturedPageSerializer):
     def get_story_image(self, obj):
-        return generate_image_url(obj.specific.story_image, 'fill-925x430')
+        story_image = getattr(obj.page.specific, 'story_image', None)
+        if not story_image: return None
+
+        img = generate_image_rendition(story_image, 'fill-925x430')
+        if img:
+            return {
+                'width': img.width,
+                'height': img.height,
+                'url': img.url
+            }
+        return None
 
     def get_story_image_thumbnail(self, obj):
-        return generate_image_url(obj.specific.story_image, 'fill-32x15')
+        story_image = getattr(obj.page.specific, 'story_image', None)
+        if not story_image: return None
+
+        img = generate_image_rendition(story_image, 'fill-32x15')
+        if img:
+            return {
+                'width': img.width,
+                'height': img.height,
+                'url': img.url
+            }
+        return None
 
 class ProgramDetailSerializer(ModelSerializer):
     story_grid = SerializerMethodField()
@@ -165,31 +223,16 @@ class ProgramDetailSerializer(ModelSerializer):
         )
 
     def get_story_grid(self, obj):
-        featured_pages = [rel.page.specific for rel in obj.featured_pages.all()]
+        pages = obj.featured_pages.all().order_by('sort_order')
+        featured_pages = [rel for rel in pages[:7]]
         if len(featured_pages) == 0:
             return None
 
         lead = FeaturedLeadPageSerializer(featured_pages.pop(0)).data
-        return [lead] + FeaturedPageSerializer(featured_pages, many=True).data
-
-        if obj.lead_1:
-            context = self.context.copy()
-            context['is_lead'] = True
-            grid.append(StoryGridItemSerializer(obj.lead_1.specific, context=context).data)
-        if obj.lead_2:
-            grid.append(StoryGridItemSerializer(obj.lead_2.specific, context=self.context).data)
-        if obj.lead_3:
-            grid.append(StoryGridItemSerializer(obj.lead_3.specific, context=self.context).data)
-        if obj.lead_4:
-            grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=self.context).data)
-        if obj.feature_1:
-            grid.append(StoryGridItemSerializer(obj.feature_1.specific, context=self.context).data)
-        if obj.feature_2:
-            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=self.context).data)
-        if obj.feature_3:
-            grid.append(StoryGridItemSerializer(obj.feature_3.specific, context=self.context).data)
-
-        return grid
+        return {
+            'count': pages.count(),
+            'pages': [lead] + FeaturedPageSerializer(featured_pages, many=True).data
+        }
 
     def get_description(self, obj):
         return obj.description or obj.story_excerpt or obj.search_description
@@ -272,35 +315,16 @@ class SubprogramSerializer(ModelSerializer):
         return parents
 
     def get_story_grid(self, obj):
-        featured_pages = [rel.page.specific for rel in obj.featured_pages.all()]
+        pages = obj.featured_pages.all().order_by('sort_order')
+        featured_pages = [rel for rel in pages[:7]]
         if len(featured_pages) == 0:
             return None
 
         lead = FeaturedLeadPageSerializer(featured_pages.pop(0)).data
-        return [lead] + FeaturedPageSerializer(featured_pages, many=True).data
-
-        grid = []
-        context = self.context
-        if obj.template == 'simple_program.html':
-            context['is_lead'] = True
-        if obj.lead_1:
-            lead_context = self.context.copy()
-            lead_context['is_lead'] = True
-            grid.append(StoryGridItemSerializer(obj.lead_1.specific, context=lead_context).data)
-        if obj.lead_2:
-            grid.append(StoryGridItemSerializer(obj.lead_2.specific, context=context).data)
-        if obj.lead_3:
-            grid.append(StoryGridItemSerializer(obj.lead_3.specific, context=context).data)
-        if obj.lead_4:
-            grid.append(StoryGridItemSerializer(obj.lead_4.specific, context=context).data)
-        if obj.feature_1:
-            grid.append(StoryGridItemSerializer(obj.feature_1.specific, context=context).data)
-        if obj.feature_2:
-            grid.append(StoryGridItemSerializer(obj.feature_2.specific, context=context).data)
-        if obj.feature_3:
-            grid.append(StoryGridItemSerializer(obj.feature_3.specific, context=context).data)
-
-        return grid
+        return {   
+            'count': pages.count(),
+            'pages': [lead] + FeaturedPageSerializer(featured_pages, many=True).data
+        }
 
     def get_content_types(self, obj):
         return get_program_content_types(obj)
