@@ -1,5 +1,7 @@
 const path = require("path");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpack = require("webpack");
 const WebpackBabelExternalsPlugin = require('webpack-babel-external-helpers-2');
 //const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -59,7 +61,14 @@ module.exports = {
     ]
   },
 	optimization: {
-    minimize: false,
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ],
 		splitChunks: {
       chunks: 'all',
       minSize: 10000,
@@ -80,7 +89,7 @@ module.exports = {
       chunkFilename: "static/css/[name].css"
     }),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": NODE_ENV
+      "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
     })
   ]
 };

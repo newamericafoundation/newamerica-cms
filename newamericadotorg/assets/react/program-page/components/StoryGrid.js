@@ -137,7 +137,7 @@ class MoreStories extends Component {
   render(){
     let { response, features, count } = this.props;
     return(
-        <div class={`masonry ${!isValidBrowser ? 'disabled' : ''}`}>
+        <div className={`masonry ${!isValidBrowser ? 'disabled' : ''}`}>
           {features.map((p,i)=>(
             this.renderGridItem(p,i)
           ))}

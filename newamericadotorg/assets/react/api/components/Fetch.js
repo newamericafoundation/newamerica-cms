@@ -75,7 +75,7 @@ class FetchWrapper extends Component{
       PropTypes.func,
       PropTypes.string
     ]),
-    loadingState: PropTypes.func,
+    loadingState: PropTypes.element,
     eager: PropTypes.bool,
     baseUrl: PropTypes.string,
     clear: PropTypes.bool,
