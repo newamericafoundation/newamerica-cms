@@ -68,11 +68,17 @@ class InfiniteFellowsList extends Component {
 
 class StaffList extends Component {
   render(){
-    if(!this.props.response.results.length > 0) return null;
+    let { response, loading } = this.props;
     return (
-      <div className="program__people__staff margin-top-35">
+      <div className={`program__people__staff margin-top-35`}>
         <Separator text="Staff" />
-        <PersonsList response={this.props.response} className="margin-top-15" />
+        {loading &&
+          <div className="margin-top-60 margin-bottom-80" style={{ paddingBottom: '110px'}}>
+            <LoadingDots />
+          </div>}
+        {response.results.length > 0 &&
+          <PersonsList response={response} className="margin-top-15" />
+        }{(response.results.length === 0 && !loading) && <h4 className="centered margin-top-60">None.</h4> }
       </div>
     );
   }
@@ -95,6 +101,7 @@ export default class People extends Component {
         <Fetch name={`${NAME}.people`}
           endpoint="author"
           component={StaffList}
+          loadingState={<StaffList response={{ results: [] }} loading={true}/>}
           fetchOnMount={true}
           initialQuery={{
             [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,

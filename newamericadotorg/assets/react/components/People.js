@@ -6,7 +6,7 @@ export class PersonsList extends Component {
   render(){
     let { response : { results, isFetching }, children, people, className } = this.props;
     let ppl = people || results;
-    if(results.length===0) return null;
+    if(results.length===0) return <h5 className="centered">None.</h5>;
     return (
       <div className={`program__people__list row gutter-10 ${className||''}`}>
         {children}
