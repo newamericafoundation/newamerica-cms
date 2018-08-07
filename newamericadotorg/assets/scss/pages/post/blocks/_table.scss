@@ -1,7 +1,16 @@
 .block-table {
-  margin-top: 50px;
+  margin-top: 25px;
   margin-bottom: 50px;
-  overflow-x: scroll;
+  overflow: hidden;
+
+  .block-table__wrapper{
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    position: relative;
+    top: 25px;
+    padding-bottom: 25px;
+  }
 
   table {
     border-collapse: collapse;
