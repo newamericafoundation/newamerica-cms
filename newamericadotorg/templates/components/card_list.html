@@ -13,9 +13,8 @@
   <div class="card__text">
     <a href="{{post.url}}">
       <h6 class="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">{{post.date|date:"M. jS, Y"}}</h6>
-      <!-- <h3 class="card__text__title bold block">{{post.title}}</h3> -->
       <h4 class="card__text__title margin-0">
-        <span><u>{{post.title}}</u></span>
+        <span><u>{% firstof post.seo_title post.title %}</u></span>
       </h4>
       {% if post.story_excerpt %}
       <h6 class="card__text__excerpt margin-top-5 margin-bottom-0">

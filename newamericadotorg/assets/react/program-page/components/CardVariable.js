@@ -24,7 +24,7 @@ export default class CardVariable extends Component {
           <div className={`${post.story_image ? 'col-6' : 'col-12'} col-md-12`}>
             <div className="card__text">
               <h4 className="card__text__title margin-0">
-                <span><u dangerouslySetInnerHTML={{ __html: manualBreaks(post.title) }}/></span>
+                <span><u dangerouslySetInnerHTML={{ __html: manualBreaks(post.seo_title || post.title) }}/></span>
               </h4>
               <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
                 {post.programs ? post.programs[0].name : ''} {this.contentType()}

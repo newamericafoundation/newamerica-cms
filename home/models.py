@@ -526,7 +526,7 @@ class Post(Page):
 
     date = models.DateField("Post date")
 
-    body = StreamField(BodyBlock(), blank=True, null=True)
+    body = StreamField(BodyBlock(required=False), blank=True, null=True)
 
     parent_programs = models.ManyToManyField(
         Program, through=PostProgramRelationship, blank=True)

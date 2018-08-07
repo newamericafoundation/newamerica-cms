@@ -24,7 +24,7 @@ export default class CardMd extends Component {
             <div className="card__text">
               {/* <h3 className="card__text__title bold margin-top-0 block">{post.title}</h3> */}
               <h4 className="card__text__title margin-0">
-                <span><u>{post.title}</u></span>
+                <span><u>{post.seo_title || post.title}</u></span>
               </h4>
               <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
                 {post.programs ? post.programs[0].name : ''} {this.contentType()}

@@ -33,7 +33,7 @@ class Report(Post):
     subpage_types = []
 
     sections = StreamField([
-        ('section', ReportSectionBlock(template="components/report_section_body.html"))
+        ('section', ReportSectionBlock(template="components/report_section_body.html", required=False))
     ], null=True, blank=True)
 
     acknowledgements = RichTextField(blank=True, null=True)
@@ -63,7 +63,7 @@ class Report(Post):
     revising = False
 
     endnotes = StreamField([
-        ('endnote', EndnoteBlock()),
+        ('endnote', EndnoteBlock(required=False)),
     ], null=True, blank=True)
 
     report_url = StreamField([

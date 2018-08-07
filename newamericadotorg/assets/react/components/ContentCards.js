@@ -34,7 +34,7 @@ export const EventItem = ({ event }) => (
         <h6 className="margin-0">{formatDate(event.date, 'MMM. Do, YYYY')}</h6>
         {/* <h3 className="card__text__title bold block">{event.title}</h3> */}
         <h4 className="card__text__title margin-10">
-          <span><u>{event.title}</u></span>
+          <span><u>{event.seo_title || event.title}</u></span>
         </h4>
         <h6 className="margin-10">{event.story_excerpt}</h6>
         <h6 className="caption margin-0">{event.city}, {event.state}</h6>
@@ -86,7 +86,7 @@ export const PublicationListItem = ({ post }) => (
         {post.date && <h6 className="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">{formatDate(post.date, 'MMM. Do, YYYY')}</h6>}
         {/* <h3 className="card__text__title bold block">{post.title}</h3> */}
         <h4 className="card__text__title margin-0">
-          <span><u>{post.title}</u></span>
+          <span><u>{post.seo_title || post.title}</u></span>
         </h4>
         {post.story_excerpt &&
           <h6 className="margin-top-5 margin-bottom-0 card__text__excerpt">

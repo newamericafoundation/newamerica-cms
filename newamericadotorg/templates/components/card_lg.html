@@ -16,7 +16,7 @@
     <div class="col-md-5 col-lg-4">
       <div class="card__text">
         <h2 class="card__text__title margin-top-0 block">
-          <span><u>{{post.title}}</u></span>
+          <span><u>{% firstof post.seo_title post.title %}</u></span>
         </h2>
         <h6 class="card__text__subtitle margin-10">{{post.story_excerpt}}</h6>
         <h6 class="card__text__program caption margin-top-10 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post.content_type}}</h6>

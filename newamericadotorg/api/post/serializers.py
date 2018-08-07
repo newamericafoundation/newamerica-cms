@@ -16,7 +16,7 @@ class PostSerializer(ModelSerializer):
         fields = (
             'id', 'title', 'subheading', 'date', 'content_type',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
-            'story_image', 'topics'
+            'story_image', 'topics', 'seo_title'
         )
 
     def get_content_type(self, obj):

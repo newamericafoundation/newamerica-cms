@@ -4,7 +4,7 @@
     {% for story in stories %}
       <div class="highlights__highlight margin-25">
         <a href="{{story.url}}">
-          <h4 class="card__text__title margin-5"><span><u>{{story.title}}</u></span></h4>
+          <h4 class="card__text__title margin-5"><span><u>{% firstof story.seo_title story.title %}</u></span></h4>
           <h6 class="margin-0">{{story.specific.story_excerpt}}</h6>
         </a>
       </div>

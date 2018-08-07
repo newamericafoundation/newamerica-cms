@@ -16,7 +16,7 @@
       <h6 class="margin-0">{{event.date|date:"M. jS, Y"}}</h6>
       <!-- <h3 class="card__text__title bold block">{{event.title}}</h3> -->
       <h4 class="card__text__title link margin-10">
-        <span><u>{{event.title}}</u></span>
+        <span><u>{% firstof event.seo_title event.title %}</u></span>
       </h4>
       <h6 class="margin-10">{{event.story_excerpt}}</h6>
       <h6 class="caption margin-0">{{event.city}}, {{event.state}}</h6>

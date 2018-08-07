@@ -17,7 +17,7 @@
     <div class="col-6">
       <div class="card__text">
         <h4 class="card__text__title margin-0">
-          <span><u>{{post.title|ellipsize:56}}</u></span>
+          <span><u>{% firstof post.seo_title|ellipsize:56 post.title|ellipsize:56 %}</u></span>
         </h4>
         <h6 class="card__text__program caption margin-top-10 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post.content_type}}</h6>
       </div>

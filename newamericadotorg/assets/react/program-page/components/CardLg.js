@@ -37,7 +37,7 @@ export default class CardLg extends Component {
           <div className="col-12 col-md-4">
             <div className="card__text">
               <h2 className="card__text__title margin-0 block">
-                <span><u>{post.title}</u></span>
+                <span><u>{post.seo_title || post.title}</u></span>
               </h2>
               <h6 className="card__text__subtitle margin-10">{post.story_excerpt}</h6>
               <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
