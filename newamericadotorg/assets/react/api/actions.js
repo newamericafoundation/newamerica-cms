@@ -2,8 +2,9 @@ import {
   SET_PARAMS, SET_QUERY_PARAM, SET_QUERY, RESET_QUERY, SET_ENDPOINT, RECEIVE_RESULTS,
   RECEIVE_AND_APPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
-  SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
-  SET_FETCHING_STATUS, SET_HAS_RESULTS
+  SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE, APPEND_RESPONSE, PREPEND_RESPONSE,
+  SET_IS_FETCHING, SET_HAS_RESULTS, SET_FETCHING_ERROR, SET_FETCHING_SUCCESS,
+  SET_FETCHING_FAILURE
 } from './constants';
 
 import getNestedState from '../../lib/utils/get-nested-state';
@@ -50,10 +51,27 @@ export const setEndpoint = (component, endpoint) => ({
   endpoint
 });
 
-export const setFetchingStatus = (component, status) => ({
-  type: SET_FETCHING_STATUS,
+export const setIsFetching = (component, status) => ({
+  type: SET_IS_FETCHING,
   component,
   status
+});
+
+export const setFetchingError = (component, error) => ({
+  type: SET_FETCHING_ERROR,
+  component,
+  error
+});
+
+export const setFetchingFailure = (component, error) => ({
+  type: SET_FETCHING_FAILURE,
+  component,
+  error
+});
+
+export const setFetchingSuccess = (component) => ({
+  type: SET_FETCHING_SUCCESS,
+  component
 });
 
 export const setHasResults = (component, status) => ({
@@ -74,12 +92,12 @@ export const appendResults = (component, results) => ({
   results
 });
 
-export const setResponse = (component, response) => ({
+export const setResponse = (component, response, operation='replace') => ({
   type: SET_RESPONSE,
   component,
-  response
+  response,
+  operation
 });
-
 
 export const setHasNext = (component, hasNext) => ({
   type: SET_HAS_NEXT,
@@ -111,38 +129,53 @@ export const receiveTemplate = (component, template) => ({
   template
 });
 
-export const fetchData = (component, callback=()=>{}, pend) => (dispatch,getState) => {
+export const fetchData = (component, callback=()=>{}, operation='replace', tries=0) => (dispatch,getState) => {
   let state = getNestedState(getState(), component);
   let url = generateUrl(state.params)
   let request = `${url.pathname}${url.searchParams.toString()}`;
-  let response = cache.get(request);
+  let cachedResponse = cache.get(request);
 
-  if(response){
-    response.pend = pend;
-    callback(response);
-    dispatch(setResponse(component, response));
+  if(cachedResponse){
+    callback(cachedResponse);
+    dispatch(setResponse(component, cachedResponse, operation));
     dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
     return ()=>{};
   }
 
-  dispatch(setFetchingStatus(component, true));
+  dispatch(setIsFetching(component, true));
   dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: true });
 
   return fetch(url.toString(), {
       headers: {'X-Requested-With': 'XMLHttpRequest'}
     }).then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
       return response.json();
+    }).then(jsonResponse => {
+      if (jsonResponse.error) {
+        throw Error(jsonResponse.message);
+      }
+      return parseResponse(jsonResponse);
     }).then(json => {
-      let response = parseResponse(json);
-      response.pend = pend;
-
-      if(!window.user.isAuthenticated && !response.error)
-        cache.set(request, response, new Date().getTime() + 6000); // expire in 10 minues
-
+      if(!window.user.isAuthenticated)
+        cache.set(request, json, new Date().getTime() + (1000 * 60 * 5)); // expire in 5 minutes
 
       dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
-      callback(response);
-      dispatch(setResponse(component, response));
+      dispatch(setFetchingSuccess(component));
+      callback(json);
+      dispatch(setResponse(component, json, operation));
+
+    }).catch(function(error) {
+      dispatch(setFetchingError(component, error));
+      if(tries < 3){
+        setTimeout(() => {
+          dispatch(fetchData(component, callback, operation, tries+1));
+        }, 500);
+      } else {
+        dispatch(setFetchingFailure(component, error));
+        dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
+      }
     });
 }
 
@@ -152,14 +185,4 @@ export const fetchAndAppend = (component, callback=()=>{}) => {
 
 export const fetchAndPrepend = (component, callback=()=>{}) => {
   return fetchData(component, callback, 'prepend');
-}
-
-export const fetchTemplate = (component, callback=()=>{}) => (dispatch,getState) => {
-  let url = getState()[component].templateUrl;
-  return fetch(url,{
-    headers: {'X-Requested-With': 'XMLHttpRequest'}
-  }).then(html => {
-    dispatch(receiveTemplate(component, html.data));
-    callback();
-  });
 }

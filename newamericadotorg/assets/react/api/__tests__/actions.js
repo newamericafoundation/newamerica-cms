@@ -1,46 +1,59 @@
 import MockStore from 'redux-mock-store';
-import fetch from 'jest-fetch-mock';
 import thunk from 'redux-thunk';
 
 const mockStore = MockStore([thunk]);
 
 import { fetchData } from '../actions';
 
-describe('testing fetching', () => {
-  beforeEach(() => {
-    fetch.resetMocks()
+let fakeState = {
+  fakeComponent: {
+    params: {
+      baseUrl: 'https://fake.io/api/',
+      endpoint: '',
+      query: {}
+    }
+  }
+}
+
+const mockResponse = (status, statusText, response) => {
+  return new window.Response(response, {
+    status: status,
+    statusText: statusText,
+    headers: {
+      'Content-type': 'application/json'
+    }
+  });
+};
+
+describe('fetching data from napi', () => {
+
+  beforeEach(()=>{
+    window.user = {};
   });
 
-  test('calls google and returns data to me', () => {
-    const store = mockStore({
-      fakeComponent: {
-        params: {
-          baseUrl: 'https://fake.io/',
-          endpoint: '',
-          query: {}
-        }
-      }
-    });
+  test('calls napi endpoint and dispatches proper variables on success', () => {
+    window.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve(mockResponse(200, null, JSON.stringify({
+        count: 1,
+        results: []
+      }))
+    ));
 
-    fetch.mockResponseOnce(JSON.stringify({
-      count: 1,
-      results: []
-    }));
+    const store = mockStore(fakeState);
 
     let expectedActions = [
-      'setFetchingStatus'
-    ]
-    //assert on the response
+      "SET_FETCHING_STATUS",
+      "SITE_IS_LOADING",
+      "SITE_IS_LOADING",
+      "SET_RESPONSE"
+    ];
+
     return store.dispatch(fetchData('fakeComponent'))
       .then(() => {
         const actualActions = store.getActions().map(action => action.type);
-        console.log(actualActions);
-        expect(actualActions).to.eql(expectedActions)
-     })
+        expect(actualActions).toEqual(expectedActions)
+     });
 
-    //assert on the times called and arguments given to fetch
-  //  expect(fetch.mock.calls.length).toEqual(1);
-    //expect(fetch.mock.calls[0][0]).toEqual('https://google.com');
   });
 
 });

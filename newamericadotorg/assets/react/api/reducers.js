@@ -3,7 +3,8 @@ import {
   RECEIVE_AND_APPEND_RESULTS, RECEIVE_AND_PREPEND_RESULTS, SET_BASE, BASEURL,
   SET_TEMPLATE_URL, RECEIVE_RENDERED_TEMPLATE,
   SET_HAS_NEXT, SET_HAS_PREVIOUS, SET_PAGE, SET_RESPONSE,
-  SET_FETCHING_STATUS, SET_HAS_RESULTS
+  SET_IS_FETCHING, SET_HAS_RESULTS, SET_FETCHING_ERROR, SET_FETCHING_SUCCESS,
+  SET_FETCHING_FAILURE
 } from './constants';
 
 const paramsState = {
@@ -54,12 +55,41 @@ export const params = (state=paramsState, action) => {
   }
 }
 
+export const responseStatus = (state={ status: 'OK', error: false }, action) => {
+  switch(action.type) {
+    case SET_IS_FETCHING:
+      if(action.status === true)
+        return {
+          status: 'FETCHING',
+          error: false
+        }
+      return state;
+    case SET_FETCHING_ERROR:
+      return {
+        status: 'FAILING',
+        error: action.error
+      }
+    case SET_FETCHING_SUCCESS:
+      return {
+        status: 'OK',
+        error: false
+      }
+    case SET_FETCHING_FAILURE:
+      return {
+        status: 'FAILED',
+        error: action.error
+      }
+    default:
+      return state;
+  }
+}
+
 export const results = (state=[], action) => {
   switch(action.type) {
     case SET_RESPONSE:
-      if(action.response.pend==='append')
+      if(action.operation==='append')
         return [...state, ...action.response.results];
-      else if(action.response.pend=='prepend')
+      else if(action.operation=='prepend')
         return [...action.response.results, ...state];
       else
         return action.response.results;
@@ -78,7 +108,7 @@ export const isFetching = (state=false, action) => {
   switch(action.type){
     case SET_RESPONSE:
       return false;
-    case SET_FETCHING_STATUS:
+    case SET_IS_FETCHING:
       return action.status;
     default:
       return state;
@@ -158,15 +188,14 @@ export const templateResult = (state={}, action) => {
 
 const reducers = {
   params,
+  responseStatus,
   results,
   hasNext,
   hasPrevious,
   count,
   page,
   isFetching,
-  hasResults,
-  templateUrl,
-  templateResult
+  hasResults
 }
 
 export default reducers;
