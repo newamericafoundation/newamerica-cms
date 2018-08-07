@@ -55,7 +55,12 @@ module.exports = {
   // globalTeardown: null,
 
   // A set of global variables that need to be available in all test environments
-  // globals: {},
+  // globals: {
+  //   fetch: true,
+  //   Response: true,
+  //   Headers: true,
+  //   Request: true
+  // },
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -115,7 +120,9 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: [],
+  setupFiles: [
+    './react/jest.setup.js'
+  ],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
   // setupTestFrameworkScriptFile: null,

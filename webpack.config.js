@@ -18,8 +18,10 @@ module.exports = {
 		filename: "static/js/[name].js",
     chunkFilename: "static/js/[name].js",
     publicPath: '/',
-    path: path.resolve(__dirname, "./newamericadotorg")
+    path: path.resolve(__dirname, "./newamericadotorg"),
+    crossOriginLoading: "anonymous"
   },
+  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {

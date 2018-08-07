@@ -51,6 +51,7 @@
     {% if user.is_authenticated %}
       window.user.isAuthenticated = true;
     {% endif %}
+    window.meta = {{ meta|safe }};
     var newamericadotorg = null;
   </script>
 </head>

@@ -118,7 +118,7 @@ TEMPLATES = [
                 'newamericadotorg.settings.context_processors.program_data',
                 'newamericadotorg.settings.context_processors.about_pages',
                 'newamericadotorg.settings.context_processors.locations',
-                'newamericadotorg.settings.context_processors.ip_address',
+                'newamericadotorg.settings.context_processors.meta'
             ]
         },
     },
