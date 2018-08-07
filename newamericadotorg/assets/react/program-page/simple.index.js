@@ -19,7 +19,7 @@ class StoryGrid extends Component {
   render(){
     let { program, match, programType } = this.props;
     if(match.params.subpage) return null;
-    let promos = program.story_grid || [];
+    let promos = program.story_grid.pages || [];
     let aboutUrl = program.about ? program.about.url : null;
     return (
       <DocumentMeta title={program.title} description={program.description}>
