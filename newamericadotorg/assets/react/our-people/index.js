@@ -45,6 +45,8 @@ class OurPeople extends Component {
         return 'Program Staff';
       case 'central-staff':
         return 'Central Staff';
+      case 'our-fellows':
+        return false;
       default:
         return false;
     }
@@ -63,6 +65,8 @@ class OurPeople extends Component {
         return 'Central Staff';
       case 'leadership':
         return 'Leadership';
+      case 'our-fellows':
+        return 'Fellows';
       default:
         return false;
     }
@@ -71,7 +75,7 @@ class OurPeople extends Component {
   query = () => {
     let { match : { params : { peoplePage } } } = this.props
     let q = {
-      page_size: 6,
+      page_size: 12,
       page: 1
     };
 
@@ -86,6 +90,7 @@ class OurPeople extends Component {
   render(){
     let { match } = this.props;
     let title = this.getTitle();
+    let endpoint = title == 'Fellows' ? 'fellow' : 'author';
     return (
       <DocumentMeta title={`Our People${title ? ': ' + title : ''}`}>
         <section className="beige home__panel__our-people">
@@ -96,12 +101,14 @@ class OurPeople extends Component {
               { url: '/leadership/', label: 'Leadership' },
               { url: '/program-staff/', label: 'Program Staff' },
               { url: '/central-staff/', label: 'Central Staff' },
-              { url: '/board-emeriti/', label: 'Board Emeriti' }
+              { url: '/board-emeriti/', label: 'Board Emeriti' },
+              { url: '/our-fellows/', label: 'Fellows' }
             ]}/>
             <Fetch name={NAME}
-              endpoint={'author'}
+              endpoint={endpoint}
               fetchOnMount={true}
               eager={true}
+              loadingState={<PersonsList response={{ results: [{},{},{},{},{},{},{},{},{},{},{}]}} />}
               component={InfinitePersonsList}
               initialQuery={this.query()}/>
             </div>

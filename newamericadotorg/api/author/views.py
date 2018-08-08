@@ -61,7 +61,11 @@ class AuthorList(ListAPIView):
                     Q(subprograms__subprogram__id=subprogram_id, subprograms__group__in=['Current Fellows', 'Former Fellows'])
                 )
             else:
-                queryset = queryset.exclude()
+                queryset = queryset.exclude(
+                    Q(role__icontains='fellow') |
+                    Q(programs__group='Current Fellows') |
+                    Q(subprograms__group='Current Fellows')
+                )
 
         queryset = queryset.filter(former=former)
 
