@@ -81,6 +81,7 @@ class OurPeople extends Component {
 
     let role = this.getRole();
     if(role) q.role = role;
+    if(peoplePage==='our-people') q.include_fellows = true;
     if(peoplePage==='leadership') q.leadership = true;
     if(peoplePage==='board-emeriti') q.former = true;
 
@@ -100,9 +101,9 @@ class OurPeople extends Component {
               { url: '/board/', label: 'Board of Directors' },
               { url: '/leadership/', label: 'Leadership' },
               { url: '/program-staff/', label: 'Program Staff' },
+              { url: '/our-fellows/', label: 'Fellows' },
               { url: '/central-staff/', label: 'Central Staff' },
-              { url: '/board-emeriti/', label: 'Board Emeriti' },
-              { url: '/our-fellows/', label: 'Fellows' }
+              { url: '/board-emeriti/', label: 'Board Emeriti' }
             ]}/>
             <Fetch name={NAME}
               endpoint={endpoint}
