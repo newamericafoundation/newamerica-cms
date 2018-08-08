@@ -1,3 +1,4 @@
+from django.db.models import Q
 from distutils.util import strtobool
 from django_filters import CharFilter, TypedChoiceFilter
 from django_filters.rest_framework import FilterSet, DjangoFilterBackend
@@ -30,20 +31,39 @@ class AuthorList(ListAPIView):
     filter_backends = (DjangoFilterBackend,SearchFilter)
     filter_class = AuthorFilter
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        program_id = self.request.query_params.get('program_id', None)
+        subprogram_id = self.request.query_params.get('subprogram_id', None)
+        context['program_id'] = program_id
+        context['subprogram_id'] = subprogram_id
+
+        return context
+
     def get_queryset(self):
         queryset = Person.objects.live().order_by('sort_priority', 'last_name')\
             .exclude(role__icontains='External Author')
         topic_id = self.request.query_params.get('topic_id', None)
-        former = self.request.query_params.get('former', 'false')
-        include_fellows = self.request.query_params.get('include_fellows', None)
+        program_id = self.request.query_params.get('program_id', None)
+        subprogram_id = self.request.query_params.get('subprogram_id', None)
+        former = strtobool(self.request.query_params.get('former', 'false'))
+        include_fellows = strtobool(self.request.query_params.get('include_fellows', 'false'))
 
-        if not include_fellows or include_fellows == 'false':
-            queryset = queryset.exclude(role__icontains='fellow')
+        if not include_fellows:
+            if program_id:
+                queryset = queryset.exclude(
+                    Q(role__icontains='fellow') |
+                    Q(programs__program__id=program_id, programs__group__in=['Current Fellows', 'Former Fellows'])
+                )
+            elif subprogram_id:
+                queryset = queryset.exclude(
+                    Q(role__icontains='fellow') |
+                    Q(subprograms__subprogram__id=subprogram_id, subprograms__group__in=['Current Fellows', 'Former Fellows'])
+                )
+            else:
+                queryset = queryset.exclude()
 
-        if former == 'false':
-            queryset = queryset.filter(former=False)
-        elif former == 'true':
-            queryset = queryset.filter(former=True)
+        queryset = queryset.filter(former=former)
 
         if topic_id is not None:
             # rollup topic tags
@@ -63,22 +83,43 @@ class FellowList(ListAPIView):
     filter_backends = (DjangoFilterBackend,SearchFilter)
     filter_class = AuthorFilter
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        program_id = self.request.query_params.get('program_id', None)
+        subprogram_id = self.request.query_params.get('subprogram_id', None)
+        context['program_id'] = program_id
+        context['subprogram_id'] = subprogram_id
+
+        return context
+
     def get_queryset(self):
-        queryset = Person.objects.live().order_by('fellowship_year', 'sort_priority', 'last_name').filter(role='Fellow')
+        queryset = Person.objects.live().order_by('sort_priority', 'last_name')
+        program_id = self.request.query_params.get('program_id', None)
+        subprogram_id = self.request.query_params.get('subprogram_id', None)
         fellowship_year = self.request.query_params.get('fellowship_year', None)
         topic_id = self.request.query_params.get('topic_id', None)
-        former = self.request.query_params.get('former', 'false')
+        former = strtobool(self.request.query_params.get('former', 'false'))
+        rel_former = 'Former Fellows' if former else 'Current Fellows'
 
-        if former == 'false':
-            queryset = queryset.filter(former=False)
-        elif former == 'true':
-            queryset = queryset.filter(former=True)
-
-        if fellowship_year:
-            try:
-                queryset = queryset.filter(fellowship_year=int(fellowship_year))
-            except ValueError:
-                pass
+        if program_id:
+            queryset = queryset.filter(
+                Q(former=former, role__icontains='fellow'),
+                ~Q(programs__group__in=['Current Fellows', 'Former Fellows'], programs__program__id=program_id) |
+                Q(programs__group=rel_former, programs__program__id=program_id)
+            )
+        elif subprogram_id:
+            queryset = queryset.filter(
+                Q(former=former, role__icontains='fellow'),
+                ~Q(subprograms__group__in=['Current Fellows', 'Former Fellows'], subprograms__subprogram__id=subprogram_id) |
+                Q(subprograms__group=rel_former, subprograms__subprogram__id=subprogram_id)
+            )
+        else:
+            queryset = queryset.filter(
+                Q(former=former, role__icontains='fellow'),
+                ~Q(programs__group__in=['Current Fellows', 'Former Fellows']),
+                ~Q(subprograms__group__in=['Current Fellows', 'Former Fellows']) |
+                Q(subprograms__group=rel_former) | Q(programs__group=rel_former)
+            )
 
         if topic_id:
             try:

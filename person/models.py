@@ -18,6 +18,22 @@ from newamericadotorg.helpers import paginate_results
 from django.db.models import Q
 import datetime
 
+ROLE_OPTIONS = (
+    ('Board Chair', 'Board Chair'),
+    ('Board Member', 'Board Member'),
+    ('Fellow', 'Fellow'),
+    ('Central Staff', 'Central Staff'),
+    ('Program Staff', 'Program Staff'),
+    ('External Author/Former Staff', 'External Author')
+)
+GROUPING_OPTIONS = (
+    ('Current Fellows', 'Current Fellows'),
+    ('Former Fellows', 'Former Fellows'),
+    ('Advisors', 'Advisors'),
+    ('Contributing Staff', 'Contributing Staff')
+)
+YEAR_CHOICES = [(r,r) for r in range(1999, datetime.date.today().year+1)]
+YEAR_CHOICES.reverse()
 
 # Through relationship that connects the Person model
 # to the Program model so that a Person may belong
@@ -25,8 +41,19 @@ import datetime
 class PersonProgramRelationship(models.Model):
     program = models.ForeignKey(Program, related_name="+")
     person = ParentalKey('Person', related_name='programs')
+    group = models.CharField(choices=GROUPING_OPTIONS, max_length=50, blank=True, null=True, help_text='Set grouping for program\'s our people page')
+    fellowship_position = models.CharField(
+        max_length=500,
+        blank=True,
+        null=True,
+        help_text="Set program-specific fellowship information"
+    )
+    fellowship_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     panels = [
         FieldPanel('program'),
+        FieldPanel('group'),
+        FieldPanel('fellowship_position'),
+        FieldPanel('fellowship_year')
     ]
 
 
@@ -36,8 +63,19 @@ class PersonProgramRelationship(models.Model):
 class PersonSubprogramRelationship(models.Model):
     subprogram = models.ForeignKey(Subprogram, related_name="+")
     person = ParentalKey('Person', related_name='subprograms')
+    group = models.CharField(choices=GROUPING_OPTIONS, max_length=50, blank=True, null=True, help_text='Set grouping for subprogram\'s our people page')
+    fellowship_position = models.CharField(
+        max_length=500,
+        blank=True,
+        null=True,
+        help_text="Set subprogram-specific fellowhip information"
+    )
+    fellowship_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     panels = [
         FieldPanel('subprogram'),
+        FieldPanel('group'),
+        FieldPanel('fellowship_position'),
+        FieldPanel('fellowship_year')
     ]
 
 class PersonTopicRelationship(models.Model):
@@ -131,17 +169,6 @@ class Person(Page):
                 icon='user'
             )),
     ], null=True, blank=True)
-
-    ROLE_OPTIONS = (
-        ('Board Chair', 'Board Chair'),
-        ('Board Member', 'Board Member'),
-        ('Fellow', 'Fellow'),
-        ('Central Staff', 'Central Staff'),
-        ('Program Staff', 'Program Staff'),
-        ('External Author/Former Staff', 'External Author')
-    )
-    YEAR_CHOICES = [(r,r) for r in range(1999, datetime.date.today().year+1)]
-    YEAR_CHOICES.reverse()
 
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
     former = models.BooleanField(default=False, help_text="Select if person no longer serves above role.")

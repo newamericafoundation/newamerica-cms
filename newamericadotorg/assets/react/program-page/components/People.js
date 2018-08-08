@@ -8,36 +8,31 @@ import Separator from '../../components/Separator';
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import { LoadingDots } from '../../components/Icons';
 
+const StaffGroup = ({ groupName, group}) => (
+  <div className="program__people__fellows__list margin-top-35">
+    <Separator text={`${groupName}`}/>
+    <PersonsList people={group} response={{ results: [] }} className="margin-top-15"/>
+  </div>
+)
+
 class Fellows extends Component {
-  groupFellows = () => {
-    return groupBy(this.props.response.results, 'fellowship_year');
-  }
-
-  fellows = () => {
-    let { response } = this.props;
-    let fellowGroups = this.groupFellows();
-    let components = []
-    let i = 0;
-    for(let k in fellowGroups){
-      let y = new Date().getFullYear();
-      let year = k === 'null' ? (fellowGroups[k][0].former ? 'Former ' : 'Related ') : (y == k ? 'Current ' : k + ' ');
-      components.push(
-        <div className="program__people__fellows__list margin-top-35" key={`fellows-${i}`} >
-          <Separator text={`${year}Fellows`}/>
-          <PersonsList people={fellowGroups[k]} response={response} className="margin-top-15"/>
-        </div>
-      );
-      i++;
+  state = {
+    sortOrder: {
+      'Current Fellows': '2',
+      'Returning Fellows': '1',
+      'Former Fellows': '0'
     }
-
-    return components;
   }
-
   render(){
+    let fellowsGroups = groupBy(this.props.response.results, 'group');
+    let { sortOrder } = this.state;
+    let keys = Object.keys(fellowsGroups).sort((a,b) => (sortOrder[a] || a) > (sortOrder[b] || b) ? -1 : 1);
     if(this.props.response.isFetching) return ( <LoadingDots/> );
     return (
       <div className="program__people__fellows">
-        {this.fellows()}
+        {keys.map((k,i)=>(
+          <StaffGroup groupName={k} group={fellowsGroups[k]} key={i} />
+        ))}
       </div>
     );
   }
@@ -67,18 +62,30 @@ class InfiniteFellowsList extends Component {
 }
 
 class StaffList extends Component {
+  state = {
+    sortOrder: {
+      'Staff': 1,
+      'Contributing Staff': 2,
+      'Advisors': 3,
+      'Current Fellows': 4,
+      'Returning Fellows': 5
+    }
+  }
   render(){
     let { response, loading } = this.props;
+    let { sortOrder } = this.state;
+    let staffGroups = groupBy(response.results, 'group');
+    let keys = Object.keys(staffGroups).sort((a,b) => sortOrder[a] - sortOrder[b]);
+
     return (
       <div className={`program__people__staff margin-top-35`}>
-        <Separator text="Staff" />
         {loading &&
           <div className="margin-top-60 margin-bottom-80" style={{ paddingBottom: '110px'}}>
             <LoadingDots />
           </div>}
-        {response.results.length > 0 &&
-          <PersonsList response={response} className="margin-top-15" />
-        }{(response.results.length === 0 && !loading) && <h4 className="centered margin-top-60">None.</h4> }
+        {response.results.length > 0 && keys.map((k,i)=>(
+          <StaffGroup groupName={k} group={staffGroups[k]} key={i} />
+        ))}{(response.results.length === 0 && !loading) && <h4 className="centered margin-top-60">None.</h4> }
       </div>
     );
   }
@@ -105,17 +112,9 @@ export default class People extends Component {
           fetchOnMount={true}
           initialQuery={{
             [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
-            page_size: 100
+            page_size: 300,
+            include_fellows: true
           }}/>
-          <Fetch name={`${NAME}.fellow`}
-            endpoint="fellow"
-            component={Fellows}
-            fetchOnMount={true}
-            initialQuery={{
-              [programType == 'program' ? 'program_id' : 'subprogram_id']: program.id,
-              page_size: 250,
-              former: false
-            }}/>
           {(!this.state.showAllFellows && (program.slug == 'fellows' || program.slug == 'ca')) &&
             <div className="program__publications-list-load-more margin-top-10">
               <a className={`button`} onClick={this.showAllFellows}>
