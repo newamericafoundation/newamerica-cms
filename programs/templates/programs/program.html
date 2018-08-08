@@ -4,6 +4,13 @@
 {% block body_id %}na-program{% endblock %}
 {% block body_class %}bg-beige programpage{% endblock %}
 
+{%  block extra_scripts %}
+	<script>
+		window.initialState = {% if initial_state %}{{ initial_state|safe }}{% else %}null{% endif %};
+		window.initialTopicsState = {% if initial_topics_state %}{{ initial_topics_state|safe }}{% else %}null{% endif %};
+	</script>
+{% endblock %}
+
 {% block content %}
 	{% csrf_token %}
 	{% if program.template == 'simple_program.html' or page.template == 'simple_program.html' %}

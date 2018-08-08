@@ -68,16 +68,18 @@ export class Topic extends Component {
 
   render(){
     let { ancestors, topic, program } = this.props;
+
     return(
       <div className="program__topic">
-        {ancestors.length > 0 && <Breadcrumbs ancestors={ancestors} />}
+        {ancestors.length > 0 && <Breadcrumbs program={program} ancestors={ancestors} />}
         <h1 className="margin-bottom-35">{topic.title}</h1>
-        <Subtopics subtopics={topic.subtopics} />
+        <Subtopics program={program} subtopics={topic.subtopics} />
         {topic.body && <Body body={topic.body} />}
         <Fetch name={`${NAME}.topic.authors`}
             endpoint="author"
             fetchOnMount={true}
             component={PersonsList}
+            renderIfNoResults={false}
             initialQuery={{
               topic_id: topic.id,
               include_fellows: true
@@ -100,31 +102,6 @@ export class Topic extends Component {
   }
 }
 
-class Topics extends Component {
-
-  render(){
-    let { program, response: { results }, root } = this.props;
-    return (
-      <div className="program__topics-wrapper">
-          <Route path={`/${root}/topics/`} exact render={()=>(
-            <div className="program__topics menu-list with-arrow--right margin-top-35">
-              {results.sort((a,b) => a.title > b.title ? 1 : -1).map((topic,i)=>(
-                <h2 key={`topic-${i}`}>
-                  <Link to={topic.url}>{topic.title}</Link>
-                  <div className="icon-arrow">
-                    <div />
-                    <div />
-                    <div />
-                  </div>
-                </h2>
-              ))}
-            </div>
-          )}/>
-      </div>
-    );
-  }
-}
-
 export class TopicRoutes extends Component {
   topicRoutes = (topics, ancestors=[]) => {
     if(!topics) return;
@@ -132,9 +109,9 @@ export class TopicRoutes extends Component {
     let routes = [];
     topics.map((t,i)=>{
       routes.push(
-        <Route key={`${t.slug}-${i}`} exact path={t.url} render={(props)=>(
-          <Topic {...props} program={program} ancestors={ancestors} topic={t}/>
-        )} />
+        <Route key={`${t.slug}-${i}`} path={t.url} render={(props)=>(
+            <Topic {...props} program={program} ancestors={ancestors} topic={t}/>
+        )}/>
       );
       let subtopics = this.topicRoutes(t.subtopics, [...ancestors, t]);
       routes = routes.concat(subtopics);
@@ -161,10 +138,37 @@ export class TopicDetail extends Component {
   }
 }
 
+class Topics extends Component {
+
+  render(){
+    let { program, response: { results }, root } = this.props;
+
+    return (
+      <div className="program__topics-wrapper">
+          <Route path={`/${root}/topics/`} exact render={()=>(
+            <div className="program__topics menu-list with-arrow--right margin-top-35">
+              {results.sort((a,b) => a.title > b.title ? 1 : -1).map((topic,i)=>(
+                <h2 key={`topic-${i}`}>
+                  <Link to={topic.url}>{topic.title}</Link>
+                  <div className="icon-arrow">
+                    <div />
+                    <div />
+                    <div />
+                  </div>
+                </h2>
+              ))}
+            </div>
+          )}/>
+      </div>
+    );
+  }
+}
+
 export class TopicsList extends Component {
 
   render(){
     let { program, root } = this.props;
+
     return (
       <Response name={`${NAME}.topics`} component={Topics} program={program} root={root}/>
     );

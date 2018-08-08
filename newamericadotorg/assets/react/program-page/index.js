@@ -3,7 +3,7 @@
 import { NAME, ID } from './constants';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Fetch } from '../components/API';
+import { Fetch, Response } from '../components/API';
 import { Route, Switch, Redirect, Router } from 'react-router-dom';
 import GARouter from '../ga-router';
 import Publications from './components/Publications';
@@ -18,6 +18,8 @@ import Subscribe from './components/Subscribe';
 import { TopicsList, TopicRoutes } from './components/Topics';
 import HorizontalNav from '../components/HorizontalNav';
 import { LoadingDots } from '../components/Icons';
+import { setResponse } from '../api/actions';
+import store from '../store';
 
 class ProgramPage extends Component {
   // only transition images on first load
@@ -37,25 +39,23 @@ class ProgramPage extends Component {
   }
 
   render(){
-    let { response: { results }, programType } = this.props;
-    let root = programType == 'program' ? ':program' : ':program/:subprogram';
+    let { response: { results }, programType, preview } = this.props;
+    let root;
+    if(preview) root = `admin/pages/${results.id}/edit/preview`
+    else root = programType == 'program' ? ':program' : ':program/:subprogram';
 
     return (
       <div className="container">
-        <GARouter>
           <div className="program__content">
-            <Route path="/admin/pages/" render={()=>(
-              <Redirect to={results.url} />
-            )}/>
             <Heading program={results} />
-            <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results}/>)}/>
+            <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results} root={root} preview={preview}/>)}/>
             <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} />)} />
             {results.about && <Route path={`/${root}/about/`} render={()=>(<About program={results} about={results.about} root={root} />)} /> }
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/projects/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />
             <Route path={`/${root}/(publications${this.contentSlugs()})/`} render={(props)=>(<Publications programType={programType} {...props} program={results} /> )} />
-            {results.topics &&
+            {(results.topics && !preview) &&
             <Route render={(props)=>(
               <Fetch name={`${NAME}.topics`}
                 component={TopicRoutes}
@@ -65,12 +65,20 @@ class ProgramPage extends Component {
                 initialQuery={{
                   program_id: results.id
                 }}/>
-            )}/>}
-            {results.topics &&
-              <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} root={root} /> )} />}
+            )}/>}{(results.topics && preview) &&
+              <Route render={(props)=>(
+                <Response
+                  {...props}
+                  name={`${NAME}.topics`}
+                  component={TopicRoutes}
+                  preview={preview}
+                  root={root}
+                  program={results}/>
+              )}/>
+            }{results.topics &&
+              <Route path={`/${root}/topics/`} exact render={(props)=>(<TopicsList {...props} program={results} root={root} preview={preview} /> )} />}
             <Route path={`/${root}/subscribe/`} render={(props)=>(<Subscribe {...props} subscriptions={results.subscriptions} /> )} />
           </div>
-        </GARouter>
       </div>
     );
   }
@@ -101,16 +109,62 @@ class APP extends Component {
     programTitle: PropTypes.string.isRequired
   }
 
+  componentDidMount(){
+    if(window.initialState){
+      store.dispatch(setResponse(NAME, {
+        hasNext: false,
+        hasPrevious: false,
+        page: 1,
+        results: window.initialState
+      }));
+
+      let topics = window.initialTopicsState || [];
+      topics.forEach((t) => this.replaceTopicUrls(t));
+
+      store.dispatch(setResponse(`${NAME}.topics`, {
+        hasNext: false,
+        hasPrevious: false,
+        page: 1,
+        results: topics
+      }));
+    }
+  }
+
+  replaceTopicUrls = (t) => {
+    let programUrl = window.initialState.url;
+    let programId = window.initialState.id;
+
+    t.url = t.url.replace(programUrl, `/admin/pages/${programId}/edit/preview/`);
+    if(t.subtopics){
+      t.subtopics.forEach((s) => this.replaceTopicUrls(s));
+    }
+  }
+
   render() {
     let { programId, programType, programTitle } = this.props;
     return (
-      <Fetch component={ProgramPage}
-        name={NAME}
-        loadingState={<LoadingState title={programTitle} />}
-        endpoint={`${programType}/${programId}`}
-        fetchOnMount={true}
-        programType={programType}
-      />
+      <GARouter>
+        <Switch>
+        <Route path={`/admin/pages/${programId}/edit/preview/`} render={(props)=>(
+          <Response name={NAME}
+            component={ProgramPage}
+            {...props}
+            programType={programType} preview={true} />
+        )}/>
+        <Route path="/admin/pages/" render={()=>(
+          <Redirect to={`/admin/pages/${programId}/edit/preview/`} />
+        )}/>
+        <Route path="/" render={()=>(
+          <Fetch component={ProgramPage}
+            name={NAME}
+            loadingState={<LoadingState title={programTitle} />}
+            endpoint={`${programType}/${programId}`}
+            fetchOnMount={true}
+            programType={programType}
+          />
+        )}/>
+        </Switch>
+      </GARouter>
     );
   }
 }

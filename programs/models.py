@@ -292,6 +292,20 @@ class Program(AbstractProgram):
         ObjectList(sidebar_panels, heading="Sidebar")
     ])
 
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        if request.is_preview:
+            import newamericadotorg.api
+            from issue.models import IssueOrTopic
+            topics = IssueOrTopic.objects.live().filter(depth=5, parent_program__id=self.id)
+            program_data = newamericadotorg.api.program.serializers.ProgramDetailSerializer(self).data
+            topic_data = newamericadotorg.api.topic.serializers.TopicSerializer(topics, many=True).data
+            context['initial_state'] = json.dumps(program_data)
+            context['initial_topics_state'] = json.dumps(topic_data)
+
+        return context
+
     class Meta:
         ordering = ('title',)
         verbose_name = 'Program Homepage'

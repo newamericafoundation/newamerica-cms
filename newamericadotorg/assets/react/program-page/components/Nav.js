@@ -5,15 +5,17 @@ import titlefy from '../../../lib/utils/titlefy';
 
 export default class Nav extends Component {
   items = () => {
-    let { program, match } = this.props;
+    let { program, match, root, preview } = this.props;
     let subpage = match.params.subpage;
+    ;
+    let base = preview ? `/${root}/` : program.url;
     return [
-      program.about && { url: `${program.url}about/`, label: 'About' },
-      { url: `${program.url}our-people/`, label: 'Our People' },
-      program.subprograms && { url: `${program.url}projects/`, label: 'Initiatives & Projects' },
-      { url: `${program.url}publications/`, label: 'Publications' },
-      { url: `${program.url}events/`, label: 'Events' },
-      program.topics && { url: `${program.url}topics/`, label: 'Topics', active: program.content_types.find((c)=>(c.slug===subpage)) }
+      program.about && { url: `${base}about/`, label: 'About' },
+      { url: `${base}our-people/`, label: 'Our People' },
+      program.subprograms && { url: `${base}projects/`, label: 'Initiatives & Projects' },
+      { url: `${base}publications/`, label: 'Publications', active: program.content_types.find((c)=>(c.slug===subpage))},
+      { url: `${base}events/`, label: 'Events' },
+      program.topics && { url: `${base}topics/`, label: 'Topics' }
     ];
   }
 

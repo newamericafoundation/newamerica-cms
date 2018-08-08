@@ -54,6 +54,9 @@
     window.meta = {{ meta|safe }};
     var newamericadotorg = null;
   </script>
+    {% block extra_scripts %}
+        {# Override this in templates to add extra scripts and stylesheets #}
+    {% endblock %}
 </head>
 
 <body class="{% block body_class %}{% endblock %} {% if self.get_ancestors.2.slug == 'oti' or page.slug == 'oti'%}oti{% endif %}" id="{% block body_id %}{% endblock %}">
@@ -87,9 +90,6 @@
   <!-- <script type="text/javascript" src="{% static 'js/na-core-components.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/na-program-components.js' %}"></script> -->
   <script type="text/javascript" src="{% static 'js/newamericadotorg.js' %}"></script>
-  {% block extra_scripts %}
-      {# Override this in templates to add extra scripts and stylesheets #}
-  {% endblock %}
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}
   {% endblock %}
