@@ -2,7 +2,7 @@
    display: inline-block;
    position: relative;
 
-   .fa, label{
+   .fa, h6 {
      display: inline-block;
      vertical-align: middle;
    }
@@ -11,21 +11,21 @@
      margin-right: 25px;
    }
 
-   label{
-     display: none;
+   h6 {
+     display: none !important;
      padding-top: $type-adjustment;
    }
 
    @include media-breakpoint(desktop){
      display: block;
-     label{
-       display: inline-block;;
+     h6{
+       display: inline-block !important;
      }
    }
 
    @include media-breakpoint(large-desktop){
-     label {
-       display: inline-block;
+     h6 {
+       display: inline-block !important;
      }
    }
 }
