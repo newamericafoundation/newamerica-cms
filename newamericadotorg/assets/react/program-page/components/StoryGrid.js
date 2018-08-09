@@ -71,8 +71,8 @@ class MoreStories extends Component {
   }
 
   getMoreStories = () => {
-    let { setQueryParam, fetchAndAppend, response, program, count } = this.props;
-    if((!response.hasNext && response.page !== 1) || count <= 7) return false;
+    let { setQueryParam, fetchAndAppend, response, program, count, story_grid } = this.props;
+    if((!response.hasNext && response.page !== 1) || count <= 7 || program.story_grid.pages.length > 7) return false;
 
     setQueryParam('page', response.page+1);
     return fetchAndAppend;

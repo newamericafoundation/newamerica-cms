@@ -301,7 +301,7 @@ class Program(AbstractProgram):
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
             topics = IssueOrTopic.objects.live().filter(depth=5, parent_program__id=self.id)
             topics = [PageRevision.objects.filter(page=t).last().as_page_object() for t in topics]
-            program_data = newamericadotorg.api.program.serializers.ProgramDetailSerializer(revision).data
+            program_data = newamericadotorg.api.program.serializers.ProgramDetailSerializer(revision, context={'all_features': True}).data
             topic_data = newamericadotorg.api.topic.serializers.TopicSerializer(topics, many=True).data
             context['initial_state'] = json.dumps(program_data)
             context['initial_topics_state'] = json.dumps(topic_data)
@@ -393,7 +393,7 @@ class Subprogram(AbstractProgram):
         if request.is_preview:
             import newamericadotorg.api
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
-            program_data = newamericadotorg.api.program.serializers.SubprogramDetailSerializer(revision).data
+            program_data = newamericadotorg.api.program.serializers.SubprogramDetailSerializer(revision, context={'all_features': True}).data
             context['initial_state'] = json.dumps(program_data)
             context['initial_topics_state'] = None
 
