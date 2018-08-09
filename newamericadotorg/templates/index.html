@@ -85,11 +85,9 @@
 
     <div id="na-react__cookies-notification"></div>
 
-  
-    <script type="text/javascript" src="{% static /static/js/vendors-fa650b683ef84f8a7504.js %}"></script>
-  
-    <script type="text/javascript" src="{% static /static/js/newamericadotorg-fa650b683ef84f8a7504.js %}"></script>
-  
+  <% htmlWebpackPlugin.files.js.forEach(function(filename){ %>
+    <script type="text/javascript" src="{% static <%= filename %> %}"></script>
+  <% }) %>
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}
   {% endblock %}

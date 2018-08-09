@@ -4,19 +4,18 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpack = require("webpack");
 const WebpackBabelExternalsPlugin = require('webpack-babel-external-helpers-2');
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
   mode: NODE_ENV,
   entry: {
-		"newamericadotorg": "./newamericadotorg/assets/newamericadotorg.js",
-    "newamericadotorg.lite": "./newamericadotorg/assets/newamericadotorg.lite.js"
+		"newamericadotorg": "./newamericadotorg/assets/newamericadotorg.js"
 	},
   output: {
-		filename: "static/js/[name].js",
-    chunkFilename: "static/js/[name].js",
+		filename: "static/js/[name]-[hash].js",
+    chunkFilename: "static/js/[name]-[hash].js",
     publicPath: '/',
     path: path.resolve(__dirname, "./newamericadotorg"),
     crossOriginLoading: "anonymous"
@@ -35,7 +34,7 @@ module.exports = {
 					{
 						loader: 'sass-loader',
 						options: {
-							data: `$static: ${NODE_ENV==='development' ? '"/static"' : '"https://s3.amazonaws.com/newamericadotorg-static/static"' };`
+							data: `$static: ${NODE_ENV==='development' ? '"/static"' : `"${process.env.STATIC_URL}"` };`
 						}
 					},
           {
@@ -88,10 +87,15 @@ module.exports = {
   plugins: [
 		new MiniCssExtractPlugin({
       filename: "templates/style.css",
-      chunkFilename: "static/css/[name].css"
+      chunkFilename: "static/css/[name]-[hash].css"
     }),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'templates/base.html',
+      template: 'newamericadotorg/templates/index.html',
+      inject: false
     })
   ]
 };

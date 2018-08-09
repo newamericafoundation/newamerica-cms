@@ -16,6 +16,8 @@ static/
 
 newamericadotorg/static/js/
 newamericadotorg/templates/style.css
+newamericadotorg/templates/style.css.map
+newamericadotorg/templates/base.html
 
 venv
 *.log
