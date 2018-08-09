@@ -3,6 +3,9 @@
 {% block body_id %}na-report{% endblock %}
 
 {% block extra_scripts %}
+  <script>
+    window.initialState = {% if initial_state %}{{ initial_state|safe }}{% else %}null{% endif %};
+  </script>
   {% if page.data_project_external_script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   {% endif %}

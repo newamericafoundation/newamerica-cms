@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
@@ -7,7 +9,7 @@ from programs.models import AbstractContentPage
 from newamericadotorg.blocks import ReportSectionBlock
 from .blocks import EndnoteBlock
 
-from wagtail.core.models import Page
+from wagtail.core.models import Page, PageRevision
 from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, InlinePanel,
@@ -125,6 +127,17 @@ class Report(Post):
     ])
 
     search_fields = Post.search_fields + [index.SearchField('sections')]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        if request.is_preview:
+            import newamericadotorg.api.report
+            revision = PageRevision.objects.filter(page=self).last().as_page_object()
+            report_data = newamericadotorg.api.report.serializers.ReportDetailSerializer(revision).data
+            context['initial_state'] = json.dumps(report_data)
+
+        return context
 
     def save(self, *args, **kwargs):
         super(Report, self).save(*args, **kwargs)

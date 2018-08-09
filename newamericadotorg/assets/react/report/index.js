@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NAME, ID } from './constants';
-import { Fetch } from '../components/API';
+import { Fetch, Response } from '../components/API';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import GARouter from '../ga-router';
 import DocumentMeta from 'react-document-meta';
@@ -8,6 +8,8 @@ import Heading from './components/Heading';
 import Body from './components/Body';
 import TopNav from './components/TopNav';
 import BottomNav from './components/BottomNav';
+import store from '../store';
+import { setResponse } from '../api/actions';
 
 class Report extends Component {
   state = { menuOpen: false }
@@ -107,11 +109,13 @@ class Routes extends Component {
   }
 
   render(){
+    let { response: { results }} = this.props;
+
     return (
       <GARouter>
         <Switch>
-          <Route path='/admin/pages/' render={()=>(
-            <Redirect to={`${this.props.response.results.url}`} />
+          <Route path={`/admin/pages`} render={() => (
+            <Redirect to={results.url} />
           )} />
           <Route path='/:program/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
           <Route path='/:program/reports/:reportTitle' render={this.redirect} />
@@ -124,13 +128,28 @@ class Routes extends Component {
 }
 
 class APP extends Component {
+  componentDidMount(){
+      if(window.initialState){
+        store.dispatch(setResponse(NAME, {
+          count: 0,
+          page: 1,
+          hasNext: false,
+          hasPrevious: false,
+          results: window.initialState
+        }));
+      }
+  }
+
   render(){
     let { reportId } = this.props;
+
+    if(window.initialState) return <Response name={NAME} component={Routes} />
+
     return (
       <Fetch name={NAME}
-        endpoint={`report/${reportId}`}
-        fetchOnMount={true}
-        component={Routes} />
+      endpoint={`report/${reportId}`}
+      fetchOnMount={true}
+      component={Routes} />
     );
   }
 }
