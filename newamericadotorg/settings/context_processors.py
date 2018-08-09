@@ -7,7 +7,8 @@ from home.models import HomePage, AbstractHomeContentPage
 from programs.models import Program, Subprogram, AbstractContentPage
 from issue.models import IssueOrTopic
 
-from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer
+from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer, SubprogramSerializer
+from newamericadotorg.api.helpers import generate_image_url
 
 def debug(request):
     username = None
@@ -25,12 +26,12 @@ def program_data(request):
 
     if programdata is None:
         programdata = []
-        programs = Program.objects.in_menu().order_by("title").exclude(location=True)
+        programs = ProgramSerializer(Program.objects.in_menu().order_by("title").exclude(location=True), many=True).data
 
         for p in programs:
             programdata.append({
                 'program': p,
-                'subprograms': p.get_children().type(Subprogram).live().in_menu()
+                'subprograms': SubprogramSerializer(Subprogram.objects.filter(parent_programs__id=p['id']).live().in_menu(), many=True).data
             })
         cache.set('NA_program_data', programdata, 60 * 60)
 
@@ -39,7 +40,7 @@ def program_data(request):
 def locations(request):
     locs = cache.get('NA_locations', None)
     if locs is None:
-        locs = Program.objects.in_menu().order_by("title").filter(location=True)
+        locs = ProgramSerializer(Program.objects.in_menu().order_by("title").filter(location=True), many=True).data
         cache.set('NA_locations', locs, 60 * 60)
 
     return {
@@ -48,12 +49,17 @@ def locations(request):
 
 def about_pages(request):
     aboutpages = cache.get('NA_about_pages', None)
+    aboutimage = cache.get('NA_about_img', None)
     if aboutpages is None:
-        aboutpages = HomePage.objects.first().about_pages
+        about_pages = HomePage.objects.first().about_pages
+        aboutpages = [{ 'title': a.value.title } for a in about_pages]
+        aboutimage = generate_image_url(about_pages[0].value.specific.story_image, 'fill-200x170')
         cache.set('NA_about_pages', aboutpages, 60 * 60)
+        cache.set('NA_about_pages', aboutimage, 60 * 60)
 
     return {
-        'about_pages': aboutpages
+        'about_pages': aboutpages,
+        'about_image': aboutimage
     }
 
 def content_types(request):
