@@ -369,6 +369,17 @@ class ProgramAboutHomePage(ProgramSimplePage):
         'home.ProgramAboutPage'
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['program'] = self.get_parent().specific
+
+        if request.is_preview:
+            program_context = context['program'].get_context(request)
+            context['initial_state'] = program_context['initial_state']
+            context['initial_topics_state'] = program_context['initial_topics_state']
+
+        return context
+
 class ProgramAboutPage(ProgramSimplePage):
     parent_page_types = ['home.ProgramAboutHomePage']
     subpage_types = [
@@ -378,6 +389,11 @@ class ProgramAboutPage(ProgramSimplePage):
     def get_context(self, request):
         context = super(ProgramSimplePage, self).get_context(request)
         context['program'] = self.get_parent().get_parent().specific
+
+        if request.is_preview:
+            program_context = context['program'].get_context(request)
+            context['initial_state'] = program_context['initial_state']
+            context['initial_topics_state'] = program_context['initial_topics_state']
 
         return context
 

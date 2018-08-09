@@ -118,7 +118,10 @@ class APP extends Component {
         results: window.initialState
       }));
 
-      let topics = window.initialTopicsState || [];
+    }
+    
+    if(window.initialTopicsState){
+      let topics = window.initialTopicsState;
       topics.forEach((t) => this.replaceTopicUrls(t));
 
       store.dispatch(setResponse(`${NAME}.topics`, {

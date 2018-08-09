@@ -24,7 +24,6 @@
 		<main class="program container--full-width">
 			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
 			<div id="na-react__program-page"
-				data-replace-this="true"
 				data-program-title="{% firstof program.title page.parent_program.title page.title %}"
 				data-program-type="{% if page.parent_programs is not None or program.parent_programs is not None %}subprogram{% else %}program{% endif %}"
 				data-program-id="{% firstof program.id page.parent_program.id page.id %}">

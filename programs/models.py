@@ -387,6 +387,13 @@ class Subprogram(AbstractProgram):
     def get_template(self, request):
         return 'programs/program.html'
 
+    def get_context(self, request):
+        if request.is_preview:
+            import newamericadotorg.api
+            program_data = newamericadotorg.api.program.serializers.SubprogramDetailSerializer(self).data
+            context['initial_state'] = json.dumps(program_data)
+            context['initial_topics_state'] = None
+
     class Meta:
         verbose_name = 'Initiative Homepage'
         ordering = ('title',)

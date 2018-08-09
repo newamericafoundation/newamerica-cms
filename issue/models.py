@@ -22,6 +22,11 @@ class TopicHomePage(AbstractContentPage):
         context = super(IssueOrTopic, self).get_context(request)
         context['program'] = self.get_ancestors()[2].specific
 
+        if request.is_preview:
+            program_context = context['program'].get_context(request)
+            context['initial_state'] = program_context['initial_state']
+            context['initial_topics_state'] = program_context['initial_topics_state']
+
         return context
 
     class Meta:
@@ -54,6 +59,11 @@ class IssueOrTopic(ProgramSimplePage):
             context['parent_topic'] = ancestors[4]
 
         context['program'] = ancestors[2].specific
+
+        if request.is_preview:
+            program_context = context['program'].get_context(request)
+            context['initial_state'] = program_context['initial_state']
+            context['initial_topics_state'] = program_context['initial_topics_state']
 
         return context
 
