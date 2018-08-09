@@ -50,6 +50,9 @@
     {% if user.is_authenticated %}
       window.user.isAuthenticated = true;
     {% endif %}
+    {% if username %}
+      window.user.username = "{{ username }}";
+    {% endif %}
     window.meta = {{ meta|safe }};
     var newamericadotorg = null;
   </script>
@@ -85,14 +88,18 @@
       {% include 'components/footer_mobile.html' %}
       {% include 'components/footer.html' %}
     {% endblock %}
+    {% if user.is_authenticated %}
+      <div id="na-react__feedback"></div>
+    {% endif %}
 
-      <div id="na-react__cookies-notification"></div>
+    <div id="na-react__cookies-notification"></div>
+
   {% endif %}
 
   
-    <script type="text/javascript" src="/static/js/vendors-2f2de4dfe294ebdfd8eb.js"></script>
+    <script type="text/javascript" src="/static/js/vendors-5b4e000ac94cc34819c5.js"></script>
   
-    <script type="text/javascript" src="/static/js/newamericadotorg-2f2de4dfe294ebdfd8eb.js"></script>
+    <script type="text/javascript" src="/static/js/newamericadotorg-5b4e000ac94cc34819c5.js"></script>
   
 
   {% block extra_js %}

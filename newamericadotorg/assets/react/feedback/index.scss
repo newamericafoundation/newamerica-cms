@@ -18,20 +18,23 @@
   }
 
 
-  &__type {
+  &__type, &__level {
     padding-top: 10px;
     padding-bottom: 10px;
-    @include box-shadow( 0px 1px 0px 0px color(black, base, 0.1), 0px -1px 0px 0px color(black, base, 0.1) );
     a {
+      padding-right: 15px;
       cursor: pointer;
-      padding-right: 25px;
-      font-size: 1.1rem;
-      color: color(black, base, 0.3);
       &.selected, &:hover {
         color: color(turquoise);
       }
     }
   }
+
+  &__type {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
 
   &__level .button--text{
     margin-right: 15px;
@@ -51,6 +54,8 @@
     @include media-breakpoint(tablet){
       width: 500px;
     }
+
+    overflow-y: scroll;
   }
 
   &.open form {
@@ -65,7 +70,7 @@
     top: 0px;
     left: 0px;
 
-    label {
+    h5 {
       position: absolute;
       @include center;
     }

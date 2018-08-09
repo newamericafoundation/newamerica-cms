@@ -1,5 +1,9 @@
 import { SET_FEEDBACK, SET_FEEDBACK_TYPE, SET_FEEDBACK_MESSAGE, SET_FEEDBACK_LEVEL, SET_FEEDBACK_EMAIL, RESET_FEEDBACK } from './constants';
 import cache from '../cache';
+import bowser from 'bowser';
+
+const _browser = bowser.getParser(window.navigator.userAgent);
+const browserInfo = _browser.parse().parsedResult;
 
 export const type = (state=null, action) => {
   switch(action.type){
@@ -12,12 +16,12 @@ export const type = (state=null, action) => {
   }
 }
 
-export const message = (state=null, action) => {
+export const message = (state='', action) => {
   switch(action.type){
     case SET_FEEDBACK_MESSAGE:
       return action.message;
     case RESET_FEEDBACK:
-      return null;
+      return '';
     default:
       return state;
   }
@@ -34,12 +38,18 @@ export const level = (state='sitewide', action) => {
   }
 }
 
-export const email = (state=cache.get('feedback_email') || '', action) => {
-  switch(action.type){
-    case SET_FEEDBACK_EMAIL:
-      cache.set('feedback_email', action.email, new Date().getTime() + 1800000)
-      return action.email;
-    default:
-      return state;
-  }
+export const username = (state='') => {
+  return window.user.username;
+}
+
+export const page = (state='') => {
+  return location.href;
+}
+
+export const browser = (state='') => {
+  return `${browserInfo.browser.name} ${browserInfo.browser.version}`;
+}
+
+export const os = (state) => {
+  return `${browserInfo.os.name} ${browserInfo.os.version}`;
 }

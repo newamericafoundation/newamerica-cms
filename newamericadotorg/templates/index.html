@@ -50,6 +50,9 @@
     {% if user.is_authenticated %}
       window.user.isAuthenticated = true;
     {% endif %}
+    {% if username %}
+      window.user.username = "{{ username }}";
+    {% endif %}
     window.meta = {{ meta|safe }};
     var newamericadotorg = null;
   </script>
@@ -85,8 +88,12 @@
       {% include 'components/footer_mobile.html' %}
       {% include 'components/footer.html' %}
     {% endblock %}
+    {% if user.is_authenticated %}
+      <div id="na-react__feedback"></div>
+    {% endif %}
 
-      <div id="na-react__cookies-notification"></div>
+    <div id="na-react__cookies-notification"></div>
+
   {% endif %}
 
   <% htmlWebpackPlugin.files.js.forEach(function(filename){ %>

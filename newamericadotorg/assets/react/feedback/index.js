@@ -7,7 +7,6 @@ import { SET_FEEDBACK, SET_FEEDBACK_TYPE, SET_FEEDBACK_MESSAGE, SET_FEEDBACK_LEV
 import { Text, TextArea } from '../components/Inputs';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import bowser from 'bowser';
 import cache from '../cache';
 import { PlusX } from '../components/Icons';
 import * as REDUCERS from './reducers';
@@ -51,8 +50,8 @@ class APP extends Component {
 
   submit = () => {
     if(this.state.isSubmitting) return false;
-    let { contact, level, message, type, browser, os, page, ip } = this.props;
-    let props = { contact, level, message, type, browser, os, page, ip};
+    let { username, level, message, type, browser, os, page } = this.props;
+    let props = { username, level, message, type, browser, os, page};
     let url = new URL('https://script.google.com/macros/s/AKfycbzayhkZNORzDqeMyRQgEXsc1_OAU6i4yU8DuxShl_900U71iI4/exec');
     for(let k in props)
       url.searchParams.append(k, props[k]);
@@ -80,7 +79,7 @@ class APP extends Component {
   }
 
   render(){
-    let { contact, level, message, type } = this.props;
+    let { level, message, type } = this.props;
     let { isOpen, isSubmitting } = this.state;
     return (
       <div className={`global-feedback${isOpen? ' open' : ''}`}>
@@ -90,19 +89,16 @@ class APP extends Component {
         </div>
         <form>
           <div className="global-feedback__level">
-            <h6>Related to:</h6>
+            <h4 className="margin-5">Related to</h4>
             <a onClick={()=>{this.setLevel('sitewide')}} className={`${level=='sitewide' ? 'selected ' : ''}button--text`}>The whole site</a>
             <a onClick={()=>{this.setLevel('thispage')}} className={`${level=='thispage' ? 'selected ' : ''}button--text`}>This page</a>
           </div>
-          <div className="global-feedback__type margin-top-25">
-              <a title="like" className={`fa fa-thumbs-up${type=='like' ? ' selected' : ''}`} onClick={()=>{this.setType('like');}}/>
-              <a title="dislike" className={`fa fa-thumbs-down${type=='dislike' ? ' selected' : ''}`} onClick={()=>{this.setType('dislike');}}/>
-              <a title="bug" className={`fa fa-bug${type=='bug' ? ' selected' : ''}`} onClick={()=>{this.setType('bug');}}/>
+          <div className="global-feedback__type">
+              <h4 className="margin-5">Type</h4>
+              <a className={`${type=='bug' ? 'selected ' : ''}button--text`} onClick={()=>{this.setType('bug');}}>Bug</a>
+              <a className={`${type=='request' ? 'selected ' : ''}button--text`} onClick={()=>{this.setType('request');}}>Request</a>
           </div>
-          <div className="global-feedback__email margin-top-25">
-            <Text label="Email or Name" value={contact} onChange={(e)=>{this.setEmail(e.target.value)}} type="text" />
-          </div>
-          <div className="global-feedback__message margin-top-25">
+          <div className="global-feedback__message margin-top-10">
             <TextArea label="Feedback" value={message} onChange={(e)=>{this.setMessage(e.target.value)}} type="text" />
           </div>
           <a className="button margin-top-25 margin-bottom-0" onClick={this.submit}>
@@ -118,16 +114,17 @@ class APP extends Component {
 }
 
 
-const mapStateToProps = (state) => ({
-  contact: state.feedback.email || cache.get('feedback_email') || '',
-  level: state.feedback.level || 'sitewide',
-  message: state.feedback.message || '',
-  type: state.feedback.type || '',
-  browser: `${bowser.name} ${bowser.version}`,
-  os: `${bowser.osname} ${bowser.osversion}`,
-  page: location.href,
-  ip: state.site.ip
-});
+const mapStateToProps = (state) => {
+  if(state.feedback){
+    return {
+      ...state.feedback
+    };
+  }
+
+  return {
+    level: 'sitewide', username: '', message: '', type: '', page: location.href, os: ''
+  };
+};
 
 APP = connect(mapStateToProps)(APP);
 
