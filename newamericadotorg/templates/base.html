@@ -44,7 +44,7 @@
     <style class="newamericadotorg">{% include './style.css' %}</style>
     {# css preload polyfill (cssrelpreloadCSS) https://github.com/filamentgroup/loadCSS/blob/v2.0.1/src/cssrelpreload.js #}
     <script>!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);</script>
-    
+
   <script>
     window.user = {};
     {% if user.is_authenticated %}
@@ -71,23 +71,30 @@
   </noscript>
 
   {% wagtailuserbar %}
-  {% block header %}
-    {% include 'components/header.html' %}
-  {% endblock %}
+  {% if is_under_maintenance and not user.is_authenticated %}
 
-  {% block content %}{% endblock %}
+    {% include 'maintenance.html' %}
 
-  {% block footer %}
-    {% include 'components/footer_mobile.html' %}
-    {% include 'components/footer.html' %}
-  {% endblock %}
+  {% else %}
 
-    <div id="na-react__cookies-notification"></div>
+    {% block header %}
+      {% include 'components/header.html' %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+      {% include 'components/footer_mobile.html' %}
+      {% include 'components/footer.html' %}
+    {% endblock %}
+
+      <div id="na-react__cookies-notification"></div>
+  {% endif %}
+
   
-    <script type="text/javascript" src="/static/js/vendors-3f46c11f72c0225a191f.js"></script>
+    <script type="text/javascript" src="/static/js/vendors-2f2de4dfe294ebdfd8eb.js"></script>
   
-    <script type="text/javascript" src="/static/js/newamericadotorg-3f46c11f72c0225a191f.js"></script>
+    <script type="text/javascript" src="/static/js/newamericadotorg-2f2de4dfe294ebdfd8eb.js"></script>
   
+
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}
   {% endblock %}

@@ -10,7 +10,7 @@ from issue.models import IssueOrTopic
 from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer
 
 def debug(request):
-    return {'DEBUG': settings.DEBUG}
+    return {'DEBUG': settings.DEBUG, 'is_under_maintenance': settings.IS_UNDER_MAINTENANCE}
 
 def program_data(request):
     '''

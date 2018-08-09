@@ -99,6 +99,7 @@ REST_FRAMEWORK = {
     )
 }
 
+IS_UNDER_MAINTENANCE = os.getenv('IS_UNDER_MAINTENANCE', False)
 
 try:
     from .local import *
