@@ -1,3 +1,13 @@
+.post__social__wrapper > div{
+  @include media-breakpoint-down(desktop){
+    display: inline-block;
+    padding-right: 15px;
+    h6 {
+      display: none;
+    }
+  }
+}
+
 .social-share{
   margin: 10px 0;
   &__item{
