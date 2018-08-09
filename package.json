@@ -10,7 +10,7 @@
   "scripts": {
     "start": "source .env && source venv/bin/activate && ./manage.py runserver",
     "build": "NODE_ENV=development webpack",
-    "dev": "NODE_ENV=development webpack --watch",
+    "dev": "source .env && NODE_ENV=development webpack --watch",
     "open": "open https://localhost:8000/",
     "test": "jest",
     "build:production": "NODE_ENV=production webpack",
