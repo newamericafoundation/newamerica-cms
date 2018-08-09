@@ -23,7 +23,7 @@ h1,h2,h3,h4,h5,h6{
         height: 2px;
         background: color(turquoise);
         @include transition(transform 0.15s ease);
-        @include transform(translateX(-100%));
+        @include transform(translateX(-105%));
       }
 
       &:hover:before,
