@@ -56,12 +56,11 @@ export default class About extends Component {
   render(){
     let { about, program, root } = this.props;
     let { subpages } = about;
-
+    console.log(subpages.length)
     return (
-      <div className={`program__about margin-top-10 ${subpages.length ? 'with-menu' : ''}`}>
+      <div className={`program__about margin-top-10 ${subpages.length > 0 ? 'with-menu' : ''}`}>
         <div className="row">
-          <div className="program__about__menu col-md-2 margin-bottom-35">
-          {subpages.length>0 &&
+          {subpages.length>0 && <div className="program__about__menu col-md-2 margin-bottom-35">
             <span>
               <div className="">
                 <h6 className="link margin-top-5 margin-bottom-15">
@@ -74,8 +73,7 @@ export default class About extends Component {
               ))}
               </div>
             </span>
-          }
-          </div>
+          </div>}
           <Route exact path={`/${root}/about/`} render={()=>(
             <AboutBody body={about.body}/>
           )}/>

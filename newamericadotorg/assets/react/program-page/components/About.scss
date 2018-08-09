@@ -3,6 +3,18 @@
   padding: 35px;
 
   @include media-breakpoint(desktop){
-    padding: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 80px;
+
+    &.with-menu{
+      padding-top: 50px;
+    }
+  }
+
+  .program__about__menu span {
+    border-right: 1px solid #ddd;
+    display: inline-block;
   }
 }
