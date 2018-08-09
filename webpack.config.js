@@ -94,7 +94,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'templates/base.html',
-      staticUrl: process.env.STATIC_URL,
+      staticUrl: process.env.STATIC_URL || '/static',
       template: 'newamericadotorg/templates/index.html',
       inject: false
     })

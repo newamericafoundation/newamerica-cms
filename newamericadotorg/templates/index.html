@@ -97,7 +97,7 @@
   {% endif %}
 
   <% htmlWebpackPlugin.files.js.forEach(function(filename){ %>
-    <script type="text/javascript" src="<%=htmlWebpackPlugin.options.staticUrl%><%= filename.replace('/static/', '') %>"></script>
+    <script type="text/javascript" src="<%=htmlWebpackPlugin.options.staticUrl%><%= filename.replace('/static', '') %>"></script>
   <% }) %>
 
   {% block extra_js %}
