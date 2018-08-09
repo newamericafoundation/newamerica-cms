@@ -25,14 +25,8 @@ def program_data(request):
     programdata = cache.get('NA_program_data', None)
 
     if programdata is None:
-        programdata = []
-        programs = ProgramSerializer(Program.objects.in_menu().order_by("title").exclude(location=True), many=True).data
+        programdata = ProgramSerializer(Program.objects.in_menu().order_by("title").exclude(location=True), many=True).data
 
-        for p in programs:
-            programdata.append({
-                'program': p,
-                'subprograms': SubprogramSerializer(Subprogram.objects.filter(parent_programs__id=p['id']).live().in_menu(), many=True).data
-            })
         cache.set('NA_program_data', programdata, 60 * 60)
 
     return { 'program_data': programdata }
@@ -55,7 +49,7 @@ def about_pages(request):
         aboutpages = [{ 'title': a.value.title } for a in about_pages]
         aboutimage = generate_image_url(about_pages[0].value.specific.story_image, 'fill-200x170')
         cache.set('NA_about_pages', aboutpages, 60 * 60)
-        cache.set('NA_about_pages', aboutimage, 60 * 60)
+        cache.set('NA_about_img', aboutimage, 60 * 60)
 
     return {
         'about_pages': aboutpages,
