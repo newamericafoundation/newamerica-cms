@@ -14,6 +14,8 @@ import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 import bowser from 'bowser';
 import GARouter from '../ga-router';
+import store from '../store';
+import { setResponse } from '../api/actions';
 
 const browser = bowser.getParser(window.navigator.userAgent);
 const isValidBrowser = browser.satisfies({
@@ -75,6 +77,17 @@ class Routes extends Component {
 }
 
 class APP extends Component {
+  componentDidMount(){
+    if(window.initialState){
+      store.dispatch(setResponse('weekly.edition', {
+        page: 1,
+        hasNext: false,
+        hasPrevious: false,
+        count: 0,
+        results: window.initialState
+      }));
+    }
+  }
   render() {
     let { editionId, editionSlug } = this.props;
     return (
@@ -86,15 +99,17 @@ class APP extends Component {
           <Route path="/weekly/" exact render={(props) => (
             <Redirect to={`/weekly/${editionSlug}/`} />
           )} />
-          <Route path="/weekly/:editionSlug?/:articleSlug?/" render={({ location, match }) => (
-              <Fetch name='weekly.edition'
+          <Route path="/weekly/:editionSlug?/:articleSlug?/" render={({ location, match }) => {
+            if(window.initialState) return <Response location={location} match={match} name='weekly.edition' component={Routes} />
+            console.log('fetching..');
+              return <Fetch name='weekly.edition'
                 endpoint={`weekly/${editionId}`}
                 fetchOnMount={true}
                 eager={true}
                 component={Routes}
                 location={location}
                 match={match}/>
-            )}/>
+            }}/>
         </Switch>
       </GARouter>
     );

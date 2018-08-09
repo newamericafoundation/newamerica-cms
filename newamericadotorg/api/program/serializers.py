@@ -224,9 +224,9 @@ class ProgramDetailSerializer(ModelSerializer):
 
     def get_story_grid(self, obj):
         pages = obj.featured_pages.all().order_by('sort_order')
-        if getattr(self.context, 'all_features', None):
+        if self.context.get('all_features'):
             featured_pages = [rel for rel in pages]
-        else
+        else:
             featured_pages = [rel for rel in pages[:7]]
 
         if len(featured_pages) == 0:
@@ -321,9 +321,9 @@ class SubprogramSerializer(ModelSerializer):
     def get_story_grid(self, obj):
         pages = obj.featured_pages.all().order_by('sort_order')
 
-        if getattr(self.context, 'all_features', None):
+        if self.context.get('all_features'):
             featured_pages = [rel for rel in pages]
-        else
+        else:
             featured_pages = [rel for rel in pages[:7]]
 
         if len(featured_pages) == 0:

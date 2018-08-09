@@ -1,6 +1,10 @@
+import json
+
 from django.template import loader
 
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
+
+from wagtail.core.models import PageRevision
 
 from weekly.models import WeeklyEdition, WeeklyArticle
 from newamericadotorg.api.author.serializers import AuthorSerializer
@@ -15,7 +19,8 @@ class WeeklyArticleSerializer(ModelSerializer):
     story_image_sm = SerializerMethodField()
 
     def get_authors(self, obj):
-        return AuthorSerializer(obj.post_author, many=True, context=self.context).data
+        authors = [a.author for a in obj.authors.all().order_by('pk')]
+        return AuthorSerializer(authors, many=True).data
 
     def get_story_image(self, obj):
         if obj.story_image:
@@ -74,7 +79,11 @@ class WeeklyEditionSerializer(ModelSerializer):
     number = SerializerMethodField()
 
     def get_articles(self, obj):
-        return WeeklyArticleSerializer(obj.get_children().type(WeeklyArticle).specific().all(), many=True).data
+        articles = obj.get_children().type(WeeklyArticle).specific().all()
+        if self.context.get('is_preview'):
+            articles = [PageRevision.objects.filter(page=a).last().as_page_object().specific for a in articles]
+
+        return WeeklyArticleSerializer(articles, many=True, context=self.context).data
 
     def get_title(self, obj):
         first_child = obj.get_children().first().specific

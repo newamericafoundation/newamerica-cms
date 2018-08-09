@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block extra_scripts %}
+  <script>
+    window.initialState = {% if initial_state %}{{ initial_state|safe }}{% else %}null{% endif %};
+  </script>
+{% endblock %}
+
 {% block body_id %}na-weekly{% endblock %}
 
 {% block content %}
