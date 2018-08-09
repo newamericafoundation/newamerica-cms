@@ -143,7 +143,7 @@ class FeaturedPageSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         #return generate_image_url(obj.story_image, 'fill-600x460')
-        story_image = getattr(obj.page.specific, 'story_image', None)
+        story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
         if not story_image: return None
 
         img = generate_image_rendition(story_image, 'width-600')
@@ -157,7 +157,7 @@ class FeaturedPageSerializer(ModelSerializer):
 
     def get_story_image_thumbnail(self, obj):
         #return generate_image_url(obj.story_image, 'fill-30x23')
-        story_image = getattr(obj.page.specific, 'story_image', None)
+        story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
         if not story_image: return None
 
         img = generate_image_rendition(story_image, 'width-30')
@@ -178,7 +178,7 @@ class FeaturedPageSerializer(ModelSerializer):
 
 class FeaturedLeadPageSerializer(FeaturedPageSerializer):
     def get_story_image(self, obj):
-        story_image = getattr(obj.page.specific, 'story_image', None)
+        story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
         if not story_image: return None
 
         img = generate_image_rendition(story_image, 'fill-925x430')
@@ -191,7 +191,7 @@ class FeaturedLeadPageSerializer(FeaturedPageSerializer):
         return None
 
     def get_story_image_thumbnail(self, obj):
-        story_image = getattr(obj.page.specific, 'story_image', None)
+        story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
         if not story_image: return None
 
         img = generate_image_rendition(story_image, 'fill-32x15')

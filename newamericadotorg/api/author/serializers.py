@@ -37,7 +37,7 @@ class AuthorSerializer(ModelSerializer):
         if program_id:
             rel = PersonProgramRelationship.objects.filter(program__id=program_id, person=obj).first()
         elif subprogram_id:
-            rel = PersonSubprogramRelationship.objects.filter(subprogram__id=subprogram_id, perons=obj).first()
+            rel = PersonSubprogramRelationship.objects.filter(subprogram__id=subprogram_id, person=obj).first()
         else:
             return None
 

@@ -35,15 +35,33 @@ class SubscriptionSubprogramRelationship(models.Model):
 class FeaturedProgramPage(Orderable):
     page = models.ForeignKey(Page, related_name="+")
     program = ParentalKey('Program', related_name='featured_pages')
+    featured_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     panels = [
-        PageChooserPanel('page')
+        PageChooserPanel('page'),
+        ImageChooserPanel('featured_image'),
     ]
 
 class FeaturedSubprogramPage(Orderable):
     page = models.ForeignKey(Page, related_name="+")
     program = ParentalKey('Subprogram', related_name='featured_pages')
+    featured_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     panels = [
-        PageChooserPanel('page')
+        PageChooserPanel('page'),
+        ImageChooserPanel('featured_image'),
     ]
 
 class AbstractProgram(Page):
@@ -390,12 +408,15 @@ class Subprogram(AbstractProgram):
         return 'programs/program.html'
 
     def get_context(self, request):
+        context = super().get_context(request)
         if request.is_preview:
             import newamericadotorg.api
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
             program_data = newamericadotorg.api.program.serializers.SubprogramDetailSerializer(revision, context={'all_features': True}).data
             context['initial_state'] = json.dumps(program_data)
             context['initial_topics_state'] = None
+
+        return context
 
     class Meta:
         verbose_name = 'Initiative Homepage'
