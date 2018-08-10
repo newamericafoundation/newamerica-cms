@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from wagtail.documents.models import Document
+from wagtail.core.models import Page
 
 from home.models import CustomImage, OrgSimplePage
 from programs.models import Program
