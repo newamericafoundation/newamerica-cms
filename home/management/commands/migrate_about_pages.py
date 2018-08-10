@@ -1,14 +1,16 @@
+from django.core.management.base import BaseCommand
 from wagtail.core.models import Page
 from programs.models import Program, Subprogram, FeaturedProgramPage, FeaturedSubprogramPage
 from home.models import ProgramAboutPage, ProgramAboutHomePage, Page
 from wagtail.contrib.redirects.models import Redirect
 
-def migrate_about_pages():
-    programs = Program.objects.all()
-    subprograms = Subprogram.objects.all()
+class Command(BaseCommand):
+    def handle(self, *args, **options):
+        programs = Program.objects.all()
+        subprograms = Subprogram.objects.all()
 
-    publish_new_program_about_pages(programs)
-    publish_new_program_about_pages(subprograms, False)
+        publish_new_program_about_pages(programs)
+        publish_new_program_about_pages(subprograms, False)
 
 def delete_new_about_home_pages():
     ProgramAboutHomePage.objects.all().delete()
