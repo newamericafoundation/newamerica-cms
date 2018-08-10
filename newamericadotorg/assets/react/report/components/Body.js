@@ -127,7 +127,7 @@ class Body extends Component {
         </div>
         <div className="report__body__section col-12 col-lg-8 pull-lg-2 margin-top-35 margin-top-lg-0">
           <div className="post-body-wrapper">
-            {section.number==1 && <h6 className="report__body__section__date margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</h6>}
+            {section.number==1 && <h6 className="report__body__section__date margin-top-0 margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</h6>}
             <h2 className="margin-top-0">{section.title}</h2>
             <article className="report__body__section__article" dangerouslySetInnerHTML={{__html: section.body}} />
           </div>

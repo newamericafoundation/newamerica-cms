@@ -285,7 +285,7 @@ export class TopicFilter extends Filter {
           {topicArray && <ul className="topic-filter__selected-topics margin-bottom-25 margin-top-0">
             {topicArray.map((t,i)=>(
               <li key={`selected-topic-${i}`} onClick={()=>{ this.handleChange({ target: { value: t.id }}) }}>
-                <h5 className="margin-0">{t.title}</h5>
+                <h5 className="margin-0 inline" style={{ paddingLeft: '5px' }}>{t.title}</h5>
               </li>
             ))}
           </ul>}

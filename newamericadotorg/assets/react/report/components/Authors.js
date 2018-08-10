@@ -8,10 +8,10 @@ const Authors = ({ authors }) => (
     <h6 className="margin-top-0 margin-bottom-25">Authors</h6>
     {authors.map((a, i)=>(
       <div className="report__authors__item margin-bottom-25" key={`author-${i}`}>
-        <h4 className="link">
+        <h4 className="link margin-10">
           <a href={a.url}><u>{`${a.first_name} ${a.last_name}`}</u></a>
         </h4>
-        <h6 className="caption">{a.position}</h6>
+        <h6 className="caption margin-5">{a.position}</h6>
       </div>
     ))}
     </div>
