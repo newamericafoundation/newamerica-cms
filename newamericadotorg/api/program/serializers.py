@@ -271,7 +271,7 @@ class ProgramDetailSerializer(ModelSerializer):
             return None
 
         about_page = AboutPageSerializer(about).data
-        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(about).in_menu().live(), many=True).data
+        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(obj).live().in_menu(), many=True).data
 
         return about_page
 
@@ -350,7 +350,7 @@ class SubprogramSerializer(ModelSerializer):
             return None
 
         about_page = AboutPageSerializer(about).data
-        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(about).in_menu().live(), many=True).data
+        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(obj).in_menu().live(), many=True).data
 
         return about_page
 

@@ -56,7 +56,7 @@ export default class About extends Component {
   render(){
     let { about, program, root } = this.props;
     let { subpages } = about;
-    console.log(subpages.length)
+    
     return (
       <div className={`program__about margin-top-10 ${subpages.length > 0 ? 'with-menu' : ''}`}>
         <div className="row">

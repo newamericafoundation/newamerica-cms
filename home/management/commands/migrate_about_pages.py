@@ -9,13 +9,13 @@ class Command(BaseCommand):
         programs = Program.objects.all()
         subprograms = Subprogram.objects.all()
 
-        publish_new_program_about_pages(programs)
-        publish_new_program_about_pages(subprograms, False)
+        publish_new_program_about_pages(self, programs)
+        publish_new_program_about_pages(self, subprograms, False)
 
 def delete_new_about_home_pages():
     ProgramAboutHomePage.objects.all().delete()
 
-def publish_new_program_about_pages(programs, with_sidebar=True):
+def publish_new_program_about_pages(self, programs, with_sidebar=True):
     for p in programs:
         if not p.about_us_page:
             continue
@@ -24,7 +24,8 @@ def publish_new_program_about_pages(programs, with_sidebar=True):
         slug = a.slug
         orig_url = a.url
         a.slug = a.slug.replace('_legacy', '') + '_legacy';
-        a.save_revision().publish()
+        a.unpublish()
+        self.stdout.write('changed %s to %s' % (orig_url, a.slug))
 
         ahp = p.add_child(instance=ProgramAboutHomePage(
             title=a.title,
@@ -37,6 +38,8 @@ def publish_new_program_about_pages(programs, with_sidebar=True):
             story_excerpt=a.story_excerpt,
             data_project_external_script=a.data_project_external_script
         ))
+        ahp.save()
+        self.stdout.write('created %s' % ahp.url)
 
         if slug != 'about':
             Redirect(
@@ -44,12 +47,17 @@ def publish_new_program_about_pages(programs, with_sidebar=True):
                 redirect_page=ahp
             ).save()
 
+            self.stdout.write('created redirect from %s to %s' % (orig_url, ahp.url))
+
+
         if not with_sidebar: continue
+        self.stdout.write('searching for sidebar content...')
         about_pages = p.sidebar_menu_about_us_pages.stream_data
         for ap_stream_data in about_pages:
             ap = Page.objects.filter(id=ap_stream_data['value'])
             ap = ap.first()
             if not ap: continue
+            self.stdout.write('found %s' % ap.url)
             if ap.title == 'About Us' or ap.title == 'Our People' or ap.title == 'About': continue
             ap = ap.specific
 
@@ -65,11 +73,16 @@ def publish_new_program_about_pages(programs, with_sidebar=True):
                 data_project_external_script=getattr(ap, 'data_project_external_script', None)
             ))
 
-            ap.unpublish()
+            self.stdout.write('created %s' % new_ap.url)
+            new_ap.save()
+            new_ap.save_revision().publish()
+
             Redirect(
                 old_path=ap.url,
                 redirect_page=new_ap
             ).save()
+
+            self.stdout.write('created redirect from %s to %s' % (ap.url, new_ap.url))
 
         a.unpublish()
         ahp.save_revision().publish()
