@@ -16,7 +16,7 @@ module.exports = {
   output: {
 		filename: "static/js/[name]-[hash].js",
     chunkFilename: "static/js/[name]-[hash].js",
-    publicPath: `${process.env.STATIC_URL}/` || '/',
+    publicPath: `${process.env.STATIC_URL || ''}/`,
     path: path.resolve(__dirname, "./newamericadotorg"),
     crossOriginLoading: "anonymous"
   },
