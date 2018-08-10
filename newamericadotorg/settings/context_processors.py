@@ -46,7 +46,7 @@ def about_pages(request):
     aboutimage = cache.get('NA_about_img', None)
     if aboutpages is None:
         about_pages = HomePage.objects.first().about_pages
-        aboutpages = [{ 'title': a.value.title } for a in about_pages]
+        aboutpages = [{ 'title': a.value.title, 'url': a.value.url } for a in about_pages]
         aboutimage = generate_image_url(about_pages[0].value.specific.story_image, 'fill-200x170')
         cache.set('NA_about_pages', aboutpages, 60 * 60)
         cache.set('NA_about_img', aboutimage, 60 * 60)
