@@ -55,12 +55,12 @@ class PostList(ListAPIView):
         posts = posts.order_by('-date').distinct()
 
         if topic_id:
-            topics = IssueOrTopic.objects.filter(id=topic_id).first()
+            try:
+                topics = IssueOrTopic.objects.get(pk=topic_id)\
+                    .get_descendants(inclusive=True).live()
 
-            if topics:
-                topics = topics.get_descendants(inclusive=True).live()
                 posts = posts.filter(post_topic__id__in=[t.id for t in topics])
-            else:
+            except:
                 return posts.none()
 
         return posts
