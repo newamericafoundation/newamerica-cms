@@ -25,7 +25,6 @@ def publish_new_program_about_pages(programs, with_sidebar=True):
         orig_url = a.url
         a.slug = a.slug.replace('_legacy', '') + '_legacy';
         a.save_revision().publish()
-        print(a.url, orig_url)
 
         ahp = p.add_child(instance=ProgramAboutHomePage(
             title=a.title,
@@ -53,7 +52,7 @@ def publish_new_program_about_pages(programs, with_sidebar=True):
             if not ap: continue
             if ap.title == 'About Us' or ap.title == 'Our People' or ap.title == 'About': continue
             ap = ap.specific
-            print(ap.url)
+
             new_ap = ahp.add_child(instance=ProgramAboutPage(
                 title=ap.title,
                 slug=ap.slug,
