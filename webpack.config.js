@@ -16,7 +16,7 @@ module.exports = {
   output: {
 		filename: "static/js/[name]-[hash].js",
     chunkFilename: "static/js/[name]-[hash].js",
-    publicPath: '/',
+    publicPath: `${process.env.STATIC_URL}/` || '/',
     path: path.resolve(__dirname, "./newamericadotorg"),
     crossOriginLoading: "anonymous"
   },
@@ -34,7 +34,7 @@ module.exports = {
 					{
 						loader: 'sass-loader',
 						options: {
-							data: `$static: ${NODE_ENV==='development' ? '"/static"' : `"${process.env.STATIC_URL}"` };`
+							data: `$static: ${NODE_ENV==='development' ? '"/static"' : `"${process.env.STATIC_URL}/static"` };`
 						}
 					},
           {
@@ -94,7 +94,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'templates/base.html',
-      staticUrl: process.env.STATIC_URL || '/static',
+      staticUrl: `${process.env.STATIC_URL}/static` || '/static',
       template: 'newamericadotorg/templates/index.html',
       inject: false
     })
