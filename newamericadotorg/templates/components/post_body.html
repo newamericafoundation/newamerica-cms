@@ -23,3 +23,17 @@
   {% endif %}
 
 {% endfor %}
+
+{% if page.attachment|length > 1 %}
+  <div class="section-separator margin-bottom-15 margin-top-60"><div class="section-separator__text"><h6 class="inline margin-0">Downloads</h6></div><div class="section-separator__line"></div></div>
+  {% for rel in page.attachment %}
+    <a href="{{rel.value.url}}" style="margin-right: 25px;"><i class="fa fa-download"></i>&nbsp;{{rel.value.title}}</a>
+  {% endfor %}
+{% endif %}
+
+{% if page.topics.all %}
+  <div class="section-separator margin-bottom-15 margin-top-60"><div class="section-separator__text"><h6 class="inline margin-0">Related Topics</h6></div><div class="section-separator__line"></div></div>
+  {% for rel in page.topics.all %}
+    <a href="{{rel.topic.url}}" class="tag">{{rel.topic.title}}</a>
+  {% endfor %}
+{% endif %}
