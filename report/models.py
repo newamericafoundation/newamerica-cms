@@ -60,8 +60,8 @@ class Report(Post):
 
     dataviz_src = models.CharField(blank=True, null=True, max_length=300, help_text="")
 
-    overwrite_sections_on_save = models.BooleanField(default=False, help_text='If checked, sections and endnote fields will be overwritten with Word document source on save. Use with CAUTION!')
-    generate_pdf_on_publish = models.BooleanField(default=False, help_text='If checked, the "Report PDF" field will be filled with a generated pdf. Otherwise, leave this unchecked and upload a pdf to the "Report PDF" field')
+    overwrite_sections_on_save = models.BooleanField(default=False, help_text='If checked, sections and endnote fields ⚠ will be overwritten ⚠ with Word document source on save. Use with CAUTION!')
+    generate_pdf_on_publish = models.BooleanField('Generate PDF on save', default=False, help_text='⚠ Save latest content before checking this ⚠\nIf checked, the "Report PDF" field will be filled with a generated pdf. Otherwise, leave this unchecked and upload a pdf to the "Report PDF" field.')
     revising = False
 
     endnotes = StreamField([
@@ -108,12 +108,12 @@ class Report(Post):
         MultiFieldPanel([
             DocumentChooserPanel('source_word_doc'),
             FieldPanel('overwrite_sections_on_save'),
-        ]),
+        ], heading='Word Doc Import'),
         MultiFieldPanel([
             FieldPanel('generate_pdf_on_publish'),
             DocumentChooserPanel('report_pdf'),
             StreamFieldPanel('attachment')
-        ]),
+        ], heading='PDF Generation'),
         ImageChooserPanel('partner_logo')
     ]
 
@@ -142,14 +142,16 @@ class Report(Post):
     def save(self, *args, **kwargs):
         super(Report, self).save(*args, **kwargs)
 
+        if not self.overwrite_sections_on_save and not self.generate_pdf_on_publish:
+            self.revising = False
+
         if not self.revising and self.source_word_doc is not None and self.overwrite_sections_on_save:
             self.revising = True
             parse_pdf(self)
+            self.overwrite_sections_on_save = False
             self.save_revision()
-            self.revising = False
 
-        if not self.revising and not self.has_unpublished_changes and self.generate_pdf_on_publish:
-            self.revising = True # generate_pdf resets this to False
+        if not self.revising and self.generate_pdf_on_publish:
             generate_pdf.apply_async(args=(self.id,))
 
 

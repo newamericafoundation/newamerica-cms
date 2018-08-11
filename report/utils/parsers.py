@@ -57,7 +57,7 @@ def parse_table(table, section):
 
             r.append(text)
         data.append(r)
-        
+
     return {
         'data': data,
         'first_row_is_table_header': True
@@ -80,7 +80,7 @@ def parse_run_text(run):
 
 def parse_links(rels):
     links = {}
-    for rId, rel in rels.iteritems():
+    for rId, rel in rels.items():
         links[rId] = rel.target_ref
 
     return links
@@ -114,7 +114,7 @@ def parse_endnotes(parts):
 
     return endnotes
 
-def parse_list(el):
+def parse_list(el, section):
     listtype = el._elements[0][2][0]
     list = ''
     items = ''
@@ -122,8 +122,21 @@ def parse_list(el):
     for i, e in enumerate(el._elements):
         child, paragraph, attrs = e
         type_, lvl = attrs
+
+        tag = TAGS.get(child.tag, None)
+        linkId = None
+        if tag == 'break' or tag == None:
+            continue
+        elif tag == 'hyperlink':
+            linkId = childishyperlink(child)
+            child = child.find('.//w:r', NAMESPACES)
+
         run = Run(child, paragraph)
-        item += parse_paragraph(run, paragraph)
+        p = parse_paragraph(run, paragraph)
+        if tag == 'hyperlink':
+            p = '<a href="%s">%s</a>' % (section._links.get(linkId, None), p)
+
+        item += p
 
         add = False
         nest = False
@@ -166,7 +179,8 @@ def parse_break(el, html):
     # skip first and last breaks
     if html[-2:] == 'p>': return ''
     if len(el._elements) == 1:
-        return '<br/>'
+        return '</p><p>'
+        #return '<br/>'
     else:
         return '</p><p>'
 

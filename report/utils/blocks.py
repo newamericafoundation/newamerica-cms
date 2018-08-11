@@ -117,7 +117,7 @@ class ParagraphBlock(Block):
         for i, el in enumerate(self._elements):
             if type(el) == NestedElement:
                 if el.type == 'list':
-                    html_ = parse_list(el)
+                    html_ = parse_list(el, self.section)
                 elif el.type == 'hyperlink':
                     html_ = parse_hyperlink(el, self.section)
                 elif el.type == 'footnote':

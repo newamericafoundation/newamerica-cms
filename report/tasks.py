@@ -6,6 +6,7 @@ import tempfile
 from wagtail.documents.models import get_document_model
 from newamericadotorg.celery import app as celery_app
 from django.apps import apps
+from django.core.files.base import ContentFile
 from wagtail.core.models import PageRevision
 from .utils.docx_save import generate_docx_streamfields
 
@@ -13,25 +14,21 @@ from .utils.docx_save import generate_docx_streamfields
 def generate_pdf(report_id):
     Report = apps.get_model('report', 'Report')
     report = Report.objects.get(pk=report_id)
-    contents = generate_report_contents(report)
-    authors = get_report_authors(report)
-    html = loader.get_template('report/pdf.html').render({ 'page': report, 'contents': contents, 'authors': authors })
+    revision = PageRevision.objects.filter(page=report).last().as_page_object()
+    contents = generate_report_contents(revision)
+    authors = get_report_authors(revision)
+    html = loader.get_template('report/pdf.html').render({ 'page': revision, 'contents': contents, 'authors': authors })
 
-    pdf = HTML(string=html).write_pdf()
-    with tempfile.NamedTemporaryFile(delete=True) as output:
-        output.write(pdf)
-        output.flush()
-        pdf = open(output.name, 'r')
-        Document = get_document_model()
-        doc = Document(title=report.title)
-        last_edited = ' %s.pdf' % strftime('%Y-%m-%d %H:%M:%S', gmtime())
-        doc.file.save(report.title + last_edited, pdf)
-        report.report_pdf = doc
-        report.generate_pdf_on_publish = False
-        report.revising = False
-        revision = report.save_revision()
-        revision.publish()
-        print('Generated PDF for %s' % report.title)
+    pdf = HTML(string=html, encoding='utf-8').write_pdf()
+    content = ContentFile(pdf)
+    Document = get_document_model()
+    doc = Document(title=report.title)
+    last_edited = ' %s.pdf' % strftime('%Y-%m-%d %H:%M:%S', gmtime())
+    doc.file.save(revision.title + last_edited, content)
+    revision.report_pdf = doc
+    revision.generate_pdf_on_publish = False
+    revision.save_revision()
+
 
 @celery_app.task
 def write_pdf(response, html, base_url):
@@ -39,7 +36,6 @@ def write_pdf(response, html, base_url):
 
 @celery_app.task
 def parse_pdf(page):
-    page.overwrite_sections_on_save = False
     streamfields = generate_docx_streamfields(page.source_word_doc.file)
     page.sections = streamfields['sections']
     page.endnotes = streamfields['endnotes']
