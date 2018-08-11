@@ -17,4 +17,9 @@
     border-right: 1px solid #ddd;
     display: block;
   }
+
+  .figure.left{
+    margin-left: 0 !important;
+    max-width: 40% !important;
+  }
 }
