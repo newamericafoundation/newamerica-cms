@@ -67,7 +67,7 @@ class SubscribeCard extends Component {
 
 class MoreStories extends Component {
   state = {
-    rowHeight: 2
+    rowHeight: 4
   }
 
   getMoreStories = () => {
