@@ -4,6 +4,7 @@ from wagtail.core.models import Page
 
 from person.models import Person
 from home.models import Post
+from event.models import Event
 
 from newamericadotorg.api.helpers import generate_image_url, get_content_type
 from newamericadotorg.api.program.serializers import PostProgramSerializer

@@ -31,7 +31,7 @@ class EventList(ListAPIView):
 
     def get_queryset(self):
         time_period = self.request.query_params.get('time_period', None)
-        events = Event.objects.live().public().distinct()
+        events = Event.objects.live().public()
 
         if time_period:
             today = localtime(now()).date()
@@ -40,4 +40,4 @@ class EventList(ListAPIView):
             elif time_period=='past':
                 return events.filter(date__lt=today).order_by('-date', '-start_time')
 
-        return events.order_by('-date', '-start_time')
+        return events.order_by('-date', '-start_time').distinct()

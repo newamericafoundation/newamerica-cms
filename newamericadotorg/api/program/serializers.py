@@ -230,7 +230,7 @@ class ProgramDetailSerializer(ModelSerializer):
             featured_pages = [rel for rel in pages[:7]]
 
         if len(featured_pages) == 0:
-            return None
+            return { 'count': 0, 'pages': [] }
 
         lead = FeaturedLeadPageSerializer(featured_pages.pop(0)).data
         return {
@@ -327,7 +327,7 @@ class SubprogramSerializer(ModelSerializer):
             featured_pages = [rel for rel in pages[:7]]
 
         if len(featured_pages) == 0:
-            return None
+            return { 'count': 0, 'pages': [] }
 
         FeaturedSerializer = FeaturedLeadPageSerializer if self.context.get('is_simple', False) else FeaturedPageSerializer
 

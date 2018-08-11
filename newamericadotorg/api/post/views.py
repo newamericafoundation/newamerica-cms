@@ -51,9 +51,6 @@ class PostList(ListAPIView):
             else:
                 posts = posts.filter(content_type__model=content_type)
 
-
-        posts = posts.order_by('-date').distinct()
-
         if topic_id:
             try:
                 topics = IssueOrTopic.objects.get(pk=topic_id)\
@@ -63,4 +60,4 @@ class PostList(ListAPIView):
             except:
                 return posts.none()
 
-        return posts
+        return posts.order_by('-date').distinct()
