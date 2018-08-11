@@ -79,7 +79,7 @@ class IssueOrTopic(ProgramSimplePage):
             PageChooserPanel(
                 'featured_publication_3',
                 ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'report.Report', 'in_depth.InDepthProject']),
-        ], heading="Featured Work To Highlight on Bio Page", classname="collapsible")
+        ], classname="collapsible")
     ]
 
     def get_template(self, request):
