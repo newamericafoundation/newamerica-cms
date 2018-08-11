@@ -18,7 +18,7 @@
     display: block;
   }
 
-  .figure.left{
+  &:not(.with-menu) .figure.left{
     margin-left: 0 !important;
     max-width: 40% !important;
   }
