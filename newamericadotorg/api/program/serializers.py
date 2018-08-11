@@ -17,7 +17,6 @@ class AboutPageSerializer(ModelSerializer):
         )
 
     def get_body(self, obj):
-        print(self.context)
         if self.context.get('is_preview', False):
             obj = PageRevision.objects.filter(page=obj).last().as_page_object()
         return loader.get_template('components/post_body.html').render({ 'page': obj })
