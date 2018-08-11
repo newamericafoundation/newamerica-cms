@@ -164,7 +164,7 @@ MoreStories = connect(mapStateToProps)(MoreStories);
 export default class StoryGrid extends Component {
 
   render(){
-    let { story_grid, loaded, program } = this.props;
+    let { story_grid, loaded, program, programType } = this.props;
 
     let features = [...story_grid.pages];
     let lead = features.shift(0);
@@ -194,7 +194,7 @@ export default class StoryGrid extends Component {
               count={story_grid.count}
               features={features}
               program={program}
-              endpoint={`program/${program.id}/featured`}
+              endpoint={`${programType}/${program.id}/featured`}
               initialQuery={{
                 page_size: 7
               }}/>

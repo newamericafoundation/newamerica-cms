@@ -329,10 +329,12 @@ class SubprogramSerializer(ModelSerializer):
         if len(featured_pages) == 0:
             return None
 
+        FeaturedSerializer = FeaturedLeadPageSerializer if self.context.get('is_simple', False) else FeaturedPageSerializer
+
         lead = FeaturedLeadPageSerializer(featured_pages.pop(0)).data
         return {
             'count': pages.count(),
-            'pages': [lead] + FeaturedPageSerializer(featured_pages, many=True).data
+            'pages': [lead] + FeaturedSerializer(featured_pages, many=True).data
         }
 
     def get_content_types(self, obj):

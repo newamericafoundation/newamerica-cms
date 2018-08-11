@@ -47,6 +47,12 @@ class SubprogramDetail(RetrieveAPIView):
     queryset = Subprogram.objects.live()
     serializer_class = SubprogramSerializer
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['is_simple'] = self.request.query_params.get('simple', False)
+
+        return context
+
 class ProgramFeaturedPageList(ListAPIView):
     serializer_class = FeaturedPageSerializer
 

@@ -412,7 +412,7 @@ class Subprogram(AbstractProgram):
         if request.is_preview:
             import newamericadotorg.api
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
-            program_data = newamericadotorg.api.program.serializers.SubprogramDetailSerializer(revision, context={'all_features': True}).data
+            program_data = newamericadotorg.api.program.serializers.SubprogramSerializer(revision, context={'all_features': True}).data
             context['initial_state'] = json.dumps(program_data)
             context['initial_topics_state'] = None
 

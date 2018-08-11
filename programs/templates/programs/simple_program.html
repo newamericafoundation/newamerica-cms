@@ -7,5 +7,15 @@
 	{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
 	<div id="na-react__simple-program-page"
 		data-program-type="subprogram"
-		data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
+		data-program-id="{% firstof program.id page.parent_program.id page.id %}">
+		<div class="container">
+			<div class="program__header margin-bottom-10">
+				<div class="program__heading__wrapper">
+						<h1 class="margin-0 promo">
+							{% firstof program.title page.parent_program.title page.title %}
+						</h1>
+				</div>
+			</div>
+		</div>
+	</div>
 </main>

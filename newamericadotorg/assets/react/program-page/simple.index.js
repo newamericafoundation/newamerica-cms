@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import GARouter from '../ga-router';
 import DocumentMeta from 'react-document-meta';
-import { Fetch } from '../components/API';
+import { Fetch, Response } from '../components/API';
 import Heading from './components/Heading';
 import CardLg from './components/CardLg';
 import { Promo } from './components/CardPromo';
 import PeopleCarousel from './components/PeopleCarousel';
 import About from './components/About';
 import Subscribe from './components/Subscribe';
+import { setResponse } from '../api/actions'
+import store from '../store';
 
 class StoryGrid extends Component {
   state = {
@@ -85,6 +87,17 @@ class ProgramPage extends Component {
 }
 
 class APP extends Component {
+  componentDidMount(){
+    if(window.initialState){
+      store.dispatch(setResponse(NAME, {
+        count: 0,
+        page: 1,
+        hasNext: false,
+        hasPrevious: false,
+        results: window.initialState
+      }));
+    }
+  }
   static propTypes = {
     programId: PropTypes.string.isRequired,
     programType: PropTypes.string.isRequired
@@ -92,11 +105,13 @@ class APP extends Component {
 
   render() {
     let { programId, programType } = this.props;
+    if(window.initialState) return <Response name={NAME} preview={true} component={ProgramPage} programId={programId} programType={programType}/>
+
     return (
       <Fetch component={ProgramPage}
         name={NAME}
         endpoint={`${programType}/${programId}`}
-        initialQuery={{ 'image_rendition': 'fill-800x375' }}
+        initialQuery={{ 'simple': 'true' }}
         fetchOnMount={true}
         programId={programId}
         programType={programType}

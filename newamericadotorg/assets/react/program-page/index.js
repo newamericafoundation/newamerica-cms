@@ -49,7 +49,7 @@ class ProgramPage extends Component {
           <div className="program__content">
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results} root={root} preview={preview}/>)}/>
-            <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} />)} />
+            <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} programType={programType}/>)} />
             {results.about && <Route path={`/${root}/about/`} render={()=>(<About program={results} about={results.about} root={root} />)} /> }
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
@@ -119,7 +119,7 @@ class APP extends Component {
       }));
 
     }
-    
+
     if(window.initialTopicsState){
       let topics = window.initialTopicsState;
       topics.forEach((t) => this.replaceTopicUrls(t));
