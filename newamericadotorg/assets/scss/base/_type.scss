@@ -247,6 +247,10 @@ a {
     display: inline !important;
   }
 
+  &.block {
+    display: block !important;
+  }
+
   &.white {
     color: color(white);
     &.underlined {
