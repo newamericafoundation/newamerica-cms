@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from wagtail.core.models import Page, ContentType
+from wagtail.core.models import Page, ContentType, PageRevision
 from django.template import loader
 
 from home.models import ProgramAboutHomePage, ProgramAboutPage
@@ -17,6 +17,9 @@ class AboutPageSerializer(ModelSerializer):
         )
 
     def get_body(self, obj):
+        print(self.context)
+        if self.context.get('is_preview', False):
+            obj = PageRevision.objects.filter(page=obj).last().as_page_object()
         return loader.get_template('components/post_body.html').render({ 'page': obj })
 
 class PostProgramSerializer(ModelSerializer):
@@ -223,10 +226,14 @@ class ProgramDetailSerializer(ModelSerializer):
         )
 
     def get_story_grid(self, obj):
-        pages = obj.featured_pages.all().order_by('sort_order')
-        if self.context.get('all_features'):
-            featured_pages = [rel for rel in pages]
+        featured_pages = None
+        pages = None
+        if self.context.get('is_preview'):
+            revision = PageRevision.objects.filter(page=obj).last().as_page_object()
+            pages = revision.featured_pages.all().order_by('sort_order')
+            featured_pages = [rel for rel in revision.featured_pages.all().order_by('sort_order')]
         else:
+            pages = obj.featured_pages.all().order_by('sort_order')
             featured_pages = [rel for rel in pages[:7]]
 
         if len(featured_pages) == 0:
@@ -270,8 +277,8 @@ class ProgramDetailSerializer(ModelSerializer):
         if not about:
             return None
 
-        about_page = AboutPageSerializer(about).data
-        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(obj).live().in_menu(), many=True).data
+        about_page = AboutPageSerializer(about, context=self.context).data
+        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(obj).live().in_menu(), context=self.context, many=True).data
 
         return about_page
 
@@ -319,11 +326,14 @@ class SubprogramSerializer(ModelSerializer):
         return parents
 
     def get_story_grid(self, obj):
-        pages = obj.featured_pages.all().order_by('sort_order')
-
-        if self.context.get('all_features'):
-            featured_pages = [rel for rel in pages]
+        featured_pages = None
+        pages = None
+        if self.context.get('is_preview'):
+            revision = PageRevision.objects.filter(page=obj).last().as_page_object()
+            pages = revision.featured_pages.all().order_by('sort_order')
+            featured_pages = [rel for rel in revision.featured_pages.all().order_by('sort_order')]
         else:
+            pages = obj.featured_pages.all().order_by('sort_order')
             featured_pages = [rel for rel in pages[:7]]
 
         if len(featured_pages) == 0:
@@ -351,8 +361,8 @@ class SubprogramSerializer(ModelSerializer):
         if not about:
             return None
 
-        about_page = AboutPageSerializer(about).data
-        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(obj).in_menu().live(), many=True).data
+        about_page = AboutPageSerializer(about, context=self.context).data
+        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(obj).in_menu().live(), many=True, context=self.context).data
 
         return about_page
 
