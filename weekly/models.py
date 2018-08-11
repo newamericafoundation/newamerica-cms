@@ -19,7 +19,7 @@ class Weekly(AbstractContentPage):
     def get_context(self, request):
         context = super(Weekly, self).get_context(request)
 
-        context['latest_edition'] = WeeklyEdition.objects.order_by('-date').first()
+        context['latest_edition'] = WeeklyEdition.objects.first()
         if request.is_preview:
             edition_context = context['latest_edition'].get_context(request)
             context['initial_state'] = edition_context['initial_state']
@@ -41,7 +41,7 @@ class WeeklyEdition(Page):
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
             weekly_data = newamericadotorg.api.weekly.serializers.WeeklyEditionSerializer(revision, context={'is_preview': True}).data
             context['initial_state'] = json.dumps(weekly_data)
-            
+
         return context
 
 class WeeklyArticle(Post):
