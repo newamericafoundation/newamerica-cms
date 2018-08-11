@@ -51,3 +51,12 @@
     font-weight: normal;
     font-style: italic;
 }
+
+@font-face {
+    font-family: 'Lyon';
+    src: url('#{$static}/fonts/LyonText-BoldItalic.otf');
+    src: url('#{$static}/fonts/LyonText-BoldItalic.eot?#iefix') format('embedded-opentype'),
+         url('#{$static}/fonts/LyonText-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
