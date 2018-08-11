@@ -38,6 +38,11 @@ def editor_css():
             padding-left: 40px;
         }
 
+        .Draftail-block--header-four,
+        .Draftail-block--header-five {
+            font-weight: bold
+        }
+
         .Draftail-block--pullquote{
             padding-top: 25px;
             padding-bottom: 25px;
@@ -55,6 +60,33 @@ def editor_css():
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler, BlockElementHandler
+
+@hooks.register('register_rich_text_features')
+def register_blockquote_feature(features):
+    """
+    Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
+    and is stored as HTML with a `<blockquote>` tag.
+    """
+    feature_name = 'h5'
+    type_ = 'h5'
+    tag = 'h5'
+
+    control = {
+        'type': type_,
+        'description': 'Header 5',
+        'element': 'h5',
+    }
+
+    features.register_editor_plugin(
+        'draftail', feature_name, draftail_features.BlockFeature(control)
+    )
+
+    features.default_features.append(feature_name)
+
+    features.register_converter_rule('contentstate', feature_name, {
+        'from_database_format': {tag: BlockElementHandler(type_)},
+        'to_database_format': {'block_map': {type_: tag}},
+    })
 
 @hooks.register('register_rich_text_features')
 def register_pullquote_feature(features):
