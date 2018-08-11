@@ -7,7 +7,7 @@ from programs.models import Program, Subprogram, AbstractProgram, AbstractConten
 from home.models import Post, ProgramSimplePage
 
 from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, MultiFieldPanel
 
 from programs.models import Program
 
@@ -44,6 +44,44 @@ class IssueOrTopic(ProgramSimplePage):
         related_name='topics'
     )
 
+    featured_publication_1 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    featured_publication_2 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    featured_publication_3 = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    content_panels = ProgramSimplePage.content_panels + [
+        MultiFieldPanel([
+            PageChooserPanel(
+                'featured_publication_1',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'report.Report', 'in_depth.InDepthProject']),
+            PageChooserPanel(
+                'featured_publication_2',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'report.Report', 'in_depth.InDepthProject']),
+            PageChooserPanel(
+                'featured_publication_3',
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'report.Report', 'in_depth.InDepthProject']),
+        ], heading="Featured Work To Highlight on Bio Page", classname="collapsible")
+    ]
+
     def get_template(self, request):
         return 'programs/program.html'
 
@@ -57,6 +95,12 @@ class IssueOrTopic(ProgramSimplePage):
             context['parent_topic'] = None
         else:
             context['parent_topic'] = ancestors[4]
+
+        context['featured_publications'] = [
+            self.featured_publication_1,
+            self.featured_publication_2,
+            self.featured_publication_3
+        ]
 
         context['program'] = ancestors[2].specific
 

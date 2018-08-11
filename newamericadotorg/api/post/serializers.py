@@ -5,6 +5,24 @@ from newamericadotorg.api.helpers import generate_image_url, get_content_type
 from newamericadotorg.api.author.serializers import AuthorSerializer
 from newamericadotorg.api.program.serializers import PostProgramSerializer, PostSubprogramSerializer
 
+class PostSimpleSerializer(ModelSerializer):
+    content_type = SerializerMethodField()
+    story_image = SerializerMethodField()
+
+    class Meta:
+        model = Post
+        fields = (
+            'id', 'title', 'subheading', 'date', 'content_type',
+            'url', 'story_excerpt', 'story_image', 'topics', 'seo_title'
+        )
+
+    def get_content_type(self, obj):
+        return get_content_type(obj)
+
+    def get_story_image(self, obj):
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'fill-675x250')
+
 class PostSerializer(ModelSerializer):
     content_type = SerializerMethodField()
     story_image = SerializerMethodField()

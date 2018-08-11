@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { Fetch, Response } from  '../../components/API';
 import { PersonsList } from '../../components/People';
 import { PublicationListItem } from '../../components/ContentCards';
+import CardSm from './CardSm';
 
 const Breadcrumbs = ({ ancestors }) => (
   <div className="program__topic__breadcrumbs">
@@ -47,7 +48,7 @@ class PublicationsList extends Component {
     if(results.length===0) return null;
     return (
       <div className="program__topic__publications">
-        <Separator text="Related Publications" />
+        <Separator text="Recent Publications" />
         {results.map((p,i)=>(
           <PublicationListItem key={`post-${i}`} post={p} key={`publication-${i}`} />
         ))}
@@ -60,6 +61,19 @@ class PublicationsList extends Component {
   }
 }
 
+const Featured = ({ publications }) => (
+  <div className="topic__featured-publications">
+    <Separator text="Featured Publications" />
+    <div className="row gutter-10">
+      {publications.map((p,i)=>(
+        <div className="col-12 col-md-4" key={`featured-${i}`}>
+          <CardSm post={p} />
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 export class Topic extends Component {
 
   componentWillMount(){
@@ -68,13 +82,16 @@ export class Topic extends Component {
 
   render(){
     let { ancestors, topic, program } = this.props;
-
+    
     return(
       <div className="program__topic">
         {ancestors.length > 0 && <Breadcrumbs program={program} ancestors={ancestors} />}
         <h1 className="margin-bottom-35">{topic.title}</h1>
         <Subtopics program={program} subtopics={topic.subtopics} />
         {topic.body && <Body body={topic.body} />}
+        {topic.featured_publications.length > 0 &&
+          <Featured publications={topic.featured_publications} />
+        }
         <Fetch name={`${NAME}.topic.authors`}
             endpoint="author"
             fetchOnMount={true}

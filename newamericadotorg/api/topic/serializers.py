@@ -4,6 +4,7 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from issue.models import IssueOrTopic
 from newamericadotorg.api.program.serializers import ProgramSubprogramSerializer
+from newamericadotorg.api.post.serializers import PostSimpleSerializer
 
 class TopicDetailSerializer(ModelSerializer):
     subtopics = SerializerMethodField()
@@ -11,6 +12,7 @@ class TopicDetailSerializer(ModelSerializer):
     program = SerializerMethodField()
     body = SerializerMethodField()
     depth = SerializerMethodField()
+    featured_publications = SerializerMethodField()
 
     def get_subtopics(self, obj):
         return TopicDetailSerializer(obj.get_children().live().specific(), many=True).data
@@ -30,10 +32,22 @@ class TopicDetailSerializer(ModelSerializer):
     def get_depth(self, obj):
         return obj.depth - 5
 
+    def get_featured_publications(self, obj):
+        featured  = []
+        if obj.featured_publication_1:
+            featured.append(PostSimpleSerializer(obj.featured_publication_1.specific).data)
+        if obj.featured_publication_2:
+            featured.append(PostSimpleSerializer(obj.featured_publication_2.specific).data)
+        if obj.featured_publication_3:
+            featured.append(PostSimpleSerializer(obj.featured_publication_3.specific).data)
+
+        return featured
+
     class Meta:
         model = IssueOrTopic
         fields = (
-            'id', 'url', 'title', 'slug', 'subtopics', 'description', 'body', 'program', 'depth'
+            'id', 'url', 'title', 'slug', 'subtopics', 'description', 'body', 'program', 'depth',
+            'featured_publications'
         )
 
 class TopicSerializer(ModelSerializer):
@@ -42,6 +56,7 @@ class TopicSerializer(ModelSerializer):
     program = SerializerMethodField()
     body = SerializerMethodField()
     depth = SerializerMethodField()
+    featured_publications = SerializerMethodField()
 
     def get_subtopics(self, obj):
         return TopicSerializer(obj.get_children().live().specific(), many=True).data
@@ -61,8 +76,21 @@ class TopicSerializer(ModelSerializer):
     def get_depth(self, obj):
         return obj.depth - 5
 
+    def get_featured_publications(self, obj):
+        featured  = []
+        if obj.featured_publication_1:
+            featured.append(PostSimpleSerializer(obj.featured_publication_1.specific).data)
+        if obj.featured_publication_2:
+            featured.append(PostSimpleSerializer(obj.featured_publication_2.specific).data)
+        if obj.featured_publication_3:
+            featured.append(PostSimpleSerializer(obj.featured_publication_3.specific).data)
+
+        return featured
+
+
     class Meta:
         model = IssueOrTopic
         fields = (
-            'id', 'url', 'title', 'slug', 'subtopics', 'description', 'program', 'body', 'depth'
+            'id', 'url', 'title', 'slug', 'subtopics', 'description', 'program', 'body', 'depth',
+            'featured_publications'
         )
