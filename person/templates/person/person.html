@@ -58,6 +58,18 @@
       </div>
     </div>
   </div>
+  {% if page.feature_work_1 %}
+    <div class="section-separator margin-35"><div class="section-separator__text"><h6 class="inline margin-0">Featured Work</h6></div><div class="section-separator__line"></div></div>
+    <div class="row gutter-10">
+    {% for p in featured_work %}
+    {% if p %}
+      <div class="col-lg-4 col-12">
+        {% include 'components/card_sm.html' with post=p.specific %}
+      </div>
+    {% endif %}
+    {% endfor %}
+    </div>
+{% endif %}
   <div id="na-react__person-publications" data-author-id="{{page.id}}"></div>
 </main>
 {% endblock %}

@@ -9,7 +9,7 @@
 <div class="card sm">
   <a href="{{post.url}}" class="row no-gutters">
     <div class="col-6">
-      <div class="card__image">
+      <div class="card__image{% if not post.story_image %} no-image{%endif%}">
         <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
         <img src="{{post_image_lg.url}}" srcset="{{post_image_lg.url}} 675w, {{post_image_md.url}} 350w, {{post_image_thumb.url}} 150w" class="fade-in-image" onload="this.classList.add('loaded');"/>
       </div>

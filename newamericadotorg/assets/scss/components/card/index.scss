@@ -38,6 +38,24 @@
       width: auto;
       height: 100%;
     }
+
+    &.no-image {
+      background-color: color(black, base, 0.15);
+      &:after {
+        content: '\f1ea';
+        @include center;
+        font-size: 3rem;
+        font-weight: normal;
+        position: absolute;
+        color: color(black, base, 0.075);
+        font-family: 'fontawesome';
+
+      }
+
+      img {
+        display: none;
+      }
+    }
   }
 
   &__text{
