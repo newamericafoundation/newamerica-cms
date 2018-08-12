@@ -272,12 +272,12 @@ class ProgramDetailSerializer(ModelSerializer):
         return get_subpages(obj)
 
     def get_about(self, obj):
-        about = ProgramAboutHomePage.objects.descendant_of(obj).live().first()
+        about = ProgramAboutHomePage.objects.child_of(obj).live().first()
         if not about:
             return None
 
         about_page = AboutPageSerializer(about, context=self.context).data
-        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(obj).live().in_menu(), context=self.context, many=True).data
+        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(about).live().in_menu(), context=self.context, many=True).data
 
         return about_page
 
@@ -356,12 +356,12 @@ class SubprogramSerializer(ModelSerializer):
         return get_subpages(obj)
 
     def get_about(self, obj):
-        about = ProgramAboutHomePage.objects.descendant_of(obj).live().first()
+        about = ProgramAboutHomePage.objects.child_of(obj).live().first()
         if not about:
             return None
 
         about_page = AboutPageSerializer(about, context=self.context).data
-        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(obj).in_menu().live(), many=True, context=self.context).data
+        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.child_of(about).in_menu().live(), many=True, context=self.context).data
 
         return about_page
 
