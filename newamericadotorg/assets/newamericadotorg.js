@@ -13,6 +13,7 @@ import cache from './react/cache';
 
 import addEventListeners from './lib/add-event-listeners';
 import addObservers from './lib/add-observers';
+import mobileMenu from './react/mobile-menu/index';
 
 // initialize on ready
 if(document.readyState != 'loading') init();
@@ -25,6 +26,7 @@ window.newamericadotorg = {
 };
 
 function init(){
+  reactRenderer.add(mobileMenu);
   importPageComponents();
   addEventListeners();
   addObservers();

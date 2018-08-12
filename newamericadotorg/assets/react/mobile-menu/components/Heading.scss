@@ -29,10 +29,10 @@
   height: 12px;
   vertical-align: top;
   display: inline-block;
+  position: absolute;
+  top: 32.5px;
   text-align: center;
-  position: relative;
-  top: 50%;
-  @include transform(translateX(0) translateY(-50%) translateZ(0));
+  @include transform(translateX(-100vw) translateZ(0));
   width: 100vw;
   opacity: 0;
   padding-left: 0px !important;
@@ -40,7 +40,7 @@
 
   &:before{
     position: absolute !important;
-    margin-top: 1.5px;
+    top: 0;
     left: 15px !important;
     width: 10px !important;
     height: 10px !important;
@@ -55,7 +55,7 @@
     opacity: 0;
   }
   .tab-link-back {
-    @include transform(translateX(-100vw) translateY(-50%) translateZ(0));
+    @include transform(translateX(0) translateZ(0));
     opacity: 1;
   }
 }
