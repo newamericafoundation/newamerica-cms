@@ -63,8 +63,6 @@ export default class Subscribe extends Component {
 
     let csrfCookieMatch = document.cookie.match(/csrftoken=(.*?)(;|$)/)
     if(csrfCookieMatch) this.state.csrf = csrfCookieMatch[1];
-    console.log('here');
-    console.log(csrfCookieMatch[1]);
   }
 
   componentDidMount(){
