@@ -19,7 +19,7 @@ const Authors = ({ authors }) => (
       <span>by </span>
     {authors.map((a,i)=>(
       <span className="report__authors__item--mobile" key={`author-${i}`}>
-        <h4 className="link">
+        <h4 className="link inline">
           <a href={a.url}><u>{`${a.first_name} ${a.last_name}`}</u></a>
         </h4>
         {(i==0 && authors.length==2) && <span> & </span>}
