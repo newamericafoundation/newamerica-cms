@@ -22,7 +22,7 @@
           {% endif %}
           {% if page.topics.all|length > 0 %}
             <div class="person__expertise desktop-only">
-              <h6 class="{% if page.profile_image %}margin-top-15{% else %}margin-top-0{% endif %}">Expertise:</h6>
+              <h6 class="{% if page.profile_image %}margin-top-15{% else %}margin-top-0{% endif %} margin-bottom-10">Expertise:</h6>
               {% for t in page.topics.all %}
                 <a href="{{t.topic.url}}" class="tag">{{t.topic.title}}</a>
               {% endfor %}
