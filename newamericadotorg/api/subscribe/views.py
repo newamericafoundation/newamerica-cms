@@ -1,4 +1,6 @@
 import json
+import os
+from urllib.request import urlopen
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -15,7 +17,7 @@ def subscribe(request):
 
     RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
     recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify?response=%s&secret=%s' % (recaptcha_response, RECAPTCHA_SECRET_KEY)
-    verification = urllib2.urlopen(recaptcha_url).read()
+    verification = urlopen(recaptcha_url).read()
     verification = json.loads(verification)
 
     if not verification['success']:
