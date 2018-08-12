@@ -254,7 +254,7 @@ class AbstractSimplePage(Page):
     Abstract Simple page class that inherits from the Page model and
     creates simple, generic pages.
     """
-    body = StreamField(BodyBlock(), blank=True, null=True)
+    body = StreamField(BodyBlock(required=False), blank=True, null=True)
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
     custom_interface = models.BooleanField(default=False)
     story_image = models.ForeignKey(
