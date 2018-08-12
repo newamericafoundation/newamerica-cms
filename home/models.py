@@ -373,6 +373,9 @@ class ProgramAboutHomePage(ProgramSimplePage):
         'home.ProgramAboutPage'
     ]
 
+    class Meta:
+        verbose_name = 'About Homepage'
+
     def get_context(self, request):
         context = super().get_context(request)
         context['program'] = self.get_parent().specific
