@@ -13,7 +13,6 @@ import GARouter from '../ga-router';
 class InfinitePersonsList extends Component {
   nextPage = () => {
     let { setQueryParam, fetchAndAppend, response } = this.props;
-    console.log(response);
     if(!response.hasNext) return false;
 
     setQueryParam('page', response.page+1);
