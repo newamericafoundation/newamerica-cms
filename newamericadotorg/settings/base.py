@@ -91,8 +91,6 @@ MIDDLEWARE = [
 
     # Gzip/minify
     'django.middleware.gzip.GZipMiddleware',
-    'htmlmin.middleware.HtmlMinifyMiddleware',
-    'htmlmin.middleware.MarkRequestMiddleware',
 
     'newamericadotorg.log_handlers.LogDNAMiddleware',
     'newamericadotorg.log_handlers.APIExceptionMiddleware'
