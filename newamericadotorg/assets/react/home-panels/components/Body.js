@@ -33,7 +33,7 @@ export default class Body extends Panel {
                 {data.resource_kit[0].resources.map((r,i)=>(
                   <div className="aside__item" key={`resource-${i}`}>
                     <h3 className="link"><a href={r.value.resource}><u>{r.value.name}</u></a></h3>
-                    {r.value.description && <h6 className="block">{this.parseHTMLText(r.value.description)}</h6>}
+                    {r.value.description && <h6 className="margin-0">{this.parseHTMLText(r.value.description)}</h6>}
                   </div>
                 ))}
               </div>}
