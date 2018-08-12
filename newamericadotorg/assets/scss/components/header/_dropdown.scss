@@ -54,6 +54,7 @@
       content: '';
       position: absolute;
       top: calc(50% - 0px);
+      right: -15px;
       @include transform(rotate(45deg) translateY(-3.5px));
       border-right: 2px solid color(black);
       border-bottom: 2px solid color(black);
