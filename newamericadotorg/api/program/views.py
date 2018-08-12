@@ -6,7 +6,7 @@ from rest_framework.filters import SearchFilter
 from programs.models import Program, Subprogram, FeaturedProgramPage, FeaturedSubprogramPage
 from home.models import Post
 
-from .serializers import ProgramSerializer, SubprogramSerializer, ProgramDetailSerializer, FeaturedPageSerializer
+from .serializers import ProgramSerializer, SubprogramSerializer, ProgramSubprogramSerializer, ProgramDetailSerializer, FeaturedPageSerializer
 from newamericadotorg.api.post.serializers import PostSerializer
 
 class ProgramFilter(FilterSet):
@@ -39,7 +39,7 @@ class SubprogramFilter(FilterSet):
 
 class SubprogramList(ListAPIView):
     queryset = Subprogram.objects.live().order_by('title')
-    serializer_class = SubprogramSerializer
+    serializer_class = ProgramSubprogramSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
     filter_class = SubprogramFilter
 
