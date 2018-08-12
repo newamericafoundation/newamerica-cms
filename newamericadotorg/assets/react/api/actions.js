@@ -158,9 +158,14 @@ export const fetchData = (component, callback=()=>{}, operation='replace', tries
       }
       return parseResponse(jsonResponse);
     }).then(json => {
-      if(!window.user.isAuthenticated)
-        cache.set(request, json, new Date().getTime() + (1000 * 60 * 5)); // expire in 5 minutes
-
+      if(!window.user.isAuthenticated){
+        try {
+          cache.set(request, json, new Date().getTime() + (1000 * 60 * 5)); // expire in 5 minutes
+        } catch (e){
+          cache.clearAll();
+          cache.set(request, json, new Date().getTime() + (1000 * 60 * 5));
+        }
+      }
       dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
       dispatch(setFetchingSuccess(component));
       callback(json);
