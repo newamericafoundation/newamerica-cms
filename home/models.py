@@ -111,6 +111,8 @@ class HomePage(Page):
     'other_content.AllOtherPostsHomePage'
     ]
 
+    down_for_maintenance = models.BooleanField(default=False)
+
     subscription_segments = models.ManyToManyField(
         SubscriptionSegment,
         through=SubscriptionHomePageRelationship,
@@ -210,6 +212,8 @@ class HomePage(Page):
 
         InlinePanel('subscriptions', label=("Subscription Segments")),
     ]
+
+    settings_panels = Page.settings_panels + [FieldPanel('down_for_maintenance')]
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)

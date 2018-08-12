@@ -12,10 +12,15 @@ from newamericadotorg.api.helpers import generate_image_url
 
 def debug(request):
     username = None
+    is_down = cache.get('is_down', None)
+    if is_down is None:
+        is_down = HomePage.objects.get().down_for_maintenance
+        cache.set('is_down', is_down, 60)
+
     if request.user.is_authenticated():
         username = request.user.username
 
-    return {'DEBUG': settings.DEBUG, 'is_under_maintenance': settings.IS_UNDER_MAINTENANCE, 'username': username}
+    return {'DEBUG': settings.DEBUG, 'is_under_maintenance': is_down, 'username': username}
 
 def program_data(request):
     '''

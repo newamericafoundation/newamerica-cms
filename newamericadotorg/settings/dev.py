@@ -26,8 +26,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'newamericadotorg.api.pagination.CustomPagination',
 }
 
-IS_UNDER_MAINTENANCE = os.getenv('IS_UNDER_MAINTENANCE', False)
-
 try:
     from .local import *
 except ImportError:
