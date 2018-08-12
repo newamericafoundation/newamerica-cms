@@ -131,7 +131,7 @@ class Nav extends Component {
         <HorizontalNav className={`our-funding__nav`} items={[
           { url: '/our-funding/', label: 'How We\'re Funded', exact: true },
           { url: '/our-funding/our-funders/', label: 'Our Funders'},
-          { url: '/our-funding/corporate-circles/', label: 'Corporate Circle'},
+          { url: '/our-funding/corporate-circle/', label: 'Corporate Circle'},
           { url: '/our-funding/new-america-councils/', label: 'New America Councils'},
           { url: '/our-funding/donate/', label: 'Donate' }
         ]} />
