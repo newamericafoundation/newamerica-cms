@@ -74,6 +74,11 @@ const Featured = ({ publications }) => (
   </div>
 );
 
+const PersonsListWrapper = (props) => {
+  if(props.response.isFetching) return null
+  return <PersonsList {...props} />
+}
+
 export class Topic extends Component {
 
   componentWillMount(){
@@ -92,7 +97,7 @@ export class Topic extends Component {
             key={`${match.path}-authors`}
             endpoint="author"
             fetchOnMount={true}
-            component={PersonsList}
+            component={PersonsListWrapper}
             renderIfNoResults={false}
             initialQuery={{
               topic_id: topic.id,
