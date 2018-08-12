@@ -9,7 +9,7 @@ import Recaptcha from 'react-recaptcha';
 const ConfirmationList = ({ subscriptions }) => (
     <ul>
       {subscriptions.map((s,i)=>(
-        <li key={`list-${i}`}><h6>{s}</h6></li>
+        <li key={`list-${i}`}><h6 className="margin-10">{s}</h6></li>
       ))}
     </ul>
   );

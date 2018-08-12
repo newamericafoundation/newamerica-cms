@@ -36,7 +36,7 @@ class FunderList extends Component {
     let funders = div.getElementsByTagName('li');
     if(type === 'funder' )
       return Array.from(funders).map((f,i)=>(
-        <h6 key={`funder-${i}`} className="margin-top-0">{f.innerText}</h6>
+        <h6 key={`funder-${i}`} className="margin-10">{f.innerText}</h6>
       ));
 
     return Array.from(funders).map((f,i)=>{
@@ -47,7 +47,7 @@ class FunderList extends Component {
       return (
         <div className="our-funding__council-list__item margin-bottom-25" key={`funder-${i}`}>
           <h4 className="margin-top-0 margin-bottom-5">{name}</h4>
-          {position.length > 0 && <h6 className="caption margin-top-5">{position}</h6>}
+          {position.length > 0 && <h6 className="caption margin-0">{position}</h6>}
         </div>
       );
     });

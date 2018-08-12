@@ -28,8 +28,8 @@ export default class Body extends Panel {
                 </div>
               }
               {data.resource_kit && <div className="aside">
-                <h4 className="margin-top-0">{data.resource_kit[0].title}</h4>
-                <h6 className="margin-bottom-25">{data.resource_kit[0].description}</h6>
+                <h4 className="margin-top-0 margin-bottom-5">{data.resource_kit[0].title}</h4>
+                <h6 className="margin-top-0 margin-bottom-25">{data.resource_kit[0].description}</h6>
                 {data.resource_kit[0].resources.map((r,i)=>(
                   <div className="aside__item" key={`resource-${i}`}>
                     <h3 className="link"><a href={r.value.resource}><u>{r.value.name}</u></a></h3>
