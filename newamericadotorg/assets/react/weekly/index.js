@@ -101,7 +101,6 @@ class APP extends Component {
           )} />
           <Route path="/weekly/:editionSlug?/:articleSlug?/" render={({ location, match }) => {
             if(window.initialState) return <Response location={location} match={match} name='weekly.edition' component={Routes} />
-            console.log('fetching..');
               return <Fetch name='weekly.edition'
                 endpoint={`weekly/${editionId}`}
                 fetchOnMount={true}

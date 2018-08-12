@@ -7,7 +7,7 @@
 
   &__contents{
     position: relative;
-    z-index: 3;
+    z-index: 11;
   }
 
   &__sticky-wrapper{
@@ -38,7 +38,7 @@
 
 .report__top-nav__title{
   position: relative;
-  z-index: 1;
+  z-index: 11;
   overflow: hidden;
   background: color(black);
   text-align: right;
@@ -91,7 +91,7 @@
 
 .report__top-nav__contents{
   position: relative;
-  z-index: 2;
+  z-index: 12;
   padding-left: 0 !important;
   padding-right: 0 !important;
   &__button .button--text{
@@ -113,7 +113,7 @@
   width: 280px;
   white-space: nowrap;
   position: relative;
-  z-index: 3;
+  z-index: 13;
   padding-right: 22.5px;
   padding-left: 22.5px;
   margin-left: -22.5px;

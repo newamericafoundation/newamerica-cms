@@ -2,11 +2,13 @@ import json
 import os
 from urllib.request import urlopen
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 
 from subscribe.campaign_monitor import update_subscriber
 
 @api_view(['POST'])
+@permission_classes((AllowAny, ))
 def subscribe(request):
     params = request.query_params
     recaptcha_response = params.get('g-recaptcha-response', None)

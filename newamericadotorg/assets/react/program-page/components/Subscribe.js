@@ -63,6 +63,8 @@ export default class Subscribe extends Component {
 
     let csrfCookieMatch = document.cookie.match(/csrftoken=(.*?)(;|$)/)
     if(csrfCookieMatch) this.state.csrf = csrfCookieMatch[1];
+    console.log('here');
+    console.log(csrfCookieMatch[1]);
   }
 
   componentDidMount(){
@@ -96,7 +98,7 @@ export default class Subscribe extends Component {
         method: 'POST',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRFToken': this.csrf
+          'X-CSRFToken': this.state.csrf
         }
       }).then(response => {
         return response.json();

@@ -3,7 +3,7 @@
   margin-left: -22.5px;
   padding: 12.5px 20px 12.5px 0;
   background: color(gray);
-  z-index: 0;
+  z-index: 10;
   max-height: calc(100vh - #{$header-height + 65px});
   overflow-x: hidden;
   overflow-y: scroll;
