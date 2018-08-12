@@ -22,11 +22,26 @@ def publish_new_program_about_pages(self, programs, with_sidebar=True):
         if not p.about_us_page:
             continue
 
+        existing = p.get_children().type(ProgramAboutHomePage).first()
+
+        if existing:
+            self.stdout.write('found existing About Home Page for %s. Moving on.' % p.title)
+            continue
+
         a = ProgramSimplePage.objects.get(pk=p.about_us_page.id)
         slug = a.slug
         orig_url = a.url
         a.slug = a.slug.replace('_legacy', '') + '_legacy';
+        a.save()
         self.stdout.write('changed %s to %s' % (orig_url, a.slug))
+
+        about = p.get_children().filter(slug='about').first()
+        if about:
+            about.slug = about.slug + '-0'
+            about.save()
+            self.stdout.write('changed' % about.url)
+
+
 
         ahp = p.add_child(instance=ProgramAboutHomePage(
             title=a.title,
