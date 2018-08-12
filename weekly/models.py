@@ -20,7 +20,7 @@ class Weekly(AbstractContentPage):
         context = super(Weekly, self).get_context(request)
 
         context['latest_edition'] = WeeklyEdition.objects.first()
-        if request.is_preview:
+        if getattr(request, 'is_preview', False):
             edition_context = context['latest_edition'].get_context(request)
             context['initial_state'] = edition_context['initial_state']
 
@@ -36,7 +36,7 @@ class WeeklyEdition(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        if request.is_preview:
+        if getattr(request, 'is_preview', False):
             import newamericadotorg.api.weekly
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
             weekly_data = newamericadotorg.api.weekly.serializers.WeeklyEditionSerializer(revision, context={'is_preview': True}).data
@@ -52,7 +52,7 @@ class WeeklyArticle(Post):
         context = super(WeeklyArticle, self).get_context(request)
         context['edition'] = self.get_parent().specific
 
-        if request.is_preview:
+        if getattr(request, 'is_preview', False):
             edition_context = context['edition'].get_context(request)
             context['initial_state'] = edition_context['initial_state']
 

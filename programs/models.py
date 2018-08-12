@@ -313,7 +313,7 @@ class Program(AbstractProgram):
     def get_context(self, request):
         context = super().get_context(request)
 
-        if request.is_preview:
+        if getattr(request, 'is_preview', False):
             import newamericadotorg.api
             from issue.models import IssueOrTopic
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
