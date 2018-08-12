@@ -44,7 +44,8 @@ def locations(request):
 def about_pages(request):
     aboutpages = cache.get('NA_about_pages', [])
     aboutimage = cache.get('NA_about_img', '')
-    if aboutpages is None:
+
+    if len(aboutpages) == 0:
         about_pages = HomePage.objects.first().about_pages
         if len(about_pages) != 0:
             aboutpages = [{ 'title': a.value.title, 'url': a.value.url } for a in about_pages]
