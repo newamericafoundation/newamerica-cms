@@ -34,12 +34,12 @@ class HomeSubscribe extends Subscribe {
             </div>
             <div className="subscribe__lists push-md-1 col-md-5">
               <div className="home__subscribe__toggles margin-top-25 margin-top-lg-0">
-                <h6 className={`${this.state.shifted ? '' : 'bold'}`}
+                <h6 className={`${this.state.shifted ? '' : 'bold'} inline margin-0`}
                   onClick={()=>{this.setState({ shifted: false})}}>
                   New America Lists
                 </h6>
                 <span>|</span>
-                <h6 className={`${this.state.shifted ? 'bold' : ''}`}
+                <h6 className={`${this.state.shifted ? 'bold' : ''} inline margin-0`}
                   onClick={()=>{this.setState({ shifted: true})}}>
                   Program Lists
                 </h6>
