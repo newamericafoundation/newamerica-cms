@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 from programs.models import Program, Subprogram, FeaturedProgramPage, FeaturedSubprogramPage
-from home.models import ProgramAboutPage, ProgramAboutHomePage, Page
+from home.models import ProgramAboutPage, ProgramAboutHomePage, Page, ProgramSimplePage
 from wagtail.contrib.redirects.models import Redirect
 
 class Command(BaseCommand):
@@ -16,15 +16,16 @@ def delete_new_about_home_pages():
     ProgramAboutHomePage.objects.all().delete()
 
 def publish_new_program_about_pages(self, programs, with_sidebar=True):
+    site = Site.objects.get()
+
     for p in programs:
         if not p.about_us_page:
             continue
 
-        a = p.about_us_page.specific
+        a = ProgramSimplePage.objects.get(pk=p.about_us_page.id)
         slug = a.slug
         orig_url = a.url
         a.slug = a.slug.replace('_legacy', '') + '_legacy';
-        a.unpublish()
         self.stdout.write('changed %s to %s' % (orig_url, a.slug))
 
         ahp = p.add_child(instance=ProgramAboutHomePage(
@@ -39,13 +40,17 @@ def publish_new_program_about_pages(self, programs, with_sidebar=True):
             data_project_external_script=a.data_project_external_script
         ))
         ahp.save()
+        a.unpublish()
         self.stdout.write('created %s' % ahp.url)
 
         if slug != 'about':
-            Redirect(
-                old_path=orig_url,
-                redirect_page=ahp
-            ).save()
+            redirect, created = Redirect.objects.get_or_create(
+                old_path=orig_url[:len(orig_url)-1],
+                site=site
+            )
+
+            redirect.redirect_page = ahp
+            redirect.save()
 
             self.stdout.write('created redirect from %s to %s' % (orig_url, ahp.url))
 
@@ -77,10 +82,13 @@ def publish_new_program_about_pages(self, programs, with_sidebar=True):
             new_ap.save()
             new_ap.save_revision().publish()
 
-            Redirect(
-                old_path=ap.url,
-                redirect_page=new_ap
-            ).save()
+            redirect, created = Redirect.objects.get_or_create(
+                old_path=ap.url[:len(ap.url)-1],
+                site=site
+            )
+
+            redirect.redirect_page = new_ap
+            redirect.save()
 
             self.stdout.write('created redirect from %s to %s' % (ap.url, new_ap.url))
 
