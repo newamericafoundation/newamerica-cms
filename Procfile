@@ -1,3 +1,3 @@
 release: python manage.py migrate
-web: gunicorn newamericadotorg.wsgi --log-file -
+web: newrelic-admin run-program gunicorn newamericadotorg.wsgi --log-file -
 worker: celery worker --app=newamericadotorg.celery.app
