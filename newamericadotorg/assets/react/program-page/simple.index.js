@@ -76,7 +76,7 @@ class ProgramPage extends Component {
               <Redirect to={results.url} />
             )}/>
             <Heading program={results} />
-            {results.about && <Route path={`/${root}/(about|${results.about.slug})/`} render={(props)=>(<About about={results.about} />)} />}
+            {results.about && <Route path={`/${root}/(about|${results.about.slug})/`} render={(props)=>(<About about={results.about} program={results} root={root}/>)} />}
             {results.subscriptions && <Route path={`/${root}/subscribe`} render={(props)=>(<Subscribe subscriptions={results.subscriptions}/>)} />}
             <Route path={`/${root}/:subpage?`} render={(props)=>(<StoryGrid {...props} program={results} />)} />
           </div>
