@@ -44,8 +44,8 @@ const Separator = ({ text }) => (
 
 class PublicationsList extends Component {
   render(){
-    let { response: { results, hasNext }, topic, program } = this.props;
-    if(results.length===0) return null;
+    let { response: { results, hasNext, isFetching }, topic, program } = this.props;
+    if(results.length===0 || isFetching) return null;
     return (
       <div className="program__topic__publications">
         <Separator text="Recent Publications" />
@@ -81,18 +81,15 @@ export class Topic extends Component {
   }
 
   render(){
-    let { ancestors, topic, program } = this.props;
-    
+    let { ancestors, topic, program, match } = this.props;
     return(
       <div className="program__topic">
         {ancestors.length > 0 && <Breadcrumbs program={program} ancestors={ancestors} />}
         <h1 className="margin-bottom-35">{topic.title}</h1>
         <Subtopics program={program} subtopics={topic.subtopics} />
         {topic.body && <Body body={topic.body} />}
-        {topic.featured_publications.length > 0 &&
-          <Featured publications={topic.featured_publications} />
-        }
         <Fetch name={`${NAME}.topic.authors`}
+            key={`${match.path}-authors`}
             endpoint="author"
             fetchOnMount={true}
             component={PersonsList}
@@ -103,17 +100,21 @@ export class Topic extends Component {
             }}>
             <Separator text="Topic Experts" />
           </Fetch>
-        <Fetch name={`${NAME}.topic.publications`}
-            endpoint="post"
-            fetchOnMount={true}
-            component={PublicationsList}
-            topic={topic}
-            program={program}
-            initialQuery={{
-              page_size: 4,
-              topic_id: topic.id,
-              image_rendition: 'fill-300x230'
-            }}/>
+          {topic.featured_publications.length > 0 &&
+            <Featured publications={topic.featured_publications} />
+          }
+          <Fetch name={`${NAME}.topic.publications`}
+              key={`${match.path}-pubs`}
+              endpoint="post"
+              fetchOnMount={true}
+              component={PublicationsList}
+              topic={topic}
+              program={program}
+              initialQuery={{
+                page_size: 4,
+                topic_id: topic.id,
+                image_rendition: 'fill-300x230'
+              }}/>
       </div>
     );
   }
