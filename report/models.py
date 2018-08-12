@@ -65,7 +65,7 @@ class Report(Post):
     revising = False
 
     endnotes = StreamField([
-        ('endnote', EndnoteBlock(required=False)),
+        ('endnote', EndnoteBlock(required=False, null=True)),
     ], null=True, blank=True)
 
     report_url = StreamField([
