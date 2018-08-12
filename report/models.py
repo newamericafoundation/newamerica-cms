@@ -131,7 +131,7 @@ class Report(Post):
     def get_context(self, request):
         context = super().get_context(request)
 
-        if request.is_preview:
+        if getattr(request, 'is_preview', False):
             import newamericadotorg.api.report
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
             report_data = newamericadotorg.api.report.serializers.ReportDetailSerializer(revision).data
