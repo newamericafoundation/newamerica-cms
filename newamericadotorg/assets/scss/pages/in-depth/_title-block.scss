@@ -25,7 +25,7 @@
 
         &.has-logo {
            @include media-breakpoint(tablet) {
-              width: calc(100% - #{$logo-width} - #{25px});
+              width: calc(100% - #{$logo-width} - #{50px});
            }
         }
     }
