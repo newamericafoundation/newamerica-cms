@@ -139,9 +139,3 @@ class AuthorAPITests(APITestCase):
         result = self.client.get(url)
 
         self.assertEquals(result.json()['count'], 1)
-
-    def test_get_fellows_by_year(self):
-        url = '/api/fellow/?fellowship_year=2010'
-        result = self.client.get(url)
-
-        self.assertEquals(result.json()['count'], 0)

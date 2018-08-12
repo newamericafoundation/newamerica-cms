@@ -100,7 +100,6 @@ class FellowList(ListAPIView):
         queryset = Person.objects.live().order_by('sort_priority', 'last_name')
         program_id = self.request.query_params.get('program_id', None)
         subprogram_id = self.request.query_params.get('subprogram_id', None)
-        fellowship_year = self.request.query_params.get('fellowship_year', None)
         topic_id = self.request.query_params.get('topic_id', None)
         former = strtobool(self.request.query_params.get('former', 'false'))
         rel_former = 'Former Fellows' if former else 'Current Fellows'

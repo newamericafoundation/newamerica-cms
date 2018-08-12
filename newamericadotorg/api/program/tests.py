@@ -96,7 +96,7 @@ class ProgramAPITests(APITestCase):
         self.assertEqual(data['title'], self.program.title)
         self.assertEqual(data['about']['subpages'][0]['slug'], 'subpage')
         self.assertEqual(data['subprograms'][0]['title'], self.subprogram.title)
-        self.assertEqual(data['story_grid'][0]['title'], self.program_posts[0].title)
+        self.assertEqual(data['story_grid']['pages'][0]['title'], self.program_posts[0].title)
         self.assertEqual(data['content_types'][0]['api_name'], 'blogpost')
         self.assertEqual(data['subscriptions'][0]['title'], 'Sub Segment')
         # only retrieves subpages that are not Content pages
@@ -123,10 +123,10 @@ class ProgramAPITests(APITestCase):
         url = '/api/subprogram/%s/' % self.subprogram.id
         response = self.client.get(url)
         data = response.json()
-        
+
         self.assertEqual(data['title'], self.subprogram.title)
         self.assertEqual(data['about']['subpages'][0]['slug'], 'subpage')
-        self.assertEqual(data['story_grid'][0]['title'], self.program_posts[1].title)
+        self.assertEqual(data['story_grid']['pages'][0]['title'], self.program_posts[1].title)
         self.assertEqual(data['subscriptions'][0]['title'], 'Sub Segment')
         # only retrieves subpages that are not Content pages
         # so should only return About Home Page
