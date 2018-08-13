@@ -31,7 +31,7 @@ const isValidBrowser = browser.satisfies({
 const AboutCard = ({ program }) => (
   <PromoMd title="About" link={{ to: 'about', label: 'Read More'}}>
     <h2 className="margin-25">
-      <span className="desktop-about-text">{program.description}</span>
+      <span className="desktop-about-text" style={{whiteSpace: 'nowrap'}} dangerouslySetInnerHTML={{ __html: manualBreaks24(program.description).text}}/>
       <span className="tablet-about-text">
         {program.description.length > 270 ? program.description.slice(0,270) + ' ...' : program.description}
       </span>
@@ -106,7 +106,7 @@ class MoreStories extends Component {
 
     switch(item){
       case 'about':
-        let aboutSpan = program.description.length / 24 * 30.5 + 75;
+        let aboutSpan = (manualBreaks24(program.description).lines * 30) + 152;
         aboutSpan = Math.max(400,Math.round(aboutSpan))
         aboutSpan = Math.round(aboutSpan/rowHeight) + padding;
         return (
@@ -202,5 +202,30 @@ export default class StoryGrid extends Component {
         </div>
       </div>
     );
+  }
+}
+
+function manualBreaks24(text){
+  let limit = window.innerWidth > 1125 ? 30 : 26;
+  let len = text.length;
+  let t = text.split('');
+  let _t = [...t];
+  let lastSpace = 0;
+  let j = 1;
+  let lines = 1;
+  for(let i=1; i<t.length; i++){
+    if(t[i]===' ') lastSpace = i;
+    if(j%limit === 0){
+      _t[lastSpace] = '&nbsp;<span class="br"></span>';
+      j = 1;
+      i = lastSpace + 1;
+      lines++;
+    }
+    j++;
+  }
+
+  return {
+    text: _t.join(''),
+    lines
   }
 }
