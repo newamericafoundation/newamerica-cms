@@ -20,10 +20,10 @@
   }
 }
 
-.figure__image{
+.figure__image, .na-dataviz{
   width: 100%;
 
-  &.width-200 {
+  &.width-200, &.full-width {
      width: 100vw;
      margin-left: calc(-50vw + 50%);
   }

@@ -9,40 +9,42 @@ h2 + .report__body__section__article .block-paragraph:first-child .rich-text:fir
 }
 
 .post_body, .report__body{
-  h2 {
-    font-size: 1.875rem;
-    max-width: 90%;
-    @include media-breakpoint(desktop){
+  .block-paragraph, .block-heading{
+    h2 {
+      font-size: 1.875rem;
+      max-width: 90%;
+      @include media-breakpoint(desktop){
+        max-width: 80%;
+      }
+    }
+
+    h3 {
+      margin-top: 50px;
+      max-width: 90%;
+      @include media-breakpoint(desktop){
+        max-width: 80%;
+      }
+    }
+
+    h4 {
+      margin-top: 25px;
+      font-size: 0.9375rem;
       max-width: 80%;
+      @include media-breakpoint(desktop){
+        max-width: 60%;
+      }
     }
-  }
 
-  h3 {
-    margin-top: 50px;
-    max-width: 90%;
-    @include media-breakpoint(desktop){
-      max-width: 80%;
-    }
-  }
-
-  h4 {
-    margin-top: 25px;
-    font-size: 0.9375rem;
-    max-width: 80%;
-    @include media-breakpoint(desktop){
-      max-width: 60%;
-    }
-  }
-
-  h5 {
-    margin-top: 25px;
-    font-size: 0.75rem;
-    letter-spacing: 0.046875rem;
-    max-width: 75%;
-    text-transform: uppercase;
-    max-width: 90%;
-    @include media-breakpoint(desktop){
+    h5 {
+      margin-top: 25px;
+      font-size: 0.75rem;
+      letter-spacing: 0.046875rem;
       max-width: 75%;
+      text-transform: uppercase;
+      max-width: 90%;
+      @include media-breakpoint(desktop){
+        max-width: 75%;
+      }
     }
   }
 }
