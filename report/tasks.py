@@ -17,7 +17,7 @@ def generate_pdf(report_id):
     revision = PageRevision.objects.filter(page=report).last().as_page_object()
     contents = generate_report_contents(revision)
     authors = get_report_authors(revision)
-    html = loader.get_template('report/pdf.html').render({ 'page': revision, 'contents': contents, 'authors': authors })
+    html = loader.get_template('report/pdf.html').render({ 'page': revision, 'contents': contents, 'authors': authors, 'report': report })
 
     pdf = HTML(string=html, encoding='utf-8').write_pdf()
     content = ContentFile(pdf)

@@ -80,7 +80,7 @@
           We are dedicated to renewing America by continuing the quest to realize our nation’s highest ideals, honestly confronting the challenges caused by rapid technological and social change, and seizing the opportunities those changes create.
         </div>
       </div>
-      {% for p in page.parent_programs.all %}
+      {% for p in report.parent_programs.all %}
         <div class="about-page__section">
           <h2>About {{p.program.title}}</h2>
           <div class="contents__list__item bottom-margin">
@@ -88,7 +88,7 @@
           </div>
         </div>
       {% endfor %}
-      {% for p in page.post_subprogram.all %}
+      {% for p in report.post_subprogram.all %}
         <div class="about-page__section">
           <h2>About {{p.subprogram.title}}</h2>
           <div class="contents__list__item bottom-margin">
