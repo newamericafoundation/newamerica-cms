@@ -14,7 +14,7 @@ def debug(request):
     username = None
     is_down = cache.get('is_down', None)
     if is_down is None:
-        is_down = HomePage.objects.get().down_for_maintenance
+        is_down = HomePage.objects.first().down_for_maintenance
         cache.set('is_down', is_down, 15)
 
     if request.user.is_authenticated():
