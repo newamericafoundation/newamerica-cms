@@ -110,7 +110,7 @@ class Routes extends Component {
 
   render(){
     let { response: { results }} = this.props;
-
+    if(!results) return null;
     return (
       <GARouter>
         <Switch>
