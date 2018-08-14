@@ -4,8 +4,6 @@ import { CheckBox, Text } from '../../components/Inputs';
 import { BASEURL } from '../../api/constants';
 import Recaptcha from 'react-recaptcha';
 
-
-
 const ConfirmationList = ({ subscriptions }) => (
     <ul>
       {subscriptions.map((s,i)=>(
