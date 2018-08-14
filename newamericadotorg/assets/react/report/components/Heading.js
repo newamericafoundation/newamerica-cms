@@ -17,9 +17,9 @@ class Heading extends Component {
               <h4 className="centered margin-top-10 margin-bottom-25">Report</h4>
             </div>
             <div className='report__heading__programs centered'>
-              <h5 className="inline">
+              {report.programs.length > 0 && <h5 className="inline">
                 <a href={report.programs[0].url}>{report.programs[0].name}</a>
-              </h5>
+              </h5>}
               {report.subprograms.length>0 && <h5 className="inline">
                 ,&nbsp;
                 <a className="" href={report.subprograms[0].url}>

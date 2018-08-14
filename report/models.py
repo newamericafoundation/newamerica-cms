@@ -154,10 +154,6 @@ class Report(Post):
         if not self.revising and self.generate_pdf_on_publish:
             generate_pdf.apply_async(args=(self.id,))
 
-
-
-
-
     class Meta:
         verbose_name = 'Report'
 
