@@ -47,6 +47,8 @@
     max-width: 85%;
     position: absolute;
     right: 22.5px;
+    white-space: nowrap;
+    margin-top: type-adjusted-padding(0px);
     overflow: hidden;
     @include vertical-center;
   }
