@@ -7,7 +7,7 @@ export default class ImageAside extends Panel {
   render(){
     let { data, grayscale } = this.props;
     return (
-      <section className="home__panel__image-aside padding-110 scroll-target" data-scroll-trigger-point="bottom" data-scroll-offset="10vh">
+      <section className="home__panel__image-aside padding-110 scroll-target" data-scroll-trigger-point="bottom" data-scroll-offset="-10vh">
         <div className="container--1080">
           <div className="row gutter-20">
             <div className="col-md-6 home__panel__image-aside__image margin-bottom-35">
