@@ -54,7 +54,7 @@ class Report extends Component {
     });
     this.anchorTag();
     // react-router shim for oti colors
-    if(his.props.report.programs.length > 0){
+    if(this.props.report.programs.length > 0){
       if(this.props.report.programs[0].slug == 'oti') document.body.classList.add('oti');
     }
   }
