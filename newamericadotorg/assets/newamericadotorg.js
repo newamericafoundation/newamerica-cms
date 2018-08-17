@@ -1,20 +1,41 @@
 import './scss/critical.scss';
 import './scss/index.scss';
-//import(/* webpackChunkName: "na-page-styles" */ '../scss/newamericadotorg.scss');
 
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import 'url-polyfill';
-// import 'url-search-params-polyfill';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as ReactRedux from 'react-redux';
+import * as Redux from 'redux';
+
+window.React = React;
+window.ReactDOM = ReactDOM;
+window.ReactRedux = ReactRedux;
+window.Redux = Redux;
 
 import reactRenderer from './react/react-renderer';
 import actions from './react/actions';
 import cache from './react/cache';
 import setMeta from './react/setMeta';
-
 import addEventListeners from './lib/add-event-listeners';
 import addObservers from './lib/add-observers';
 import mobileMenu from './react/mobile-menu/index';
+import Fetch from './react/api/components/Fetch';
+import Response from './react/api/components/Response';
+
+const _Fetch = (props) => (
+  <ReactRedux.Provider store={store}>
+    <Fetch {...props} />
+  </ReactRedux.Provider>
+);
+
+const _Response = (props) => (
+  <ReactRedux.Provider store={store}>
+    <Response {...props} />
+  </ReactRedux.Provider>
+);
 
 // initialize on ready
 if(document.readyState != 'loading') init();
@@ -23,7 +44,9 @@ else document.addEventListener('DOMContentLoaded', init);
 window.newamericadotorg = {
   react: reactRenderer,
   actions,
-  cache
+  cache,
+  Fetch: _Fetch,
+  Response: _Response
 };
 
 function init(){
