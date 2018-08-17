@@ -127,6 +127,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'newamericadotorg.wsgi.application'
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_URLS_REGEX = r'^/api/.*$'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
