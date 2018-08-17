@@ -11,10 +11,11 @@ class Fetch extends Component {
   componentWillMount(){
     let {
       setEndpoint, resetQuery, receiveResults, endpoint,
-      initialQuery, clear, fetchData, fetchOnMount
+      initialQuery, clear, fetchData, fetchOnMount, setBase, baseUrl
     } = this.props;
 
     setEndpoint(endpoint);
+    if(baseUrl) setBase(baseUrl);
     resetQuery(initialQuery);
 
     if(clear){

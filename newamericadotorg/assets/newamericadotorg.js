@@ -10,6 +10,7 @@ import 'url-polyfill';
 import reactRenderer from './react/react-renderer';
 import actions from './react/actions';
 import cache from './react/cache';
+import setMeta from './react/setMeta';
 
 import addEventListeners from './lib/add-event-listeners';
 import addObservers from './lib/add-observers';
@@ -26,6 +27,7 @@ window.newamericadotorg = {
 };
 
 function init(){
+  setMeta();
   reactRenderer.add(mobileMenu);
   importPageComponents();
   addEventListeners();

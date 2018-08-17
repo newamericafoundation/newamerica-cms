@@ -20,6 +20,7 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
+    'corsheaders',
     'home',
     'search',
     'programs',
@@ -124,6 +125,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'newamericadotorg.wsgi.application'
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

@@ -146,7 +146,9 @@ export const fetchData = (component, callback=()=>{}, operation='replace', tries
   dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: true });
 
   return fetch(url.toString(), {
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
     }).then(response => {
       if (!response.ok) {
         throw Error(response.statusText);

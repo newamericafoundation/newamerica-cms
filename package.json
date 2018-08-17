@@ -9,10 +9,12 @@
   },
   "scripts": {
     "start": "source .env && source venv/bin/activate && ./manage.py runserver",
+    "start:lite": "webpack-dev-server --config ./webpack.config.lite.js --mode development",
     "build": "NODE_ENV=development webpack",
     "dev": "source .env && NODE_ENV=development webpack --watch",
     "open": "open https://localhost:8000/",
     "test": "jest",
+    "build:lite": "NODE_ENV=production webpack --config webpack.config.lite.js",
     "build:production": "NODE_ENV=production webpack",
     "heroku-postbuild": "npm run build:production",
     "brew": "brew install cairo && brew install pango && brew install gdk-pixbuf && brew install redis",
@@ -93,6 +95,7 @@
     "watch": "^1.0.2",
     "webpack": "^4.16.3",
     "webpack-babel-external-helpers-2": "^4.0.0",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
   }
 }

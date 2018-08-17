@@ -30,7 +30,7 @@ drf-nested-routers==0.9.0
 elasticsearch==2.4
 elasticutils==0.8.2
 Embedly==0.5.0
-factory-boy==2.4.1
+factory-boy==2.11.1
 fake-factory==0.4.2
 flake8==2.5.4
 futures==3.0.5
@@ -110,3 +110,4 @@ redis==2.10.6
 djangorestframework<4.0,>=3.7.4
 six<2.0,>=1.11
 newrelic==4.2.0.100
+django-cors-headers==2.4.0
