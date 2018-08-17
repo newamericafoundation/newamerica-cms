@@ -3,7 +3,7 @@ import './scss/base/critical.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as ReactRedux from 'react-redux';
-import Redux from 'redux';
+import * as Redux from 'redux';
 
 window.React = React;
 window.ReactDOM = ReactDOM;
