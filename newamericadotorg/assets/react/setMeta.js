@@ -1,5 +1,6 @@
 import store from './store';
 import cache from './cache';
+import { fetchData, setParams } from './api/actions';
 
 const setMeta = () => {
   store.dispatch(setParams('meta', { endpoint: 'meta' } ));

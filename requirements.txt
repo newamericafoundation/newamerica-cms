@@ -91,7 +91,6 @@ Werkzeug==0.10.1
 whitenoise==3.0
 Wand==0.4.4
 logdna==1.0.2
-django-cors-headers==1.2.2
 django-anymail==0.10
 createsend==4.2.7
 python-docx==0.8.6
