@@ -34,7 +34,7 @@ const _Response = (props) => (
 window.newamericadotorg = {
   init: function(settings={ baseUrl: undefined }){
     if(settings.baseUrl)
-      store.dispatch({ component: 'site', type: 'SET_SITE_BASEURL', url: baseUrl });
+      store.dispatch({ component: 'site', type: 'SET_SITE_BASEURL', url: settings.baseUrl });
 
     addEventListeners();
     addObservers();
