@@ -63,18 +63,24 @@ class ReportDetailSerializer(PostSerializer):
             return None
         sections = []
         for i,s in enumerate(obj.sections):
+            slug = slugify(s.value['title'])
             section = {
                 'title': s.value['title'],
                 'number': i+1,
-                'slug': slugify(s.value['title']),
+                'slug': slug,
                 'body': s.render(),
-                'subsections': []
+                'subsections': [],
+                'interactive': False,
+                'url': obj.url + slug
             }
+            if 'dataviz' in section['body']: section['interactive'] = True
             for block in s.value['body']:
                 if block.block_type == 'heading':
+                    sub_slug = slugify(block.value)
                     section['subsections'].append({
                         'title': block.value,
-                        'slug': slugify(block.value)
+                        'slug': sub_slug,
+                        'url': obj.url + slug + '/#' + sub_slug
                     })
             sections.append(section)
         if obj.acknowledgements:
@@ -83,6 +89,7 @@ class ReportDetailSerializer(PostSerializer):
                 'number': len(sections)+1,
                 'slug': 'acknowledgments',
                 'body': obj.acknowledgements,
-                'subsections': []
+                'subsections': [],
+                'url': obj.url + 'acknowledgments'
             })
         return sections

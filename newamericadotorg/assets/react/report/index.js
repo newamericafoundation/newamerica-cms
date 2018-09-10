@@ -10,6 +10,7 @@ import TopNav from './components/TopNav';
 import BottomNav from './components/BottomNav';
 import store from '../store';
 import { setResponse } from '../api/actions';
+import ContentMenu from './components/ContentMenu';
 
 class Report extends Component {
   state = { menuOpen: false }
@@ -90,6 +91,11 @@ class Report extends Component {
             menuOpen={this.state.menuOpen} />
             {showHeading &&
               <Heading report={report}/>
+            }
+            {showMenu &&
+              <div className="container margin-top-90">
+                <ContentMenu report={report}/>
+              </div>
             }
             {showBody && <Body section={section}
               report={report}

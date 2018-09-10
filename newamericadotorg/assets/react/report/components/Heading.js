@@ -26,7 +26,7 @@ class Heading extends Component {
             {authors.map((a,i)=>(
               <React.Fragment key={`author-${i}`}>
                 <h6 className="margin-0 centered inline">
-                  <Link to={a.url}>{a.first_name}&nbsp;{a.last_name}</Link>
+                  <a href={a.url}>{a.first_name}&nbsp;{a.last_name}</a>
                 </h6>
                 {(authors.length > 2 && i < authors.length-2) && ', '}
                 {(authors.length==2 && i === 0) && ' and '}
@@ -37,7 +37,7 @@ class Heading extends Component {
           <div className='report__heading__programs'>
             {report.programs.map((p,i)=>(
               <h5 className="margin-0 centered" key={`program-${i}`}>
-                <Link to={p.url}>{p.name}</Link>
+                <a href={p.url}>{p.name}</a>
               </h5>
             ))}
           </div>
