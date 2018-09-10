@@ -112,27 +112,15 @@ class Body extends Component {
     let { authors, endnotes, date, url, report_pdf, title } = report;
     let { endnote, top } = this.state;
     return (
-      <div className="container margin-top-35 margin-top-lg-80" onClick={closeMenu} ref={(el)=>{this.el = el; }}>
-      <div className={"report__body row gutter-30 " + (endnote ? 'endnote-active' : '')}>
-        <div className="report__body__aside col-11 col-md-6 col-lg-2 push-lg-10">
-          <div className="post-aside-wrapper">
-            <Authors authors={authors} />
-          </div>
-        </div>
-        <div className={"report__body__aside col-6 col-md-6 col-lg-2 pull-lg-2"}>
-          <div className="post-aside-wrapper">
-            <Social url={url} report_pdf={report_pdf} title={title}/>
-            <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
-          </div>
-        </div>
-        <div className="report__body__section col-12 col-lg-8 pull-lg-2 margin-top-35 margin-top-lg-0">
+      <div className={`container ${endnote ? 'endnote-active' : ''}`} onClick={closeMenu} ref={(el)=>{this.el = el; }} style={{ position: 'relative' }}>
+        <div className="report__body">
           <div className="post-body-wrapper">
             {section.number==1 && <h6 className="report__body__section__date margin-top-0 margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</h6>}
             <h2 className="margin-top-0">{section.title}</h2>
-            <article className="report__body__section__article" dangerouslySetInnerHTML={{__html: section.body}} />
+            <div className="report__body__article" dangerouslySetInnerHTML={{__html: section.body}} />
           </div>
         </div>
-      </div>
+        <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
       </div>
     );
   }
