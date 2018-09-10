@@ -1,10 +1,11 @@
-.report__heading__title{
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 350px;
-  @include media-breakpoint(desktop){
-    max-width: 475px;
-  }
+.report__heading {
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+
+.report__heading__authors{
+  max-width: 200px;
+  margin: 0 auto;
 }
 
 .report__heading__image{
@@ -28,4 +29,21 @@
 .report__heading__image .card__image__background{
   padding-bottom: 45%;
   position: static;
+}
+
+.report__heading__programs{
+  margin-top: 20px;
+  padding-top: 20px;
+  position: relative;
+
+  &:before{
+      content: '';
+      height: 2px;
+      width: 50px;
+      background: color(black);
+      position: absolute;
+      @include horizontal-center;
+      top: 0;
+      display: block;
+  }
 }

@@ -106,6 +106,10 @@ h6 {
     font-family: $paragraph-font-family;
   }
 
+  &.subtitle {
+    font-size: 22px;
+  }
+
   &.caption {
     font-style: italic;
   }
