@@ -37,6 +37,8 @@
   background-color: color(black);
   @include transition(background-color 0.15s ease);
   position: relative;
+  cursor: pointer;
+
   &:hover{
     background-color: color(turquoise);
   }
@@ -44,6 +46,23 @@
     position: absolute;
     @include center;
   }
+
+  &.white {
+    background-color: color(white);
+  }
+
+  &.gray {
+    background-color: color(gray);
+  }
+
+  &.gray, &.white {
+    color: color(black);
+
+    &:hover {
+      color: color(white);
+    }
+  }
+  
 }
 
 a:hover > .fa.circle {

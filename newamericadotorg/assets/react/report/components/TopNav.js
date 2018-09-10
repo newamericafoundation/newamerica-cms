@@ -10,25 +10,23 @@ class TopNav extends Component {
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
     return (
-      <div className="report__top-nav scroll-target" data-scroll-offset="200%">
-        <div className="report__top-nav__sticky-wrapper">
+      <div className="report__top-nav">
         <div className="container">
-          <div className={`row gutter-45${menuOpen ? ' menu-open' : ''}`}>
-            <div className="report__top-nav__contents col-5 col-md-2">
-              <div className={`report__top-nav__contents__menu-wrapper`}>
-                <div className="report__top-nav__contents__button" onClick={toggleMenu}>
-                  <a className={`button--text border-0 white with-caret--${menuOpen ? 'up' : 'down' }`}>Contents</a>
-                </div>
-                <ContentMenu {...this.props} activeSection={section}/>
+          <div className="row">
+            <div className="col-4 report__top-nav__left">
+              <a href="/"><div className="logo white" /></a>
+            </div>
+            <div className="col-8 report__top-nav__right">
+              <h4 className="white margin-0 report__top-nav__title"><Link to={report.url}>{report.title}</Link></h4>
+              <div className="report__top-nav__icon">
+                <i className="fa fa-paperclip circle gray" />
               </div>
-          </div>
-            <div className="report__top-nav__title col-7 col-md-10">
-              <div className="report__top-nav__title__wrapper">
-                <h4 className="white margin-0 inline">{report.title}</h4>
+              <div className="report__top-nav__icon">
+                <i className="fa fa-twitter circle gray" style={{ marginRight: '20px' }}/>
+                <i className="fa fa-facebook circle gray" />
               </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     )
