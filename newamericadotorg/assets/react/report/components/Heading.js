@@ -24,8 +24,8 @@ class Heading extends Component {
           </div>
           <div className='report__heading__authors centered'>
             {authors.map((a,i)=>(
-              <React.Fragment>
-                <h6 className="margin-0 centered inline" key={`author-${i}`}>
+              <React.Fragment key={`author-${i}`}>
+                <h6 className="margin-0 centered inline">
                   <Link to={a.url}>{a.first_name}&nbsp;{a.last_name}</Link>
                 </h6>
                 {(authors.length > 2 && i < authors.length-2) && ', '}

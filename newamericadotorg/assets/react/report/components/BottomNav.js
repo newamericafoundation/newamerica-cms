@@ -7,6 +7,7 @@ class BottomNav extends Component {
 
   render(){
     let { section, report } = this.props;
+    if(!section) section = { number: 0 };
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
 
@@ -16,6 +17,11 @@ class BottomNav extends Component {
         {previous &&
           <div className="report__bottom-nav__button previous">
             <Link to={`${report.url}${previous.slug}/`} className="button with-caret--left">Prev. Section</Link>
+          </div>
+        }
+        {section.number === 1 &&
+          <div className="report__bottom-nav__button previous">
+            <Link to={`${report.url}`} className="button with-caret--left">Home</Link>
           </div>
         }
         {next &&
