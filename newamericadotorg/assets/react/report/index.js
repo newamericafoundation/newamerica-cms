@@ -94,7 +94,7 @@ class Report extends Component {
               <Heading report={report}/>
             }
             {showMenu &&
-              <div className="container margin-top-90">
+              <div className="container margin-90">
                 <ContentMenu report={report}/>
               </div>
             }
