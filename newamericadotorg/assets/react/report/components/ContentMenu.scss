@@ -23,10 +23,13 @@
   border-top: 1px solid color(gray);
   overflow: hidden;
   cursor: pointer;
+  position: relative;
 
   h4 {
     white-space: normal;
-    padding-right: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 90px;
   }
 
   .interactive-div{
@@ -35,7 +38,6 @@
     margin-right: 15px;
     width: 16px;
     @include transition(all 0.3s ease);
-    position: relative;
     white-space: normal;
     i {
       color: color(black); z-index: 1; position: relative;
@@ -51,7 +53,7 @@
       left: -25px;
       top: -27px;
       height: calc(100% + 52px);
-      width: 100%;
+      width: 0;
       overflow: hidden;
       visibility: hidden;
       opacity: 0;
@@ -72,7 +74,8 @@
       h6 {
         font-size: 14px;
         position: absolute;
-        top: -13px;
+        margin: 0;
+        top: calc(50% - 20px);
         right: 25px;
         width: 150px;
       }
@@ -80,8 +83,6 @@
   }
 
   .col-11 a{
-    padding-top: 25px;
-    padding-bottom: 25px;
     padding-left: 25px;
     display: block;
     white-space: nowrap;
@@ -98,7 +99,7 @@
           visibility: visible;
           overflow: visible;
           opacity: 1;
-          width: 100%;
+          width: 275px;
         }
       }
     }
