@@ -17,7 +17,9 @@ class TopNav extends Component {
               <a href="/"><div className="logo white" /></a>
             </div>
             <div className="col-8 report__top-nav__right">
-              <h4 className="white margin-0 report__top-nav__title"><Link to={report.url}>{report.title}</Link></h4>
+              <h4 className="white margin-0 report__top-nav__title">
+                <Link to={report.url} onClick={closeMenu}>{report.title}</Link>
+              </h4>
               <div className="report__top-nav__icon">
                 <i className="fa fa-paperclip circle gray" />
               </div>

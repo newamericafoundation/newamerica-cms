@@ -1,0 +1,89 @@
+.report__overlay{
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  max-width: 500px;
+  z-index: 600;
+  padding-top: 65px;
+  background: color(white);
+  top: 0;
+  left: 0;
+  @include transition(all 0.35s ease);
+  @include transform(translateX(-100%));
+
+  &__menu-wrapper{
+    overflow: scroll;
+    height: calc(100vh - 65px);
+  }
+
+  &__header{
+    position: absolute;
+    width: 100%;
+    height: 66px;
+    z-index: 5;
+    background: color(white);
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid #dedede;
+
+    .icon-plus {
+      cursor: pointer;
+      position: absolute;
+      right: 25px;
+      top: 25px;
+    }
+  }
+
+  &.open {
+    @include transform(translateX(0%));
+  }
+}
+
+.report__grey-out.active{
+  top: 0;
+  left: 0;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 200;
+  background: color(black, base, 0.3);
+}
+
+.menu-button {
+  position: fixed;
+  top: 85px;
+  left: 15px;
+  z-index: 500;
+  cursor: pointer;
+
+  @include breakpoint(1200px){
+    left: calc(50vw - 600px + 15px);
+  }
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    background: #D5D5D5;
+    position: relative;
+    margin-right: 15px;
+    @include transition(all 0.15s ease);
+
+    &:before{
+      position: absolute;
+      @include center;
+    }
+  }
+
+  &:hover i{
+    background: color(black);
+    color: color(white);
+  }
+
+  h5 {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

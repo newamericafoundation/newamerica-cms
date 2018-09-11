@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PlusX } from '../../components/Icons';
 
-const Subsection = ({ section, url }) => (
+const Subsection = ({ section, url, closeMenu }) => (
   <div className="report__menu__subsection">
-    <h6 className="margin-0"><Link to={section.url}>{section.title}</Link></h6>
+    <h6 className="margin-0"><Link to={section.url} onClick={closeMenu}>{section.title}</Link></h6>
   </div>
 );
 
@@ -26,16 +26,16 @@ const DownArrow = () => (
   </div>
 )
 
-const Section = ({ section, expanded, expand }) => (
+const Section = ({ section, expanded, expand, closeMenu }) => (
     <div className={`report__menu__section ${expanded ? 'expanded' : ''}`}>
       <div className="report__menu__section__title row gutter-0">
         <div className="col-11">
-          <Link to={section.url}>
+          <Link to={section.url} onClick={closeMenu}>
             {section.interactive && <InteractiveDiv /> }
             <h4 className="inline-block margin-0">{section.title}</h4>
           </Link>
         </div>
-        <div className="col-1" onClick={() => expand(section.slug) } style={{ background: '#fff'}}>
+        <div className="col-1" onClick={() => expand(section.slug) } style={{ background: '#fff', paddingRight: '25px' }}>
           {section.subsections.length > 0 && <DownArrow />}
         </div>
       </div>
@@ -44,7 +44,7 @@ const Section = ({ section, expanded, expand }) => (
           { maxHeight: expanded ? (section.subsections.length * 100) + 'px' : 0 }
         }>
           {section.subsections.map((s,i)=>(
-            <Subsection section={s} key={`sub-${i}`} />
+            <Subsection section={s} key={`sub-${i}`} closeMenu={closeMenu} />
           ))}
         </div>
       }
@@ -65,7 +65,7 @@ class ContentMenu extends Component {
 
   expand = (title) => {
     let i = this.state.expanded.indexOf(title);
-    console.log(i);
+
     if(i === -1) {
       this.setState({
         expanded: [...this.state.expanded, title]
@@ -88,11 +88,15 @@ class ContentMenu extends Component {
   }
 
   render(){
-    let { report: { url, sections }, activeSection } = this.props;
+    let { report: { url, sections }, activeSection, closeMenu } = this.props;
     return (
       <div className="report__content-menu">
         {sections.map((s,i)=>(
-          <Section section={s} key={`section-${i}`} expand={this.expand} expanded={this.state.expanded.indexOf(s.slug) !== -1}/>
+          <Section section={s}
+            key={`section-${i}`}
+            expand={this.expand}
+            expanded={this.state.expanded.indexOf(s.slug) !== -1}
+            closeMenu={closeMenu}/>
         ))}
       </div>
     );

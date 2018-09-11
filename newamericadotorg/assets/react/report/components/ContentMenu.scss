@@ -21,9 +21,13 @@
 
 .report__menu__section__title{
   border-top: 1px solid color(gray);
-  padding-right: 25px;
   overflow: hidden;
   cursor: pointer;
+
+  h4 {
+    white-space: normal;
+    padding-right: 15px;
+  }
 
   .interactive-div{
     display: inline-block;
@@ -32,6 +36,7 @@
     width: 16px;
     @include transition(all 0.3s ease);
     position: relative;
+    white-space: normal;
     i {
       color: color(black); z-index: 1; position: relative;
       background: color(white);
@@ -79,6 +84,7 @@
     padding-bottom: 25px;
     padding-left: 25px;
     display: block;
+    white-space: nowrap;
     box-shadow: inset 0px 0 0 0 color(black);
     @include transition(box-shadow 0.15s ease);
     &:hover{
@@ -122,6 +128,7 @@
   top: calc(50% - 8px);
   float: right;
   height: 16px;
+  background: color(white);
   width: 16px;
   border: 1px solid color(black);
   border-radius: 16px;

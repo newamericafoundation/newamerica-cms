@@ -11,6 +11,7 @@ import BottomNav from './components/BottomNav';
 import store from '../store';
 import { setResponse } from '../api/actions';
 import ContentMenu from './components/ContentMenu';
+import OverlayMenu from './components/OverlayMenu';
 
 class Report extends Component {
   state = { menuOpen: false }
@@ -80,6 +81,7 @@ class Report extends Component {
     let showHeading = !section || report.sections.length===1;
     let showMenu = !section && report.sections.length > 1;
     let showBody = section || (!section && report.sections.length===1);
+    let showOverlay = !!section;
     let showNav = report.sections.length > 1;
     return (
       <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
@@ -102,6 +104,19 @@ class Report extends Component {
               dispatch={this.props.dispatch}
               location={location}
               closeMenu={this.closeMenu}/>
+            }
+          {showOverlay &&
+            <React.Fragment>
+              <div className="menu-button" >
+                <div onClick={this.openMenu}>
+                  <i className="fa fa-bars" />
+                  <h5 className="margin-0">Contents</h5>
+                </div>
+              </div>
+              <OverlayMenu report={report} open={this.state.menuOpen} closeMenu={this.closeMenu}>
+                <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu}/>
+              </OverlayMenu>
+            </React.Fragment>
             }
           {showNav && <BottomNav section={section} report={report} />}
         </div>

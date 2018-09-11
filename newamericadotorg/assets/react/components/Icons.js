@@ -18,8 +18,8 @@ export const Doc = (props) => (
   </div>
 );
 
-export const PlusX = ({x, white, ...props}) => (
-  <div className={`icon-plus${x ? ' x' : ''}${white ? ' white' : ''}`} {...props}>
+export const PlusX = ({x, white, large, ...props}) => (
+  <div className={`icon-plus${x ? ' x' : ''}${white ? ' white' : ''}${ large ? ' lg' : ''}`} {...props}>
     <div />
     <div />
   </div>
