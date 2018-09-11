@@ -6,7 +6,7 @@ import ContentMenu from './ContentMenu';
 
 class TopNav extends Component {
   render(){
-    let { section, report, openMenu, closeMenu, toggleMenu, menuOpen } = this.props;
+    let { section, report, openMenu, closeMenu, toggleMenu, menuOpen, showAttachments } = this.props;
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
     return (
@@ -21,7 +21,10 @@ class TopNav extends Component {
                 <Link to={report.url} onClick={closeMenu}>{report.title}</Link>
               </h4>
               {report.attachments.length > 0 &&
-              <div className="report__top-nav__icon attch">
+              <div className="report__top-nav__icon attch" onClick={() => {
+                closeMenu();
+                showAttachments();
+              }}>
                 <i className="fa fa-paperclip circle gray" data-attachments-n={`${report.attachments.length}`}/>
               </div>
               }

@@ -21,7 +21,6 @@ export default class OverlayMenu extends Component {
 
   render(){
     let { children, open, closeMenu, openMenu, contentsPosition } = this.props;
-    console.log(contentsPosition, '<<<')
     return (
       <React.Fragment>
         <div className="menu-button" >

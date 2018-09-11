@@ -12,9 +12,10 @@ import store from '../store';
 import { setResponse } from '../api/actions';
 import ContentMenu from './components/ContentMenu';
 import OverlayMenu from './components/OverlayMenu';
+import Attachments from './components/Attachments';
 
 class Report extends Component {
-  state = { menuOpen: false, contentsPosition: '0%' }
+  state = { menuOpen: false, contentsPosition: '0%', attchsOpen: false }
 
   openMenu = (e) => {
     this.setState({ menuOpen: true });
@@ -22,6 +23,14 @@ class Report extends Component {
 
   closeMenu = (e) => {
     this.setState({ menuOpen: false });
+  }
+
+  showAttachments = () => {
+    this.setState({ attchsOpen: true });
+  }
+
+  hideAttachments = () => {
+    this.setState({ attchsOpen: false });
   }
 
   animateMenu = (position) => {
@@ -96,7 +105,8 @@ class Report extends Component {
           <TopNav section={section} report={report}
             openMenu={this.openMenu}
             closeMenu={this.closeMenu}
-            toggleMenu={this.toggleMenu}
+            showAttachments={this.showAttachments}
+            hideAttachments={this.hideAttachments}
             menuOpen={this.state.menuOpen} />
             {showHeading &&
               <Heading report={report}/>
@@ -122,6 +132,11 @@ class Report extends Component {
             </OverlayMenu>
             }
           {showOverlay && <BottomNav section={section} report={report} />}
+          {report.attachments.length > 0 &&
+            <Attachments attachments={report.attachments}
+              hideAttachments={this.hideAttachments}
+              attchsOpen={this.state.attchsOpen}/>
+          }
         </div>
       </DocumentMeta>
     );
