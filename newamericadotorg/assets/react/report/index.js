@@ -82,7 +82,6 @@ class Report extends Component {
     let showMenu = !section && report.sections.length > 1;
     let showBody = section || (!section && report.sections.length===1);
     let showOverlay = !!section;
-    let showNav = report.sections.length > 1;
     return (
       <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
         <div className='report'>
@@ -118,7 +117,7 @@ class Report extends Component {
               </OverlayMenu>
             </React.Fragment>
             }
-          {showNav && <BottomNav section={section} report={report} />}
+          {showOverlay && <BottomNav section={section} report={report} />}
         </div>
       </DocumentMeta>
     );
