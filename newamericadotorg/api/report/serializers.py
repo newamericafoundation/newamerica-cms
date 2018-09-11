@@ -15,6 +15,7 @@ class ReportDetailSerializer(PostSerializer):
     story_image = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
     report_pdf = SerializerMethodField()
+    attachments = SerializerMethodField()
 
     class Meta:
         model = Report
@@ -22,7 +23,7 @@ class ReportDetailSerializer(PostSerializer):
             'id', 'title', 'subheading', 'date', 'content_type',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
             'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
-            'report_pdf', 'search_description', 'data_project_external_script'
+            'report_pdf', 'search_description', 'data_project_external_script', 'attachments'
         )
 
     def get_report_pdf(self, obj):
@@ -57,6 +58,28 @@ class ReportDetailSerializer(PostSerializer):
                     'note': e.value['note'].source
                 })
             return endnotes
+
+    def get_attachments(self,obj):
+        attchs = []
+        if obj.report_pdf:
+            attchs.append({
+                'title': obj.report_pdf.title,
+                'url': obj.report_pdf.url,
+                'size': obj.report_pdf.file.size / 1000,
+                'type': obj.report_pdf.file_extension
+            })
+
+        if obj.attachment:
+            for att in obj.attachment:
+                attchs.append({
+                    'title': att.value.title,
+                    'url': att.value.url,
+                    'size': att.value.file.size / 1000,
+                    'type': att.value.file_extension
+                })
+        print(attchs)
+        return attchs
+
 
     def get_sections(self, obj):
         if obj.sections is None:

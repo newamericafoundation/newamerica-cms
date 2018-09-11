@@ -65,5 +65,25 @@
   &__icon i {
     display: inline-block;
     vertical-align: middle;
+    position: relative;
+  }
+}
+
+.report__top-nav__icon.attch i{
+  &:after {
+    display: block;
+    content: attr(data-attachments-n);
+    font-family: 'Circular';
+    font-size: 10px;
+    border-radius: 10px;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    padding-top: 4px;
+    font-weight: bold;
+    position: absolute;
+    top: -9px;
+    left: -9px;
+    background: color(turquoise);
   }
 }

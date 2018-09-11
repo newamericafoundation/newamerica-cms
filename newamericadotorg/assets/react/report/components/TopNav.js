@@ -20,9 +20,11 @@ class TopNav extends Component {
               <h4 className="white margin-0 report__top-nav__title">
                 <Link to={report.url} onClick={closeMenu}>{report.title}</Link>
               </h4>
-              <div className="report__top-nav__icon">
-                <i className="fa fa-paperclip circle gray" />
+              {report.attachments.length > 0 &&
+              <div className="report__top-nav__icon attch">
+                <i className="fa fa-paperclip circle gray" data-attachments-n={`${report.attachments.length}`}/>
               </div>
+              }
               <div className="report__top-nav__icon">
                 <i className="fa fa-twitter circle gray" style={{ marginRight: '20px' }}/>
                 <i className="fa fa-facebook circle gray" />
