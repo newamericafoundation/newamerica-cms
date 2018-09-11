@@ -127,6 +127,7 @@ class Report extends Component {
                 open={this.state.menuOpen}
                 openMenu={this.openMenu}
                 closeMenu={this.closeMenu}
+                hideAttachments={this.hideAttachments}
                 contentsPosition={this.state.contentsPosition}>
               <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu}/>
             </OverlayMenu>

@@ -20,11 +20,11 @@ export default class OverlayMenu extends Component {
   }
 
   render(){
-    let { children, open, closeMenu, openMenu, contentsPosition } = this.props;
+    let { children, open, closeMenu, openMenu, contentsPosition, hideAttachments } = this.props;
     return (
       <React.Fragment>
         <div className="menu-button" >
-          <div onClick={openMenu}>
+          <div onClick={() => { hideAttachments(); openMenu() })}>
             <i className="fa fa-bars" />
             <h5 className="margin-0">
               <span style={{ transform: `translateX(${contentsPosition})`}}>
