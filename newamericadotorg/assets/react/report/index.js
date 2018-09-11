@@ -95,7 +95,7 @@ class Report extends Component {
             }
             {showMenu &&
               <div className="container margin-90">
-                <ContentMenu report={report}/>
+                <ContentMenu report={report} closeMenu={this.closeMenu}/>
               </div>
             }
             {showBody && <Body section={section}
@@ -105,17 +105,9 @@ class Report extends Component {
               closeMenu={this.closeMenu}/>
             }
           {showOverlay &&
-            <React.Fragment>
-              <div className="menu-button" >
-                <div onClick={this.openMenu}>
-                  <i className="fa fa-bars" />
-                  <h5 className="margin-0">Contents</h5>
-                </div>
-              </div>
-              <OverlayMenu report={report} open={this.state.menuOpen} closeMenu={this.closeMenu}>
-                <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu}/>
-              </OverlayMenu>
-            </React.Fragment>
+            <OverlayMenu report={report} open={this.state.menuOpen} openMenu={this.openMenu} closeMenu={this.closeMenu}>
+              <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu}/>
+            </OverlayMenu>
             }
           {showOverlay && <BottomNav section={section} report={report} />}
         </div>

@@ -20,9 +20,15 @@ export default class OverlayMenu extends Component {
   }
 
   render(){
-    let { children, open, closeMenu } = this.props;
+    let { children, open, closeMenu, openMenu } = this.props;
     return (
       <React.Fragment>
+        <div className="menu-button" >
+          <div onClick={openMenu}>
+            <i className="fa fa-bars" />
+            <h5 className="margin-0">Contents</h5>
+          </div>
+        </div>
         <div className={`report__grey-out ${open ? 'active' : ''}`} onClick={closeMenu}/>
         <div className={`report__overlay ${open ? 'open' : ''}`}>
           <div className="report__overlay__header">
