@@ -60,9 +60,10 @@
 
     &:hover {
       color: color(white);
+      background-color: color(turquoise);
     }
   }
-  
+
 }
 
 a:hover > .fa.circle {

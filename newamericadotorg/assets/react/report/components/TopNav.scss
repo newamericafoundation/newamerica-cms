@@ -35,6 +35,7 @@
     max-width: 1px;
     display: inline-block;
     white-space: nowrap;
+    padding-left: 1px;
     @include transition(max-width 0.35s ease);
 
     @include media-breakpoint(tablet){
