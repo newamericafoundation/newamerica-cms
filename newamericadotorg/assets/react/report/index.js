@@ -14,7 +14,7 @@ import ContentMenu from './components/ContentMenu';
 import OverlayMenu from './components/OverlayMenu';
 
 class Report extends Component {
-  state = { menuOpen: false }
+  state = { menuOpen: false, contentsPosition: '0%' }
 
   openMenu = (e) => {
     this.setState({ menuOpen: true });
@@ -24,8 +24,8 @@ class Report extends Component {
     this.setState({ menuOpen: false });
   }
 
-  toggleMenu = () => {
-    this.setState({ menuOpen: !this.state.menuOpen });
+  animateMenu = (position) => {
+    this.setState({ contentsPosition: position });
   }
 
   getSection = () => {
@@ -50,6 +50,14 @@ class Report extends Component {
   }
 
   componentDidMount(){
+    newamericadotorg.actions.addScrollEvent({
+      selector: '.report',
+      onTick: (el, dir, prog) => {
+        let pos = prog < 130/el.offsetHeight ? '0%' : (prog > (el.offsetHeight-500)/el.offsetHeight ? '0%' : '-100%');
+        this.animateMenu(pos);
+      }
+    });
+
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',
       component: 'site'
@@ -105,7 +113,11 @@ class Report extends Component {
               closeMenu={this.closeMenu}/>
             }
           {showOverlay &&
-            <OverlayMenu report={report} open={this.state.menuOpen} openMenu={this.openMenu} closeMenu={this.closeMenu}>
+            <OverlayMenu report={report}
+                open={this.state.menuOpen}
+                openMenu={this.openMenu}
+                closeMenu={this.closeMenu}
+                contentsPosition={this.state.contentsPosition}>
               <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu}/>
             </OverlayMenu>
             }
