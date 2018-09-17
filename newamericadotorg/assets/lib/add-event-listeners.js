@@ -70,6 +70,15 @@ let listeners = [
     actions.addScrollEvent({
       selector: '.scroll-target'
     });
+
+    actions.addScrollEvent({
+      selector: '.na-dataviz.lazy',
+      offset: '-350',
+      onEnter: (el) => {
+        if(!el.classList.contains('scroll-triggered') && window.renderDataViz)
+          window.renderDataViz(el);
+      }
+    });
   },
 
   function activeDropdownToggle(){

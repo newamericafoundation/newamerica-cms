@@ -133,7 +133,7 @@ class Report extends Component {
                 <ContentMenu report={report} closeMenu={this.closeMenu}/>
               </div>
             }
-            {showBody && <Body section={section}
+            {showBody && <Body section={section || report.sections[0]}
               report={report}
               dispatch={this.props.dispatch}
               location={location}

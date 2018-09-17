@@ -1,6 +1,7 @@
 import './Body.scss';
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import Social from './Social';
 import Authors from './Authors'
@@ -51,21 +52,10 @@ class Body extends Component {
   //  this.setState({ endnote: null, top: -1000, citeEl: null });
   }
 
-  renderDataViz = (tries=0) => {
-    let viz = document.querySelectorAll('.na-dataviz');
-    if(!viz) return;
-    if(!window.renderDataViz){
-      if(tries<3) setTimeout(()=>{ this.renderDataViz(tries++); }, 500);
-      return;
-    }
-    for(let i=0; i<viz.length; i++){
-      window.renderDataViz(viz[i]);
-    }
-  }
 
   loadScripts = () => {
     let { report, section } = this.props;
-    this.renderDataViz();
+    newamericadotorg.renderDataViz();
     if(!this.el) return;
     if(report.data_project_external_script && document.querySelectorAll('.dataviz-project').length){
 
@@ -89,7 +79,8 @@ class Body extends Component {
 
   componentDidMount(){
     this.citationEvents();
-    this.loadScripts();
+    if(this.props.section)
+      this.loadScripts();
   }
 
   componentDidUpdate(prevProps){

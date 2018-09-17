@@ -46,7 +46,15 @@ window.newamericadotorg = {
   actions,
   cache,
   Fetch: _Fetch,
-  Response: _Response
+  Response: _Response,
+  renderDataViz: (el) => {
+    let viz = document.querySelectorAll('.na-dataviz:not(.lazy)');
+
+    if(!window.renderDataViz || !viz) return;
+    for(let i=0; i<viz.length; i++){
+      window.renderDataViz(viz[i]);
+    }
+  }
 };
 
 function init(){
