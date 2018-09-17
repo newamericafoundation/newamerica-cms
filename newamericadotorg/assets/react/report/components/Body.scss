@@ -1,3 +1,7 @@
+.cookies-notification {
+  display: none !important;
+}
+
 .report__body{
   position: relative;
   max-width: 850px;
@@ -35,8 +39,10 @@
   .icon-plus {
     display: none;
   }
+}
 
-  &.active, &:hover {
+.report__citation-wrapper{
+  &.active .report__citation, &:hover .report__citation{
     background: color(turquoise);
     color: color(white);
     font-weight: normal;
@@ -53,5 +59,11 @@
     .citation-number {
       opacity: 0;
     }
+  }
+}
+
+.oti .report__citation-wrapper {
+  &.active .report__citation, &:hover .report__citation{
+    background: color(oti-blue);
   }
 }
