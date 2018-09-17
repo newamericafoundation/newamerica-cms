@@ -8,25 +8,12 @@
   margin: 0 auto;
 }
 
-.report__heading__image{
-  margin-left: -25px;
-  margin-right: -25px;
-
-  label {
-    margin-left: 15px;
-    @include media-breakpoint(desktop){
-      margin-left: 0px;
-    }
-  }
-
-  @include media-breakpoint(desktop){
-    margin-left: 0px;
-    margin-right: 0px;
-
-  }
+.report__cover-image{
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-.report__heading__image .card__image__background{
+.report__cover-image .card__image__background{
   padding-bottom: 45%;
   position: static;
 }

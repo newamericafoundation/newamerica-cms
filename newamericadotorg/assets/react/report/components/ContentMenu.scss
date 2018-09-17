@@ -32,6 +32,16 @@
     padding-right: 90px;
   }
 
+  .home-div{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+    width: 16px;
+    i {
+      color: color(black);
+    }
+  }
+
   .interactive-div{
     display: inline-block;
     vertical-align: middle;

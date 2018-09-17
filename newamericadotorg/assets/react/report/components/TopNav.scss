@@ -1,12 +1,18 @@
 .report__top-nav{
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100vw;
   height: 65px;
-  color: color(white);
-  background: color(black);
-  z-index: 500;
+  top: 0;
+
+  &__sticky-wrapper{
+    top: -65px;
+    left: 0;
+    height: 65px;
+    color: color(white);
+    width: 100vw;
+    @include transition(top 0.35s ease);
+    z-index: 500;
+    background: color(black);
+  }
 
   &__left {
     &:before{
@@ -86,4 +92,12 @@
     left: -9px;
     background: color(turquoise);
   }
+}
+
+.scroll-left > .report__top-nav__sticky-wrapper{
+  position: fixed;
+}
+
+.scroll-reverse .scroll-left > .report__top-nav__sticky-wrapper{
+  top: 0px;
 }

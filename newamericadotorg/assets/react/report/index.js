@@ -15,7 +15,7 @@ import OverlayMenu from './components/OverlayMenu';
 import Attachments from './components/Attachments';
 
 class Report extends Component {
-  state = { menuOpen: false, contentsPosition: '0%', attchsOpen: false }
+  state = { menuOpen: false, contentsPosition: '0%', attchsOpen: false, showNextBtn: false }
 
   openMenu = (e) => {
     this.setState({ menuOpen: true });
@@ -62,8 +62,10 @@ class Report extends Component {
     newamericadotorg.actions.addScrollEvent({
       selector: '.report',
       onTick: (el, dir, prog) => {
-        let pos = prog < 130/el.offsetHeight ? '0%' : (prog > (el.offsetHeight-500)/el.offsetHeight ? '0%' : '-100%');
-        this.animateMenu(pos);
+        //let pos = prog < 130/el.offsetHeight ? '0%' : (prog > (el.offsetHeight-500)/el.offsetHeight ? '0%' : '-100%');
+
+        let pos = prog > (el.offsetHeight-650)/el.offsetHeight ? true : false;
+        this.setState({ showNextBtn: pos });
       }
     });
 
@@ -129,10 +131,16 @@ class Report extends Component {
                 closeMenu={this.closeMenu}
                 hideAttachments={this.hideAttachments}
                 contentsPosition={this.state.contentsPosition}>
-              <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu}/>
+              <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu} showHome={true}/>
             </OverlayMenu>
             }
-          {showOverlay && <BottomNav section={section} report={report} />}
+          {showOverlay &&
+            <BottomNav section={section}
+              showNextBtn={this.state.showNextBtn}
+              report={report}
+              openMenu={this.openMenu}
+              hideAttachments={this.hideAttachments}/>
+          }
           {report.attachments.length > 0 &&
             <Attachments attachments={report.attachments}
               hideAttachments={this.hideAttachments}

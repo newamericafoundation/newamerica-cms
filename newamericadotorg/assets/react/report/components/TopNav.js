@@ -10,7 +10,8 @@ class TopNav extends Component {
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
     return (
-      <div className="report__top-nav">
+      <div className="report__top-nav scroll-target" data-scroll-offset="200%">
+        <div className="report__top-nav__sticky-wrapper">
         <div className="container">
           <div className="row">
             <div className="col-4 col-md-3 col-lg-2 report__top-nav__left">
@@ -35,6 +36,7 @@ class TopNav extends Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     )
   }

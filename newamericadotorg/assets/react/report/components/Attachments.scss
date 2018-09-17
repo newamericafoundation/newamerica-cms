@@ -1,8 +1,9 @@
 .report__attachments {
-  max-height: calc(100vh - 50px);
+  height: calc(100vh - 60px);
   overflow: scroll;
-  width: 1200px;
-  max-width: calc(100vw - 50px);
+  width: 100vw;
+  border-radius: 4px;
+  max-width: 1200px;
   padding-top: 50px;
   padding-bottom: 50px;
   padding-left: 25px;

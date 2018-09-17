@@ -26,12 +26,15 @@ const DownArrow = () => (
   </div>
 )
 
-const Section = ({ section, expanded, expand, closeMenu }) => (
+const Section = ({ section, expanded, expand, closeMenu, home }) => (
     <div className={`report__menu__section ${expanded ? 'expanded' : ''}`}>
       <div className="report__menu__section__title row gutter-0">
         <div className="col-11">
           <Link to={section.url} onClick={closeMenu}>
             {section.interactive && <InteractiveDiv /> }
+            {home && <div className="home-div">
+              <i className="fa fa-home" />
+            </div>}
             <h4 className="inline-block margin-0">{section.title}</h4>
           </Link>
         </div>
@@ -88,9 +91,12 @@ class ContentMenu extends Component {
   }
 
   render(){
-    let { report: { url, sections }, activeSection, closeMenu } = this.props;
+    let { report: { url, sections, title }, activeSection, closeMenu, showHome } = this.props;
     return (
       <div className="report__content-menu">
+        {showHome &&
+          <Section closeMenu={closeMenu} home={true} section={{ url, title, slug: '', subsections: [] }} />
+        }
         {sections.map((s,i)=>(
           <Section section={s}
             key={`section-${i}`}

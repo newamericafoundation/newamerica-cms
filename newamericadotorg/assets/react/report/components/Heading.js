@@ -10,8 +10,8 @@ class Heading extends Component {
     let { report } = this.props;
     let { authors } = report;
     return (
-      <div className="container">
-        <div className="report__heading">
+      <React.Fragment>
+        <div className="report__heading container">
           <div className="report__heading__bug centered margin-bottom-35">
             <Doc />
             <h4 className="centered margin-top-15 margin-bottom-0">Report</h4>
@@ -43,14 +43,19 @@ class Heading extends Component {
           </div>
         </div>
         {report.story_image &&
-          <div className="report__heading__image post-heading__image">
+          <div className="report__cover-image post-heading__image">
             <div className="post-heading__image__wrapper">
               <Image thumbnail={report.story_image_thumbnail} image={report.story_image.url}/>
             </div>
-            {report.story_image.source && <h6 className="caption margin-bottom-0 margin-top-25">{report.story_image.source}</h6>}
+
+            {report.story_image.source &&
+              <div className="container">
+                <h6 className="caption margin-bottom-0 margin-top-15">{report.story_image.source}</h6>
+              </div>
+            }
           </div>
         }
-      </div>
+      </React.Fragment>
     );
   }
 }
