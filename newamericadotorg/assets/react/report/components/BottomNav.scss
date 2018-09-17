@@ -42,6 +42,7 @@
     display: inline-block;
     vertical-align: middle;
     height: 36px;
+    min-width: 36px;
 }
 
 .report__bottom-nav-bar__menu {
@@ -89,7 +90,7 @@
     margin-right: 10px;
     line-height: 36px;
     overflow: hidden;
-    @include transition(transform 0.35s ease);
+    @include transition(transform 0.15s ease);
     @include transform(translateX(150%));
   }
 
@@ -116,7 +117,7 @@
   display: inline-block;
   position: relative;
   overflow: hidden;
-  @include transition(width 0.35s ease);
+  @include transition(width 0.15s ease);
 
   &:after {
     display: block;
@@ -127,7 +128,7 @@
     position: absolute;
     border-right: 2px solid color(black);
     border-bottom: 2px solid color(black);
-    @include transition(opacity 0.35s ease);
+    @include transition(opacity 0.15s ease);
     opacity: 1;
   }
 

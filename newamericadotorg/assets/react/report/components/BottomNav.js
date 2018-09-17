@@ -38,7 +38,7 @@ class BottomNavButtons extends Component {
 const ChapterList = ({ sections, activeIndex, n }) => (
   <ul style={{ transform: `translateX(-${activeIndex * 30}px)`}}>
     {sections.map((s,i) => (
-      <li className={n === i ? 'active' : ''}
+      <li className={n === i ? 'active' : ''} key={`section-${i}`}
         style={{ width: '30px', textAlign: 'center' }}>
         <Link to={s.url}>
           <h6 className="inline">{i+1}</h6>

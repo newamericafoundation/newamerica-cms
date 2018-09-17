@@ -15,7 +15,13 @@ import OverlayMenu from './components/OverlayMenu';
 import Attachments from './components/Attachments';
 
 class Report extends Component {
-  state = { menuOpen: false, contentsPosition: '0%', attchsOpen: false, showNextBtn: false }
+  constructor(props){
+    super(props);
+    this.state = {
+      menuOpen: false, contentsPosition: '0%', attchsOpen: false, showNextBtn: false,
+      section: this.getSection()
+    }
+  }
 
   openMenu = (e) => {
     this.setState({ menuOpen: true });
@@ -59,13 +65,17 @@ class Report extends Component {
   }
 
   componentDidMount(){
+    let { report } = this.props;
+
     newamericadotorg.actions.addScrollEvent({
       selector: '.report',
       onTick: (el, dir, prog) => {
         //let pos = prog < 130/el.offsetHeight ? '0%' : (prog > (el.offsetHeight-500)/el.offsetHeight ? '0%' : '-100%');
+        let { section } = this.state;
 
-        let pos = prog > (el.offsetHeight-650)/el.offsetHeight ? true : false;
-        this.setState({ showNextBtn: pos });
+        let showNextBtn = report.sections.length !== section.number && prog > (el.offsetHeight-650)/el.offsetHeight ? true : false;
+
+        this.setState({ showNextBtn });
       }
     });
 
@@ -90,17 +100,19 @@ class Report extends Component {
 
       window.scrollTo(0, 0);
       this.anchorTag();
+      this.setState({ section: this.getSection() });
     }
   }
 
   render(){
     let { location, match, report, redirect } = this.props;
-    let section = this.getSection();
+    let { showNextBtn, section } = this.state;
 
     let showHeading = !section || report.sections.length===1;
     let showMenu = !section && report.sections.length > 1;
     let showBody = section || (!section && report.sections.length===1);
     let showOverlay = !!section;
+
     return (
       <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
         <div className='report'>
@@ -136,7 +148,7 @@ class Report extends Component {
             }
           {showOverlay &&
             <BottomNav section={section}
-              showNextBtn={this.state.showNextBtn}
+              showNextBtn={showNextBtn}
               report={report}
               openMenu={this.openMenu}
               hideAttachments={this.hideAttachments}/>
