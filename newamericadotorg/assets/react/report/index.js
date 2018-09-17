@@ -90,7 +90,7 @@ class Report extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
 
     if (this.props.location !== prevProps.location) {
       this.props.dispatch({
@@ -99,9 +99,13 @@ class Report extends Component {
       });
 
       window.scrollTo(0, 0);
-      this.anchorTag();
       this.setState({ section: this.getSection() });
     }
+
+    if(this.state.section != prevState.section){
+      this.anchorTag();
+    }
+
   }
 
   render(){
@@ -112,7 +116,6 @@ class Report extends Component {
     let showMenu = !section && report.sections.length > 1;
     let showBody = section || (!section && report.sections.length===1);
     let showOverlay = !!section;
-
     return (
       <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
         <div className='report'>
