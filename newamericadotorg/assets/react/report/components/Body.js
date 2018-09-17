@@ -93,7 +93,7 @@ class Body extends Component {
   }
 
   componentDidUpdate(prevProps){
-    if(prevProps.section.number != this.props.section.number){
+    if(prevProps.section.number != this.props.section.number && this.props.section){
       this.citationEvents();
       this.loadScripts();
     }
