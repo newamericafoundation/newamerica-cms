@@ -114,8 +114,11 @@ class ParagraphBlock(Block):
 
     def compile_data(self):
         html = '<p>'
+        prev_p = None
         for i, el in enumerate(self._elements):
+            paragraph = None
             if type(el) == NestedElement:
+                paragraph = el._elements[0][1]
                 if el.type == 'list':
                     html_ = parse_list(el, self.section)
                 elif el.type == 'hyperlink':
@@ -129,7 +132,12 @@ class ParagraphBlock(Block):
                 run = Run(child, paragraph)
                 html_ = parse_paragraph(run, paragraph)
 
+            if prev_p is not None and prev_p != paragraph:
+                html += '</p><p>'
+
             html += html_
+        
+            prev_p = paragraph
 
         html += '</p>'
         self.data['html'] = html.replace('<p></p>', '')

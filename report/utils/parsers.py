@@ -176,11 +176,12 @@ def parse_hyperlink(el, section):
     return '<a href="%s">%s</a>' % (url, html_)
 
 def parse_break(el, html):
+    return ''
     # skip first and last breaks
     if html[-2:] == 'p>': return ''
     if len(el._elements) == 1:
-        return '</p><p>'
-        #return '<br/>'
+        #return '</p><p>'
+        return '<br/>'
     else:
         return '</p><p>'
 

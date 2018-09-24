@@ -79,6 +79,10 @@ export default class Subscribe extends Component {
   submit = (e) => {
     e.preventDefault();
     if(this.state.posting || this.state.posted) return false;
+    if(this.state.subscriptions.length === 0){
+      this.setState({ status: 'NO_LIST' });
+      return false;
+    }
 
     let url = new URL(`${BASEURL}subscribe/`);
 
@@ -165,8 +169,9 @@ export default class Subscribe extends Component {
             <ConfirmationList subscriptions={this.state.subscriptions}/>
           </span>
         }
+        {(status=='NO_LIST') && <h6 style={{ color: 'red' }} className="margin-15">Please check at least one subscription list</h6>}
         {status=='UNVERIFIED' && <h6>We're sorry. We were unable to verify that you're not a robot.</h6>}
-        {(status!='OK' && status!='UNVERIFIED') && <h6>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</h6>}
+        {(status!='OK' && status!='UNVERIFIED' && status!='NO_LIST') && <h6>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</h6>}
       </div>
     );
   }

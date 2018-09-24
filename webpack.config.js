@@ -14,8 +14,8 @@ module.exports = {
 		"newamericadotorg": "./newamericadotorg/assets/newamericadotorg.js"
 	},
   output: {
-		filename: "static/js/[name]-[hash].js",
-    chunkFilename: "static/js/[name]-[hash].js",
+		filename: NODE_ENV == "development" ? "static/js/[name].js" : "static/js/[name]-[hash].js",
+    chunkFilename: NODE_ENV == "development" ? "static/js/[name].js" : "static/js/[name]-[hash].js",
     publicPath: `${process.env.STATIC_URL || ''}/`,
     path: path.resolve(__dirname, "./newamericadotorg"),
     crossOriginLoading: "anonymous"
@@ -87,7 +87,7 @@ module.exports = {
   plugins: [
 		new MiniCssExtractPlugin({
       filename: "templates/style.css",
-      chunkFilename: "static/css/[name]-[hash].css"
+      chunkFilename: NODE_ENV == "development" ? "static/css/[name].css" : "static/css/[name]-[hash].css"
     }),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
