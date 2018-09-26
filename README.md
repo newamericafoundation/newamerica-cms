@@ -7,6 +7,7 @@ Custom Content Management System (CMS) built for New America
 - [Node.js](https://medium.com/@kkostov/how-to-install-node-and-npm-on-macos-using-homebrew-708e2c3877bd)
 - [virtualenv](http://virtualenvwrapper.readthedocs.org/en/latest/index.html) (`pip install virtualenv`)
 - [postgres](http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/)
+- [aws-cli](https://aws.amazon.com/cli/) (`pip install awscli`)
 
 - Clone the github repo and change into the repo directory
 
@@ -18,21 +19,19 @@ virtualenv -p python3 venv
 source venv/bin/activate
 ```
 
-- Once inside the repo and your virtual environment, get a sample environment variables file from dev team and create your own environment variables file in your root directory (as in, where the manage.py file lives) named ".env". Copy paste contents from sample file here. You will need to customize the DATABASE_URL to match the database you will create shortly below.
+- Once inside the repo and your virtual environment, download na-cms.env and fixture.json from the [Design Drive](https://drive.google.com/drive/folders/1Fq2VaElPT1FuTFNUtXzyXyFX1a-9PlJK) and place them in the root of this project. You will need to customize the DATABASE_URL to match the database you will create shortly below.
 
 - Install requirements:
-
 ```bash
 pip install -r requirements.txt
 ```
 
-There are additional dependencies for the PDF Generator, Redis, and Celery that are not python, install those with
+- There are additional dependencies for the PDF Generator, Redis, and Celery that are installable with pip, install those with
 ```bash
 npm run brew
 ```
 
 - Initialize postgres database if you haven't already
-
 ```bash
 initdb -D /usr/local/var/postgres
 ```
@@ -55,50 +54,56 @@ psql -d newamerica -c "CREATE USER newamerica WITH PASSWORD '<<PASSWORD>>';"
 
 - Load your environment variables:
 ```bash
-source .env
+source na-cms.env
 ```
 
 - Migrate your database:
 ```bash
-python manage.py migrate
+./manage.py migrate
 ```
 
 - Remove default wagtail data by running:
 ```bash
-python manage.py deletedefaultwagtail
+./manage.py deletesite
 ```
 
 - Load the data from the fixture:
 ```bash
-python manage.py loaddata fixture.json
+./manage.py loaddata fixture.json
 ```
+
+- If you'd like your local instance to include images:
+```bash
+aws configure # makes sure you have your AWS Key and Secret handy
+./manage.py downloadlocalimages
+```
+this will download images to `media/` in the project's root. These images are handled by s3 in production.
 
 - Run your local server:
 ```bash
-python manage.py runserver
+./manage.py runserver
 ```
 
-- In your browser, go to the site at (localhost:8000/admin) and log in with username: admin and password: admin. These are the default credentials provided through the fixture.
-
+- In your browser, go to the site at (localhost:8000/admin) and log in with username: admin and password: password. These are the default credentials provided through the fixture.
 
 ### Install front-end
 
+- Install front-end dependencies
 ```bash
 npm install
 ```
 
-To compile front-end assets in development and keep recompiling when any of the source files change, run the following:
+- Grab static assets (fonts, icons, etc.):
+```bash
+npm run get-static
+```
 
+- start webpack for development
 ```bash
 npm run dev
 ```
 
-To compile front-end assets in production, run the one-time command:
-
+- To compile front-end assets in production, run the one-time command:
 ```bash
 npm run build:production
 ```
-
-### Images
-
-The ``./newamericadotorg/assets/images`` folder contains images in development. In staging and production environments they are stored in s3 buckets on AWS.
