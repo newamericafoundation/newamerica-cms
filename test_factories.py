@@ -29,7 +29,7 @@ fake = Faker()
 class PostFactory():
     @staticmethod
     def post_data(**kwargs):
-        date = '%s-%s-%s' % (fake.year(), fake.month(), fake.day_of_month())
+        date = '%s-%s-01' % (fake.year(), fake.month())
 
         args = {
             'title': fake.text(max_nb_chars=15),
