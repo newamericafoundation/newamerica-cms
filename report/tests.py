@@ -84,12 +84,12 @@ class ReportTests(WagtailPageTests):
 
 
     def test_report_with_one_parent_program_can_be_deleted(self):
-        title = self.reports[0].title
+        slug = self.reports[0].slug
         report = Report.objects.filter(
-            title=title).first()
+            slug=slug).first()
         report.delete()
         self.assertEqual(Report.objects.filter(
-            title=title).first(), None
+            slug=slug).first(), None
         )
         self.assertNotIn(
             report,
