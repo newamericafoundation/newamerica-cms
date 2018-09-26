@@ -5,6 +5,7 @@
 *.DS_Store
 *.env
 *.rdb
+fixture.json
 
 
 node_modules
