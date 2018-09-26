@@ -22,20 +22,19 @@ from policy_paper.models import PolicyPaper
 from press_release.models import PressRelease
 from quoted.models import Quoted
 from weekly.models import WeeklyArticle, WeeklyEdition
-import factory
-import faker
 
-fake = faker.Faker()
+from faker import Faker
+fake = Faker()
 
 class PostFactory():
     @staticmethod
     def post_data(**kwargs):
-        #date = '%s-%s-%s' % (fake.year(), fake.month(), fake.day_of_month())
-        #print(date)
+        date = '%s-%s-%s' % (fake.year(), fake.month(), fake.day_of_month())
+
         args = {
-            'title': fake.words(),
-            'date': '2018-01-01',
-            'slug': slugify(fake.words()),
+            'title': fake.text(max_nb_chars=15),
+            'date': date,
+            'slug': slugify(' '.join(fake.words())),
             'story_excerpt': fake.text(max_nb_chars=140)
         }
 
@@ -47,7 +46,7 @@ class PostFactory():
             'title': fake.company(),
             'name': fake.company(),
             'slug': slugify(fake.words()),
-            'description': fake.words(max_nb_chars=140),
+            'description': fake.words(),
             'depth': 3,
             'show_in_menus': True
         }
