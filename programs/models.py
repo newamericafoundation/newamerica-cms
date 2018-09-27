@@ -411,7 +411,7 @@ class Subprogram(AbstractProgram):
 
     def get_context(self, request):
         context = super().get_context(request)
-        if request.is_preview:
+        if getattr(request, 'is_preview', False):
             import newamericadotorg.api
             revision = PageRevision.objects.filter(page=self).last().as_page_object()
             program_data = newamericadotorg.api.program.serializers.SubprogramSerializer(revision, context={'is_preview': True}).data
