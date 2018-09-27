@@ -350,7 +350,7 @@ class ProgramPeoplePage(AbstractContentPage):
     A page which inherits from the abstract Page model and returns
     everyone from the Person model for a specific program or Subprogram
     """
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = []
 
     story_image = models.ForeignKey(

@@ -244,7 +244,8 @@ class Program(AbstractProgram):
     'home.RedirectPage',
     'report.ReportsHomepage',
     'PublicationsPage',
-    'other_content.ProgramOtherPostsPage'
+    'other_content.ProgramOtherPostsPage',
+    'home.ProgramAboutHomePage'
     ]
 
     desktop_program_logo = models.ForeignKey(
@@ -362,7 +363,8 @@ class Subprogram(AbstractProgram):
     'issue.IssueOrTopic',
     'home.RedirectPage',
     'PublicationsPage',
-    'other_content.ProgramOtherPostsPage'
+    'other_content.ProgramOtherPostsPage',
+    'home.ProgramAboutHomePage'
     ]
 
     TEMPLATE_OPTIONS =  (
@@ -453,6 +455,26 @@ class BlogSeries(Page):
     ]
 
 class Project(Subprogram):
+    parent_page_types = ['programs.Program']
+    subpage_types = [
+    'article.ProgramArticlesPage',
+    'book.ProgramBooksPage',
+    'blog.ProgramBlogPostsPage',
+    'event.ProgramEventsPage',
+    'podcast.ProgramPodcastsPage',
+    'report.ReportsHomepage',
+    'policy_paper.ProgramPolicyPapersPage',
+    'press_release.ProgramPressReleasesPage',
+    'quoted.ProgramQuotedPage',
+    'home.ProgramSimplePage',
+    'person.ProgramPeoplePage',
+    'issue.IssueOrTopic',
+    'home.RedirectPage',
+    'PublicationsPage',
+    'other_content.ProgramOtherPostsPage',
+    'home.ProgramAboutHomePage'
+    ]
+
     redirect_page = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -502,7 +524,7 @@ class AbstractContentPage(Page):
 class PublicationsPage(AbstractContentPage):
     '''
     '''
-    parent_page_types = ['home.HomePage', 'Program', 'Subprogram']
+    parent_page_types = ['home.HomePage', 'Program', 'Subprogram', 'Project']
 
     def get_template(self, request):
         parent = self.get_parent()

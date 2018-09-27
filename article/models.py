@@ -62,7 +62,7 @@ class ProgramArticlesPage(AbstractContentPage):
     or Subprogram
     """
 
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Article']
 
     def get_context(self, request):
