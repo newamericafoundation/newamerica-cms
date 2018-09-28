@@ -17,7 +17,7 @@ def cited_html(html):
         return html
 
     number = match.groups()[0]
-    citation = '<span class="report__citation" data-citation-number="%s"><span class="citation-number">%s</span><span class="icon-plus x white"><span></span><span></span></span></span>' % (number, number)
+    citation = '<span class="report__citation-wrapper" data-citation-number="%s"><span class="report__citation"><span class="citation-number">%s</span><span class="icon-plus x white"><span></span><span></span></span></span><span class="report__citation__note"></span></span>' % (number, number)
     html = html.replace(match.group(), citation)
     return cited_html(html)
 

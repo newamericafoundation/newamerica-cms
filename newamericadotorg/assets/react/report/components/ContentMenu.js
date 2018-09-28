@@ -5,18 +5,80 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PlusX } from '../../components/Icons';
 
+const Subsection = ({ section, url, closeMenu }) => (
+  <div className="report__menu__subsection">
+    <h6 className="margin-0"><Link to={section.url} onClick={closeMenu}>{section.title}</Link></h6>
+  </div>
+);
+
+const InteractiveDiv = () => (
+  <div className="interactive-div">
+    <i className="fa fa-hand-pointer-o" />
+    <div className="interactive-div__text">
+      <h6 className="inline">View the interactive graphic in this section!</h6>
+    </div>
+  </div>
+);
+
+const DownArrow = () => (
+  <div className="down-arrow-icon-circle">
+
+  </div>
+)
+
+const Section = ({ section, expanded, expand, closeMenu, home }) => (
+    <div className={`report__menu__section ${expanded ? 'expanded' : ''}`}>
+      <div className="report__menu__section__title row gutter-0">
+        <div className="col-11">
+          <Link to={section.url} onClick={closeMenu}>
+            {section.interactive && <InteractiveDiv /> }
+            {home && <div className="home-div">
+              <i className="fa fa-home" />
+            </div>}
+            <h4 className="inline-block margin-0">{section.title}</h4>
+          </Link>
+        </div>
+        <div className="col-1" onClick={() => expand(section.slug) } style={{ background: '#fff', paddingRight: '25px' }}>
+          {section.subsections.length > 0 && <DownArrow />}
+        </div>
+      </div>
+      {section.subsections.length > 0 &&
+        <div className="report__menu__section__subsections" style={
+          { maxHeight: expanded ? (section.subsections.length * 100) + 'px' : 0 }
+        }>
+          {section.subsections.map((s,i)=>(
+            <Subsection section={s} key={`sub-${i}`} closeMenu={closeMenu} />
+          ))}
+        </div>
+      }
+    </div>
+);
+
+
 class ContentMenu extends Component {
-  state = { expanded: {}, lastScrollPosition: 0 }
+
   constructor(props){
     super(props);
-    props.report.sections.map((s)=>{
-      this.state.expanded[s.title] = s.title == props.activeSection.title;
-    });
+    this.state = {
+      expanded: [],
+      lastScrollPosition: 0
+    }
   }
 
 
-  toggleExpanded = (e, title) => {
-    this.setState({ expanded: { ...this.state.expanded, [title]: !this.state.expanded[title] }});
+  expand = (title) => {
+    let i = this.state.expanded.indexOf(title);
+
+    if(i === -1) {
+      this.setState({
+        expanded: [...this.state.expanded, title]
+      });
+    } else {
+      let expanded = [...this.state.expanded];
+      expanded.splice(i,1)
+      this.setState({ expanded });
+    }
+
   }
 
   goTo = (e, title) => {
@@ -29,35 +91,18 @@ class ContentMenu extends Component {
   }
 
   render(){
-    let { report: { url, sections }, openMenu, closeMenu, activeSection } = this.props;
+    let { report: { url, sections, title }, activeSection, closeMenu, showHome } = this.props;
     return (
       <div className="report__content-menu">
+        {showHome &&
+          <Section closeMenu={closeMenu} home={true} section={{ url, title, slug: '', subsections: [] }} />
+        }
         {sections.map((s,i)=>(
-          <span className={this.state.expanded[s.title] ? 'expanded' : ''} key={`section-${i}`}>
-            <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`}>
-              <Link className="report__content-menu__section" to={`${url}${s.slug}/`} onClickCapture={(e)=>{this.goTo(e, s.title);}}>
-                <h6 className="white margin-10">{s.title}</h6>
-              </Link>
-              {s.subsections.length>0 &&
-                <h6 className="expand-toggle" onClickCapture={(e)=>{
-                  this.toggleExpanded(e, s.title);
-                }}>
-                  <PlusX x={this.state.expanded[s.title]} white={true}/>
-                </h6>
-              }
-            </div>
-            <span className='report__content-menu__item__subsections'
-              style={{ maxHeight: this.state.expanded[s.title] ? `${100*(s.subsections.length)}px` : 0}}>
-            {s.subsections.map((sub,i)=>(
-              <div className={`report__content-menu__item${activeSection.slug==s.slug? ' active' : ''}`} onClick={closeMenu} key={`sub-${i}`}>
-                <Link to={`${url}${s.slug}/#${sub.slug}`}>
-                  <h6 className="report__content-menu__item__subsections__label margin-10">
-                    {sub.title}</h6>
-                </Link>
-              </div>
-            ))}
-            </span>
-          </span>
+          <Section section={s}
+            key={`section-${i}`}
+            expand={this.expand}
+            expanded={this.state.expanded.indexOf(s.slug) !== -1}
+            closeMenu={closeMenu}/>
         ))}
       </div>
     );
