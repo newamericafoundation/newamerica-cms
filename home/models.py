@@ -368,7 +368,7 @@ class ProgramSimplePage(AbstractSimplePage):
         verbose_name = 'About Page'
 
 class ProgramAboutHomePage(ProgramSimplePage):
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = [
         'home.ProgramAboutPage'
     ]

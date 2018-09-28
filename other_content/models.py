@@ -76,7 +76,7 @@ class ProgramOtherPostsPage(AbstractContentPage):
     Subprogram
     """
 
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['OtherPost', 'OtherPostCategory']
 
     singular_title = models.CharField(max_length=255)

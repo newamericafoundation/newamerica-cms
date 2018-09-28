@@ -65,7 +65,7 @@ class ProgramBlogPostsPage(AbstractContentPage):
     Subprogram
     """
 
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['BlogPost']
 
     subheading = RichTextField(blank=True, null=True)

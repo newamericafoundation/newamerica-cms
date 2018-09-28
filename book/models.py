@@ -62,7 +62,7 @@ class ProgramBooksPage(AbstractContentPage):
     A page which inherits from the abstract Page model and
     returns all Books associated with a specific program or Subprogram
     """
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Book']
 
     def get_context(self, request):

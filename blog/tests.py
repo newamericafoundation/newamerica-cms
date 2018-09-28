@@ -7,7 +7,7 @@ from .models import BlogPost, AllBlogPostsHomePage, ProgramBlogPostsPage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram, BlogProject, BlogSeries
+from programs.models import Program, Subprogram, BlogProject, BlogSeries, Project
 
 class BlogPostTests(WagtailPageTests):
     """
@@ -73,7 +73,7 @@ class BlogPostTests(WagtailPageTests):
         })
 
     def test_program_blog_post_parent_page(self):
-        self.assertAllowedParentPageTypes(ProgramBlogPostsPage, {Program, Subprogram})
+        self.assertAllowedParentPageTypes(ProgramBlogPostsPage, {Program, Subprogram, Project})
 
     def test_all_blog_posts_parent_page(self):
         self.assertAllowedParentPageTypes(AllBlogPostsHomePage, {HomePage})

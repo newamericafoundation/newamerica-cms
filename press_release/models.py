@@ -60,7 +60,7 @@ class ProgramPressReleasesPage(AbstractContentPage):
     returns all Press Releases associated with a specific
     Program or Subprogram
     """
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['PressRelease']
 
     def get_context(self, request):

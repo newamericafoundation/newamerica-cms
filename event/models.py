@@ -108,7 +108,7 @@ class ProgramEventsPage(RoutablePageMixin, AbstractContentPage):
     Page which inherits from abstract Page model and returns every
     Event associated with a specific Program or Subprogram
     """
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Event']
 
     @route(r'^$')

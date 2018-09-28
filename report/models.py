@@ -181,7 +181,7 @@ class ReportsHomepage(AbstractContentPage):
     returns all Reports associated with a specific
     Program or Subprogram
     """
-    parent_page_types = ['programs.Program', 'programs.Subprogram']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Report']
 
     @property
