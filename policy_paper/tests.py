@@ -5,7 +5,7 @@ from django.test import Client
 
 from home.models import HomePage, PostProgramRelationship, PostAuthorRelationship
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, Project
 
 from .models import PolicyPaper, AllPolicyPapersHomePage, ProgramPolicyPapersPage
 
@@ -41,11 +41,11 @@ class PolicyPaperHierarchiesTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
             depth=3
             )
         )
@@ -83,7 +83,7 @@ class PolicyPaperHierarchiesTests(WagtailPageTests):
     def test_program_policy_paper_parent_page(self):
         self.assertAllowedParentPageTypes(
             ProgramPolicyPapersPage,
-            {Program, Subprogram}
+            {Program, Subprogram, Project}
         )
 
     def test_all_policy_papers_parent_page(self):

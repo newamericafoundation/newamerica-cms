@@ -3,7 +3,7 @@ from wagtail.core.models import Page
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, Project
 
 from .models import PressRelease, AllPressReleasesHomePage, ProgramPressReleasesPage
 
@@ -40,11 +40,11 @@ class PressReleaseTests(WagtailPageTests):
         )
         self.second_program = self.home_page.add_child(
             instance=Program(
-            title='Education', 
-            name='Education', 
-            slug='education', 
-            description='Education', 
-            location=False, 
+            title='Education',
+            name='Education',
+            slug='education',
+            description='Education',
+            location=False,
             depth=3
             )
         )
@@ -82,7 +82,7 @@ class PressReleaseTests(WagtailPageTests):
     def test_program_press_release_parent_page(self):
         self.assertAllowedParentPageTypes(
             ProgramPressReleasesPage,
-            {Program, Subprogram}
+            {Program, Subprogram, Project}
         )
 
     def test_all_press_releases_parent_page(self):

@@ -5,7 +5,7 @@ from test_factories import PostFactory
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram, BlogProject, BlogSeries
+from programs.models import Program, Subprogram, BlogProject, BlogSeries, Project
 
 from .models import Report, ReportsHomepage, AllReportsHomePage
 
@@ -49,7 +49,7 @@ class ReportTests(WagtailPageTests):
     def test_program_report_parent_page(self):
         self.assertAllowedParentPageTypes(
             ReportsHomepage,
-            {Program, Subprogram}
+            {Program, Subprogram, Project}
         )
 
     def test_all_report_parent_page(self):

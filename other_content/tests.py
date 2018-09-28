@@ -5,7 +5,7 @@ from test_factories import PostFactory
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram
+from programs.models import Program, Subprogram, Project
 
 from .models import OtherPost, ProgramOtherPostsPage, AllOtherPostsHomePage, OtherPostCategory
 
@@ -54,7 +54,7 @@ class OtherContentTests(WagtailPageTests):
     def test_program_otherpost_parent_page(self):
         self.assertAllowedParentPageTypes(
             ProgramOtherPostsPage,
-            {Program, Subprogram}
+            {Program, Subprogram, Project}
         )
 
     def test_all_otherpost_parent_page(self):

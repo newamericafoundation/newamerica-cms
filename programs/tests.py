@@ -1,7 +1,7 @@
 from wagtail.tests.utils import WagtailPageTests
 from wagtail.core.models import Page
 
-from home.models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage
+from home.models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, ProgramAboutHomePage
 
 from .models import Program, Subprogram, ProgramSubprogramRelationship, BlogProject, PublicationsPage, Project
 
@@ -111,7 +111,8 @@ class ProgramsTests(WagtailPageTests):
                 PublicationsPage,
                 ProgramOtherPostsPage,
                 Project,
-                TopicHomePage
+                TopicHomePage,
+                ProgramAboutHomePage
             }
         )
 
@@ -132,7 +133,8 @@ class ProgramsTests(WagtailPageTests):
                 RedirectPage,
                 PublicationsPage,
                 ProgramOtherPostsPage,
-                ReportsHomepage
+                ReportsHomepage,
+                ProgramAboutHomePage
             }
         )
 
