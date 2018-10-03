@@ -15,6 +15,7 @@ class ReportDetailSerializer(PostSerializer):
     story_image = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
     report_pdf = SerializerMethodField()
+    attachments = SerializerMethodField()
 
     class Meta:
         model = Report
@@ -22,7 +23,7 @@ class ReportDetailSerializer(PostSerializer):
             'id', 'title', 'subheading', 'date', 'content_type',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
             'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
-            'report_pdf', 'search_description', 'data_project_external_script'
+            'report_pdf', 'search_description', 'data_project_external_script', 'attachments'
         )
 
     def get_report_pdf(self, obj):
@@ -58,23 +59,51 @@ class ReportDetailSerializer(PostSerializer):
                 })
             return endnotes
 
+    def get_attachments(self,obj):
+        attchs = []
+        if obj.report_pdf:
+            attchs.append({
+                'title': obj.report_pdf.title,
+                'url': obj.report_pdf.url,
+                'size': obj.report_pdf.file.size / 1000,
+                'type': obj.report_pdf.file_extension
+            })
+
+        if obj.attachment:
+            for att in obj.attachment:
+                attchs.append({
+                    'title': att.value.title,
+                    'url': att.value.url,
+                    'size': att.value.file.size / 1000,
+                    'type': att.value.file_extension
+                })
+        print(attchs)
+        return attchs
+
+
     def get_sections(self, obj):
         if obj.sections is None:
             return None
         sections = []
         for i,s in enumerate(obj.sections):
+            slug = slugify(s.value['title'])
             section = {
                 'title': s.value['title'],
                 'number': i+1,
-                'slug': slugify(s.value['title']),
+                'slug': slug,
                 'body': s.render(),
-                'subsections': []
+                'subsections': [],
+                'interactive': False,
+                'url': obj.url + slug
             }
+            if 'dataviz' in section['body']: section['interactive'] = True
             for block in s.value['body']:
                 if block.block_type == 'heading':
+                    sub_slug = slugify(block.value)
                     section['subsections'].append({
                         'title': block.value,
-                        'slug': slugify(block.value)
+                        'slug': sub_slug,
+                        'url': obj.url + slug + '/#' + sub_slug
                     })
             sections.append(section)
         if obj.acknowledgements:
@@ -83,6 +112,7 @@ class ReportDetailSerializer(PostSerializer):
                 'number': len(sections)+1,
                 'slug': 'acknowledgments',
                 'body': obj.acknowledgements,
-                'subsections': []
+                'subsections': [],
+                'url': obj.url + 'acknowledgments'
             })
         return sections

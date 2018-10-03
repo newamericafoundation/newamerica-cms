@@ -6,6 +6,11 @@
   @include transition(transform 0.35s ease);
   @include transform(rotate(0deg));
 
+  &.lg{
+    width: 20px;
+    height: 20px;
+  }
+
   & > * {
     height: 1px;
     position: absolute;

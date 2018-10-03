@@ -2,6 +2,8 @@
 
 {% block body_id %}na-report{% endblock %}
 
+{% block header %}{% endblock %}
+
 {% block extra_scripts %}
   <script>
     window.initialState = {% if initial_state %}{{ initial_state|safe }}{% else %}null{% endif %};

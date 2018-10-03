@@ -1,15 +1,15 @@
 .icon-doc{
-  width: 28px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   display: inline-block;
   @include box-shadow( 0px 0px 0px 2px color(black) );
 
   & > div {
-    width: 56%;
-    margin-left: calc(22%);
+    width: 10px;
+    margin-left: 5px;
     height: 2px;
     background: color(black);
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
 
   & > div:first-child {
@@ -19,5 +19,6 @@
   & > div:last-child {
     width: 42%;
     margin-bottom: 0px;
+    display: none;
   }
 }

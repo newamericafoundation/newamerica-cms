@@ -10,9 +10,18 @@ import TopNav from './components/TopNav';
 import BottomNav from './components/BottomNav';
 import store from '../store';
 import { setResponse } from '../api/actions';
+import ContentMenu from './components/ContentMenu';
+import OverlayMenu from './components/OverlayMenu';
+import Attachments from './components/Attachments';
 
 class Report extends Component {
-  state = { menuOpen: false }
+  constructor(props){
+    super(props);
+    this.state = {
+      menuOpen: false, contentsPosition: '0%', attchsOpen: false, showNextBtn: false,
+      section: this.getSection()
+    }
+  }
 
   openMenu = (e) => {
     this.setState({ menuOpen: true });
@@ -22,14 +31,22 @@ class Report extends Component {
     this.setState({ menuOpen: false });
   }
 
-  toggleMenu = () => {
-    this.setState({ menuOpen: !this.state.menuOpen });
+  showAttachments = () => {
+    this.setState({ attchsOpen: true });
+  }
+
+  hideAttachments = () => {
+    this.setState({ attchsOpen: false });
+  }
+
+  animateMenu = (position) => {
+    this.setState({ contentsPosition: position });
   }
 
   getSection = () => {
     let { report, match: { params } } = this.props;
 
-    if(!params.sectionSlug) return {};
+    if(!params.sectionSlug) return false;
     return report.sections.find((s)=>( s.slug==params.sectionSlug ));
   }
 
@@ -48,6 +65,20 @@ class Report extends Component {
   }
 
   componentDidMount(){
+    let { report } = this.props;
+
+    newamericadotorg.actions.addScrollEvent({
+      selector: '.report',
+      onTick: (el, dir, prog) => {
+        //let pos = prog < 130/el.offsetHeight ? '0%' : (prog > (el.offsetHeight-500)/el.offsetHeight ? '0%' : '-100%');
+        let { section } = this.state;
+
+        let showNextBtn = report.sections.length !== section.number && prog > (el.offsetHeight-650)/el.offsetHeight ? true : false;
+
+        this.setState({ showNextBtn });
+      }
+    });
+
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',
       component: 'site'
@@ -59,7 +90,7 @@ class Report extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
 
     if (this.props.location !== prevProps.location) {
       this.props.dispatch({
@@ -67,32 +98,69 @@ class Report extends Component {
         component: 'site'
       });
 
-      window.scrollTo(0, 70);
+      window.scrollTo(0, 0);
+      this.setState({ section: this.getSection() });
+    }
+
+    if(this.state.section != prevState.section){
       this.anchorTag();
     }
+
   }
 
   render(){
     let { location, match, report, redirect } = this.props;
-    let section = this.getSection();
-    if(!section) return (<Redirect to={`${report.url}${report.sections[0].slug}`} />)
+    let { showNextBtn, section } = this.state;
+
+    let showHeading = !section || report.sections.length===1;
+    let showMenu = !section && report.sections.length > 1;
+    let showBody = section || (!section && report.sections.length===1);
+    let showOverlay = !!section;
     return (
       <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
         <div className='report'>
           <TopNav section={section} report={report}
             openMenu={this.openMenu}
             closeMenu={this.closeMenu}
-            toggleMenu={this.toggleMenu}
+            showAttachments={this.showAttachments}
+            hideAttachments={this.hideAttachments}
             menuOpen={this.state.menuOpen} />
-            {section.number===1 &&
+            {showHeading &&
               <Heading report={report}/>
             }
-            <Body section={section}
+            {showMenu &&
+              <div className="container margin-90">
+                <ContentMenu report={report} closeMenu={this.closeMenu}/>
+              </div>
+            }
+            {showBody && <Body section={section || report.sections[0]}
               report={report}
               dispatch={this.props.dispatch}
               location={location}
               closeMenu={this.closeMenu}/>
-          <BottomNav section={section} report={report} />
+            }
+          {showOverlay &&
+            <OverlayMenu report={report}
+                open={this.state.menuOpen}
+                openMenu={this.openMenu}
+                closeMenu={this.closeMenu}
+                hideAttachments={this.hideAttachments}
+                contentsPosition={this.state.contentsPosition}>
+              <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu} showHome={true}/>
+            </OverlayMenu>
+            }
+          {showOverlay &&
+            <BottomNav section={section}
+              showNextBtn={showNextBtn}
+              report={report}
+              openMenu={this.openMenu}
+              hideAttachments={this.hideAttachments}/>
+          }
+          {report.attachments.length > 0 &&
+            <Attachments attachments={report.attachments}
+              hideAttachments={this.hideAttachments}
+              attchsOpen={this.state.attchsOpen}/>
+          }
         </div>
       </DocumentMeta>
     );
@@ -119,10 +187,8 @@ class Routes extends Component {
           <Route path={`/admin/pages`} render={() => (
             <Redirect to={results.url} />
           )} />
-          <Route path='/:program/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
-          <Route path='/:program/reports/:reportTitle' render={this.redirect} />
-          <Route path='/:program/:subprogram/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
-          <Route path='/:program/:subprogram/reports/:reportTitle' render={this.redirect} />
+          <Route path='/:program/reports/:reportTitle/:sectionSlug?' render={this.reportRender} />
+          <Route path='/:program/:subprogram/reports/:reportTitle/:sectionSlug?' render={this.reportRender} />
         </Switch>
       </GARouter>
     );
