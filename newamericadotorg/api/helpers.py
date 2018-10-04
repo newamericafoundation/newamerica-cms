@@ -17,14 +17,12 @@ def generate_image_rendition(image, filter_spec=None):
         return None
     if not filter_spec:
         return image.file
-    #return None;
-    img = CustomImage.objects.get(pk=image.id);
-    if not image:
+
+    img = CustomImage.objects.filter(pk=image.id).first();
+    if not img:
         return image.file
     try:
         rendition = img.get_rendition(filter_spec)
-        # signature = generate_signature(image.id, filter_spec)
-        # url = reverse('wagtailimages_serve', args=(signature, image.id, filter_spec))
         return rendition
     except SourceImageIOError:
         return None

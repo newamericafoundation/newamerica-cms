@@ -51,6 +51,12 @@ class CustomImage(AbstractImage):
         'caption'
     )
 
+    def get_url(self):
+            try:
+                 return self.url
+            except:
+                 return None
+
 class CustomRendition(AbstractRendition):
     image = models.ForeignKey(CustomImage, related_name='renditions')
 

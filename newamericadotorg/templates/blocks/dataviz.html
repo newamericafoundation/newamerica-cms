@@ -1,42 +1,38 @@
-{% if 'viz__' in self.container_id %}
-	<div class="na-dataviz dataviz {{self.width}}" id="{{ self.container_id }}"></div>
-{% else %}
-	<div class="dataviz dataviz-project">
-		<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}" style="max-width: {{ self.max_width }}px">
-			{% if self.title %}
-				<a id="{{ self.title|slugify }}" class="in-depth__panel__anchor"></a>
-				<div class="dataviz__icon">{% include 'components/svg/new-america-mini.html' %}</div>
-			{% else %}
-				<a id="chart-{{ self.container_id }}" class="in-depth__panel__anchor"></a>
-			{% endif %}
+{# use data-id to avoid clashes with legacy data-viz that selects for id. set id attribute at time of render with newamericadotorg.renderDataViz #}
+<div class="dataviz dataviz-project na-dataviz {{self.width}}" data-id="{{ self.container_id }}">
+	<div class="dataviz__title-container {% if self.show_chart_buttons %}with-buttons{% endif %}" style="max-width: {{ self.max_width }}px">
+		{% if self.title %}
+			<a id="{{ self.title|slugify }}" class="in-depth__panel__anchor"></a>
+			<div class="dataviz__icon">{% include 'components/svg/new-america-mini.html' %}</div>
+		{% else %}
+			<a id="chart-{{ self.container_id }}" class="in-depth__panel__anchor"></a>
+		{% endif %}
 
-			{% if self.show_chart_buttons %}
-				<a class="dataviz__icon dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'components/svg/download.html' %}</a>
-				<h5 class="dataviz__icon-label dataviz__download-link-label" id="{{ self.container_id }}__download-link">Download PNG</h5>
-				<a class="dataviz__icon dataviz__embed-link" id="{{ self.container_id }}__embed-link">{% include 'components/svg/embed.html' %}</a>
-				<h5 class="dataviz__icon-label dataviz__embed-link-label" id="{{ self.container_id }}__embed-link">Embed</h5>
-				<a class="dataviz__icon dataviz__share-link" id="{{ self.container_id }}__share-link">{% include 'components/svg/share.html' %}</a>
-				<h5 class="dataviz__icon-label dataviz__share-link-label" id="{{ self.container_id }}__share-link">Share</h5>
+		{% if self.show_chart_buttons %}
+			<a class="dataviz__icon dataviz__download-link" id="{{ self.container_id }}__download-link">{% include 'components/svg/download.html' %}</a>
+			<h5 class="dataviz__icon-label dataviz__download-link-label" id="{{ self.container_id }}__download-link">Download PNG</h5>
+			<a class="dataviz__icon dataviz__embed-link" id="{{ self.container_id }}__embed-link">{% include 'components/svg/embed.html' %}</a>
+			<h5 class="dataviz__icon-label dataviz__embed-link-label" id="{{ self.container_id }}__embed-link">Embed</h5>
+			<a class="dataviz__icon dataviz__share-link" id="{{ self.container_id }}__share-link">{% include 'components/svg/share.html' %}</a>
+			<h5 class="dataviz__icon-label dataviz__share-link-label" id="{{ self.container_id }}__share-link">Share</h5>
 
-				<!-- <div class="dataviz__share-popup">
-					<div class="dataviz__popup__icons"></div>
-				</div> -->
-				<div class="dataviz__embed-popup">
-					<div class="dataviz__embed-popup__content">&lt;iframe width=&quot;{{ self.max_width }}&quot; height=&quot;{{ self.max_width }}&quot; src=&quot;https://newamericafoundation.github.io/newamerica-data-projects/?project={{ page.data_project_external_script|cut:".js" }}&amp;vizId={{ self.container_id }}&quot;&gt;&lt;/iframe&gt;</div>
-				</div>
-			{% endif %}
+			<!-- <div class="dataviz__share-popup">
+				<div class="dataviz__popup__icons"></div>
+			</div> -->
+			<div class="dataviz__embed-popup">
+				<div class="dataviz__embed-popup__content">&lt;iframe width=&quot;{{ self.max_width }}&quot; height=&quot;{{ self.max_width }}&quot; src=&quot;https://newamericafoundation.github.io/newamerica-data-projects/?project={{ page.data_project_external_script|cut:".js" }}&amp;vizId={{ self.container_id }}&quot;&gt;&lt;/iframe&gt;</div>
+			</div>
+		{% endif %}
 
-			{% if self.title %}
-				<h3 class="dataviz__title">{{ self.title }}</h3>
-			{% endif %}
-			{% if self.subheading %}
-				<div class="dataviz__subheading">{{ self.subheading }}</div>
-			{% endif %}
-		</div>
-		<div class="dataviz__chart-container" style="max-width: {{ self.max_width }}px">
-			<div class="dataviz__loading-gif"></div>
-			<div class="dataviz__chart-area" id="{{ self.container_id }}"></div>
-		</div>
+		{% if self.title %}
+			<h3 class="dataviz__title">{{ self.title }}</h3>
+		{% endif %}
+		{% if self.subheading %}
+			<div class="dataviz__subheading">{{ self.subheading }}</div>
+		{% endif %}
 	</div>
-	{% include 'in_depth/style-shim.html' %}
-{% endif %}
+	<div class="dataviz__chart-container" style="max-width: {{ self.max_width }}px">
+		<div class="dataviz__loading-gif"></div>
+		<div class="dataviz__chart-area" id="{{ self.container_id }}"></div>
+	</div>
+</div>
