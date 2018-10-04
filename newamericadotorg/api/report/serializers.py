@@ -65,22 +65,28 @@ class ReportDetailSerializer(PostSerializer):
     def get_attachments(self,obj):
         attchs = []
         if obj.report_pdf:
-            attchs.append({
-                'title': obj.report_pdf.title,
-                'url': obj.report_pdf.url,
-                'size': obj.report_pdf.file.size / 1000,
-                'type': obj.report_pdf.file_extension
-            })
+            try:
+                attchs.append({
+                    'title': obj.report_pdf.title,
+                    'url': obj.report_pdf.url,
+                    'size': obj.report_pdf.file.size / 1000,
+                    'type': obj.report_pdf.file_extension
+                })
+            except:
+                pass
 
         if obj.attachment:
             for att in obj.attachment:
-                attchs.append({
-                    'title': att.value.title,
-                    'url': att.value.url,
-                    'size': att.value.file.size / 1000,
-                    'type': att.value.file_extension
-                })
-        print(attchs)
+                try:
+                    attchs.append({
+                        'title': att.value.title,
+                        'url': att.value.url,
+                        'size': att.value.file.size / 1000,
+                        'type': att.value.file_extension
+                    })
+                except:
+                    pass
+                    
         return attchs
 
 
