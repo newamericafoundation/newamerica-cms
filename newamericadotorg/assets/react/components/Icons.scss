@@ -9,6 +9,11 @@
     fill: currentColor;
   }
 
+  &.na-icon-report svg {
+    height: 26px;
+    width: 24px;
+  }
+
   &.circle-gray, &.circle-white{
     padding-left: 5px;
     padding-right: 5px;

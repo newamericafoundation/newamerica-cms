@@ -4,8 +4,21 @@
 }
 
 .report__heading__authors{
-  max-width: 200px;
-  margin: 0 auto;
+  max-width: 350px;
+  margin: 30px auto 0 auto;
+  padding-top: 25px;
+  position: relative;
+
+  &:before{
+      content: '';
+      height: 1px;
+      width: 50px;
+      background: color(black);
+      position: absolute;
+      @include horizontal-center;
+      top: 0;
+      display: block;
+  }
 }
 
 .report__cover-image{
@@ -16,21 +29,4 @@
 .report__cover-image .card__image__background{
   padding-bottom: 45%;
   position: static;
-}
-
-.report__heading__programs{
-  margin-top: 20px;
-  padding-top: 20px;
-  position: relative;
-
-  &:before{
-      content: '';
-      height: 2px;
-      width: 50px;
-      background: color(black);
-      position: absolute;
-      @include horizontal-center;
-      top: 0;
-      display: block;
-  }
 }
