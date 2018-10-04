@@ -98,7 +98,7 @@ class IframeBlock(blocks.StructBlock):
 class DatavizBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=False)
 	subheading = blocks.RichTextBlock(required=False)
-	max_width = IntegerBlock(help_text='for legacy dataviz projects')
+	max_width = IntegerBlock(help_text='for legacy dataviz projects', required=False)
 	width = blocks.ChoiceBlock([
 		('column-width', 'Column Width'),
 		('width-1200', 'Max 1200px'),
