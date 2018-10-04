@@ -8,6 +8,7 @@
   </script>
   {% if page.data_project_external_script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {% include 'in_depth/style-shim.html' %}
   {% endif %}
 {% endblock %}
 {% block extra_js %}
