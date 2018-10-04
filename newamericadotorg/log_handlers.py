@@ -2,6 +2,7 @@ import logging, traceback, os, sys, json
 from newamericadotorg.helpers import is_json
 from logdna import LogDNAHandler as LogDNA
 from django.http import JsonResponse
+from django.conf import settings
 
 
 class LoggerFilter(logging.Filter):
@@ -20,7 +21,7 @@ class APIExceptionMiddleware:
         return response
 
     def process_exception(self, request, exception):
-        if 'api' in request.path:
+        if 'api' in request.path and not settings.DEBUG:
             exc_info = sys.exc_info()
 
             exc_type, exc_val, exc_tb = exc_info
