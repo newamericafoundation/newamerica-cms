@@ -1,0 +1,118 @@
+.report__overlay{
+  position: fixed;
+  height: calc(100vh - 60px);
+
+  width: 100vw;
+  max-width: 1200px;
+  z-index: 700;
+  background: color(white);
+  visibility: hidden;
+  opacity: 0;
+  border-radius: 4px;
+  @include transition(all 0.35s ease);
+  top: 50%;
+  left: 50%;
+  @include transform(translate(-50%, -40%));
+  overflow: scroll;
+  padding-top: 65px;
+  padding-bottom: 65px;
+
+  &__menu-wrapper{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+    max-width: 1000px;
+  }
+
+  &__header{
+    position: absolute;
+    width: 100%;
+    height: 66px;
+    z-index: 5;
+    background: color(white);
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid #dedede;
+
+  }
+
+  .icon-plus {
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: 25px;
+  }
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    @include transform(translate(-50%, -50%));
+  }
+}
+
+.report__grey-out.active{
+  top: 0;
+  left: 0;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 600;
+  background: color(black, base, 0.3);
+}
+
+.menu-button {
+  position: fixed;
+  top: 85px;
+  left: 15px;
+  z-index: 500;
+  cursor: pointer;
+
+  @include breakpoint(1200px){
+    left: calc(50vw - 600px + 15px);
+  }
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border-radius: 100px;
+    background: #D5D5D5;
+    position: relative;
+    @include transition(all 0.15s ease);
+    z-index: 1;
+    &:before{
+      position: absolute;
+      @include center;
+    }
+  }
+
+  &:hover i{
+    background: color(black);
+    color: color(white);
+  }
+
+  h5 {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    left: -20px;
+    padding-right: 15px;
+    z-index: 0;
+
+    span {
+      display: block;
+      width: 100%;
+      position: relative;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-right: 15px;
+      padding-left: 35px;
+      background: color(white);
+      @include transition(transform 0.25s cubic-bezier(.17,.67,.07,1.39));
+    }
+  }
+}

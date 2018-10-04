@@ -1,6 +1,8 @@
 import './Body.scss';
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 import Social from './Social';
 import Authors from './Authors'
 import Endnote from './EndnoteAside';
@@ -14,64 +16,46 @@ class Body extends Component {
     };
   }
 
-  openEndnote = () => {
+  openEndnote = (el) => {
     let _this = this;
 
     return function(){
-      let endnotes = _this.props.report.endnotes;
-      let number = +this.getAttribute('data-citation-number');
-      if(_this.state.citeEl==this){
-        _this.closeEndnote();
-      } else {
-        if(_this.state.citeEl)
-          _this.state.citeEl.classList.remove('active');
-        this.classList.add('active');
-        _this.setState({ endnote: endnotes[number-1], top: this.offsetTop, citeEl: this });
-      }
+      this.parentNode.classList.toggle('active');
     }
   }
 
   citationEvents = () => {
     let _this = this;
-    let citations = document.querySelectorAll('.report__citation');
-    this.props.dispatch({
-      type: 'ADD_SCROLL_EVENT',
-      component: 'site',
-      eventObject: {
-        selector: '.report__citation',
-        onLeave: (el, dir) => {if(this.state.citeEl==el) this.closeEndnote();},
-        els: citations,
-        // viewHeight
-        topOffset: -Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-        bottomOffset: -65
-      }
-    });
+    let endnotes = _this.props.report.endnotes;
+    let citations = document.querySelectorAll('.report__citation-wrapper');
+    // this.props.dispatch({
+    //   type: 'ADD_SCROLL_EVENT',
+    //   component: 'site',
+    //   eventObject: {
+    //     selector: '.report__citation-wrapper',
+    //     onLeave: (el, dir) => {if(this.state.citeEl==el) this.closeEndnote();},
+    //     els: citations,
+    //     // viewHeight
+    //     topOffset: -Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+    //     bottomOffset: -65
+    //   }
+    // });
     for(let c of citations){
-      c.onclick = this.openEndnote()
+      let i = c.getAttribute('data-citation-number')-1;
+      ReactDOM.render(<Endnote endnote={endnotes[i]} top={top} close={() => this.closeEndnote(c)}/>, c.querySelector('.report__citation__note'));
+      c.querySelector('.report__citation').onclick = this.openEndnote();
     }
   }
 
-  closeEndnote = () => {
-    if(this.state.citeEl)
-      this.state.citeEl.classList.remove('active');
-    this.setState({ endnote: null, top: -1000, citeEl: null });
+  closeEndnote = (el) => {
+    el.classList.remove('active');
+  //  this.setState({ endnote: null, top: -1000, citeEl: null });
   }
 
-  renderDataViz = (tries=0) => {
-    let viz = document.querySelectorAll('.na-dataviz');
-    if(!viz) return;
-    if(!window.renderDataViz){
-      if(tries<3) setTimeout(()=>{ this.renderDataViz(tries++); }, 500);
-      return;
-    }
-    for(let i=0; i<viz.length; i++){
-      window.renderDataViz(viz[i]);
-    }
-  }
 
   loadScripts = () => {
     let { report, section } = this.props;
-    this.renderDataViz();
+    newamericadotorg.renderDataViz();
     if(!this.el) return;
     if(report.data_project_external_script && document.querySelectorAll('.dataviz-project').length){
 
@@ -95,13 +79,13 @@ class Body extends Component {
 
   componentDidMount(){
     this.citationEvents();
-    this.loadScripts();
+    if(this.props.section)
+      this.loadScripts();
   }
 
   componentDidUpdate(prevProps){
-    if(prevProps.location != this.props.location){
+    if(prevProps.section.number != this.props.section.number && this.props.section){
       this.citationEvents();
-      this.closeEndnote();
       this.loadScripts();
     }
 
@@ -112,27 +96,15 @@ class Body extends Component {
     let { authors, endnotes, date, url, report_pdf, title } = report;
     let { endnote, top } = this.state;
     return (
-      <div className="container margin-top-35 margin-top-lg-80" onClick={closeMenu} ref={(el)=>{this.el = el; }}>
-      <div className={"report__body row gutter-30 " + (endnote ? 'endnote-active' : '')}>
-        <div className="report__body__aside col-11 col-md-6 col-lg-2 push-lg-10">
-          <div className="post-aside-wrapper">
-            <Authors authors={authors} />
-          </div>
-        </div>
-        <div className={"report__body__aside col-6 col-md-6 col-lg-2 pull-lg-2"}>
-          <div className="post-aside-wrapper">
-            <Social url={url} report_pdf={report_pdf} title={title}/>
-            <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
-          </div>
-        </div>
-        <div className="report__body__section col-12 col-lg-8 pull-lg-2 margin-top-35 margin-top-lg-0">
+      <div className={`container ${endnote ? 'endnote-active' : ''}`} onClick={closeMenu} ref={(el)=>{this.el = el; }} style={{ position: 'relative' }}>
+        <div className="report__body">
           <div className="post-body-wrapper">
             {section.number==1 && <h6 className="report__body__section__date margin-top-0 margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</h6>}
             <h2 className="margin-top-0">{section.title}</h2>
-            <article className="report__body__section__article" dangerouslySetInnerHTML={{__html: section.body}} />
+            <div className="report__body__article" dangerouslySetInnerHTML={{__html: section.body}} />
           </div>
         </div>
-      </div>
+
       </div>
     );
   }
