@@ -98,9 +98,10 @@ class IframeBlock(blocks.StructBlock):
 class DatavizBlock(blocks.StructBlock):
 	title = blocks.CharBlock(required=False)
 	subheading = blocks.RichTextBlock(required=False)
-	max_width = IntegerBlock()
+	max_width = IntegerBlock(help_text='for legacy dataviz projects')
 	width = blocks.ChoiceBlock([
 		('column-width', 'Column Width'),
+		('width-1200', 'Max 1200px'),
 		('full-width', 'Full Width')
 	], default='year', required=False)
 	show_chart_buttons = blocks.BooleanBlock(default=False, required=False)
