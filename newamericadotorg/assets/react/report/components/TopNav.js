@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ContentMenu from './ContentMenu';
 
+import { Download } from '../../components/Icons';
+
 class TopNav extends Component {
   render(){
     let { section, report, openMenu, closeMenu, toggleMenu, menuOpen, showAttachments } = this.props;
@@ -26,7 +28,8 @@ class TopNav extends Component {
                 closeMenu();
                 showAttachments();
               }}>
-                <i className="fa fa-paperclip circle gray" data-attachments-n={`${report.attachments.length}`}/>
+
+                <Download data-attachments-n={`${report.attachments.length}`} className="circle-gray"/>
               </div>
               }
               <div className="report__top-nav__icon">

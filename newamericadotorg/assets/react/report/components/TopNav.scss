@@ -53,9 +53,7 @@
   }
 
   &__icon {
-    margin-left: 20px;
     padding-left: 20px;
-    border-left: 1px solid color(gray);
     height: 30px;
     display: inline-block;
     vertical-align: middle;
@@ -65,6 +63,10 @@
       content: '';
       vertical-align: middle;
       height: 30px;
+    }
+
+    &:nth-child(2){
+      margin-left: 15px;
     }
   }
 
@@ -80,13 +82,15 @@
     display: block;
     content: attr(data-attachments-n);
     font-family: 'Circular';
+    color: color(white);
     font-size: 10px;
     border-radius: 10px;
     width: 18px;
     height: 18px;
     text-align: center;
-    padding-top: 4px;
+    padding-top: 3px;
     font-weight: bold;
+    font-style: normal;
     position: absolute;
     top: -9px;
     left: -9px;
