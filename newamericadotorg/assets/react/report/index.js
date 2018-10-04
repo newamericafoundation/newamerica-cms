@@ -73,7 +73,7 @@ class Report extends Component {
         //let pos = prog < 130/el.offsetHeight ? '0%' : (prog > (el.offsetHeight-500)/el.offsetHeight ? '0%' : '-100%');
         let { section } = this.state;
 
-        let showNextBtn = report.sections.length !== section.number && prog > (el.offsetHeight-650)/el.offsetHeight ? true : false;
+        let showNextBtn = report.sections.length !== section.number && prog > (el.offsetHeight-window.innerHeight)/el.offsetHeight ? true : false;
 
         this.setState({ showNextBtn });
       }

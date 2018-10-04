@@ -3,6 +3,8 @@ import './BottomNav.scss';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
+import { Home } from '../../components/Icons';
+
 class BottomNavButtons extends Component {
 
   render(){
@@ -35,11 +37,17 @@ class BottomNavButtons extends Component {
   }
 }
 
-const ChapterList = ({ sections, activeIndex, n }) => (
-  <ul style={{ transform: `translateX(-${activeIndex * 30}px)`}}>
+const ChapterList = ({ sections, activeIndex, n, reportUrl }) => (
+  <ul style={{ transform: `translateX(-${activeIndex * 40}px)`}}>
+    <li className={n === 0 ? 'active' : ''}
+      style={{ width: '40px', textAlign: 'center' }}>
+      <Link to={reportUrl}>
+        <Home />
+      </Link>
+    </li>
     {sections.map((s,i) => (
       <li className={n === i ? 'active' : ''} key={`section-${i}`}
-        style={{ width: '30px', textAlign: 'center' }}>
+        style={{ width: '40px', textAlign: 'center' }}>
         <Link to={s.url}>
           <h6 className="inline">{i+1}</h6>
         </Link>
@@ -57,10 +65,10 @@ class BottomNav extends Component {
 
     let activeIndex = 0;
 
-    if(section.number < 5){
+    if(section.number < 3){
       activeIndex = 0;
     } else {
-      activeIndex = section.number-5;
+      activeIndex = section.number-3;
     }
 
     return (
@@ -70,15 +78,18 @@ class BottomNav extends Component {
           <h6 className="inline">Contents</h6>
         </div>
         <div className="report__bottom-nav-bar__chapter-nav" >
-          <div className="report__bottom-nav-bar__button-wrapper">
+          <div className="report__bottom-nav-bar__button-wrapper" style={{ marginRight: '15px' }}>
             {section.number > 1 &&
               <Link to={report.sections[section.number-2].url} className="prev-button"/>
               }
+            {section.number === 1 &&
+              <Link to={report.url} className="prev-button"/>
+            }
           </div>
-          <div style={{ overflow: 'hidden', width: '180px' }} className="report__bottom-nav-bar__chapter-list">
-            <ChapterList sections={report.sections} activeIndex={activeIndex} n={section.number-1}/>
+          <div style={{ overflow: 'hidden', width: '240px' }} className="report__bottom-nav-bar__chapter-list">
+            <ChapterList sections={report.sections} reportUrl={report.url} activeIndex={activeIndex} n={section.number-1}/>
           </div>
-          <div className={`report__bottom-nav-bar__button-wrapper ${showNextBtn ? 'show-text' : ''}`}>
+          <div className={`report__bottom-nav-bar__button-wrapper ${showNextBtn ? 'show-text' : ''}`} style={{ marginLeft: '15px' }}>
             {section.number < report.sections.length &&
               <Link to={report.sections[section.number].url} className="next-button">
                 <h6 className="margin-0">Next Section</h6>

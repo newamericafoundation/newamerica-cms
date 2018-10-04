@@ -46,6 +46,12 @@ export const DataViz = ({ className, ...props }) => (
   </i>
 );
 
+export const Home = ({ className, ...props }) => (
+  <i className={`na-icon na-icon-data-viz ${className || ''}`} {...props}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 11"><title>icon_home</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon points="10 11 6 11 6 7.33 4 7.33 4 11 0 11 0 4.58 4.97 0 10 4.58 10 11"/></g></g></svg>
+  </i>
+);
+
 export const Download = ({ className, ...props }) => (
   <i className={`na-icon na-icon-download ${className || ''}`} {...props}>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><title>icon_download</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M10.24,4.21,6,8.45,1.76,4.21,3.17,2.79,5,4.62V0H7V4.62L8.83,2.79ZM12,8H10v2H2V8H0v4H12Z"/></g></g></svg>
