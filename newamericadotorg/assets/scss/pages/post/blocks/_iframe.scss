@@ -1,0 +1,16 @@
+.block-iframe {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.block-iframe__responsive-container{
+  position: relative;
+
+  iframe {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+  }
+
+}

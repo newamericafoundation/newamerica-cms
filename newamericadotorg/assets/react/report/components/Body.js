@@ -65,6 +65,7 @@ class Body extends Component {
       return;
     }
     for(let i=0; i<viz.length; i++){
+      viz[i].setAttribute('id', viz[i].getAttribute('data-id'));
       window.renderDataViz(viz[i]);
     }
   }
