@@ -3,4 +3,14 @@
     width: 100vw;
     margin-left: calc(-50vw + 50%);
   }
+
+  &.width-1200 {
+    width: 100vw;
+    max-width: 1200px;
+    margin-left: calc(-50vw + 50%);
+
+    @media (min-width: 1200px) {
+      margin-left: -300px;
+    }
+  }
 }
