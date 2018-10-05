@@ -2,21 +2,16 @@
 {% load utilities %}
 
 {% if value.image %}
-  {% if value.image.get_url %}
-    {% image value.image min-800x800 as img %}
-    {% image value.image original as img_original %}
-  {% endif %}
+  {% image value.image min-800x800 as img %}
+  {% image value.image original as img_original %}
 {% else %}
-  {% if value.get_url %}
-    {% image value min-800x800 as img %}
-    {% image value original as img_original %}
-  {% endif %}
+  {% image value min-800x800 as img %}
+  {% image value original as img_original %}
 {% endif %}
 
 
 {% widthratio value.image.width value.image.height 420 as maxWidth %}
 
-{% if value.image.get_url %}
 <figure class="figure {{value.align}} {% if value.align == 'centered'%}margin-35 margin-lg-60{% endif %}">
   {% if value.figure_number or value.figure_title %}
     <div class="figure__title margin-bottom-15" style="max-width: {{maxWidth}}px;">
@@ -60,4 +55,3 @@
     </figcaption>
   {% endif %}
 </figure>
-{% endif %}
