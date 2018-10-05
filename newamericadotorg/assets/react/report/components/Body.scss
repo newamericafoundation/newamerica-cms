@@ -53,7 +53,7 @@
 }
 
 .report__citation-wrapper{
-  &.active .report__citation, &:hover .report__citation{
+  .report__citation.active, &:hover .report__citation{
     background: color(turquoise);
     color: color(white);
     font-weight: normal;
@@ -74,7 +74,7 @@
 }
 
 .oti .report__citation-wrapper {
-  &.active .report__citation, &:hover .report__citation{
+  .report__citation.active, &:hover .report__citation{
     background: color(oti-blue);
   }
 }
