@@ -16,40 +16,48 @@ class Body extends Component {
     };
   }
 
-  openEndnote = (el) => {
-    let _this = this;
+  openEndnote = (endnote) => {
+    let body = this;
 
     return function(){
-      this.parentNode.classList.toggle('active');
+      if(this.querySelector('.report__citation').classList.contains('active')) return body.closeEndnote();
+      this.querySelector('.report__citation').classList.add('active');
+      body.setState({
+        endnote,
+        top: this.offsetTop,
+        citeEl: this
+      })
     }
   }
 
   citationEvents = () => {
     let _this = this;
+    this.closeEndnote();
     let endnotes = _this.props.report.endnotes;
     let citations = document.querySelectorAll('.report__citation-wrapper');
-    // this.props.dispatch({
-    //   type: 'ADD_SCROLL_EVENT',
-    //   component: 'site',
-    //   eventObject: {
-    //     selector: '.report__citation-wrapper',
-    //     onLeave: (el, dir) => {if(this.state.citeEl==el) this.closeEndnote();},
-    //     els: citations,
-    //     // viewHeight
-    //     topOffset: -Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-    //     bottomOffset: -65
-    //   }
-    // });
+    this.props.dispatch({
+      type: 'ADD_SCROLL_EVENT',
+      component: 'site',
+      eventObject: {
+        selector: '.report__citation-wrapper',
+        onLeave: (el, dir) => {
+          if(this.state.citeEl===el) this.closeEndnote();
+        },
+        els: citations,
+        // viewHeight
+        topOffset: -Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+        bottomOffset: -65
+      }
+    });
     for(let c of citations){
       let i = c.getAttribute('data-citation-number')-1;
-      ReactDOM.render(<Endnote endnote={endnotes[i]} top={top} close={() => this.closeEndnote(c)}/>, c.querySelector('.report__citation__note'));
-      c.querySelector('.report__citation').onclick = this.openEndnote();
+      c.onclick = this.openEndnote(endnotes[i]);
     }
   }
 
   closeEndnote = (el) => {
-    el.classList.remove('active');
-  //  this.setState({ endnote: null, top: -1000, citeEl: null });
+   if(this.state.citeEl) this.state.citeEl.querySelector('.report__citation').classList.remove('active');
+   this.setState({ endnote: null, top: -1000, citeEl: null });
   }
 
 
@@ -97,6 +105,7 @@ class Body extends Component {
     let { endnote, top } = this.state;
     return (
       <div className={`container ${endnote ? 'endnote-active' : ''}`} onClick={closeMenu} ref={(el)=>{this.el = el; }} style={{ position: 'relative' }}>
+        <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
         <div className={`report__body${section.hide_title ? ' hide-title' : ''}`}>
           <div className="post-body-wrapper">
             <h2 className="margin-top-0 report__body__section-title">{section.title}</h2>
