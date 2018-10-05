@@ -177,6 +177,10 @@
 .report__bottom-nav-bar__chapter-list{
   margin-left: 10px;
   margin-right: 10px;
+
+  @media (max-width: 650px){
+    display: none !important; 
+  }
 }
 
 .report__bottom-nav-bar__chapter-list ul {

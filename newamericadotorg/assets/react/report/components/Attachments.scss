@@ -1,8 +1,7 @@
 .report__attachments {
-  height: calc(100vh - 60px);
+  height: 100vh;
   overflow: scroll;
   width: 100vw;
-  border-radius: 4px;
   max-width: 1200px;
   padding-top: 50px;
   padding-bottom: 50px;
@@ -17,6 +16,10 @@
   top: 50%;
   @include transition(all 0.35s ease);
   @include transform(translate(-50%, 0));
+  @include media-breakpoint(desktop){
+    height: calc(100vh - 60px);
+    border-radius: 4px;
+  }
 
   &.active {
     visibility: visible;
