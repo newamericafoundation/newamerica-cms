@@ -12,6 +12,27 @@
       float: right;
     }
   }
+
+  &__tooltip {
+    @include transition(all 0.35s ease);
+    @include transform(translateY(-100%));
+    background: color(black);
+    width: 240px;
+    padding: 15px;
+    position: absolute;
+    top: -15px;
+    left: 60px;
+    white-space: normal;
+
+    &__caret {
+      background: color(black);
+      height: 20px;
+      width: 20px;
+      @include transform(rotate(45deg));
+      position: absolute;
+      bottom: -10px;
+    }
+  }
 }
 
 .report__bottom-nav-bar{
@@ -39,7 +60,7 @@
   float: right;
 }
 
-.report__bottom-nav-bar__chapter-nav > div {
+.report__bottom-nav-bar__chapter-nav > div:not(.report__bottom-nav__tooltip) {
     display: inline-block;
     vertical-align: middle;
     height: 36px;

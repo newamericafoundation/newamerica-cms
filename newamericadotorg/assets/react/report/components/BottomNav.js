@@ -5,8 +5,14 @@ import React, { Component } from 'react';
 
 import { Home } from '../../components/Icons';
 
-class BottomNavButtons extends Component {
+const Tooltip = ({ content, activeIndex }) => (
+  <div className="report__bottom-nav__tooltip" style={{ opacity: content ? 1 : 0, visibility: content ? 'visible' : 'hidden' }}>
+    <h6 className="paragraph white margin-0">{content.title}</h6>
+    <div className="report__bottom-nav__tooltip__caret" style={{ left: (content.index - activeIndex + 1) * 40 + 10 }}></div>
+  </div>
+);
 
+class BottomNavButtons extends Component {
   render(){
     let { section, report } = this.props;
     if(!section) section = { number: 0 };
@@ -37,8 +43,8 @@ class BottomNavButtons extends Component {
   }
 }
 
-const ChapterList = ({ sections, activeIndex, n, reportUrl }) => (
-  <ul style={{ transform: `translateX(-${activeIndex * 40}px)`}}>
+const ChapterList = ({ sections, activeIndex, n, reportUrl, tooltipContent, setTooltip }) => (
+  <ul style={{ transform: `translateX(-${activeIndex * 40}px)`, position: 'relative' }}>
     <li className={n === 0 ? 'active' : ''}
       style={{ width: '40px', textAlign: 'center' }}>
       <Link to={reportUrl}>
@@ -47,8 +53,12 @@ const ChapterList = ({ sections, activeIndex, n, reportUrl }) => (
     </li>
     {sections.map((s,i) => (
       <li className={n === i ? 'active' : ''} key={`section-${i}`}
-        style={{ width: '40px', textAlign: 'center' }}>
-        <Link to={s.url}>
+        style={{ width: '40px', textAlign: 'center' }}
+        onMouseEnter={()=>{ setTooltip({
+          title: s.title, index: i
+        })} }
+        onMouseLeave={()=>{ setTooltip(false)}}>
+        <Link to={s.url} style={{ display: 'block' }}>
           <h6 className="inline">{i+1}</h6>
         </Link>
       </li>
@@ -57,6 +67,16 @@ const ChapterList = ({ sections, activeIndex, n, reportUrl }) => (
 )
 
 class BottomNav extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      tooltipContent: false
+    }
+  }
+
+  setTooltip = (content) => {
+    this.setState({ tooltipContent: content });
+  }
 
   render(){
     let { section, report, hideAttachments, openMenu, showNextBtn } = this.props;
@@ -77,7 +97,8 @@ class BottomNav extends Component {
           <i className="fa fa-bars"/>
           <h6 className="inline">Contents</h6>
         </div>
-        <div className="report__bottom-nav-bar__chapter-nav" >
+        <div className="report__bottom-nav-bar__chapter-nav" style={{ position: 'relative' }}>
+          <Tooltip content={this.state.tooltipContent} activeIndex={activeIndex}/>
           <div className="report__bottom-nav-bar__button-wrapper" style={{ marginRight: '15px' }}>
             {section.number > 1 &&
               <Link to={report.sections[section.number-2].url} className="prev-button"/>
@@ -86,8 +107,15 @@ class BottomNav extends Component {
               <Link to={report.url} className="prev-button"/>
             }
           </div>
-          <div style={{ overflow: 'hidden', width: '240px' }} className="report__bottom-nav-bar__chapter-list">
-            <ChapterList sections={report.sections} reportUrl={report.url} activeIndex={activeIndex} n={section.number-1}/>
+          <div style={{ overflow: 'hidden', width: '240px', }} className="report__bottom-nav-bar__chapter-list">
+
+            <ChapterList
+              sections={report.sections}
+              reportUrl={report.url}
+              setTooltip={this.setTooltip}
+              tooltipContent={this.state.tooltipContent}
+              activeIndex={activeIndex}
+              n={section.number-1}/>
           </div>
           <div className={`report__bottom-nav-bar__button-wrapper ${showNextBtn ? 'show-text' : ''}`} style={{ marginLeft: '15px' }}>
             {section.number < report.sections.length &&
