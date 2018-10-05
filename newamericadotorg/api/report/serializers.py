@@ -17,6 +17,7 @@ class ReportDetailSerializer(PostSerializer):
     story_image_thumbnail = SerializerMethodField()
     report_pdf = SerializerMethodField()
     attachments = SerializerMethodField()
+    abstract = SerializerMethodField()
     # spelling fix
     acknowledgments = SerializerMethodField()
 
@@ -55,7 +56,14 @@ class ReportDetailSerializer(PostSerializer):
         if obj.body:
             return loader.get_template('components/post_body.html').render({ 'page': obj })
 
+    def get_abstract(self, obj):
+        if obj.abstract == '<p></p>':
+            return None;
+        return obj.abstract
+
     def get_acknowledgments(self, obj):
+        if obj.acknowledgements == '<p></p>':
+            return None;
         return obj.acknowledgements
 
     def get_endnotes(self, obj):
@@ -133,7 +141,7 @@ class ReportDetailSerializer(PostSerializer):
                 'subsections': [],
                 'url': obj.url + slug
             }
-            
+
             for block in s.value['body']:
                 if block.block_type == 'heading':
                     sub_slug = slugify(block.value)
