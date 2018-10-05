@@ -444,6 +444,14 @@ class PanelBlock(blocks.StructBlock):
 
 class ReportSectionBlock(blocks.StructBlock):
 	title = blocks.TextBlock()
+	featured = blocks.ChoiceBlock(choices=[
+		(None, ''),
+		('Highlight', 'Highlight'),
+		('Data Visualization', 'Data Visualization'),
+		('Resource', 'Resource')
+	], default=None, required=False)
+	label = blocks.TextBlock(max_length=35, required=False)
+	description = blocks.TextBlock(max_length=240, required=False)
 	body = ReportBody()
 
 class PanelsBlock(blocks.StreamBlock):

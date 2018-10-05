@@ -38,6 +38,8 @@ class Report(Post):
         ('section', ReportSectionBlock(template="components/report_section_body.html", required=False))
     ], null=True, blank=True)
 
+    abstract = RichTextField(blank=True, null=True)
+
     acknowledgements = RichTextField(blank=True, null=True)
 
     source_word_doc = models.ForeignKey(
@@ -93,6 +95,7 @@ class Report(Post):
     )
 
     content_panels = Post.content_panels + [
+        FieldPanel('abstract'),
         FieldPanel('acknowledgements'),
     ]
 

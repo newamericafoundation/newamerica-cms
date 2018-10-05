@@ -9,6 +9,7 @@ from report.models import Report
 from newamericadotorg.api.helpers import generate_image_rendition, generate_image_url
 
 class ReportDetailSerializer(PostSerializer):
+    featured_sections = SerializerMethodField()
     sections = SerializerMethodField()
     body = SerializerMethodField()
     endnotes = SerializerMethodField()
@@ -16,14 +17,16 @@ class ReportDetailSerializer(PostSerializer):
     story_image_thumbnail = SerializerMethodField()
     report_pdf = SerializerMethodField()
     attachments = SerializerMethodField()
+    # spelling fix
+    acknowledgments = SerializerMethodField()
 
     class Meta:
         model = Report
         fields = (
-            'id', 'title', 'subheading', 'date', 'content_type',
+            'id', 'title', 'subheading', 'date', 'content_type', 'featured_sections',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
             'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
-            'report_pdf', 'search_description', 'data_project_external_script', 'attachments'
+            'report_pdf', 'search_description', 'data_project_external_script', 'attachments', 'acknowledgments', 'abstract'
         )
 
     def get_report_pdf(self, obj):
@@ -51,6 +54,9 @@ class ReportDetailSerializer(PostSerializer):
     def get_body(self, obj):
         if obj.body:
             return loader.get_template('components/post_body.html').render({ 'page': obj })
+
+    def get_acknowledgments(self, obj):
+        return obj.acknowledgements
 
     def get_endnotes(self, obj):
         if obj.endnotes:
@@ -86,8 +92,28 @@ class ReportDetailSerializer(PostSerializer):
                     })
                 except:
                     pass
-                    
+
         return attchs
+
+    def get_featured_sections(self, obj):
+        if obj.sections is None:
+            return None
+        sections = []
+        for i,s in enumerate(obj.sections):
+            if not s.value['featured']: continue
+            slug = slugify(s.value['title'])
+            section = {
+                'title': s.value['title'],
+                'description': s.value['description'],
+                'label': s.value['label'],
+                'featured': s.value['featured'],
+                'number': i+1,
+                'slug': slug,
+                'url': obj.url + slug
+            }
+            sections.append(section)
+
+        return sections
 
 
     def get_sections(self, obj):
@@ -98,14 +124,16 @@ class ReportDetailSerializer(PostSerializer):
             slug = slugify(s.value['title'])
             section = {
                 'title': s.value['title'],
+                'description': s.value['description'],
+                'label': s.value['label'],
+                'featured': s.value['featured'],
                 'number': i+1,
                 'slug': slug,
                 'body': s.render(),
                 'subsections': [],
-                'interactive': False,
                 'url': obj.url + slug
             }
-            if 'dataviz' in section['body']: section['interactive'] = True
+            
             for block in s.value['body']:
                 if block.block_type == 'heading':
                     sub_slug = slugify(block.value)
@@ -115,13 +143,5 @@ class ReportDetailSerializer(PostSerializer):
                         'url': obj.url + slug + '/#' + sub_slug
                     })
             sections.append(section)
-        if obj.acknowledgements:
-            sections.append({
-                'title': 'Acknowledgments',
-                'number': len(sections)+1,
-                'slug': 'acknowledgments',
-                'body': obj.acknowledgements,
-                'subsections': [],
-                'url': obj.url + 'acknowledgments'
-            })
+
         return sections

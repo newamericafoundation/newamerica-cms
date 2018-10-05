@@ -128,11 +128,40 @@ class Report extends Component {
             {showHeading &&
               <Heading report={report}/>
             }
+            {(showHeading && report.abstract) &&
+              <div className="container margin-90" id="abstract">
+                <h3 className="margin-bottom-35">Abstract</h3>
+                <div className="report__abstract" dangerouslySetInnerHTML={{ __html: report.abstract }}  style={{ maxWidth: '800px' }}/>
+              </div>
+            }
+
+            {(showHeading && report.featured_sections > 0) &&
+              <div className="container margin-90" id="featured">
+                <h3 className="margin-bottom-35">Featured</h3>
+              </div>
+            }
+
             {showMenu &&
-              <div className="container margin-90">
+              <div className="container margin-90" id="contents">
+                <h3 className="margin-bottom-35">Contents</h3>
                 <ContentMenu report={report} closeMenu={this.closeMenu}/>
               </div>
             }
+
+            {showHeading &&
+              <div className="container margin-90" id="authors">
+                <h3 className="margin-bottom-35">Authors</h3>
+
+              </div>
+            }
+
+            {(showHeading && report.acknowledgments) &&
+              <div className="container margin-90" id="acknowledgments">
+                <h3 className="margin-bottom-35">Acknowledgments</h3>
+                <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }}  style={{ maxWidth: '800px' }}/>
+              </div>
+            }
+
             {showBody && <Body section={section || report.sections[0]}
               report={report}
               dispatch={this.props.dispatch}
