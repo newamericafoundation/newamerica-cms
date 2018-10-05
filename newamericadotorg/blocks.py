@@ -450,8 +450,8 @@ class ReportSectionBlock(blocks.StructBlock):
 		('Data Visualization', 'Data Visualization'),
 		('Resource', 'Resource')
 	], default=None, required=False)
-	label = blocks.TextBlock(max_length=35, required=False)
-	description = blocks.TextBlock(max_length=240, required=False)
+	label = blocks.TextBlock(max_length=30, required=False)
+	description = blocks.TextBlock(max_length=65, required=False)
 	body = ReportBody()
 
 class PanelsBlock(blocks.StreamBlock):

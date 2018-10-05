@@ -13,6 +13,7 @@ import { setResponse } from '../api/actions';
 import ContentMenu from './components/ContentMenu';
 import OverlayMenu from './components/OverlayMenu';
 import Attachments from './components/Attachments';
+import FeaturedSections from './components/FeaturedSections';
 
 class Report extends Component {
   constructor(props){
@@ -135,9 +136,10 @@ class Report extends Component {
               </div>
             }
 
-            {(showHeading && report.featured_sections > 0) &&
+            {(showHeading && report.featured_sections.length > 0) &&
               <div className="container margin-90" id="featured">
                 <h3 className="margin-bottom-35">Featured</h3>
+                <FeaturedSections featuredSections={report.featured_sections} />
               </div>
             }
 
