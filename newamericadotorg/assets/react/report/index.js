@@ -14,6 +14,7 @@ import ContentMenu from './components/ContentMenu';
 import OverlayMenu from './components/OverlayMenu';
 import Attachments from './components/Attachments';
 import FeaturedSections from './components/FeaturedSections';
+import Authors from './components/Authors';
 
 class Report extends Component {
   constructor(props){
@@ -153,7 +154,7 @@ class Report extends Component {
             {showHeading &&
               <div className="container margin-90" id="authors">
                 <h3 className="margin-bottom-35">Authors</h3>
-
+                <Authors authors={report.authors} />
               </div>
             }
 
