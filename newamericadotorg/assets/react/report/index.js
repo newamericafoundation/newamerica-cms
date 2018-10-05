@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NAME, ID } from './constants';
 import { Fetch, Response } from '../components/API';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { format as formatDate } from 'date-fns';
 import GARouter from '../ga-router';
 import DocumentMeta from 'react-document-meta';
 import Heading from './components/Heading';
@@ -130,6 +131,13 @@ class Report extends Component {
             {showHeading &&
               <Heading report={report}/>
             }
+
+            {showHeading &&
+              <div className="container margin-top-60">
+                <h6 className="report__body__section__date margin-0">Last updated:<br/> {formatDate(report.date, "MMMM Do, YYYY")}</h6>
+              </div>
+            }
+
             {(showMenu && report.abstract) &&
               <div className="container margin-90" id="abstract">
                 <h3 className="margin-bottom-35">Abstract</h3>
@@ -171,7 +179,7 @@ class Report extends Component {
                 <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }}  style={{ maxWidth: '800px' }}/>
               </div>
             }
-            
+
           {showOverlay &&
             <OverlayMenu report={report}
                 open={this.state.menuOpen}
