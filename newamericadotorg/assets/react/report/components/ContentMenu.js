@@ -3,7 +3,7 @@ import './ContentMenu.scss';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { PlusX } from '../../components/Icons';
+import { PlusX, Home } from '../../components/Icons';
 
 const Subsection = ({ section, url, closeMenu }) => (
   <div className="report__menu__subsection">
@@ -33,7 +33,7 @@ const Section = ({ section, expanded, expand, closeMenu, home }) => (
           <Link to={section.url} onClick={closeMenu}>
             {section.interactive && <InteractiveDiv /> }
             {home && <div className="home-div">
-              <i className="fa fa-home" />
+              <Home />
             </div>}
             <h4 className="inline-block margin-0">{section.title}</h4>
           </Link>
