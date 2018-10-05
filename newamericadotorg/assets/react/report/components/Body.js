@@ -21,6 +21,7 @@ class Body extends Component {
 
     return function(){
       if(this.querySelector('.report__citation').classList.contains('active')) return body.closeEndnote();
+      body.closeEndnote();
       this.querySelector('.report__citation').classList.add('active');
       body.setState({
         endnote,
