@@ -6,7 +6,7 @@ const Author = ({ author }) => (
  <div className="report__author-button">
    <a href={author.url} style={{ display: 'block' }}>
       <div className="report__author-button__image">
-        {author.profile_image && <img src={author.profile_image.url} />}
+        {author.profile_image && <img src={author.profile_image} />}
         {!author.profile_image && <i className="fa fa-user"/>}
       </div>
       <div className="report__author-button__text">
