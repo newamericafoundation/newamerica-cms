@@ -132,6 +132,7 @@ class ReportDetailSerializer(PostSerializer):
             slug = slugify(s.value['title'])
             section = {
                 'title': s.value['title'],
+                'hide_title': s.value['hide_title'],
                 'description': s.value['description'],
                 'label': s.value['label'],
                 'featured': s.value['featured'],

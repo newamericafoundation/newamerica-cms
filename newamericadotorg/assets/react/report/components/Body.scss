@@ -17,6 +17,17 @@
   .block-table{
     margin-top: 25px;
   }
+
+  &.hide-title{
+    padding-top: 0;
+    .report__body__section-title {
+      display: none;
+    }
+
+    .report__body__article > .block-dataviz:first-child {
+      margin-top: 0 !important;
+    }
+  }
 }
 
 .report__citation{

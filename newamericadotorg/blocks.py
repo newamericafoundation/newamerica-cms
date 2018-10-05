@@ -444,6 +444,7 @@ class PanelBlock(blocks.StructBlock):
 
 class ReportSectionBlock(blocks.StructBlock):
 	title = blocks.TextBlock()
+	hide_title = blocks.BooleanBlock(required=False)
 	featured = blocks.ChoiceBlock(choices=[
 		(None, ''),
 		('Highlight', 'Highlight'),
