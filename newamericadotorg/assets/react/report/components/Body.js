@@ -99,7 +99,6 @@ class Body extends Component {
       <div className={`container ${endnote ? 'endnote-active' : ''}`} onClick={closeMenu} ref={(el)=>{this.el = el; }} style={{ position: 'relative' }}>
         <div className="report__body">
           <div className="post-body-wrapper">
-            {section.number==1 && <h6 className="report__body__section__date margin-top-0 margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</h6>}
             <h2 className="margin-top-0">{section.title}</h2>
             <div className="report__body__article" dangerouslySetInnerHTML={{__html: section.body}} />
           </div>

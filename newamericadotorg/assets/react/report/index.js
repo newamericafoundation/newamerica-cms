@@ -130,14 +130,14 @@ class Report extends Component {
             {showHeading &&
               <Heading report={report}/>
             }
-            {(showHeading && report.abstract) &&
+            {(showMenu && report.abstract) &&
               <div className="container margin-90" id="abstract">
                 <h3 className="margin-bottom-35">Abstract</h3>
                 <div className="report__abstract" dangerouslySetInnerHTML={{ __html: report.abstract }}  style={{ maxWidth: '800px' }}/>
               </div>
             }
 
-            {(showHeading && report.featured_sections.length > 0) &&
+            {(showMenu && report.featured_sections.length > 0) &&
               <div className="container margin-90" id="featured">
                 <h3 className="margin-bottom-35">Featured</h3>
                 <FeaturedSections featuredSections={report.featured_sections} />
@@ -151,17 +151,10 @@ class Report extends Component {
               </div>
             }
 
-            {showHeading &&
+            {showMenu &&
               <div className="container margin-90" id="authors">
                 <h3 className="margin-bottom-35">Authors</h3>
                 <Authors authors={report.authors} />
-              </div>
-            }
-
-            {(showHeading && report.acknowledgments) &&
-              <div className="container margin-90" id="acknowledgments">
-                <h3 className="margin-bottom-35">Acknowledgments</h3>
-                <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }}  style={{ maxWidth: '800px' }}/>
               </div>
             }
 
@@ -171,6 +164,14 @@ class Report extends Component {
               location={location}
               closeMenu={this.closeMenu}/>
             }
+
+            {(showHeading && report.acknowledgments) &&
+              <div className="container margin-90" id="acknowledgments">
+                <h3 className="margin-bottom-35">Acknowledgments</h3>
+                <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }}  style={{ maxWidth: '800px' }}/>
+              </div>
+            }
+            
           {showOverlay &&
             <OverlayMenu report={report}
                 open={this.state.menuOpen}
