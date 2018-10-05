@@ -102,6 +102,10 @@
   }
 }
 
+.report__top-nav__icon.attch.clicked i:after{
+  display: none;
+}
+
 .scroll-left > .report__top-nav__sticky-wrapper{
   position: fixed;
 }

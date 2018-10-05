@@ -22,7 +22,8 @@ class Report extends Component {
     super(props);
     this.state = {
       menuOpen: false, contentsPosition: '0%', attchsOpen: false, showNextBtn: false,
-      section: this.getSection()
+      section: this.getSection(),
+      attchClicked: false
     }
   }
 
@@ -35,7 +36,7 @@ class Report extends Component {
   }
 
   showAttachments = () => {
-    this.setState({ attchsOpen: true });
+    this.setState({ attchsOpen: true, attchClicked: true });
   }
 
   hideAttachments = () => {
@@ -113,7 +114,7 @@ class Report extends Component {
 
   render(){
     let { location, match, report, redirect } = this.props;
-    let { showNextBtn, section } = this.state;
+    let { showNextBtn, section, attchClicked } = this.state;
 
     let showHeading = !section || report.sections.length===1;
     let showMenu = !section && report.sections.length > 1;
@@ -127,6 +128,7 @@ class Report extends Component {
             closeMenu={this.closeMenu}
             showAttachments={this.showAttachments}
             hideAttachments={this.hideAttachments}
+            attchClicked={attchClicked}
             menuOpen={this.state.menuOpen} />
             {showHeading &&
               <Heading report={report}/>

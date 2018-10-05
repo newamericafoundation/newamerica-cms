@@ -8,7 +8,7 @@ import { Download } from '../../components/Icons';
 
 class TopNav extends Component {
   render(){
-    let { section, report, openMenu, closeMenu, toggleMenu, menuOpen, showAttachments } = this.props;
+    let { section, report, openMenu, closeMenu, toggleMenu, menuOpen, showAttachments, attchClicked } = this.props;
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
     return (
@@ -24,7 +24,7 @@ class TopNav extends Component {
                 <Link to={report.url} onClick={closeMenu}>{report.title}</Link>
               </h4>
               {report.attachments.length > 0 &&
-              <div className="report__top-nav__icon attch" onClick={() => {
+              <div className={`report__top-nav__icon attch ${attchClicked ? 'clicked' : ''}`} onClick={() => {
                 closeMenu();
                 showAttachments();
               }}>
