@@ -16,7 +16,7 @@
 
 {% widthratio value.image.width value.image.height 420 as maxWidth %}
 
-{% if img %}
+{% if value.image.get_url %}
 <figure class="figure {{value.align}} {% if value.align == 'centered'%}margin-35 margin-lg-60{% endif %}">
   {% if value.figure_number or value.figure_title %}
     <div class="figure__title margin-bottom-15" style="max-width: {{maxWidth}}px;">
