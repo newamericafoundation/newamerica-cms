@@ -35,7 +35,7 @@ const Featured = ({ section }) => (
 const Sections = ({ featuredSections }) => (
   <div className="row gutter-30">
     {featuredSections.map((s,i)=>(
-      <div className="col-lg-4 col-12" key={`section-${i}`}>
+      <div className="col-md-6 col-lg-4 col-12" key={`section-${i}`}>
         <Featured section={s} />
       </div>
     ))}
