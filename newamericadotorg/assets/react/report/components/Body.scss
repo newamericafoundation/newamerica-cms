@@ -20,12 +20,22 @@
 
   &.hide-title{
     padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
     .report__body__section-title {
       display: none;
     }
 
+    .report__body__article > div:last-child{
+      margin-bottom: 85px;
+    }
+
     .report__body__article > .block-dataviz:first-child {
       margin-top: 0 !important;
+    }
+
+    .report__body__article > .block-dataviz:first-child:last-child {
+      margin-bottom: 0 !important;
     }
   }
 }
