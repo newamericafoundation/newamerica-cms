@@ -17,14 +17,14 @@ class Heading extends Component {
     return (
       <React.Fragment>
         <div className="report__heading container">
-          <div className="report__heading__bug centered margin-bottom-35">
+          {/* <div className="report__heading__bug centered margin-bottom-35">
             <Report />
             <h4 className="centered margin-top-5 margin-bottom-0">Report</h4>
-          </div>
+          </div> */}
           <div className="report__heading__title">
             <h1 className="margin-0 centered">{report.title}</h1>
             {report.subheading &&
-              <h6 className="subtitle centered margin-top-25 margin-bottom-0">{report.subheading}</h6>
+              <h6 className="subtitle centered margin-top-15 margin-bottom-0">{report.subheading}</h6>
             }
           </div>
           <div className='report__heading__authors centered'>
