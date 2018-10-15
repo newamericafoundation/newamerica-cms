@@ -15,7 +15,6 @@ class ReportDetailSerializer(PostSerializer):
     endnotes = SerializerMethodField()
     story_image = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
-    report_pdf = SerializerMethodField()
     attachments = SerializerMethodField()
     abstract = SerializerMethodField()
     # spelling fix
@@ -26,17 +25,9 @@ class ReportDetailSerializer(PostSerializer):
         fields = (
             'id', 'title', 'subheading', 'date', 'content_type', 'featured_sections',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
-            'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
-            'report_pdf', 'search_description', 'data_project_external_script', 'attachments', 'acknowledgments', 'abstract'
+            'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail', 'show_landing_page',
+            'search_description', 'data_project_external_script', 'attachments', 'acknowledgments', 'abstract'
         )
-
-    def get_report_pdf(self, obj):
-        if not obj.report_pdf:
-            return None
-        try:
-            return obj.report_pdf.file.url
-        except:
-            return None
 
     def get_story_image(self, obj):
         img = generate_image_rendition(obj.story_image, 'fill-1300x630')
@@ -104,20 +95,16 @@ class ReportDetailSerializer(PostSerializer):
         return attchs
 
     def get_featured_sections(self, obj):
-        if obj.sections is None:
+        if obj.featured_sections is None:
             return None
         sections = []
-        for i,s in enumerate(obj.sections):
-            if not s.value['featured']: continue
-            slug = slugify(s.value['title'])
+        for i,s in enumerate(obj.featured_sections):
             section = {
-                'title': s.value['title'],
-                'description': s.value['description'],
                 'label': s.value['label'],
-                'featured': s.value['featured'],
+                'description': s.value['description'],
+                'type': s.value['type'],
                 'number': i+1,
-                'slug': slug,
-                'url': obj.url + slug
+                'url': s.value['url']
             }
             sections.append(section)
 

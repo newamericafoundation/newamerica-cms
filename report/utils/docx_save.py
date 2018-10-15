@@ -1,6 +1,6 @@
 from .docx_parse2 import DocxParse
-from newamericadotorg.blocks import PanelBlock, ReportBody, BoxBody
-from report.blocks import EndnoteBlock
+from newamericadotorg.blocks import PanelBlock
+from report.blocks import EndnoteBlock, ReportBody, BoxBody
 from wagtail.core.blocks.stream_block import StreamValue
 from wagtail.core.rich_text import RichText
 from wagtail.core import blocks

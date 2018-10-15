@@ -6,8 +6,7 @@ from django.dispatch import receiver
 
 from home.models import Post
 from programs.models import AbstractContentPage
-from newamericadotorg.blocks import ReportSectionBlock
-from .blocks import EndnoteBlock
+from .blocks import EndnoteBlock, ReportSectionBlock, FeaturedReportSectionBlock
 
 from wagtail.core.models import Page, PageRevision
 from wagtail.core.fields import StreamField
@@ -66,6 +65,12 @@ class Report(Post):
     generate_pdf_on_publish = models.BooleanField('Generate PDF on save', default=False, help_text='⚠ Save latest content before checking this ⚠\nIf checked, the "Report PDF" field will be filled with a generated pdf. Otherwise, leave this unchecked and upload a pdf to the "Report PDF" field.')
     revising = False
 
+    show_landing_page = models.BooleanField(default=True, help_text='Show landing featured, abstract, and contents sections')
+
+    featured_sections = StreamField([
+        ('featured', FeaturedReportSectionBlock(required=False, null=True)),
+    ], null=True, blank=True)
+
     endnotes = StreamField([
         ('endnote', EndnoteBlock(required=False, null=True)),
     ], null=True, blank=True)
@@ -94,8 +99,16 @@ class Report(Post):
         related_name='+'
     )
 
-    content_panels = Post.content_panels + [
+    content_panels = Page.content_panels + [
+        FieldPanel('subheading'),
+        FieldPanel('date'),
+        InlinePanel('authors', label=("Authors")),
+        InlinePanel('programs', label=("Programs")),
+        InlinePanel('subprograms', label=("Subprograms")),
+        InlinePanel('topics', label=("Topics")),
+        FieldPanel('show_landing_page'),
         FieldPanel('abstract'),
+        FieldPanel('featured_sections'),
         FieldPanel('acknowledgements'),
     ]
 
@@ -121,7 +134,7 @@ class Report(Post):
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(content_panels, heading="Content"),
+        ObjectList(content_panels, heading="Landing"),
         ObjectList(sections_panels, heading="Sections"),
         ObjectList(endnote_panels, heading="Endnotes"),
         ObjectList(Post.promote_panels, heading="Promote"),
