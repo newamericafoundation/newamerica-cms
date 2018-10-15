@@ -1,10 +1,10 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% if value.image %}
+{% if value.image and value.image|has_rendition %}
   {% image value.image min-800x800 as img %}
   {% image value.image original as img_original %}
-{% else %}
+{% elif value|has_rendition %}
   {% image value min-800x800 as img %}
   {% image value original as img_original %}
 {% endif %}
