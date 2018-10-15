@@ -8,8 +8,12 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 60px;
-  padding-top: 90px;
+  padding-top: 35px;
   padding-bottom: 25px;
+
+  @include media-breakpoint(desktop){
+    padding-top: 90px;
+  }
 
   &.single-page-body {
     padding-bottom: 0px;
