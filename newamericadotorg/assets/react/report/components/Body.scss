@@ -10,6 +10,19 @@
   margin-bottom: 60px;
   padding-top: 90px;
   padding-bottom: 25px;
+
+  &.single-page-body {
+    padding-bottom: 0px;
+
+    .report__authors {
+      margin-bottom: -30px;
+    }
+
+    p:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
   .post-body-wrapper {
     max-width: 650px;
   }

@@ -117,6 +117,7 @@ class Report extends Component {
     let { showNextBtn, section, attchClicked } = this.state;
 
     let showHeading = !section || report.sections.length===1;
+    let showAuthors = report.sections.length===1 || !report.show_landing_page;
     let showMenu = !section && report.sections.length > 1;
     let showBody = section || (!section && report.sections.length===1);
     let showOverlay = !!section;
@@ -134,6 +135,22 @@ class Report extends Component {
               <Heading report={report}/>
             }
 
+            {showAuthors && <div className="container report__body single-page-body margin-0" id="authors">
+              <div className="post-body-wrapper">
+                <h3 className="margin-bottom-35">Authors</h3>
+                <Authors authors={report.authors} md={true} />
+              </div>
+            </div>}
+
+            {(showAuthors && report.acknowledgments) &&
+              <div className="container report__body single-page-body margin-0" id="acknowledgments">
+                <div className="post-body-wrapper">
+                  <h3 className="margin-bottom-35">Acknowledgments</h3>
+                  <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }} />
+                </div>
+              </div>
+            }
+
             {(showMenu && report.abstract) &&
               <div className="container margin-90" id="abstract">
                 <h3 className="margin-bottom-35">Abstract</h3>
@@ -143,7 +160,7 @@ class Report extends Component {
 
             {(showMenu && report.featured_sections.length > 0) &&
               <div className="container margin-90" id="featured">
-                <h3 className="margin-bottom-35">Featured</h3>
+                <h3 className="margin-bottom-35">Featured Sections</h3>
                 <FeaturedSections featuredSections={report.featured_sections} />
               </div>
             }
@@ -169,7 +186,7 @@ class Report extends Component {
               closeMenu={this.closeMenu}/>
             }
 
-            {(showHeading && report.acknowledgments) &&
+            {(showMenu && report.acknowledgments) &&
               <div className="container margin-90" id="acknowledgments">
                 <h3 className="margin-bottom-35">Acknowledgments</h3>
                 <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }}  style={{ maxWidth: '800px' }}/>

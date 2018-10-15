@@ -20,13 +20,12 @@ const Author = ({ author }) => (
       </div>
     </a>
  </div>
-
 );
 
-const Authors = ({ authors }) => (
+const Authors = ({ authors, md=false }) => (
   <div className="report__authors row gutter-30">
     {authors.map((a,i) => (
-      <div className="col-md-6 col-lg-4 col-12" key={`author-${i}`}>
+      <div className={`col-md-6${md ? ' ' : ' col-lg-4 ' }col-12`} key={`author-${i}`}>
         <Author author={a} />
       </div>
     ))}
