@@ -28,8 +28,8 @@ class TopNav extends Component {
                 closeMenu();
                 showAttachments();
               }}>
-
                 <Download data-attachments-n={`${report.attachments.length}`} className="circle-gray"/>
+                {!section && <h6 className="inline margin-0 white">Download</h6>}
               </div>
               }
               <div className="report__top-nav__icon">

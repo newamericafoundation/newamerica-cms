@@ -65,6 +65,18 @@
       height: 30px;
     }
 
+    &.attch {
+      cursor: pointer;
+      border-left: 1px solid #cdcdcd;
+      padding-right: 20px;
+      border-right: 1px solid #cdcdcd;
+
+      h6 {
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+    }
+
     &:nth-child(2){
       margin-left: 15px;
     }
