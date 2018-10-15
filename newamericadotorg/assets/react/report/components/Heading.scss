@@ -1,28 +1,21 @@
 .report__heading {
-  padding-top: 90px;
-  padding-bottom: 90px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .report__heading__authors{
-  max-width: 350px;
-  margin: 25px auto 0 auto;
-  padding-top: 25px;
-  position: relative;
-
-  &:before{
-      content: '';
-      height: 1px;
-      width: 50px;
-      background: color(black);
-      position: absolute;
-      @include horizontal-center;
-      top: 0;
-      display: block;
-  }
+  max-width: 365px;
+  margin: 0 auto;
 }
 
 .report__cover-image{
   margin: 0 auto;
+
+  &__source {
+    opacity: 0.5;
+    text-align: right;
+    margin: 0 15px;
+  }
 }
 
 .report__cover-image .card__image__background{

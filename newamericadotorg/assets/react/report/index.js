@@ -134,12 +134,6 @@ class Report extends Component {
               <Heading report={report}/>
             }
 
-            {showHeading &&
-              <div className="container margin-top-60">
-                <h6 className="report__body__section__date margin-0">Last updated:<br/> {formatDate(report.date, "MMMM Do, YYYY")}</h6>
-              </div>
-            }
-
             {(showMenu && report.abstract) &&
               <div className="container margin-90" id="abstract">
                 <h3 className="margin-bottom-35">Abstract</h3>

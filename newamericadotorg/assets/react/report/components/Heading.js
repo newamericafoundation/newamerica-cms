@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Image from '../../components/Image';
 import { Report } from '../../components/Icons';
 import { Link } from 'react-router-dom'
+import { format as formatDate } from 'date-fns';
 
 class Heading extends Component {
   render(){
@@ -16,19 +17,26 @@ class Heading extends Component {
     }
     return (
       <React.Fragment>
-        <div className="report__heading container margin-35">
+        <div className="report__heading container">
           {/* <div className="report__heading__bug centered margin-bottom-35">
             <Report />
             <h4 className="centered margin-top-5 margin-bottom-0">Report</h4>
           </div> */}
+          <div className='report__heading__programs margin-bottom-60'>
+            {report.programs.map((p,i)=>(
+              <h5 className="margin-0 centered" key={`program-${i}`}>
+                <a href={p.url}>{p.name}</a>
+              </h5>
+            ))}
+          </div>
           <div className="report__heading__title">
             <h1 className="margin-0 centered">{report.title}</h1>
             {report.subheading &&
-              <h6 className="subtitle centered margin-top-15 margin-bottom-0">{report.subheading}</h6>
+              <h6 className="subtitle centered margin-top-10 margin-bottom-0">{report.subheading}</h6>
             }
           </div>
-          <div className='report__heading__authors centered'>
-          <h6 className="margin-0 centered inline">By: </h6>
+          <div className='report__heading__authors centered margin-top-60'>
+            <h6 className="margin-0 centered inline">By: </h6>
             {_authors.map((a,i)=>(
               <React.Fragment key={`author-${i}`}>
                 <h6 className="margin-0 centered inline">
@@ -40,12 +48,8 @@ class Heading extends Component {
               </React.Fragment>
             ))}
           </div>
-          <div className='report__heading__programs margin-top-15'>
-            {report.programs.map((p,i)=>(
-              <h5 className="margin-0 centered" key={`program-${i}`}>
-                <a href={p.url}>{p.name}</a>
-              </h5>
-            ))}
+          <div className='report__heading__date margin-top-10'>
+            <h6 className="report__body__section__date caption margin-0 centered">Last updated on {formatDate(report.date, "MMMM Do, YYYY")}</h6>
           </div>
         </div>
         {report.story_image &&
@@ -55,7 +59,7 @@ class Heading extends Component {
             </div>
 
             {report.story_image.source &&
-              <div className="container">
+              <div className="report__cover-image__source">
                 <h6 className="caption margin-bottom-0 margin-top-15">{report.story_image.source}</h6>
               </div>
             }
