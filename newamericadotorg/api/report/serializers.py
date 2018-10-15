@@ -120,9 +120,6 @@ class ReportDetailSerializer(PostSerializer):
             section = {
                 'title': s.value['title'],
                 'hide_title': s.value['hide_title'],
-                'description': s.value['description'],
-                'label': s.value['label'],
-                'featured': s.value['featured'],
                 'number': i+1,
                 'slug': slug,
                 'body': s.render(),
