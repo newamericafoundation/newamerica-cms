@@ -22,7 +22,7 @@ class Heading extends Component {
             <Report />
             <h4 className="centered margin-top-5 margin-bottom-0">Report</h4>
           </div> */}
-          <div className='report__heading__programs margin-bottom-60'>
+          <div className='report__heading__programs margin-bottom-35'>
             {report.programs.map((p,i)=>(
               <h5 className="margin-0 centered" key={`program-${i}`}>
                 <a href={p.url}>{p.name}</a>
@@ -35,7 +35,7 @@ class Heading extends Component {
               <h6 className="subtitle centered margin-top-10 margin-bottom-0">{report.subheading}</h6>
             }
           </div>
-          <div className='report__heading__authors centered margin-top-60'>
+          <div className='report__heading__authors centered margin-top-35'>
             <h6 className="margin-0 centered inline">By: </h6>
             {_authors.map((a,i)=>(
               <React.Fragment key={`author-${i}`}>

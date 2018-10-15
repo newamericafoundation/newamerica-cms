@@ -33,16 +33,26 @@
   &__right {
     text-align: right;
     white-space: nowrap;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 65px;
+      vertical-align: middle;
+    }
   }
 
   &__title{
-    line-height: 65px;
+    height: 30px;
+    line-height: 30px;
     vertical-align: middle;
     overflow: hidden;
     max-width: 1px;
     display: inline-block;
     padding-left: 1px;
     @include transition(all 0.35s ease);
+    border-right: 1px solid #cdcdcd;
+    padding-right: 15px;
 
     @include media-breakpoint(tablet){
       max-width: 314px;
@@ -67,7 +77,6 @@
 
     &.attch {
       cursor: pointer;
-      border-left: 1px solid #cdcdcd;
       padding-right: 20px;
       border-right: 1px solid #cdcdcd;
 
@@ -77,9 +86,6 @@
       }
     }
 
-    &:nth-child(2){
-      margin-left: 15px;
-    }
   }
 
   &__icon i {

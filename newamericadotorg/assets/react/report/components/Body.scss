@@ -15,7 +15,7 @@
     padding-bottom: 0px;
 
     .report__authors {
-      margin-bottom: -30px;
+      margin-bottom: -15px;
     }
 
     p:last-child {
@@ -51,6 +51,16 @@
       margin-bottom: 0 !important;
     }
   }
+}
+
+
+.report.single-page {
+  padding-bottom: 90px;
+}
+
+.single-page .report__body {
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .report__citation{

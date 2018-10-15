@@ -3,9 +3,7 @@
   height: 92px;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #C2C2C2;
   white-space: nowrap;
-  margin-bottom: 30px;
   &__text, &__image {
     display: inline-block;
     vertical-align: middle;
@@ -16,7 +14,6 @@
     background: color(white);
     height: 70px;
     width: 70px;
-    border: 1px solid #d5d5d5;
     border-radius: 3px;
     position: relative;
     i {

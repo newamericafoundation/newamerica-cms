@@ -1,6 +1,6 @@
 .report__heading {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 90px;
+  padding-bottom: 90px;
 }
 
 .report__heading__title{
@@ -15,6 +15,7 @@
 
 .report__cover-image{
   margin: 0 auto;
+  max-width: 1600px;
 
   &__source {
     opacity: 0.5;
@@ -26,4 +27,9 @@
 .report__cover-image .card__image__background{
   padding-bottom: 48.461538461%;
   position: static;
+}
+
+
+.report__authors {
+  margin-bottom: -30px;
 }

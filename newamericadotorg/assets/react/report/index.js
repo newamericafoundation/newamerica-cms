@@ -123,7 +123,7 @@ class Report extends Component {
     let showOverlay = !!section;
     return (
       <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
-        <div className='report'>
+        <div className={`report${report.sections.length===1 ? ' single-page' : ''}`}>
           <TopNav section={section} report={report}
             openMenu={this.openMenu}
             closeMenu={this.closeMenu}
@@ -136,29 +136,29 @@ class Report extends Component {
             }
 
             {(showMenu && report.abstract) &&
-              <div className="container margin-60" id="abstract">
-                <h3 className="margin-bottom-25">Abstract</h3>
+              <div className="container margin-80" id="abstract">
+                <h3 className="margin-top-0 margin-bottom-25">Abstract</h3>
                 <div className="report__abstract" dangerouslySetInnerHTML={{ __html: report.abstract }}  style={{ maxWidth: '800px' }}/>
               </div>
             }
 
             {(showMenu && report.featured_sections.length > 0) &&
-              <div className="container margin-60" id="featured">
-                <h3 className="margin-bottom-25">Featured Sections</h3>
+              <div className="container margin-80" id="featured">
+                <h3 className="margin-top-0 margin-bottom-25">Featured Sections</h3>
                 <FeaturedSections featuredSections={report.featured_sections} />
               </div>
             }
 
             {showMenu &&
-              <div className="container margin-60" id="contents">
-                <h3 className="margin-bottom-25">Contents</h3>
+              <div className="container margin-80" id="contents">
+                <h3 className="margin-top-0 margin-bottom-25">Contents</h3>
                 <ContentMenu report={report} closeMenu={this.closeMenu}/>
               </div>
             }
 
             {showMenu &&
-              <div className="container margin-60" id="authors">
-                <h3 className="margin-bottom-25">Authors</h3>
+              <div className="container margin-80" id="authors">
+                <h3 className="margin-top-0 margin-bottom-25">Authors</h3>
                 <Authors authors={report.authors} />
               </div>
             }
@@ -180,15 +180,15 @@ class Report extends Component {
             {(showAuthors && report.acknowledgments) &&
               <div className="container report__body single-page-body margin-0" id="acknowledgments">
                 <div className="post-body-wrapper">
-                  <h3 className="margin-bottom-25">Acknowledgments</h3>
+                  <h3 className="margin-top-0 margin-bottom-25">Acknowledgments</h3>
                   <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }} />
                 </div>
               </div>
             }
 
             {(showMenu && report.acknowledgments) &&
-              <div className="container margin-60" id="acknowledgments">
-                <h3 className="margin-bottom-25">Acknowledgments</h3>
+              <div className="container margin-80" id="acknowledgments">
+                <h3 className="margin-top-0 margin-bottom-25">Acknowledgments</h3>
                 <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }}  style={{ maxWidth: '800px' }}/>
               </div>
             }

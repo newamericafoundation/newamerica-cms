@@ -2,8 +2,8 @@ import './Authors.scss';
 
 import React from 'react';
 
-const Author = ({ author }) => (
- <div className="report__author-button">
+const Author = ({ author, md }) => (
+ <div className="report__author-button" style={{ marginBottom: md ? '15px' : '30px' }}>
    <a href={author.url} style={{ display: 'block' }}>
       <div className="report__author-button__image">
         {author.profile_image && <img src={author.profile_image} />}
@@ -25,8 +25,8 @@ const Author = ({ author }) => (
 const Authors = ({ authors, md=false }) => (
   <div className="report__authors row gutter-30">
     {authors.map((a,i) => (
-      <div className={`col-md-6${md ? ' ' : ' col-lg-4 ' }col-12`} key={`author-${i}`}>
-        <Author author={a} />
+      <div className={`${md ? ' ' : 'col-md-6 col-lg-4 ' }col-12`} key={`author-${i}`}>
+        <Author author={a} md={md}/>
       </div>
     ))}
   </div>
