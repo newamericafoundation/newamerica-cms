@@ -18,6 +18,11 @@ def get_range(num):
 
 		return list_of_numbers
 
+
+@register.filter()
+def has_rendition(img):
+	return True if getattr(img, 'get_rendition', False) else False
+
 # generates appropriate list separators for list items (no oxford commas :) )
 @register.simple_tag()
 def list_separator(i, length):
