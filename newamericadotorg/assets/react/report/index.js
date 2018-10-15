@@ -135,22 +135,6 @@ class Report extends Component {
               <Heading report={report}/>
             }
 
-            {showAuthors && <div className="container report__body single-page-body margin-0" id="authors">
-              <div className="post-body-wrapper">
-                <h3 className="margin-bottom-25">Authors</h3>
-                <Authors authors={report.authors} md={true} />
-              </div>
-            </div>}
-
-            {(showAuthors && report.acknowledgments) &&
-              <div className="container report__body single-page-body margin-0" id="acknowledgments">
-                <div className="post-body-wrapper">
-                  <h3 className="margin-bottom-25">Acknowledgments</h3>
-                  <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }} />
-                </div>
-              </div>
-            }
-
             {(showMenu && report.abstract) &&
               <div className="container margin-60" id="abstract">
                 <h3 className="margin-bottom-25">Abstract</h3>
@@ -184,6 +168,22 @@ class Report extends Component {
               dispatch={this.props.dispatch}
               location={location}
               closeMenu={this.closeMenu}/>
+            }
+
+            {showAuthors && <div className="container report__body single-page-body margin-0" id="authors">
+              <div className="post-body-wrapper">
+                <h3 className="margin-bottom-25">Authors</h3>
+                <Authors authors={report.authors} md={true} />
+              </div>
+            </div>}
+
+            {(showAuthors && report.acknowledgments) &&
+              <div className="container report__body single-page-body margin-0" id="acknowledgments">
+                <div className="post-body-wrapper">
+                  <h3 className="margin-bottom-25">Acknowledgments</h3>
+                  <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }} />
+                </div>
+              </div>
             }
 
             {(showMenu && report.acknowledgments) &&
