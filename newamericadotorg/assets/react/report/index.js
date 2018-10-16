@@ -207,7 +207,7 @@ class Report extends Component {
           <Overlay title="Contents"
             close={this.closeMenu}
             open={this.state.menuOpen}>
-              <ContentMenu report={report} closeMenu={this.closeMenu} />
+              <ContentMenu report={report} closeMenu={this.closeMenu} showHome={true}/>
           </Overlay>
 
           {report.attachments.length > 0 &&

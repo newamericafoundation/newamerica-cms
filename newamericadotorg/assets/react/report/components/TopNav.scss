@@ -55,7 +55,7 @@
     padding-right: 15px;
 
     @include media-breakpoint(tablet){
-      max-width: 314px;
+      max-width: 500px;
       display: inline-block;
       &:hover {
         max-width: 800px;

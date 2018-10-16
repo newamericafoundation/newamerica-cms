@@ -5,6 +5,7 @@
 
 .report__heading__title{
   max-width: 750px;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -29,7 +30,18 @@
   position: static;
 }
 
-
 .report__authors {
   margin-bottom: -30px;
+}
+
+@include media-breakpoint-down(tablet){
+  .report__cover-image .card__image__background {
+    padding-bottom: 75% !important;
+  }
+
+  .post-heading__image img {
+    width: auto;
+    height: 100%;
+    @include center;
+  }
 }

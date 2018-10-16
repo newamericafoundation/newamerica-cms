@@ -4,7 +4,7 @@
   border-radius: 5px;
 
   @include transition(all 0.15s ease);
-  box-shadow: 0px 2px 4px 0px color(black, base, 0.15);
+  box-shadow: 0px 0px 0px 1px color(black, base, 0.25);
   @include transform(translateY(0px));
 
   &:hover{
@@ -23,6 +23,8 @@
     white-space: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+    margin-top: -6px;
+    padding-top: 6px;
     padding-left: 15px;
     padding-right: 15px;
     margin-left: -15px;

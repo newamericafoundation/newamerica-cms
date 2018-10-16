@@ -96,6 +96,10 @@ class Body extends Component {
     if(prevProps.section.number != this.props.section.number && this.props.section){
       this.citationEvents();
       this.loadScripts();
+      this.props.dispatch({
+        type: 'RELOAD_SCROLL_EVENTS',
+        component: 'SITE'
+      });
     }
 
   }

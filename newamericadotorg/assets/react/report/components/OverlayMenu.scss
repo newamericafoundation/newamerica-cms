@@ -4,7 +4,7 @@
   width: 100vw;
   top: 0;
   left: 0;
-  max-width: 1100px;
+  max-width: 1200px;
   z-index: 700;
   background: color(white);
   visibility: hidden;
@@ -25,14 +25,18 @@
     z-index: 5000;
     background: color(white, base, 1);
     margin: 0 auto;
+    border-radius: 4px;
 
     @include media-breakpoint(desktop){
-      padding-top: 25px;
+      padding-top: 50px;
     }
 
     &__content {
       border-bottom: 1px solid #d5d5d5;
-      padding: 0px 15px;
+      padding: 0 15px;
+      @include media-breakpoint(desktop){
+        padding: 0;
+      }
     }
 
     h3, &__content > div {
@@ -64,7 +68,7 @@
     overflow: scroll;
 
     @include media-breakpoint(desktop){
-      padding-top: 100px;
+      padding-top: 125px;
     }
   }
 

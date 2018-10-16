@@ -99,7 +99,7 @@ class BottomNav extends Component {
         </div>
         <div className="report__bottom-nav-bar__chapter-nav" style={{ position: 'relative' }}>
           <Tooltip content={this.state.tooltipContent} activeIndex={activeIndex}/>
-          <div className="report__bottom-nav-bar__button-wrapper" style={{ marginRight: '15px' }}>
+          <div className="report__bottom-nav-bar__button-wrapper">
             {section.number > 1 &&
               <Link to={report.sections[section.number-2].url} className="prev-button">
                 <h6 className="margin-0">Prev. Section</h6>
@@ -121,7 +121,7 @@ class BottomNav extends Component {
               activeIndex={activeIndex}
               n={section.number-1}/>
           </div>
-          <div className={`report__bottom-nav-bar__button-wrapper next`} style={{ marginLeft: '15px' }}>
+          <div className={`report__bottom-nav-bar__button-wrapper next`}>
             {section.number < report.sections.length &&
               <Link to={report.sections[section.number].url} className="next-button">
                 <h6 className="margin-0">Next Section</h6>
