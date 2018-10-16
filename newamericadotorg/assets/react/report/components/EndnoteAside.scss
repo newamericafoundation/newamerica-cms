@@ -103,18 +103,6 @@
   }
 }
 
-.report__citation.active {
-  .citation-number{
-    opacity: 0;
-  }
-  .icon-plus {
-    display: block;
-    position: absolute;
-    left: calc(50% - 5px);
-    top: calc(50% - 5px);
-  }
-}
-
 .endnote-active{
   .report__body__endnote {
     visibility: visible;

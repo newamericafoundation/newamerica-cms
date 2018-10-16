@@ -89,11 +89,23 @@
   }
 }
 
+.report__citation.active {
+  .citation-number{
+    opacity: 0;
+  }
+  .icon-plus {
+    display: block;
+    position: absolute;
+    left: calc(50% - 5px);
+    top: calc(50% - 5px);
+  }
+}
+
+
 .report__citation-wrapper{
   .report__citation.active, &:hover .report__citation{
     background: color(turquoise);
     color: color(white);
-    font-weight: normal;
   }
 
   &.active {
