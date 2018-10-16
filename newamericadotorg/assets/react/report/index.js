@@ -117,7 +117,7 @@ class Report extends Component {
     let { showNextBtn, section, attchClicked } = this.state;
 
     let showHeading = !section || report.sections.length===1;
-    let showAuthors = report.sections.length===1 || !report.show_landing_page;
+    let showAuthors = report.sections.length===1
     let showMenu = !section && report.sections.length > 1;
     let showBody = section || (!section && report.sections.length===1);
     let showOverlay = !!section;

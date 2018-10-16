@@ -97,13 +97,18 @@ class Report(Post):
         related_name='+'
     )
 
-    content_panels = Page.content_panels + [
-        FieldPanel('subheading'),
-        FieldPanel('date'),
+    content_panels = [
+        MultiFieldPanel([
+            FieldPanel('title'),
+            FieldPanel('subheading'),
+            FieldPanel('date'),
+            ImageChooserPanel('story_image'),
+        ]),
         InlinePanel('authors', label=("Authors")),
         InlinePanel('programs', label=("Programs")),
         InlinePanel('subprograms', label=("Subprograms")),
         InlinePanel('topics', label=("Topics")),
+        InlinePanel('location', label=("Locations")),
         MultiFieldPanel([
             FieldPanel('abstract'),
             StreamFieldPanel('featured_sections'),
@@ -118,6 +123,10 @@ class Report(Post):
     endnote_panels = [StreamFieldPanel('endnotes')]
 
     settings_panels = Post.settings_panels + [FieldPanel('dataviz_src')]
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('story_excerpt'),
+    ]
 
     pdf_panels = [
         MultiFieldPanel([
@@ -136,7 +145,7 @@ class Report(Post):
         ObjectList(content_panels, heading="Landing"),
         ObjectList(sections_panels, heading="Sections"),
         ObjectList(endnote_panels, heading="Endnotes"),
-        ObjectList(Post.promote_panels, heading="Promote"),
+        ObjectList(promote_panels, heading="Promote"),
         ObjectList(settings_panels, heading='Settings', classname="settings"),
         ObjectList(pdf_panels, heading="PDF Publishing")
     ])

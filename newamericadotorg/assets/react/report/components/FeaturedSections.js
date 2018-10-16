@@ -27,7 +27,7 @@ const Featured = ({ section }) => (
       {!section.label && <h4 className="margin-top-10 margin-bottom-0 spacer">
         &nbsp;
       </h4>}
-      <FeaturedIcon featuredType={section.featured} Icon={iconsMap[section.featured]} />
+      <FeaturedIcon featuredType={section.type} Icon={iconsMap[section.type]} />
     </Link>
   </div>
 );
