@@ -101,11 +101,11 @@ class Body extends Component {
   }
 
   render(){
-    let { section, report, closeMenu } = this.props;
+    let { section, report } = this.props;
     let { authors, endnotes, date, url, report_pdf, title } = report;
     let { endnote, top } = this.state;
     return (
-      <div className={`container ${endnote ? 'endnote-active' : ''}`} onClick={closeMenu} ref={(el)=>{this.el = el; }} style={{ position: 'relative' }}>
+      <div className={`container ${endnote ? 'endnote-active' : ''}`} ref={(el)=>{this.el = el; }} style={{ position: 'relative' }}>
         <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
         <div className={`report__body${section.hide_title ? ' hide-title' : ''}`}>
           <div className="post-body-wrapper">

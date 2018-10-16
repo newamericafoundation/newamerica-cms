@@ -50,11 +50,19 @@
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   @include horizontal-center;
-  @include transition(box-shadow 0.15s ease, border 0.15s ease);
+  @include transition(box-shadow 0.15s ease, border 0.15s ease, bottom 0.35s ease 0.25s);
   z-index: 500;
 
   & > div {
     display: inline-block;
+  }
+}
+
+.bottom-nav-wrapper.hide {
+  visibility: hidden;
+  opacity: 0;
+  .report__bottom-nav-bar {
+    bottom: -70px;
   }
 }
 
