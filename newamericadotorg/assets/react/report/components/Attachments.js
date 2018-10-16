@@ -1,8 +1,8 @@
 import './Attachments.scss';
 
 import React, { Component } from 'react';
-import { PlusX } from '../../components/Icons';
-
+import { PlusX, Download } from '../../components/Icons';
+import { Overlay } from './OverlayMenu';
 
 const Attachment = ({ attachment }) => (
   <div className="report__att">
@@ -17,7 +17,7 @@ const Attachment = ({ attachment }) => (
         <h6 className="inline">{attachment.size > 1000 ? Math.round(attachment.size/1000) + ' MB' : Math.round(attachment.size) + ' KB'}</h6>
       </div>
       <div className="report__att__icon">
-        <i className="fa fa-download" />
+        <Download/>
       </div>
     </a>
   </div>
@@ -27,20 +27,13 @@ export default class Attachments extends Component {
   render(){
     let { attchsOpen, hideAttachments, attachments } = this.props;
     return (
-      <React.Fragment>
-        <div className={`report__grey-out ${attchsOpen ? 'active' : ''}`} onClick={hideAttachments}/>
-        <div className={`report__attachments ${attchsOpen ? 'active' : ''}`}>
-          <div className="report__attachments__close" onClick={hideAttachments}>
-            <PlusX x={true} large={true} />
-          </div>
-          <div style={{ maxWidth: '970px', margin: '0 auto'}}>
-            <h3 className="margin-top-0 margin-bottom-35">Attachments</h3>
-            {attachments.map((a,i)=>(
-              <Attachment attachment={a} key={`attachment-${i}`} />
-            ))}
-          </div>
-        </div>
-      </React.Fragment>
+      <Overlay title="Downloads"
+        open={attchsOpen}
+        close={hideAttachments}>
+        {attachments.map((a,i)=>(
+          <Attachment attachment={a} key={`attachment-${i}`} />
+        ))}
+      </Overlay>
     );
   }
 }

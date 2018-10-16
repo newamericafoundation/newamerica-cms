@@ -19,7 +19,7 @@ const FeaturedIcon = ({ featuredType, Icon }) => (
 
 const Featured = ({ section }) => (
   <div className="report__featured-button" style={{ marginBottom: '30px' }}>
-    <Link to={section.url} style={{ display: 'block' }}>
+    <Link to={section.url.replace(location.origin, '')} style={{ display: 'block' }}>
       {section.label && <h4 className="margin-top-0 margin-bottom-10">
         {section.label}
       </h4>}

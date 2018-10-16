@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PlusX, Home } from '../../components/Icons';
+import { Overlay } from './OverlayMenu';
 
 const Subsection = ({ section, url, closeMenu }) => (
   <div className="report__menu__subsection">
@@ -39,7 +40,7 @@ const Section = ({ section, expanded, expand, closeMenu, home }) => (
           </Link>
         </div>
         <div className="col-1" onClick={() => expand(section.slug) } style={{ background: '#fff', paddingRight: '25px' }}>
-          {section.subsections.length > 0 && <DownArrow />}
+          {section.subsections.length > 0 && <div className="icon-plus-wrapper"><PlusX /></div>}
         </div>
       </div>
       {section.subsections.length > 0 &&
@@ -91,7 +92,7 @@ class ContentMenu extends Component {
   }
 
   render(){
-    let { report: { url, sections, title }, activeSection, closeMenu, showHome } = this.props;
+    let { report: { url, sections, title }, activeSection, closeMenu, showHome, open } = this.props;
     return (
       <div className="report__content-menu">
         {showHome &&

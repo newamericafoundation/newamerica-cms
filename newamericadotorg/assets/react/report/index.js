@@ -11,8 +11,8 @@ import TopNav from './components/TopNav';
 import BottomNav from './components/BottomNav';
 import store from '../store';
 import { setResponse } from '../api/actions';
+import { Overlay } from './components/OverlayMenu';
 import ContentMenu from './components/ContentMenu';
-import OverlayMenu from './components/OverlayMenu';
 import Attachments from './components/Attachments';
 import FeaturedSections from './components/FeaturedSections';
 import Authors from './components/Authors';
@@ -194,14 +194,11 @@ class Report extends Component {
             }
 
           {showOverlay &&
-            <OverlayMenu report={report}
-                open={this.state.menuOpen}
-                openMenu={this.openMenu}
-                closeMenu={this.closeMenu}
-                hideAttachments={this.hideAttachments}
-                contentsPosition={this.state.contentsPosition}>
-              <ContentMenu report={report} activeSection={section.slug} closeMenu={this.closeMenu} showHome={true}/>
-            </OverlayMenu>
+            <Overlay title="Contents"
+              close={this.closeMenu}
+              open={this.state.menuOpen}>
+              <ContentMenu report={report} open={this.state.menuOpen} activeSection={section.slug} closeMenu={this.closeMenu} showHome={true}/>
+            </Overlay>
             }
           {showOverlay &&
             <BottomNav section={section}
