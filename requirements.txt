@@ -111,3 +111,4 @@ six<2.0,>=1.11
 newrelic==4.2.0.100
 django-cors-headers==2.4.0
 Faker==0.9.1
+google-api-python-client==1.7.4
