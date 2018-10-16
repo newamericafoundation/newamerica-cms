@@ -4,7 +4,7 @@ from test_factories import PostFactory
 
 from report.models import Report, ReportsHomepage
 from wagtail.core.blocks.stream_block import StreamValue
-from newamericadotorg.blocks import ReportBody
+from report.blocks import ReportBody
 from wagtail.core.rich_text import RichText
 
 class ReportAPITests(APITestCase):
