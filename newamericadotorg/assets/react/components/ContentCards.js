@@ -73,7 +73,8 @@ const generateAuthors = (authors) => {
     if(punc) authorElements.push(punc);
   });
 
-  if(len > 3) authorElements.push(<h6 className="inline bold">and {len-3} more</h6>)
+  if(len === 4) authorElements.push(<h6 className="inline bold"> {len-3} more</h6>);
+  else if(len > 4) authorElements.push(<h6 className="inline bold">and {len-3} more</h6>);
 
   return authorElements;
 }
