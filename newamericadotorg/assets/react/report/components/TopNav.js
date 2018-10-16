@@ -16,10 +16,10 @@ class TopNav extends Component {
         <div className="report__top-nav__sticky-wrapper">
         <div className="container">
           <div className="row">
-            <div className="col-4 col-md-3 col-lg-2 report__top-nav__left">
+            <div className="col-6 col-md-3 col-lg-2 report__top-nav__left">
               <a href="/"><div className="logo white" /></a>
             </div>
-            <div className="col-8 col-md-9 col-lg-10 report__top-nav__right">
+            <div className="col-6 col-md-9 col-lg-10 report__top-nav__right">
               <h4 className="white margin-0 report__top-nav__title" style={{ opacity: section ? 1 : 0 }}>
                 <Link to={report.url} onClick={closeMenu}>{report.title}</Link>
               </h4>

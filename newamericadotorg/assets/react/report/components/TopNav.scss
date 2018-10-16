@@ -48,7 +48,7 @@
     vertical-align: middle;
     overflow: hidden;
     max-width: 1px;
-    display: inline-block;
+    display: none;
     padding-left: 1px;
     @include transition(all 0.35s ease);
     border-right: 1px solid #cdcdcd;
@@ -56,6 +56,7 @@
 
     @include media-breakpoint(tablet){
       max-width: 314px;
+      display: inline-block;
       &:hover {
         max-width: 800px;
       }
@@ -79,6 +80,9 @@
       cursor: pointer;
       padding-right: 20px;
       border-right: 1px solid #cdcdcd;
+      @include media-breakpoint-down(tablet){
+        display: none;
+      }
 
       h6 {
         margin-left: 10px;
@@ -113,10 +117,6 @@
     top: -9px;
     left: -9px;
     background: color(turquoise);
-  }
-
-  @include media-breakpoint-down(tablet){
-    display: none;
   }
 }
 

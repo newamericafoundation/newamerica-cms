@@ -145,7 +145,9 @@ class Report extends Component {
             {(showMenu && report.featured_sections.length > 0) &&
               <div className="container margin-80" id="featured">
                 <h3 className="margin-top-0 margin-bottom-25">Featured Sections</h3>
-                <FeaturedSections featuredSections={report.featured_sections} />
+                <div className="featured__scroll-wrapper">
+                  <FeaturedSections featuredSections={report.featured_sections} />
+                </div>
               </div>
             }
 
