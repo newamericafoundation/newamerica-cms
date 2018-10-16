@@ -175,7 +175,7 @@ class Report extends Component {
     let landing = !section && !singlePage;
 
     return (
-      <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
+      <DocumentMeta title={`${report.title}${section ? ': ' + section.title : ''}`} description={report.search_description}>
         <TopNav section={section} report={report}
           openMenu={this.openMenu}
           closeMenu={this.closeMenu}
