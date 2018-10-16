@@ -6,9 +6,13 @@ import { connect } from 'react-redux';
 import { PlusX, Home } from '../../components/Icons';
 import { Overlay } from './OverlayMenu';
 
-const Subsection = ({ section, url, closeMenu }) => (
+const Subsection = ({ section, url, closeMenu, action }) => (
   <div className="report__menu__subsection">
-    <h6 className="margin-0"><Link to={section.url} onClick={closeMenu}>{section.title}</Link></h6>
+    <h6 className="margin-0">
+      <Link to={section.url} onClick={closeMenu} className="ga-track-click" data-action={action} data-label="report" data-value="click_menu_subsection">
+        {section.title}
+      </Link>
+    </h6>
   </div>
 );
 
@@ -27,11 +31,11 @@ const DownArrow = () => (
   </div>
 )
 
-const Section = ({ section, expanded, expand, closeMenu, home }) => (
+const Section = ({ section, expanded, expand, closeMenu, home, action }) => (
     <div className={`report__menu__section ${expanded ? 'expanded' : ''}`}>
       <div className="report__menu__section__title row gutter-0">
         <div className="col-11">
-          <Link to={section.url} onClick={closeMenu}>
+          <Link to={section.url} onClick={closeMenu} className="ga-track-click" data-action={action} data-label="report" data-value="click_menu_section">
             {section.interactive && <InteractiveDiv /> }
             {home && <div className="home-div">
               <Home />
@@ -48,7 +52,7 @@ const Section = ({ section, expanded, expand, closeMenu, home }) => (
           { maxHeight: expanded ? (section.subsections.length * 100) + 'px' : 0 }
         }>
           {section.subsections.map((s,i)=>(
-            <Subsection section={s} key={`sub-${i}`} closeMenu={closeMenu} />
+            <Subsection section={s} key={`sub-${i}`} closeMenu={closeMenu} action={action}/>
           ))}
         </div>
       }
@@ -96,10 +100,11 @@ class ContentMenu extends Component {
     return (
       <div className="report__content-menu">
         {showHome &&
-          <Section closeMenu={closeMenu} home={true} section={{ url, title, slug: '', subsections: [] }} />
+          <Section closeMenu={closeMenu} home={true} section={{ url, title, slug: '', subsections: [] }} landing={false}/>
         }
         {sections.map((s,i)=>(
           <Section section={s}
+            landing={showHome ? 'click_menu' : 'click_landing'}
             key={`section-${i}`}
             expand={this.expand}
             expanded={this.state.expanded.indexOf(s.slug) !== -1}

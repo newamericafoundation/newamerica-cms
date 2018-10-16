@@ -47,7 +47,7 @@ const ChapterList = ({ sections, activeIndex, n, reportUrl, tooltipContent, setT
   <ul style={{ transform: `translateX(-${activeIndex * 40}px)`, position: 'relative' }}>
     <li className={n === 0 ? 'active' : ''}
       style={{ width: '40px', textAlign: 'center', lineHeight: '36px' }}>
-      <Link to={reportUrl}>
+      <Link to={reportUrl} className="ga-track-click" data-action="click_bottom_nav" data-label="report" data-value="chapter_skip_home">
         <Home />
       </Link>
     </li>
@@ -58,7 +58,7 @@ const ChapterList = ({ sections, activeIndex, n, reportUrl, tooltipContent, setT
           title: s.title, index: i
         })} }
         onMouseLeave={()=>{ setTooltip(false)}}>
-        <Link to={s.url} style={{ display: 'block' }}>
+        <Link to={s.url} style={{ display: 'block' }}  className="ga-track-click" data-action="click_bottom_nav" data-label="report" data-value="chapter_skip">
           <h6 className="inline">{i+1}</h6>
         </Link>
       </li>
@@ -93,7 +93,7 @@ class BottomNav extends Component {
 
     return (
       <div className="report__bottom-nav-bar">
-        <div className="report__bottom-nav-bar__menu" onClick={() => { hideAttachments(); openMenu(); }}>
+        <div className="report__bottom-nav-bar__menu ga-track-click" onClick={() => { hideAttachments(); openMenu(); }} data-action="click_bottom_nav" data-label="report" data-value="open_menu">
           <i className="fa fa-bars"/>
           <h6 className="inline">Contents</h6>
         </div>
@@ -101,12 +101,12 @@ class BottomNav extends Component {
           <Tooltip content={this.state.tooltipContent} activeIndex={activeIndex}/>
           <div className="report__bottom-nav-bar__button-wrapper">
             {section.number > 1 &&
-              <Link to={report.sections[section.number-2].url} className="prev-button">
+              <Link to={report.sections[section.number-2].url} className="prev-button ga-track-click" data-action="click_bottom_nav" data-label="report" data-value="prev_button">
                 <h6 className="margin-0">Prev. Section</h6>
               </Link>
               }
             {section.number === 1 &&
-              <Link to={report.url} className="prev-button">
+              <Link to={report.url} className="prev-button" data-action="click_bottom_nav" data-label="report" data-value="prev_button">
                 <h6 className="margin-0">Prev. Section</h6>
               </Link>
             }
@@ -123,7 +123,7 @@ class BottomNav extends Component {
           </div>
           <div className={`report__bottom-nav-bar__button-wrapper next`}>
             {section.number < report.sections.length &&
-              <Link to={report.sections[section.number].url} className="next-button">
+              <Link to={report.sections[section.number].url} className="next-button ga-track-click" data-action="click_bottom_nav" data-label="report" data-value="next_button">
                 <h6 className="margin-0">Next Section</h6>
               </Link>
               }

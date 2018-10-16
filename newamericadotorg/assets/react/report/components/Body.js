@@ -3,7 +3,6 @@ import './Body.scss';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
-import Social from './Social';
 import Authors from './Authors'
 import Endnote from './EndnoteAside';
 import { format as formatDate } from 'date-fns';
