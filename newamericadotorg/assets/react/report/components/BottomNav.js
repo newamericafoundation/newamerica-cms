@@ -79,7 +79,7 @@ class BottomNav extends Component {
   }
 
   render(){
-    let { section, report, hideAttachments, openMenu, showNextBtn } = this.props;
+    let { section, report, hideAttachments, openMenu } = this.props;
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
 
@@ -101,10 +101,14 @@ class BottomNav extends Component {
           <Tooltip content={this.state.tooltipContent} activeIndex={activeIndex}/>
           <div className="report__bottom-nav-bar__button-wrapper" style={{ marginRight: '15px' }}>
             {section.number > 1 &&
-              <Link to={report.sections[section.number-2].url} className="prev-button"/>
+              <Link to={report.sections[section.number-2].url} className="prev-button">
+                <h6 className="margin-0">Prev. Section</h6>
+              </Link>
               }
             {section.number === 1 &&
-              <Link to={report.url} className="prev-button"/>
+              <Link to={report.url} className="prev-button">
+                <h6 className="margin-0">Prev. Section</h6>
+              </Link>
             }
           </div>
           <div style={{ overflow: 'hidden', width: '240px', }} className="report__bottom-nav-bar__chapter-list">
@@ -117,7 +121,7 @@ class BottomNav extends Component {
               activeIndex={activeIndex}
               n={section.number-1}/>
           </div>
-          <div className={`report__bottom-nav-bar__button-wrapper ${showNextBtn ? 'show-text' : ''}`} style={{ marginLeft: '15px' }}>
+          <div className={`report__bottom-nav-bar__button-wrapper next`} style={{ marginLeft: '15px' }}>
             {section.number < report.sections.length &&
               <Link to={report.sections[section.number].url} className="next-button">
                 <h6 className="margin-0">Next Section</h6>

@@ -21,7 +21,7 @@ class Report extends Component {
   constructor(props){
     super(props);
     this.state = {
-      menuOpen: false, contentsPosition: '0%', attchsOpen: false, showNextBtn: false,
+      menuOpen: false, contentsPosition: '0%', attchsOpen: false,
       section: this.getSection(),
       attchClicked: false
     }
@@ -70,19 +70,6 @@ class Report extends Component {
 
   componentDidMount(){
     let { report } = this.props;
-
-    newamericadotorg.actions.addScrollEvent({
-      selector: '.report',
-      onTick: (el, dir, prog) => {
-        //let pos = prog < 130/el.offsetHeight ? '0%' : (prog > (el.offsetHeight-500)/el.offsetHeight ? '0%' : '-100%');
-        let { section } = this.state;
-
-        let showNextBtn = report.sections.length !== section.number && prog > (el.offsetHeight-window.innerHeight)/el.offsetHeight ? true : false;
-
-        this.setState({ showNextBtn });
-      }
-    });
-
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',
       component: 'site'
@@ -114,7 +101,7 @@ class Report extends Component {
 
   render(){
     let { location, match, report, redirect } = this.props;
-    let { showNextBtn, section, attchClicked } = this.state;
+    let { section, attchClicked } = this.state;
 
     let showHeading = !section || report.sections.length===1;
     let showAuthors = report.sections.length===1
@@ -202,13 +189,14 @@ class Report extends Component {
               <ContentMenu report={report} open={this.state.menuOpen} activeSection={section.slug} closeMenu={this.closeMenu} showHome={true}/>
             </Overlay>
             }
-          {showOverlay &&
-            <BottomNav section={section}
-              showNextBtn={showNextBtn}
+
+            <div className="bottom-nav-wrapper scroll-target" data-scroll-offset='65' data-scroll-trigger-point="bottom" style={{ display: showOverlay ? 'block' : 'none' }}>
+              <BottomNav section={section}
               report={report}
               openMenu={this.openMenu}
               hideAttachments={this.hideAttachments}/>
-          }
+            </div>
+
           {report.attachments.length > 0 &&
             <Attachments attachments={report.attachments}
               hideAttachments={this.hideAttachments}
