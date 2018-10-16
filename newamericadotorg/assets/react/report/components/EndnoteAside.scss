@@ -18,7 +18,8 @@
   border: 1px solid color(black, base, 0.15);
 
   @include media-breakpoint(desktop){
-    max-width: 16.66666vw;
+    width: 16.66666vw;
+    max-width: 260px;
     position: absolute;
     overflow: hidden;
     left: 0;
