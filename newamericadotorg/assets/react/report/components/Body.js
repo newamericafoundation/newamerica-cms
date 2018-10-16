@@ -1,7 +1,8 @@
 import './Body.scss';
 
 import React, { Component } from 'react';
-import Social from './Social';
+import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 import Authors from './Authors'
 import Endnote from './EndnoteAside';
 import { format as formatDate } from 'date-fns';
@@ -14,32 +15,34 @@ class Body extends Component {
     };
   }
 
-  openEndnote = () => {
-    let _this = this;
+  openEndnote = (endnote) => {
+    let body = this;
 
     return function(){
-      let endnotes = _this.props.report.endnotes;
-      let number = +this.getAttribute('data-citation-number');
-      if(_this.state.citeEl==this){
-        _this.closeEndnote();
-      } else {
-        if(_this.state.citeEl)
-          _this.state.citeEl.classList.remove('active');
-        this.classList.add('active');
-        _this.setState({ endnote: endnotes[number-1], top: this.offsetTop, citeEl: this });
-      }
+      if(this.querySelector('.report__citation').classList.contains('active')) return body.closeEndnote();
+      body.closeEndnote();
+      this.querySelector('.report__citation').classList.add('active');
+      body.setState({
+        endnote,
+        top: this.offsetTop,
+        citeEl: this
+      })
     }
   }
 
   citationEvents = () => {
     let _this = this;
-    let citations = document.querySelectorAll('.report__citation');
+    this.closeEndnote();
+    let endnotes = _this.props.report.endnotes;
+    let citations = document.querySelectorAll('.report__citation-wrapper');
     this.props.dispatch({
       type: 'ADD_SCROLL_EVENT',
       component: 'site',
       eventObject: {
-        selector: '.report__citation',
-        onLeave: (el, dir) => {if(this.state.citeEl==el) this.closeEndnote();},
+        selector: '.report__citation-wrapper',
+        onLeave: (el, dir) => {
+          if(this.state.citeEl===el) this.closeEndnote();
+        },
         els: citations,
         // viewHeight
         topOffset: -Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
@@ -47,32 +50,20 @@ class Body extends Component {
       }
     });
     for(let c of citations){
-      c.onclick = this.openEndnote()
+      let i = c.getAttribute('data-citation-number')-1;
+      c.onclick = this.openEndnote(endnotes[i]);
     }
   }
 
-  closeEndnote = () => {
-    if(this.state.citeEl)
-      this.state.citeEl.classList.remove('active');
-    this.setState({ endnote: null, top: -1000, citeEl: null });
+  closeEndnote = (el) => {
+   if(this.state.citeEl) this.state.citeEl.querySelector('.report__citation').classList.remove('active');
+   this.setState({ endnote: null, top: -1000, citeEl: null });
   }
 
-  renderDataViz = (tries=0) => {
-    let viz = document.querySelectorAll('.na-dataviz');
-    if(!viz) return;
-    if(!window.renderDataViz){
-      if(tries<3) setTimeout(()=>{ this.renderDataViz(tries++); }, 500);
-      return;
-    }
-    for(let i=0; i<viz.length; i++){
-      viz[i].setAttribute('id', viz[i].getAttribute('data-id'));
-      window.renderDataViz(viz[i]);
-    }
-  }
 
   loadScripts = () => {
     let { report, section } = this.props;
-    this.renderDataViz();
+    newamericadotorg.renderDataViz();
     if(!this.el) return;
     if(report.data_project_external_script && document.querySelectorAll('.dataviz-project').length){
 
@@ -96,44 +87,36 @@ class Body extends Component {
 
   componentDidMount(){
     this.citationEvents();
-    this.loadScripts();
+    if(this.props.section)
+      this.loadScripts();
   }
 
   componentDidUpdate(prevProps){
-    if(prevProps.location != this.props.location){
+    if(prevProps.section.number != this.props.section.number && this.props.section){
       this.citationEvents();
-      this.closeEndnote();
       this.loadScripts();
+      this.props.dispatch({
+        type: 'RELOAD_SCROLL_EVENTS',
+        component: 'SITE'
+      });
     }
 
   }
 
   render(){
-    let { section, report, closeMenu } = this.props;
+    let { section, report } = this.props;
     let { authors, endnotes, date, url, report_pdf, title } = report;
     let { endnote, top } = this.state;
     return (
-      <div className="container margin-top-35 margin-top-lg-80" onClick={closeMenu} ref={(el)=>{this.el = el; }}>
-      <div className={"report__body row gutter-30 " + (endnote ? 'endnote-active' : '')}>
-        <div className="report__body__aside col-11 col-md-6 col-lg-2 push-lg-10">
-          <div className="post-aside-wrapper">
-            <Authors authors={authors} />
-          </div>
-        </div>
-        <div className={"report__body__aside col-6 col-md-6 col-lg-2 pull-lg-2"}>
-          <div className="post-aside-wrapper">
-            <Social url={url} report_pdf={report_pdf} title={title}/>
-            <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
-          </div>
-        </div>
-        <div className="report__body__section col-12 col-lg-8 pull-lg-2 margin-top-35 margin-top-lg-0">
+      <div className={`container ${endnote ? 'endnote-active' : ''}`} ref={(el)=>{this.el = el; }} style={{ position: 'relative' }}>
+        <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
+        <div className={`report__body${section.hide_title ? ' hide-title' : ''}`}>
           <div className="post-body-wrapper">
-            {section.number==1 && <h6 className="report__body__section__date margin-top-0 margin-bottom-35">Published on {formatDate(date, "MMM. DD, YYYY")}</h6>}
-            <h2 className="margin-top-0">{section.title}</h2>
-            <article className="report__body__section__article" dangerouslySetInnerHTML={{__html: section.body}} />
+            <h2 className="margin-top-0 report__body__section-title">{section.title}</h2>
+            <div className="report__body__article" dangerouslySetInnerHTML={{__html: section.body}} />
           </div>
         </div>
-      </div>
+
       </div>
     );
   }

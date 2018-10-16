@@ -1,0 +1,49 @@
+.na-icon {
+  cursor: pointer;
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  path{
+    fill: currentColor;
+  }
+
+  &.na-icon-report svg {
+    height: 26px;
+    width: 24px;
+  }
+
+  &.na-icon-highlight svg {
+    position: relative;
+    top: -1px;
+  }
+
+  &.circle-gray, &.circle-white{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    width: 22px;
+    height: 22px;
+    border-radius: 2px;
+  }
+
+  &.circle-gray {
+    background-color: #d5d5d5;
+    color: color(black);
+
+    &:hover{
+      background-color: color(turquoise);
+      color: color(white);
+    }
+  }
+
+  &.cicle-black {
+    background-color: color(black);
+    color: color(white);
+
+    &:hover{
+      background-color: color(turquoise);
+    }
+  }
+}

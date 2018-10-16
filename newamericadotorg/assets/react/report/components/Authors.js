@@ -2,32 +2,33 @@ import './Authors.scss';
 
 import React from 'react';
 
-const Authors = ({ authors }) => (
-  <div className="report__authors">
-    <div className="report__authors__desktop">
-    <h6 className="margin-top-0 margin-bottom-25">Authors</h6>
-    {authors.map((a, i)=>(
-      <div className="report__authors__item margin-bottom-25" key={`author-${i}`}>
-        <h4 className="link margin-10">
-          <a href={a.url}><u>{`${a.first_name} ${a.last_name}`}</u></a>
+const Author = ({ author, md }) => (
+ <div className="report__author-button" style={{ marginBottom: md ? '15px' : '30px' }}>
+   <a href={author.url} style={{ display: 'block' }}>
+      <div className="report__author-button__image">
+        {author.profile_image && <img src={author.profile_image} />}
+        {!author.profile_image && <i className="fa fa-user"/>}
+      </div>
+      <div className="report__author-button__text">
+        <h4 className="margin-0">
+          {author.first_name}&nbsp;{author.last_name}
         </h4>
-        <h6 className="caption margin-5">{a.position}</h6>
+        {author.position &&
+        <h6 className="caption margin-top-5 margin-bottom-0">
+          {author.position}
+        </h6>}
+      </div>
+    </a>
+ </div>
+);
+
+const Authors = ({ authors, md=false }) => (
+  <div className="report__authors row gutter-30">
+    {authors.map((a,i) => (
+      <div className={`${md ? ' ' : 'col-md-6 col-lg-4 ' }col-12`} key={`author-${i}`}>
+        <Author author={a} md={md}/>
       </div>
     ))}
-    </div>
-    <div className="report__authors__mobile">
-      <span>by </span>
-    {authors.map((a,i)=>(
-      <span className="report__authors__item--mobile" key={`author-${i}`}>
-        <h4 className="link inline">
-          <a href={a.url}><u>{`${a.first_name} ${a.last_name}`}</u></a>
-        </h4>
-        {(i==0 && authors.length==2) && <span> & </span>}
-        {(i<authors.length-2 && authors.length>2) && <span>, </span>}
-        {(i==authors.length-2 && authors.length>2) && <span> & </span>}
-      </span>
-    ))}
-    </div>
   </div>
 );
 

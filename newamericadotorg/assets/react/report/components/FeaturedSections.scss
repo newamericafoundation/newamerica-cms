@@ -1,0 +1,45 @@
+.report__featured-button {
+  padding: 30px;
+  //border: 1px solid color(black, base, 0.2);
+  border-radius: 5px;
+
+  @include transition(all 0.15s ease);
+  box-shadow: 0px 0px 0px 1px color(black, base, 0.25);
+  @include transform(translateY(0px));
+
+  &:hover{
+    box-shadow: 0px 1px 6px 1px color(black, base, 0.15);
+    @include transform(translateY(-5px));
+
+    .circle-gray{
+      background-color: color(turquoise);
+      color: color(white);
+    }
+  }
+}
+
+.featured__scroll-wrapper {
+  @include media-breakpoint-down(tablet){
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-top: -6px;
+    padding-top: 6px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: -15px;
+    margin-right: -15px;
+
+    .col-12 {
+      display: inline-block;
+      max-width: 90%;
+    }
+    .row {
+      display: block;
+      flex-wrap: nowrap;
+      * {
+        white-space: normal;
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NAME, ID } from './constants';
 import { Fetch, Response } from '../components/API';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { format as formatDate } from 'date-fns';
 import GARouter from '../ga-router';
 import DocumentMeta from 'react-document-meta';
 import Heading from './components/Heading';
@@ -10,26 +11,131 @@ import TopNav from './components/TopNav';
 import BottomNav from './components/BottomNav';
 import store from '../store';
 import { setResponse } from '../api/actions';
+import { Overlay } from './components/OverlayMenu';
+import ContentMenu from './components/ContentMenu';
+import Attachments from './components/Attachments';
+import FeaturedSections from './components/FeaturedSections';
+import Authors from './components/Authors';
+
+const SinglePage = ({ report, dispatch, location }) => (
+  <div className={`report single-page`}>
+    <Heading report={report}/>
+
+    <Body section={report.sections[0]}
+      report={report}
+      dispatch={dispatch}
+      location={location}/>
+
+    <div className="container report__body single-page-body margin-0" id="authors">
+      <div className="post-body-wrapper">
+        <h3 className="margin-bottom-25">Authors</h3>
+        <Authors authors={report.authors} md={true} />
+      </div>
+    </div>
+
+    {report.acknowledgments &&
+      <div className="container report__body single-page-body margin-0" id="acknowledgments">
+        <div className="post-body-wrapper">
+          <h3 className="margin-top-0 margin-bottom-25">Acknowledgments</h3>
+          <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }} />
+        </div>
+      </div>}
+  </div>
+
+);
+
+const Landing = ({ report, dispatch, location, closeMenu }) => (
+  <div className={`report landing`}>
+    <Heading report={report}/>
+
+    {report.abstract &&
+      <div className="container margin-80" id="abstract">
+        <h3 className="margin-top-0 margin-bottom-25">Abstract</h3>
+        <div className="report__abstract" dangerouslySetInnerHTML={{ __html: report.abstract }}  style={{ maxWidth: '800px' }}/>
+      </div>}
+
+    {report.featured_sections.length > 0 &&
+      <div className="container margin-80" id="featured">
+        <h3 className="margin-top-0 margin-bottom-25">Featured Sections</h3>
+        <div className="featured__scroll-wrapper">
+          <FeaturedSections featuredSections={report.featured_sections} />
+        </div>
+      </div>}
+
+    <div className="container margin-80" id="contents">
+      <h3 className="margin-top-0 margin-bottom-25">Contents</h3>
+      <ContentMenu report={report} closeMenu={closeMenu}/>
+    </div>
+
+    <div className="container margin-80" id="authors">
+      <h3 className="margin-top-0 margin-bottom-25">Authors</h3>
+      <Authors authors={report.authors} />
+    </div>
+
+    {report.acknowledgments &&
+      <div className="container margin-80" id="acknowledgments">
+        <h3 className="margin-top-0 margin-bottom-25">Acknowledgments</h3>
+        <div className="report__acknowledgments" dangerouslySetInnerHTML={{ __html: report.acknowledgments }}  style={{ maxWidth: '800px' }}/>
+      </div>}
+  </div>
+
+);
 
 class Report extends Component {
-  state = { menuOpen: false }
+  constructor(props){
+    super(props);
+    this.state = {
+      menuOpen: false, contentsPosition: '0%', attchsOpen: false,
+      section: this.getSection(),
+      attchClicked: false
+    }
+  }
+
+  fixBody = () => {
+    const top = window.pageYOffset;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = -top + 'px';
+
+  }
+
+  unfixBody = () => {
+   document.body.style.overflow = 'auto';
+   document.body.style.position = 'static';
+   if(document.body.style.top)
+    window.scrollTo(0, -document.body.style.top.replace('px', ''));
+
+   document.body.style.top = null;
+  }
 
   openMenu = (e) => {
+    this.fixBody();
     this.setState({ menuOpen: true });
   }
 
   closeMenu = (e) => {
+    this.unfixBody();
     this.setState({ menuOpen: false });
   }
 
-  toggleMenu = () => {
-    this.setState({ menuOpen: !this.state.menuOpen });
+  showAttachments = () => {
+    this.fixBody();
+    this.setState({ attchsOpen: true, attchClicked: true });
+  }
+
+  hideAttachments = () => {
+    this.unfixBody();
+    this.setState({ attchsOpen: false });
+  }
+
+  animateMenu = (position) => {
+    this.setState({ contentsPosition: position });
   }
 
   getSection = () => {
     let { report, match: { params } } = this.props;
 
-    if(!params.sectionSlug) return {};
+    if(!params.sectionSlug) return false;
     return report.sections.find((s)=>( s.slug==params.sectionSlug ));
   }
 
@@ -48,6 +154,7 @@ class Report extends Component {
   }
 
   componentDidMount(){
+    let { report } = this.props;
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',
       component: 'site'
@@ -59,7 +166,7 @@ class Report extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
 
     if (this.props.location !== prevProps.location) {
       this.props.dispatch({
@@ -67,33 +174,64 @@ class Report extends Component {
         component: 'site'
       });
 
-      window.scrollTo(0, 70);
+      window.scrollTo(0, 0);
+      this.setState({ section: this.getSection() });
+    }
+
+    if(this.state.section != prevState.section){
       this.anchorTag();
     }
+
   }
 
   render(){
-    let { location, match, report, redirect } = this.props;
-    let section = this.getSection();
-    if(!section) return (<Redirect to={`${report.url}${report.sections[0].slug}`} />)
+    let { location, match, report, redirect, dispatch } = this.props;
+    let { section, attchClicked } = this.state;
+
+    let singlePage = report.sections.length===1
+    let landing = !section && !singlePage;
+
     return (
-      <DocumentMeta title={`${report.title}: ${section.title}`} description={report.search_description}>
-        <div className='report'>
-          <TopNav section={section} report={report}
-            openMenu={this.openMenu}
-            closeMenu={this.closeMenu}
-            toggleMenu={this.toggleMenu}
-            menuOpen={this.state.menuOpen} />
-            {section.number===1 &&
-              <Heading report={report}/>
-            }
+      <DocumentMeta title={`${report.title}${section ? ': ' + section.title : ''}`} description={report.search_description}>
+        <TopNav section={section} report={report}
+          openMenu={this.openMenu}
+          closeMenu={this.closeMenu}
+          showAttachments={this.showAttachments}
+          hideAttachments={this.hideAttachments}
+          attchClicked={attchClicked}
+          menuOpen={this.state.menuOpen} />
+
+          {singlePage && <SinglePage {...this.props} />}
+
+          {landing && <Landing closeMenu={this.closeMenu} {...this.props} />}
+
+          {section && <div className={`report section`}>
             <Body section={section}
               report={report}
               dispatch={this.props.dispatch}
-              location={location}
-              closeMenu={this.closeMenu}/>
-          <BottomNav section={section} report={report} />
-        </div>
+              location={location}/>
+          </div>}
+
+          <div className={`bottom-nav-wrapper scroll-target ${section ? 'show' : 'hide'}`}
+            data-scroll-offset='65'
+            data-scroll-trigger-point="bottom">
+              <BottomNav section={section}
+                report={report}
+                openMenu={this.openMenu}
+                hideAttachments={this.hideAttachments}/>
+          </div>
+
+          <Overlay title="Contents"
+            close={this.closeMenu}
+            open={this.state.menuOpen}>
+              <ContentMenu report={report} closeMenu={this.closeMenu} showHome={true}/>
+          </Overlay>
+
+          {report.attachments.length > 0 &&
+            <Attachments attachments={report.attachments}
+              hideAttachments={this.hideAttachments}
+              attchsOpen={this.state.attchsOpen}/>}
+
       </DocumentMeta>
     );
   }
@@ -119,10 +257,8 @@ class Routes extends Component {
           <Route path={`/admin/pages`} render={() => (
             <Redirect to={results.url} />
           )} />
-          <Route path='/:program/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
-          <Route path='/:program/reports/:reportTitle' render={this.redirect} />
-          <Route path='/:program/:subprogram/reports/:reportTitle/:sectionSlug' render={this.reportRender} />
-          <Route path='/:program/:subprogram/reports/:reportTitle' render={this.redirect} />
+          <Route path='/:program/reports/:reportTitle/:sectionSlug?' render={this.reportRender} />
+          <Route path='/:program/:subprogram/reports/:reportTitle/:sectionSlug?' render={this.reportRender} />
         </Switch>
       </GARouter>
     );

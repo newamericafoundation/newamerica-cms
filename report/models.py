@@ -6,8 +6,7 @@ from django.dispatch import receiver
 
 from home.models import Post
 from programs.models import AbstractContentPage
-from newamericadotorg.blocks import ReportSectionBlock
-from .blocks import EndnoteBlock
+from .blocks import EndnoteBlock, ReportSectionBlock, FeaturedReportSectionBlock
 
 from wagtail.core.models import Page, PageRevision
 from wagtail.core.fields import StreamField
@@ -38,6 +37,8 @@ class Report(Post):
         ('section', ReportSectionBlock(template="components/report_section_body.html", required=False))
     ], null=True, blank=True)
 
+    abstract = RichTextField(blank=True, null=True)
+
     acknowledgements = RichTextField(blank=True, null=True)
 
     source_word_doc = models.ForeignKey(
@@ -63,6 +64,10 @@ class Report(Post):
     overwrite_sections_on_save = models.BooleanField(default=False, help_text='If checked, sections and endnote fields ⚠ will be overwritten ⚠ with Word document source on save. Use with CAUTION!')
     generate_pdf_on_publish = models.BooleanField('Generate PDF on save', default=False, help_text='⚠ Save latest content before checking this ⚠\nIf checked, the "Report PDF" field will be filled with a generated pdf. Otherwise, leave this unchecked and upload a pdf to the "Report PDF" field.')
     revising = False
+
+    featured_sections = StreamField([
+        ('featured', FeaturedReportSectionBlock(required=False, null=True)),
+    ], null=True, blank=True)
 
     endnotes = StreamField([
         ('endnote', EndnoteBlock(required=False, null=True)),
@@ -92,8 +97,23 @@ class Report(Post):
         related_name='+'
     )
 
-    content_panels = Post.content_panels + [
-        FieldPanel('acknowledgements'),
+    content_panels = [
+        MultiFieldPanel([
+            FieldPanel('title'),
+            FieldPanel('subheading'),
+            FieldPanel('date'),
+            ImageChooserPanel('story_image'),
+        ]),
+        InlinePanel('authors', label=("Authors")),
+        InlinePanel('programs', label=("Programs")),
+        InlinePanel('subprograms', label=("Subprograms")),
+        InlinePanel('topics', label=("Topics")),
+        InlinePanel('location', label=("Locations")),
+        MultiFieldPanel([
+            FieldPanel('abstract'),
+            StreamFieldPanel('featured_sections'),
+            FieldPanel('acknowledgements'),
+        ])
     ]
 
     sections_panels = [
@@ -103,6 +123,10 @@ class Report(Post):
     endnote_panels = [StreamFieldPanel('endnotes')]
 
     settings_panels = Post.settings_panels + [FieldPanel('dataviz_src')]
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('story_excerpt'),
+    ]
 
     pdf_panels = [
         MultiFieldPanel([
@@ -118,10 +142,10 @@ class Report(Post):
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(content_panels, heading="Content"),
+        ObjectList(content_panels, heading="Landing"),
         ObjectList(sections_panels, heading="Sections"),
         ObjectList(endnote_panels, heading="Endnotes"),
-        ObjectList(Post.promote_panels, heading="Promote"),
+        ObjectList(promote_panels, heading="Promote"),
         ObjectList(settings_panels, heading='Settings', classname="settings"),
         ObjectList(pdf_panels, heading="PDF Publishing")
     ])

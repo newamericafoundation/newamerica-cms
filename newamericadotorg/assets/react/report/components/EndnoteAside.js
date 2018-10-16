@@ -18,17 +18,19 @@ class Endnote extends Component {
     return note;
   }
   render(){
-    let { endnote, top } = this.props;
+    let { endnote, top, close } = this.props;
 
     return (
       <div className="report__body__endnote" style={{ top: top }}>
-        <div className="report__body__endnote__close" onClick={this.props.close}>
+        <div className="report__body__endnote__close" onClick={close}>
           <PlusX x={true} />
         </div>
-        {endnote &&<span>
-          <h6 className="inline" >{`${endnote.number} `}</h6>
-          <h6 className="inline" dangerouslySetInnerHTML={{__html: this.cleanEndnote()}}></h6>
-        </span>}
+        {endnote &&<div className="report__body__endnote__text">
+          <span>
+            <h6 className="inline" >{`${endnote.number} `}</h6>
+            <h6 className="inline" dangerouslySetInnerHTML={{__html: this.cleanEndnote()}}></h6>
+          </span>
+        </div>}
       </div>
     );
   }

@@ -61,7 +61,9 @@ const punctuation = (i, len) => {
 const generateAuthors = (authors) => {
   let authorElements = [];
   let len = authors.length;
-  authors.forEach((a,i)=>{
+  let _authors = [...authors];
+  if(len > 3) _authors = authors.splice(0,3);
+  _authors.forEach((a,i)=>{
     authorElements.push(
       <h6 className="inline link margin-0" key={`author-${i}`}>
         <a href={a.url}><u>{a.first_name} {a.last_name}</u></a>
@@ -70,6 +72,9 @@ const generateAuthors = (authors) => {
     let punc = punctuation(i,len);
     if(punc) authorElements.push(punc);
   });
+
+  if(len === 4) authorElements.push(<h6 className="inline bold"> {len-3} more</h6>);
+  else if(len > 4) authorElements.push(<h6 className="inline bold">and {len-3} more</h6>);
 
   return authorElements;
 }
@@ -84,7 +89,6 @@ export const PublicationListItem = ({ post }) => (
     <div className="card__text">
       <a href={post.url}>
         {post.date && <h6 className="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">{formatDate(post.date, 'MMM. Do, YYYY')}</h6>}
-        {/* <h3 className="card__text__title bold block">{post.title}</h3> */}
         <h4 className="card__text__title margin-0">
           <span><u>{post.seo_title || post.title}</u></span>
         </h4>

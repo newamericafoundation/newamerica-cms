@@ -21,21 +21,21 @@
   <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
   <meta property="og:site_name" content="New America" />
 
-  <link rel="canonical" href="https://www.newamerica.org{{ self.url }}" />
-  <meta property="og:url" content="https://www.newamerica.org{{ self.url }}">
-  <meta name="twitter:url" content="https://www.newamerica.org{{ self.url }}">
+  <link rel="canonical" href="https://www.newamerica.org{{ page.url }}" />
+  <meta property="og:url" content="https://www.newamerica.org{{ page.url }}">
+  <meta name="twitter:url" content="https://www.newamerica.org{{ page.url }}">
 
-  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-  <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-  <meta name="twitter:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+  <title>{% block title %}{% firstof page.seo_title page.title %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+  <meta property="og:title" content="{% firstof page.seo_title page.title %}" />
+  <meta name="twitter:title" content="{% firstof page.seo_title page.title %}" />
 
-  <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
-  <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
-  <meta name="twitter:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.story_excerpt %}{{ self.story_excerpt }}{% endif %}" />
+  <meta name="description" content="{% firstof page.search_description page.story_excerpt %}" />
+  <meta property="og:description" content="{% firstof page.search_description page.story_excerpt %}" />
+  <meta name="twitter:description" content="{% firstof page.search_description page.story_excerpt %}" />
 
-  {% if self.story_image %}
-    <meta property="og:image" content='https://s3.amazonaws.com/newamericadotorg/{{ self.story_image.file.name }}' />
-    <meta name="twitter:image" content='https://s3.amazonaws.com/newamericadotorg/{{ self.story_image.file.name }}' />
+  {% if page.story_image %}
+    <meta property="og:image" content='https://s3.amazonaws.com/newamericadotorg/{{ page.story_image.file.name }}' />
+    <meta name="twitter:image" content='https://s3.amazonaws.com/newamericadotorg/{{ page.story_image.file.name }}' />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@NewAmerica">
   {% endif %}

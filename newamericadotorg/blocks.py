@@ -4,7 +4,6 @@ from django import forms
 from wagtail.core import blocks
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.embeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import IntegerBlock
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -42,27 +41,6 @@ class CustomImageBlock(blocks.StructBlock):
 		('width-166', 'Large'),
 		('width-200', 'X-Large')
 	], default="initial", required=True)
-	use_original = blocks.BooleanBlock(required=False, help_text="check if you do not want image compressed. Should be checked for all figures.")
-	figure_number = blocks.CharBlock(required=False, max_length=3)
-	figure_title = blocks.CharBlock(required=False, max_length=100)
-	open_image_on_click = blocks.BooleanBlock(default=False, required=False)
-
-	class Meta:
-		template = 'blocks/image_block.html'
-
-class CustomDataVizImageBlock(blocks.StructBlock):
-	image = ImageChooserBlock(icon="image", required=False)
-	align = blocks.ChoiceBlock(choices=[
-		('center', 'Centered'),
-		('left', 'Left'),
-		('right', 'Right')
-	], default='center', required=False)
-	width = blocks.ChoiceBlock([
-		('initial', 'Auto'),
-		('width-133', 'Medium'),
-		('width-166', 'Large'),
-		('width-200', 'X-Large')
-	], default="initial", required=False)
 	use_original = blocks.BooleanBlock(required=False, help_text="check if you do not want image compressed. Should be checked for all figures.")
 	figure_number = blocks.CharBlock(required=False, max_length=3)
 	figure_title = blocks.CharBlock(required=False, max_length=100)
@@ -112,10 +90,6 @@ class DatavizBlock(blocks.StructBlock):
 		template = 'blocks/dataviz.html'
 		icon = 'site'
 		label = 'Dataviz'
-
-
-class ReportDataVizBlock(DatavizBlock):
-	static_image_fallback = CustomDataVizImageBlock(icon='image')
 
 def ResourceKitSerializer(r):
 	resources = []
@@ -420,31 +394,9 @@ class Body(blocks.StreamBlock):
 	google_map = GoogleMapBlock(icon="site")
 	resource_kit = ResourceKit(icon="folder")
 
-class BoxBody(blocks.StreamBlock):
-	paragraph = blocks.RichTextBlock()
-	inline_image = CustomImageBlock(icon='image')
-	video = EmbedBlock(icon='media')
-	iframe = IframeBlock(icon="link")
-	dataviz = ReportDataVizBlock(icon="code")
-
-class BoxBlock(blocks.StructBlock):
-	title = blocks.TextBlock()
-	body = BoxBody()
-
-	class Meta:
-		template = 'blocks/box.html'
-
-class ReportBody(Body):
-	dataviz = ReportDataVizBlock(icon="code")
-	box = BoxBlock()
-
 class PanelBlock(blocks.StructBlock):
 	title = blocks.TextBlock()
 	body = Body()
-
-class ReportSectionBlock(blocks.StructBlock):
-	title = blocks.TextBlock()
-	body = ReportBody()
 
 class PanelsBlock(blocks.StreamBlock):
 	panel = PanelBlock(icon="doc-empty-inverse")
