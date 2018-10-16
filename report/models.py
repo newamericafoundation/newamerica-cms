@@ -65,8 +65,6 @@ class Report(Post):
     generate_pdf_on_publish = models.BooleanField('Generate PDF on save', default=False, help_text='⚠ Save latest content before checking this ⚠\nIf checked, the "Report PDF" field will be filled with a generated pdf. Otherwise, leave this unchecked and upload a pdf to the "Report PDF" field.')
     revising = False
 
-    show_landing_page = models.BooleanField(default=True, help_text='Show landing featured, abstract, and contents sections')
-
     featured_sections = StreamField([
         ('featured', FeaturedReportSectionBlock(required=False, null=True)),
     ], null=True, blank=True)
@@ -106,10 +104,11 @@ class Report(Post):
         InlinePanel('programs', label=("Programs")),
         InlinePanel('subprograms', label=("Subprograms")),
         InlinePanel('topics', label=("Topics")),
-        FieldPanel('show_landing_page'),
-        FieldPanel('abstract'),
-        FieldPanel('featured_sections'),
-        FieldPanel('acknowledgements'),
+        MultiFieldPanel([
+            FieldPanel('abstract'),
+            StreamFieldPanel('featured_sections'),
+            FieldPanel('acknowledgements'),
+        ])
     ]
 
     sections_panels = [

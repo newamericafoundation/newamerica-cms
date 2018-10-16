@@ -4,6 +4,14 @@
   padding: 10px;
   border-radius: 5px;
   white-space: nowrap;
+  @include transition(all 0.35s ease);
+  box-shadow: 0px 1px 3px 0px color(black, base, 0.0);
+  @include transform(translateY(0px));
+
+  &:hover{
+    box-shadow: 0px 1px 3px 0px color(black, base, 0.25);
+    @include transform(translateY(-5px));
+  }
   &__text, &__image {
     display: inline-block;
     vertical-align: middle;
