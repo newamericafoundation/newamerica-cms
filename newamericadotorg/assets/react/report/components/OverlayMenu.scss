@@ -1,18 +1,20 @@
 .report__overlay{
   position: fixed;
+  height: 100vh;
   width: 100vw;
+  top: 0;
+  left: 0;
   max-width: 1100px;
   z-index: 700;
   background: color(white);
   visibility: hidden;
   opacity: 0;
   @include transition(all 0.35s ease);
-  top: 50%;
-  left: 50%;
-  @include transform(translate(-50%, -40%));
-  height: 100vh;
 
-  @include media-breakpoint(desktop){
+  @include media-breakpoint(tablet){
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%, -40%));
     height: calc(100vh - 60px);
     border-radius: 4px;
   }
@@ -81,7 +83,10 @@
   &.open {
     visibility: visible;
     opacity: 1;
-    @include transform(translate(-50%, -50%));
+
+    @include media-breakpoint(tablet){
+      @include transform(translate(-50%, -50%));
+    }
   }
 }
 
