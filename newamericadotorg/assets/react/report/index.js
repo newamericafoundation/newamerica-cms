@@ -54,7 +54,7 @@ const Landing = ({ report, dispatch, location, closeMenu }) => (
         <div className="report__abstract" dangerouslySetInnerHTML={{ __html: report.abstract }}  style={{ maxWidth: '800px' }}/>
       </div>}
 
-    {report.featured_sections &&
+    {report.featured_sections.length > 0 &&
       <div className="container margin-80" id="featured">
         <h3 className="margin-top-0 margin-bottom-25">Featured Sections</h3>
         <div className="featured__scroll-wrapper">

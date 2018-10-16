@@ -96,7 +96,7 @@ class ReportDetailSerializer(PostSerializer):
 
     def get_featured_sections(self, obj):
         if obj.featured_sections is None:
-            return None
+            return []
         sections = []
         for i,s in enumerate(obj.featured_sections):
             section = {
