@@ -91,23 +91,40 @@ class Report extends Component {
     }
   }
 
-  openMenu = (e) => {
+  fixBody = () => {
+    const top = window.pageYOffset;
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = -top + 'px';
+
+  }
+
+  unfixBody = () => {
+   document.body.style.overflow = 'auto';
+   document.body.style.position = 'static';
+   if(document.body.style.top)
+    window.scrollTo(0, -document.body.style.top.replace('px', ''));
+
+   document.body.style.top = null;
+  }
+
+  openMenu = (e) => {
+    this.fixBody();
     this.setState({ menuOpen: true });
   }
 
   closeMenu = (e) => {
-    document.body.style.overflow = '';
+    this.unfixBody();
     this.setState({ menuOpen: false });
   }
 
   showAttachments = () => {
-    document.body.style.overflow = 'hidden';
+    this.fixBody();
     this.setState({ attchsOpen: true, attchClicked: true });
   }
 
   hideAttachments = () => {
-    document.body.style.overflow = '';
+    this.unfixBody();
     this.setState({ attchsOpen: false });
   }
 

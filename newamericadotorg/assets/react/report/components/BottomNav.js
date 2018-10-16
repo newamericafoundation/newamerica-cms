@@ -8,7 +8,7 @@ import { Home } from '../../components/Icons';
 const Tooltip = ({ content, activeIndex }) => (
   <div className="report__bottom-nav__tooltip" style={{ opacity: content ? 1 : 0, visibility: content ? 'visible' : 'hidden' }}>
     <h6 className="paragraph white margin-0">{content.title}</h6>
-    <div className="report__bottom-nav__tooltip__caret" style={{ left: (content.index - activeIndex + 1) * 40 + 10 }}></div>
+    <div className="report__bottom-nav__tooltip__caret" style={{ left: (content.index - activeIndex + 1) * 40 + 10 || 0 }}></div>
   </div>
 );
 
