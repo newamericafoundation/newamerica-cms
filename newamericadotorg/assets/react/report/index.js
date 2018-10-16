@@ -46,7 +46,7 @@ const SinglePage = ({ report, dispatch, location }) => (
 
 const Landing = ({ report, dispatch, location, closeMenu }) => (
   <div className={`report landing`}>
-    <Heading report={report}/>}
+    <Heading report={report}/>
 
     {report.abstract &&
       <div className="container margin-80" id="abstract">
