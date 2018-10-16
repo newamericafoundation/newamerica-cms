@@ -46,7 +46,7 @@ class BottomNavButtons extends Component {
 const ChapterList = ({ sections, activeIndex, n, reportUrl, tooltipContent, setTooltip }) => (
   <ul style={{ transform: `translateX(-${activeIndex * 40}px)`, position: 'relative' }}>
     <li className={n === 0 ? 'active' : ''}
-      style={{ width: '40px', textAlign: 'center' }}>
+      style={{ width: '40px', textAlign: 'center', lineHeight: '36px' }}>
       <Link to={reportUrl}>
         <Home />
       </Link>
