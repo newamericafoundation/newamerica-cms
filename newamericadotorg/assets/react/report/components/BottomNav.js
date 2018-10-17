@@ -93,11 +93,11 @@ class BottomNav extends Component {
 
     return (
       <div className={`report__bottom-nav-bar row ${section.number === report.sections.length ? 'last-section' : ''}`}>
-        <div className="report__bottom-nav-bar__menu ga-track-click col-6" onClick={() => { hideAttachments(); openMenu(); }} data-action="click_bottom_nav" data-label="report" data-value="open_menu">
+        <div className="report__bottom-nav-bar__menu ga-track-click col-3" onClick={() => { hideAttachments(); openMenu(); }} data-action="click_bottom_nav" data-label="report" data-value="open_menu">
           <i className="fa fa-bars"/>
           <h6 className="inline">Contents</h6>
         </div>
-        <div className="report__bottom-nav-bar__chapter-nav col-6" style={{ position: 'relative', textAlign: 'right' }}>
+        <div className="report__bottom-nav-bar__chapter-nav col-9" style={{ position: 'relative', textAlign: 'right' }}>
           <Tooltip content={this.state.tooltipContent} activeIndex={activeIndex}/>
           <div className="report__bottom-nav-bar__button-wrapper">
             {section.number > 1 &&
