@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Home } from '../../components/Icons';
 
 const Tooltip = ({ content, activeIndex }) => (
-  <div className="report__bottom-nav__tooltip" style={{ opacity: content ? 1 : 0, visibility: content ? 'visible' : 'hidden' }}>
+  <div className={`report__bottom-nav__tooltip`} style={{ opacity: content ? 1 : 0, visibility: content ? 'visible' : 'hidden' }}>
     <h6 className="paragraph white margin-0">{content.title}</h6>
     <div className="report__bottom-nav__tooltip__caret" style={{ right: (5*40) - ((content.index - activeIndex + 1) * 40) + 10 || 'calc(50% + 10px)' }}></div>
   </div>
@@ -92,7 +92,7 @@ class BottomNav extends Component {
     }
 
     return (
-      <div className="report__bottom-nav-bar row">
+      <div className={`report__bottom-nav-bar row ${section.number === report.sections.length ? 'last-section' : ''}`}>
         <div className="report__bottom-nav-bar__menu ga-track-click col-6" onClick={() => { hideAttachments(); openMenu(); }} data-action="click_bottom_nav" data-label="report" data-value="open_menu">
           <i className="fa fa-bars"/>
           <h6 className="inline">Contents</h6>
