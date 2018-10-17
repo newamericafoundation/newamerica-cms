@@ -41,8 +41,8 @@ class PostSerializer(ModelSerializer):
         return get_content_type(obj)
 
     def get_story_image(self, obj):
-        rendition = self.context['request'].query_params.get('image_rendition', None)
-        if obj.story_image:
+        if obj.story_image and getattr(self.context, 'request', False):
+            rendition = self.context['request'].query_params.get('image_rendition', None)
             return generate_image_url(obj.story_image, rendition)
 
     def get_programs(self, obj):
