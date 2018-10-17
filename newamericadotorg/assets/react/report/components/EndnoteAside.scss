@@ -1,5 +1,5 @@
 .report__body__endnote{
-  @include transition(opacity 0.5s ease, transform 0.5s ease);
+  @include transition(opacity 0.5s ease, margin 0.5s ease);
   .report__body__endnote__text span * {
     display: inline !important;
   }
@@ -8,7 +8,7 @@
   left: 15px;
   opacity: 0;
   background: color(white);
-  @include transform(translateY(calc(-50% + 35px)));
+  margin-top: 35px;
   padding: 35px;
   width: calc(100% - 30px);
   z-index: 1;
@@ -108,6 +108,7 @@
   .report__body__endnote {
     visibility: visible;
     opacity: 1;
+    margin-top: 0;
     @include transform(translateY(-50%));
   }
 }

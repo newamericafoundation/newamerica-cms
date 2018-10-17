@@ -16,12 +16,13 @@
   &__tooltip {
     @include transition(all 0.35s ease);
     @include transform(translateY(-100%));
+    text-align: left;
     background: color(black);
     width: 240px;
     padding: 12px 15px 15px 15px;
     position: absolute;
     top: -15px;
-    left: 60px;
+    right: 75px;
     white-space: normal;
 
     &__caret {
@@ -70,10 +71,6 @@
   height: 65px;
   //max-width: 1200px;
   margin: 0 auto 0 auto;
-}
-
-.report__bottom-nav-bar__chapter-nav {
-  float: right;
 }
 
 .report__bottom-nav-bar__chapter-nav > div:not(.report__bottom-nav__tooltip) {
