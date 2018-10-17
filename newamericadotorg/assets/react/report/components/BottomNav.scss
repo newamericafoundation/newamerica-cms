@@ -197,6 +197,10 @@
   border-radius: 0;
   box-shadow: 0px 0px 10px 0px rgba(#252525,0);
 
+  .report__bottom-nav__tooltip{
+    right: calc(75px + 85px);
+  }
+
   .report__bottom-nav-bar__button-wrapper.next {
     a {
       width: 120px !important;
