@@ -20,7 +20,7 @@ def generate_pdf(report_id):
     authors = get_report_authors(revision)
     html = loader.get_template('report/pdf.html').render({ 'page': revision, 'contents': contents, 'authors': authors, 'report': report })
 
-    pdf = HTML(string=html, encoding='utf-8').write_pdf()
+    pdf = HTML(string=html, encoding='utf-8').write_pdf() 
     content = ContentFile(pdf)
     Document = get_document_model()
     doc = Document(title=report.title)
