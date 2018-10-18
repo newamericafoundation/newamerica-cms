@@ -16,7 +16,7 @@ export const Overlay = ({ close, open, children, title }) => (
         </div>
       </div>
       <div className="report__overlay__scroll-wrapper">
-        <div style={{ maxWidth: '970px', margin: '0 auto', paddingBottom: '50px' }}>
+        <div style={{ maxWidth: '970px', margin: '0 auto', paddingBottom: '140px' }}>
           {children}
         </div>
       </div>

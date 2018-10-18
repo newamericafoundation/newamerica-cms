@@ -105,9 +105,9 @@
           <div class="contents__list">
             {% for c in content %}
               <div class="contents__list__item">
-                <label class="block">{{c.title}}</label>
+                <label class="block section"><a href="#{{c.slug}}">{{c.title}}</a></label>
                 {% for sub in c.subsections %}
-                    <label class="block subsection">{{sub}}</label>
+                    <label class="block subsection"><a href="#{{sub.slug}}">{{sub.title}}</a></label>
                 {% endfor %}
               </div>
             {% endfor %}
@@ -119,7 +119,7 @@
     {% for s in page.sections %}
       <section class="section break-after">
         <div class="section-content">
-          <h1 class="heading-{{forloop.counter}}">{{s.value.title}}</h1>
+          <h1 class="heading-{{forloop.counter}}" id="{{s.value.title|slugify}}">{{s.value.title}}</h1>
           {% for block in s.value.body %}
             {% if block.block_type == 'heading' %}
               {% include_block block %}
@@ -151,7 +151,7 @@
             {% elif block.block_type == 'dataviz' %}
 
             {% elif block.block_type == 'table' %}
-              <div class="block-table {% if block.value.table_header|length < 2 %}table-sm{% endif %}">
+              <div class="block-table {% if block.value.data.0|length < 2 %}table-sm{% endif %}">
                 <!-- <label class="bold">Table {% counter %}</label> -->
                 {% include_block block %}
               </div>

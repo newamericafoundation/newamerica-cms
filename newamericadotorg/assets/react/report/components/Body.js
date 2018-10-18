@@ -24,7 +24,7 @@ class Body extends Component {
       this.querySelector('.report__citation').classList.add('active');
       body.setState({
         endnote,
-        top: this.offsetTop,
+        top: window.pageYOffset + this.getBoundingClientRect().top,
         citeEl: this
       })
     }

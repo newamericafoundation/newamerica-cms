@@ -2,19 +2,37 @@
   margin-top: 25px;
   margin-bottom: 50px;
   overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 
-  .block-table__wrapper{
+
+  .block-table__scroll-wrapper{
     overflow-y: hidden;
     overflow-x: scroll;
-    width: 100%;
     position: relative;
+    width: 100%;
     top: 25px;
+    color: color(black, base, 1);
+    @include transition(opacity 0.25s ease);
+    white-space: nowrap;
     padding-bottom: 25px;
+    padding-left: 30px;
+    padding-right: 15px;
+
   }
 
   table {
+    white-space: normal;
+    min-width: 100%;
+    max-width: 1200px;
     border-collapse: collapse;
-  }
+    position: relative;
+    left: -15px;
+    @media (min-width: 680px){
+      min-width: 650px;
+      margin: 0 auto;
+    }
+   }
 
   tbody tr:nth-of-type(odd) {
     background-color: rgba(44, 47, 53, 0.05);
@@ -22,7 +40,7 @@
 
   th, td {
     padding: 10px;
-    min-width: 130px;
+    min-width: 200px !important;
     vertical-align: middle;
     text-align: left;
     line-height: 1.3;
@@ -40,4 +58,8 @@
     border-top: 1px solid color(black);
     border-bottom: 1px solid color(black);
   }
+}
+
+.endnote-active .block-table__wrapper {
+  color: color(black, base, 0.25);
 }
