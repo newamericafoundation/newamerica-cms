@@ -1,48 +1,48 @@
   <style>
     @font-face {
         font-family: 'Circular';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Black.otf');
+        src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/CircularStd-Black.otf');
         font-weight: bold;
         font-style: normal;
     }
 
     @font-face {
         font-family: 'Circular';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Medium.otf');
+        src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/CircularStd-Medium.otf');
         font-weight: 600;
         font-style: normal;
     }
 
     @font-face {
         font-family: 'Circular';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-Book.ttf');
+        src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/CircularStd-Book.ttf');
         font-weight: normal;
         font-style: normal;
     }
 
     @font-face {
         font-family: 'Circular';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/CircularStd-BookItalic.ttf');
+        src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/CircularStd-BookItalic.ttf');
         font-weight: normal;
         font-style: italic;
     }
 
     @font-face {
       font-family: 'Platform';
-      src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/Platform-Medium.otf');
+      src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/Platform-Medium.otf');
       font-weight: bold;
     }
 
     @font-face {
         font-family: 'Lyon';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-Regular.otf');
+        src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/LyonText-Regular.otf');
         font-weight: normal;
         font-style: normal;
     }
 
     @font-face {
         font-family: 'Lyon';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-Bold.otf');
+        src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/LyonText-Bold.otf');
         font-weight: bold;
         font-style: normal;
     }
@@ -50,9 +50,14 @@
 
     @font-face {
         font-family: 'Lyon';
-        src: url('https://na-preview-static.s3.amazonaws.com/static/fonts/LyonText-RegularItalic.otf');
+        src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/LyonText-RegularItalic.otf');
         font-weight: normal;
         font-style: italic;
+    }
+
+    @font-face {
+        font-family: 'SimHei';
+        src: url('https://newamericadotorg-static.s3.amazonaws.com/static/fonts/simhei.ttf');
     }
 
     @page {
@@ -186,6 +191,15 @@
       letter-spacing: 0.05em;
     }
 
+    h6 {
+      font-weight: normal;
+    }
+
+    h6.caption {
+      font-family: 'Lyon';
+      font-style: italic;
+    }
+
     blockquote:not(.pullquote) {
       margin-left: 20pt;
       margin-right: 20pt;
@@ -193,7 +207,7 @@
       margin-bottom: 20pt;
       font-size: 10pt;
       line-height: 14pt;
-      font-family: 'Lyon';
+      font-family: 'Lyon', 'SimHei';
     }
 
     blockquote:not(.pullquote) + blockquote:not(.pullquote){
@@ -210,7 +224,7 @@
       padding-bottom: 30pt;
       border-top: 1px solid #333;
       border-bottom: 1px solid #333;
-      font-family: 'Lyon';
+      font-family: 'Lyon', 'SimHei';
       font-weight: bold;
       font-size: 14pt;
       line-height: 18pt;
@@ -229,7 +243,7 @@
     }
 
     .block-box *{
-      font-family: 'Circular';
+      font-family: 'Circular', 'SimHei';
     }
 
     .block-box > *:last-child,
@@ -239,7 +253,7 @@
     }
 
     .block-box blockquote{
-      font-family: 'Circular';
+      font-family: 'Circular', 'SimHei';
     }
 
     .row {
@@ -357,7 +371,7 @@
     }
 
     .contents__list__item *, .contents__list__item{
-      font-family: 'Circular' !important;
+      font-family: 'Circular', 'SimHei' !important;
       font-size: 10pt !important;
       line-height: 13pt !important;
     }
@@ -388,32 +402,32 @@
       transform: translateY(-50%);
     }
 
-    label {
+    h6 {
       font-size: 10pt;
       line-height: 14pt;
       font-family: 'Circular';
     }
 
-    label.with-separator:after{
+    h6.with-separator:after{
       content: '|';
       display: inline;
       padding-left: 0.5em;
       padding-right: 0.5em;
     }
 
-    label.caption {
-      font-family: 'Lyon';
+    h6.caption {
+      font-family: 'Lyon', 'SimHei';
       font-style: italic;
     }
 
     p, ul, li {
       font-size: 10pt;
       line-height: 14pt;
-      font-family: 'Lyon';
+      font-family: 'Lyon', 'SimHei';
     }
 
     p.subtitle{
-      font-family: 'Lyon';
+      font-family: 'Lyon', 'SimHei';
       font-size: 24pt;
       line-height: 24pt;
     }
@@ -486,8 +500,13 @@
       text-align: left;
     }
 
-    .figure figcaption label:first-child{
+    .figure figcaption h6 {
+      margin: 0;
+    }
+
+    .figure figcaption h6:first-child{
       margin-top: 0;
+      margin-bottom: 5px;
     }
 
     .figure__image{
@@ -548,7 +567,7 @@
     .endnote * {
       display: inline !important;
       margin: 0 !important;
-      font-family: 'Circular' !important;
+      font-family: 'Circular', 'SimHei' !important;
       font-size: 10pt !important;
       line-height: 14pt !important;
       margin-bottom: 12pt !important;
@@ -557,7 +576,7 @@
     }
 
     .endnote {
-      font-family: 'Circular';
+      font-family: 'Circular', 'SimHei';
       font-size: 10pt;
       line-height: 14pt;
       margin-bottom: 12pt;
@@ -577,7 +596,7 @@
     }
 
     #acknowledgements .contents__list__item * {
-      font-family: 'Circular' !important;
+      font-family: 'Circular', 'SimHei' !important;
       font-size: 10pt;
       line-height: 14pt;
     }
@@ -593,7 +612,7 @@
     }
 
     .contents__list__item .subsection a::after {
-      content: target-counter(attr(href), page); 
+      content: target-counter(attr(href), page);
       float: right;
     }
 
@@ -611,7 +630,7 @@
     }
 
     .attribution p {
-      font-family: 'Circular';
+      font-family: 'Circular', 'SimHei';
       font-size: 10pt;
       line-height: 14pt;
     }
@@ -631,22 +650,19 @@
       margin: auto;
     }
 
-    .block-table label{
-      display: block;
-    }
-
     table {
       width: 100%;
       margin-left: auto;
       margin-right: auto;
       border-collapse: collapse;
     }
+
     tbody tr:nth-of-type(odd) {
       background-color: rgba(0, 0, 0, 0.05);
     }
 
     th, td {
-      font-family: 'Circular';
+      font-family: 'Circular', 'SimHei';
       padding: 7pt;
       max-width: 288pt;
       font-size: 10pt;
