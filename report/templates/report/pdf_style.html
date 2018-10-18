@@ -582,6 +582,21 @@
       line-height: 14pt;
     }
 
+    .contents__list__item a {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .contents__list__item .section a::after {
+      content: target-counter(attr(href), page);
+      float: right;
+    }
+
+    .contents__list__item .subsection a::after {
+      content: target-counter(attr(href), page); 
+      float: right;
+    }
+
     .attribution .logo {
       margin-bottom: 20pt;
     }

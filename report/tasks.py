@@ -9,6 +9,7 @@ from django.apps import apps
 from django.core.files.base import ContentFile
 from wagtail.core.models import PageRevision
 from .utils.docx_save import generate_docx_streamfields
+from django.utils.text import slugify
 
 @celery_app.task
 def generate_pdf(report_id):
@@ -51,13 +52,18 @@ def generate_report_contents(report):
             contents.append([])
         c = {
             'title': s.value['title'],
+            'slug': slugify(s.value['title']),
             'subsections': []
         }
 
         for sub in s.value['body']:
             if sub.block_type == 'heading':
                 contents_count += 1
-                c['subsections'].append(sub.value)
+                sub_s = {
+                    'title': sub.value,
+                    'slug': slugify(sub.value)
+                }
+                c['subsections'].append(sub_s)
 
         contents[len(contents)-1].append(c)
 
