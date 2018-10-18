@@ -41,8 +41,11 @@ def pdf_render(request, **kwargs):
     return response
 
 def pdf_html(request, **kwargs):
-    path = request.path.split('/')[:-3]
-    report = Report.objects.filter(slug=path[len(path)-1]).first()
+    split_path = request.path.split('/')
+
+    slug = split_path[2] if split_path[1] == 'reports' else split_path[3]
+
+    report = Report.objects.filter(slug=slug).first()
     contents = generate_report_contents(report)
 
     authors = get_report_authors(report)
