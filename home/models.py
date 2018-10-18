@@ -484,6 +484,15 @@ class PostProgramRelationship(models.Model):
     def __str__(self):
         return str(self.program) + "," + str(self.post)
 
+class PostRelatedContent(models.Model):
+
+    post = ParentalKey('Post', related_name='related_content')
+    related_post = models.ForeignKey('post', related_name="+")
+
+    panels = [
+        PageChooserPanel('related_post', 'home.Post')
+    ]
+
 
 class PostSubprogramRelationship(models.Model):
     """
@@ -569,6 +578,9 @@ class Post(Page):
     post_topic = models.ManyToManyField(
         'issue.IssueOrTopic', through=PostTopicRelationship, blank=True)
 
+    related_posts = models.ManyToManyField(
+        'Post', through=PostRelatedContent, blank=True)
+
     story_excerpt = models.CharField(blank=True, null=True, max_length=140)
 
     story_image = models.ForeignKey(
@@ -594,7 +606,8 @@ class Post(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
-        InlinePanel('location', label=("Locations"),)
+        InlinePanel('location', label=("Locations")),
+        InlinePanel('related_content', label=("Related Posts")),
     ]
 
     settings_panels = Page.settings_panels + [

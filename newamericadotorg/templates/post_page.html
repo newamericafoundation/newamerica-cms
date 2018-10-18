@@ -18,4 +18,20 @@
 		{% include 'components/breadcrumbs.html' %}
 	{% endblock %}
 	{% include 'components/post_main.html' %}
+
+	{% block related_posts %}
+		<div id="na-react__related-posts" data-parent-program-id="{{ page.parent_programs.all.0.id }}"></div>
+
+		{% if page.related_posts.all|length > 0 %}
+		<div class="container">
+			<div class="row">
+				{% for p in page.related_posts.all %}
+					<div class="col-md-4 col-12">
+						{% include 'components/card_md.html' with post=p %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+	{% endblock %}
 {% endblock %}
