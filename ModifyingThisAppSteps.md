@@ -11,7 +11,12 @@ at the bottom posts (blogs, podcasts etc.) Related content that the author choos
 
 6. Add related posts components to the base Post.html template in Django
 OR
+
+### Using Django Rest Framework
 6. Create an API View (aka a Controller)
 7. Create a PostRelatedContent Serializer (turns a Django Model into JSON)
 8. Create a RelatedContent Endpoint
 9. Create a React Component that retrieves data from that endpoint
+
+
+## URL, Routing, Redirect

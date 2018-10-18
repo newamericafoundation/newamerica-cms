@@ -57,3 +57,26 @@ class PostSerializer(ModelSerializer):
             return None
         authors = [rel.author for rel in authors_rel]
         return AuthorSerializer(authors, many=True, context=self.context).data
+
+
+from django.core.cache import cache
+
+class PostRelatedContentSerializer(ModelSerializer):
+    related_posts = SerializerMethodField()
+    trending_posts = SerializerMethodField()
+
+    class Meta:
+        model = Post
+        fields = (
+            'id', 'title', 'date', 'url', 'slug', 'related_posts', 'trending_posts'
+        )
+
+    def get_related_posts(self, obj):
+        posts = obj.related_posts.all()
+
+        return PostSerializer(posts, many=True).data
+
+    def get_trending_posts(self, obj):
+        program = obj.parent_programs.all()[0].slug
+        key = 'TRENDING_%s' % program
+        return cache.get(key, [])

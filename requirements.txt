@@ -58,7 +58,6 @@ pexpect==4.0.1
 pickleshare==0.6
 ply==3.8
 ptyprocess==0.5.1
-pyasn1==0.1.9
 pyelasticsearch==0.6.1
 pyflakes==1.0.0
 python-dateutil==2.5.3

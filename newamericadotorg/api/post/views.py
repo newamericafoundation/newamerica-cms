@@ -1,6 +1,6 @@
 from django_filters import CharFilter, DateFilter
 from django_filters.rest_framework import FilterSet, DjangoFilterBackend
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.filters import SearchFilter
 
 from wagtail.core.models import Page
@@ -10,7 +10,7 @@ from other_content.models import OtherPost
 from issue.models import IssueOrTopic
 from event.models import Event
 
-from .serializers import PostSerializer
+from .serializers import PostSerializer, PostRelatedContentSerializer
 
 class PostFilter(FilterSet):
     id = CharFilter(field_name='id', lookup_expr='iexact')
@@ -61,3 +61,7 @@ class PostList(ListAPIView):
                 return posts.none()
 
         return posts.order_by('-date').distinct()
+
+class PostRelatedContent(RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostRelatedContentSerializer

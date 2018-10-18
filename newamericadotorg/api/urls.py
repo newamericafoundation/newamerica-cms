@@ -14,6 +14,7 @@ import newamericadotorg.api.topic.views as topic_views
 import newamericadotorg.api.weekly.views as weekly_views
 
 api_urls = [
+    url(r'^post/trending/(?P<pk>[\d]+)/$', post_views.PostRelatedContent.as_view()),
     url(r'^post/$', post_views.PostList.as_view(), name='post_list'),
     url(r'^search/$', search_views.SearchList.as_view()),
     url(r'^event/$', event_views.EventList.as_view()),

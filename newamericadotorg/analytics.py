@@ -107,10 +107,10 @@ def get_program_posts():
         if not slugs: continue
 
         year_ago = datetime.datetime.now() - relativedelta(years=1)
-        posts = Post.objects.filter(slug__in=slugs, date__gte=year_ago)
+        posts = Post.objects.filter(slug__in=slugs)
         d = PostSerializer(posts, many=True).data
 
         key = 'TRENDING_%s' % p.slug
         cache.set(key, d, 60 * 60 * 25)
 
-        print('cached trending %s posts' % p.title)
+        print('cached trending %s posts' % key)
