@@ -1,12 +1,12 @@
 .report__top-nav{
   width: 100vw;
-  height: 65px;
+  height: 70px;
   top: 0;
 
   &__sticky-wrapper{
-    top: -65px;
+    top: -70px;
     left: 0;
-    height: 65px;
+    height: 70px;
     color: color(white);
     width: 100vw;
     @include transition(top 0.35s ease);
@@ -19,7 +19,7 @@
       display: inline-block;
       content: '';
       vertical-align: middle;
-      height: 65px;
+      height: 70px;
     }
   }
 
@@ -37,7 +37,7 @@
     &:before {
       content: '';
       display: inline-block;
-      height: 65px;
+      height: 70px;
       vertical-align: middle;
     }
   }
