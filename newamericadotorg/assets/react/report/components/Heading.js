@@ -43,8 +43,8 @@ class Heading extends Component {
                   <a href={a.url} style={{ fontWeight: a.last_name==='more' ? 'bold' : 'regular'}}>{a.first_name}&nbsp;{a.last_name}</a>
                 </h6>
                 {(_authors.length > 2 && i < _authors.length-2) && ', '}
-                {(_authors.length==2 && i === 0) && ' and '}
-                {(_authors.length > 2 && i === _authors.length-2) && ', and '}
+                {(_authors.length==2 && i === 0) && ', '}
+                {(_authors.length > 2 && i === _authors.length-2) && ', '}
               </React.Fragment>
             ))}
           </div>
