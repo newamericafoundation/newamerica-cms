@@ -38,14 +38,6 @@ class AllPressReleasesHomePage(AbstractHomeContentPage):
     parent_page_types = ['home.Homepage']
     subpage_types = []
 
-    def get_context(self, request):
-        return get_org_wide_posts(
-            self,
-            request,
-            AllPressReleasesHomePage,
-            PressRelease
-        )
-
     @property
     def content_model(self):
         return PressRelease
@@ -62,14 +54,6 @@ class ProgramPressReleasesPage(AbstractContentPage):
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['PressRelease']
-
-    def get_context(self, request):
-        return get_program_and_subprogram_posts(
-            self,
-            request,
-            ProgramPressReleasesPage,
-            PressRelease
-        )
 
     @property
     def content_model(self):

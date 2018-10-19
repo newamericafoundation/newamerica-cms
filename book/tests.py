@@ -9,7 +9,7 @@ from .models import Book, AllBooksHomePage, ProgramBooksPage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram, BlogProject, BlogSeries, Project
+from programs.models import Program, Subprogram, Project
 
 class BookTests(WagtailPageTests):
     """
@@ -64,9 +64,7 @@ class BookTests(WagtailPageTests):
     # Test allowed parent page types
     def test_book_parent_page(self):
         self.assertAllowedParentPageTypes(Book, {
-            ProgramBooksPage,
-            BlogProject,
-            BlogSeries
+            ProgramBooksPage
         })
 
     def test_program_book_parent_page(self):

@@ -3,7 +3,7 @@ from wagtail.core.models import Page, ContentType, PageRevision
 from django.template import loader
 
 from home.models import ProgramAboutHomePage, ProgramAboutPage
-from programs.models import Program, Subprogram, Project, BlogProject, AbstractContentPage
+from programs.models import Program, Subprogram, Project, AbstractContentPage
 from subscribe.models import SubscriptionSegment
 from newamericadotorg.api.helpers import generate_image_url, get_content_type, get_program_content_types, get_subpages, generate_image_rendition
 
@@ -72,7 +72,7 @@ class ProgramSubprogramSerializer(ModelSerializer):
 
     def get_type(self, obj):
         t = type(obj.specific)
-        if t == Project or t == BlogProject:
+        if t == Project:
             return 'Project'
 
         return 'Initiative'

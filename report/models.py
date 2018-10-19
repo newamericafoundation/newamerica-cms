@@ -81,14 +81,6 @@ class Report(Post):
         ('attachment', DocumentChooserBlock(required=False, null=True)),
     ], null=True, blank=True)
 
-    publication_cover_image = models.ForeignKey(
-        'home.CustomImage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
     partner_logo = models.ForeignKey(
         'home.CustomImage',
         null=True,

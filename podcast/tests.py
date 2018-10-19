@@ -5,7 +5,7 @@ from .models import Podcast, AllPodcastsHomePage, ProgramPodcastsPage
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram, BlogProject, BlogSeries, Project
+from programs.models import Program, Subprogram, Project
 
 class PodcastTests(WagtailPageTests):
     """
@@ -64,9 +64,7 @@ class PodcastTests(WagtailPageTests):
     def test_podcast_parent_page(self):
         self.assertAllowedParentPageTypes(
             Podcast, {
-                ProgramPodcastsPage,
-                BlogProject,
-                BlogSeries
+                ProgramPodcastsPage
             }
         )
 

@@ -3,7 +3,7 @@ from wagtail.core.models import Page
 
 from home.models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, ProgramAboutHomePage
 
-from .models import Program, Subprogram, ProgramSubprogramRelationship, BlogProject, PublicationsPage, Project
+from .models import Program, Subprogram, ProgramSubprogramRelationship, PublicationsPage, Project
 
 from weekly.models import Weekly
 
@@ -107,7 +107,6 @@ class ProgramsTests(WagtailPageTests):
                 Subprogram,
                 RedirectPage,
                 ReportsHomepage,
-                BlogProject,
                 PublicationsPage,
                 ProgramOtherPostsPage,
                 Project,

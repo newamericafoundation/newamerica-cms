@@ -26,7 +26,7 @@ class Book(Post):
         ImageChooserPanel('publication_cover_image'),
     ]
 
-    parent_page_types = ['ProgramBooksPage', 'programs.BlogProject', 'programs.BlogSeries' ]
+    parent_page_types = ['ProgramBooksPage']
     subpage_types = []
 
     class Meta:
@@ -40,14 +40,6 @@ class AllBooksHomePage(AbstractHomeContentPage):
     """
     parent_page_types = ['home.HomePage', ]
     subpage_types = []
-
-    def get_context(self, request):
-        return get_org_wide_posts(
-            self,
-            request,
-            AllBooksHomePage,
-            Book
-        )
 
     @property
     def content_model(self):
@@ -64,9 +56,6 @@ class ProgramBooksPage(AbstractContentPage):
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Book']
-
-    def get_context(self, request):
-        return get_program_and_subprogram_posts(self, request, ProgramBooksPage, Book)
 
     @property
     def content_model(self):

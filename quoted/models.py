@@ -15,7 +15,7 @@ class Quoted(Post):
     Post model and creates pages for Quoted pages
     where New America was in the news.
     """
-    parent_page_types = ['ProgramQuotedPage', 'programs.BlogProject', 'programs.BlogSeries']
+    parent_page_types = ['ProgramQuotedPage']
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
@@ -39,14 +39,6 @@ class AllQuotedHomePage(AbstractHomeContentPage):
     parent_page_types = ['home.Homepage']
     subpage_types = []
 
-    def get_context(self, request):
-        return get_org_wide_posts(
-            self,
-            request,
-            AllQuotedHomePage,
-            Quoted
-        )
-
     @property
     def content_model(self):
         return Quoted
@@ -63,14 +55,6 @@ class ProgramQuotedPage(AbstractContentPage):
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Quoted']
-
-    def get_context(self, request):
-        return get_program_and_subprogram_posts(
-            self,
-            request,
-            ProgramQuotedPage,
-            Quoted
-        )
 
     @property
     def content_model(self):
