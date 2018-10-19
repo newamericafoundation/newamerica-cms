@@ -3,7 +3,7 @@ from wagtail.core.models import Page
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram, BlogProject, BlogSeries, Project
+from programs.models import Program, Subprogram, Project
 
 from .models import Quoted, AllQuotedHomePage, ProgramQuotedPage
 
@@ -75,9 +75,7 @@ class QuotedTests(WagtailPageTests):
     def test_quoted_parent_page(self):
         self.assertAllowedParentPageTypes(
             Quoted, {
-                ProgramQuotedPage,
-                BlogProject,
-                BlogSeries
+                ProgramQuotedPage
             }
         )
 

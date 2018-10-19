@@ -61,14 +61,6 @@ class AllPolicyPapersHomePage(Page):
     parent_page_types = ['home.Homepage']
     subpage_types = []
 
-    def get_context(self, request):
-        return get_org_wide_posts(
-            self,
-            request,
-            AllPolicyPapersHomePage,
-            PolicyPaper
-        )
-
     @property
     def content_model(self):
         return PolicyPaper
@@ -85,14 +77,6 @@ class ProgramPolicyPapersPage(AbstractContentPage):
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['PolicyPaper']
-
-    def get_context(self, request):
-        return get_program_and_subprogram_posts(
-            self,
-            request,
-            ProgramPolicyPapersPage,
-            PolicyPaper
-        )
 
     @property
     def content_model(self):

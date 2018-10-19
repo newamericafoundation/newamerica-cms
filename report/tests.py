@@ -5,7 +5,7 @@ from test_factories import PostFactory
 
 from home.models import HomePage, PostProgramRelationship
 
-from programs.models import Program, Subprogram, BlogProject, BlogSeries, Project
+from programs.models import Program, Subprogram, Project
 
 from .models import Report, ReportsHomepage, AllReportsHomePage
 

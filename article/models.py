@@ -14,7 +14,7 @@ class Article(Post):
     Article class that inherits from the abstract Post
     model and creates pages for Articles.
     """
-    parent_page_types = ['ProgramArticlesPage', 'programs.BlogProject', 'programs.BlogSeries']
+    parent_page_types = ['ProgramArticlesPage']
     subpage_types = []
 
     source = models.TextField(max_length=8000, blank=True, null=True)
@@ -38,15 +38,6 @@ class AllArticlesHomePage(AbstractHomeContentPage):
     parent_page_types = ['home.HomePage', ]
     subpage_types = []
 
-    def get_context(self, request):
-
-        return get_org_wide_posts(
-            self,
-            request,
-            AllArticlesHomePage,
-            Article
-        )
-
     @property
     def content_model(self):
         return Article
@@ -64,14 +55,6 @@ class ProgramArticlesPage(AbstractContentPage):
 
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Article']
-
-    def get_context(self, request):
-        return get_program_and_subprogram_posts(
-            self,
-            request,
-            ProgramArticlesPage,
-            Article
-        )
 
     @property
     def content_model(self):

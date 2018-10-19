@@ -18,7 +18,7 @@ class BlogPost(Post):
     Blog class that inherits from the abstract
     Post model and creates pages for blog posts.
     """
-    parent_page_types = ['ProgramBlogPostsPage', 'programs.BlogProject', 'programs.BlogSeries']
+    parent_page_types = ['ProgramBlogPostsPage']
     subpage_types = []
 
     attachment = StreamField([
@@ -41,14 +41,6 @@ class AllBlogPostsHomePage(AbstractHomeContentPage):
     """
     parent_page_types = ['home.HomePage', ]
     subpage_types = []
-
-    def get_context(self, request):
-        return get_org_wide_posts(
-            self,
-            request,
-            AllBlogPostsHomePage,
-            BlogPost
-        )
 
     @property
     def content_model(self):
@@ -91,13 +83,6 @@ class ProgramBlogPostsPage(AbstractContentPage):
         FieldPanel('story_excerpt'),
         ImageChooserPanel('story_image'),
     ]
-
-    def get_context(self, request):
-        return get_program_and_subprogram_posts(
-            self,
-            request,
-            ProgramBlogPostsPage,
-            BlogPost)
 
     @property
     def content_model(self):

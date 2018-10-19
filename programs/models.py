@@ -78,81 +78,6 @@ class AbstractProgram(Page):
     )
     description = models.TextField()
 
-    # Up to four lead stories can be featured on the homepage.
-    # Lead_1 will be featured most prominently.
-    lead_1 = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    lead_2 = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    lead_3 = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    lead_4 = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    # Up to three featured stories to appear underneath
-    # the lead stories. All of the same size and formatting.
-    feature_1 = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    feature_2 = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    feature_3 = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    featured_stories = [feature_1, feature_2, feature_3]
-
-    # Carousel of pages to feature on the landing page
-    feature_carousel = StreamField([
-        ('page', PageChooserBlock()),
-    ], null=True, blank=True)
-
-    about_us_page = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
     # Story excerpt and story image fields are to provide information
     # about the program or subprogram if they are featured on a homepage
     # or program landing page
@@ -170,20 +95,7 @@ class AbstractProgram(Page):
     subscription_card_text = models.TextField(blank=True, null=True, max_length=100)
 
     featured_panels = [
-        InlinePanel('featured_pages', label="Featured Pages", help_text="First page becomes lead story"),
-        MultiFieldPanel(
-            [
-                PageChooserPanel('lead_1'),
-                PageChooserPanel('lead_2'),
-                PageChooserPanel('lead_3'),
-                PageChooserPanel('lead_4'),
-                PageChooserPanel('feature_1'),
-                PageChooserPanel('feature_2'),
-                PageChooserPanel('feature_3')
-            ],
-            heading="(legacy) Lead Stories",
-            classname="collapsible"
-        ),
+        InlinePanel('featured_pages', label="Featured Pages", help_text="First page becomes lead story")
     ]
 
     content_panels = Page.content_panels + [
@@ -191,7 +103,6 @@ class AbstractProgram(Page):
             [
                 FieldPanel('name', classname='full title'),
                 ImageChooserPanel('story_image'),
-                PageChooserPanel('about_us_page', 'home.ProgramSimplePage'),
                 FieldPanel('location'),
                 FieldPanel('fellowship'),
                 FieldPanel('description'),
@@ -239,7 +150,6 @@ class Program(AbstractProgram):
     'person.ProgramPeoplePage',
     'Subprogram',
     'Project',
-    'BlogProject',
     'issue.TopicHomepage',
     'home.RedirectPage',
     'report.ReportsHomepage',
@@ -263,14 +173,6 @@ class Program(AbstractProgram):
         on_delete=models.SET_NULL,
         related_name='+',
     )
-
-    sidebar_menu_initiatives_and_projects_pages = StreamField([
-        ('Item', PageChooserBlock()),
-    ], null=True, blank=True)
-
-    sidebar_menu_our_work_pages = StreamField([
-        ('Item', PageChooserBlock()),
-    ], null=True, blank=True)
 
     sidebar_menu_about_us_pages = StreamField([
         ('Item', PageChooserBlock()),
@@ -297,18 +199,11 @@ class Program(AbstractProgram):
         ])
     ]
 
-    sidebar_panels = [
-        StreamFieldPanel('sidebar_menu_about_us_pages'),
-        # StreamFieldPanel('sidebar_menu_initiatives_and_projects_pages'),
-        # StreamFieldPanel('sidebar_menu_our_work_pages'),
-    ]
-
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading="Content"),
         ObjectList(AbstractProgram.featured_panels, heading="Featured"),
         ObjectList(promote_panels, heading="Promote"),
-        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
-        ObjectList(sidebar_panels, heading="Sidebar")
+        ObjectList(Page.settings_panels, heading='Settings', classname="settings")
     ])
 
     def get_context(self, request):
@@ -444,16 +339,6 @@ class Subprogram(AbstractProgram):
             if created:
                 relationship.save()
 
-class BlogSeries(Page):
-    parent_page_types = ['BlogProject']
-    subpage_types = [
-    'article.Article',
-    'book.Book',
-    'blog.BlogPost',
-    'podcast.Podcast',
-    'quoted.Quoted',
-    ]
-
 class Project(Subprogram):
     parent_page_types = ['programs.Program']
     subpage_types = [
@@ -494,18 +379,6 @@ class Project(Subprogram):
         ObjectList(Subprogram.promote_panels, heading='Promote'),
         ObjectList(Subprogram.settings_panels, heading='Settings', classname='settings'),
     ])
-
-class BlogProject(Subprogram):
-    subpage_types = [
-    'article.Article',
-    'book.Book',
-    'blog.BlogPost',
-    'podcast.Podcast',
-    'quoted.Quoted',
-    'BlogSeries'
-    ]
-    class Meta:
-        verbose_name = 'Blog'
 
 class AbstractContentPage(Page):
     """

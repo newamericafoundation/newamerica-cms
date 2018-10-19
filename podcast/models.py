@@ -17,7 +17,7 @@ class Podcast(Post):
     Podcast class that inherits from the abstract Post
     model and creates pages for Podcasts.
     """
-    parent_page_types = ['ProgramPodcastsPage', 'programs.BlogProject', 'programs.BlogSeries']
+    parent_page_types = ['ProgramPodcastsPage']
     subpage_types = []
 
     soundcloud = StreamField([
@@ -45,14 +45,6 @@ class AllPodcastsHomePage(AbstractHomeContentPage):
     parent_page_types = ['home.HomePage']
     subpage_types = []
 
-    def get_context(self, request):
-        return get_org_wide_posts(
-            self,
-            request,
-            AllPodcastsHomePage,
-            Podcast
-        )
-
     @property
     def content_model(self):
         return Podcast
@@ -70,14 +62,6 @@ class ProgramPodcastsPage(AbstractContentPage):
 
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Podcast']
-
-    def get_context(self, request):
-        return get_program_and_subprogram_posts(
-            self,
-            request,
-            ProgramPodcastsPage,
-            Podcast
-        )
 
     @property
     def content_model(self):

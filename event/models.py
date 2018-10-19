@@ -81,24 +81,6 @@ class AllEventsHomePage(RoutablePageMixin, AbstractContentPage):
     parent_page_types = ['home.HomePage']
     subpage_types = ['Event']
 
-    @route(r'^$')
-    def future_events(self, request):
-        self.title = "Future " + self.title
-        return TemplateResponse(
-            request,
-            self.get_template(request),
-            get_org_wide_events(self, request, tense="future")
-        )
-
-    @route(r'^past/$')
-    def past_events(self, request):
-        self.title = "Past " + self.title
-        return TemplateResponse(
-            request,
-            self.get_template(request),
-            get_org_wide_events(self, request, tense="past")
-        )
-
     class Meta:
         verbose_name = "Events Homepage"
 
@@ -110,24 +92,6 @@ class ProgramEventsPage(RoutablePageMixin, AbstractContentPage):
     """
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Event']
-
-    @route(r'^$')
-    def future_events(self, request):
-        self.title = "Future " + self.title
-        return TemplateResponse(
-            request,
-            self.get_template(request),
-            get_program_and_subprogram_events(self, request, tense="future")
-        )
-
-    @route(r'^past/$')
-    def past_events(self, request):
-        self.title = "Past " + self.title
-        return TemplateResponse(
-            request,
-            self.get_template(request),
-            get_program_and_subprogram_events(self, request, tense="past")
-        )
 
     class Meta:
         verbose_name = "Events Homepage"

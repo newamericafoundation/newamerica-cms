@@ -3,7 +3,7 @@ from wagtail.core.models import Page
 
 from home.models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, ProgramAboutHomePage
 
-from .models import Program, Subprogram, ProgramSubprogramRelationship, BlogProject, PublicationsPage, Project
+from .models import Program, Subprogram, ProgramSubprogramRelationship, PublicationsPage, Project
 
 from weekly.models import Weekly
 
@@ -107,7 +107,6 @@ class ProgramsTests(WagtailPageTests):
                 Subprogram,
                 RedirectPage,
                 ReportsHomepage,
-                BlogProject,
                 PublicationsPage,
                 ProgramOtherPostsPage,
                 Project,
@@ -136,86 +135,4 @@ class ProgramsTests(WagtailPageTests):
                 ReportsHomepage,
                 ProgramAboutHomePage
             }
-        )
-
-    # Test adding lead and feature stories to program and subprogram pages
-    def test_adding_lead_story_to_program(self):
-        self.program_page.lead_1 = self.article
-        self.program_page.save()
-        self.assertEqual(self.program_page.lead_1, self.article)
-
-    def test_adding_lead_story_to_subprogram(self):
-        self.subprogram_page.lead_1 = self.article
-        self.subprogram_page.save()
-        self.assertEqual(self.subprogram_page.lead_1, self.article)
-
-    def test_adding_feature_story_to_program(self):
-        self.program_page.feature_1 = self.article
-        self.program_page.save()
-        self.assertEqual(self.program_page.feature_1, self.article)
-
-    def test_adding_feature_story_to_subprogram(self):
-        self.subprogram_page.feature_1 = self.article
-        self.subprogram_page.save()
-        self.assertEqual(self.subprogram_page.feature_1, self.article)
-
-    def test_adding_story_to_program_feature_carousel(self):
-        self.program_page.feature_carousel.stream_data.append(
-            {
-                'type': 'event',
-                'value': self.article.id
-            }
-        )
-        self.assertEqual(
-            self.program_page.feature_carousel.stream_data[0]['value'],
-            self.article.id
-        )
-
-    def test_adding_story_to_subprogram_feature_carousel(self):
-        self.subprogram_page.feature_carousel.stream_data.append(
-            {
-                'type': 'event',
-                'value': self.article.id
-            }
-        )
-        self.assertEqual(
-            self.subprogram_page.feature_carousel.stream_data[0]['value'],
-            self.article.id
-        )
-
-    # Test adding pages to the Program sidebar menu
-    def test_adding_about_us_pages_to_program_sidebar_menu(self):
-        self.program_page.sidebar_menu_about_us_pages.stream_data.append(
-            {
-                'type': 'Item',
-                'value': self.article.id
-            }
-        )
-        self.assertEqual(
-            self.program_page.sidebar_menu_about_us_pages.stream_data[0]['value'],
-            self.article.id
-        )
-
-    def test_adding_initiatives_and_projects_pages_to_program_sidebar_menu(self):
-        self.program_page.sidebar_menu_initiatives_and_projects_pages.stream_data.append(
-            {
-                'type': 'Item',
-                'value': self.article.id
-            }
-        )
-        self.assertEqual(
-            self.program_page.sidebar_menu_initiatives_and_projects_pages.stream_data[0]['value'],
-            self.article.id
-        )
-
-    def test_adding_our_work_pages_to_program_sidebar_menu(self):
-        self.program_page.sidebar_menu_our_work_pages.stream_data.append(
-            {
-                'type': 'Item',
-                'value': self.article.id
-            }
-        )
-        self.assertEqual(
-            self.program_page.sidebar_menu_our_work_pages.stream_data[0]['value'],
-            self.article.id
         )

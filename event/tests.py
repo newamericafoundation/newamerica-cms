@@ -131,15 +131,6 @@ class EventPageViewTests(WagtailPageTests):
         c = Client()
         response = c.get('/oti/oti-events/', follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['all_events']), 2)
-
-    # Testing past events show up on /past route for program events page
-    def test_past_program_events_page(self):
-        c = Client()
-        response = c.get('/oti/oti-events/past', follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['all_events']), 1)
-
 
     # Testing that current day's event and future events
     # show up on the org wide events page
@@ -147,14 +138,6 @@ class EventPageViewTests(WagtailPageTests):
         c = Client()
         response = c.get('/events/', follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['all_events']), 4)
-
-    # Testing past events show up on /past route for program events page
-    def test_org_wide_past_events_page(self):
-        c = Client()
-        response = c.get('/events/past/', follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['all_events']), 2)
 
 
 class EventTests(WagtailPageTests):
