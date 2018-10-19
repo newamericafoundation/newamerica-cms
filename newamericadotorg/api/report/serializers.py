@@ -73,7 +73,7 @@ class ReportDetailSerializer(PostSerializer):
             try:
                 attchs.append({
                     'title': obj.report_pdf.title,
-                    'url': obj.report_pdf.url,
+                    'url': obj.report_pdf.file.url,
                     'size': obj.report_pdf.file.size / 1000,
                     'type': obj.report_pdf.file_extension
                 })
@@ -85,7 +85,7 @@ class ReportDetailSerializer(PostSerializer):
                 try:
                     attchs.append({
                         'title': att.value.title,
-                        'url': att.value.url,
+                        'url': att.value.file.url,
                         'size': att.value.file.size / 1000,
                         'type': att.value.file_extension
                     })
