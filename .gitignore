@@ -34,3 +34,5 @@ home/management/api/documents/
 report/utils/test.docx
 
 links.py
+
+.vscode
