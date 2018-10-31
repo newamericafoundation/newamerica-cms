@@ -1,9 +1,8 @@
-.report__body__endnote{
+.report__body__endnote {
   @include transition(opacity 0.5s ease, margin 0.5s ease);
   .report__body__endnote__text span * {
     display: inline !important;
   }
-
   position: absolute;
   left: 15px;
   opacity: 0;
@@ -13,11 +12,10 @@
   width: calc(100% - 30px);
   z-index: 1;
   visibility: hidden;
-  @include box-shadow( 0px 0px 10px 0px color(black, base, 0.15) );
+  @include box-shadow( 0px 0px 10px 0px color(black, base, 0.15));
   border-radius: 4px;
   border: 1px solid color(black, base, 0.15);
-
-  @include media-breakpoint(desktop){
+  @include media-breakpoint(desktop) {
     width: 16.66666vw;
     max-width: 260px;
     position: absolute;
@@ -30,33 +28,35 @@
     border: 0px;
     margin: 15px 0 15px 0;
     border-radius: 0px;
-    @include box-shadow(none !important);
-    //background: color(black, base, 0.1);
-    &:before, &:after {
+    @include box-shadow(none !important); //background: color(black, base, 0.1);
+    &:before,
+    &:after {
       position: absolute;
       width: 100%;
       height: 15px;
       content: '';
       display: block;
     }
-
     &:before {
       top: 0;
       /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,0+100;White+to+Transparent */
-      background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
-      background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+      /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+      /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     }
-
     &:after {
       bottom: 0;
       /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,0+100;White+to+Transparent */
-      background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
-      background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
+      background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+      /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+      /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     }
-
     .report__body__endnote__text {
       display: block;
       max-height: 250px;
@@ -64,16 +64,13 @@
       overflow-x: hidden;
       width: calc(100% + 50px);
       padding-right: 50px;
-
       span {
         display: block;
-
         padding-top: 15px;
         padding-bottom: 15px;
       }
     }
   }
-
   &__close {
     position: absolute;
     top: 15px;
@@ -88,15 +85,13 @@
       position: relative;
       top: 1px;
     }
-
-    &:hover{
+    &:hover {
       background: color(black);
-      .icon-plus > * {
+      .icon-plus>* {
         background: color(white);
       }
     }
-
-    @include media-breakpoint(desktop){
+    @include media-breakpoint(desktop) {
       display: none;
       top: 0px;
       left: -35px;
@@ -104,12 +99,12 @@
   }
 }
 
-.endnote-active{
+.endnote-active {
   .report__body__endnote {
     visibility: visible;
     opacity: 1;
     margin-top: 0;
-    @include transform(translateY(-50%));
+    @include transform(translateY(calc(-50% + 15px)));
   }
 }
 
