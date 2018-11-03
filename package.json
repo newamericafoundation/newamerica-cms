@@ -18,6 +18,7 @@
     "build:production": "NODE_ENV=production webpack",
     "heroku-postbuild": "npm run build:production",
     "brew": "brew install cairo && brew install pango && brew install gdk-pixbuf && brew install redis",
+    "apt": "sudo apt-get install redis-server libcairo2-dev libpango1.0-dev libgdk-pixbuf2.0-0",
     "redis-dev": "redis-server --daemonize yes",
     "celery-dev": "celery -A newamericadotorg worker --loglevel=info --broker=redis://127.0.0.1:6379/0",
     "get-static": "aws s3 sync s3://newamericadotorg-static/static/ newamericadotorg/static --exclude 'wagtail*' --exclude 'rest_framework/*' --exclude 'admin/*' --exclude 'table_block/*'"
