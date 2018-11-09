@@ -9,16 +9,14 @@ BUCKET_NAME = 'newamericadotorg'
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        
         try:
-            os.mkdir('media/images')
-        except:
-            print('media/images exists')
-
-        try:
-            os.mkdir('media/original_images')
-        except:
-            print('media/original_images exists')
-
+            os.makedirs('media/images', exist_ok=True)
+            os.makedirs('media/original_images', exist_ok=True)
+        except Exception as e:
+            print(e)
+            print('Aborting')
+            return
 
         images = CustomImage.objects.all().order_by('-created_at')
 
