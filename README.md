@@ -26,9 +26,16 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-- There are additional dependencies for the PDF Generator, Redis, and Celery that are installable with pip, install those with
+- There are additional dependencies for the PDF Generator, Redis, and Celery that are installable with pip, install those with   
+
+(for MacOS)   
 ```bash
 npm run brew
+```
+
+(for Ubuntu/Debian)  
+```bash
+npm run apt
 ```
 
 - Initialize postgres database if you haven't already
