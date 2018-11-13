@@ -11,7 +11,6 @@ class TopNav extends Component {
     let { section, report, openMenu, closeMenu, toggleMenu, menuOpen, showAttachments, attchClicked } = this.props;
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
-        console.log(location)
     return (
       <div className="report__top-nav scroll-target" data-scroll-offset="200%">
         <div className="report__top-nav__sticky-wrapper">
