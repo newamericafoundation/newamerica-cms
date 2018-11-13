@@ -24,7 +24,7 @@ class Body extends Component {
       this.querySelector('.report__citation').classList.add('active');
       body.setState({
         endnote,
-        top: this.offsetTop,
+        top: window.pageYOffset + this.getBoundingClientRect().top - body.el.offsetTop,
         citeEl: this
       })
     }
@@ -109,7 +109,7 @@ class Body extends Component {
     let { endnote, top } = this.state;
     return (
       <div className={`container ${endnote ? 'endnote-active' : ''}`} ref={(el)=>{this.el = el; }} style={{ position: 'relative' }}>
-        <Endnote endnote={endnote} top={top} close={this.closeEndnote}/>
+        <Endnote endnote={endnote} top={top} close={this.closeEndnote} />
         <div className={`report__body${section.hide_title ? ' hide-title' : ''}`}>
           <div className="post-body-wrapper">
             <h2 className="margin-top-0 report__body__section-title">{section.title}</h2>
