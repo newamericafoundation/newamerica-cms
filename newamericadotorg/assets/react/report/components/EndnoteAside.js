@@ -12,9 +12,6 @@ class Endnote extends Component {
     if(matches){
       for(let m of matches){
         m = m.replace(/(\.<|\.$|\.\s|<|;)/g, "");
-        // if (m[m.length - 1] === ".") {
-        //   m = m.slice(0,-1);
-        // }
         note = note.replace(m, `<a href="${m}" target="_blank">source</a>`);
       }
     }
