@@ -6,7 +6,6 @@ import { PlusX } from '../../components/Icons';
 class Endnote extends Component {
   cleanEndnote = () => {
     let { endnote : { note } } = this.props;
-    console.log(note)
     let r = /(http.+?)(\.\s|;|$|<|\.$| )/g
     let matches = note.match(r);
     if(matches){
