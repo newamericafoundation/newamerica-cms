@@ -481,8 +481,8 @@ class PostProgramRelationship(models.Model):
     class meta:
         unique_together = (("program", "post"),)
 
-    def __str__(self):
-        return str(self.program) + "," + str(self.post)
+    #def __str__(self):
+        #return str(self.program) + "," + str(self.post)
 
 
 class PostSubprogramRelationship(models.Model):
