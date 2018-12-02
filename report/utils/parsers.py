@@ -138,6 +138,10 @@ def parse_list(el, section):
 
         item += p
 
+        footnote = runisfootnote(run)
+        if footnote:
+            item += '{{%s}}' % footnote
+
         add = False
         nest = False
         if i == len(el._elements)-1:
