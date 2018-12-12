@@ -146,7 +146,7 @@ class Report extends Component {
       const el = document.getElementById(anchor);
       if (el) {
         const { top } = el.getBoundingClientRect();
-        let positionY = top-140;
+        let positionY = top + document.documentElement.scrollTop;
         window.scrollTo(0, positionY);
       }
       return true;
