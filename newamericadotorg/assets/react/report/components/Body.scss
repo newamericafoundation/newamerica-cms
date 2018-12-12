@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+main#na-react__report {
+  display: flex;
+}
+
 .report__body{
   position: relative;
   max-width: 850px;

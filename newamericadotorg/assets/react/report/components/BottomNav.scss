@@ -72,6 +72,9 @@
   height: 65px;
   //max-width: 1200px;
   margin: 0 auto 0 auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: calc(100vh - 65px);
 }
 
 .report__bottom-nav-bar__chapter-nav > div:not(.report__bottom-nav__tooltip) {
