@@ -19,7 +19,7 @@ virtualenv -p python3 venv
 source venv/bin/activate
 ```
 
-- Once inside the repo and your virtual environment, download na-cms.env and fixture.json from the [Design Drive](https://drive.google.com/drive/folders/1Fq2VaElPT1FuTFNUtXzyXyFX1a-9PlJK) and place them in the root of this project. You will need to customize the DATABASE_URL to match the database you will create shortly below.
+- Once inside the repo and your virtual environment, download na-cms.env and fixture.json from the Design Drive and place them in the root of this project. You will need to customize the DATABASE_URL to match the database you will create shortly below.
 
 - Install requirements:
 ```bash
