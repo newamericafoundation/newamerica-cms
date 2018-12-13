@@ -6,11 +6,11 @@ import { PlusX } from '../../components/Icons';
 class Endnote extends Component {
   cleanEndnote = () => {
     let { endnote : { note } } = this.props;
-    let r = /(http.+?)(\.\s|;|$|<|\.$| )/g
+    let r = /(http.+?)(\.\s|;|$|<|\.$| |,)/g
     let matches = note.match(r);
     if(matches){
       for(let m of matches){
-        m = m.replace(/(\.<|\.$|\.\s|<|;)/g, "");
+        m = m.replace(/(\.<|\.$|\.\s|<|;|,)/g, "");
         note = note.replace(m, `<a href="${m}" target="_blank">source</a>`);
       }
     }
