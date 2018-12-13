@@ -23,7 +23,7 @@
         <tr>
             {% for column in row %}
                 {% if first_col_is_header and forloop.first %}
-                    <th>
+                    <td class="block-table__first-col-header">
                         {% if column.strip %}
                             {% if html_renderer %}
                                 {{ column.strip|cited_html|markdown_link|safe|linebreaksbr }}
@@ -31,7 +31,7 @@
                                 {{ column.strip|cited_html|markdown_link|safe|linebreaksbr }}
                             {% endif %}
                         {% endif %}
-                    </th>
+                    </td>
                  {% else %}
                     <td>
                         {% if column.strip %}

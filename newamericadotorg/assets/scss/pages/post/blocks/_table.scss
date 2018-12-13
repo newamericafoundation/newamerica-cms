@@ -58,6 +58,10 @@
     border-top: 1px solid color(black);
     border-bottom: 1px solid color(black);
   }
+
+  .block-table__first-col-header {
+    font-weight: bold;
+  }
 }
 
 .endnote-active .block-table__wrapper {
