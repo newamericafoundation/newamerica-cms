@@ -309,7 +309,7 @@ class GoogleMapBlock(blocks.StructBlock):
         template = 'blocks/google_map.html'
 
 class SessionSpeakerBlock(blocks.StructBlock):
-    name = blocks.TextBlock(required=True)
+    name = blocks.TextBlock(required=False)
     twitter = blocks.URLBlock(required=False)
     title = blocks.TextBlock(required=False)
 
@@ -351,7 +351,7 @@ class SessionBlock(blocks.StructBlock):
     end_time = blocks.TimeBlock(required=False)
     speakers = blocks.StreamBlock([
         ('speaker', SessionSpeakerBlock())
-    ])
+    ], required=False)
     archived_video_link = blocks.URLBlock(help_text="Enter youtube link after conference", required=False)
 
 class SessionDayBlock(blocks.StructBlock):

@@ -2,10 +2,7 @@
 {% load wagtailimages_tags %}
 
 {% image page.story_image original as cover %}
-<section id="hero" class="conference__intro">
-  <div class="conference__intro__background">
-    <img src="{{cover.url}}" />
-  </div>
+<section id="hero" class="conference__intro" style="background: url({{cover.url}}) no-repeat center center fixed">
   <div class="heading-block centered-block align-center">
       <div class="conference__title">
         <div class="na-logo">
