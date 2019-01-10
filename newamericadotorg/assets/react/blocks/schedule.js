@@ -72,7 +72,7 @@ class APP extends Component {
           <div className="schedule-block__day">
             <div className="schedule-block__sessions">
               {sessions.map((s,i)=>(
-                <Session hasDesc={s.description || s.speakers.length > 0} expanded={this.state[i]} expand={()=>{this.expand(i)}} {...s} />
+                <Session hasDesc={(s.description && s.description !== '<p></p>' && s.description !== "<p><br/></p>") || s.speakers.length > 0} expanded={this.state[i]} expand={()=>{this.expand(i)}} {...s} />
               ))}
             </div>
           </div>

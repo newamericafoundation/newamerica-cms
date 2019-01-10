@@ -28,6 +28,7 @@ class PartnersBlock(blocks.StreamBlock):
 
     class Meta:
         template = 'blocks/partners.html'
+        required=False
 
 class DirectionBlock(blocks.StructBlock):
     transportation_type = blocks.CharBlock(help_text="e.g car, metro, taxi")
