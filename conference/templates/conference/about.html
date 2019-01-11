@@ -8,8 +8,8 @@
   <span class="line-icon section-icon line-icon-multimedia-12"></span>
   <h1 class="centered">About the Event</h1>
   <div class="">
+    {% if page.about_image %}
     {% image page.about_image original as about_image %}
-    {% if about_image %}
       <div class="about__image">
         <img src="{{about_image.url}}" alt="{{about_image.alt}}" class="img-responsive" />
       </div>

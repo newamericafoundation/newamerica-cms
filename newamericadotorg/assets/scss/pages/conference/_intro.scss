@@ -1,36 +1,8 @@
 .conference__intro{
   height: 100vh;
-  background-size: cover;
-  background-position: 50% 50%;
   position: relative;
   margin-top:#{-$header-height};
 }
-
-.conference__intro__background {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  overflow: hidden;
-
-  img {
-    height: 100%;
-    width: auto;
-    position: absolute;
-    @include center;
-    @include media-breakpoint(desktop) {
-      width: 115%;
-      height: auto;
-    }
-
-    @media (min-height: 700px){
-      height: 100%;
-      width: auto;
-    }
-  }
-}
-
 
 .conference__title{
   padding-top: $header-height;
