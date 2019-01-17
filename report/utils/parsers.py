@@ -30,14 +30,27 @@ def parse_table(table, section):
         r = []
         for cell in row.cells:
             text = ''
+
             for p in cell.paragraphs:
 
                 p_text = ''
-                for child in p._element.getchildren():
+                children = p._element.getchildren()
+
+                for i in range(len(children)):
+
+                    child = children[i]
+
                     tag = TAGS.get(child.tag, None)
+
                     linkId = None
-                    if tag == 'break' or tag == None:
+
+                    if tag is None:
                         continue
+
+                    #keep inner breaks but discard precontent breaks .
+                    if tag == 'break' and i == 0:
+                        continue
+
                     elif tag == 'hyperlink':
                         linkId = childishyperlink(child)
                         child = child.find('.//w:r', NAMESPACES)
@@ -51,7 +64,14 @@ def parse_table(table, section):
                         # markdown link
                         p_text += '[%s](%s)' % (run.text, section._links.get(linkId, None))
                     else:
-                        p_text += run.text
+                        if run.text is not None:
+                            p_text += run.text
+
+                    #add line breaks between paragraphs. only if muli-paragraphs in cell 
+                    #and discard trailing line break
+                    if (len(cell.paragraphs) > 1 and 
+                            i != len(cell.paragraphs) - 1):
+                        p_text += '<br/>'
 
                 text += p_text
 
