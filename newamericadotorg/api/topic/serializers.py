@@ -6,6 +6,13 @@ from issue.models import IssueOrTopic
 from newamericadotorg.api.program.serializers import ProgramSubprogramSerializer
 from newamericadotorg.api.post.serializers import PostSimpleSerializer
 
+class TopicSingleSerializer(ModelSerializer):
+    class Meta:
+        model = IssueOrTopic
+        fields = (
+            'id', 'url', 'title', 'slug'
+        )
+
 class TopicDetailSerializer(ModelSerializer):
     subtopics = SerializerMethodField()
     description = SerializerMethodField()

@@ -4,6 +4,7 @@ from django.template import loader
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from newamericadotorg.api.post.serializers import PostSerializer
+from newamericadotorg.api.topic.serializers import TopicSingleSerializer
 
 from report.models import Report
 from newamericadotorg.api.helpers import generate_image_rendition, generate_image_url
@@ -19,6 +20,7 @@ class ReportDetailSerializer(PostSerializer):
     abstract = SerializerMethodField()
     # spelling fix
     acknowledgments = SerializerMethodField()
+    topics = SerializerMethodField()
 
     class Meta:
         model = Report
@@ -138,3 +140,9 @@ class ReportDetailSerializer(PostSerializer):
             sections.append(section)
 
         return sections
+
+    def get_topics(self, obj):
+        if obj.topics is None:
+            return None
+        topics = [o.topic for o in obj.topics.all()]
+        return TopicSingleSerializer(topics, many=True).data
