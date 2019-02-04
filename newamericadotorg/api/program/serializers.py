@@ -333,7 +333,7 @@ class SubprogramSerializer(ModelSerializer):
             featured_pages = [rel for rel in revision.featured_pages.all().order_by('sort_order')]
         else:
             pages = obj.featured_pages.all().order_by('sort_order')
-            featured_pages = [rel for rel in pages[:7]]
+            featured_pages = [rel for rel in pages]
 
         if len(featured_pages) == 0:
             return { 'count': 0, 'pages': [] }
