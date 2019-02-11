@@ -5,10 +5,10 @@ import React, { Component } from 'react';
 
 import { Home } from '../../components/Icons';
 
-const Tooltip = ({ content, activeIndex }) => (
+const Tooltip = ({ content, activeIndex, numSections }) => (
   <div className={`report__bottom-nav__tooltip`} style={{ opacity: content ? 1 : 0, visibility: content ? 'visible' : 'hidden' }}>
     <h6 className="paragraph white margin-0">{content.title}</h6>
-    <div className="report__bottom-nav__tooltip__caret" style={{ right: (5*40) - ((content.index - activeIndex + 1) * 40) + 10 || 'calc(50% + 10px)' }}></div>
+    <div className="report__bottom-nav__tooltip__caret" style={{ right: (numSections*40) - ((content.index - activeIndex + 1) * 40) + 10 || 'calc(50% + 10px)' }}></div>
   </div>
 );
 
@@ -82,6 +82,14 @@ class BottomNav extends Component {
     let { section, report, hideAttachments, openMenu } = this.props;
     let next = report.sections[section.number],
         previous = report.sections[section.number-2];
+    
+    let numSections;
+
+    if (report.sections.length < 5 ) {
+      numSections = report.sections.length;
+    } else {
+      numSections = 5;
+    }
 
     let activeIndex = 0;
 
@@ -98,7 +106,7 @@ class BottomNav extends Component {
           <h6 className="inline">Contents</h6>
         </div>
         <div className="report__bottom-nav-bar__chapter-nav col-9" style={{ position: 'relative', textAlign: 'right' }}>
-          <Tooltip content={this.state.tooltipContent} activeIndex={activeIndex}/>
+          <Tooltip content={this.state.tooltipContent} activeIndex={activeIndex} numSections={numSections} />
           <div className="report__bottom-nav-bar__button-wrapper">
             {section.number > 1 &&
               <Link to={report.sections[section.number-2].url} className="prev-button ga-track-click" data-action="click_bottom_nav" data-label="report" data-value="prev_button">
@@ -111,7 +119,7 @@ class BottomNav extends Component {
               </Link>
             }
           </div>
-          <div style={{ overflow: 'hidden', width: '240px', }} className="report__bottom-nav-bar__chapter-list">
+          <div style={{ overflow: 'hidden',  maxWidth: '240px', }} className="report__bottom-nav-bar__chapter-list">
 
             <ChapterList
               sections={report.sections}
