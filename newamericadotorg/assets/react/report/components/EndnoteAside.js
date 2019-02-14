@@ -1,23 +1,21 @@
-import './EndnoteAside.scss';
+import "./EndnoteAside.scss";
 
-import React, { Component } from 'react';
-import { PlusX } from '../../components/Icons';
+import React, { Component } from "react";
+import { PlusX } from "../../components/Icons";
 
 class Endnote extends Component {
   cleanEndnote = () => {
-    let { endnote : { note } } = this.props;
-    let r = /(http.+?)(\.\s|;|$|<|\.$| |,)/g
-    let matches = note.match(r);
-    if(matches){
-      for(let m of matches){
-        m = m.replace(/(\.<|\.$|\.\s|<|;|,)/g, "");
-        note = note.replace(m, `<a href="${m}" target="_blank">source</a>`);
-      }
-    }
+    let {
+      endnote: { note }
+    } = this.props;
+    let r = /(http.+?)(\.\s|;|$|<|\.$| |,)/g;
+    const text = note.replace(r, (match, p1, p2) => {
+      return `<a href="${p1}">source</a>${p2}`;
+    });
 
-    return note;
-  }
-  render(){
+    return text;
+  };
+  render() {
     let { endnote, top, close } = this.props;
 
     return (
@@ -25,12 +23,17 @@ class Endnote extends Component {
         <div className="report__body__endnote__close" onClick={close}>
           <PlusX x={true} />
         </div>
-        {endnote &&<div className="report__body__endnote__text">
-          <span>
-            <h6 className="inline" >{`${endnote.number} `}</h6>
-            <h6 className="inline" dangerouslySetInnerHTML={{__html: this.cleanEndnote()}}></h6>
-          </span>
-        </div>}
+        {endnote && (
+          <div className="report__body__endnote__text">
+            <span>
+              <h6 className="inline">{`${endnote.number} `}</h6>
+              <h6
+                className="inline"
+                dangerouslySetInnerHTML={{ __html: this.cleanEndnote() }}
+              />
+            </span>
+          </div>
+        )}
       </div>
     );
   }
