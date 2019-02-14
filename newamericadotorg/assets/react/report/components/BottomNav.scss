@@ -122,18 +122,12 @@
     margin-right: 10px;
   }
 
-  &:last-child {
-    margin-left: 10px;
+  &:first-child {
+    margin-right: 10px;
   }
 
-  @include media-breakpoint(desktop){
-    &:nth-child(2) {
-      margin-right: 15px;
-    }
-
-    &:last-child {
-      margin-left: 15px;
-    }
+  &:last-child {
+    margin-left: 10px;
   }
 
   a {
