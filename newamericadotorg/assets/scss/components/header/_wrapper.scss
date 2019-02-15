@@ -34,10 +34,7 @@ body:not(.header--expanded){
       position: fixed;
       top: -$header-height;
       @include transform(translateY(0));
-
-      & > .container {
-        @include box-shadow( 0px 1px 0px 0px color(black, base, 0.075) );
-      }
+      @include box-shadow( 0px 1px 0px 0px color(black, base, 0.075) );
     }
   }
 }
