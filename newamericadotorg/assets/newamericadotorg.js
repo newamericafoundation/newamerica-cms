@@ -1,10 +1,6 @@
 import './scss/critical.scss';
 import './scss/index.scss';
 
-import 'babel-polyfill';
-import 'whatwg-fetch';
-import 'url-polyfill';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as ReactRedux from 'react-redux';
@@ -25,20 +21,20 @@ import mobileMenu from './react/mobile-menu/index';
 import Fetch from './react/api/components/Fetch';
 import Response from './react/api/components/Response';
 
-const _Fetch = (props) => (
+const _Fetch = props => (
   <ReactRedux.Provider store={store}>
     <Fetch {...props} />
   </ReactRedux.Provider>
 );
 
-const _Response = (props) => (
+const _Response = props => (
   <ReactRedux.Provider store={store}>
     <Response {...props} />
   </ReactRedux.Provider>
 );
 
 // initialize on ready
-if(document.readyState != 'loading') init();
+if (document.readyState != 'loading') init();
 else document.addEventListener('DOMContentLoaded', init);
 
 window.newamericadotorg = {
@@ -47,34 +43,34 @@ window.newamericadotorg = {
   cache,
   Fetch: _Fetch,
   Response: _Response,
-  renderDataViz: (el) => {
+  renderDataViz: el => {
     let viz = document.querySelectorAll('.na-dataviz:not(.lazy)');
 
-    if(!window.renderDataViz || !viz) return;
-    for(let i=0; i<viz.length; i++){
+    if (!window.renderDataViz || !viz) return;
+    for (let i = 0; i < viz.length; i++) {
       viz[i].setAttribute('id', viz[i].getAttribute('data-id'));
       window.renderDataViz(viz[i]);
     }
   }
 };
 
-function init(){
+function init() {
   setMeta();
   reactRenderer.add(mobileMenu);
   importPageComponents();
   addEventListeners();
   addObservers();
   actions.triggerScrollEvents();
-  if(window.user.isAuthenticated){
+  if (window.user.isAuthenticated) {
     cache.clearAll();
     console.log('cache cleared');
   }
 }
 
-function importPageComponents(){
+function importPageComponents() {
   import(/* webpackChunkName: "na-core-components" */ './react/components.core');
 
-  switch(document.body.getAttribute('id')){
+  switch (document.body.getAttribute('id')) {
     case 'na-home':
       import(/* webpackChunkName: "na-home-components" */ './react/components.home');
       break;

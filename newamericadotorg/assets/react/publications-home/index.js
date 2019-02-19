@@ -1,18 +1,39 @@
 import { Route } from 'react-router-dom';
 import GARouter from '../ga-router';
-import React, { Component } from 'react';
-import { Fetch, Response} from '../components/API';
+import React, { Component, Suspense } from 'react';
+import { Response } from '../components/API';
 import { NAME, ID } from './constants';
-import Publications from './components/Publications';
+import { LoadingDots } from '../components/Icons';
+
+const Publications = React.lazy(() =>
+  import(/* webpackChunkName: "na-publications" */ './components/Publications')
+);
+
+const Loading = () => (
+  <div className="loading-icon-container">
+    <LoadingDots />
+  </div>
+);
 
 class Routes extends Component {
-  render(){
-    let { response : { results }} = this.props;
+  render() {
+    let {
+      response: { results }
+    } = this.props;
     return (
       <div className="container">
         <GARouter>
           <div className="homepage__publications">
-            <Route path="/:contentType/" render={(props)=> (<Publications content_types={results.content_types} programs={results.programs} {...props} />)} />
+            <Route
+              path="/:contentType/"
+              render={props => (
+                <Publications
+                  content_types={results.content_types}
+                  programs={results.programs}
+                  {...props}
+                />
+              )}
+            />
           </div>
         </GARouter>
       </div>
@@ -23,11 +44,15 @@ class Routes extends Component {
 class APP extends Component {
   render() {
     return (
-      <Response component={Routes} name='meta'/>
+      <Suspense fallback={<Loading />}>
+        <Response component={Routes} name="meta" />
+      </Suspense>
     );
   }
 }
 
 export default {
-  NAME, ID, APP
+  NAME,
+  ID,
+  APP
 };
