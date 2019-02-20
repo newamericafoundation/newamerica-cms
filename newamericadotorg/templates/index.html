@@ -55,9 +55,31 @@
     window.meta = {{ meta|safe }};
     var newamericadotorg = null;
   </script>
-    {% block extra_scripts %}
-        {# Override this in templates to add extra scripts and stylesheets #}
-    {% endblock %}
+  <% htmlWebpackPlugin.files.js.forEach(function(filename){ if (filename.includes("polyfills")) { %>
+    <!-- Conditionally load polyfills -->
+    <script>
+      (function browserSupport() {
+        var modernBrowser = (
+          window.Promise &&
+          window.fetch &&
+          window.Symbol &&
+          window.URL &&
+          window.URLSearchParams
+        );
+        if (!browserSupport) {
+          var scriptElement = document.createElement('script');
+          scriptElement.async = false;
+          scriptElement.src = "<%= filename %>";
+          scriptElement.onload = function polyfillLoaded() {
+          }
+          document.head.appendChild(scriptElement);
+        }
+      }())
+    </script>
+  <% }}) %>
+  {% block extra_scripts %}
+      {# Override this in templates to add extra scripts and stylesheets #}
+  {% endblock %}
 </head>
 
 <body class="{% block body_class %}{% endblock %} {% if self.get_ancestors.2.slug == 'oti' or page.slug == 'oti'%}oti{% endif %}" id="{% block body_id %}{% endblock %}">
@@ -95,31 +117,16 @@
 
   {% endif %}
 
-  <% htmlWebpackPlugin.files.js.forEach(function(filename){ if (filename.includes("polyfills")) { %>
-    <!-- Conditionally load polyfills -->
-    <script>
-      (function browserSupport() {
-        var modernBrowser = (
-          window.Promise &&
-          window.fetch &&
-          window.Symbol &&
-          window.URL &&
-          window.URLSearchParams
-        );
-        if (!modernBrowser) {
-          var scriptElement = document.createElement('script');
-          scriptElement.async = false;
-          scriptElement.src = "<%= filename %>";
-          document.head.appendChild(scriptElement);
-        }
-      }())
-    </script>
-  <% }}) %>
-
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('<%= htmlWebpackPlugin.options.serviceWorker %>');
+        navigator.serviceWorker.register('<%= htmlWebpackPlugin.options.serviceWorker %>', {
+          scope: "/"
+        }).then(registration => {
+          console.log('SW registered: ', registration);
+        }).catch(registrationError => {
+          console.log('SW registration failed: ', registrationError);
+        });;
       });
     }
   </script>
