@@ -1,38 +1,36 @@
 import actions from '../react/actions';
 import store from '../react/store';
 import triggerScrollEvents from './utils/trigger-scroll-events';
-import dataVizEvents from './data-viz-events';
 
 let listeners = [
   function onScroll() {
     let timeout = 0;
-    let onscroll = (e) => {
+    let onscroll = e => {
       clearTimeout(timeout);
       actions.setIsScrolling(true);
-      timeout = setTimeout(()=>{
+      timeout = setTimeout(() => {
         actions.setIsScrolling(false);
       }, 17);
-    }
+    };
 
     window.addEventListener('scroll', onscroll, true);
     window.addEventListener('touchmove', onscroll, true);
   },
 
-
   function onResize() {
     let timeout = 0;
-    let onresize = (e) => {
-      requestAnimationFrame(()=>{
+    let onresize = e => {
+      requestAnimationFrame(() => {
         actions.setWindowWidth(document.documentElement.clientWidth);
       });
-    }
-    window.addEventListener('resize', onresize );
+    };
+    window.addEventListener('resize', onresize);
   },
 
-  function openSearch(){
+  function openSearch() {
     let search = document.querySelector('.header__nav__search');
-    if(!search) return;
-    search.addEventListener('click', function(){
+    if (!search) return;
+    search.addEventListener('click', function() {
       store.dispatch({
         type: 'SET_SEARCH_IS_OPEN',
         component: 'site',
@@ -41,10 +39,10 @@ let listeners = [
     });
   },
 
-  function closeSearch(){
+  function closeSearch() {
     let searchInput = document.getElementById('search-input');
-    if(!searchInput) return;
-    searchInput.addEventListener('blur', function(){
+    if (!searchInput) return;
+    searchInput.addEventListener('blur', function() {
       store.dispatch({
         type: 'SET_SEARCH_IS_OPEN',
         component: 'site',
@@ -53,10 +51,10 @@ let listeners = [
     });
   },
 
-  function menuToggle(){
+  function menuToggle() {
     let menu = document.getElementById('mobile-menu-toggle');
-    if(!menu) return;
-    menu.addEventListener('click', function(){
+    if (!menu) return;
+    menu.addEventListener('click', function() {
       store.dispatch({
         type: 'TOGGLE_MOBILE_MENU',
         component: 'site'
@@ -64,9 +62,7 @@ let listeners = [
     });
   },
 
-  dataVizEvents,
-
-  function scrollTarget(){
+  function scrollTarget() {
     actions.addScrollEvent({
       selector: '.scroll-target'
     });
@@ -74,18 +70,20 @@ let listeners = [
     actions.addScrollEvent({
       selector: '.na-dataviz.lazy',
       offset: '-350',
-      onEnter: (el) => {
-        if(!el.classList.contains('scroll-triggered') && window.renderDataViz)
+      onEnter: el => {
+        if (!el.classList.contains('scroll-triggered') && window.renderDataViz)
           window.renderDataViz(el);
       }
     });
   },
 
-  function activeDropdownToggle(){
-    let drops = document.querySelectorAll('.header__nav__dropdown__header.drop');
-    if(!drops) return;
-    for(let drop of drops){
-      drop.addEventListener('click', function(e){
+  function activeDropdownToggle() {
+    let drops = document.querySelectorAll(
+      '.header__nav__dropdown__header.drop'
+    );
+    if (!drops) return;
+    for (let drop of drops) {
+      drop.addEventListener('click', function(e) {
         e.stopPropagation();
         store.dispatch({
           type: 'TOGGLE_ACTIVE_DROPDOWN',
@@ -104,16 +102,16 @@ let listeners = [
     });
   },
 
-  function loadFadeInImage(){
+  function loadFadeInImage() {
     let images = document.querySelectorAll('.fade-in-image');
-    if(!images) return;
-    for(let i=0; i<images.length; i++){
+    if (!images) return;
+    for (let i = 0; i < images.length; i++) {
       let img = images[i];
-      if(img.complete || img.readyState === 4){
+      if (img.complete || img.readyState === 4) {
         img.classList.add('loaded');
         continue;
       }
-      images[i].addEventListener('load', function(){
+      images[i].addEventListener('load', function() {
         this.classList.add('loaded');
       });
     }
@@ -121,5 +119,5 @@ let listeners = [
 ];
 
 export default () => {
-  for(let listener of listeners) listener();
-}
+  for (let listener of listeners) listener();
+};
