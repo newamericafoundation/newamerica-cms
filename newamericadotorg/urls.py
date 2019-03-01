@@ -45,8 +45,6 @@ urlpatterns = [
 
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
 
-    url(r'^sw.js', (TemplateView.as_view(template_name="sw.js", content_type='application/javascript', )), name='sw.js'),
-
     url(r'^international-security/future-property-rights/[^.]*$', redirects.future_property_rights),
     url(r'^education-policy/dual-language-learners/[^.]*$', redirects.dual_language_learners),
 

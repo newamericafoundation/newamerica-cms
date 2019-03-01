@@ -117,41 +117,16 @@ module.exports = env => {
         staticUrl: `${process.env.STATIC_URL || ''}/static`,
         template: 'newamericadotorg/templates/index.html',
         inject: false,
-        serviceWorker: '/sw.js'
+        serviceWorker: '/static/js/sw.js'
       }),
       new GenerateSW({
-        cacheId: 'na-assets',
-        swDest: 'templates/sw.js',
+        swDest: 'static/js/sw.js',
         importWorkboxFrom: 'local',
+        include: [/\.css$/, /\.js$/, /\.svg$/],
         importsDirectory: 'static/workbox-assets',
-        exclude: /\.html/,
-        clientsClaim: true,
-        skipWaiting: true,
         modifyUrlPrefix: {
           '/static': `${process.env.STATIC_URL || ''}/static`
-        },
-        runtimeCaching: [
-          {
-            urlPattern: /\.woff2?$/,
-            handler: 'cacheFirst',
-            options: {
-              cacheName: 'na-fonts',
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          {
-            urlPattern: /logo.+\.svg$/,
-            handler: 'cacheFirst',
-            options: {
-              cacheName: 'na-logos',
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          }
-        ]
+        }
       }),
       NODE_ENV === 'development' && new BundleAnalyzerPlugin()
     ].filter(plugin => plugin)

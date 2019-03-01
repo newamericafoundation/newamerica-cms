@@ -16,7 +16,6 @@ media/
 static/
 
 newamericadotorg/static/js/
-newamericadotorg/templates/sw.js
 newamericadotorg/templates/style.css
 newamericadotorg/templates/styles.css
 newamericadotorg/templates/style.css.map
