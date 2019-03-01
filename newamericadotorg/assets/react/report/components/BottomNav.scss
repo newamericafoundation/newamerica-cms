@@ -53,7 +53,6 @@
   border-top-right-radius: 4px;
   @include horizontal-center;
   @include transition(box-shadow 0.15s ease, border 0.15s ease, bottom 0.4s ease 0.25s);
-  z-index: 500;
 
   & > div {
     display: inline-block;
@@ -75,6 +74,7 @@
   position: -webkit-sticky;
   position: sticky;
   top: calc(100vh - 65px);
+  z-index: 500;
 }
 
 .report__bottom-nav-bar__chapter-nav > div:not(.report__bottom-nav__tooltip) {
