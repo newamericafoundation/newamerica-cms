@@ -117,20 +117,6 @@
 
   {% endif %}
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('<%= htmlWebpackPlugin.options.serviceWorker %>', {
-          scope: "/"
-        }).then(registration => {
-          console.log('SW registered: ', registration);
-        }).catch(registrationError => {
-          console.log('SW registration failed: ', registrationError);
-        });;
-      });
-    }
-  </script>
-
   <% htmlWebpackPlugin.files.js.forEach(function(filename){ if (!filename.includes("polyfills")) { %>
     <script type="text/javascript" src="<%= filename %>"></script>
   <% }}) %>

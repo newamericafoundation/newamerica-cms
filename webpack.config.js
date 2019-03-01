@@ -6,7 +6,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
-const { GenerateSW } = require('workbox-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -118,15 +117,6 @@ module.exports = env => {
         template: 'newamericadotorg/templates/index.html',
         inject: false,
         serviceWorker: '/static/js/sw.js'
-      }),
-      new GenerateSW({
-        swDest: 'static/js/sw.js',
-        importWorkboxFrom: 'local',
-        include: [/\.css$/, /\.js$/, /\.svg$/],
-        importsDirectory: 'static/workbox-assets',
-        modifyUrlPrefix: {
-          '/static': `${process.env.STATIC_URL || ''}/static`
-        }
       }),
       NODE_ENV === 'development' && new BundleAnalyzerPlugin()
     ].filter(plugin => plugin)
