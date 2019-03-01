@@ -66,7 +66,7 @@
           window.URL &&
           window.URLSearchParams
         );
-        if (!browserSupport) {
+        if (!modernBrowser) {
           var scriptElement = document.createElement('script');
           scriptElement.async = false;
           scriptElement.src = "<%= filename %>";
