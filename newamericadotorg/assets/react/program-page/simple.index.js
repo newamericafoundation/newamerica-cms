@@ -23,6 +23,7 @@ class StoryGrid extends Component {
     if(match.params.subpage) return null;
     let promos = program.story_grid.pages || [];
     let aboutUrl = program.about ? program.about.url : null;
+    let subText = program.subscription_card_text || `Be the first to hear about the latest events and research from ${program.name}`;
     return (
       <DocumentMeta title={program.title} description={program.description}>
         <div className="program__story-grid">
@@ -43,7 +44,7 @@ class StoryGrid extends Component {
           {(program.subscriptions && !program.hide_subscription_card) &&
           <Promo title="Subscribe">
             <div className="promo__subscribe">
-              <h2>Be the first to hear about the latest events and research from {program.name}</h2>
+              <h2>{subText}</h2>
               <form>
                 <div className="input">
                   <input type="text" name="email" required onChange={(e)=>{this.setState({email: e.target.value})}} />

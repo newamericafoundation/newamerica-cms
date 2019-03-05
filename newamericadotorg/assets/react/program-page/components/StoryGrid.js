@@ -49,11 +49,11 @@ class SubscribeCard extends Component {
 
   render(){
     let { program } = this.props;
-    let sub_text = program.subscription_card_text || `Be the first to hear about the latest events and research from ${program.name}`;
+    let subText = program.subscription_card_text || `Be the first to hear about the latest events and research from ${program.name}`;
 
     return (
       <PromoMd title="Subscribe" link={{ to: `subscribe/?email=${this.state.email}`, label: 'Go'}}>
-        <h2 className="margin-25">{sub_text}</h2>
+        <h2 className="margin-25">{subText}</h2>
         <div className="input">
           <input required type="text" name="email"
             onChange={(e)=>{this.setState({email: e.target.value})}}
