@@ -129,6 +129,10 @@
                 {% if block.value.static_image_fallback.image %}
                   {% include './figure.html' with value=block.value.static_image_fallback %}
                 {% endif %}
+            {% elif block.block_type == 'iframe' %}
+                {% if block.value.fallback_image %}
+                  {% include './figure_iframe.html' with value=block.value %}
+                {% endif %}
             {% elif block.block_type == 'inline_image' %}
               {% include './figure.html' with value=block.value %}
             {% elif block.block_type == 'box' %}
