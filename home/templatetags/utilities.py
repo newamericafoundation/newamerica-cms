@@ -314,6 +314,10 @@ def split_program_list(start_list, max_size=6):
     return final_list
 
 @register.simple_tag()
+def get_media_url():
+    return settings.MEDIA_URL
+
+@register.simple_tag()
 def group_programs(programs, cols=3):
 	length = len(programs)
 	l = length/float(cols)
@@ -372,3 +376,4 @@ class CounterNode(template.Node):
 
         # Return counter number
         return context['counter_var']
+

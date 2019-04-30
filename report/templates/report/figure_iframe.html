@@ -1,7 +1,7 @@
 {% load utilities %}
 <figure class="figure {{value.fallback_image_align}} {{value.fallback_image_width|temp_image_width_map}}">
   <div class="figure__image">
-      <img src="https://s3.amazonaws.com/newamericadotorg/{{value.fallback_image.file.name}}"/>
+      <img src="{% get_media_url %}{{value.fallback_image.file.name}}"/>
   </div>
   {% if value.fallback_image.caption or value.fallback_image.source %}
     <figcaption>
