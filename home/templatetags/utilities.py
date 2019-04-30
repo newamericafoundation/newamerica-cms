@@ -376,4 +376,3 @@ class CounterNode(template.Node):
 
         # Return counter number
         return context['counter_var']
-
