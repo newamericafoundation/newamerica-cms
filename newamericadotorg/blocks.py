@@ -72,13 +72,13 @@ class IframeBlock(blocks.StructBlock):
 		('center', 'Centered'),
 		('left', 'Left'),
 		('right', 'Right')
-	], default='center', required=False)
+	], default='center', required=True)
 	fallback_image_width = blocks.ChoiceBlock([
 		('initial', 'Auto'),
 		('width-133', 'Medium'),
 		('width-166', 'Large'),
 		('width-200', 'X-Large')
-	], default="initial", required=False)
+	], default="initial", required=True)
 	fallback_image_use_original = blocks.BooleanBlock(required=False, help_text="check if you do not want image compressed. Should be checked for all figures.")
 
 	class Meta:
