@@ -65,8 +65,13 @@ class ButtonBlock(blocks.StructBlock):
 
 class IframeBlock(blocks.StructBlock):
 	source_url = blocks.URLBlock(required=True)
-	width = IntegerBlock(max_value=1050, help_text="The maximum possible iframe width is 1050")
-	height = IntegerBlock()
+	width = IntegerBlock(required=True, help_text='For "In Depth" pages the maximum is 1050.')
+	height = IntegerBlock(required=True)
+	column_width = blocks.ChoiceBlock([
+		('column-width', 'Column Width (max 650px)'),
+		('width-1200', 'Site Width (max 1200px)'),
+		('full-width', 'Full Width (max 100%)')
+	], default='column-width', required=False, help_text='The maximium width of the iframe. For "In Depth" pages, use "Column Width".')
 	fallback_image = ImageChooserBlock(icon="image", required=False,  help_text="The fallback image will be rendered for the PDF")
 	fallback_image_align = blocks.ChoiceBlock(choices=[
 		('center', 'Centered'),
@@ -86,24 +91,52 @@ class IframeBlock(blocks.StructBlock):
 		icon = 'form'
 		label = 'Iframe'
 		help_text= "Specifiy maximum width and height dimensions for the iframe. On smaller screens, width-to-height ratio will be preserved."
+		group = 'Embeds'
+
+class DatawrapperBlock(blocks.StructBlock):
+	source_url = blocks.URLBlock(required=True)
+	embed_code = blocks.CharBlock(required=True, help_text='The "Responsive Embed" code provided by Datawrapper')
+	width = blocks.ChoiceBlock([
+		('column-width', 'Column Width (max 650px)'),
+		('width-1200', 'Site Width (max 1200px)'),
+		('full-width', 'Full Width (max 100%)')
+	], default='column-width', required=False, help_text="The maximium size of the iframe")
+	fallback_image = ImageChooserBlock(icon="image", required=False,  help_text="The fallback image will be rendered for the PDF")
+	fallback_image_align = blocks.ChoiceBlock(choices=[
+		('center', 'Centered'),
+		('left', 'Left'),
+		('right', 'Right')
+	], default='center', required=True)
+	fallback_image_width = blocks.ChoiceBlock([
+		('initial', 'Auto'),
+		('width-133', 'Medium'),
+		('width-166', 'Large'),
+		('width-200', 'X-Large')
+	], default="initial", required=True)
+
+	class Meta:
+		template = 'blocks/datawrapper.html'
+		icon = 'site'
+		label = 'Datawrapper'
+		group = 'Embeds'
 
 class DatavizBlock(blocks.StructBlock):
 	container_id = blocks.CharBlock(required=True)
 	width = blocks.ChoiceBlock([
-		('column-width', 'Column Width'),
-		('width-1200', 'Max 1200px'),
-		('full-width', 'Full Width')
-	], default='year', required=False)
+		('column-width', 'Column Width (max 650px)'),
+		('width-1200', 'Site Width (max 1200px)'),
+		('full-width', 'Full Width (max 100%)')
+	], default='column-width', required=False)
 	title = blocks.CharBlock(required=False)
 	subheading = blocks.RichTextBlock(required=False)
 	max_width = IntegerBlock(help_text='for legacy dataviz projects', required=False)
 	show_chart_buttons = blocks.BooleanBlock(default=False, required=False)
 
-
 	class Meta:
 		template = 'blocks/dataviz.html'
 		icon = 'site'
-		label = 'Dataviz'
+		label = 'Custom Dataviz'
+		group = 'Embeds'
 
 def ResourceKitSerializer(r):
 	resources = []
@@ -403,6 +436,7 @@ class Body(blocks.StreamBlock):
 	table = TableBlock(template="blocks/table.html")
 	button = ButtonBlock()
 	iframe = IframeBlock(icon="link")
+	datawrapper = DatawrapperBlock(icon="code")
 	dataviz = DatavizBlock(icon="code")
 	timeline = TimelineBlock(icon="arrows-up-down")
 	google_map = GoogleMapBlock(icon="site")
