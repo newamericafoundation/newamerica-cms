@@ -2,8 +2,15 @@
 {% load noShowTableauHome from utilities %}
 
 {% widthratio self.height self.width 100 as height_width_ratio %}
-<div class="block-iframe__max-bounds-container" style="max-width:{{ self.width }}px; max-height:{{ self.height }}px;">
-	<div class="block-iframe__responsive-container" style="padding-bottom: {{ height_width_ratio }}%">
-		<iframe src="{{ self.source_url|noShowTableauHome }}" allowfullscreen frameborder="0"></iframe>
-	</div>
-</div>
+{% if self.column_width == 'column-width' %}
+        <div class="block-iframe__responsive-container" style="padding-bottom: {{ height_width_ratio }}%">
+            <iframe src="{{ self.source_url|noShowTableauHome }}" allowfullscreen frameborder="0"></iframe>
+        </div>
+    </div>
+{% else %}
+    <div class="wrapper--streamfield-block {{ self.column_width }}" style="max-height:{{ self.height }}px;">
+        <div class="block-iframe__responsive-container" style="max-width:{{ self.width }}px; padding-bottom: {{ height_width_ratio }}%">
+            <iframe src="{{ self.source_url|noShowTableauHome }}" allowfullscreen frameborder="0"></iframe>
+        </div>
+    </div>
+{% endif %}

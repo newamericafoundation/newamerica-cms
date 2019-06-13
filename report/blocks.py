@@ -1,7 +1,7 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
-from newamericadotorg.blocks import Body, DatavizBlock, CustomImageBlock, IframeBlock
+from newamericadotorg.blocks import Body, DatavizBlock, CustomImageBlock, IframeBlock, DatawrapperBlock
 
 class CustomDataVizImageBlock(blocks.StructBlock):
 	image = ImageChooserBlock(icon="image", required=False)
@@ -32,6 +32,7 @@ class BoxBody(blocks.StreamBlock):
 	inline_image = CustomImageBlock(icon='image')
 	video = EmbedBlock(icon='media')
 	iframe = IframeBlock(icon="link")
+	datawrapper = DatawrapperBlock(icon="code")
 	dataviz = ReportDataVizBlock(icon="code")
 
 class BoxBlock(blocks.StructBlock):
