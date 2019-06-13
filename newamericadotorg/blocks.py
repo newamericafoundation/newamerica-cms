@@ -65,13 +65,13 @@ class ButtonBlock(blocks.StructBlock):
 
 class IframeBlock(blocks.StructBlock):
 	source_url = blocks.URLBlock(required=True)
-	width = IntegerBlock(required=True, help_text='For "In Depth" pages the maximum is 1050.')
-	height = IntegerBlock(required=True)
 	column_width = blocks.ChoiceBlock([
 		('column-width', 'Column Width (max 650px)'),
 		('width-1200', 'Site Width (max 1200px)'),
 		('full-width', 'Full Width (max 100%)')
-	], default='column-width', required=False, help_text='The maximium width of the iframe. For "In Depth" pages, use "Column Width".')
+	], default='column-width', required=False, help_text='The maximium width of the iframe. For pages made in 2018 and earlier,  "Column Width" will maintain the original design.')
+	width = IntegerBlock(required=True, help_text='The iframe will look best if the width is at least as large as the column width. Note that the maximum, in 2018 and earlier, used to be 1050.')
+	height = IntegerBlock(required=True)
 	fallback_image = ImageChooserBlock(icon="image", required=False,  help_text="The fallback image will be rendered for the PDF")
 	fallback_image_align = blocks.ChoiceBlock(choices=[
 		('center', 'Centered'),
@@ -94,13 +94,13 @@ class IframeBlock(blocks.StructBlock):
 		group = 'Embeds'
 
 class DatawrapperBlock(blocks.StructBlock):
-	source_url = blocks.URLBlock(required=True)
-	embed_code = blocks.CharBlock(required=True, help_text='The "Responsive Embed" code provided by Datawrapper')
+	chart_id = blocks.CharBlock(required=True, help_text='The 5 character ID for the chart, e.g. "kT4Qi"')
+	embed_code = blocks.TextBlock(required=True, help_text='The "Responsive Embed" code provided by Datawrapper')
 	width = blocks.ChoiceBlock([
 		('column-width', 'Column Width (max 650px)'),
 		('width-1200', 'Site Width (max 1200px)'),
 		('full-width', 'Full Width (max 100%)')
-	], default='column-width', required=False, help_text="The maximium size of the iframe")
+	], default='column-width', required=False, help_text="The maximium size of the iframe. Full width sound be used only with caution.")
 	fallback_image = ImageChooserBlock(icon="image", required=False,  help_text="The fallback image will be rendered for the PDF")
 	fallback_image_align = blocks.ChoiceBlock(choices=[
 		('center', 'Centered'),
