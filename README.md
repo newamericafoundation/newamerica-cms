@@ -5,12 +5,12 @@ Custom Content Management System (CMS) built for New America
 You may want to use tools like [pyenv](https://github.com/pyenv/pyenv) to manage your Python version and [nvm](https://github.com/nvm-sh/nvm) to manage your Node version.
 
 - [Homebrew](http://brew.sh/)
-- [Python 3](https://docs.python-guide.org/starting/install3/osx/), version noted in [.python-version](.python-version)
+- [Python 3 and pip](https://docs.python-guide.org/starting/install3/osx/), version noted in [.python-version](.python-version)
 - [Node.js](https://medium.com/@kkostov/how-to-install-node-and-npm-on-macos-using-homebrew-708e2c3877bd), version noted in [.nvmrc](.nvmrc)
 - [virtualenv](http://virtualenvwrapper.readthedocs.org/en/latest/index.html) (`pip install virtualenv`) or [venv](https://docs.python.org/3/library/venv.html)
 - [postgres](http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/)
-- [aws-cli](https://aws.amazon.com/cli/) (`pip install awscli` and you'll need an account at [aws.amazon.com](https://aws.amazon.com/) with access to S3)
-- `na-cms.env` from the `Design` folder in Google Drive
+- [aws-cli](https://aws.amazon.com/cli/) (`pip install awscli`). You'll need an account at [aws.amazon.com](https://aws.amazon.com/) with an 'iam' user set up which is configured in a later step on this README. [More information about awscli configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
+- `na-cms.env` from the `Design` folder in Google Drive, which you should rename to `.env`
 - Helpful but not required: `fixture.json` from the `Design` folder in Google Drive or a dump of the DB
 
 
@@ -74,12 +74,13 @@ Create a user called newamerica with some password:
 psql -d newamerica -c "CREATE USER <<USERNAME>> WITH PASSWORD '<<PASSWORD>>';"
 ```
 
-Download na-cms.env and fixture.json from the  `Design` folder in Google Drive and place them in the root of this project. Update the DATABASE_URL in your environment variables file with the Postgres URL indicating the password you set. Format for URL is  
-`postgres://USER:PASSWORD@HOST:PORT/NAME`
+Download `na-cms.env` and `fixture.json` from the  `Design` folder in Google Drive and place them in the root of this project. 
+Rename the environment variables file from `na-cms.env` to `.env` and update the DATABASE_URL in it with the Postgres URL indicating the password you set. 
+Format for URL is `postgres://USER:PASSWORD@HOST:PORT/NAME`
 
 Load your environment variables:
 ```bash
-source na-cms.env
+source .env
 ```
 
 #### If you're using fixtures
@@ -99,7 +100,7 @@ Load the data from the fixture:
 ./manage.py loaddata fixture.json
 ```
 
-#### If you're using a database dump
+#### If you're using a database dump (which you shouldn't be, but until [#1374](https://github.com/newamericafoundation/newamerica-cms/issues/1374) is resolved)
 
 You can get a db dump from heroku;
 make sure you drop your db then run `pg_restore` locally.
@@ -146,6 +147,14 @@ In your browser, go to the site (at [localhost:8000/admin](localhost:8000/admin)
 
 If you used the fixture, log in with username: admin and password: password. These are the default credentials provided through the fixture.
 
+#### Runing the server after initial setup
+
+When you're running the project with everything, including the front-end, set up, you can use the following command to load `.env`, activate your virual environment, and run the server.
+
+```bash
+npm start
+```
+
 ## Front-end setup
 
 Install front-end dependencies
@@ -158,7 +167,7 @@ Grab static assets (fonts, icons, etc.). This requires `aws configure` if you di
 npm run get-static
 ```
 
-Start webpack for development (this will want you to have a file called `.env` which may or may not need to be the same file as `na-cms.env`)
+Start webpack for development
 ```bash
 npm run dev
 ```
