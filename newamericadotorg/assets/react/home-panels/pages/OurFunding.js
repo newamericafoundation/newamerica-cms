@@ -232,11 +232,11 @@ class OurFundingMain extends Component {
           </div>
           <div className="dataviz__chart-container">
             <Switch>
-              <Route exact path="/our-funding/" render={(props)=>(
-                <iframe title="Moore's Law: &quot;The transistor count doubles every two years.&quot;" aria-label="Table" id="datawrapper-chart-UOHEE" src="//datawrapper.dwcdn.net/UOHEE/1/" scrolling="no" frameborder="0" width="100%" height="600"></iframe>
-              )}/>
               <Route exact path="/our-funding/2018/" render={(props)=>(
                 <iframe title="European countries with the lowest &amp;amp; highest voter turnout" aria-label="Bar Chart" id="datawrapper-chart-vNnBJ" src="//datawrapper.dwcdn.net/vNnBJ/1/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+              )}/>
+              <Route render={(props)=>(
+                <iframe title="Moore's Law: &quot;The transistor count doubles every two years.&quot;" aria-label="Table" id="datawrapper-chart-UOHEE" src="//datawrapper.dwcdn.net/UOHEE/1/" scrolling="no" frameborder="0" width="100%" height="600"></iframe>
               )}/>
             </Switch>
       		</div>
@@ -261,7 +261,6 @@ export default class OurFunding extends Component {
       <div className="home__panels__content">
         <Nav />
         <Switch>
-          <Route exact path={["/our-funding/", "/our-funding/2018/"]} render={(props)=>( <OurFundingMain data={results.data} dataScript={results.data_project_external_script}/> )}/>
           <Route exact path="/our-funding/our-funders/" render={(props)=>( <OurFunderLists data={this.findSubpage('our-funders').data} heading={this.findSubpage('our-funders').title}/> )}/>
           <Route exact path="/our-funding/corporate-circle/" render={(props)=>( <FunderLists data={this.findSubpage('corporate-circle').data} /> )}/>
           <Route exact path="/our-funding/new-america-councils/" render={(props)=>( <Councils data={this.findSubpage('new-america-councils').data} /> )}/>
@@ -277,6 +276,7 @@ export default class OurFunding extends Component {
               </div>
             </div>
           )}/>
+          <Route render={(props)=>( <OurFundingMain data={results.data} dataScript={results.data_project_external_script}/> )}/>
         </Switch>
       </div>
     );
