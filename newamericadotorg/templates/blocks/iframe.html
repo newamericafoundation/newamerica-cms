@@ -3,6 +3,7 @@
 
 {% widthratio self.height self.width 100 as height_width_ratio %}
 {% if self.column_width == 'column-width' %}
+    <div class="block-iframe__max-bounds-container" style="max-width:{{ self.width }}px; max-height:{{ self.height }}px;">
         <div class="block-iframe__responsive-container" style="padding-bottom: {{ height_width_ratio }}%">
             <iframe src="{{ self.source_url|noShowTableauHome }}" allowfullscreen frameborder="0"></iframe>
         </div>
