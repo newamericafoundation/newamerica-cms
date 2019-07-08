@@ -233,10 +233,10 @@ class OurFundingMain extends Component {
           <div className="dataviz__chart-container">
             <Switch>
               <Route exact path="/our-funding/2018/" render={(props)=>(
-                <iframe title="European countries with the lowest &amp;amp; highest voter turnout" aria-label="Bar Chart" id="datawrapper-chart-vNnBJ" src="//datawrapper.dwcdn.net/vNnBJ/1/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
-              )}/>
+                <iframe title="Active Funding in Q4 2018" aria-label="Table" id="datawrapper-chart-xFCjp" src="//datawrapper.dwcdn.net/xFCjp/6/" scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+                )}/>
               <Route render={(props)=>(
-                <iframe title="Moore's Law: &quot;The transistor count doubles every two years.&quot;" aria-label="Table" id="datawrapper-chart-UOHEE" src="//datawrapper.dwcdn.net/UOHEE/1/" scrolling="no" frameborder="0" width="100%" height="600"></iframe>
+                <iframe title="Current active funding" aria-label="Table" id="datawrapper-chart-H5Js1" src="//datawrapper.dwcdn.net/H5Js1/1/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
               )}/>
             </Switch>
       		</div>
