@@ -224,12 +224,10 @@ class OurFundingMain extends Component {
         <div className="funding-table container--1080">
           <h1>{transparency_table.heading[0]}</h1>
           {/* <h3>{transparency_table.dataviz[0].title}</h3> */}
-          <div className={`container--1080 margin-top-15`}>
-            <HorizontalNav className={`our-funding__nav`} items={[
-              { url: '/our-funding/', label: '2019', exact: true },
-              { url: '/our-funding/2018/', label: '2018'},
-            ]} />
-          </div>
+          <HorizontalNav className={`our-funding__nav our-funding__nav--chart-tabs`} items={[
+            { url: '/our-funding/', label: '2019', exact: true },
+            { url: '/our-funding/2018/', label: '2018'},
+          ]} />
           <div className="dataviz__chart-container">
             <Switch>
               <Route exact path="/our-funding/2018/" render={(props)=>(
