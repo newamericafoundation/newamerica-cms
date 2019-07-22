@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import ImageAside from '../components/ImageAside';
 import Reel from '../components/Reel';
 import Body from '../components/Body';
-import { Route, NavLink } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import HorizontalNav from '../../components/HorizontalNav';
 
 class FunderList extends Component {
@@ -223,9 +223,20 @@ class OurFundingMain extends Component {
         </div>}/>
         <div className="funding-table container--1080">
           <h1>{transparency_table.heading[0]}</h1>
-          <h3>{transparency_table.dataviz[0].title}</h3>
+          {/* <h3>{transparency_table.dataviz[0].title}</h3> */}
+          <HorizontalNav className={`our-funding__nav our-funding__nav--chart-tabs`} items={[
+            { url: '/our-funding/', label: '2019', exact: true },
+            { url: '/our-funding/2018/', label: '2018'},
+          ]} />
           <div className="dataviz__chart-container">
-      			<div className="dataviz__chart-area" id={transparency_table.dataviz[0].container_id}></div>
+            <Switch>
+              <Route exact path="/our-funding/2018/" render={(props)=>(
+                <iframe title="Active Funding in Q4 2018" aria-label="Table" id="datawrapper-chart-xFCjp" src="//datawrapper.dwcdn.net/xFCjp/6/" scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+                )}/>
+              <Route render={(props)=>(
+                <iframe title="Current active funding" aria-label="Table" id="datawrapper-chart-H5Js1" src="//datawrapper.dwcdn.net/H5Js1/1/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+              )}/>
+            </Switch>
       		</div>
           <div className="margin-top-35 margin-bottom-60" dangerouslySetInnerHTML={{__html: transparency_table.paragraph[0] }} />
         </div>
@@ -247,22 +258,24 @@ export default class OurFunding extends Component {
     return (
       <div className="home__panels__content">
         <Nav />
-        <Route path="/our-funding/" exact render={(props)=>( <OurFundingMain data={results.data} dataScript={results.data_project_external_script}/> )}/>
-        <Route path="/our-funding/our-funders/" render={(props)=>( <OurFunderLists data={this.findSubpage('our-funders').data} heading={this.findSubpage('our-funders').title}/> )}/>
-        <Route path="/our-funding/corporate-circle/" render={(props)=>( <FunderLists data={this.findSubpage('corporate-circle').data} /> )}/>
-        <Route path="/our-funding/new-america-councils/" render={(props)=>( <Councils data={this.findSubpage('new-america-councils').data} /> )}/>
-        <Route path="/our-funding/donate/" exact render={(props)=>(
-          <div className="container--1080 margin-80">
-            <div className="row gutter-20">
-              <article className="col-md-7 post-body home__panel__body__text">
-              <div className="margin-bottom-35">
-                <a className="button" href={donate.data.donate.button[0].button_link}>{donate.data.donate.button[0].button_text}</a>
+        <Switch>
+          <Route exact path="/our-funding/our-funders/" render={(props)=>( <OurFunderLists data={this.findSubpage('our-funders').data} heading={this.findSubpage('our-funders').title}/> )}/>
+          <Route exact path="/our-funding/corporate-circle/" render={(props)=>( <FunderLists data={this.findSubpage('corporate-circle').data} /> )}/>
+          <Route exact path="/our-funding/new-america-councils/" render={(props)=>( <Councils data={this.findSubpage('new-america-councils').data} /> )}/>
+          <Route exact path="/our-funding/donate/" render={(props)=>(
+            <div className="container--1080 margin-80">
+              <div className="row gutter-20">
+                <article className="col-md-7 post-body home__panel__body__text">
+                <div className="margin-bottom-35">
+                  <a className="button" href={donate.data.donate.button[0].button_link}>{donate.data.donate.button[0].button_text}</a>
+                </div>
+                <div dangerouslySetInnerHTML={{__html: donate.data.donate.paragraph[0] }} />
+                </article>
               </div>
-              <div dangerouslySetInnerHTML={{__html: donate.data.donate.paragraph[0] }} />
-              </article>
             </div>
-          </div>
-        )}/>
+          )}/>
+          <Route render={(props)=>( <OurFundingMain data={results.data} dataScript={results.data_project_external_script}/> )}/>
+        </Switch>
       </div>
     );
   }

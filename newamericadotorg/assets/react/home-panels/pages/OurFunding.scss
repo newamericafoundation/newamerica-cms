@@ -9,3 +9,15 @@
     color: color(black, base, 1);
   }
 }
+
+.our-funding__nav--chart-tabs {
+  padding-left: 0;
+  h5 {
+    margin: 0 0 1em;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+  li a {
+    padding-bottom: 3px;
+  }
+}
