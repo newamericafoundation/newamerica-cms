@@ -20,6 +20,7 @@ script:
 - python manage.py migrate --noinput --settings=newamericadotorg.settings.test
 - python manage.py test --noinput --settings=newamericadotorg.settings.test
 deploy:
+  provider: heroku
   api_key:
     secure: lk+Hz2BpV+/fCOHR0UkxS8fwRZI+0BLgDteWeyRtdHaQ9buRRtm1PEAbD+WXvemqH1qDe1sKdxkGLsfV1kdyil4uQ1eutg7YYM2ZYHUtml6qSOgykayEuvK/+yUTaE64ZhiZaf9oJVFNJTjBxW7YW790Oxxow3v/Jve0iR/zgmJU0j04qqaMp+XdF2QsdUFdKHC9dQiQESuVw4ugtpsaka0wvLL+fPs2d1TlkBnJjWFJqNgBUVyfejl7gsTzm/DgOVeiqQD1fkectobvu93fKYu3PFbrZTYYq2ag8DZe0FJ1fv6q4QDslPHJtwVQwzbSmP2MBWXFhq86+JZ8mmX/rRvBI6pdbiWSq8gS6pVS0RZDwC+/1vOEhchBcA9Sks80f7Zsoa6bqFpAMR86gRzsYNtHHzmCuH76difPTrT3ReS+pNkeFexSaDYKRJqTv+a228pqcnyH48MUjERasn5hX9FYdezTVEDtbN0qSwvlWYBkGPfOqUoABbh+DQF2I7TQo9NkEsrdQHxru3U9LAku8JEvzaxoyKtPzWpgv2CAN15ZqB71290DHALsxeZI0cBAipRF/sW4a3Q2qxnNUcyw4wmpjrd07/AScj8LnCvbB7DdL76JWpIu/KKX61Yi4ai8kFmKkoLYN5WPGi3m+YB+EkLLwi6pf4+q5hUKCYmLq6M=
     app:
