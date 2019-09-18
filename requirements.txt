@@ -9,7 +9,7 @@ cssselect==0.9.1
 decorator==4.0.9
 dj-database-url==0.3.0
 dj-static==0.0.6
-Django==1.11.16
+Django==1.11.24
 django-appconf==1.0.1
 django-assets==0.12
 django-compressor==2.0
@@ -101,7 +101,7 @@ django-htmlmin==0.10.0
 django-redis==4.8.0
 django-ipware==2.0.1
 celery==4.1.0
-kombu==4.0.2
+kombu==4.6.4
 billiard==3.5.0.2
 amqp==2.1.4
 vine==1.1.3
