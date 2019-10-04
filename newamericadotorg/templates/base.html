@@ -34,8 +34,9 @@
   <meta name="twitter:description" content="{% firstof page.search_description page.story_excerpt %}" />
 
   {% if page.story_image %}
-    <meta property="og:image" content='https://s3.amazonaws.com/newamericadotorg/{{ page.story_image.file.name }}' />
-    <meta name="twitter:image" content='https://s3.amazonaws.com/newamericadotorg/{{ page.story_image.file.name }}' />
+    {% image page.story_image fill-1200x630 as og_image %}
+    <meta property="og:image" content='https://s3.amazonaws.com/newamericadotorg/{{ og_image.file.name }}' />
+    <meta name="twitter:image" content='https://s3.amazonaws.com/newamericadotorg/{{ og_image.file.name }}' />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@NewAmerica">
   {% endif %}
