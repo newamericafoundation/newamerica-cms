@@ -112,9 +112,9 @@ module.exports = env => {
         'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
       }),
       new HtmlWebpackPlugin({
-        filename: 'templates/base.html',
+        filename: 'generated-templates/base.html',
         staticUrl: `${process.env.STATIC_URL || ''}/static`,
-        template: 'newamericadotorg/templates/index.html',
+        template: 'newamericadotorg/templates/base.html',
         inject: false,
         serviceWorker: '/static/js/sw.js'
       }),
