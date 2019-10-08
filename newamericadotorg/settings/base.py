@@ -195,7 +195,7 @@ if os.getenv("BASIC_AUTH_ENABLED", "false").lower().strip() == "true":
 
     # This is the list of network IP addresses that are allowed in without
     # basic authentication check.
-    BASIC_AUTH_WHITELISTED_IP_NETWORKS = os.getenv("BASIC_AUTH_WHITELISTED_IP_NETWORKS").split(",")
+    BASIC_AUTH_WHITELISTED_IP_NETWORKS = os.getenv("BASIC_AUTH_WHITELISTED_IP_NETWORKS", "").split(",")
 
     # This is the list of hosts that website can be accessed without basic auth
     # check. This may be useful to e.g. white-list "llamasavers.com" but not
