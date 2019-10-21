@@ -1,4 +1,5 @@
 from time import gmtime, strftime
+from io import BytesIO
 
 from weasyprint import HTML
 from django.template import loader
@@ -6,13 +7,15 @@ import tempfile
 from wagtail.documents.models import get_document_model
 from newamericadotorg.celery import app as celery_app
 from django.apps import apps
-from django.core.files.base import ContentFile
 from wagtail.core.models import PageRevision
 from .utils.docx_save import generate_docx_streamfields
+from .utils.pdf_service import render_pdf
 from django.utils.text import slugify
+
 
 @celery_app.task
 def generate_pdf(report_id):
+    # Generate report HTML
     Report = apps.get_model('report', 'Report')
     report = Report.objects.get(pk=report_id)
     revision = PageRevision.objects.filter(page=report).last().as_page_object()
@@ -20,18 +23,21 @@ def generate_pdf(report_id):
     authors = get_report_authors(revision)
     html = loader.get_template('report/pdf.html').render({ 'page': revision, 'contents': contents, 'authors': authors, 'report': report })
 
-    pdf = HTML(string=html, encoding='utf-8').write_pdf() 
-    content = ContentFile(pdf)
+    # Create a Document with empty file on S3 to hold the PDF
     Document = get_document_model()
     doc = Document(title=report.title)
     last_edited = ' %s.pdf' % strftime('%Y-%m-%d %H:%M:%S', gmtime())
-    doc.file.save(revision.title + last_edited, content)
-    revision.report_pdf = doc
-    revision.generate_pdf_on_publish = False
-    revision.save_revision()
+    doc.file.save(revision.title + last_edited, BytesIO())
+
+    # Submit request to PDF generator
+    upload_successful = render_pdf(html, doc.file.name)
+
+    if upload_successful:
+        revision.report_pdf = doc
+        revision.generate_pdf_on_publish = False
+        revision.save_revision()
 
 
-@celery_app.task
 def write_pdf(response, html, base_url):
     return HTML(string=html, base_url=base_url).write_pdf(response)
 

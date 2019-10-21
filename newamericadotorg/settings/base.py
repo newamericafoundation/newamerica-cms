@@ -180,6 +180,32 @@ else:
 
 # MEDIA_URL = "https://%s/" % '%s.s3.amazonaws.com' % os.getenv('S3_BUCKET_NAME')
 
+
+# Basic authentication settings
+# These are settings to configure the third-party library:
+# https://gitlab.com/tmkn/django-basic-auth-ip-whitelist
+if os.getenv("BASIC_AUTH_ENABLED", "false").lower().strip() == "true":
+    # Insert basic auth as a first middleware to be checked first, before
+    # anything else.
+    MIDDLEWARE.insert(0, "baipw.middleware.BasicAuthIPWhitelistMiddleware")
+
+    # This is the credentials users will have to use to access the site.
+    BASIC_AUTH_LOGIN = os.getenv("BASIC_AUTH_LOGIN", "newamerica")
+    BASIC_AUTH_PASSWORD = os.getenv("BASIC_AUTH_PASSWORD", "")
+
+    # This is the list of network IP addresses that are allowed in without
+    # basic authentication check.
+    BASIC_AUTH_WHITELISTED_IP_NETWORKS = os.getenv("BASIC_AUTH_WHITELISTED_IP_NETWORKS", "").split(",")
+
+    # This is the list of hosts that website can be accessed without basic auth
+    # check. This may be useful to e.g. white-list "llamasavers.com" but not
+    # "llamasavers.production.torchbox.com".
+    if "BASIC_AUTH_WHITELISTED_HTTP_HOSTS" in os.environ:
+        BASIC_AUTH_WHITELISTED_HTTP_HOSTS = os.getenv(
+            "BASIC_AUTH_WHITELISTED_HTTP_HOSTS"
+        ).split(",")
+
+
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "newamericadotorg"

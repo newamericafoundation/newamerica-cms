@@ -101,6 +101,9 @@ REST_FRAMEWORK = {
     )
 }
 
+# PDF Generator
+PDF_GENERATOR_URL = os.getenv('PDF_GENERATOR_URL')
+
 try:
     from .local import *
 except ImportError:
