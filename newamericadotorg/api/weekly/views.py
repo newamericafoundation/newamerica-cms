@@ -17,7 +17,7 @@ class WeeklyList(ListAPIView):
         return sorted(queryset, key=lambda edition: get_edition_number(edition));
 
 class WeeklyDetail(RetrieveAPIView):
-    queryset = WeeklyEdition.objects.all()
+    queryset = WeeklyEdition.objects.live().public()
     serializer_class = WeeklyEditionSerializer
 
 def get_edition_number(edition):

@@ -19,7 +19,7 @@ class Weekly(AbstractContentPage):
     def get_context(self, request):
         context = super(Weekly, self).get_context(request)
 
-        context['latest_edition'] = WeeklyEdition.objects.first()
+        context['latest_edition'] = WeeklyEdition.objects.live().public().first()
         if getattr(request, 'is_preview', False):
             edition_context = context['latest_edition'].get_context(request)
             context['initial_state'] = edition_context['initial_state']
