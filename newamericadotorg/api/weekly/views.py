@@ -5,9 +5,11 @@ from weekly.models import WeeklyEdition
 
 from .serializers import WeeklyEditionSerializer, WeeklyEditionListSerializer
 
+
 class WeeklyPagination(LimitOffsetPagination):
     default_limit = 1000
     max_limit = 1000
+
 
 class WeeklyList(ListAPIView):
     serializer_class = WeeklyEditionListSerializer
@@ -16,9 +18,13 @@ class WeeklyList(ListAPIView):
         queryset = WeeklyEdition.objects.live().public()
         return sorted(queryset, key=lambda edition: get_edition_number(edition));
 
+
 class WeeklyDetail(RetrieveAPIView):
-    queryset = WeeklyEdition.objects.live().public()
     serializer_class = WeeklyEditionSerializer
+
+    def get_queryset(self):
+        return WeeklyEdition.objects.live().public()
+
 
 def get_edition_number(edition):
     if 'edition-' in edition.slug:
