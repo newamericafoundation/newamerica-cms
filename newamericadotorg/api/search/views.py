@@ -13,9 +13,12 @@ class SearchList(ListAPIView):
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
-        results = Page.objects.live().search(search, partial_match=False)
-        query = Query.get(search)
-        query.add_hit()
+        results = Page.objects.live()
+
+        if search:
+            results = results.search(search, partial_match=False)
+            query = Query.get(search)
+            query.add_hit()
 
         # search queryset does not allow .public(). manually exclude restricted pages
         public_results =[]
