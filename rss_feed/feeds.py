@@ -84,7 +84,7 @@ class GenericFeed(Feed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().order_by("-date")[:self.limit]
+        return Post.objects.live().public().order_by("-date")[:self.limit]
 
     def item_title(self, item):
         return item.title
@@ -108,7 +108,7 @@ class ProgramFeed(GenericFeed):
     def get_object(self, request, program):
         return {
             "program": program,
-            "page": Program.objects.live().filter(slug=program).first()
+            "page": Program.objects.live().public().filter(slug=program).first()
         }
 
     def description(self, obj):
@@ -118,13 +118,13 @@ class ProgramFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(parent_programs__slug=obj["program"]).order_by("-date")[:self.limit]
+        return Post.objects.live().public().filter(parent_programs__slug=obj["program"]).order_by("-date")[:self.limit]
 
 class SubprogramFeed(GenericFeed):
     def get_object(self, request, subprogram):
         return {
             "subprogram": subprogram,
-            "page": Subprogram.objects.live().filter(slug=subprogram).first()
+            "page": Subprogram.objects.live().public().filter(slug=subprogram).first()
         }
 
     def description(self, obj):
@@ -134,13 +134,13 @@ class SubprogramFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:self.limit]
+        return Post.objects.live().public().filter(post_subprogram__slug=obj["subprogram"]).order_by("-date")[:self.limit]
 
 class AuthorFeed(GenericFeed):
     def get_object(self, request, author):
         return {
             "author": author,
-            "page": Person.objects.live().filter(slug=author).first()
+            "page": Person.objects.live().public().filter(slug=author).first()
         }
 
     def description(self, obj):
@@ -150,7 +150,7 @@ class AuthorFeed(GenericFeed):
             raise Http404
 
     def items(self, obj):
-        return Post.objects.live().filter(post_author__slug=obj["author"]).order_by("-date")[:self.limit]
+        return Post.objects.live().public().filter(post_author__slug=obj["author"]).order_by("-date")[:self.limit]
 
 
 class ContentFeed(GenericFeed):
@@ -161,14 +161,14 @@ class ContentFeed(GenericFeed):
         return {
             "content_type": content_type,
             "program": program,
-            "page": Page.objects.live().filter(content_type__model=content_type_model(content_type)).first()
+            "page": Page.objects.live().public().filter(content_type__model=content_type_model(content_type)).first()
         }
 
     def items(self, obj):
-        posts = Post.objects.live().filter(content_type__model=obj["content_type"]).order_by('-date')
+        posts = Post.objects.live().public().filter(content_type__model=obj["content_type"]).order_by('-date')
 
         if obj["program"] is not None:
-            programs = Program.objects.live()
+            programs = Program.objects.live().public()
             acceptable_programs = [p.slug for p in programs]
 
             if obj["program"] not in acceptable_programs:
@@ -181,11 +181,11 @@ class EventFeed(GenericFeed):
     def get_object(self, request, tense=None):
         return {
             "tense": tense,
-            "page": Page.objects.live().filter(content_type__model='alleventshomepage').first()
+            "page": Page.objects.live().public().filter(content_type__model='alleventshomepage').first()
         }
 
     def items(self,obj):
-        posts = Event.objects.live()
+        posts = Event.objects.live().public()
         if obj['tense']:
             today = datetime.now().date()
             if obj['tense'] == 'future':
@@ -203,11 +203,11 @@ class EventProgramFeed(GenericFeed):
         return {
             "tense": tense,
             "program": program,
-            "page": Page.objects.live().filter(content_type__model='alleventshomepage').first()
+            "page": Page.objects.live().public().filter(content_type__model='alleventshomepage').first()
         }
 
     def items(self,obj):
-        posts = Event.objects.live()
+        posts = Event.objects.live().public()
         if obj['tense']:
             today = datetime.now().date()
             if obj['tense'] == 'future':
@@ -220,7 +220,7 @@ class EventProgramFeed(GenericFeed):
              posts.order_by("-date","-state_time")
 
         if obj["program"] is not None:
-            programs = Program.objects.live()
+            programs = Program.objects.live().public()
             acceptable_programs = [p.slug for p in programs]
 
             if obj["program"] not in acceptable_programs:
