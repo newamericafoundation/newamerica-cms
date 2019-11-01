@@ -13,7 +13,7 @@ class SearchList(ListAPIView):
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
-        results = Page.objects.live().search(search)
+        results = Page.objects.live().search(search, partial_match=False)
         query = Query.get(search)
         query.add_hit()
 
