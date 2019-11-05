@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
             for r in i.renditions.all():
                 try:
-                    print('downloading ' + r.file.name + '...')
-                    s3.Bucket(BUCKET_NAME).download_file(r.file.name, 'media/' + r.file.name)
+                    print('deleting rendition ' + r.file.name + '...')
+                    r.delete()
                 except botocore.exceptions.ClientError as e:
                     print('The object: ' + r.file.name + ' does not exist')
