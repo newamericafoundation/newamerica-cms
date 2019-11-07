@@ -64,7 +64,7 @@ pyflakes==1.0.0
 python-dateutil==2.5.3
 python-postmark==0.4.9
 pytz>=2016.10
-PyYAML==3.11
+PyYAML==5.1
 rcssmin==1.0.6
 requests-cache==0.4.12
 rjsmin==1.0.12
