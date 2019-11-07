@@ -8,9 +8,6 @@ import { LoadingDots } from '../components/Icons';
 const OurStory = React.lazy(() =>
   import(/* webpackChunkName: "na-our-story" */ './pages/OurStory')
 );
-const ShareOurSpace = React.lazy(() =>
-  import(/* webpackChunkName: "na-share-our-space" */ './pages/ShareOurSpace')
-);
 const PressRoom = React.lazy(() =>
   import(/* webpackChunkName: "na-press-room" */ './pages/PressRoom')
 );
@@ -57,10 +54,6 @@ class Routes extends Component {
           render={_props => <OurStory {...props} {..._props} />}
         />
         <Route
-          path="/share-our-space/"
-          render={_props => <ShareOurSpace {...props} {..._props} />}
-        />
-        <Route
           path="/press-room/"
           render={_props => <PressRoom {...props} {..._props} />}
         />
@@ -97,7 +90,7 @@ class APP extends Component {
               render={() => <Response name="meta" component={Subscribe} />}
             />
             <Route
-              path="/(jobs|our-story|share-our-space|press-room|our-funding)/"
+              path="/(jobs|our-story|press-room|our-funding)/"
               render={props => (
                 <Fetch
                   endpoint={`home/${pageId}`}
