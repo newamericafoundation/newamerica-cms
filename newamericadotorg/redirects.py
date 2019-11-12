@@ -10,3 +10,9 @@ def dual_language_learners(request, **kwargs):
     path[2] = 'english-learners'
     url = '/'.join(path)
     return redirect(url)
+
+def digi(request, **kwargs):
+    path = request.path.split('/')
+    path[1] = 'digi'
+    url = '/'.join(path)
+    return redirect(url)
