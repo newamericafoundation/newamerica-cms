@@ -1,5 +1,51 @@
 .timeline__category-legend {
 	text-align: center;
+	li {
+		display: inline-block !important;
+		list-style: none !important;
+	}
+
+	h5 {
+		margin-top: 0 !important;
+		font-family: $label-font-family !important;
+	}
+
+	.list-view & {
+		text-align: left;
+	}
+
+	&__item {
+		padding: 0px 10px;
+		position: relative;
+		cursor: pointer;
+	}
+
+	&__color-swatch-container, &__text {
+		float: left;
+	}
+
+	&__color-swatch-container {
+		position: relative;
+		margin-top: 2px;
+	}
+
+	&__text {
+		padding-left: 5px;
+		font-size: $subtext-size;
+		margin-bottom: 0px;
+		text-decoration: line-through;
+		.active & {
+			text-decoration: none;
+		}
+
+		&:hover {
+			opacity:.7 !important;
+		}
+	}
+}
+
+.timeline__category-legend {
+	text-align: center;
 
 	.list-view & {
 		text-align: left;
