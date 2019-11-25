@@ -132,7 +132,7 @@ export const receiveTemplate = (component, template) => ({
 export const fetchData = (component, callback=()=>{}, operation='replace', tries=0) => (dispatch,getState) => {
   let state = getNestedState(getState(), component);
   let url = generateUrl(state.params)
-  let request = `${url.pathname}${url.searchParams.toString()}`;
+  let request = `${url.pathname}${url.searchParams.toString()}-withnextprevparams`;
   let cachedResponse = cache.get(request);
 
   if(cachedResponse){

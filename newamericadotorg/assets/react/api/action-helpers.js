@@ -28,7 +28,9 @@ export const parseResponse = (json) => {
 
   return {
     hasNext, hasPrevious, page, results, count, error: json.error,
-    message: json.message
+    message: json.message,
+    nextParams: json.next ? new URL(json.next).searchParams : null,
+    prevParams: json.previous ? new URL(json.previous).searchParams : null,
   }
 };
 

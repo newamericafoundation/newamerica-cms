@@ -40,10 +40,10 @@ class Fellows extends Component {
 
 class InfiniteFellowsList extends Component {
   nextPage = () => {
-    let { setQueryParam, fetchAndAppend, response } = this.props;
+    let { setQuery, fetchAndAppend, response } = this.props;
     if(!response.hasNext) return false;
 
-    setQueryParam('page', response.page+1);
+    setQuery(response.nextParams);
     return fetchAndAppend;
   }
 
