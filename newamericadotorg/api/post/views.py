@@ -18,7 +18,7 @@ class PostCursorPagination(CursorPagination):
     page_size = 25
     page_size_query_param = 'page_size'
     max_page_size = 200
-    ordering = '-date'
+    ordering = '-first_published_at'
 
 
 class PostFilter(FilterSet):
