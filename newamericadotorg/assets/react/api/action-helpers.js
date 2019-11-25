@@ -1,5 +1,3 @@
-import cache from '../cache';
-
 export const parseResponse = (json) => {
   let results, hasNext, hasPrevious, page, count;
   if(json.results){
@@ -40,11 +38,4 @@ export const generateUrl = (params) => {
     url.searchParams.append(k, params.query[k]);
 
     return url;
-}
-
-export const handleResponse = (response, dispatch, callback) => {
-
-
-
-  
 }

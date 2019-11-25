@@ -8,7 +8,7 @@ import {
 } from './constants';
 
 import getNestedState from '../../lib/utils/get-nested-state';
-import { handleResponse, generateUrl, parseResponse } from './action-helpers';
+import { generateUrl, parseResponse } from './action-helpers';
 import cache from '../cache';
 
 export const setParams = (component, {endpoint, query, baseUrl}) => ({
