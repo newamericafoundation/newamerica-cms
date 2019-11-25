@@ -61,19 +61,19 @@ class PostAPITests(APITestCase):
         url = '/api/post/'
         response = self.client.get(url)
 
-        self.assertEqual(response.json()['count'], 21)
+        self.assertEqual(len(response.json()['results']), 21)
 
     def test_get_reports(self):
         url = '/api/post/?content_type=report'
         response = self.client.get(url)
 
-        self.assertEqual(response.json()['count'], 11)
+        self.assertEqual(len(response.json()['results']), 11)
 
     def test_other_content_by_title(self):
         url = '/api/post/?other_content_type_title=Test%20Contents'
         response = self.client.get(url)
 
-        self.assertEqual(response.json()['count'], 5)
+        self.assertEqual(len(response.json()['results']), 5)
 
     def test_other_content_by_title_and_category(self):
         other_content_page = ProgramOtherPostsPage.objects.first()
@@ -92,7 +92,7 @@ class PostAPITests(APITestCase):
         url = '/api/post/?other_content_type_title=Test%20Contents&category=Foo'
         response = self.client.get(url)
 
-        self.assertEqual(response.json()['count'], 1)
+        self.assertEqual(len(response.json()['results']), 1)
 
     def test_author_serialization(self):
         blog_post = BlogPost.objects.first()
