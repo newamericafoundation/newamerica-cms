@@ -1,5 +1,3 @@
-import cache from '../cache';
-
 export const parseResponse = (json) => {
   let results, hasNext, hasPrevious, page, count;
   if(json.results){
@@ -30,7 +28,9 @@ export const parseResponse = (json) => {
 
   return {
     hasNext, hasPrevious, page, results, count, error: json.error,
-    message: json.message
+    message: json.message,
+    nextParams: json.next ? new URL(json.next).searchParams : null,
+    prevParams: json.previous ? new URL(json.previous).searchParams : null,
   }
 };
 
@@ -40,11 +40,4 @@ export const generateUrl = (params) => {
     url.searchParams.append(k, params.query[k]);
 
     return url;
-}
-
-export const handleResponse = (response, dispatch, callback) => {
-
-
-
-  
 }

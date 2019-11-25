@@ -11,13 +11,28 @@ const paramsState = {
   baseUrl: BASEURL, endpoint: 'post', query: {}
 }
 
+function ensureQueryIsObject(query) {
+  // The internal state uses an object to represent query parameters at the moment
+  // This function ensures any URLSearchParams are converted to objects
+
+  if (query instanceof URLSearchParams) {
+    const queryObj = {};
+    query.forEach((value, key) => {
+      queryObj[key] = value;
+    });
+    return queryObj;
+  }
+
+  return query
+}
+
 export const params = (state=paramsState, action) => {
   switch(action.type) {
     case SET_PARAMS:
       return {
         baseUrl: action.baseUrl || state.baseUrl,
         endpoint: action.endpoint || state.endpoint,
-        query: (action.query ? { ...state.query, ...action.query } : state.query)
+        query: (action.query ? { ...state.query, ...ensureQueryIsObject(action.query) } : state.query)
       };
     case SET_QUERY_PARAM:
       return {
@@ -32,7 +47,7 @@ export const params = (state=paramsState, action) => {
         ...state,
         query: {
           ...state.query,
-          ...action.query
+          ...ensureQueryIsObject(action.query)
         }
       };
     case RESET_QUERY:
@@ -160,9 +175,27 @@ export const hasPrevious = (state=false, action) => {
 export const page = (state=1, action) => {
   switch(action.type){
     case SET_RESPONSE:
-      return action.response.page;
+      return action.response.page || 1;
     case SET_PAGE:
       return action.page;
+    default:
+      return state;
+  }
+}
+
+export const nextParams = (state=null, action) => {
+  switch(action.type){
+    case SET_RESPONSE:
+      return action.response.nextParams;
+    default:
+      return state;
+  }
+}
+
+export const prevParams = (state=null, action) => {
+  switch(action.type){
+    case SET_RESPONSE:
+      return action.response.prevParams;
     default:
       return state;
   }
@@ -194,6 +227,8 @@ const reducers = {
   hasPrevious,
   count,
   page,
+  nextParams,
+  prevParams,
   isFetching,
   hasResults
 }

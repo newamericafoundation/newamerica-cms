@@ -59,9 +59,8 @@ export default class Publications extends PublicationsWrapper {
 
     let initQuery = {
       [program_id]: program.id,
-      image_rendition: 'fill-300x230',
+      story_image_rendition: 'small',
       page_size: 8,
-      page: 1
     }
 
     let params = new URLSearchParams(location.search.replace('?', ''));

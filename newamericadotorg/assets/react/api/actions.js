@@ -8,7 +8,7 @@ import {
 } from './constants';
 
 import getNestedState from '../../lib/utils/get-nested-state';
-import { handleResponse, generateUrl, parseResponse } from './action-helpers';
+import { generateUrl, parseResponse } from './action-helpers';
 import cache from '../cache';
 
 export const setParams = (component, {endpoint, query, baseUrl}) => ({
@@ -132,7 +132,7 @@ export const receiveTemplate = (component, template) => ({
 export const fetchData = (component, callback=()=>{}, operation='replace', tries=0) => (dispatch,getState) => {
   let state = getNestedState(getState(), component);
   let url = generateUrl(state.params)
-  let request = `${url.pathname}${url.searchParams.toString()}`;
+  let request = `${url.pathname}${url.searchParams.toString()}-withnextprevparams`;
   let cachedResponse = cache.get(request);
 
   if(cachedResponse){
