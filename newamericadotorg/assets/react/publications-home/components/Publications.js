@@ -37,7 +37,6 @@ export default class Publications extends Component {
     let initQuery = {
       story_image_rendition: 'small',
       page_size: 8,
-      page: 1
     }
 
     let params = new URLSearchParams(location.search.replace('?', ''));

@@ -2,6 +2,7 @@ from django_filters import CharFilter, DateFilter
 from django_filters.rest_framework import FilterSet, DjangoFilterBackend
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
+from rest_framework.pagination import CursorPagination
 
 from wagtail.core.models import Page
 
@@ -12,6 +13,14 @@ from event.models import Event
 
 from .serializers import PostSerializer
 
+
+class PostCursorPagination(CursorPagination):
+    page_size = 25
+    page_size_query_param = 'page_size'
+    max_page_size = 200
+    ordering = '-date'
+
+
 class PostFilter(FilterSet):
     id = CharFilter(field_name='id', lookup_expr='iexact')
     program_id = CharFilter(field_name='parent_programs__id', lookup_expr='iexact')
@@ -21,15 +30,16 @@ class PostFilter(FilterSet):
     after = DateFilter(field_name='date', lookup_expr='gte')
     before = DateFilter(field_name='date', lookup_expr='lte')
 
-
     class Meta:
         model = Post
         fields = ['id', 'program_id', 'subprogram_id', 'before', 'after']
+
 
 class PostList(ListAPIView):
     serializer_class = PostSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
     filter_class = PostFilter
+    pagination_class = PostCursorPagination
 
     def get_queryset(self):
         content_type = self.request.query_params.get('content_type', None)
@@ -60,4 +70,4 @@ class PostList(ListAPIView):
             except:
                 return posts.none()
 
-        return posts.order_by('-date').distinct()
+        return posts.distinct()
