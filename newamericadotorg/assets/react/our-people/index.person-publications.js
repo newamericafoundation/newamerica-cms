@@ -28,7 +28,7 @@ class APP extends Component {
         renderIfNoResults={false}
         initialQuery={{
           page_size: 4,
-          image_rendition: 'fill-300x230',
+          story_image_rendition: 'small',
           author_id: authorId
         }}/>
     );

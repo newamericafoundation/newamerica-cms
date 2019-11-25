@@ -4,11 +4,17 @@ from event.models import Event
 from newamericadotorg.api.helpers import generate_image_url, get_content_type
 from newamericadotorg.api.program.serializers import PostProgramSerializer, PostSubprogramSerializer
 
+
 class EventSerializer(ModelSerializer):
     story_image = SerializerMethodField()
     programs = SerializerMethodField()
     subprograms = SerializerMethodField()
     content_type = SerializerMethodField()
+
+    STORY_IMAGE_RENDITIONS = {
+        'large': 'fill-700x510',
+        'small': 'fill-300x230',
+    }
 
     class Meta:
         model = Event
@@ -19,8 +25,9 @@ class EventSerializer(ModelSerializer):
 
     def get_story_image(self, obj):
         if obj.story_image:
-            rendition = self.context['request'].query_params.get('image_rendition', None)
-            return generate_image_url(obj.story_image, rendition)
+            rendition_name = self.context['request'].query_params.get('story_image_rendition', None)
+            rendition_filter_spec = EventSerializer.STORY_IMAGE_RENDITIONS.get(rendition_name, None)
+            return generate_image_url(obj.story_image, rendition_filter_spec)
 
     def get_programs(self, obj):
         return PostProgramSerializer(obj.parent_programs, many=True).data

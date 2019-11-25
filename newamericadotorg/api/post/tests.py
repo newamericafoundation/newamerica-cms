@@ -145,8 +145,8 @@ class PostAPITests(APITestCase):
         blog_post.story_image = custom_image
         blog_post.save()
 
-        url = '/api/post/?id=%s&image_rendition=width-50' % str(blog_post.id)
+        url = '/api/post/?id=%s&story_image_rendition=small' % str(blog_post.id)
         response = self.client.get(url)
         result = response.json()['results'][0]
 
-        self.assertTrue('width-50.png' in result['story_image'])
+        self.assertTrue('fill-300x230.png' in result['story_image'])
