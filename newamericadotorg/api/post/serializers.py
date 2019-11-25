@@ -29,6 +29,12 @@ class PostSerializer(ModelSerializer):
     programs = SerializerMethodField()
     subprograms = SerializerMethodField()
     authors = SerializerMethodField()
+
+    STORY_IMAGE_RENDITIONS = {
+        'large': 'fill-700x510',
+        'small': 'fill-300x230',
+    }
+
     class Meta:
         model = Post
         fields = (
@@ -41,9 +47,11 @@ class PostSerializer(ModelSerializer):
         return get_content_type(obj)
 
     def get_story_image(self, obj):
-        rendition = self.context['request'].query_params.get('image_rendition', None)
         if obj.story_image:
-            return generate_image_url(obj.story_image, rendition)
+            rendition_name = self.context['request'].query_params.get('story_image_rendition', None)
+            rendition_filter_spec = PostSerializer.STORY_IMAGE_RENDITIONS.get(rendition_name, None)
+            return generate_image_url(obj.story_image, rendition_filter_spec)
+
 
     def get_programs(self, obj):
         return PostProgramSerializer(obj.parent_programs, many=True).data

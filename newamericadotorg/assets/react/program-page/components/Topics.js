@@ -118,7 +118,7 @@ export class Topic extends Component {
               initialQuery={{
                 page_size: 4,
                 topic_id: topic.id,
-                image_rendition: 'fill-300x230'
+                story_image_rendition: 'small'
               }}/>
       </div>
     );

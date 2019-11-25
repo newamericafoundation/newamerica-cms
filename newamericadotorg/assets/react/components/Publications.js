@@ -7,10 +7,10 @@ import { PublicationListItem, Person } from './ContentCards';
 
 export class PublicationsList extends Component {
   loadMore = () => {
-    let { fetchAndAppend, setQueryParam, response } = this.props;
+    let { fetchAndAppend, setQuery, response } = this.props;
     if(!response.hasNext || response.isFetching) return;
     this.isLoadingMore = true;
-    setQueryParam('page', response.page+1);
+    setQuery(response.nextParams);
     fetchAndAppend(this.triggerScrollEvents);
   }
 
