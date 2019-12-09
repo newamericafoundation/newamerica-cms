@@ -6,6 +6,38 @@ from wagtail.search.index import FilterField
 
 
 class QueryCompiler(Elasticsearch2SearchQueryCompiler):
+    # Taken from Elasticsearch 5 backend.
+    # For some reason, the ES2 implementation doesn't like the way we're excluding private pages.
+    def _connect_filters(self, filters, connector, negated):
+        if filters:
+            if len(filters) == 1:
+                filter_out = filters[0]
+            elif connector == 'AND':
+                filter_out = {
+                    'bool': {
+                        'must': [
+                            fil for fil in filters if fil is not None
+                        ]
+                    }
+                }
+            elif connector == 'OR':
+                filter_out = {
+                    'bool': {
+                        'should': [
+                            fil for fil in filters if fil is not None
+                        ]
+                    }
+                }
+
+            if negated:
+                filter_out = {
+                    'bool': {
+                        'mustNot': filter_out
+                    }
+                }
+
+            return filter_out
+
     def get_inner_query(self):
         query = super().get_inner_query()
 
