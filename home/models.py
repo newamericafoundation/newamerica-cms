@@ -554,6 +554,9 @@ class Post(Page):
     subheading = models.TextField(blank=True, null=True)
 
     date = models.DateField("Post date")
+    
+    # A unique string based on the publish date and id, which is set during save
+    ordered_date_string = models.CharField(blank=True, max_length=140)
 
     body = StreamField(BodyBlock(required=False), blank=True, null=True)
 
@@ -624,6 +627,12 @@ class Post(Page):
         return context
 
     def save(self, *args, **kwargs):
+        """
+        this line fills the date ordering field with the publish date
+        plus the post id, to create a unique string by which to order posts
+        """
+        self.ordered_date_string = f'{str(self.date)}-{self.id}'
+
         """
         This save method overloads the wagtailcore Page save method in
         order to ensure that the parent program - post relationship is
