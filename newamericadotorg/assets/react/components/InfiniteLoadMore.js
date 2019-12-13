@@ -17,14 +17,22 @@ const NoResults = () => (
 
 class InfiniteLoadMore extends Component {
   el = null;
-  isInfinite = false;
-  /**
-    dispatched isFetching prop doesn't update quickly enough for onscroll events.
-    as in the next scroll tick happens before isFetching is updated.
-    add isLoadingMore flag that's updated in the right order in the call stack.
-    if content isLoadingMore, do not trigger nextPage
-  **/
-  isLoadingMore = false;
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isInfinite: props.infiniteOnMount === true,
+
+      /**
+        dispatched isFetching prop doesn't update quickly enough for onscroll events.
+        as in the next scroll tick happens before isFetching is updated.
+        add isLoadingMore flag that's updated in the right order in the call stack.
+        if content isLoadingMore, do not trigger nextPage
+      **/
+      isLoadingMore: false,
+    };
+  }
 
   static propTypes = {
     response: PropTypes.object,
@@ -43,16 +51,12 @@ class InfiniteLoadMore extends Component {
     showLoadingDots: true
   }
 
-  componentWillMount() {
-    this.isInfinite = this.props.infiniteOnMount===true ? true : false;
-  }
-
-  componentDidMount(){
-    if(this.isInfinite && !this.isLoadingMore && !this.props.promptToLoadMore)
+  componentDidMount() {
+    if(this.state.isInfinite && !this.state.isLoadingMore && !this.props.promptToLoadMore)
       this.nextPageOnEnd();
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     let { response, promptToLoadMore } = this.props;
     /**
       since we're subscribing to scrollPosition,
@@ -60,14 +64,13 @@ class InfiniteLoadMore extends Component {
       this causes sluggish scrolling when the results array gets large.
       here we check the results and only rerender if we have new data.
     **/
-    if(this.isInfinite && !this.isLoadingMore && !promptToLoadMore)
+    if(nextState.isInfinite && !nextState.isLoadingMore && !promptToLoadMore)
       this.nextPageOnEnd();
 
     if(!response.results) return false;
 
     if(response.results[0] && nextProps.response.results[0]){
       if(JSON.stringify(response.results) !== JSON.stringify(nextProps.response.results)){
-        if(!this.props.infiniteOnMount) this.isInfinite = false;
         return true;
       }
     }
@@ -77,28 +80,36 @@ class InfiniteLoadMore extends Component {
     return response.results.length !== nextProps.response.results.length;
   }
 
+  componentDidUpdate(prevProps) {
+    if(prevProps.response.results[0] && this.props.response.results[0]){
+      if(JSON.stringify(prevProps.response.results) !== JSON.stringify(this.props.response.results)){
+        if(!prevProps.infiniteOnMount) this.setState({ isInfinite: false });
+      }
+    }
+  }
+
   nextPage = () => {
     let { onNextPage } = this.props;
-    if(!this.isLoading){
+    if (!this.state.isLoadingMore) {
       let fetchFn = onNextPage();
       if(!fetchFn) return;
-      this.isLoadingMore = true;
+      this.setState({ isLoadingMore: true });
       if(typeof fetchFn !== 'function')
         console.error('onNextPage prop must return async function with a callback parameter.');
       fetchFn(()=>{
         // give dispatch some time.
-        setTimeout(()=>{ this.isLoadingMore = false;});
+        setTimeout(()=>{ this.setState({ isLoadingMore: false })});
       });
     }
   }
 
   loadMore = () => {
-    if(!this.props.promptToLoadMore) this.isInfinite = true;
+    if(!this.props.promptToLoadMore) this.setState({ isInfinite: true });
     this.nextPage();
   }
 
   nextPageOnEnd = () => {
-    if(!this.el) return;
+    if (!this.el) return;
 
     let { bottomOffset } = this.props;
 
@@ -106,14 +117,15 @@ class InfiniteLoadMore extends Component {
 
     let limit = distanceFromBottomOfView - bottomOffset;
 
-     if(limit > 0)
-       this.nextPage();
-
+    if (limit > 0)
+      this.nextPage();
   }
 
-  render(){
+  render() {
     let { children, className, response, showLoadingDots } = this.props;
-    let classes = `${this.isInfinite ? ' is-infinite' : ''}${this.isLoadingMore ? ' is-loading-more' : '' } ${response.isFetching ? ' is-fetching' : ''}`;
+    let { isInfinite, isLoadingMore } = this.state;
+
+    let classes = `${isInfinite ? ' is-infinite' : ''}${isLoadingMore ? ' is-loading-more' : '' } ${response.isFetching ? ' is-fetching' : ''}`;
 
     return (
       <div
@@ -123,7 +135,7 @@ class InfiniteLoadMore extends Component {
           <NoResults />
         }
         {children}
-        {(response.hasNext && !this.isInfinite && !response.isFetching) &&
+        {(response.hasNext && !isInfinite && !response.isFetching) &&
           <LoadMoreButton onclick={this.loadMore}/>
         }
         {(response.isFetching && showLoadingDots) && <div className="margin-top-35"><LoadingDots /></div> }
