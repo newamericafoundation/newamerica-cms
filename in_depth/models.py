@@ -137,9 +137,6 @@ class InDepthProject(Post):
         context['project_root'] = self
         return context
 
-    def save(self, *args, **kwargs):
-        super(Post, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name = "In-Depth Report"
 
