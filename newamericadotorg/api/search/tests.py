@@ -1,3 +1,4 @@
+import datetime
 from io import StringIO
 
 from django.core import management
@@ -47,6 +48,28 @@ class SearchAPITests(APITestCase):
 
         self.assertNotIn('error', result)
         self.assertEquals(result['count'], 0)
+
+    def test_date_factored_into_ranking(self):
+        for i, post in enumerate(self.posts):
+            post.date = datetime.date.today() - datetime.timedelta(days=i * 30)
+            post.save()
+
+        url = '/api/search/?query=unique query'
+        response = self.client.get(url).json()
+
+        self.assertNotIn('error', response)
+        self.assertEquals(response['count'], 50)
+
+        # Check that posts are returned in descending date order
+        # This is only factored into the regular ranking algorithm, but in
+        # this case all posts have the same title so the only ranking factor is
+        # the date
+        parse_date = lambda date_str: datetime.date(*map(int, date_str.split('-')))
+
+        previous_date = parse_date(response['results'][0]['date'])
+        for result in response['results'][1:]:
+            date = parse_date(result['date'])
+            self.assertTrue(date <= previous_date)
 
     def test_restricted(self):
         for p in self.posts[:25]:
