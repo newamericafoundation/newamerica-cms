@@ -17,7 +17,7 @@ install:
 - travis_retry npm install
 - STATIC_URL="https://fake.io" npm run build:production
 script:
-- python manage.py migrate --noinput --settings=newamericadotorg.settings.test
+- python manage.py makemigrations --check --noinput --settings=newamericadotorg.settings.test
 - python manage.py test --noinput --settings=newamericadotorg.settings.test
 deploy:
   provider: heroku
