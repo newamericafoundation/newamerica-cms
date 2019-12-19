@@ -136,12 +136,19 @@ class MoreStories extends Component {
 
   render(){
     let { response, features, count } = this.props;
+
+    // Filter results to not include features
+    let featuresIds = features.map(feature => feature.id);
+    let results = response.results.filter(result => {
+      return featuresIds.indexOf(result.id) === -1
+    });
+
     return(
         <div className={`masonry ${!isValidBrowser ? 'disabled' : ''}`}>
           {features.map((p,i)=>(
             this.renderGridItem(p,i)
           ))}
-          {response.results.map((f,i)=>(
+          {results.map((f,i)=>(
             this.renderGridItem(f, `more-${i}`)
           ))}
           <InfiniteLoadMore
