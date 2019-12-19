@@ -1,5 +1,4 @@
 import { SET_FEEDBACK, SET_FEEDBACK_TYPE, SET_FEEDBACK_MESSAGE, SET_FEEDBACK_LEVEL, SET_FEEDBACK_EMAIL, RESET_FEEDBACK } from './constants';
-import cache from '../cache';
 import bowser from 'bowser';
 
 const _browser = bowser.getParser(window.navigator.userAgent);
