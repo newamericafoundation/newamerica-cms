@@ -554,6 +554,10 @@ class Post(Page):
     subheading = models.TextField(blank=True, null=True)
 
     date = models.DateField("Post date")
+    
+    # A unique string based on the publish date and id, which is set during save
+    # used to determine ordering for pagination in the "post" api
+    ordered_date_string = models.CharField(blank=True, max_length=140)
 
     body = StreamField(BodyBlock(required=False), blank=True, null=True)
 
@@ -629,25 +633,27 @@ class Post(Page):
         order to ensure that the parent program - post relationship is
         captured even if the user does not select it.
         """
+
+        # This line fills the date ordering field with the publish date
+        # plus the post id, to create a unique string by which to order posts
+        self.ordered_date_string = f'{str(self.date)}-{self.id}'
+
         super(Post, self).save(*args, **kwargs)
 
-        program_title = self.get_ancestors()[2]
-        program = Program.objects.get(
-            slug=program_title.slug
-        )
-
-        if isinstance(program, AbstractProgram):
-            relationship, created=PostProgramRelationship.objects.get_or_create(
-                program=program, post=self
+        program = Program.objects.ancestor_of(self).first()
+        if program:
+            relationship, created = PostProgramRelationship.objects.get_or_create(
+                program=program,
+                post=self
             )
             if created:
                 relationship.save()
 
-        subprogram = self.get_ancestors().type(Subprogram)
-        if subprogram:
-            if isinstance(subprogram, AbstractProgram):
-                relationship, created=PostSubprogramRelationship.objects.get_or_create(
-                    subprogram=subprogram[0].specific, post=self
+            subprogram = Subprogram.objects.ancestor_of(self).first()
+            if subprogram:
+                relationship, created = PostSubprogramRelationship.objects.get_or_create(
+                    subprogram=subprogram[0].specific,
+                    post=self
                 )
                 if created:
                     relationship.save()

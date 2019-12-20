@@ -86,6 +86,7 @@ class HomeTests(WagtailPageTests):
                 date='2016-02-02'
             )
         )
+        self.article.save()
 
         self.program_events_page = self.program_page.add_child(
             instance=ProgramEventsPage(title='OTI Events', slug='oti-events')
@@ -329,3 +330,8 @@ class HomeTests(WagtailPageTests):
         c = Client()
         response = c.get('http://localhost:8000/simple/google')
         self.assertTrue(isinstance(response, HttpResponsePermanentRedirect))
+
+    def test_article_has_correct_ordered_date_string(self):
+        self.assertEqual(
+            self.article.ordered_date_string, f'{str(self.article.date)}-{self.article.id}'
+        )
