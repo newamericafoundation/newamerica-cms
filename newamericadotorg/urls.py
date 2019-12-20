@@ -17,7 +17,6 @@ from newamericadotorg.api.urls import api_urls
 from search.views import search as search_view
 from rss_feed.feeds import GenericFeed, ContentFeed, AuthorFeed, ProgramFeed, SubprogramFeed, EventFeed, EventProgramFeed
 
-import report.views as report_views
 import programs.views as program_views
 
 import newamericadotorg.redirects as redirects
@@ -48,14 +47,6 @@ urlpatterns = [
     url(r'^international-security/future-property-rights/[^.]*$', redirects.future_property_rights),
     url(r'^education-policy/dual-language-learners/[^.]*$', redirects.dual_language_learners),
     url(r'^bretton-woods-ii/[^.]*$', redirects.digi),
-
-    url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
-    url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/render/$', report_views.pdf_render),
-    url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/print/$', report_views.pdf_html),
-    url(r'^(?P<program>[a-zA-z\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/(?P<report_section>[a-zA-Z0-9_\.\-]*)/$', report_views.redirect_report_section),
-    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/pdf/$', report_views.pdf),
-    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/print/$', report_views.pdf_html),
-    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/reports/(?P<report_name>[a-zA-Z0-9_\.\-]*)/(?P<report_section>[a-zA-Z0-9_\.\-]*)/$', report_views.redirect_report_section),
 
     url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/(our-people|events|projects|publications|topics|about|subscribe)/$', program_views.redirect_to_subprogram),
     url(r'^(?P<program>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics|subscribe)/$', program_views.redirect_to_program),

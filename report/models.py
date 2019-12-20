@@ -3,11 +3,15 @@ import json
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
+from django.shortcuts import render, redirect
+from django.template import loader
+from django.http import HttpResponse
 
 from home.models import Post
 from programs.models import AbstractContentPage
 from .blocks import EndnoteBlock, ReportSectionBlock, FeaturedReportSectionBlock
 
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Page, PageRevision
 from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import (
@@ -23,9 +27,10 @@ from wagtail.search import index
 
 from home.models import AbstractHomeContentPage
 
-from report.tasks import generate_pdf, parse_pdf
+from .tasks import generate_pdf, parse_pdf, write_pdf, generate_report_contents, get_report_authors
 
-class Report(Post):
+
+class Report(RoutablePageMixin, Post):
     """
     Report class that inherits from the abstract
     Post model and creates pages for Policy Papers.
@@ -169,6 +174,47 @@ class Report(Post):
 
         if not self.revising and self.generate_pdf_on_publish:
             generate_pdf.apply_async(args=(self.id,))
+
+    # Extra views
+
+    @route(r'pdf/$')
+    def pdf(self, request):
+        if not self.report_pdf:
+            return self.pdf_render(request)
+        url = 'https://s3.amazonaws.com/newamericadotorg/' + self.report_pdf.file.name
+        return redirect(url)
+
+    @route(r'pdf/render/$')
+    def pdf_render(self, request):
+        response = HttpResponse(content_type='application/pdf;')
+        response['Content-Disposition'] = 'inline; filename=%s.pdf' % self.title
+        response['Content-Transfer-Encoding'] = 'binary'
+        protocol = 'https://' if request.is_secure() else 'http://'
+        base_url = protocol + request.get_host()
+
+        contents = generate_report_contents(self)
+        authors = get_report_authors(self)
+
+        html = loader.get_template('report/pdf.html').render({
+            'page': self,
+            'contents': contents,
+            'authors': authors
+        })
+        pdf = write_pdf(response, html, base_url)
+
+        return response
+
+    @route(r'print/$')
+    def print(self, request):
+        contents = generate_report_contents(self)
+        authors = get_report_authors(self)
+
+        return render(request, 'report/pdf.html', context={ 'page': self, 'contents': contents, 'authors': authors })
+
+    @route(r'[a-zA-Z0-9_\.\-]*/$')
+    def section(self, request):
+        # Serve the whole report, subsection routing is handled by React
+        return self.serve(request)
 
     class Meta:
         verbose_name = 'Report'

@@ -109,7 +109,7 @@ const generateAuthors = authors => {
 export const PublicationListItem = ({ post }) => (
   <div
     className={`card list ${
-      post.content_type ? post.content_type.api_name : ''
+      post.content_type ? `card--${post.content_type.api_name}` : ''
     }`}
   >
     <a href={post.url}>
