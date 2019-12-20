@@ -7,7 +7,6 @@ import { SET_FEEDBACK, SET_FEEDBACK_TYPE, SET_FEEDBACK_MESSAGE, SET_FEEDBACK_LEV
 import { Text, TextArea } from '../components/Inputs';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import cache from '../cache';
 import { PlusX } from '../components/Icons';
 import * as REDUCERS from './reducers';
 

@@ -9,7 +9,6 @@ import {
 
 import getNestedState from '../../lib/utils/get-nested-state';
 import { generateUrl, parseResponse } from './action-helpers';
-import cache from '../cache';
 
 export const setParams = (component, {endpoint, query, baseUrl}) => ({
   type: SET_PARAMS,
@@ -133,14 +132,6 @@ export const fetchData = (component, callback=()=>{}, operation='replace', tries
   let state = getNestedState(getState(), component);
   let url = generateUrl(state.params)
   let request = `${url.pathname}${url.searchParams.toString()}-withnextprevparams`;
-  let cachedResponse = cache.get(request);
-
-  if(cachedResponse){
-    callback(cachedResponse);
-    dispatch(setResponse(component, cachedResponse, operation));
-    dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
-    return ()=>{};
-  }
 
   dispatch(setIsFetching(component, true));
   dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: true });
@@ -160,19 +151,10 @@ export const fetchData = (component, callback=()=>{}, operation='replace', tries
       }
       return parseResponse(jsonResponse);
     }).then(json => {
-      if(!window.user.isAuthenticated){
-        try {
-          cache.set(request, json, new Date().getTime() + (1000 * 60 * 5)); // expire in 5 minutes
-        } catch (e){
-          cache.clearAll();
-          cache.set(request, json, new Date().getTime() + (1000 * 60 * 5));
-        }
-      }
       dispatch({ component: 'site', type: 'SITE_IS_LOADING', isLoading: false });
       dispatch(setFetchingSuccess(component));
       callback(json);
       dispatch(setResponse(component, json, operation));
-
     }).catch(function(error) {
       dispatch(setFetchingError(component, error));
       if(tries < 3){

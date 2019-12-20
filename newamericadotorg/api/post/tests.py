@@ -30,6 +30,12 @@ class PostAPITests(APITestCase):
             title="In Depth Project",
             date=str(date.today())
         ))
+        indepthpage.add_child(instance=InDepthProject(
+            title="In Depth Project 2: same date, different id",
+            date=str(date.today())
+        ))
+        for post in InDepthProject.objects.all():
+            post.save()
 
         PostFactory.create_program_content(5,
             program=program,
@@ -37,37 +43,46 @@ class PostAPITests(APITestCase):
             post_type=OtherPost,
             content_page_data={'singular_title': 'Test Content', 'title': 'Test Contents'}
         )
+        for post in OtherPost.objects.all():
+            post.save()
 
         PostFactory.create_program_content(5,
             program=program,
             content_page_type=ProgramBlogPostsPage,
             post_type=BlogPost
         )
+        for post in BlogPost.objects.all():
+            post.save()
 
         PostFactory.create_program_content(5,
             program=program,
             content_page_type=ProgramPolicyPapersPage,
             post_type=PolicyPaper
         )
+        for post in PolicyPaper.objects.all():
+            post.save()
+
 
         PostFactory.create_program_content(5,
             program=program,
             content_page_type=ReportsHomepage,
             post_type=Report
         )
+        for post in Report.objects.all():
+            post.save()
 
 
     def test_get_list(self):
         url = '/api/post/'
         response = self.client.get(url)
 
-        self.assertEqual(len(response.json()['results']), 21)
+        self.assertEqual(len(response.json()['results']), 22)
 
     def test_get_reports(self):
         url = '/api/post/?content_type=report'
         response = self.client.get(url)
 
-        self.assertEqual(len(response.json()['results']), 11)
+        self.assertEqual(len(response.json()['results']), 12)
 
     def test_other_content_by_title(self):
         url = '/api/post/?other_content_type_title=Test%20Contents'
@@ -150,3 +165,15 @@ class PostAPITests(APITestCase):
         result = response.json()['results'][0]
 
         self.assertTrue('fill-300x230.png' in result['story_image'])
+
+    def test_post_ordering(self):
+        url = '/api/post/'
+        response = self.client.get(url)
+        results = response.json()['results']
+
+        results_sorted_by_id = sorted(results, key=lambda post: post['id'], reverse=True)
+
+        self.assertEqual(
+            results,
+            sorted(results_sorted_by_id, key=lambda post: post['date'], reverse=True)
+        )

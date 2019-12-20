@@ -4,7 +4,6 @@ import { camelize, getProps } from '../lib/utils/index';
 import React from 'react';
 import { siteReducer } from './reducers';
 import store from './store';
-import cache from './cache';
 
 class ReactRenderer {
   constructor(store){
