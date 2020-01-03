@@ -84,6 +84,7 @@ export DJANGO_SETTINGS_MODULE=newamericadotorg.settings.dev
 export DATABASE_URL=postgres:///$PROJECT_NAME
 export PGDATABASE=$PROJECT_NAME
 export SECRET_KEY=test
+export ELASTICSEARCH_URL=http://localhost:9200
 
 alias dj="django-admin.py"
 alias djrun="dj runserver 0.0.0.0:8000"

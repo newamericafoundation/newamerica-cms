@@ -1,6 +1,8 @@
 import datetime
+import unittest
 from io import StringIO
 
+from django.conf import settings
 from django.core import management
 from rest_framework.test import APITestCase, APIClient
 from wagtail.core.models import PageViewRestriction
@@ -10,6 +12,11 @@ from test_factories import PostFactory
 
 from blog.models import ProgramBlogPostsPage, BlogPost
 
+
+TEST_ELASTICSEARCH = getattr(settings, "TEST_ELASTICSEARCH", False)
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
 class SearchAPITests(APITestCase):
     @classmethod
     def setUpTestData(cls):
