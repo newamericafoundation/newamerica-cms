@@ -29,7 +29,7 @@ class SearchList(ListAPIView):
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
-        results = exclude_invisible_pages(self.request, Page.objects.live())
+        results = exclude_invisible_pages(self.request, Page.objects.live().descendant_of(self.request.site.root_page, inclusive=True))
 
         if search:
             results = results.search(search, partial_match=False)
