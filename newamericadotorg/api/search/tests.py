@@ -1,5 +1,6 @@
 import datetime
 import unittest
+import random
 from io import StringIO
 
 from django.conf import settings
@@ -57,8 +58,11 @@ class SearchAPITests(APITestCase):
         self.assertEquals(result['count'], 0)
 
     def test_date_factored_into_ranking(self):
-        for i, post in enumerate(self.posts):
-            post.date = datetime.date.today() - datetime.timedelta(days=i * 30)
+        # Seed the random number generators so the generated numbers are deterministic
+        random.seed(a=123456, version=2)
+
+        for post in self.posts:
+            post.date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 200) * 50)
             post.save()
 
         url = '/api/search/?query=unique query'
