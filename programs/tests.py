@@ -76,6 +76,15 @@ class ProgramsTests(WagtailPageTests):
                 date='2016-02-02'
             )
         )
+        self.subprogram_articles_page = self.subprogram_page.add_child(
+            instance=ProgramArticlesPage(title='Subprogram Articles')
+        )
+        self.subprogram_article = self.subprogram_articles_page.add_child(
+            instance=Article(
+                title='Article 2',
+                date='2016-02-03'
+            )
+        )
 
     # Test that a particular child Page type
     # can be created under a parent Page type
