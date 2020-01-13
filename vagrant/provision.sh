@@ -75,7 +75,3 @@ source $VIRTUALENV_DIR/bin/activate
 export PS1="[$PROJECT_NAME \W]\\$ "
 cd $PROJECT_DIR
 EOF
-
-# Install node.js and npm
-curl -sSL https://deb.nodesource.com/setup_12.x | bash -
-apt-get install -y nodejs
