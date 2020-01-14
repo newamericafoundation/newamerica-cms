@@ -6,6 +6,7 @@
 *.env
 *.rdb
 fixture.json
+/.vagrant
 
 
 node_modules
