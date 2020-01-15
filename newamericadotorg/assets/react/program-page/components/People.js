@@ -115,7 +115,7 @@ export default class People extends Component {
             page_size: 300,
             include_fellows: true
           }}/>
-          {(!this.state.showAllFellows && (program.slug == 'fellows' || program.slug == 'ca')) &&
+          {(!this.state.showAllFellows && program.slug == 'ca') &&
             <div className="program__publications-list-load-more margin-top-10">
               <a className={`button`} onClick={this.showAllFellows}>
                 <span className="load-more-label">Former Fellows</span>
@@ -132,6 +132,14 @@ export default class People extends Component {
                 former: true
               }}/>
           }
+          {(program.slug == 'fellows') &&
+            <div className="program__publications-list-load-more margin-top-10">
+              <a className={`button`} href="https://www.newamerica.org/fellows/about/alumni-roster/">
+                <span className="load-more-label">Former Fellows</span>
+              </a>
+            </div>
+          }
+
       </div>
     );
   }
