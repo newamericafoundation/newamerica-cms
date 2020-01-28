@@ -653,7 +653,7 @@ class Post(Page):
             subprogram = Subprogram.objects.ancestor_of(self).first()
             if subprogram:
                 relationship, created = PostSubprogramRelationship.objects.get_or_create(
-                    subprogram=subprogram[0].specific,
+                    subprogram=subprogram.specific,
                     post=self
                 )
                 if created:
