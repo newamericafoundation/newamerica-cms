@@ -16,7 +16,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 #ADMINS = [('Kirk', 'jackson@newamerica.org'), ('Andrew', 'lomax@newamerica.org')]
 
 # Will be changed to final host url
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '.newamerica.org',
+    'na-staging.herokuapp.com'
+]
 
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
