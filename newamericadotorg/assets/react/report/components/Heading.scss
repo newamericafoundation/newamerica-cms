@@ -3,43 +3,43 @@
   padding-bottom: 90px;
 }
 
-.report__heading__title{
+.report__heading__title {
   max-width: 750px;
   width: 90%;
   margin: 0 auto;
 }
 
-.report__heading__authors{
+.report__heading__authors {
   max-width: 365px;
   margin: 0 auto;
 }
 
-.report__cover-image{
+.report__cover-image {
   margin: 0 auto;
   max-width: 1600px;
 
-  &__source {
-    opacity: 0.5;
-    text-align: right;
-    margin: 0 15px;
+  .card__image__background {
+    padding-bottom: 48.461538461%;
+    position: static;
+
+    @include media-breakpoint-down(tablet) {
+      padding-bottom: 75% !important;
+    }
   }
 }
 
-.report__cover-image .card__image__background{
-  padding-bottom: 48.461538461%;
-  position: static;
+.report__cover-image__source {
+  opacity: 0.5;
+  text-align: right;
+  margin: 0 15px;
 }
 
 .report__authors {
   margin-bottom: -30px;
 }
 
-@include media-breakpoint-down(tablet){
-  .report__cover-image .card__image__background {
-    padding-bottom: 75% !important;
-  }
-
-  .post-heading__image img {
+.post-heading__image img {
+  @include media-breakpoint-down(tablet) {
     width: auto;
     height: 100%;
     @include center;
