@@ -113,7 +113,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='customrendition',
             name='filter',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailimages.Filter'),
+            field=models.IntegerField(blank=True, null=True),
         ),
         migrations.AddField(
             model_name='customrendition',
