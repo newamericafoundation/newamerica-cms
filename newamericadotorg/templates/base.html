@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+{% load static %}
 {% load wagtailuserbar  %}
 {% load top_menu %}
 {% load wagtailcore_tags %}
@@ -119,7 +119,7 @@
   <% htmlWebpackPlugin.files.js.forEach(function(filename){ if (!filename.includes("polyfills")) { %>
     <script type="text/javascript" src="<%= filename %>"></script>
   <% }}) %>
-  
+
   {% block extra_js %}
       {# Override this in templates to add extra javascript #}
   {% endblock %}
