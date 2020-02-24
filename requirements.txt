@@ -1,4 +1,4 @@
-Django==1.11.28   # Needs update
+Django==2.1.15   # Needs update
 Wagtail==2.3.0  # Needs update
 
 # Packages that depend on Django version

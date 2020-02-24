@@ -7,7 +7,7 @@ from issue.models import IssueOrTopic
 from other_content.models import ProgramOtherPostsPage, OtherPostCategory
 from policy_paper.models import ProgramPolicyPapersPage
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from wagtail.images.views.serve import generate_signature
 from wagtail.core.models import Page
 from wagtail.images.models import SourceImageIOError

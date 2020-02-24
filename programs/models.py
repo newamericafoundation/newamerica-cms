@@ -15,7 +15,7 @@ from newamericadotorg.blocks import BodyBlock
 from newamericadotorg import api
 
 class SubscriptionProgramRelationship(models.Model):
-    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    subscription_segment = models.ForeignKey(SubscriptionSegment, on_delete=models.CASCADE, related_name="+")
     program = ParentalKey('Program', related_name='subscriptions')
     alternate_title = models.TextField(blank=True)
     panels = [
@@ -24,7 +24,7 @@ class SubscriptionProgramRelationship(models.Model):
     ]
 
 class SubscriptionSubprogramRelationship(models.Model):
-    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    subscription_segment = models.ForeignKey(SubscriptionSegment, on_delete=models.CASCADE, related_name="+")
     subprogram = ParentalKey('Subprogram', related_name='subscriptions')
     alternate_name = models.TextField(blank=True)
     panels = [
@@ -33,7 +33,7 @@ class SubscriptionSubprogramRelationship(models.Model):
     ]
 
 class FeaturedProgramPage(Orderable):
-    page = models.ForeignKey(Page, related_name="+")
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="+")
     program = ParentalKey('Program', related_name='featured_pages')
     featured_image = models.ForeignKey(
         'home.CustomImage',
@@ -49,7 +49,7 @@ class FeaturedProgramPage(Orderable):
     ]
 
 class FeaturedSubprogramPage(Orderable):
-    page = models.ForeignKey(Page, related_name="+")
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="+")
     program = ParentalKey('Subprogram', related_name='featured_pages')
     featured_image = models.ForeignKey(
         'home.CustomImage',
@@ -229,7 +229,7 @@ class Program(AbstractProgram):
 
 # Through relationship for Programs to Subprogram
 class ProgramSubprogramRelationship(models.Model):
-    program = models.ForeignKey(Program, related_name="+")
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="+")
     subprogram = ParentalKey('Subprogram', related_name='programs')
     panels = [
         FieldPanel('program'),

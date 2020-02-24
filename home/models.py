@@ -58,7 +58,7 @@ class CustomImage(AbstractImage):
                  return None
 
 class CustomRendition(AbstractRendition):
-    image = models.ForeignKey(CustomImage, related_name='renditions')
+    image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
 
     class Meta:
         unique_together = (
@@ -78,7 +78,7 @@ class CustomRendition(AbstractRendition):
 #     instance.file.delete(False)
 
 class SubscriptionHomePageRelationship(models.Model):
-    subscription_segment = models.ForeignKey(SubscriptionSegment, related_name="+")
+    subscription_segment = models.ForeignKey(SubscriptionSegment, on_delete=models.CASCADE, related_name="+")
     program = ParentalKey('HomePage', related_name='subscriptions')
     alternate_title = models.TextField(blank=True)
     panels = [
@@ -457,7 +457,7 @@ class PostAuthorRelationship(models.Model):
     Through model that maps the many to many
     relationship between Post and Authors
     """
-    author = models.ForeignKey(Person, related_name="+")
+    author = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="+")
     post = ParentalKey('Post', related_name='authors')
 
     panels = [
@@ -471,7 +471,7 @@ class PostProgramRelationship(models.Model):
     relationship between Post and Programs
     """
 
-    program = models.ForeignKey(Program, related_name="+")
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="+")
     post = ParentalKey('Post', related_name='programs')
 
     panels = [
@@ -491,7 +491,7 @@ class PostSubprogramRelationship(models.Model):
     relationship between Post and Subprograms
     """
 
-    subprogram = models.ForeignKey(Subprogram, related_name="+")
+    subprogram = models.ForeignKey(Subprogram, on_delete=models.CASCADE, related_name="+")
     post = ParentalKey('Post', related_name='subprograms')
 
     panels = [
@@ -501,7 +501,7 @@ class PostSubprogramRelationship(models.Model):
         unique_together = (("subprogram", "post"),)
 
 class PostTopicRelationship(models.Model):
-    topic = models.ForeignKey('issue.IssueOrTopic', related_name="+")
+    topic = models.ForeignKey('issue.IssueOrTopic', on_delete=models.CASCADE, related_name="+")
     post = ParentalKey('home.Post', related_name="topics")
 
     panels = [
@@ -554,7 +554,7 @@ class Post(Page):
     subheading = models.TextField(blank=True, null=True)
 
     date = models.DateField("Post date")
-    
+
     # A unique string based on the publish date and id, which is set during save
     # used to determine ordering for pagination in the "post" api
     ordered_date_string = models.CharField(blank=True, max_length=140)
