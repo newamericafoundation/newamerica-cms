@@ -30,7 +30,3 @@ gunicorn==20.0.4
 
 # Development packages
 Faker==0.9.3  # Needs update
-
-# Overrides
-html5lib<1,>=0.999
-urllib3<1.24,>=1.21.1
