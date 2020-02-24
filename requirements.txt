@@ -10,7 +10,7 @@ django-compressor==2.4
 django-anymail==7.0.0
 django-filter==2.2.0
 logdna==1.5.3
-whitenoise==3.3.1  # Needs update
+whitenoise==5.0.1
 django-redis==4.11.0
 django-basic-auth-ip-whitelist==0.3.3
 
