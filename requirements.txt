@@ -16,7 +16,7 @@ django-basic-auth-ip-whitelist==0.3.3
 
 # Other packages
 Wand==0.5.9
-createsend==4.2.7  # Needs update
+createsend==6.1.0
 psycopg2==2.8.4
 WeasyPrint==51
 python-docx==0.8.10
