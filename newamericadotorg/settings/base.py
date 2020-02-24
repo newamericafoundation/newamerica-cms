@@ -94,9 +94,6 @@ MIDDLEWARE = [
 
     # Gzip/minify
     'django.middleware.gzip.GZipMiddleware',
-
-    'newamericadotorg.log_handlers.LogDNAMiddleware',
-    'newamericadotorg.log_handlers.APIExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'newamericadotorg.urls'
