@@ -2,31 +2,31 @@ Django==1.11.28   # Needs update
 Wagtail==2.3.0  # Needs update
 
 # Packages that depend on Django version
-Celery==4.3.0  # Needs update
-dj-database-url==0.3.0  # Needs update
-django-cors-headers==2.4.1  # Needs update
-django-storages==1.6.6  # Needs update
-django-compressor==2.0  # Needs update
+Celery==4.4.0
+dj-database-url==0.5.0
+django-cors-headers==3.2.1
+django-storages==1.9.1
+django-compressor==2.4
 django-anymail==0.10  # Needs update
-django-filter==2.0  # Needs update
-logdna==1.0.9  # Needs update
-whitenoise==3.0  # Needs update
-django-redis==4.8.0  # Needs update
-django-basic-auth-ip-whitelist==0.2.1  # Needs update
+django-filter==2.2.0
+logdna==1.5.3
+whitenoise==3.3.1  # Needs update
+django-redis==4.11.0
+django-basic-auth-ip-whitelist==0.3.3
 
 # Other packages
-Wand==0.4.5  # Needs update
+Wand==0.5.9
 createsend==4.2.7  # Needs update
 psycopg2==2.8.4
 WeasyPrint==51
 python-docx==0.8.10
-boto3==1.7.84  # Needs update
+boto3==1.12.5
 elasticsearch==2.4.1
-redis==3.3.11  # Needs update
+redis==3.4.1
 
 # Production packages
-newrelic==4.2.0.100  # Needs update
-gunicorn==19.4.5  # Needs update
+newrelic==4.20.1.121  # Needs update
+gunicorn==20.0.4
 
 # Development packages
 Faker==0.9.3  # Needs update
