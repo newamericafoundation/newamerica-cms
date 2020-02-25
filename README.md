@@ -1,8 +1,18 @@
 Custom Content Management System (CMS) built for New America
 
+## Contents
+
+- [Dependencies](#dependencies)
+- [Back-end setup (without Vagrant)](#back-end-setup-without-vagrant)
+- [Back-end setup (with Vagrant)](#back-end-setup-with-vagrant)
+- [Front-end setup](#front-end-setup)
+
+
 ## Dependencies
 
 You may want to use tools like [pyenv](https://github.com/pyenv/pyenv) to manage your Python version and [nvm](https://github.com/nvm-sh/nvm) to manage your Node version.
+
+TODO: many of these are not needed for Vagant setup
 
 - [Homebrew](http://brew.sh/)
 - [Python 3 and pip](https://docs.python-guide.org/starting/install3/osx/), version noted in [.python-version](.python-version)
