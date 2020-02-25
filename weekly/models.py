@@ -29,9 +29,6 @@ class WeeklyArticle(Post):
     parent_page_types = ['Weekly']
     subpage_types = []
 
-    def save(self, *args, **kwargs):
-        super(Post, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name = 'Weekly Article'
 

@@ -73,7 +73,7 @@ class ArticleListing extends Component {
     }
   }
   render(){
-    const { articles, transition, scrollPosition } = this.props;
+    const { articles, transition, scrollPosition, canLoadMore, onLoadMore, isFetching} = this.props;
     const leadArticle = articles[0];
     const otherArticles = this.props.articles.slice(1, this.props.articles.length);
     return(
@@ -98,6 +98,15 @@ class ArticleListing extends Component {
                   <Article key={`article-${i}`} article={a} index={i}/>
                 </div>
               ))}
+              {canLoadMore &&
+              <div className="program__publications-list-load-more margin-top-10">
+                <a className={`button${isFetching ? ' is-fetching' : ''}`} onClick={onLoadMore}>
+                  <span className="load-more-label">Load More</span>
+                  {isFetching && <span className="loading-dots--absolute">
+                    <span>.</span><span>.</span><span>.</span>
+                  </span>}
+                </a>
+              </div>}
             </div>
             <Separator text="Subscribe"/>
             <Subscribe />

@@ -46,8 +46,24 @@ class Routes extends Component {
   componentDidMount(){
     this.setState({ mounted: true });
   }
+  loadMore = () => {
+    let { fetchAndAppend, setQuery, response } = this.props;
+    if(!response.hasNext || response.isFetching) return;
+    this.isLoadingMore = true;
+    setQuery(response.nextParams);
+    fetchAndAppend(this.triggerScrollEvents);
+  }
+  triggerScrollEvents = () => {
+    setTimeout(()=>{
+      this.isLoadingMore = false;
+      this.props.dispatch({
+        type: 'TRIGGER_SCROLL_EVENTS',
+        component: 'site'
+      });
+    });
+  }
   render(){
-    let { response: { results }, location, match } = this.props;
+    let { response: { results, hasNext, isFetching }, location, match } = this.props;
     return (
       <main className={`${isValidBrowser ? 'transition-enabled' : ''}`}>
         <Route path="/weekly/:articleSlug?" render={(props)=>(
@@ -66,7 +82,13 @@ class Routes extends Component {
                 path="/weekly/"
                 exact
                 render={(props)=>(
-                  <ArticleListing transition={this.state.mounted} articles={results} {...props} />
+                  <ArticleListing
+                    transition={this.state.mounted}
+                    articles={results}
+                    canLoadMore={hasNext}
+                    onLoadMore={this.loadMore}
+                    isFetching={isFetching}
+                    {...props} />
                 )}/>
             </Switch>
           </Slide>
@@ -77,17 +99,6 @@ class Routes extends Component {
 }
 
 class APP extends Component {
-  componentDidMount(){
-    if(window.initialState){
-      store.dispatch(setResponse('weekly', {
-        page: 1,
-        hasNext: false,
-        hasPrevious: false,
-        count: 0,
-        results: window.initialState
-      }));
-    }
-  }
   render() {
     return (
       <GARouter>
@@ -96,8 +107,7 @@ class APP extends Component {
             <Redirect to="/weekly/" />
           )} />
           <Route path="/weekly/:articleSlug?/" render={({ location, match }) => {
-            if(window.initialState) return <Response location={location} match={match} name='weekly' component={Routes} />
-              return <Fetch name='weekly'
+            return <Fetch name='weekly'
                 endpoint="weekly"
                 fetchOnMount={true}
                 eager={true}
