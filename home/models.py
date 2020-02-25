@@ -608,7 +608,7 @@ class Post(Page):
     is_creatable = False
 
     search_fields = Page.search_fields + [
-        index.SearchField('body'),
+        index.SearchField('body', boost=0.5),
         index.FilterField('date'),
 
         index.RelatedFields('parent_programs', [
