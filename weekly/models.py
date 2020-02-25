@@ -14,7 +14,7 @@ from home.models import AbstractHomeContentPage
 
 class Weekly(AbstractContentPage):
     parent_page_types = ['home.HomePage']
-    subpage_types = ['WeeklyEdition']
+    subpage_types = ['WeeklyArticle']
 
     def get_context(self, request):
         context = super(Weekly, self).get_context(request)
@@ -31,8 +31,8 @@ class Weekly(AbstractContentPage):
 
 
 class WeeklyEdition(Page):
-    parent_page_types = ['Weekly']
-    subpage_types = ['WeeklyArticle']
+    parent_page_types = []
+    subpage_types = []
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -44,8 +44,9 @@ class WeeklyEdition(Page):
 
         return context
 
+
 class WeeklyArticle(Post):
-    parent_page_types = ['WeeklyEdition']
+    parent_page_types = ['Weekly']
     subpage_types = []
 
     def get_context(self, request):
@@ -63,6 +64,7 @@ class WeeklyArticle(Post):
 
     class Meta:
         verbose_name = 'Weekly Article'
+
 
 class AllWeeklyArticlesHomePage(AbstractHomeContentPage):
     parent_page_types = ['home.HomePage']
