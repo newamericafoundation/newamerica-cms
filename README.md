@@ -16,7 +16,7 @@ You may want to use tools like [pyenv](https://github.com/pyenv/pyenv) to manage
 
 ## Back-end setup (without Vagrant)
 
-See below for instructions on how to set up with Vagrant (easier).
+See [below](#back-end-setup-with-vagrant) for instructions on how to set up with Vagrant (easier).
 
 ### Virtual environment
 
