@@ -111,7 +111,7 @@ def pull_media_from_s3_heroku(c, app_instance):
         c, app_instance, "AWS_SECRET_ACCESS_KEY"
     )
     aws_storage_bucket_name = get_heroku_variable(
-        c, app_instance, "AWS_STORAGE_BUCKET_NAME"
+        c, app_instance, "S3_BUCKET_NAME"
     )
     pull_media_from_s3(
         c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
@@ -192,7 +192,7 @@ def push_media_to_s3_heroku(c, app_instance):
         c, app_instance, "AWS_SECRET_ACCESS_KEY"
     )
     aws_storage_bucket_name = get_heroku_variable(
-        c, app_instance, "AWS_STORAGE_BUCKET_NAME"
+        c, app_instance, "S3_BUCKET_NAME"
     )
     push_media_to_s3(
         c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
@@ -202,7 +202,7 @@ def push_media_to_s3_heroku(c, app_instance):
         c, app_instance, "AWS_SECRET_ACCESS_KEY"
     )
     aws_storage_bucket_name = get_heroku_variable(
-        c, app_instance, "AWS_STORAGE_BUCKET_NAME"
+        c, app_instance, "S3_BUCKET_NAME"
     )
     pull_media_from_s3(
         c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
@@ -229,7 +229,7 @@ def pull_images_from_s3_heroku(c, app_instance):
         c, app_instance, "AWS_SECRET_ACCESS_KEY"
     )
     aws_storage_bucket_name = get_heroku_variable(
-        c, app_instance, "AWS_STORAGE_BUCKET_NAME"
+        c, app_instance, "S3_BUCKET_NAME"
     )
     pull_images_from_s3(
         c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
