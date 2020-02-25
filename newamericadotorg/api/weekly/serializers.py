@@ -1,14 +1,12 @@
-import json
-
 from django.template import loader
 
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
-from wagtail.core.models import PageRevision
 
-from weekly.models import WeeklyEdition, WeeklyArticle
+from weekly.models import WeeklyArticle
 from newamericadotorg.api.author.serializers import AuthorSerializer
 from newamericadotorg.api.helpers import generate_image_url
+
 
 class WeeklyArticleSerializer(ModelSerializer):
     authors = SerializerMethodField()
@@ -45,59 +43,4 @@ class WeeklyArticleSerializer(ModelSerializer):
         fields = (
             'id', 'title', 'date', 'authors', 'body', 'story_image', 'slug',
             'story_excerpt', 'story_image_lg', 'story_image_sm', 'url', 'post'
-        )
-
-class WeeklyEditionListSerializer(ModelSerializer):
-    number = SerializerMethodField()
-
-    class Meta:
-        model = WeeklyEdition
-        fields = ('id', 'slug', 'number', 'url')
-
-    def get_number(self, obj):
-        return obj.title
-
-    def to_representation(self, obj):
-        data = super(WeeklyEditionListSerializer, self).to_representation(obj)
-        first_child = obj.get_children().first().specific
-        if not first_child:
-            return data
-
-        data['title'] = first_child.title
-        data['story_image'] = generate_image_url(first_child.story_image, 'fill-180x180')
-        data['story_excerpt'] = first_child.story_excerpt
-
-        return data
-
-
-    def get_story_image(self, obj):
-        return generate_image_url(obj.story_image, 'fill-180x180')
-
-class WeeklyEditionSerializer(ModelSerializer):
-    articles = SerializerMethodField()
-    title = SerializerMethodField()
-    number = SerializerMethodField()
-
-    def get_articles(self, obj):
-        articles = obj.get_children().type(WeeklyArticle).specific().all()
-        if self.context.get('is_preview'):
-            articles = [PageRevision.objects.filter(page=a).last().as_page_object().specific for a in articles]
-
-        return WeeklyArticleSerializer(articles, many=True, context=self.context).data
-
-    def get_title(self, obj):
-        first_child = obj.get_children().first().specific
-        if not first_child:
-            return obj.title
-
-        return first_child.title
-
-    def get_number(self, obj):
-        return obj.title
-
-    class Meta:
-        model = WeeklyEdition
-        fields = (
-        'id', 'title', 'search_description', 'articles', 'slug', 'first_published_at', 'url',
-        'number', 'title'
         )

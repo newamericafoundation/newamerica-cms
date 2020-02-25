@@ -9,7 +9,7 @@ import { NAME, ID } from './constants';
 import getNestedState from '../../lib/utils/get-nested-state';
 import LoadingIcon from '../components/LoadingIcon';
 import Article from './components/Article';
-import Edition from './components/Edition';
+import ArticleListing from './components/ArticleListing';
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 import bowser from 'bowser';
@@ -50,23 +50,23 @@ class Routes extends Component {
     let { response: { results }, location, match } = this.props;
     return (
       <main className={`${isValidBrowser ? 'transition-enabled' : ''}`}>
-        <Route path="/weekly/:editionSlug/:articleSlug?" render={(props)=>(
-          <Header dispatch={this.props.dispatch} {...props} edition={results} />
+        <Route path="/weekly/:articleSlug?" render={(props)=>(
+          <Header dispatch={this.props.dispatch} {...props} articles={results} />
         )} />
         <TransitionGroup className="weekly-slide-wrapper">
-          <Slide key={match.params.articleSlug ? 'article' : 'edition'}>
+          <Slide key={match.params.articleSlug ? 'article' : 'index'}>
             <Switch location={location}>
               <Route
-                path="/weekly/:editionSlug/:articleSlug/"
+                path="/weekly/:articleSlug/"
                 exact
                 render={(props)=>(
-                  <Article edition={results} {...props} />
+                  <Article articles={results} {...props} />
                 )}/>
               <Route
-                path="/weekly/:editionSlug/"
+                path="/weekly/"
                 exact
                 render={(props)=>(
-                  <Edition transition={this.state.mounted} edition={results} {...props} />
+                  <ArticleListing transition={this.state.mounted} articles={results} {...props} />
                 )}/>
             </Switch>
           </Slide>
@@ -79,7 +79,7 @@ class Routes extends Component {
 class APP extends Component {
   componentDidMount(){
     if(window.initialState){
-      store.dispatch(setResponse('weekly.edition', {
+      store.dispatch(setResponse('weekly', {
         page: 1,
         hasNext: false,
         hasPrevious: false,
@@ -89,20 +89,16 @@ class APP extends Component {
     }
   }
   render() {
-    let { editionId, editionSlug } = this.props;
     return (
       <GARouter>
         <Switch>
           <Route path="/admin/pages/" render={(props) => (
-            <Redirect to={`/weekly/${editionSlug}/`} />
+            <Redirect to="/weekly/" />
           )} />
-          <Route path="/weekly/" exact render={(props) => (
-            <Redirect to={`/weekly/${editionSlug}/`} />
-          )} />
-          <Route path="/weekly/:editionSlug?/:articleSlug?/" render={({ location, match }) => {
-            if(window.initialState) return <Response location={location} match={match} name='weekly.edition' component={Routes} />
-              return <Fetch name='weekly.edition'
-                endpoint={`weekly/${editionId}`}
+          <Route path="/weekly/:articleSlug?/" render={({ location, match }) => {
+            if(window.initialState) return <Response location={location} match={match} name='weekly' component={Routes} />
+              return <Fetch name='weekly'
+                endpoint="weekly"
                 fetchOnMount={true}
                 eager={true}
                 component={Routes}

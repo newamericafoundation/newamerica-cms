@@ -1,4 +1,4 @@
-import './Edition.scss';
+import './ArticleListing.scss';
 
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
@@ -57,7 +57,7 @@ const Subscribe = () => (
 		</div>
 )
 
-class Edition extends Component {
+class ArticleListing extends Component {
   state = {
     scrollPosition: 0
   }
@@ -73,8 +73,9 @@ class Edition extends Component {
     }
   }
   render(){
-    let { edition, transition, scrollPosition } = this.props;
-    let articles = edition.articles.slice(1,edition.articles.length);
+    const { articles, transition, scrollPosition } = this.props;
+    const leadArticle = articles[0];
+    const otherArticles = this.props.articles.slice(1, this.props.articles.length);
     return(
       <CSSTransition
         classNames="weekly-stagger"
@@ -88,12 +89,11 @@ class Edition extends Component {
               <h1 className="centered promo margin-top-0 margin-bottom-25">New America Weekly</h1>
               <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>
             </div>
-            <Separator text={edition.number}/>
-            <div className="row margin-top-25 margin-bottom-35 gutter-10 weekly-edition__articles" key={edition.id}>
+            <div className="row margin-top-25 margin-bottom-35 gutter-10 weekly-edition__articles">
               <div className="col-12">
-                <Lead article={edition.articles[0]} edition={edition} />
+                <Lead article={leadArticle} />
               </div>
-              {articles.map((a,i) => (
+              {otherArticles.map((a,i) => (
                 <div key={`artcile-${i}`} className="col-6 col-md-4">
                   <Article key={`article-${i}`} article={a} index={i}/>
                 </div>
@@ -112,4 +112,4 @@ const mapStateToProps = (state) => ({
   scrollPosition : state.site.scroll.position
 });
 
-export default Edition = connect(mapStateToProps)(Edition);
+export default ArticleListing = connect(mapStateToProps)(ArticleListing);
