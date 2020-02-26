@@ -28,7 +28,7 @@ class ReportDetailSerializer(PostSerializer):
             'id', 'title', 'subheading', 'date', 'content_type', 'featured_sections',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
             'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
-            'search_description', 'data_project_external_script', 'attachments', 'acknowledgments', 'abstract'
+            'search_description', 'data_project_external_script', 'attachments', 'acknowledgments', 'abstract', 'theme_full_bleed'
         )
 
     def get_story_image(self, obj):
