@@ -557,7 +557,7 @@ class Post(Page):
     
     # A unique string based on the publish date and id, which is set during save
     # used to determine ordering for pagination in the "post" api
-    ordered_date_string = models.CharField(blank=True, max_length=140)
+    ordered_date_string = models.CharField(max_length=140)
 
     body = StreamField(BodyBlock(required=False), blank=True, null=True)
 
