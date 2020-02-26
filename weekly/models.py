@@ -58,9 +58,6 @@ class WeeklyArticle(Post):
 
         return context
 
-    def save(self, *args, **kwargs):
-        super(Post, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name = 'Weekly Article'
 
