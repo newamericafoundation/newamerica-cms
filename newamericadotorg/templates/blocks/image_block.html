@@ -12,7 +12,7 @@
 
 {% widthratio value.image.width value.image.height 420 as maxWidth %}
 
-<figure class="figure {{value.align}} {% if value.align == 'centered'%}margin-35 margin-lg-60{% endif %}">
+<figure class="figure {{value.align}} {% if value.align == 'centered'%}margin-35 margin-lg-60{% endif %} {{value.width|temp_image_width_map}}">
   {% if value.figure_number or value.figure_title %}
     <div class="figure__title margin-bottom-15" style="max-width: {{maxWidth}}px;">
       {% if value.figure_number %}
@@ -28,6 +28,8 @@
       <a href="{{ img_original.url }}" target='_blank' >
         {% if value.use_original %}
           <img src="{{img_original.url}}" class="original"/>
+        {% elif value.width == 'width-full'%}
+          <div class="figure__image__background-image" style="background-image: url({{ img.url }});"></div>
         {% else %}
           <img src="{{img.url}}"/>
         {% endif %}
@@ -35,6 +37,8 @@
     {% else %}
       {% if value.use_original %}
         <img src="{{img_original.url}}" class="original"/>
+      {% elif value.width == 'width-full'%}
+        <div class="figure__image__background-image" style="background-image: url({{ img.url }});"></div>
       {% else %}
         <img src="{{img.url}}"/>
       {% endif %}

@@ -94,6 +94,8 @@ class Report(RoutablePageMixin, Post):
         related_name='+'
     )
 
+    theme_full_bleed = models.BooleanField(default=False, help_text="Display bleed image on landing page")
+
     content_panels = [
         MultiFieldPanel([
             FieldPanel('title'),
@@ -119,7 +121,10 @@ class Report(RoutablePageMixin, Post):
 
     endnote_panels = [StreamFieldPanel('endnotes')]
 
-    settings_panels = Post.settings_panels + [FieldPanel('dataviz_src')]
+    settings_panels = Post.settings_panels + [
+        FieldPanel('theme_full_bleed'),
+        FieldPanel('dataviz_src')
+    ]
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),

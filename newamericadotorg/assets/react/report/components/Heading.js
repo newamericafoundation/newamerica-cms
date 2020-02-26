@@ -21,12 +21,28 @@ class Heading extends Component {
     }
     return (
       <React.Fragment>
-        <div className="report__heading container">
+        <div className={`report__heading container ${report.theme_full_bleed && 'report__heading--full-width'}`}>
+          {report.story_image && report.theme_full_bleed &&
+            <div className="report__cover-image report__cover-image--full-width">
+              <div 
+                className="card__image__background-image" 
+                style={{ backgroundImage: `url(${report.story_image.url})`}}
+              ></div>
+
+              {report.story_image.source && (
+                <div className="report__cover-image__source">
+                  <h6 className="caption margin-bottom-0 margin-top-10">
+                    {report.story_image.source}
+                  </h6>
+                </div>
+              )}
+            </div>
+          }
           {/* <div className="report__heading__bug centered margin-bottom-35">
             <Report />
             <h4 className="centered margin-top-5 margin-bottom-0">Report</h4>
           </div> */}
-          <div className="report__heading__programs margin-bottom-35">
+          <div className="report__heading__programs">
             {report.programs.map((p, i) => (
               <h5 className="margin-0 centered" key={`program-${i}`}>
                 <a href={p.url}>{p.name}</a>
@@ -41,7 +57,7 @@ class Heading extends Component {
               </h6>
             )}
           </div>
-          <div className="report__heading__authors centered margin-top-35">
+          <div className="report__heading__authors centered">
             <h6 className="margin-0 centered inline">By: </h6>
             {_authors.map((a, i) => (
               <React.Fragment key={`author-${i}`}>
@@ -68,7 +84,7 @@ class Heading extends Component {
             </h6>
           </div>
         </div>
-        {report.story_image && (
+        {report.story_image && !report.theme_full_bleed && (
           <div className="report__cover-image post-heading__image">
             <div className="post-heading__image__wrapper">
               <Image

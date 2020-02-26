@@ -8,14 +8,18 @@ h2 + .report__body__section__article .block-paragraph:first-child .rich-text:fir
   margin-top: 25px !important;
 }
 
+@mixin report__h2 {
+  font-size: 1.875rem;
+  max-width: 90%;
+  @include media-breakpoint(desktop){
+    max-width: 80%;
+  }
+}
+
 .post_body, .report__body{
-  .block-paragraph, .block-heading{
+  .block-paragraph, .block-heading {
     h2 {
-      font-size: 1.875rem;
-      max-width: 90%;
-      @include media-breakpoint(desktop){
-        max-width: 80%;
-      }
+      @include report__h2;
     }
 
     h3 {
@@ -47,4 +51,9 @@ h2 + .report__body__section__article .block-paragraph:first-child .rich-text:fir
       }
     }
   }
+}
+
+.report__body__section-title, .figure.width-full + .block-paragraph h2 {
+  margin-bottom: 35px;
+  @include report__h2;
 }
