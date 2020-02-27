@@ -39,7 +39,8 @@ class CustomImageBlock(blocks.StructBlock):
 		('initial', 'Auto'),
 		('width-133', 'Medium'),
 		('width-166', 'Large'),
-		('width-200', 'X-Large')
+		('width-200', 'X-Large'),
+		('width-full', 'Full-width'),
 	], default="initial", required=True)
 	use_original = blocks.BooleanBlock(required=False, help_text="check if you do not want image compressed. Should be checked for all figures.")
 	figure_number = blocks.CharBlock(required=False, max_length=3)
