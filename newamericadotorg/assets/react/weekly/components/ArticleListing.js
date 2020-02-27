@@ -12,6 +12,7 @@ import Image from '../../components/Image';
 import Separator from '../../components/Separator';
 import { Text } from '../../components/Inputs'
 import ArticleAuthors from './Authors';
+import { format as formatDate, parseISO } from 'date-fns/esm';
 
 const Lead = ({ article }) => (
   <div className="weekly-edition__lead margin-bottom-60">
@@ -38,7 +39,9 @@ const Article = ({ article, index }) => (
       </h3>
     </a>
     <ArticleAuthors authors={article.authors} />
-
+    {article.date && (
+      <div className="margin-top-10">{formatDate(parseISO(article.date), 'MMM. do, yyyy')}</div>
+    )}
   </div>
 );
 
