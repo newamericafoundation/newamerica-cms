@@ -15,13 +15,13 @@ import ArticleAuthors from './Authors';
 
 const Lead = ({ article }) => (
   <div className="weekly-edition__lead margin-bottom-60">
-    <Link to={article.url}>
+    <a href={article.url}>
       <div className="weekly-edition__lead__image">
         <Image image={article.story_image_lg} />
       </div>
       <h1 className="margin-25">{article.title}</h1>
       <h3 className="margin-25">{article.story_excerpt}</h3>
-    </Link>
+    </a>
     <ArticleAuthors authors={article.authors} />
   </div>
 );
@@ -29,14 +29,14 @@ const Lead = ({ article }) => (
 const Article = ({ article, index }) => (
   <div className="weekly-edition__articles__article margin-bottom-60"
     style={{'transitionDelay': `${600 + 50*index}ms`, 'WebkitTransitionDelay': `${600 + 50*index}ms` }}>
-    <Link to={article.url}>
+    <a href={article.url}>
       <div className="weekly-edition__articles__article__image">
         <Image image={article.story_image_sm} />
       </div>
       <h3 className="margin-15">
         {article.title}
       </h3>
-    </Link>
+    </a>
     <ArticleAuthors authors={article.authors} />
 
   </div>

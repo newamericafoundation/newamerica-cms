@@ -1,1 +1,15 @@
-{% extends "./weekly.html" %}
+{% extends "post_page.html" %}
+
+{% block breadcrumbs %}
+  <div class="weekly-header">
+    <div class="container">
+      <h5 class="weekly-header__button button--text with-caret--left white margin-0">
+        {% if self.get_ancestors|length > 2 %}
+          {% with a=self.get_ancestors %}
+              <a href="{{ a.2.url }}"><u>{{a.2.title }}</u></a>
+          {% endwith %}
+        {% endif %}
+      </h5>
+    </div>
+  </div>
+{% endblock %}
