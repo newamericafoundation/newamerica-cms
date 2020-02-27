@@ -139,3 +139,12 @@ $transition-function-2: 0.5s cubic-bezier(.33,0,.2,1);
     opacity: 0;
   }
 }
+
+
+.program__publications-list-load-more {
+  text-align: right;
+
+  .is-fetching .load-more-label {
+    opacity: 0;
+  }
+}
