@@ -1,8 +1,18 @@
 Custom Content Management System (CMS) built for New America
 
+## Contents
+
+- [Dependencies](#dependencies)
+- [Back-end setup (without Vagrant)](#back-end-setup-without-vagrant)
+- [Back-end setup (with Vagrant)](#back-end-setup-with-vagrant)
+- [Front-end setup](#front-end-setup)
+
+
 ## Dependencies
 
 You may want to use tools like [pyenv](https://github.com/pyenv/pyenv) to manage your Python version and [nvm](https://github.com/nvm-sh/nvm) to manage your Node version.
+
+TODO: many of these are not needed for Vagant setup
 
 - [Homebrew](http://brew.sh/)
 - [Python 3 and pip](https://docs.python-guide.org/starting/install3/osx/), version noted in [.python-version](.python-version)
@@ -14,7 +24,9 @@ You may want to use tools like [pyenv](https://github.com/pyenv/pyenv) to manage
 - Helpful but not required: `fixture.json` from the `Design` folder in Google Drive or a dump of the DB
 
 
-## Back-end setup
+## Back-end setup (without Vagrant)
+
+See [below](#back-end-setup-with-vagrant) for instructions on how to set up with Vagrant (easier).
 
 ### Virtual environment
 
@@ -154,6 +166,28 @@ When you're running the project with everything, including the front-end, set up
 ```bash
 npm start
 ```
+
+## Back-end setup with Vagrant
+
+Make sure you have the latest version of Vagrant installed.
+The base box only works with VirtualBox so you will need that too.
+
+After cloning the site, run the following commands to set up the Vagrant box,
+pull data from staging then launch the web server.
+
+```bash
+vagrant up
+vagrant ssh
+fab pull-staging-data
+djrun
+```
+
+Note that `./manage.py` does work in the box if you want to use it that way,
+it's been aliased to `dj` for convenience. The `djrun` command is an alias of
+`./manage.py runserver 0.0.0.0:8000`.
+
+Within Vagrant, all of PostgreSQL's utilities are all configured and `psql` is
+configured to use the 'newamerica-cms' database by default.
 
 ## Front-end setup
 
