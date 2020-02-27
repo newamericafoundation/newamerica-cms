@@ -27,7 +27,7 @@
       <h6 class="inline margin-0">By:&nbsp;</h6>{% for author in post.post_author.all %}<h6 class="link inline margin-0"><a href="{{author.url}}">{{author.first_name}} {{author.last_name}}</a></h6>{% if forloop.counter == post.authors.all|length|add:"-1" and post.authors.all|length > 2 %}<h6 class="inline margin-0">, and&nbsp;</h6>{% elif forloop.counter == post.authors.all|length|add:"-1" %}<h6 class="inline margin-0">&nbsp;and&nbsp;</h6>{% elif forloop.counter != post.authors.all|length %}<h6 class="inline margin-0">,&nbsp;</h6>{% endif %}{% endfor %}
     </div>
     {% endif %}
-    <h6 class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post.content_type}}</h6>
+    <h6 class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post|model_display_name}}</h6>
   </div>
 
 </div>

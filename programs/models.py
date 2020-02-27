@@ -401,7 +401,7 @@ class PublicationsPage(AbstractContentPage):
 
     def get_template(self, request):
         parent = self.get_parent()
-        if parent.content_type.model == 'program':
+        if issubclass(parent.specific_class, Program):
             return 'programs/publications_page.html'
         return 'home/publications_page.html'
 
