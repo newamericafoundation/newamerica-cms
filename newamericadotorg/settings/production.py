@@ -18,7 +18,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Will be changed to final host url
 ALLOWED_HOSTS = [
     '.newamerica.org',
-    'na-staging.herokuapp.com'
+    'na-staging.herokuapp.com',
+    'na-develop.herokuapp.com',
 ]
 
 SECURE_SSL_REDIRECT = True
