@@ -3,13 +3,14 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-from datetime import date
+from django.db.models import Value as V, F
+from django.db.models.functions import Concat
+
 
 def create_ordered_date(apps, schema_editor):
     Post = apps.get_model('home', 'Post')
-    for post in Post.objects.all().iterator():
-        post.ordered_date_string = f'{str(post.date)}-{post.id}'
-        post.save()
+    Post.objects.all().update(ordered_date_string=Concat(F('date'), V('-'), F('id')))
+
 
 class Migration(migrations.Migration):
 
