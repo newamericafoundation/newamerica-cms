@@ -15,37 +15,21 @@ class WeeklyAPITests(APITestCase):
             slug='weekly'
         ))
 
-        editions = []
-        for i in range(10):
-            edition = weekly_home.add_child(instance=WeeklyEdition(
-                title='Edition %s' % i,
-                slug='edition-%s' % i
-            ))
+        cls.articles = PostFactory.create_content(8,
+            content_page=weekly_home,
+            post_type=WeeklyArticle
+        )
 
-            editions.append(edition)
-
-        articles = []
-        for e in editions:
-            articles_ = PostFactory.create_content(8,
-                content_page=e,
-                post_type=WeeklyArticle
-            )
-
-            articles = articles + articles_
-
-        cls.editions = editions
-
-    def test_edition_list(self):
+    def test_article_list(self):
         url = '/api/weekly/'
         result = self.client.get(url)
         data = result.json()
 
-        self.assertEquals(data['count'], 10)
+        self.assertEqual(len(data['results']), 8)
 
-    def test_edition_detail(self):
-        url = '/api/weekly/%s/' % self.editions[0].id
+    def test_article_detail(self):
+        url = '/api/weekly/%s/' % self.articles[0].id
         result = self.client.get(url)
         data = result.json()
 
-        self.assertEquals(len(data['articles']), 8)
-        self.assertEquals(data['title'], data['articles'][0]['title'])
+        self.assertEqual(data['id'], self.articles[0].id)

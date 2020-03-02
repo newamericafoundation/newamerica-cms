@@ -1,0 +1,9 @@
+$weekly-header-height: 65px;
+
+.weekly-header {
+  background: color(black);
+
+  &__button {
+    line-height: $weekly-header-height;
+  }
+}
