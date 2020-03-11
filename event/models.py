@@ -39,12 +39,14 @@ class Event(Post):
     host_organization = models.TextField(
         default='New America',
         blank=True,
-        null=True
     )
-    street_address = models.TextField(default='740 15th St NW #900')
-    city = models.TextField(default='Washington')
-    state = models.TextField(default='D.C.')
-    zipcode = models.TextField(default='20005')
+    street_address = models.TextField(default='740 15th St NW #900', blank=True)
+    city = models.TextField(default='Washington', blank=True)
+    state = models.TextField(default='D.C.', blank=True)
+    zipcode = models.TextField(default='20005', blank=True)
+    online_only = models.BooleanField(default=False, help_text="Checking this will mean the address is not shown")
+    webcast_url = models.URLField(blank=True)
+    webcast_link_text = models.TextField(blank=True, help_text="Defaults to 'Webcast link'")
     rsvp_link = models.URLField(blank=True)
     soundcloud_url = models.URLField(blank=True, null=True)
 
@@ -56,6 +58,7 @@ class Event(Post):
         FieldPanel('rsvp_link'),
         FieldPanel('host_organization'),
         MultiFieldPanel([
+            FieldPanel('online_only'),
             FieldPanel('street_address'),
             FieldPanel('city'),
             FieldRowPanel([
@@ -63,6 +66,12 @@ class Event(Post):
                 FieldPanel('zipcode', classname='col6')
             ])
         ], heading='Location'),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('webcast_url'),
+                FieldPanel('webcast_link_text'),
+            ])
+        ], heading='Webcast link'),
         FieldPanel('soundcloud_url'),
     ]
 

@@ -44,7 +44,7 @@ export const EventItem = ({ event }) => (
         </h4>
         <h6 className="margin-10">{event.story_excerpt}</h6>
         <h6 className="caption margin-0">
-          {event.city}, {event.state}
+          {event.online_only ? 'Online Only' : [event.city, event.state ].filter(e => e).join(', ')}
         </h6>
       </a>
       <h6 className="event__rsvp button--text link margin-0">

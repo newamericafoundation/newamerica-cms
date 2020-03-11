@@ -25,7 +25,15 @@
         <div class="event-details col-6">
           <h4 class="margin-0">Where</h4>
           <h6 class="paragraph">
-            {{ page.host_organization }}<br/>{{ page.street_address }} {{ page.city }}, {{ page.state }} {{ page.zipcode }}
+            <div>{{ page.host_organization }}</div>
+            <div>
+              {% include 'components/_address_text.html' with address_text=page %}
+            </div>
+            {% if page.webcast_url %}
+              <a class="button--text with-caret--right" href="{{page.webcast_url}}" target="_blank">
+                {{page.webcast_link_text|default:'Webcast link'}}
+              </a>
+            {% endif %}
           </h6>
         </div>
         {% if page.rsvp_link %}

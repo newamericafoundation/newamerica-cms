@@ -1,0 +1,15 @@
+{% if address_text.online_only %}
+  Online Only
+{% elif city_state_only %}
+  {{ address_text.city }}{% if address_text.city and address_text.state %},{% endif %}
+  {{ address_text.state }}
+{% else %}
+  <span style="display:inline-block">
+    {{ address_text.street_address }}
+  </span>
+  <span style="display:inline-block">
+    {{ address_text.city }}{% if address_text.city and address_text.state %},{% endif %}
+    {{ address_text.state }}
+  </span>
+  {{ address_text.zipcode }}
+{% endif %}

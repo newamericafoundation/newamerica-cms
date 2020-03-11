@@ -19,7 +19,9 @@
         <span><u>{% firstof event.seo_title event.title %}</u></span>
       </h4>
       <h6 class="margin-10">{{event.story_excerpt}}</h6>
-      <h6 class="caption margin-0">{{event.city}}, {{event.state}}</h6>
+      <h6 class="caption margin-0">
+        {% include 'components/_address_text.html' with address_text=event city_state_only=True %}
+      </h6>
     </a>
     <div class="event__rsvp">
       <a href="{{event.rsvp_link}}" target="_blank" className="link">
