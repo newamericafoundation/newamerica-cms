@@ -11,6 +11,7 @@ from programs.models import Program, Subprogram
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
 from wagtail.core.models import Page
+from wagtail.core.fields import RichTextField
 
 from home.models import Post
 from conference.models import Conference
@@ -80,6 +81,12 @@ class AllEventsHomePage(RoutablePageMixin, AbstractContentPage):
     """
     parent_page_types = ['home.HomePage']
     subpage_types = ['Event']
+
+    body = RichTextField(blank=True)
+
+    content_panels = AbstractContentPage.content_panels + [
+        FieldPanel('body'),
+    ]
 
     class Meta:
         verbose_name = "Events Homepage"
