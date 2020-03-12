@@ -37,7 +37,7 @@
                     {% include 'components/_address_text.html' with address_text=page %}
                   </div>
                   {% if page.webcast_url %}
-                    <a class="button--text with-caret--right" href="{{page.webcast_url}}" target="_blank">
+                    <a class="button--text with-caret--right" href="{{page.webcast_url}}" target="_blank" rel="noopener noreferrer">
                       {{page.webcast_link_text|default:'Webcast link'}}
                     </a>
                   {% endif %}
@@ -46,7 +46,7 @@
               {% if page.rsvp_link %}
                 {% if not page.is_past %}
                   <div class="post-authors__rsvp margin-top-15">
-                    <a class="button block" href="{{page.rsvp_link}}" target="_blank">RSVP</a>
+                    <a class="button block" href="{{page.rsvp_link}}" target="_blank" rel="noopener noreferrer">RSVP</a>
                   </div>
                 {% endif %}
               {% endif %}

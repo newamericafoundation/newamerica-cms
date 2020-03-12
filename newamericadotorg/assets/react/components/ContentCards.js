@@ -48,7 +48,7 @@ export const EventItem = ({ event }) => (
         </h6>
       </a>
       <h6 className="event__rsvp button--text link margin-0">
-        <a className="with-caret" href={event.rsvp_link} target="_blank">
+        <a className="with-caret" href={event.rsvp_link} target="_blank" rel="noopener noreferrer">
           <u>RSVP</u>
         </a>
       </h6>

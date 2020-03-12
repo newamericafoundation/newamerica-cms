@@ -6,7 +6,7 @@
   <div class="heading-block centered-block align-center">
       <div class="conference__title">
         <div class="na-logo">
-          <a href="http://newamerica.org/" target="_blank">
+          <a href="http://newamerica.org/" target="_blank" rel="noopener noreferrer">
           {% if page.alternate_logo %}
             {% image page.alternate_logo original as alt_logo %}
             <img class="" src="{{alt_logo.url}}" />
@@ -42,7 +42,7 @@
           {% if page.invitation_only %}
             <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button white-outline" style="width:175px;">Request Invitation</a>
           {% elif page.rsvp_link %}
-            <a href="{{page.rsvp_link}}" target="_blank" class="button white-outline" style="width:175px;">Register</a>
+            <a href="{{page.rsvp_link}}" target="_blank" rel="noopener noreferrer" class="button white-outline" style="width:175px;">Register</a>
           {% endif %}
             <a href="#about" class="button white-outline" style="width:175px;">About </a>
         </div>

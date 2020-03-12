@@ -30,7 +30,7 @@
               {% include 'components/_address_text.html' with address_text=page %}
             </div>
             {% if page.webcast_url %}
-              <a class="button--text with-caret--right" href="{{page.webcast_url}}" target="_blank">
+              <a class="button--text with-caret--right" href="{{page.webcast_url}}" target="_blank" rel="noopener noreferrer">
                 {{page.webcast_link_text|default:'Webcast link'}}
               </a>
             {% endif %}

@@ -4,7 +4,7 @@
   <h4>Download</h4>
   <div class="post__attachment__text">
     {% for block in page.attachment %}
-      <a class="post__attachement__text__link" href='{{ block.value.file.url }}' target="_blank">
+      <a class="post__attachement__text__link" href='{{ block.value.file.url }}' target="_blank" rel="noopener noreferrer">
         <h6 class="block">{{ block.value.title }}</h6>
       </a>
     {% endfor %}
