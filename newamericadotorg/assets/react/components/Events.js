@@ -18,7 +18,7 @@ class Upcoming extends Component {
       return (
         <div className="margin-top-60 centered">
           <h6 className="inline">No upcoming events. </h6>
-          <h5 className="inline link">
+          <h5 className="link">
             <Link to={{ search: '?period=past' }}>See past events</Link>
           </h5>
           .

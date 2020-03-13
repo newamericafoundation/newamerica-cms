@@ -61,7 +61,7 @@ class Session extends Component {
                     <h4 className="margin-10">
                       {s.name}
                       {s.twitter && (
-                        <a href={s.twitter} target="_blank">
+                        <a href={s.twitter} target="_blank" rel="noopener noreferrer">
                           <i className="fa fa-twitter" />
                         </a>
                       )}
