@@ -193,7 +193,6 @@ export default function Search({location, history}) {
         <button className="button--text input__submit with-caret--right" onClick={onClickSearch}>Search</button>
       </div>
 
-
       <SearchResultList
         results={results}
         isFetching={isFetching}

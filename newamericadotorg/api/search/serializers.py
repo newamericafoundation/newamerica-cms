@@ -10,10 +10,19 @@ from newamericadotorg.api.helpers import generate_image_url, get_content_type
 from newamericadotorg.api.program.serializers import PostProgramSerializer
 from newamericadotorg.api.author.serializers import AuthorSerializer
 
+
+class AncestorSerializer(ModelSerializer):
+
+    class Meta:
+        model = Page
+        fields = ['id', 'title', 'slug', 'url']
+
+
 class SearchSerializer(ModelSerializer):
+    path = SerializerMethodField()
 
     def to_representation(self, obj):
-        data = super(SearchSerializer, self).to_representation(obj)
+        data = super().to_representation(obj)
         obj = obj.specific
 
         if type(obj) == Person:
@@ -29,10 +38,13 @@ class SearchSerializer(ModelSerializer):
         if isinstance(obj, Post):
             data['authors'] = AuthorSerializer(obj.post_author, many=True, context=self.context).data
 
-
         data['content_type'] = get_content_type(obj)
         return data
 
+    def get_path(self, obj):
+        ancestors = obj.get_ancestors().live().filter(depth__gt=2).order_by('depth')
+        return AncestorSerializer(ancestors, many=True).data
+
     class Meta:
         model = Page
-        fields = ('id', 'title', 'slug', 'url', 'search_description')
+        fields = ['id', 'title', 'slug', 'url', 'search_description', 'path']
