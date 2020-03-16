@@ -1,14 +1,19 @@
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html, format_html_join
 from django.conf import settings
+
+from wagtail.admin.rich_text.editors.draftail import features as draftail_features
+from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler, BlockElementHandler
 from wagtail.core import hooks
 from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
+
 
 @hooks.register('construct_whitelister_element_rules')
 def whitelister_element_rules():
     return {
         'blockquote': attribute_rule({'class': True}),
     }
+
 
 @hooks.register('insert_editor_js')
 def editor_js():
@@ -27,6 +32,7 @@ def editor_js():
         </script>
         """
     )
+
 
 @hooks.register('insert_editor_css')
 def editor_css():
@@ -58,35 +64,6 @@ def editor_css():
     ''')
     return format_html('<link rel="stylesheet" href="'+ settings.STATIC_URL + 'css/font-awesome.min.css" type="text/css">')
 
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler, BlockElementHandler
-
-@hooks.register('register_rich_text_features')
-def register_blockquote_feature(features):
-    """
-    Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
-    and is stored as HTML with a `<blockquote>` tag.
-    """
-    feature_name = 'h5'
-    type_ = 'h5'
-    tag = 'h5'
-
-    control = {
-        'type': type_,
-        'description': 'Header 5',
-        'element': 'h5',
-    }
-
-    features.register_editor_plugin(
-        'draftail', feature_name, draftail_features.BlockFeature(control)
-    )
-
-    features.default_features.append(feature_name)
-
-    features.register_converter_rule('contentstate', feature_name, {
-        'from_database_format': {tag: BlockElementHandler(type_)},
-        'to_database_format': {'block_map': {type_: tag}},
-    })
 
 @hooks.register('register_rich_text_features')
 def register_pullquote_feature(features):
@@ -124,13 +101,14 @@ def register_pullquote_feature(features):
         },
     })
 
+
 @hooks.register('register_rich_text_features')
 def register_blockquote_feature(features):
     """
     Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
     and is stored as HTML with a `<blockquote>` tag.
     """
-    feature_name = 'blockquote'
+    feature_name = 'na-blockquote'
     type_ = 'blockquote'
     tag = 'blockquote'
 
