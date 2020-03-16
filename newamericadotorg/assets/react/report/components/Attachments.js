@@ -6,7 +6,7 @@ import { Overlay } from './OverlayMenu';
 
 const Attachment = ({ attachment }) => (
   <div className="report__att">
-    <a href={attachment.url} target="_blank" className="ga-track-click" data-action="download" data-label="report" data-value={attachment.title + '.' + attachment.type}>
+    <a href={attachment.url} target="_blank" rel="noopener noreferrer" className="ga-track-click" data-action="download" data-label="report" data-value={attachment.title + '.' + attachment.type}>
       <div className="report__att__type">
         <h3 className="margin-0">{attachment.type}</h3>
       </div>

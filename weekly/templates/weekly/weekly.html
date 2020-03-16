@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block extra_scripts %}
-  <script>
-    window.initialState = {% if initial_state %}{{ initial_state|safe }}{% else %}null{% endif %};
-  </script>
+
 {% endblock %}
 
 {% block body_id %}na-weekly{% endblock %}
 
 {% block content %}
-  <div id="na-react__weekly" data-edition-slug="{{latest_edition.slug}}" data-edition-id="{{latest_edition.id}}"></div>
+  <div id="na-react__weekly"></div>
 {% endblock %}

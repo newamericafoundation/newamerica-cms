@@ -6,7 +6,6 @@
 }
 
 .weekly-edition {
-  padding-top: 150px;
   padding-bottom: 100px;
   z-index: 1;
 }
@@ -137,6 +136,15 @@ $transition-function-2: 0.5s cubic-bezier(.33,0,.2,1);
   }
 
   .weekly-edition__articles {
+    opacity: 0;
+  }
+}
+
+
+.program__publications-list-load-more {
+  text-align: right;
+
+  .is-fetching .load-more-label {
     opacity: 0;
   }
 }

@@ -1,45 +1,119 @@
 .report__heading {
   padding-top: 90px;
   padding-bottom: 90px;
+
+  &--full-width {
+    max-width: none;
+    padding: 0;
+    height: calc(100vh - 70px - 20px);
+    min-height: 600px;
+    max-height: calc(150vw + 275px);
+    margin-bottom: -20px;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-height: 800px) {
+      height: calc(100vh - 70px - 2.5vh);
+    }
+
+    @media (min-height: 1200px) {
+      height: calc(100vh - 70px - 2.3vh);
+    }
+  }
 }
 
-.report__heading__title{
+.report__heading__programs {
+  margin-bottom: 35px;
+
+  .report__heading--full-width & {
+    margin-bottom: 20px;
+    @media (min-height: 800px) {
+      margin-bottom: 2.5vh;
+    }
+
+    @media (min-height: 1400px) {
+      margin-bottom: 35px;
+    }
+  }
+}
+
+.report__heading__title {
   max-width: 750px;
   width: 90%;
   margin: 0 auto;
 }
 
-.report__heading__authors{
+.report__heading__authors {
   max-width: 365px;
-  margin: 0 auto;
-}
+  margin: 35px auto 0;
 
-.report__cover-image{
-  margin: 0 auto;
-  max-width: 1600px;
+  .report__heading--full-width & {
+    margin-top: 20px;
+    @media (min-height: 800px) {
+      margin-top: 2.5vh;
+    }
 
-  &__source {
-    opacity: 0.5;
-    text-align: right;
-    margin: 0 15px;
+    @media (min-height: 1400px) {
+      margin-top: 35px;
+    }
   }
 }
 
-.report__cover-image .card__image__background{
-  padding-bottom: 48.461538461%;
-  position: static;
+.report__cover-image {
+  margin: 0 auto;
+  max-width: 1600px;
+
+  &--full-width {
+    flex-grow: 1;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 28px;
+    max-width: none;
+
+    @media (min-height: 800px) {
+      padding-bottom: calc(28px - 20px + 2.5vh);
+    }
+
+    @media (min-height: 1200px) {
+      padding-bottom: calc(28px - 20px + 3vh);
+    }
+
+    @include media-breakpoint-down(mobile) {
+      padding-bottom: 40px;
+    }
+  }
+
+  .card__image__background {
+    padding-bottom: 48.461538461%;
+    position: static;
+
+    @include media-breakpoint-down(tablet) {
+      padding-bottom: 75% !important;
+    }
+  }
+}
+
+.card__image__background-image {
+  height: 100%;
+  width: 100%;
+  background-color: #efefef;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.report__cover-image__source {
+  opacity: 0.5;
+  text-align: right;
+  margin: 0 15px;
 }
 
 .report__authors {
   margin-bottom: -30px;
 }
 
-@include media-breakpoint-down(tablet){
-  .report__cover-image .card__image__background {
-    padding-bottom: 75% !important;
-  }
-
-  .post-heading__image img {
+.post-heading__image img {
+  @include media-breakpoint-down(tablet) {
     width: auto;
     height: 100%;
     @include center;

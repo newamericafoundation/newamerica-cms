@@ -54,7 +54,7 @@
           {% if page.invitation_only %}
           <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="pull-right button black register">Request Invitation</a>
           {% elif page.rsvp_link %}
-          <a href="{{page.rsvp_link}}" target="_blank" class="pull-right button black register">Register</a>
+          <a href="{{page.rsvp_link}}" target="_blank" rel="noopener noreferrer" class="pull-right button black register">Register</a>
           {% endif %}
         </div>
       </div>

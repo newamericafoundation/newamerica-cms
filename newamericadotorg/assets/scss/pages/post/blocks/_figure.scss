@@ -18,15 +18,34 @@
   .figure__image, .figure__title, figcaption{
     max-width: none !important;
   }
+
+  &.width-full:first-child {
+    margin-top: 0;
+  }
 }
 
 .figure__image, .na-dataviz{
   width: 100%;
 
-  &.width-200, &.full-width {
+  &.width-200, &.full-width, &.width-full {
      width: 100vw;
      margin-left: calc(-50vw + 50%);
   }
+
+  &.width-full {
+    height: 150vw;
+    max-height: calc(100vh - 255px);
+
+    .figure__image__background-image {
+      height: 100%;
+      width: 100%;
+      background-color: #efefef;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+  
 
   @include media-breakpoint(desktop){
     &.width-133 {

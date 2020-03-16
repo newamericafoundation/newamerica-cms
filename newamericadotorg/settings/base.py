@@ -167,16 +167,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
-MEDIA_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
-S3_MEDIA_DOMAIN = '%s.s3.amazonaws.com' % MEDIA_BUCKET_NAME
 
-if MEDIA_BUCKET_NAME == 'local':
-    MEDIA_URL = '/media/'
-else:
+if 'S3_BUCKET_NAME' in os.environ and os.environ['S3_BUCKET_NAME'] != 'local':
+    MEDIA_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+    S3_MEDIA_DOMAIN = '%s.s3.amazonaws.com' % MEDIA_BUCKET_NAME
     MEDIA_URL = "https://%s/" % S3_MEDIA_DOMAIN
-
-# MEDIA_URL = "https://%s/" % '%s.s3.amazonaws.com' % os.getenv('S3_BUCKET_NAME')
+else:
+    MEDIA_URL = '/media/'
 
 
 # Basic authentication settings

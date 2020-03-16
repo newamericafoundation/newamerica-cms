@@ -44,11 +44,11 @@ export const EventItem = ({ event }) => (
         </h4>
         <h6 className="margin-10">{event.story_excerpt}</h6>
         <h6 className="caption margin-0">
-          {event.city}, {event.state}
+          {event.online_only ? 'Online Only' : [event.city, event.state ].filter(e => e).join(', ')}
         </h6>
       </a>
       <h6 className="event__rsvp button--text link margin-0">
-        <a className="with-caret" href={event.rsvp_link} target="_blank">
+        <a className="with-caret" href={event.rsvp_link} target="_blank" rel="noopener noreferrer">
           <u>RSVP</u>
         </a>
       </h6>

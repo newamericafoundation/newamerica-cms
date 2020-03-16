@@ -91,6 +91,22 @@ ANYMAIL = {
     "MAILGUN_API_KEY": os.getenv('MAILGUN_API_KEY')
 }
 
+# Sentry
+
+if 'SENTRY_DSN' in os.environ:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=os.environ['SENTRY_DSN'],
+        integrations=[DjangoIntegration()],
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
+
+
 # Email backend configuration
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 POSTMARK_SENDER = os.getenv("POSTMARK_SENDER")
