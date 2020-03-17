@@ -187,12 +187,9 @@ export default function Search({location, history}) {
     <div className="home__panels__search container">
       <div className="input margin-bottom-35">
         <input type="text" value={queryInputValue} name="query" onChange={e => setQueryInputValue(e.target.value)} onKeyDown={onKeyDownInSearchBox} required />
-        <h5 className="input__label">
-          <label htmlFor="query">Search</label>
-        </h5>
+        <button className="button--text input__submit with-caret--right" onClick={onClickSearch}>Search</button>
       </div>
 
-      <button className="button" onClick={onClickSearch}>Search</button>
 
       <SearchResultList
         results={results}
