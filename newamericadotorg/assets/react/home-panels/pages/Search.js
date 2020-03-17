@@ -60,10 +60,10 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
   return (
     <div className="program__publications-list-wrapper">
       <div className="program__publications-list">
-          {results.map((post, i) => {
-            if(post.content_type.api_name == 'person')
-              return ( <Person key={`post-${i}`} person={post} /> );
-            return ( <PublicationListItem key={`post-${i}`} post={post} /> );
+          {results.map((result, i) => {
+            if(result.content_type.api_name == 'person')
+              return ( <Person key={`person-${result.id}`} person={result} /> );
+            return ( <PublicationListItem key={`post-${result.id}`} post={result} /> );
           })}
       </div>
       {hasPrevious &&
@@ -192,7 +192,7 @@ export default function Search({location, history}) {
         </h5>
       </div>
 
-      <button class="button" onClick={onClickSearch}>Search</button>
+      <button className="button" onClick={onClickSearch}>Search</button>
 
       <SearchResultList
         results={results}
