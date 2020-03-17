@@ -2,73 +2,81 @@
   -webkit-font-smoothing: antialiased !important;
 }
 
-body, html{
+body, html {
   font-size: 16px;
 }
 
-h1,h2,h3,h4,h5,h6,
-p,blockquote,label,li,figcaption, a{
+.h1, .h2, .h3, .h4, .h5, .h6,
+ h1,  h2,  h3,  h4,  h5,  h6,
+p, blockquote, label, li, figcaption, a {
   color: color(black);
   text-decoration: none;
   text-shadow: 1px 1px 1px color(black, base, 0.004);
   font-weight: normal;
 }
 
-h1,h2,h3,h4,h5,h6{
+.h1, .h2, .h3, .h4, .h5, .h6,
+ h1,  h2,  h3,  h4,  h5,  h6 {
   font-weight: bold;
   &.white{
     color: white !important;
   }
 }
 
-h1, h2{
+.h1, .h2,
+ h1,  h2 {
   font-family: $header-font-family;
 }
 
-h3, h4, h5, h6{
+.h3, .h4, .h5, .h6
+ h3,  h4,  h5,  h6 {
   font-family: $label-font-family;
 }
 
-h1:not(.promo){
-  font-size: 1.875rem;
-  line-height: 1.875rem;
-  letter-spacing: 0.03125rem;
-
-  @include media-breakpoint(tablet){
-    font-size: 2.5rem;
-    line-height: 2.5rem;
-  }
-}
-
-h1.promo {
-  font-size: 2.5rem;
-  line-height: 2.65rem;
-  @include media-breakpoint(tablet){
-    font-size: 4.0625rem;
-    line-height: 4.375rem;
-  }
-}
-
-h1 {
+.h1, 
+ h1 {
   margin-top: 0.875rem;
   margin-bottom: 0.875rem;
+
+  &:not(.promo){
+    font-size: 1.875rem;
+    line-height: 1.875rem;
+    letter-spacing: 0.03125rem;
+  
+    @include media-breakpoint(tablet){
+      font-size: 2.5rem;
+      line-height: 2.5rem;
+    }
+  }
+
+  &.promo {
+    font-size: 2.5rem;
+    line-height: 2.65rem;
+    @include media-breakpoint(tablet){
+      font-size: 4.0625rem;
+      line-height: 4.375rem;
+    }
+  }
 }
 
-h2 {
+.h2,
+ h2 {
   font-size: 1.625rem;
   line-height: 2rem;
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
 
-h3 {
+.h3
+ h3 {
   font-size: 1.125rem;
   line-height: 1.35rem;
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
 }
 
-h4, h5, h6 {
+.h4, .h5, .h6,
+ h4,  h5,  h6 {
   font-size: 0.9375rem;
   line-height: 1.125rem;
 
@@ -81,11 +89,10 @@ h4, h5, h6 {
   }
 }
 
-h4 {
+// .h4 {}
 
-}
-
-h5 {
+.h5,
+ h5 {
   font-variant-numeric: lining-nums;
   font-family: $label-font-family;
   font-size: 0.625rem;
@@ -95,7 +102,8 @@ h5 {
   letter-spacing: 0.0625rem;
 }
 
-h6 {
+.h6,
+ h6 {
   font-weight: normal;
 
   &.bold{
@@ -134,7 +142,7 @@ h6 {
       padding-right: 0.5em;
     }
   }
-  p, a, .rich-text, li{
+  p, a, .rich-text, li {
     margin-top: 0;
     margin-bottom: 0;
     line-height: inherit;
@@ -146,8 +154,7 @@ h6 {
   }
 }
 
-p, .rich-text,
-li{
+p, .rich-text, li {
   font-family: $paragraph-font-family;
   font-size: 1.125rem;
   line-height: 1.9rem;
@@ -171,7 +178,7 @@ li p {
   margin-bottom: 0;
 }
 
-blockquote{
+blockquote {
   margin-left: 50px;
   margin-right: 50px;
   margin-top: 2.5rem;
@@ -285,20 +292,18 @@ label, input, textarea {
   margin-bottom: 0.625rem;
 }
 
-h1 > a,
-h2 > a,
-h3 > a,
-h4 > a,
-h5 > a,
-h6 > a{
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: inherit;
-  font-size: inherit;
-  font-family: inherit;
-  text-decoration: inherit;
-  color: inherit;
-  font-weight: inherit;
+.h1, .h2, .h3, .h4, .h5, .h6,
+ h1,  h2,  h3,  h4,  h5,  h6 {
+  & > a {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    text-decoration: inherit;
+    color: inherit;
+    font-weight: inherit;
+  }
 }
 
 .button--text, .button, .tag, .input label, button{
