@@ -42,6 +42,7 @@
     "moment": "^2.18.1",
     "os": "^0.1.1",
     "prop-types": "^15.5.10",
+    "query-string": "^6.11.1",
     "react": "16.13.0",
     "react-addons-shallow-compare": "^15.6.0",
     "react-document-meta": "^3.0.0-beta.2",
