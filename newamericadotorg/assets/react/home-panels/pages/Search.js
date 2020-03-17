@@ -89,19 +89,11 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
 }
 
 export default function Search({location, history}) {
-  const {query: initialQuery='', ...initialPaginationFilter} = QueryString.parse(location.search);
+  const {query, ...paginationFilter} = QueryString.parse(location.search);
 
-  const [queryInputValue, setQueryInputValue] = useState(initialQuery || '');
-  const [query, setQuery] = useState(initialQuery || '');
+  const [queryInputValue, setQueryInputValue] = useState(query);
   const [results, setResults] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
-
-  // This contains any keys that the server has appended in next/previous URLs.
-  // We don't care about what the pagination method is used here.
-  // Example values could be:
-  // - {page: 1, page_size: 20}
-  // - {cursor: 'cD0yMDE4LTExLTE0LTIyMTc2'}
-  const [paginationFilter, setPaginationFilter] = useState(initialPaginationFilter);
 
   // These contain the value of paginationFilter for the next/previous pages
   // null = next/prev page doesn't exist
@@ -109,11 +101,11 @@ export default function Search({location, history}) {
   const [previousPaginationFilter, setPreviousPaginationFilter] = useState(null);
 
   // Gets query params from state
-  const getQueryParams = () => {
+  const getQueryParams = (query, paginationFilter) => {
     const params = {};
 
     if (query) {
-      params['query'] = encodeURIComponent(query);
+      params['query'] = query;
     }
 
     if (paginationFilter) {
@@ -127,15 +119,14 @@ export default function Search({location, history}) {
     }
   };
 
+  console.log("RERENDER")
+
   // Perform search when query changes
   useEffect(() => {
-    const queryParams = getQueryParams();
+    // Update query input value when user hits back/forward
+    setQueryInputValue(query);
 
-    // Update URL in browser
-    history.replace({
-      pathname: location.pathname,
-      search: queryParams,
-    });
+    const queryParams = getQueryParams(query, paginationFilter);
 
     if (query) {
       // Fetch results
@@ -167,20 +158,32 @@ export default function Search({location, history}) {
       setNextPaginationFilter(null);
       setPreviousPaginationFilter(null);
     }
-  }, [query, paginationFilter]);
+  }, [location.key]);
 
   // Trigger search when user presses the 'Enter' key
   const onKeyDownInSearchBox = e => {
     if (e.key === 'Enter') {
-      setQuery(queryInputValue);
-      setPaginationFilter(null);
+      history.push({
+        pathname: location.pathname,
+        search: getQueryParams(queryInputValue, null),
+      });
     }
   };
 
   const onClickSearch = e => {
     e.preventDefault();
-    setQuery(queryInputValue);
-    setPaginationFilter(null);
+
+    history.push({
+      pathname: location.pathname,
+      search: getQueryParams(queryInputValue, null),
+    });
+  };
+
+  const setPaginationFilter = newPaginationFilter => {
+    history.push({
+      pathname: location.pathname,
+      search: getQueryParams(queryInputValue, newPaginationFilter),
+    });
   };
 
   return (
