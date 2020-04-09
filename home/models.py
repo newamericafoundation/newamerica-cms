@@ -328,6 +328,8 @@ class RedirectPage(Page):
     def serve(self, request):
         return redirect(self.redirect_url, permanent=True)
 
+    class Meta:
+        verbose_name = 'External Website'
 
 class OrgSimplePage(AbstractSimplePage):
     """
