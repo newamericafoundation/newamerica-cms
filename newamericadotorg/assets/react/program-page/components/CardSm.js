@@ -3,14 +3,6 @@ import Image from '../../components/Image';
 import ellipsize from '../../../lib/utils/ellipsize';
 
 export default class CardSm extends Component {
-  contentType = () => {
-    let { post } = this.props;
-    if(post.content_type){
-      return post.content_type.name == 'redirect page' ? 'External Website' : post.content_type.name;
-    }
-
-    return '';
-  }
   render(){
     let { post } = this.props;
 

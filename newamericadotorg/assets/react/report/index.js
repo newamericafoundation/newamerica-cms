@@ -96,6 +96,11 @@ const Landing = ({ report, dispatch, location, closeMenu }) => (
           dangerouslySetInnerHTML={{ __html: report.acknowledgments }}
           style={{ maxWidth: '800px' }}
         />
+        {report.partner_logo && (
+          <div className="margin-top-20">
+            <img src={report.partner_logo}/>
+          </div>
+        )}
       </div>
     )}
   </div>

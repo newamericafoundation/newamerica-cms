@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import Image from '../../components/Image';
 
 export default class CardVariable extends Component {
-  contentType = () => {
-    let { post } = this.props;
-    if(post.content_type){
-      return post.content_type.name == 'redirect page' ? 'External Website' : post.content_type.name;
-    }
-
-    return '';
-  }
   render(){
     let { post, loaded} = this.props;
     return (
@@ -27,7 +19,7 @@ export default class CardVariable extends Component {
                 <span><u dangerouslySetInnerHTML={{ __html: manualBreaks(post.seo_title || post.title) }}/></span>
               </h4>
               <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
-                {post.programs ? post.programs[0].name : ''} {this.contentType()}
+                {post.programs ? post.programs[0].name : ''} {post.content_type ? post.content_type.name : ''}
               </h6>
             </div>
           </div>

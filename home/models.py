@@ -259,6 +259,9 @@ class HomePage(Page):
 
         return context
 
+    class Meta:
+        verbose_name = 'Homepage'
+
 class AbstractSimplePage(Page):
     """
     Abstract Simple page class that inherits from the Page model and
@@ -325,6 +328,8 @@ class RedirectPage(Page):
     def serve(self, request):
         return redirect(self.redirect_url, permanent=True)
 
+    class Meta:
+        verbose_name = 'External Website'
 
 class OrgSimplePage(AbstractSimplePage):
     """
@@ -354,7 +359,6 @@ class OrgSimplePage(AbstractSimplePage):
 
     class Meta:
         verbose_name = 'About Page'
-
 
 
 class ProgramSimplePage(AbstractSimplePage):
@@ -398,6 +402,9 @@ class ProgramAboutPage(ProgramSimplePage):
     subpage_types = [
         'home.ProgramSimplePage'
     ]
+
+    class Meta:
+        verbose_name = 'Program About Page'
 
     def get_context(self, request):
         context = super(ProgramSimplePage, self).get_context(request)

@@ -16,6 +16,7 @@ class ReportDetailSerializer(PostSerializer):
     endnotes = SerializerMethodField()
     story_image = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
+    partner_logo = SerializerMethodField()
     attachments = SerializerMethodField()
     abstract = SerializerMethodField()
     # spelling fix
@@ -28,7 +29,8 @@ class ReportDetailSerializer(PostSerializer):
             'id', 'title', 'subheading', 'date', 'content_type', 'featured_sections',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
             'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
-            'search_description', 'data_project_external_script', 'attachments', 'acknowledgments', 'abstract', 'theme_full_bleed'
+            'search_description', 'data_project_external_script', 'attachments', 
+            'acknowledgments', 'abstract', 'theme_full_bleed', 'partner_logo'
         )
 
     def get_story_image(self, obj):
@@ -44,6 +46,9 @@ class ReportDetailSerializer(PostSerializer):
 
     def get_story_image_thumbnail(self, obj):
         return generate_image_url(obj.story_image, 'fill-30x14')
+
+    def get_partner_logo(self, obj):
+        return generate_image_url(obj.partner_logo, 'max-240x30')
 
     def get_body(self, obj):
         if obj.body:
