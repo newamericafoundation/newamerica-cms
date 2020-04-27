@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+{% load static %}
 {% load side_menu wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load utilities %}
@@ -43,12 +43,12 @@
               </ul>
           </li>
         {% endif %}
-    </ul>    
+    </ul>
 
 </div>
 
 <div class="sidemenu">
-  
+
   <a href="{{ side_menu.url }}">
     {% if side_menu.desktop_program_logo %}
       {% image side_menu.desktop_program_logo min-200x100 as logo %}

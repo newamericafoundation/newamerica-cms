@@ -39,7 +39,7 @@ YEAR_CHOICES.reverse()
 # to the Program model so that a Person may belong
 # to more than one Program
 class PersonProgramRelationship(models.Model):
-    program = models.ForeignKey(Program, related_name="+")
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="+")
     person = ParentalKey('Person', related_name='programs')
     group = models.CharField(choices=GROUPING_OPTIONS, max_length=50, blank=True, null=True, help_text='Set grouping for program\'s our people page')
     fellowship_position = models.CharField(
@@ -61,7 +61,7 @@ class PersonProgramRelationship(models.Model):
 # to the Subprogram model so that a Person may belong
 # to more than one Subprogram
 class PersonSubprogramRelationship(models.Model):
-    subprogram = models.ForeignKey(Subprogram, related_name="+")
+    subprogram = models.ForeignKey(Subprogram, on_delete=models.CASCADE, related_name="+")
     person = ParentalKey('Person', related_name='subprograms')
     group = models.CharField(choices=GROUPING_OPTIONS, max_length=50, blank=True, null=True, help_text='Set grouping for subprogram\'s our people page')
     fellowship_position = models.CharField(
@@ -79,7 +79,7 @@ class PersonSubprogramRelationship(models.Model):
     ]
 
 class PersonTopicRelationship(models.Model):
-    topic = models.ForeignKey('issue.IssueOrTopic', related_name="+")
+    topic = models.ForeignKey('issue.IssueOrTopic', on_delete=models.CASCADE, related_name="+")
     person = ParentalKey('person.Person', related_name="topics")
 
     panels = [

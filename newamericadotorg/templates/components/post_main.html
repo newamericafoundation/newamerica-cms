@@ -22,7 +22,7 @@
     {% endblock %}
     <aside class="col-lg-2 ">
       {% block post_right_aside %}
-        {% if page.content_type.name == 'Event' %}
+        {% if page|model_name == 'event.Event' %}
           <div class="post-aside-wrapper post__social__wrapper event__desktop-date-time">
             <div class="post-authors__list row gutter-0">
               <div class="event-details col-lg-12 col-6 margin-bottom-lg-25">

@@ -16,7 +16,7 @@
     {% if story_image.image.source %}
       <h6 class="margin-10">{{story_image.image.source}}</h6>
     {% endif %}
-    {% if page.content_type.name == 'Event' %}
+    {% if page|model_name == 'event.Event' %}
       <div class="post-authors__list event__mobile-date-time row gutter-0 margin-top-25">
         <div class="event-details col-6 margin-bottom-lg-25">
             <h4 class="margin-0">When</h4>

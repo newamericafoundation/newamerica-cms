@@ -83,19 +83,17 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
     # Gzip/minify
     'django.middleware.gzip.GZipMiddleware',
-
-    'newamericadotorg.log_handlers.LogDNAMiddleware',
-    'newamericadotorg.log_handlers.APIExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'newamericadotorg.urls'
@@ -209,6 +207,33 @@ WAGTAIL_SITE_NAME = "newamericadotorg"
 
 WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 200000
+
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': [
+                'bold',
+                'italic',
+                'pullquote',
+                'na-blockquote',
+                'h2',
+                'h3',
+                'h4',
+                'h5',
+                'ol',
+                'ul',
+                'hr',
+                'embed',
+                'link',
+                'document-link',
+                'image',
+                'undo',
+                'redo',
+            ]
+        }
+    }
+}
 
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True

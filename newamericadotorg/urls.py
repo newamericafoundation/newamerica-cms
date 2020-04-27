@@ -11,7 +11,6 @@ from wagtail.images.views.serve import ServeView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
-from django.views.generic.base import RedirectView
 
 from newamericadotorg.api.urls import api_urls
 
@@ -23,11 +22,7 @@ import programs.views as program_views
 import newamericadotorg.redirects as redirects
 
 urlpatterns = [
-    url(r'^django-admin/', include(admin.site.urls)),
-
-    # Temporarily disable revision comparisson as per guidance on
-    # https://github.com/wagtail/wagtail/security/advisories/GHSA-v2wc-pfq2-5cm6
-    url(r'^admin/pages/(\d+)/revisions/compare/', RedirectView.as_view(url='/admin/')),
+    url(r'^django-admin/', admin.site.urls),
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),

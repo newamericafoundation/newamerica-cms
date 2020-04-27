@@ -64,6 +64,7 @@ cat << EOF >> /home/vagrant/.bashrc
 export PYTHONPATH=$PROJECT_DIR
 export DJANGO_SETTINGS_MODULE=newamericadotorg.settings.dev
 export DATABASE_URL=postgres:///$PROJECT_NAME
+export REDIS_URL=redis://localhost/1
 export PGDATABASE=$PROJECT_NAME
 export SECRET_KEY=test
 
