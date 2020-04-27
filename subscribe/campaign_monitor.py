@@ -54,7 +54,7 @@ def update_subscriber(email, name, custom_fields):
         return 'OK'
     except BadRequest:
         try:
-            subscriber.add(CREATESEND_LISTID, email, name, custom_fields, True)
+            subscriber.add(CREATESEND_LISTID, email, name, custom_fields, True, "Unchanged")
             return 'OK'
         except:
             if not settings.DEBUG:
