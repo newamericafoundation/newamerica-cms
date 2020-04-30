@@ -1,3 +1,9 @@
+.button--text {
+  &:hover, &:active {
+    cursor: pointer;
+  }
+}
+
 .button--text, h5, h6{
   &.with-border {
     border-bottom: 1.5px solid color(turquoise);
