@@ -50,7 +50,7 @@ def update_subscriber(email, name, custom_fields):
             if not exists:
                 custom_fields.append({ 'key': cf.Key, 'value': cf.Value })
 
-        subscriber.update(email, name, custom_fields, True)
+        subscriber.update(email, name, custom_fields, True, "Unchanged")
         return 'OK'
     except BadRequest:
         try:
