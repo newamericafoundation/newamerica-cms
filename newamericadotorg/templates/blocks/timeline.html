@@ -1,7 +1,7 @@
 {% load utilities %}
 {% load timeline %}
 {% load wagtailimages_tags %}
-{% load static from staticfiles %}
+{% load static %}
 <div data-timeline-data='{{ settings_json }}' class="timeline {% if self.default_view == 'list' %}list-view{% endif %} timelineViz" id="tl_{{ self.title|slugify }}">
 	<div class="timeline__title-block">
 		<div class="timeline__see-all-button"></div>
@@ -64,4 +64,4 @@
 
 </div>
 
-<script async src="{% static 'js/timeline.js' %}"></script>
+<script async src="https://d3fvh0lm0eshry.cloudfront.net/static/js/timeline.js"></script>

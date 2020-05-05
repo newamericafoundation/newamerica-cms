@@ -16,3 +16,9 @@ def digi(request, **kwargs):
     path[1] = 'digital-impact-governance-inititiative'
     url = '/'.join(path)
     return redirect(url)
+
+def local(request, **kwargs):
+    path = request.path.split('/')
+    path[1] = 'local'
+    url = '/'.join(path)
+    return redirect(url)

@@ -13,10 +13,19 @@ APPEND_SLASH = True
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
+MIDDLEWARE += [
+    'newamericadotorg.log_handlers.LogDNAMiddleware',
+    'newamericadotorg.log_handlers.APIExceptionMiddleware'
+]
+
 #ADMINS = [('Kirk', 'jackson@newamerica.org'), ('Andrew', 'lomax@newamerica.org')]
 
 # Will be changed to final host url
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '.newamerica.org',
+    'na-staging.herokuapp.com',
+    'na-develop.herokuapp.com',
+]
 
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -43,16 +52,29 @@ AWS_S3_OBJECT_PARAMETERS = {
     'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
     'CacheControl': 'max-age=94608000',
 }
-STATIC_BUCKET_NAME = os.getenv('STATIC_S3_BUCKET_NAME')
-STATICFILES_LOCATION='static'
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-S3_STATIC_DOMAIN = '%s.s3.amazonaws.com' % STATIC_BUCKET_NAME
-CLOUDFRONT_STATIC_URL = os.getenv('STATIC_URL')
-#STATIC_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
-STATIC_URL = "%s/%s/" % (CLOUDFRONT_STATIC_URL, STATICFILES_LOCATION)
+STATIC_BUCKET_NAME = os.getenv('STATIC_S3_BUCKET_NAME', None)
 
-# COMPRESS_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
-# COMPRESS_STORAGE = STATICFILES_STORAGE
+if STATIC_BUCKET_NAME is not None:
+    # Use S3 for static
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    S3_STATIC_DOMAIN = '%s.s3.amazonaws.com' % STATIC_BUCKET_NAME
+    CLOUDFRONT_STATIC_URL = os.getenv('STATIC_URL')
+    #STATIC_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
+    STATIC_URL = "%s/%s/" % (CLOUDFRONT_STATIC_URL, STATICFILES_LOCATION)
+
+    # COMPRESS_URL = "https://%s/%s/" % (S3_STATIC_DOMAIN, STATICFILES_LOCATION)
+    # COMPRESS_STORAGE = STATICFILES_STORAGE
+
+else:
+    # Serve static from the web server using Whitenoise
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATIC_URL = '/static/'
+
+    STATICFILES_LOCATION = ''
+    S3_STATIC_DOMAIN = 'notusingthis.s3.amazonaws.com'
+    CLOUDFRONT_STATIC_URL = ''
+
 
 # Elastic Search setup
 es_url = os.getenv('SEARCHBOX_URL', "http://localhost:9200/")
@@ -69,6 +91,22 @@ WAGTAILSEARCH_BACKENDS = {
 ANYMAIL = {
     "MAILGUN_API_KEY": os.getenv('MAILGUN_API_KEY')
 }
+
+# Sentry
+
+if 'SENTRY_DSN' in os.environ:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=os.environ['SENTRY_DSN'],
+        integrations=[DjangoIntegration()],
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
+
 
 # Email backend configuration
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'

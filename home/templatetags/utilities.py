@@ -1,13 +1,17 @@
-from datetime import datetime, timedelta
+import json
 import math
+from datetime import datetime, timedelta
+
 from pytz import timezone
 from django import template
 from django.conf import settings
-from programs.models import Program
 from django.utils.safestring import mark_safe
 from wagtail.core.blocks import StreamValue
 
-import json
+from event.models import Event
+from person.models import Person
+from programs.models import Program
+
 
 register = template.Library()
 
@@ -64,45 +68,15 @@ def pluralize(num_items, label):
 		return label + " "
 
 
-# maps post type to appropriate person prefix for byline, calls pluralize helper function to pluralize if more than one item
-@register.simple_tag()
-def get_byline_prefix(ptype, items_list):
-	num_items = len(items_list)
-	post_type = str(ptype)
-
-	if post_type == "Podcast":
-		return pluralize(num_items, "Contributor")
-	elif (post_type == "Blog Post" or post_type == "Weekly Article"):
-		return ""
-	elif post_type == "In The News Piece":
-		return "In the News: "
-	else:
-		return pluralize(num_items, "Author")
-
-
-
-# handles exception for blog posts and weekly articles - which have the "by" prefix in the byline, but "author(s)" in the author block
-@register.simple_tag()
-def get_author_block_prefix(ptype, items_list):
-	num_items = len(items_list)
-	post_type = str(ptype)
-
-	if (post_type == "Blog Post" or post_type == "Weekly Article"):
-		return pluralize(num_items, "Author")
-	else:
-		return get_byline_prefix(post_type, items_list)
-
-
 # generates byline for all post types - calls byline prefix tag to get apporpriate prefix
 @register.simple_tag()
-def generate_byline(ptype, authors):
+def generate_byline(post_type, authors):
 	authors = authors.order_by('pk')
-	post_type = str(ptype)
 	num_authors = len(authors)
 	ret_string = ""
 
 	# events and press releases have no authors and therefore no byline
-	if post_type == "Event" or post_type == "Press Release":
+	if post_type == "event.Event" or post_type == "press_release.PressRelease":
 		return ret_string
 
 	# counter is used to determine appropriate list separator
@@ -115,32 +89,6 @@ def generate_byline(ptype, authors):
 	return mark_safe(ret_string)
 
 
-# maps inernal content types to external content type display
-@register.simple_tag()
-def generate_content_type_line(ptype):
-	page_type = str(ptype)
-
-	page_mappings = {
-		"program simple page" : "",
-		"org simple page" : "",
-		"Homepage for All People in NAF" : "",
-		"Our People Page for Programs and Subprograms" : "",
-		"Our People Page for Board of Directors, Central Staff, and Leadership Team" : "",
-		"jobs page" : "",
-		"subscribe page" : "",
-		"Homepage for all Weekly Editions" : "",
-		"issue or topic" : "",
-		"Article and Op-Ed" : "Article",
-		"redirect page": "",
-		"Homepage for all In-Depth Projects": ""
-	}
-
-	if page_type in page_mappings:
-		return page_mappings[page_type]
-	else:
-		return page_type
-
-
 # generates date line for all post types/ datetime line for events
 @register.simple_tag()
 def generate_dateline(post):
@@ -148,7 +96,7 @@ def generate_dateline(post):
 	date_format = '%b. %-d, %Y'
 	time_format = '%-I:%M %p'
 
-	if str(post.content_type) == "Event":
+	if issubclass(post.specific_class, Event):
 		if post.date:
 			ret_string += post.date.strftime(date_format)
 			if post.end_date:
@@ -160,7 +108,7 @@ def generate_dateline(post):
 			ret_string += post.start_time.strftime(time_format).lower()
 			if post.end_time:
 				ret_string += ' - ' + post.end_time.strftime(time_format).lower()
-	elif str(post.content_type) == "person":
+	elif issubclass(post.specific_class, Person):
 		return ""
 	else:
 		if post.date:
@@ -372,3 +320,22 @@ class CounterNode(template.Node):
 
         # Return counter number
         return context['counter_var']
+
+
+@register.filter
+def model_name(page):
+	"""
+	Gets the model name of the page in the form 'app_name.ModelName'
+	"""
+	return page._meta.app_label + '.' + page.__class__.__name__
+
+
+@register.filter
+def model_display_name(page):
+	"""
+	Gets verbose name of the page's model
+	"""
+	if page._meta.verbose_name.title() == 'Other Post':
+		return page.other_content_type
+	else:
+		return page._meta.verbose_name.title()

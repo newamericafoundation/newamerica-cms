@@ -1,6 +1,7 @@
+from io import BytesIO
+
 from django.utils.text import slugify
 from PIL import Image
-from django.utils.six import BytesIO
 
 from wagtail.core.models import Page, Site
 

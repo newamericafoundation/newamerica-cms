@@ -9,15 +9,6 @@ export default class CardLg extends Component {
     }
   }
 
-  contentType = () => {
-    let { post } = this.props;
-    if(post.content_type){
-      return post.content_type.name == 'redirect page' ? 'External Website' : post.content_type.name;
-    }
-
-    return '';
-  }
-
   onImageLoad = () => {
     this.setState({ imageLoaded: true });
   }
@@ -41,7 +32,7 @@ export default class CardLg extends Component {
               </h2>
               <h6 className="card__text__subtitle margin-10">{post.story_excerpt}</h6>
               <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
-                {post.programs ? post.programs[0].title : ''} {this.contentType()}</h6>
+                {post.programs ? post.programs[0].title : ''} {post.content_type ? post.content_type.name : ''}</h6>
             </div>
           </div>
           </a>

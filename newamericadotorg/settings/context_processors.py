@@ -17,7 +17,7 @@ def debug(request):
         is_down = HomePage.objects.first().down_for_maintenance
         cache.set('is_down', is_down, 15)
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         username = request.user.username
 
     return {'DEBUG': settings.DEBUG, 'is_under_maintenance': is_down, 'username': username}

@@ -28,12 +28,11 @@ class Article extends Component {
   }
 
   getArticle = () => {
-    let { edition : { articles }, match: { params }} = this.props;
+    let { articles , match: { params }} = this.props;
     return articles.find(a => a.slug == params.articleSlug);
   }
 
   render(){
-    let { edition } = this.props;
     let { article } = this.state;
 
     return (

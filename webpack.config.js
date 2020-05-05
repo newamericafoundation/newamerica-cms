@@ -9,6 +9,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
+// STATIC_URL is for regular Django-managed static
+// EXTRA_STATIC_URL points at a bucket that contains fonts, logos, social images, etc
+const STATIC_URL = process.env.STATIC_URL || '';
+const EXTRA_STATIC_URL = process.env.EXTRA_STATIC_URL || (STATIC_URL + '/static');
+
 module.exports = env => {
   return {
     mode: NODE_ENV,
@@ -25,7 +30,7 @@ module.exports = env => {
         NODE_ENV === 'development'
           ? 'static/js/[name].js'
           : 'static/js/[name]-[hash].js',
-      publicPath: `${process.env.STATIC_URL || ''}/`,
+      publicPath: `${STATIC_URL}/`,
       path: path.resolve(__dirname, './newamericadotorg'),
       crossOriginLoading: 'anonymous'
     },
@@ -45,7 +50,11 @@ module.exports = env => {
                 data: `$static: ${
                   NODE_ENV === 'development'
                     ? '"/static"'
-                    : `"${process.env.STATIC_URL}/static"`
+                    : `"${STATIC_URL}/static"`
+                }; $extra-static: ${
+                  NODE_ENV === 'development'
+                    ? '"/static"'
+                    : `"${EXTRA_STATIC_URL}"`
                 };`
               }
             },
@@ -113,7 +122,8 @@ module.exports = env => {
       }),
       new HtmlWebpackPlugin({
         filename: 'generated-templates/base.html',
-        staticUrl: `${process.env.STATIC_URL || ''}/static`,
+        staticUrl: `${STATIC_URL}/static`,
+        extraStaticUrl: `${EXTRA_STATIC_URL}`,
         template: 'newamericadotorg/templates/base.html',
         inject: false,
         serviceWorker: '/static/js/sw.js'

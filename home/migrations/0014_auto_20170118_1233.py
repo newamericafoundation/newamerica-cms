@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-from wagtail.images.utils import get_fill_filter_spec_migrations
+# from wagtail.images.utils import get_fill_filter_spec_migrations
 
 
 class Migration(migrations.Migration):
@@ -12,7 +12,9 @@ class Migration(migrations.Migration):
         ('home', '0013_auto_20170118_1232'),
     ]
 
-    forward, reverse = get_fill_filter_spec_migrations('home', 'CustomRendition')
+    # forward, reverse = get_fill_filter_spec_migrations('home', 'CustomRendition')
     operations = [
-        migrations.RunPython(forward, reverse),
+        # Commented out in Wagtail 2.4 upgrade as the wagtailimages.Filter model has been removed
+        # and this migration has already been run
+        # migrations.RunPython(forward, reverse),
     ]

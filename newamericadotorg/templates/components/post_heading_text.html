@@ -1,3 +1,4 @@
+{% load utilities %}
 <div class="post-heading__text margin-bottom-35">
   <h1 class="margin-top-0">
     {% firstof custom_title page.title %}
@@ -5,12 +6,12 @@
   {% if page.subheading %}
     <h6 class="subheading">{{ page.subheading }}</h6>
   {% endif %}
-  {% if page.content_type.name != 'New America Post' %}
-  <h5>{% firstof page.other_content_type.singular_title page.content_type %}{% if page.source %} in {{ page.source }}{% endif %}</h5>
+  {% if page|model_name != 'home.OrgSimplePage' %}
+    <h5>{% firstof page.other_content_type.singular_title page|model_display_name %}{% if page.source %} in {{ page.source }}{% endif %}</h5>
   {% endif %}
   {% if page.source %}
     <div class="margin-top-35">
-      <a href="{{page.source_url}}" class="button" target="_blank">Read Full Article</a>
+      <a href="{{page.source_url}}" class="button" target="_blank" rel="noopener noreferrer">Read Full Article</a>
     </div>
   {% endif %}
 </div>

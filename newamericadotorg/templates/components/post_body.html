@@ -1,11 +1,11 @@
 {% load wagtailcore_tags %}
 {% load utilities %}
-{% if page.authors.all|length > 0 and page.content_type.name != 'Event' and page.content_type.name != "Press Release" and page.content_type.name != "Report" %}
+{% if page.authors.all|length > 0 and page|model_name != 'event.Event' and page|model_name != 'press_release.PressRelease' and page|model_name != 'report.Report' %}
   <div class="post__byline margin-bottom-15"><span>By&nbsp;</span>
-    {% generate_byline page.content_type page.authors.all %}
+    {% generate_byline page|model_name page.authors.all %}
   </div>
 {% endif %}
-{% if page.date and page.content_type.name != 'Event' %}
+{% if page.date and page|model_name != 'event.Event' %}
   <h6 class="post-body__date margin-10">{{ page.date }}</h6>
 {% endif %}
 {% if page.soundcloud %}

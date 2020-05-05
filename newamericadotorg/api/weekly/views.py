@@ -1,32 +1,28 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import CursorPagination
 
-from weekly.models import WeeklyEdition
+from weekly.models import WeeklyArticle
 
-from .serializers import WeeklyEditionSerializer, WeeklyEditionListSerializer
+from .serializers import WeeklyArticleSerializer
 
 
-class WeeklyPagination(LimitOffsetPagination):
-    default_limit = 1000
-    max_limit = 1000
+class WeeklyCursorPagination(CursorPagination):
+    page_size = 24
+    page_size_query_param = 'page_size'
+    max_page_size = 200
+    ordering = '-ordered_date_string'
 
 
 class WeeklyList(ListAPIView):
-    serializer_class = WeeklyEditionListSerializer
+    serializer_class = WeeklyArticleSerializer
+    pagination_class = WeeklyCursorPagination
 
     def get_queryset(self):
-        queryset = WeeklyEdition.objects.live().public()
-        return sorted(queryset, key=lambda edition: get_edition_number(edition));
+        return WeeklyArticle.objects.live().public()
 
 
 class WeeklyDetail(RetrieveAPIView):
-    serializer_class = WeeklyEditionSerializer
+    serializer_class = WeeklyArticleSerializer
 
     def get_queryset(self):
-        return WeeklyEdition.objects.live().public()
-
-
-def get_edition_number(edition):
-    if 'edition-' in edition.slug:
-        return -int(edition.slug.split('-')[1])
-    return -int(edition.slug)
+        return WeeklyArticle.objects.live().public()

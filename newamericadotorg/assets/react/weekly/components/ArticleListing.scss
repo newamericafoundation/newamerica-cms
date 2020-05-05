@@ -1,6 +1,18 @@
-.weekly-edition__subscribe h1{
-    max-width: 90%;
+.weekly-subscribe {
+  position: relative;
+  padding-bottom: 100%;
+
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    bottom: -10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }
+
 
 .weekly-edition__articles__article{
   cursor: pointer;

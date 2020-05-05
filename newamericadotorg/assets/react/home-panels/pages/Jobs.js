@@ -50,7 +50,7 @@ class Jobs extends Component {
                   <div className="margin-0 home__fellowship__more__description"
                     dangerouslySetInnerHTML={{__html: j.description}} />
                   <div className="home__fellowship__more__button">
-                    <a className="button" href={`http://newamerica.applytojob.com/apply/${j.board_code}/`} target="_blank">Apply</a>
+                    <a className="button" href={`http://newamerica.applytojob.com/apply/${j.board_code}/`} target="_blank" rel="noopener noreferrer">Apply</a>
                   </div>
                 </div>
               </div>
