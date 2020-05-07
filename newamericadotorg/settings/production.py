@@ -13,11 +13,6 @@ APPEND_SLASH = True
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-MIDDLEWARE += [
-    'newamericadotorg.log_handlers.LogDNAMiddleware',
-    'newamericadotorg.log_handlers.APIExceptionMiddleware'
-]
-
 #ADMINS = [('Kirk', 'jackson@newamerica.org'), ('Andrew', 'lomax@newamerica.org')]
 
 # Will be changed to final host url
