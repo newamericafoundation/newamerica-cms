@@ -1,34 +1,17 @@
 import React from 'react';
 
 import { format as formatDate, parseISO } from 'date-fns/esm';
+import { Breadcrumb } from './Breadcrumb';
 import Image from './Image';
-
-export const Breadcrumb = ({ path }) => {
-  const pages = path.map(page => {
-    return (
-      <li key={page.id}>
-        <a href={page.url}>{page.title}</a>
-      </li>
-    );
-  });
-
-  return (
-    <>
-      <ul>
-        {pages}
-      </ul>
-    </>
-  );
-};
 
 export const Person = ({ person }) => (
   <div className="card person">
-    {person.path && <Breadcrumb path={person.path} />}
     <a href={person.url}>
       <div className={`card__image ${!person.profile_image ? 'no-image' : ''}`}>
         {person.profile_image && <Image image={person.profile_image} />}
       </div>
       <div className="card__text">
+      {person.path && <Breadcrumb path={person.path} />}
         {/* <h3 className="card__text__title">{person.first_name} {person.last_name}</h3> */}
         <h4 className="card__text__title margin-10">
           <span>
@@ -131,13 +114,13 @@ export const PublicationListItem = ({ post }) => (
       post.content_type ? `card--${post.content_type.api_name}` : ''
     }`}
   >
-    {post.path && <Breadcrumb path={post.path} />}
     <a href={post.url}>
       <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
         <Image image={post.story_image} />
       </div>
     </a>
     <div className="card__text">
+      {post.path && <Breadcrumb path={post.path} />}
       <a href={post.url}>
         {post.date && (
           <div className="h6 card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">

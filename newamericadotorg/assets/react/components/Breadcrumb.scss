@@ -1,0 +1,22 @@
+.breadcrumb {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  li {
+    padding: 0;
+    display: inline;
+    &:not(:last-child)::after {
+      content: " / ";
+      color: color(black, 40, .75);
+    }
+  }
+
+  a {
+    color: color(black, 40);
+
+    &:hover, &:active, &:focus {
+      color: color(turquoise, dark);
+    }
+  }
+}
