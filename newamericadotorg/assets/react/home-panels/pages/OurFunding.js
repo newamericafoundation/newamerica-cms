@@ -215,7 +215,7 @@ class OurFundingMain extends Component {
         <Body data={how_were_funded} aside={<div className="buttons">
           <div className="charity-navigator-img margin-bottom-25">
             {/* <img src={charity_navigator.inline_image[0].url}/> */}
-            <img src="https://d1y8sb8igg2f8e.cloudfront.net/images/2019-funding-logos.min-800x800.png" style={{width: '100%', maxWidth: '350px', margin: '0 auto', display: 'block'}}/>
+            <img src="https://d1y8sb8igg2f8e.cloudfront.net/images/funding_transparency_logos.original.png" style={{width: '100%', maxWidth: '350px', margin: '0 auto', display: 'block'}}/>
           </div>
           <div style={{textAlign: "center"}}>
             <a className="button" href={donate_button.button[0].button_link}>{donate_button.button[0].button_text}</a>
