@@ -47,6 +47,7 @@ urlpatterns = [
     url(r'^international-security/future-property-rights/[^.]*$', redirects.future_property_rights),
     url(r'^education-policy/dual-language-learners/[^.]*$', redirects.dual_language_learners),
     url(r'^bretton-woods-ii/[^.]*$', redirects.digi),
+    url(r'^digital-impact-governance-inititiative/[^.]*$', redirects.digi),
     url(r'^national-network/[^.]*$', redirects.local),
 
     url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/(our-people|events|projects|publications|topics|about|subscribe)/$', program_views.redirect_to_subprogram),

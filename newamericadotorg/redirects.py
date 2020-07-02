@@ -13,7 +13,7 @@ def dual_language_learners(request, **kwargs):
 
 def digi(request, **kwargs):
     path = request.path.split('/')
-    path[1] = 'digital-impact-governance-inititiative'
+    path[1] = 'digital-impact-governance-initiative'
     url = '/'.join(path)
     return redirect(url)
 
