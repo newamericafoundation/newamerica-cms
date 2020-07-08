@@ -225,16 +225,20 @@ class OurFundingMain extends Component {
           <h1>{transparency_table.heading[0]}</h1>
           {/* <h3>{transparency_table.dataviz[0].title}</h3> */}
           <HorizontalNav className={`our-funding__nav our-funding__nav--chart-tabs`} items={[
-            { url: '/our-funding/', label: '2019', exact: true },
+            { url: '/our-funding/', label: '2020', exact: true },
+            { url: '/our-funding/2019/', label: '2019'},
             { url: '/our-funding/2018/', label: '2018'},
           ]} />
           <div className="dataviz__chart-container">
             <Switch>
               <Route exact path="/our-funding/2018/" render={(props)=>(
-                <iframe title="Active Funding in Q4 2018" aria-label="Table" id="datawrapper-chart-xFCjp" src="//datawrapper.dwcdn.net/xFCjp/6/" scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+                <iframe title="Active Funding in Q4 2018" aria-label="Table" id="datawrapper-chart-xFCjp" src="//datawrapper.dwcdn.net/xFCjp/" scrolling="no" frameborder="0" width="100%" height="650"></iframe>
                 )}/>
+              <Route exact path="/our-funding/2019/" render={(props)=>(
+                <iframe title="Active Funding in Q4 2019" aria-label="Table" id="datawrapper-chart-H5Js1" src="//datawrapper.dwcdn.net/H5Js1/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+              )}/>
               <Route render={(props)=>(
-                <iframe title="Current active funding" aria-label="Table" id="datawrapper-chart-H5Js1" src="//datawrapper.dwcdn.net/H5Js1/1/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+                <iframe title="Current active funding" aria-label="Table" id="datawrapper-chart-T11iH" src="//datawrapper.dwcdn.net/T11iH/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
               )}/>
             </Switch>
       		</div>
