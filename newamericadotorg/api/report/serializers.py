@@ -3,11 +3,13 @@ from django.template import loader
 
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
+from wagtail.images.views.serve import generate_image_url
+
 from newamericadotorg.api.post.serializers import PostSerializer
 from newamericadotorg.api.topic.serializers import TopicSingleSerializer
 
 from report.models import Report
-from newamericadotorg.api.helpers import generate_image_rendition, generate_image_url
+from newamericadotorg.api.helpers import generate_image_rendition
 
 class ReportDetailSerializer(PostSerializer):
     featured_sections = SerializerMethodField()

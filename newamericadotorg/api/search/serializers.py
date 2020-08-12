@@ -1,12 +1,13 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from wagtail.core.models import Page
+from wagtail.images.views.serve import generate_image_url
 
 from person.models import Person
 from home.models import Post
 from event.models import Event
 
-from newamericadotorg.api.helpers import generate_image_url, get_content_type
+from newamericadotorg.api.helpers import get_content_type
 from newamericadotorg.api.program.serializers import PostProgramSerializer
 from newamericadotorg.api.author.serializers import AuthorSerializer
 
