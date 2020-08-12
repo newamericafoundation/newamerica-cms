@@ -10,7 +10,7 @@ from programs.models import Program
 from newamericadotorg.settings.context_processors import content_types
 from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer
 
-@method_decorator([cache_page(4*60*60)], name='get')
+@method_decorator([cache_page(2*60)], name='get')
 class MetaList(APIView):
     def get(self, request, format=None):
         home = HomePage.objects.first()
