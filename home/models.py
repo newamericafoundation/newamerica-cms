@@ -471,6 +471,9 @@ class PostAuthorRelationship(models.Model):
         PageChooserPanel('author'),
     ]
 
+    class Meta:
+        ordering = ['pk']
+
 
 class PostProgramRelationship(models.Model):
     """
