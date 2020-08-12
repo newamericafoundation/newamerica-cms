@@ -2,13 +2,13 @@ from django.core.cache import cache
 from django.conf import settings
 import json
 from wagtail.core.models import Page
+from wagtail.images.views.serve import generate_image_url
 
 from home.models import HomePage, AbstractHomeContentPage
 from programs.models import Program, Subprogram, AbstractContentPage
 from issue.models import IssueOrTopic
 
 from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer, SubprogramSerializer
-from newamericadotorg.api.helpers import generate_image_url
 
 def debug(request):
     username = None
