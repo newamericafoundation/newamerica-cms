@@ -1,3 +1,6 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -7,6 +10,7 @@ from programs.models import Program
 from newamericadotorg.settings.context_processors import content_types
 from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer
 
+@method_decorator([cache_page(4*60*60)], name='get')
 class MetaList(APIView):
     def get(self, request, format=None):
         home = HomePage.objects.first()
