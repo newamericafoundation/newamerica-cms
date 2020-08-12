@@ -18,12 +18,12 @@ class SearchSerializer(ModelSerializer):
         obj = obj.specific
 
         if type(obj) == Person:
-            data['profile_image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300')
+            data['profile_image'] = generate_image_url(obj.specific.profile_image, 'fill-300x300') if obj.specific.profile_image else None
             data['first_name'] = obj.first_name
             data['last_name'] = obj.last_name
             data['position'] = obj.position_at_new_america
         elif isinstance(obj, Post) or type(obj) == Event:
-            data['story_image'] = generate_image_url(obj.story_image, 'max-300x240')
+            data['story_image'] = generate_image_url(obj.story_image, 'max-300x240') if obj.story_image else None
             data['date'] = obj.date
             data['programs'] = PostProgramSerializer(obj.parent_programs, many=True).data
 

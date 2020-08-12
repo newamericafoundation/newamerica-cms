@@ -47,10 +47,12 @@ class ReportDetailSerializer(PostSerializer):
         }
 
     def get_story_image_thumbnail(self, obj):
-        return generate_image_url(obj.story_image, 'fill-30x14')
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'fill-30x14')
 
     def get_partner_logo(self, obj):
-        return generate_image_url(obj.partner_logo, 'max-240x30')
+        if obj.partner_logo:
+            return generate_image_url(obj.partner_logo, 'max-240x30')
 
     def get_body(self, obj):
         if obj.body:

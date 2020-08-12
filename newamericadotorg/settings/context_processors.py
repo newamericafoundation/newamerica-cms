@@ -54,7 +54,8 @@ def about_pages(request):
         about_pages = HomePage.objects.first().about_pages
         if len(about_pages) != 0:
             aboutpages = [{ 'title': a.value.title, 'url': a.value.url } for a in about_pages]
-            aboutimage = generate_image_url(about_pages[0].value.specific.story_image, 'fill-200x170')
+            image = about_pages[0].value.specific.story_image
+            aboutimage = generate_image_url(image, 'fill-200x170') if image else None
             cache.set('NA_about_pages', aboutpages, 60 * 60)
             cache.set('NA_about_img', aboutimage, 60 * 60)
 
