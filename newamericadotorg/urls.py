@@ -49,6 +49,7 @@ urlpatterns = [
     url(r'^bretton-woods-ii/[^.]*$', redirects.digi),
     url(r'^digital-impact-governance-inititiative/[^.]*$', redirects.digi),
     url(r'^national-network/[^.]*$', redirects.local),
+    url(r'^public-interest-technology/new-practice-lab/[^.]*$', redirects.new_practice_lab),
 
     url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/(our-people|events|projects|publications|topics|about|subscribe)/$', program_views.redirect_to_subprogram),
     url(r'^(?P<program>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics|subscribe)/$', program_views.redirect_to_program),
