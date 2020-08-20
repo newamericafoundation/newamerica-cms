@@ -1,11 +1,19 @@
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html, format_html_join
 from django.conf import settings
+from django.http import HttpResponseForbidden
 
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler, BlockElementHandler
 from wagtail.core import hooks
 from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
+
+
+@hooks.register('before_copy_page')
+def before_copy_page(request, page):
+    # Permit copying pages only for superusers
+    if not request.user.is_superuser:
+        return HttpResponseForbidden()
 
 
 @hooks.register('construct_whitelister_element_rules')
