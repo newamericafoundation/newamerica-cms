@@ -9,6 +9,16 @@ from wagtail.core import hooks
 from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
 
 
+@hooks.register('construct_page_listing_buttons')
+def remove_copy_button_for_non_superusers(buttons, page, page_perms, is_parent=False, context=None):
+    if not page_perms.user.is_superuser:
+        for top_button in buttons:
+            if hasattr(top_button, 'dropdown_buttons'):
+                top_button.dropdown_buttons = [
+                    b for b in top_button.dropdown_buttons if b.label != 'Copy'
+                ]
+
+
 @hooks.register('before_copy_page')
 def before_copy_page(request, page):
     # Permit copying pages only for superusers
