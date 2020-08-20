@@ -8,7 +8,7 @@ class Endnote extends Component {
     let {
       endnote: { note }
     } = this.props;
-    let r = /(http.+?)(\.\s|;|$|<|\.$| |,)/g;
+    let r = /(http.+?)(\.\s|;|$|<|\.<|\.$| |,)/g;
     const text = note.replace(r, (match, p1, p2) => {
       return `<a href="${p1}">source</a>${p2}`;
     });
