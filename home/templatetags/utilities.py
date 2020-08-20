@@ -71,7 +71,7 @@ def pluralize(num_items, label):
 # generates byline for all post types - calls byline prefix tag to get apporpriate prefix
 @register.simple_tag()
 def generate_byline(post_type, authors):
-	authors = authors.order_by('pk')
+	authors = authors.select_related('author')
 	num_authors = len(authors)
 	ret_string = ""
 

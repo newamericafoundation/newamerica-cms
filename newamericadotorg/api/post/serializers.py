@@ -1,7 +1,9 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
+from wagtail.images.views.serve import generate_image_url
+
 from home.models import Post
-from newamericadotorg.api.helpers import generate_image_url, get_content_type
+from newamericadotorg.api.helpers import get_content_type
 from newamericadotorg.api.author.serializers import AuthorSerializer
 from newamericadotorg.api.program.serializers import PostProgramSerializer, PostSubprogramSerializer
 

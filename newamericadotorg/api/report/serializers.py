@@ -3,11 +3,13 @@ from django.template import loader
 
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
+from wagtail.images.views.serve import generate_image_url
+
 from newamericadotorg.api.post.serializers import PostSerializer
 from newamericadotorg.api.topic.serializers import TopicSingleSerializer
 
 from report.models import Report
-from newamericadotorg.api.helpers import generate_image_rendition, generate_image_url
+from newamericadotorg.api.helpers import generate_image_rendition
 
 class ReportDetailSerializer(PostSerializer):
     featured_sections = SerializerMethodField()
@@ -45,10 +47,12 @@ class ReportDetailSerializer(PostSerializer):
         }
 
     def get_story_image_thumbnail(self, obj):
-        return generate_image_url(obj.story_image, 'fill-30x14')
+        if obj.story_image:
+            return generate_image_url(obj.story_image, 'fill-30x14')
 
     def get_partner_logo(self, obj):
-        return generate_image_url(obj.partner_logo, 'max-240x30')
+        if obj.partner_logo:
+            return generate_image_url(obj.partner_logo, 'max-240x30')
 
     def get_body(self, obj):
         if obj.body:

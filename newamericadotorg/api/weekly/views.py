@@ -3,7 +3,7 @@ from rest_framework.pagination import CursorPagination
 
 from weekly.models import WeeklyArticle
 
-from .serializers import WeeklyArticleSerializer
+from .serializers import DetailWeeklyArticleSerializer, ListingWeeklyArticleSerializer
 
 
 class WeeklyCursorPagination(CursorPagination):
@@ -14,15 +14,15 @@ class WeeklyCursorPagination(CursorPagination):
 
 
 class WeeklyList(ListAPIView):
-    serializer_class = WeeklyArticleSerializer
+    serializer_class = ListingWeeklyArticleSerializer
     pagination_class = WeeklyCursorPagination
 
     def get_queryset(self):
-        return WeeklyArticle.objects.live().public()
+        return WeeklyArticle.objects.live().public().prefetch_related('authors__author__profile_image').select_related('story_image')
 
 
 class WeeklyDetail(RetrieveAPIView):
-    serializer_class = WeeklyArticleSerializer
+    serializer_class = DetailWeeklyArticleSerializer
 
     def get_queryset(self):
         return WeeklyArticle.objects.live().public()

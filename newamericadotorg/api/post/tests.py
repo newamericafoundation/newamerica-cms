@@ -164,7 +164,7 @@ class PostAPITests(APITestCase):
         response = self.client.get(url)
         result = response.json()['results'][0]
 
-        self.assertTrue('fill-300x230.png' in result['story_image'])
+        self.assertTrue('fill-300x230' in result['story_image'])
 
     def test_post_ordering(self):
         url = '/api/post/'

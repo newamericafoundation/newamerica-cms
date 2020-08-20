@@ -2,13 +2,13 @@ from django.core.cache import cache
 from django.conf import settings
 import json
 from wagtail.core.models import Page
+from wagtail.images.views.serve import generate_image_url
 
 from home.models import HomePage, AbstractHomeContentPage
 from programs.models import Program, Subprogram, AbstractContentPage
 from issue.models import IssueOrTopic
 
 from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer, SubprogramSerializer
-from newamericadotorg.api.helpers import generate_image_url
 
 def debug(request):
     username = None
@@ -54,7 +54,8 @@ def about_pages(request):
         about_pages = HomePage.objects.first().about_pages
         if len(about_pages) != 0:
             aboutpages = [{ 'title': a.value.title, 'url': a.value.url } for a in about_pages]
-            aboutimage = generate_image_url(about_pages[0].value.specific.story_image, 'fill-200x170')
+            image = about_pages[0].value.specific.story_image
+            aboutimage = generate_image_url(image, 'fill-200x170') if image else None
             cache.set('NA_about_pages', aboutpages, 60 * 60)
             cache.set('NA_about_img', aboutimage, 60 * 60)
 
