@@ -6,7 +6,7 @@
   {% if page.subheading %}
     <h6 class="subheading">{{ page.subheading }}</h6>
   {% endif %}
-  {% if page|model_name != 'home.OrgSimplePage' %}
+  {% if page|model_name != 'home.OrgSimplePage' and page|model_name != 'home.ProgramSimplePage' %}
     <h5>{% firstof page.other_content_type.singular_title page|model_display_name %}{% if page.source %} in {{ page.source }}{% endif %}</h5>
   {% endif %}
   {% if page.source %}
