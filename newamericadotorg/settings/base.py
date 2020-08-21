@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
+    'wagtail.contrib.legacy.richtext',
     'wagtail.core',
     'wagtail.contrib.styleguide',
     'wagtail.contrib.table_block',
@@ -89,7 +90,6 @@ MIDDLEWARE = [
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
     # Gzip/minify
