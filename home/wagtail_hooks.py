@@ -15,7 +15,9 @@ def remove_copy_button_for_non_superusers(buttons, page, page_perms, is_parent=F
         for top_button in buttons:
             if hasattr(top_button, 'dropdown_buttons'):
                 top_button.dropdown_buttons = [
-                    b for b in top_button.dropdown_buttons if b.label != 'Copy'
+                    # 20 = the priority value of the "Copy" button, as
+                    # defined in wagtail
+                    b for b in top_button.dropdown_buttons if b.priority != 20
                 ]
 
 
