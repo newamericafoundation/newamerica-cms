@@ -82,6 +82,11 @@ def sync_staging_from_production(c):
         destination=STAGING_APP_INSTANCE,
         source=PRODUCTION_APP_INSTANCE,
     )
+    sync_heroku_buckets(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
 
 
 #######
@@ -166,6 +171,29 @@ def copy_heroku_database(c, *, source, destination):
             source_app=source, destination_app=destination
         )
     )
+
+
+# The single star (*) below indicates that all the arguments
+# afterwards must be given as keywords.  See PEP 3102 to learn more.
+def sync_heroku_buckets(c, *, source, destination):
+    destination_bucket_name = get_heroku_variable(
+        c, destination, "S3_BUCKET_NAME"
+    )
+    destination_access_key_id = get_heroku_variable(c, destination, "AWS_ACCESS_KEY_ID")
+    destination_secret_access_key = get_heroku_variable(
+        c, destination, "AWS_SECRET_ACCESS_KEY"
+    )
+
+    source_bucket_name = get_heroku_variable(
+        c, source, "S3_BUCKET_NAME"
+    )
+
+    aws_cmd = "s3 sync --delete s3://{source_bucket_name} s3://{destination_bucket_name}".format(
+        source_bucket_name=source_bucket_name, destination_bucket_name=destination_bucket_name
+    )
+
+    aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
+
 
 
 ####
