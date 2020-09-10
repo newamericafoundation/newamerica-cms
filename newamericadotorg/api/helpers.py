@@ -28,7 +28,7 @@ def generate_image_rendition(image, filter_spec=None):
 
 
 def get_content_type(obj):
-    content_type = obj.get_ancestors().type(AbstractContentPage).first()
+    content_type = obj.get_ancestors().type(AbstractContentPage).select_related('content_type').first()
     if content_type:
         content_type = content_type.specific
         name = getattr(content_type, 'singular_title', None)
