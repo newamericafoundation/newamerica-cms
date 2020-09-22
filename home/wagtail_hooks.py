@@ -97,7 +97,7 @@ def register_pullquote_feature(features):
 
     control = {
         'type': type_,
-        'icon': 'icon icon-openquote',
+        'icon': 'openquote',
         'description': 'Pullquote',
         'element': 'blockquote'
     }
@@ -134,7 +134,7 @@ def register_blockquote_feature(features):
 
     control = {
         'type': type_,
-        'icon': 'icon icon-arrow-right',
+        'icon': 'arrow-right',
         'description': 'Blockquote',
         'element': 'blockquote',
     }
