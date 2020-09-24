@@ -13,7 +13,7 @@ django-modelcluster==5.1
 logdna==1.5.3
 whitenoise==5.0.1
 django-redis==4.11.0
-django-basic-auth-ip-whitelist==0.3.3
+django-basic-auth-ip-whitelist==0.3.4
 
 # Other packages
 Wand==0.5.9
