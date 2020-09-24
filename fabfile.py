@@ -86,7 +86,13 @@ def sync_staging_from_production(c):
         c,
         destination=STAGING_APP_INSTANCE,
         source=PRODUCTION_APP_INSTANCE,
+        folders=['original_images', 'documents']
     )
+    # The above command just syncs the original images, so we need to
+    # delete the contents of the wagtailimages_renditions table so
+    # that the renditions will be re-created when requested in the
+    # staging environment.
+    delete_staging_renditions(c)
 
 
 #######
@@ -175,7 +181,7 @@ def copy_heroku_database(c, *, source, destination):
 
 # The single star (*) below indicates that all the arguments
 # afterwards must be given as keywords.  See PEP 3102 to learn more.
-def sync_heroku_buckets(c, *, source, destination):
+def sync_heroku_buckets(c, *, source, destination, folders=[]):
     destination_bucket_name = get_heroku_variable(
         c, destination, "S3_BUCKET_NAME"
     )
@@ -190,12 +196,27 @@ def sync_heroku_buckets(c, *, source, destination):
         c, source, "S3_BUCKET_NAME"
     )
 
-    aws_cmd = "s3 sync --delete s3://{source_bucket_name} s3://{destination_bucket_name}".format(
-        source_bucket_name=source_bucket_name, destination_bucket_name=destination_bucket_name
-    )
 
-    aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
-
+    # The `--size-only` flag means we don't have to compute the md5
+    # hash of every media file, potentially increasing performance
+    cmd_template = "s3 sync --size-only --delete s3://{source_bucket_name}/{folder} s3://{destination_bucket_name}/{folder}"
+    if folders:
+        for folder in folders:
+            print('Syncing media folder `{}` (this may take a while).'.format(folder))
+            aws_cmd = cmd_template.format(
+                source_bucket_name=source_bucket_name,
+                destination_bucket_name=destination_bucket_name,
+                folder=folder,
+            )
+            aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
+    else:
+        print('Syncing all media folders (this may take a while).')
+        aws_cmd = cmd_template.format(
+            source_bucket_name=source_bucket_name,
+            destination_bucket_name=destination_bucket_name,
+            folder='',
+        )
+        aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
 
 
 ####
@@ -321,6 +342,15 @@ def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
         )
     except:
         pass
+
+
+def delete_staging_renditions(c):
+    check_if_logged_in_to_heroku(c)
+    local(
+        'heroku pg:psql --app {app} -c "DELETE FROM wagtailimages_rendition;"'.format(
+            app=STAGING_APP_INSTANCE
+        )
+    )
 
 
 def make_bold(msg):
