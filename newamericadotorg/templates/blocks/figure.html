@@ -1,0 +1,21 @@
+{% load wagtailcore_tags %}
+
+<div class="figure-block">
+
+{{ value.title }}
+
+{{ value.text|richtext }}
+
+{{ value.caption|richtext }}
+
+{{ value.width }}
+
+{{ value.columns }}
+
+{% for block in value.content %}
+
+{% include_block block %}
+
+{% endfor %}
+
+</div>

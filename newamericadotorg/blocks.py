@@ -428,6 +428,29 @@ class SessionsBlock(blocks.StreamBlock):
 	class Meta:
 		template = 'blocks/schedule.html'
 
+
+class FigureBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    text = blocks.RichTextBlock(help_text='Displays below the title') # TODO: limit length
+    caption = blocks.RichTextBlock(help_text='Displays like a footer') # TODO: limit length
+    width = blocks.ChoiceBlock([
+        ('column-width', 'Column Width (max 650px)'),
+        ('width-1200', 'Site Width (max 1200px)'),
+        ('full-width', 'Full Width (max 100%)')
+    ], default='column-width', required=False, help_text='The maximum width of the chart. Always use "Column Width" for non-report content types (e.g. blog posts, About pages). Never use "Full-Width" unless specifically instructed to by your designer.')
+    content = blocks.StreamBlock([
+        ('customimage', CustomImageBlock()),
+        ('datawrapper', DatawrapperBlock()),
+        ('iframe', IframeBlock()),
+        ('dataviz', DatavizBlock()),
+    ], min_num=0, max_num=8)
+    columns = blocks.IntegerBlock(min_value=1, max_value=4, help_text='Number of columns, from 1 to 4')
+
+    class Meta:
+        group = 'Embeds'
+        template = 'blocks/figure.html'
+
+
 class Body(blocks.StreamBlock):
 	introduction = blocks.RichTextBlock(icon="openquote")
 	heading = blocks.CharBlock(classname='full title', icon="title", template="blocks/heading.html")
@@ -442,6 +465,8 @@ class Body(blocks.StreamBlock):
 	timeline = TimelineBlock(icon="arrows-up-down")
 	google_map = GoogleMapBlock(icon="site")
 	resource_kit = ResourceKit(icon="folder")
+	figure = FigureBlock(icon="image")
+
 
 class PanelBlock(blocks.StructBlock):
 	title = blocks.TextBlock()
