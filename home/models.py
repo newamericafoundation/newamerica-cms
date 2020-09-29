@@ -393,7 +393,6 @@ class ProgramAboutHomePage(ProgramSimplePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['program'] = self.program
 
         if getattr(request, 'is_preview', False):
             program_context = context['program'].get_context(request)
@@ -413,10 +412,10 @@ class ProgramAboutPage(ProgramSimplePage):
 
     @cached_property
     def program(self):
-        return self.get_parent().get_parent().specific
+        return Page.objects.ancestor_of(self).type(AbstractProgram).order_by('-depth').first().specific
 
     def get_context(self, request):
-        context = super(ProgramSimplePage, self).get_context(request)
+        context = super().get_context(request)
         context['program'] = self.program
 
         if getattr(request, 'is_preview', False):
