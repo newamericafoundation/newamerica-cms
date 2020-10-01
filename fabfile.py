@@ -185,7 +185,7 @@ def sync_heroku_buckets(c, *, source, destination, folders=[]):
     destination_bucket_name = get_heroku_variable(
         c, destination, "S3_BUCKET_NAME"
     )
-    if destination_bucket_name == 'newamericadotorg':
+    if destination_bucket_name == PRODUCTION_APP_INSTANCE:
         raise RuntimeError("Production bucket used as destination for sync_heroku_buckets. Please delete this check if you're absolutely sure you want to do this")
     destination_access_key_id = get_heroku_variable(c, destination, "AWS_ACCESS_KEY_ID")
     destination_secret_access_key = get_heroku_variable(
