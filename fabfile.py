@@ -325,18 +325,10 @@ def pull_images_from_s3_heroku(c, app_instance):
 
 
 def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
+    print('Deleting local image renditions')
     try:
         local(
-            'sudo -u postgres psql  -d {database_name} -c "DELETE FROM images_rendition;"'.format(
-                database_name=local_database_name
-            )
-        )
-    except:
-        pass
-
-    try:
-        local(
-            'sudo -u postgres psql  -d {database_name} -c "DELETE FROM wagtailimages_rendition;"'.format(
+            'sudo -u postgres psql  -d {database_name} -c "DELETE FROM home_customrendition;"'.format(
                 database_name=local_database_name
             )
         )
@@ -345,9 +337,10 @@ def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
 
 
 def delete_staging_renditions(c):
+    print('Deleting staging image renditions')
     check_if_logged_in_to_heroku(c)
     local(
-        'heroku pg:psql --app {app} -c "DELETE FROM wagtailimages_rendition;"'.format(
+        'heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
             app=STAGING_APP_INSTANCE
         )
     )
