@@ -196,13 +196,12 @@ def sync_heroku_buckets(c, *, source, destination, folders=[]):
         c, source, "S3_BUCKET_NAME"
     )
 
-
     # The `--size-only` flag means we don't have to compute the md5
     # hash of every media file, potentially increasing performance
     cmd_template = "s3 sync --size-only --delete s3://{source_bucket_name}/{folder} s3://{destination_bucket_name}/{folder}"
     if folders:
         for folder in folders:
-            print('Syncing media folder `{}` (this may take a while).'.format(folder))
+            print('Syncing media folder `{}`. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.'.format(folder))
             aws_cmd = cmd_template.format(
                 source_bucket_name=source_bucket_name,
                 destination_bucket_name=destination_bucket_name,
@@ -210,7 +209,7 @@ def sync_heroku_buckets(c, *, source, destination, folders=[]):
             )
             aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
     else:
-        print('Syncing all media folders (this may take a while).')
+        print('Syncing all media folders. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.')
         aws_cmd = cmd_template.format(
             source_bucket_name=source_bucket_name,
             destination_bucket_name=destination_bucket_name,
