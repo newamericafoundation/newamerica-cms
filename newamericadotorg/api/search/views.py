@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
 
-from wagtail.core.models import Page, PageViewRestriction
+from wagtail.core.models import Page, PageViewRestriction, Site
 from wagtail.search.models import Query
 
 from .serializers import SearchSerializer
@@ -29,7 +29,8 @@ class SearchList(ListAPIView):
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
-        results = exclude_invisible_pages(self.request, Page.objects.live().descendant_of(self.request.site.root_page, inclusive=True))
+        site_for_request = Site.find_for_request(self.request)
+        results = exclude_invisible_pages(self.request, Page.objects.live().descendant_of(site_for_request.root_page, inclusive=True))
 
         if search:
             results = results.search(search, partial_match=False)
