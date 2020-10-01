@@ -1,7 +1,9 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
+from wagtail.images.views.serve import generate_image_url
+
 from home.models import Post
-from newamericadotorg.api.helpers import generate_image_url, get_content_type
+from newamericadotorg.api.helpers import get_content_type
 from newamericadotorg.api.author.serializers import AuthorSerializer
 from newamericadotorg.api.program.serializers import PostProgramSerializer, PostSubprogramSerializer
 
@@ -60,8 +62,8 @@ class PostSerializer(ModelSerializer):
         return PostSubprogramSerializer(obj.post_subprogram, many=True).data
 
     def get_authors(self, obj):
-        authors_rel = obj.authors.order_by('pk')
-        if authors_rel is None:
+        authors_rel = obj.authors.all()
+        if not authors_rel:
             return None
         authors = [rel.author for rel in authors_rel]
         return AuthorSerializer(authors, many=True, context=self.context).data

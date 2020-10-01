@@ -8,7 +8,6 @@ from other_content.models import ProgramOtherPostsPage, OtherPostCategory
 from policy_paper.models import ProgramPolicyPapersPage
 
 from django.urls import reverse
-from wagtail.images.views.serve import generate_signature
 from wagtail.core.models import Page
 from wagtail.images.models import SourceImageIOError
 
@@ -27,16 +26,9 @@ def generate_image_rendition(image, filter_spec=None):
     except SourceImageIOError:
         return None
 
-def generate_image_url(image, filter_spec=None):
-    img = generate_image_rendition(image, filter_spec)
-    if not img:
-        return None
-
-    return img.url
-
 
 def get_content_type(obj):
-    content_type = obj.get_ancestors().type(AbstractContentPage).first()
+    content_type = obj.get_ancestors().type(AbstractContentPage).select_related('content_type').first()
     if content_type:
         content_type = content_type.specific
         name = getattr(content_type, 'singular_title', None)

@@ -1,11 +1,12 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from wagtail.core.models import Page, ContentType, PageRevision
+from wagtail.images.views.serve import generate_image_url
 from django.template import loader
 
 from home.models import ProgramAboutHomePage, ProgramAboutPage
 from programs.models import Program, Subprogram, Project, AbstractContentPage
 from subscribe.models import SubscriptionSegment
-from newamericadotorg.api.helpers import generate_image_url, get_content_type, get_program_content_types, get_subpages, generate_image_rendition
+from newamericadotorg.api.helpers import get_content_type, get_program_content_types, get_subpages, generate_image_rendition
 
 class AboutPageSerializer(ModelSerializer):
     body = SerializerMethodField()

@@ -215,7 +215,7 @@ class OurFundingMain extends Component {
         <Body data={how_were_funded} aside={<div className="buttons">
           <div className="charity-navigator-img margin-bottom-25">
             {/* <img src={charity_navigator.inline_image[0].url}/> */}
-            <img src="https://d1y8sb8igg2f8e.cloudfront.net/images/2019-funding-logos.min-800x800.png" style={{width: '100%', maxWidth: '350px', margin: '0 auto', display: 'block'}}/>
+            <img src="https://d1y8sb8igg2f8e.cloudfront.net/images/funding_transparency_logos.original.png" style={{width: '100%', maxWidth: '350px', margin: '0 auto', display: 'block'}}/>
           </div>
           <div style={{textAlign: "center"}}>
             <a className="button" href={donate_button.button[0].button_link}>{donate_button.button[0].button_text}</a>
@@ -225,16 +225,20 @@ class OurFundingMain extends Component {
           <h1>{transparency_table.heading[0]}</h1>
           {/* <h3>{transparency_table.dataviz[0].title}</h3> */}
           <HorizontalNav className={`our-funding__nav our-funding__nav--chart-tabs`} items={[
-            { url: '/our-funding/', label: '2019', exact: true },
+            { url: '/our-funding/', label: '2020', exact: true },
+            { url: '/our-funding/2019/', label: '2019'},
             { url: '/our-funding/2018/', label: '2018'},
           ]} />
           <div className="dataviz__chart-container">
             <Switch>
               <Route exact path="/our-funding/2018/" render={(props)=>(
-                <iframe title="Active Funding in Q4 2018" aria-label="Table" id="datawrapper-chart-xFCjp" src="//datawrapper.dwcdn.net/xFCjp/6/" scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+                <iframe title="Active Funding in Q4 2018" aria-label="Table" id="datawrapper-chart-xFCjp" src="//datawrapper.dwcdn.net/xFCjp/" scrolling="no" frameborder="0" width="100%" height="650"></iframe>
                 )}/>
+              <Route exact path="/our-funding/2019/" render={(props)=>(
+                <iframe title="Active Funding in Q4 2019" aria-label="Table" id="datawrapper-chart-H5Js1" src="//datawrapper.dwcdn.net/H5Js1/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+              )}/>
               <Route render={(props)=>(
-                <iframe title="Current active funding" aria-label="Table" id="datawrapper-chart-H5Js1" src="//datawrapper.dwcdn.net/H5Js1/1/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+                <iframe title="Current active funding" aria-label="Table" id="datawrapper-chart-T11iH" src="//datawrapper.dwcdn.net/T11iH/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
               )}/>
             </Switch>
       		</div>

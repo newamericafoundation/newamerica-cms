@@ -1,7 +1,9 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
+from wagtail.images.views.serve import generate_image_url
+
 from event.models import Event
-from newamericadotorg.api.helpers import generate_image_url, get_content_type
+from newamericadotorg.api.helpers import get_content_type
 from newamericadotorg.api.program.serializers import PostProgramSerializer, PostSubprogramSerializer
 
 
@@ -27,7 +29,8 @@ class EventSerializer(ModelSerializer):
         if obj.story_image:
             rendition_name = self.context['request'].query_params.get('story_image_rendition', None)
             rendition_filter_spec = EventSerializer.STORY_IMAGE_RENDITIONS.get(rendition_name, None)
-            return generate_image_url(obj.story_image, rendition_filter_spec)
+            if rendition_filter_spec:
+                return generate_image_url(obj.story_image, rendition_filter_spec)
 
     def get_programs(self, obj):
         return PostProgramSerializer(obj.parent_programs, many=True).data

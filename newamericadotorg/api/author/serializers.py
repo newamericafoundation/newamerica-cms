@@ -2,8 +2,9 @@ import datetime
 
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
+from wagtail.images.views.serve import generate_image_url
+
 from person.models import Person, PersonProgramRelationship, PersonSubprogramRelationship
-from newamericadotorg.api.helpers import generate_image_url
 
 class AuthorSerializer(ModelSerializer):
     position = SerializerMethodField()

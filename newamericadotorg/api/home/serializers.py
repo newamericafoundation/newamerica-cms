@@ -2,12 +2,12 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from wagtail.documents.models import Document
 from wagtail.core.models import Page
+from wagtail.images.views.serve import generate_image_url
 
 from home.models import CustomImage, OrgSimplePage
 from programs.models import Program
 from report.models import Report
 from newamericadotorg.api.post.serializers import PostSerializer
-from newamericadotorg.api.helpers import generate_image_url
 
 class HomeDetailSerializer(PostSerializer):
     data = SerializerMethodField()

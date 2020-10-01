@@ -74,6 +74,21 @@ def pull_staging_images(c):
     pull_images_from_s3_heroku(c, STAGING_APP_INSTANCE)
 
 
+@task
+def sync_staging_from_production(c):
+    """Copy database from production to staging"""
+    copy_heroku_database(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
+    sync_heroku_buckets(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
+
+
 #######
 # Local
 #######
@@ -145,6 +160,40 @@ def open_heroku_shell(c, app_instance, shell_command="bash"):
             app=app_instance, command=shell_command
         )
     )
+
+
+# The single star (*) below indicates that all the arguments
+# afterwards must be given as keywords.  See PEP 3102 to learn more.
+def copy_heroku_database(c, *, source, destination):
+    check_if_logged_in_to_heroku(c)
+    local(
+        "heroku pg:copy {source_app}::DATABASE_URL DATABASE_URL --app {destination_app}".format(
+            source_app=source, destination_app=destination
+        )
+    )
+
+
+# The single star (*) below indicates that all the arguments
+# afterwards must be given as keywords.  See PEP 3102 to learn more.
+def sync_heroku_buckets(c, *, source, destination):
+    destination_bucket_name = get_heroku_variable(
+        c, destination, "S3_BUCKET_NAME"
+    )
+    destination_access_key_id = get_heroku_variable(c, destination, "AWS_ACCESS_KEY_ID")
+    destination_secret_access_key = get_heroku_variable(
+        c, destination, "AWS_SECRET_ACCESS_KEY"
+    )
+
+    source_bucket_name = get_heroku_variable(
+        c, source, "S3_BUCKET_NAME"
+    )
+
+    aws_cmd = "s3 sync --delete s3://{source_bucket_name} s3://{destination_bucket_name}".format(
+        source_bucket_name=source_bucket_name, destination_bucket_name=destination_bucket_name
+    )
+
+    aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
+
 
 
 ####

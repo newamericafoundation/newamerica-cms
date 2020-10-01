@@ -10,7 +10,6 @@ import getNestedState from '../../lib/utils/get-nested-state';
 import LoadingIcon from '../components/LoadingIcon';
 import Article from './components/Article';
 import ArticleListing from './components/ArticleListing';
-import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 import bowser from 'bowser';
 import GARouter from '../ga-router';
@@ -66,9 +65,6 @@ class Routes extends Component {
     let { response: { results, hasNext, isFetching }, location, match } = this.props;
     return (
       <main className={`${isValidBrowser ? 'transition-enabled' : ''}`}>
-        <Route path="/weekly/:articleSlug?" render={(props)=>(
-          <Header dispatch={this.props.dispatch} {...props} articles={results} />
-        )} />
         <TransitionGroup className="weekly-slide-wrapper">
           <Slide key={match.params.articleSlug ? 'article' : 'index'}>
             <Switch location={location}>

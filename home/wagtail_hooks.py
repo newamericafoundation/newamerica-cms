@@ -1,11 +1,31 @@
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html, format_html_join
 from django.conf import settings
+from django.http import HttpResponseForbidden
 
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler, BlockElementHandler
 from wagtail.core import hooks
 from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
+
+
+@hooks.register('construct_page_listing_buttons')
+def remove_copy_button_for_non_superusers(buttons, page, page_perms, is_parent=False, context=None):
+    if not page_perms.user.is_superuser:
+        for top_button in buttons:
+            if hasattr(top_button, 'dropdown_buttons'):
+                top_button.dropdown_buttons = [
+                    # 20 = the priority value of the "Copy" button, as
+                    # defined in wagtail
+                    b for b in top_button.dropdown_buttons if b.priority != 20
+                ]
+
+
+@hooks.register('before_copy_page')
+def before_copy_page(request, page):
+    # Permit copying pages only for superusers
+    if not request.user.is_superuser:
+        return HttpResponseForbidden()
 
 
 @hooks.register('construct_whitelister_element_rules')
@@ -77,7 +97,7 @@ def register_pullquote_feature(features):
 
     control = {
         'type': type_,
-        'icon': 'icon icon-openquote',
+        'icon': 'openquote',
         'description': 'Pullquote',
         'element': 'blockquote'
     }
@@ -114,7 +134,7 @@ def register_blockquote_feature(features):
 
     control = {
         'type': type_,
-        'icon': 'icon icon-arrow-right',
+        'icon': 'arrow-right',
         'description': 'Blockquote',
         'element': 'blockquote',
     }
