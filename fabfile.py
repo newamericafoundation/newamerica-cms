@@ -135,7 +135,7 @@ def pull_media_from_s3_heroku(c, app_instance):
         c, app_instance, "S3_BUCKET_NAME"
     )
     pull_media_from_s3(
-        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
+        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=['original_images', 'documents']
     )
 
 
@@ -241,11 +241,25 @@ def pull_media_from_s3(
     aws_secret_access_key,
     aws_storage_bucket_name,
     local_media_folder=LOCAL_MEDIA_FOLDER,
+    folders=[],
 ):
-    aws_cmd = "s3 sync --delete s3://{bucket_name} {local_media}".format(
-        bucket_name=aws_storage_bucket_name, local_media=local_media_folder
-    )
-    aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
+    cmd_template = "s3 sync --delete s3://{bucket_name}/{folder} {local_media}"
+
+    if folders:
+        for folder in folders:
+            aws_cmd = cmd_template.format(
+                bucket_name=aws_storage_bucket_name, local_media=local_media_folder,
+                folder=folder,
+            )
+            print('Syncing media folder `{}`. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.'.format(folder))
+            aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
+    else:
+        aws_cmd = cmd_template.format(
+            bucket_name=aws_storage_bucket_name, local_media=local_media_folder,
+            folder='',
+        )
+        print('Syncing all media folders. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.')
+        aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
 
 
 def push_media_to_s3_heroku(c, app_instance):
@@ -302,22 +316,9 @@ def pull_images_from_s3_heroku(c, app_instance):
     aws_storage_bucket_name = get_heroku_variable(
         c, app_instance, "S3_BUCKET_NAME"
     )
-    pull_images_from_s3(
-        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
+    pull_media_from_s3(
+        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=['original_images']
     )
-
-
-def pull_images_from_s3(
-    c,
-    aws_access_key_id,
-    aws_secret_access_key,
-    aws_storage_bucket_name,
-    local_images_folder=LOCAL_IMAGES_FOLDER,
-):
-    aws_cmd = "s3 sync --delete s3://{bucket_name}/original_images {local_media}".format(
-        bucket_name=aws_storage_bucket_name, local_media=local_images_folder
-    )
-    aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
     # The above command just syncs the original images, so we need to drop the wagtailimages_renditions
     # table so that the renditions will be re-created when requested on the local build.
     delete_local_renditions()
