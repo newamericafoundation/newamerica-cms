@@ -15,6 +15,24 @@ apt-get update -y
 apt-get install -y libcairo2 libpango-1.0-0 libpangocairo-1.0-0
 
 
+# Replace Elasticsearch with version 2
+echo "Downloading Elasticsearch..."
+set +e
+apt-get remove -y --purge elasticsearch
+set -e
+wget -q https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.4.2/elasticsearch-2.4.2.deb
+dpkg -i elasticsearch-2.4.2.deb
+
+# Enable script scoring
+cat << EOF >> /etc/elasticsearch/elasticsearch.yml
+script.inline: on
+script.search: on
+EOF
+
+systemctl enable elasticsearch
+systemctl start elasticsearch
+
+
 # Create database (let it fail because database may exist)
 set +e
 su - vagrant -c "createdb $PROJECT_NAME"
@@ -67,6 +85,7 @@ export DATABASE_URL=postgres:///$PROJECT_NAME
 export REDIS_URL=redis://localhost/1
 export PGDATABASE=$PROJECT_NAME
 export SECRET_KEY=test
+export ELASTICSEARCH_URL=http://localhost:9200
 
 alias dj="django-admin.py"
 alias djrun="dj runserver 0.0.0.0:8000"

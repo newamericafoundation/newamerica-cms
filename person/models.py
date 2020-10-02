@@ -245,12 +245,10 @@ class Person(Page):
     subpage_types = []
 
     search_fields = Page.search_fields + [
-        index.SearchField('first_name'),
-        index.SearchField('last_name'),
-        index.SearchField('position_at_new_america'),
-        index.SearchField('long_bio'),
-        index.SearchField('short_bio'),
-        index.SearchField('role'),
+        index.SearchField('position_at_new_america', boost=0.33),
+        index.SearchField('long_bio', boost=0.01),
+        index.SearchField('short_bio', boost=0.33),
+        index.SearchField('role', boost=0.01),
 
         index.RelatedFields('belongs_to_these_programs', [
             index.SearchField('name'),

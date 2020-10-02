@@ -9,6 +9,7 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Page, Orderable
 from wagtail.embeds.blocks import EmbedBlock
+from wagtail.search import index
 
 from .blocks import VenueBlock, DirectionsBlock, PartnersBlock
 from newamericadotorg.blocks import IntegerBlock, PeopleBlock, SessionsBlock
@@ -81,6 +82,10 @@ class Conference(Page):
     venue_details = RichTextField(null=True, blank=True)
 
     partner_heading = models.TextField(default='Sponsors & Partners')
+
+    search_fields = Page.search_fields + [
+        index.FilterField('date'),
+    ]
 
     about = MultiFieldPanel(
         [
