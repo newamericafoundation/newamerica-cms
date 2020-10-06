@@ -3,7 +3,7 @@ from invoke.exceptions import Exit
 from invoke.tasks import task
 
 PRODUCTION_APP_INSTANCE = "newamericadotorg"
-STAGING_APP_INSTANCE = "na-develop"
+STAGING_APP_INSTANCE = "na-staging"
 
 LOCAL_MEDIA_FOLDER = "/vagrant/media"
 LOCAL_IMAGES_FOLDER = "/vagrant/media/original_images"
