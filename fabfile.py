@@ -3,7 +3,7 @@ from invoke.exceptions import Exit
 from invoke.tasks import task
 
 PRODUCTION_APP_INSTANCE = "newamericadotorg"
-STAGING_APP_INSTANCE = "na-staging"
+STAGING_APP_INSTANCE = "na-develop"
 
 LOCAL_MEDIA_FOLDER = "/vagrant/media"
 LOCAL_IMAGES_FOLDER = "/vagrant/media/original_images"
@@ -173,7 +173,7 @@ def open_heroku_shell(c, app_instance, shell_command="bash"):
 def copy_heroku_database(c, *, source, destination):
     check_if_logged_in_to_heroku(c)
     local(
-        "heroku pg:copy {source_app}::DATABASE_URL DATABASE_URL --app {destination_app}".format(
+        "heroku pg:copy {source_app}::DATABASE_URL DATABASE_URL --app {destination_app} --confirm {destination_app}".format(
             source_app=source, destination_app=destination
         )
     )
@@ -216,7 +216,6 @@ def sync_heroku_buckets(c, *, source, destination, folders=[]):
             folder='',
         )
         aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
-
 
 ####
 # S3
