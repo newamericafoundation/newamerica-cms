@@ -33,3 +33,9 @@ def local(request, **kwargs):
     path[1] = 'local'
     url = '/'.join(path)
     return redirect(url)
+
+def pit(request, **kwargs):
+    path = request.path.split('/')
+    path[1] = 'pit'
+    url = '/'.join(path)
+    return redirect(url)
