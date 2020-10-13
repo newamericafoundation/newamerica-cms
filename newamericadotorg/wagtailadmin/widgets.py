@@ -12,4 +12,4 @@ class LocationWidget(widgets.TextInput):
         if attrs is not None:
             context.update(attrs)
 
-        return loader.get_template(self.template_name).render(attrs)
+        return loader.get_template(self.template_name).render(context)
