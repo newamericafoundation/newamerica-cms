@@ -6,6 +6,37 @@ import * as QueryString from 'query-string';
 import { PublicationListItem, Person } from '../../components/ContentCards';
 import { LoadingDots } from '../../components/Icons';
 
+
+function groupBy(list, keyGetter) {
+  const map = new Map();
+  list.forEach((item) => {
+    const key = keyGetter(item);
+    const collection = map.get(key);
+    if (!collection) {
+      map.set(key, [item]);
+    } else {
+      collection.push(item);
+    }
+  });
+  return map;
+}
+
+function classifyResult(result) {
+  let type = result.content_type.api_name;
+
+  if (type == "article" || type == "blogpost" || type == "book" || type == "event" || type == "issueortopic" || type == "podcast" || type == "policypaper" || type == "pressrelase" || type == "quoted" || type == "weeklyarticle" || type == "report" || type == "indepth") {
+    return "Publications";
+  } else if (type == "program" || type == "initiative" || type == "subprogram") {
+    return "Programs";
+  } else if (type == "person") {
+    return "People";
+  } else if (type == "event") {
+    return "Events";
+  } else {
+    return "Other Pages";
+  }
+}
+
 function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext, fetchPrevious}) {
   // Remember if we've tried to fetch before
   // This helps us differentiate between the initial state and "No results"
@@ -59,13 +90,19 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
 
   return (
     <div className="program__publications-list-wrapper">
-      <div className="program__publications-list">
-          {results.map((result, i) => {
-            if(result.content_type.api_name == 'person')
-              return ( <Person key={`person-${result.id}`} person={result} /> );
-            return ( <PublicationListItem key={`post-${result.id}`} post={result} /> );
-          })}
-      </div>
+      {Array.from(groupBy(results, classifyResult), ([header, subresults]) => {
+        return (
+          <div>
+            <h2>{header}</h2>
+            <div className="program__publications-list">
+              {subresults.map((result, i) => {
+                if(result.content_type.api_name == 'person')
+                  return ( <Person key={`person-${result.id}`} person={result} /> );
+                return ( <PublicationListItem key={`post-${result.id}`} post={result} /> );
+              })}
+            </div>
+          </div>)
+      })}
       {hasPrevious &&
       <div className="program__publications-list-load-more margin-top-10" style={{float: 'left'}}>
         <button className={`button${fetchingPrevious ? ' is-fetching' : ''}`} onClick={onClickPrevious} disabled={isFetching}>
