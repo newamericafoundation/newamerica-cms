@@ -10,9 +10,9 @@ PYTHON=$VIRTUALENV_DIR/bin/python
 PIP=$VIRTUALENV_DIR/bin/pip
 
 
-# Install Cairo and Pango
+# Install Cairo, Pango and GDK-Pixbuf
 apt-get update -y
-apt-get install -y libcairo2 libpango-1.0-0 libpangocairo-1.0-0
+apt-get install -y libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0
 
 
 # Replace Elasticsearch with version 2
