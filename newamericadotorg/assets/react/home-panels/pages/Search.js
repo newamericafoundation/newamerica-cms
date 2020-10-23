@@ -88,9 +88,12 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
     fetchPrevious();
   }
 
+  let emptyGroups = new Set(["Publications", "Programs", "People", "Events", "Other Pages"]);
+
   return (
     <div className="program__publications-list-wrapper">
       {Array.from(groupBy(results, classifyResult), ([header, subresults]) => {
+        emptyGroups.delete(header);
         return (
           <div>
             <h2>{header}</h2>
@@ -100,6 +103,15 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
                   return ( <Person key={`person-${result.id}`} person={result} /> );
                 return ( <PublicationListItem key={`post-${result.id}`} post={result} /> );
               })}
+            </div>
+          </div>)
+      })}
+      {[...emptyGroups].map(groupName => {
+        return (
+          <div>
+            <h2>{groupName}</h2>
+            <div className="program__publications-list">
+              No results.
             </div>
           </div>)
       })}
