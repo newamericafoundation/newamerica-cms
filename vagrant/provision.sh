@@ -38,9 +38,22 @@ set +e
 su - vagrant -c "createdb $PROJECT_NAME"
 set -e
 
+# Install the correct python version
+export PYTHON_VERSION=3.8.6
+export MAIN_PYTHON_VERSION=$( echo $PYTHON_VERSION|cut -d. -f-2)
+apt-get install -y libffi-dev libssl-dev libncurses-dev liblzma-dev libgdbm-dev libsqlite3-dev libbz2-dev tk-dev libreadline6-dev
+curl https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz | tar xvz
+cd Python-$PYTHON_VERSION
+./configure --enable-optimizations
+make
+make install
+cd ..
+rm -rf Python-$PYTHON_VERSION
+apt-get remove -y libffi-dev libssl-dev libncurses-dev liblzma-dev libgdbm-dev libsqlite3-dev libbz2-dev tk-dev libreadline6-dev
+
 
 # Virtualenv setup for project
-su - vagrant -c "virtualenv --python=python3 $VIRTUALENV_DIR"
+su - vagrant -c "virtualenv --python=python$MAIN_PYTHON_VERSION $VIRTUALENV_DIR"
 
 su - vagrant -c "echo $PROJECT_DIR > $VIRTUALENV_DIR/.project"
 
