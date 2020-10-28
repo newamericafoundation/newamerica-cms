@@ -1,21 +1,32 @@
 {% load wagtailcore_tags %}
+{% load utilities %}
 
-<div class="figure-block">
+<figure class="figure figure--new figure--columns-{{ value.columns }} {{value.align}} {{value.width|temp_image_width_map}}">
+  {% if value.title %}
+    <h3 class="figure__title">{{ value.title }}</h3>
+  {% endif %}
 
-{{ value.title }}
+  {{ value.text|richtext }}
 
-{{ value.text|richtext }}
+  <div class="figure__graphics">
+    {% for block in value.content %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
 
-{{ value.caption|richtext }}
+  <div class="figure__post-graphics">
+    {{ value.caption|richtext }}
+  </div>
 
-{{ value.width }}
+  {% if value.source %}
+    <figcaption>
+      <h6>
+        Source: {{ value.source }}
+      </h6>
+    </figcaption>
+  {% endif %}
 
-{{ value.columns }}
-
-{% for block in value.content %}
-
-{% include_block block %}
-
-{% endfor %}
-
-</div>
+  <div class="figure__footer">
+    New America
+  </div>
+</figure>
