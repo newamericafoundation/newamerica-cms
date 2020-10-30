@@ -7,37 +7,7 @@ import { PublicationListItem, Person } from '../../components/ContentCards';
 import { LoadingDots } from '../../components/Icons';
 
 
-function groupBy(list, keyGetter) {
-  const map = new Map();
-  list.forEach((item) => {
-    const key = keyGetter(item);
-    const collection = map.get(key);
-    if (!collection) {
-      map.set(key, [item]);
-    } else {
-      collection.push(item);
-    }
-  });
-  return map;
-}
-
-function classifyResult(result) {
-  let type = result.content_type.api_name;
-
-  if (type == "article" || type == "blogpost" || type == "book" || type == "event" || type == "issueortopic" || type == "podcast" || type == "policypaper" || type == "pressrelase" || type == "quoted" || type == "weeklyarticle" || type == "report" || type == "indepth") {
-    return "Publications";
-  } else if (type == "program" || type == "initiative" || type == "subprogram") {
-    return "Programs";
-  } else if (type == "person") {
-    return "People";
-  } else if (type == "event") {
-    return "Events";
-  } else {
-    return "Other Pages";
-  }
-}
-
-function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext, fetchPrevious}) {
+function SearchResultList({results, header, isFetching, hasNext, hasPrevious, fetchNext, fetchPrevious}) {
   // Remember if we've tried to fetch before
   // This helps us differentiate between the initial state and "No results"
   const [hasFetched, setHasFetched] = useState(false);
@@ -69,7 +39,12 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
       );
     } else {
       return (
-        <h4 className="centered">No results found</h4>
+        <div className="program__publications-list-wrapper">
+          <h2>{header}</h2>
+          <div className="program__publications-list">
+            No results found.
+          </div>
+        </div>
       );
     }
   }
@@ -88,33 +63,19 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
     fetchPrevious();
   }
 
-  let emptyGroups = new Set(["Publications", "Programs", "People", "Events", "Other Pages"]);
-
   return (
     <div className="program__publications-list-wrapper">
-      {Array.from(groupBy(results, classifyResult), ([header, subresults]) => {
-        emptyGroups.delete(header);
-        return (
-          <div>
-            <h2>{header}</h2>
-            <div className="program__publications-list">
-              {subresults.map((result, i) => {
-                if(result.content_type.api_name == 'person')
-                  return ( <Person key={`person-${result.id}`} person={result} /> );
-                return ( <PublicationListItem key={`post-${result.id}`} post={result} /> );
-              })}
-            </div>
-          </div>)
-      })}
-      {[...emptyGroups].map(groupName => {
-        return (
-          <div>
-            <h2>{groupName}</h2>
-            <div className="program__publications-list">
-              No results.
-            </div>
-          </div>)
-      })}
+      <div>
+        <h2>{header}</h2>
+        <div className="program__publications-list">
+          {results.map((result, i) => {
+            if(result.content_type.api_name == 'person')
+              return ( <Person key={`person-${result.id}`} person={result} /> );
+            return ( <PublicationListItem key={`post-${result.id}`} post={result} /> );
+          })}
+        </div>
+      </div>
+
       {hasPrevious &&
       <div className="program__publications-list-load-more margin-top-10" style={{float: 'left'}}>
         <button className={`button${fetchingPrevious ? ' is-fetching' : ''}`} onClick={onClickPrevious} disabled={isFetching}>
@@ -137,15 +98,12 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
   );
 }
 
-export default function Search({location, history}) {
-  const {query, ...paginationFilter} = QueryString.parse(location.search);
-
-  const [queryInputValue, setQueryInputValue] = useState(query);
+function SearchBucket({query, name, endpoint, showEmpty}) {
+  //const [pageNum, setPageNum] = useState(1);
+  const [paginationFilter, setPaginationFilter] = useState(null)
   const [results, setResults] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
-  // These contain the value of paginationFilter for the next/previous pages
-  // null = next/prev page doesn't exist
   const [nextPaginationFilter, setNextPaginationFilter] = useState(null);
   const [previousPaginationFilter, setPreviousPaginationFilter] = useState(null);
 
@@ -168,12 +126,9 @@ export default function Search({location, history}) {
     }
   };
 
-  console.log("RERENDER")
-
   // Perform search when query changes
   useEffect(() => {
     // Update query input value when user hits back/forward
-    setQueryInputValue(query);
 
     const queryParams = getQueryParams(query, paginationFilter);
 
@@ -181,7 +136,7 @@ export default function Search({location, history}) {
       // Fetch results
       // TODO: Make sure responses come back in correct order
       setIsFetching(true);
-      fetch(`/api/search/${queryParams}`)
+      fetch(`${endpoint}/${queryParams}`)
       .then(response => response.json())
       .then(json => {
         setResults(json.results);
@@ -207,7 +162,51 @@ export default function Search({location, history}) {
       setNextPaginationFilter(null);
       setPreviousPaginationFilter(null);
     }
-  }, [location.key]);
+  }, [query, paginationFilter]);
+
+  return (
+    <div>
+      {(results.length > 1 || showEmpty) && <SearchResultList
+        results={results}
+        header={name}
+        isFetching={isFetching}
+        hasNext={!!nextPaginationFilter}
+        fetchNext={() => setPaginationFilter(nextPaginationFilter)}
+        hasPrevious={!!previousPaginationFilter}
+        fetchPrevious={() => setPaginationFilter(previousPaginationFilter)}
+       />}
+    </div>
+  )
+}
+
+export default function Search({location, history}) {
+  const {query} = QueryString.parse(location.search);
+
+  const [queryInputValue, setQueryInputValue] = useState(query);
+  const [results, setResults] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+
+  // These contain the value of paginationFilter for the next/previous pages
+  // null = next/prev page doesn't exist
+  const [nextPaginationFilter, setNextPaginationFilter] = useState(null);
+  const [previousPaginationFilter, setPreviousPaginationFilter] = useState(null);
+
+  // // Gets query params from state
+  const getQueryParams = query => {
+    const params = {};
+
+    if (query) {
+      params['query'] = query;
+    }
+
+    if (params) {
+      return '?' + QueryString.stringify(params);
+    } else {
+      return '';
+    }
+  };
+
+  console.log("RERENDER")
 
   // Trigger search when user presses the 'Enter' key
   const onKeyDownInSearchBox = e => {
@@ -242,14 +241,39 @@ export default function Search({location, history}) {
         <button className="button--text input__submit with-caret--right" onClick={onClickSearch}>Search</button>
       </div>
 
+      <SearchBucket
+        query={query}
+        name="Programs, Initiatives and Projects"
+        endpoint="/api/search/programs"
+        showEmpty={true}
+      />
 
-      <SearchResultList
-        results={results}
-        isFetching={isFetching}
-        hasNext={!!nextPaginationFilter}
-        fetchNext={() => setPaginationFilter(nextPaginationFilter)}
-        hasPrevious={!!previousPaginationFilter}
-        fetchPrevious={() => setPaginationFilter(previousPaginationFilter)}
+      <SearchBucket
+        query={query}
+        name="Upcoming Events"
+        endpoint="/api/search/upcoming_events"
+        showEmpty={true}
+      />
+
+      <SearchBucket
+        query={query}
+        name="Publications and Past Events"
+        endpoint="/api/search/pubs_and_past_events"
+        showEmpty={true}
+      />
+
+      <SearchBucket
+        query={query}
+        name="People"
+        endpoint="/api/search/people"
+        showEmpty={true}
+      />
+
+      <SearchBucket
+        query={query}
+        name="Other Pages"
+        endpoint="/api/search/other"
+        showEmpty={false}
       />
     </div>
   );

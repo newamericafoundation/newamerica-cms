@@ -16,6 +16,11 @@ import newamericadotorg.api.weekly.views as weekly_views
 api_urls = [
     url(r'^post/$', post_views.PostList.as_view(), name='post_list'),
     url(r'^search/$', search_views.SearchList.as_view()),
+    url(r'^search/programs/$', search_views.SearchPrograms.as_view()),
+    url(r'^search/upcoming_events/$', search_views.SearchUpcomingEvents.as_view()),
+    url(r'^search/pubs_and_past_events/$', search_views.SearchPublicationsAndPastEvents.as_view()),
+    url(r'^search/people/$', search_views.SearchPeople.as_view()),
+    url(r'^search/other/$', search_views.SearchOtherPages.as_view()),
     url(r'^event/$', event_views.EventList.as_view()),
     #url(r'^api/author/$', cache_page(60 * 10, key_prefix='author_list')(api_views.AuthorList.as_view()), name='author_list'),
     url(r'^author/$', author_views.AuthorList.as_view()),
