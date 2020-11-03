@@ -1,12 +1,13 @@
 from django_filters import CharFilter, DateFilter
 from django_filters.rest_framework import FilterSet, DjangoFilterBackend
+from django.db.models import Prefetch
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import CursorPagination
 
 from wagtail.core.models import Page
 
-from home.models import Post
+from home.models import Post, PostAuthorRelationship
 from other_content.models import OtherPost
 from issue.models import IssueOrTopic
 from event.models import Event
@@ -47,13 +48,27 @@ class PostList(ListAPIView):
         topic_id = self.request.query_params.get('topic_id', None)
         category = self.request.query_params.get('category', None)
 
+        author_related_data = PostAuthorRelationship.objects.order_by(
+            'pk'
+        ).prefetch_related(
+            'author__expertise'
+        ).select_related('author__profile_image')
+
+        prefetches = [
+            'post_subprogram',
+            'parent_programs',
+            'topics',
+            Prefetch('authors', queryset=author_related_data),
+        ]
+
         if other_content_type_title:
             posts = OtherPost.objects.live().public()\
+                .prefetch_related(*prefetches).select_related('content_type')\
                 .filter(other_content_type__title=other_content_type_title)
             if category:
                 posts = posts.filter(category__title=category)
         else:
-            posts = Post.objects.live().not_type(Event).public()
+            posts = Post.objects.live().not_type(Event).public().prefetch_related(*prefetches).select_related('content_type')
 
         if content_type:
             if content_type == 'report':

@@ -146,12 +146,10 @@ export const PublicationListItem = ({ post }) => (
           )}
         </div>
       )}
-      {post.programs && (
-        <div className="h6 card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">
-          {post.programs[0] ? post.programs[0].name : ''}{' '}
-          {post.content_type ? post.content_type.name : ''}
-        </div>
-      )}
+      <div className="h6 card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">
+        {post.programs && post.programs[0] ? post.programs[0].name + ' ' : ''}
+        {post.content_type ? post.content_type.name : ''}
+      </div>
     </div>
   </div>
 );

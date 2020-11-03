@@ -1,3 +1,5 @@
+import os
+
 from .base import *
 
 
@@ -37,6 +39,18 @@ else:
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'newamericadotorg.api.pagination.CustomPagination',
 }
+
+if 'ELASTICSEARCH_URL' in os.environ:
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'search.backend',
+            'URLS': [os.environ['ELASTICSEARCH_URL']],
+            'INDEX': 'elasticsearch',
+            'TIMEOUT': 1500,
+        }
+    }
+
+    TEST_ELASTICSEARCH = True
 
 try:
     from .local import *

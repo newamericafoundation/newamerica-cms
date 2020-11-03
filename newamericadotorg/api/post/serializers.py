@@ -62,8 +62,8 @@ class PostSerializer(ModelSerializer):
         return PostSubprogramSerializer(obj.post_subprogram, many=True).data
 
     def get_authors(self, obj):
-        authors_rel = obj.authors.order_by('pk')
-        if authors_rel is None:
+        authors_rel = obj.authors.all()
+        if not authors_rel:
             return None
         authors = [rel.author for rel in authors_rel]
         return AuthorSerializer(authors, many=True, context=self.context).data

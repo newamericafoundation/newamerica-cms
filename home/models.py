@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.apps import apps
 from django.shortcuts import redirect
+from django.utils.functional import cached_property
 from datetime import datetime
 from pytz import timezone
 from django.db.models import Q
@@ -368,9 +369,13 @@ class ProgramSimplePage(AbstractSimplePage):
     parent_page_types = ['programs.Program', 'programs.Subprogram']
     subpage_types = ['home.RedirectPage']
 
+    @cached_property
+    def program(self):
+        return self.get_parent().specific
+
     def get_context(self, request):
         context = super(ProgramSimplePage, self).get_context(request)
-        context['program'] = self.get_parent().specific
+        context['program'] = self.program
 
         return context
 
@@ -388,7 +393,6 @@ class ProgramAboutHomePage(ProgramSimplePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['program'] = self.get_parent().specific
 
         if getattr(request, 'is_preview', False):
             program_context = context['program'].get_context(request)
@@ -406,9 +410,13 @@ class ProgramAboutPage(ProgramSimplePage):
     class Meta:
         verbose_name = 'Program About Page'
 
+    @cached_property
+    def program(self):
+        return Page.objects.ancestor_of(self).type(AbstractProgram).order_by('-depth').first().specific
+
     def get_context(self, request):
-        context = super(ProgramSimplePage, self).get_context(request)
-        context['program'] = self.get_parent().get_parent().specific
+        context = super().get_context(request)
+        context['program'] = self.program
 
         if getattr(request, 'is_preview', False):
             program_context = context['program'].get_context(request)
@@ -618,7 +626,8 @@ class Post(Page):
     is_creatable = False
 
     search_fields = Page.search_fields + [
-        index.SearchField('body'),
+        index.SearchField('body', boost=0.5),
+        index.FilterField('date'),
 
         index.RelatedFields('parent_programs', [
             index.SearchField('name'),

@@ -9,3 +9,14 @@ DATABASES = {
         'HOST': 'localhost',
     }
 }
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'search.backend',
+        'URLS': ["http://localhost:9200/"],
+        'INDEX': 'test',
+        'TIMEOUT': 1500,
+    }
+}
+
+TEST_ELASTICSEARCH = True

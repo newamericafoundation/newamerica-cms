@@ -74,6 +74,27 @@ def pull_staging_images(c):
     pull_images_from_s3_heroku(c, STAGING_APP_INSTANCE)
 
 
+@task
+def sync_staging_from_production(c):
+    """Copy database from production to staging"""
+    copy_heroku_database(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
+    sync_heroku_buckets(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+        folders=['original_images', 'documents']
+    )
+    # The above command just syncs the original images, so we need to
+    # delete the contents of the wagtailimages_renditions table so
+    # that the renditions will be re-created when requested in the
+    # staging environment.
+    delete_staging_renditions(c)
+
+
 #######
 # Local
 #######
@@ -114,7 +135,7 @@ def pull_media_from_s3_heroku(c, app_instance):
         c, app_instance, "S3_BUCKET_NAME"
     )
     pull_media_from_s3(
-        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
+        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=['original_images', 'documents']
     )
 
 
@@ -147,6 +168,55 @@ def open_heroku_shell(c, app_instance, shell_command="bash"):
     )
 
 
+# The single star (*) below indicates that all the arguments
+# afterwards must be given as keywords.  See PEP 3102 to learn more.
+def copy_heroku_database(c, *, source, destination):
+    check_if_logged_in_to_heroku(c)
+    local(
+        "heroku pg:copy {source_app}::DATABASE_URL DATABASE_URL --app {destination_app} --confirm {destination_app}".format(
+            source_app=source, destination_app=destination
+        )
+    )
+
+
+# The single star (*) below indicates that all the arguments
+# afterwards must be given as keywords.  See PEP 3102 to learn more.
+def sync_heroku_buckets(c, *, source, destination, folders=[]):
+    destination_bucket_name = get_heroku_variable(
+        c, destination, "S3_BUCKET_NAME"
+    )
+    if destination_bucket_name == PRODUCTION_APP_INSTANCE:
+        raise RuntimeError("Production bucket used as destination for sync_heroku_buckets. Please delete this check if you're absolutely sure you want to do this")
+    destination_access_key_id = get_heroku_variable(c, destination, "AWS_ACCESS_KEY_ID")
+    destination_secret_access_key = get_heroku_variable(
+        c, destination, "AWS_SECRET_ACCESS_KEY"
+    )
+
+    source_bucket_name = get_heroku_variable(
+        c, source, "S3_BUCKET_NAME"
+    )
+
+    # The `--size-only` flag means we don't have to compute the md5
+    # hash of every media file, potentially increasing performance
+    cmd_template = "s3 sync --size-only --delete s3://{source_bucket_name}/{folder} s3://{destination_bucket_name}/{folder}"
+    if folders:
+        for folder in folders:
+            print('Syncing media folder `{}`. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.'.format(folder))
+            aws_cmd = cmd_template.format(
+                source_bucket_name=source_bucket_name,
+                destination_bucket_name=destination_bucket_name,
+                folder=folder,
+            )
+            aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
+    else:
+        print('Syncing all media folders. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.')
+        aws_cmd = cmd_template.format(
+            source_bucket_name=source_bucket_name,
+            destination_bucket_name=destination_bucket_name,
+            folder='',
+        )
+        aws(c, aws_cmd, destination_access_key_id, destination_secret_access_key)
+
 ####
 # S3
 ####
@@ -170,11 +240,25 @@ def pull_media_from_s3(
     aws_secret_access_key,
     aws_storage_bucket_name,
     local_media_folder=LOCAL_MEDIA_FOLDER,
+    folders=[],
 ):
-    aws_cmd = "s3 sync --delete s3://{bucket_name} {local_media}".format(
-        bucket_name=aws_storage_bucket_name, local_media=local_media_folder
-    )
-    aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
+    cmd_template = "s3 sync --delete s3://{bucket_name}/{folder} {local_media}"
+
+    if folders:
+        for folder in folders:
+            aws_cmd = cmd_template.format(
+                bucket_name=aws_storage_bucket_name, local_media=local_media_folder,
+                folder=folder,
+            )
+            print('Syncing media folder `{}`. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.'.format(folder))
+            aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
+    else:
+        aws_cmd = cmd_template.format(
+            bucket_name=aws_storage_bucket_name, local_media=local_media_folder,
+            folder='',
+        )
+        print('Syncing all media folders. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.')
+        aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
 
 
 def push_media_to_s3_heroku(c, app_instance):
@@ -231,45 +315,34 @@ def pull_images_from_s3_heroku(c, app_instance):
     aws_storage_bucket_name = get_heroku_variable(
         c, app_instance, "S3_BUCKET_NAME"
     )
-    pull_images_from_s3(
-        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
+    pull_media_from_s3(
+        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=['original_images']
     )
-
-
-def pull_images_from_s3(
-    c,
-    aws_access_key_id,
-    aws_secret_access_key,
-    aws_storage_bucket_name,
-    local_images_folder=LOCAL_IMAGES_FOLDER,
-):
-    aws_cmd = "s3 sync --delete s3://{bucket_name}/original_images {local_media}".format(
-        bucket_name=aws_storage_bucket_name, local_media=local_images_folder
-    )
-    aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
     # The above command just syncs the original images, so we need to drop the wagtailimages_renditions
     # table so that the renditions will be re-created when requested on the local build.
     delete_local_renditions()
 
 
 def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
+    print('Deleting local image renditions')
     try:
         local(
-            'sudo -u postgres psql  -d {database_name} -c "DELETE FROM images_rendition;"'.format(
+            'sudo -u postgres psql  -d {database_name} -c "DELETE FROM home_customrendition;"'.format(
                 database_name=local_database_name
             )
         )
     except:
         pass
 
-    try:
-        local(
-            'sudo -u postgres psql  -d {database_name} -c "DELETE FROM wagtailimages_rendition;"'.format(
-                database_name=local_database_name
-            )
+
+def delete_staging_renditions(c):
+    print('Deleting staging image renditions')
+    check_if_logged_in_to_heroku(c)
+    local(
+        'heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
+            app=STAGING_APP_INSTANCE
         )
-    except:
-        pass
+    )
 
 
 def make_bold(msg):

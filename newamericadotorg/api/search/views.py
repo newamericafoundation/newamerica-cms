@@ -2,10 +2,26 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
 
-from wagtail.core.models import Page, PageViewRestriction
+from wagtail.core.models import Page, PageViewRestriction, Site
 from wagtail.search.models import Query
 
 from .serializers import SearchSerializer
+
+
+def exclude_invisible_pages(request, pages):
+    # Get list of pages that are restricted to this user
+    restricted_pages = [
+        restriction.page
+        for restriction in PageViewRestriction.objects.all().select_related('page')
+        if not restriction.accept_request(request)
+    ]
+
+    # Exclude the restricted pages and their descendants from the queryset
+    for restricted_page in restricted_pages:
+        pages = pages.not_descendant_of(restricted_page, inclusive=True)
+
+    return pages
+
 
 class SearchList(ListAPIView):
     serializer_class = SearchSerializer
@@ -13,21 +29,12 @@ class SearchList(ListAPIView):
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
-        results = Page.objects.live().search(search)
-        query = Query.get(search)
-        query.add_hit()
+        site_for_request = Site.find_for_request(self.request)
+        results = exclude_invisible_pages(self.request, Page.objects.live().descendant_of(site_for_request.root_page, inclusive=True))
 
-        # search queryset does not allow .public(). manually exclude restricted pages
-        public_results =[]
-        restrictions = PageViewRestriction.objects.all()
-        for obj in results:
-            private = False
-            for restriction in restrictions:
-                if obj.id == restriction.page.id or obj.is_descendant_of(restriction.page):
-                    private = True
-                    break
+        if search:
+            results = results.search(search, partial_match=False)
+            query = Query.get(search)
+            query.add_hit()
 
-            if not private:
-                public_results.append(obj)
-
-        return public_results
+        return results
