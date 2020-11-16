@@ -1,3 +1,46 @@
 .home__panels__search {
   margin-bottom: 115px;
 }
+
+.search-results {
+  $root: &;
+  
+  margin-bottom: 35px;
+
+  &--loading {
+    margin-bottom: 60px;
+  }
+
+  &__list {
+    display: grid;
+    column-gap: 10px;
+
+    @include media-breakpoint(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #{$root}--people &, #{$root}--programs & {
+
+      @include media-breakpoint(desktop) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  &__pagination {
+    @extend %clearfix;
+  }
+}
+
+.load-more {
+  text-align: right;
+  margin-top: 10px;
+
+  &--previous {
+    float: left;
+  }
+
+  .is-fetching .load-more-label {
+    opacity: 0;
+  }
+}

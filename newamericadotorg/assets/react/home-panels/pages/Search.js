@@ -7,7 +7,7 @@ import { PublicationListItem, Person } from '../../components/ContentCards';
 import { LoadingDots } from '../../components/Icons';
 
 
-function SearchResultList({results, header, isFetching, hasNext, hasPrevious, fetchNext, fetchPrevious}) {
+function SearchResultList({results, header, bucket, isFetching, hasNext, hasPrevious, fetchNext, fetchPrevious}) {
   // Remember if we've tried to fetch before
   // This helps us differentiate between the initial state and "No results"
   const [hasFetched, setHasFetched] = useState(false);
@@ -27,27 +27,6 @@ function SearchResultList({results, header, isFetching, hasNext, hasPrevious, fe
     return <></>;
   }
 
-  if (results.length === 0) {
-    // No results, display something to the user to explain why
-    if (isFetching) {
-      return (
-        <div className="program__publications-list-wrapper">
-          <div className="program__publications-list margin-top-60">
-              <LoadingDots />
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="program__publications-list-wrapper">
-          <h2>{header}</h2>
-          <div className="program__publications-list">
-            No results found.
-          </div>
-        </div>
-      );
-    }
-  }
 
   const onClickNext = e => {
     e.preventDefault();
@@ -64,41 +43,45 @@ function SearchResultList({results, header, isFetching, hasNext, hasPrevious, fe
   }
 
   return (
-    <div className="program__publications-list-wrapper">
-      <div>
-        <h2>{header}</h2>
-        <div className="program__publications-list">
-          {results.map((result, i) => {
-            if(result.content_type.api_name == 'person')
-              return ( <Person key={`person-${result.id}`} person={result} /> );
-            return ( <PublicationListItem key={`post-${result.id}`} post={result} /> );
-          })}
-        </div>
-      </div>
+    <div className={`search-results search-results--${bucket}`}>
+      <h2>{header}</h2>
 
-      {hasPrevious &&
-      <div className="program__publications-list-load-more margin-top-10" style={{float: 'left'}}>
-        <button className={`button${fetchingPrevious ? ' is-fetching' : ''}`} onClick={onClickPrevious} disabled={isFetching}>
-          <span className="load-more-label">Previous</span>
-          {fetchingPrevious && <span className="loading-dots--absolute">
-            <span>.</span><span>.</span><span>.</span>
-          </span>}
-        </button>
-      </div>}
-      {hasNext &&
-      <div className="program__publications-list-load-more margin-top-10">
-        <button className={`button${fetchingNext ? ' is-fetching' : ''}`} onClick={onClickNext} disabled={isFetching}>
-          <span className="load-more-label">Next</span>
-          {fetchingNext && <span className="loading-dots--absolute">
-            <span>.</span><span>.</span><span>.</span>
-          </span>}
-        </button>
-      </div>}
+      {(results.length === 0)
+        ? (isFetching ? <LoadingDots /> : "No results found.")
+        : <div className="search-results__list">
+            {results.map((result, i) => {
+              if(result.content_type.api_name == 'person')
+                return ( <Person key={`person-${result.id}`} person={result} /> );
+              return ( <PublicationListItem key={`post-${result.id}`} post={result} style={(bucket=="programs") ? "search-small" : "search-large"} /> );
+            })}
+          </div>
+      }
+      <div class="search-results__pagination">
+        {hasPrevious &&
+        <div className="load-more load-more--previous">
+          <button className={`button${fetchingPrevious ? ' is-fetching' : ''}`} onClick={onClickPrevious} disabled={isFetching}>
+            <span className="load-more__label">Previous</span>
+            {fetchingPrevious && <span className="loading-dots--absolute">
+              <span>.</span><span>.</span><span>.</span>
+            </span>}
+          </button>
+        </div>}
+
+        {hasNext &&
+        <div className="load-more">
+          <button className={`button${fetchingNext ? ' is-fetching' : ''}`} onClick={onClickNext} disabled={isFetching}>
+            <span className="load-more__label">Next</span>
+            {fetchingNext && <span className="loading-dots--absolute">
+              <span>.</span><span>.</span><span>.</span>
+            </span>}
+          </button>
+        </div>}
+      </div>
     </div>
   );
 }
 
-function SearchBucket({query, name, endpoint, showEmpty, pageSize}) {
+function SearchBucket({query, name, bucket, endpoint, showEmpty, pageSize}) {
   //const [pageNum, setPageNum] = useState(1);
   const [paginationFilter, setPaginationFilter] = useState(null)
   const [results, setResults] = useState([]);
@@ -169,6 +152,7 @@ function SearchBucket({query, name, endpoint, showEmpty, pageSize}) {
       {(results.length > 1 || showEmpty) && <SearchResultList
         results={results}
         header={name}
+        bucket={bucket}
         isFetching={isFetching}
         hasNext={!!nextPaginationFilter}
         fetchNext={() => setPaginationFilter(nextPaginationFilter)}
@@ -243,6 +227,7 @@ export default function Search({location, history}) {
 
       <SearchBucket
         query={query}
+        bucket="programs"
         name="Programs, Initiatives and Projects"
         endpoint="/api/search/programs"
         showEmpty={true}
@@ -251,6 +236,7 @@ export default function Search({location, history}) {
 
       <SearchBucket
         query={query}
+        bucket="upcoming_events"
         name="Upcoming Events"
         endpoint="/api/search/upcoming_events"
         showEmpty={true}
@@ -259,6 +245,7 @@ export default function Search({location, history}) {
 
       <SearchBucket
         query={query}
+        bucket="pubs_and_past_events"
         name="Publications and Past Events"
         endpoint="/api/search/pubs_and_past_events"
         showEmpty={true}
@@ -267,6 +254,7 @@ export default function Search({location, history}) {
 
       <SearchBucket
         query={query}
+        bucket="people"
         name="People"
         endpoint="/api/search/people"
         showEmpty={true}
@@ -275,6 +263,7 @@ export default function Search({location, history}) {
 
       <SearchBucket
         query={query}
+        bucket="other"
         name="Other Pages"
         endpoint="/api/search/other"
         showEmpty={false}
