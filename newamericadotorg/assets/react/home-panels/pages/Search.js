@@ -98,7 +98,7 @@ function SearchResultList({results, header, isFetching, hasNext, hasPrevious, fe
   );
 }
 
-function SearchBucket({query, name, endpoint, showEmpty}) {
+function SearchBucket({query, name, endpoint, showEmpty, pageSize}) {
   //const [pageNum, setPageNum] = useState(1);
   const [paginationFilter, setPaginationFilter] = useState(null)
   const [results, setResults] = useState([]);
@@ -109,7 +109,7 @@ function SearchBucket({query, name, endpoint, showEmpty}) {
 
   // Gets query params from state
   const getQueryParams = (query, paginationFilter) => {
-    const params = {};
+    const params = {'page_size': pageSize};
 
     if (query) {
       params['query'] = query;
@@ -246,6 +246,7 @@ export default function Search({location, history}) {
         name="Programs, Initiatives and Projects"
         endpoint="/api/search/programs"
         showEmpty={true}
+        pageSize={6}
       />
 
       <SearchBucket
@@ -253,6 +254,7 @@ export default function Search({location, history}) {
         name="Upcoming Events"
         endpoint="/api/search/upcoming_events"
         showEmpty={true}
+        pageSize={6}
       />
 
       <SearchBucket
@@ -260,6 +262,7 @@ export default function Search({location, history}) {
         name="Publications and Past Events"
         endpoint="/api/search/pubs_and_past_events"
         showEmpty={true}
+        pageSize={6}
       />
 
       <SearchBucket
@@ -267,6 +270,7 @@ export default function Search({location, history}) {
         name="People"
         endpoint="/api/search/people"
         showEmpty={true}
+        pageSize={6}
       />
 
       <SearchBucket
@@ -274,6 +278,7 @@ export default function Search({location, history}) {
         name="Other Pages"
         endpoint="/api/search/other"
         showEmpty={false}
+        pageSize={6}
       />
     </div>
   );
