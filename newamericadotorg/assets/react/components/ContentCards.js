@@ -106,17 +106,21 @@ const generateAuthors = authors => {
   return authorElements;
 };
 
-export const PublicationListItem = ({ post }) => (
+export const PublicationListItem = ({post, style}) => (
   <div
     className={`card list ${
       post.content_type ? `card--${post.content_type.api_name}` : ''
+    } ${
+      style ? `card--${style}` : ''
     }`}
   >
-    <a href={post.url}>
-      <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
-        <Image image={post.story_image} />
-      </div>
-    </a>
+    {(style != "search-small") && (
+      <a href={post.url} className="card__image-link">
+        <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
+          <Image image={post.story_image} />
+        </div>
+      </a>
+    )}
     <div className="card__text">
       <a href={post.url}>
         {post.date && (

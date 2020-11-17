@@ -5,6 +5,10 @@
 
   @include media-breakpoint(tablet){
     height: 210px;
+
+    &.card--search-small, &.card--search-large {
+      height: auto;
+    }
   }
 
   .card__text__excerpt {
@@ -32,7 +36,6 @@
     position: relative;
     height: 75px;
     width: 90px;
-
 
     @include media-breakpoint(tablet){
       display: inline-block;
@@ -62,9 +65,37 @@
     height: 100%;
     max-width: calc(100% - 90px);
 
+    &:first-child {
+      padding: 0;
+    }
+
     @include media-breakpoint(tablet){
       max-width: calc(100% - 257px);
       height: auto;
     }
   }
+
+  &.card--search-small, &.card--search-large {
+    display: flex;
+    align-items: center;
+
+    .card__image-link {
+      width: 33%;
+      height: auto;
+      margin-right: 10px;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+
+    .card__image {
+      width: 100%;
+      padding-bottom: 83.33%;
+      height: 0;
+    }
+
+    .card__text {
+      max-width: none;
+      height: auto;
+    }
+  } 
 }

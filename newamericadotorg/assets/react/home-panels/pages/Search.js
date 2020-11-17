@@ -6,7 +6,8 @@ import * as QueryString from 'query-string';
 import { PublicationListItem, Person } from '../../components/ContentCards';
 import { LoadingDots } from '../../components/Icons';
 
-function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext, fetchPrevious}) {
+
+function SearchResultList({results, header, bucket, isFetching, hasNext, hasPrevious, fetchNext, fetchPrevious}) {
   // Remember if we've tried to fetch before
   // This helps us differentiate between the initial state and "No results"
   const [hasFetched, setHasFetched] = useState(false);
@@ -26,22 +27,6 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
     return <></>;
   }
 
-  if (results.length === 0) {
-    // No results, display something to the user to explain why
-    if (isFetching) {
-      return (
-        <div className="program__publications-list-wrapper">
-          <div className="program__publications-list margin-top-60">
-              <LoadingDots />
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <h4 className="centered">No results found</h4>
-      );
-    }
-  }
 
   const onClickNext = e => {
     e.preventDefault();
@@ -58,51 +43,56 @@ function SearchResultList({results, isFetching, hasNext, hasPrevious, fetchNext,
   }
 
   return (
-    <div className="program__publications-list-wrapper">
-      <div className="program__publications-list">
-          {results.map((result, i) => {
-            if(result.content_type.api_name == 'person')
-              return ( <Person key={`person-${result.id}`} person={result} /> );
-            return ( <PublicationListItem key={`post-${result.id}`} post={result} /> );
-          })}
+    <div className={`search-results search-results--${bucket}`}>
+      <h2>{header}</h2>
+
+      {(results.length === 0)
+        ? (isFetching ? <LoadingDots /> : "No results found.")
+        : <div className="search-results__list">
+            {results.map((result, i) => {
+              if(result.content_type.api_name == 'person')
+                return ( <Person key={`person-${result.id}`} person={result} /> );
+              return ( <PublicationListItem key={`post-${result.id}`} post={result} style={(bucket=="programs") ? "search-small" : "search-large"} /> );
+            })}
+          </div>
+      }
+      <div class="search-results__pagination">
+        {hasPrevious &&
+        <div className="load-more load-more--previous">
+          <button className={`button${fetchingPrevious ? ' is-fetching' : ''}`} onClick={onClickPrevious} disabled={isFetching}>
+            <span className="load-more__label">Previous</span>
+            {fetchingPrevious && <span className="loading-dots--absolute">
+              <span>.</span><span>.</span><span>.</span>
+            </span>}
+          </button>
+        </div>}
+
+        {hasNext &&
+        <div className="load-more">
+          <button className={`button${fetchingNext ? ' is-fetching' : ''}`} onClick={onClickNext} disabled={isFetching}>
+            <span className="load-more__label">Next</span>
+            {fetchingNext && <span className="loading-dots--absolute">
+              <span>.</span><span>.</span><span>.</span>
+            </span>}
+          </button>
+        </div>}
       </div>
-      {hasPrevious &&
-      <div className="program__publications-list-load-more margin-top-10" style={{float: 'left'}}>
-        <button className={`button${fetchingPrevious ? ' is-fetching' : ''}`} onClick={onClickPrevious} disabled={isFetching}>
-          <span className="load-more-label">Previous</span>
-          {fetchingPrevious && <span className="loading-dots--absolute">
-            <span>.</span><span>.</span><span>.</span>
-          </span>}
-        </button>
-      </div>}
-      {hasNext &&
-      <div className="program__publications-list-load-more margin-top-10">
-        <button className={`button${fetchingNext ? ' is-fetching' : ''}`} onClick={onClickNext} disabled={isFetching}>
-          <span className="load-more-label">Next</span>
-          {fetchingNext && <span className="loading-dots--absolute">
-            <span>.</span><span>.</span><span>.</span>
-          </span>}
-        </button>
-      </div>}
     </div>
   );
 }
 
-export default function Search({location, history}) {
-  const {query, ...paginationFilter} = QueryString.parse(location.search);
-
-  const [queryInputValue, setQueryInputValue] = useState(query);
+function SearchBucket({query, name, bucket, endpoint, showEmpty, pageSize}) {
+  //const [pageNum, setPageNum] = useState(1);
+  const [paginationFilter, setPaginationFilter] = useState(null)
   const [results, setResults] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
-  // These contain the value of paginationFilter for the next/previous pages
-  // null = next/prev page doesn't exist
   const [nextPaginationFilter, setNextPaginationFilter] = useState(null);
   const [previousPaginationFilter, setPreviousPaginationFilter] = useState(null);
 
   // Gets query params from state
   const getQueryParams = (query, paginationFilter) => {
-    const params = {};
+    const params = {'page_size': pageSize};
 
     if (query) {
       params['query'] = query;
@@ -119,12 +109,9 @@ export default function Search({location, history}) {
     }
   };
 
-  console.log("RERENDER")
-
   // Perform search when query changes
   useEffect(() => {
     // Update query input value when user hits back/forward
-    setQueryInputValue(query);
 
     const queryParams = getQueryParams(query, paginationFilter);
 
@@ -132,7 +119,7 @@ export default function Search({location, history}) {
       // Fetch results
       // TODO: Make sure responses come back in correct order
       setIsFetching(true);
-      fetch(`/api/search/${queryParams}`)
+      fetch(`${endpoint}/${queryParams}`)
       .then(response => response.json())
       .then(json => {
         setResults(json.results);
@@ -158,7 +145,52 @@ export default function Search({location, history}) {
       setNextPaginationFilter(null);
       setPreviousPaginationFilter(null);
     }
-  }, [location.key]);
+  }, [query, paginationFilter]);
+
+  return (
+    <div>
+      {(results.length > 1 || showEmpty) && <SearchResultList
+        results={results}
+        header={name}
+        bucket={bucket}
+        isFetching={isFetching}
+        hasNext={!!nextPaginationFilter}
+        fetchNext={() => setPaginationFilter(nextPaginationFilter)}
+        hasPrevious={!!previousPaginationFilter}
+        fetchPrevious={() => setPaginationFilter(previousPaginationFilter)}
+       />}
+    </div>
+  )
+}
+
+export default function Search({location, history}) {
+  const {query} = QueryString.parse(location.search);
+
+  const [queryInputValue, setQueryInputValue] = useState(query);
+  const [results, setResults] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+
+  // These contain the value of paginationFilter for the next/previous pages
+  // null = next/prev page doesn't exist
+  const [nextPaginationFilter, setNextPaginationFilter] = useState(null);
+  const [previousPaginationFilter, setPreviousPaginationFilter] = useState(null);
+
+  // // Gets query params from state
+  const getQueryParams = query => {
+    const params = {};
+
+    if (query) {
+      params['query'] = query;
+    }
+
+    if (params) {
+      return '?' + QueryString.stringify(params);
+    } else {
+      return '';
+    }
+  };
+
+  console.log("RERENDER")
 
   // Trigger search when user presses the 'Enter' key
   const onKeyDownInSearchBox = e => {
@@ -193,14 +225,49 @@ export default function Search({location, history}) {
         <button className="button--text input__submit with-caret--right" onClick={onClickSearch}>Search</button>
       </div>
 
+      <SearchBucket
+        query={query}
+        bucket="programs"
+        name="Programs, Initiatives and Projects"
+        endpoint="/api/search/programs"
+        showEmpty={true}
+        pageSize={6}
+      />
 
-      <SearchResultList
-        results={results}
-        isFetching={isFetching}
-        hasNext={!!nextPaginationFilter}
-        fetchNext={() => setPaginationFilter(nextPaginationFilter)}
-        hasPrevious={!!previousPaginationFilter}
-        fetchPrevious={() => setPaginationFilter(previousPaginationFilter)}
+      <SearchBucket
+        query={query}
+        bucket="upcoming_events"
+        name="Upcoming Events"
+        endpoint="/api/search/upcoming_events"
+        showEmpty={true}
+        pageSize={6}
+      />
+
+      <SearchBucket
+        query={query}
+        bucket="pubs_and_past_events"
+        name="Publications and Past Events"
+        endpoint="/api/search/pubs_and_past_events"
+        showEmpty={true}
+        pageSize={6}
+      />
+
+      <SearchBucket
+        query={query}
+        bucket="people"
+        name="People"
+        endpoint="/api/search/people"
+        showEmpty={true}
+        pageSize={6}
+      />
+
+      <SearchBucket
+        query={query}
+        bucket="other"
+        name="Other Pages"
+        endpoint="/api/search/other"
+        showEmpty={false}
+        pageSize={6}
       />
     </div>
   );
