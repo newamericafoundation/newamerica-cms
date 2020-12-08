@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_id %}na-survey{% endblock %}
+
+{% block header %}{% endblock %}
+{% block content %}
+
+  <div style="margin: 4rem 2rem">
+    <h2 style="border-bottom: 3px black solid">Survey Title: {{self.study_title}}</h2>
+    <h3>Organization: {{self.org}}</h3>  
+    <h3>Date:{% if self.month%}{{self.month}}/{% endif %}{{self.year}}</h3>  
+    {% if self.month%}
+    <h3>Month: {{self.month}}</h3>  
+    {% endif %}
+    <h3>Sample Size: {{self.sample_number}} </h3>  
+    <h3>Demographics: {{self.sample_demos}} </h3>  
+    <h3>Key Findings:</h3>  
+    <p> {{self.findings|richtext}} </p>  
+  </div>
+
+{% endblock%}
