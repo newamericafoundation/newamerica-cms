@@ -155,7 +155,8 @@ class Program(AbstractProgram):
     'report.ReportsHomepage',
     'PublicationsPage',
     'other_content.ProgramOtherPostsPage',
-    'home.ProgramAboutHomePage'
+    'home.ProgramAboutHomePage',
+    'survey.ProgramSurveysPage'
     ]
 
     desktop_program_logo = models.ForeignKey(
@@ -259,7 +260,8 @@ class Subprogram(AbstractProgram):
     'home.RedirectPage',
     'PublicationsPage',
     'other_content.ProgramOtherPostsPage',
-    'home.ProgramAboutHomePage'
+    'home.ProgramAboutHomePage',
+    'survey.ProgramSurveysPage'
     ]
 
     TEMPLATE_OPTIONS =  (
@@ -357,7 +359,8 @@ class Project(Subprogram):
     'home.RedirectPage',
     'PublicationsPage',
     'other_content.ProgramOtherPostsPage',
-    'home.ProgramAboutHomePage'
+    'home.ProgramAboutHomePage',
+    'survey.ProgramSurveysPage'
     ]
 
     redirect_page = models.ForeignKey(
