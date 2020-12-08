@@ -60,14 +60,14 @@ class Survey(Post, RoutablePageMixin):
 
     # study_title = models.CharField(max_length=250, blank=True, null=True)
     study_title= models.CharField(max_length=250, blank=True, null=True)
-    org = ParentalManyToManyField('Survey_Orgs')
-    year = ParentalManyToManyField('Survey_Years', help_text='Year Survey was condicted.')
+    org = ParentalManyToManyField('survey.Survey_Orgs')
+    year = ParentalManyToManyField('survey.Survey_Years', help_text='Year Survey was condicted.')
     month = models.IntegerField(choices=MONTH_CHOICES, default=1, help_text='Month Survey was condicted, if applicable.')
     # Is this needed. Sample siez is non-standard and not displayed in the dashboard
     # sample_size = models.CharField(max_length=250)
     sample_number = models.CharField(max_length=250, blank=True, null=True)
     sample_demos = models.CharField(max_length=250, blank=True, null=True, help_text='Text displayed on the dashboard')
-    demos_key = ParentalManyToManyField('Demo_Key', help_text='Indexable demographic groups')
+    demos_key = ParentalManyToManyField('survey.Demo_Key', help_text='Indexable demographic groups')
     findings = RichTextField(blank=True, null=True, max_length=12500)
 
     content_panels = [
@@ -91,27 +91,33 @@ class Survey(Post, RoutablePageMixin):
 
 
 # @todo find a way to dry this up.
-# @register_snippet
+@register_snippet
 class Demo_Key(models.Model):
     title = models.CharField(blank=False, max_length=50)
     
     @classmethod
     def autocomplete_create(cls: type, value: str):
         return cls.objects.create(title=value)
+    
+    def __str__(self):
+      return self.title
     class Meta:
       verbose_name_plural = 'Demographics Keys'
         
-# @register_snippet
+@register_snippet
 class Survey_Orgs(models.Model):
     title = models.CharField(blank=False, max_length=50)
     
     @classmethod
     def autocomplete_create(cls: type, value: str):
         return cls.objects.create(title=value)
+    
+    def __str__(self):
+      return self.title
     class Meta:
         verbose_name_plural = 'Survey Organizations'
 
-# @register_snippet
+@register_snippet
 class Survey_Years(models.Model):
     title = models.CharField(blank=False, max_length=50)
     
@@ -119,5 +125,7 @@ class Survey_Years(models.Model):
     def autocomplete_create(cls: type, value: str):
         return cls.objects.create(title=value)
   
+    def __str__(self):
+      return self.title
     class Meta:
         verbose_name_plural = 'Survey Years'
