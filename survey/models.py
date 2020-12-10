@@ -8,11 +8,12 @@ from django.utils import timezone
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
@@ -29,7 +30,7 @@ class ProgramSurveysPage(AbstractContentPage):
     """
 
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
-    subpage_types = ['Survey']
+    subpage_types = ['Survey', 'Commentary']
 
     @property
     def content_model(self):
@@ -42,6 +43,7 @@ class Survey(Post, RoutablePageMixin):
     template = 'survey/survey.html'
     
     MONTH_CHOICES = (
+      (0, 'N/A'),
       (1, 'January'),
       (2, 'February'),
       (3, 'March'),
@@ -58,17 +60,18 @@ class Survey(Post, RoutablePageMixin):
     parent_page_types = ['ProgramSurveysPage']
     subpage_type=[]
 
-    # study_title = models.CharField(max_length=250, blank=True, null=True)
     study_title= models.CharField(max_length=250, blank=True, null=True)
     org = ParentalManyToManyField('survey.Survey_Orgs')
     year = ParentalManyToManyField('survey.Survey_Years', help_text='Year Survey was condicted.')
-    month = models.IntegerField(choices=MONTH_CHOICES, default=1, help_text='Month Survey was condicted, if applicable.')
+    month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was condicted, if applicable.')
     # Is this needed. Sample siez is non-standard and not displayed in the dashboard
     # sample_size = models.CharField(max_length=250)
     sample_number = models.CharField(max_length=250, blank=True, null=True)
     sample_demos = models.CharField(max_length=250, blank=True, null=True, help_text='Text displayed on the dashboard')
     demos_key = ParentalManyToManyField('survey.Demo_Key', help_text='Indexable demographic groups')
     findings = RichTextField(blank=True, null=True, max_length=12500)
+    link = models.URLField(blank=True, null=True)
+    file = models.FileField(blank=True, null=True)
 
     content_panels = [
       MultiFieldPanel([
@@ -84,7 +87,11 @@ class Survey(Post, RoutablePageMixin):
         FieldPanel('sample_demos'),
         AutocompletePanel('demos_key'),
         FieldPanel('findings'),
-      ], heading='Survey Data')
+      ], heading='Survey Data'),
+      MultiFieldPanel([
+        FieldPanel('link'),
+        FieldPanel('file')
+      ])
       
     ]
 
@@ -129,3 +136,31 @@ class Survey_Years(models.Model):
       return self.title
     class Meta:
         verbose_name_plural = 'Survey Years'
+
+
+
+class Commentary(Post, RoutablePageMixin):
+  template = 'survey/commentary.html'
+
+  parent_page_types = ['ProgramSurveysPage']
+  subpage_types = []
+
+  # attachment = StreamField([
+  #     ('attachment', DocumentChooserBlock(required=False)),
+  # ], null=True, blank=True)
+
+  # content_panels = Post.content_panels + [
+  #     StreamFieldPanel('attachment'),
+  # ]
+  content_panels = [
+      FieldPanel('title'),
+      FieldPanel('subheading'),
+      FieldPanel('date'),
+      StreamFieldPanel('body'),
+      InlinePanel('authors', label=("Authors")),
+      InlinePanel('topics', label=("Topics")),
+  ]
+
+  class Meta:
+      verbose_name = 'Expert Commentary'
+
