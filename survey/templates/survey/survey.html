@@ -19,13 +19,10 @@
     {% with years=page.year.all%}
       {% if years %}
         {% for year in years %}
-    <h3>Date:{% if page.month%}{{page.month}}/{% endif %}{{year.title}}</h3>  
+    <h3>Date:{% if page.month%}{{page.month}} / {% endif %}{{year.title}}</h3>  
         {% endfor %}
       {% endif %}
     {% endwith %}
-    {% if page.month%}
-    <h3>Month: {{page.month}}</h3>  
-    {% endif %}
     <h3>Sample Size: {{page.sample_number}} </h3>  
     {% with demos=page.demos_key.all %}
       {% if demos %}
@@ -37,6 +34,16 @@
     {% endwith %}
     <h3>Key Findings:</h3>  
     <p> {{page.findings|richtext}} </p>  
+    {% if page.link or page.file %}
+    <h3>Downloads</h3>
+    <br>
+      {% if page.link %}
+        <a href={{page.link}}>Link</a>
+      {% endif %}
+      {% if page.file %}
+        <a href='https://docs.google.com/viewer?url='+{{page.file}}>File</a>
+      {% endif %}
+    {% endif %}
   </div>
 
 {% endblock%}
