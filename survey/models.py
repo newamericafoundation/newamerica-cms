@@ -39,6 +39,9 @@ class ProgramSurveysPage(AbstractContentPage):
     class Meta:
         verbose_name = "Surveys Homepage"
 
+    def __str__(self):
+        return self.title
+
 class Survey(Post, RoutablePageMixin):
     template = 'survey/survey.html'
     
@@ -72,7 +75,7 @@ class Survey(Post, RoutablePageMixin):
     findings = RichTextField(blank=True, null=True, max_length=12500)
     link = models.URLField(blank=True, null=True)
     file = models.FileField(blank=True, null=True)
-    assoc_commentary = models.ManyToManyField('Commentary', through='Commented_Survey')
+    assoc_commentary = ParentalManyToManyField('Commentary', blank=True, through='Commented_Survey', related_name='surveys')
     content_panels = [
       MultiFieldPanel([
         FieldPanel('title'),
@@ -93,9 +96,7 @@ class Survey(Post, RoutablePageMixin):
         FieldPanel('link'),
         FieldPanel('file')
       ])
-      
     ]
-
 
 
 # @todo find a way to dry this up.
@@ -146,14 +147,8 @@ class Commentary(Post, RoutablePageMixin):
   parent_page_types = ['ProgramSurveysPage']
   subpage_types = []
 
-  assoc_surveys = models.ManyToManyField('Survey', through='Commented_Survey')
-  # attachment = StreamField([
-  #     ('attachment', DocumentChooserBlock(required=False)),
-  # ], null=True, blank=True)
+  assoc_surveys = ParentalManyToManyField('Survey', through='Commented_Survey', blank=True, related_name='commentaries')
 
-  # content_panels = Post.content_panels + [
-  #     StreamFieldPanel('attachment'),
-  # ]
   content_panels = [
       FieldPanel('title'),
       FieldPanel('subheading'),
@@ -167,7 +162,9 @@ class Commentary(Post, RoutablePageMixin):
   class Meta:
       verbose_name = 'Expert Commentary'
 
+  def __str__(self):
+        return self.title
 
 class Commented_Survey(models.Model):
-  survey=models.ForeignKey('Survey', on_delete=models.CASCADE)
-  commentary=models.ForeignKey('Commentary', on_delete=models.CASCADE)
+  survey=models.ForeignKey('Survey', on_delete=models.CASCADE, blank=True, null=True)
+  commentary=models.ForeignKey('Commentary', on_delete=models.CASCADE, blank=True, null=True)
