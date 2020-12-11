@@ -72,7 +72,7 @@ class Survey(Post, RoutablePageMixin):
     findings = RichTextField(blank=True, null=True, max_length=12500)
     link = models.URLField(blank=True, null=True)
     file = models.FileField(blank=True, null=True)
-
+    assoc_commentary = models.ManyToManyField('Commentary', through='Commented_Survey')
     content_panels = [
       MultiFieldPanel([
         FieldPanel('title'),
@@ -87,6 +87,7 @@ class Survey(Post, RoutablePageMixin):
         FieldPanel('sample_demos'),
         AutocompletePanel('demos_key'),
         FieldPanel('findings'),
+        AutocompletePanel('assoc_commentary')
       ], heading='Survey Data'),
       MultiFieldPanel([
         FieldPanel('link'),
@@ -145,6 +146,7 @@ class Commentary(Post, RoutablePageMixin):
   parent_page_types = ['ProgramSurveysPage']
   subpage_types = []
 
+  assoc_surveys = models.ManyToManyField('Survey', through='Commented_Survey')
   # attachment = StreamField([
   #     ('attachment', DocumentChooserBlock(required=False)),
   # ], null=True, blank=True)
@@ -159,8 +161,13 @@ class Commentary(Post, RoutablePageMixin):
       StreamFieldPanel('body'),
       InlinePanel('authors', label=("Authors")),
       InlinePanel('topics', label=("Topics")),
+      AutocompletePanel('assoc_surveys')
   ]
 
   class Meta:
       verbose_name = 'Expert Commentary'
 
+
+class Commented_Survey(models.Model):
+  survey=models.ForeignKey('Survey', on_delete=models.CASCADE)
+  commentary=models.ForeignKey('Commentary', on_delete=models.CASCADE)
