@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'storages',
     'rss_feed',
     'subscribe',
+    'survey',
+    'wagtailautocomplete',
 
+    
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
