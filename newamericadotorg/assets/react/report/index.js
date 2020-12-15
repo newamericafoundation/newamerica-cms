@@ -4,7 +4,7 @@ import { Fetch, Response } from '../components/API';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import GARouter from '../ga-router';
 import DocumentMeta from 'react-document-meta';
-import Heading from './components/Heading';
+import BasicHeader from './components/BasicHeader';
 import Body from './components/Body';
 import TopNav from './components/TopNav';
 import BottomNav from './components/BottomNav';
@@ -17,40 +17,46 @@ import FeaturedSections from './components/FeaturedSections';
 import Authors from './components/Authors';
 
 const SinglePage = ({ report, dispatch, location }) => (
-  <div className={`report single-page`}>
-    <Heading report={report} />
+  <div className={`report report--polling-dashboard single-page`}>
+    <div className="container">
+      <BasicHeader report={report} />
 
-    <Body
-      section={report.sections[0]}
-      report={report}
-      dispatch={dispatch}
-      location={location}
-    />
+      <Body
+        section={report.sections[0]}
+        report={report}
+        dispatch={dispatch}
+        location={location}
+      />
 
-    <div
-      className="container report__body single-page-body margin-0"
-      id="authors"
-    >
-      <div className="post-body-wrapper">
-        <h3 className="margin-bottom-25">Authors</h3>
-        <Authors authors={report.authors} md={true} />
-      </div>
-    </div>
-
-    {report.acknowledgments && (
       <div
         className="container report__body single-page-body margin-0"
-        id="acknowledgments"
+        id="authors"
       >
         <div className="post-body-wrapper">
-          <h3 className="margin-top-0 margin-bottom-25">Acknowledgments</h3>
-          <div
-            className="report__acknowledgments"
-            dangerouslySetInnerHTML={{ __html: report.acknowledgments }}
-          />
+          <h3 className="margin-bottom-25">Authors</h3>
+          <Authors authors={report.authors} md={true} />
         </div>
       </div>
-    )}
+
+      {report.acknowledgments && (
+        <div
+          className="container report__body single-page-body margin-0"
+          id="acknowledgments"
+        >
+          <div className="post-body-wrapper">
+            <h3 className="margin-top-0 margin-bottom-25">
+              Acknowledgments
+            </h3>
+            <div
+              className="report__acknowledgments"
+              dangerouslySetInnerHTML={{
+                __html: report.acknowledgments,
+              }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
   </div>
 );
 
@@ -71,9 +77,13 @@ const Landing = ({ report, dispatch, location, closeMenu }) => (
 
     {report.featured_sections.length > 0 && (
       <div className="container margin-80" id="featured">
-        <h3 className="margin-top-0 margin-bottom-25">Featured Sections</h3>
+        <h3 className="margin-top-0 margin-bottom-25">
+          Featured Sections
+        </h3>
         <div className="featured__scroll-wrapper">
-          <FeaturedSections featuredSections={report.featured_sections} />
+          <FeaturedSections
+            featuredSections={report.featured_sections}
+          />
         </div>
       </div>
     )}
@@ -90,7 +100,9 @@ const Landing = ({ report, dispatch, location, closeMenu }) => (
 
     {report.acknowledgments && (
       <div className="container margin-80" id="acknowledgments">
-        <h3 className="margin-top-0 margin-bottom-25">Acknowledgments</h3>
+        <h3 className="margin-top-0 margin-bottom-25">
+          Acknowledgments
+        </h3>
         <div
           className="report__acknowledgments"
           dangerouslySetInnerHTML={{ __html: report.acknowledgments }}
@@ -98,7 +110,7 @@ const Landing = ({ report, dispatch, location, closeMenu }) => (
         />
         {report.partner_logo && (
           <div className="margin-top-20">
-            <img src={report.partner_logo}/>
+            <img src={report.partner_logo} />
           </div>
         )}
       </div>
@@ -114,7 +126,7 @@ class Report extends Component {
       contentsPosition: '0%',
       attchsOpen: false,
       section: this.getSection(),
-      attchClicked: false
+      attchClicked: false,
     };
   }
 
@@ -134,12 +146,12 @@ class Report extends Component {
     document.body.style.top = null;
   };
 
-  openMenu = e => {
+  openMenu = (e) => {
     this.fixBody();
     this.setState({ menuOpen: true });
   };
 
-  closeMenu = e => {
+  closeMenu = (e) => {
     this.unfixBody();
     this.setState({ menuOpen: false });
   };
@@ -154,18 +166,18 @@ class Report extends Component {
     this.setState({ attchsOpen: false });
   };
 
-  animateMenu = position => {
+  animateMenu = (position) => {
     this.setState({ contentsPosition: position });
   };
 
   getSection = () => {
     let {
       report,
-      match: { params }
+      match: { params },
     } = this.props;
 
     if (!params.sectionSlug) return false;
-    return report.sections.find(s => s.slug == params.sectionSlug);
+    return report.sections.find((s) => s.slug == params.sectionSlug);
   };
 
   anchorTag = () => {
@@ -186,7 +198,7 @@ class Report extends Component {
     let { report } = this.props;
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',
-      component: 'site'
+      component: 'site',
     });
     this.anchorTag();
     // react-router shim for oti colors
@@ -200,7 +212,7 @@ class Report extends Component {
     if (this.props.location !== prevProps.location) {
       this.props.dispatch({
         type: 'RELOAD_SCROLL_EVENTS',
-        component: 'site'
+        component: 'site',
       });
 
       window.scrollTo(0, 0);
@@ -221,7 +233,9 @@ class Report extends Component {
 
     return (
       <DocumentMeta
-        title={`${report.title}${section ? ': ' + section.title : ''}`}
+        title={`${report.title}${
+          section ? ': ' + section.title : ''
+        }`}
         description={report.search_description}
       >
         <TopNav
@@ -237,7 +251,9 @@ class Report extends Component {
 
         {singlePage && <SinglePage {...this.props} />}
 
-        {landing && <Landing closeMenu={this.closeMenu} {...this.props} />}
+        {landing && (
+          <Landing closeMenu={this.closeMenu} {...this.props} />
+        )}
 
         {section && (
           <div className={`report section`}>
@@ -290,25 +306,33 @@ class Report extends Component {
 }
 
 class Routes extends Component {
-  reportRender = props => {
+  reportRender = (props) => {
     let {
-      response: { results }
+      response: { results },
     } = this.props;
     return (
-      <Report {...props} dispatch={this.props.dispatch} report={results} />
+      <Report
+        {...props}
+        dispatch={this.props.dispatch}
+        report={results}
+      />
     );
   };
 
-  redirect = props => {
+  redirect = (props) => {
     let {
-      response: { results }
+      response: { results },
     } = this.props;
-    return <Redirect to={`${props.match.url}${results.sections[0].slug}`} />;
+    return (
+      <Redirect
+        to={`${props.match.url}${results.sections[0].slug}`}
+      />
+    );
   };
 
   render() {
     let {
-      response: { results }
+      response: { results },
     } = this.props;
     if (!results) return null;
     return (
@@ -341,7 +365,7 @@ class APP extends Component {
           page: 1,
           hasNext: false,
           hasPrevious: false,
-          results: window.initialState
+          results: window.initialState,
         })
       );
     }
@@ -350,7 +374,8 @@ class APP extends Component {
   render() {
     let { reportId } = this.props;
 
-    if (window.initialState) return <Response name={NAME} component={Routes} />;
+    if (window.initialState)
+      return <Response name={NAME} component={Routes} />;
 
     return (
       <Fetch
