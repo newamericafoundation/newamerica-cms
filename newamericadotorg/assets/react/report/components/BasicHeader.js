@@ -5,7 +5,6 @@ class BasicHeader extends Component {
   render() {
     let { report } = this.props;
 
-    console.log(JSON.stringify(report));
     return (
       <React.Fragment>
         <div className="basic-header">
