@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'storages',
     'rss_feed',
     'subscribe',
-    'survey',
     'wagtailautocomplete',
 
     

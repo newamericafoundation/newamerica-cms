@@ -10,7 +10,6 @@ import newamericadotorg.api.program.views as program_views
 import newamericadotorg.api.report.views as report_views
 import newamericadotorg.api.search.views as search_views
 import newamericadotorg.api.subscribe.views as subscribe_views
-import newamericadotorg.api.survey.views as survey_views
 import newamericadotorg.api.topic.views as topic_views
 import newamericadotorg.api.weekly.views as weekly_views
 
