@@ -1,0 +1,29 @@
+.na-tabs {
+  &__nav.inline,
+  &__active-content {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: color(white);
+  }
+  &__nav-link {
+    font-variant-numeric: lining-nums;
+    font-family: Circular std;
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.0625rem;
+    color: color(black, base, 0.3);
+    cursor: pointer;
+    &.active,
+    &:hover {
+      color: #333333;
+      transition: color 0.15s ease;
+    }
+  }
+  ul.inline li {
+    padding-right: 35px;
+  }
+}

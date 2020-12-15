@@ -5,6 +5,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import GARouter from '../ga-router';
 import DocumentMeta from 'react-document-meta';
 import BasicHeader from './components/BasicHeader';
+import Tabs from '../components/Tabs';
+import Tab from '../components/Tab';
 import Body from './components/Body';
 import TopNav from './components/TopNav';
 import BottomNav from './components/BottomNav';
@@ -16,10 +18,30 @@ import Attachments from './components/Attachments';
 import FeaturedSections from './components/FeaturedSections';
 import Authors from './components/Authors';
 
+const horizontalNavItems = [
+  {
+    url: '#reports',
+    label: 'Reports',
+    exact: true,
+  },
+  {
+    url: '#about',
+    label: 'About',
+  },
+];
 const SinglePage = ({ report, dispatch, location }) => (
   <div className={`report report--polling-dashboard single-page`}>
     <div className="container">
       <BasicHeader report={report} />
+
+      <Tabs>
+        <Tab title={'Reports'}>
+          <p>Reports</p>
+        </Tab>
+        <Tab title={'About'}>
+          <p>About</p>
+        </Tab>
+      </Tabs>
 
       <Body
         section={report.sections[0]}
