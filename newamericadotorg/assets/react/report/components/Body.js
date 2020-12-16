@@ -135,7 +135,6 @@ class Body extends Component {
         }}
         style={{ position: 'relative' }}
       >
-        <h2>Hello</h2>
         <Endnote
           endnote={endnote}
           top={top}
@@ -156,7 +155,6 @@ class Body extends Component {
             />
           </div>
         </div>
-        <h2>Goodbye</h2>
       </div>
     );
   }
