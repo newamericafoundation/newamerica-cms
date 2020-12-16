@@ -18,17 +18,6 @@ import Attachments from './components/Attachments';
 import FeaturedSections from './components/FeaturedSections';
 import Authors from './components/Authors';
 
-const horizontalNavItems = [
-  {
-    url: '#reports',
-    label: 'Reports',
-    exact: true,
-  },
-  {
-    url: '#about',
-    label: 'About',
-  },
-];
 const SinglePage = ({ report, dispatch, location }) => (
   <div className={`report report--polling-dashboard single-page`}>
     <div className="container">
