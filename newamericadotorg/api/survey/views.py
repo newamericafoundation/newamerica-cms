@@ -5,7 +5,7 @@ from survey.models import Survey
 from .serializers import SurveyDetailSerializer
 
 class SurveyDetail(RetrieveAPIView):
-    queryset = Survey.objects.all()
+    queryset = Survey.objects.live()
     serializer_class = SurveyDetailSerializer
 
 # class CommentaryDetail(RetrieveAPIView):

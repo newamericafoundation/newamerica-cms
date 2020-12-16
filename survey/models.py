@@ -1,10 +1,9 @@
 import json
 from home.models import Post
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+import datetime
 
 from django import forms
 from django.db import models
-from django.utils import timezone
 from django.utils.text import slugify
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -33,8 +32,7 @@ class ProgramSurveysPage(AbstractContentPage):
     """
 
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
-    subpage_types = ['Survey', 'Commentary', 'Survey_Orgs_Index']
-    # subpage_types = ['Survey', 'Commentary']
+    subpage_types = ['Survey', 'Commentary', 'SurveyValuesIndex']
 
     @property
     def content_model(self):
@@ -46,16 +44,15 @@ class ProgramSurveysPage(AbstractContentPage):
     def __str__(self):
         return self.title
 
-class Survey_Orgs(Page):
-    # title = models.CharField(blank=False, max_length=50)
-    label=models.CharField(blank=True, max_length=50)
-    parent_page_types = ['Survey_Orgs_Index']
+class SurveyOrganization(Page):
+    parent_page_types = ['SurveyValuesIndex', 'ProgramSurveysPage']
     subpage_type = []
     
     @classmethod
     def autocomplete_create(cls: type, value: str):
-      orgs_index_page = Survey_Orgs_Index.objects.first()
-      print(orgs_index_page)
+      test = ProgramSurveysPage.objects.first().title
+    
+      orgs_index_page = SurveyValuesIndex.objects.first()
       title = value
 
       new = cls(title=value)
@@ -66,7 +63,6 @@ class Survey_Orgs(Page):
     def clean(self):
       """Override the values of title and slug before saving."""
       super().clean()
-      self.title = '%s %s' % (self.lable)
       if not self.slug:
         self.slug = slugify(self.title)   
   
@@ -76,7 +72,38 @@ class Survey_Orgs(Page):
     class Meta:
         verbose_name_plural = 'Survey Organizations'
 
-class Survey_Orgs_Index(Page):
+
+
+class DemographicKey(Page):
+    parent_page_types = ['SurveyValuesIndex', 'ProgramSurveysPage']
+    subpage_type = []
+    
+    @classmethod
+    def autocomplete_create(cls: type, value: str):
+      test = ProgramSurveysPage.objects.first().title
+    
+      orgs_index_page = SurveyValuesIndex.objects.first()
+      title = value
+
+      new = cls(title=value)
+      orgs_index_page.add_child(instance=new)
+      orgs_index_page.save()
+      return new
+
+    def clean(self):
+      """Override the values of title and slug before saving."""
+      super().clean()
+      # self.title = '%s %s' % (self.lable)
+      if not self.slug:
+        self.slug = slugify(self.title)   
+  
+    
+    def __str__(self):
+      return self.title
+    class Meta:
+        verbose_name_plural = 'Demographic Keys'
+
+class SurveyValuesIndex(Page):
     """
     A page which inherits from the abstract Page model and
     returns all Articles associated with a specific Program
@@ -84,22 +111,28 @@ class Survey_Orgs_Index(Page):
     """
 
     parent_page_types = ['ProgramSurveysPage']
-    subpage_type = ['Survey_Orgs']
+    subpage_type = ['SurveyOrganization', 'DemographicKey']
 
     def get_orgs(self):
-      return Survey_Orgs.objects.live().descendant_of(self)
+      return SurveyOrganization.objects.live().descendant_of(self)
   
     def get_context(self, request, *args, **kwargs):
-      context = super(Survey_Orgs_Index, self).get_context(request)
+      context = super(SurveyValuesIndex, self).get_context(request)
 
-      # PersonPage objects (get_people) are passed through pagination
-      orgs = self.get_orgs()  # self.paginate(request, self.get_people())
+      orgs = self.get_orgs() 
 
       context['orgs'] = orgs
 
       return context
+
+    @property
+    def content_model(self):
+        return SurveyOrganization
+
     class Meta:
-      def __str__(self):
+        verbose_name = "Surveyindex Homepage"
+
+    def __str__(self):
         return self.title
 
 
@@ -123,16 +156,16 @@ class Survey(Post, RoutablePageMixin):
     )
     parent_page_types = ['ProgramSurveysPage']
     subpage_type=[]
+    # current_year = datetime.datetime.now().year
+    # print(current_year)
 
     study_title= models.CharField(max_length=250, blank=True, null=True)
-    org = ParentalManyToManyField('survey.Survey_Orgs', related_name='Survey_Orgs', blank=True)
-    year = ParentalManyToManyField('survey.Survey_Years', help_text='Year Survey was condicted.', blank=True)
+    org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True)
+    year = models.IntegerField(help_text='Year Survey was condicted.', blank=True, default=2000)
     month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was condicted, if applicable.')
-    # Is this needed. Sample siez is non-standard and not displayed in the dashboard
-    # sample_size = models.CharField(max_length=250)
     sample_number = models.CharField(max_length=250, blank=True, null=True)
     sample_demos = models.CharField(max_length=250, blank=True, null=True, help_text='Text displayed on the dashboard')
-    demos_key = ParentalManyToManyField('survey.Demo_Key', help_text='Indexable demographic groups', blank=True, default=False)
+    demos_key = ParentalManyToManyField('DemographicKey', help_text='Indexable demographic groups', blank=True, default=False)
     findings = RichTextField(blank=True, null=True, max_length=12500)
     link = models.URLField(blank=True, null=True)
     file = models.FileField(blank=True, null=True)
@@ -144,7 +177,7 @@ class Survey(Post, RoutablePageMixin):
       MultiFieldPanel([
         FieldPanel('title'),
         AutocompletePanel('org'),
-        AutocompletePanel('year'),
+        FieldPanel('year'),
         FieldPanel('month'),
         FieldPanel('sample_number'),
         FieldPanel('sample_demos'),
@@ -157,49 +190,6 @@ class Survey(Post, RoutablePageMixin):
         FieldPanel('file')
       ])
     ]
-
-
-# @todo find a way to dry this up.
-# @register_snippet
-class Demo_Key(ClusterableModel):
-    title = models.CharField(blank=False, max_length=50)
-    
-    @classmethod
-    def autocomplete_create(cls: type, value: str):
-        return cls.objects.create(title=value)
-    
-    def __str__(self):
-      return self.title
-    class Meta:
-      verbose_name_plural = 'Demographics Keys'
-        
-# # @register_snippet
-# class Survey_Orgs(ClusterableModel):
-#     title = models.CharField(blank=True, max_length=50)
-#     # parent_page_types = ['SurveyOrganizationsIndex']
-
-#     @classmethod
-#     def autocomplete_create(cls: type, value: str):
-#         return cls.objects.create(title=value)
-    
-#     def __str__(self):
-#       return self.title
-#     class Meta:
-#         verbose_name_plural = 'Survey Organizations'
-
-# @register_snippet
-class Survey_Years(ClusterableModel):
-    title = models.CharField(blank=False, max_length=50)
-    
-    @classmethod
-    def autocomplete_create(cls: type, value: str):
-        return cls.objects.create(title=value)
-  
-    def __str__(self):
-      return self.title
-    class Meta:
-        verbose_name_plural = 'Survey Years'
-
 
 
 class Commentary(Post, RoutablePageMixin):
