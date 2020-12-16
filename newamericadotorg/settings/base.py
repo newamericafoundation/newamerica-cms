@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'subscribe',
     'survey',
     'wagtailautocomplete',
-
+    'multiselectfield',
     
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
