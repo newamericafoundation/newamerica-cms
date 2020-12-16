@@ -1,11 +1,11 @@
 import json
+import datetime
 from home.models import Post
-
 from django import forms
 from django.db import models
 from django.utils.text import slugify
 
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey, ParentalManyToManyField  
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin
@@ -16,15 +16,9 @@ from wagtail.search import index
 from programs.models import AbstractContentPage
 
 from wagtailautocomplete.edit_handlers import AutocompletePanel
-
+from multiselectfield import MultiSelectField
 
 class ProgramSurveysPage(AbstractContentPage):
-    """
-    A page which inherits from the abstract Page model and
-    returns all Articles associated with a specific Program
-    or Subprogram
-    """
-
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Survey', 'Commentary', 'SurveyValuesIndex']
 
@@ -90,20 +84,13 @@ class DemographicKey(Page):
       # self.title = '%s %s' % (self.lable)
       if not self.slug:
         self.slug = slugify(self.title)   
-  
-    
-    def __str__(self):
-      return self.title
+
+      def __str__(self):
+        return self.title
     class Meta:
-        verbose_name_plural = 'Demographic Keys'
+      verbose_name_plural = 'Demographic Keys'
 
 class SurveyValuesIndex(Page):
-    """
-    A page which inherits from the abstract Page model and
-    returns all Articles associated with a specific Program
-    or Subprogram
-    """
-
     parent_page_types = ['ProgramSurveysPage']
     subpage_type = ['SurveyOrganization', 'DemographicKey']
 
@@ -123,12 +110,10 @@ class SurveyValuesIndex(Page):
     def content_model(self):
         return SurveyOrganization
 
-    class Meta:
-        verbose_name = "Surveyindex Homepage"
-
     def __str__(self):
         return self.title
-
+    class Meta:
+      verbose_name = "Surveyindex Homepage"
 
 class Survey(Post, RoutablePageMixin):
     template = 'survey/survey.html'
@@ -148,18 +133,24 @@ class Survey(Post, RoutablePageMixin):
       (11, 'November'),
       (12, 'December')
     )
+
+    DATA_TYPE_CHOICES = (
+      ('QUANT', 'Quantitative'),
+      ('QUAL', 'Qualitative')
+    )
+
     parent_page_types = ['ProgramSurveysPage']
     subpage_type=[]
-    # current_year = datetime.datetime.now().year
-    # print(current_year)
+    current_year = datetime.datetime.now().year
 
     study_title= models.CharField(max_length=250, blank=True, null=True)
     org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True)
-    year = models.IntegerField(help_text='Year Survey was condicted.', blank=True, default=2000)
+    year = models.IntegerField(help_text='Year Survey was condicted.', blank=True, default=current_year)
     month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was condicted, if applicable.')
     sample_number = models.CharField(max_length=250, blank=True, null=True)
     sample_demos = models.CharField(max_length=250, blank=True, null=True, help_text='Text displayed on the dashboard')
     demos_key = ParentalManyToManyField('DemographicKey', help_text='Indexable demographic groups', blank=True, default=False)
+    data_type = MultiSelectField(choices=DATA_TYPE_CHOICES, default=['QUANT', 'QUAL'])  
     findings = RichTextField(blank=True, null=True, max_length=12500)
     link = models.URLField(blank=True, null=True)
     file = models.FileField(blank=True, null=True)
@@ -176,6 +167,7 @@ class Survey(Post, RoutablePageMixin):
         FieldPanel('sample_number'),
         FieldPanel('sample_demos'),
         AutocompletePanel('demos_key'),
+        FieldPanel('data_type', widget=forms.CheckboxSelectMultiple),
         FieldPanel('findings'),
         AutocompletePanel('assoc_commentary')
       ], heading='Survey Data'),
@@ -184,7 +176,6 @@ class Survey(Post, RoutablePageMixin):
         FieldPanel('file')
       ])
     ]
-
 
 class Commentary(Post, RoutablePageMixin):
   template = 'survey/commentary.html'
@@ -204,11 +195,10 @@ class Commentary(Post, RoutablePageMixin):
       AutocompletePanel('assoc_surveys')
   ]
 
-  class Meta:
-      verbose_name = 'Expert Commentary'
-
   def __str__(self):
         return self.title
+  class Meta:
+      verbose_name = 'Expert Commentary'
 
 class Commented_Survey(models.Model):
   survey=models.ForeignKey('Survey', on_delete=models.CASCADE, blank=True, null=True)
