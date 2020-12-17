@@ -1,0 +1,29 @@
+.basic-header {
+  background-color: color(white);
+  padding-top: 85px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  position: relative;
+  &__title {
+    font-family: $header-font-family;
+    line-height: type-adjusted-padding(1em);
+  }
+  &__subtitle {
+    font-family: $ff-temp-circular;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  &__breadcrumb {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    a {
+      font-family: $ff-temp-circular;
+    }
+  }
+}

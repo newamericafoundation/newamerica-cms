@@ -12,15 +12,19 @@ class Body extends Component {
     this.state = {
       endnote: null,
       top: 0,
-      citeEl: null
+      citeEl: null,
     };
   }
 
-  openEndnote = endnote => {
+  openEndnote = (endnote) => {
     let body = this;
 
-    return function() {
-      if (this.querySelector('.report__citation').classList.contains('active'))
+    return function () {
+      if (
+        this.querySelector('.report__citation').classList.contains(
+          'active'
+        )
+      )
         return body.closeEndnote();
       body.closeEndnote();
       this.querySelector('.report__citation').classList.add('active');
@@ -30,7 +34,7 @@ class Body extends Component {
           window.pageYOffset +
           this.getBoundingClientRect().top -
           body.el.offsetTop,
-        citeEl: this
+        citeEl: this,
       });
     };
   };
@@ -39,7 +43,9 @@ class Body extends Component {
     let _this = this;
     this.closeEndnote();
     let endnotes = _this.props.report.endnotes;
-    let citations = document.querySelectorAll('.report__citation-wrapper');
+    let citations = document.querySelectorAll(
+      '.report__citation-wrapper'
+    );
     this.props.dispatch({
       type: 'ADD_SCROLL_EVENT',
       component: 'site',
@@ -54,8 +60,8 @@ class Body extends Component {
           document.documentElement.clientHeight,
           window.innerHeight || 0
         ),
-        bottomOffset: -65
-      }
+        bottomOffset: -65,
+      },
     });
     for (let c of citations) {
       let i = c.getAttribute('data-citation-number') - 1;
@@ -63,7 +69,7 @@ class Body extends Component {
     }
   };
 
-  closeEndnote = el => {
+  closeEndnote = (el) => {
     if (this.state.citeEl)
       this.state.citeEl
         .querySelector('.report__citation')
@@ -81,9 +87,7 @@ class Body extends Component {
     ) {
       const dataScript = document.createElement('script');
 
-      dataScript.src = `https://na-data-projects.s3.amazonaws.com/projects/${
-        report.data_project_external_script
-      }`;
+      dataScript.src = `https://na-data-projects.s3.amazonaws.com/projects/${report.data_project_external_script}`;
       dataScript.async = true;
 
       this.el.appendChild(dataScript);
@@ -113,7 +117,7 @@ class Body extends Component {
       this.loadScripts();
       this.props.dispatch({
         type: 'RELOAD_SCROLL_EVENTS',
-        component: 'SITE'
+        component: 'SITE',
       });
     }
   }
@@ -125,14 +129,20 @@ class Body extends Component {
     return (
       <div
         className={`container ${endnote ? 'endnote-active' : ''}`}
-        ref={el => {
+        ref={(el) => {
           this.el = el;
         }}
         style={{ position: 'relative' }}
       >
-        <Endnote endnote={endnote} top={top} close={this.closeEndnote} />
+        <Endnote
+          endnote={endnote}
+          top={top}
+          close={this.closeEndnote}
+        />
         <div
-          className={`report__body${section.hide_title ? ' hide-title' : ''}`}
+          className={`report__body${
+            section.hide_title ? ' hide-title' : ''
+          }`}
         >
           <div className="post-body-wrapper">
             <h2 className="margin-top-0 report__body__section-title">
