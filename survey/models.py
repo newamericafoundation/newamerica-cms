@@ -27,12 +27,6 @@ from .utils import MONTH_CHOICES, DATA_TYPE_CHOICES
 class ProgramSurveysPage(AbstractContentPage):
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Survey', 'Commentary', 'SurveyValuesIndex']
-
-    def save(self, *args, **kwargs):
-      super(ProgramSurveysPage, self).save(*args, **kwargs)
-      if self.get_children_count() == 0:
-        self.add_child(instance=SurveyValuesIndex(title=self.title + " Values Index", slug=slugify(self.title + " Values Index")))
-
     class Meta:
         verbose_name = "Surveys Homepage"
 
