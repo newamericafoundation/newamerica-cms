@@ -1,16 +1,19 @@
 import './SurveysTab.scss';
 import React, { Component } from 'react';
+import FilterBlock from '../../components/FilterBlock';
+import TeaserListing from '../../components/TeaserListing';
 
 class SurveysTab extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const { props } = this.props;
-    console.log(props);
+    const { surveyData } = this.props;
+
     return (
-      <div>
-        <h3>Surveys Tab</h3>
+      <div className="surveys-tab">
+        {/* <FilterBlock /> */}
+        <TeaserListing surveys={surveyData} />
       </div>
     );
   }

@@ -9,7 +9,7 @@ class FilterBlock extends Component {
     const { props } = this.props;
     console.log(props);
     return (
-      <div>
+      <div className="filter-block">
         <h3>Filter Block</h3>
       </div>
     );

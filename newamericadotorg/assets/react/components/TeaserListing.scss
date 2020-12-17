@@ -1,0 +1,26 @@
+.teaser-listing {
+  font-family: $ff-temp-circular;
+  &__item {
+    padding: 25px 15px;
+    background: color(white);
+    border-left: 10px solid color(turquoise);
+  }
+  &__item-title {
+    font-weight: 800;
+    font-family: $ff-temp-circular;
+  }
+  &__item-description {
+    font-family: $ff-temp-circular;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 19px;
+  }
+  &__item-date {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 15px;
+    color: color(black);
+    font-weight: 100;
+  }
+}

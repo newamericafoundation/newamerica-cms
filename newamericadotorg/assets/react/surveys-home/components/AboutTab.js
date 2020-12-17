@@ -32,24 +32,26 @@ class AboutTab extends Component {
       },
     ];
     return (
-      <div className="about-tab">
+      <div className="surveys-about-tab">
         {tempSections.map((section, i) => (
           <div
-            className="about-tab__section"
+            className="surveys-about-tab__section"
             key={`about-section${i}`}
           >
-            <h2 className="about-tab__section-title">
+            <h2 className="surveys-about-tab__section-title">
               {section.title}
             </h2>
             <div
-              className="about-tab__description"
+              className="surveys-about-tab__description"
               dangerouslySetInnerHTML={{ __html: section.body }}
             />
           </div>
         ))}
 
-        <div className="about-tab__section">
-          <h2 className="about-tab__section-title">Authors</h2>
+        <div className="surveys-about-tab__section">
+          <h2 className="surveys-about-tab__section-title">
+            Authors
+          </h2>
           <Authors authors={report.authors} md={true} />
         </div>
       </div>
