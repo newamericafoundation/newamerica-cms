@@ -58,7 +58,7 @@ class ProgramSurveysPage(AbstractContentPage):
       super(ProgramSurveysPage, self).save(*args, **kwargs)
       if self.get_children_count() == 0:
         self.add_child(instance=SurveyValuesIndex(title=self.title + " Values Index", slug=slugify(self.title + " Values Index")))
-    
+
     @property
     def content_model(self):
         return Survey
@@ -69,8 +69,8 @@ class ProgramSurveysPage(AbstractContentPage):
         return self.title
 
 class SurveyOrganization(Page):
-    parent_page_types = ['SurveyValuesIndex']    
-    
+    parent_page_types = ['SurveyValuesIndex']
+
     def __str__(self):
       return self.title
     class Meta:
@@ -78,7 +78,7 @@ class SurveyOrganization(Page):
 
 class DemographicKey(Page):
     parent_page_types = ['SurveyValuesIndex']
-    
+
     def __str__(self):
       return self.title
     class Meta:
@@ -86,7 +86,7 @@ class DemographicKey(Page):
 
 class SurveyTags(Page):
     parent_page_types = ['SurveyValuesIndex']
-    
+
     def __str__(self):
       return self.title
     class Meta:
@@ -104,7 +104,7 @@ class SurveyValuesIndex(Page):
 
 class Survey(Post):
     template = 'survey/survey.html'
- 
+
     parent_page_types = ['ProgramSurveysPage']
 
     org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True, verbose_name='Organization')

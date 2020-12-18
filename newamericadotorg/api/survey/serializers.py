@@ -79,13 +79,13 @@ class SurveyDetailSerializer(ModelSerializer):
 
     # # def get_demos_key(self, obj):
     # #    return obj.demos_key
-       
+
     def get_link(self, obj):
        return obj.link
-    
+
     def get_file(self, obj):
        return obj.file
-    
+
 
     # def get_attachments(self,obj):
     #     attchs = []
