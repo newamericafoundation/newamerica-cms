@@ -30,6 +30,30 @@ class ProgramSurveysPage(AbstractContentPage):
     parent_page_types = ['programs.Project']
     subpage_types = ['Survey', 'Commentary', 'SurveyValuesIndex']
 
+
+    partner_logo = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    subheading = models.CharField(max_length=200, blank=True)
+    about = RichTextField(max_length = 1500, blank=True, verbose_name='About This Project')
+    methodology = RichTextField(max_length = 1500, blank=True)
+
+
+    content_panels = [
+      FieldPanel('title'),
+      FieldPanel('subheading'),
+      MultiFieldPanel([
+
+        FieldPanel('about'),
+        FieldPanel('methodology'),
+        ImageChooserPanel('partner_logo'),
+      ], heading='About Page')
+    ]
+
     def save(self, *args, **kwargs):
       super(ProgramSurveysPage, self).save(*args, **kwargs)
       if self.get_children_count() == 0:
