@@ -90,7 +90,7 @@ class Survey(Post):
     link = models.URLField(blank=True, null=True, verbose_name='Link to Survey', help_text='Add a link to a webpage containing the survey details.')
     file = models.FileField(blank=True, null=True, verbose_name='Survey File', help_text='Add a file containing the survey details.')
     assoc_commentary = ParentalManyToManyField('Commentary', blank=True, through='Commented_Survey', related_name='surveys', verbose_name='Associated Commentary')
-    tags =  ParentalManyToManyField('SurveyTags', help_text='Select from available tags', blank=True, default=False)
+    tags =  ParentalManyToManyField('SurveyTags', help_text='Select from available tags', blank=True, default=False, verbose_name='Topics')
     content_panels = [
       MultiFieldPanel([
         FieldPanel('title'),
