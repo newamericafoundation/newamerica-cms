@@ -87,6 +87,7 @@ class Survey(Post):
     
     content_panels = [
       MultiFieldPanel([
+        FieldPanel('title'),
         FieldPanel('date'),
       ], heading='Survey Created'),
       MultiFieldPanel([
