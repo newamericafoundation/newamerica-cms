@@ -8,7 +8,6 @@ import {
   subYears,
 } from 'date-fns/esm';
 import TeaserListing from '../../components/TeaserListing';
-import './CheckboxGroup.scss';
 
 class SurveysTab extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class SurveysTab extends Component {
     this.state = {
       data: [],
     };
-    this.handleChange = this.handleChange.bind(this);
+
     this.buildFilters = this.buildFilters.bind(this);
   }
   buildFilters() {
@@ -25,10 +24,7 @@ class SurveysTab extends Component {
     let organization = [];
 
     this.props.surveys.dashboard.map((survey, i) => {
-      topics = topics.concat({
-        value: survey.tags.toLowerCase().replace(/\s/g, ''),
-        label: survey.tags,
-      });
+      topics = topics.concat(survey.tags);
       demographics = demographics.concat(survey.demographics);
       organization = organization.concat(survey.organization);
     });
@@ -54,7 +50,7 @@ class SurveysTab extends Component {
           Filter List
         </div>
 
-        <TeaserListing surveys={surveyData} />
+        <TeaserListing surveys={this.props.surveys} />
       </div>
     );
   }
