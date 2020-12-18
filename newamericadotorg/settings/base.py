@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'rss_feed',
     'subscribe',
     'wagtailautocomplete',
-
+    'multiselectfield',
     
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
