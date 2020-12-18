@@ -14,7 +14,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('home', '0054_auto_20200810_1541'),
-        ('wagtailcore', '0055_auto_20201218_1812'),
     ]
 
     operations = [
