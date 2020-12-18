@@ -22,11 +22,17 @@ from wagtail.snippets.models import register_snippet
 from programs.models import AbstractContentPage
 from wagtailautocomplete.edit_handlers import AutocompletePanel
 
+from programs.models import Project
 from multiselectfield import MultiSelectField
 from .utils import MONTH_CHOICES, DATA_TYPE_CHOICES
 class ProgramSurveysPage(AbstractContentPage):
-    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
+    parent_page_types = ['programs.Project']
     subpage_types = ['Survey', 'Commentary', 'SurveyValuesIndex']
+
+    
+    @property
+    def content_model(self):
+        return Survey
     class Meta:
         verbose_name = "Surveys Homepage"
 
@@ -72,19 +78,19 @@ class Survey(Post):
  
     parent_page_types = ['ProgramSurveysPage']
 
-    org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True)
+    org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True, verbose_name='Organization')
     year = models.IntegerField(help_text='Year Survey was condicted.', blank=True, default=2000)
     month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was condicted, if applicable.')
-    sample_number = models.CharField(max_length=250, blank=True, null=True)
-    sample_demos = models.CharField(max_length=250, blank=True, null=True, help_text='Text displayed on the dashboard')
-    demos_key = ParentalManyToManyField('DemographicKey', help_text='Indexable demographic groups', blank=True, default=False)
+    sample_number = models.IntegerField(blank=True, null=True)
+    sample_demos = models.CharField(max_length=250, blank=True, null=True, help_text='Text displayed on the dashboard', verbose_name='Sample Demographics')
+    demos_key = ParentalManyToManyField('DemographicKey', help_text='Indexable demographic groups', blank=True, default=False, verbose_name='Demographics Keys')
     findings = RichTextField(blank=True, null=True, max_length=12500)
-    data_type = MultiSelectField(choices=DATA_TYPE_CHOICES, default=['QUANT', 'QUAL'])
-    national = models.BooleanField(default=True)
-    link = models.URLField(blank=True, null=True)
-    file = models.FileField(blank=True, null=True)
-    assoc_commentary = ParentalManyToManyField('Commentary', blank=True, through='Commented_Survey', related_name='surveys')
-    
+    data_type = MultiSelectField(choices=DATA_TYPE_CHOICES)
+    national = models.BooleanField(default=True, verbose_name='Nationally Representative?', help_text='Indicates whether the survey was nationally representative or not.')
+    link = models.URLField(blank=True, null=True, verbose_name='Link to Survey', help_text='Add a link to a webpage containing the survey details.')
+    file = models.FileField(blank=True, null=True, verbose_name='Survey File', help_text='Add a file containing the survey details.')
+    assoc_commentary = ParentalManyToManyField('Commentary', blank=True, through='Commented_Survey', related_name='surveys', verbose_name='Associated Commentary')
+    tags =  ParentalManyToManyField('SurveyTags', help_text='Select from available tags', blank=True, default=False)
     content_panels = [
       MultiFieldPanel([
         FieldPanel('title'),
@@ -97,6 +103,7 @@ class Survey(Post):
         FieldPanel('sample_number'),
         FieldPanel('sample_demos'),
         AutocompletePanel('demos_key'),
+        AutocompletePanel('tags'),
         FieldPanel('data_type', widget=forms.CheckboxSelectMultiple),
         FieldPanel('national'),
         FieldPanel('findings'),
@@ -107,6 +114,9 @@ class Survey(Post):
         FieldPanel('file')
       ])
     ]
+
+Survey._meta.get_field('title').help_text="Title of the Survey"
+Survey._meta.get_field('date').help_text="Date that the Survey was collected."
 
 
 class Commentary(Post, RoutablePageMixin):
