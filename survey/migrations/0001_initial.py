@@ -13,7 +13,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0055_auto_20201218_1812'),
         ('home', '0057_auto_20201218_1812'),
     ]
 

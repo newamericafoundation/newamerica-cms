@@ -108,8 +108,8 @@ class Survey(Post):
     parent_page_types = ['ProgramSurveysPage']
 
     org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True, verbose_name='Organization')
-    year = models.IntegerField(help_text='Year Survey was condicted.', blank=True, default=2000)
-    month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was condicted, if applicable.')
+    year = models.IntegerField(help_text='Year Survey was conducted.', blank=True, default=2000)
+    month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was conducted, if applicable.')
     sample_number = models.IntegerField(blank=True, null=True)
     sample_demos = models.CharField(max_length=250, blank=True, null=True, help_text='Text displayed on the dashboard', verbose_name='Sample Demographics')
     demos_key = ParentalManyToManyField('DemographicKey', help_text='Indexable demographic groups', blank=True, default=False, verbose_name='Demographics Keys')
