@@ -17,7 +17,7 @@ const SinglePage = ({ report, dispatch, location }) => (
       <BasicHeader report={report} />
 
       <Tabs>
-        <Tab title={'Reports'}>
+        <Tab title={'Survey Reports'}>
           <p>Reports</p>
         </Tab>
         <Tab title={'About'}>

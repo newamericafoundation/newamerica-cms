@@ -1,3 +1,52 @@
+@import '~font-awesome/scss/variables';
+$fa-font-path: '#{$extra-static}/fonts';
+@import '~font-awesome/scss/mixins';
+@import '~font-awesome/scss/path';
+@import '~font-awesome/scss/core';
+
 .surveys-tab {
   background: #f7f4f2;
+  @include media-breakpoint(tablet) {
+    display: flex;
+  }
+  &__sidebar {
+    @include media-breakpoint(tablet) {
+      width: 25%;
+      padding-right: 0;
+      margin-top: 57px;
+      margin-right: 5%;
+      border-top: 1px solid #979797;
+    }
+  }
+  &__results {
+    @include media-breakpoint(tablet) {
+      width: 70%;
+    }
+  }
+  .checkbox__container {
+    .checkbox__group {
+      padding: 16px 0;
+      border-bottom: 1px solid #979797;
+    }
+    .checkbox__group-title {
+      display: flex;
+      justify-content: space-between;
+      font-family: $ff-temp-circular;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .checkbox-group__options {
+      display: flex;
+      align-items: center;
+      input {
+        height: 18px;
+        width: 18px;
+        border: 0.5px solid color(black);
+      }
+      label {
+        padding-left: 10px;
+        font-family: $ff-temp-circular;
+      }
+    }
+  }
 }
