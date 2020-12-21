@@ -8,7 +8,7 @@ import {
   subYears,
 } from 'date-fns/esm';
 import TeaserListing from '../../components/TeaserListing';
-import CtaCArd from './CtaCard';
+import CtaCArd from '../../components/CtaCard';
 
 class SurveysTab extends Component {
   constructor(props) {
@@ -147,6 +147,10 @@ class SurveysTab extends Component {
           ))}
           <div className="margin-top-35">
             <CtaCArd
+              title={'Call for Submissions'}
+              description={
+                'Know of a poll or report that should be added to our list?'
+              }
               type={'email'}
               linkText={'Send us an email today.'}
               url={'user@sitename.com'}
@@ -158,6 +162,10 @@ class SurveysTab extends Component {
           <TeaserListing surveys={this.props.surveys} />
           <div className="margin-top-25">
             <CtaCArd
+              title={'Love all this insight?'}
+              description={
+                'Subscribe to our newsletter to receive updates on what’s new in Education Policy.'
+              }
               type={'link'}
               linkText={'Subscribe'}
               url={'google.com'}

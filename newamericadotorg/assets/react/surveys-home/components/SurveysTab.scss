@@ -27,6 +27,7 @@ $fa-font-path: '#{$extra-static}/fonts';
     .checkbox__group {
       padding: 16px 0;
       border-bottom: 1px solid #979797;
+      cursor: pointer;
     }
     .checkbox__group-title {
       display: flex;
