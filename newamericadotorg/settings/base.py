@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'policy_paper',
     'press_release',
     'quoted',
+    'survey',
     'issue',
     'weekly',
     'in_depth',
@@ -43,8 +44,8 @@ INSTALLED_APPS = [
     'rss_feed',
     'subscribe',
     'wagtailautocomplete',
+    'multiselectfield',
 
-    
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
