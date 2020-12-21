@@ -1,8 +1,9 @@
-import './AboutLanding.scss';
+import './AboutTab.scss';
 
 import React, { Component } from 'react';
 import Authors from '../../report/components/Authors';
-class AboutLanding extends Component {
+
+class AboutTab extends Component {
   constructor(props) {
     super(props);
   }
@@ -31,24 +32,26 @@ class AboutLanding extends Component {
       },
     ];
     return (
-      <div className="about-landing">
+      <div className="surveys-about-tab">
         {tempSections.map((section, i) => (
           <div
-            className="about-landing__section"
+            className="surveys-about-tab__section"
             key={`about-section${i}`}
           >
-            <h2 className="about-landing__section-title">
+            <h2 className="surveys-about-tab__section-title">
               {section.title}
             </h2>
             <div
-              className="about-landing__description"
+              className="surveys-about-tab__description"
               dangerouslySetInnerHTML={{ __html: section.body }}
             />
           </div>
         ))}
 
-        <div className="about-landing__section">
-          <h2 className="about-landing__section-title">Authors</h2>
+        <div className="surveys-about-tab__section">
+          <h2 className="surveys-about-tab__section-title">
+            Authors
+          </h2>
           <Authors authors={report.authors} md={true} />
         </div>
       </div>
@@ -56,4 +59,4 @@ class AboutLanding extends Component {
   }
 }
 
-export default AboutLanding;
+export default AboutTab;

@@ -1,0 +1,26 @@
+.surveys-about-tab {
+  background-color: color(white);
+  margin-left: -25px;
+  margin-right: -25px;
+  padding: 25px;
+  &__section {
+    margin-bottom: 50px;
+
+    @include media-breakpoint(tablet) {
+      width: 75%;
+    }
+  }
+  &__section-title {
+    font-size: 21px;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  img {
+    max-width: 400px;
+    max-height: 200px;
+    margin-left: 0;
+  }
+  .report__authors {
+    max-width: 650px;
+  }
+}

@@ -18,7 +18,10 @@ import Authors from './components/Authors';
 import BasicHeader from '../surveys-home/components/BasicHeader';
 import Tabs from '../components/Tabs';
 import Tab from '../components/Tab';
-import AboutLanding from '../surveys-home/components/AboutLanding';
+import AboutTab from '../surveys-home/components/AboutTab';
+import SurveysTab from '../surveys-home/components/SurveysTab';
+
+const surveyData = require('./surveyData.json');
 
 const SinglePage = ({ report, dispatch, location }) => (
   <div className={`report report--polling-dashboard single-page`}>
@@ -26,11 +29,11 @@ const SinglePage = ({ report, dispatch, location }) => (
       <BasicHeader report={report} />
 
       <Tabs>
-        <Tab title={'Reports'}>
-          <p>Reports</p>
+        <Tab title={'Polls & Reports'}>
+          <SurveysTab surveys={surveyData} />
         </Tab>
         <Tab title={'About'}>
-          <AboutLanding report={report} />
+          <AboutTab report={report} />
         </Tab>
       </Tabs>
     </div>

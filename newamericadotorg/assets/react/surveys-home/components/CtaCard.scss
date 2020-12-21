@@ -1,0 +1,44 @@
+.cta-card {
+  background: white;
+  padding: 25px 15px;
+  h4 {
+    font-family: $paragraph-font-family;
+    font-size: 21px;
+  }
+  p,
+  a {
+    font-size: 15px;
+    font-weight: 100;
+    line-height: 19px;
+    color: color(black);
+  }
+  &--email a {
+    text-decoration: underline;
+    font-family: $ff-temp-circular;
+  }
+  &--link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 130px;
+    .col--1 {
+      width: 70%;
+    }
+    .col--2 {
+      width: 30%;
+    }
+    a {
+      width: 100%;
+      display: block;
+      padding: 20px;
+      text-align: center;
+      font-weight: 700;
+      font-family: $paragraph-font-family;
+      font-size: 18px;
+      background: color(turquoise);
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
