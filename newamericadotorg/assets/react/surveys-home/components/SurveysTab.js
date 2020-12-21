@@ -1,12 +1,5 @@
 import './SurveysTab.scss';
 import React, { Component } from 'react';
-import {
-  format as formatDate,
-  subDays,
-  isWithinRange,
-  subMonths,
-  subYears,
-} from 'date-fns/esm';
 import TeaserListing from '../../components/TeaserListing';
 import CtaCArd from '../../components/CtaCard';
 
@@ -14,6 +7,7 @@ class SurveysTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      checkedItems: new Map(),
       data: [],
       tempFilters: [
         {
@@ -21,19 +15,16 @@ class SurveysTab extends Component {
           options: [
             {
               label: 'Topic 1',
-              id: 'topic-1',
               value: 'topic-1',
             },
 
             {
               label: 'Topic 2',
-              id: 'topic-2',
               value: 'topic-2',
             },
 
             {
               label: 'Topic 3',
-              id: 'topic-3',
               value: 'topic-3',
             },
           ],
@@ -78,7 +69,7 @@ class SurveysTab extends Component {
       ],
     };
     this.toggleCheckboxGroup = this.toggleCheckboxGroup.bind(this);
-    this.buildFilters = this.buildFilters.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
   }
   toggleCheckboxGroup(index) {
     this.setState((prevState) => {
@@ -87,40 +78,53 @@ class SurveysTab extends Component {
       return newItems[index];
     });
   }
-  buildFilters() {
+
+  handleCheckboxChange = (e) => {
+    const item = e.target.name;
+    const isChecked = e.target.checked;
+    this.setState((prevState) => ({
+      checkedItems: prevState.checkedItems.set(item, isChecked),
+    }));
+  };
+
+  componentDidMount() {
     let topics = [];
     let demographics = [];
     let organization = [];
 
-    this.props.surveys.dashboard.map((survey, i) => {
-      topics = topics.concat(survey.tags);
-      demographics = demographics.concat(survey.demographics);
-      organization = organization.concat(survey.organization);
-    });
+    this.props.surveys.dashboard.map(
+      ({ tags, demographics, organization }, i) => {
+        topics = [...new Set(topics.concat(tags))];
+        demographics = [
+          ...new Set(demographics.concat(demographics)),
+        ];
+        organization = [
+          ...new Set(organization.concat(organization)),
+        ];
+      }
+    );
 
     this.setState({
       filters: {
-        topics: new Set(topics),
-        demographics: new Set(demographics),
-        organization: new Set(organization),
+        topics: [...new Set(topics)],
+        demographics: [...new Set(demographics)],
+        organization: [...new Set(organization)],
       },
     });
   }
-  componentDidMount() {
-    this.buildFilters();
-  }
 
   render() {
-    console.log(this.state);
+    const { tempFilters, checkedItems } = this.state;
+    console.log(checkedItems);
 
     return (
       <div className="surveys-tab">
         <div className="surveys-tab__sidebar checkbox__container checkbox__container">
-          {this.state.tempFilters.map((group, index) => (
+          {tempFilters.map((group, index) => (
             <div className="checkbox__group" key={index}>
               <h4
                 className="checkbox__group-title"
-                onClick={() => this.toggleCheckboxGroup(index)}
+                onClick={(e) => this.toggleCheckboxGroup(index, e)}
               >
                 {group.label}
                 <i
@@ -131,12 +135,15 @@ class SurveysTab extends Component {
                 group.options.map((option, i) => (
                   <div key={i} className="checkbox-group__options">
                     <input
-                      value={option.value}
-                      id={option.id}
+                      name={option.value}
+                      checked={
+                        checkedItems.get(option.value) || false
+                      }
+                      onChange={this.handleCheckboxChange}
                       type="checkbox"
                     />
                     <label
-                      htmlFor={option.id}
+                      htmlFor={option.value}
                       className="checkbox__label"
                     >
                       {option.label}

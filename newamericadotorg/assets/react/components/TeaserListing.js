@@ -75,7 +75,7 @@ class TeaserListing extends Component {
                 </p>
               </div>
               <div className="col-2 teaser-listing__item-date">
-                {moment(item.date).format('MMM Do YYYY')}
+                {item.month} {item.year}
               </div>
             </a>
           ))}

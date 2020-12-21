@@ -43,6 +43,9 @@ $fa-font-path: '#{$extra-static}/fonts';
         height: 18px;
         width: 18px;
         border: 0.5px solid color(black);
+        &:checked {
+          border-color: red;
+        }
       }
       label {
         padding-left: 10px;
