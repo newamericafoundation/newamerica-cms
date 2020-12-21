@@ -5,6 +5,10 @@
   padding: 25px;
   &__section {
     margin-bottom: 50px;
+
+    @include media-breakpoint(tablet) {
+      width: 75%;
+    }
   }
   &__section-title {
     font-size: 21px;
@@ -15,5 +19,8 @@
     max-width: 400px;
     max-height: 200px;
     margin-left: 0;
+  }
+  .report__authors {
+    max-width: 650px;
   }
 }

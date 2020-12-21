@@ -5,13 +5,16 @@
   padding-right: 25px;
   padding-bottom: 25px;
   position: relative;
+  @include media-breakpoint(tablet) {
+    padding-right: 25%;
+  }
   &__title {
     font-family: $header-font-family;
     line-height: type-adjusted-padding(1em);
   }
   &__subtitle {
     font-family: $ff-temp-circular;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 15px;
     line-height: 1.5;
   }
