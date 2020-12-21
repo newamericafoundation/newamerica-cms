@@ -8,6 +8,8 @@ $fa-font-path: '#{$extra-static}/fonts';
   background: #f7f4f2;
   @include media-breakpoint(tablet) {
     display: flex;
+    margin-left: -15px;
+    margin-right: -15px;
   }
   &__sidebar {
     @include media-breakpoint(tablet) {

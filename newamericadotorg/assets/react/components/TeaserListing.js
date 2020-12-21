@@ -66,7 +66,7 @@ class TeaserListing extends Component {
               className="teaser-listing__item card margin-bottom-10"
               key={`teaser-listing-item-${index}`}
             >
-              <div className="col-10">
+              <div className="col-9">
                 <h4 className="teaser-listing__item-title">
                   {item.title}
                 </h4>
@@ -74,7 +74,7 @@ class TeaserListing extends Component {
                   {item.description}
                 </p>
               </div>
-              <div className="col-2 teaser-listing__item-date">
+              <div className="col-3 teaser-listing__item-date">
                 {moment(item.date).format('MMM Do YYYY')}
               </div>
             </a>
