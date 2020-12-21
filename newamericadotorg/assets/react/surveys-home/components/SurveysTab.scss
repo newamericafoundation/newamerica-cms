@@ -29,6 +29,7 @@ $fa-font-path: '#{$extra-static}/fonts';
     .checkbox__group {
       padding: 16px 0;
       border-bottom: 1px solid #979797;
+      cursor: pointer;
     }
     .checkbox__group-title {
       display: flex;
@@ -44,6 +45,9 @@ $fa-font-path: '#{$extra-static}/fonts';
         height: 18px;
         width: 18px;
         border: 0.5px solid color(black);
+        &:checked {
+          border-color: red;
+        }
       }
       label {
         padding-left: 10px;
