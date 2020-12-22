@@ -13,7 +13,7 @@ class AboutTab extends Component {
       {
         title: 'About This Project',
         body:
-          '<div class="block-paragraph"><div class="rich-text"><p>The HigherEd Polling Dashboard comprises public opinion surveys on higher education that have been conducted in the U.S. since 2010. Surveys in the dashboard explore the general public’s opinion on issues pertaining to higher education such as funding, diversity, and value. Some focus on opinion of first-year college students, college and university presidents, and faculty. The dashboard is a helpful source for researchers, journalists, and the general public who are interested in understanding public opinion on higher education issues. It is, however, by no means an exhaustive source of public opinion surveys about higher education. If you know of a survey that could be added to the site, please email the survey to nguyens@newamerica.org.</p></div></div>',
+          '<div class="block-paragraph"><div class="rich-text"><p>The HigherEd Polling Dashboard comprises public opinion surveys on higher education that have been conducted in the U.S. since 2010. Surveys in the dashboard explore the general public’s opinion on issues pertaining to higher education such as funding, diversity, and value. Some focus on opinion of first-year college students, college and university presidents, and faculty. The dashboard is a helpful source for researchers, journalists, and the general public who are interested in understanding public opinion on higher education issues. It is, however, by no means an exhaustive source of public opinion surveys about higher education. If you know of a survey that could be added to the site, please email the survey to <a href="mailto:nguyens@newamerica.org"> nguyens@newamerica.org.</a></p></div></div>',
       },
       {
         title: 'Methodology',
@@ -23,7 +23,7 @@ class AboutTab extends Component {
       {
         title: 'Submit a Report',
         body:
-          '<div class="block-paragraph"><div class="rich-text"><p></p>Know of a survey or report that should be added to our list? <u></u>Send us an email.</u></p></div></div>',
+          '<div class="block-paragraph"><div class="rich-text"><p></p>Know of a survey or report that should be added to our list? <a href="mailto:nguyens@newamerica.org">Send us and email.</a></p></div></div>',
       },
       {
         title: 'Made Possible By',

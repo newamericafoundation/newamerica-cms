@@ -15,8 +15,14 @@
     margin-top: 0;
     margin-bottom: 1.5rem;
   }
-  p {
+  .rich-text,
+  .rich-text p {
     font-size: 15px;
+  }
+  .rich-text a {
+    color: color(black);
+    font-weight: 400;
+    text-decoration: underline;
   }
   img {
     max-width: 400px;
