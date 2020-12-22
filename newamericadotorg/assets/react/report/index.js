@@ -30,7 +30,7 @@ const SinglePage = ({ report, dispatch, location }) => (
 
       <Tabs>
         <Tab title={'Polls & Reports'}>
-          <SurveysTab surveys={surveyData} />
+          <SurveysTab data={surveyData} />
         </Tab>
         <Tab title={'About'}>
           <AboutTab report={report} />

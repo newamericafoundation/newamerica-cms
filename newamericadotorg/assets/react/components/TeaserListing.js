@@ -19,15 +19,13 @@ class TeaserListing extends Component {
     this.setState({ sortValue: this.state.sortOptions[0] });
   }
   render() {
-    const { surveys } = this.props;
+    const { data } = this.props;
     const { isExpanded, sortValue, sortOptions } = this.state;
 
     return (
       <div className="teaser-listing">
         <div className="teaser-listing__header">
-          <h3 className="margin-0">
-            {surveys.dashboard.length} Results
-          </h3>
+          <h3 className="margin-0">{data.length} Results</h3>
           <div className="teaser-listing__sort-wrapper">
             <button
               className="teaser-listing__sort"
@@ -60,7 +58,7 @@ class TeaserListing extends Component {
           </div>
         </div>
         <div className="teaser-listing__list">
-          {surveys.dashboard.map((item, index) => (
+          {data.map((item, index) => (
             <a
               href={item.url}
               className="teaser-listing__item card margin-bottom-10"
@@ -75,7 +73,7 @@ class TeaserListing extends Component {
                 </p>
               </div>
               <div className="col-3 teaser-listing__item-date">
-                {moment(item.date).format('MMM Do YYYY')}
+                {item.month} {item.year}
               </div>
             </a>
           ))}
