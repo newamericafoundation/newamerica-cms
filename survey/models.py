@@ -88,6 +88,7 @@ class SurveysHomePage(AbstractContentPage):
       super(SurveysHomePage, self).save(*args, **kwargs)
       if self.get_children_count() == 0:
         self.add_child(instance=SurveyValuesIndex(title=self.title + " Values Index", slug=slugify(self.title + " Values Index")))
+
     class Meta:
         verbose_name = "Surveys Homepage"
 
@@ -96,8 +97,8 @@ class SurveysHomePage(AbstractContentPage):
 
 
 class SurveyOrganization(Page):
-    parent_page_types = ['SurveyValuesIndex']    
-    
+    parent_page_types = ['SurveyValuesIndex']
+
     def __str__(self):
       return self.title
     class Meta:
@@ -106,7 +107,7 @@ class SurveyOrganization(Page):
 
 class DemographicKey(Page):
     parent_page_types = ['SurveyValuesIndex']
-    
+
     def __str__(self):
       return self.title
     class Meta:
@@ -115,7 +116,7 @@ class DemographicKey(Page):
 
 class SurveyTags(Page):
     parent_page_types = ['SurveyValuesIndex']
-    
+
     def __str__(self):
       return self.title
     class Meta:
@@ -133,14 +134,13 @@ class SurveyValuesIndex(Page):
 
 
 class Survey(Post):
-    template = 'survey/survey.html'
- 
+    template = 'survey/survey.html' 
     parent_page_types = ['SurveysHomePage']
 
     description = RichTextField(blank=True, null=True, max_length=500, help_text='A brief description of the survey. 500 chars max')
     org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True, verbose_name='Organization')
-    year = models.IntegerField(help_text='Year Survey was condicted.', blank=True, default=2000)
-    month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was condicted, if applicable.')
+    year = models.IntegerField(help_text='Year Survey was conducted.', blank=True, default=2000)
+    month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was conducted, if applicable.')
     sample_number = models.IntegerField(blank=True, null=True)
     demos_key = ParentalManyToManyField('DemographicKey', help_text='Indexable demographic groups', blank=True, default=False, verbose_name='Demographics Keys')
     findings = RichTextField(blank=True, null=True, max_length=12500)
@@ -203,4 +203,3 @@ class Commentary(Post):
 class Commented_Survey(models.Model):
   survey=models.ForeignKey('Survey', on_delete=models.CASCADE, blank=True, null=True)
   commentary = models.ForeignKey('Commentary', on_delete=models.CASCADE, blank=True, null=True)
-  

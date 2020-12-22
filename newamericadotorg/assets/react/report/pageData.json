@@ -1,0 +1,88 @@
+{
+  "id": 23057,
+  "title": "HigherEd Polling Dashboard",
+  "subheading": "",
+  "date": "2020-07-21",
+  "content_type": {
+    "id": 20185,
+    "name": "Report",
+    "title": "Reports",
+    "api_name": "report",
+    "url": "/education-policy/reports/",
+    "slug": "reports"
+  },
+  "featured_sections": [],
+  "authors": [
+    {
+      "id": 18400,
+      "first_name": "Sophie",
+      "last_name": "Nguyen",
+      "position": "Policy Analyst, Higher Education",
+      "role": "Program Staff",
+      "short_bio": "<p><b>Sophie Nguyen</b> is the policy analyst for the Higher Education Initiative at New America.</p>",
+      "profile_image": "/images/e1AC6RQi7boOlZrQi0t3niotcSs=/10819/fill-200x200/Sophie-Nguyen.jpg",
+      "url": "/our-people/sophie-nguyen/",
+      "leadership": false,
+      "full_name": "Sophie Nguyen",
+      "former": false,
+      "expertise": [],
+      "group": null
+    },
+    {
+      "id": 21696,
+      "first_name": "Amanda",
+      "last_name": "Martinez",
+      "position": null,
+      "role": "External Author/Former Staff",
+      "short_bio": "<p><b>Amanda Isabel Martinez</b> was the Higher Education Intern at New America.</p>",
+      "profile_image": "/images/8O6T0U59Jh_HFOgBZazRDjk4ySs=/10581/fill-200x200/2017_AU_students_061.jpg",
+      "url": "/our-people/amanda-martinez/",
+      "leadership": false,
+      "full_name": "Amanda Martinez",
+      "former": false,
+      "expertise": [],
+      "group": null
+    }
+  ],
+  "programs": [
+    {
+      "id": 59,
+      "name": "Education Policy",
+      "url": "/education-policy/",
+      "slug": "education-policy"
+    }
+  ],
+  "subprograms": [
+    {
+      "id": 7469,
+      "name": "Higher Education",
+      "url": "/education-policy/higher-education/",
+      "slug": "higher-education"
+    }
+  ],
+  "url": "/education-policy/reports/highered-polling-dashboard/",
+  "story_excerpt": "The HigherEd Polling Dashboard comprises public opinion surveys on higher education conducted and published by various US organizations.",
+  "story_image": null,
+  "topics": [],
+  "sections": [
+    {
+      "title": "About This Project",
+      "hide_title": false,
+      "number": 1,
+      "slug": "about-this-project",
+      "body": "\n\n\n    \n      <div class=\"block-paragraph\">\n        <div class=\"rich-text\"><p></p><p>The HigherEd Polling Dashboard comprises public opinion surveys on higher education that have been conducted in the U.S. since 2010. Surveys in the dashboard explore the general public’s opinion on issues pertaining to higher education such as funding, diversity, and value. Some focus on opinion of first-year college students, college and university presidents, and faculty. The dashboard is a helpful source for researchers, journalists, and the general public who are interested in understanding public opinion on higher education issues. It is, however, by no means an exhaustive source of public opinion surveys about higher education. If you know of a survey that could be added to the site, please email the survey to nguyens@newamerica.org.</p><p></p><p><i>How to use it? You can simply browse the dashboard, use the search box, or filter to find the survey you’re interested in. Click</i> +<i> to see the top findings and download the survey.</i></p></div>\n      </div>\n    \n\n    \n      <div class=\"block-dataviz\">\n        \n<div class=\"dataviz dataviz-project na-dataviz full-width\" data-id=\"dashboard\">\n\t<div class=\"dataviz__title-container \" style=\"max-width: Nonepx\">\n\t\t\n\t\t\t<a id=\"chart-dashboard\" class=\"in-depth__panel__anchor\"></a>\n\t\t\n\n\t\t\n\n\t\t\n\t\t\n\t</div>\n\t<div class=\"dataviz__chart-container\" style=\"max-width: Nonepx\">\n\t\t<div class=\"dataviz__loading-gif\"></div>\n\t\t<div class=\"dataviz__chart-area\" id=\"dashboard\"></div>\n\t</div>\n</div>\n\n      </div>\n    \n\n    \n      <div class=\"block-paragraph\">\n        <div class=\"rich-text\"><h3>Methodology</h3><p>Surveys in the dashboard were collected by searching “higher education public opinion survey” in Google News. To be added, the survey needed to address the general public or other groups&#x27; opinion on at least one issue in higher education, be transparent about the methodology, and add the margins of error included where possible. Most of the surveys in the dashboard are nationally representative, but some surveys that look into a specific population such as students, faculty, or administrators, may only capture the responses of those surveyed. To capture relatively recent data, we chose 2010 as the first year in which to include surveys; those before 2010 were excluded.</p></div>\n      </div>\n    \n\n",
+      "subsections": [],
+      "url": "/education-policy/reports/highered-polling-dashboard/about-this-project"
+    }
+  ],
+  "body": null,
+  "endnotes": null,
+  "story_image_thumbnail": "/images/e8UqDs_J4YM8KIG35pqZGOHexLg=/11982/fill-30x14/shutterstock_1222770484.jpg",
+  "search_description": "",
+  "data_project_external_script": null,
+  "attachments": [],
+  "acknowledgments": "<p>The HigherEd Polling Dashboard was funded by the Bill &amp; Melinda Gates Foundation. We thank the Foundation for its generous support.</p>",
+  "abstract": "",
+  "theme_full_bleed": false,
+  "partner_logo": null
+}

@@ -1,6 +1,7 @@
 $header-font-family: 'Platform';
 $label-font-family: 'Circular';
 $paragraph-font-family: 'Lyon';
+$ff-temp-circular: 'Circular std';
 $header-height: 70px;
 $header-expanded-height: 165px;
 $header-transition-function: 0.3s ease;
@@ -14,98 +15,106 @@ $media-breakpoints: (
   mobile: 576px,
   tablet: 768px,
   desktop: 992px,
-  large-desktop: 1200px
+  large-desktop: 1200px,
 );
 
 $colors: (
   turquoise: (
     base: #2ebcb3,
     light: #46ccc3,
-    dark: #2a8e88
+    dark: #2a8e88,
   ),
   blue: (
-    base: #10355F
+    base: #10355f,
   ),
   purple: (
-    base: #a076ac
+    base: #a076ac,
   ),
   beige: (
-    base: #F7F4F2
+    base: #f7f4f2,
   ),
   oti-blue: (
     base: #5da4da,
     light: #75bef4,
-    dark: #477da3
+    dark: #477da3,
   ),
   red: (
     base: #e75c64,
     light: #e75c64,
-    dark: #692025
+    dark: #692025,
   ),
   black: (
     base: #333333,
     light: #5f6268,
-    70: rgba(44,47,53,0.7),
+    70: rgba(44, 47, 53, 0.7),
     40: #6b6d71,
     30: #c0c1c3,
-    10: #e0e0e1
+    10: #e0e0e1,
   ),
   gray: (
-    base: #D5D5D5,
+    base: #d5d5d5,
     dark: #737378,
-    light: #C1C1C1,
-    ultra-light: #f6f6f6
+    light: #c1c1c1,
+    ultra-light: #f6f6f6,
   ),
   white: (
     base: #ffffff,
     light: #ffffff,
-    dark: #ffffff
-  )
+    dark: #ffffff,
+  ),
 );
 
 %clearfix {
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
 }
 
 @function color($color, $tone: 'base', $opacity: 1) {
-    @return rgba(map-get(map-get($colors, $color), $tone), $opacity);
+  @return rgba(map-get(map-get($colors, $color), $tone), $opacity);
 }
 
-@mixin breakpoint($px){
-  @media (min-width: $px) { @content; }
+@mixin breakpoint($px) {
+  @media (min-width: $px) {
+    @content;
+  }
 }
 
-@mixin breakpoint-down($px){
-  @media (max-width: $px) { @content; }
+@mixin breakpoint-down($px) {
+  @media (max-width: $px) {
+    @content;
+  }
 }
 
-@mixin media-breakpoint($point){
-  @media (min-width: map-get($media-breakpoints, $point)) { @content; }
+@mixin media-breakpoint($point) {
+  @media (min-width: map-get($media-breakpoints, $point)) {
+    @content;
+  }
 }
 
-@mixin media-breakpoint-down($point){
-  @media (max-width: map-get($media-breakpoints, $point)) { @content; }
+@mixin media-breakpoint-down($point) {
+  @media (max-width: map-get($media-breakpoints, $point)) {
+    @content;
+  }
 }
 
-@mixin transform($args){
+@mixin transform($args) {
   -webkit-transform: $args;
   -moz-transform: $args;
   -o-transform: $args;
   transform: $args;
 }
 
-@mixin transition($args...){
+@mixin transition($args...) {
   -webkit-transition: $args;
   -moz-transition: $args;
   -o-transition: $args;
   transition: $args;
 }
 
-@mixin transition-delay($seconds){
+@mixin transition-delay($seconds) {
   -webkit-transition-delay: $seconds;
   transition-delay: $seconds;
 }
@@ -120,7 +129,7 @@ $colors: (
   @include transform(translateX(-50%));
 }
 
-@mixin box-shadow($shadow...){
+@mixin box-shadow($shadow...) {
   -moz-box-shadow: $shadow;
   -webkit-box-shadow: $shadow;
   box-shadow: $shadow;
@@ -129,10 +138,10 @@ $colors: (
 @mixin center {
   left: 50%;
   top: 50%;
-  @include transform(translate(-50%,-50%));
+  @include transform(translate(-50%, -50%));
 }
 
-@mixin flex-order($order){
+@mixin flex-order($order) {
   -webkit-box-ordinal-group: $order;
   -moz-box-ordinal-group: $order;
   -ms-flex-order: $order;
@@ -141,31 +150,64 @@ $colors: (
 }
 
 // padding minus descender height, which for Platform bold is ~16% of line-height
-@function type-adjusted-padding($padding){
+@function type-adjusted-padding($padding) {
   @return calc(#{$padding} - #{$type-adjustment});
 }
 
-
 //bootstrap
-@mixin linear-gradient-horizontal($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
-  background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+
-  background-image: -o-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Opera 12
-  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+@mixin linear-gradient-horizontal(
+  $start-color,
+  $end-color,
+  $start-percent: 0%,
+  $end-percent: 100%
+) {
+  background-image: -webkit-linear-gradient(
+    left,
+    $start-color $start-percent,
+    $end-color $end-percent
+  ); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(
+    left,
+    $start-color $start-percent,
+    $end-color $end-percent
+  ); // Opera 12
+  background-image: linear-gradient(
+    to right,
+    $start-color $start-percent,
+    $end-color $end-percent
+  ); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
   background-repeat: repeat-x;
 }
 
-@mixin linear-gradient-vertical($start-color, $end-color, $start-percent: 0%, $end-percent: 100%) {
-  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
-  background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
-  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+@mixin linear-gradient-vertical(
+  $start-color,
+  $end-color,
+  $start-percent: 0%,
+  $end-percent: 100%
+) {
+  background-image: -webkit-linear-gradient(
+    top,
+    $start-color $start-percent,
+    $end-color $end-percent
+  ); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(
+    top,
+    $start-color $start-percent,
+    $end-color $end-percent
+  ); // Opera 12
+  background-image: linear-gradient(
+    to bottom,
+    $start-color $start-percent,
+    $end-color $end-percent
+  ); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
   background-repeat: repeat-x;
 }
 
 @mixin animation($animations) {
-    -webkit-animation: $animations;
-    -moz-animation:    $animations;
-    -o-animation:      $animations;
-    animation:         $animations;
+  -webkit-animation: $animations;
+  -moz-animation: $animations;
+  -o-animation: $animations;
+  animation: $animations;
 }
 
 @mixin animation-delay($delay) {
@@ -176,16 +218,16 @@ $colors: (
 }
 
 @mixin keyframes($animationName) {
-    @-webkit-keyframes #{$animationName} {
-        @content;
-    }
-    @-moz-keyframes #{$animationName} {
-        @content;
-    }
-    @-o-keyframes #{$animationName} {
-        @content;
-    }
-    @keyframes #{$animationName} {
-        @content;
-    }
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
 }
