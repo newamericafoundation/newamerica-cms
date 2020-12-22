@@ -20,6 +20,29 @@
 				data-program-type="subprogram"
 				data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
 		</main>
+	{% elif page.template == 'programs/survey_homepage.html'%}
+		<main class="program container--full-width">
+			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}
+			<div id=""
+				data-program-type="subprogram"
+				data-program-id="{% firstof program.id page.parent_program.id page.id %}">
+				<div class="container">
+			    <div class="program__header margin-bottom-10">
+			      <div class="program__heading__wrapper">
+			          <h1 class="margin-0 promo">
+			            {% firstof program.title page.parent_program.title page.title %}
+			          </h1>
+			      </div>
+			    </div>
+			    <div class="horizontal-nav">
+			      <ul class="inline">
+							<li><h5><a class="horizontal-nav__link " aria-current="false" href="#about">Polls & Reports</a></h5></li>
+							<li><h5><a class="horizontal-nav__link " aria-current="false" href="#about">About</a></h5></li>
+						</ul>
+			    </div>
+			  </div>
+			</div>
+		</main>
 	{% else %}
 		<main class="program container--full-width">
 			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}

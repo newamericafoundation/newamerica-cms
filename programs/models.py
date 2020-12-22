@@ -267,7 +267,8 @@ class Subprogram(AbstractProgram):
     TEMPLATE_OPTIONS =  (
         ('programs/program.html', 'Full'),
         ('simple_program.html', 'Efficiency'),
-        ('programs/program.html', 'Collection')
+        ('programs/program.html', 'Collection'),
+        ('programs/survey_homepage.html', 'Survey')
     )
 
     template = models.CharField(choices=TEMPLATE_OPTIONS, default='programs/program.html', max_length=100)
