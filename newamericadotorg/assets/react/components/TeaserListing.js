@@ -72,7 +72,7 @@ class TeaserListing extends Component {
                   {item.description}
                 </p>
               </div>
-              <div className="col-2 teaser-listing__item-date">
+              <div className="col-3 teaser-listing__item-date">
                 {item.month} {item.year}
               </div>
             </a>

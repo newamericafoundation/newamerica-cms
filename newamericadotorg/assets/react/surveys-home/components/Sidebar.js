@@ -37,9 +37,10 @@ export default class Sidebar extends React.Component {
                   demographic.charAt(0).toUpperCase() +
                   demographic.slice(1),
               }))}
-              onChange={(filterState) =>
-                onFilterChange('demographics', filterState)
-              }
+              onChange={(filterState) => {
+                console.log(filterState);
+                onFilterChange('demographics', filterState);
+              }}
             />
 
             {/* <CheckboxGroup

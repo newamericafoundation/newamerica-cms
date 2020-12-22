@@ -41,6 +41,15 @@ class SurveysTab extends Component {
     this.onFilterChange = this.onFilterChange.bind(this);
   }
 
+  deselectAll() {
+    const options = Object.keys(this.state);
+    const newState = {};
+    options.forEach((option) => {
+      newState[option] = false;
+    });
+    this.setState(newState, () => this.props.onChange(this.state));
+  }
+
   onFilterChange = (name, filter) => {
     console.log(name, filter);
     this.setState({ [name]: filter });
@@ -52,7 +61,8 @@ class SurveysTab extends Component {
 
     _data = this.props.data.dashboard
       .filter((val) => {
-        const demographic = val['demographics'];
+        // Val === each survey object
+        const demographic = val['demographics']; // Demographic
 
         if (
           Object.keys(demographics).some(
