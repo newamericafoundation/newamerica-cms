@@ -11,11 +11,11 @@
       "live": true,
       "month": "January",
       "year": "2020",
-      "organization": ["New America"],
+      "organization": ["Dummy Org", "New America"],
       "Sample size": "1,512",
-      "sample_number": "1512",
+      "sample_number": "12",
       "sample_demographics": "U.S. Adults age 18+",
-      "demographics": ["us-adults", "parents"],
+      "demographics": ["us-adults", "parents", "dummy-demo"],
       "findings": "--Americans believe that education beyond high school creates more opportunities, is worth the investment, and promotes social mobility. About four in five Americans think people who pursue further education after high school will have more job opportunities than those who do not. \n--While Americans believe in the value proposition of education beyond high school, they also believe higher education needs to change. Only one-third of Americans believe higher education is fine the way it is. Cost is the primary concern for the large majority who do not agree that higher education is fine the way it is.\n--The vast majority of Americans (90 percent) believe that publicly available data on low graduation rates, high dropout rates, low earnings, and high student loan default rates are important indicators of quality. A majority of respondents also believe that public financial support for colleges and universities should be tied to some of these outcomes. ",
       "tags": [
         "COVID-19",
@@ -79,20 +79,7 @@
       "sample_demographics": "undergraduate students",
       "demographics": ["college-students"],
       "findings": "--Many student caregivers already possess limited financial resources while enrolled in higher education. The pandemic appears to have further widened the gaps between students who are caregivers to adults and/or children and students who are not caregivers. \n--Not only did these populations report significant increases in living and technology expenses caused by the pandemic, but many also indicated a reduction in personal or family income.\n--The results suggest that students who are caregivers experience higher rates of food and housing insecurity, which may be economic consequences of the pandemic, increases in living/technology expenses, and reduced family/personal income as well. \n--The results suggest that students who are caregivers were much more likely to experience distracting home environments and were unable to attend classes during their scheduled online times. \n",
-      "tags": [
-        {
-          "label": "Topic 1",
-          "value": "topic-1"
-        },
-        {
-          "label": "Topic 2",
-          "value": "topic-2"
-        },
-        {
-          "label": "Topic 3",
-          "value": "topic-3"
-        }
-      ],
+      "tags": ["dummy tag"],
       "download": "https://drive.google.com/file/d/13XQtXbzuKLJbra5PgTwh6CmFx-3qeX_U/view?usp=sharing"
     },
     {
