@@ -177,10 +177,6 @@ class Survey(Post):
       ])
     ]
 
-Survey._meta.get_field('title').help_text="Title of the Survey"
-Survey._meta.get_field('date').help_text="Date that the Survey was collected."
-
-
 class Commentary(Post):
   template = 'survey/commentary.html'
 
