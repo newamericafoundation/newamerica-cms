@@ -89,6 +89,9 @@ class SurveysHomePage(AbstractContentPage):
       if self.get_children_count() == 0:
         self.add_child(instance=SurveyValuesIndex(title=self.title + " Values Index", slug=slugify(self.title + " Values Index")))
 
+    @property	
+    def content_model(self):	
+      return SurveysHomePage
     class Meta:
         verbose_name = "Surveys Homepage"
 
