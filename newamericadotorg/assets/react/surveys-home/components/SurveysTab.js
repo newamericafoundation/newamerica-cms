@@ -1,117 +1,227 @@
+import React from 'react';
+import CheckboxGroup from './CheckboxGroup';
+import TeaserListing from './TeaserListing';
 import './SurveysTab.scss';
-import React, { Component } from 'react';
-import TeaserListing from '../../components/TeaserListing';
-import CtaCArd from '../../components/CtaCard';
-import Sidebar from './Sidebar';
 
-class SurveysTab extends Component {
+class SurveysTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      size: {
-        one: true,
-        two: true,
-        three: true,
+      data: {},
+      tags: this.props.data.survey_home_page.surveys.reduce(
+        (acc, cur) => {
+          const tags = cur['tags'];
+          tags.forEach((tag, i) => {
+            acc[tag.title] = false;
+          });
+
+          return acc;
+        },
+        {}
+      ),
+      demos: this.props.data.survey_home_page.surveys.reduce(
+        (acc, cur) => {
+          const demos = cur['demos_key'];
+
+          demos.forEach((demo, i) => {
+            acc[demo.title] = false;
+          });
+
+          return acc;
+        },
+        {}
+      ),
+      orgs: this.props.data.survey_home_page.surveys.reduce(
+        (acc, cur) => {
+          const orgs = cur['org'];
+
+          orgs.forEach((org, i) => {
+            acc[org.title] = false;
+          });
+
+          return acc;
+        },
+        {}
+      ),
+      dateRange: {
+        3: false,
+        6: false,
+        12: false,
+        24: false,
+        36: false,
       },
-      demographics: this.props.data.dashboard.reduce((acc, cur) => {
-        cur['demographics'].forEach((demographic) => {
-          if (!acc[demographic]) {
-            acc[demographic] = true;
-          }
-        });
-        return acc;
-      }, {}),
-      tags: this.props.data.dashboard.reduce((acc, cur) => {
-        cur['tags'].forEach((tag) => {
-          if (!acc[tag]) {
-            acc[tag] = true;
-          }
-        });
-        return acc;
-      }, {}),
-      organizations: this.props.data.dashboard.reduce((acc, cur) => {
-        cur['organization'].forEach((organization) => {
-          if (!acc[organization]) {
-            acc[organization] = true;
-          }
-        });
-        return acc;
-      }, {}),
+      sizeRange: {
+        one: false,
+        two: false,
+        three: false,
+        four: false,
+      },
+      dataType: {
+        Qual: false,
+        Quant: false,
+        'Mixed Methods': false,
+      },
+      national: {
+        'is-not-represented': false,
+        'is-represented': false,
+      },
     };
+
     this.onFilterChange = this.onFilterChange.bind(this);
   }
 
-  deselectAll() {
-    const options = Object.keys(this.state);
-    const newState = {};
-    options.forEach((option) => {
-      newState[option] = false;
+  toggleCheckboxGroup(index) {
+    this.setState((prevState) => {
+      const newItems = [...prevState.tempFilters];
+      newItems[index].show = !newItems[index].show;
+      return newItems[index];
     });
-    this.setState(newState, () => this.props.onChange(this.state));
   }
 
   onFilterChange = (name, filter) => {
-    console.log(name, filter);
     this.setState({ [name]: filter });
   };
+
   render() {
-    const { size, demographics, tags, organizations } = this.state;
+    const {
+      tags,
+      demos,
+      orgs,
+      dateRange,
+      sizeRange,
+      dataType,
+      national,
+    } = this.state;
 
-    let _data = this.props.data;
+    const checkedValues = {
+      tags: Object.keys(tags).filter((key) => tags[key] === true),
+      demos: Object.keys(demos).filter((key) => demos[key] === true),
+      orgs: Object.keys(orgs).filter((key) => orgs[key] === true),
+      dateRange: Object.keys(dateRange).filter(
+        (key) => dateRange[key] === true
+      ),
+      sizeRange: Object.keys(sizeRange).filter(
+        (key) => sizeRange[key] === true
+      ),
+      dataType: Object.keys(dataType).filter(
+        (key) => dataType[key] === true
+      ),
+      national,
+    };
 
-    _data = this.props.data.dashboard
-      .filter((val) => {
-        // Val === each survey object
-        const demographic = val['demographics']; // Demographic
-
-        if (
-          Object.keys(demographics).some(
-            (key) => demographics[key] && demographic.includes(key)
-          )
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-      .filter((val) => {
-        const tagString = val['tags'];
-        if (
-          Object.keys(tags).some(
-            (key) => tags[key] && tagString.includes(key)
-          )
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-
-    console.log(_data);
     return (
       <div className="surveys-tab">
-        <div className="surveys-tab__sidebar checkbox__container checkbox__container">
-          <Sidebar
-            onFilterChange={this.onFilterChange}
-            tags={Object.keys(tags)}
-            demographics={Object.keys(demographics)}
-            organizations={Object.keys(organizations)}
+        <div className="surveys-tab__sidebar">
+          <CheckboxGroup
+            title="Topics"
+            options={Object.keys(tags).map((tag) => ({
+              id: tag,
+              checked: false,
+              label: tag.charAt(0).toUpperCase() + tag.slice(1),
+            }))}
+            onChange={(filterState) =>
+              this.onFilterChange('tags', filterState)
+            }
+          />
+
+          <CheckboxGroup
+            title="Demographics"
+            options={Object.keys(demos).map((demo) => ({
+              id: demo,
+              checked: false,
+              label: demo.charAt(0).toUpperCase() + demo.slice(1),
+            }))}
+            onChange={(filterState) =>
+              this.onFilterChange('demos', filterState)
+            }
+          />
+          <CheckboxGroup
+            title="Organization"
+            options={Object.keys(orgs).map((org) => ({
+              id: org,
+              checked: false,
+              label: org.charAt(0).toUpperCase() + org.slice(1),
+            }))}
+            onChange={(filterState) =>
+              this.onFilterChange('orgs', filterState)
+            }
+          />
+
+          <CheckboxGroup
+            title="Publication Date"
+            options={[
+              { checked: false, label: 'Last 3 months', id: '3' },
+              { checked: false, label: 'Last 6 months', id: '6' },
+              { checked: false, label: 'Within 1 year', id: '12' },
+              { checked: false, label: 'Within 2 years', id: '24' },
+              { checked: false, label: '3+ years ago', id: '36' },
+            ]}
+            onChange={(filterState) =>
+              this.onFilterChange('dateRange', filterState)
+            }
+          />
+
+          <CheckboxGroup
+            title="Sample Size"
+            options={[
+              { checked: false, label: '< 1,000', id: 'one' },
+              { checked: false, label: '1,000 - 5,000', id: 'two' },
+              {
+                checked: false,
+                label: '5,000 - 10,000',
+                id: 'three',
+              },
+              { checked: false, label: '> 10,000', id: 'four' },
+            ]}
+            onChange={(filterState) =>
+              this.onFilterChange('sizeRange', filterState)
+            }
+          />
+
+          <CheckboxGroup
+            title="Type of Data"
+            options={[
+              { checked: false, label: 'Qualitative', id: 'qual' },
+              {
+                checked: false,
+                label: 'Quantitative',
+                id: 'quant',
+              },
+              {
+                checked: false,
+                label: 'Mixed Methods',
+                id: 'mixed',
+              },
+            ]}
+            onChange={(filterState) =>
+              this.onFilterChange('dataType', filterState)
+            }
+          />
+
+          <CheckboxGroup
+            title="Sample Representaion"
+            options={[
+              {
+                checked: false,
+                label: 'Nationally Represented',
+                id: 'is-represented',
+              },
+              {
+                checked: false,
+                label: 'Not Nationally Represented',
+                id: 'is-not-represented',
+              },
+            ]}
+            onChange={(filterState) =>
+              this.onFilterChange('national', filterState)
+            }
           />
         </div>
-
         <div className="surveys-tab__results">
-          <TeaserListing data={_data} />
-          <div className="margin-top-25">
-            <CtaCArd
-              title={'Love all this insight?'}
-              description={
-                'Subscribe to our newsletter to receive updates on what’s new in Education Policy.'
-              }
-              type={'link'}
-              linkText={'Subscribe'}
-              url={'google.com'}
-            />
-          </div>
+          <TeaserListing
+            data={this.props.data.survey_home_page.surveys}
+            checkedValues={checkedValues}
+          />
         </div>
       </div>
     );

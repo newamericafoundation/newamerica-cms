@@ -29,7 +29,7 @@ const SinglePage = ({ report, dispatch, location }) => (
       <BasicHeader report={report} />
 
       <Tabs>
-        <Tab title={'Polls & Reports'}>
+        <Tab title={'Survey Reports'}>
           <SurveysTab data={surveyData} />
         </Tab>
         <Tab title={'About'}>
