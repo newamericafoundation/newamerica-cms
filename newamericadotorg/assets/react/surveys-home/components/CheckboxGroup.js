@@ -10,6 +10,7 @@ class CheckboxGroup extends React.Component {
       this.state[val.id] = val.checked ? true : false;
     });
     this.handleChange = this.handleChange.bind(this);
+    this.toggleCheckboxGroup = this.toggleCheckboxGroup.bind(this);
   }
 
   handleChange(e) {
@@ -19,6 +20,14 @@ class CheckboxGroup extends React.Component {
       },
       () => this.props.onChange(this.state)
     );
+  }
+
+  toggleCheckboxGroup(index) {
+    this.setState((prevState) => {
+      const newItems = [...prevState.tempFilters];
+      newItems[index].show = !newItems[index].show;
+      return newItems[index];
+    });
   }
 
   render() {
