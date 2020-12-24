@@ -9,7 +9,7 @@ class TeaserListing extends Component {
   }
   state = {
     isExanded: false,
-    sortValue: {},
+    sortBy: {},
     sortOptions: [
       { title: 'Most Recent', value: 'recent' },
       { title: 'Title (A-Z)', value: 'desc' },
@@ -17,11 +17,15 @@ class TeaserListing extends Component {
     ],
   };
   componentDidMount() {
-    this.setState({ sortValue: this.state.sortOptions[0] });
+    this.setState({ sortBy: this.state.sortOptions[0] });
+    const _data = this.props.data.sort((a, b) =>
+      new Date(a.year, a.month) < new Date(b.year, b.month) ? 1 : -1
+    );
+    this.setState({ data: _data });
   }
   render() {
     const { checkedValues } = this.props;
-    const { isExpanded, sortValue, sortOptions } = this.state;
+    const { isExpanded, sortBy, sortOptions } = this.state;
 
     let _data = this.props.data;
 
@@ -140,6 +144,17 @@ class TeaserListing extends Component {
         }
 
         return false;
+      })
+      .sort((a, b) => {
+        if (sortBy.value === 'asc') {
+          return b.title.localeCompare(a.title);
+        } else if (sortBy.value === 'desc') {
+          return a.title.localeCompare(b.title);
+        } else {
+          return new Date(a.year, a.month) < new Date(b.year, b.month)
+            ? 1
+            : -1;
+        }
       });
 
     return (
@@ -154,7 +169,7 @@ class TeaserListing extends Component {
               }
             >
               <h6 className="with-caret--down margin-0">
-                Sort by {sortValue.title}
+                Sort by {sortBy.title}
               </h6>
             </button>
 
@@ -165,7 +180,7 @@ class TeaserListing extends Component {
                     key={`option--${i}`}
                     onClick={() =>
                       this.setState({
-                        sortValue: option,
+                        sortBy: option,
                         isExpanded: false,
                       })
                     }

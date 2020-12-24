@@ -1,3 +1,4 @@
+import { max } from 'moment';
 import React from 'react';
 import './CheckboxGroup.scss';
 
@@ -11,8 +12,12 @@ class CheckboxGroup extends React.Component {
     });
     this.handleChange = this.handleChange.bind(this);
     this.toggleCheckboxGroup = this.toggleCheckboxGroup.bind(this);
+    this.calculateHeight = this.calculateHeight.bind(this);
   }
 
+  componentDidMount() {
+    this.calculateHeight();
+  }
   handleChange(e) {
     this.setState(
       {
@@ -26,9 +31,24 @@ class CheckboxGroup extends React.Component {
     console.log(27);
   }
 
+  calculateHeight = () => {
+    const checkboxes = document.getElementsByClassName(
+      'checkbox-group__options'
+    );
+
+    let maxHeight = 0;
+    Object.values(checkboxes)
+      .slice(0, 10)
+      .forEach((item, i) => {
+        maxHeight = maxHeight + item.clientHeight;
+      });
+
+    this.setState({ maxHeight: maxHeight });
+  };
   render() {
     const { options, title } = this.props;
     const isOpen = true;
+
     return (
       <div className="checkbox__container">
         <span
