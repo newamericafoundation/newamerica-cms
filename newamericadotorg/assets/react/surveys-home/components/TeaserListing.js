@@ -1,6 +1,7 @@
 import './TeaserListing.scss';
 import React, { Component } from 'react';
 import { differenceInMonths } from 'date-fns/esm';
+import { format } from 'date-fns';
 
 class TeaserListing extends Component {
   constructor(props) {
@@ -192,7 +193,10 @@ class TeaserListing extends Component {
                 </p>
               </div>
               <div className="col-3 teaser-listing__item-date">
-                {item.month} {item.year}
+                {format(
+                  new Date(item.year, item.month, 1),
+                  item.month ? 'MMM yyyy' : 'yyy'
+                )}
               </div>
             </a>
           ))}
