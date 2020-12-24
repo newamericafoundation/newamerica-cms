@@ -188,9 +188,11 @@ class TeaserListing extends Component {
                 <h4 className="teaser-listing__item-title">
                   {item.title}
                 </h4>
-                <p className="teaser-listing__item-description margin-top-0">
-                  {item.description}
-                </p>
+                {item.description && (
+                  <p className="teaser-listing__item-description">
+                    {item.description}
+                  </p>
+                )}
               </div>
               <div className="col-3 teaser-listing__item-date">
                 {format(

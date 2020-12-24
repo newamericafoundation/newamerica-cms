@@ -41,18 +41,41 @@
 
   &__item {
     display: flex;
+    align-items: center;
     padding: 25px 15px;
     background: color(white);
     border-left: 10px solid color(turquoise);
+    @include media-breakpoint(tablet) {
+      min-height: 136px;
+    }
+    &:hover {
+      .teaser-listing__item-title {
+        text-decoration: underline;
+        text-decoration-color: color(turquoise);
+        display: inline;
+        background-image: linear-gradient(
+          90deg,
+          #2ebcb3 100%,
+          transparent 0
+        );
+        background-position: 0 1.04em;
+        background-repeat: repeat-x;
+        background-size: 100% 2px;
+      }
+    }
     .teaser-listing__item-title {
       font-weight: 800;
       font-family: $ff-temp-circular;
+      transition: color 0.15s ease;
+      margin: 0;
     }
     .teaser-listing__item-description {
       font-family: $ff-temp-circular;
       font-size: 15px;
       font-weight: 400;
       line-height: 19px;
+      margin: 20px 0 0 0;
+      display: block;
     }
     .teaser-listing__item-date {
       display: flex;
