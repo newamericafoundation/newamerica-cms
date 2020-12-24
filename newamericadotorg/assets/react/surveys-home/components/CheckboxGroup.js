@@ -22,33 +22,38 @@ class CheckboxGroup extends React.Component {
     );
   }
 
-  toggleCheckboxGroup(index) {
-    this.setState((prevState) => {
-      const newItems = [...prevState.tempFilters];
-      newItems[index].show = !newItems[index].show;
-      return newItems[index];
-    });
+  toggleCheckboxGroup() {
+    console.log(27);
   }
 
   render() {
     const { options, title } = this.props;
-
+    const isOpen = true;
     return (
       <div className="checkbox__container">
-        <span className="checkbox__group-title">{title}</span>
-        {options.map((option, i) => (
-          <div className="checkbox-group__options" key={i}>
-            <input
-              id={option.id}
-              type="checkbox"
-              checked={this.state[option.id]}
-              onChange={this.handleChange}
-            />
-            <label htmlFor={option.id} className="checkbox__label">
-              {option.label}
-            </label>
-          </div>
-        ))}
+        <span
+          className={`${
+            isOpen ? 'margin-bottom-25' : ''
+          } checkbox__group-title`}
+          onClick={this.toggleCheckboxGroup}
+        >
+          {title}
+          <i className={`fa fa-${isOpen ? 'times' : 'plus'}`}></i>
+        </span>
+        {isOpen &&
+          options.map((option, i) => (
+            <div className="checkbox-group__options" key={i}>
+              <input
+                id={option.id}
+                type="checkbox"
+                checked={this.state[option.id]}
+                onChange={this.handleChange}
+              />
+              <label htmlFor={option.id} className="checkbox__label">
+                {option.label}
+              </label>
+            </div>
+          ))}
       </div>
     );
   }

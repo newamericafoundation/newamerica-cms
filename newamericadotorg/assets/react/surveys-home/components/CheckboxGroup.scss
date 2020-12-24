@@ -1,6 +1,6 @@
 .checkbox__container {
   border-bottom: 1px solid #979797;
-  padding: 16px 0;
+  padding: 24px 0;
 
   .checkbox__group-title {
     display: flex;
@@ -8,7 +8,6 @@
     font-family: $ff-temp-circular;
     font-weight: 600;
     font-size: 15px;
-    padding: 24px 0;
     cursor: pointer;
   }
   .checkbox-group__options {

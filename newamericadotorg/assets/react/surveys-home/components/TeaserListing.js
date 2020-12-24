@@ -129,7 +129,16 @@ class TeaserListing extends Component {
       })
       .filter((val) => {
         const type = val['national'];
-        return true;
+        const selection = checkedValues.national;
+
+        if (
+          selection.represented === selection.notRepresented ||
+          selection.represented === type
+        ) {
+          return true;
+        }
+
+        return false;
       });
 
     return (

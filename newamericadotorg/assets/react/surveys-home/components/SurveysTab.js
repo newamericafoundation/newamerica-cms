@@ -62,20 +62,12 @@ class SurveysTab extends React.Component {
         'Mixed Methods': false,
       },
       national: {
-        'is-not-represented': false,
-        'is-represented': false,
+        represented: false,
+        notRepresented: false,
       },
     };
 
     this.onFilterChange = this.onFilterChange.bind(this);
-  }
-
-  toggleCheckboxGroup(index) {
-    this.setState((prevState) => {
-      const newItems = [...prevState.tempFilters];
-      newItems[index].show = !newItems[index].show;
-      return newItems[index];
-    });
   }
 
   onFilterChange = (name, filter) => {
@@ -113,7 +105,7 @@ class SurveysTab extends React.Component {
       <div className="surveys-tab">
         <div className="surveys-tab__sidebar">
           <CheckboxGroup
-            title="Topics"
+            title="Topic"
             options={Object.keys(tags).map((tag) => ({
               id: tag,
               checked: false,
@@ -125,7 +117,7 @@ class SurveysTab extends React.Component {
           />
 
           <CheckboxGroup
-            title="Demographics"
+            title="Demographic"
             options={Object.keys(demos).map((demo) => ({
               id: demo,
               checked: false,
@@ -135,18 +127,6 @@ class SurveysTab extends React.Component {
               this.onFilterChange('demos', filterState)
             }
           />
-          <CheckboxGroup
-            title="Organization"
-            options={Object.keys(orgs).map((org) => ({
-              id: org,
-              checked: false,
-              label: org.charAt(0).toUpperCase() + org.slice(1),
-            }))}
-            onChange={(filterState) =>
-              this.onFilterChange('orgs', filterState)
-            }
-          />
-
           <CheckboxGroup
             title="Publication Date"
             options={[
@@ -160,7 +140,6 @@ class SurveysTab extends React.Component {
               this.onFilterChange('dateRange', filterState)
             }
           />
-
           <CheckboxGroup
             title="Sample Size"
             options={[
@@ -175,6 +154,17 @@ class SurveysTab extends React.Component {
             ]}
             onChange={(filterState) =>
               this.onFilterChange('sizeRange', filterState)
+            }
+          />
+          <CheckboxGroup
+            title="Organization"
+            options={Object.keys(orgs).map((org) => ({
+              id: org,
+              checked: false,
+              label: org.charAt(0).toUpperCase() + org.slice(1),
+            }))}
+            onChange={(filterState) =>
+              this.onFilterChange('orgs', filterState)
             }
           />
 
@@ -204,12 +194,12 @@ class SurveysTab extends React.Component {
               {
                 checked: false,
                 label: 'Nationally Represented',
-                id: 'is-represented',
+                id: 'represented',
               },
               {
                 checked: false,
                 label: 'Not Nationally Represented',
-                id: 'is-not-represented',
+                id: 'notRepresented',
               },
             ]}
             onChange={(filterState) =>
