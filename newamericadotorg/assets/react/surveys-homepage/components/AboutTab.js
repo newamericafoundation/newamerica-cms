@@ -8,7 +8,7 @@ class AboutTab extends Component {
     super(props);
   }
   render() {
-    const { report } = this.props;
+    const { data } = this.props;
     const tempSections = [
       {
         title: 'About This Project',
@@ -52,7 +52,7 @@ class AboutTab extends Component {
           <h2 className="surveys-about-tab__section-title">
             Authors
           </h2>
-          <Authors authors={report.authors} md={true} />
+          <Authors authors={data.authors} md={true} />
         </div>
       </div>
     );

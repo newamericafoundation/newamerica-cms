@@ -13,7 +13,7 @@
     line-height: type-adjusted-padding(1em);
   }
   &__subtitle {
-    font-family: $ff-temp-circular;
+    font-family: $label-font-family;
     font-weight: 400;
     font-size: 15px;
     line-height: 1.5;
@@ -26,7 +26,7 @@
     padding-top: 15px;
     padding-bottom: 15px;
     a {
-      font-family: $ff-temp-circular;
+      font-family: $label-font-family;
     }
   }
 }
