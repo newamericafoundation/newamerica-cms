@@ -4,7 +4,7 @@ from invoke.tasks import task
 
 PRODUCTION_APP_INSTANCE = "newamericadotorg"
 STAGING_APP_INSTANCE = "na-staging"
-
+DEVELOP_APP_INSTANCE = "na-develop"
 LOCAL_MEDIA_FOLDER = "/vagrant/media"
 LOCAL_IMAGES_FOLDER = "/vagrant/media/original_images"
 LOCAL_DATABASE_NAME = "newamerica-cms"
@@ -94,6 +94,14 @@ def sync_staging_from_production(c):
     # staging environment.
     delete_staging_renditions(c)
 
+#########
+# Develop
+#########
+
+@task
+def pull_develop_data(c):
+    """Pull database from develop Heroku Postgres"""
+    pull_database_from_heroku(c, DEVELOP_APP_INSTANCE)
 
 #######
 # Local

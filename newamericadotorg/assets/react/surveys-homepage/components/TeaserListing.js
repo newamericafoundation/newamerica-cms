@@ -2,14 +2,18 @@ import './TeaserListing.scss';
 import React, { Component } from 'react';
 import { differenceInMonths } from 'date-fns/esm';
 import { format } from 'date-fns';
+import { LoadingDots } from '../../components/Icons';
 
 class TeaserListing extends Component {
   constructor(props) {
     super(props);
+    this.loadMore = this.loadMore.bind(this);
   }
   state = {
     isExanded: false,
     sortBy: {},
+    maxRange: 20,
+    isLoading: false,
     sortOptions: [
       { title: 'Most Recent', value: 'recent' },
       { title: 'Title (A-Z)', value: 'desc' },
@@ -18,14 +22,25 @@ class TeaserListing extends Component {
   };
   componentDidMount() {
     this.setState({ sortBy: this.state.sortOptions[0] });
-    const _data = this.props.data.sort((a, b) =>
-      new Date(a.year, a.month) < new Date(b.year, b.month) ? 1 : -1
+  }
+  loadMore() {
+    this.setState(
+      {
+        isLoading: true,
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            isLoading: false,
+            maxRange: this.state.maxRange + 20,
+          });
+        }, 750);
+      }
     );
-    this.setState({ data: _data });
   }
   render() {
     const { checkedValues } = this.props;
-    const { isExpanded, sortBy, sortOptions } = this.state;
+    const { isExpanded, sortBy, sortOptions, maxRange } = this.state;
 
     let _data = this.props.data;
 
@@ -122,14 +137,16 @@ class TeaserListing extends Component {
           checkedValues.dataType.includes(item)
         );
 
-        if (
-          checkedValues.dataType.length === 0 ||
-          checkedValues.dataType.includes('mixed') ||
-          exists
-        ) {
+        if (checkedValues.dataType.length === 0 || exists) {
           return true;
         }
 
+        if (
+          checkedValues.dataType.includes('mixed') &&
+          type.length > 1
+        ) {
+          return true;
+        }
         return false;
       })
       .filter((val) => {
@@ -193,20 +210,27 @@ class TeaserListing extends Component {
           </div>
         </div>
         <div className="teaser-listing__list">
-          {_data.map((item, index) => (
+          {_data.slice(0, maxRange).map((item, index) => (
             <a
-              href={item.url}
+              href={item.url_path
+                .split('/')
+                .filter((item) => item !== 'new-america')
+                .join('/')}
               className="teaser-listing__item card margin-bottom-10"
               key={`teaser-listing-item-${index}`}
+              target="_blank"
             >
               <div className="col-9">
                 <h4 className="teaser-listing__item-title">
                   {item.title}
                 </h4>
                 {item.description && (
-                  <p className="teaser-listing__item-description">
-                    {item.description}
-                  </p>
+                  <div
+                    className="teaser-listing__item-description"
+                    dangerouslySetInnerHTML={{
+                      __html: item.description,
+                    }}
+                  />
                 )}
               </div>
               <div className="col-3 teaser-listing__item-date">
@@ -217,6 +241,13 @@ class TeaserListing extends Component {
               </div>
             </a>
           ))}
+          {this.state.maxRange <= _data.length && (
+            <div className="teaser-listing__load-more">
+              <button className="button" onClick={this.loadMore}>
+                {this.state.isLoading ? <LoadingDots /> : 'Load more'}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     );
