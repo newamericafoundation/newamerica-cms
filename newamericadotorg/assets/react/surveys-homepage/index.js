@@ -2,28 +2,8 @@
 
 import { NAME, ID } from './constants';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Fetch, Response } from '../components/API';
-import { Route, Switch, Redirect, Router } from 'react-router-dom';
-import GARouter from '../ga-router';
-import Publications from '../program-page/components/Publications';
-import Nav from '../program-page/components/Nav';
-import Heading from '../program-page/components/Heading';
-import About from '../program-page/components/About';
-import Events from '../program-page/components/Events';
-import StoryGrid from '../program-page/components/StoryGrid';
-import People from '../program-page/components/People';
-import Subprograms from '../program-page/components/Subprograms';
-import Subscribe from '../program-page/components/Subscribe';
-import {
-  TopicsList,
-  TopicRoutes,
-} from '../program-page/components/Topics';
-import HorizontalNav from '../components/HorizontalNav';
+import { Fetch } from '../components/API';
 import { LoadingDots } from '../components/Icons';
-import { setResponse } from '../api/actions';
-import store from '../store';
-
 import BasicHeader from './components/BasicHeader';
 import Tabs from '../components/Tabs';
 import Tab from '../components/Tab';
@@ -36,7 +16,6 @@ class SurveyHomepage extends Component {
       response: { results },
     } = this.props;
 
-    console.log(results);
     return (
       <div className={`report report--polling-dashboard single-page`}>
         <div className="container">
@@ -85,7 +64,7 @@ class APP extends Component {
         <Fetch
           component={SurveyHomepage}
           name={NAME}
-          loadingState={<LoadingState title={'Test title'} />}
+          loadingState={<LoadingState title={''} />}
           endpoint={`program/survey/${programId}`}
           fetchOnMount={true}
           programType={programType}

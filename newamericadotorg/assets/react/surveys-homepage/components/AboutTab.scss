@@ -3,27 +3,7 @@
   margin-left: -25px;
   margin-right: -25px;
   padding: 25px;
-  &__section {
-    margin-bottom: 50px;
 
-    @include media-breakpoint(tablet) {
-      width: 75%;
-    }
-  }
-  &__section-title {
-    font-size: 21px;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-  }
-  .rich-text,
-  .rich-text p {
-    font-size: 15px;
-  }
-  .rich-text a {
-    color: color(black);
-    font-weight: 400;
-    text-decoration: underline;
-  }
   img {
     max-width: 400px;
     max-height: 200px;
