@@ -7,7 +7,7 @@
   .checkbox__group-title {
     display: flex;
     justify-content: space-between;
-    font-family: $ff-temp-circular;
+    font-family: $label-font-family;
     font-weight: 900;
     font-size: 15px;
     cursor: pointer;
@@ -39,7 +39,7 @@
     }
 
     .checkbox__label {
-      font-family: $ff-temp-circular;
+      font-family: $label-font-family;
       position: relative;
       display: -webkit-box;
       display: flex;

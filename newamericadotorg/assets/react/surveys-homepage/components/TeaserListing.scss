@@ -1,5 +1,5 @@
 .teaser-listing {
-  font-family: $ff-temp-circular;
+  font-family: $label-font-family;
   &__header {
     display: flex;
     justify-content: space-between;
@@ -20,7 +20,7 @@
       position: relative;
     }
     h6 {
-      font-family: $ff-temp-circular;
+      font-family: $label-font-family;
     }
   }
 
@@ -34,7 +34,7 @@
     border: 1px solid color(gray);
     width: 100%;
     li {
-      font-family: $ff-temp-circular;
+      font-family: $label-font-family;
       font-size: 15px;
     }
   }
@@ -65,12 +65,12 @@
     }
     .teaser-listing__item-title {
       font-weight: 800;
-      font-family: $ff-temp-circular;
+      font-family: $label-font-family;
       transition: color 0.15s ease;
       margin: 0;
     }
     .teaser-listing__item-description {
-      font-family: $ff-temp-circular;
+      font-family: $label-font-family;
       font-size: 15px;
       font-weight: 400;
       line-height: 19px;
