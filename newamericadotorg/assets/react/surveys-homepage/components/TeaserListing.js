@@ -92,7 +92,7 @@ class TeaserListing extends Component {
           new Date(val['year'], val['month'], 0)
         );
 
-        const maxMonths = checkedValues.dateRange.length
+        let maxMonths = checkedValues.dateRange.length
           ? Math.max(...checkedValues.dateRange)
           : 0;
 
@@ -100,11 +100,43 @@ class TeaserListing extends Component {
           return true;
         }
 
-        if (maxMonths === 36 && monthDiff >= 36) {
-          return true;
-        } else if (maxMonths === 0 || monthDiff <= maxMonths) {
-          return true;
+        if (maxMonths === 36) {
+          if (monthDiff >= 36) {
+            return true;
+          }
+
+          if (checkedValues.dateRange.length > 1) {
+            maxMonths = Math.max(
+              ...checkedValues.dateRange.filter(
+                (item) => item !== '36'
+              )
+            );
+            if (monthDiff <= maxMonths) {
+              return true;
+            }
+          }
+        } else {
+          return monthDiff <= maxMonths;
         }
+
+        // if (maxMonths === 36 && checkedValues.dateRange.length === 1) {
+        //   if (monthDiff >= 36) {
+        //     return true;
+        //   }
+        // } else if (maxMonths === 36 && checkedValues.dateRange.length > 1) {
+        //   maxMonths = Math.max(
+        //     ...checkedValues.dateRange.filter((item) => item !== '36')
+        //   );
+
+        //   if (monthDiff >= 36) {
+        //     return true;
+        //   }
+        //   if (monthDiff <= maxMonths) {
+        //     return true;
+        //   }
+        // } else if (monthDiff <= maxMonths && maxMonths != 36) {
+        //   return true;
+        // }
 
         return false;
       })
