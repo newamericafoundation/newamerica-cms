@@ -1,5 +1,3 @@
-/* DocumentMeta defined in ./components/Nav.js */
-
 import { NAME, ID } from './constants';
 import React, { Component } from 'react';
 import { Fetch } from '../components/API';
