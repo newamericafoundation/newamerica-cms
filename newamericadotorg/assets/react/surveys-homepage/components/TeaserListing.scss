@@ -49,14 +49,15 @@
   }
 
   &__item {
-    display: flex;
-    align-items: center;
+    display: block;
     padding: 25px 15px;
     background: color(white);
     border-left: 10px solid color(turquoise);
     animation: fadeIn 0.3s ease-in;
 
-    @include media-breakpoint(tablet) {
+    @include media-breakpoint(mobile) {
+      display: flex;
+      align-items: center;
       min-height: 136px;
     }
     &:hover {
@@ -93,12 +94,16 @@
     }
   }
   &__item-date {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     font-size: 15px;
     color: color(black);
     font-weight: 100;
+    margin-top: 20px;
+    @include media-breakpoint(mobile) {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 0;
+    }
   }
   &__load-more {
     display: flex;

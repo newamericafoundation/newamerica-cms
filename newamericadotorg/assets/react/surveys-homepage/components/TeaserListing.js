@@ -220,7 +220,7 @@ class TeaserListing extends Component {
               key={`teaser-listing-item-${index}`}
               target="_blank"
             >
-              <div className="col-9">
+              <div className="col-sm-9">
                 <h4 className="teaser-listing__item-title">
                   {item.title}
                 </h4>
@@ -233,7 +233,7 @@ class TeaserListing extends Component {
                   />
                 )}
               </div>
-              <div className="col-3 teaser-listing__item-date">
+              <div className="col-sm-3 teaser-listing__item-date">
                 {format(
                   new Date(item.year, item.month, 1),
                   item.month ? 'MMM yyyy' : 'yyy'
