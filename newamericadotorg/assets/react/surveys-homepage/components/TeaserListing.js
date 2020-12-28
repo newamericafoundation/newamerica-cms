@@ -12,7 +12,7 @@ class TeaserListing extends Component {
   state = {
     isExanded: false,
     sortBy: {},
-    maxRange: 20,
+    maxRange: 4,
     isLoading: false,
     sortOptions: [
       { title: 'Most Recent', value: 'recent' },
@@ -23,7 +23,7 @@ class TeaserListing extends Component {
   componentDidMount() {
     this.setState({ sortBy: this.state.sortOptions[0] });
   }
-  loadMore() {
+  loadMore = () => {
     this.setState(
       {
         isLoading: true,
@@ -32,12 +32,12 @@ class TeaserListing extends Component {
         setTimeout(() => {
           this.setState({
             isLoading: false,
-            maxRange: this.state.maxRange + 20,
+            maxRange: this.state.maxRange + 4,
           });
         }, 750);
       }
     );
-  }
+  };
   render() {
     const { checkedValues } = this.props;
     const { isExpanded, sortBy, sortOptions, maxRange } = this.state;

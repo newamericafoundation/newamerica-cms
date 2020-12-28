@@ -44,7 +44,6 @@ class SurveysTab extends React.Component {
         {}
       ),
       dateRange: {
-        isOpen: true,
         dateOne: false,
         dateTwo: false,
         dateThree: false,
@@ -67,8 +66,6 @@ class SurveysTab extends React.Component {
         notRepresented: false,
       },
     };
-
-    this.onFilterChange = this.onFilterChange.bind(this);
   }
 
   onFilterChange = (name, filter) => {
@@ -78,6 +75,7 @@ class SurveysTab extends React.Component {
   render() {
     const { tags, demos, orgs } = this.state;
     let newState = this.state;
+    // Create newState without `isOpen` property
     Object.keys(newState).forEach((key, index) => {
       const { isOpen, ...rest } = newState[key];
       newState[key] = rest;

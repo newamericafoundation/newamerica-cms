@@ -1,4 +1,3 @@
-import { max } from 'moment';
 import React from 'react';
 import './CheckboxGroup.scss';
 
@@ -12,18 +11,16 @@ class CheckboxGroup extends React.Component {
     this.props.options.forEach((val) => {
       this.state[val.id] = val.checked ? true : false;
     });
-    this.handleChange = this.handleChange.bind(this);
-    this.toggleCheckboxGroup = this.toggleCheckboxGroup.bind(this);
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState(
       {
         [e.target.id]: e.target.checked,
       },
       () => this.props.onChange(this.state)
     );
-  }
+  };
 
   toggleCheckboxGroup = () => {
     this.setState({ isOpen: !this.state.isOpen });
