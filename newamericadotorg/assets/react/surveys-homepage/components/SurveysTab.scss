@@ -1,16 +1,15 @@
-@import '~font-awesome/scss/variables';
-$fa-font-path: '#{$extra-static}/fonts';
-@import '~font-awesome/scss/mixins';
-@import '~font-awesome/scss/path';
-@import '~font-awesome/scss/core';
-
 .surveys-tab {
   background: #f7f4f2;
   @include media-breakpoint(tablet) {
-    display: flex;
     margin-left: -15px;
     margin-right: -15px;
   }
+  &__inner {
+    @include media-breakpoint(tablet) {
+      display: flex;
+    }
+  }
+
   &__sidebar {
     @include media-breakpoint(tablet) {
       width: 25%;

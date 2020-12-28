@@ -39,7 +39,7 @@ class TeaserListing extends Component {
     );
   };
   render() {
-    const { checkedValues } = this.props;
+    const { checkedValues, searchTerm } = this.props;
     const { isExpanded, sortBy, sortOptions, maxRange } = this.state;
 
     let _data = this.props.data;
@@ -192,6 +192,31 @@ class TeaserListing extends Component {
             : -1;
         }
       });
+
+    // Search filtering
+    if (searchTerm !== '') {
+      _data = _data.filter((row) => {
+        const columns = Object.keys(row).filter((item) => {
+          if (
+            item === 'title' ||
+            item === 'description' ||
+            item === 'year' ||
+            item === 'month'
+          ) {
+            return true;
+          }
+          return false;
+        });
+
+        return columns.some(
+          (column) =>
+            typeof row[column] === 'string' &&
+            row[column]
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
+        );
+      });
+    }
 
     return (
       <div className="teaser-listing">
