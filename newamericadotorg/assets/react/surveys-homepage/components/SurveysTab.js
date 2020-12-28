@@ -2,7 +2,6 @@ import React from 'react';
 import CheckboxGroup from './CheckboxGroup';
 import TeaserListing from './TeaserListing';
 import './SurveysTab.scss';
-import { array } from 'prop-types';
 
 class SurveysTab extends React.Component {
   constructor(props) {
