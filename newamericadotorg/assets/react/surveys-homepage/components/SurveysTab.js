@@ -44,6 +44,7 @@ class SurveysTab extends React.Component {
         {}
       ),
       dateRange: {
+        isOpen: true,
         dateOne: false,
         dateTwo: false,
         dateThree: false,
@@ -76,7 +77,11 @@ class SurveysTab extends React.Component {
 
   render() {
     const { tags, demos, orgs } = this.state;
-    const newState = this.state;
+    let newState = this.state;
+    Object.keys(newState).forEach((key, index) => {
+      const { isOpen, ...rest } = newState[key];
+      newState[key] = rest;
+    });
 
     return (
       <div className="surveys-tab">

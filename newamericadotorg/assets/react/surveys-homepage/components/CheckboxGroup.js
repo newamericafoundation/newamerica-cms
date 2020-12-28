@@ -30,9 +30,7 @@ class CheckboxGroup extends React.Component {
   };
 
   render() {
-    // const { isOpen } = this.state;
-
-    const isOpen = true;
+    const { isOpen } = this.state;
     const { options, title } = this.props;
     const _options = options.filter((item) => {
       return item.id !== 'isOpen';
