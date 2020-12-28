@@ -1,35 +1,37 @@
-import { max } from 'moment';
 import React from 'react';
 import './CheckboxGroup.scss';
 
 class CheckboxGroup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isOpen: false,
+    };
 
     this.props.options.forEach((val) => {
       this.state[val.id] = val.checked ? true : false;
     });
-    this.handleChange = this.handleChange.bind(this);
-    this.toggleCheckboxGroup = this.toggleCheckboxGroup.bind(this);
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState(
       {
         [e.target.id]: e.target.checked,
       },
       () => this.props.onChange(this.state)
     );
-  }
+  };
 
-  toggleCheckboxGroup() {
-    console.log(27);
-  }
+  toggleCheckboxGroup = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
   render() {
+    const { isOpen } = this.state;
     const { options, title } = this.props;
-    const isOpen = true;
+    const _options = options.filter((item) => {
+      return item.id !== 'isOpen';
+    });
 
     return (
       <div className="checkbox__container">
@@ -43,7 +45,7 @@ class CheckboxGroup extends React.Component {
           <i className={`fa fa-${isOpen ? 'times' : 'plus'}`}></i>
         </span>
         {isOpen &&
-          options.map((option, i) => (
+          _options.map((option, i) => (
             <div className="checkbox-group__options" key={i}>
               <input
                 id={option.id}

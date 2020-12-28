@@ -7,7 +7,6 @@ class SurveysTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {},
       tags: this.props.data.survey_home_page.surveys.reduce(
         (acc, cur) => {
           const tags = cur['tags'];
@@ -66,8 +65,6 @@ class SurveysTab extends React.Component {
         notRepresented: false,
       },
     };
-
-    this.onFilterChange = this.onFilterChange.bind(this);
   }
 
   onFilterChange = (name, filter) => {
@@ -76,6 +73,12 @@ class SurveysTab extends React.Component {
 
   render() {
     const { tags, demos, orgs } = this.state;
+    let newState = this.state;
+    // Create newState without `isOpen` property
+    Object.keys(newState).forEach((key, index) => {
+      const { isOpen, ...rest } = newState[key];
+      newState[key] = rest;
+    });
 
     return (
       <div className="surveys-tab">
@@ -210,7 +213,7 @@ class SurveysTab extends React.Component {
         <div className="surveys-tab__results">
           <TeaserListing
             data={this.props.data.survey_home_page.surveys}
-            checkedValues={this.state}
+            checkedValues={newState}
           />
         </div>
       </div>

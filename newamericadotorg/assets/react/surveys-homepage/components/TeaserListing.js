@@ -23,7 +23,7 @@ class TeaserListing extends Component {
   componentDidMount() {
     this.setState({ sortBy: this.state.sortOptions[0] });
   }
-  loadMore() {
+  loadMore = () => {
     this.setState(
       {
         isLoading: true,
@@ -37,7 +37,7 @@ class TeaserListing extends Component {
         }, 750);
       }
     );
-  }
+  };
   render() {
     const { checkedValues } = this.props;
     const { isExpanded, sortBy, sortOptions, maxRange } = this.state;

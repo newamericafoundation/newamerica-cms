@@ -7,7 +7,7 @@ const BasicHeader = (props) => {
     <div className="basic-header">
       <div className="basic-header__breadcrumb">
         <h6 className="link margin-0 with-caret--left">
-          <a href="/education-policy">Educations Policy</a>
+          <a href="/education-policy">Education Policy</a>
         </h6>
       </div>
       <div className="basic-header__content">
