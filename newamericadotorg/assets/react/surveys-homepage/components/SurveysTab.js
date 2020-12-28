@@ -2,12 +2,12 @@ import React from 'react';
 import CheckboxGroup from './CheckboxGroup';
 import TeaserListing from './TeaserListing';
 import './SurveysTab.scss';
+import { array } from 'prop-types';
 
 class SurveysTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {},
       tags: this.props.data.survey_home_page.surveys.reduce(
         (acc, cur) => {
           const tags = cur['tags'];
@@ -76,6 +76,7 @@ class SurveysTab extends React.Component {
 
   render() {
     const { tags, demos, orgs } = this.state;
+    const newState = this.state;
 
     return (
       <div className="surveys-tab">
@@ -210,7 +211,7 @@ class SurveysTab extends React.Component {
         <div className="surveys-tab__results">
           <TeaserListing
             data={this.props.data.survey_home_page.surveys}
-            checkedValues={this.state}
+            checkedValues={newState}
           />
         </div>
       </div>

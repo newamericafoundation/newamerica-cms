@@ -5,7 +5,9 @@ import './CheckboxGroup.scss';
 class CheckboxGroup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isOpen: false,
+    };
 
     this.props.options.forEach((val) => {
       this.state[val.id] = val.checked ? true : false;
@@ -23,13 +25,18 @@ class CheckboxGroup extends React.Component {
     );
   }
 
-  toggleCheckboxGroup() {
-    console.log(27);
-  }
+  toggleCheckboxGroup = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
   render() {
-    const { options, title } = this.props;
+    // const { isOpen } = this.state;
+
     const isOpen = true;
+    const { options, title } = this.props;
+    const _options = options.filter((item) => {
+      return item.id !== 'isOpen';
+    });
 
     return (
       <div className="checkbox__container">
@@ -43,7 +50,7 @@ class CheckboxGroup extends React.Component {
           <i className={`fa fa-${isOpen ? 'times' : 'plus'}`}></i>
         </span>
         {isOpen &&
-          options.map((option, i) => (
+          _options.map((option, i) => (
             <div className="checkbox-group__options" key={i}>
               <input
                 id={option.id}
