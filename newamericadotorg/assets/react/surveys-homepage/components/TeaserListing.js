@@ -46,137 +46,124 @@ class TeaserListing extends Component {
 
     _data = this.props.data
       .filter((val) => {
-        const tags = val['tags'];
+        const surveyTags = val['tags'];
+        const checkedTags = Object.keys(checkedValues.tags).filter(
+          (key) => checkedValues.tags[key] === true
+        );
+        const exists = Object.values(checkedTags).some((key) =>
+          surveyTags.some((tag) => tag.title === key)
+        );
 
-        const exists =
-          Object.values(checkedValues.tags).some((key) =>
-            tags.some((tag) => tag.title === key)
-          ) || checkedValues.tags.length === 0;
-
-        if (exists) {
+        if (exists || checkedTags.length === 0) {
           return true;
-        } else {
-          return false;
         }
+        return false;
       })
       .filter((val) => {
-        const demos = val['demos_key'];
+        const surveyDemos = val['demos_key'];
+        const checkedDemos = Object.keys(checkedValues.demos).filter(
+          (key) => checkedValues.demos[key] === true
+        );
 
-        const exists =
-          Object.values(checkedValues.demos).some((key) =>
-            demos.some((demo) => demo.title === key)
-          ) || checkedValues.demos.length === 0;
+        const exists = Object.values(checkedDemos).some((key) =>
+          surveyDemos.some((demo) => demo.title === key)
+        );
 
-        if (exists) {
+        if (exists || checkedDemos.length === 0) {
           return true;
-        } else {
-          return false;
         }
+        return false;
       })
       .filter((val) => {
-        const orgs = val['org'];
-        const exists =
-          Object.values(checkedValues.orgs).some((key) =>
-            orgs.some((org) => org.title === key)
-          ) || checkedValues.orgs.length === 0;
+        const surveyOrgs = val['org'];
+        const checkedOrgs = Object.keys(checkedValues.orgs).filter(
+          (key) => checkedValues.orgs[key] === true
+        );
+        const exists = Object.values(checkedOrgs).some((key) =>
+          surveyOrgs.some((org) => org.title === key)
+        );
 
-        if (exists) {
+        if (exists || checkedOrgs.length === 0) {
           return true;
-        } else {
-          return false;
         }
+        return false;
       })
       .filter((val) => {
+        const { dateRange } = checkedValues;
         const monthDiff = differenceInMonths(
           new Date(),
           new Date(val['year'], val['month'], 0)
         );
 
-        let maxMonths = checkedValues.dateRange.length
-          ? Math.max(...checkedValues.dateRange)
-          : 0;
+        const unfilter = Object.keys(dateRange).every(function (k) {
+          return dateRange[k] === false;
+        });
 
-        if (checkedValues.dateRange.length === 0) {
+        if ((dateRange.five && monthDiff >= 36) || unfilter) {
           return true;
         }
 
-        if (maxMonths === 36) {
-          if (monthDiff >= 36) {
-            return true;
-          }
-
-          if (checkedValues.dateRange.length > 1) {
-            maxMonths = Math.max(
-              ...checkedValues.dateRange.filter(
-                (item) => item !== '36'
-              )
-            );
-            if (monthDiff <= maxMonths) {
-              return true;
-            }
-          }
-        } else {
-          return monthDiff <= maxMonths;
+        if (dateRange.dateFour) {
+          return monthDiff <= 24;
+        }
+        if (dateRange.dateThree) {
+          return monthDiff <= 12;
+        }
+        if (dateRange.dateTwo) {
+          return monthDiff <= 6;
         }
 
-        // if (maxMonths === 36 && checkedValues.dateRange.length === 1) {
-        //   if (monthDiff >= 36) {
-        //     return true;
-        //   }
-        // } else if (maxMonths === 36 && checkedValues.dateRange.length > 1) {
-        //   maxMonths = Math.max(
-        //     ...checkedValues.dateRange.filter((item) => item !== '36')
-        //   );
-
-        //   if (monthDiff >= 36) {
-        //     return true;
-        //   }
-        //   if (monthDiff <= maxMonths) {
-        //     return true;
-        //   }
-        // } else if (monthDiff <= maxMonths && maxMonths != 36) {
-        //   return true;
-        // }
+        if (dateRange.dateOne) {
+          return monthDiff <= 3;
+        }
 
         return false;
       })
       .filter((val) => {
         const num = +val['sample_number'];
-        const size = checkedValues.sizeRange;
+        const { sizeRange } = checkedValues;
+        const unfilter = Object.keys(sizeRange).every(function (k) {
+          return sizeRange[k] === false;
+        });
 
-        if (size.length === 0) {
+        if ((sizeRange.sizeFour && num >= 10000) || unfilter) {
           return true;
         }
+        if (sizeRange.sizeOne && sizeRange.sizeTwo) {
+          return num < 5000;
+        }
 
-        if (size.includes('one')) {
+        if (sizeRange.sizeTwo && sizeRange.sizeThree) {
+          return num < 10000;
+        }
+
+        if (sizeRange.sizeOne) {
           return num <= 1000;
         }
-        if (size.includes('two')) {
+        if (sizeRange.sizeTwo) {
           return num >= 1000 && num <= 5000;
         }
-        if (size.includes('three')) {
+        if (sizeRange.sizeThree) {
           return num >= 5000 && num <= 10000;
         }
-        if (size.includes('four')) {
-          return num >= 10000;
-        }
+
         return false;
       })
       .filter((val) => {
         const type = val['data_type'].map((el) => el.toLowerCase());
+        const checkedType = Object.keys(
+          checkedValues.dataType
+        ).filter((key) => checkedValues.dataType[key] === true);
 
         const exists = type.some((item) =>
-          checkedValues.dataType.includes(item)
+          checkedType.includes(item)
         );
 
-        if (checkedValues.dataType.length === 0 || exists) {
+        if (exists || checkedType.length === 0) {
           return true;
         }
 
-        if (
-          checkedValues.dataType.includes('mixed') &&
-          type.length > 1
-        ) {
+        if (checkedType.includes('mixed') && type.length > 1) {
           return true;
         }
         return false;

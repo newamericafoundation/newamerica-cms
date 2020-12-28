@@ -44,17 +44,17 @@ class SurveysTab extends React.Component {
         {}
       ),
       dateRange: {
-        3: false,
-        6: false,
-        12: false,
-        24: false,
-        36: false,
+        dateOne: false,
+        dateTwo: false,
+        dateThree: false,
+        dateFour: false,
+        dateFive: false,
       },
       sizeRange: {
-        one: false,
-        two: false,
-        three: false,
-        four: false,
+        sizeOne: false,
+        sizeTwo: false,
+        sizeThree: false,
+        sizeFour: false,
       },
       dataType: {
         Qual: false,
@@ -75,31 +75,7 @@ class SurveysTab extends React.Component {
   };
 
   render() {
-    const {
-      tags,
-      demos,
-      orgs,
-      dateRange,
-      sizeRange,
-      dataType,
-      national,
-    } = this.state;
-
-    const checkedValues = {
-      tags: Object.keys(tags).filter((key) => tags[key] === true),
-      demos: Object.keys(demos).filter((key) => demos[key] === true),
-      orgs: Object.keys(orgs).filter((key) => orgs[key] === true),
-      dateRange: Object.keys(dateRange).filter(
-        (key) => dateRange[key] === true
-      ),
-      sizeRange: Object.keys(sizeRange).filter(
-        (key) => sizeRange[key] === true
-      ),
-      dataType: Object.keys(dataType).filter(
-        (key) => dataType[key] === true
-      ),
-      national,
-    };
+    const { tags, demos, orgs } = this.state;
 
     return (
       <div className="surveys-tab">
@@ -130,11 +106,31 @@ class SurveysTab extends React.Component {
           <CheckboxGroup
             title="Publication Date"
             options={[
-              { checked: false, label: 'Last 3 months', id: '3' },
-              { checked: false, label: 'Last 6 months', id: '6' },
-              { checked: false, label: 'Within 1 year', id: '12' },
-              { checked: false, label: 'Within 2 years', id: '24' },
-              { checked: false, label: '3+ years ago', id: '36' },
+              {
+                checked: false,
+                label: 'Last 3 months',
+                id: 'dateOne',
+              },
+              {
+                checked: false,
+                label: 'Last 6 months',
+                id: 'dateTwo',
+              },
+              {
+                checked: false,
+                label: 'Within 1 year',
+                id: 'dateThree',
+              },
+              {
+                checked: false,
+                label: 'Within 2 years',
+                id: 'dateFour',
+              },
+              {
+                checked: false,
+                label: '3+ years ago',
+                id: 'dateFive',
+              },
             ]}
             onChange={(filterState) =>
               this.onFilterChange('dateRange', filterState)
@@ -143,14 +139,18 @@ class SurveysTab extends React.Component {
           <CheckboxGroup
             title="Sample Size"
             options={[
-              { checked: false, label: '< 1,000', id: 'one' },
-              { checked: false, label: '1,000 - 5,000', id: 'two' },
+              { checked: false, label: '< 1,000', id: 'sizeOne' },
+              {
+                checked: false,
+                label: '1,000 - 5,000',
+                id: 'sizeTwo',
+              },
               {
                 checked: false,
                 label: '5,000 - 10,000',
-                id: 'three',
+                id: 'sizeThree',
               },
-              { checked: false, label: '> 10,000', id: 'four' },
+              { checked: false, label: '> 10,000', id: 'sizeFour' },
             ]}
             onChange={(filterState) =>
               this.onFilterChange('sizeRange', filterState)
@@ -210,7 +210,7 @@ class SurveysTab extends React.Component {
         <div className="surveys-tab__results">
           <TeaserListing
             data={this.props.data.survey_home_page.surveys}
-            checkedValues={checkedValues}
+            checkedValues={this.state}
           />
         </div>
       </div>
