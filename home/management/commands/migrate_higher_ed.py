@@ -9,6 +9,10 @@ import json
 import re
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from django.core.files.temp import NamedTemporaryFile
+from django.core.files import File
+from urllib.request import urlopen
+import hashlib
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('./creds.json', scope)
@@ -18,14 +22,21 @@ data = json.loads(raw_data)
 
 class Command(BaseCommand):
   def handle(self, *args, **options):
-      date = datetime.datetime.today().strftime('%Y-%m-%d')
-      # index = Page.objects.get(title='HigherEd Public Opinion Hub Values Index')
-      scaffold()
+    # survey = Survey.objects.get(title='How COVID-19 Made Higher Education Value a Top Priority')
+
+      # tags = ['career readiness', 'affordability']
+      # for tag in tags:
+      #   survey_tag = SurveyTags.objects.get(title=tag)
+      #   print(survey_tag.pk)
+      #   survey.tags.add(survey_tag)
+      #   survey.save()
+      # # print(survey.tags.values_list('title', flat=True))
+    scaffold()
 
 def scaffold():
-  #get EdPolicy Program
+  # Get EdPolicy Program Page.
   root = Program.objects.get(title='Education Policy')
-  #add Project Page
+  # Add Project Page.
   root.add_child(instance=Project(
     title='HigherEd Public Opinion',
     slug=slugify('HigherEd Public Opinion'),
@@ -33,19 +44,21 @@ def scaffold():
     template='survey/surveys_home_page.html',
     description='A collection of reports, insights, and analyses exploring topics within Higher Education. Created for Researchers, Journalists,  and the general public who have an interest in underatanding public opinion on Higher Education issues.',
     ))
-  # get Project page and add SurveyHomePage
+  # Get Project page and add SurveyHomePage.
   project = Project.objects.get(title='HigherEd Public Opinion')
   project.add_child(instance=SurveysHomePage(title='HigherEd Public Opinion Hub'))
-  # get index page
+  # Get SurveyHomePage.
+  home = SurveysHomePage.objects.get(title='HigherEd Public Opinion Hub')
+  # Get index page.
   index = SurveyValuesIndex.objects.get(title='HigherEd Public Opinion Hub Values Index')
   print(index.id, index.title)
-  #add Demos, Tags, Orgs
+  # Add Demos, Tags, Orgs and Surveys.
   addDemos(index)
   addTags(index)
   addOrgs(index)
+  addSurveys(home)
 
-def addSurveys(home: str):
-  home_page = Page.objects.get(title=home)
+def addSurveys(home: SurveysHomePage):
   date = datetime.datetime.today().strftime('%Y-%m-%d')
   surveys = getSurveys()
   for survey in surveys:
@@ -54,49 +67,50 @@ def addSurveys(home: str):
     if Page.objects.filter(slug=slug).exists():
       continue
     else:
-      print('ADDING_______: ' + slug)
-      home_page.add_child(instance=Survey(
+      print('ADDING SURVEY_______: ' + slug)
+      new_survey = Survey(
         title=survey['Study Title'],
         slug=slug,
         date=date,
         year=survey['Year'],
         month=0,
         sample_number=survey['sample_number'],
-        # Don't think I can add these here, but these are the keys to get them.
-        # demos_key = survey['demographics_key'],
-        # org = survey['Organization'],
-        # tags = survey['Tags'],
         data_type = ['QUANT', 'QUAL'],
         findings = survey['Top findings directly from the report'],
-        file = survey['download'] if is_file else None,
-        link = survey['download'] if not is_file else None,
-      ))
+        link = survey['download'] if not is_file else None
+      )
+
+      home.add_child(instance=new_survey)
+
+      # Load the survey object.
       child = Survey.objects.get(title=survey['Study Title'])
 
-      # child.demos_key = getPageId(survey['demographics_key'])
-      print(child)
+      # addSurveyFile(child, survey, is_file)
+      addSurveyTags(child, survey)
+      addSurveyOrgs(child, survey)
+      addSurveyDemos(child, survey)
 
-# Add objects to the db
+      child.save()
+
 def addDemos(index):
   new_demos = getDemos()
   res = map(lambda d: d.title.strip(), DemographicKey.objects.all())
   known_demos = list(res)
   for demo in new_demos:
     if (demo not in known_demos):
-      print('ADDING________: '+demo)
+      print('ADDING DEMO KEY________: '+demo)
       index.add_child(instance=DemographicKey(title=demo))
       known_demos.append(demo)
     else:
       continue
 
 def addOrgs(index):
-  print(index.id)
   new_orgs = getOrgs()
   res = map(lambda o: o.title.strip(), SurveyOrganization.objects.all())
   known_orgs = list(res)
   for org in new_orgs:
     if (org not in known_orgs):
-      print('ADDING________: '+org)
+      print('ADDING ORG________: '+org)
       index.add_child(instance=SurveyOrganization(title=org))
       known_orgs.append(org)
     else:
@@ -108,14 +122,45 @@ def addTags(index):
   known_tags = list(res)
   for tag in new_tags:
     if (tag not in known_tags):
-      print('ADDING________: '+tag)
+      print('ADDING TAG________: '+tag)
       index.add_child(instance=SurveyTags(title=tag))
       known_tags.append(tag)
     else:
       continue
 
+def addSurveyDemos(survey, survey_data):
+  demos = parse_list(survey_data['demographics_key'], ',')
+  for demo in demos:
+    survey_demo = DemographicKey.objects.get(title=demo.strip())
+    survey.demos_key.add(survey_demo)
 
-#utility funcs
+def addSurveyOrgs(survey, survey_data):
+  orgs = parse_list(survey_data['Organization'], ',')
+  for org in orgs:
+    survey_org = SurveyOrganization.objects.get(title=org.strip())
+    survey.org.add(survey_org)
+
+def addSurveyTags(survey, survey_data):
+  tags = parse_list(survey_data['Tags'], ',')
+  for tag in tags:
+    survey_tag = SurveyTags.objects.get(title=tag.strip())
+    survey.tags.add(survey_tag)
+
+def addSurveyFile(survey, data, is_file):
+  if is_file:
+    # Download file and add to Survey.
+    file_id = getFileId(data['download'])
+    file_url = getDownloadUrl(file_id)
+    # Generate a unique filename based on a sha1 hash of the download url.
+    # Obtaining the actual filename as stored in GDrive requires using Google Drive API
+    # which if included would bloat the requirements for the project for a one-time migration.
+    filename_hash = hashlib.sha1(data['download'].encode())
+    temp_file = createTempFile(file_url)
+    survey.file.save("%s.pdf" % filename_hash.hexdigest(), File(temp_file))
+  else:
+    survey.file = None
+
+# Utility methods.
 def parse_list(str, delimiter):
   li = str.split(delimiter)
   return li
@@ -124,15 +169,26 @@ def getPageId(title: str):
   item = Page.objects.get(title=title)
   return item.id
 
+def createTempFile(file_url: str):
+  # Download the file to a tmp location.
+  file_temp = NamedTemporaryFile(delete = True)
+  file_temp.write(urlopen(file_url).read())
+  file_temp.flush()
+  return file_temp
 
+def getFileId(url: str):
+  regex = "([\w-]){33}|([\w-]){19}"
+  return re.search(regex,url).group()
 
-# Get data from google sheet
+def getDownloadUrl(file_id: str):
+  return 'https://drive.google.com/uc?export=download&id=%s' % file_id
 
+# Get data from google sheet.
 def getSurveys():
   surveys = []
   for survey in data:
     surveys.append(survey)
-  return surveys[0:3]
+  return surveys[0:4]
 
 def getTags():
   tags = []
