@@ -32,7 +32,7 @@ const AboutTab = (props) => {
       <Body title="Methodology" body={survey_home_page.methodology} />
       <Body title="Submit a Report" body={submitReport} />
       <Body title="Made Possible By" body={logo} />
-      <Body title="Made Possible By" body="">
+      <Body title="Authors" body="">
         <Authors authors={survey_home_page.page_author} md={true} />
       </Body>
     </div>
