@@ -8,6 +8,7 @@ class SurveysTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      filtersOpen: false,
       search: {
         q: '',
       },
@@ -79,9 +80,15 @@ class SurveysTab extends React.Component {
     this.setState({ search: { q: q } });
   };
 
+  toggleMobileFilters = () => {
+    this.setState({
+      filtersOpen: !this.state.filtersOpen,
+    });
+  };
+
   render() {
-    const { tags, demos, orgs } = this.state;
-    let newState = this.state;
+    const { tags, demos, orgs, filtersOpen } = this.state;
+    let newState = { ...this.state };
 
     Object.keys(newState).forEach((key, index) => {
       const { isOpen, ...rest } = newState[key];
@@ -95,7 +102,23 @@ class SurveysTab extends React.Component {
           handleSearchInput={this.handleSearchInput}
         />
         <div className="surveys-tab__inner">
-          <div className="surveys-tab__sidebar">
+          <div
+            className={`surveys-tab__open-mobile-filter col-12 margin-top-35 margin-bottom-25`}
+          >
+            <a
+              className={`button--text with-caret--${
+                filtersOpen ? 'up' : 'down'
+              }`}
+              onClick={this.toggleMobileFilters}
+            >
+              Filters
+            </a>
+          </div>
+          <div
+            className={`surveys-tab__sidebar ${
+              filtersOpen ? 'is-open' : ''
+            }`}
+          >
             <CheckboxGroup
               title="Topic"
               options={Object.keys(tags).map((tag) => ({

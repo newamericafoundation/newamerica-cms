@@ -1,4 +1,5 @@
 import React from 'react';
+import { PlusX } from '../../components/Icons';
 import './CheckboxGroup.scss';
 
 class CheckboxGroup extends React.Component {
@@ -34,30 +35,41 @@ class CheckboxGroup extends React.Component {
     });
 
     return (
-      <div className="checkbox__container">
+      <div className="checkbox-group">
         <span
           className={`${
             isOpen ? 'margin-bottom-25' : ''
-          } checkbox__group-title`}
+          } checkbox-group__title`}
           onClick={this.toggleCheckboxGroup}
         >
           {title}
-          <i className={`fa fa-${isOpen ? 'times' : 'plus'}`}></i>
+
+          <div className="icon">
+            <PlusX x={isOpen} />
+          </div>
         </span>
-        {isOpen &&
-          _options.map((option, i) => (
-            <div className="checkbox-group__options" key={i}>
+        <div
+          className={`checkbox-group__options ${
+            isOpen ? 'is-open' : ''
+          }`}
+        >
+          {_options.map((option, i) => (
+            <div className="checkbox-group__option" key={i}>
               <input
                 id={option.id}
                 type="checkbox"
                 checked={this.state[option.id]}
                 onChange={this.handleChange}
               />
-              <label htmlFor={option.id} className="checkbox__label">
+              <label
+                htmlFor={option.id}
+                className="checkbox-group__label"
+              >
                 {option.label}
               </label>
             </div>
           ))}
+        </div>
       </div>
     );
   }
