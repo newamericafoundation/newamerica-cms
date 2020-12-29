@@ -181,6 +181,27 @@ class TeaserListing extends Component {
 
         return false;
       })
+      .filter((row) => {
+        if (row.month) {
+          row.monthString = format(
+            new Date(row['year'], row['month'], 1),
+            'MMM'
+          );
+        }
+        const columns = Object.keys(row).filter((item) => {
+          if (
+            item === 'title' ||
+            item === 'description' ||
+            item === 'year' ||
+            item === 'monthString'
+          ) {
+            return true;
+          }
+        });
+        return columns.some((column) =>
+          row[column].toString().toLowerCase().includes(searchTerm)
+        );
+      })
       .sort((a, b) => {
         if (sortBy.value === 'asc') {
           return b.title.localeCompare(a.title);
@@ -192,31 +213,6 @@ class TeaserListing extends Component {
             : -1;
         }
       });
-
-    // Search filtering
-    if (searchTerm !== '') {
-      _data = _data.filter((row) => {
-        const columns = Object.keys(row).filter((item) => {
-          if (
-            item === 'title' ||
-            item === 'description' ||
-            item === 'year' ||
-            item === 'month'
-          ) {
-            return true;
-          }
-          return false;
-        });
-
-        return columns.some(
-          (column) =>
-            typeof row[column] === 'string' &&
-            row[column]
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase())
-        );
-      });
-    }
 
     return (
       <div className="teaser-listing">

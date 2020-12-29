@@ -8,7 +8,9 @@ class SurveysTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: '',
+      search: {
+        q: '',
+      },
       tags: this.props.data.survey_home_page.surveys.reduce(
         (acc, cur) => {
           const tags = cur['tags'];
@@ -74,13 +76,13 @@ class SurveysTab extends React.Component {
   };
 
   handleSearchInput = (q) => {
-    this.setState({ searchTerm: q });
+    this.setState({ search: { q: q } });
   };
 
   render() {
-    const { tags, demos, orgs, searchTerm } = this.state;
+    const { tags, demos, orgs } = this.state;
     let newState = this.state;
-    // Create newState without `isOpen` property
+
     Object.keys(newState).forEach((key, index) => {
       const { isOpen, ...rest } = newState[key];
       newState[key] = rest;
@@ -88,7 +90,10 @@ class SurveysTab extends React.Component {
 
     return (
       <div className="surveys-tab">
-        <Search handleSearchInput={this.handleSearchInput} />
+        <Search
+          title="Search for Survey Reports"
+          handleSearchInput={this.handleSearchInput}
+        />
         <div className="surveys-tab__inner">
           <div className="surveys-tab__sidebar">
             <CheckboxGroup
@@ -222,7 +227,7 @@ class SurveysTab extends React.Component {
             <TeaserListing
               data={this.props.data.survey_home_page.surveys}
               checkedValues={newState}
-              searchTerm={searchTerm}
+              searchTerm={newState.search.q}
             />
           </div>
         </div>
