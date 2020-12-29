@@ -9,10 +9,12 @@ const CtaCArd = (props) => {
         <p className="">{props.description}</p>
       </div>
       <div className="col--2">
-        {props.email ? (
+        {props.type === 'email' ? (
           <a href={`mailto:${props.url}`}>{props.linkText}</a>
         ) : (
-          <a href={props.url}>{props.linkText}</a>
+          <a href={props.url} target="_blank">
+            {props.linkText}
+          </a>
         )}
       </div>
     </div>

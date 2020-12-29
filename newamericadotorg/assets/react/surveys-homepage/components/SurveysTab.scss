@@ -20,7 +20,6 @@
       padding-right: 0;
       margin-top: 57px;
       margin-right: 5%;
-      border-bottom: 1px solid color(black, base, 0.3);
     }
     &.is-open {
       max-height: 300vh;
@@ -34,6 +33,18 @@
   &__open-mobile-filter {
     padding: 0 0 5px 0;
     border-bottom: 1px solid color(black, base, 0.3);
+    @include media-breakpoint(tablet) {
+      display: none;
+    }
+  }
+  .d-xs-none {
+    display: none;
+    @include media-breakpoint(tablet) {
+      display: block;
+    }
+  }
+  .d-sm-none {
+    display: block;
     @include media-breakpoint(tablet) {
       display: none;
     }

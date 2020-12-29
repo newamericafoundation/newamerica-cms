@@ -11,31 +11,42 @@
     font-weight: 100;
     line-height: 19px;
     color: color(black);
+    font-family: $label-font-family;
   }
   &--email a {
     text-decoration: underline;
     font-family: $label-font-family;
   }
   &--link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 130px;
-    .col--1 {
-      width: 70%;
+    @include media-breakpoint(tablet) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .col--1 {
+        width: 50%;
+      }
+      .col--2 {
+        width: 30%;
+        margin-left: 20%;
+      }
     }
-    .col--2 {
-      width: 30%;
-    }
+
     a {
       width: 100%;
+      max-width: 220px;
       display: block;
+      margin: 25px auto 0 auto;
       padding: 20px;
       text-align: center;
       font-weight: 700;
       font-family: $paragraph-font-family;
       font-size: 18px;
       background: color(turquoise);
+      @include media-breakpoint(tablet) {
+        max-width: none;
+        margin-top: 0;
+      }
     }
     p {
       margin-bottom: 0;
