@@ -1,28 +1,41 @@
-@import '~font-awesome/scss/variables';
-$fa-font-path: '#{$extra-static}/fonts';
-@import '~font-awesome/scss/mixins';
-@import '~font-awesome/scss/path';
-@import '~font-awesome/scss/core';
-
 .surveys-tab {
-  background: #f7f4f2;
+  background: color(beige);
   @include media-breakpoint(tablet) {
-    display: flex;
     margin-left: -15px;
     margin-right: -15px;
   }
-  &__sidebar {
+  &__inner {
     @include media-breakpoint(tablet) {
+      display: flex;
+    }
+  }
+
+  &__sidebar {
+    max-height: 0;
+    overflow: hidden;
+    @include transition(max-height 0.8s ease);
+    @include media-breakpoint(tablet) {
+      max-height: none;
       width: 25%;
       padding-right: 0;
       margin-top: 57px;
       margin-right: 5%;
-      border-top: 1px solid #979797;
+      border-bottom: 1px solid color(black, base, 0.3);
+    }
+    &.is-open {
+      max-height: 300vh;
     }
   }
   &__results {
     @include media-breakpoint(tablet) {
       width: 70%;
+    }
+  }
+  &__open-mobile-filter {
+    padding: 0 0 5px 0;
+    border-bottom: 1px solid color(black, base, 0.3);
+    @include media-breakpoint(tablet) {
+      display: none;
     }
   }
 }

@@ -39,7 +39,7 @@ class TeaserListing extends Component {
     );
   };
   render() {
-    const { checkedValues } = this.props;
+    const { checkedValues, searchTerm } = this.props;
     const { isExpanded, sortBy, sortOptions, maxRange } = this.state;
 
     let _data = this.props.data;
@@ -180,6 +180,27 @@ class TeaserListing extends Component {
         }
 
         return false;
+      })
+      .filter((row) => {
+        if (row.month) {
+          row.monthString = format(
+            new Date(row['year'], row['month'], 1),
+            'MMM'
+          );
+        }
+        const columns = Object.keys(row).filter((item) => {
+          if (
+            item === 'title' ||
+            item === 'description' ||
+            item === 'year' ||
+            item === 'monthString'
+          ) {
+            return true;
+          }
+        });
+        return columns.some((column) =>
+          row[column].toString().toLowerCase().includes(searchTerm)
+        );
       })
       .sort((a, b) => {
         if (sortBy.value === 'asc') {

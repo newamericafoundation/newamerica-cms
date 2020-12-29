@@ -15,33 +15,8 @@ import ContentMenu from './components/ContentMenu';
 import Attachments from './components/Attachments';
 import FeaturedSections from './components/FeaturedSections';
 import Authors from './components/Authors';
-import BasicHeader from '../surveys-homepage/components/BasicHeader';
-import Tabs from '../components/Tabs';
-import Tab from '../components/Tab';
-import AboutTab from '../surveys-homepage/components/AboutTab';
-import SurveysTab from '../surveys-homepage/components/SurveysTab';
-
-const surveyData = require('./surveyData.json');
 
 const SinglePage = ({ report, dispatch, location }) => (
-  <div className={`report report--polling-dashboard single-page`}>
-    <div className="container">
-      <BasicHeader report={report} />
-
-      <Tabs>
-        <Tab title={'Survey Reports'}>
-          <SurveysTab data={surveyData} />
-        </Tab>
-        <Tab title={'About'}>
-          <AboutTab report={report} />
-        </Tab>
-      </Tabs>
-    </div>
-  </div>
-);
-
-// @todo: rename this to SinglePage once Survey Landing Page is created
-const SinglePageTempUnused = ({ report, dispatch, location }) => (
   <div className={`report single-page`}>
     <Heading report={report} />
 
