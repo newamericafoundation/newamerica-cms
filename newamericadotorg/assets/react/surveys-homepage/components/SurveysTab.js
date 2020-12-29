@@ -168,7 +168,7 @@ class SurveysTab extends React.Component {
                 },
                 {
                   checked: false,
-                  label: '3+ years ago',
+                  label: '2+ years ago',
                   id: 'dateFive',
                 },
               ]}
