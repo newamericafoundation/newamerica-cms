@@ -11,7 +11,10 @@ class TeaserListing extends Component {
   }
   state = {
     isExanded: false,
-    sortBy: {},
+    sortBy: {
+      title: 'Most Recent',
+      value: 'recent',
+    },
     maxRange: 20,
     isLoading: false,
     sortOptions: [
@@ -20,9 +23,7 @@ class TeaserListing extends Component {
       { title: 'Title (Z-A)', value: 'asc' },
     ],
   };
-  componentDidMount() {
-    this.setState({ sortBy: this.state.sortOptions[0] });
-  }
+
   loadMore = () => {
     this.setState(
       {
@@ -99,7 +100,7 @@ class TeaserListing extends Component {
           return dateRange[k] === false;
         });
 
-        if ((dateRange.five && monthDiff >= 36) || unfilter) {
+        if ((dateRange.dateFive && monthDiff >= 24) || unfilter) {
           return true;
         }
 
@@ -184,7 +185,7 @@ class TeaserListing extends Component {
       .filter((row) => {
         if (row.month) {
           row.monthString = format(
-            new Date(row['year'], row['month'], 1),
+            new Date(row['year'], row['month'] - 1, 1),
             'MMM'
           );
         }
@@ -275,7 +276,7 @@ class TeaserListing extends Component {
               </div>
               <div className="col-sm-3 teaser-listing__item-date">
                 {format(
-                  new Date(item.year, item.month, 1),
+                  new Date(item.year, item.month - 1, 1),
                   item.month ? 'MMM yyyy' : 'yyy'
                 )}
               </div>

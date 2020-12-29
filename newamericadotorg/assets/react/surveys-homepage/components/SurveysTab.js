@@ -1,8 +1,9 @@
 import React from 'react';
 import CheckboxGroup from './CheckboxGroup';
 import TeaserListing from './TeaserListing';
-import './SurveysTab.scss';
+import CtaCard from '../../components/CtaCard';
 import Search from './Search';
+import './SurveysTab.scss';
 
 class SurveysTab extends React.Component {
   constructor(props) {
@@ -167,7 +168,7 @@ class SurveysTab extends React.Component {
                 },
                 {
                   checked: false,
-                  label: '3+ years ago',
+                  label: '2+ years ago',
                   id: 'dateFive',
                 },
               ]}
@@ -245,6 +246,15 @@ class SurveysTab extends React.Component {
                 this.onFilterChange('national', filterState)
               }
             />
+            <div className="margin-top-25 d-xs-none">
+              <CtaCard
+                type="email"
+                title="Call for Submissions"
+                description="Know of a survey report that should be added to our list?"
+                url="nguyens@newamerica.org"
+                linkText="Send us an email today."
+              />
+            </div>
           </div>
           <div className="surveys-tab__results">
             <TeaserListing
@@ -252,6 +262,24 @@ class SurveysTab extends React.Component {
               checkedValues={newState}
               searchTerm={newState.search.q}
             />
+            <div className="margin-top-60">
+              <div className="d-sm-none margin-bottom-10">
+                <CtaCard
+                  type="email"
+                  title="Call for Submissions"
+                  description="Know of a survey report that should be added to our list?"
+                  url="nguyens@newamerica.org"
+                  linkText="Send us an email today."
+                />
+              </div>
+              <CtaCard
+                type="link"
+                title="Love all this insight?"
+                description="Subscribe to our newsletter to receive updates on what’s new in Education Policy."
+                url="https://www.newamerica.org/education-policy/higher-education/subscribe/"
+                linkText="Subscribe"
+              />
+            </div>
           </div>
         </div>
       </div>
