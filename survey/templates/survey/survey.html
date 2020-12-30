@@ -106,6 +106,7 @@
                   </div>
                   {% for item in commentary %}
                     <div class="margin-bottom-0 survey-page__commentary card">
+                      <a href="{{ item.url }}" class="card__link" aria-label="{{ card.title }}"></a>
                       {% for block in item.body %}
                         {% if block.block_type == 'image' %}
                           <div class="card__image fade-in-image" onload="this.classList.add('loaded');">
@@ -115,7 +116,6 @@
                       {% endfor %}
 
                       <div class="card__text">
-                        <a href="{{ item.url }}">
                           <h6 class="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">
                             {{ item.date|date:"M. jS, Y"}}
                           </h6>
@@ -138,7 +138,7 @@
                           <h6 class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">
                             {{ item|model_display_name }}
                           </h6>
-                        </a>
+
                       </div>
                     </div>
                   {% endfor %}

@@ -15,12 +15,21 @@
       margin-bottom: 0;
     }
   }
-  &__link {
-    display: block;
-  }
   .card {
+    position: relative;
     display: flex;
     align-items: center;
+    &:hover {
+      .card__text__title {
+        text-decoration: underline;
+        text-decoration-color: color(turquoise);
+        display: inline;
+        background-image: linear-gradient(90deg, #2ebcb3 100%, transparent 0);
+        background-position: 0 1.04em;
+        background-repeat: repeat-x;
+        background-size: 100% 2px;
+      }
+    }
   }
   .card__image {
     background: color(white);
@@ -53,6 +62,14 @@
   }
   .card__text__authors u {
     font-weight: 100;
+  }
+  .card__link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
   }
   .separator {
     margin: 0 0 0 -2px;
