@@ -120,7 +120,7 @@
                             {{ item.date|date:"M. jS, Y"}}
                           </h6>
                           <h4 class="card__text__title margin-top-0 margin-bottom-10">
-                            {{ item.title }}
+                            <u>{{ item.title }}</u>
                           </h4>
                           {% for block in item.body %}
                             {% if block.block_type == 'introduction' %}
