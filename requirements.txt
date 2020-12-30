@@ -35,3 +35,8 @@ sentry-sdk==0.14.1
 
 # Development packages
 Faker==4.0.1
+
+# Migration related packages
+gspread==3.6.0
+oauth2client==4.1.3
+google-api-python-client==1.12.8
