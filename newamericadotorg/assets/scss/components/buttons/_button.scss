@@ -23,6 +23,17 @@ button {
 	padding-right: 25px;
 }
 
+.button-secondary {
+	display: block;
+	padding: 20px;
+	text-align: center;
+	font-weight: 700;
+	font-family: $paragraph-font-family;
+	font-size: 18px;
+	color: color(black);
+	background: color(turquoise);
+}
+
 .button.with-caret--left:before {
 	content: ' ';
 	position: relative;

@@ -1,49 +1,153 @@
 {% extends 'base.html' %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
 
 {% block body_id %}na-survey{% endblock %}
 
-{% block header %}{% endblock %}
+
 {% block content %}
+  {% block breadcrumbs %}
+    {% include 'components/breadcrumbs.html' %}
+  {% endblock %}
+  <main class="survey-page container margin-35 margin-lg-80">
+    <div class="row gutter-30">
+      <aside class="post__social col-md-6 col-lg-2 margin-bottom-15">
+        {% block post_left_aside %}
+        {% include 'components/post_share.html' %}
+        {% endblock %}
+      </aside>
+      <div class="col-lg-8 margin-bottom-25">
+        <div class="post-body-wrapper">
+          <div class="margin-bottom-60">
+            {% include 'components/post_heading_text.html' %}
+          </div>
 
-  <div style="margin: 4rem 2rem">
-    <h2 style="border-bottom: 3px black solid">Survey Title: {{page.study_title}}</h2>
-    {% with orgs=page.org.all %}
-      {% if orgs %}
-        {% for org in orgs %}
-          <h3>Organization: {{org.title}}</h3>  
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    {% with years=page.year.all%}
-      {% if years %}
-        {% for year in years %}
-    <h3>Date:{% if page.month%}{{page.month}} / {% endif %}{{year.title}}</h3>  
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    <h3>Sample Size: {{page.sample_number}} </h3>  
-    {% with demos=page.demos_key.all %}
-      {% if demos %}
-        <h3>Demographics: </h3>  
-        {% for demo in demos%}
-          <li style="padding-left: 40px; margin: 1rem 0;"> {{demo.title}}</li>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    <h3>Key Findings:</h3>  
-    <p> {{page.findings|richtext}} </p>  
-    {% if page.link or page.file %}
-    <h3>Downloads</h3>
-    <br>
-      {% if page.link %}
-        <a href={{page.link}}>Link</a>
-      {% endif %}
-      {% if page.file %}
-        <a href='https://docs.google.com/viewer?url='+{{page.file}}>File</a>
-      {% endif %}
-    {% endif %}
-  </div>
+          <article class="post-body">
 
+            <div class="margin-bottom-35">
+              {% with orgs=page.org.all %}
+                {% if orgs %}
+                  <div class="post__byline margin-bottom-15">
+                    <span>By&nbsp;</span>
+                    {% for org in orgs %}
+                      <h4 class="inline margin-0">
+                        <u>{{ org.title }}</u>
+                      </h4>
+                      {% if forloop.counter == orgs|length|add:"-1" and orgs|length > 2 %}
+                        <h4 class="separator inline">, and&nbsp;</h4>
+                      {% elif forloop.counter == orgs|length|add:"-1" %}
+                        <h4 class="inline">&nbspand&nbsp;</h4>
+                      {% elif forloop.counter != orgs|length %}
+                        <h4 class="separator inline">,&nbsp;</h4>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              {% endwith %}
+              <h6 class="post-body__date margin-top-0">
+                {% if page.month %}
+                  {{ page.month }}.
+                {% endif %}
+                {{ page.year }}
+              </h6>
+            </div>
+
+            <div class="margin-bottom-60">
+              <div class="margin-bottom-15">
+                <span>Sample Size:</span>
+                {{ page.sample_number }}
+              </div>
+              <div class="">
+                {% with demos=page.demos_key.all %}
+                  {% if demos %}
+                    <span>Demographics:&nbsp;</span>
+                    {% for demo in demos %}
+                      {{ demo.title }}
+                      {% if forloop.counter == demos|length|add:"-1" and demos|length > 2 %}
+                        <span class="separator inline">, and&nbsp;</span>
+                        {% elif forloop.counter == demos|length|add:"-1" %}
+                        <span class="inline">&nbspand&nbsp;</span>
+                        {% elif forloop.counter != demos|length %}
+                        <span class="separator inline">,&nbsp;</span>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+              </div>
+            </div>
+
+            <div class="margin-bottom-35">
+              <h3 class="margin-bottom-35 margin-top-0">Top Findings:</h3>
+              {{ page.findings|richtext }}
+            </div>
+
+            <div class="survey-page__links margin-bottom-60">
+              {% if page.file %}
+                <a class="button-secondary" href='https://docs.google.com/viewer?url='+{{page.file}}>
+                  <i class="fa fa-download"></i>
+                  Download Report
+                </a>
+              {% endif %}
+              {% if page.link %}
+                <a class="survey-page__link" href={{ page.link }}>View Survey Report on Source Website</a>
+              {% endif %}
+            </div>
+
+            <div class="survey-page__commentary-list">
+              {% with commentary=page.assoc_commentary.all %}
+                {% if commentary %}
+                  <div class="section-separator">
+                    <div class="section-separator__text">
+                      <h6 class="inline margin-0">Related Insights & Analysis</h6>
+                    </div>
+                    <div class="section-separator__line"></div>
+                  </div>
+                  {% for item in commentary %}
+                    <div class="margin-bottom-0 survey-page__commentary card">
+                      {% for block in item.body %}
+                        {% if block.block_type == 'image' %}
+                          <div class="card__image fade-in-image" onload="this.classList.add('loaded');">
+                            {% include_block block %}
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+
+                      <div class="card__text">
+                        <a href="{{ item.url }}">
+                          <h6 class="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">
+                            {{ item.date|date:"M. jS, Y"}}
+                          </h6>
+                          <h4 class="card__text__title margin-top-0 margin-bottom-10">
+                            {{ item.title }}
+                          </h4>
+                          {% for block in item.body %}
+                            {% if block.block_type == 'introduction' %}
+                              <div class="card__text__excerpt margin-top-5 margin-bottom-0">
+                                {% include_block block %}
+                              </div>
+                            {% endif %}
+                          {% endfor %}
+
+                          <div class="card__text__authors margin-top-5 margin-bottom-0">
+                            <h6 class="inline margin-0">By </h6>
+                            {% generate_byline item|model_name item.authors.all %}
+                          </div>
+
+                          <h6 class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">
+                            {{ item|model_display_name }}
+                          </h6>
+                        </a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </main>
 {% endblock%}

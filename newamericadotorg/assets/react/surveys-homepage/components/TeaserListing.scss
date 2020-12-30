@@ -8,6 +8,7 @@
 }
 .teaser-listing {
   font-family: $label-font-family;
+  cursor: pointer;
 
   &__header {
     display: flex;
