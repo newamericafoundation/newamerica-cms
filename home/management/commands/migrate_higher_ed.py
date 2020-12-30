@@ -11,8 +11,9 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from django.core.files.temp import NamedTemporaryFile
 from django.core.files import File
-from urllib.request import urlopen
-import hashlib
+from apiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+import io
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('./creds.json', scope)
@@ -22,15 +23,6 @@ data = json.loads(raw_data)
 
 class Command(BaseCommand):
   def handle(self, *args, **options):
-    # survey = Survey.objects.get(title='How COVID-19 Made Higher Education Value a Top Priority')
-
-      # tags = ['career readiness', 'affordability']
-      # for tag in tags:
-      #   survey_tag = SurveyTags.objects.get(title=tag)
-      #   print(survey_tag.pk)
-      #   survey.tags.add(survey_tag)
-      #   survey.save()
-      # # print(survey.tags.values_list('title', flat=True))
     scaffold()
 
 def scaffold():
@@ -85,7 +77,7 @@ def addSurveys(home: SurveysHomePage):
       # Load the survey object.
       child = Survey.objects.get(title=survey['Study Title'])
 
-      # addSurveyFile(child, survey, is_file)
+      addSurveyFile(child, survey, is_file)
       addSurveyTags(child, survey)
       addSurveyOrgs(child, survey)
       addSurveyDemos(child, survey)
@@ -114,6 +106,7 @@ def addOrgs(index):
       index.add_child(instance=SurveyOrganization(title=org))
       known_orgs.append(org)
     else:
+      print('Skipped org:%s' % org)
       continue
 
 def addTags(index):
@@ -135,10 +128,9 @@ def addSurveyDemos(survey, survey_data):
     survey.demos_key.add(survey_demo)
 
 def addSurveyOrgs(survey, survey_data):
-  orgs = parse_list(survey_data['Organization'], ',')
-  for org in orgs:
-    survey_org = SurveyOrganization.objects.get(title=org.strip())
-    survey.org.add(survey_org)
+  org = survey_data['Organization']
+  survey_org = SurveyOrganization.objects.get(title=org.strip())
+  survey.org.add(survey_org)
 
 def addSurveyTags(survey, survey_data):
   tags = parse_list(survey_data['Tags'], ',')
@@ -148,15 +140,25 @@ def addSurveyTags(survey, survey_data):
 
 def addSurveyFile(survey, data, is_file):
   if is_file:
-    # Download file and add to Survey.
+    # Create Google Drive API service.
+    service = build('drive', 'v3', credentials=credentials)
+    # Get file id.
     file_id = getFileId(data['download'])
-    file_url = getDownloadUrl(file_id)
-    # Generate a unique filename based on a sha1 hash of the download url.
-    # Obtaining the actual filename as stored in GDrive requires using Google Drive API
-    # which if included would bloat the requirements for the project for a one-time migration.
-    filename_hash = hashlib.sha1(data['download'].encode())
-    temp_file = createTempFile(file_url)
-    survey.file.save("%s.pdf" % filename_hash.hexdigest(), File(temp_file))
+    # Get filename from API.
+    meta = service.files().get(fileId=file_id).execute()
+    filename = meta['name']
+    # Download file to temp location.
+    request = service.files().get_media(fileId=file_id)
+    fh = io.FileIO('/tmp/%s' % filename, 'wb')
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+      status, done = downloader.next_chunk()
+      print("Download %d%%." % int(status.progress() * 100))
+    # Open the file.
+    f = open('/tmp/%s' % filename, 'rb')
+    # Save file to model.
+    survey.file.save(filename, File(f))
   else:
     survey.file = None
 
@@ -169,26 +171,16 @@ def getPageId(title: str):
   item = Page.objects.get(title=title)
   return item.id
 
-def createTempFile(file_url: str):
-  # Download the file to a tmp location.
-  file_temp = NamedTemporaryFile(delete = True)
-  file_temp.write(urlopen(file_url).read())
-  file_temp.flush()
-  return file_temp
-
 def getFileId(url: str):
   regex = "([\w-]){33}|([\w-]){19}"
   return re.search(regex,url).group()
-
-def getDownloadUrl(file_id: str):
-  return 'https://drive.google.com/uc?export=download&id=%s' % file_id
 
 # Get data from google sheet.
 def getSurveys():
   surveys = []
   for survey in data:
     surveys.append(survey)
-  return surveys[0:4]
+  return surveys
 
 def getTags():
   tags = []
