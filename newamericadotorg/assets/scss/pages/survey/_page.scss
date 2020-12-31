@@ -19,17 +19,6 @@
     position: relative;
     display: flex;
     align-items: center;
-    &:hover {
-      .card__text__title {
-        text-decoration: underline;
-        text-decoration-color: color(turquoise);
-        display: inline;
-        background-image: linear-gradient(90deg, #2ebcb3 100%, transparent 0);
-        background-position: 0 1.04em;
-        background-repeat: repeat-x;
-        background-size: 100% 2px;
-      }
-    }
   }
   .card__image {
     background: color(white);
@@ -47,6 +36,13 @@
     @include media-breakpoint(tablet) {
       padding: 25px;
     }
+    text-decoration: underline;
+    text-decoration-color: color(turquoise);
+    display: inline;
+    background-image: linear-gradient(90deg, #2ebcb3 100%, transparent 0);
+    background-position: 0 1.04em;
+    background-repeat: repeat-x;
+    background-size: 100% 2px;
   }
   .card__text p {
     font-size: 15px;

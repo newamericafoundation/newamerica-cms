@@ -84,8 +84,8 @@
             </div>
 
             <div class="survey-page__links margin-bottom-60">
-              {% if page.file %}
-                <a class="button-secondary" href='https://docs.google.com/viewer?url='+{{page.file}}>
+              {% if page.file.url %}
+                <a class="button-secondary" href={{page.file.url}} target="_blank">
                   <i class="fa fa-download"></i>
                   Download Report
                 </a>

@@ -5,10 +5,13 @@
   padding: 25px 15px;
   background: color(white);
   border-left: 10px solid color(turquoise);
-  min-height: 136px;
   cursor: pointer;
-  &:hover {
-    .card__title {
+  .card__title {
+    font-weight: 800;
+    font-family: $label-font-family;
+    transition: color 0.15s ease;
+    margin: 0;
+    &:hover {
       text-decoration: underline;
       text-decoration-color: color(turquoise);
       display: inline;
@@ -17,12 +20,6 @@
       background-repeat: repeat-x;
       background-size: 100% 2px;
     }
-  }
-  .card__title {
-    font-weight: 800;
-    font-family: $label-font-family;
-    transition: color 0.15s ease;
-    margin: 0;
   }
   .card__description {
     margin: 20px 0 0 0;
