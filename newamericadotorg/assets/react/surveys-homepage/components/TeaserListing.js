@@ -264,7 +264,7 @@ class TeaserListing extends Component {
             >
               <div className="col-sm-9">
                 <h4 className="teaser-listing__item-title">
-                  {item.title}
+                  <u>{item.title}</u>
                 </h4>
                 {item.description && (
                   <div

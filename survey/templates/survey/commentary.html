@@ -25,7 +25,7 @@
               {% for item in surveys %}
                 <a href="{{ item.url }}" class="card--accent card margin-bottom-10">
                   <h4 class="card__title">
-                    {{ item.title }}
+                    <u>{{ item.title }}</u>
                   </h4>
                   <div class="card__description">
                     {{ item.description|richtext }}
