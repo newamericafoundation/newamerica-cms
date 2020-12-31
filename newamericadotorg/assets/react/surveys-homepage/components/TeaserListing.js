@@ -185,7 +185,7 @@ class TeaserListing extends Component {
       .filter((row) => {
         if (row.month) {
           row.monthString = format(
-            new Date(row['year'], row['month'] - 1, 1),
+            new Date(row.year, row.month - 1, 1),
             'MMM'
           );
         }
@@ -199,8 +199,9 @@ class TeaserListing extends Component {
             return true;
           }
         });
+
         return columns.some((column) =>
-          row[column].toString().toLowerCase().includes(searchTerm)
+          row[column] !== null && row[column].toString().toLowerCase().includes(searchTerm)
         );
       })
       .sort((a, b) => {
@@ -276,7 +277,7 @@ class TeaserListing extends Component {
               </div>
               <div className="col-sm-3 teaser-listing__item-date">
                 {format(
-                  new Date(item.year, item.month - 1, 1),
+                  new Date(item.year, item.month && item.month -1, 1),
                   item.month ? 'MMM yyyy' : 'yyy'
                 )}
               </div>
