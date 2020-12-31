@@ -124,14 +124,9 @@
                             <u>{{ item.title }}</u>
                             </a>
                           </h4>
-                          {% for block in item.body %}
-                            {% if block.block_type == 'introduction' %}
-                              <div class="card__text__excerpt margin-top-5 margin-bottom-0">
-                                {% include_block block %}
-                              </div>
-                            {% endif %}
-                          {% endfor %}
-
+                          <div class="card__text__excerpt margin-top-5 margin-bottom-0">
+                            {{item.subheading}}
+                          </div>
                           <div class="card__text__authors margin-top-5 margin-bottom-0">
                             <h6 class="inline margin-0">By </h6>
                             {% generate_byline item|model_name item.authors.all %}
