@@ -36,6 +36,14 @@
     @include media-breakpoint(tablet) {
       padding: 25px;
     }
+  }
+  .card__text p {
+    font-size: 15px;
+    line-height: 19px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  .card__text__title:hover u {
     text-decoration: underline;
     text-decoration-color: color(turquoise);
     display: inline;
@@ -43,12 +51,6 @@
     background-position: 0 1.04em;
     background-repeat: repeat-x;
     background-size: 100% 2px;
-  }
-  .card__text p {
-    font-size: 15px;
-    line-height: 19px;
-    margin-top: 0;
-    margin-bottom: 10px;
   }
   .card__text__excerpt {
     display: none;
@@ -58,14 +60,6 @@
   }
   .card__text__authors u {
     font-weight: 100;
-  }
-  .card__link {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 1;
   }
   .separator {
     margin: 0 0 0 -2px;

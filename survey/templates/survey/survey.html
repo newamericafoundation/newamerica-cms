@@ -106,7 +106,7 @@
                   </div>
                   {% for item in commentary %}
                     <div class="margin-bottom-0 survey-page__commentary card">
-                      <a href="{{ item.url }}" class="card__link" aria-label="{{ card.title }}"></a>
+
                       {% for block in item.body %}
                         {% if block.block_type == 'image' %}
                           <div class="card__image fade-in-image" onload="this.classList.add('loaded');">
@@ -120,7 +120,9 @@
                             {{ item.date|date:"M. jS, Y"}}
                           </h6>
                           <h4 class="card__text__title margin-top-0 margin-bottom-10">
+                            <a href="{{ item.url }}" class="">
                             <u>{{ item.title }}</u>
+                            </a>
                           </h4>
                           {% for block in item.body %}
                             {% if block.block_type == 'introduction' %}
