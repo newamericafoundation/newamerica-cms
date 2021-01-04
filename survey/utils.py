@@ -1,5 +1,5 @@
 MONTH_CHOICES = (
-  ('N/A', 'N/A'),
+  (None, 'N/A'),
   ('Jan', 'January'),
   ('Feb', 'February'),
   ('Mar', 'March'),
