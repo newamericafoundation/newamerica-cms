@@ -140,7 +140,7 @@ class Survey(Post):
     template = 'survey/survey.html' 
     parent_page_types = ['SurveysHomePage']
 
-    description = RichTextField(blank=True, null=True, max_length=500, help_text='A brief description of the survey. 500 chars max')
+    description = models.CharField(blank=True, null=True, max_length=500, help_text='A brief description of the survey. 500 chars max')
     org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True, verbose_name='Organization')
     year = models.IntegerField(help_text='Year Survey was conducted.', blank=True, default=2000)
     month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was conducted, if applicable.')
@@ -176,6 +176,11 @@ class Survey(Post):
         FieldPanel('file')
       ])
     ]
+    class Meta:
+      verbose_name = 'Survey Reports'
+
+    def __str__(self):
+        return self.title
 
 class Commentary(Post):
   template = 'survey/commentary.html'
