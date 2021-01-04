@@ -143,7 +143,7 @@ class Survey(Post):
     description = models.CharField(blank=True, null=True, max_length=500, help_text='A brief description of the survey. 500 chars max')
     org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True, verbose_name='Organization')
     year = models.IntegerField(help_text='Year Survey was conducted.', blank=True, default=2000)
-    month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was conducted, if applicable.')
+    month = models.CharField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was conducted, if applicable.', max_length=3, blank=True, null=True)
     sample_number = models.IntegerField(blank=True, null=True)
     demos_key = ParentalManyToManyField('DemographicKey', help_text='Indexable demographic groups', blank=True, default=False, verbose_name='Demographics Keys')
     findings = RichTextField(blank=True, null=True, max_length=12500)

@@ -65,7 +65,7 @@ def addSurveys(home: SurveysHomePage):
         slug=slug,
         date=date,
         year=survey['Year'],
-        month=0,
+        month=None,
         sample_number=survey['sample_number'],
         data_type = ['QUANT', 'QUAL'],
         findings = survey['Top findings directly from the report'],

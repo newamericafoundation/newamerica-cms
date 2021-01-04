@@ -9,7 +9,7 @@ class SurveyHomeSerializer(ModelSerializer):
 
     class Meta:
         model = Subprogram
-        fields = ['id', 'title', 'survey_home_page', 'seo_title', 'name', 'url_path', 'description']
+        fields = ['id', 'title', 'survey_home_page', 'seo_title', 'name', 'url_path']
 
     def get_survey_home_page(self, obj):
         return get_survey_homepage(obj)
@@ -21,7 +21,7 @@ class SurveysHomePageSerializer(ModelSerializer):
 
     class Meta:
         model = SurveysHomePage
-        fields = ['id', 'title', 'url_path', 'about', 'methodology', 'page_author', 'surveys', 'partner_logo']
+        fields = ['id', 'title', 'url_path', 'about', 'methodology', 'page_author', 'surveys', 'partner_logo', 'subheading']
         depth = 1
     def get_surveys(self, obj):
         return get_surveys_detail(obj)
