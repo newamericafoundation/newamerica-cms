@@ -36,11 +36,11 @@
                         <u>{{ org.title }}</u>
                       </h4>
                       {% if forloop.counter == orgs|length|add:"-1" and orgs|length > 2 %}
-                        <h4 class="separator inline">, and&nbsp;</h4>
+                        <span class="separator inline">, and&nbsp;</span>
                       {% elif forloop.counter == orgs|length|add:"-1" %}
-                        <h4 class="inline">&nbspand&nbsp;</h4>
+                        <span class="separator inline">&nbspand&nbsp;</span>
                       {% elif forloop.counter != orgs|length %}
-                        <h4 class="separator inline">,&nbsp;</h4>
+                        <span class="separator inline">,&nbsp;</span>
                       {% endif %}
                     {% endfor %}
                   </div>
@@ -105,7 +105,7 @@
                     <div class="section-separator__line"></div>
                   </div>
                   {% for item in commentary %}
-                    <div class="margin-bottom-0 survey-page__commentary card">
+                    <div class="margin-bottom-0 survey-page__commentary">
 
                       {% for block in item.body %}
                         {% if block.block_type == 'image' %}
