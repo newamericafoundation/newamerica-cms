@@ -9,9 +9,11 @@
 .checkbox-group {
   border-bottom: 1px solid color(black, base, 0.3);
   padding: 24px 0;
-  overflow-y: scroll;
   overflow-x: hidden;
-  max-height: 425px;
+  &--is-open {
+    overflow-y: scroll;
+    max-height: 425px;
+  }
 
   &__title {
     display: flex;

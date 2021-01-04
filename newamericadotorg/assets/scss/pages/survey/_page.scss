@@ -1,4 +1,8 @@
 .survey-page {
+  .post__byline .separator {
+    font-weight: 100;
+    margin-left: -2px;
+  }
   &__links {
     display: block;
     @include  media-breakpoint(tablet) {
