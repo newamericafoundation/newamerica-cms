@@ -30,12 +30,20 @@ class CheckboxGroup extends React.Component {
   render() {
     const { isOpen } = this.state;
     const { options, title } = this.props;
-    const _options = options.filter((item) => {
-      return item.id !== 'isOpen';
-    });
+    const _options = options
+      .filter((item) => {
+        return item.id !== 'isOpen';
+      })
+      .sort((a, b) => {
+        return a.label.localeCompare(b.label);
+      });
 
     return (
-      <div className="checkbox-group">
+      <div
+        className={`checkbox-group ${
+          isOpen && 'checkbox-group--is-open'
+        }`}
+      >
         <span
           className={`${
             isOpen ? 'margin-bottom-25' : ''
