@@ -278,7 +278,7 @@ class TeaserListing extends Component {
                 )}
               </div>
               <div className="col-sm-3 teaser-listing__item-date">
-                {item.month > 0 && item.month} {item.year}
+                {item.month !== '0' ? item.month : ''} {item.year}
               </div>
             </a>
           ))}
