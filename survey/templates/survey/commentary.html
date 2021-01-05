@@ -5,7 +5,13 @@
 
 {% block content %}
   {% block breadcrumbs %}
-    {% include 'components/breadcrumbs.html' %}
+    {% with a=self.get_ancestors %}
+      <div class="container margin-top-25 breadcrumb">
+        <h6 class="link with-caret--left">
+          <a href="{{ a.3.url }}"><u>{{a.3.title}}</u></a>
+        </h6>
+      </div>
+    {% endwith %}
   {% endblock %}
   {% include 'components/post_main.html' %}
 

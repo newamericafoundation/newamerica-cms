@@ -15,8 +15,7 @@ const BasicHeader = (props) => {
           {data.title || 'HigherEd Polling Dashboard'}
         </h1>
         <h6 className="basic-header__subtitle margin-top-25 margin-bottom-0">
-          {data.description ||
-            'A collection of reports, insights, and analyses exploring topics within Higher Education. Created for Researchers, Journalists, and the general public who have an interest understanding public opinion on Higher Education issues.'}
+          {data.survey_home_page.subheading}
         </h6>
       </div>
     </div>

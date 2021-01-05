@@ -16,12 +16,6 @@ const AboutTab = (props) => {
       </a>
     </p>
     `;
-  const logo = `
-    <img
-      src="https://www.gavi.org/sites/default/files/investing/funding/donor-contributions-pledges/bmgf-topspace2.png"
-      alt=""
-    />
-  `;
 
   return (
     <div className="surveys-about-tab">
@@ -30,8 +24,13 @@ const AboutTab = (props) => {
         body={survey_home_page.about}
       />
       <Body title="Methodology" body={survey_home_page.methodology} />
-      <Body title="Submit a Report" body={submitReport} />
-      <Body title="Made Possible By" body={logo} />
+      <Body
+        title="Submit a Report"
+        body={survey_home_page.submissions}
+      />
+      <Body title="Made Possible By" body="">
+        <img src={survey_home_page.partner_logo} alt="Partner" />
+      </Body>
       <Body title="Authors" body="">
         <Authors authors={survey_home_page.page_author} md={true} />
       </Body>

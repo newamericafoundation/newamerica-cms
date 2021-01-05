@@ -58,13 +58,14 @@ class SurveysHomePage(AbstractContentPage):
     )
     subheading = models.CharField(max_length=200, blank=True)
     methodology = RichTextField(max_length = 1500, blank=True)
-
+    submissions = RichTextField(blank=True, null=True, max_length=500)
     content_panels = [
       FieldPanel('title'),
       FieldPanel('subheading'),
       MultiFieldPanel([
         FieldPanel('about'),
         FieldPanel('methodology'),
+        FieldPanel('submissions'),
         InlinePanel('authors', label="Authors"),
         ImageChooserPanel('partner_logo'),
       ], heading='About Page')
@@ -140,10 +141,10 @@ class Survey(Post):
     template = 'survey/survey.html' 
     parent_page_types = ['SurveysHomePage']
 
-    description = RichTextField(blank=True, null=True, max_length=500, help_text='A brief description of the survey. 500 chars max')
+    description = models.CharField(blank=True, null=True, max_length=500, help_text='A brief description of the survey. 500 chars max')
     org = ParentalManyToManyField('SurveyOrganization', related_name='SurveyOrganization', blank=True, verbose_name='Organization')
     year = models.IntegerField(help_text='Year Survey was conducted.', blank=True, default=2000)
-    month = models.IntegerField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was conducted, if applicable.')
+    month = models.CharField(choices=MONTH_CHOICES, default=None, help_text='Month Survey was conducted, if applicable.', max_length=3, blank=True, null=True)
     sample_number = models.IntegerField(blank=True, null=True)
     demos_key = ParentalManyToManyField('DemographicKey', help_text='Indexable demographic groups', blank=True, default=False, verbose_name='Demographics Keys')
     findings = RichTextField(blank=True, null=True, max_length=12500)
@@ -176,6 +177,11 @@ class Survey(Post):
         FieldPanel('file')
       ])
     ]
+    class Meta:
+      verbose_name = 'Survey Reports'
+
+    def __str__(self):
+        return self.title
 
 class Commentary(Post):
   template = 'survey/commentary.html'

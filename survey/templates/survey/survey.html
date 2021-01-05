@@ -6,10 +6,15 @@
 
 {% block body_id %}na-survey{% endblock %}
 
-
 {% block content %}
   {% block breadcrumbs %}
-    {% include 'components/breadcrumbs.html' %}
+    {% with a=self.get_ancestors %}
+      <div class="container margin-top-25 breadcrumb">
+        <h6 class="link with-caret--left">
+          <a href="{{ a.3.url }}"><u>{{a.3.title}}</u></a>
+        </h6>
+      </div>
+    {% endwith %}
   {% endblock %}
   <main class="survey-page container margin-35 margin-lg-80">
     <div class="row gutter-30">
@@ -59,7 +64,7 @@
                 <span>Sample Size:</span>
                 {{ page.sample_number }}
               </div>
-              <div class="">
+              <div class="margin-bottom-15">
                 {% with demos=page.demos_key.all %}
                   {% if demos %}
                     <span>Demographics:&nbsp;</span>
@@ -68,7 +73,7 @@
                       {% if forloop.counter == demos|length|add:"-1" and demos|length > 2 %}
                         <span class="separator inline">, and&nbsp;</span>
                         {% elif forloop.counter == demos|length|add:"-1" %}
-                        <span class="inline">&nbspand&nbsp;</span>
+                        <span class="separator inline">&nbspand&nbsp;</span>
                         {% elif forloop.counter != demos|length %}
                         <span class="separator inline">,&nbsp;</span>
                       {% endif %}
@@ -76,6 +81,23 @@
                   {% endif %}
                 {% endwith %}
               </div>
+              {% with tags=page.tags.all %}
+                {% if tags %}
+                  <div class="margin-bottom-15">
+                    <span>Topics:&nbsp;</span>
+                    {% for tag in tags %}
+                      {{ tag.title }}
+                      {% if forloop.counter == tags|length|add:"-1" and tags|length > 2 %}
+                        <span class="separator inline">, and&nbsp;</span>
+                      {% elif forloop.counter == tags|length|add:"-1" %}
+                        <span class="separator inline">&nbspand&nbsp;</span>
+                      {% elif forloop.counter != tags|length %}
+                        <span class="separator inline">,&nbsp;</span>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              {% endwith %}
             </div>
 
             <div class="margin-bottom-35">
@@ -120,7 +142,7 @@
                             {{ item.date|date:"M. jS, Y"}}
                           </h6>
                           <h4 class="card__text__title margin-top-0 margin-bottom-10">
-                            <a href="{{ item.url }}" class="">
+                            <a href="{{ item.url }}" class="" target="_blank">
                             <u>{{ item.title }}</u>
                             </a>
                           </h4>

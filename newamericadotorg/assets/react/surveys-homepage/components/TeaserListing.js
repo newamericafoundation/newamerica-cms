@@ -1,7 +1,7 @@
 import './TeaserListing.scss';
 import React, { Component } from 'react';
 import { differenceInMonths } from 'date-fns/esm';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { LoadingDots } from '../../components/Icons';
 
 class TeaserListing extends Component {
@@ -91,9 +91,10 @@ class TeaserListing extends Component {
       })
       .filter((val) => {
         const { dateRange } = checkedValues;
+        const month = moment().month(val['month']).format('M');
         const monthDiff = differenceInMonths(
           new Date(),
-          new Date(val['year'], val['month'], 0)
+          new Date(val['year'], month, 0)
         );
 
         const unfilter = Object.keys(dateRange).every(function (k) {
@@ -183,25 +184,21 @@ class TeaserListing extends Component {
         return false;
       })
       .filter((row) => {
-        if (row.month) {
-          row.monthString = format(
-            new Date(row.year, row.month - 1, 1),
-            'MMM'
-          );
-        }
         const columns = Object.keys(row).filter((item) => {
           if (
             item === 'title' ||
             item === 'description' ||
             item === 'year' ||
-            item === 'monthString'
+            item === 'month'
           ) {
             return true;
           }
         });
 
-        return columns.some((column) =>
-          row[column] !== null && row[column].toString().toLowerCase().includes(searchTerm)
+        return columns.some(
+          (column) =>
+            row[column] !== null &&
+            row[column].toString().toLowerCase().includes(searchTerm)
         );
       })
       .sort((a, b) => {
@@ -276,10 +273,7 @@ class TeaserListing extends Component {
                 )}
               </div>
               <div className="col-sm-3 teaser-listing__item-date">
-                {format(
-                  new Date(item.year, item.month && item.month -1, 1),
-                  item.month ? 'MMM yyyy' : 'yyy'
-                )}
+                {item.month} {item.year}
               </div>
             </a>
           ))}

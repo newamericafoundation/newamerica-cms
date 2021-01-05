@@ -30,19 +30,19 @@ def scaffold():
   root = Program.objects.get(title='Education Policy')
   # Add Project Page.
   root.add_child(instance=Project(
-    title='HigherEd Public Opinion',
-    slug=slugify('HigherEd Public Opinion'),
-    name='HigherEd Public Opinion',
+    title='HigherEd Public Opinion Hub',
+    slug=slugify('HigherEd Public Opinion Hub'),
+    name='HigherEd Public Opinion Hub',
     template='survey/surveys_home_page.html',
     description='A collection of reports, insights, and analyses exploring topics within Higher Education. Created for Researchers, Journalists,  and the general public who have an interest in underatanding public opinion on Higher Education issues.',
     ))
   # Get Project page and add SurveyHomePage.
-  project = Project.objects.get(title='HigherEd Public Opinion')
-  project.add_child(instance=SurveysHomePage(title='HigherEd Public Opinion Hub'))
+  project = Project.objects.get(title='HigherEd Public Opinion Hub')
+  project.add_child(instance=SurveysHomePage(title='Reports & Insights'))
   # Get SurveyHomePage.
-  home = SurveysHomePage.objects.get(title='HigherEd Public Opinion Hub')
+  home = SurveysHomePage.objects.get(title='Reports & Insights')
   # Get index page.
-  index = SurveyValuesIndex.objects.get(title='HigherEd Public Opinion Hub Values Index')
+  index = SurveyValuesIndex.objects.get(title='Reports & Insights Values Index')
   print(index.id, index.title)
   # Add Demos, Tags, Orgs and Surveys.
   addDemos(index)
@@ -65,7 +65,7 @@ def addSurveys(home: SurveysHomePage):
         slug=slug,
         date=date,
         year=survey['Year'],
-        month=0,
+        month=None,
         sample_number=survey['sample_number'],
         data_type = ['QUANT', 'QUAL'],
         findings = survey['Top findings directly from the report'],

@@ -122,11 +122,15 @@ class SurveysTab extends React.Component {
           >
             <CheckboxGroup
               title="Topic"
-              options={Object.keys(tags).map((tag) => ({
-                id: tag,
-                checked: false,
-                label: tag.charAt(0).toUpperCase() + tag.slice(1),
-              }))}
+              options={Object.keys(tags)
+                .map((tag) => ({
+                  id: tag,
+                  checked: false,
+                  label: tag.charAt(0).toUpperCase() + tag.slice(1),
+                }))
+                .sort((a, b) => {
+                  return a.label.localeCompare(b.label);
+                })}
               onChange={(filterState) =>
                 this.onFilterChange('tags', filterState)
               }
@@ -134,11 +138,15 @@ class SurveysTab extends React.Component {
 
             <CheckboxGroup
               title="Demographic"
-              options={Object.keys(demos).map((demo) => ({
-                id: demo,
-                checked: false,
-                label: demo.charAt(0).toUpperCase() + demo.slice(1),
-              }))}
+              options={Object.keys(demos)
+                .map((demo) => ({
+                  id: demo,
+                  checked: false,
+                  label: demo.charAt(0).toUpperCase() + demo.slice(1),
+                }))
+                .sort((a, b) => {
+                  return a.label.localeCompare(b.label);
+                })}
               onChange={(filterState) =>
                 this.onFilterChange('demos', filterState)
               }
@@ -198,11 +206,15 @@ class SurveysTab extends React.Component {
             />
             <CheckboxGroup
               title="Organization"
-              options={Object.keys(orgs).map((org) => ({
-                id: org,
-                checked: false,
-                label: org.charAt(0).toUpperCase() + org.slice(1),
-              }))}
+              options={Object.keys(orgs)
+                .map((org) => ({
+                  id: org,
+                  checked: false,
+                  label: org.charAt(0).toUpperCase() + org.slice(1),
+                }))
+                .sort((a, b) => {
+                  return a.label.localeCompare(b.label);
+                })}
               onChange={(filterState) =>
                 this.onFilterChange('orgs', filterState)
               }
