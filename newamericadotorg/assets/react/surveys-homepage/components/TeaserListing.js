@@ -91,7 +91,12 @@ class TeaserListing extends Component {
       })
       .filter((val) => {
         const { dateRange } = checkedValues;
-        const month = moment().month(val['month']).format('M');
+
+        let month = 0;
+        if (val['month'] !== null && val['month'] > 0) {
+          month = moment().month(val['month']).format('M');
+        }
+
         const monthDiff = differenceInMonths(
           new Date(),
           new Date(val['year'], month, 0)
