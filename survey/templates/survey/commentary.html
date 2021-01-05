@@ -33,9 +33,11 @@
                   <h4 class="card__title">
                     <u>{{ item.title }}</u>
                   </h4>
-                  <div class="card__description">
-                    {{ item.description|richtext }}
-                  </div>
+                  {% if item.description %}
+                    <div class="card__description">
+                      {{ item.description|richtext }}
+                    </div>
+                  {% endif %}
                 </a>
               {% endfor %}
             </div>
