@@ -56,19 +56,27 @@ class SurveysHomePage(AbstractContentPage):
       through=PageAuthorRelationship,
       blank=True
     )
-    subheading = models.CharField(max_length=200, blank=True)
+    subscribe = RichTextField(max_length=250, blank=True, help_text='Displayed on bottom of the Survey Reports page')
+    button = models.CharField(max_length=20, blank=True, help_text='Subscribe button text')
+    cta = RichTextField(max_length=250, blank=True, help_text='Displayed on the Survey Reports page')
+    subheading = models.CharField(max_length=300, blank=True)
     methodology = RichTextField(max_length = 1500, blank=True)
     submissions = RichTextField(blank=True, null=True, max_length=500)
     content_panels = [
-      FieldPanel('title'),
-      FieldPanel('subheading'),
+      MultiFieldPanel([
+        FieldPanel('title'),
+        FieldPanel('subheading'),
+        FieldPanel('cta'),
+        FieldPanel('subscribe'),
+        FieldPanel('button')
+      ], heading='Survey Reports Tab'),
       MultiFieldPanel([
         FieldPanel('about'),
         FieldPanel('methodology'),
         FieldPanel('submissions'),
         InlinePanel('authors', label="Authors"),
         ImageChooserPanel('partner_logo'),
-      ], heading='About Page')
+      ], heading='About Tab')
     ]
 
     search_fields = Page.search_fields + [
@@ -125,8 +133,10 @@ class SurveyTags(Page):
       return self.title
     class Meta:
         verbose_name_plural = 'Survey Tags'
-
-
+# SurveyValuesIndex page is the parent page for a SurveyHomePage's associated preset values.
+# (ex. Demographics, Tags, Organizations). These values can be created and edited here.
+# SurveyValuesIndex page is generated everytime a SurveyHomePage is created and adopts it title.
+# (ex. the surveyhomepage Magic Survey, will generate a child values index page Magic Survey Values Index) 
 class SurveyValuesIndex(Page):
     parent_page_types = ['SurveysHomePage']
     subpage_type = ['SurveyOrganization', 'DemographicKey', 'SurveyTags']

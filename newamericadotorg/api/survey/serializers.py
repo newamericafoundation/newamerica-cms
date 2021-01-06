@@ -4,6 +4,7 @@ from programs.models import Subprogram
 from newamericadotorg.api.author.serializers import AuthorSerializer
 from wagtail.images.views.serve import generate_image_url
 
+
 class SurveyHomeSerializer(ModelSerializer):
     survey_home_page = SerializerMethodField()
 
@@ -13,15 +14,14 @@ class SurveyHomeSerializer(ModelSerializer):
 
     def get_survey_home_page(self, obj):
         return get_survey_homepage(obj)
-
 class SurveysHomePageSerializer(ModelSerializer):
     surveys = SerializerMethodField()
     page_author = SerializerMethodField()
     partner_logo = SerializerMethodField()
-
+    parent_project = SerializerMethodField()
     class Meta:
         model = SurveysHomePage
-        fields = ['id', 'title', 'url_path', 'about', 'methodology', 'page_author', 'surveys', 'submissions','partner_logo', 'subheading']
+        fields = ['id', 'title', 'url_path', 'parent_project', 'about', 'methodology', 'cta', 'subscribe', 'button',  'page_author', 'submissions', 'surveys', 'partner_logo', 'subheading']
         depth = 1
     def get_surveys(self, obj):
         return get_surveys_detail(obj)
@@ -36,6 +36,9 @@ class SurveysHomePageSerializer(ModelSerializer):
     def get_partner_logo(self, obj):
         if obj.partner_logo:
             return generate_image_url(obj.partner_logo, 'max-240x30')
+
+    def get_parent_project(self, obj):
+        return get_project_parent(obj)
 
 class SurveyDetailSerializer(ModelSerializer):
 
@@ -79,3 +82,14 @@ def get_surveys_detail(homePage):
         for c in children:
             surveys.append(SurveyDetailSerializer(c.specific).data)
     return surveys
+
+def get_project_parent(page):
+    tree = page.get_ancestors()
+    if tree[2].title is not None:
+        parent = {
+          'title': tree[2].title,
+          'url': tree[2].url
+        }
+        return parent
+    else:
+        return []
