@@ -16,7 +16,8 @@ from googleapiclient.http import MediaIoBaseDownload
 import io
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name('./creds.json', scope)
+# Credentials for HigherEd google sheet migration. Burn after migrating. See https://www.youtube.com/watch?v=T1vqS1NL89E for details.
+credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_sheet_creds.json', scope)
 gc = gspread.authorize(credentials)
 raw_data = json.dumps(gc.open('Copy of epp_polling_dashboard_data_LIVE').sheet1.get_all_records())
 data = json.loads(raw_data)
