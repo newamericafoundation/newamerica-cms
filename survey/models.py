@@ -98,8 +98,8 @@ class SurveysHomePage(AbstractContentPage):
       if self.get_children_count() == 0:
         self.add_child(instance=SurveyValuesIndex(title=self.title + " Values Index", slug=slugify(self.title + " Values Index")))
 
-    @property	
-    def content_model(self):	
+    @property
+    def content_model(self):
       return SurveysHomePage
     class Meta:
         verbose_name = "Surveys Homepage"
@@ -133,10 +133,12 @@ class SurveyTags(Page):
       return self.title
     class Meta:
         verbose_name_plural = 'Survey Tags'
+
 # SurveyValuesIndex page is the parent page for a SurveyHomePage's associated preset values.
 # (ex. Demographics, Tags, Organizations). These values can be created and edited here.
-# SurveyValuesIndex page is generated everytime a SurveyHomePage is created and adopts it title.
-# (ex. the surveyhomepage Magic Survey, will generate a child values index page Magic Survey Values Index) 
+# Everytime a SurveyHomePage is created a child SurveyValuesIndex page is generated and adopts its title.
+# (ex. the surveyhomepage 'Magic Survey', will generate a child values index page 'Magic Survey Values Index')
+
 class SurveyValuesIndex(Page):
     parent_page_types = ['SurveysHomePage']
     subpage_type = ['SurveyOrganization', 'DemographicKey', 'SurveyTags']
@@ -148,7 +150,7 @@ class SurveyValuesIndex(Page):
 
 
 class Survey(Post):
-    template = 'survey/survey.html' 
+    template = 'survey/survey.html'
     parent_page_types = ['SurveysHomePage']
 
     description = models.CharField(blank=True, null=True, max_length=500, help_text='A brief description of the survey. 500 chars max')
