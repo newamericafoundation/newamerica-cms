@@ -52,7 +52,7 @@
                 {% endif %}
               {% endwith %}
               <h6 class="post-body__date margin-top-0">
-                {% if page.month %}
+                {% if page.month != "0" and page.month != null %}
                   {{ page.month }}.
                 {% endif %}
                 {{ page.year }}
@@ -147,7 +147,7 @@
                             </a>
                           </h4>
                           <div class="card__text__excerpt margin-top-5 margin-bottom-0">
-                            {{item.subheading}}
+                            {{ item.subheading }}
                           </div>
                           <div class="card__text__authors margin-top-5 margin-bottom-0">
                             <h6 class="inline margin-0">By </h6>
@@ -169,4 +169,4 @@
       </div>
     </div>
   </main>
-{% endblock%}
+{% endblock %}

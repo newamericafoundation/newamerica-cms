@@ -7,7 +7,6 @@ import { LoadingDots } from '../../components/Icons';
 class TeaserListing extends Component {
   constructor(props) {
     super(props);
-    this.loadMore = this.loadMore.bind(this);
   }
   state = {
     isExanded: false,
@@ -46,8 +45,15 @@ class TeaserListing extends Component {
     let _data = this.props.data;
 
     _data = this.props.data
+      .map((val) => {
+        let monthNum = 0;
+        if (val.month !== null && val.month !== '0') {
+          monthNum = moment().month(val.month).format('M');
+        }
+        return { ...val, monthNum: monthNum };
+      })
       .filter((val) => {
-        const surveyTags = val['tags'];
+        const surveyTags = val.tags;
         const checkedTags = Object.keys(checkedValues.tags).filter(
           (key) => checkedValues.tags[key] === true
         );
@@ -61,7 +67,7 @@ class TeaserListing extends Component {
         return false;
       })
       .filter((val) => {
-        const surveyDemos = val['demos_key'];
+        const surveyDemos = val.demos_key;
         const checkedDemos = Object.keys(checkedValues.demos).filter(
           (key) => checkedValues.demos[key] === true
         );
@@ -76,7 +82,7 @@ class TeaserListing extends Component {
         return false;
       })
       .filter((val) => {
-        const surveyOrgs = val['org'];
+        const surveyOrgs = val.org;
         const checkedOrgs = Object.keys(checkedValues.orgs).filter(
           (key) => checkedValues.orgs[key] === true
         );
@@ -92,14 +98,9 @@ class TeaserListing extends Component {
       .filter((val) => {
         const { dateRange } = checkedValues;
 
-        let month = 0;
-        if (val['month'] !== null && val['month'] > 0) {
-          month = moment().month(val['month']).format('M');
-        }
-
         const monthDiff = differenceInMonths(
           new Date(),
-          new Date(val['year'], month, 0)
+          new Date(val.year, val.monthNum, 0)
         );
 
         const unfilter = Object.keys(dateRange).every(function (k) {
@@ -127,7 +128,7 @@ class TeaserListing extends Component {
         return false;
       })
       .filter((val) => {
-        const num = +val['sample_number'];
+        const num = +val.sample_number;
         const { sizeRange } = checkedValues;
         const unfilter = Object.keys(sizeRange).every(function (k) {
           return sizeRange[k] === false;
@@ -157,7 +158,7 @@ class TeaserListing extends Component {
         return false;
       })
       .filter((val) => {
-        const type = val['data_type'].map((el) => el.toLowerCase());
+        const type = val.data_type.map((el) => el.toLowerCase());
         const checkedType = Object.keys(
           checkedValues.dataType
         ).filter((key) => checkedValues.dataType[key] === true);
@@ -176,7 +177,7 @@ class TeaserListing extends Component {
         return false;
       })
       .filter((val) => {
-        const type = val['national'];
+        const type = val.national;
         const selection = checkedValues.national;
 
         if (
@@ -212,7 +213,8 @@ class TeaserListing extends Component {
         } else if (sortBy.value === 'desc') {
           return a.title.localeCompare(b.title);
         } else {
-          return new Date(a.year, a.month) < new Date(b.year, b.month)
+          return new Date(a.year, a.monthNum) <
+            new Date(b.year, b.monthNum)
             ? 1
             : -1;
         }
@@ -278,7 +280,10 @@ class TeaserListing extends Component {
                 )}
               </div>
               <div className="col-sm-3 teaser-listing__item-date">
-                {item.month !== '0' ? item.month : ''} {item.year}
+                {item.month !== '0' && item.month !== null
+                  ? item.month
+                  : ''}{' '}
+                {item.year}
               </div>
             </a>
           ))}

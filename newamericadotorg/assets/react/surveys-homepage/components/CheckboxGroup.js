@@ -41,9 +41,7 @@ class CheckboxGroup extends React.Component {
         }`}
       >
         <span
-          className={`${
-            isOpen ? 'margin-bottom-25' : ''
-          } checkbox-group__title`}
+          className="checkbox-group__title"
           onClick={this.toggleCheckboxGroup}
         >
           {title}

@@ -8,32 +8,40 @@ const AboutTab = (props) => {
     data: { survey_home_page },
   } = props;
 
-  const submitReport = `
-    <p>
-      Know of a survey report that should be added to our list?
-      <a href='mailto:nguyens@newamerica.org'>
-        Send us an email
-      </a>
-    </p>
-    `;
-
   return (
     <div className="surveys-about-tab">
-      <Body
-        title="About This Project"
-        body={survey_home_page.about}
-      />
-      <Body title="Methodology" body={survey_home_page.methodology} />
-      <Body
-        title="Submit a Report"
-        body={survey_home_page.submissions}
-      />
-      <Body title="Made Possible By" body="">
-        <img src={survey_home_page.partner_logo} alt="Partner" />
-      </Body>
-      <Body title="Authors" body="">
-        <Authors authors={survey_home_page.page_author} md={true} />
-      </Body>
+      {survey_home_page.about && (
+        <Body
+          title="About This Project"
+          body={survey_home_page.about}
+        />
+      )}
+
+      {survey_home_page.methodology && (
+        <Body
+          title="Methodology"
+          body={survey_home_page.methodology}
+        />
+      )}
+
+      {survey_home_page.submissions && (
+        <Body
+          title="Submit a Report"
+          body={survey_home_page.submissions}
+        />
+      )}
+
+      {survey_home_page.partner_logo && (
+        <Body title="Made Possible By" body="">
+          <img src={survey_home_page.partner_logo} alt="Partner" />
+        </Body>
+      )}
+
+      {survey_home_page.page_author && (
+        <Body title="Authors" body="">
+          <Authors authors={survey_home_page.page_author} md={true} />
+        </Body>
+      )}
     </div>
   );
 };

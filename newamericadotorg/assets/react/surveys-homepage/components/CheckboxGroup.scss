@@ -8,14 +8,17 @@
 }
 .checkbox-group {
   border-bottom: 1px solid color(black, base, 0.3);
-  padding: 24px 0;
 
+  &--is-open {
+    padding-bottom: 24px;
+  }
   &__title {
     display: flex;
     justify-content: space-between;
     font-family: $label-font-family;
     font-weight: 900;
     font-size: 15px;
+    padding: 24px 0;
     cursor: pointer;
   }
   &__options {
@@ -67,7 +70,7 @@
     cursor: pointer;
     user-select: none;
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: calc(50% - 8px);
       left: 0;
@@ -78,7 +81,7 @@
       background-color: transparent;
     }
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       top: calc(50% - 2px);
       left: 5px;

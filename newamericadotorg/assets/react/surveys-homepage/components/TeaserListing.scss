@@ -65,9 +65,9 @@
     font-weight: 800;
     font-family: $label-font-family;
     transition: color 0.15s ease;
+    cursor: pointer;
     margin: 0;
     &:hover u {
-
       text-decoration: underline;
       text-decoration-color: color(turquoise);
       display: inline;
