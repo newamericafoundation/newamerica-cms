@@ -1,7 +1,7 @@
-import "./AboutTab.scss";
-import React from "react";
-import Authors from "../../report/components/Authors";
-import Body from "./Body";
+import './AboutTab.scss';
+import React from 'react';
+import Authors from '../../report/components/Authors';
+import Body from './Body';
 
 const AboutTab = (props) => {
   const {
@@ -11,15 +11,24 @@ const AboutTab = (props) => {
   return (
     <div className="surveys-about-tab">
       {survey_home_page.about && (
-        <Body title="About This Project" body={survey_home_page.about} />
+        <Body
+          title="About This Project"
+          body={survey_home_page.about}
+        />
       )}
 
       {survey_home_page.methodology && (
-        <Body title="Methodology" body={survey_home_page.methodology} />
+        <Body
+          title="Methodology"
+          body={survey_home_page.methodology}
+        />
       )}
 
       {survey_home_page.submissions && (
-        <Body title="Submit a Report" body={survey_home_page.submissions} />
+        <Body
+          title="Submit a Report"
+          body={survey_home_page.submissions}
+        />
       )}
 
       {survey_home_page.partner_logo && (

@@ -1,12 +1,12 @@
-import "./BasicHeader.scss";
-import React from "react";
+import './BasicHeader.scss';
+import React from 'react';
 
 const BasicHeader = (props) => {
   const { data } = props;
   const url = data.survey_home_page.url_path
-    .split("/")
-    .filter((item) => item !== "new-america")
-    .join("/");
+    .split('/')
+    .filter((item) => item !== 'new-america')
+    .join('/');
   console.log(url);
   return (
     <div className="basic-header">
@@ -16,7 +16,9 @@ const BasicHeader = (props) => {
         </h6>
       </div>
       <div className="basic-header__content">
-        <h1 className="basic-header__title margin-0 promo">{data.title}</h1>
+        <h1 className="basic-header__title margin-0 promo">
+          {data.title}
+        </h1>
         <h6 className="basic-header__subtitle margin-top-25 margin-bottom-0">
           {data.survey_home_page.subheading}
         </h6>

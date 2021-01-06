@@ -1,8 +1,8 @@
-import "./TeaserListing.scss";
-import React, { Component } from "react";
-import { differenceInMonths } from "date-fns/esm";
-import moment from "moment";
-import { LoadingDots } from "../../components/Icons";
+import './TeaserListing.scss';
+import React, { Component } from 'react';
+import { differenceInMonths } from 'date-fns/esm';
+import moment from 'moment';
+import { LoadingDots } from '../../components/Icons';
 
 class TeaserListing extends Component {
   constructor(props) {
@@ -11,15 +11,15 @@ class TeaserListing extends Component {
   state = {
     isExanded: false,
     sortBy: {
-      title: "Most Recent",
-      value: "recent",
+      title: 'Most Recent',
+      value: 'recent',
     },
     maxRange: 20,
     isLoading: false,
     sortOptions: [
-      { title: "Most Recent", value: "recent" },
-      { title: "Title (A-Z)", value: "desc" },
-      { title: "Title (Z-A)", value: "asc" },
+      { title: 'Most Recent', value: 'recent' },
+      { title: 'Title (A-Z)', value: 'desc' },
+      { title: 'Title (Z-A)', value: 'asc' },
     ],
   };
 
@@ -47,8 +47,8 @@ class TeaserListing extends Component {
     _data = this.props.data
       .map((val) => {
         let monthNum = 0;
-        if (val.month !== null && val.month !== "0") {
-          monthNum = moment().month(val.month).format("M");
+        if (val.month !== null && val.month !== '0') {
+          monthNum = moment().month(val.month).format('M');
         }
         return { ...val, monthNum: monthNum };
       })
@@ -159,17 +159,19 @@ class TeaserListing extends Component {
       })
       .filter((val) => {
         const type = val.data_type.map((el) => el.toLowerCase());
-        const checkedType = Object.keys(checkedValues.dataType).filter(
-          (key) => checkedValues.dataType[key] === true
-        );
+        const checkedType = Object.keys(
+          checkedValues.dataType
+        ).filter((key) => checkedValues.dataType[key] === true);
 
-        const exists = type.some((item) => checkedType.includes(item));
+        const exists = type.some((item) =>
+          checkedType.includes(item)
+        );
 
         if (exists || checkedType.length === 0) {
           return true;
         }
 
-        if (checkedType.includes("mixed") && type.length > 1) {
+        if (checkedType.includes('mixed') && type.length > 1) {
           return true;
         }
         return false;
@@ -190,10 +192,10 @@ class TeaserListing extends Component {
       .filter((row) => {
         const columns = Object.keys(row).filter((item) => {
           if (
-            item === "title" ||
-            item === "description" ||
-            item === "year" ||
-            item === "month"
+            item === 'title' ||
+            item === 'description' ||
+            item === 'year' ||
+            item === 'month'
           ) {
             return true;
           }
@@ -206,12 +208,13 @@ class TeaserListing extends Component {
         );
       })
       .sort((a, b) => {
-        if (sortBy.value === "asc") {
+        if (sortBy.value === 'asc') {
           return b.title.localeCompare(a.title);
-        } else if (sortBy.value === "desc") {
+        } else if (sortBy.value === 'desc') {
           return a.title.localeCompare(b.title);
         } else {
-          return new Date(a.year, a.monthNum) < new Date(b.year, b.monthNum)
+          return new Date(a.year, a.monthNum) <
+            new Date(b.year, b.monthNum)
             ? 1
             : -1;
         }
@@ -224,7 +227,9 @@ class TeaserListing extends Component {
           <div className="teaser-listing__sort-wrapper">
             <button
               className="teaser-listing__sort"
-              onClick={() => this.setState({ isExpanded: !isExpanded })}
+              onClick={() =>
+                this.setState({ isExpanded: !isExpanded })
+              }
             >
               <h6 className="with-caret--down margin-0">
                 Sort by {sortBy.title}
@@ -254,9 +259,9 @@ class TeaserListing extends Component {
           {_data.slice(0, maxRange).map((item, index) => (
             <a
               href={item.url_path
-                .split("/")
-                .filter((item) => item !== "new-america")
-                .join("/")}
+                .split('/')
+                .filter((item) => item !== 'new-america')
+                .join('/')}
               className="teaser-listing__item card margin-bottom-10"
               key={`teaser-listing-item-${index}`}
               target="_blank"
@@ -275,7 +280,9 @@ class TeaserListing extends Component {
                 )}
               </div>
               <div className="col-sm-3 teaser-listing__item-date">
-                {item.month !== "0" && item.month !== null ? item.month : ""}{" "}
+                {item.month !== '0' && item.month !== null
+                  ? item.month
+                  : ''}{' '}
                 {item.year}
               </div>
             </a>
@@ -283,7 +290,7 @@ class TeaserListing extends Component {
           {this.state.maxRange <= _data.length && (
             <div className="teaser-listing__load-more">
               <button className="button" onClick={this.loadMore}>
-                {this.state.isLoading ? <LoadingDots /> : "Load more"}
+                {this.state.isLoading ? <LoadingDots /> : 'Load more'}
               </button>
             </div>
           )}
