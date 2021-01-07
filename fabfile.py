@@ -9,70 +9,58 @@ LOCAL_MEDIA_FOLDER = "/vagrant/media"
 LOCAL_IMAGES_FOLDER = "/vagrant/media/original_images"
 LOCAL_DATABASE_NAME = "newamerica-cms"
 
-
 ############
 # Production
 ############
-
 
 @task
 def pull_production_media(c):
     """Pull media from production AWS S3"""
     pull_media_from_s3_heroku(c, PRODUCTION_APP_INSTANCE)
 
-
 @task
 def pull_production_data(c):
     """Pull database from production Heroku Postgres"""
     pull_database_from_heroku(c, PRODUCTION_APP_INSTANCE)
-
 
 @task
 def production_shell(c):
     """Spin up a one-time Heroku production dyno and connect to shell"""
     open_heroku_shell(c, PRODUCTION_APP_INSTANCE)
 
-
 @task
 def pull_production_images(c):
     """Pull images from production AWS S3"""
     pull_images_from_s3_heroku(c, PRODUCTION_APP_INSTANCE)
 
-
 #########
 # Staging
 #########
-
 
 @task
 def pull_staging_media(c):
     """Pull media from staging AWS S3"""
     pull_media_from_s3_heroku(c, STAGING_APP_INSTANCE)
 
-
 @task
 def pull_staging_data(c):
     """Pull database from staging Heroku Postgres"""
     pull_database_from_heroku(c, STAGING_APP_INSTANCE)
-
 
 @task
 def staging_shell(c):
     """Spin up a one-time Heroku staging dyno and connect to shell"""
     open_heroku_shell(c, STAGING_APP_INSTANCE)
 
-
 @task
 def push_staging_media(c):
     """Push local media content to staging isntance"""
     push_media_to_s3_heroku(c, STAGING_APP_INSTANCE)
 
-
 @task
 def pull_staging_images(c):
     """Pull images from staging AWS S3"""
     pull_images_from_s3_heroku(c, STAGING_APP_INSTANCE)
-
 
 @task
 def sync_staging_from_production(c):
@@ -107,17 +95,34 @@ def pull_develop_data(c):
 # Local
 #######
 
+@task
+def sync_dev_from_staging(c):
+    """Copy database from staging to dev"""
+    copy_heroku_database(
+        c,
+        destination=DEVELOP_APP_INSTANCE,
+        source=STAGING_APP_INSTANCE,
+    )
+    # sync_heroku_buckets(
+    #     c,
+    #     destination=STAGING_APP_INSTANCE,
+    #     source=PRODUCTION_APP_INSTANCE,
+    #     folders=['original_images', 'documents']
+    # )
+    # The above command just syncs the original images, so we need to
+    # delete the contents of the wagtailimages_renditions table so
+    # that the renditions will be re-created when requested in the
+    # staging environment.
+    # delete_staging_renditions(c)
 
 def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
     local(
         "dropdb --if-exists {database_name}".format(database_name=LOCAL_DATABASE_NAME)
     )
 
-
 ########
 # Heroku
 ########
-
 
 def check_if_logged_in_to_heroku(c):
     if not local("heroku auth:whoami", warn=True):
@@ -125,13 +130,11 @@ def check_if_logged_in_to_heroku(c):
             'Log-in with the "heroku login -i" command before running this ' "command."
         )
 
-
 def get_heroku_variable(c, app_instance, variable):
     check_if_logged_in_to_heroku(c)
     return local(
         "heroku config:get {var} --app {app}".format(app=app_instance, var=variable)
     ).stdout.strip()
-
 
 def pull_media_from_s3_heroku(c, app_instance):
     check_if_logged_in_to_heroku(c)
@@ -146,10 +149,9 @@ def pull_media_from_s3_heroku(c, app_instance):
         c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=['original_images', 'documents']
     )
 
-
 def pull_database_from_heroku(c, app_instance):
     check_if_logged_in_to_heroku(c)
-    delete_local_database(c)
+    # delete_local_database(c)
     local(
         "heroku pg:pull --app {app} DATABASE_URL {local_database}".format(
             app=app_instance, local_database=LOCAL_DATABASE_NAME
@@ -166,7 +168,6 @@ def pull_database_from_heroku(c, app_instance):
     if not answer or answer == "y":
         local("django-admin createsuperuser", pty=True)
 
-
 def open_heroku_shell(c, app_instance, shell_command="bash"):
     check_if_logged_in_to_heroku(c)
     local(
@@ -174,7 +175,6 @@ def open_heroku_shell(c, app_instance, shell_command="bash"):
             app=app_instance, command=shell_command
         )
     )
-
 
 # The single star (*) below indicates that all the arguments
 # afterwards must be given as keywords.  See PEP 3102 to learn more.
@@ -185,7 +185,6 @@ def copy_heroku_database(c, *, source, destination):
             source_app=source, destination_app=destination
         )
     )
-
 
 # The single star (*) below indicates that all the arguments
 # afterwards must be given as keywords.  See PEP 3102 to learn more.
@@ -229,7 +228,6 @@ def sync_heroku_buckets(c, *, source, destination, folders=[]):
 # S3
 ####
 
-
 def aws(c, command, aws_access_key_id, aws_secret_access_key, **kwargs):
     return local(
         "AWS_ACCESS_KEY_ID={access_key_id} AWS_SECRET_ACCESS_KEY={secret_key} "
@@ -240,7 +238,6 @@ def aws(c, command, aws_access_key_id, aws_secret_access_key, **kwargs):
         ),
         **kwargs
     )
-
 
 def pull_media_from_s3(
     c,
@@ -267,7 +264,6 @@ def pull_media_from_s3(
         )
         print('Syncing all media folders. This operation may take a while, and will be interrupted if your computer goes to sleep, is powered off, or loses its connection to the internet.')
         aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
-
 
 def push_media_to_s3_heroku(c, app_instance):
     check_if_logged_in_to_heroku(c)
@@ -300,7 +296,6 @@ def push_media_to_s3_heroku(c, app_instance):
         c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name
     )
 
-
 def push_media_to_s3(
     c,
     aws_access_key_id,
@@ -312,7 +307,6 @@ def push_media_to_s3(
         bucket_name=aws_storage_bucket_name, local_media=local_media_folder
     )
     aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
-
 
 def pull_images_from_s3_heroku(c, app_instance):
     check_if_logged_in_to_heroku(c)
@@ -330,7 +324,6 @@ def pull_images_from_s3_heroku(c, app_instance):
     # table so that the renditions will be re-created when requested on the local build.
     delete_local_renditions()
 
-
 def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
     print('Deleting local image renditions')
     try:
@@ -342,7 +335,6 @@ def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
     except:
         pass
 
-
 def delete_staging_renditions(c):
     print('Deleting staging image renditions')
     check_if_logged_in_to_heroku(c)
@@ -351,7 +343,6 @@ def delete_staging_renditions(c):
             app=STAGING_APP_INSTANCE
         )
     )
-
 
 def make_bold(msg):
     return "\033[1m{}\033[0m".format(msg)
