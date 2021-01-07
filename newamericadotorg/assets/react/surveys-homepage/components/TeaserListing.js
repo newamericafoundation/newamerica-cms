@@ -266,7 +266,7 @@ class TeaserListing extends Component {
               key={`teaser-listing-item-${index}`}
               target="_blank"
             >
-              <div className="col-sm-9">
+              <div className="col-sm-9 col-md-10">
                 <h4 className="teaser-listing__item-title">
                   <u>{item.title}</u>
                 </h4>
@@ -279,7 +279,7 @@ class TeaserListing extends Component {
                   />
                 )}
               </div>
-              <div className="col-sm-3 teaser-listing__item-date">
+              <div className="col-sm-3 col-md-2 teaser-listing__item-date">
                 {item.month !== '0' && item.month !== null
                   ? item.month
                   : ''}{' '}

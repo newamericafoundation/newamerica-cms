@@ -1,12 +1,12 @@
-import { NAME, ID } from './constants';
-import React, { Component } from 'react';
-import { Fetch } from '../components/API';
-import { LoadingDots } from '../components/Icons';
-import BasicHeader from './components/BasicHeader';
-import Tabs from '../components/Tabs';
-import Tab from '../components/Tab';
-import AboutTab from './components/AboutTab';
-import SurveysTab from './components/SurveysTab';
+import { NAME, ID } from "./constants";
+import React, { Component } from "react";
+import { Fetch } from "../components/API";
+import { LoadingDots } from "../components/Icons";
+import BasicHeader from "./components/BasicHeader";
+import Tabs from "./components/Tabs";
+import Tab from "./components/Tab";
+import AboutTab from "./components/AboutTab";
+import SurveysTab from "./components/SurveysTab";
 
 class SurveyHomepage extends Component {
   render() {
@@ -20,10 +20,10 @@ class SurveyHomepage extends Component {
           <BasicHeader data={results} />
 
           <Tabs>
-            <Tab title={'Survey Reports'}>
+            <Tab title={"Survey Reports"}>
               <SurveysTab data={results} />
             </Tab>
-            <Tab title={'About'}>
+            <Tab title={"About"}>
               <AboutTab data={results} />
             </Tab>
           </Tabs>
@@ -62,7 +62,7 @@ class APP extends Component {
         <Fetch
           component={SurveyHomepage}
           name={NAME}
-          loadingState={<LoadingState title={''} />}
+          loadingState={<LoadingState title={""} />}
           endpoint={`program/survey/${programId}`}
           fetchOnMount={true}
           programType={programType}

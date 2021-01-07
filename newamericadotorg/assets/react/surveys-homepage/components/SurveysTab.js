@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckboxGroup from './CheckboxGroup';
 import TeaserListing from './TeaserListing';
-import CtaCard from '../../components/CtaCard';
+import CtaCard from './CtaCard';
 import Search from './Search';
 import './SurveysTab.scss';
 
