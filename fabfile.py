@@ -95,25 +95,6 @@ def pull_develop_data(c):
 # Local
 #######
 
-@task
-def sync_dev_from_staging(c):
-    """Copy database from staging to dev"""
-    copy_heroku_database(
-        c,
-        destination=DEVELOP_APP_INSTANCE,
-        source=STAGING_APP_INSTANCE,
-    )
-    # sync_heroku_buckets(
-    #     c,
-    #     destination=STAGING_APP_INSTANCE,
-    #     source=PRODUCTION_APP_INSTANCE,
-    #     folders=['original_images', 'documents']
-    # )
-    # The above command just syncs the original images, so we need to
-    # delete the contents of the wagtailimages_renditions table so
-    # that the renditions will be re-created when requested in the
-    # staging environment.
-    # delete_staging_renditions(c)
 
 def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
     local(
