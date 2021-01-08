@@ -19,20 +19,20 @@ scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/au
 # Credentials for HigherEd google sheet migration. Burn after migrating. See https://www.youtube.com/watch?v=T1vqS1NL89E for details.
 
 # Full copy of google sheet. Uncomment this line for actual deployment
-# credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_sheet_creds.json', scope)
-
+credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_sheet_creds.json', scope)
 # Reduced sample set ofr testing. Uncomment this line for testing
-credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_test_data_creds.json', scope)
-
+# credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_test_data_creds.json', scope)
 gc = gspread.authorize(credentials)
 
 # Full copy of google sheet. Uncomment this line for actual deployment
-# raw_data = json.dumps(gc.open('Copy of epp_polling_dashboard_data_LIVE').sheet1.get_all_records())
-
+raw_data = json.dumps(gc.open('Copy of epp_polling_dashboard_data_LIVE').sheet1.get_all_records())
 # Reduced sample set ofr testing. Uncomment this line for testing
-raw_data = json.dumps(gc.open('TESTING_epp_polling_dashboard_data').sheet1.get_all_records())
+# raw_data = json.dumps(gc.open('TESTING_epp_polling_dashboard_data').sheet1.get_all_records())
 
 data = json.loads(raw_data)
+
+
+
 
 class Command(BaseCommand):
   def handle(self, *args, **options):
@@ -56,7 +56,6 @@ def scaffold():
   home = SurveysHomePage.objects.get(title='Reports & Insights')
   # Get index page.
   index = SurveyValuesIndex.objects.get(title='Reports & Insights Values Index')
-  print(index.id, index.title)
   # Add Demos, Tags, Orgs and Surveys.
   addDemos(index)
   addTags(index)
@@ -69,14 +68,10 @@ def addSurveys(home: SurveysHomePage):
   for survey in surveys:
     slugified = slugify(survey['Study Title'] + '-' + str(survey['Year']))
     is_file = re.search('^https:\/\/drive\.google\.com\/file\/', survey['download'])
-
-    study_title = survey['Study Title']
-    alt_title = survey['Study Title'] + '(' + str(survey['Year']) + ')'
-    title_extant = Page.objects.filter(title=study_title).exists()
-
-    print('ADDING SURVEY_______: ' + slugified)
+    title = setTitle(survey)
+    print('ADDING SURVEY_______: ' + title)
     new_survey = Survey(
-      title= study_title if not title_extant else alt_title,
+      title=title,
       slug=slugified,
       date=date,
       year=survey['Year'],
@@ -90,7 +85,7 @@ def addSurveys(home: SurveysHomePage):
     home.add_child(instance=new_survey)
 
     # Load the survey object.
-    child = Survey.objects.get(title=survey['Study Title'])
+    child = Survey.objects.get(title=title)
 
     addSurveyFile(child, survey, is_file)
     addSurveyTags(child, survey)
@@ -189,6 +184,16 @@ def getPageId(title: str):
 def getFileId(url: str):
   regex = "([\w-]){33}|([\w-]){19}"
   return re.search(regex,url).group()
+
+def setTitle(survey: object):
+  study_title = survey['Study Title']
+  alt_title = survey['Study Title'] + '(' + str(survey['Year']) + ')'
+  title_extant = Page.objects.filter(title=study_title).exists()
+  if title_extant:
+    return alt_title
+  else:
+    return study_title
+
 
 # Get data from google sheet.
 def getSurveys():
