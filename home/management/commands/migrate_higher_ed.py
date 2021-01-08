@@ -17,9 +17,21 @@ import io
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 # Credentials for HigherEd google sheet migration. Burn after migrating. See https://www.youtube.com/watch?v=T1vqS1NL89E for details.
-credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_sheet_creds.json', scope)
+
+# Full copy of google sheet. Uncomment this line for actual deployment
+# credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_sheet_creds.json', scope)
+
+# Reduced sample set ofr testing. Uncomment this line for testing
+credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_test_data_creds.json', scope)
+
 gc = gspread.authorize(credentials)
-raw_data = json.dumps(gc.open('Copy of epp_polling_dashboard_data_LIVE').sheet1.get_all_records())
+
+# Full copy of google sheet. Uncomment this line for actual deployment
+# raw_data = json.dumps(gc.open('Copy of epp_polling_dashboard_data_LIVE').sheet1.get_all_records())
+
+# Reduced sample set ofr testing. Uncomment this line for testing
+raw_data = json.dumps(gc.open('TESTING_epp_polling_dashboard_data').sheet1.get_all_records())
+
 data = json.loads(raw_data)
 
 class Command(BaseCommand):
@@ -55,35 +67,37 @@ def addSurveys(home: SurveysHomePage):
   date = datetime.datetime.today().strftime('%Y-%m-%d')
   surveys = getSurveys()
   for survey in surveys:
-    slug = slugify(survey['Study Title'])
-    is_file = re.search('^https:\/\/drive\.google\.com\/file\/',survey['download'] )
-    if Page.objects.filter(slug=slug).exists():
-      continue
-    else:
-      print('ADDING SURVEY_______: ' + slug)
-      new_survey = Survey(
-        title=survey['Study Title'],
-        slug=slug,
-        date=date,
-        year=survey['Year'],
-        month=None,
-        sample_number=survey['sample_number'],
-        data_type = ['QUANT', 'QUAL'],
-        findings = survey['Top findings directly from the report'],
-        link = survey['download'] if not is_file else None
-      )
+    slugified = slugify(survey['Study Title'] + '-' + str(survey['Year']))
+    is_file = re.search('^https:\/\/drive\.google\.com\/file\/', survey['download'])
 
-      home.add_child(instance=new_survey)
+    study_title = survey['Study Title']
+    alt_title = survey['Study Title'] + '(' + str(survey['Year']) + ')'
+    title_extant = Page.objects.filter(title=study_title).exists()
 
-      # Load the survey object.
-      child = Survey.objects.get(title=survey['Study Title'])
+    print('ADDING SURVEY_______: ' + slugified)
+    new_survey = Survey(
+      title= study_title if not title_extant else alt_title,
+      slug=slugified,
+      date=date,
+      year=survey['Year'],
+      month=None,
+      sample_number=survey['sample_number'],
+      data_type = ['QUANT', 'QUAL'],
+      findings = survey['Top findings directly from the report'],
+      link = survey['download'] if not is_file else None
+    )
 
-      addSurveyFile(child, survey, is_file)
-      addSurveyTags(child, survey)
-      addSurveyOrgs(child, survey)
-      addSurveyDemos(child, survey)
+    home.add_child(instance=new_survey)
 
-      child.save()
+    # Load the survey object.
+    child = Survey.objects.get(title=survey['Study Title'])
+
+    addSurveyFile(child, survey, is_file)
+    addSurveyTags(child, survey)
+    addSurveyOrgs(child, survey)
+    addSurveyDemos(child, survey)
+
+    child.save()
 
 def addDemos(index):
   new_demos = getDemos()
