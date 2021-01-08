@@ -11,6 +11,7 @@ class SurveyHomeSerializer(ModelSerializer):
     class Meta:
         model = Subprogram
         fields = ['id', 'title', 'survey_home_page', 'seo_title', 'name', 'url_path']
+        read_only_fields = fields
 
     def get_survey_home_page(self, obj):
         return get_survey_homepage(obj)
@@ -23,6 +24,7 @@ class SurveysHomePageSerializer(ModelSerializer):
         model = SurveysHomePage
         fields = ['id', 'title', 'url_path', 'parent_project', 'about', 'methodology', 'cta', 'subscribe', 'button',  'page_author', 'submissions', 'surveys', 'partner_logo', 'subheading']
         depth = 1
+        read_only_fields = fields
     def get_surveys(self, obj):
         return get_surveys_detail(obj)
     
@@ -41,18 +43,18 @@ class SurveysHomePageSerializer(ModelSerializer):
         return get_project_parent(obj)
 
 class SurveyDetailSerializer(ModelSerializer):
+    org = SerializerMethodField()
+    demos_key = SerializerMethodField()
+    tags = SerializerMethodField()
+    assoc_commentary = SerializerMethodField()
 
     class Meta:
         model = Survey
-        depth = 1
         fields = [
             'id',
             'title',
             'slug',
             'url_path',
-            'seo_title',
-            'subheading',
-            'description',
             'year',
             'month',
             'sample_number',
@@ -66,6 +68,51 @@ class SurveyDetailSerializer(ModelSerializer):
             'assoc_commentary',
             'tags'
         ]
+        read_only_fields = fields
+
+    def get_assoc_commentary(self, obj):
+        if obj.assoc_commentary is None:
+            return []
+        commentaries = []
+        for i,s in enumerate(obj.assoc_commentary.all()):
+            commentary = {
+                'title': s.title
+            }
+            commentaries.append(commentary)
+        return commentaries
+
+    def get_org(self, obj):
+        if obj.org is None:
+            return []
+        orgs = []
+        for i,s in enumerate(obj.org.all()):
+            org = {
+                'title': s.title
+            }
+            orgs.append(org)
+        return orgs
+
+    def get_demos_key(self, obj):
+        if obj.demos_key is None:
+            return []
+        demos_keys = []
+        for i,s in enumerate(obj.demos_key.all()):
+            key = {
+                'title': s.title
+            }
+            demos_keys.append(key)
+        return demos_keys
+
+    def get_tags(self, obj):
+        if obj.tags is None:
+            return []
+        tags = []
+        for i,s in enumerate(obj.tags.all()):
+            tag = {
+                'title': s.title
+            }
+            tags.append(tag)
+        return tags
 
 def get_survey_homepage(page):
     homePage = page.get_children().type(SurveysHomePage).live().first()
