@@ -8,10 +8,11 @@ from django.db import models
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel, PageChooserPanel, TabbedInterface, ObjectList
 from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.core.blocks import StreamBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
@@ -19,7 +20,7 @@ from multiselectfield import MultiSelectField
 from wagtailautocomplete.edit_handlers import AutocompletePanel
 
 from .utils import MONTH_CHOICES, DATA_TYPE_CHOICES
-
+from .blocks import CtaBlock
 class PageAuthorRelationship(models.Model):
     """
     Through model that maps the many to many
@@ -33,7 +34,6 @@ class PageAuthorRelationship(models.Model):
     ]
     class Meta:
         ordering = ['pk']
-
 
 class SurveysHomePage(AbstractContentPage):
     parent_page_types = ['programs.Project']
@@ -56,36 +56,55 @@ class SurveysHomePage(AbstractContentPage):
       through=PageAuthorRelationship,
       blank=True
     )
-    subscribe = RichTextField(max_length=250, blank=True, help_text='Displayed on bottom of the Survey Reports page')
-    button = models.CharField(max_length=20, blank=True, help_text='Subscribe button text')
-    cta = RichTextField(max_length=250, blank=True, help_text='Displayed on the Survey Reports page')
+    subscribe = StreamField(
+      StreamBlock(
+        [('cta_block', CtaBlock())],
+        max_num=1
+      ),
+      null=True,
+      blank=True,
+    )
+    submissions = StreamField(
+      StreamBlock(
+        [('cta_block', CtaBlock())],
+        max_num=1
+      ),
+      null=True,
+      blank=True,
+    )
+    
     subheading = models.CharField(max_length=300, blank=True)
     methodology = RichTextField(max_length = 1500, blank=True)
-    submissions = RichTextField(blank=True, null=True, max_length=500)
     content_panels = [
       MultiFieldPanel([
         FieldPanel('title'),
         FieldPanel('subheading'),
-        FieldPanel('cta'),
-        FieldPanel('subscribe'),
-        FieldPanel('button')
       ], heading='Survey Reports Tab'),
+    ]
+    about_panels = [
       MultiFieldPanel([
         FieldPanel('about'),
         FieldPanel('methodology'),
-        FieldPanel('submissions'),
         InlinePanel('authors', label="Authors"),
         ImageChooserPanel('partner_logo'),
       ], heading='About Tab')
     ]
+    subscribe_panels = [
+      StreamFieldPanel('subscribe')
+    ]
+    submit_panels = [
+      StreamFieldPanel('submissions')
+    ]
 
-    search_fields = Page.search_fields + [
-      index.RelatedFields('page_author', [
-        index.SearchField('first_name'),
-        index.SearchField('last_name'),
-        index.SearchField('position_at_new_america'),
-      ]),
-      ]
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading="Content"),
+        ObjectList(about_panels, heading="About Tab"),
+        ObjectList(submit_panels, heading="Submission CTA"),
+        ObjectList(subscribe_panels, heading="Subscription CTA"),
+        ObjectList(Page.promote_panels, heading="Promote"),
+        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+    ])
+
 
     def get_context(self, request):
         context = super(SurveysHomePage, self).get_context(request)
