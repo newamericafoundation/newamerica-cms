@@ -3,6 +3,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load utilities %}
+{% load humanize %}
 
 {% block body_id %}na-survey{% endblock %}
 
@@ -62,7 +63,7 @@
             <div class="margin-bottom-60">
               <div class="margin-bottom-15">
                 <span>Sample Size:</span>
-                {{ page.sample_number }}
+                {{ page.sample_number|intcomma }}
               </div>
               <div class="margin-bottom-15">
                 {% with demos=page.demos_key.all %}

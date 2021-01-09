@@ -91,6 +91,9 @@ class SurveysTab extends React.Component {
     const { tags, demos, orgs, filtersOpen } = this.state;
     let newState = { ...this.state };
 
+    const submission = JSON.parse(this.props.data.survey_home_page.submissions)[0].value
+    const subscribe = JSON.parse(this.props.data.survey_home_page.subscribe)[0].value
+
     Object.keys(newState).forEach((key, index) => {
       const { isOpen, ...rest } = newState[key];
       newState[key] = rest;
@@ -260,13 +263,12 @@ class SurveysTab extends React.Component {
             />
             <div className="margin-top-25 d-xs-none">
               <CtaCard
-                type="email"
-                title="Call for Submissions"
-                description="Know of a survey report that should be added to our list?"
-                url="nguyens@newamerica.org"
-                linkText="Send us an email today."
-              />
-            </div>
+              type="email"
+              title={submission.title}
+              description={submission.description}
+              url={submission.link_url}
+              linkText={submission.link_text}
+            />
           </div>
           <div className="surveys-tab__results">
             <TeaserListing
@@ -278,18 +280,18 @@ class SurveysTab extends React.Component {
               <div className="d-sm-none margin-bottom-10">
                 <CtaCard
                   type="email"
-                  title="Call for Submissions"
-                  description="Know of a survey report that should be added to our list?"
-                  url="nguyens@newamerica.org"
-                  linkText="Send us an email today."
+                  title={submission.title}
+                  description={submission.description}
+                  url={submission.link_url}
+                  linkText={submission.link_text}
                 />
               </div>
               <CtaCard
                 type="link"
-                title="Love all this insight?"
-                description="Subscribe to our newsletter to receive updates on what’s new in Education Policy."
-                url="https://www.newamerica.org/education-policy/higher-education/subscribe/"
-                linkText="Subscribe"
+                title={subscribe.title}
+                description={subscribe.description}
+                url={subscribe.link_url}
+                linkText={subscribe.link_text}
               />
             </div>
           </div>
