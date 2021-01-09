@@ -24,10 +24,10 @@ const AboutTab = (props) => {
         />
       )}
 
-      {survey_home_page.submissions && (
+      {survey_home_page.about_submission && (
         <Body
           title="Submit a Report"
-          body={survey_home_page.submissions}
+          body={survey_home_page.about_submission}
         />
       )}
 

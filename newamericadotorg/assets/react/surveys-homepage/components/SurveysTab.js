@@ -262,13 +262,14 @@ class SurveysTab extends React.Component {
               }
             />
             <div className="margin-top-25 d-xs-none">
-              <CtaCard
-              type="email"
-              title={submission.title}
-              description={submission.description}
-              url={submission.link_url}
-              linkText={submission.link_text}
-            />
+            <CtaCard
+                  type="email"
+                  title={submission.title}
+                  description={submission.description}
+                  url={submission.link_url}
+                  linkText={submission.link_text}
+                />
+            </div>
           </div>
           <div className="surveys-tab__results">
             <TeaserListing
@@ -278,7 +279,7 @@ class SurveysTab extends React.Component {
             />
             <div className="margin-top-60">
               <div className="d-sm-none margin-bottom-10">
-                <CtaCard
+                  <CtaCard
                   type="email"
                   title={submission.title}
                   description={submission.description}
@@ -288,10 +289,10 @@ class SurveysTab extends React.Component {
               </div>
               <CtaCard
                 type="link"
-                title={subscribe.title}
-                description={subscribe.description}
-                url={subscribe.link_url}
-                linkText={subscribe.link_text}
+                title="Love all this insight?"
+                description="Subscribe to our newsletter to receive updates on what’s new in Education Policy."
+                url="https://www.newamerica.org/education-policy/higher-education/subscribe/"
+                linkText="Subscribe"
               />
             </div>
           </div>

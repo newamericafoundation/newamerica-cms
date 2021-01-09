@@ -72,7 +72,7 @@ class SurveysHomePage(AbstractContentPage):
       null=True,
       blank=True,
     )
-    
+    about_submission = RichTextField(max_length = 500, blank=True)
     subheading = models.CharField(max_length=300, blank=True)
     methodology = RichTextField(max_length = 1500, blank=True)
     content_panels = [
@@ -85,6 +85,7 @@ class SurveysHomePage(AbstractContentPage):
       MultiFieldPanel([
         FieldPanel('about'),
         FieldPanel('methodology'),
+        FieldPanel('about_submission'),
         InlinePanel('authors', label="Authors"),
         ImageChooserPanel('partner_logo'),
       ], heading='About Tab')
