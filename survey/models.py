@@ -76,10 +76,12 @@ class SurveysHomePage(AbstractContentPage):
     subheading = models.CharField(max_length=300, blank=True)
     methodology = RichTextField(max_length = 1500, blank=True)
     content_panels = [
-      MultiFieldPanel([
         FieldPanel('title'),
         FieldPanel('subheading'),
-      ], heading='Survey Reports Tab'),
+      MultiFieldPanel([
+        StreamFieldPanel('subscribe'),
+        StreamFieldPanel('submissions'),
+      ], heading='Survey Reports CTAs'),
     ]
     about_panels = [
       MultiFieldPanel([
@@ -90,18 +92,11 @@ class SurveysHomePage(AbstractContentPage):
         ImageChooserPanel('partner_logo'),
       ], heading='About Tab')
     ]
-    subscribe_panels = [
-      StreamFieldPanel('subscribe')
-    ]
-    submit_panels = [
-      StreamFieldPanel('submissions')
-    ]
+
 
     edit_handler = TabbedInterface([
-        ObjectList(content_panels, heading="Content"),
+        ObjectList(content_panels, heading="Survey Reports Tab"),
         ObjectList(about_panels, heading="About Tab"),
-        ObjectList(submit_panels, heading="Submission CTA"),
-        ObjectList(subscribe_panels, heading="Subscription CTA"),
         ObjectList(Page.promote_panels, heading="Promote"),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
     ])
