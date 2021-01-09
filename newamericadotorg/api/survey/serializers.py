@@ -22,7 +22,7 @@ class SurveysHomePageSerializer(ModelSerializer):
     parent_project = SerializerMethodField()
     class Meta:
         model = SurveysHomePage
-        fields = ['id', 'title', 'url_path', 'parent_project', 'about', 'methodology', 'cta', 'subscribe', 'button',  'page_author', 'submissions', 'surveys', 'partner_logo', 'subheading']
+        fields = ['id', 'title', 'url_path', 'parent_project', 'about', 'methodology', 'subscribe', 'page_author', 'submissions', 'about_submission', 'surveys', 'partner_logo', 'subheading']
         depth = 1
         read_only_fields = fields
     def get_surveys(self, obj):

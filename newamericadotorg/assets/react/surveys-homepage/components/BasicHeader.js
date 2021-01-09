@@ -3,16 +3,14 @@ import React from 'react';
 
 const BasicHeader = (props) => {
   const { data } = props;
-  const url = data.survey_home_page.url_path
-    .split('/')
-    .filter((item) => item !== 'new-america')
-    .join('/');
-  console.log(url);
+
   return (
     <div className="basic-header">
       <div className="basic-header__breadcrumb">
         <h6 className="link margin-0 with-caret--left">
-          <a href="/education-policy">Education Policy</a>
+          <a href={data.survey_home_page.parent_project.url}>
+            {data.survey_home_page.parent_project.title}
+          </a>
         </h6>
       </div>
       <div className="basic-header__content">

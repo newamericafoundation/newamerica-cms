@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckboxGroup from './CheckboxGroup';
 import TeaserListing from './TeaserListing';
-import CtaCard from '../../components/CtaCard';
+import CtaCard from './CtaCard';
 import Search from './Search';
 import './SurveysTab.scss';
 
@@ -90,6 +90,9 @@ class SurveysTab extends React.Component {
   render() {
     const { tags, demos, orgs, filtersOpen } = this.state;
     let newState = { ...this.state };
+
+    const submission = JSON.parse(this.props.data.survey_home_page.submissions)[0].value
+    const subscribe = JSON.parse(this.props.data.survey_home_page.subscribe)[0].value
 
     Object.keys(newState).forEach((key, index) => {
       const { isOpen, ...rest } = newState[key];
@@ -259,13 +262,13 @@ class SurveysTab extends React.Component {
               }
             />
             <div className="margin-top-25 d-xs-none">
-              <CtaCard
-                type="email"
-                title="Call for Submissions"
-                description="Know of a survey report that should be added to our list?"
-                url="nguyens@newamerica.org"
-                linkText="Send us an email today."
-              />
+            <CtaCard
+                  type="email"
+                  title={submission.title}
+                  description={submission.description}
+                  url={submission.link_url}
+                  linkText={submission.link_text}
+                />
             </div>
           </div>
           <div className="surveys-tab__results">
@@ -276,12 +279,12 @@ class SurveysTab extends React.Component {
             />
             <div className="margin-top-60">
               <div className="d-sm-none margin-bottom-10">
-                <CtaCard
+                  <CtaCard
                   type="email"
-                  title="Call for Submissions"
-                  description="Know of a survey report that should be added to our list?"
-                  url="nguyens@newamerica.org"
-                  linkText="Send us an email today."
+                  title={submission.title}
+                  description={submission.description}
+                  url={submission.link_url}
+                  linkText={submission.link_text}
                 />
               </div>
               <CtaCard

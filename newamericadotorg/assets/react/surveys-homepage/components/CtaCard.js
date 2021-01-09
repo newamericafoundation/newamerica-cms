@@ -1,7 +1,7 @@
 import './CtaCard.scss';
 import React from 'react';
 
-const CtaCArd = (props) => {
+const CtaCard = (props) => {
   return (
     <div className={`cta-card cta-card--${props.type}`}>
       <div className="col--1">
@@ -21,4 +21,4 @@ const CtaCArd = (props) => {
   );
 };
 
-export default CtaCArd;
+export default CtaCard;

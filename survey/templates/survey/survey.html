@@ -3,6 +3,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load utilities %}
+{% load humanize %}
 
 {% block body_id %}na-survey{% endblock %}
 
@@ -62,7 +63,7 @@
             <div class="margin-bottom-60">
               <div class="margin-bottom-15">
                 <span>Sample Size:</span>
-                {{ page.sample_number }}
+                {{ page.sample_number|intcomma }}
               </div>
               <div class="margin-bottom-15">
                 {% with demos=page.demos_key.all %}
@@ -86,7 +87,7 @@
                   <div class="margin-bottom-15">
                     <span>Topics:&nbsp;</span>
                     {% for tag in tags %}
-                      {{ tag.title }}
+                      {{ tag.title|title }}
                       {% if forloop.counter == tags|length|add:"-1" and tags|length > 2 %}
                         <span class="separator inline">, and&nbsp;</span>
                       {% elif forloop.counter == tags|length|add:"-1" %}
@@ -113,7 +114,7 @@
                 </a>
               {% endif %}
               {% if page.link %}
-                <a class="survey-page__link" href={{ page.link }}>View Survey Report on Source Website</a>
+                <a class="survey-page__link" target="_blank" href={{ page.link }}>View Survey Report on Source Website</a>
               {% endif %}
             </div>
 
