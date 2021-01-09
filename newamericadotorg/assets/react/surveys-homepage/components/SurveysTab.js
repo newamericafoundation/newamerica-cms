@@ -91,8 +91,12 @@ class SurveysTab extends React.Component {
     const { tags, demos, orgs, filtersOpen } = this.state;
     let newState = { ...this.state };
 
-    const submission = JSON.parse(this.props.data.survey_home_page.submissions)[0].value
-    const subscribe = JSON.parse(this.props.data.survey_home_page.subscribe)[0].value
+    const submission = JSON.parse(this.props.data.survey_home_page.submissions)[0].value ?
+      JSON.parse(this.props.data.survey_home_page.submissions)[0].value :
+      false
+    const subscribe = JSON.parse(this.props.data.survey_home_page.subscribe)[0].value ?
+      JSON.parse(this.props.data.survey_home_page.subscribe)[0].value :
+      false
 
     Object.keys(newState).forEach((key, index) => {
       const { isOpen, ...rest } = newState[key];
@@ -262,13 +266,15 @@ class SurveysTab extends React.Component {
               }
             />
             <div className="margin-top-25 d-xs-none">
-            <CtaCard
-                  type="email"
-                  title={submission.title}
-                  description={submission.description}
-                  url={submission.link_url}
-                  linkText={submission.link_text}
-                />
+              {submission && (
+                <CtaCard
+                      type="email"
+                      title={submission.title}
+                      description={submission.description}
+                      url={submission.link_url}
+                      linkText={submission.link_text}
+                    />
+              )}
             </div>
           </div>
           <div className="surveys-tab__results">
@@ -279,21 +285,25 @@ class SurveysTab extends React.Component {
             />
             <div className="margin-top-60">
               <div className="d-sm-none margin-bottom-10">
-                  <CtaCard
-                  type="email"
-                  title={submission.title}
-                  description={submission.description}
-                  url={submission.link_url}
-                  linkText={submission.link_text}
-                />
+                {submission && (
+                    <CtaCard
+                    type="email"
+                    title={submission.title}
+                    description={submission.description}
+                    url={submission.link_url}
+                    linkText={submission.link_text}
+                  />
+                )}
               </div>
-              <CtaCard
-                type="link"
-                title="Love all this insight?"
-                description="Subscribe to our newsletter to receive updates on what’s new in Education Policy."
-                url="https://www.newamerica.org/education-policy/higher-education/subscribe/"
-                linkText="Subscribe"
-              />
+              {subscribe && (
+                <CtaCard
+                  type="link"
+                  title={subscribe.title}
+                  description={subscribe.description}
+                  url={subscribe.link_url}
+                  linkText={subscribe.link_text}
+                />
+              )}
             </div>
           </div>
         </div>
