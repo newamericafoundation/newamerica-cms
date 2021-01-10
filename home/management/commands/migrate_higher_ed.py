@@ -2,11 +2,14 @@ from django.core.management.base import BaseCommand
 from wagtail.core.models import Page
 from django.core.validators import slug_re
 from programs.models import Program, Subprogram, AbstractContentPage, Project
-from survey.models import DemographicKey, SurveyOrganization, SurveyTags, Survey, SurveysHomePage, SurveyValuesIndex
+from survey.models import DemographicKey, SurveyOrganization, SurveyTags, Survey, SurveysHomePage, SurveyValuesIndex, PageAuthorRelationship
+from survey.blocks import CtaBlock
+from person.models import Person
 from django.utils.text import slugify
 import datetime
 import json
 import re
+import uuid
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from django.core.files.temp import NamedTemporaryFile
@@ -18,17 +21,10 @@ import io
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 # Credentials for HigherEd google sheet migration. Burn after migrating. See https://www.youtube.com/watch?v=T1vqS1NL89E for details.
 
-# Full copy of google sheet. Uncomment this line for actual deployment
 credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_sheet_creds.json', scope)
-# Reduced sample set ofr testing. Uncomment this line for testing
-# credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_test_data_creds.json', scope)
 gc = gspread.authorize(credentials)
 
-# Full copy of google sheet. Uncomment this line for actual deployment
 raw_data = json.dumps(gc.open('Copy of epp_polling_dashboard_data_LIVE').sheet1.get_all_records())
-# Reduced sample set ofr testing. Uncomment this line for testing
-# raw_data = json.dumps(gc.open('TESTING_epp_polling_dashboard_data').sheet1.get_all_records())
-
 data = json.loads(raw_data)
 
 
@@ -39,6 +35,17 @@ class Command(BaseCommand):
     scaffold()
 
 def scaffold():
+  # Survey Homepage preset attribs
+  about = "<p>The HigherEd Public Opinion Hub comprises public opinion surveys on higher education that have been conducted in the U.S. since 2010. Surveys in the dashboard explore the general public’s opinion on issues pertaining to higher education such as funding, diversity, and value. Some focus on opinion of first-year college students, college and university presidents, and faculty. The Hub is a helpful source for researchers, journalists, and the general public who are interested in understanding public opinion on higher education issues. It is, however, by no means an exhaustive source of public opinion surveys about higher education.</p>"
+  methodology = "<p>Surveys in the Hub were collected by searching “higher education public opinion survey” in Google News. To be added, the survey needed to address the general public or other groups&#x27; opinion on at least one issue in higher education, be transparent about the methodology, and add the margins of error included where possible. Most of the surveys in the Hub are nationally representative, but some surveys that look into a specific population such as students, faculty, or administrators, may only capture the responses of those surveyed. To capture relatively recent data, we chose 2010 as the first year in which to include surveys; those before 2010 were excluded.</p>"
+  subheading = "A collection of reports, insights, and analyses exploring topics within Higher Education. Created for Researchers, Journalists, and the general public who have an interest in understanding public opinion on Higher Education issues."
+  subscribe_id= uuid.uuid4()
+  submisssions_id = uuid.uuid4()
+  subscribe =  "[{\"type\": \"cta_block\", \"value\": {\"title\": \"Love all this insight?\", \"description\": \"Subscribe to our newsletter to receive updates on what\\u2019s new in Education Policy.\", \"link_text\": \"Subscribe\", \"link_url\": \"https://www.newamerica.org/education-policy/higher-education/subscribe/\"}, \"id\": %d}]" %subscribe_id
+  submissions = "[{\"type\": \"cta_block\", \"value\": {\"title\": \"Call for Submissions\", \"description\": \"Know of a survey report that should be added to our list?\", \"link_text\": \"Send us an email today.\", \"link_url\": \"nguyens@newamerica.org\"}, \"id\": %d}]" %submisssions_id
+  about_submission = "<p>If you know of a survey that could be added to the site, please email the survey to <a href=\"mailto:nguyens@newamerica.org\">nguyens@newamerica.org.</a></p>"
+  authors_ids = [18400, 21696]
+
   # Get EdPolicy Program Page.
   root = Program.objects.get(title='Education Policy')
   # Add Project Page.
@@ -51,9 +58,19 @@ def scaffold():
     ))
   # Get Project page and add SurveyHomePage.
   project = Project.objects.get(title='HigherEd Public Opinion Hub')
-  project.add_child(instance=SurveysHomePage(title='Reports & Insights'))
-  # Get SurveyHomePage.
+  project.add_child(instance=SurveysHomePage(
+    title='Reports & Insights',
+    subheading = subheading,
+    about = about,
+    methodology=methodology,
+    subscribe = subscribe,
+    submissions = submissions,
+    about_submission = about_submission,
+    ))
+  # Get SurveyHomePage, add authors and save.
   home = SurveysHomePage.objects.get(title='Reports & Insights')
+  addAuthor(home, authors_ids)
+  home.save()
   # Get index page.
   index = SurveyValuesIndex.objects.get(title='Reports & Insights Values Index')
   # Add Demos, Tags, Orgs and Surveys.
@@ -104,6 +121,7 @@ def addDemos(index):
       index.add_child(instance=DemographicKey(title=demo))
       known_demos.append(demo)
     else:
+      print('Skipped demo:%s' % demo)
       continue
 
 def addOrgs(index):
@@ -129,7 +147,15 @@ def addTags(index):
       index.add_child(instance=SurveyTags(title=tag))
       known_tags.append(tag)
     else:
+      print('Skipped tag:%s' % tag)
       continue
+
+def addAuthor(page, author_ids):
+  for auth_id in author_ids:
+    author = Person.objects.get(id=auth_id)
+    print('ADDING AUTHOR________: ' + str(author))
+    rel = PageAuthorRelationship(author = author, page = page)
+    rel.save()
 
 def addSurveyDemos(survey, survey_data):
   demos = parse_list(survey_data['demographics_key'], ',')

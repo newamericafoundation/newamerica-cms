@@ -37,7 +37,7 @@ const AboutTab = (props) => {
         </Body>
       )}
 
-      {survey_home_page.page_author && (
+      {survey_home_page.page_author && survey_home_page.page_author[0].first_name && (
         <Body title="Authors" body="">
           <Authors authors={survey_home_page.page_author} md={true} />
         </Body>

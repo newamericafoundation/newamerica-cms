@@ -59,7 +59,8 @@ class SurveysHomePage(AbstractContentPage):
     subscribe = StreamField(
       StreamBlock(
         [('cta_block', CtaBlock())],
-        max_num=1
+        max_num=1,
+        required=False
       ),
       null=True,
       blank=True,
@@ -67,7 +68,8 @@ class SurveysHomePage(AbstractContentPage):
     submissions = StreamField(
       StreamBlock(
         [('cta_block', CtaBlock())],
-        max_num=1
+        max_num=1,
+        required=False
       ),
       null=True,
       blank=True,
@@ -100,7 +102,6 @@ class SurveysHomePage(AbstractContentPage):
         ObjectList(Page.promote_panels, heading="Promote"),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
     ])
-
 
     def get_context(self, request):
         context = super(SurveysHomePage, self).get_context(request)

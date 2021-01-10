@@ -90,13 +90,14 @@ class SurveysTab extends React.Component {
   render() {
     const { tags, demos, orgs, filtersOpen } = this.state;
     let newState = { ...this.state };
+    const {submissions, subscribe } =  this.props.data.survey_home_page
 
-    const submission = JSON.parse(this.props.data.survey_home_page.submissions)[0].value ?
-      JSON.parse(this.props.data.survey_home_page.submissions)[0].value :
-      false
-    const subscribe = JSON.parse(this.props.data.survey_home_page.subscribe)[0].value ?
-      JSON.parse(this.props.data.survey_home_page.subscribe)[0].value :
-      false
+    const submission_data = JSON.parse(submissions)[0]
+      ? JSON.parse(submissions)[0].value
+      : false
+    const subscribe_data = JSON.parse(subscribe)[0]
+      ? JSON.parse(subscribe)[0].value
+      : false
 
     Object.keys(newState).forEach((key, index) => {
       const { isOpen, ...rest } = newState[key];
@@ -265,17 +266,17 @@ class SurveysTab extends React.Component {
                 this.onFilterChange('national', filterState)
               }
             />
+          {submission_data && submission_data.title && (
             <div className="margin-top-25 d-xs-none">
-              {submission && (
                 <CtaCard
                       type="email"
-                      title={submission.title}
-                      description={submission.description}
-                      url={submission.link_url}
-                      linkText={submission.link_text}
+                      title={submission_data.title}
+                      description={submission_data.description}
+                      url={submission_data.link_url}
+                      linkText={submission_data.link_text}
                     />
-              )}
             </div>
+          )}
           </div>
           <div className="surveys-tab__results">
             <TeaserListing
@@ -284,24 +285,24 @@ class SurveysTab extends React.Component {
               searchTerm={newState.search.q}
             />
             <div className="margin-top-60">
+            {submission_data && submission_data.title && (
               <div className="d-sm-none margin-bottom-10">
-                {submission && (
                     <CtaCard
                     type="email"
-                    title={submission.title}
-                    description={submission.description}
-                    url={submission.link_url}
-                    linkText={submission.link_text}
+                    title={submission_data.title}
+                    description={submission_data.description}
+                    url={submission_data.link_url}
+                    linkText={submission_data.link_text}
                   />
-                )}
               </div>
-              {subscribe && (
+                )}
+              {subscribe_data && subscribe_data.title && (
                 <CtaCard
                   type="link"
-                  title={subscribe.title}
-                  description={subscribe.description}
-                  url={subscribe.link_url}
-                  linkText={subscribe.link_text}
+                  title={subscribe_data.title}
+                  description={subscribe_data.description}
+                  url={subscribe_data.link_url}
+                  linkText={subscribe_data.link_text}
                 />
               )}
             </div>
