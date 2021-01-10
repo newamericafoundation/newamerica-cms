@@ -164,9 +164,10 @@ def addSurveyDemos(survey, survey_data):
     survey.demos_key.add(survey_demo)
 
 def addSurveyOrgs(survey, survey_data):
-  org = survey_data['Organization']
-  survey_org = SurveyOrganization.objects.get(title=org.strip())
-  survey.org.add(survey_org)
+  orgs = parse_list(survey_data['Organization'], ',')
+  for org in orgs:
+    survey_org = SurveyOrganization.objects.get(title=org.strip())
+    survey.org.add(survey_org)
 
 def addSurveyTags(survey, survey_data):
   tags = parse_list(survey_data['Tags'], ',')
