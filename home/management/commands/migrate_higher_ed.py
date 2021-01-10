@@ -112,7 +112,7 @@ def addSurveys(home: SurveysHomePage):
     child.save()
 
 def addDemos(index):
-  new_demos = getDemos()
+  new_demos = getProp('demographics_key')
   res = map(lambda d: d.title.strip(), DemographicKey.objects.all())
   known_demos = list(res)
   for demo in new_demos:
@@ -125,7 +125,7 @@ def addDemos(index):
       continue
 
 def addOrgs(index):
-  new_orgs = getOrgs()
+  new_orgs = getProp('Organization')
   res = map(lambda o: o.title.strip(), SurveyOrganization.objects.all())
   known_orgs = list(res)
   for org in new_orgs:
@@ -138,7 +138,7 @@ def addOrgs(index):
       continue
 
 def addTags(index):
-  new_tags = getTags()
+  new_tags = getProp('Tags')
   res = map(lambda t: t.title.strip(), SurveyTags.objects.all())
   known_tags = list(res)
   for tag in new_tags:
@@ -228,27 +228,11 @@ def getSurveys():
     surveys.append(survey)
   return surveys
 
-def getTags():
-  tags = []
+def getProp(prop:str):
+  items = []
   for survey in data:
-    my_tags = parse_list(survey['Tags'], ',')
-    for tag in my_tags:
-      if tag not in tags:
-        tags.append(tag.strip())
-  return tags
-
-def getDemos():
-  demos = []
-  for survey in data:
-    demo = survey['demographics_key']
-    if demo not in demos:
-      demos.append(demo.strip())
-  return demos
-
-def getOrgs():
-  orgs = []
-  for survey in data:
-    org = survey['Organization']
-    if org not in orgs:
-      orgs.append(org.strip())
-  return orgs
+    my_items = parse_list(survey[prop], ',')
+    for item in my_items:
+      if item not in items:
+        items.append(item.strip())
+  return items
