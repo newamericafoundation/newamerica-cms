@@ -1,0 +1,98 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.checkbox-group {
+  border-bottom: 1px solid color(black, base, 0.3);
+
+  &--is-open {
+    padding-bottom: 24px;
+  }
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    font-family: $label-font-family;
+    font-weight: 900;
+    font-size: 15px;
+    padding: 24px 0;
+    cursor: pointer;
+  }
+  &__options {
+    max-height: 0;
+    overflow-y: hidden;
+    &.is-open {
+      animation: fadeIn 0.3s ease-in;
+      overflow-y: scroll;
+      max-height: 332.7px;
+    }
+  }
+  &__option {
+    display: flex;
+    align-items: center;
+
+    input {
+      position: absolute;
+      visibility: visible;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      margin: -1px;
+      padding: 0;
+      width: 1px;
+      height: 1px;
+      border: 0;
+      white-space: nowrap;
+      &:checked {
+        + .checkbox-group__label::before {
+          border-color: color(black);
+          background-color: color(black);
+        }
+        + .checkbox-group__label::after {
+          opacity: 1;
+          transform: scale(1) rotate(-45deg);
+        }
+      }
+    }
+  }
+  &__label {
+    font-family: $label-font-family;
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    min-height: 1rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    user-select: none;
+    &::before {
+      content: "";
+      position: absolute;
+      top: calc(50% - 8px);
+      left: 0;
+      box-sizing: border-box;
+      width: 18px;
+      height: 18px;
+      border: 2px solid color(black);
+      background-color: transparent;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      top: calc(50% - 2px);
+      left: 5px;
+      box-sizing: border-box;
+      width: 9px;
+      height: 5px;
+      border-bottom: 2px solid color(white);
+      border-left: 2px solid color(white);
+      background: none;
+      color: color(white);
+      transform: scale(0) rotate(-45deg);
+    }
+  }
+}

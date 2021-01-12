@@ -1,0 +1,19 @@
+.body-section {
+  margin-bottom: 50px;
+  @include media-breakpoint(tablet) {
+    width: 75%;
+  }
+  &__title {
+    font-size: 21px;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  p {
+    font-size: 15px;
+  }
+  a {
+    color: color(black);
+    font-weight: 400;
+    text-decoration: underline;
+  }
+}

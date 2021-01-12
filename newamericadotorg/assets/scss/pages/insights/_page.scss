@@ -1,0 +1,14 @@
+.insights-page {
+  &__related-content {
+    padding: 0 15px;
+    @include media-breakpoint(tablet) {
+      margin-top: -35px;
+      padding: 0;
+    }
+  }
+  .post-body-wrapper {
+    @include media-breakpoint(tablet) {
+      padding: 0;
+    }
+  }
+}

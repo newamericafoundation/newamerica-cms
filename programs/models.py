@@ -155,7 +155,8 @@ class Program(AbstractProgram):
     'report.ReportsHomepage',
     'PublicationsPage',
     'other_content.ProgramOtherPostsPage',
-    'home.ProgramAboutHomePage'
+    'home.ProgramAboutHomePage',
+    'survey.SurveysHomePage'
     ]
 
     desktop_program_logo = models.ForeignKey(
@@ -259,13 +260,15 @@ class Subprogram(AbstractProgram):
     'home.RedirectPage',
     'PublicationsPage',
     'other_content.ProgramOtherPostsPage',
-    'home.ProgramAboutHomePage'
+    'home.ProgramAboutHomePage',
+    'survey.SurveysHomePage'
     ]
 
     TEMPLATE_OPTIONS =  (
         ('programs/program.html', 'Full'),
         ('simple_program.html', 'Efficiency'),
-        ('programs/program.html', 'Collection')
+        ('programs/program.html', 'Collection'),
+        ('survey/surveys_home_page.html', 'Survey'),
     )
 
     template = models.CharField(choices=TEMPLATE_OPTIONS, default='programs/program.html', max_length=100)
@@ -357,7 +360,8 @@ class Project(Subprogram):
     'home.RedirectPage',
     'PublicationsPage',
     'other_content.ProgramOtherPostsPage',
-    'home.ProgramAboutHomePage'
+    'home.ProgramAboutHomePage',
+    'survey.SurveysHomePage'
     ]
 
     redirect_page = models.ForeignKey(
