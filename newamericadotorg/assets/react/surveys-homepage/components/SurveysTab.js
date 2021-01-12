@@ -13,7 +13,7 @@ class SurveysTab extends React.Component {
       search: {
         q: '',
       },
-      tags: this.props.data.survey_home_page.surveys.reduce(
+      tags: this.props.data.surveys.reduce(
         (acc, cur) => {
           const tags = cur['tags'];
           tags.forEach((tag, i) => {
@@ -24,7 +24,7 @@ class SurveysTab extends React.Component {
         },
         {}
       ),
-      demos: this.props.data.survey_home_page.surveys.reduce(
+      demos: this.props.data.surveys.reduce(
         (acc, cur) => {
           const demos = cur['demos_key'];
 
@@ -36,7 +36,7 @@ class SurveysTab extends React.Component {
         },
         {}
       ),
-      orgs: this.props.data.survey_home_page.surveys.reduce(
+      orgs: this.props.data.surveys.reduce(
         (acc, cur) => {
           const orgs = cur['org'];
 
@@ -90,7 +90,7 @@ class SurveysTab extends React.Component {
   render() {
     const { tags, demos, orgs, filtersOpen } = this.state;
     let newState = { ...this.state };
-    const {submissions, subscribe } =  this.props.data.survey_home_page
+    const {submissions, subscribe } =  this.props.data
 
     const submission_data = JSON.parse(submissions)[0]
       ? JSON.parse(submissions)[0].value
@@ -280,7 +280,7 @@ class SurveysTab extends React.Component {
           </div>
           <div className="surveys-tab__results">
             <TeaserListing
-              data={this.props.data.survey_home_page.surveys}
+              data={this.props.data.surveys}
               checkedValues={newState}
               searchTerm={newState.search.q}
             />

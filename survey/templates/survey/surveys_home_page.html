@@ -1,1 +1,14 @@
 {% extends "programs/program.html" %}
+
+{% block body_id %}na-surveys-homepage{% endblock %}
+
+{% block content %}
+	{% csrf_token %}
+
+    <main class="program container--full-width">
+        <div id="na-react__survey-home-page"
+            data-program-type="subprogram"
+            data-page-id="{{ page.id }}">
+        </div>
+    </main>
+{% endblock %}

@@ -55,7 +55,7 @@ const LoadingState = ({ title }) => (
 
 class APP extends Component {
   render() {
-    let { programId, programType } = this.props;
+    let { pageId, programType } = this.props;
 
     return (
       <div>
@@ -63,7 +63,7 @@ class APP extends Component {
           component={SurveyHomepage}
           name={NAME}
           loadingState={<LoadingState title={""} />}
-          endpoint={`program/survey/${programId}`}
+          endpoint={`surveys-homepage/${pageId}`}
           fetchOnMount={true}
           programType={programType}
         />

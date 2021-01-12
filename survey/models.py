@@ -36,7 +36,7 @@ class PageAuthorRelationship(models.Model):
         ordering = ['pk']
 
 class SurveysHomePage(AbstractContentPage):
-    parent_page_types = ['programs.Project']
+    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Survey', 'Commentary', 'SurveyValuesIndex']
 
     partner_logo = models.ForeignKey(
