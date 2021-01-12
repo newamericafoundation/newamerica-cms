@@ -8,8 +8,8 @@ const BasicHeader = (props) => {
     <div className="basic-header">
       <div className="basic-header__breadcrumb">
         <h6 className="link margin-0 with-caret--left">
-          <a href={data.survey_home_page.parent_project.url}>
-            {data.survey_home_page.parent_project.title}
+          <a href={data.parent.url}>
+            {data.parent.title}
           </a>
         </h6>
       </div>
@@ -18,7 +18,7 @@ const BasicHeader = (props) => {
           {data.title}
         </h1>
         <h6 className="basic-header__subtitle margin-top-25 margin-bottom-0">
-          {data.survey_home_page.subheading}
+          {data.subheading}
         </h6>
       </div>
     </div>

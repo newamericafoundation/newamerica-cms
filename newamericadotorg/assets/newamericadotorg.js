@@ -89,6 +89,9 @@ function importPageComponents() {
     case 'na-indepth':
       import(/* webpackChunkName: "na-indepth-components" */ './react/components.indepth');
       break;
+    case 'na-surveys-homepage':
+      import(/* webpackChunkName: "na-surveys-homepage-components" */ './react/components.surveys-homepage');
+      break;
     default:
       break;
   }

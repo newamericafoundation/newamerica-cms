@@ -47,6 +47,6 @@ api_urls = [
     url(r'^content-types/$', meta_views.ContentList.as_view()),
     url(r'^subscribe/$', subscribe_views.subscribe),
     url(r'^jobs/$', jobs_views.JobsList.as_view()),
-    url(r'^program/survey/(?P<pk>[\d]+)/$', survey_views.SurveyHomeDetail.as_view()),
+    url(r'^surveys-homepage/(?P<pk>[\d]+)/$', survey_views.SurveyHomeDetail.as_view()),
     url(r'^survey/(?P<pk>[\d]+)/$', survey_views.SurveyDetail.as_view())
 ]

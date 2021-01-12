@@ -36,6 +36,7 @@ class Command(BaseCommand):
 
 def scaffold():
   # Survey Homepage preset attribs
+  name = "HigherEd Public Opinion Hub"
   about = "<p>The HigherEd Public Opinion Hub comprises public opinion surveys on higher education that have been conducted in the U.S. since 2010. Surveys in the dashboard explore the general public’s opinion on issues pertaining to higher education such as funding, diversity, and value. Some focus on opinion of first-year college students, college and university presidents, and faculty. The Hub is a helpful source for researchers, journalists, and the general public who are interested in understanding public opinion on higher education issues. It is, however, by no means an exhaustive source of public opinion surveys about higher education.</p>"
   methodology = "<p>Surveys in the Hub were collected by searching “higher education public opinion survey” in Google News. To be added, the survey needed to address the general public or other groups&#x27; opinion on at least one issue in higher education, be transparent about the methodology, and add the margins of error included where possible. Most of the surveys in the Hub are nationally representative, but some surveys that look into a specific population such as students, faculty, or administrators, may only capture the responses of those surveyed. To capture relatively recent data, we chose 2010 as the first year in which to include surveys; those before 2010 were excluded.</p>"
   subheading = "A collection of reports, insights, and analyses exploring topics within Higher Education. Created for Researchers, Journalists, and the general public who have an interest in understanding public opinion on Higher Education issues."
@@ -48,18 +49,10 @@ def scaffold():
 
   # Get EdPolicy Program Page.
   root = Program.objects.get(title='Education Policy')
-  # Add Project Page.
-  root.add_child(instance=Project(
-    title='HigherEd Public Opinion Hub',
-    slug=slugify('HigherEd Public Opinion Hub'),
-    name='HigherEd Public Opinion Hub',
-    template='survey/surveys_home_page.html',
-    description='A collection of reports, insights, and analyses exploring topics within Higher Education. Created for Researchers, Journalists,  and the general public who have an interest in underatanding public opinion on Higher Education issues.',
-    ))
-  # Get Project page and add SurveyHomePage.
-  project = Project.objects.get(title='HigherEd Public Opinion Hub')
-  project.add_child(instance=SurveysHomePage(
-    title='Reports & Insights',
+  
+  # Add SurveysHomePage.
+  root.add_child(instance=SurveysHomePage(
+    title = name,
     subheading = subheading,
     about = about,
     methodology=methodology,
@@ -67,12 +60,12 @@ def scaffold():
     submissions = submissions,
     about_submission = about_submission,
     ))
-  # Get SurveyHomePage, add authors and save.
-  home = SurveysHomePage.objects.get(title='Reports & Insights')
+  # Get SurveysHomePage, add authors and save.
+  home = SurveysHomePage.objects.get(title=name)
   addAuthor(home, authors_ids)
   home.save()
   # Get index page.
-  index = SurveyValuesIndex.objects.get(title='Reports & Insights Values Index')
+  index = SurveyValuesIndex.objects.get(title=name+' Values Index')
   # Add Demos, Tags, Orgs and Surveys.
   addDemos(index)
   addTags(index)

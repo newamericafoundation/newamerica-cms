@@ -1,28 +1,17 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from survey.models import Survey, SurveysHomePage
-from programs.models import Subprogram
 from newamericadotorg.api.author.serializers import AuthorSerializer
 from wagtail.images.views.serve import generate_image_url
 
 
 class SurveyHomeSerializer(ModelSerializer):
-    survey_home_page = SerializerMethodField()
-
-    class Meta:
-        model = Subprogram
-        fields = ['id', 'title', 'survey_home_page', 'seo_title', 'name', 'url_path']
-        read_only_fields = fields
-
-    def get_survey_home_page(self, obj):
-        return get_survey_homepage(obj)
-class SurveysHomePageSerializer(ModelSerializer):
     surveys = SerializerMethodField()
     page_author = SerializerMethodField()
     partner_logo = SerializerMethodField()
-    parent_project = SerializerMethodField()
+    parent = SerializerMethodField()
     class Meta:
         model = SurveysHomePage
-        fields = ['id', 'title', 'url_path', 'parent_project', 'about', 'methodology', 'subscribe', 'page_author', 'submissions', 'about_submission', 'surveys', 'partner_logo', 'subheading']
+        fields = ['id', 'title', 'url_path', 'parent', 'about', 'methodology', 'subscribe', 'page_author', 'submissions', 'about_submission', 'surveys', 'partner_logo', 'subheading']
         depth = 1
         read_only_fields = fields
     def get_surveys(self, obj):
@@ -39,8 +28,8 @@ class SurveysHomePageSerializer(ModelSerializer):
         if obj.partner_logo:
             return generate_image_url(obj.partner_logo, 'max-240x30')
 
-    def get_parent_project(self, obj):
-        return get_project_parent(obj)
+    def get_parent(self, obj):
+        return get_page_parent(obj)
 
 class SurveyDetailSerializer(ModelSerializer):
     org = SerializerMethodField()
@@ -114,14 +103,6 @@ class SurveyDetailSerializer(ModelSerializer):
             tags.append(tag)
         return tags
 
-def get_survey_homepage(page):
-    homePage = page.get_children().type(SurveysHomePage).live().first()
-    if homePage is not None:
-        surveyHomePage = SurveysHomePageSerializer(homePage.specific).data
-        return surveyHomePage
-    else:
-        return []
-
 def get_surveys_detail(homePage):
     children = homePage.get_children().type(Survey).live()
     surveys = []
@@ -130,12 +111,12 @@ def get_surveys_detail(homePage):
             surveys.append(SurveyDetailSerializer(c.specific).data)
     return surveys
 
-def get_project_parent(page):
-    tree = page.get_ancestors()
-    if tree[2].title is not None:
+def get_page_parent(page):
+    parent_page = page.get_parent()
+    if parent_page is not None:
         parent = {
-          'title': tree[2].title,
-          'url': tree[2].url
+          'title': parent_page.title,
+          'url': parent_page.url
         }
         return parent
     else:
