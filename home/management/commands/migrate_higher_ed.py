@@ -65,7 +65,7 @@ def scaffold():
   addAuthor(home, authors_ids)
   home.save()
   # Get index page.
-  index = SurveyValuesIndex.objects.get(title=name+' Values Index')
+  index = SurveyValuesIndex.objects.get(title=name+' Filters')
   # Add Demos, Tags, Orgs and Surveys.
   addDemos(index)
   addTags(index)

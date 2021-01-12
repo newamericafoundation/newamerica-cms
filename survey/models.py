@@ -112,13 +112,13 @@ class SurveysHomePage(AbstractContentPage):
     def save(self, *args, **kwargs):
       super(SurveysHomePage, self).save(*args, **kwargs)
       if self.get_children_count() == 0:
-        self.add_child(instance=SurveyValuesIndex(title=self.title + " Values Index", slug=slugify(self.title + " Values Index")))
+        self.add_child(instance=SurveyValuesIndex(title=self.title + " Filters", slug=slugify(self.title + " Filters")))
 
     @property
     def content_model(self):
       return SurveysHomePage
     class Meta:
-        verbose_name = "Surveys Homepage"
+        verbose_name = "Survey Database"
 
     def __str__(self):
         return self.title
@@ -150,16 +150,16 @@ class SurveyTags(Page):
     class Meta:
         verbose_name_plural = 'Survey Tags'
 
-# SurveyValuesIndex page is the parent page for a SurveyHomePage's associated preset values.
+# SurveyValuesIndex page is the parent page for a SurveyHomePage's associated filters.
 # (ex. Demographics, Tags, Organizations). These values can be created and edited here.
 # Everytime a SurveyHomePage is created a child SurveyValuesIndex page is generated and adopts its title.
-# (ex. the surveyhomepage 'Magic Survey', will generate a child values index page 'Magic Survey Values Index')
+# (ex. the surveyhomepage 'Magic Survey', will generate a child values index page 'Magic Survey Filters')
 
 class SurveyValuesIndex(Page):
     parent_page_types = ['SurveysHomePage']
     subpage_type = ['SurveyOrganization', 'DemographicKey', 'SurveyTags']
     class Meta:
-        verbose_name = "Surveyindex Homepage"
+        verbose_name = "Survey Filters Parent"
 
     def __str__(self):
         return self.title
@@ -206,7 +206,7 @@ class Survey(Post):
       ])
     ]
     class Meta:
-      verbose_name = 'Survey Reports'
+      verbose_name = 'Survey'
 
     def __str__(self):
         return self.title
