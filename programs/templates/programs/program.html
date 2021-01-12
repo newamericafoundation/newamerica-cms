@@ -20,6 +20,13 @@
 				data-program-type="subprogram"
 				data-program-id="{% firstof program.id page.parent_program.id page.id %}"></div>
 		</main>
+	{% elif page.template == 'survey/surveys_home_page.html'%}
+		<main class="program container--full-width">
+			<div id="na-react__survey-home-page"
+				data-program-type="subprogram"
+				data-program-id="{% firstof program.id page.parent_program.id page.id %}">
+			</div>
+		</main>
 	{% else %}
 		<main class="program container--full-width">
 			{# if page is a Content page (/blogs, /publications etc.) program object is currently defined in get_context #}

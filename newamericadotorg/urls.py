@@ -11,6 +11,7 @@ from wagtail.images.views.serve import ServeView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
+from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
 
 from newamericadotorg.api.urls import api_urls
 
@@ -23,6 +24,8 @@ import newamericadotorg.redirects as redirects
 
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
+
+    url(r'^admin/autocomplete/', include(autocomplete_admin_urls)),
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
