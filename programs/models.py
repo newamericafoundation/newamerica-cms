@@ -383,6 +383,10 @@ class Project(Subprogram):
         ObjectList(Subprogram.settings_panels, heading='Settings', classname='settings'),
     ])
 
+    class Meta:
+        ordering = ('title',)
+        verbose_name = 'Project'
+
 class AbstractContentPage(Page):
     """
     Convenience Class for querying all Content homepages
