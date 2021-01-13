@@ -31,6 +31,8 @@ from report.models import ReportsHomepage
 
 from other_content.models import ProgramOtherPostsPage
 
+from survey.models import SurveysHomePage
+
 class ProgramsTests(WagtailPageTests):
     """
     Testing hierarchies between pages and whether it is possible
@@ -120,7 +122,8 @@ class ProgramsTests(WagtailPageTests):
                 ProgramOtherPostsPage,
                 Project,
                 TopicHomePage,
-                ProgramAboutHomePage
+                ProgramAboutHomePage,
+                SurveysHomePage
             }
         )
 
@@ -142,6 +145,7 @@ class ProgramsTests(WagtailPageTests):
                 PublicationsPage,
                 ProgramOtherPostsPage,
                 ReportsHomepage,
-                ProgramAboutHomePage
+                ProgramAboutHomePage,
+                SurveysHomePage
             }
         )
