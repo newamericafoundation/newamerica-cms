@@ -75,12 +75,13 @@ def scaffold():
 def addSurveys(home: SurveysHomePage):
   date = datetime.datetime.today().strftime('%Y-%m-%d')
   surveys = getSurveys()
-  for survey in surveys:
+  surveys_count = len(surveys)
+  for index, survey in enumerate(surveys, start=1):
     title = survey['Study Title']
     year = survey['Year']
     slugified = slugify(title + '-' + str(year))
     is_file = re.search('^https:\/\/drive\.google\.com\/file\/', survey['download'])
-    print('ADDING SURVEY_______: ' + title)
+    print('ADDING SURVEY_______: ' + title + ' (' + str(index) + '/' + str(surveys_count) + ')')
     new_survey = Survey(
       title=title,
       slug=slugified,
