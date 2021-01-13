@@ -76,15 +76,16 @@ def addSurveys(home: SurveysHomePage):
   date = datetime.datetime.today().strftime('%Y-%m-%d')
   surveys = getSurveys()
   for survey in surveys:
-    slugified = slugify(survey['Study Title'] + '-' + str(survey['Year']))
+    title = survey['Study Title']
+    year = survey['Year']
+    slugified = slugify(title + '-' + str(year))
     is_file = re.search('^https:\/\/drive\.google\.com\/file\/', survey['download'])
-    title = setTitle(survey)
     print('ADDING SURVEY_______: ' + title)
     new_survey = Survey(
       title=title,
       slug=slugified,
       date=date,
-      year=survey['Year'],
+      year=year,
       month=None,
       sample_number=survey['sample_number'],
       data_type = ['QUANT', 'QUAL'],
@@ -95,7 +96,7 @@ def addSurveys(home: SurveysHomePage):
     home.add_child(instance=new_survey)
 
     # Load the survey object.
-    child = Survey.objects.get(title=title)
+    child = Survey.objects.get(slug=slugified)
 
     addSurveyFile(child, survey, is_file)
     addSurveyTags(child, survey)
@@ -204,16 +205,6 @@ def getPageId(title: str):
 def getFileId(url: str):
   regex = "([\w-]){33}|([\w-]){19}"
   return re.search(regex,url).group()
-
-def setTitle(survey: object):
-  study_title = survey['Study Title']
-  alt_title = survey['Study Title'] + '(' + str(survey['Year']) + ')'
-  title_extant = Page.objects.filter(title=study_title).exists()
-  if title_extant:
-    return alt_title
-  else:
-    return study_title
-
 
 # Get data from google sheet.
 def getSurveys():
