@@ -249,7 +249,7 @@ class SurveysTab extends React.Component {
             />
 
             <CheckboxGroup
-              title="Sample Representaion"
+              title="Sample Representation"
               options={[
                 {
                   checked: false,
