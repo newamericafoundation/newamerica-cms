@@ -55,7 +55,8 @@ class SurveyDetailSerializer(ModelSerializer):
             'org',
             'demos_key',
             'assoc_commentary',
-            'tags'
+            'tags',
+            'description'
         ]
         read_only_fields = fields
 
