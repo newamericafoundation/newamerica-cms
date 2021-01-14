@@ -271,7 +271,7 @@ class TeaserListing extends Component {
                   <u>{item.title}</u>
                 </h4>
                 {item.description && (
-                  <div
+                  <p
                     className="teaser-listing__item-description"
                     dangerouslySetInnerHTML={{
                       __html: item.description,

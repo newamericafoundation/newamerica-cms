@@ -79,14 +79,11 @@
   }
   &__item-description {
     margin: 20px 0 0 0;
-    p {
-      font-family: $label-font-family;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 19px;
-      display: block;
-      margin: 0;
-    }
+    font-family: $label-font-family;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 19px;
+    display: block;
   }
   &__item-date {
     font-size: 15px;
