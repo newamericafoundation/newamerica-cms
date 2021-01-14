@@ -104,6 +104,26 @@ def pull_develop_data(c):
     """Pull database from develop Heroku Postgres"""
     pull_database_from_heroku(c, DEVELOP_APP_INSTANCE)
 
+@task
+def sync_develop_from_production(c):
+    """Copy database from production to develop"""
+    copy_heroku_database(
+        c,
+        destination=DEVELOP_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
+    sync_heroku_buckets(
+        c,
+        destination=DEVELOP_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+        folders=['original_images', 'documents']
+    )
+    # The above command just syncs the original images, so we need to
+    # delete the contents of the wagtailimages_renditions table so
+    # that the renditions will be re-created when requested in the
+    # develop environment.
+    delete_develop_renditions(c)
+
 #######
 # Local
 #######
