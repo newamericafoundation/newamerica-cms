@@ -192,7 +192,7 @@ class InDepthProfile(Page):
 
     body = StreamField([
         ('introduction', blocks.RichTextBlock()),
-        ('heading', blocks.CharBlock(classname='full title')),
+        ('heading', blocks.CharBlock(form_classname='full title')),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(icon='image')),
         ('video', EmbedBlock(icon='media')),
