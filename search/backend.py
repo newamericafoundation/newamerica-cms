@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django.utils import timezone
 
 from wagtail.core.models import Page
@@ -8,9 +10,25 @@ from home.models import Post
 
 
 class QueryCompiler(Elasticsearch2SearchQueryCompiler):
+    def get_filters(self):
+        filters = super().get_filters()
+        if hasattr(self.queryset, '_filter_program_id'):
+            filters.append({'term': {'person_person__program_ids_filter': self.queryset._filter_program_id}})
+
+        if hasattr(self.queryset, '_filter_upcoming_event_program_id'):
+            filters.append({'term': {'home_post__program_ids_filter': self.queryset._filter_upcoming_event_program_id}})
+
+        if hasattr(self.queryset, '_filter_upcoming_event_subprogram_id'):
+            filters.append({'term': {'home_post__subprogram_ids_filter': self.queryset._filter_upcoming_event_subprogram_id}})
+
+        if hasattr(self.queryset, '_filter_subprogram_id'):
+            filters.append({'term': {'person_person__subprogram_ids_filter': self.queryset._filter_subprogram_id}})
+        return filters
+
     # Taken from Elasticsearch 5 backend.
     # For some reason, the ES2 implementation doesn't like the way we're excluding private pages.
     def _connect_filters(self, filters, connector, negated):
+        # print('the untold')
         if filters:
             if len(filters) == 1:
                 filter_out = filters[0]
@@ -81,6 +99,7 @@ class QueryCompiler(Elasticsearch2SearchQueryCompiler):
                 }
             }
 
+        # pprint(query)
         return query
 
 

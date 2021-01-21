@@ -1,3 +1,5 @@
+# vagrant ssh -c 'ELASTICSEARCH_URL=http://localhost:9200 SECRET_KEY=test DJANGO_SETTINGS_MODULE=newamericadotorg.settings.dev PGDATABASE=newamerica-cms DATABASE_URL=postgres:///newamerica-cms PYTHONPATH=/vagrant /home/vagrant/.virtualenvs/newamerica-cms/bin/django-admin.py test --noinput --failfast --keepdb newamericadotorg.api.search.tests'
+from pprint import pprint
 import datetime
 import unittest
 import random
@@ -13,6 +15,7 @@ from test_factories import PostFactory
 
 from blog.models import ProgramBlogPostsPage, BlogPost
 from event.models import Event, ProgramEventsPage
+from person.models import PersonProgramRelationship, Person
 
 
 TEST_ELASTICSEARCH = getattr(settings, "TEST_ELASTICSEARCH", False)
@@ -128,6 +131,7 @@ class SearchPeopleAPITests(APITestCase):
             post_type=BlogPost,
             post_data={'title': 'Alice'}
         )
+        cls.home_page = home_page
 
     def setUp(self):
         management.call_command('update_index', stdout=StringIO(), chunk_size=50)

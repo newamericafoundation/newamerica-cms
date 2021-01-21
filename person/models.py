@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 
 from wagtail.core.models import Page
@@ -252,12 +254,27 @@ class Person(Page):
 
         index.RelatedFields('belongs_to_these_programs', [
             index.SearchField('name'),
+            # index.FilterField('id'),
+            # index.FilterField('pk'),
         ]),
 
         index.RelatedFields('belongs_to_these_subprograms', [
             index.SearchField('name'),
         ]),
+        index.FilterField('id'),
+        index.FilterField('program_ids'),
+        index.FilterField('subprogram_ids'),
     ]
+
+    def program_ids(self):
+        """Returns a list of associated program ids for search filtering."""
+        program_ids = self.belongs_to_these_programs.all().values_list('pk', flat=True)
+        return list(program_ids)
+
+    def subprogram_ids(self):
+        """Returns a list of associated subprogram ids for search filtering."""
+        subprogram_ids = self.belongs_to_these_subprograms.all().values_list('pk', flat=True)
+        return list(subprogram_ids)
 
     def get_context(self, request):
         context = super(Person, self).get_context(request)
