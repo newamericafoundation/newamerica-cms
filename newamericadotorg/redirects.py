@@ -3,10 +3,10 @@ from django.shortcuts import render, redirect
 
 # Subprograms changing to programs
 
-# now FLHP
+# They changed their name to Future of Land and Housing (see flh redirect below)
 def future_property_rights(request, **kwargs):
     path = request.path.split('/')[3:]
-    url = '/flhp/' + '/'.join(path)
+    url = '/future-land-housing/' + '/'.join(path)
     return redirect(url)
 
 def new_practice_lab(request, **kwargs):
@@ -41,8 +41,8 @@ def pit(request, **kwargs):
     url = '/'.join(path)
     return redirect(url)
 
-def flhp(request, **kwargs):
+def flh(request, **kwargs):
     path = request.path.split('/')
-    path[1] = 'flhp'
+    path[1] = 'future-land-housing'
     url = '/'.join(path)
     return redirect(url)
