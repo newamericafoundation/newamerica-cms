@@ -20,6 +20,7 @@ from person.models import (
     PersonSubprogramRelationship,
     Person,
 )
+from issue.models import TopicHomePage, IssueOrTopic
 
 
 TEST_ELASTICSEARCH = getattr(settings, "TEST_ELASTICSEARCH", False)
@@ -509,3 +510,93 @@ class SearchPeopleFilterBySubprogramTests(APITestCase):
     def test_returns_correct_response_body(self):
         self.assertEqual(self.json['results'][0]['title'], self.person2.title)
         self.assertEqual(self.json['results'][0]['id'], self.person2.pk)
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+class SearchOtherPagesFilterByProgramTests(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        cls.program1 = PostFactory.create_program(home_page=home_page)
+        cls.program2 = PostFactory.create_program(home_page=home_page)
+
+        cls.topic1 = PostFactory.create_program_topics(
+            1,
+            program=cls.program1,
+            topic_data={'title': 'Octopus'}
+        )[0]
+        cls.topic2 = PostFactory.create_program_topics(
+            1,
+            program=cls.program2,
+            topic_data={'title': 'Octopus'}
+        )[0]
+
+    def setUp(self):
+        management.call_command('update_index', stdout=StringIO(), chunk_size=50)
+        url = f'/api/search/other/?query=octopus&program_id={self.program2.pk}'
+        self.response = self.client.get(url)
+        self.json = self.response.json()
+
+    def test_returns_success_response(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_returns_exactly_one_post(self):
+        self.assertEquals(self.json['count'], 1)
+        self.assertEquals(len(self.json['results']), 1)
+
+    def test_returns_correct_response_body(self):
+        self.assertEqual(self.json['results'][0]['title'], self.topic2.title)
+        self.assertEqual(self.json['results'][0]['id'], self.topic2.pk)
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+class SearchOtherPagesFilterBySubprogramTests(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        program = PostFactory.create_program(home_page=home_page)
+
+        cls.subprogram1 = PostFactory.create_subprogram(
+            program=program,
+            subprogram_data={
+                'title': 'Gastropod Subprogram',
+            },
+        )
+        cls.subprogram2 = PostFactory.create_subprogram(
+            program=program,
+            subprogram_data={
+                'title': 'Bivalve Subprogram',
+            },
+        )
+
+        topic_home1 = cls.subprogram1.add_child(
+            instance=TopicHomePage(title='Topics')
+        )
+        cls.topic1 = topic_home1.add_child(
+            instance=IssueOrTopic(title='Shells')
+        )
+        topic_home2 = cls.subprogram2.add_child(
+            instance=TopicHomePage(title='Topics')
+        )
+        cls.topic2 = topic_home2.add_child(
+            instance=IssueOrTopic(title='Shells')
+        )
+
+    def setUp(self):
+        management.call_command('update_index', stdout=StringIO(), chunk_size=50)
+        url = f'/api/search/other/?query=shells&subprogram_id={self.subprogram2.pk}'
+        self.response = self.client.get(url)
+        self.json = self.response.json()
+
+    def test_returns_success_response(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_returns_exactly_one_result(self):
+        self.assertEquals(self.json['count'], 1)
+        self.assertEquals(len(self.json['results']), 1)
+
+    def test_returns_correct_response_body(self):
+        self.assertEqual(self.json['results'][0]['title'], self.topic2.title)
+        self.assertEqual(self.json['results'][0]['id'], self.topic2.pk)

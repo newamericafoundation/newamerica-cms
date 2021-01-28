@@ -204,9 +204,18 @@ class SearchOtherPages(ListAPIView):
         search = self.request.query_params.get('query', None)
         site_for_request = Site.find_for_request(self.request)
 
+        program_id = self.request.query_params.get('program_id')
+        subprogram_id = self.request.query_params.get('subprogram_id')
+        if program_id:
+            search_root = Program.objects.get(pk=program_id)
+        elif subprogram_id:
+            search_root = Subprogram.objects.get(pk=subprogram_id)
+        else:
+            search_root = site_for_request.root_page
+
         base_query = Page.objects.live().public().not_type(
             (Person, Program, Subprogram, Post, Event, SubscriptionSegment, RedirectPage),
-        ).descendant_of(site_for_request.root_page, inclusive=True)
+        ).descendant_of(search_root, inclusive=True)
         qs = exclude_invisible_pages(self.request, base_query)
 
         if search:
