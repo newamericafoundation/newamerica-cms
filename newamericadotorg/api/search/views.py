@@ -150,21 +150,7 @@ class SearchPrograms(ListAPIView):
 
 class SearchPeople(ListAPIView):
     serializer_class = SearchSerializer
-    # filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_backends = ()
-
-    # def list(self, request, *args, **kwargs):
-    #     queryset = self.filter_queryset(self.get_queryset())
-
-    #     print('q', queryset, queryset.count())
-    #     page = self.paginate_queryset(queryset)
-    #     print('page', page)
-    #     if page is not None:
-    #         serializer = self.get_serializer(page, many=True)
-    #         return self.get_paginated_response(serializer.data)
-
-    #     serializer = self.get_serializer(queryset, many=True)
-    #     return Response(serializer.data)
+    filter_backends = (DjangoFilterBackend, SearchFilter)
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
@@ -177,14 +163,13 @@ class SearchPeople(ListAPIView):
         # return Person.objects.filter(id__in=[459, 575, 7626, 11884, 13911]).search(search, partial_match=True)
 
         site_for_request = Site.find_for_request(self.request)
-        program_id = self.request.query_params.get('zeromus', None)
+        program_id = self.request.query_params.get('program_id', None)
+        subprogram_id = self.request.query_params.get('subprogram_id', None)
 
         base_query = Person.objects.live().public().descendant_of(
             site_for_request.root_page,
             inclusive=True,
         )
-        if program_id:
-            base_query = base_query.filter(belongs_to_these_programs=program_id)
 
         qs = exclude_invisible_pages(self.request, base_query)
         # ids = qs.values_list('id', flat=True)
@@ -194,7 +179,11 @@ class SearchPeople(ListAPIView):
         # print('count of person w/ids', ids.count())
 
         if search:
-            print(f'searching with `{search}`')
+            print(f'searching with `{search}`, subprogram_id={subprogram_id}, program_id={program_id}')
+            if program_id:
+                qs._filter_program_id = program_id
+            if subprogram_id:
+                qs._filter_subprogram_id = subprogram_id
             qs = qs.search(search, partial_match=False)
             # #s = get_search_backend()
             # #qs2 = s.search(search, qs2, partial_match=True)

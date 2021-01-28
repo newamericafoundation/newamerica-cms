@@ -15,7 +15,11 @@ from test_factories import PostFactory
 
 from blog.models import ProgramBlogPostsPage, BlogPost
 from event.models import Event, ProgramEventsPage
-from person.models import PersonProgramRelationship, Person
+from person.models import (
+    PersonProgramRelationship,
+    PersonSubprogramRelationship,
+    Person,
+)
 
 
 TEST_ELASTICSEARCH = getattr(settings, "TEST_ELASTICSEARCH", False)
@@ -408,3 +412,100 @@ class SearchOtherPagesAPITests(APITestCase):
 
         self.assertNotIn('error', result)
         self.assertEquals(result['count'], 3)
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+class SearchPeopleFilterByProgramTests(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        program = PostFactory.create_program(home_page=home_page)
+
+        cls.person1 = PostFactory.create_person(person_data={
+            'title': 'Alice',
+        })
+
+        cls.program2 = PostFactory.create_program(home_page=home_page)
+        cls.person2 = PostFactory.create_person(person_data={
+            'title': 'Alice 2',
+        })
+
+        PersonProgramRelationship.objects.create(
+            program=cls.program2,
+            person=cls.person2
+        )
+
+    def setUp(self):
+        management.call_command('update_index', stdout=StringIO(), chunk_size=50)
+        url = f'/api/search/people/?query=alice&program_id={self.program2.pk}'
+        self.response = self.client.get(url)
+        self.json = self.response.json()
+
+    def test_returns_success_response(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_returns_exactly_one_person(self):
+        self.assertEquals(self.json['count'], 1)
+        self.assertEquals(len(self.json['results']), 1)
+
+    def test_returns_correct_response_body(self):
+        self.assertEqual(self.json['results'][0]['title'], self.person2.title)
+        self.assertEqual(self.json['results'][0]['id'], self.person2.pk)
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+class SearchPeopleFilterBySubprogramTests(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        program = PostFactory.create_program(home_page=home_page)
+
+        cls.subprogram1 = PostFactory.create_subprogram(
+            program=program,
+            subprogram_data={
+                'title': 'Octopus Subprogram',
+            },
+        )
+        cls.subprogram2 = PostFactory.create_subprogram(
+            program=program,
+            subprogram_data={
+                'title': 'Squid Subprogram',
+            },
+        )
+
+        cls.person1 = PostFactory.create_person(person_data={
+            'title': 'Alice',
+        })
+
+        cls.person2 = PostFactory.create_person(person_data={
+            'title': 'Alice 2',
+        })
+
+        PersonSubprogramRelationship.objects.create(
+            subprogram=cls.subprogram2,
+            person=cls.person2,
+        )
+
+        PersonSubprogramRelationship.objects.create(
+            subprogram=cls.subprogram1,
+            person=cls.person1,
+        )
+
+    def setUp(self):
+        management.call_command('update_index', stdout=StringIO(), chunk_size=50)
+        url = f'/api/search/people/?query=alice&subprogram_id={self.subprogram2.pk}'
+        self.response = self.client.get(url)
+        self.json = self.response.json()
+
+    def test_returns_success_response(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_returns_exactly_one_person(self):
+        self.assertEquals(self.json['count'], 1)
+        self.assertEquals(len(self.json['results']), 1)
+
+    def test_returns_correct_response_body(self):
+        self.assertEqual(self.json['results'][0]['title'], self.person2.title)
+        self.assertEqual(self.json['results'][0]['id'], self.person2.pk)
