@@ -236,17 +236,18 @@ class SearchUpcomingEvents(ListAPIView):
         site_for_request = Site.find_for_request(self.request)
         today = localtime(now()).date()
 
-        if program_id:
-            search_root = Program.objects.get(pk=program_id)
-        elif subprogram_id:
-            search_root = Subprogram.objects.get(pk=subprogram_id)
-        else:
-            search_root = site_for_request.root_page
+        search_root = site_for_request.root_page
 
         base_query = Event.objects.live().public().filter(
             date__gte=today
         ).descendant_of(search_root, inclusive=True)
         qs = exclude_invisible_pages(self.request, base_query)
+
+        if program_id:
+            qs._filter_upcoming_event_program_id = program_id
+        if subprogram_id:
+            qs._filter_upcoming_event_subprogram_id = subprogram_id
+
         if search:
             qs = qs.search(search, partial_match=False)
             query = Query.get(search)

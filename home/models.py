@@ -628,6 +628,8 @@ class Post(Page):
     search_fields = Page.search_fields + [
         index.SearchField('body', boost=0.5),
         index.FilterField('date'),
+        index.FilterField('program_ids'),
+        index.FilterField('subprogram_ids'),
 
         index.RelatedFields('parent_programs', [
             index.SearchField('name'),
@@ -676,6 +678,16 @@ class Post(Page):
                 )
                 if created:
                     relationship.save()
+
+    def program_ids(self):
+        """Returns a list of associated program ids for search filtering."""
+        program_ids = self.parent_programs.all().values_list('pk', flat=True)
+        return program_ids
+
+    def subprogram_ids(self):
+        """Returns a list of associated subprogram ids for search filtering."""
+        subprogram_ids = self.post_subprogram.all().values_list('pk', flat=True)
+        return subprogram_ids
 
 class AbstractHomeContentPage(Page):
     """

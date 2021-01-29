@@ -21,6 +21,7 @@ from person.models import (
     Person,
 )
 from issue.models import TopicHomePage, IssueOrTopic
+from home.models import PostProgramRelationship, PostSubprogramRelationship
 
 
 TEST_ELASTICSEARCH = getattr(settings, "TEST_ELASTICSEARCH", False)
@@ -621,8 +622,8 @@ class SearchUpcomingEventsFilterByProgramAPITests(APITestCase):
             }
         )
 
-        cls.event1 = PostFactory.create_program_content(
-            1,
+        cls.event1a, cls.event1b = PostFactory.create_program_content(
+            2,
             program=cls.program1,
             content_page_type=ProgramEventsPage,
             post_type=Event,
@@ -631,7 +632,12 @@ class SearchUpcomingEventsFilterByProgramAPITests(APITestCase):
                 'title': 'Party',
                 'date': datetime.date.today() + datetime.timedelta(days=1),
             }
-        )[0]
+        )
+        PostProgramRelationship.objects.create(
+            post=cls.event1b,
+            program=cls.program2,
+        )
+
         cls.event2 = PostFactory.create_program_content(
             1,
             program=cls.program2,
@@ -661,13 +667,17 @@ class SearchUpcomingEventsFilterByProgramAPITests(APITestCase):
     def test_returns_success_response(self):
         self.assertEqual(self.response.status_code, 200)
 
-    def test_returns_exactly_one_person(self):
-        self.assertEquals(self.json['count'], 1)
-        self.assertEquals(len(self.json['results']), 1)
+    def test_returns_exactly_two_persons(self):
+        self.assertEquals(self.json['count'], 2)
+        self.assertEquals(len(self.json['results']), 2)
 
     def test_returns_correct_response_body(self):
-        self.assertEqual(self.json['results'][0]['title'], self.event2.title)
-        self.assertEqual(self.json['results'][0]['id'], self.event2.pk)
+        ordered_results = sorted(self.json['results'], key=lambda r: r['id'])
+        self.assertEqual(ordered_results[0]['title'], self.event1b.title)
+        self.assertEqual(ordered_results[0]['id'], self.event1b.pk)
+
+        self.assertEqual(ordered_results[1]['title'], self.event2.title)
+        self.assertEqual(ordered_results[1]['id'], self.event2.pk)
 
 
 @unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
@@ -701,7 +711,13 @@ class SearchUpcomingEventsFilterBySubprogramAPITests(APITestCase):
         events_home2 = cls.subprogram2.add_child(
             instance=ProgramEventsPage(title='Events')
         )
-        cls.event1 = events_home1.add_child(instance=Event(**event_data))
+        cls.event1a = events_home1.add_child(instance=Event(**event_data))
+        cls.event1b = events_home1.add_child(instance=Event(**event_data))
+        PostSubprogramRelationship.objects.create(
+            post=cls.event1b,
+            subprogram=cls.subprogram2,
+        )
+
         cls.event2 = events_home2.add_child(instance=Event(**event_data))
 
     def setUp(self):
@@ -714,9 +730,13 @@ class SearchUpcomingEventsFilterBySubprogramAPITests(APITestCase):
         self.assertEqual(self.response.status_code, 200)
 
     def test_returns_exactly_one_person(self):
-        self.assertEquals(self.json['count'], 1)
-        self.assertEquals(len(self.json['results']), 1)
+        self.assertEquals(self.json['count'], 2)
+        self.assertEquals(len(self.json['results']), 2)
 
     def test_returns_correct_response_body(self):
-        self.assertEqual(self.json['results'][0]['title'], self.event2.title)
-        self.assertEqual(self.json['results'][0]['id'], self.event2.pk)
+        ordered_results = sorted(self.json['results'], key=lambda r: r['id'])
+        self.assertEqual(ordered_results[0]['title'], self.event1b.title)
+        self.assertEqual(ordered_results[0]['id'], self.event1b.pk)
+
+        self.assertEqual(ordered_results[1]['title'], self.event2.title)
+        self.assertEqual(ordered_results[1]['id'], self.event2.pk)
