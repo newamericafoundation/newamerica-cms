@@ -600,3 +600,123 @@ class SearchOtherPagesFilterBySubprogramTests(APITestCase):
     def test_returns_correct_response_body(self):
         self.assertEqual(self.json['results'][0]['title'], self.topic2.title)
         self.assertEqual(self.json['results'][0]['id'], self.topic2.pk)
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+class SearchUpcomingEventsFilterByProgramAPITests(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        cls.program1 = PostFactory.create_program(
+            home_page=home_page,
+            program_data={
+                'title': 'Robots Program'
+            }
+        )
+        cls.program2 = PostFactory.create_program(
+            home_page=home_page,
+            program_data={
+                'title': 'Cyborg Program'
+            }
+        )
+
+        cls.event1 = PostFactory.create_program_content(
+            1,
+            program=cls.program1,
+            content_page_type=ProgramEventsPage,
+            post_type=Event,
+            content_page_data={},
+            post_data={
+                'title': 'Party',
+                'date': datetime.date.today() + datetime.timedelta(days=1),
+            }
+        )[0]
+        cls.event2 = PostFactory.create_program_content(
+            1,
+            program=cls.program2,
+            content_page_type=ProgramEventsPage,
+            post_type=Event,
+            content_page_data={},
+            post_data={
+                'title': 'Party',
+                'date': datetime.date.today() + datetime.timedelta(days=1),
+            }
+        )[0]
+
+        # Some posts that shouldn't be returned in results
+        PostFactory.create_program_content(10,
+            program=cls.program1,
+            content_page_type=ProgramBlogPostsPage,
+            post_type=BlogPost,
+            post_data={'title': 'Party'}
+        )
+
+    def setUp(self):
+        management.call_command('update_index', stdout=StringIO(), chunk_size=50)
+        url = f'/api/search/upcoming_events/?query=party&program_id={self.program2.pk}'
+        self.response = self.client.get(url)
+        self.json = self.response.json()
+
+    def test_returns_success_response(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_returns_exactly_one_person(self):
+        self.assertEquals(self.json['count'], 1)
+        self.assertEquals(len(self.json['results']), 1)
+
+    def test_returns_correct_response_body(self):
+        self.assertEqual(self.json['results'][0]['title'], self.event2.title)
+        self.assertEqual(self.json['results'][0]['id'], self.event2.pk)
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+class SearchUpcomingEventsFilterBySubprogramAPITests(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        program = PostFactory.create_program(home_page=home_page)
+
+        cls.subprogram1 = PostFactory.create_subprogram(
+            program=program,
+            subprogram_data={
+                'title': 'Cyborg Program'
+            }
+        )
+
+        cls.subprogram2 = PostFactory.create_subprogram(
+            program=program,
+            subprogram_data={
+                'title': 'Android Program'
+            }
+        )
+        event_data = {
+            'title': 'Party',
+            'date': datetime.date.today() + datetime.timedelta(days=1),
+        }
+        events_home1 = cls.subprogram1.add_child(
+            instance=ProgramEventsPage(title='Events')
+        )
+        events_home2 = cls.subprogram2.add_child(
+            instance=ProgramEventsPage(title='Events')
+        )
+        cls.event1 = events_home1.add_child(instance=Event(**event_data))
+        cls.event2 = events_home2.add_child(instance=Event(**event_data))
+
+    def setUp(self):
+        management.call_command('update_index', stdout=StringIO(), chunk_size=50)
+        url = f'/api/search/upcoming_events/?query=party&subprogram_id={self.subprogram2.pk}'
+        self.response = self.client.get(url)
+        self.json = self.response.json()
+
+    def test_returns_success_response(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_returns_exactly_one_person(self):
+        self.assertEquals(self.json['count'], 1)
+        self.assertEquals(len(self.json['results']), 1)
+
+    def test_returns_correct_response_body(self):
+        self.assertEqual(self.json['results'][0]['title'], self.event2.title)
+        self.assertEqual(self.json['results'][0]['id'], self.event2.pk)

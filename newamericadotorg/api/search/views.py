@@ -230,16 +230,22 @@ class SearchUpcomingEvents(ListAPIView):
     filter_backends = (DjangoFilterBackend, SearchFilter)
 
     def get_queryset(self):
-        print('hello')
-        s = get_search_backend()
-        print(s)
         search = self.request.query_params.get('query', None)
+        program_id = self.request.query_params.get('program_id')
+        subprogram_id = self.request.query_params.get('subprogram_id')
         site_for_request = Site.find_for_request(self.request)
         today = localtime(now()).date()
 
+        if program_id:
+            search_root = Program.objects.get(pk=program_id)
+        elif subprogram_id:
+            search_root = Subprogram.objects.get(pk=subprogram_id)
+        else:
+            search_root = site_for_request.root_page
+
         base_query = Event.objects.live().public().filter(
             date__gte=today
-        ).descendant_of(site_for_request.root_page, inclusive=True)
+        ).descendant_of(search_root, inclusive=True)
         qs = exclude_invisible_pages(self.request, base_query)
         if search:
             qs = qs.search(search, partial_match=False)
