@@ -15,11 +15,11 @@ class QueryCompiler(Elasticsearch2SearchQueryCompiler):
         if hasattr(self.queryset, '_filter_program_id'):
             filters.append({'term': {'person_person__program_ids_filter': self.queryset._filter_program_id}})
 
-        if hasattr(self.queryset, '_filter_upcoming_event_program_id'):
-            filters.append({'term': {'home_post__program_ids_filter': self.queryset._filter_upcoming_event_program_id}})
+        if hasattr(self.queryset, '_filter_post__program_id'):
+            filters.append({'term': {'home_post__program_ids_filter': self.queryset._filter_post__program_id}})
 
-        if hasattr(self.queryset, '_filter_upcoming_event_subprogram_id'):
-            filters.append({'term': {'home_post__subprogram_ids_filter': self.queryset._filter_upcoming_event_subprogram_id}})
+        if hasattr(self.queryset, '_filter_post__subprogram_id'):
+            filters.append({'term': {'home_post__subprogram_ids_filter': self.queryset._filter_post__subprogram_id}})
 
         if hasattr(self.queryset, '_filter_subprogram_id'):
             filters.append({'term': {'person_person__subprogram_ids_filter': self.queryset._filter_subprogram_id}})

@@ -244,9 +244,9 @@ class SearchUpcomingEvents(ListAPIView):
         qs = exclude_invisible_pages(self.request, base_query)
 
         if program_id:
-            qs._filter_upcoming_event_program_id = program_id
+            qs._filter_post__program_id = program_id
         if subprogram_id:
-            qs._filter_upcoming_event_subprogram_id = subprogram_id
+            qs._filter_post__subprogram_id = subprogram_id
 
         if search:
             qs = qs.search(search, partial_match=False)
@@ -261,6 +261,8 @@ class SearchPublicationsAndPastEvents(ListAPIView):
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
+        program_id = self.request.query_params.get('program_id')
+        subprogram_id = self.request.query_params.get('subprogram_id')
         site_for_request = Site.find_for_request(self.request)
         today = localtime(now()).date()
 
@@ -271,6 +273,12 @@ class SearchPublicationsAndPastEvents(ListAPIView):
             inclusive=True,
         )
         qs = exclude_invisible_pages(self.request, base_query)
+
+        if program_id:
+            qs._filter_post__program_id = program_id
+        if subprogram_id:
+            qs._filter_post__subprogram_id = subprogram_id
+
         if search:
             qs = qs.search(search, partial_match=False)
             query = Query.get(search)

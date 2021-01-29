@@ -740,3 +740,162 @@ class SearchUpcomingEventsFilterBySubprogramAPITests(APITestCase):
 
         self.assertEqual(ordered_results[1]['title'], self.event2.title)
         self.assertEqual(ordered_results[1]['id'], self.event2.pk)
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+class SearchPastEventsFilterByProgramAPITests(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        cls.program1 = PostFactory.create_program(
+            home_page=home_page,
+            program_data={
+                'title': 'Robots Program'
+            }
+        )
+        cls.program2 = PostFactory.create_program(
+            home_page=home_page,
+            program_data={
+                'title': 'Cyborg Program'
+            }
+        )
+
+        cls.event1a, cls.event1b = PostFactory.create_program_content(
+            2,
+            program=cls.program1,
+            content_page_type=ProgramEventsPage,
+            post_type=Event,
+            content_page_data={},
+            post_data={
+                'title': 'Party',
+                'date': datetime.date.today() - datetime.timedelta(days=1),
+            }
+        )
+        PostProgramRelationship.objects.create(
+            post=cls.event1b,
+            program=cls.program2,
+        )
+
+        cls.event2 = PostFactory.create_program_content(
+            1,
+            program=cls.program2,
+            content_page_type=ProgramEventsPage,
+            post_type=Event,
+            content_page_data={},
+            post_data={
+                'title': 'Party',
+                'date': datetime.date.today() - datetime.timedelta(days=1),
+            }
+        )[0]
+
+        cls.post1 = PostFactory.create_program_content(1,
+            program=cls.program1,
+            content_page_type=ProgramBlogPostsPage,
+            post_type=BlogPost,
+            post_data={'title': 'Party'}
+        )[0]
+
+        PostProgramRelationship.objects.create(
+            post=cls.post1,
+            program=cls.program2,
+        )
+
+        cls.post2 = PostFactory.create_program_content(1,
+            program=cls.program2,
+            content_page_type=ProgramBlogPostsPage,
+            post_type=BlogPost,
+            post_data={'title': 'Party'}
+        )[0]
+
+        # Some posts that shouldn't be returned in results
+        PostFactory.create_program_content(10,
+            program=cls.program1,
+            content_page_type=ProgramBlogPostsPage,
+            post_type=BlogPost,
+            post_data={'title': 'Party'}
+        )
+
+    def setUp(self):
+        management.call_command('update_index', stdout=StringIO(), chunk_size=50)
+        url = f'/api/search/pubs_and_past_events/?query=party&program_id={self.program2.pk}'
+        self.response = self.client.get(url)
+        self.json = self.response.json()
+
+    def test_returns_success_response(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_returns_exactly_four_results(self):
+        self.assertEquals(self.json['count'], 4)
+        self.assertEquals(len(self.json['results']), 4)
+
+    def test_returns_correct_response_body(self):
+        result_ids = set(r['id'] for r in self.json['results'])
+
+        self.assertEqual(
+            result_ids,
+            { self.event1b.pk, self.event2.pk, self.post2.pk, self.post1.pk }
+        )
+
+
+@unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+class SearchPastEventsFilterBySubprogramAPITests(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        program = PostFactory.create_program(home_page=home_page)
+
+        cls.subprogram1 = PostFactory.create_subprogram(
+            program=program,
+            subprogram_data={
+                'title': 'Cyborg Program'
+            }
+        )
+
+        cls.subprogram2 = PostFactory.create_subprogram(
+            program=program,
+            subprogram_data={
+                'title': 'Android Program'
+            }
+        )
+
+        event_data = {
+            'title': 'Party',
+            'date': datetime.date.today() - datetime.timedelta(days=1),
+        }
+        events_home1 = cls.subprogram1.add_child(
+            instance=ProgramEventsPage(title='Events')
+        )
+        events_home2 = cls.subprogram2.add_child(
+            instance=ProgramEventsPage(title='Events')
+        )
+        events_home1.add_child(instance=Event(**event_data))
+        cls.subprogram1_and_2_event = events_home1.add_child(instance=Event(**event_data))
+        PostSubprogramRelationship.objects.create(
+            post=cls.subprogram1_and_2_event,
+            subprogram=cls.subprogram2,
+        )
+
+        cls.subprogram2_event = events_home2.add_child(instance=Event(**event_data))
+
+    def setUp(self):
+        management.call_command('update_index', stdout=StringIO(), chunk_size=50)
+        url = f'/api/search/pubs_and_past_events/?query=party&subprogram_id={self.subprogram2.pk}'
+        self.response = self.client.get(url)
+        self.json = self.response.json()
+
+    def test_returns_success_response(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_returns_exactly_four_results(self):
+        self.assertEquals(self.json['count'], 2)
+        self.assertEquals(len(self.json['results']), 2)
+
+    def test_returns_correct_response_body(self):
+        result_ids = set(r['id'] for r in self.json['results'])
+
+        self.assertEqual(
+            result_ids,
+            { self.subprogram2_event.pk, self.subprogram1_and_2_event.pk}
+        )
