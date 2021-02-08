@@ -8,9 +8,9 @@ from person.models import Person
 from django.utils.text import slugify
 import datetime
 import json
+import requests
 import re
 import uuid
-import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from django.core.files.temp import NamedTemporaryFile
 from django.core.files import File
@@ -21,13 +21,11 @@ import io
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 # Credentials for HigherEd google sheet migration. Burn after migrating. See https://www.youtube.com/watch?v=T1vqS1NL89E for details.
 
+url = "https://na-data-projects.s3.us-west-2.amazonaws.com/data/epp/polling_dashboard.json"
 credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_sheet_creds.json', scope)
-gc = gspread.authorize(credentials)
 
-raw_data = json.dumps(gc.open('Copy of epp_polling_dashboard_data_LIVE').sheet1.get_all_records())
-data = json.loads(raw_data)
-
-
+raw_data = json.dumps(requests.get(url).json())
+data = json.loads(raw_data)['dashboard']
 
 
 class Command(BaseCommand):
@@ -214,7 +212,7 @@ def getSurveys():
     surveys.append(survey)
   return surveys
 
-def getProp(prop:str):
+def getProp(prop: str):
   items = []
   for survey in data:
     my_items = parse_list(survey[prop], ',')
