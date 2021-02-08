@@ -88,7 +88,7 @@ def addSurveys(home: SurveysHomePage):
       month=None,
       sample_number=survey['sample_number'],
       data_type = ['QUANT', 'QUAL'],
-      findings = survey['Top findings directly from the report'],
+      findings = splitFindings(survey),
       link = survey['download'] if not is_file else None
     )
 
@@ -191,6 +191,15 @@ def addSurveyFile(survey, data, is_file):
     survey.file.save(filename, File(f))
   else:
     survey.file = None
+
+def splitFindings(survey):
+  findings = '<ul>'
+  items = survey['Top findings directly from the report'].split("--")
+  for item in items:
+    item = item.strip()
+    if len(item) > 0:
+      findings = findings + '<li>' + item.strip() + '</li>'
+  return findings + '</ul>'
 
 # Utility methods.
 def parse_list(str, delimiter):
