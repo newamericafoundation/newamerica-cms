@@ -142,13 +142,14 @@ class DatavizBlock(blocks.StructBlock):
 def ResourceKitSerializer(r):
 	resources = []
 	try:
-		for block in r.stream_data:
+		for block_type, value, identifier in r.stream_data:
 			d = {}
-			block_type = block['type']
-			value = block['value']
 			for key, val in value.items():
 				if key == 'image' and val is not None:
-					img = home.models.CustomImage.objects.get(pk=val)
+					if isinstance(val, home.models.CustomImage):
+						img = val
+					else:
+						img = home.models.CustomImage.objects.get(pk=val)
 					try:
 						img = img.get_rendition('fill-200x200')
 					except:
@@ -172,11 +173,13 @@ def ResourceKitSerializer(r):
 						d['url'] = val
 					else:
 						d['url'] = Document.objects.get(pk=val).file.url
+				elif key == 'description':
+					d[key] = str(val)
 				else:
 					d[key] = val
 			resources.append(d)
 		return json.dumps(resources, ensure_ascii=False)
-	except:
+	except Exception:
 		return '[]'
 
 class ResourceKit(blocks.StructBlock):
