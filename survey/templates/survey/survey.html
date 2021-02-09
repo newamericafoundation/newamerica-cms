@@ -119,7 +119,7 @@
             </div>
 
             <div class="survey-page__commentary-list">
-              {% with commentary=page.assoc_commentary.all %}
+              {% with commentary=page.associated_commentary.all %}
                 {% if commentary %}
                   <div class="section-separator">
                     <div class="section-separator__text">
@@ -127,39 +127,10 @@
                     </div>
                     <div class="section-separator__line"></div>
                   </div>
-                  {% for item in commentary %}
-                    <div class="margin-bottom-0 survey-page__commentary">
 
-                      {% for block in item.body %}
-                        {% if block.block_type == 'image' %}
-                          <div class="card__image fade-in-image" onload="this.classList.add('loaded');">
-                            {% include_block block %}
-                          </div>
-                        {% endif %}
-                      {% endfor %}
-
-                      <div class="card__text">
-                          <h6 class="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">
-                            {{ item.date|date:"M. jS, Y"}}
-                          </h6>
-                          <h4 class="card__text__title margin-top-0 margin-bottom-10">
-                            <a href="{{ item.url }}" class="" target="_blank">
-                            <u>{{ item.title }}</u>
-                            </a>
-                          </h4>
-                          <div class="card__text__excerpt margin-top-5 margin-bottom-0">
-                            {{ item.subheading }}
-                          </div>
-                          <div class="card__text__authors margin-top-5 margin-bottom-0">
-                            <h6 class="inline margin-0">By </h6>
-                            {% generate_byline item|model_name item.authors.all %}
-                          </div>
-
-                          <h6 class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">
-                            {{ item|model_display_name }}
-                          </h6>
-
-                      </div>
+                  {% for p in commentary %}
+                    <div class="card-wrapper">
+                      {% include 'components/card_list.html' with post=p.commentary %}
                     </div>
                   {% endfor %}
                 {% endif %}

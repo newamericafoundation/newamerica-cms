@@ -35,7 +35,7 @@ class SurveyDetailSerializer(ModelSerializer):
     org = SerializerMethodField()
     demos_key = SerializerMethodField()
     tags = SerializerMethodField()
-    assoc_commentary = SerializerMethodField()
+    associated_commentary = SerializerMethodField()
 
     class Meta:
         model = Survey
@@ -54,17 +54,17 @@ class SurveyDetailSerializer(ModelSerializer):
             'file',
             'org',
             'demos_key',
-            'assoc_commentary',
+            'associated_commentary',
             'tags',
             'description'
         ]
         read_only_fields = fields
 
-    def get_assoc_commentary(self, obj):
-        if obj.assoc_commentary is None:
+    def get_associated_commentary(self, obj):
+        if obj.associated_commentary is None:
             return []
         commentaries = []
-        for i,s in enumerate(obj.assoc_commentary.all()):
+        for i,s in enumerate(obj.associated_commentary.all()):
             commentary = {
                 'title': s.title
             }

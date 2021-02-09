@@ -11,7 +11,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel, PageChooserPanel, TabbedInterface, ObjectList
 from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Orderable
 from wagtail.core.blocks import StreamBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
@@ -37,7 +37,7 @@ class PageAuthorRelationship(models.Model):
 
 class SurveysHomePage(AbstractContentPage):
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
-    subpage_types = ['Survey', 'Commentary', 'SurveyValuesIndex']
+    subpage_types = ['Survey', 'SurveyValuesIndex']
 
     partner_logo = models.ForeignKey(
         'home.CustomImage',
@@ -180,7 +180,6 @@ class Survey(Post):
     national = models.BooleanField(default=True, verbose_name='Nationally Representative?', help_text='Indicates whether the survey was nationally representative or not.')
     link = models.URLField(blank=True, null=True, verbose_name='Link to Survey', help_text='Add a link to a webpage containing the survey details.')
     file = models.FileField(blank=True, null=True, verbose_name='Survey File', help_text='Add a file containing the survey details.')
-    assoc_commentary = ParentalManyToManyField('Commentary', blank=True, through='Commented_Survey', related_name='surveys', verbose_name='Associated Commentary')
     tags =  ParentalManyToManyField('SurveyTags', help_text='Select from available tags', blank=True, default=False, verbose_name='Topics')
     content_panels = [
       MultiFieldPanel([
@@ -198,7 +197,7 @@ class Survey(Post):
         FieldPanel('data_type', widget=forms.CheckboxSelectMultiple),
         FieldPanel('national'),
         FieldPanel('findings'),
-        AutocompletePanel('assoc_commentary')
+        InlinePanel('associated_commentary', label="Associated Commentary")
       ], heading='Survey Data'),
       MultiFieldPanel([
         FieldPanel('link'),
@@ -211,28 +210,10 @@ class Survey(Post):
     def __str__(self):
         return self.title
 
-class Commentary(Post):
-  template = 'survey/commentary.html'
+class AssociatedCommentary(Orderable):
+  commentary = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="+")
+  survey = ParentalKey('Survey', related_name='associated_commentary')
 
-  parent_page_types = ['SurveysHomePage']
-
-  assoc_surveys = ParentalManyToManyField('Survey', through='Commented_Survey', blank=True, related_name='commentaries')
-
-  content_panels = [
-      FieldPanel('title'),
-      FieldPanel('subheading'),
-      FieldPanel('date'),
-      StreamFieldPanel('body'),
-      InlinePanel('authors', label=("Authors")),
-      AutocompletePanel('assoc_surveys')
+  panels = [
+    PageChooserPanel('commentary'),
   ]
-
-  class Meta:
-      verbose_name = 'Insights & Analysis'
-
-  def __str__(self):
-        return self.title
-
-class Commented_Survey(models.Model):
-  survey=models.ForeignKey('Survey', on_delete=models.CASCADE, blank=True, null=True)
-  commentary = models.ForeignKey('Commentary', on_delete=models.CASCADE, blank=True, null=True)
