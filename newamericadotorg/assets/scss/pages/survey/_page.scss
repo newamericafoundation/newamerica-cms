@@ -22,4 +22,19 @@
   .separator {
     margin: 0 0 0 -2px;
   }
+
+  .comma-list {
+    display: inline;
+    .comma-list__item {
+      &:not(:last-child)::after {
+        content: ", ";
+      }
+      &:first-child:nth-last-child(2)::after {
+        content: " ";
+      }
+      &:last-child:not(:first-child)::before {
+        content: "and ";
+      }
+    }
+  }
 }

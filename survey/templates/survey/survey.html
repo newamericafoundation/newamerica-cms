@@ -36,18 +36,10 @@
               {% with orgs=page.org.all %}
                 {% if orgs %}
                   <div class="post__byline margin-bottom-15">
-                    <span>By&nbsp;</span>
+                    <span>By</span>
+                    <span class="comma-list">
                     {% for org in orgs %}
-                      <h4 class="inline margin-0">
-                        <u>{{ org.title }}</u>
-                      </h4>
-                      {% if forloop.counter == orgs|length|add:"-1" and orgs|length > 2 %}
-                        <span class="separator inline">, and&nbsp;</span>
-                      {% elif forloop.counter == orgs|length|add:"-1" %}
-                        <span class="separator inline">&nbspand&nbsp;</span>
-                      {% elif forloop.counter != orgs|length %}
-                        <span class="separator inline">,&nbsp;</span>
-                      {% endif %}
+                      <span class="comma-list__item"><strong>{{ org.title }}</strong></span>
                     {% endfor %}
                   </div>
                 {% endif %}
@@ -68,34 +60,24 @@
               <div class="margin-bottom-15">
                 {% with demos=page.demos_key.all %}
                   {% if demos %}
-                    <span>Demographics:&nbsp;</span>
-                    {% for demo in demos %}
-                      {{ demo.title }}
-                      {% if forloop.counter == demos|length|add:"-1" and demos|length > 2 %}
-                        <span class="separator inline">, and&nbsp;</span>
-                        {% elif forloop.counter == demos|length|add:"-1" %}
-                        <span class="separator inline">&nbspand&nbsp;</span>
-                        {% elif forloop.counter != demos|length %}
-                        <span class="separator inline">,&nbsp;</span>
-                      {% endif %}
-                    {% endfor %}
+                    <span>Demographics:</span>
+                    <span class="comma-list">
+                      {% for demo in demos %}
+                        <span class="comma-list__item">{{ demo.title }}</span>
+                      {% endfor %}
+                    </span>
                   {% endif %}
                 {% endwith %}
               </div>
               {% with tags=page.tags.all %}
                 {% if tags %}
                   <div class="margin-bottom-15">
-                    <span>Topics:&nbsp;</span>
-                    {% for tag in tags %}
-                      {{ tag.title|title }}
-                      {% if forloop.counter == tags|length|add:"-1" and tags|length > 2 %}
-                        <span class="separator inline">, and&nbsp;</span>
-                      {% elif forloop.counter == tags|length|add:"-1" %}
-                        <span class="separator inline">&nbspand&nbsp;</span>
-                      {% elif forloop.counter != tags|length %}
-                        <span class="separator inline">,&nbsp;</span>
-                      {% endif %}
-                    {% endfor %}
+                    Topics:
+                    <span class="comma-list">
+                      {% for tag in tags %}
+                        <span class="comma-list__item">{{ tag.title|title }}</span>
+                      {% endfor %}
+                    </span>
                   </div>
                 {% endif %}
               {% endwith %}
