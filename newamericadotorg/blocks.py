@@ -241,25 +241,27 @@ def getJSCompatibleList(input_list, is_era, sort):
 def PersonBlockSerializer(block_value):
 	people = []
 	try:
-		for block in block_value.stream_data:
+		for block_type, value, identifier in block_value.stream_data:
 			d = {}
-
-			value = block['value']
-
 			for key, val in value.items():
 				if key == 'image' and val is not None:
-					img = home.models.CustomImage.objects.get(pk=val)
+					if isinstance(val, home.models.CustomImage):
+						img = val
+					else:
+						img = home.models.CustomImage.objects.get(pk=val)
 					try:
 						img = img.get_rendition('fill-200x200')
 					except:
 						img = img
 					d['image'] = img.file.url
+				elif key == 'description':
+					d[key] = str(val)
 				else:
 					d[key] = val
 			people.append(d)
 
 		return json.dumps(people, ensure_ascii=False)
-	except:
+	except Exception:
 		print('block render failed');
 		return '[]'
 
