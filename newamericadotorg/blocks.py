@@ -157,7 +157,7 @@ def ResourceKitSerializer(r):
 					d['image'] = img.file.url
 				elif key == 'resource':
 					if block_type == 'post':
-						pg = Page.objects.get(pk=val).specific
+						pg = val
 						d['url'] = pg.url
 						if not getattr(d, 'image', False):
 							img = getattr(pg, 'story_image', None)
@@ -168,11 +168,10 @@ def ResourceKitSerializer(r):
 									d['image'] = img.get_rendition('fill-200x200').file.url
 								except:
 									d['image'] = img.file.url
-
-					elif block_type == 'external_resource':
-						d['url'] = val
+					elif block_type == 'attachment':
+						d['url'] = val.file.url
 					else:
-						d['url'] = Document.objects.get(pk=val).file.url
+						d['url'] = val
 				elif key == 'description':
 					d[key] = str(val)
 				else:
