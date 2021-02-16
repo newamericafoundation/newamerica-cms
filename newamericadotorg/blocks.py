@@ -209,7 +209,7 @@ def ResourceKitSerializer(r):
                     d['image'] = img.file.url
                 elif key == 'resource':
                     if block_type == 'post':
-                        pg = val
+                        pg = val.specific
                         d['url'] = pg.url
                         if not getattr(d, 'image', False):
                             img = getattr(pg, 'story_image', None)
