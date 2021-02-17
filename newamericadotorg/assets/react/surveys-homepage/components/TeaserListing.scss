@@ -53,7 +53,6 @@
     display: block;
     padding: 25px 15px;
     background: color(white);
-    border-left: 10px solid color(turquoise);
     animation: fadeIn 0.3s ease-in;
 
     @include media-breakpoint(mobile) {
