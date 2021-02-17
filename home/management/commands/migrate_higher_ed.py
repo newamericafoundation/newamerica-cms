@@ -25,7 +25,7 @@ url = "https://na-data-projects.s3.us-west-2.amazonaws.com/data/epp/polling_dash
 credentials = ServiceAccountCredentials.from_json_keyfile_name('./google_sheet_creds.json', scope)
 
 raw_data = json.dumps(requests.get(url).json())
-data = json.loads(raw_data)['dashboard']
+data = json.loads(raw_data)['for_migration']
 
 
 class Command(BaseCommand):
