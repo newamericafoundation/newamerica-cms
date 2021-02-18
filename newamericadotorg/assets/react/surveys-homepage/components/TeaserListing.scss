@@ -1,0 +1,116 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.teaser-listing {
+  font-family: $label-font-family;
+  cursor: pointer;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    h3 {
+      font-size: 19px;
+      font-weight: 400;
+    }
+  }
+
+  &__sort {
+    text-transform: none;
+    font-size: 15px;
+    letter-spacing: normal;
+    cursor: pointer;
+    &-wrapper {
+      position: relative;
+    }
+    h6 {
+      font-family: $label-font-family;
+    }
+  }
+
+  &__sort-dropdown {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    background: color(white);
+    border: 1px solid color(gray);
+    width: 100%;
+    li {
+      font-family: $label-font-family;
+      font-size: 15px;
+    }
+  }
+
+  &__item {
+    display: block;
+    padding: 25px 15px;
+    background: color(white);
+    border-left: 10px solid color(turquoise);
+    animation: fadeIn 0.3s ease-in;
+
+    @include media-breakpoint(mobile) {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__item-title {
+    font-weight: 800;
+    font-family: $label-font-family;
+    transition: color 0.15s ease;
+    cursor: pointer;
+    margin: 0;
+    &:hover u {
+      text-decoration: underline;
+      text-decoration-color: color(turquoise);
+      display: inline;
+      background-image: linear-gradient(90deg, #2ebcb3 100%, transparent 0);
+      background-position: 0 1.04em;
+      background-repeat: repeat-x;
+      background-size: 100% 2px;
+    }
+  }
+  &__item-description {
+    margin: 20px 0 0 0;
+    font-family: $label-font-family;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 19px;
+    display: block;
+  }
+  &__item-date {
+    font-size: 15px;
+    color: color(black);
+    font-weight: 100;
+    margin-top: 20px;
+    @include media-breakpoint(mobile) {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 0;
+    }
+  }
+  &__load-more {
+    display: flex;
+    justify-content: flex-end;
+    .button {
+      min-width: 120px;
+    }
+    .loading-dots {
+      margin: 0;
+      padding: 0;
+    }
+    &:hover {
+      .loading-dots span {
+        color: color(white);
+      }
+    }
+  }
+}

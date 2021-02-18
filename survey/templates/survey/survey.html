@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load utilities %}
+{% load humanize %}
+
+{% block body_id %}na-survey{% endblock %}
+
+{% block content %}
+  {% block breadcrumbs %}
+    {% with a=self.get_ancestors %}
+      <div class="container margin-top-25 breadcrumb">
+        <h6 class="link with-caret--left">
+          <a href="{{ a.3.url }}"><u>{{a.3.title}}</u></a>
+        </h6>
+      </div>
+    {% endwith %}
+  {% endblock %}
+  <main class="survey-page container margin-35 margin-lg-80">
+    <div class="row gutter-30">
+      <aside class="post__social col-md-6 col-lg-2 margin-bottom-15">
+        {% block post_left_aside %}
+        {% include 'components/post_share.html' %}
+        {% endblock %}
+      </aside>
+      <div class="col-lg-8 margin-bottom-25">
+        <div class="post-body-wrapper">
+          <div class="margin-bottom-60">
+            {% include 'components/post_heading_text.html' %}
+          </div>
+
+          <article class="post-body">
+
+            <div class="margin-bottom-35">
+              {% with orgs=page.org.all %}
+                {% if orgs %}
+                  <div class="post__byline margin-bottom-15">
+                    <span>By</span>
+                    <span class="comma-list">
+                    {% for org in orgs %}
+                      <span class="comma-list__item"><strong>{{ org.title }}</strong></span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              {% endwith %}
+              <h6 class="post-body__date margin-top-0">
+                {% if page.month != "0" and page.month != null %}
+                  {{ page.month }}.
+                {% endif %}
+                {{ page.year }}
+              </h6>
+            </div>
+
+            <div class="margin-bottom-60">
+              <div class="margin-bottom-15">
+                <span>Sample Size:</span>
+                {{ page.sample_number|intcomma }}
+              </div>
+              <div class="margin-bottom-15">
+                {% with demos=page.demos_key.all %}
+                  {% if demos %}
+                    <span>Demographics:</span>
+                    <span class="comma-list">
+                      {% for demo in demos %}
+                        <span class="comma-list__item">{{ demo.title }}</span>
+                      {% endfor %}
+                    </span>
+                  {% endif %}
+                {% endwith %}
+              </div>
+              {% with tags=page.tags.all %}
+                {% if tags %}
+                  <div class="margin-bottom-15">
+                    Topics:
+                    <span class="comma-list">
+                      {% for tag in tags %}
+                        <span class="comma-list__item">{{ tag.title|title }}</span>
+                      {% endfor %}
+                    </span>
+                  </div>
+                {% endif %}
+              {% endwith %}
+            </div>
+
+            <div class="margin-bottom-35">
+              <h3 class="margin-bottom-35 margin-top-0">Top Findings:</h3>
+              {{ page.findings|richtext }}
+            </div>
+
+            <div class="survey-page__links margin-bottom-60">
+              {% if page.file %}
+                <a class="button-secondary" href={{page.file.url}} target="_blank">
+                  <i class="fa fa-download"></i>
+                  Download Report
+                </a>
+              {% endif %}
+              {% if page.link %}
+                <a class="survey-page__link" target="_blank" href={{ page.link }}>View Survey Report on Source Website</a>
+              {% endif %}
+            </div>
+
+            <div class="survey-page__commentary-list">
+              {% with commentary=page.associated_commentary.all %}
+                {% if commentary %}
+                  <div class="section-separator">
+                    <div class="section-separator__text">
+                      <h6 class="inline margin-0">Related Insights & Analysis</h6>
+                    </div>
+                    <div class="section-separator__line"></div>
+                  </div>
+
+                  {% for p in commentary %}
+                    <div class="card-wrapper">
+                      {% include 'components/card_list.html' with post=p.commentary %}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

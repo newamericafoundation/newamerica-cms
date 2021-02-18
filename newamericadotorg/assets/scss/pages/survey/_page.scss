@@ -1,0 +1,40 @@
+.survey-page {
+  .post__byline .separator {
+    font-weight: 100;
+    margin-left: -2px;
+  }
+  &__links {
+    display: block;
+    @include  media-breakpoint(tablet) {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .button-secondary {
+    display: inline-block;
+    margin-right: 15px;
+    width: fit-content;
+    margin-bottom: 35px;
+    @include media-breakpoint(tablet) {
+      margin-bottom: 0;
+    }
+  }
+  .separator {
+    margin: 0 0 0 -2px;
+  }
+
+  .comma-list {
+    display: inline;
+    .comma-list__item {
+      &:not(:last-child)::after {
+        content: ", ";
+      }
+      &:first-child:nth-last-child(2)::after {
+        content: " ";
+      }
+      &:last-child:not(:first-child)::before {
+        content: "and ";
+      }
+    }
+  }
+}

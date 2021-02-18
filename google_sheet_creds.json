@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "nahe-data-migration",
+  "private_key_id": "100b78a2dfa454c7eb6081bcfcc422ff3b443be7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCgFBIgSV0Ui25r\nyGK1d11Ch6iJ4l4xpaCuR+imj5SUsovsLvJqiATJCjaLPl4Hw6t6DZoCaRuQjw15\nMcgDC0aqs+YUL+BAZ7jGQmzyIkkThXQQ2VaLk4mF5KbYnFeghDVtGLw9NOulu4zI\niVVgr6RizDI2D/1szp0mzZp9/2zPDSTIn2237SP4HefXpC6DaREpG+etOMYGxuxc\nwnAEPTTWfwn8YMbIMVR580eDx+wL+nlzn5CfSdOIU/W5upddt8neBDnenQB1qmhG\nq1k87EwsWX69VTYcuEVwQRUZFB1AOIksjNlTRidMKX7TjPL7O+0t/XpY9UfDU/we\nJAPmF4fBAgMBAAECggEACOvRbkn0ZWeXX+ufH6qfMIzfpk6OrhDjVW8lvrmX/9j6\n/g7IPQpnTN50N3qicieUHAVbyMhbjEkCqNdOxKepWKxVtViNNH2rUSZEzNI/FRbO\nBv3bykPOyV7asw30fro7gYDcRcN4IgiDoi3wK4ciX8yuPC/UMW8K2E2jT2QPp/LG\nom7hA05xCHC1/iAxzdNv62Z52qXrx6UW0/88mFwBmaAgM3HDBJ8LSDImm9G1u4Q4\nSuq9C4HDYqFJZ5ljWd+iMYxX37fXMoJwX0kbYmCwWWJIe2IXcNGpDTl91oGuWuxW\nev0Y7PodYNvyqZ/vEKQYJXg6jMiWFVqrStEK5/V7aQKBgQDL04icOam+MrCpLB0D\nXDSZyDrayP3SyClIwCiN5N4AyskyqE4Sdu3cHsS/QOxQp21lUtxqiYj4Ov0rOXxP\nZkVzAXgIb3/JUyl+Ev6LIkhCfUgtKZTjwW0Qofr4e0r685+8bEPun8FDHTwzJdxJ\nHidxZ0S/GISUneQA6h//uPCoSQKBgQDJDcufcZjyUksWtj0l8opoTXrZGlJQLCEt\nHb+qM05HcWxhR+W1VUxX7kytLxQY1ymfoqF0e4WelYwgzNmkY9gSff3lQgfDuycu\nDVYkiVzM4hx2vX6JKCVx4YUKa0QXvACaZxIRSkPrAqHyI/HsPl+KPKQ+8ZzpFfJy\nM6sFCyyTuQKBgGlZ8thc7aGDbdBjHrPn6sA5wEHpdViHYN9bgxqkWyMprYjjeUcN\n9a+6r5LzKbIed+rRQ2BFqmgzhTvcQKaBhBAHiFVD3FbhBydFBhBALf0/6Bh/z5dR\nGOBp+OCKSZ0gY0Xu58XlCO15pO4C+bNJRLXW3K+xKoXufjUCzntMygcRAoGBAMB5\nKHpXsegpyCDSDfAKJV587iJxBGQkGw6p8BbsTwAuIWdwAQR7yD5Vr6oL691r/jkI\n5DAzIFQVLrUn5yNtQilR3IJhmDVVMcjwk4sexWyO+ljiSATeHhrLnyW+Us21+Y3X\nJoDO6/5L4uWAa9WSULxyGXr4qxKpJBUYSZzmeaJhAoGBALVke1jMGP4p0aTDsW8B\nAuiRdxST/hC8juo2mhQcIT2xrO3AY1sIX2sn2I9PfOmON1FvgZUUcROoDdDwlwYE\njYPJEFzemLmORvG4mz7HfLD/S4C2Qp+J+lcALJsLnDEyfkAtwMF0kfimWxZP4t9W\nHc9rasNOclvdZ2sc+JogR9ko\n-----END PRIVATE KEY-----\n",
+  "client_email": "nahe-data@nahe-data-migration.iam.gserviceaccount.com",
+  "client_id": "100423895425083901329",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nahe-data%40nahe-data-migration.iam.gserviceaccount.com"
+}
+
