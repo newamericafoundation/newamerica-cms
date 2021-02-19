@@ -6,7 +6,7 @@
     font-size: 21px;
   }
   p,
-  a {
+  &--email a {
     font-size: 15px;
     font-weight: 100;
     line-height: 19px;
@@ -21,35 +21,14 @@
     min-height: 130px;
     @include media-breakpoint(tablet) {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      .col--1 {
-        width: 50%;
+      a {
+        margin-left: 20px;
       }
-      .col--2 {
-        width: 30%;
-        margin-left: 20%;
+      p {
+        margin-bottom: 0;
       }
-    }
-
-    a {
-      width: 100%;
-      max-width: 220px;
-      display: block;
-      margin: 25px auto 0 auto;
-      padding: 20px;
-      text-align: center;
-      font-weight: 700;
-      font-family: $paragraph-font-family;
-      font-size: 18px;
-      background: color(turquoise);
-      @include media-breakpoint(tablet) {
-        max-width: none;
-        margin-top: 0;
-      }
-    }
-    p {
-      margin-bottom: 0;
     }
   }
 }
