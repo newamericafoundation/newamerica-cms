@@ -1,50 +1,18 @@
 from django.utils import timezone
 
 from wagtail.core.models import Page
-from wagtail.search.backends.elasticsearch2 import Elasticsearch2SearchBackend, Elasticsearch2SearchQueryCompiler, Elasticsearch2Mapping
+from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend, Elasticsearch5SearchQueryCompiler, Elasticsearch5Mapping
 from wagtail.search.index import FilterField
 
 from home.models import Post
 
 
-class QueryCompiler(Elasticsearch2SearchQueryCompiler):
-    # Taken from Elasticsearch 5 backend.
-    # For some reason, the ES2 implementation doesn't like the way we're excluding private pages.
-    def _connect_filters(self, filters, connector, negated):
-        if filters:
-            if len(filters) == 1:
-                filter_out = filters[0]
-            elif connector == 'AND':
-                filter_out = {
-                    'bool': {
-                        'must': [
-                            fil for fil in filters if fil is not None
-                        ]
-                    }
-                }
-            elif connector == 'OR':
-                filter_out = {
-                    'bool': {
-                        'should': [
-                            fil for fil in filters if fil is not None
-                        ]
-                    }
-                }
-
-            if negated:
-                filter_out = {
-                    'bool': {
-                        'mustNot': filter_out
-                    }
-                }
-
-            return filter_out
-
+class QueryCompiler(Elasticsearch5SearchQueryCompiler):
     def get_inner_query(self):
         query = super().get_inner_query()
 
         # Get name of date field from a model that has it, but other models may have this field too
-        date_field_name = Elasticsearch2Mapping(Post).get_field_column_name(FilterField('date'))
+        date_field_name = Elasticsearch5Mapping(Post).get_field_column_name(FilterField('date'))
 
         if issubclass(self.queryset.model, Page):
             query = {
@@ -63,7 +31,7 @@ class QueryCompiler(Elasticsearch2SearchQueryCompiler):
                             },
                             "gauss": {
                                 date_field_name: {
-                                    "origin": timezone.now().isoformat(),
+                                    "origin": "now",
                                     "scale": "300d",
                                     "decay": 0.8
                                 }
@@ -84,5 +52,5 @@ class QueryCompiler(Elasticsearch2SearchQueryCompiler):
         return query
 
 
-class SearchBackend(Elasticsearch2SearchBackend):
+class SearchBackend(Elasticsearch5SearchBackend):
     query_compiler_class = QueryCompiler
