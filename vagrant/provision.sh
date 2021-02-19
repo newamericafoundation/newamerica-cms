@@ -20,8 +20,8 @@ echo "Downloading Elasticsearch..."
 set +e
 apt-get remove -y --purge elasticsearch
 set -e
-wget -q https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.4.2/elasticsearch-2.4.2.deb
-dpkg -i elasticsearch-2.4.2.deb
+wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.16.deb
+dpkg -i elasticsearch-5.6.16.deb
 
 # Enable script scoring
 cat << EOF >> /etc/elasticsearch/elasticsearch.yml
@@ -29,9 +29,12 @@ script.inline: on
 script.search: on
 EOF
 
+# Reduce memory to fit in default virtualvox vm
+sed -i 's/^\-Xms.*/\-Xms512m/' /etc/elasticsearch/jvm.options
+sed -i 's/^\-Xmx.*/\-Xmx512m/' /etc/elasticsearch/jvm.options
+
 systemctl enable elasticsearch
 systemctl start elasticsearch
-
 
 # Create database (let it fail because database may exist)
 set +e
