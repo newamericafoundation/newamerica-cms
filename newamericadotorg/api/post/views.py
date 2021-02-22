@@ -11,6 +11,7 @@ from home.models import Post, PostAuthorRelationship
 from other_content.models import OtherPost
 from issue.models import IssueOrTopic
 from event.models import Event
+from survey.models import Survey
 
 from .serializers import PostSerializer
 
@@ -68,7 +69,7 @@ class PostList(ListAPIView):
             if category:
                 posts = posts.filter(category__title=category)
         else:
-            posts = Post.objects.live().not_type(Event).public().prefetch_related(*prefetches).select_related('content_type')
+            posts = Post.objects.live().not_type((Event, Survey)).public().prefetch_related(*prefetches).select_related('content_type')
 
         if content_type:
             if content_type == 'report':

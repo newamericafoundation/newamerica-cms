@@ -14,6 +14,8 @@ from other_content.models import OtherPost, ProgramOtherPostsPage, OtherPostCate
 from report.models import Report, ReportsHomepage
 from policy_paper.models import PolicyPaper, ProgramPolicyPapersPage
 from in_depth.models import InDepthProject, AllInDepthHomePage
+from survey.models import SurveysHomePage, Survey
+
 
 class PostAPITests(APITestCase):
     @classmethod
@@ -71,6 +73,13 @@ class PostAPITests(APITestCase):
         for post in Report.objects.all():
             post.save()
 
+        PostFactory.create_program_content(
+            5,
+            program=program,
+            content_page_type=SurveysHomePage,
+            post_type=Survey,
+        )
+
 
     def test_get_list(self):
         url = '/api/post/'
@@ -83,6 +92,12 @@ class PostAPITests(APITestCase):
         response = self.client.get(url)
 
         self.assertEqual(len(response.json()['results']), 12)
+
+    def test_surveys_are_not_included(self):
+        url = '/api/post/?content_type=survey'
+        response = self.client.get(url)
+
+        self.assertEqual(len(response.json()['results']), 0)
 
     def test_other_content_by_title(self):
         url = '/api/post/?other_content_type_title=Test%20Contents'
