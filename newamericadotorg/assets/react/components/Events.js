@@ -11,32 +11,6 @@ import {
 import { EventItem } from './ContentCards';
 import React, { Component } from 'react';
 
-class Upcoming extends Component {
-  render() {
-    let { events } = this.props;
-    if (events.length == 0) {
-      return (
-        <div className="margin-top-60 centered">
-          <h6 className="inline">No upcoming events. </h6>
-          <h5 className="link">
-            <Link to={{ search: '?period=past' }}>See past events</Link>
-          </h5>
-          .
-        </div>
-      );
-    }
-    return (
-      <div className="program__events__upcoming margin-top-35 row gutter-10">
-        {events.map((e, i) => (
-          <div key={`event-${i}`} className="col-md-4 col-12">
-            <EventItem event={e} />
-          </div>
-        ))}
-      </div>
-    );
-  }
-}
-
 class Filters extends Component {
   render() {
     let { program, response, history, location, topics } = this.props;
@@ -111,14 +85,7 @@ export class EventsList extends Component {
             </NavLink>
           </h6>
         </div>
-        {response.isFetching && period == 'future' && (
-          <div className="margin-top-35 centered">
-            <LoadingDots />
-          </div>
-        )}
-        {!response.isFetching && period == 'future' && (
-          <Upcoming events={response.results} />
-        )}
+        {period == 'future' && <PublicationsList card_type='future_events' {...this.props} />}
         {period == 'past' && <Past {...this.props} />}
       </div>
     );
