@@ -16,6 +16,13 @@ WAGTAILSEARCH_BACKENDS = {
         'URLS': ["http://localhost:9200/"],
         'INDEX': 'test',
         'TIMEOUT': 1500,
+        'INDEX_SETTINGS': {
+            'settings': {
+                'index': {
+                    'number_of_shards': 1,
+                },
+            },
+        }
     }
 }
 
