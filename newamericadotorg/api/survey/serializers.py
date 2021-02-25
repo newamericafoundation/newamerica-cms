@@ -82,7 +82,7 @@ class SurveyDetailSerializer(ModelSerializer):
             return []
         commentaries = []
         for i, s in enumerate(obj.associated_commentary.all()):
-            commentary = {'title': s.title}
+            commentary = {'title': s.commentary.title}
             commentaries.append(commentary)
         return commentaries
 
