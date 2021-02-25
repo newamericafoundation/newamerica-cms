@@ -251,7 +251,7 @@ def pull_media_from_s3(
     local_media_folder=LOCAL_MEDIA_FOLDER,
     folders=[],
 ):
-    cmd_template = "s3 sync --delete s3://{bucket_name}/{folder} {local_media}"
+    cmd_template = "s3 sync --delete s3://{bucket_name}/{folder} {local_media}/{folder}"
 
     if folders:
         for folder in folders:
