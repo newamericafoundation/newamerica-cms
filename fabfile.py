@@ -76,13 +76,39 @@ def pull_staging_images(c):
 
 
 @task
-def sync_staging_from_production(c):
+def sync_staging_from_production_all(c):
+    """Copy database, media, and documents from production to staging"""
+    copy_heroku_database(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
+    sync_heroku_buckets(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+        folders=['original_images', 'documents']
+    )
+    # The above command just syncs the original images, so we need to
+    # delete the contents of the wagtailimages_renditions table so
+    # that the renditions will be re-created when requested in the
+    # staging environment.
+    delete_staging_renditions(c)
+
+
+@task
+def sync_staging_from_production_data(c):
     """Copy database from production to staging"""
     copy_heroku_database(
         c,
         destination=STAGING_APP_INSTANCE,
         source=PRODUCTION_APP_INSTANCE,
     )
+
+
+@task
+def sync_staging_from_production_media(c):
+    """Copy media and documents from production to staging"""
     sync_heroku_buckets(
         c,
         destination=STAGING_APP_INSTANCE,
