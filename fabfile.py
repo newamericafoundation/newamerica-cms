@@ -222,6 +222,10 @@ def pull_media_from_s3_heroku(c, app_instance):
         c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=['original_images', 'documents']
     )
 
+    # The above command just syncs the original images, so we need to drop the wagtailimages_renditions
+    # table so that the renditions will be re-created when requested on the local build.
+    delete_local_renditions()
+
 
 def pull_database_from_heroku(c, app_instance):
     check_if_logged_in_to_heroku(c)
@@ -405,7 +409,6 @@ def pull_images_from_s3_heroku(c, app_instance):
     # The above command just syncs the original images, so we need to drop the wagtailimages_renditions
     # table so that the renditions will be re-created when requested on the local build.
     delete_local_renditions()
-
 
 def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
     print('Deleting local image renditions')
