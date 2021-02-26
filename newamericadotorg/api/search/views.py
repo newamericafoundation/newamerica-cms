@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from wagtail.core.models import Page, PageViewRestriction, Site
 from wagtail.search.models import Query
 
+import survey.models
 from .serializers import SearchSerializer
 from newamericadotorg.api.event.serializers import EventSerializer
 from event.models import Event
@@ -121,6 +122,11 @@ class SearchOtherPages(ListAPIView):
                     Event,
                     SubscriptionSegment,
                     RedirectPage,
+                    # Non-informational pages for survey filtering.
+                    survey.models.SurveyOrganization,
+                    survey.models.DemographicKey,
+                    survey.models.SurveyTags,
+                    survey.models.SurveyValuesIndex,
                 )
             )
             .descendant_of(site_for_request.root_page, inclusive=True)
