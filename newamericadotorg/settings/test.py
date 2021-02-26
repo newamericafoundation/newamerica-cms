@@ -13,7 +13,7 @@ DATABASES = {
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'search.backend',
-        'URLS': ["http://localhost:9200/"],
+        'URLS': ["http://localhost:9200"],
         'INDEX': 'test',
         'TIMEOUT': 1500,
         'INDEX_SETTINGS': {
