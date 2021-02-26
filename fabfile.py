@@ -76,8 +76,8 @@ def pull_staging_images(c):
 
 
 @task
-def sync_staging_from_production(c):
-    """Copy database from production to staging"""
+def sync_staging_from_production_all(c):
+    """Copy database, media, and documents from production to staging"""
     copy_heroku_database(
         c,
         destination=STAGING_APP_INSTANCE,
@@ -95,6 +95,33 @@ def sync_staging_from_production(c):
     # staging environment.
     delete_staging_renditions(c)
 
+
+@task
+def sync_staging_from_production_data(c):
+    """Copy database from production to staging"""
+    copy_heroku_database(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
+
+
+@task
+def sync_staging_from_production_media(c):
+    """Copy media and documents from production to staging"""
+    sync_heroku_buckets(
+        c,
+        destination=STAGING_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+        folders=['original_images', 'documents']
+    )
+    # The above command just syncs the original images, so we need to
+    # delete the contents of the wagtailimages_renditions table so
+    # that the renditions will be re-created when requested in the
+    # staging environment.
+    delete_staging_renditions(c)
+
+
 #########
 # Develop
 #########
@@ -103,6 +130,54 @@ def sync_staging_from_production(c):
 def pull_develop_data(c):
     """Pull database from develop Heroku Postgres"""
     pull_database_from_heroku(c, DEVELOP_APP_INSTANCE)
+
+
+@task
+def sync_develop_from_production_all(c):
+    """Copy database, media, and documents from production to develop"""
+    copy_heroku_database(
+        c,
+        destination=DEVELOP_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
+    sync_heroku_buckets(
+        c,
+        destination=DEVELOP_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+        folders=['original_images', 'documents']
+    )
+    # The above command just syncs the original images, so we need to
+    # delete the contents of the wagtailimages_renditions table so
+    # that the renditions will be re-created when requested in the
+    # staging environment.
+    delete_develop_renditions(c)
+
+
+@task
+def sync_develop_from_production_data(c):
+    """Copy database from production to develop"""
+    copy_heroku_database(
+        c,
+        destination=DEVELOP_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+    )
+
+
+@task
+def sync_develop_from_production_media(c):
+    """Copy media and documents from production to develop"""
+    sync_heroku_buckets(
+        c,
+        destination=DEVELOP_APP_INSTANCE,
+        source=PRODUCTION_APP_INSTANCE,
+        folders=['original_images', 'documents']
+    )
+    # The above command just syncs the original images, so we need to
+    # delete the contents of the wagtailimages_renditions table so
+    # that the renditions will be re-created when requested in the
+    # staging environment.
+    delete_develop_renditions(c)
+
 
 #######
 # Local
@@ -146,6 +221,10 @@ def pull_media_from_s3_heroku(c, app_instance):
     pull_media_from_s3(
         c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=['original_images', 'documents']
     )
+
+    # The above command just syncs the original images, so we need to drop the wagtailimages_renditions
+    # table so that the renditions will be re-created when requested on the local build.
+    delete_local_renditions()
 
 
 def pull_database_from_heroku(c, app_instance):
@@ -251,7 +330,7 @@ def pull_media_from_s3(
     local_media_folder=LOCAL_MEDIA_FOLDER,
     folders=[],
 ):
-    cmd_template = "s3 sync --delete s3://{bucket_name}/{folder} {local_media}"
+    cmd_template = "s3 sync --delete s3://{bucket_name}/{folder} {local_media}/{folder}"
 
     if folders:
         for folder in folders:
@@ -331,7 +410,6 @@ def pull_images_from_s3_heroku(c, app_instance):
     # table so that the renditions will be re-created when requested on the local build.
     delete_local_renditions()
 
-
 def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
     print('Deleting local image renditions')
     try:
@@ -350,6 +428,16 @@ def delete_staging_renditions(c):
     local(
         'heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
             app=STAGING_APP_INSTANCE
+        )
+    )
+
+
+def delete_develop_renditions(c):
+    print('Deleting develop image renditions')
+    check_if_logged_in_to_heroku(c)
+    local(
+        'heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
+            app=DEVELOP_APP_INSTANCE
         )
     )
 
