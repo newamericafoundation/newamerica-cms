@@ -3,7 +3,8 @@ import './Publications.scss';
 import React, { Component, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { LoadingDots } from './Icons';
-import { PublicationListItem, Person } from './ContentCards';
+import { PublicationListItem, Person, EventItem } from './ContentCards';
+import { Link } from 'react-router-dom';
 
 export class PublicationsList extends Component {
   loadMore = () => {
@@ -25,9 +26,20 @@ export class PublicationsList extends Component {
   }
 
   render(){
-    let { response, fetchAndAppend } = this.props;
+    let { response, fetchAndAppend, card_type } = this.props;
     let { results, isFetching, hasNext } = response;
     if(results.length===0 && !isFetching){
+      if(card_type = 'future_events'){
+        return (
+          <div className="margin-top-60 centered">
+            <h6 className="inline">No upcoming events. </h6>
+            <h5 className="link">
+              <Link to={{ search: '?period=past' }}>See past events</Link>
+            </h5>
+            .
+          </div>
+        );
+      }
       return (
         <h4 className="centered">No results found</h4>
       );
@@ -46,7 +58,15 @@ export class PublicationsList extends Component {
     return (
       <div className="program__publications-list-wrapper">
         <div className="program__publications-list">
-            {results.map((post, i ) => {
+            {card_type == 'future_events'
+            ? (<div className="program__events__upcoming margin-top-35 row gutter-10">
+                {results.map((e, i) => (
+                  <div key={`event-${i}`} className="col-md-4 col-12">
+                    <EventItem event={e} />
+                  </div>
+                ))}
+              </div>)
+            : results.map((post, i ) => {
               if(post.content_type.api_name == 'person')
                 return ( <Person key={`post-${i}`} person={post} /> );
               return ( <PublicationListItem key={`post-${i}`} post={post} /> );
