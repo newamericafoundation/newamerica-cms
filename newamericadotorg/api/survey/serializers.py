@@ -9,27 +9,44 @@ class SurveyHomeSerializer(ModelSerializer):
     page_author = SerializerMethodField()
     partner_logo = SerializerMethodField()
     parent = SerializerMethodField()
+
     class Meta:
         model = SurveysHomePage
-        fields = ['id', 'title', 'url_path', 'parent', 'about', 'methodology', 'subscribe', 'page_author', 'submissions', 'about_submission', 'surveys', 'partner_logo', 'subheading']
+        fields = [
+            'id',
+            'title',
+            'url_path',
+            'parent',
+            'about',
+            'methodology',
+            'subscribe',
+            'page_author',
+            'submissions',
+            'about_submission',
+            'surveys',
+            'partner_logo',
+            'subheading',
+        ]
         depth = 1
         read_only_fields = fields
+
     def get_surveys(self, obj):
         return get_surveys_detail(obj)
-    
+
     def get_page_author(self, obj):
         authors_rel = obj.authors.all()
         if not authors_rel:
             return None
         authors = [rel.author for rel in authors_rel]
         return AuthorSerializer(authors, many=True, context=self.context).data
-   
+
     def get_partner_logo(self, obj):
         if obj.partner_logo:
             return generate_image_url(obj.partner_logo, 'max-240x30')
 
     def get_parent(self, obj):
         return get_page_parent(obj)
+
 
 class SurveyDetailSerializer(ModelSerializer):
     org = SerializerMethodField()
@@ -56,7 +73,7 @@ class SurveyDetailSerializer(ModelSerializer):
             'demos_key',
             'associated_commentary',
             'tags',
-            'description'
+            'description',
         ]
         read_only_fields = fields
 
@@ -64,10 +81,8 @@ class SurveyDetailSerializer(ModelSerializer):
         if obj.associated_commentary is None:
             return []
         commentaries = []
-        for i,s in enumerate(obj.associated_commentary.all()):
-            commentary = {
-                'title': s.title
-            }
+        for i, s in enumerate(obj.associated_commentary.all()):
+            commentary = {'title': s.commentary.title}
             commentaries.append(commentary)
         return commentaries
 
@@ -75,10 +90,8 @@ class SurveyDetailSerializer(ModelSerializer):
         if obj.org is None:
             return []
         orgs = []
-        for i,s in enumerate(obj.org.all()):
-            org = {
-                'title': s.title
-            }
+        for i, s in enumerate(obj.org.all()):
+            org = {'title': s.title}
             orgs.append(org)
         return orgs
 
@@ -86,10 +99,8 @@ class SurveyDetailSerializer(ModelSerializer):
         if obj.demos_key is None:
             return []
         demos_keys = []
-        for i,s in enumerate(obj.demos_key.all()):
-            key = {
-                'title': s.title
-            }
+        for i, s in enumerate(obj.demos_key.all()):
+            key = {'title': s.title}
             demos_keys.append(key)
         return demos_keys
 
@@ -97,12 +108,11 @@ class SurveyDetailSerializer(ModelSerializer):
         if obj.tags is None:
             return []
         tags = []
-        for i,s in enumerate(obj.tags.all()):
-            tag = {
-                'title': s.title
-            }
+        for i, s in enumerate(obj.tags.all()):
+            tag = {'title': s.title}
             tags.append(tag)
         return tags
+
 
 def get_surveys_detail(homePage):
     children = homePage.get_children().type(Survey).live()
@@ -112,13 +122,11 @@ def get_surveys_detail(homePage):
             surveys.append(SurveyDetailSerializer(c.specific).data)
     return surveys
 
+
 def get_page_parent(page):
     parent_page = page.get_parent()
     if parent_page is not None:
-        parent = {
-          'title': parent_page.title,
-          'url': parent_page.url
-        }
+        parent = {'title': parent_page.title, 'url': parent_page.url}
         return parent
     else:
         return []
