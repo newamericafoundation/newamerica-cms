@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from wagtail.core.models import Page, PageViewRestriction, Site
 from wagtail.search.models import Query
 
+import survey.models
 from .serializers import SearchSerializer
 from newamericadotorg.api.event.serializers import EventSerializer
 from event.models import Event
@@ -36,12 +37,17 @@ def exclude_invisible_pages(request, pages):
 
 class SearchList(ListAPIView):
     serializer_class = SearchSerializer
-    filter_backends = (DjangoFilterBackend,SearchFilter)
+    filter_backends = (DjangoFilterBackend, SearchFilter)
 
     def get_queryset(self):
         search = self.request.query_params.get('query', None)
         site_for_request = Site.find_for_request(self.request)
-        results = exclude_invisible_pages(self.request, Page.objects.live().descendant_of(site_for_request.root_page, inclusive=True))
+        results = exclude_invisible_pages(
+            self.request,
+            Page.objects.live().descendant_of(
+                site_for_request.root_page, inclusive=True
+            ),
+        )
 
         if search:
             results = results.search(search, partial_match=False)
@@ -59,9 +65,12 @@ class SearchPrograms(ListAPIView):
         search = self.request.query_params.get('query', None)
         site_for_request = Site.find_for_request(self.request)
 
-        base_query = Page.objects.live().public().type(
-            (Program, Subprogram),
-        ).descendant_of(site_for_request.root_page, inclusive=True)
+        base_query = (
+            Page.objects.live()
+            .public()
+            .type((Program, Subprogram))
+            .descendant_of(site_for_request.root_page, inclusive=True)
+        )
         qs = exclude_invisible_pages(self.request, base_query)
 
         if search:
@@ -79,9 +88,10 @@ class SearchPeople(ListAPIView):
         search = self.request.query_params.get('query', None)
         site_for_request = Site.find_for_request(self.request)
 
-        base_query = Person.objects.live().public().descendant_of(
-            site_for_request.root_page,
-            inclusive=True,
+        base_query = (
+            Person.objects.live()
+            .public()
+            .descendant_of(site_for_request.root_page, inclusive=True)
         )
         qs = exclude_invisible_pages(self.request, base_query)
 
@@ -100,9 +110,27 @@ class SearchOtherPages(ListAPIView):
         search = self.request.query_params.get('query', None)
         site_for_request = Site.find_for_request(self.request)
 
-        base_query = Page.objects.live().public().not_type(
-            (Person, Program, Subprogram, Post, Event, SubscriptionSegment, RedirectPage),
-        ).descendant_of(site_for_request.root_page, inclusive=True)
+        base_query = (
+            Page.objects.live()
+            .public()
+            .not_type(
+                (
+                    Person,
+                    Program,
+                    Subprogram,
+                    Post,
+                    Event,
+                    SubscriptionSegment,
+                    RedirectPage,
+                    # Non-informational pages for survey filtering.
+                    survey.models.SurveyOrganization,
+                    survey.models.DemographicKey,
+                    survey.models.SurveyTags,
+                    survey.models.SurveyValuesIndex,
+                )
+            )
+            .descendant_of(site_for_request.root_page, inclusive=True)
+        )
         qs = exclude_invisible_pages(self.request, base_query)
 
         if search:
@@ -121,9 +149,12 @@ class SearchUpcomingEvents(ListAPIView):
         site_for_request = Site.find_for_request(self.request)
         today = localtime(now()).date()
 
-        base_query = Event.objects.live().public().filter(
-            date__gte=today
-        ).descendant_of(site_for_request.root_page, inclusive=True)
+        base_query = (
+            Event.objects.live()
+            .public()
+            .filter(date__gte=today)
+            .descendant_of(site_for_request.root_page, inclusive=True)
+        )
         qs = exclude_invisible_pages(self.request, base_query)
         if search:
             qs = qs.search(search, partial_match=False)
@@ -141,11 +172,12 @@ class SearchPublicationsAndPastEvents(ListAPIView):
         site_for_request = Site.find_for_request(self.request)
         today = localtime(now()).date()
 
-        base_query = Post.objects.live().public().type(
-            (Post, Event),
-        ).filter(date__lt=today).descendant_of(
-            site_for_request.root_page,
-            inclusive=True,
+        base_query = (
+            Post.objects.live()
+            .public()
+            .type((Post, Event))
+            .filter(date__lt=today)
+            .descendant_of(site_for_request.root_page, inclusive=True)
         )
         qs = exclude_invisible_pages(self.request, base_query)
         if search:
