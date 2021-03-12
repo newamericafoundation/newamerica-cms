@@ -1,5 +1,7 @@
 .home__panels__search {
   margin-bottom: 115px;
+  display: flex;
+  flex-direction: column;
 }
 
 .search-results {
@@ -9,6 +11,10 @@
 
   &--loading {
     margin-bottom: 60px;
+  }
+
+  &--empty {
+    order: 2;
   }
 
   &__list {
