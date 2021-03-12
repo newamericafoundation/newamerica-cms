@@ -43,7 +43,7 @@ function SearchResultList({results, header, bucket, isFetching, hasNext, hasPrev
   }
 
   return (
-    <div className={`search-results search-results--${bucket}`}>
+    <div className={`search-results search-results--${bucket} ${(results.length === 0) && 'search-results--empty'}`}>
       <h2>{header}</h2>
 
       {(results.length === 0)
@@ -148,7 +148,7 @@ function SearchBucket({query, name, bucket, endpoint, showEmpty, pageSize}) {
   }, [query, paginationFilter]);
 
   return (
-    <div>
+    <>
       {(results.length > 1 || showEmpty) && <SearchResultList
         results={results}
         header={name}
@@ -159,7 +159,7 @@ function SearchBucket({query, name, bucket, endpoint, showEmpty, pageSize}) {
         hasPrevious={!!previousPaginationFilter}
         fetchPrevious={() => setPaginationFilter(previousPaginationFilter)}
        />}
-    </div>
+    </>
   )
 }
 
