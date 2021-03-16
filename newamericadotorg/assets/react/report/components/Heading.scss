@@ -67,20 +67,9 @@
     flex-grow: 1;
     width: 100%;
     margin: 0;
-    padding-bottom: 28px;
     max-width: none;
-
-    @media (min-height: 800px) {
-      padding-bottom: calc(28px - 20px + 2.5vh);
-    }
-
-    @media (min-height: 1200px) {
-      padding-bottom: calc(28px - 20px + 3vh);
-    }
-
-    @include media-breakpoint-down(mobile) {
-      padding-bottom: 40px;
-    }
+    display: flex;
+    flex-direction: column;
   }
 
   .card__image__background {
@@ -94,8 +83,7 @@
 }
 
 .card__image__background-image {
-  height: 100%;
-  width: 100%;
+  flex-grow: 1;
   background-color: #efefef;
   background-repeat: no-repeat;
   background-size: cover;
