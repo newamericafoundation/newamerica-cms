@@ -1,3 +1,7 @@
+import io
+
+from django.core import management
+from django.test import TestCase
 from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
@@ -24,6 +28,7 @@ from press_release.models import (
 from quoted.models import AllQuotedHomePage, ProgramQuotedPage
 from report.models import ReportsHomepage
 from survey.models import SurveysHomePage
+from test_factories import PostFactory
 from weekly.models import Weekly
 
 from .models import (
@@ -148,3 +153,49 @@ class ProgramsTests(WagtailPageTests):
                 SurveysHomePage
             }
         )
+
+
+class SearchTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+
+        cls.program = PostFactory.create_program(
+            home_page=home_page,
+            program_data={
+                'title': 'Robots Program'
+            }
+        )
+
+        cls.project1 = cls.program.add_child(
+            instance=Project(
+                title='Cyborg Project',
+                name='Cyborg Project',
+                description='Secret',
+            )
+        )
+
+        cls.redirect_project = cls.program.add_child(
+            instance=Project(
+                title='Cyborg Project',
+                name='Cyborg Project',
+                description='Secret',
+                redirect_page=cls.project1,
+            )
+        )
+
+    def setUp(self):
+        management.call_command('update_index', stdout=io.StringIO(), chunk_size=50)
+
+    def test_program_search_excludes_redirect_projects(self):
+        qs = (
+            Page.objects
+            .live()
+            .public()
+            .type((Program, Subprogram))
+            .search('cyborg', partial_match=False)
+        )
+
+        found_pks = {x.pk for x in qs}
+        self.assertIn(self.project1.pk, found_pks)
+        self.assertNotIn(self.redirect_project.pk, found_pks)
