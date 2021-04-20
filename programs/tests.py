@@ -1,37 +1,36 @@
-from wagtail.tests.utils import WagtailPageTests
 from wagtail.core.models import Page
+from wagtail.tests.utils import WagtailPageTests
 
-from home.models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, ProgramAboutHomePage
-
-from .models import Program, Subprogram, ProgramSubprogramRelationship, PublicationsPage, Project
-
+from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
+from blog.models import AllBlogPostsHomePage, ProgramBlogPostsPage
+from book.models import AllBooksHomePage, ProgramBooksPage
+from event.models import AllEventsHomePage, ProgramEventsPage
+from home.models import (
+    HomePage, JobsPage, OrgSimplePage, ProgramAboutHomePage, ProgramSimplePage,
+    RedirectPage, SubscribePage
+)
+from issue.models import IssueOrTopic, TopicHomePage
+from other_content.models import ProgramOtherPostsPage
+from person.models import (
+    BoardAndLeadershipPeoplePage, OurPeoplePage, ProgramPeoplePage
+)
+from podcast.models import AllPodcastsHomePage, ProgramPodcastsPage
+from policy_paper.models import (
+    AllPolicyPapersHomePage, ProgramPolicyPapersPage
+)
+from press_release.models import (
+    AllPressReleasesHomePage, ProgramPressReleasesPage
+)
+from quoted.models import AllQuotedHomePage, ProgramQuotedPage
+from report.models import ReportsHomepage
+from survey.models import SurveysHomePage
 from weekly.models import Weekly
 
-from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
+from .models import (
+    Program, ProgramSubprogramRelationship, Project, PublicationsPage,
+    Subprogram
+)
 
-from event.models import AllEventsHomePage, ProgramEventsPage
-
-from blog.models import AllBlogPostsHomePage, ProgramBlogPostsPage
-
-from book.models import AllBooksHomePage, ProgramBooksPage
-
-from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage, ProgramPeoplePage
-
-from podcast.models import AllPodcastsHomePage, ProgramPodcastsPage
-
-from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage
-
-from press_release.models import AllPressReleasesHomePage, ProgramPressReleasesPage
-
-from quoted.models import AllQuotedHomePage, ProgramQuotedPage
-
-from issue.models import IssueOrTopic, TopicHomePage
-
-from report.models import ReportsHomepage
-
-from other_content.models import ProgramOtherPostsPage
-
-from survey.models import SurveysHomePage
 
 class ProgramsTests(WagtailPageTests):
     """
