@@ -383,6 +383,11 @@ class Project(Subprogram):
         ObjectList(Subprogram.settings_panels, heading='Settings', classname='settings'),
     ])
 
+    @classmethod
+    def get_indexed_objects(cls):
+        # do not add projects with a redirect page to the search index
+        return cls.objects.filter(redirect_page__isnull=True)
+
     class Meta:
         ordering = ('title',)
         verbose_name = 'Project'
