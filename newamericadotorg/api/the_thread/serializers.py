@@ -4,7 +4,7 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from wagtail.images.views.serve import generate_image_url
 
-from thread.models import ThreadArticle
+from the_thread.models import ThreadArticle
 from newamericadotorg.api.author.serializers import AuthorSerializer
 
 

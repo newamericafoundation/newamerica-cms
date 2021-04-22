@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.pagination import CursorPagination
 
-from thread.models import ThreadArticle
+from the_thread.models import ThreadArticle
 
 from .serializers import DetailThreadArticleSerializer, ListingThreadArticleSerializer
 

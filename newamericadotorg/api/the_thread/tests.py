@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 from test_factories import PostFactory
 
 from person.models import Person, PersonProgramRelationship, PersonSubprogramRelationship, PersonTopicRelationship
-from thread.models import Thread, ThreadArticle, ThreadEdition
+from the_thread.models import Thread, ThreadArticle, ThreadEdition
 
 class ThreadAPITests(APITestCase):
     @classmethod
@@ -21,14 +21,14 @@ class ThreadAPITests(APITestCase):
         )
 
     def test_article_list(self):
-        url = '/api/thread/'
+        url = '/api/the_thread/'
         result = self.client.get(url)
         data = result.json()
 
         self.assertEqual(len(data['results']), 8)
 
     def test_article_detail(self):
-        url = '/api/thread/%s/' % self.articles[0].id
+        url = '/api/the_thread/%s/' % self.articles[0].id
         result = self.client.get(url)
         data = result.json()
 

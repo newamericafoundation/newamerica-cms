@@ -15,7 +15,7 @@ from .templatetags.utilities import generate_byline
 from programs.models import Program, Subprogram, PublicationsPage
 
 from weekly.models import Weekly, AllWeeklyArticlesHomePage
-from thread.models import Thread, AllThreadArticlesHomePage
+from the_thread.models import Thread, AllThreadArticlesHomePage
 
 from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 

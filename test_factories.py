@@ -23,7 +23,7 @@ from policy_paper.models import PolicyPaper
 from press_release.models import PressRelease
 from quoted.models import Quoted
 from weekly.models import WeeklyArticle, WeeklyEdition
-from thread.models import ThreadArticle, ThreadEdition
+from the_thread.models import ThreadArticle, ThreadEdition
 
 from faker import Faker
 fake = Faker()

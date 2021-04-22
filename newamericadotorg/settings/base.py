@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'survey',
     'issue',
     'weekly',
-    'thread',
+    'the_thread',
     'in_depth',
     'other_content',
     'storages',

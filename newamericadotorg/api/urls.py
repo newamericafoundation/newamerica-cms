@@ -13,7 +13,7 @@ import newamericadotorg.api.subscribe.views as subscribe_views
 import newamericadotorg.api.survey.views as survey_views
 import newamericadotorg.api.topic.views as topic_views
 import newamericadotorg.api.weekly.views as weekly_views
-import newamericadotorg.api.thread.views as thread_views
+import newamericadotorg.api.the_thread.views as thread_views
 
 api_urls = [
     url(r'^post/$', post_views.PostList.as_view(), name='post_list'),
