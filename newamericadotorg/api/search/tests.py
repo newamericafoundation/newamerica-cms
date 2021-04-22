@@ -82,6 +82,7 @@ class SearchAPITests(APITestCase):
 
 
 @unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
+@unittest.skip('Inconsistent test, needs further analysis')
 class SearchAPIDateTests2(APITestCase):
     @classmethod
     def setUpTestData(cls):
