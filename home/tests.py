@@ -10,6 +10,7 @@ from wagtail.tests.utils.form_data import nested_form_data, streamfield
 from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
 from blog.models import AllBlogPostsHomePage
 from book.models import AllBooksHomePage
+from brief.models import AllBriefsHomePage
 from conference.models import AllConferencesHomePage
 from event.models import AllEventsHomePage, Event, ProgramEventsPage
 from in_depth.models import AllInDepthHomePage
@@ -171,10 +172,10 @@ class HomeTests(WagtailPageTests):
             SubscribeHome,
             AllReportsHomePage,
             PublicationsPage,
+            AllBriefsHomePage,
             AllOtherPostsHomePage,
             AllThreadArticlesHomePage,
             AllWeeklyArticlesHomePage,
-            AllThreadArticlesHomePage
             })
 
     # Test that pages can be created with POST data

@@ -108,6 +108,7 @@ class HomePage(Page):
     'person.BoardAndLeadershipPeoplePage',
     'podcast.AllPodcastsHomePage',
     'policy_paper.AllPolicyPapersHomePage',
+    'brief.AllBriefsHomePage',
     'press_release.AllPressReleasesHomePage',
     'quoted.AllQuotedHomePage',
     'in_depth.AllInDepthHomePage',

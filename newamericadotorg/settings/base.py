@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'podcast',
     'report',
     'policy_paper',
+    'brief',
     'press_release',
     'quoted',
     'survey',
