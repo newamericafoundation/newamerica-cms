@@ -69,13 +69,13 @@ class Routes extends Component {
           <Slide key={match.params.articleSlug ? 'article' : 'index'}>
             <Switch location={location}>
               <Route
-                path="/weekly/:articleSlug/"
+                path="/the-thread/:articleSlug/"
                 exact
                 render={(props)=>(
                   <Article articles={results} {...props} />
                 )}/>
               <Route
-                path="/weekly/"
+                path="/the-thread/"
                 exact
                 render={(props)=>(
                   <ArticleListing
@@ -100,11 +100,11 @@ class APP extends Component {
       <GARouter>
         <Switch>
           <Route path="/admin/pages/" render={(props) => (
-            <Redirect to="/weekly/" />
+            <Redirect to="/the-thread/" />
           )} />
-          <Route path="/weekly/:articleSlug?/" render={({ location, match }) => {
-            return <Fetch name='weekly'
-                endpoint="weekly"
+          <Route path="/the-thread/:articleSlug?/" render={({ location, match }) => {
+            return <Fetch name='thread'
+                endpoint="thread"
                 fetchOnMount={true}
                 eager={true}
                 component={Routes}

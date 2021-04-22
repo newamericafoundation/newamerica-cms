@@ -4,11 +4,11 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from wagtail.images.views.serve import generate_image_url
 
-from weekly.models import WeeklyArticle
+from thread.models import ThreadArticle
 from newamericadotorg.api.author.serializers import AuthorSerializer
 
 
-class ListingWeeklyArticleSerializer(ModelSerializer):
+class ListingThreadArticleSerializer(ModelSerializer):
     authors = SerializerMethodField()
     story_image_lg = SerializerMethodField()
     story_image_sm = SerializerMethodField()
@@ -26,14 +26,14 @@ class ListingWeeklyArticleSerializer(ModelSerializer):
             return generate_image_url(obj.story_image, 'fill-400x400')
 
     class Meta:
-        model = WeeklyArticle
+        model = ThreadArticle
         fields = (
             'id', 'title', 'date', 'authors', 'slug',
             'story_excerpt', 'story_image_lg', 'story_image_sm', 'url'
         )   
 
 
-class DetailWeeklyArticleSerializer(ListingWeeklyArticleSerializer):
+class DetailThreadArticleSerializer(ListingThreadArticleSerializer):
     body = SerializerMethodField()
     post = SerializerMethodField()
     story_image = SerializerMethodField()
@@ -49,7 +49,7 @@ class DetailWeeklyArticleSerializer(ListingWeeklyArticleSerializer):
         return loader.get_template('components/post_body.html').render({ 'page': obj })
 
     class Meta:
-        model = WeeklyArticle
+        model = ThreadArticle
         fields = (
             'id', 'title', 'date', 'authors', 'body', 'story_image', 'slug',
             'story_excerpt', 'story_image_lg', 'story_image_sm', 'url', 'post'

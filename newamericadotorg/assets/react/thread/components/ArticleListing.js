@@ -93,8 +93,8 @@ class ArticleListing extends Component {
         <section className="weekly-edition weekly-frame" style={{ top: `${-this.state.scrollPosition + 65 + 70}px`}}>
           <div className="container">
             <div className="weekly-edition__heading margin-90">
-              <h1 className="centered promo margin-top-0 margin-bottom-25">New America Weekly</h1>
-              <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>
+              <h1 className="centered promo margin-top-0 margin-bottom-25">The Thread</h1>
+              <p className="centered margin-0">Where policy, equity, and culture come together.</p>
             </div>
             <div className="row margin-top-25 margin-bottom-35 gutter-10 weekly-edition__articles">
               <div className="col-12">

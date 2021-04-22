@@ -12,34 +12,34 @@ from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results
 from home.models import AbstractHomeContentPage
 
-class Weekly(AbstractContentPage):
+class Thread(AbstractContentPage):
     parent_page_types = ['home.HomePage']
-    subpage_types = ['WeeklyArticle']
+    subpage_types = ['ThreadArticle']
 
     class Meta:
-        verbose_name = "Weekly Editions"
+        verbose_name = "The Thread"
 
 
-class WeeklyEdition(Page):
+class ThreadEdition(Page):
     parent_page_types = []
     subpage_types = []
 
 
-class WeeklyArticle(Post):
-    parent_page_types = ['Weekly']
+class ThreadArticle(Post):
+    parent_page_types = ['Thread']
     subpage_types = []
 
     class Meta:
-        verbose_name = 'Weekly Article'
+        verbose_name = 'Article in The Thread'
 
 
-class AllWeeklyArticlesHomePage(AbstractHomeContentPage):
+class AllThreadArticlesHomePage(AbstractHomeContentPage):
     parent_page_types = ['home.HomePage']
     subpage_types = []
 
     class Meta:
-        verbose_name = 'Weekly Articles Homepage'
+        verbose_name = 'Thread Articles Homepage'
 
     @property
     def content_model(self):
-        return WeeklyArticle
+        return ThreadArticle

@@ -55,7 +55,7 @@ class ArticleHeader extends Component {
               <div className="weekly-edition__header__nav__btn">
                 <Link className="button--text with-caret--left white" to={edition.url}>{edition.number}</Link>
               </div>
-              <h5 className="inline white margin-0 weekly-edition__header__nav__heading">New America Weekly</h5>
+              <h5 className="inline white margin-0 weekly-edition__header__nav__heading">The Thread</h5>
             </div>
           </div>
         </div>
@@ -109,17 +109,17 @@ export default class Header extends Component {
     let { editionListOpen } = this.state;
     return(
       <header id="weekly__header" className={`weekly-edition__header${editionListOpen ? ' open' : ''}${params.articleSlug ? ' article-header': ''}`}>
-        <Fetch name="weekly.editionList"
+        <Fetch name="thread.editionList"
           component={null}
-          endpoint="weekly"
+          endpoint="thread"
           fetchOnMount={true}
           eager={true}
           initialQuery={{
             page_size: 9,
             page: this.state.page
           }}/>
-        <Route path="/weekly/:edition/" exact render={()=>(
-          <Response name="weekly.editionList"
+        <Route path="/the-thread/:edition/" exact render={()=>(
+          <Response name="thread.editionList"
               component={EditionHeader}
               edition={edition}
               editionListOpen={this.state.editionListOpen}
@@ -127,7 +127,7 @@ export default class Header extends Component {
               prevEditionPage={this.prevEditionPage}
               nextEditionPage={this.nextEditionPage}/>
         )}/>
-        <Route path="/weekly/:edition/:article/" exact render={()=>(
+        <Route path="/the-thread/:edition/:article/" exact render={()=>(
           <ArticleHeader edition={edition} reloadScrollEvents={this.reloadScrollEvents} />
         )} />
       </header>

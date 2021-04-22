@@ -3,17 +3,17 @@ import { NAME, LOAD_ARTICLE_IMAGE, RESET_ARTICLE_IMAGES, SET_EDITION_STATUS, SET
 export const loadArticleImage = (image) => ({
   type: LOAD_ARTICLE_IMAGE,
   image,
-  component: 'weekly.edition'
+  component: 'thread.edition'
 });
 
 export const clearArticleImages = () => ({
   type: RESET_ARTICLE_IMAGES,
-  component: 'weekly.edition'
+  component: 'thread.edition'
 });
 
 export const setIsReady = (status) => ({
   type: SET_EDITION_STATUS,
-  component: 'weekly.edition',
+  component: 'thread.edition',
   isReady: status
 });
 
@@ -24,6 +24,6 @@ export const reloadScrollEvents = () => ({
 
 export const setMenuState = (state) => ({
   type: SET_MENU_STATE,
-  component: 'weekly.edition',
+  component: 'thread.edition',
   state
 });
