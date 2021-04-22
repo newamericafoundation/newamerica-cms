@@ -98,6 +98,8 @@ class HomePage(Page):
     'article.AllArticlesHomePage',
     'weekly.Weekly',
     'weekly.AllWeeklyArticlesHomePage',
+    'thread.Thread',
+    'thread.AllThreadArticlesHomePage',
     'event.AllEventsHomePage',
     'conference.AllConferencesHomePage',
     'blog.AllBlogPostsHomePage',

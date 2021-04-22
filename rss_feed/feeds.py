@@ -49,7 +49,7 @@ class GenericFeed(Feed):
         self.acceptable_content_types = [
             "book","article","blogpost",
             "event","podcast","policypaper","pressrelease",
-            "weeklyarticle","indepthsection",
+            "weeklyarticle","threadarticle","indepthsection",
         ]
 
 
@@ -231,11 +231,13 @@ class EventProgramFeed(GenericFeed):
 
 
 def content_type_model(content_type):
-    # page exceptions for indepth and weekly content types
+    # page exceptions for indepth, weekly, and thread content types
     if content_type == "indepthsection":
         content_type_model = "allindepthhomepage"
     elif content_type == "weeklyarticle":
         content_type_model = "weekly"
+    elif content_type == "threadarticle":
+        content_type_model = "thread"
     else:
         content_type_model = "all"+content_type+"shomepage"
 

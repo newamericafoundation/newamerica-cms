@@ -13,6 +13,7 @@ import newamericadotorg.api.subscribe.views as subscribe_views
 import newamericadotorg.api.survey.views as survey_views
 import newamericadotorg.api.topic.views as topic_views
 import newamericadotorg.api.weekly.views as weekly_views
+import newamericadotorg.api.thread.views as thread_views
 
 api_urls = [
     url(r'^post/$', post_views.PostList.as_view(), name='post_list'),
@@ -39,6 +40,8 @@ api_urls = [
     url(r'^subprogram/(?P<pk>[\d]+)/$', program_views.SubprogramDetail.as_view()),
     url(r'^weekly/$', weekly_views.WeeklyList.as_view()),
     url(r'^weekly/(?P<pk>[\d]+)/$', weekly_views.WeeklyDetail.as_view()),
+    url(r'^thread/$', thread_views.ThreadList.as_view()),
+    url(r'^thread/(?P<pk>[\d]+)/$', thread_views.ThreadDetail.as_view()),
     url(r'^report/(?P<pk>[\d]+)/$', report_views.ReportDetail.as_view()),
     url(r'^home/(?P<pk>[\d]+)/$', home_views.HomeDetail.as_view()),
     #url(r'^api/meta/$', cache_page(60 * 10080)(api_views.MetaList.as_view())),
