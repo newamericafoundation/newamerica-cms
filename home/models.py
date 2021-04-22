@@ -1,44 +1,37 @@
-from __future__ import unicode_literals
-
-from django.db import models
-from django.apps import apps
-from django.shortcuts import redirect
-from django.utils.functional import cached_property
 from datetime import datetime
-from pytz import timezone
+
+import django.db.models.options as options
+from django.apps import apps
+from django.db import models
 from django.db.models import Q
-
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.core import blocks
-from wagtail.images.blocks import ImageChooserBlock
-from wagtail.core.blocks import PageChooserBlock
-from wagtail.embeds.blocks import EmbedBlock
-from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.admin.edit_handlers import (
-    FieldPanel, StreamFieldPanel, InlinePanel,
-    PageChooserPanel, MultiFieldPanel)
-from wagtail.core.fields import RichTextField
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.search import index
-from wagtail.images.models import Image, AbstractImage, AbstractRendition
-
-from modelcluster.fields import ParentalKey
-
-from programs.models import AbstractProgram, Program, Subprogram
-
-from person.models import Person
-
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+from django.shortcuts import redirect
+from django.utils.functional import cached_property
+from modelcluster.fields import ParentalKey
+from pytz import timezone
+from wagtail.admin.edit_handlers import (
+    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel,
+)
+from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.core import blocks
+from wagtail.core.blocks import PageChooserBlock
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Page
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.images.models import AbstractImage, AbstractRendition, Image
+from wagtail.search import index
 
 from newamericadotorg.blocks import BodyBlock
 from newamericadotorg.wagtailadmin.widgets import LocationWidget
+from person.models import Person
+from programs.models import AbstractProgram, Program, Subprogram
+from subscribe.models import SubscriptionSegment
 
-import django.db.models.options as options
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
-from subscribe.models import SubscriptionSegment
 
 class CustomImage(AbstractImage):
     # Add any extra fields to image here

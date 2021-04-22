@@ -1,33 +1,31 @@
 import json
 
 from django.db import models
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from django.shortcuts import render, redirect
-from django.template import loader
 from django.http import HttpResponse
-
-from home.models import Post
-from programs.models import AbstractContentPage
-from .blocks import EndnoteBlock, ReportSectionBlock, FeaturedReportSectionBlock
-
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.models import Page, PageRevision
-from wagtail.core.fields import StreamField
+from django.shortcuts import redirect, render
+from django.template import loader
 from wagtail.admin.edit_handlers import (
-    FieldPanel, StreamFieldPanel, InlinePanel,
-    PageChooserPanel, MultiFieldPanel, TabbedInterface, ObjectList)
-from wagtail.core.blocks import URLBlock, RichTextBlock
-from wagtail.core.fields import RichTextField
-from wagtail.documents.edit_handlers import DocumentChooserPanel
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
+    StreamFieldPanel, TabbedInterface,
+)
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.core.blocks import RichTextBlock, URLBlock
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Page, PageRevision
 from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-
 from wagtail.search import index
 
-from home.models import AbstractHomeContentPage
+from home.models import AbstractHomeContentPage, Post
+from programs.models import AbstractContentPage
 
-from .tasks import generate_pdf, parse_pdf, write_pdf, generate_report_contents, get_report_authors
+from .blocks import EndnoteBlock, FeaturedReportSectionBlock, ReportSectionBlock
+from .tasks import (
+    generate_pdf, generate_report_contents, get_report_authors, parse_pdf, write_pdf,
+)
 
 
 class Report(RoutablePageMixin, Post):
