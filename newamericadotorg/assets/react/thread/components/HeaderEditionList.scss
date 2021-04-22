@@ -1,0 +1,26 @@
+.weekly-edition__edition-list{
+  padding-bottom: 25px;
+}
+
+.weekly-edition__edition-list__edition {
+  padding-bottom: 45px;
+
+  &__image, &__text{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &__image {
+    width: 110px;
+
+    img {
+      width: 90px;
+      height: auto;
+    }
+  }
+
+  &__text{
+    height: 125px;
+    max-width: 200px;
+  }
+}
