@@ -17,7 +17,7 @@ class Weekly(AbstractContentPage):
     subpage_types = ['WeeklyArticle']
 
     class Meta:
-        verbose_name = "Weekly Editions"
+        verbose_name = "The Weekly"
 
 
 class WeeklyEdition(Page):
