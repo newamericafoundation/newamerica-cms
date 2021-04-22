@@ -1,49 +1,38 @@
-from django.test import TestCase
-from django.test import Client
-from django.http import HttpResponsePermanentRedirect
 import datetime
 from datetime import date, timedelta
 
-from wagtail.tests.utils import WagtailPageTests
+from django.http import HttpResponsePermanentRedirect
+from django.test import Client, TestCase
 from wagtail.core.models import Page, Site
+from wagtail.tests.utils import WagtailPageTests
 from wagtail.tests.utils.form_data import nested_form_data, streamfield
 
-from .models import HomePage, OrgSimplePage, ProgramSimplePage, JobsPage, SubscribePage, RedirectPage, PostAuthorRelationship
+from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
+from blog.models import AllBlogPostsHomePage
+from book.models import AllBooksHomePage
+from conference.models import AllConferencesHomePage
+from event.models import AllEventsHomePage, Event, ProgramEventsPage
+from in_depth.models import AllInDepthHomePage
+from other_content.models import AllOtherPostsHomePage
+from person.models import BoardAndLeadershipPeoplePage, OurPeoplePage, Person
+from podcast.models import AllPodcastsHomePage
+from policy_paper.models import (
+    AllPolicyPapersHomePage, PolicyPaper, ProgramPolicyPapersPage,
+)
+from press_release.models import AllPressReleasesHomePage
+from programs.models import Program, PublicationsPage, Subprogram
+from quoted.models import AllQuotedHomePage
+from report.models import AllReportsHomePage
+from subscribe.models import SubscribePage as SubscribeHome
+from the_thread.models import AllThreadArticlesHomePage, Thread
+from weekly.models import AllWeeklyArticlesHomePage, Weekly
 
+from .models import (
+    HomePage, JobsPage, OrgSimplePage, PostAuthorRelationship, ProgramSimplePage,
+    RedirectPage, SubscribePage,
+)
 from .templatetags.utilities import generate_byline
 
-from programs.models import Program, Subprogram, PublicationsPage
-
-from weekly.models import Weekly, AllWeeklyArticlesHomePage
-from the_thread.models import Thread, AllThreadArticlesHomePage
-
-from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
-
-from event.models import AllEventsHomePage, ProgramEventsPage, Event
-
-from blog.models import AllBlogPostsHomePage
-
-from book.models import AllBooksHomePage
-
-from in_depth.models import AllInDepthHomePage
-
-from person.models import OurPeoplePage, BoardAndLeadershipPeoplePage, Person
-
-from podcast.models import AllPodcastsHomePage
-
-from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage, PolicyPaper
-
-from press_release.models import AllPressReleasesHomePage
-
-from quoted.models import AllQuotedHomePage
-
-from conference.models import AllConferencesHomePage
-
-from report.models import AllReportsHomePage
-
-from other_content.models import AllOtherPostsHomePage
-
-from subscribe.models import SubscribePage as SubscribeHome
 
 class HomeTests(WagtailPageTests):
     """
@@ -183,6 +172,7 @@ class HomeTests(WagtailPageTests):
             AllReportsHomePage,
             PublicationsPage,
             AllOtherPostsHomePage,
+            AllThreadArticlesHomePage,
             AllWeeklyArticlesHomePage,
             AllThreadArticlesHomePage
             })
