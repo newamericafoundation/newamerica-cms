@@ -51,7 +51,9 @@ const Subscribe = () => (
       <div>
         <Separator text="Subscribe"/>
         <h1 className="margin-top-60 margin-bottom-25">
-          Be the first to hear about the latest events and research from New America.
+          Policy. Equity. Culture. Your inbox.
+          <br /><br />
+          Get The Thread monthly newsletter.
         </h1>
       </div>
       <form action="/subscribe/?email=value" method="get">
