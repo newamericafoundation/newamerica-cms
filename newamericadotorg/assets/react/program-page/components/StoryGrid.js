@@ -175,7 +175,8 @@ export default class StoryGrid extends Component {
 
     let features = [...story_grid.pages];
     let lead = features.shift(0);
-    features = ['subscribe', ...features.splice(0,3), 'about', ...features];
+    features = program.hide_subscription_card ? [...features.splice(0, 3), 'about', ...features]
+      : ['subscribe', ...features.splice(0, 3), 'about', ...features];
 
     if(story_grid.pages.length===0){
       return (
