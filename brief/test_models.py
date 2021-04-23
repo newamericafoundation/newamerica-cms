@@ -1,9 +1,14 @@
+from django.core.exceptions import ValidationError
 from django.test import TestCase
+from wagtail.core.blocks.stream_block import StreamValue
+from wagtail.core.rich_text import RichText
 from wagtail.tests.utils import WagtailPageTests
 
 from home.models import HomePage
-from programs.models import Program, Subprogram, Project
-from .models import Brief, ProgramBriefsPage, AllBriefsHomePage
+from programs.models import Program, Project, Subprogram
+from test_factories import PostFactory
+
+from .models import AllBriefsHomePage, Brief, ProgramBriefsPage
 
 
 class BriefPagesHierarchy(WagtailPageTests):
@@ -45,3 +50,47 @@ class BriefPagesHierarchy(WagtailPageTests):
             AllBriefsHomePage,
             {HomePage}
         )
+
+
+class BriefWordCountTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        home_page = PostFactory.create_homepage()
+        program = PostFactory.create_program(home_page=home_page)
+
+        cls.briefs_page = PostFactory.create_program_content_page(
+            program=program,
+            content_page_type=ProgramBriefsPage,
+        )
+
+        cls.brief = PostFactory.create_content(
+            1,
+            content_page=cls.briefs_page,
+            post_type=Brief,
+            post_data={
+                'body': [
+                    ('introduction', RichText('<p>Hello world</p>')),
+                    ('heading', 'Heading'),
+                    ('paragraph', RichText('<p>Lorem Ipsum Dolor</p>')),
+                ]
+            }
+        )[0]
+
+    def test_word_count(self):
+        self.assertEqual(self.brief.word_count(), 6)
+
+    def test_word_count_limit(self):
+        with self.assertRaises(ValidationError):
+            PostFactory.create_content(
+                1,
+                content_page=self.briefs_page,
+                post_type=Brief,
+                post_data={
+                    'body': [
+                        ('introduction', RichText('<p>Hello world</p>')),
+                        ('heading', 'Heading'),
+                        ('paragraph', RichText('<p>Lorem Ipsum Dolor</p>')),
+                        ('heading', 'Hello world ' * 5000),
+                    ]
+                }
+            )
