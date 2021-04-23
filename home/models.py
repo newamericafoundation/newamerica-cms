@@ -2,17 +2,20 @@ from datetime import datetime
 
 import django.db.models.options as options
 from django.apps import apps
+from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import Q
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.shortcuts import redirect
 from django.utils.functional import cached_property
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.models import ClusterableModel
 from pytz import timezone
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel,
 )
+from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core import blocks
 from wagtail.core.blocks import PageChooserBlock
@@ -677,3 +680,24 @@ class AbstractHomeContentPage(Page):
 
     class Meta:
         abstract=True
+
+
+@register_setting(icon='placeholder')
+class PublicationPermissions(BaseSetting, ClusterableModel):
+    groups_with_report_permission = ParentalManyToManyField(
+        Group,
+        blank=True,
+        related_name='+',
+        help_text='Group that has permission to perform the "Publish" action on Report pages. Only superusers and users that are members of the group selected here may do so, otherwise reports must go through the applicable workflow.',
+    )
+    groups_with_brief_permission = ParentalManyToManyField(
+        Group,
+        blank=True,
+        related_name='+',
+        help_text='Group that has permission to perform the "Publish" action on Brief pages. Only superusers and users that are members of the group selected here may do so, otherwise reports must go through the applicable workflow.',
+    )
+
+    panels = [
+        FieldPanel('groups_with_report_permission'),
+        FieldPanel('groups_with_brief_permission'),
+    ]
