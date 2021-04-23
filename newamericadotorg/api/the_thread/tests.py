@@ -21,14 +21,14 @@ class ThreadAPITests(APITestCase):
         )
 
     def test_article_list(self):
-        url = '/api/the_thread/'
+        url = '/api/thread/'
         result = self.client.get(url)
         data = result.json()
 
         self.assertEqual(len(data['results']), 8)
 
     def test_article_detail(self):
-        url = '/api/the_thread/%s/' % self.articles[0].id
+        url = '/api/thread/%s/' % self.articles[0].id
         result = self.client.get(url)
         data = result.json()
 
