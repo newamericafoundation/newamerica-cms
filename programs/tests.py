@@ -30,6 +30,7 @@ from report.models import ReportsHomepage
 from survey.models import SurveysHomePage
 from test_factories import PostFactory
 from weekly.models import Weekly
+from the_thread.models import Thread
 
 from .models import (
     Program, ProgramSubprogramRelationship, Project, PublicationsPage,

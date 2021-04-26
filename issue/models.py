@@ -72,13 +72,13 @@ class IssueOrTopic(ProgramSimplePage):
         MultiFieldPanel([
             PageChooserPanel(
                 'featured_publication_1',
-                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'report.Report', 'in_depth.InDepthProject', 'other_content.OtherPost']),
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'the_thread.ThreadArticle', 'report.Report', 'in_depth.InDepthProject', 'other_content.OtherPost']),
             PageChooserPanel(
                 'featured_publication_2',
-                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'report.Report', 'in_depth.InDepthProject', 'other_content.OtherPost']),
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'the_thread.ThreadArticle', 'report.Report', 'in_depth.InDepthProject', 'other_content.OtherPost']),
             PageChooserPanel(
                 'featured_publication_3',
-                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'report.Report', 'in_depth.InDepthProject', 'other_content.OtherPost']),
+                ['article.Article', 'blog.BlogPost', 'book.Book', 'event.Event', 'issue.IssueOrTopic', 'podcast.Podcast', 'policy_paper.PolicyPaper', 'press_release.PressRelease', 'quoted.Quoted', 'weekly.WeeklyArticle', 'the_thread.ThreadArticle', 'report.Report', 'in_depth.InDepthProject', 'other_content.OtherPost']),
         ], heading="Featured Publications", classname="collapsible")
     ]
 

@@ -86,6 +86,9 @@ function importPageComponents() {
     case 'na-weekly':
       import(/* webpackChunkName: "na-weekly-components" */ './react/components.weekly');
       break;
+    case 'na-thread':
+      import(/* webpackChunkName: "na-thread-components" */ './react/components.thread');
+      break;
     case 'na-indepth':
       import(/* webpackChunkName: "na-indepth-components" */ './react/components.indepth');
       break;

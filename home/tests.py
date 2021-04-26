@@ -15,6 +15,7 @@ from .templatetags.utilities import generate_byline
 from programs.models import Program, Subprogram, PublicationsPage
 
 from weekly.models import Weekly, AllWeeklyArticlesHomePage
+from the_thread.models import Thread, AllThreadArticlesHomePage
 
 from article.models import AllArticlesHomePage, ProgramArticlesPage, Article
 
@@ -176,12 +177,14 @@ class HomeTests(WagtailPageTests):
             Program,
             SubscribePage,
             Weekly,
+            Thread,
             RedirectPage,
             SubscribeHome,
             AllReportsHomePage,
             PublicationsPage,
             AllOtherPostsHomePage,
-            AllWeeklyArticlesHomePage
+            AllWeeklyArticlesHomePage,
+            AllThreadArticlesHomePage
             })
 
     # Test that pages can be created with POST data
