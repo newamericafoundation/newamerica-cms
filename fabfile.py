@@ -10,6 +10,8 @@ LOCAL_MEDIA_FOLDER = "/vagrant/media"
 LOCAL_IMAGES_FOLDER = "/vagrant/media/original_images"
 LOCAL_DATABASE_NAME = "newamerica-cms"
 
+MEDIA_FOLDERS = ['original_images', 'documents', 'avatar_images']
+
 
 ############
 # Production
@@ -87,7 +89,7 @@ def sync_staging_from_production_all(c):
         c,
         destination=STAGING_APP_INSTANCE,
         source=PRODUCTION_APP_INSTANCE,
-        folders=['original_images', 'documents']
+        folders=MEDIA_FOLDERS
     )
     # The above command just syncs the original images, so we need to
     # delete the contents of the wagtailimages_renditions table so
@@ -113,7 +115,7 @@ def sync_staging_from_production_media(c):
         c,
         destination=STAGING_APP_INSTANCE,
         source=PRODUCTION_APP_INSTANCE,
-        folders=['original_images', 'documents']
+        folders=MEDIA_FOLDERS
     )
     # The above command just syncs the original images, so we need to
     # delete the contents of the wagtailimages_renditions table so
@@ -144,7 +146,7 @@ def sync_develop_from_production_all(c):
         c,
         destination=DEVELOP_APP_INSTANCE,
         source=PRODUCTION_APP_INSTANCE,
-        folders=['original_images', 'documents']
+        folders=MEDIA_FOLDERS
     )
     # The above command just syncs the original images, so we need to
     # delete the contents of the wagtailimages_renditions table so
@@ -170,7 +172,7 @@ def sync_develop_from_production_media(c):
         c,
         destination=DEVELOP_APP_INSTANCE,
         source=PRODUCTION_APP_INSTANCE,
-        folders=['original_images', 'documents']
+        folders=MEDIA_FOLDERS
     )
     # The above command just syncs the original images, so we need to
     # delete the contents of the wagtailimages_renditions table so
@@ -219,7 +221,7 @@ def pull_media_from_s3_heroku(c, app_instance):
         c, app_instance, "S3_BUCKET_NAME"
     )
     pull_media_from_s3(
-        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=['original_images', 'documents']
+        c, aws_access_key_id, aws_secret_access_key, aws_storage_bucket_name, folders=MEDIA_FOLDERS
     )
 
     # The above command just syncs the original images, so we need to drop the wagtailimages_renditions
