@@ -1,5 +1,8 @@
 .na-dataviz,
 .wrapper--streamfield-block {
+  position: relative;
+  z-index: 1;
+
   &.full-width{
     width: 100vw;
     margin-left: calc(-50vw + 50%);
@@ -11,7 +14,11 @@
     margin-left: calc(-50vw + 50% + 15px);
 
     @media (min-width: 1230px) {
-      margin-left: -275px;
+      margin-left: -250px;
+
+      .report & {
+        margin-left: -275px;
+      }
     }
   }
 }
