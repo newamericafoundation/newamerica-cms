@@ -62,6 +62,11 @@ class Brief(Post):
 
 
 class ProgramBriefsPage(AbstractContentPage):
+    """
+    A page which inherits from the abstract Page model and
+    returns all Briefs associated with a specific
+    Program or Subprogram
+    """
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = ['Brief']
 
@@ -74,6 +79,11 @@ class ProgramBriefsPage(AbstractContentPage):
 
 
 class AllBriefsHomePage(AbstractHomeContentPage):
+    """
+    A page which inherits from the abstract Page model and
+    returns every Brief in the Brief model
+    for the organization wide Brief Homepage
+    """
     parent_page_types = ['home.Homepage']
     subpage_types = []
 
@@ -82,4 +92,4 @@ class AllBriefsHomePage(AbstractHomeContentPage):
         return Brief
 
     class Meta:
-        verbose_name = 'Homepage for all briefs'
+        verbose_name = 'Homepage for all Briefs'
