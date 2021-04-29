@@ -2,7 +2,7 @@ from wagtail.core import hooks
 
 from home.models import PublicationPermissions
 
-from .models import Report
+from .models import Report, ReportsHomepage
 
 
 @hooks.register('construct_page_action_menu')
@@ -12,7 +12,11 @@ def remove_publish_report_if_no_permission(menu_items, request, context):
     this permission.
 
     """
-    if isinstance(context.get('page'), Report):
+    editing_report_page = isinstance(context.get('page'), Report)
+    creating_report_page = context.get('view') == 'create' and isinstance(
+        context.get('parent_page'), ReportsHomepage
+    )
+    if editing_report_page or creating_report_page:
         settings = PublicationPermissions.for_request(request)
         if request.user.is_superuser:
             # superusers can always publish
