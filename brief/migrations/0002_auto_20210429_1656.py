@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='brief',
-            options={'verbose_name': 'Briefs Homepage'},
+            options={'verbose_name': 'Brief'},
         ),
     ]

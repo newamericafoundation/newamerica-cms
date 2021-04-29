@@ -61,7 +61,7 @@ class Brief(Post):
             )
 
     class Meta:
-        verbose_name = 'Briefs Homepage'
+        verbose_name = 'Brief'
 
 class ProgramBriefsPage(AbstractContentPage):
     """
