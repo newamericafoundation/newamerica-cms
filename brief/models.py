@@ -60,6 +60,8 @@ class Brief(Post):
                 f'Body of brief cannot exceed {word_limit} words across introductions, headings, and paragraphs. Currently used: {word_count} words.'
             )
 
+    class Meta:
+        verbose_name = 'Briefs Homepage'
 
 class ProgramBriefsPage(AbstractContentPage):
     """
