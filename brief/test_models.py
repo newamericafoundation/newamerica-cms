@@ -68,6 +68,7 @@ class BriefWordCountTestCase(TestCase):
                         'description': RichText('<p>Something something</p>'),
                         'resource': 'https://www.google.com',
                     },
+                    'id1',
                 ),
             ],
         )
@@ -81,7 +82,8 @@ class BriefWordCountTestCase(TestCase):
         )
 
         pvalue = StreamValue(
-            PanelsBlock(), [('panel', {'title': 'Panel One', 'body': panel_body_value})]
+            PanelsBlock(),
+            [('panel', {'title': 'Panel One', 'body': panel_body_value}, 'id2')],
         )
 
         cls.brief = PostFactory.create_content(
