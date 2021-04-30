@@ -249,3 +249,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'newamericadotorg.api.pagination.CustomPagination'
 }
+
+HEADLESS_PREVIEW_CLIENT_URLS = {
+    'default': 'http://localhost:8000/h_preview',
+}

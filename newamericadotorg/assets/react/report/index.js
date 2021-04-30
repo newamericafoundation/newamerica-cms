@@ -319,6 +319,10 @@ class Routes extends Component {
             render={() => <Redirect to={results.url} />}
           />
           <Route
+            path={`/h_preview`}
+            render={this.reportRender}
+          />
+          <Route
             path="/:program/reports/:reportTitle/:sectionSlug?"
             render={this.reportRender}
           />
@@ -348,7 +352,19 @@ class APP extends Component {
   }
 
   render() {
-    let { reportId } = this.props;
+    let { reportId, preview, token, contentType } = this.props;
+
+    if (preview) {
+      return (
+        <Fetch
+          name={NAME}
+          endpoint={`preview`}
+          initialQuery={{'content_type': contentType, token: token}}
+          fetchOnMount={true}
+          component={Routes}
+        />
+      );
+    }
 
     if (window.initialState) return <Response name={NAME} component={Routes} />;
 

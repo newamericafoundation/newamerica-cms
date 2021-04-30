@@ -18,6 +18,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
+from wagtail_headless_preview.models import HeadlessPreviewMixin
 
 from home.models import AbstractHomeContentPage, Post
 from programs.models import AbstractContentPage
@@ -28,7 +29,7 @@ from .tasks import (
 )
 
 
-class Report(RoutablePageMixin, Post):
+class Report(HeadlessPreviewMixin, RoutablePageMixin, Post):
     """
     Report class that inherits from the abstract
     Post model and creates pages for Policy Papers.
