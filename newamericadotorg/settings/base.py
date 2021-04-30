@@ -82,7 +82,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_filters',
-    'rest_framework'
+    'rest_framework',
+    'wagtail_headless_preview',
 ]
 
 MIDDLEWARE = [
