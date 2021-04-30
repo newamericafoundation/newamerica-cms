@@ -53,7 +53,7 @@ class Brief(Post):
     def clean(self):
         super().clean()
 
-        word_limit = 3000
+        word_limit = 5000
         word_count = self.word_count()
         if word_count > word_limit:
             raise ValidationError(
