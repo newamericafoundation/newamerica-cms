@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body_id %}na-preview{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+     window.initialState = {% if initial_state %}{{ initial_state|safe }}{% else %}null{% endif %};
+    </script>
+{% endblock %}
+
+{% block content %}
+    <main id="na-react__preview" data-preview="true"></main>
+{% endblock %}
