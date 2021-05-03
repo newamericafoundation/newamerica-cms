@@ -18,6 +18,9 @@ export const PrimaryTab = ({switchTab}) => (
         <a href="/publications/">Publications</a>
       </h6>
       <h6>
+        <a href="/the-thread/">The Thread</a>
+      </h6>
+      <h6>
         <a href="/events/">Events</a>
       </h6>
     </div>
