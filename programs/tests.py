@@ -8,6 +8,7 @@ from wagtail.tests.utils import WagtailPageTests
 from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
 from blog.models import AllBlogPostsHomePage, ProgramBlogPostsPage
 from book.models import AllBooksHomePage, ProgramBooksPage
+from brief.models import AllBriefsHomePage, ProgramBriefsPage
 from event.models import AllEventsHomePage, ProgramEventsPage
 from home.models import (
     HomePage, JobsPage, OrgSimplePage, ProgramAboutHomePage, ProgramSimplePage,
@@ -128,7 +129,8 @@ class ProgramsTests(WagtailPageTests):
                 Project,
                 TopicHomePage,
                 ProgramAboutHomePage,
-                SurveysHomePage
+                SurveysHomePage,
+                ProgramBriefsPage,
             }
         )
 
@@ -151,7 +153,8 @@ class ProgramsTests(WagtailPageTests):
                 ProgramOtherPostsPage,
                 ReportsHomepage,
                 ProgramAboutHomePage,
-                SurveysHomePage
+                SurveysHomePage,
+                ProgramBriefsPage,
             }
         )
 

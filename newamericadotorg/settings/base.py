@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'podcast',
     'report',
     'policy_paper',
+    'brief',
     'press_release',
     'quoted',
     'survey',
@@ -62,6 +63,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.styleguide',
     'wagtail.contrib.table_block',
     'wagtail.contrib.frontend_cache',
+    'wagtail.contrib.settings',
 
     'modelcluster',
     'compressor',
