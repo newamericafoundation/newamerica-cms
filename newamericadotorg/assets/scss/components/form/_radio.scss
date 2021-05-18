@@ -37,11 +37,6 @@
       background: #e6e6e6;
     }
 
-    #{root}:hover #{root}__input:not([disabled]):checked ~ &,
-    #{root}__input:checked:focus ~ & {
-      background: #0e647d;
-    }
-
     &::after {
       position: absolute;
       display: none;
@@ -64,6 +59,11 @@
         #{$root}--radio-button & {
           border-radius: 50%;
         }
+      }
+
+      #{$root}:hover #{$root}__input:not([disabled]):checked ~ &,
+      #{$root}__input:checked:focus ~ & {
+        background: #0e647d;
       }
 
       #{$root}__input:disabled ~ & {
