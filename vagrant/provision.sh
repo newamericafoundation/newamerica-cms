@@ -39,7 +39,7 @@ su - vagrant -c "createdb $PROJECT_NAME"
 set -e
 
 # Install the correct python version
-export PYTHON_VERSION=3.8.6
+export PYTHON_VERSION=3.8.10
 export MAIN_PYTHON_VERSION=$( echo $PYTHON_VERSION|cut -d. -f-2)
 apt-get install -y libffi-dev libssl-dev libncurses-dev liblzma-dev libgdbm-dev libsqlite3-dev libbz2-dev tk-dev libreadline6-dev
 curl https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz | tar xvz
