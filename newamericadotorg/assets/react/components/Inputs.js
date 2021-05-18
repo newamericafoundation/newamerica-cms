@@ -2,8 +2,8 @@ import React from 'react';
 
 export const RadioButton = (props) => (
   <div className="inline checkbox checkbox--radio-button">
-    <label htmlFor={props.name} className="margin-0">
-      <h6 className="inline">{props.label}</h6>
+    <label htmlFor={props.name} className="margin-0 h6 checkbox__label">
+      {props.label}
     </label>
     <input className="checkbox__input" type="radio" {...props} />
     <div className="checkbox__indicator"></div>
@@ -11,9 +11,9 @@ export const RadioButton = (props) => (
 );
 
 export const CheckBox = (props) => (
-  <div className="checkbox">
-    <label htmlFor={props.name} className="margin-0">
-      <h6 className="inline">{props.label}</h6>
+  <div className="checkbox checkbox--checkbox">
+    <label htmlFor={props.name} className="margin-0 h6 checkbox__label">
+      {props.label}
     </label>
     <input className="checkbox__input" type="checkbox" {...props} />
     <div className="checkbox__indicator"></div>

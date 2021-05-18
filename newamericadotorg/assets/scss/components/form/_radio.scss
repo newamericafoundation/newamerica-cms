@@ -1,13 +1,19 @@
 .checkbox {
   $root: &;
   $indicator-size: 12px;
+  $indicator-size--checkbox: 15px;
 
   position: relative;
   display: block;
   cursor: pointer;
+  line-height: 18px;
   padding-left: 22px;
   margin-top: 15px;
   margin-bottom: 15px;
+
+  &__label {
+    display: block;
+  }
 
   &__input {
     position: absolute;
@@ -20,66 +26,92 @@
   }
 
   &__indicator {
+    @include transition(all 0.15s linear);
     position: absolute;
-    top: 5px;
+    top: 0.5 * (18px - $indicator-size);
     left: 0;
     width: $indicator-size;
     height: $indicator-size;
     background: color(black, base, 0.3);
 
+    #{$root}--checkbox & {
+      top: 0.5 * (18px - $indicator-size--checkbox);
+      left: 0;
+      width: $indicator-size--checkbox;
+      height: $indicator-size--checkbox;
+      background: none;
+      box-shadow: inset 0 0 0 2px color(black, base);
+    }
+
     #{$root}--radio-button & {
       border-radius: 50%;
     }
 
-    #{$root}__input:disabled ~ & {
-      pointer-events: none;
-      opacity: .6;
-      background: #e6e6e6;
+    #{$root}__input:hover ~ & {
+      background: color(black, base, 0.6);
+      #{$root}--checkbox & {
+        background: color(black, base, 0.3);
+      }
     }
 
-    &::after {
-      position: absolute;
-      display: none;
-      content: '';
-      top: 0.5 * $indicator-size;
-      left: 0.5 * $indicator-size;
-      width: 0px;
-      height: 0px;
+    #{$root}__input:focus ~ & {
+      box-shadow: inset 0 0 0 2px #0e647d;
+    }
+
+    &::before {
       @include transition(all 0.15s linear);
-      background: color(black, base, 0);
-      display: block;
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: color(black, base, 1);
+      transform: scale(0);
+      
+      #{$root}--radio-button & {
+        border-radius: 50%;
+      }
+      
+      // States
 
       #{$root}__input:checked ~ & {
-        top: 0px;
-        left: 0px;
-        width: $indicator-size;
-        height: $indicator-size;
-        background: color(black, base, 1);
-
-        #{$root}--radio-button & {
-          border-radius: 50%;
-        }
+        transform: scale(1);
       }
 
-      #{$root}:hover #{$root}__input:not([disabled]):checked ~ &,
+      #{$root}--checkbox #{$root}__input:checked:not(:focus):hover ~ & {
+        background: #666;
+      }
+
       #{$root}__input:checked:focus ~ & {
         background: #0e647d;
       }
+    }
+    
+    &::after {
+      @include transition(all 0.15s linear);
+      position: absolute;
+      $width: (2/3) * $indicator-size--checkbox;
+      $height: (1/3) * $indicator-size--checkbox;
+      height: $height;
+      width: $width;
+      top: 0.5 * ($indicator-size--checkbox - (1.4 * $height));
+      left: 0.5 * ($indicator-size--checkbox - $width);
+      box-sizing: border-box;
+      border: 0px solid color(white, base);
+      border-bottom-width: 2px;
+      border-left-width: 2px;
+      transform: scale(0) rotate(-45deg);
+      
+      #{$root}--checkbox & {
+        content: '';
+      }
 
-      #{$root}__input:disabled ~ & {
-        background: #7b7b7b;
+      // States
+
+      #{$root}__input:checked ~ & {
+        transform: scale(1) rotate(-45deg);
       }
     }
   }
 }
-
-/* Hover and focus states */
-// .radio-button:hover input ~ .radio-button__indicator,
-// .radio-button input:focus ~ .radio-button__indicator {
-//   background: color(black, base, 0.6);
-// }
-
-/* Checked state */
-// .radio-button input:checked ~ .radio-button__indicator {
-//   background: color(black, base, 1);
-// }
