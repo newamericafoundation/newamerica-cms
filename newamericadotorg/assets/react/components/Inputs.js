@@ -1,22 +1,21 @@
 import React from 'react';
 
 export const RadioButton = (props) => (
-  <div className="inline radio-button">
+  <div className="inline checkbox checkbox--radio-button">
     <label htmlFor={props.name} className="margin-0">
       <h6 className="inline">{props.label}</h6>
     </label>
-    <input type="radio" {...props} />
-    <div className="radio-button__indicator"></div>
+    <input className="checkbox__input" type="radio" {...props} />
+    <div className="checkbox__indicator"></div>
   </div>
 );
-
 
 export const CheckBox = (props) => (
   <div className="checkbox">
     <label htmlFor={props.name} className="margin-0">
       <h6 className="inline">{props.label}</h6>
     </label>
-    <input type="checkbox" {...props} />
+    <input className="checkbox__input" type="checkbox" {...props} />
     <div className="checkbox__indicator"></div>
   </div>
 );
