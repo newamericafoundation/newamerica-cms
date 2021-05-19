@@ -21,7 +21,7 @@ export class List extends Component {
       {list.map((s,i)=>(
         <div key={i} className="subscribe__field">
           <CheckBox checked={checked.indexOf(s.title)>=0}
-            name="subscriptions[]"
+            name={s.title}
             value={s.title}
             label={s.alternate_title || s.title}
             onChange={()=>{toggle(s.title); }}/>
