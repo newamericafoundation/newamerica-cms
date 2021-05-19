@@ -19,15 +19,16 @@ def word_count_body_block(body_block):
         elif block.block_type == 'resource_kit':
             count += len(block.value.get('title', '').split())
             count += len(block.value.get('description', '').split())
-            for block_type, data, _ in block.value['resources'].stream_data:
-                count += len(data.get('name', '').split())
-                if data.get('description', False):
-                    count += len(str(data['description'].source).split())
+
+            for child in block.value['resources']:
+                count += len(child.value.get('name', '').split())
+                if child.value.get('description', False):
+                    count += len(str(child.value['description'].source).split())
         elif block.block_type == 'panels':
-            for block_type, data, _ in block.value.stream_data:
-                count += len(data.get('title', '').split())
-                if data.get('body'):
-                    count += word_count_body_block(data['body'])
+            for child in block.value:
+                count += len(child.value.get('title', '').split())
+                if child.value.get('body'):
+                    count += word_count_body_block(child.value['body'])
     return count
 
 
