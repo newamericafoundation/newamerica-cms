@@ -1,3 +1,4 @@
+import psycopg2
 from invoke import run as local
 from invoke.exceptions import Exit
 from invoke.tasks import task
@@ -247,6 +248,7 @@ def pull_database_from_heroku(c, app_instance):
     )
     if not answer or answer == "y":
         local("django-admin createsuperuser", pty=True)
+    normalize_local_wagtail_site()
 
 
 def open_heroku_shell(c, app_instance, shell_command="bash"):
@@ -267,6 +269,7 @@ def copy_heroku_database(c, *, source, destination):
             source_app=source, destination_app=destination
         )
     )
+    normalize_wagtail_site(c, destination)
 
 
 # The single star (*) below indicates that all the arguments
@@ -446,3 +449,47 @@ def delete_develop_renditions(c):
 
 def make_bold(msg):
     return "\033[1m{}\033[0m".format(msg)
+
+
+def normalize_wagtail_site(c, target):
+    """Change the hostname of the wagtail site on a target environment to
+    its heroku app hostname.
+
+    This corrects any changes that occur when copying a database from
+    one environment to another, and ensures that each environment has
+    its site data configured properly.
+
+    """
+    if target == PRODUCTION_APP_INSTANCE:
+        raise RuntimeError("Production app used as target for normalize_wagtail_site. Please delete this check if you're absolutely sure you want to do this")
+    print('Normalizing wagtail site data.')
+    database_url = get_heroku_variable(c, target, 'DATABASE_URL')
+    conn = psycopg2.connect(database_url)
+    cur = conn.cursor()
+    hostname = f'{target}.herokuapp.com'
+
+    cur.execute(
+        'UPDATE wagtailcore_site SET hostname = %s WHERE is_default_site = true',
+        (hostname, ),
+    )
+    conn.commit()
+    count = cur.rowcount
+    print(f'Number of wagtail sites normalized: {count}')
+
+    cur.close()
+    conn.close()
+
+
+def normalize_local_wagtail_site(local_database_name=LOCAL_DATABASE_NAME):
+    """Change the hostname of the local wagtail site to 'localhost'.
+
+    This corrects any changes that occur when pull a database from
+    another environment, and ensures that the local environment has
+    its site data configured properly.
+
+    """
+    print('Normalizing local wagtail site')
+    try:
+        local(f"""sudo -u postgres psql -d {local_database_name} -c "UPDATE wagtailcore_site SET hostname = 'localhost' WHERE is_default_site = true;" """)
+    except Exception as e:
+        print(f'Encountered error: {e}')
