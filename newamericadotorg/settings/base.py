@@ -252,4 +252,7 @@ REST_FRAMEWORK = {
 
 HEADLESS_PREVIEW_CLIENT_URLS = {
     'default': 'http://localhost:8000/h_preview',
+    'newamerica.org': 'https://www.newamerica.org:8000/h_preview',
+    'na-staging.herokuapp.com': 'https://na-staging.herokuapp.com:8000/h_preview',
+    'na-develop.herokuapp.com': 'https://na-develop.herokuapp.com:8000/h_preview',
 }
