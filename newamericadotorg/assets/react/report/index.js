@@ -54,7 +54,7 @@ const SinglePage = ({ report, dispatch, location }) => (
   </div>
 );
 
-const Landing = ({ report, dispatch, location, closeMenu }) => (
+const Landing = ({ report, dispatch, location, closeMenu, preview }) => (
   <div className={`report landing`}>
     <Heading report={report} />
 
@@ -80,7 +80,7 @@ const Landing = ({ report, dispatch, location, closeMenu }) => (
 
     <div className="container margin-80" id="contents">
       <h3 className="margin-top-0 margin-bottom-25">Contents</h3>
-      <ContentMenu report={report} closeMenu={closeMenu} />
+      <ContentMenu preview={preview} report={report} closeMenu={closeMenu} />
     </div>
 
     <div className="container margin-80" id="authors">
@@ -258,6 +258,7 @@ class Report extends Component {
           data-scroll-trigger-point="bottom"
         >
           <BottomNav
+            preview={this.props.preview}
             section={section}
             report={report}
             openMenu={this.openMenu}
@@ -274,6 +275,7 @@ class Report extends Component {
             report={report}
             closeMenu={this.closeMenu}
             showHome={true}
+            preview={this.props.preview}
           />
         </Overlay>
 
@@ -320,7 +322,15 @@ class Routes extends Component {
           />
           <Route
             path={`/h_preview`}
-            render={this.reportRender}
+            render={(props) => this.reportRender(Object.assign(props, {preview: true}))}
+          />
+          <Route
+            path="/preview/:program/:subprogram/reports/:reportTitle/:sectionSlug?"
+            render={(props) => this.reportRender(Object.assign(props, {preview: true}))}
+          />
+          <Route
+            path="/preview/:program/reports/:reportTitle/:sectionSlug?"
+            render={(props) => this.reportRender(Object.assign(props, {preview: true}))}
           />
           <Route
             path="/:program/reports/:reportTitle/:sectionSlug?"

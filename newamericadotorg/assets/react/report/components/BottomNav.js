@@ -68,7 +68,8 @@ const ChapterList = ({
   n,
   reportUrl,
   tooltipContent,
-  setTooltip
+  setTooltip,
+  preview
 }) => (
   <ul
     style={{
@@ -81,7 +82,7 @@ const ChapterList = ({
       style={{ width: "40px", textAlign: "center", lineHeight: "36px" }}
     >
       <Link
-        to={reportUrl}
+        to={preview ? `/preview${reportUrl}` : reportUrl}
         className="ga-track-click"
         data-action="click_bottom_nav"
         data-label="report"
@@ -106,7 +107,7 @@ const ChapterList = ({
         }}
       >
         <Link
-          to={s.url}
+          to={preview ? `/preview${s.url}` : s.url}
           style={{ display: "block" }}
           className="ga-track-click"
           data-action="click_bottom_nav"
@@ -133,7 +134,7 @@ class BottomNav extends Component {
   };
 
   render() {
-    let { section, report, hideAttachments, openMenu } = this.props;
+    let { section, report, hideAttachments, openMenu, preview } = this.props;
     let next = report.sections[section.number],
       previous = report.sections[section.number - 2];
 
@@ -179,7 +180,7 @@ class BottomNav extends Component {
           <div className="report__bottom-nav-bar__button-wrapper">
             {section.number > 1 && (
               <Link
-                to={report.sections[section.number - 2].url}
+                to={preview ? `/preview${report.sections[section.number - 2].url}` : report.sections[section.number - 2].url}
                 className="prev-button ga-track-click"
                 data-action="click_bottom_nav"
                 data-label="report"
@@ -190,7 +191,7 @@ class BottomNav extends Component {
             )}
             {section.number === 1 && (
               <Link
-                to={report.url}
+                to={preview ? `/preview${report.url}` : report.url}
                 className="prev-button"
                 data-action="click_bottom_nav"
                 data-label="report"
@@ -218,12 +219,13 @@ class BottomNav extends Component {
               tooltipContent={this.state.tooltipContent}
               activeIndex={activeIndex}
               n={section.number - 1}
+              preview={preview}
             />
           </div>
           <div className={`report__bottom-nav-bar__button-wrapper next`}>
             {section.number < report.sections.length && (
               <Link
-                to={report.sections[section.number].url}
+                to={preview ? `/preview${report.sections[section.number].url}` : report.sections[section.number].url}
                 className="next-button ga-track-click"
                 data-action="click_bottom_nav"
                 data-label="report"
