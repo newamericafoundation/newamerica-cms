@@ -25,7 +25,7 @@ boto3==1.12.5
 elasticsearch==5.5.3
 redis==3.4.1
 #See https://github.com/wagtail/wagtail-autocomplete
-wagtail-autocomplete==0.6
+wagtail-autocomplete==0.6.3
 #See https://pypi.org/project/django-multiselectfield/
 django-multiselectfield==0.1.12
 # Production packages
