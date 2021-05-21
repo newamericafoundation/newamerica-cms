@@ -18,7 +18,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
-from wagtail_headless_preview.models import HeadlessPreviewMixin
+from wagtail_headless_preview.models import HeadlessPreviewMixin, PagePreview
 
 from home.models import AbstractHomeContentPage, Post
 from programs.models import AbstractContentPage
@@ -29,7 +29,33 @@ from .tasks import (
 )
 
 
-class Report(HeadlessPreviewMixin, RoutablePageMixin, Post):
+class RedirectHeadlessPreviewMixin(HeadlessPreviewMixin):
+    def serve_preview(self, request, mode_name):
+        use_live_preview = request.GET.get("live_preview")
+        token = request.COOKIES.get("used-token")
+
+        if use_live_preview and token:
+            page_preview, existed = self.update_page_preview(token)
+            PagePreview.garbage_collect()
+
+            from wagtail_headless_preview.signals import (
+                preview_update,
+            )  # Imported locally as live preview is optional
+
+            preview_update.send(sender=HeadlessPreviewMixin, token=token)
+        else:
+            PagePreview.garbage_collect()
+            page_preview = self.create_page_preview()
+            page_preview.save()
+
+        response_token = token or page_preview.token
+
+        response = redirect(self.get_preview_url(response_token))  # from django.shortcuts import redirect
+
+        return response
+
+
+class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
     """
     Report class that inherits from the abstract
     Post model and creates pages for Policy Papers.
