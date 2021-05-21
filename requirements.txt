@@ -1,18 +1,18 @@
-Django==3.0.11
+Django==3.1.11
 Wagtail==2.13
 
 # Packages that depend on Django version
 Celery==4.4.0
 dj-database-url==0.5.0
-django-cors-headers==3.2.1
-django-storages==1.9.1
+django-cors-headers==3.7.0
+django-storages==1.11.1
 django-compressor==2.4
-django-anymail==7.0.0
-django-filter==2.2.0
+django-anymail==8.3
+django-filter==2.4.0
 django-modelcluster==5.1
-logdna==1.5.3
-whitenoise==5.0.1
-django-redis==4.11.0
+logdna==1.16.0
+whitenoise==5.2.0
+django-redis==4.12.1
 django-basic-auth-ip-whitelist==0.3.4
 
 # Other packages
