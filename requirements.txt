@@ -1,5 +1,5 @@
 Django==3.0.11
-Wagtail==2.12.4
+Wagtail==2.13
 
 # Packages that depend on Django version
 Celery==4.4.0
@@ -25,7 +25,7 @@ boto3==1.12.5
 elasticsearch==5.5.3
 redis==3.4.1
 #See https://github.com/wagtail/wagtail-autocomplete
-wagtail-autocomplete==0.6
+wagtail-autocomplete==0.6.3
 #See https://pypi.org/project/django-multiselectfield/
 django-multiselectfield==0.1.12
 # Production packages
