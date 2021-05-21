@@ -21,7 +21,7 @@ export class List extends Component {
       {list.map((s,i)=>(
         <div key={i} className="subscribe__field">
           <CheckBox checked={checked.indexOf(s.title)>=0}
-            name="subscriptions[]"
+            name={s.title}
             value={s.title}
             label={s.alternate_title || s.title}
             onChange={()=>{toggle(s.title); }}/>
@@ -39,9 +39,9 @@ export default class Subscribe extends Component {
     super(props);
     let params = new URLSearchParams(location.search.replace('?', ''))
     let subscriptions = [];
-    // if(props.subscriptions){
-    //   subscriptions = props.subscriptions.map((s,i)=>(s.title))
-    // }
+    if(props.subscriptions){
+      subscriptions = props.subscriptions.map((s)=>(s.title))
+    }
     let email = params.get('email') == 'null' ? '' : params.get('email');
     this.state = {
       csrf: '',
