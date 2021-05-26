@@ -21,6 +21,7 @@ from rss_feed.feeds import GenericFeed, ContentFeed, AuthorFeed, ProgramFeed, Su
 import programs.views as program_views
 
 import newamericadotorg.redirects as redirects
+import newamericadotorg.views
 
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
@@ -32,6 +33,7 @@ urlpatterns = [
     url(r'^images/', include(wagtailimages_urls)),
 
     url(r'^search/$', search_view, name='search'),
+    url(r'^h_preview/$', newamericadotorg.views.preview, name='headless_preview'),
 
     url(r'^feed/$', GenericFeed()),
     url(r'^feed/program/(?P<program>[a-zA-z\-]*)/$', ProgramFeed()),

@@ -95,6 +95,19 @@ function importPageComponents() {
     case 'na-surveys-homepage':
       import(/* webpackChunkName: "na-surveys-homepage-components" */ './react/components.surveys-homepage');
       break;
+    case 'na-preview':
+      const urlParams = new URLSearchParams(window.location.search);
+
+      let element = document.getElementById("na-react__preview");
+
+      element.dataset.token = urlParams.get("token");
+      element.dataset.contentType = urlParams.get("content_type");
+
+      if (urlParams.get("content_type") == "report.report") {
+        element.setAttribute("id", "na-react__report"); // imitate the actual id used by the report page type
+        import(/* webpackChunkName: "na-report-components" */ './react/components.report');
+      }
+      break;
     default:
       break;
   }

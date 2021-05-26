@@ -43,6 +43,7 @@ api_urls = [
     url(r'^thread/$', thread_views.ThreadList.as_view()),
     url(r'^thread/(?P<pk>[\d]+)/$', thread_views.ThreadDetail.as_view()),
     url(r'^report/(?P<pk>[\d]+)/$', report_views.ReportDetail.as_view()),
+    url(r'^preview/$', meta_views.PreviewView.as_view()),
     url(r'^home/(?P<pk>[\d]+)/$', home_views.HomeDetail.as_view()),
     #url(r'^api/meta/$', cache_page(60 * 10080)(api_views.MetaList.as_view())),
     url(r'^meta/$', meta_views.MetaList.as_view()),

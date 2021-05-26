@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import { PlusX, Home } from '../../components/Icons';
 import { Overlay } from './OverlayMenu';
 
-const Subsection = ({ section, url, closeMenu, action }) => (
+const Subsection = ({ section, url, closeMenu, action, preview }) => (
   <div className="report__menu__subsection">
     <h6 className="margin-0">
-      <Link to={section.url} onClick={closeMenu} className="ga-track-click" data-action={action} data-label="report" data-value="click_menu_subsection">
+      <Link to={preview ? `/preview${section.url}` : section.url} onClick={closeMenu} className="ga-track-click" data-action={action} data-label="report" data-value="click_menu_subsection">
         {section.title}
       </Link>
     </h6>
@@ -31,11 +31,11 @@ const DownArrow = () => (
   </div>
 )
 
-const Section = ({ section, expanded, expand, closeMenu, home, action }) => (
+const Section = ({ section, expanded, expand, closeMenu, home, action, preview }) => (
     <div className={`report__menu__section ${expanded ? 'expanded' : ''}`}>
       <div className="report__menu__section__title row gutter-0">
         <div className="col-11">
-          <Link to={section.url} onClick={closeMenu} className="ga-track-click" data-action={action} data-label="report" data-value="click_menu_section">
+          <Link to={preview ? `/preview${section.url}` : section.url} onClick={closeMenu} className="ga-track-click" data-action={action} data-label="report" data-value="click_menu_section">
             {section.interactive && <InteractiveDiv /> }
             {home && <div className="home-div">
               <Home />
@@ -52,7 +52,7 @@ const Section = ({ section, expanded, expand, closeMenu, home, action }) => (
           { maxHeight: expanded ? (section.subsections.length * 100) + 'px' : 0 }
         }>
           {section.subsections.map((s,i)=>(
-            <Subsection section={s} key={`sub-${i}`} closeMenu={closeMenu} action={action}/>
+            <Subsection preview={preview} section={s} key={`sub-${i}`} closeMenu={closeMenu} action={action}/>
           ))}
         </div>
       }
@@ -96,14 +96,16 @@ class ContentMenu extends Component {
   }
 
   render(){
-    let { report: { url, sections, title }, activeSection, closeMenu, showHome, open } = this.props;
+    let { report: { url, sections, title }, activeSection, closeMenu, showHome, open, preview } = this.props;
+
     return (
       <div className="report__content-menu">
         {showHome &&
-          <Section closeMenu={closeMenu} home={true} section={{ url, title, slug: '', subsections: [] }} landing={false}/>
+          <Section preview={preview} closeMenu={closeMenu} home={true} section={{ url, title, slug: '', subsections: [] }} landing={false}/>
         }
         {sections.map((s,i)=>(
           <Section section={s}
+            preview={preview}
             landing={showHome ? 'click_menu' : 'click_landing'}
             key={`section-${i}`}
             expand={this.expand}

@@ -82,7 +82,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_filters',
-    'rest_framework'
+    'rest_framework',
+    'wagtail_headless_preview',
 ]
 
 MIDDLEWARE = [
@@ -247,4 +248,11 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'newamericadotorg.api.pagination.CustomPagination'
+}
+
+HEADLESS_PREVIEW_CLIENT_URLS = {
+    'default': 'http://localhost:8000/h_preview',
+    'newamerica.org': 'https://www.newamerica.org:8000/h_preview',
+    'na-staging.herokuapp.com': 'https://na-staging.herokuapp.com:8000/h_preview',
+    'na-develop.herokuapp.com': 'https://na-develop.herokuapp.com:8000/h_preview',
 }
