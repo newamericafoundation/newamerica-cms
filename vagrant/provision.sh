@@ -103,7 +103,7 @@ export PGDATABASE=$PROJECT_NAME
 export SECRET_KEY=test
 export ELASTICSEARCH_URL=http://localhost:9200
 
-alias dj="django-admin.py"
+alias dj="django-admin"
 alias djrun="dj runserver 0.0.0.0:8000"
 alias djrunp="dj runserver_plus 0.0.0.0:8000"
 
