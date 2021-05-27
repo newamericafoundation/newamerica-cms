@@ -2,7 +2,7 @@ from wagtail.core import hooks
 
 from home.models import PublicationPermissions
 
-from .models import InDepthProject, AllInDepthHomePage
+from .models import InDepthProject, AllInDepthHomePage, InDepthProfile, InDepthSection
 
 
 @hooks.register('construct_page_action_menu')
@@ -12,9 +12,17 @@ def remove_publish_in_depth_if_no_permission(menu_items, request, context):
     chosen for this permission.
 
     """
-    editing_in_depth_page = isinstance(context.get('page'), InDepthProject)
-    creating_in_depth_page = context.get('view') == 'create' and isinstance(
-        context.get('parent_page'), AllInDepthHomePage
+    page = context.get('page')
+    parent_page = context.get('parent_page')
+
+    editing_in_depth_page = (
+        isinstance(page, InDepthProject)
+        or isinstance(page, InDepthSection)
+        or isinstance(page, InDepthProfile)
+    )
+    creating_in_depth_page = context.get('view') == 'create' and (
+        isinstance(parent_page, AllInDepthHomePage)
+        or isinstance(parent_page, InDepthProject)
     )
     if editing_in_depth_page or creating_in_depth_page:
         settings = PublicationPermissions.for_request(request)
