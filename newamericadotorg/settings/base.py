@@ -248,3 +248,6 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'newamericadotorg.api.pagination.CustomPagination'
 }
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
