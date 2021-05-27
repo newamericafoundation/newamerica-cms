@@ -41,7 +41,7 @@ class TopicAPITests(APITestCase):
         self.assertEquals(result.json()['count'], 12)
 
     def test_topic_detail(self):
-        url = '/api/topic/%s/' % self.topic_id
+        url = f'/api/topic/{self.topic_id}/'
         result = self.client.get(url)
         data = result.json()
 
@@ -49,7 +49,7 @@ class TopicAPITests(APITestCase):
         self.assertEquals(data['program']['title'], self.program_title)
 
     def test_topic_list_by_program(self):
-        url = '/api/topic/?program_id=%s' % self.program_id
+        url = f'/api/topic/?program_id={self.program_id}'
         result = self.client.get(url)
         data = result.json()
 
