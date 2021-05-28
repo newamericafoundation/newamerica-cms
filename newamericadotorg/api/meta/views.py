@@ -9,11 +9,11 @@ from wagtail_headless_preview.models import PagePreview
 from home.models import HomePage, ProgramAboutHomePage, ProgramAboutPage
 from newamericadotorg.api.program.serializers import (
     AboutPageSerializer, ProgramDetailSerializer, ProgramSerializer,
-    SubscriptionSegmentSerializer,
+    SubprogramSerializer, SubscriptionSegmentSerializer,
 )
 from newamericadotorg.api.report.serializers import ReportDetailSerializer
 from newamericadotorg.settings.context_processors import content_types
-from programs.models import Program
+from programs.models import Program, Subprogram
 
 
 @method_decorator([cache_page(2*60)], name='get')
@@ -79,7 +79,15 @@ class PreviewView(APIView):
             page_being_previewed = page_preview.as_page()
             program = page_being_previewed.program
 
-            program_data = ProgramDetailSerializer(program).data
+            if isinstance(program, Subprogram):
+                program_data = SubprogramSerializer(program).data
+            elif isinstance(program, Program):
+                program_data = ProgramDetailSerializer(program).data
+            else:
+                return Response(
+                    {'detail': f'Unable to preview page with parent type {type(program)}'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
             about_page = ProgramAboutHomePage.objects.child_of(program).live().first()
             about_page_data = AboutPageSerializer(about_page).data
