@@ -106,7 +106,7 @@ function importPageComponents() {
       if (urlParams.get("content_type") == "report.report") {
         element.setAttribute("id", "na-react__report"); // imitate the actual id used by the report page type
         import(/* webpackChunkName: "na-report-components" */ './react/components.report');
-      } else if (urlParams.get("content_type") == "home.programaboutpage") {
+      } else if (urlParams.get("content_type") == "home.programaboutpage" || urlParams.get("content_type") == "home.programabouthomepage" ) {
         let programContainer = document.getElementById("na-react__preview");
         programContainer.setAttribute("class", "program container--full-width");
 

@@ -75,6 +75,24 @@ class PreviewView(APIView):
         page_preview = PagePreview.objects.get(content_type=content_type, token=token)
         if content_type.model == 'report':
             serializer = ReportDetailSerializer
+        elif content_type.model == 'programabouthomepage':
+            page_being_previewed = page_preview.as_page()
+            program = page_being_previewed.program
+
+            if isinstance(program, Subprogram):
+                program_data = SubprogramSerializer(program).data
+            elif isinstance(program, Program):
+                program_data = ProgramDetailSerializer(program).data
+            else:
+                return Response(
+                    {'detail': f'Unable to preview page with parent type {type(program)}'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            about_page_data = AboutPageSerializer(page_being_previewed).data
+            about_page_data['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(page_being_previewed).live().in_menu(), many=True).data
+            program_data['about'] = about_page_data
+            return Response(program_data)
         elif content_type.model == 'programaboutpage':
             page_being_previewed = page_preview.as_page()
             program = page_being_previewed.program

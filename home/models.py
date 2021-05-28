@@ -408,7 +408,7 @@ class ProgramSimplePage(AbstractSimplePage):
     class Meta:
         verbose_name = 'About Page'
 
-class ProgramAboutHomePage(ProgramSimplePage):
+class ProgramAboutHomePage(RedirectHeadlessPreviewMixin, ProgramSimplePage):
     parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
     subpage_types = [
         'home.ProgramAboutPage'
