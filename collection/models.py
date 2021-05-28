@@ -19,8 +19,8 @@ class Collection(AbstractSimplePage):
             'program',
             blocks.StructBlock(
                 [
-                    ('page', blocks.PageChooserBlock(page_type='programs.Program', required=True)),
-                    ('description', blocks.RichTextBlock(required=False)),
+                    ('page', blocks.PageChooserBlock(page_type=['programs.Program', 'programs.Subprogram'], required=True)),
+                    ('description', blocks.CharBlock(required=False, label='Override description text')),
                 ],
                 icon='doc-empty',
                 label='Program',
@@ -39,10 +39,12 @@ class Collection(AbstractSimplePage):
                     [
                         ('link', blocks.URLBlock(required=True)),
                         ('title', blocks.CharBlock(required=True)),
-                        ('description', blocks.RichTextBlock(required=False)),
+                        ('description', blocks.CharBlock(required=False)),
+                        ('program', blocks.CharBlock(required=False, label='Program (shows below description, with resource type)')),
+                        ('resource_type', blocks.CharBlock(required=False, label='Resource type, e.g., "External Link" (shows below description, with Program')),
                         ('image', ImageChooserBlock(icon='image', required=False)),
                     ],
-                    icon='link-external',
+                    icon='link',
                     label='External resource',
                 ),
             ),
@@ -51,8 +53,10 @@ class Collection(AbstractSimplePage):
                 blocks.StructBlock(
                     [
                         ('document', DocumentChooserBlock(required=True)),
-                        ('title', blocks.CharBlock(required=True)),
-                        ('description', blocks.RichTextBlock(required=False)),
+                        ('title', blocks.CharBlock(required=False, label='Override document title')),
+                        ('description', blocks.CharBlock(required=False)),
+                        ('program', blocks.CharBlock(required=False, label='Program (shows below description, with resource type)')),
+                        ('resource_type', blocks.CharBlock(required=False, label='Resource type, e.g., "Document" (shows below description, with Program)')),
                         ('image', ImageChooserBlock(icon='image', required=False)),
                     ],
                     icon='doc-full',
@@ -81,9 +85,9 @@ class Collection(AbstractSimplePage):
             blocks.StructBlock(
                 [
                     ('page', blocks.PageChooserBlock(page_type='home.Post', required=True)),
-                    ('title', blocks.CharBlock(required=False)),
-                    ('description', blocks.RichTextBlock(required=False)),
-                    ('image', ImageChooserBlock(icon='image', required=False)),
+                    ('title', blocks.CharBlock(required=False, label='Override title')),
+                    ('description', blocks.CharBlock(required=False, label='Override description text')),
+                    ('image', ImageChooserBlock(icon='image', required=False, label='Override image')),
                 ],
                 icon='doc-empty',
                 label='Publication',
@@ -99,9 +103,9 @@ class Collection(AbstractSimplePage):
             blocks.StructBlock(
                 [
                     ('page', blocks.PageChooserBlock(page_type='event.Event', required=True)),
-                    ('title', blocks.CharBlock(required=False)),
-                    ('image', ImageChooserBlock(icon='image', required=False)),
-                    ('description', blocks.RichTextBlock(required=False)),
+                    ('title', blocks.CharBlock(required=False, label='Override title')),
+                    ('description', blocks.CharBlock(required=False, label='Override description text')),
+                    ('image', ImageChooserBlock(icon='image', required=False, label='Override image')),
                 ],
                 icon='date',
                 label='Event',
