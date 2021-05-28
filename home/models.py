@@ -427,7 +427,7 @@ class ProgramAboutHomePage(ProgramSimplePage):
 
         return context
 
-class ProgramAboutPage(ProgramSimplePage):
+class ProgramAboutPage(RedirectHeadlessPreviewMixin, ProgramSimplePage):
     parent_page_types = ['home.ProgramAboutHomePage']
     subpage_types = [
         'home.ProgramSimplePage'

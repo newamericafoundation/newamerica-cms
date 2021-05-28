@@ -7,11 +7,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from wagtail_headless_preview.models import PagePreview
 
-from home.models import HomePage
+from home.models import HomePage, ProgramAboutPage, ProgramAboutHomePage
 from programs.models import Program
 
 from newamericadotorg.settings.context_processors import content_types
-from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer
+from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer, ProgramDetailSerializer, AboutPageSerializer
 from newamericadotorg.api.report.serializers import ReportDetailSerializer
 
 
@@ -71,15 +71,35 @@ class PreviewView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+        page_preview = PagePreview.objects.get(content_type=content_type, token=token)
         if content_type.model == 'report':
             serializer = ReportDetailSerializer
+        elif content_type.model == 'programaboutpage':
+            page_being_previewed = page_preview.as_page()
+            program = page_being_previewed.program
+
+            program_data = ProgramDetailSerializer(program).data
+
+            about_page = ProgramAboutHomePage.objects.child_of(program).live().first()
+            about_page_data = AboutPageSerializer(about_page).data
+
+            about_page_data['subpages'] = []
+
+            for subpage in ProgramAboutPage.objects.descendant_of(about_page).live().in_menu():
+                if subpage.pk == page_being_previewed.pk:
+                    about_page_data['subpages'].append(AboutPageSerializer(page_being_previewed).data)
+                else:
+                    about_page_data['subpages'].append(AboutPageSerializer(subpage).data)
+
+            program_data['about'] = about_page_data
+
+            return Response(program_data)
         else:
             return Response(
                 {'detail': f'Unable to preview content type {content_type.model}'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        page_preview = PagePreview.objects.get(content_type=content_type, token=token)
         page = page_preview.as_page()
         if not page.pk:
             # fake primary key to stop API URL routing from complaining
