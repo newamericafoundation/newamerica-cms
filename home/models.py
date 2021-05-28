@@ -26,6 +26,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
+from wagtail_headless_preview.models import HeadlessPreviewMixin, PagePreview
 
 from newamericadotorg.blocks import BodyBlock
 from newamericadotorg.wagtailadmin.widgets import LocationWidget
@@ -34,6 +35,32 @@ from programs.models import AbstractProgram, Program, Subprogram
 from subscribe.models import SubscriptionSegment
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
+
+
+class RedirectHeadlessPreviewMixin(HeadlessPreviewMixin):
+    def serve_preview(self, request, mode_name):
+        use_live_preview = request.GET.get("live_preview")
+        token = request.COOKIES.get("used-token")
+
+        if use_live_preview and token:
+            page_preview, existed = self.update_page_preview(token)
+            PagePreview.garbage_collect()
+
+            from wagtail_headless_preview.signals import (
+                preview_update,
+            )  # Imported locally as live preview is optional
+
+            preview_update.send(sender=HeadlessPreviewMixin, token=token)
+        else:
+            PagePreview.garbage_collect()
+            page_preview = self.create_page_preview()
+            page_preview.save()
+
+        response_token = token or page_preview.token
+
+        response = redirect(self.get_preview_url(response_token))
+
+        return response
 
 
 class CustomImage(AbstractImage):
