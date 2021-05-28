@@ -106,6 +106,22 @@ function importPageComponents() {
       if (urlParams.get("content_type") == "report.report") {
         element.setAttribute("id", "na-react__report"); // imitate the actual id used by the report page type
         import(/* webpackChunkName: "na-report-components" */ './react/components.report');
+      } else if (urlParams.get("content_type") == "home.programaboutpage" || urlParams.get("content_type") == "home.programabouthomepage" ) {
+        let programContainer = document.getElementById("na-react__preview");
+        programContainer.setAttribute("class", "program container--full-width");
+
+        // Recreate the inner program container element.
+        let inner = document.createElement("div");
+        inner.setAttribute("id", "na-react__program-page");
+        inner.dataset.token = urlParams.get("token");
+        inner.dataset.contentType = urlParams.get("content_type");
+        inner.dataset.preview = true;
+        inner.dataset.programId = "-1";
+        inner.dataset.programType = "program";
+        inner.dataset.programTitle = "Preview";
+        programContainer.appendChild(inner);
+
+        import(/* webpackChunkName: "na-program-components" */ './react/components.program');
       }
       break;
     default:

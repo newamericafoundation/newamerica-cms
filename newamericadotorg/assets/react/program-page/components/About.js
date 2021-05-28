@@ -54,9 +54,9 @@ export default class About extends Component {
   }
 
   render(){
-    let { about, program, root } = this.props;
+    let { about, program, root, preview } = this.props;
     let { subpages } = about;
-    
+
     return (
       <div className={`program__about margin-top-10 ${subpages.length > 0 ? 'with-menu' : ''}`}>
         <div className="row">
@@ -64,11 +64,11 @@ export default class About extends Component {
             <span>
               <div className="">
                 <h6 className="link margin-top-5 margin-bottom-15">
-                  <NavLink exact to={`${program.url}about/`}>About</NavLink>
+                  <NavLink exact to={preview ? `/${root}/about/` : `${program.url}about/`}>About</NavLink>
                 </h6>
               {subpages.map((p,i)=>(
                   <h6 key={i} className="link margin-top-0 margin-bottom-15">
-                    <NavLink to={p.url}>{p.title}</NavLink>
+                    <NavLink to={preview ? `/${root}/about/${p.slug}/` : p.url}>{p.title}</NavLink>
                   </h6>
               ))}
               </div>
