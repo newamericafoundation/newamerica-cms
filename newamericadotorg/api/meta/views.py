@@ -92,6 +92,9 @@ class PreviewView(APIView):
             about_page_data = AboutPageSerializer(page_being_previewed).data
             about_page_data['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(page_being_previewed).live().in_menu(), many=True).data
             program_data['about'] = about_page_data
+
+            # Extra data used used for establishing initial front-end route
+            program_data['__extra'] = 'about'
             return Response(program_data)
         elif content_type.model == 'programaboutpage':
             page_being_previewed = page_preview.as_page()
@@ -120,6 +123,8 @@ class PreviewView(APIView):
 
             program_data['about'] = about_page_data
 
+            # Extra data used used for establishing initial front-end route
+            program_data['__extra'] = f'about/{page_being_previewed.slug}'
             return Response(program_data)
         else:
             return Response(

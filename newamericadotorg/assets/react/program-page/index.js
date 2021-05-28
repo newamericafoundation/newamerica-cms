@@ -44,6 +44,12 @@ class ProgramPage extends Component {
     if(preview) root = "h_preview"
     else root = programType == 'program' ? ':program' : ':program/:subprogram';
 
+    if (results['__extra'] && !window.location.pathname.includes("/about/")) {
+      return (
+        <Redirect to={`/${root}/${results["__extra"]}/`} />
+      )
+    }
+
     return (
       <div className="container">
           <div className="program__content">
