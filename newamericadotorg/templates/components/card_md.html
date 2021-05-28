@@ -19,7 +19,16 @@
         <h4 class="card__text__title margin-0">
           <span><u>{% firstof post.seo_title post.title %}</u></span>
         </h4>
-        <h6 class="card__text__program caption margin-top-10 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post|model_display_name}}</h6>
+        {% if description %}
+          <h6 class="card__text__excerpt margin-top-5 margin-bottom-0">
+            {{ description }}
+          </h6>
+        {% endif %}
+        {% if not hide_display_name %}
+          <h6 class="card__text__program caption margin-top-10 margin-bottom-0">
+            {{post.parent_programs.all.0.title}} {{post|model_display_name}}
+          </h6>
+        {% endif %}
       </div>
     </div>
   </a>

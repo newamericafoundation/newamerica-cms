@@ -335,6 +335,8 @@ def model_display_name(page):
 	"""
 	Gets verbose name of the page's model
 	"""
+	if isinstance(page, str):
+		return
 	if page._meta.verbose_name.title() == 'Other Post':
 		return page.other_content_type
 	else:

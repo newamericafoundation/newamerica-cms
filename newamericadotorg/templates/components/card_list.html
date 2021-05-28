@@ -2,23 +2,27 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% image post.story_image fill-300x230 as post_image %}
+{% if image %}
+  {% image image fill-300x230 as post_image %}
+{% else %}
+  {% image post.story_image fill-300x230 as post_image %}
+{% endif %}
 
 <div class="card list {{post.content_type.model}}">
-  <a href="{{post.url}}">
-    <div class="card__image{% if not post.story_image %} no-image{%endif%}">
+  <a href="{% firstof url post.url %}">
+    <div class="card__image{% if not post_image %} no-image{%endif%}">
       <img src="{{post_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
     </div>
-    </a>
+  </a>
   <div class="card__text">
-    <a href="{{post.url}}">
+    <a href="{% firstof url post.url %}">
       <h6 class="card__text__date margin-top-0 margin-bottom-5 margin-bottom-md-15">{{post.date|date:"M. jS, Y"}}</h6>
       <h4 class="card__text__title margin-0">
-        <span><u>{% firstof post.seo_title post.title %}</u></span>
+        <span><u>{% firstof title post.seo_title post.title %}</u></span>
       </h4>
-      {% if post.story_excerpt %}
+      {% if description or post.story_excerpt %}
       <h6 class="card__text__excerpt margin-top-5 margin-bottom-0">
-        {{post.story_excerpt}}
+        {% firstof description post.story_excerpt %}
       </h6>
       {% endif %}
     </a>
@@ -27,7 +31,9 @@
       <h6 class="inline margin-0">By:&nbsp;</h6>{% for author in post.post_author.all %}<h6 class="link inline margin-0"><a href="{{author.url}}">{{author.first_name}} {{author.last_name}}</a></h6>{% if forloop.counter == post.authors.all|length|add:"-1" and post.authors.all|length > 2 %}<h6 class="inline margin-0">, and&nbsp;</h6>{% elif forloop.counter == post.authors.all|length|add:"-1" %}<h6 class="inline margin-0">&nbsp;and&nbsp;</h6>{% elif forloop.counter != post.authors.all|length %}<h6 class="inline margin-0">,&nbsp;</h6>{% endif %}{% endfor %}
     </div>
     {% endif %}
-    <h6 class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post|model_display_name}}</h6>
+    <h6 class="card__text__program caption margin-top-5 margin-top-md-15 margin-bottom-0">
+      {% firstof program post.parent_programs.all.0.title %} {% firstof page_type post|model_display_name %}
+    </h6>
   </div>
 
 </div>

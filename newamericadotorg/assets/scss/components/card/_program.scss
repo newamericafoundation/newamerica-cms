@@ -1,6 +1,10 @@
 .card.program-card{
   padding: 35px;
   padding-bottom: 70px;
+
+  &.program-card--collections {
+    padding-bottom: 35px;
+  }
 }
 
 .program-card__subprograms__list li{
