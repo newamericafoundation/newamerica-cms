@@ -1,18 +1,19 @@
 from django.contrib.contenttypes.models import ContentType
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-
 from rest_framework import status
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from wagtail_headless_preview.models import PagePreview
 
-from home.models import HomePage, ProgramAboutPage, ProgramAboutHomePage
-from programs.models import Program
-
-from newamericadotorg.settings.context_processors import content_types
-from newamericadotorg.api.program.serializers import ProgramSerializer, SubscriptionSegmentSerializer, ProgramDetailSerializer, AboutPageSerializer
+from home.models import HomePage, ProgramAboutHomePage, ProgramAboutPage
+from newamericadotorg.api.program.serializers import (
+    AboutPageSerializer, ProgramDetailSerializer, ProgramSerializer,
+    SubscriptionSegmentSerializer,
+)
 from newamericadotorg.api.report.serializers import ReportDetailSerializer
+from newamericadotorg.settings.context_processors import content_types
+from programs.models import Program
 
 
 @method_decorator([cache_page(2*60)], name='get')
