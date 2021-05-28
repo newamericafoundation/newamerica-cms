@@ -41,7 +41,7 @@ class ProgramPage extends Component {
   render(){
     let { response: { results }, programType, preview } = this.props;
     let root;
-    if(preview) root = `admin/pages/${results.id}/edit/preview`
+    if(preview) root = "h_preview"
     else root = programType == 'program' ? ':program' : ':program/:subprogram';
 
     return (
@@ -50,7 +50,7 @@ class ProgramPage extends Component {
             <Heading program={results} />
             <Route path={`/${root}/:subpage?`} render={(props)=>(<Nav {...props} program={results} root={root} preview={preview}/>)}/>
             <Route path={`/${root}/`} exact render={()=>(<StoryGrid program={results} loaded={this.state.loaded} story_grid={results.story_grid} programType={programType}/>)} />
-            {results.about && <Route path={`/${root}/about/`} render={()=>(<About program={results} about={results.about} root={root} />)} /> }
+            {results.about && <Route path={`/${root}/about/`} render={()=>(<About program={results} about={results.about} root={root} preview={preview} />)} /> }
             <Route path={`/${root}/our-people/`} render={(props)=>(<People programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/events/`} render={(props)=>(<Events programType={programType} {...props} program={results} /> )} />
             <Route path={`/${root}/projects/`} render={(props)=>(<Subprograms {...props} program={results} /> )} />
@@ -144,10 +144,23 @@ class APP extends Component {
   }
 
   render() {
-    let { programId, programType, programTitle } = this.props;
+    let { programId, programType, programTitle, preview, token, contentType } = this.props;
     return (
       <GARouter>
         <Switch>
+          <Route
+            path="/h_preview"
+            render={() => (
+              <Fetch
+                name={NAME}
+                endpoint={`preview`}
+                initialQuery={{'content_type': contentType, token: token}}
+                fetchOnMount={true}
+                programType={programType}
+                component={ProgramPage}
+                preview={true}
+              />
+            )}/>
         <Route path={`/admin/pages/${programId}/edit/preview/`} render={(props)=>(
           <Response name={NAME}
             component={ProgramPage}
