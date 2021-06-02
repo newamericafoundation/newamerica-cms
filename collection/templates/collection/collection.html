@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load utilities %}
+
+{% block content %}
+	{% block breadcrumbs %}
+		{% include 'components/breadcrumbs.html' %}
+	{% endblock %}
+	
+	<main>
+		<div class="container margin-bottom-35 margin-bottom-lg-60">
+			{% include 'components/post_heading_image.html' with style='collection' %}
+			{% include 'components/post_heading_text.html' %}
+			{% include 'components/post_body.html' %}
+		</div>
+		<div class="bg-beige" style="padding: 1px 0">
+			<div class="container margin-35 margin-lg-60">
+			{% if page.programs_list %}
+				<h2 class="margin-top-60">Programs</h2>
+				{{ page.programs_description|richtext }}
+				<div class="row gutter-10">
+					<div class="col-md-6 col-12">
+						{% for program in page.programs_list %}
+							<!-- {% cycle 'left' 'right' as column %} -->
+							{% if column == 'left' %}
+								{% include "components/card_program.html" with p=program.value.page.specific description=program.value.description style='collections' %}
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="col-md-6 col-12">
+						{% for program in page.programs_list %}
+							<!-- {% cycle 'left' 'right' as column %} -->
+							{% if column == 'right' %}
+								{% include "components/card_program.html" with p=program.value.page.specific description=program.value.description style='collections' %}
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
+			{% if page.resources_list %}
+				<h2 class="margin-top-60">Resources</h2>
+				{{ page.resources_description|richtext }}
+				<div class="row gutter-10">
+					{% for p in page.resources_list %}
+						<div class="col-lg-6 col-12">
+							{% include "components/card_list.html" with post=p.value.document url=p.value.link title=p.value.title description=p.value.description image=p.value.image program=p.value.program page_type=p.value.resource_type %}
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% if page.people_list %}
+				<h2 class="margin-top-60">People</h2>
+				{{ page.people_description|richtext }}
+				<div class="row gutter-10">
+					{% for p in page.people_list %}
+						<div class="col-lg-4 col-md-6 col-12">
+							{% include "components/card_person.html" with person=p.value %}
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% if page.publications_list %}
+				<h2 class="margin-top-60">Publications</h2>
+				{{ page.publications_description|richtext }}
+				<div class="row gutter-10">
+					{% for p in page.publications_list %}
+						<div class="col-lg-8 col-12">
+							{% include "components/card_list.html" with post=p.value.page.specific title=p.value.title description=p.value.description image=p.value.image %}
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% if page.events_list %}
+				<h2 class="margin-top-60">Events</h2>
+				{{ page.events_description|richtext }}
+				<div class="row gutter-10">
+					{% for p in page.events_list %}
+						<div class="col-sm-6 col-md-4">
+							{% include "components/card_event.html" with event=p.value.page.specific title=p.value.title description=p.value.description image=p.value.image %}
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+			</div>
+		</div>
+	</main>
+{% endblock %}

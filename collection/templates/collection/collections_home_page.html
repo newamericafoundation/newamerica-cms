@@ -1,0 +1,20 @@
+{% extends 'publications_page.html' %}
+{% load wagtailcore_tags %}
+
+{% block body_id %}na-home{% endblock %}
+{% block body_class %}bg-beige{% endblock %}
+{% block content %}
+<main class="program container--full-width">
+	<div class="container">
+		<h1 class="promo margin-60">Collections</h1>
+		{{ page.body|richtext }}
+		<div class="row">
+			{% for child in page.get_children %}
+				<div class="col-12 col-md-6 col-lg-4">
+					{% include 'components/card_md.html' with post=child.specific description=child.specific.story_excerpt hide_display_name=True %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</main>
+{% endblock %}

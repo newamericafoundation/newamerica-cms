@@ -1,0 +1,24 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% image person.profile_image fill-300x300 as post_image %}
+
+<div class="card person">
+  <a href="{{ person.url }}">
+    <div class="card__image {% if not person.profile_image%}no-image{% endif %}">
+      {% if person.profile_image %}
+        <img src="{{post_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
+      {% endif %}
+    </div>
+    <div class="card__text">
+      <h4 class="card__text__title margin-10">
+        <span>
+          <u>
+            {{ person.first_name }} {{ person.last_name }}
+          </u>
+        </span>
+      </h4>
+      <div class="h6 caption margin-10">{{ person.position_at_new_america }}</div>
+    </div>
+  </a>
+</div>

@@ -2,12 +2,17 @@
 {% load wagtailimages_tags %}
 {% load utilities %}
 
-{% image event.story_image fill-700x510 as event_image_lg %}
-{% image event.story_image fill-150x110 as event_image_thumb %}
+{% if image %}
+  {% image image fill-700x510 as event_image_lg %}
+  {% image image fill-150x110 as event_image_thumb %}
+{% else %}
+  {% image event.story_image fill-700x510 as event_image_lg %}
+  {% image event.story_image fill-150x110 as event_image_thumb %}
+{% endif %}
 
 <div class="card event-card">
   <a href="{{event.url}}">
-    <div class="card__image{% if not event.story_image %} no-image{%endif%}">
+    <div class="card__image{% if not event.story_image and not image %} no-image{%endif%}">
       <img src="{{event_image_lg.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
     </div>
   </a>
@@ -16,9 +21,9 @@
       <h6 class="margin-0">{{event.date|date:"M. jS, Y"}}</h6>
       <!-- <h3 class="card__text__title bold block">{{event.title}}</h3> -->
       <h4 class="card__text__title link margin-10">
-        <span><u>{% firstof event.seo_title event.title %}</u></span>
+        <span><u>{% firstof title event.seo_title event.title %}</u></span>
       </h4>
-      <h6 class="margin-10">{{event.story_excerpt}}</h6>
+      <h6 class="margin-10">{% firstof description event.story_excerpt %}</h6>
       <h6 class="caption margin-0">
         {% include 'components/_address_text.html' with address_text=event city_state_only=True %}
       </h6>

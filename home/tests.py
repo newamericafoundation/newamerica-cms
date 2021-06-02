@@ -27,6 +27,7 @@ from report.models import AllReportsHomePage
 from subscribe.models import SubscribePage as SubscribeHome
 from the_thread.models import AllThreadArticlesHomePage, Thread
 from weekly.models import AllWeeklyArticlesHomePage, Weekly
+from collection.models import CollectionsHomePage
 
 from .models import (
     HomePage, JobsPage, OrgSimplePage, PostAuthorRelationship, ProgramSimplePage,
@@ -176,6 +177,7 @@ class HomeTests(WagtailPageTests):
             AllOtherPostsHomePage,
             AllThreadArticlesHomePage,
             AllWeeklyArticlesHomePage,
+            CollectionsHomePage,
             })
 
     # Test that pages can be created with POST data

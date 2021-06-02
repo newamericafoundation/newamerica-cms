@@ -1,16 +1,29 @@
 {% load wagtailcore_tags wagtailimages_tags utilities %}
 
 <!-- BLOG -->
-{% image page.story_image width-800 as story_image %}
-{% image page.story_image width-30 as thumbnail %}
+{% if style == 'collection' %}
+  {% image page.story_image fill-800x320 as story_image %}
+  {% image page.story_image fill-30x12 as thumbnail %}
+{% else %}
+  {% image page.story_image width-800 as story_image %}
+  {% image page.story_image width-30 as thumbnail %}
+{% endif %}
+
+
 {% if page.publication_cover_image %}
   {% include './post_book_heading.html' %}
 {% elif story_image and not page.publication_cover_image %}
   <div class="post-heading__image margin-bottom-60">
     <div class="post-heading__image__wrapper">
       <div src="{{thumbnail.url}}" class="temp-image"
-        style="padding-bottom:calc({% widthratio story_image.image.height story_image.image.width 100 %}% - 5px);
-        background-image: url({{ thumbnail.url }})"></div>
+        style="
+        {% if style == 'collection' %}
+          padding-bottom: calc(40% - 5px);
+        {% else %}
+          padding-bottom: calc({% widthratio story_image.image.height story_image.image.width 100 %}% - 5px);
+        {% endif %}
+        background-image: url({{ thumbnail.url }})
+        "></div>
       <img src="{{story_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
     </div>
     {% if story_image.image.source %}

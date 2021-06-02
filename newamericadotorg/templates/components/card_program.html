@@ -1,0 +1,26 @@
+{% load wagtailcore_tags %}
+
+<div class="card program-card {% if style %}program-card--{{ style }}{% endif %} ">
+  <div class="program-card__description">
+    <h1 class="link card__text__title">
+      <a href="{{ p.url }}">
+        <u>{{ p.title }}</u>
+      </a>
+    </h1>
+    <p>{% firstof description p.description p.story_excerpt p.search_description %}</p>
+  </div>
+  {% if p.subprograms %}
+    <div class="program-card__subprograms">
+      <h4>Initiatives &amp; Projects</h4>
+      <ul class="inline program-card__subprograms__list">
+        {% for subprogram in p.subprograms %}
+          <li>
+            <h6 class="inline link">
+              <a href="{{subprogram.url}}"><u>{{subprogram.title}}</u></a>
+            </h6>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</div>

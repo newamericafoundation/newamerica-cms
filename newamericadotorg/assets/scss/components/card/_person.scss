@@ -1,22 +1,24 @@
 .card.person{
   height: 160px;
-  padding: 20px;
-
-  .card__text, .card__image{
-    display: inline-block;
-    vertical-align: middle;
+  padding: 0;
+  
+  & > a {
+    display: flex;
+    align-items: center;
+    padding: 20px;
   }
 
   .card__text{
     padding-top: 0;
     padding-bottom: 0;
     padding-right: 0;
-    width: calc(100% - 120px);
+    flex-grow: 1;
   }
 
   .card__image{
     width: 120px;
     height: 120px;
+    flex-shrink: 0;
 
     img {
       width: 100%;
