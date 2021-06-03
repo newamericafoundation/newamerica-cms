@@ -259,3 +259,5 @@ HEADLESS_PREVIEW_CLIENT_URLS = {
     'na-staging.herokuapp.com': 'https://na-staging.herokuapp.com/h_preview',
     'na-develop.herokuapp.com': 'https://na-develop.herokuapp.com/h_preview',
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
