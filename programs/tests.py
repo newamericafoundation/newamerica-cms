@@ -1,8 +1,8 @@
 import io
 
 from django.core import management
-from django.test import TestCase
-from wagtail.core.models import Page
+from django.test import Client, TestCase
+from wagtail.core.models import Page, Site
 from wagtail.tests.utils import WagtailPageTests
 
 from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
@@ -53,15 +53,31 @@ class ProgramsTests(WagtailPageTests):
 
     def setUp(self):
         self.login()
+        site = Site.objects.get()
+        page = Page.get_first_root_node()
+        home = HomePage(title='New America')
+        self.home_page = page.add_child(instance=home)
         self.root_page = Page.objects.get(id=1)
-        self.home_page = self.root_page.add_child(instance=HomePage(
-            title='New America')
-        )
+
+        site.root_page = home
+        site.save()
+    
         self.program_page = self.home_page.add_child(
             instance=Program(
                 title='OTI',
                 name='OTI',
                 description='OTI',
+                slug='oti',
+                location=False,
+                depth=3
+            )
+        )
+        self.second_program_page = self.home_page.add_child(
+            instance=Program(
+                title='EPP',
+                name='EPP',
+                description='EPP',
+                slug='epp',
                 location=False,
                 depth=3
             )
@@ -71,6 +87,18 @@ class ProgramsTests(WagtailPageTests):
                 title='OTI Subprogram',
                 name='OTI Subprogram',
                 description='OTI Subprogram',
+                slug='oti-subprogram',
+                location=False,
+                depth=4,
+            )
+        )
+        self.subprogram_project_page = self.second_program_page.add_child(
+            instance=Project(
+                title='OTI Subprogram',
+                name='OTI Subprogram',
+                description='OTI Subprogram (redirected child of EPP)',
+                slug='oti-subprogram',
+                redirect_page=self.subprogram_page,
                 location=False,
                 depth=4,
             )
@@ -81,7 +109,7 @@ class ProgramsTests(WagtailPageTests):
         self.article = self.program_articles_page.add_child(
             instance=Article(
                 title='Article 1',
-                date='2016-02-02'
+                date='2016-02-02',
             )
         )
         self.subprogram_articles_page = self.subprogram_page.add_child(
@@ -91,6 +119,16 @@ class ProgramsTests(WagtailPageTests):
             instance=Article(
                 title='Article 2',
                 date='2016-02-03'
+            )
+        )
+        self.article_project_page = self.second_program_page.add_child(
+            instance=Project(
+                title='Article 1',
+                name='Article 1',
+                description='Redirects to Article_1',
+                redirect_page=self.article,
+                location=False,
+                depth=4,
             )
         )
 
@@ -157,7 +195,22 @@ class ProgramsTests(WagtailPageTests):
                 ProgramBriefsPage,
             }
         )
-
+    def test_program_subpage_redirect(self):
+        c = Client()
+        response = c.get(self.program_page.url+'our-people/', follow=True)
+        self.assertEqual(response.context_data['page'], self.program_page)
+    def test_project_article_redirect(self):
+        c = Client()
+        response = c.get(self.article_project_page.url, follow=True)
+        self.assertEqual(response.redirect_chain, [(self.article.url, 302)])
+    def test_project_subprogram_redirect(self):
+        c = Client()
+        response = c.get(self.subprogram_project_page.url, follow=True)
+        self.assertEqual(response.redirect_chain, [(self.subprogram_page.url, 302)])
+    def test_project_subprogram_subpage_redirect(self):
+        c = Client()
+        response = c.get(self.subprogram_project_page.url+'our-people/', follow=True)
+        self.assertEqual(response.redirect_chain, [(self.subprogram_page.url+'our-people/', 302)])
 
 class SearchTest(TestCase):
     @classmethod
