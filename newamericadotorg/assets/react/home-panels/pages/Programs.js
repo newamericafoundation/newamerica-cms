@@ -15,7 +15,7 @@ class Programs extends Component {
         </div>
         {p.subprograms &&
           <div className="program-card__subprograms">
-            <h4>Initiative & Projects</h4>
+            <h4>Initiatives & Projects</h4>
             <ul className="inline program-card__subprograms__list">
               {p.subprograms.map((s,i)=>(
                 <li key={`program-${i}`}>
