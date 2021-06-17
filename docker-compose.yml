@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DATABASE_URL: postgres://wagtail:test@db:5432/wagtail
+        USERID: ${UID:?err}
+    command:
+      - /bin/sh
+      - '-c'
+      - 'entrypoint.sh'
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgres://wagtail:test@db:5432/wagtail
+      SECRET_KEY: test
+      DJANGO_SETTINGS_MODULE: newamericadotorg.settings.dev
+      ELASTICSEARCH_URL: http://localhost:9200
+      REDIS_URL: redis://localhost/1
+    depends_on:
+      - db
+      - es
+    working_dir: /app
+  db:
+    image: postgres:13.3-alpine
+    environment:
+      POSTGRES_USER: wagtail
+      POSTGRES_DB: wagtail
+      POSTGRES_PASSWORD: test
+    restart: always
+    expose:
+      - "5432"
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.16
+    environment:
+      - script.inline=true
+      - script.search=true
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms1500m -Xmx1500m"
+      - discovery.type=single-node
+    mem_limit: 2g
+    ports:
+      - "9200:9200"
