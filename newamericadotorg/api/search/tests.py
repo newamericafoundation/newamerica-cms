@@ -312,16 +312,16 @@ class SearchPastEventsAPITests(APITestCase):
     def setUpTestData(cls):
         home_page = PostFactory.create_homepage()
 
-        cls.program = PostFactory.create_program(
+        program = PostFactory.create_program(
             home_page=home_page,
             program_data={
                 'title': 'Party Program'
             }
         )
 
-        cls.future_party = PostFactory.create_program_content(
+        future_party = PostFactory.create_program_content(
             1,
-            program=cls.program,
+            program=program,
             content_page_type=ProgramEventsPage,
             post_type=Event,
             content_page_data={},
@@ -333,7 +333,7 @@ class SearchPastEventsAPITests(APITestCase):
 
         PostFactory.create_program_content(
             1,
-            program=cls.program,
+            program=program,
             content_page_type=ProgramEventsPage,
             post_type=Event,
             content_page_data={},
@@ -343,9 +343,9 @@ class SearchPastEventsAPITests(APITestCase):
             }
         )
 
-        cls.past_party = PostFactory.create_program_content(
+        past_party = PostFactory.create_program_content(
             1,
-            program=cls.program,
+            program=program,
             content_page_type=ProgramEventsPage,
             post_type=Event,
             content_page_data={},
@@ -355,12 +355,14 @@ class SearchPastEventsAPITests(APITestCase):
             }
         )
 
-        cls.posts = PostFactory.create_program_content(2,
-            program=cls.program,
+        posts = PostFactory.create_program_content(2,
+            program=program,
             content_page_type=ProgramBlogPostsPage,
             post_type=BlogPost,
             post_data={'title': 'Party'}
         )
+        cls.past_party_id = past_party[0].pk
+        cls.post_ids = {post.pk for post in posts}
 
     def setUp(self):
         management.call_command('update_index', stdout=StringIO(), chunk_size=50)
@@ -368,13 +370,12 @@ class SearchPastEventsAPITests(APITestCase):
     def test_search_past(self):
         url = '/api/search/pubs_and_past_events/?query=party'
         result = self.client.get(url).json()
-        ids = set(r['id'] for r in result['results'])
+        returned_ids = set(r['id'] for r in result['results'])
 
         self.assertNotIn('error', result)
         self.assertEquals(result['count'], 3)
-        self.assertIn(self.past_party[0].pk, ids)
-        for post in self.posts:
-            self.assertIn(post.pk, ids)
+        self.assertIn(self.past_party_id, returned_ids)
+        self.assertTrue(self.post_ids <= returned_ids)
 
 
 @unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")

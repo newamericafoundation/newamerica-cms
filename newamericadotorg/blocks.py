@@ -25,7 +25,7 @@ class CustomJSONEncoder(json.JSONEncoder):
         elif isinstance(obj, RichText):
             return obj.__str__()
         elif isinstance(obj, stream_block.StreamValue):
-            return obj.stream_data
+            return obj.raw_data
 
         return json.JSONEncoder.default(self, obj)
 
@@ -194,9 +194,9 @@ class DatavizBlock(blocks.StructBlock):
 def ResourceKitSerializer(r):
     resources = []
     try:
-        for block_type, value, identifier in r.stream_data:
+        for child in r:
             d = {}
-            for key, val in value.items():
+            for key, val in child.value.items():
                 if key == 'image' and val is not None:
                     if isinstance(val, home.models.CustomImage):
                         img = val
@@ -208,7 +208,7 @@ def ResourceKitSerializer(r):
                         img = img
                     d['image'] = img.file.url
                 elif key == 'resource':
-                    if block_type == 'post':
+                    if child.block_type == 'post':
                         pg = val.specific
                         d['url'] = pg.url
                         if not getattr(d, 'image', False):
@@ -222,7 +222,7 @@ def ResourceKitSerializer(r):
                                     ).file.url
                                 except:
                                     d['image'] = img.file.url
-                    elif block_type == 'attachment':
+                    elif child.block_type == 'attachment':
                         d['url'] = val.file.url
                     else:
                         d['url'] = val
@@ -322,9 +322,9 @@ def getJSCompatibleList(input_list, is_era, sort):
 def PersonBlockSerializer(block_value):
     people = []
     try:
-        for block_type, value, identifier in block_value.stream_data:
+        for child in block_value:
             d = {}
-            for key, val in value.items():
+            for key, val in child.value.items():
                 if key == 'image' and val is not None:
                     if isinstance(val, home.models.CustomImage):
                         img = val
@@ -489,18 +489,18 @@ def SessionsSerializer(s):
     sessions = []
     for block in s:
         d = {}
-        value = block['value']
+        value = block.value
 
         for key, val in value.items():
             if key == 'speakers':
                 d['speakers'] = []
                 for speakerBlock in val:
                     speaker = {}
-                    for k, v in speakerBlock['value'].items():
+                    for k, v in speakerBlock.value.items():
                         speaker[k] = v
                     d['speakers'].append(speaker)
             else:
-                d[key] = val
+                d[key] = str(val)
         sessions.append(d)
 
     return sessions
@@ -543,8 +543,8 @@ class SessionsBlock(blocks.StreamBlock):
         )
         days = []
         try:
-            for day in value.stream_data:
-                days.append(SessionsSerializer(day['value']['sessions']))
+            for day in value:
+                days.append(SessionsSerializer(day.value['sessions']))
         except:
             pass
 

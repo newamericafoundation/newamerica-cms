@@ -30,8 +30,9 @@ class TopicAPITests(APITestCase):
             parent_topic=subtopics[0]
         )
 
-        cls.program = program
-        cls.topics = topics
+        cls.topic_id = topics[0].pk
+        cls.program_title = program.title
+        cls.program_id = program.pk
 
     def test_topic_list(self):
         url = '/api/topic/'
@@ -40,15 +41,15 @@ class TopicAPITests(APITestCase):
         self.assertEquals(result.json()['count'], 12)
 
     def test_topic_detail(self):
-        url = '/api/topic/%s/' % self.topics[0].id
+        url = f'/api/topic/{self.topic_id}/'
         result = self.client.get(url)
         data = result.json()
 
         self.assertEquals(len(data['subtopics']), 8)
-        self.assertEquals(data['program']['title'], self.program.title)
+        self.assertEquals(data['program']['title'], self.program_title)
 
     def test_topic_list_by_program(self):
-        url = '/api/topic/?program_id=%s' % self.program.id
+        url = f'/api/topic/?program_id={self.program_id}'
         result = self.client.get(url)
         data = result.json()
 
