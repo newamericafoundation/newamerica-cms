@@ -20,7 +20,7 @@ services:
       SECRET_KEY: test
       DJANGO_SETTINGS_MODULE: newamericadotorg.settings.dev
       ELASTICSEARCH_URL: http://localhost:9200
-      REDIS_URL: redis://localhost/1
+      REDIS_URL: redis://redis:6379/1
     depends_on:
       - db
       - es
@@ -45,3 +45,9 @@ services:
     mem_limit: 2g
     ports:
       - "9200:9200"
+
+  redis:
+    image: "redis:alpine"
+    command: redis-server
+    expose:
+     - "6379"
