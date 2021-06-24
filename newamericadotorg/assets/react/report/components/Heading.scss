@@ -76,13 +76,8 @@
     flex-direction: column;
   }
 
-  .card__image__background {
-    padding-bottom: 48.461538461%;
-    position: static;
-
-    @include media-breakpoint-down(tablet) {
-      padding-bottom: 75% !important;
-    }
+  .card__image__background-image:last-child {    
+    margin-bottom: 1.75rem;
   }
 }
 
