@@ -1,3 +1,4 @@
+from survey.models import SurveysHomePage
 from home.models import Post, HomePage, CustomImage
 from programs.models import Program, Subprogram, AbstractContentPage, PublicationsPage
 from event.models import ProgramEventsPage, AllEventsHomePage
@@ -61,6 +62,7 @@ def get_program_content_types(program):
 
     children = page.get_children().type(AbstractContentPage).not_type(PublicationsPage).not_type(ProgramPeoplePage)\
         .not_type(TopicHomePage).not_type(ProgramEventsPage).not_type(AllEventsHomePage).not_type(ProgramPolicyPapersPage)\
+        .not_type(SurveysHomePage)\
         .live()
 
     content_types = []
