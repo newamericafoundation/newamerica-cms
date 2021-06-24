@@ -29,7 +29,7 @@ export class PublicationsList extends Component {
     let { response, fetchAndAppend, card_type } = this.props;
     let { results, isFetching, hasNext } = response;
     if(results.length===0 && !isFetching){
-      if(card_type = 'future_events'){
+      if(card_type == 'future_events'){
         return (
           <div className="margin-top-60 centered">
             <h6 className="inline">No upcoming events. </h6>
