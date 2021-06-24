@@ -43,8 +43,8 @@ services:
       - "ES_JAVA_OPTS=-Xms1500m -Xmx1500m"
       - discovery.type=single-node
     mem_limit: 2g
-    ports:
-      - "9200:9200"
+    expose:
+      - "9200"
 
   redis:
     image: "redis:alpine"
