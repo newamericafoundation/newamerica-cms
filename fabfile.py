@@ -320,8 +320,7 @@ def sync_heroku_buckets(c, *, source, destination, folders=[]):
 
 def aws(c, command, aws_access_key_id, aws_secret_access_key, **kwargs):
     return local(
-        "AWS_ACCESS_KEY_ID={access_key_id} AWS_SECRET_ACCESS_KEY={secret_key} "
-        "aws {command}".format(
+        "docker run -e AWS_ACCESS_KEY_ID={access_key_id} -e AWS_SECRET_ACCESS_KEY={secret_key} --rm -i amazon/aws-cli {command}".format(
             access_key_id=aws_access_key_id,
             secret_key=aws_secret_access_key,
             command=command,
