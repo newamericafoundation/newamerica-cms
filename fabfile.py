@@ -1,4 +1,3 @@
-import psycopg2
 from invoke import run as local
 from invoke.exceptions import Exit
 from invoke.tasks import task
@@ -7,9 +6,12 @@ PRODUCTION_APP_INSTANCE = "newamericadotorg"
 STAGING_APP_INSTANCE = "na-staging"
 
 DEVELOP_APP_INSTANCE = "na-develop"
-LOCAL_MEDIA_FOLDER = "/vagrant/media"
-LOCAL_IMAGES_FOLDER = "/vagrant/media/original_images"
-LOCAL_DATABASE_NAME = "newamerica-cms"
+LOCAL_MEDIA_FOLDER = "/media"
+LOCAL_IMAGES_FOLDER = "/media/original_images"
+
+LOCAL_DATABASE_NAME = "wagtail"
+LOCAL_DATABASE_USER = "wagtail"
+LOCAL_DATABASE_PASSWORD = "test"
 
 MEDIA_FOLDERS = ['original_images', 'documents', 'avatar_images']
 
@@ -188,9 +190,10 @@ def sync_develop_from_production_media(c):
 
 
 def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
-    local(
-        "dropdb --if-exists {database_name}".format(database_name=LOCAL_DATABASE_NAME)
-    )
+    print('deleting local database')
+    local_db_command(f'ALTER DATABASE {local_database_name} CONNECTION LIMIT 1;', warn=True)
+    local_db_command(f"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '{local_database_name}';", warn=True)
+    local(f"docker-compose exec -T db dropdb -U {LOCAL_DATABASE_USER} --if-exists {local_database_name}")
 
 
 ########
@@ -233,10 +236,10 @@ def pull_media_from_s3_heroku(c, app_instance):
 def pull_database_from_heroku(c, app_instance):
     check_if_logged_in_to_heroku(c)
     delete_local_database(c)
+
+    host, port = local('docker-compose port db 5432').stdout.strip().split(':')
     local(
-        "heroku pg:pull --app {app} DATABASE_URL {local_database}".format(
-            app=app_instance, local_database=LOCAL_DATABASE_NAME
-        )
+        f"PGHOST={host} PGPASSWORD={LOCAL_DATABASE_PASSWORD} PGUSER={LOCAL_DATABASE_USER} heroku pg:pull --app {app_instance} DATABASE_URL {LOCAL_DATABASE_NAME}"
     )
     answer = (
         input(
@@ -247,7 +250,7 @@ def pull_database_from_heroku(c, app_instance):
         .lower()
     )
     if not answer or answer == "y":
-        local("django-admin createsuperuser", pty=True)
+        local("docker-compose exec web ./manage.py createsuperuser", pty=True)
     normalize_local_wagtail_site()
 
 
@@ -462,22 +465,12 @@ def normalize_wagtail_site(c, target):
     """
     if target == PRODUCTION_APP_INSTANCE:
         raise RuntimeError("Production app used as target for normalize_wagtail_site. Please delete this check if you're absolutely sure you want to do this")
+    check_if_logged_in_to_heroku(c)
     print('Normalizing wagtail site data.')
-    database_url = get_heroku_variable(c, target, 'DATABASE_URL')
-    conn = psycopg2.connect(database_url)
-    cur = conn.cursor()
-    hostname = f'{target}.herokuapp.com'
 
-    cur.execute(
-        'UPDATE wagtailcore_site SET hostname = %s WHERE is_default_site = true',
-        (hostname, ),
+    local(
+        f'heroku pg:psql --app {target} -c "UPDATE wagtailcore_site SET hostname = {target}.herokuapp.com WHERE is_default_site = true;"'
     )
-    conn.commit()
-    count = cur.rowcount
-    print(f'Number of wagtail sites normalized: {count}')
-
-    cur.close()
-    conn.close()
 
 
 def normalize_local_wagtail_site(local_database_name=LOCAL_DATABASE_NAME):
@@ -490,6 +483,10 @@ def normalize_local_wagtail_site(local_database_name=LOCAL_DATABASE_NAME):
     """
     print('Normalizing local wagtail site')
     try:
-        local(f"""sudo -u postgres psql -d {local_database_name} -c "UPDATE wagtailcore_site SET hostname = 'localhost' WHERE is_default_site = true;" """)
+        local_db_command("UPDATE wagtailcore_site SET hostname = 'localhost' WHERE is_default_site = true;")
     except Exception as e:
         print(f'Encountered error: {e}')
+
+
+def local_db_command(command, **kwargs):
+    local(f'docker-compose exec -T db psql -U {LOCAL_DATABASE_USER} -c "{command}"', **kwargs)
