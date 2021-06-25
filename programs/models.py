@@ -407,17 +407,12 @@ class Project(Subprogram):
         verbose_name = 'Project'
     
     @route(r'^$')
-    @route(r'^(?:our-people|events|projects|publications|topics|about|subscribe)/$')
-    def redirect_to_subprogram(self, request):
+    @route(r'^(our-people|events|projects|publications|topics|about|subscribe)/$')
+    def redirect_to_subprogram(self, request, section=''):
         redirect_page = getattr(self, 'redirect_page', None)
         if redirect_page:
-            if isinstance(redirect_page.specific, Subprogram):
-                path = request.path.split('/')
-                redirect_path = redirect_page.url.split('/')
-                path[1] = redirect_path[1]
-                path[2] = redirect_path[2]
-                url = '/'.join(path)
-                return redirect(url)
+            if isinstance(redirect_page.specific, Subprogram) and section:
+                return redirect(redirect_page.url + section + '/')
             return HttpResponseRedirect(redirect_page.url)
         return self.render(request)
 
