@@ -176,6 +176,7 @@ class SearchPublicationsAndPastEvents(ListAPIView):
             Post.objects.live()
             .public()
             .type((Post, Event))
+            .not_type(survey.models.Survey)
             .filter(date__lt=today)
             .descendant_of(site_for_request.root_page, inclusive=True)
         )
