@@ -248,7 +248,7 @@ def pull_database_from_heroku(c, app_instance):
         .lower()
     )
     if not answer or answer == "y":
-        local("docker-compose exec web ./manage.py createsuperuser", pty=True)
+        local("docker-compose run --rm web ./manage.py createsuperuser", pty=True)
     normalize_local_wagtail_site()
 
 
