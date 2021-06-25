@@ -415,16 +415,10 @@ def pull_images_from_s3_heroku(c, app_instance):
     # table so that the renditions will be re-created when requested on the local build.
     delete_local_renditions()
 
+
 def delete_local_renditions(local_database_name=LOCAL_DATABASE_NAME):
     print('Deleting local image renditions')
-    try:
-        local(
-            'sudo -u postgres psql  -d {database_name} -c "DELETE FROM home_customrendition;"'.format(
-                database_name=local_database_name
-            )
-        )
-    except:
-        pass
+    local_db_command("DELETE FROM home_customrendition;")
 
 
 def delete_staging_renditions(c):
@@ -479,11 +473,11 @@ def normalize_local_wagtail_site(local_database_name=LOCAL_DATABASE_NAME):
 
     """
     print('Normalizing local wagtail site')
-    try:
-        local_db_command("UPDATE wagtailcore_site SET hostname = 'localhost' WHERE is_default_site = true;")
-    except Exception as e:
-        print(f'Encountered error: {e}')
+    local_db_command("UPDATE wagtailcore_site SET hostname = 'localhost' WHERE is_default_site = true;")
 
 
 def local_db_command(command, **kwargs):
-    local(f'docker-compose exec -T db psql -U {LOCAL_DATABASE_USER} -c "{command}"', **kwargs)
+    try:
+        local(f'docker-compose exec -T db psql -U {LOCAL_DATABASE_USER} -c "{command}"', **kwargs)
+    except Exception as e:
+        print(f'Encountered error: {e}')
