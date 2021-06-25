@@ -23,7 +23,6 @@ TODO: many of these are not needed for Vagant setup
 - `na-cms.env` from the `Design` folder in Google Drive, which you should rename to `.env`
 - Helpful but not required: `fixture.json` from the `Design` folder in Google Drive or a dump of the DB
 
-
 ## Back-end setup (without Vagrant)
 
 See [below](#back-end-setup-with-vagrant) for instructions on how to set up with Vagrant (easier).
@@ -211,3 +210,42 @@ To compile front-end assets in production, run the one-time command:
 ```bash
 npm run build:production
 ```
+
+## Back-end setup with Docker Compose
+
+### Prerequisites
+
+This software should be installed on your computer:
+
+1. [Docker](https://docs.docker.com/engine/installation/)
+2. [Docker Compose](https://docs.docker.com/compose/install/)
+3. [Fabric](https://www.fabfile.org/installing.html)
+4. [The Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+
+### First-time setup
+
+In order to build the containers for the first time, you need a `.env` file to set some variables to ensure docker doesn't run into permissions problems.  These are the commands needed to generate the file, which should be run prior to running anything else:
+
+```shell
+echo UID=$(id -u) > .env
+echo GID=$(id -g) >> .env
+```
+
+### Starting the environment
+
+This command will start the web, database, elastic search, and redis
+servers needed for the site to operate:
+
+```
+docker-compose up
+```
+
+The containers can also be run in detached mode with `docker-compose up -d`.  In the default mode, you see all the logs and output from the containers in the shell and will stop running with Control+C.  Running with `-d` will cause docker-compose to exit, but the containers will run in the background.  They can be stopped with `docker-compose down`.  
+
+The site will not immediately work without existing page data.  You can download this from the staging environment using the fabric command:
+
+```
+fab pull-staging-data
+```
+
+After this, you should be able to visit the Wagtail site at http://localhost:8000/
