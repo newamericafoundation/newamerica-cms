@@ -191,9 +191,7 @@ def sync_develop_from_production_media(c):
 
 def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
     print('deleting local database')
-    local_db_command(f'ALTER DATABASE {local_database_name} CONNECTION LIMIT 1;', warn=True)
-    local_db_command(f"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '{local_database_name}';", warn=True)
-    local(f"docker-compose exec -T db dropdb -U {LOCAL_DATABASE_USER} --if-exists {local_database_name}")
+    local(f"docker-compose exec -T db dropdb --force -U {LOCAL_DATABASE_USER} --if-exists {local_database_name}")
 
 
 ########
