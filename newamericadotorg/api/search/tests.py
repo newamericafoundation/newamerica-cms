@@ -457,6 +457,14 @@ class SearchOtherPagesAPITests(APITestCase):
             topic_data={'title': 'Octopus'}
         )
 
+        cls.surveys = PostFactory.create_program_content(
+            1,
+            program=cls.program,
+            content_page_type=survey.models.SurveysHomePage,
+            post_type=survey.models.Survey,
+            post_data={'title': 'Octopus'},
+        )
+
     def setUp(self):
         management.call_command('update_index', stdout=StringIO(), chunk_size=50)
 
@@ -466,4 +474,5 @@ class SearchOtherPagesAPITests(APITestCase):
         ids = set(r['id'] for r in result['results'])
 
         self.assertNotIn('error', result)
-        self.assertEquals(result['count'], 3)
+        self.assertEquals(result['count'], 4)
+        self.assertIn(self.surveys[0].pk, ids)

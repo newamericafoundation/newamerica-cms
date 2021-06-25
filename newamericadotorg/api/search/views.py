@@ -13,7 +13,19 @@ from wagtail.search.models import Query
 import survey.models
 from .serializers import SearchSerializer
 from newamericadotorg.api.event.serializers import EventSerializer
+from article.models import Article
+from book.models import Book
+from brief.models import Brief
+from press_release.models import PressRelease
 from event.models import Event
+from weekly.models import WeeklyArticle
+from blog.models import BlogPost
+from the_thread.models import ThreadArticle
+from podcast.models import Podcast
+from quoted.models import Quoted
+from policy_paper.models import PolicyPaper
+from in_depth.models import InDepthProject
+from other_content.models import OtherPost
 from programs.models import Program, Subprogram
 from home.models import Post, RedirectPage
 from person.models import Person
@@ -115,13 +127,27 @@ class SearchOtherPages(ListAPIView):
             .public()
             .not_type(
                 (
+                    # Pages included in other searches
                     Person,
                     Program,
                     Subprogram,
-                    Post,
                     Event,
                     SubscriptionSegment,
                     RedirectPage,
+                    # Exclude all Post subclasses except "Survey"
+                    Article,
+                    Book,
+                    Brief,
+                    PressRelease,
+                    Event,
+                    WeeklyArticle,
+                    BlogPost,
+                    ThreadArticle,
+                    Podcast,
+                    Quoted,
+                    PolicyPaper,
+                    InDepthProject,
+                    OtherPost,
                     # Non-informational pages for survey filtering.
                     survey.models.SurveyOrganization,
                     survey.models.DemographicKey,
