@@ -11,6 +11,7 @@ from wagtail.search.backends import get_search_backend
 
 from test_factories import PostFactory
 
+import survey.models
 from blog.models import ProgramBlogPostsPage, BlogPost
 from event.models import Event, ProgramEventsPage
 
@@ -363,6 +364,7 @@ class SearchPastEventsAPITests(APITestCase):
         )
         cls.past_party_id = past_party[0].pk
         cls.post_ids = {post.pk for post in posts}
+        cls.program = program
 
     def setUp(self):
         management.call_command('update_index', stdout=StringIO(), chunk_size=50)
@@ -376,6 +378,21 @@ class SearchPastEventsAPITests(APITestCase):
         self.assertEquals(result['count'], 3)
         self.assertIn(self.past_party_id, returned_ids)
         self.assertTrue(self.post_ids <= returned_ids)
+
+    def test_excludes_surveys(self):
+        surveys = PostFactory.create_program_content(
+            5,
+            program=self.program,
+            content_page_type=survey.models.SurveysHomePage,
+            post_type=survey.models.Survey,
+            post_data={'title': 'Party'}
+        )
+        url = '/api/search/pubs_and_past_events/?query=party'
+        result = self.client.get(url).json()
+        ids = set(r['id'] for r in result['results'])
+
+        self.assertNotIn('error', result)
+        self.assertEquals(result['count'], 3)
 
 
 @unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
@@ -440,6 +457,14 @@ class SearchOtherPagesAPITests(APITestCase):
             topic_data={'title': 'Octopus'}
         )
 
+        cls.surveys = PostFactory.create_program_content(
+            1,
+            program=cls.program,
+            content_page_type=survey.models.SurveysHomePage,
+            post_type=survey.models.Survey,
+            post_data={'title': 'Octopus'},
+        )
+
     def setUp(self):
         management.call_command('update_index', stdout=StringIO(), chunk_size=50)
 
@@ -449,4 +474,5 @@ class SearchOtherPagesAPITests(APITestCase):
         ids = set(r['id'] for r in result['results'])
 
         self.assertNotIn('error', result)
-        self.assertEquals(result['count'], 3)
+        self.assertEquals(result['count'], 4)
+        self.assertIn(self.surveys[0].pk, ids)
