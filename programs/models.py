@@ -1,12 +1,15 @@
 import json
 
 from django.db import models
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render
 from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.core.models import Page, Orderable, PageRevision
 from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.core.blocks import PageChooserBlock, ChoiceBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from subscribe.models import SubscriptionSegment
 from modelcluster.fields import ParentalKey
@@ -64,7 +67,7 @@ class FeaturedSubprogramPage(Orderable):
         ImageChooserPanel('featured_image'),
     ]
 
-class AbstractProgram(Page):
+class AbstractProgram(RoutablePageMixin, Page):
     """
     Abstract Program class that inherits from Page and is inherited
     by Program and Subprogram models
@@ -130,6 +133,10 @@ class AbstractProgram(Page):
         a particular program
         """
         return self.get_children().type(Subprogram).live().in_menu()
+
+    @route(r'^(?:our-people|events|projects|publications|topics|about|subscribe)/$')
+    def program_subpage(self, request):
+        return self.render(request)
 
     class Meta:
         abstract = True
@@ -398,6 +405,16 @@ class Project(Subprogram):
     class Meta:
         ordering = ('title',)
         verbose_name = 'Project'
+    
+    @route(r'^$')
+    @route(r'^(our-people|events|projects|publications|topics|about|subscribe)/$')
+    def redirect_to_subprogram(self, request, section=''):
+        redirect_page = getattr(self, 'redirect_page', None)
+        if redirect_page:
+            if isinstance(redirect_page.specific, Subprogram) and section:
+                return redirect(redirect_page.url + section + '/')
+            return HttpResponseRedirect(redirect_page.url)
+        return self.render(request)
 
 class AbstractContentPage(Page):
     """

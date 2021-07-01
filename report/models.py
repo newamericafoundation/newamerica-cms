@@ -217,7 +217,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
     @route(r'[a-zA-Z0-9_\.\-]*/$')
     def section(self, request):
         # Serve the whole report, subsection routing is handled by React
-        return self.serve(request)
+        return self.render(request)
 
     class Meta:
         verbose_name = 'Report'

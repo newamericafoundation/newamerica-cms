@@ -18,8 +18,6 @@ from newamericadotorg.api.urls import api_urls
 from search.views import search as search_view
 from rss_feed.feeds import GenericFeed, ContentFeed, AuthorFeed, ProgramFeed, SubprogramFeed, EventFeed, EventProgramFeed
 
-import programs.views as program_views
-
 import newamericadotorg.redirects as redirects
 import newamericadotorg.views
 
@@ -57,10 +55,6 @@ urlpatterns = [
     url(r'^public-interest-technology/new-practice-lab/[^.]*$', redirects.new_practice_lab),
     url(r'^public-interest-technology/[^.]*$', redirects.pit),
     url(r'^future-property-rights/[^.]*$', redirects.flh),
-
-    url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/(our-people|events|projects|publications|topics|about|subscribe)/$', program_views.redirect_to_subprogram),
-    url(r'^(?P<program>[a-zA-z\-]*)/(our-people|events|projects|about|publications|topics|subscribe)/$', program_views.redirect_to_program),
-    # url(r'^(?P<program>[a-zA-z\-]*)/(?P<subprogram>[a-zA-Z0-9_\.\-]*)/$', program_views.redirect_project_page),
 
     url(r'', include(wagtail_urls)),
 
