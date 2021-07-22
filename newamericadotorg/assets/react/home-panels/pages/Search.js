@@ -109,12 +109,7 @@ function SearchBucket({query, name, bucket, endpoint, showEmpty, pageSize}) {
     }
   };
 
-  // Perform search when query changes
-  useEffect(() => {
-    // Update query input value when user hits back/forward
-
-    const queryParams = getQueryParams(query, paginationFilter);
-
+  const runQuery = (queryParams) => {
     if (query) {
       // Fetch results
       // TODO: Make sure responses come back in correct order
@@ -145,7 +140,25 @@ function SearchBucket({query, name, bucket, endpoint, showEmpty, pageSize}) {
       setNextPaginationFilter(null);
       setPreviousPaginationFilter(null);
     }
-  }, [query, paginationFilter]);
+  }
+
+  // Perform search when page changes
+  useEffect(() => {
+    // Update query input value when user hits back/forward
+
+    const queryParams = getQueryParams(query, paginationFilter);
+    runQuery(queryParams);
+
+  }, [paginationFilter]);
+
+  // Perform search when query changes
+  useEffect(() => {
+
+    // Reset pagination to page 1.
+    const queryParams = getQueryParams(query, null);
+    runQuery(queryParams);
+
+  }, [query]);
 
   return (
     <>
