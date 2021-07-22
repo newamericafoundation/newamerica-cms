@@ -36,7 +36,19 @@ RUN apt-get update && apt-get install -y \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
     libgdk-pixbuf2.0-0 \
+    gnupg2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Postgresql 13 client
+RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+RUN apt-get update && apt-get -y install postgresql-client-13
+
+# Heroku
+RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
+RUN mkdir -p /home/wagtail
+RUN chown wagtail:wagtail /home/wagtail
 
 # Install the application server.
 RUN pip install "gunicorn==20.0.4"
