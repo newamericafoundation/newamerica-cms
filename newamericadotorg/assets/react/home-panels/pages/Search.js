@@ -56,7 +56,7 @@ function SearchResultList({results, header, bucket, isFetching, hasNext, hasPrev
             })}
           </div>
       }
-      <div class="search-results__pagination">
+      <div className="search-results__pagination">
         {hasPrevious &&
         <div className="load-more load-more--previous">
           <button className={`button${fetchingPrevious ? ' is-fetching' : ''}`} onClick={onClickPrevious} disabled={isFetching}>
