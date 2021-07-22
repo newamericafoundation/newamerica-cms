@@ -13,6 +13,9 @@ services:
       - 'entrypoint.sh'
     volumes:
       - ./:/app
+      - type: bind
+        source: ${HOME}/.netrc
+        target: /home/wagtail/.netrc
     ports:
       - "8000:8000"
     environment:
