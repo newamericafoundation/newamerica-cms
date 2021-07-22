@@ -200,7 +200,7 @@ def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
 
 
 def check_if_logged_in_to_heroku(c):
-    if not local("heroku auth:whoami", warn=True):
+    if not local("docker-compose exec -T web heroku auth:whoami", warn=True):
         raise Exit(
             'Log-in with the "heroku login -i" command before running this ' "command."
         )
@@ -209,7 +209,7 @@ def check_if_logged_in_to_heroku(c):
 def get_heroku_variable(c, app_instance, variable):
     check_if_logged_in_to_heroku(c)
     return local(
-        "heroku config:get {var} --app {app}".format(app=app_instance, var=variable)
+        "docker-compose exec -T heroku config:get {var} --app {app}".format(app=app_instance, var=variable)
     ).stdout.strip()
 
 
@@ -235,9 +235,8 @@ def pull_database_from_heroku(c, app_instance):
     check_if_logged_in_to_heroku(c)
     delete_local_database(c)
 
-    host, port = local('docker-compose port db 5432').stdout.strip().split(':')
     local(
-        f"PGHOST={host} PGPASSWORD={LOCAL_DATABASE_PASSWORD} PGUSER={LOCAL_DATABASE_USER} heroku pg:pull --app {app_instance} DATABASE_URL {LOCAL_DATABASE_NAME}"
+        f"docker-compose exec -e PGHOST=db -e PGUSER={LOCAL_DATABASE_USER} -e PGPASSWORD={LOCAL_DATABASE_PASSWORD} -T web heroku pg:pull --app {app_instance} DATABASE_URL {LOCAL_DATABASE_NAME}"
     )
     answer = (
         input(
@@ -255,7 +254,7 @@ def pull_database_from_heroku(c, app_instance):
 def open_heroku_shell(c, app_instance, shell_command="bash"):
     check_if_logged_in_to_heroku(c)
     local(
-        "heroku run --app {app} {command}".format(
+        "docker-compose exec -T heroku run --app {app} {command}".format(
             app=app_instance, command=shell_command
         )
     )
@@ -266,7 +265,7 @@ def open_heroku_shell(c, app_instance, shell_command="bash"):
 def copy_heroku_database(c, *, source, destination):
     check_if_logged_in_to_heroku(c)
     local(
-        "heroku pg:copy {source_app}::DATABASE_URL DATABASE_URL --app {destination_app} --confirm {destination_app}".format(
+        "docker-compose exec -T heroku pg:copy {source_app}::DATABASE_URL DATABASE_URL --app {destination_app} --confirm {destination_app}".format(
             source_app=source, destination_app=destination
         )
     )
@@ -425,7 +424,7 @@ def delete_staging_renditions(c):
     print('Deleting staging image renditions')
     check_if_logged_in_to_heroku(c)
     local(
-        'heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
+        'docker-compose exec -T heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
             app=STAGING_APP_INSTANCE
         )
     )
@@ -435,7 +434,7 @@ def delete_develop_renditions(c):
     print('Deleting develop image renditions')
     check_if_logged_in_to_heroku(c)
     local(
-        'heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
+        'docker-compose exec -T heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
             app=DEVELOP_APP_INSTANCE
         )
     )
@@ -460,7 +459,7 @@ def normalize_wagtail_site(c, target):
     print('Normalizing wagtail site data.')
 
     local(
-        f'heroku pg:psql --app {target} -c "UPDATE wagtailcore_site SET hostname = {target}.herokuapp.com WHERE is_default_site = true;"'
+        f'docker-compose exec -T heroku pg:psql --app {target} -c "UPDATE wagtailcore_site SET hostname = {target}.herokuapp.com WHERE is_default_site = true;"'
     )
 
 
