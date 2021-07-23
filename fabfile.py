@@ -6,8 +6,8 @@ PRODUCTION_APP_INSTANCE = "newamericadotorg"
 STAGING_APP_INSTANCE = "na-staging"
 
 DEVELOP_APP_INSTANCE = "na-develop"
-LOCAL_MEDIA_FOLDER = "/media"
-LOCAL_IMAGES_FOLDER = "/media/original_images"
+LOCAL_MEDIA_FOLDER = "./media"
+LOCAL_IMAGES_FOLDER = "./media/original_images"
 
 LOCAL_DATABASE_NAME = "wagtail"
 LOCAL_DATABASE_USER = "wagtail"
@@ -191,7 +191,7 @@ def sync_develop_from_production_media(c):
 
 def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
     print('deleting local database')
-    local(f"docker-compose exec -T db dropdb --force -U {LOCAL_DATABASE_USER} --if-exists {local_database_name}")
+    local(f"PGPASSWORD={LOCAL_DATABASE_PASSWORD} dropdb --host db --force -U {LOCAL_DATABASE_USER} --if-exists {local_database_name}")
 
 
 ########
@@ -200,16 +200,16 @@ def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
 
 
 def check_if_logged_in_to_heroku(c):
-    if not local("docker-compose exec -T web heroku auth:whoami", warn=True):
+    if not local("heroku auth:whoami", warn=True):
         raise Exit(
-            'Log-in with the "heroku login -i" command before running this ' "command."
+            'Log-in with the "docker-compose exec web heroku login" command before running this command.'
         )
 
 
 def get_heroku_variable(c, app_instance, variable):
     check_if_logged_in_to_heroku(c)
     return local(
-        "docker-compose exec -T heroku config:get {var} --app {app}".format(app=app_instance, var=variable)
+        "heroku config:get {var} --app {app}".format(app=app_instance, var=variable)
     ).stdout.strip()
 
 
@@ -236,7 +236,7 @@ def pull_database_from_heroku(c, app_instance):
     delete_local_database(c)
 
     local(
-        f"docker-compose exec -e PGHOST=db -e PGUSER={LOCAL_DATABASE_USER} -e PGPASSWORD={LOCAL_DATABASE_PASSWORD} -T web heroku pg:pull --app {app_instance} DATABASE_URL {LOCAL_DATABASE_NAME}"
+        f'PGHOST=db PGUSER={LOCAL_DATABASE_USER} PGPASSWORD={LOCAL_DATABASE_PASSWORD} heroku pg:pull --exclude-table-data="wagtailsearch_querydailyhits;wagtailsearch_query" --app {app_instance} DATABASE_URL {LOCAL_DATABASE_NAME}'
     )
     answer = (
         input(
@@ -247,14 +247,14 @@ def pull_database_from_heroku(c, app_instance):
         .lower()
     )
     if not answer or answer == "y":
-        local("docker-compose run --rm web ./manage.py createsuperuser", pty=True)
+        local("./manage.py createsuperuser", pty=True)
     normalize_local_wagtail_site()
 
 
 def open_heroku_shell(c, app_instance, shell_command="bash"):
     check_if_logged_in_to_heroku(c)
     local(
-        "docker-compose exec -T heroku run --app {app} {command}".format(
+        "heroku run --app {app} {command}".format(
             app=app_instance, command=shell_command
         )
     )
@@ -265,7 +265,7 @@ def open_heroku_shell(c, app_instance, shell_command="bash"):
 def copy_heroku_database(c, *, source, destination):
     check_if_logged_in_to_heroku(c)
     local(
-        "docker-compose exec -T heroku pg:copy {source_app}::DATABASE_URL DATABASE_URL --app {destination_app} --confirm {destination_app}".format(
+        "heroku pg:copy {source_app}::DATABASE_URL DATABASE_URL --app {destination_app} --confirm {destination_app}".format(
             source_app=source, destination_app=destination
         )
     )
@@ -317,7 +317,7 @@ def sync_heroku_buckets(c, *, source, destination, folders=[]):
 
 def aws(c, command, aws_access_key_id, aws_secret_access_key, **kwargs):
     return local(
-        "docker run -e AWS_ACCESS_KEY_ID={access_key_id} -e AWS_SECRET_ACCESS_KEY={secret_key} --rm -i amazon/aws-cli {command}".format(
+        "AWS_ACCESS_KEY_ID={access_key_id} AWS_SECRET_ACCESS_KEY={secret_key} aws {command}".format(
             access_key_id=aws_access_key_id,
             secret_key=aws_secret_access_key,
             command=command,
@@ -424,7 +424,7 @@ def delete_staging_renditions(c):
     print('Deleting staging image renditions')
     check_if_logged_in_to_heroku(c)
     local(
-        'docker-compose exec -T heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
+        'heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
             app=STAGING_APP_INSTANCE
         )
     )
@@ -434,7 +434,7 @@ def delete_develop_renditions(c):
     print('Deleting develop image renditions')
     check_if_logged_in_to_heroku(c)
     local(
-        'docker-compose exec -T heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
+        'heroku pg:psql --app {app} -c "DELETE FROM home_customrendition;"'.format(
             app=DEVELOP_APP_INSTANCE
         )
     )
@@ -459,7 +459,7 @@ def normalize_wagtail_site(c, target):
     print('Normalizing wagtail site data.')
 
     local(
-        f'docker-compose exec -T heroku pg:psql --app {target} -c "UPDATE wagtailcore_site SET hostname = {target}.herokuapp.com WHERE is_default_site = true;"'
+        f"""heroku pg:psql --app {target} -c "UPDATE wagtailcore_site SET hostname = '{target}.herokuapp.com' WHERE is_default_site = true;" """
     )
 
 
@@ -476,7 +476,4 @@ def normalize_local_wagtail_site(local_database_name=LOCAL_DATABASE_NAME):
 
 
 def local_db_command(command, **kwargs):
-    try:
-        local(f'docker-compose exec -T db psql -U {LOCAL_DATABASE_USER} -c "{command}"', **kwargs)
-    except Exception as e:
-        print(f'Encountered error: {e}')
+    local(f'PGPASSWORD={LOCAL_DATABASE_PASSWORD} psql --host db -U {LOCAL_DATABASE_USER} -c "{command}"', **kwargs)
