@@ -219,8 +219,6 @@ This software should be installed on your computer:
 
 1. [Docker](https://docs.docker.com/engine/installation/)
 2. [Docker Compose](https://docs.docker.com/compose/install/)
-3. [Fabric](https://www.fabfile.org/installing.html)
-4. [The Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
 ### First-time setup
 
@@ -231,21 +229,41 @@ echo UID=$(id -u) > .env
 echo GID=$(id -g) >> .env
 ```
 
+You will also need to ensure the container can find the `.netrc` file in your home directory.  This file is needed to authenticate with Heroku.  Ensure this file exists (even if it's empty) using the command:
+
+```shell
+touch ~/.netrc
+```
+
 ### Starting the environment
 
 This command will start the web, database, elastic search, and redis
 servers needed for the site to operate:
 
-```
+```shell
 docker-compose up
 ```
 
 The containers can also be run in detached mode with `docker-compose up -d`.  In the default mode, you see all the logs and output from the containers in the shell and will stop running with Control+C.  Running with `-d` will cause docker-compose to exit, but the containers will run in the background.  They can be stopped with `docker-compose down`.  
 
-The site will not immediately work without existing page data.  You can download this from the staging environment using the fabric command:
+The site will not immediately work without existing page data.  You can download this from the staging or production environments using Fabric commands.  Many of these commands require you be logged into Heroku, which you can do with this command:
 
-```
-fab pull-staging-data
+```shell
+docker-compose exec web heroku login
 ```
 
-After this, you should be able to visit the Wagtail site at http://localhost:8000/
+Once the login is complete, you can use Fabric on the web container to obtain data from various sources.  For example:
+
+```shell
+docker-compose exec web fab pull-production-data
+```
+
+Other Fabric commands can be listed with
+
+```shell
+docker-compose exec web fab -l
+```
+
+### Visiting the site locally
+
+After you have pull down data, you should be able to visit the Wagtail site at http://localhost:8000/
