@@ -1,6 +1,8 @@
 # Use an official Python runtime based on Debian 10 "buster" as a parent image.
 FROM python:3.8-slim-buster
 
+WORKDIR /root
+
 ARG DATABASE_URL
 ARG USERID
 
@@ -37,6 +39,7 @@ RUN apt-get update && apt-get install -y \
     libpangocairo-1.0-0 \
     libgdk-pixbuf2.0-0 \
     gnupg2 \
+    unzip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Postgresql 13 client
@@ -47,8 +50,14 @@ RUN apt-get update && apt-get -y install postgresql-client-13
 # Heroku
 RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
-RUN mkdir -p /home/wagtail
+RUN mkdir -p /home/wagtail /opt/awscli
 RUN chown wagtail:wagtail /home/wagtail
+
+# AWS CLI
+ADD https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip /root/awscliv2.zip
+RUN unzip awscliv2.zip && ./aws/install -b /opt/awscli -i /opt/awscli && \
+    rm -rf /opt/awscli/v2/current/dist/awscli/examples
+RUN /opt/awscli/aws --version
 
 # Install the application server.
 RUN pip install "gunicorn==20.0.4"
@@ -70,3 +79,5 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
+
+ENV PATH="/opt/awscli:$PATH"
