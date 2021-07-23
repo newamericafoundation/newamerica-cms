@@ -85,15 +85,18 @@ def generate_byline(post_type, authors):
     # counter is used to determine appropriate list separator
     counter = 1
     for author in authors:
-        ret_string += (
-            '<h4 class="inline margin-0 link"><a href="'
-            + author.author.url
-            + '"><u>'
-            + author.author.first_name
-            + " "
-            + author.author.last_name
-            + "</u></a></h4>"
-        )
+        if author.author.former:
+            ret_string += f'<h4 class="inline margin-0">{author.author.first_name} {author.author.last_name}</h4>'
+        else:
+            ret_string += (
+                '<h4 class="inline margin-0 link"><a href="'
+                + author.author.url
+                + '"><u>'
+                + author.author.first_name
+                + " "
+                + author.author.last_name
+                + "</u></a></h4>"
+            )
         ret_string += list_separator(num_authors - counter, num_authors)
         counter += 1
 
