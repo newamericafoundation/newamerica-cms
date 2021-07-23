@@ -222,17 +222,10 @@ This software should be installed on your computer:
 
 ### First-time setup
 
-In order to build the containers for the first time, you need a `.env` file to set some variables to ensure docker doesn't run into permissions problems.  These are the commands needed to generate the file, which should be run prior to running anything else:
+Run the setup script, which automates several steps needed to configure your environment so that the Docker containers can build successfully.
 
 ```shell
-echo UID=$(id -u) > .env
-echo GID=$(id -g) >> .env
-```
-
-You will also need to ensure the container can find the `.netrc` file in your home directory.  This file is needed to authenticate with Heroku.  Ensure this file exists (even if it's empty) using the command:
-
-```shell
-touch ~/.netrc
+./setup.sh
 ```
 
 ### Starting the environment
