@@ -52,6 +52,8 @@ RUN chown wagtail:wagtail /home/wagtail
 
 # Install the application server.
 RUN pip install "gunicorn==20.0.4"
+# Install the task runner
+RUN pip install "fabric==2.6.0"
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
