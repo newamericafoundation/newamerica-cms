@@ -94,7 +94,11 @@
     @include media-breakpoint(tablet){
       margin-top: 15px;
       margin-bottom: 15px;
-      width: 50%;
+      width: 60%;
+
+      .programpage & {
+        width: calc(60% - 50px);
+      }
 
       .figure__image, figcaption, .figure__title {
         display: inline-block;
@@ -103,12 +107,9 @@
       }
 
       .figure__image img {
+        display: inline-block;
         margin: 0 !important;
       }
-    }
-
-    @include media-breakpoint(desktop){
-      width: 60%;
     }
 
     .figure__image{
@@ -123,33 +124,42 @@
   &.left {
     @include media-breakpoint(tablet){
       float: left;
-      margin-right: 50px;
-      margin-left: -4.166667vw;
       text-align: right;
-    }
-
-    @include media-breakpoint(desktop){
-      margin-left: -25%;
-    }
-
-    @include media-breakpoint(large-desktop){
+      margin-right: 35px;
       margin-left: -33.3333%;
+      .programpage & {
+        margin-left: calc(35px - 33.3333%);
+      }
+      .figure__image, figcaption, .figure__title {
+        display: inline-block;
+        width: 100%;
+        text-align: right;
+      }
+    }
+    @include media-breakpoint(desktop){
+      margin-right: 50px;
+      margin-left: -33.3333%;
+      .programpage & {
+        margin-left: calc(50px - 33.3333%);
+      }
     }
   }
 
   &.right {
     @include media-breakpoint(tablet){
       float: right;
-      margin-left: 50px;
-      margin-right: -4.166667vw;
-    }
-
-    @include media-breakpoint(desktop){
-      margin-right: -25%;
-    }
-
-    @include media-breakpoint(large-desktop){
+      margin-left: 35px;
       margin-right: -33.3333%;
+      .programpage & {
+        margin-right: calc(35px - 33.3333%);
+      }
+    }
+    @include media-breakpoint(desktop){
+      margin-left: 50px;
+      margin-right: -33.3333%;
+      .programpage & {
+        margin-right: calc(50px - 33.3333%);
+      }
     }
   }
 }
