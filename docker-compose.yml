@@ -22,7 +22,7 @@ services:
       DATABASE_URL: postgres://wagtail:test@db:5432/wagtail
       SECRET_KEY: test
       DJANGO_SETTINGS_MODULE: newamericadotorg.settings.dev
-      ELASTICSEARCH_URL: http://localhost:9200
+      ELASTICSEARCH_URL: http://es:9200
       REDIS_URL: redis://redis:6379/1
     depends_on:
       - db
@@ -45,6 +45,7 @@ services:
       - bootstrap.memory_lock=false
       - "ES_JAVA_OPTS=-Xms1500m -Xmx1500m"
       - discovery.type=single-node
+      - xpack.security.enabled=false
     mem_limit: 2g
     expose:
       - "9200"
