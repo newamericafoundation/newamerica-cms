@@ -1,5 +1,5 @@
 Django==3.2.3
-Wagtail==2.13.2
+Wagtail==2.13.4
 
 # Packages that depend on Django version
 Celery==4.4.0
