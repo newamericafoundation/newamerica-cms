@@ -3,7 +3,6 @@ import './Body.scss';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
-import Authors from './Authors';
 import Endnote from './EndnoteAside';
 
 class Body extends Component {
@@ -120,7 +119,7 @@ class Body extends Component {
 
   render() {
     let { section, report } = this.props;
-    let { authors, endnotes, date, url, report_pdf, title } = report;
+    let { endnotes, date, url, report_pdf, title } = report;
     let { endnote, top } = this.state;
     return (
       <div
