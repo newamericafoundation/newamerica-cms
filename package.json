@@ -12,6 +12,7 @@
     "start:lite": "webpack-dev-server --config ./webpack.config.lite.js --mode development",
     "build": "NODE_ENV=development webpack",
     "dev": "NODE_ENV=development webpack --watch",
+    "dev:minimal": "NODE_ENV=development webpack --watch --display=errors-only",
     "open": "open https://localhost:8000/",
     "test": "jest",
     "build:lite": "NODE_ENV=production webpack --config webpack.config.lite.js",
