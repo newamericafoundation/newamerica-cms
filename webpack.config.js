@@ -128,7 +128,12 @@ module.exports = env => {
         inject: false,
         serviceWorker: '/static/js/sw.js'
       }),
-      NODE_ENV === 'development' && new BundleAnalyzerPlugin()
+      NODE_ENV === 'development' && new BundleAnalyzerPlugin(),
+      NODE_ENV === 'development' && function() {
+        this.hooks.done.tap('BuildStatsPlugin', function() {
+          console.log(new Date().toLocaleTimeString());
+        });
+      }
     ].filter(plugin => plugin)
   };
 };
