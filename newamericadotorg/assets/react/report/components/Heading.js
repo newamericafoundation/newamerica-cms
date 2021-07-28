@@ -10,7 +10,7 @@ class Heading extends Component {
   render() {
     let { report } = this.props;
     let { authors } = report;
-    let _authors = [...authors];
+    let _authors = authors ? [...authors] : [];
     if (_authors.length > 3) {
       _authors = _authors.splice(0, 3);
       _authors.push({
@@ -57,7 +57,7 @@ class Heading extends Component {
               </h6>
             )}
           </div>
-          <div className="report__heading__authors centered">
+          {_authors.length > 0 && <div className="report__heading__authors centered">
             <h6 className="margin-0 centered inline">By: </h6>
             {_authors.map((a, i) => (
               <React.Fragment key={`author-${i}`}>
@@ -76,7 +76,7 @@ class Heading extends Component {
                 {_authors.length > 2 && i === _authors.length - 2 && ', '}
               </React.Fragment>
             ))}
-          </div>
+          </div>}
           <div className="report__heading__date margin-top-10">
             <h6 className="report__body__section__date caption margin-0 centered">
               Last updated on{' '}

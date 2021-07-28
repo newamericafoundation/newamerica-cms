@@ -27,7 +27,7 @@ const SinglePage = ({ report, dispatch, location }) => (
       location={location}
     />
 
-    <div
+    {report.authors && <div
       className="container report__body single-page-body margin-0"
       id="authors"
     >
@@ -35,7 +35,7 @@ const SinglePage = ({ report, dispatch, location }) => (
         <h3 className="margin-bottom-25">Authors</h3>
         <Authors authors={report.authors} md={true} />
       </div>
-    </div>
+    </div>}
 
     {report.acknowledgments && (
       <div
@@ -83,10 +83,10 @@ const Landing = ({ report, dispatch, location, closeMenu, preview }) => (
       <ContentMenu preview={preview} report={report} closeMenu={closeMenu} />
     </div>
 
-    <div className="container margin-80" id="authors">
+    {report.authors && <div className="container margin-80" id="authors">
       <h3 className="margin-top-0 margin-bottom-25">Authors</h3>
       <Authors authors={report.authors} />
-    </div>
+    </div>}
 
     {report.acknowledgments && (
       <div className="container margin-80" id="acknowledgments">
