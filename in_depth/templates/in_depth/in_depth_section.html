@@ -241,7 +241,7 @@
 
   							<div class="post-person-container">
   								{% for author in authors %}
-										<a href="{{ author.author.url }}">
+										{% if not author.author.former %}<a href="{{ author.author.url }}">{% endif %}
 											<div class="post-person">
                         {% if author.author.profile_image %}
   												<div class="post-person__image">
@@ -257,7 +257,7 @@
 													{% endif %}
 												</h6>
 											</div>
-										</a>
+										{% if author.author.former %}</a>{% endif %}
   								{% endfor %}
   							</div>
   						{% endif %}
