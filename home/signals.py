@@ -23,9 +23,8 @@ def post_message_to_slack(text, context):
                 'type': 'context',
                 'elements': [
                     {
-                        'type': 'plain_text',
+                        'type': 'mrkdwn',
                         'text': context,
-                        'emoji': True,
                     }
                 ]
             }
@@ -44,10 +43,7 @@ def post_message_to_slack(text, context):
 
 
 def notify_submitted(sender, instance, user, **kwargs):
-    message_format = """{environment}The page "{page_title}" has been submitted to the workflow "{workflow_name}"
-<{page_url}|Edit page>
-<{history_url}|Workflow history>
-"""
+    message_format = ':exclamation::inbox_tray: *<{preview_url}|{page_title}>* ({page_type}) submitted by {user_name}'
 
     workflow_notify_slack(
         message_format=message_format,
@@ -57,10 +53,7 @@ def notify_submitted(sender, instance, user, **kwargs):
 
 
 def notify_cancelled(sender, instance, user, **kwargs):
-    message_format = """{environment}The workflow "{workflow_name}" has been cancelled for page "{page_title}"
-<{page_url}|Edit page>
-<{history_url}|Workflow history>
-"""
+    message_format = ':heavy_multiplication_x: *{page_title}* ({page_type}) cancelled by {user_name}'
 
     workflow_notify_slack(
         message_format=message_format,
@@ -70,10 +63,7 @@ def notify_cancelled(sender, instance, user, **kwargs):
 
 
 def notify_approved(sender, instance, user, **kwargs):
-    message_format = """{environment}The page "{page_title}" has been approved in the workflow "{workflow_name}"
-<{page_url}|Edit page>
-<{history_url}|Workflow history>
-"""
+    message_format = ':white_check_mark: *<{page_url}|{page_title}>* ({page_type}) approved by {user_name}{comment}'
 
     workflow_notify_slack(
         message_format=message_format,
@@ -83,10 +73,7 @@ def notify_approved(sender, instance, user, **kwargs):
 
 
 def notify_rejected(sender, instance, user, **kwargs):
-    message_format = """{environment}The page "{page_title}" has been rejected in the workflow "{workflow_name}"
-<{page_url}|Edit page>
-<{history_url}|Workflow history>
-"""
+    message_format = ':x: *{page_title}* ({page_type}) rejected by {user_name}{comment}'
 
     workflow_notify_slack(
         message_format=message_format,
@@ -97,8 +84,15 @@ def notify_rejected(sender, instance, user, **kwargs):
 
 def workflow_notify_slack(message_format, workflow_state, user):
     page = workflow_state.page
-    page_url = settings.BASE_URL + reverse('wagtailadmin_pages:edit', args=(page.pk, ))
+    page_type=f'{page.specific.parent_programs.first().title} {page.specific._meta.verbose_name.title()}'
+    preview_url = settings.BASE_URL + reverse('wagtailadmin_pages:workflow_preview', args=(page.pk, workflow_state.current_task_state.task.pk))
+    edit_url = settings.BASE_URL + reverse('wagtailadmin_pages:edit', args=(page.pk, ))
     workflow_history_url = settings.BASE_URL + reverse('wagtailadmin_pages:workflow_history_detail', args=(page.pk, workflow_state.pk))
+    task_comment = workflow_state.current_task_state.comment
+    if task_comment:
+        comment = f' with comment \n>{task_comment}'
+    else:
+        comment = ''
     if 'staging' in settings.BASE_URL:
         environment = '[STAGING] '
     elif 'devel' in settings.BASE_URL:
@@ -108,14 +102,16 @@ def workflow_notify_slack(message_format, workflow_state, user):
     else:
         environment = ''
 
+    message_format = f'{environment}{message_format}'
     text = message_format.format(
-        page_title=workflow_state.page.get_admin_display_title(),
-        workflow_name=workflow_state.workflow.name,
-        page_url=page_url,
-        history_url=workflow_history_url,
-        environment=environment,
+        page_title=page.get_admin_display_title(),
+        page_type=page_type,
+        page_url=page.full_url,
+        preview_url=preview_url,
+        comment=comment,
+        user_name=f'{user.first_name} {user.last_name}',
     )
-    context = f'User: {user.first_name} {user.last_name}'
+    context = f'{workflow_state.workflow.name} | <{edit_url}|Edit page> | <{workflow_history_url}|Workflow history>'
     post_message_to_slack(text, context)
 
 
