@@ -6,11 +6,11 @@ from wagtail.core.signals import workflow_submitted
 
 
 def post_message_to_slack(text, blocks=None):
-    if not settings.SLACK_NOTIFICATIONS_WEBHOOK:
+    if not (settings.SLACK_NOTIFICATIONS_WEBHOOK and settings.SLACK_NOTIFICATIONS_CHANNEL):
         return
 
     payload = {
-        'channel': 'website-workflow-notifications',
+        'channel': settings.SLACK_NOTIFICATIONS_CHANNEL,
         'blocks': [{
             'type': 'section',
             'text': {
