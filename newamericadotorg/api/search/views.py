@@ -30,6 +30,7 @@ from programs.models import Program, Subprogram
 from home.models import Post, RedirectPage
 from person.models import Person
 from subscribe.models import SubscriptionSegment
+from report.models import Report
 
 
 def exclude_invisible_pages(request, pages):
@@ -149,6 +150,7 @@ class SearchOtherPages(ListAPIView):
                     PolicyPaper,
                     InDepthProject,
                     OtherPost,
+                    Report,
                     # Non-informational pages for survey filtering.
                     survey.models.SurveyOrganization,
                     survey.models.DemographicKey,

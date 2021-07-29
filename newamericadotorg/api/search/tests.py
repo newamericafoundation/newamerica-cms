@@ -13,6 +13,7 @@ from test_factories import PostFactory
 
 import survey.models
 from blog.models import ProgramBlogPostsPage, BlogPost
+from report.models import ReportsHomepage, Report
 from event.models import Event, ProgramEventsPage
 
 
@@ -372,6 +373,15 @@ class SearchPastEventsAPITests(APITestCase):
         cls.post_ids = {post.pk for post in posts}
         cls.program = program
 
+        reports = PostFactory.create_program_content(
+            2,
+            program=program,
+            content_page_type=ReportsHomepage,
+            post_type=Report,
+            post_data={'title': 'Party'}
+        )
+        cls.report_ids = {report.pk for report in reports}
+
     def setUp(self):
         management.call_command('update_index', stdout=StringIO(), chunk_size=50)
 
@@ -381,7 +391,7 @@ class SearchPastEventsAPITests(APITestCase):
         returned_ids = set(r['id'] for r in result['results'])
 
         self.assertNotIn('error', result)
-        self.assertEquals(result['count'], 3)
+        self.assertEquals(result['count'], 5)
         self.assertIn(self.past_party_id, returned_ids)
         self.assertTrue(self.post_ids <= returned_ids)
 
@@ -398,7 +408,15 @@ class SearchPastEventsAPITests(APITestCase):
         ids = set(r['id'] for r in result['results'])
 
         self.assertNotIn('error', result)
-        self.assertEquals(result['count'], 3)
+        self.assertEquals(result['count'], 5)
+
+    def test_includes_reports(self):
+        url = '/api/search/pubs_and_past_events/?query=party'
+        result = self.client.get(url).json()
+        returned_ids = set(r['id'] for r in result['results'])
+
+        self.assertNotIn('error', result)
+        self.assertTrue(self.report_ids <= returned_ids)
 
 
 @unittest.skipUnless(TEST_ELASTICSEARCH, "Elasticsearch tests not enabled")
@@ -454,6 +472,13 @@ class SearchOtherPagesAPITests(APITestCase):
             program=cls.program,
             content_page_type=ProgramBlogPostsPage,
             post_type=BlogPost,
+            post_data={'title': 'Octopus'}
+        )
+
+        PostFactory.create_program_content(2,
+            program=cls.program,
+            content_page_type=ReportsHomepage,
+            post_type=Report,
             post_data={'title': 'Octopus'}
         )
 
