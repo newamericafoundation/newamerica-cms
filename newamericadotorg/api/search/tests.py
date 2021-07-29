@@ -167,6 +167,12 @@ class SearchPeopleAPITests(APITestCase):
             'title': 'Bob',
         })
 
+        # Former people will not be shown in searches
+        PostFactory.create_person(person_data={
+            'title': 'Alice',
+            'former': True,
+        })
+
         # Some posts that shouldn't be returned in results
         PostFactory.create_program_content(10,
             program=program,

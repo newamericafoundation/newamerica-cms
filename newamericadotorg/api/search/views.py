@@ -102,6 +102,7 @@ class SearchPeople(ListAPIView):
 
         base_query = (
             Person.objects.live()
+            .filter(former=False)
             .public()
             .descendant_of(site_for_request.root_page, inclusive=True)
         )

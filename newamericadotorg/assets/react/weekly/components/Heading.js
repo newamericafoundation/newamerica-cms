@@ -15,9 +15,15 @@ const Heading = ({ post: { authors, title, url, story_image, date } }) => (
         </h6>
         {authors.length && (
           <h6 className="active weekly-heading__text__author inline">
-            <a href={authors[0].url}>
-              {authors[0].first_name} {authors[0].last_name}
-            </a>
+            {!authors[0].former ? (
+              <a href={authors[0].url}>
+                {authors[0].first_name} {authors[0].last_name}
+              </a>
+            ) : (
+              <>
+                {authors[0].first_name} {authors[0].last_name}
+              </>
+            )}
           </h6>
         )}
       </div>

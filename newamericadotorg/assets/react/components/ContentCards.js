@@ -87,11 +87,17 @@ const generateAuthors = authors => {
   _authors.forEach((a, i) => {
     authorElements.push(
       <div className="h6 inline link margin-0" key={`author-${i}`}>
-        <a href={a.url}>
-          <u>
+        {!a.former ? (
+          <a href={a.url}>
+            <u>
+              {a.first_name} {a.last_name}
+            </u>
+          </a>
+        ) : (
+          <>
             {a.first_name} {a.last_name}
-          </u>
-        </a>
+          </>
+        )}
       </div>
     );
     let punc = punctuation(i, len);

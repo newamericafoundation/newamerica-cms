@@ -257,6 +257,7 @@ class Person(Page):
         index.RelatedFields('belongs_to_these_subprograms', [
             index.SearchField('name'),
         ]),
+        index.FilterField('former'),
     ]
 
     def get_context(self, request):

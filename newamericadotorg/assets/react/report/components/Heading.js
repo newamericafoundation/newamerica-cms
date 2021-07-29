@@ -63,14 +63,20 @@ class Heading extends Component {
               {_authors.map((a, i) => (
                 <React.Fragment key={`author-${i}`}>
                   <h6 className="margin-0 centered inline">
-                    <a
-                      href={a.url}
-                      style={{
-                        fontWeight: a.last_name === 'more' ? 'bold' : 'regular'
-                      }}
-                    >
-                      {a.first_name}&nbsp;{a.last_name}
-                    </a>
+                    {!a.former ? (
+                      <a
+                        href={a.url}
+                        style={{
+                          fontWeight: a.last_name === 'more' ? 'bold' : 'regular'
+                        }}
+                      >
+                        {a.first_name}&nbsp;{a.last_name}
+                      </a>
+                    ) : (
+                      <>
+                        {a.first_name}&nbsp;{a.last_name}
+                      </>
+                    )}
                   </h6>
                   {_authors.length > 2 && i < _authors.length - 2 && ', '}
                   {_authors.length == 2 && i === 0 && ', '}
