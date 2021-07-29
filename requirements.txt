@@ -1,4 +1,4 @@
-Django==3.2.3
+Django==3.2.5
 Wagtail==2.13.4
 
 # Packages that depend on Django version
