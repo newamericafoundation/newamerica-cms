@@ -1,0 +1,11 @@
+.subprograms-list {
+  margin-top: 60px;
+
+  &:first-child {
+    margin-top: 35px;
+  }
+
+  &:last-child {
+    margin-bottom: 15px;
+  }
+}

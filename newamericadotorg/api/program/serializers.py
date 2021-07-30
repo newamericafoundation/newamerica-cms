@@ -72,6 +72,9 @@ class ProgramSubprogramSerializer(ModelSerializer):
         return obj.title
 
     def get_type(self, obj):
+        if obj.specific.former:
+            return 'Former'
+
         t = type(obj.specific)
         if t == Project:
             return 'Project'
@@ -91,7 +94,7 @@ class ProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'title', 'description', 'url', 'logo', 'slug', 'subprograms', 'subscriptions'
+            'id', 'name', 'former', 'title', 'description', 'url', 'logo', 'slug', 'subprograms', 'subscriptions'
         )
 
     def get_subscriptions(self, obj):
@@ -314,7 +317,7 @@ class SubprogramSerializer(ModelSerializer):
     class Meta:
         model = Subprogram
         fields = (
-            'id', 'name', 'story_grid', 'parent_programs', 'url', 'slug', 'content_types',
+            'id', 'name', 'former', 'story_grid', 'parent_programs', 'url', 'slug', 'content_types',
              'description', 'subpages', 'about', 'title', 'subscriptions',
              'hide_subscription_card', 'subscription_card_text'
         )

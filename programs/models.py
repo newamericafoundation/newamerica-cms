@@ -73,6 +73,7 @@ class AbstractProgram(RoutablePageMixin, Page):
     by Program and Subprogram models
     """
     name = models.CharField(max_length=100, help_text='Name of Program')
+    former = models.BooleanField(default=False, help_text="Select if no longer active")
     fellowship = models.BooleanField(
         null=True,
         blank=True,
@@ -114,6 +115,7 @@ class AbstractProgram(RoutablePageMixin, Page):
                 FieldPanel('fellowship'),
                 FieldPanel('description'),
                 FieldPanel('story_excerpt'),
+                FieldPanel('former'),
             ],
             heading="Setup",
             classname="collapsible"

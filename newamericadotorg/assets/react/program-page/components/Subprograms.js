@@ -1,10 +1,27 @@
+import './Subprograms.scss';
+
 import React, { Component } from 'react';
 import { Arrow } from '../../components/Icons';
+
+const SubprogramsSection = ({ subprogramsGroup, groupTitle }) => (
+  <div className="subprograms-list">
+    {subprogramsGroup.length > 0 && <h6 className="margin-bottom-15">{groupTitle}</h6>}
+    <div className="menu-list">
+      {subprogramsGroup.map((s,i)=>(
+        <h2 key={`subprogram-${i}`}>
+          <a href={s.url}>{s.title}</a>
+          <Arrow direction="right" />
+      </h2>
+      ))}
+    </div>
+  </div>
+)
 
 export default class Subprograms extends Component {
   groupSubprograms = () => {
     let { program } = this.props;
     let subprograms = {
+      Former: [],
       Initiative: [],
       Project: []
     }
@@ -19,30 +36,20 @@ export default class Subprograms extends Component {
   render(){
     let subprograms = this.groupSubprograms();
     return (
-      <div className="initiatives-and-projects">
-        <div className="initiatives margin-top-35">
-          {subprograms.Project.length > 0 && <h6 className="margin-bottom-15">Initiatives</h6>}
-          <div className="menu-list">
-            {subprograms.Initiative.map((s,i)=>(
-              <h2 key={`subprogram-${i}`}>
-                <a href={s.url}>{s.title}</a>
-                <Arrow direction="right" />
-            </h2>
-            ))}
-          </div>
-        </div>
-        {subprograms.Project.length > 0 && <div className="projects margin-top-60">
-          <h6 className="margin-bottom-15">Projects</h6>
-          <div className="menu-list">
-            {subprograms.Project.map((s,i)=>(
-              <h2 key={`subprogram-${i}`}>
-                <a href={s.url}>{s.title}</a>
-                <Arrow direction="right" />
-              </h2>
-            ))}
-          </div>
-        </div>}
-      </div>
+      <>
+        <SubprogramsSection
+          subprogramsGroup={subprograms.Initiative}
+          groupTitle="Initiatives"
+        />
+        <SubprogramsSection
+          subprogramsGroup={subprograms.Project}
+          groupTitle="Projects"
+        />
+        <SubprogramsSection
+          subprogramsGroup={subprograms.Former}
+          groupTitle="Former Initiatives &amp; Projects"
+        />
+      </>
     );
   }
 }
