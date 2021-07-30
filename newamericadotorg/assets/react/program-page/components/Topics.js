@@ -132,7 +132,7 @@ export class TopicRoutes extends Component {
     let routes = [];
     topics.map((t,i)=>{
       routes.push(
-        <Route exact path={t.url} key={`${t.slug}-${i}`} render={(props)=>(
+        <Route exact path={t.url} key={t.url} render={(props)=>(
             <Topic {...props} program={program} ancestors={ancestors} topic={t}/>
         )}/>
       );
