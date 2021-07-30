@@ -1,5 +1,7 @@
 from .base import *
 
+BASE_URL = "http://testserver"
+
 SECRET_KEY = "TEST_KEY"
 
 DATABASES = {
