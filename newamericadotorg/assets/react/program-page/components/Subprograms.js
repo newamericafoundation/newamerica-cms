@@ -4,14 +4,14 @@ import React, { Component } from 'react';
 import { Arrow } from '../../components/Icons';
 
 const SubprogramsSection = ({ subprogramsGroup, groupTitle }) => (
-  <div className="subprograms-list">
-    {subprogramsGroup.length > 0 && <h6 className="margin-bottom-15">{groupTitle}</h6>}
+  subprogramsGroup.length > 0 && <div className="subprograms-list">
+    <h6 className="margin-bottom-15">{groupTitle}</h6>
     <div className="menu-list">
-      {subprogramsGroup.map((s,i)=>(
+      {subprogramsGroup.map((s, i) => (
         <h2 key={`subprogram-${i}`}>
           <a href={s.url}>{s.title}</a>
           <Arrow direction="right" />
-      </h2>
+        </h2>
       ))}
     </div>
   </div>
