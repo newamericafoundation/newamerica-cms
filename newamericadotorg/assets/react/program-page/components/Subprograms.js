@@ -36,7 +36,7 @@ export default class Subprograms extends Component {
   render(){
     let subprograms = this.groupSubprograms();
     return (
-      <>
+      <div className="subprograms"> {/* Needed for first/last child styles */}
         <SubprogramsSection
           subprogramsGroup={subprograms.Initiative}
           groupTitle="Initiatives"
@@ -49,7 +49,7 @@ export default class Subprograms extends Component {
           subprogramsGroup={subprograms.Former}
           groupTitle="Former Initiatives &amp; Projects"
         />
-      </>
+      </div>
     );
   }
 }
