@@ -2,7 +2,7 @@ import requests
 
 from django.conf import settings
 from django.urls import reverse
-from wagtail.core.models import PageLogEntry
+from wagtail.core.models import PageLogEntry, BaseViewRestriction
 from wagtail.core.signals import workflow_submitted, workflow_cancelled, workflow_approved, workflow_rejected, page_published
 
 
@@ -161,6 +161,22 @@ def publication_notify_slack(sender, instance, revision, **kwargs):
         program = ''
     page_type = f'{program}{page.specific._meta.verbose_name.title()}'
     user_name = f'{revision.user.first_name} {revision.user.last_name}'
+    restrictions = page.get_view_restrictions()
+    if restrictions.first():
+        restriction = restrictions.first()
+        restriction_type = restriction.restriction_type
+        restrictions_text = f' with restriction {restriction.get_restriction_type_display()}'
+
+        if restriction_type == BaseViewRestriction.PASSWORD and restriction.password:
+            restrictions_text += f': `{restriction.password}`'
+
+        if restriction_type == BaseViewRestriction.GROUPS and restriction.groups.exists():
+            groups_list = list(restriction.groups.all())
+            restrictions_text += f': {groups_list[0]}'
+            for group in groups_list[1:]:
+                restrictions_text += f', {group}'
+    else:
+        restrictions_text = ''
 
     latest_log_entry = PageLogEntry.objects.filter(page=page).order_by('-timestamp').first()
 
@@ -168,9 +184,9 @@ def publication_notify_slack(sender, instance, revision, **kwargs):
     if latest_log_entry and latest_log_entry.action != 'wagtail.workflow.approve':
         # If this is the first time the page is being published
         if page.first_published_at == page.last_published_at:
-            message = f'{environment}*<{page.full_url}|{page.title}>* ({page_type}) published for the first time by {user_name}'
+            message = f'{environment}*<{page.full_url}|{page.title}>* ({page_type}) published for the first time by {user_name}{restrictions_text}'
         else:
-            message = f'{environment}*<{page.full_url}|{page.title}>* ({page_type}) published by {user_name}'
+            message = f'{environment}*<{page.full_url}|{page.title}>* ({page_type}) published by {user_name}{restrictions_text}'
         blocks = [
             {
                 'type': 'section',
