@@ -1,6 +1,7 @@
 import requests
 
 from django.conf import settings
+from django.dispatch import receiver
 from django.urls import reverse
 from wagtail.core.models import PageLogEntry, BaseViewRestriction
 from wagtail.core.signals import workflow_submitted, workflow_cancelled, workflow_approved, workflow_rejected, page_published
@@ -38,6 +39,7 @@ def post_message_to_slack(blocks):
         print(f'Response text: {response.text}')
 
 
+@receiver(workflow_submitted)
 def notify_submitted(sender, instance, user, **kwargs):
     header_format = ':inbox_tray: Submission to {workflow_name}'
     message_format = '*<{preview_url}|{page_title}>* ({page_type}) submitted by {user_name}'
@@ -50,6 +52,7 @@ def notify_submitted(sender, instance, user, **kwargs):
     )
 
 
+@receiver(workflow_cancelled)
 def notify_cancelled(sender, instance, user, **kwargs):
     message_format = ':heavy_multiplication_x: *{page_title}* ({page_type}) cancelled by {user_name}'
 
@@ -60,6 +63,7 @@ def notify_cancelled(sender, instance, user, **kwargs):
     )
 
 
+@receiver(workflow_approved)
 def notify_approved(sender, instance, user, **kwargs):
     message_format = ':white_check_mark: *<{page_url}|{page_title}>* ({page_type}) approved by {user_name}{comment}'
 
@@ -70,6 +74,7 @@ def notify_approved(sender, instance, user, **kwargs):
     )
 
 
+@receiver(workflow_rejected)
 def notify_rejected(sender, instance, user, **kwargs):
     message_format = ':x: *{page_title}* ({page_type}) rejected by {user_name}{comment}'
 
@@ -145,12 +150,7 @@ def workflow_notify_slack(message_format, workflow_state, user, header_format=No
     post_message_to_slack(blocks)
 
 
-workflow_submitted.connect(notify_submitted)
-workflow_cancelled.connect(notify_cancelled)
-workflow_approved.connect(notify_approved)
-workflow_rejected.connect(notify_rejected)
-
-
+@receiver(page_published)
 def publication_notify_slack(sender, instance, revision, **kwargs):
     environment = get_environment_prefix()
     page = instance
@@ -197,5 +197,3 @@ def publication_notify_slack(sender, instance, revision, **kwargs):
             },
         ]
         post_message_to_slack(blocks)
-
-page_published.connect(publication_notify_slack)
