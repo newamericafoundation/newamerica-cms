@@ -19,6 +19,37 @@ def get_environment_prefix():
     return environment
 
 
+def get_restrictions_text(page):
+    restrictions = page.get_view_restrictions()
+
+    if not restrictions.first():
+        return ''
+
+    restriction = restrictions.first()
+    restriction_type = restriction.restriction_type
+    restrictions_text = f' with restriction {restriction.get_restriction_type_display()}'
+
+    if restriction_type == BaseViewRestriction.PASSWORD and restriction.password:
+        restrictions_text += f': `{restriction.password}`'
+    elif restriction_type == BaseViewRestriction.GROUPS and restriction.groups.exists():
+        groups_list = list(restriction.groups.all())
+        restrictions_text += f': {groups_list[0]}'
+        for group in groups_list[1:]:
+            restrictions_text += f', {group}'
+    return restrictions_text
+
+
+def get_page_text(page):
+    parent_programs = getattr(page.specific, 'parent_programs', None)
+    if parent_programs and parent_programs.first():
+        program = f'{parent_programs.first().title} '
+    else:
+        program = ''
+    page_type = f'{program}{page.specific._meta.verbose_name.title()}'
+
+    return f'<{page.full_url}|{page.title}>* ({page_type})'
+
+
 def post_message_to_slack(blocks):
     if not (settings.SLACK_NOTIFICATIONS_WEBHOOK and settings.SLACK_NOTIFICATIONS_CHANNEL):
         return
@@ -154,29 +185,9 @@ def workflow_notify_slack(message_format, workflow_state, user, header_format=No
 def publication_notify_slack(sender, instance, revision, **kwargs):
     environment = get_environment_prefix()
     page = instance
-    parent_programs = getattr(page.specific, 'parent_programs', None)
-    if parent_programs and parent_programs.first():
-        program = f'{parent_programs.first().title} '
-    else:
-        program = ''
-    page_type = f'{program}{page.specific._meta.verbose_name.title()}'
+    page_text = get_page_text(page)
     user_name = f'{revision.user.first_name} {revision.user.last_name}'
-    restrictions = page.get_view_restrictions()
-    if restrictions.first():
-        restriction = restrictions.first()
-        restriction_type = restriction.restriction_type
-        restrictions_text = f' with restriction {restriction.get_restriction_type_display()}'
-
-        if restriction_type == BaseViewRestriction.PASSWORD and restriction.password:
-            restrictions_text += f': `{restriction.password}`'
-
-        if restriction_type == BaseViewRestriction.GROUPS and restriction.groups.exists():
-            groups_list = list(restriction.groups.all())
-            restrictions_text += f': {groups_list[0]}'
-            for group in groups_list[1:]:
-                restrictions_text += f', {group}'
-    else:
-        restrictions_text = ''
+    restrictions_text = get_restrictions_text(page)
 
     latest_log_entry = PageLogEntry.objects.filter(page=page).order_by('-timestamp').first()
 
@@ -184,9 +195,9 @@ def publication_notify_slack(sender, instance, revision, **kwargs):
     if latest_log_entry and latest_log_entry.action != 'wagtail.workflow.approve':
         # If this is the first time the page is being published
         if page.first_published_at == page.last_published_at:
-            message = f'{environment}*<{page.full_url}|{page.title}>* ({page_type}) published for the first time by {user_name}{restrictions_text}'
+            message = f'{environment}*<{page_text} published for the first time by {user_name}{restrictions_text}'
         else:
-            message = f'{environment}*<{page.full_url}|{page.title}>* ({page_type}) published by {user_name}{restrictions_text}'
+            message = f'{environment}*<{page_text} published by {user_name}{restrictions_text}'
         blocks = [
             {
                 'type': 'section',
