@@ -1,6 +1,7 @@
 import requests
 
 from django.conf import settings
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from wagtail.core.models import PageLogEntry, BaseViewRestriction
@@ -207,4 +208,37 @@ def publication_notify_slack(sender, instance, revision, **kwargs):
                 }
             },
         ]
+        post_message_to_slack(blocks)
+
+# Could use PageViewRestriction as the sender, but:
+# TODO: Make publication notification a part of this
+# TODO: Add unpublish notification
+@receiver(post_save, sender=PageLogEntry)
+def log_entry_notify_slack(sender, instance, **kwargs):
+    # TODO: Don't fetch this information if we're not going to send any messages
+    environment = get_environment_prefix()
+    page = instance.page
+    page_text = get_page_text(page)
+    user_name = f'{instance.user.first_name} {instance.user.last_name}'
+
+    # TODO: Check whether the page is published. No need to notify about changing retrictions for draft pages.
+    if instance.action == 'wagtail.view_restriction.edit':
+        restrictions_text = get_restrictions_text(page)
+        message = f'{environment}*<{page_text} made private by {user_name}{restrictions_text}'
+    elif instance.action == 'wagtail.view_restriction.delete':
+        message = f'{environment}*<{page_text} made public by {user_name}'
+    else:
+        message = ''
+
+    if message:
+        blocks = [
+            {
+                'type': 'section',
+                'text': {
+                    'type': 'mrkdwn',
+                    'text': message,
+                }
+            },
+        ]
+
         post_message_to_slack(blocks)
