@@ -103,6 +103,8 @@ MIDDLEWARE = [
 
     # Gzip/minify
     'django.middleware.gzip.GZipMiddleware',
+    # Content security policy
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'newamericadotorg.urls'
@@ -265,3 +267,45 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Slack API
 SLACK_NOTIFICATIONS_WEBHOOK = os.getenv('SLACK_NOTIFICATIONS_WEBHOOK')
 SLACK_NOTIFICATIONS_CHANNEL = os.getenv('SLACK_NOTIFICATIONS_CHANNEL')
+
+
+# Content Security Policy
+CSP_REPORT_ONLY = True
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "'unsafe-eval'",  # Needed for funding disclosures JS
+    "'unsafe-inline'",  # Needed for Wagtail admin pages
+    'https://www.googletagmanager.com',
+    'http://static.ads-twitter.com',
+    'https://static.ads-twitter.com',
+    'https://www.google.com/recaptcha/',
+    'https://www.gstatic.com/recaptcha/',
+    'https://na-data-projects.s3.amazonaws.com',
+)
+CSP_STYLE_SRC = (
+    "'self'",
+    "'unsafe-inline'",  # Needed for dynamic inline styles
+)
+CSP_IMG_SRC = (
+    "'self'",
+    'https://d1y8sb8igg2f8e.cloudfront.net',
+    'data:',  # Funding disclosures widget makes use of data svgs
+    "https://gravatar.com"
+)
+CSP_FRAME_SRC = (
+    "'self'",
+    'datawrapper.dwcdn.net',
+    'https://www.google.com',
+    # Embeds
+    'https://www.youtube.com',  # YouTube
+)
+CSP_OBJECT_SRC = ("'self'")
+CSP_MEDIA_SRC = ("'self'")
+CSP_CONNECT_SRC = (
+    "'self'",
+    "https://na-data-projects.s3.amazonaws.com",
+    "https://releases.wagtail.io"
+)
+
+CSP_REPORT_URI = os.environ.get('CSP_REPORT_URI')
