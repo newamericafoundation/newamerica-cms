@@ -1,18 +1,18 @@
 from django.utils import timezone
 
 from wagtail.core.models import Page
-from wagtail.search.backends.elasticsearch6 import Elasticsearch6SearchBackend, Elasticsearch6SearchQueryCompiler, Elasticsearch6Mapping
+from wagtail.search.backends.elasticsearch7 import Elasticsearch7SearchBackend, Elasticsearch7SearchQueryCompiler, Elasticsearch7Mapping
 from wagtail.search.index import FilterField
 
 from home.models import Post
 
 
-class QueryCompiler(Elasticsearch6SearchQueryCompiler):
+class QueryCompiler(Elasticsearch7SearchQueryCompiler):
     def get_inner_query(self):
         query = super().get_inner_query()
 
         # Get name of date field from a model that has it, but other models may have this field too
-        date_field_name = Elasticsearch6Mapping(Post).get_field_column_name(FilterField('date'))
+        date_field_name = Elasticsearch7Mapping(Post).get_field_column_name(FilterField('date'))
 
         if issubclass(self.queryset.model, Page):
             query = {
@@ -52,5 +52,5 @@ class QueryCompiler(Elasticsearch6SearchQueryCompiler):
         return query
 
 
-class SearchBackend(Elasticsearch6SearchBackend):
+class SearchBackend(Elasticsearch7SearchBackend):
     query_compiler_class = QueryCompiler
