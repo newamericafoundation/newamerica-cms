@@ -34,7 +34,6 @@ services:
       POSTGRES_USER: wagtail
       POSTGRES_DB: wagtail
       POSTGRES_PASSWORD: test
-    restart: always
     ports:
       - "5432:5432"
   es:
