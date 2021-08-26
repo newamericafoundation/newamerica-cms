@@ -11,6 +11,7 @@ from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
 from blog.models import AllBlogPostsHomePage
 from book.models import AllBooksHomePage
 from brief.models import AllBriefsHomePage
+from collection.models import CollectionsHomePage
 from conference.models import AllConferencesHomePage
 from event.models import AllEventsHomePage, Event, ProgramEventsPage
 from in_depth.models import AllInDepthHomePage
@@ -25,13 +26,13 @@ from programs.models import Program, PublicationsPage, Subprogram
 from quoted.models import AllQuotedHomePage
 from report.models import AllReportsHomePage
 from subscribe.models import SubscribePage as SubscribeHome
+from test_factories import PostFactory
 from the_thread.models import AllThreadArticlesHomePage, Thread
 from weekly.models import AllWeeklyArticlesHomePage, Weekly
-from collection.models import CollectionsHomePage
 
 from .models import (
-    HomePage, JobsPage, OrgSimplePage, PostAuthorRelationship, ProgramSimplePage,
-    RedirectPage, SubscribePage,
+    HomePage, JobsPage, OrgSimplePage, PostAuthorRelationship, ProgramAboutHomePage,
+    ProgramSimplePage, RedirectPage, SubscribePage,
 )
 from .templatetags.utilities import generate_byline
 
@@ -331,3 +332,27 @@ class HomeTests(WagtailPageTests):
         self.assertEqual(
             self.article.ordered_date_string, f'{str(self.article.date)}-{self.article.id}'
         )
+
+
+class TestProgramAboutHomePage(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # cls.login()
+        # site = Site.objects.get()
+        # page = Page.get_first_root_node()
+        # home = HomePage(title='New America')
+        # cls.home_page = page.add_child(instance=home)
+        # cls.root_page = Page.objects.get(id=1)
+
+        # site.root_page = home
+        # site.save()
+        home_page = PostFactory.create_homepage()
+        cls.program = PostFactory.create_program(home_page=home_page)
+
+    def test_program_about_homepage_sets_slug_to_about(self):
+        page = ProgramAboutHomePage(
+            title='Page title',
+            slug='not-about',
+        )
+        added_page = self.program.add_child(instance=page)
+        self.assertEqual(Page.objects.get(pk=added_page.pk).slug, 'about')

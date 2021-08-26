@@ -429,6 +429,12 @@ class ProgramAboutHomePage(RedirectHeadlessPreviewMixin, ProgramSimplePage):
 
         return context
 
+    def clean_fields(self, *args, **kwargs):
+        if self.slug != 'about':
+            self.slug = 'about'
+        super().clean_fields(*args, **kwargs)
+
+
 class ProgramAboutPage(RedirectHeadlessPreviewMixin, ProgramSimplePage):
     parent_page_types = ['home.ProgramAboutHomePage']
     subpage_types = [
