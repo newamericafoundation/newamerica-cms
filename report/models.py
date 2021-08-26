@@ -42,7 +42,25 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
     abstract = RichTextField(blank=True, null=True)
 
-    acknowledgements = RichTextField(blank=True, null=True)
+    acknowledgements = RichTextField(
+        blank=True,
+        null=True,
+        features=[
+            'blockquote',
+            'bold',
+            'document-link',
+            'h2',
+            'h3',
+            'h4',
+            'h5',
+            'hr',
+            'italic',
+            'link',
+            'ol',
+            'pullquote',
+            'ul',
+        ]
+    )
 
     source_word_doc = models.ForeignKey(
         'wagtaildocs.Document',
