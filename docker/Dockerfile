@@ -3,7 +3,6 @@ FROM python:3.8-slim-buster
 
 WORKDIR /root
 
-ARG DATABASE_URL
 ARG USERID
 
 # Add user that will be used in the container.
@@ -17,9 +16,7 @@ EXPOSE 8000
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
 #    command.
 ENV PYTHONUNBUFFERED=1 \
-    PORT=8000 \
-    DATABASE_URL="$DATABASE_URL"
-
+    PORT=8000
 
 RUN apt-get update && apt-get install -y \
     curl \
@@ -74,10 +71,15 @@ WORKDIR /app
 # will be writing to the database file.
 RUN chown wagtail:wagtail /app
 
-COPY entrypoint.sh /usr/local/bin
+COPY ./docker/entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+COPY ./docker/django-start.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/django-start.sh
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
 
 ENV PATH="/opt/awscli:$PATH"
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

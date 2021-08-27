@@ -3,14 +3,11 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/Dockerfile
       args:
-        DATABASE_URL: postgres://wagtail:test@db:5432/wagtail
         USERID: ${UID:?err}
     command:
-      - /bin/sh
-      - '-c'
-      - 'entrypoint.sh'
+      - django-start.sh
     volumes:
       - ./:/app
       - type: bind
