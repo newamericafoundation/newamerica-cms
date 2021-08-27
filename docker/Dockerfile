@@ -77,6 +77,9 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 COPY ./docker/django-start.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/django-start.sh
 
+COPY ./docker/worker-start.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/worker-start.sh
+
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
 

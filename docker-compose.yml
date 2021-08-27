@@ -58,3 +58,21 @@ services:
       - ./:/app
     working_dir: /app
     command: /bin/ash -c "npm install && npm run dev"
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        USERID: ${UID:?err}
+    command: worker-start.sh
+    environment:
+      SECRET_KEY: test
+      DJANGO_SETTINGS_MODULE: newamericadotorg.settings.dev
+      DATABASE_URL: postgres://wagtail:test@db:5432/wagtail
+      REDIS_URL: redis://redis:6379/1
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
