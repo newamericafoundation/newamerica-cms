@@ -28,7 +28,7 @@ class HomeDetailSerializer(PostSerializer):
 
     def get_data(self, obj):
         panels = None
-        for d in obj.body.stream_data:
+        for d in obj.body.raw_data:
             # only the first panels is relevant
             if d['type'] == 'panels':
                 panels = d['value']
