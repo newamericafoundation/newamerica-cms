@@ -48,6 +48,11 @@ const SinglePage = ({ report, dispatch, location }) => (
             className="report__acknowledgments"
             dangerouslySetInnerHTML={{ __html: report.acknowledgments }}
           />
+          {report.partner_logo && (
+            <div className="margin-top-25">
+              <img src={report.partner_logo}/>
+            </div>
+          )}
         </div>
       </div>
     )}
@@ -97,7 +102,7 @@ const Landing = ({ report, dispatch, location, closeMenu, preview }) => (
           style={{ maxWidth: '800px' }}
         />
         {report.partner_logo && (
-          <div className="margin-top-20">
+          <div className="margin-top-25">
             <img src={report.partner_logo}/>
           </div>
         )}
