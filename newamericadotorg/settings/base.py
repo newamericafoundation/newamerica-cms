@@ -145,6 +145,14 @@ DATABASES = {
 }
 
 
+# Django HTTP settings
+
+# X-XSS-Protection
+SECURE_BROWSER_XSS_FILTER = True
+# X-Content-Type-Options
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
