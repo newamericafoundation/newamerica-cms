@@ -7,9 +7,9 @@ from .block_utils import *
 from .settings import TAGS
 
 class NestedElement(object):
-    def __init__(self, type):
+    def __init__(self, type, elements=[]):
         self.type = type
-        self._elements = []
+        self._elements = elements
 
     def add_element(self, element):
         self._elements.append(element)
@@ -20,16 +20,11 @@ class Block(object):
         self._elements = []
         self.section = section
         self.skip = False
-        self._nested_element = None
         self.data = {
             'type': type
         }
 
     def add_element(self, element):
-        if self._nested_element:
-            self._elements.append(self._nested_element)
-            self._nested_element = None
-
         self._elements.append(element)
 
     def add_nested_element(self, type, element):
@@ -37,13 +32,13 @@ class Block(object):
         # nested elements should be grouped and parsed separately
         # from top level elements
         # ex: lists, hyperlinks, footnotes
-        if self._nested_element == None:
-            self._nested_element = NestedElement(type)
-        elif self._nested_element.type != type:
-            self._elements.append(self._nested_element)
-            self._nested_element = NestedElement(type)
-
-        self._nested_element.add_element(element)
+        try:
+            if getattr(self._elements[-1], 'type', None) != type:
+                self.add_element(NestedElement(type, elements=[element]))
+            else:
+                self._elements[-1].add_element(element)
+        except IndexError:
+            self.add_element(NestedElement(type, elements=[element]))
 
     def compile_data(self):
         pass
