@@ -18,8 +18,8 @@ install:
 - STATIC_URL="https://fake.io" npm run build:production
 - sudo ./scripts/travis/install_elasticsearch.sh;
 script:
-- python manage.py makemigrations --check --noinput --settings=newamericadotorg.settings.ci
-- python manage.py test --noinput --settings=newamericadotorg.settings.ci
+- python manage.py makemigrations --check --noinput --settings=newamericadotorg.settings.travis
+- python manage.py test --noinput --settings=newamericadotorg.settings.travis
 deploy:
   provider: heroku
   api_key:
