@@ -23,7 +23,7 @@ psycopg2==2.8.4
 WeasyPrint==51
 python-docx==0.8.10
 boto3==1.12.5
-elasticsearch==7.15.0
+elasticsearch==7.10.1
 redis==3.4.1
 #See https://github.com/wagtail/wagtail-autocomplete
 wagtail-autocomplete==0.6.3
