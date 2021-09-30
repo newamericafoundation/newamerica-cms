@@ -1,0 +1,55 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test_wagtail:
+    name: Wagtail CI
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13.3-alpine
+        env:
+          POSTGRES_USER: wagtail
+          POSTGRES_DB: wagtail
+          POSTGRES_PASSWORD: test
+        ports:
+        - 5432:5432
+      elasticsearch:
+        image: elasticsearch:5.6.16
+        options: -e="script.inline=true" -e="script.search=true" -e="bootstrap.memory_lock=false" -e="ES_JAVA_OPTS=-Xms1500m -Xmx1500m" -e="discovery.type=single-node" -e="xpack.security.enabled=false" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
+        ports:
+          - 9200/tcp
+    env:
+      DATABASE_URL: postgres://wagtail:test@localhost:5432/wagtail
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 10
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt
+      - name: Install Node Dependencies
+        run: npm ci
+      - name: Verify Elasticsearch connection from host
+        env:
+          ELASTIC_SEARCH_URL: http://localhost:${{ job.services.elasticsearch.ports[9200] }}
+        run: |
+          echo $ELASTIC_SEARCH_URL
+          curl -fsSL "$ELASTIC_SEARCH_URL/_cat/health?h=status"
+      - name: Pretest
+        run: |
+          STATIC_URL="https://fake.io" npm run build:production
+      - name: Run tests
+        env:
+          ELASTIC_SEARCH_URL: http://localhost:${{ job.services.elasticsearch.ports[9200] }}
+        run: |
+          python manage.py makemigrations --check --noinput --settings=newamericadotorg.settings.ci
+          python manage.py test --noinput --failfast --settings=newamericadotorg.settings.ci
