@@ -311,10 +311,10 @@ CSP_IMG_SRC = (
     'https://d3fvh0lm0eshry.cloudfront.net',
     'https://d1y8sb8igg2f8e.cloudfront.net',
     'data:',  # Funding disclosures widget makes use of data svgs
-    "https://*.gravatar.com"
+    "https://*.gravatar.com",
     'https://t.co',
-    'https://www.google-analytics.com'
-    'https://micro-cdn.sumo.com'
+    'https://www.google-analytics.com',
+    'https://micro-cdn.sumo.com',
 )
 CSP_FRAME_SRC = (
     "'self'",
