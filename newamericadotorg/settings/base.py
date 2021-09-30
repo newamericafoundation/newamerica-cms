@@ -285,26 +285,31 @@ CSP_SCRIPT_SRC = (
     "'unsafe-eval'",  # Needed for funding disclosures JS
     "'unsafe-inline'",  # Needed for Wagtail admin pages
     'https://www.googletagmanager.com',
-    'http://static.ads-twitter.com',
-    'https://static.ads-twitter.com',
+    'static.ads-twitter.com',
     'https://www.google.com/recaptcha/',
     'https://www.gstatic.com/recaptcha/',
     'https://na-data-projects.s3.amazonaws.com',
-    'https://www.youtube.com',
+    'www.youtube.com',
     'https://cdnjs.cloudflare.com',
+    'load.sumo.com',
+    'https://www.google-analytics.com',
 )
 CSP_SCRIPT_SRC_ELEM = (
+    "'self'",
     'https://js-agent.newrelic.com',
-    'https://load.sumo.com',
+    'load.sumo.com',
     'https://www.google-analytics.com',
+    'https://www.googletagmanager.com',
     'https://www.youtube.com',
     'https://analytics.twitter.com',
     'https://bam-cell.nr-data.net',
+    'static.ads-twitter.com',
+    'www.youtube.com',
 )
 CSP_STYLE_SRC = (
     "'self'",
     "'unsafe-inline'",  # Needed for dynamic inline styles
-    'https://fonts.googleapis.com',
+    'fonts.googleapis.com',
 )
 CSP_IMG_SRC = (
     "'self'",
@@ -312,7 +317,7 @@ CSP_IMG_SRC = (
     'https://d1y8sb8igg2f8e.cloudfront.net',
     'data:',  # Funding disclosures widget makes use of data svgs
     "https://*.gravatar.com",
-    'https://t.co',
+    't.co',
     'https://www.google-analytics.com',
     'https://micro-cdn.sumo.com',
 )
@@ -332,11 +337,13 @@ CSP_CONNECT_SRC = (
     'https://www.google-analytics.com',
     'https://stats.g.doubleclick.net',
     'https://sumo.com',
+    'http://sumo.com',
     'https://bam-cell.nr-data.net',
 )
 CSP_FONT_SRC = (
     "'self'",
     'https://d3fvh0lm0eshry.cloudfront.net',
+    'https://fonts.gstatic.com',
 )
 
 CSP_REPORT_URI = os.environ.get('CSP_REPORT_URI')
