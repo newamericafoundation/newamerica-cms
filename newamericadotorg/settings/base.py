@@ -286,6 +286,7 @@ CSP_SCRIPT_SRC = (
     "'unsafe-inline'",  # Needed for Wagtail admin pages
     'https://www.googletagmanager.com',
     'static.ads-twitter.com',
+    'https://analytics.twitter.com',
     'https://www.google.com/recaptcha/',
     'https://www.gstatic.com/recaptcha/',
     'https://na-data-projects.s3.amazonaws.com',
@@ -293,18 +294,6 @@ CSP_SCRIPT_SRC = (
     'https://cdnjs.cloudflare.com',
     'load.sumo.com',
     'https://www.google-analytics.com',
-)
-CSP_SCRIPT_SRC_ELEM = (
-    "'self'",
-    'https://js-agent.newrelic.com',
-    'load.sumo.com',
-    'https://www.google-analytics.com',
-    'https://www.googletagmanager.com',
-    'https://www.youtube.com',
-    'https://analytics.twitter.com',
-    'https://bam-cell.nr-data.net',
-    'static.ads-twitter.com',
-    'www.youtube.com',
 )
 CSP_STYLE_SRC = (
     "'self'",
