@@ -28,6 +28,7 @@ from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessPreviewMixin, PagePreview
 
+from .datawrapper import get_embed
 from newamericadotorg.blocks import BodyBlock
 from newamericadotorg.wagtailadmin.widgets import LocationWidget
 from person.models import Person
@@ -690,6 +691,17 @@ class Post(Page):
         # This line fills the date ordering field with the publish date
         # plus the post id, to create a unique string by which to order posts
         self.ordered_date_string = f'{str(self.date)}-{self.id}'
+
+        for block in self.body:
+            if block.block_type == 'datawrapper':
+                chart_id = block.value['chart_id']
+                if not block.value['embed_code']:
+                    embed_code, embed_width = get_embed(chart_id)
+                    block.value['embed_code'] = embed_code
+                    if embed_width == 1200:
+                        block.value['width'] = 'width-1200'
+                if not block.value['fallback_image']:
+                    print(f'no image for {chart_id}')
 
         super(Post, self).save(*args, **kwargs)
 

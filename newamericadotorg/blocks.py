@@ -167,6 +167,9 @@ class DatawrapperBlock(blocks.StructBlock):
         label = 'Datawrapper'
         group = 'Embeds'
 
+    # TODO change to clean instead of on save 
+    # def clean(self, ):
+
 
 class DatavizBlock(blocks.StructBlock):
     container_id = blocks.CharBlock(required=True)
