@@ -128,7 +128,7 @@ class DatawrapperBlock(blocks.StructBlock):
         required=True, help_text='The 5 character ID for the chart, e.g. "kT4Qi"'
     )
     embed_code = blocks.TextBlock(
-        required=True, help_text='The "Responsive Embed" code provided by Datawrapper'
+        required=False, help_text='The "Responsive Embed" code provided by Datawrapper'
     )
     width = blocks.ChoiceBlock(
         [
