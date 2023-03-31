@@ -332,7 +332,7 @@ CSP_CONNECT_SRC = (
 CSP_FONT_SRC = (
     "'self'",
     'https://d3fvh0lm0eshry.cloudfront.net',
-    'https://fonts.gstatic.com',
+    'fonts.gstatic.com',
 )
 
 CSP_REPORT_URI = os.environ.get('CSP_REPORT_URI')
