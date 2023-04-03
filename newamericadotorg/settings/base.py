@@ -279,7 +279,7 @@ SLACK_NOTIFICATIONS_CHANNEL = os.getenv('SLACK_NOTIFICATIONS_CHANNEL')
 
 # Content Security Policy
 CSP_REPORT_ONLY = True
-CSP_DEFAULT_SRC = ("'self'",)
+CSP_DEFAULT_SRC = ("'self'", 'https://*.newamerica.org')
 CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-eval'",  # Needed for funding disclosures JS
@@ -294,6 +294,8 @@ CSP_SCRIPT_SRC = (
     'https://cdnjs.cloudflare.com',
     'load.sumo.com',
     'https://www.google-analytics.com',
+    'https://js-agent.newrelic.com',
+    'https://bam.nr-data.net',
 )
 CSP_STYLE_SRC = (
     "'self'",
@@ -309,6 +311,9 @@ CSP_IMG_SRC = (
     't.co',
     'https://www.google-analytics.com',
     'https://micro-cdn.sumo.com',
+    'https://analytics.twitter.com',
+    'https://www.googletagmanager.com',
+    'https://s3-us-west-2.amazonaws.com/na-data-projects'
 )
 CSP_FRAME_SRC = (
     "'self'",
@@ -316,6 +321,9 @@ CSP_FRAME_SRC = (
     'https://www.google.com',
     # Embeds
     'https://www.youtube.com',  # YouTube
+    'https://w.soundcloud.com',
+    'https://airtable.com',
+    'https://art19.com',
 )
 CSP_OBJECT_SRC = ("'self'")
 CSP_MEDIA_SRC = ("'self'")
@@ -328,6 +336,7 @@ CSP_CONNECT_SRC = (
     'https://sumo.com',
     'http://sumo.com',
     'https://bam-cell.nr-data.net',
+    'https://bam.nr-data.net',
 )
 CSP_FONT_SRC = (
     "'self'",
