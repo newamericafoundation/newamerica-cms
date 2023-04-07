@@ -315,7 +315,8 @@ CSP_IMG_SRC = (
     'https://micro-cdn.sumo.com',
     'https://analytics.twitter.com',
     'https://www.googletagmanager.com',
-    'https://s3-us-west-2.amazonaws.com/na-data-projects'
+    'https://s3-us-west-2.amazonaws.com/na-data-projects',
+    'https://api.mapbox.com',
 )
 CSP_FRAME_SRC = (
     "'self'",
@@ -327,11 +328,13 @@ CSP_FRAME_SRC = (
     'https://w.soundcloud.com',
     'https://airtable.com',
     'https://art19.com',
+    'https://renderer.apester.com',
 )
 CSP_OBJECT_SRC = ("'self'")
 CSP_MEDIA_SRC = ("'self'")
 CSP_CONNECT_SRC = (
     "'self'",
+    'https://na-data-sheetsstorm.s3.us-west-2.amazonaws.com',
     "https://na-data-projects.s3.amazonaws.com",
     "https://releases.wagtail.io",
     'https://www.google-analytics.com',
