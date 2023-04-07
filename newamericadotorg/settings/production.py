@@ -96,6 +96,7 @@ if 'SENTRY_DSN' in os.environ:
     sentry_sdk.init(
         dsn=os.environ['SENTRY_DSN'],
         integrations=[DjangoIntegration()],
+        environment=os.environ['SENTRY_ENVIRONMENT'],
 
         # If you wish to associate users to errors (assuming you are using
         # django.contrib.auth) you may enable sending PII data.
