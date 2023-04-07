@@ -1,5 +1,26 @@
 # Use an official Python runtime based on Debian 10 "buster" as a parent image.
-FROM python:3.10-slim-buster
+FROM python:3.10-slim-buster AS python-base
+
+RUN apt-get update && \
+    apt-get install -y \
+       gcc \
+       libpq-dev \
+       curl
+
+FROM python-base AS builder
+RUN pip install -U pip pip-tools wheel
+COPY pyproject.toml ./
+COPY docker/pip-compile.sh /usr/local/bin
+RUN pip-compile.sh
+
+# This build target extracts the requirements.txt files from the
+# previous stage and is intented to be used with
+# `docker build --output=...`
+FROM scratch AS requirements-artifacts
+COPY --from=builder dev-requirements.txt ./
+COPY --from=builder requirements.txt ./
+
+FROM python-base
 
 WORKDIR /root
 
@@ -19,12 +40,9 @@ ENV PYTHONUNBUFFERED=1 \
     PORT=8000
 
 RUN apt-get update && apt-get install -y \
-    curl \
-    gcc \
     build-essential \
     git \
     libjpeg-dev \
-    libpq-dev \
     libxml2-dev \
     libxslt-dev \
     libssl-dev \
@@ -56,12 +74,7 @@ RUN unzip awscliv2.zip && ./aws/install -b /opt/awscli -i /opt/awscli && \
     rm -rf /opt/awscli/v2/current/dist/awscli/examples
 RUN /opt/awscli/aws --version
 
-# Install the application server.
-RUN pip install "gunicorn==20.0.4"
-# Install the task runner
-RUN pip install "fabric==2.6.0"
-
-COPY requirements.txt requirements.txt
+COPY --from=builder dev-requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 WORKDIR /app
