@@ -21,7 +21,7 @@ Wand==0.5.9
 createsend==6.1.0
 psycopg2==2.8.4
 WeasyPrint==51
-python-docx==0.8.10
+python-docx==0.8.11
 boto3==1.12.5
 elasticsearch==5.5.3
 redis==3.4.1
