@@ -330,8 +330,6 @@ CSP_FRAME_SRC = (
     'https://art19.com',
     'https://renderer.apester.com',
 )
-CSP_OBJECT_SRC = ("'self'")
-CSP_MEDIA_SRC = ("'self'")
 CSP_CONNECT_SRC = (
     "'self'",
     'https://na-data-sheetsstorm.s3.us-west-2.amazonaws.com',
