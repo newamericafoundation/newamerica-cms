@@ -284,6 +284,7 @@ CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-eval'",  # Needed for funding disclosures JS
     "'unsafe-inline'",  # Needed for Wagtail admin pages
+    'https://*.newamerica.org',
     'https://www.googletagmanager.com',
     'https://static.ads-twitter.com',
     'https://analytics.twitter.com',
@@ -304,6 +305,7 @@ CSP_STYLE_SRC = (
 )
 CSP_IMG_SRC = (
     "'self'",
+    'https://*.newamerica.org',
     'https://d3fvh0lm0eshry.cloudfront.net',
     'https://d1y8sb8igg2f8e.cloudfront.net',
     'data:',  # Funding disclosures widget makes use of data svgs
@@ -317,6 +319,7 @@ CSP_IMG_SRC = (
 )
 CSP_FRAME_SRC = (
     "'self'",
+    'https://*.newamerica.org',
     'https://datawrapper.dwcdn.net',
     'https://www.google.com',
     # Embeds
