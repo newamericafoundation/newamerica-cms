@@ -205,7 +205,10 @@ wagtail==2.15.6
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail-autocomplete
+    #   wagtail-headless-preview
 wagtail-autocomplete==0.6.3
+    # via newamerica-cms (pyproject.toml)
+wagtail-headless-preview==0.1.4
     # via newamerica-cms (pyproject.toml)
 wand==0.6.11
     # via newamerica-cms (pyproject.toml)

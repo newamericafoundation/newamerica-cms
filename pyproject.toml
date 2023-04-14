@@ -37,6 +37,7 @@ dependencies = [
     # See https://pypi.org/project/django-multiselectfield/
     'django-multiselectfield >= 0.1.12',
     'gunicorn == 20.0.4',
+    'wagtail-headless-preview == 0.1.4',
 ]
 
 [project.optional-dependencies]
@@ -44,7 +45,6 @@ prod = [
     'logdna >= 1.18, < 2',
     'newrelic == 6.4.3.160',  # is this being used?
     'sentry-sdk >= 1.19.1',
-    'wagtail-headless-preview == 0.1.4',
 ]
 
 test = [
