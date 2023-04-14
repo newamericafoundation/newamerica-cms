@@ -282,21 +282,25 @@ CSP_REPORT_ONLY = True
 CSP_DEFAULT_SRC = ("'self'", 'https://*.newamerica.org')
 CSP_SCRIPT_SRC = (
     "'self'",
-    "'unsafe-eval'",  # Needed for funding disclosures JS
     "'unsafe-inline'",  # Needed for Wagtail admin pages
     'https://*.newamerica.org',
+    'https://d3fvh0lm0eshry.cloudfront.net/',
+    'https://d1y8sb8igg2f8e.cloudfront.net',
     'https://www.googletagmanager.com',
     'https://static.ads-twitter.com',
     'https://analytics.twitter.com',
     'https://www.google.com/recaptcha/',
     'https://www.gstatic.com/recaptcha/',
     'https://na-data-projects.s3.amazonaws.com',
+    'https://s3.amazonaws.com/datadotnewamerica/',
     'https://www.youtube.com',
     'https://cdnjs.cloudflare.com',
     'https://load.sumo.com',
     'https://www.google-analytics.com',
     'https://js-agent.newrelic.com',
     'https://bam.nr-data.net',
+    'https://platform.twitter.com',
+    'https://ssl.google-analytics.com',
 )
 CSP_STYLE_SRC = (
     "'self'",
@@ -308,44 +312,74 @@ CSP_IMG_SRC = (
     'https://*.newamerica.org',
     'https://d3fvh0lm0eshry.cloudfront.net',
     'https://d1y8sb8igg2f8e.cloudfront.net',
-    'data:',  # Funding disclosures widget makes use of data svgs
-    "https://*.gravatar.com",
+    'https://na-production.s3.amazonaws.com',
+    'https://*.gravatar.com',
     'https://t.co',
     'https://www.google-analytics.com',
     'https://micro-cdn.sumo.com',
     'https://analytics.twitter.com',
     'https://www.googletagmanager.com',
-    'https://s3-us-west-2.amazonaws.com/na-data-projects',
+    'https://s3-us-west-2.amazonaws.com/na-data-projects/',
     'https://api.mapbox.com',
+    'https://tile.openstreetmap.org',
+    'https://s3.amazonaws.com/new-america-composer/',
+    'https://i.ytimg.com', # Youtube
+    'https://syndication.twitter.com',
+    'https://www.gstatic.com',
 )
 CSP_FRAME_SRC = (
     "'self'",
     'https://*.newamerica.org',
     'https://datawrapper.dwcdn.net',
     'https://www.google.com',
+    'https://www.googletagmanager.com',
     # Embeds
-    'https://www.youtube.com',  # YouTube
+    'https://opentechinstitute.github.io',
+    'https://www.youtube.com',
+    'https://m.youtube.com',
     'https://w.soundcloud.com',
     'https://airtable.com',
     'https://art19.com',
     'https://renderer.apester.com',
+    'https://d1y8sb8igg2f8e.cloudfront.net',
+    'https://s3.amazonaws.com/newamericadotorg/',
+    'http://www.ustream.tv',
+    'https://new-america.jebbit.com',
+    'https://platform.twitter.com',
+    'https://syndication.twitter.com',
+    'https://www.facebook.com',
+    'https://m.facebook.com',
+    'https://e.infogr.am',
+    'https://player.vimeo.com',
+    'https://public.tableau.com',
+    'https://embed-ssl.ted.com',
+    'https://www.instagram.com',
+    'https://my.matterport.com',
+    'https://resourcewatch.org',
 )
 CSP_CONNECT_SRC = (
     "'self'",
+    'https://d3fvh0lm0eshry.cloudfront.net',
     'https://na-data-sheetsstorm.s3.us-west-2.amazonaws.com',
-    "https://na-data-projects.s3.amazonaws.com",
-    "https://releases.wagtail.io",
+    'https://na-data-projects.s3.amazonaws.com',
+    'https://s3-us-west-2.amazonaws.com/na-data-projects/',
+    'https://releases.wagtail.io',
     'https://www.google-analytics.com',
     'https://stats.g.doubleclick.net',
     'https://sumo.com',
     'http://sumo.com',
     'https://bam-cell.nr-data.net',
     'https://bam.nr-data.net',
+    'https://*.tiles.mapbox.com',
+    'https://stats.g.doubleclick.net',
+    'https://varying-degrees.herokuapp.com/',
 )
 CSP_FONT_SRC = (
     "'self'",
     'https://d3fvh0lm0eshry.cloudfront.net',
     'https://fonts.gstatic.com',
+    'https://fonts.googleapis.com',
+    'https://na-fonts.s3.amazonaws.com',
 )
 
 CSP_REPORT_URI = os.environ.get('CSP_REPORT_URI')
