@@ -51,7 +51,9 @@ django==3.2.18
     #   django-cors-headers
     #   django-csp
     #   django-filter
+    #   django-modelcluster
     #   django-multiselectfield
+    #   django-permissionedforms
     #   django-redis
     #   django-storages
     #   django-taggit
@@ -75,12 +77,14 @@ django-filter==21.1
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail
-django-modelcluster==5.3
+django-modelcluster==6.0
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail
 django-multiselectfield==0.1.12
     # via newamerica-cms (pyproject.toml)
+django-permissionedforms==0.1
+    # via wagtail
 django-redis==5.2.0
     # via newamerica-cms (pyproject.toml)
 django-storages==1.13.2
@@ -187,7 +191,7 @@ vine==1.3.0
     # via
     #   amqp
     #   celery
-wagtail==2.16.3
+wagtail==3.0.3
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail-autocomplete
