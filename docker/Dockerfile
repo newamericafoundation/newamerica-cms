@@ -11,6 +11,9 @@ FROM python-base AS builder
 RUN pip install -U pip pip-tools wheel
 COPY pyproject.toml ./
 COPY docker/pip-compile.sh /usr/local/bin
+COPY ./requirements/local-dev.txt ./
+COPY ./requirements/prod.txt ./
+COPY ./requirements/ci.txt ./
 RUN pip-compile.sh
 
 # This build target extracts the requirements.txt files from the
