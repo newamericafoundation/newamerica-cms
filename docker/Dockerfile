@@ -17,8 +17,9 @@ RUN pip-compile.sh
 # previous stage and is intented to be used with
 # `docker build --output=...`
 FROM scratch AS requirements-artifacts
-COPY --from=builder dev-requirements.txt ./
-COPY --from=builder requirements.txt ./
+COPY --from=builder local-dev.txt ./requirements/local-dev.txt
+COPY --from=builder prod.txt ./requirements/prod.txt
+COPY --from=builder ci.txt ./requirements/ci.txt
 
 FROM python-base
 
@@ -74,7 +75,7 @@ RUN unzip awscliv2.zip && ./aws/install -b /opt/awscli -i /opt/awscli && \
     rm -rf /opt/awscli/v2/current/dist/awscli/examples
 RUN /opt/awscli/aws --version
 
-COPY --from=builder dev-requirements.txt requirements.txt
+COPY --from=builder local-dev.txt requirements.txt
 RUN pip install -r requirements.txt
 
 WORKDIR /app

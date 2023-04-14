@@ -47,7 +47,10 @@ prod = [
     'wagtail-headless-preview == 0.1.4',
 ]
 
-dev = [
+test = [
     'Faker >= 18.4, < 19',
+]
+
+dev = [
     'fabric >= 2.6.0, < 3',
 ]

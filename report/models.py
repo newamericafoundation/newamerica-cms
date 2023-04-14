@@ -184,6 +184,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
     def save(self, *args, **kwargs):
         super(Report, self).save(*args, **kwargs)
 
+        # TODO: apply demorgan's laws
         if not self.overwrite_sections_on_save and not self.generate_pdf_on_publish:
             self.revising = False
 

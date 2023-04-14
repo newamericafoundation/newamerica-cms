@@ -4,15 +4,13 @@ anyascii==0.3.2
     # via wagtail
 asgiref==3.6.0
     # via django
-bcrypt==4.0.1
-    # via paramiko
 beautifulsoup4==4.9.3
     # via wagtail
 billiard==3.6.4.0
     # via celery
-boto3==1.26.109
+boto3==1.26.113
     # via newamerica-cms (pyproject.toml)
-botocore==1.29.109
+botocore==1.29.113
     # via
     #   boto3
     #   s3transfer
@@ -29,15 +27,11 @@ certifi==2022.12.7
 cffi==1.15.1
     # via
     #   cairocffi
-    #   cryptography
-    #   pynacl
     #   weasyprint
 charset-normalizer==3.1.0
     # via requests
 createsend==7.0.0
     # via newamerica-cms (pyproject.toml)
-cryptography==40.0.1
-    # via paramiko
 cssselect2==0.7.0
     # via
     #   cairosvg
@@ -101,8 +95,6 @@ elasticsearch==5.5.3
     # via newamerica-cms (pyproject.toml)
 et-xmlfile==1.1.0
     # via openpyxl
-fabric==2.7.1
-    # via newamerica-cms (pyproject.toml)
 faker==18.4.0
     # via newamerica-cms (pyproject.toml)
 gunicorn==20.0.4
@@ -113,8 +105,6 @@ html5lib==1.1
     #   weasyprint
 idna==3.4
     # via requests
-invoke==1.7.3
-    # via fabric
 jmespath==1.0.1
     # via
     #   boto3
@@ -127,10 +117,6 @@ lxml==4.9.2
     # via python-docx
 openpyxl==3.1.2
     # via tablib
-paramiko==3.1.0
-    # via fabric
-pathlib2==2.3.7.post1
-    # via fabric
 pillow==9.5.0
     # via
     #   cairosvg
@@ -139,8 +125,6 @@ psycopg2==2.9.6
     # via newamerica-cms (pyproject.toml)
 pycparser==2.21
     # via cffi
-pynacl==1.5.0
-    # via paramiko
 pyphen==0.14.0
     # via weasyprint
 python-dateutil==2.8.2
@@ -175,7 +159,6 @@ six==1.16.0
     #   createsend
     #   html5lib
     #   l18n
-    #   pathlib2
     #   python-dateutil
 soupsieve==2.4
     # via beautifulsoup4
@@ -222,7 +205,7 @@ willow==1.4.1
     # via wagtail
 xlrd==2.0.1
     # via tablib
-xlsxwriter==3.0.9
+xlsxwriter==3.1.0
     # via wagtail
 xlwt==1.3.0
     # via tablib
