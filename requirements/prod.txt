@@ -8,9 +8,9 @@ beautifulsoup4==4.9.3
     # via wagtail
 billiard==3.6.4.0
     # via celery
-boto3==1.26.113
+boto3==1.26.114
     # via newamerica-cms (pyproject.toml)
-botocore==1.29.113
+botocore==1.29.114
     # via
     #   boto3
     #   s3transfer
