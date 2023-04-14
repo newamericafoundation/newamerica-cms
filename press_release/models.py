@@ -1,8 +1,8 @@
 from home.models import Post
 
+from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page
 from wagtail.fields import StreamField
-from wagtail.admin.panels import StreamFieldPanel
 from wagtail.documents.blocks import DocumentChooserBlock
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
@@ -22,7 +22,7 @@ class PressRelease(Post):
     ], null=True, blank=True)
 
     content_panels = Post.content_panels + [
-        StreamFieldPanel('attachment'),
+        FieldPanel('attachment'),
     ]
 
     class Meta:

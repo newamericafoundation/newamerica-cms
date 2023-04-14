@@ -7,16 +7,14 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
 from wagtail.admin.panels import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
-    StreamFieldPanel, TabbedInterface,
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList,
+    TabbedInterface,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.blocks import RichTextBlock, URLBlock
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, PageRevision
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 from home.models import AbstractHomeContentPage, Post, RedirectHeadlessPreviewMixin
@@ -117,7 +115,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
             FieldPanel('title'),
             FieldPanel('subheading'),
             FieldPanel('date'),
-            ImageChooserPanel('story_image'),
+            FieldPanel('story_image'),
         ]),
         InlinePanel('authors', label=("Authors")),
         InlinePanel('programs', label=("Programs")),
@@ -126,16 +124,16 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
         InlinePanel('location', label=("Locations")),
         MultiFieldPanel([
             FieldPanel('abstract'),
-            StreamFieldPanel('featured_sections'),
+            FieldPanel('featured_sections'),
             FieldPanel('acknowledgements'),
         ])
     ]
 
     sections_panels = [
-        StreamFieldPanel('sections')
+        FieldPanel('sections')
     ]
 
-    endnote_panels = [StreamFieldPanel('endnotes')]
+    endnote_panels = [FieldPanel('endnotes')]
 
     settings_panels = Post.settings_panels + [
         FieldPanel('theme_full_bleed'),
@@ -148,15 +146,15 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
     pdf_panels = [
         MultiFieldPanel([
-            DocumentChooserPanel('source_word_doc'),
+            FieldPanel('source_word_doc'),
             FieldPanel('overwrite_sections_on_save'),
         ], heading='Word Doc Import'),
         MultiFieldPanel([
             FieldPanel('generate_pdf_on_publish'),
-            DocumentChooserPanel('report_pdf'),
-            StreamFieldPanel('attachment')
+            FieldPanel('report_pdf'),
+            FieldPanel('attachment')
         ], heading='PDF Generation'),
-        ImageChooserPanel('partner_logo')
+        FieldPanel('partner_logo')
     ]
 
     edit_handler = TabbedInterface([

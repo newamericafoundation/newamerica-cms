@@ -4,7 +4,6 @@ import json
 from home.models import Post
 
 from wagtail.models import Page, PageRevision
-from wagtail.admin.panels import StreamFieldPanel
 from wagtail.fields import StreamField
 from wagtail.blocks import PageChooserBlock
 

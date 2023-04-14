@@ -3,7 +3,7 @@ from home.models import Post
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.embeds.blocks import EmbedBlock
-from wagtail.admin.panels import StreamFieldPanel, FieldPanel
+from wagtail.admin.panels import FieldPanel
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
@@ -27,7 +27,7 @@ class Podcast(Post):
     itunes_url = models.URLField(blank=True, null=True)
 
     content_panels = Post.content_panels + [
-        StreamFieldPanel('soundcloud'),
+        FieldPanel('soundcloud'),
         FieldPanel('itunes_url'),
     ]
 

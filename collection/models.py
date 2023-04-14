@@ -3,7 +3,7 @@ from wagtail.fields import StreamField, RichTextField
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from home.models import AbstractSimplePage
 from programs.models import AbstractContentPage
 
@@ -118,31 +118,31 @@ class Collection(AbstractSimplePage):
         FieldPanel('subheading'),
         MultiFieldPanel([
             FieldPanel('programs_description'),
-            StreamFieldPanel('programs_list'),
+            FieldPanel('programs_list'),
         ],
         heading = 'Programs',
         classname="collapsible"),
         MultiFieldPanel([
             FieldPanel('resources_description'),
-            StreamFieldPanel('resources_list'),
+            FieldPanel('resources_list'),
         ],
         heading = 'Resources',
         classname="collapsible"),
         MultiFieldPanel([
             FieldPanel('people_description'),
-            StreamFieldPanel('people_list'),
+            FieldPanel('people_list'),
         ],
         heading = 'People',
         classname="collapsible"),
         MultiFieldPanel([
             FieldPanel('publications_description'),
-            StreamFieldPanel('publications_list'),
+            FieldPanel('publications_list'),
         ],
         heading = 'Publications',
         classname="collapsible"),
         MultiFieldPanel([
             FieldPanel('events_description'),
-            StreamFieldPanel('events_list'),
+            FieldPanel('events_list'),
         ],
         heading = 'Events',
         classname="collapsible"),

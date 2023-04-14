@@ -13,7 +13,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from pytz import timezone
 from wagtail.admin.panels import (
-    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel,
+    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 )
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.table_block.blocks import TableBlock
@@ -23,7 +23,6 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessPreviewMixin, PagePreview
@@ -221,25 +220,25 @@ class HomePage(Page):
     ], blank=True, null=True)
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('about_pages')
+        FieldPanel('about_pages')
     ]
 
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
-                PageChooserPanel('lead_1'),
-                PageChooserPanel('lead_2'),
-                PageChooserPanel('lead_3'),
-                PageChooserPanel('lead_4'),
+                FieldPanel('lead_1'),
+                FieldPanel('lead_2'),
+                FieldPanel('lead_3'),
+                FieldPanel('lead_4'),
             ],
             heading="Lead Stories",
             classname="collapsible"
         ),
         MultiFieldPanel(
             [
-                PageChooserPanel('feature_1'),
-                PageChooserPanel('feature_2'),
-                PageChooserPanel('feature_3'),
+                FieldPanel('feature_1'),
+                FieldPanel('feature_2'),
+                FieldPanel('feature_3'),
             ],
             heading="Featured Stories",
             classname="collapsible"
@@ -310,12 +309,12 @@ class AbstractSimplePage(Page):
     data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('body')
+        FieldPanel('body')
     ]
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
     settings_panels = Page.settings_panels + [
@@ -351,7 +350,7 @@ class RedirectPage(Page):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
     def serve(self, request):
@@ -374,7 +373,7 @@ class OrgSimplePage(AbstractSimplePage):
             FieldPanel('title'),
             FieldPanel('page_description'),
         ]),
-        StreamFieldPanel('body')
+        FieldPanel('body')
     ]
 
     def get_context(self, request):
@@ -493,8 +492,8 @@ class SubscribePage(OrgSimplePage):
     ], null=True, blank=True)
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('newsletter_subscriptions'),
-        StreamFieldPanel('event_subscriptions')
+        FieldPanel('newsletter_subscriptions'),
+        FieldPanel('event_subscriptions')
     ]
 
     class Meta:
@@ -510,7 +509,7 @@ class PostAuthorRelationship(models.Model):
     post = ParentalKey('Post', related_name='authors')
 
     panels = [
-        PageChooserPanel('author'),
+        FieldPanel('author'),
     ]
 
     class Meta:
@@ -640,7 +639,7 @@ class Post(Page):
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
         FieldPanel('date'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         InlinePanel('programs', label=("Programs")),
         InlinePanel('subprograms', label=("Subprograms")),
         InlinePanel('authors', label=("Authors")),
@@ -649,7 +648,7 @@ class Post(Page):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
         InlinePanel('location', label=("Locations"),)
     ]
 

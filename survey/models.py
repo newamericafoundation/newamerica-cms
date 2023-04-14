@@ -8,12 +8,11 @@ from django.db import models
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel, PageChooserPanel, TabbedInterface, ObjectList
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, TabbedInterface, ObjectList
 from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, Orderable
 from wagtail.blocks import StreamBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 from multiselectfield import MultiSelectField
@@ -30,7 +29,7 @@ class PageAuthorRelationship(models.Model):
     page = ParentalKey('SurveysHomePage', related_name='authors')
 
     panels = [
-        PageChooserPanel('author'),
+        FieldPanel('author'),
     ]
     class Meta:
         ordering = ['pk']
@@ -81,8 +80,8 @@ class SurveysHomePage(AbstractContentPage):
         FieldPanel('title'),
         FieldPanel('subheading'),
       MultiFieldPanel([
-        StreamFieldPanel('subscribe'),
-        StreamFieldPanel('submissions'),
+        FieldPanel('subscribe'),
+        FieldPanel('submissions'),
       ], heading='Survey Reports CTAs'),
     ]
     about_panels = [
@@ -91,7 +90,7 @@ class SurveysHomePage(AbstractContentPage):
         FieldPanel('methodology'),
         FieldPanel('about_submission'),
         InlinePanel('authors', label="Authors"),
-        ImageChooserPanel('partner_logo'),
+        FieldPanel('partner_logo'),
       ], heading='About Tab')
     ]
 
@@ -215,5 +214,5 @@ class AssociatedCommentary(Orderable):
   survey = ParentalKey('Survey', related_name='associated_commentary')
 
   panels = [
-    PageChooserPanel('commentary'),
+    FieldPanel('commentary'),
   ]

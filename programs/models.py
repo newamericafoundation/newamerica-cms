@@ -6,9 +6,8 @@ from django.shortcuts import redirect, render
 from wagtail.admin.panels import TabbedInterface, ObjectList
 from wagtail.models import Page, Orderable, PageRevision
 from wagtail.fields import StreamField
-from wagtail.admin.panels import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.blocks import PageChooserBlock, ChoiceBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from subscribe.models import SubscriptionSegment
@@ -47,8 +46,8 @@ class FeaturedProgramPage(Orderable):
     )
 
     panels = [
-        PageChooserPanel('page'),
-        ImageChooserPanel('featured_image'),
+        FieldPanel('page'),
+        FieldPanel('featured_image'),
     ]
 
 class FeaturedSubprogramPage(Orderable):
@@ -63,8 +62,8 @@ class FeaturedSubprogramPage(Orderable):
     )
 
     panels = [
-        PageChooserPanel('page'),
-        ImageChooserPanel('featured_image'),
+        FieldPanel('page'),
+        FieldPanel('featured_image'),
     ]
 
 class AbstractProgram(RoutablePageMixin, Page):
@@ -110,7 +109,7 @@ class AbstractProgram(RoutablePageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel('name', classname='full title'),
-                ImageChooserPanel('story_image'),
+                FieldPanel('story_image'),
                 FieldPanel('location'),
                 FieldPanel('fellowship'),
                 FieldPanel('description'),
@@ -201,8 +200,8 @@ class Program(AbstractProgram):
 
     content_panels = AbstractProgram.content_panels + [
         MultiFieldPanel([
-            ImageChooserPanel('desktop_program_logo'),
-            ImageChooserPanel('mobile_program_logo'),
+            FieldPanel('desktop_program_logo'),
+            FieldPanel('mobile_program_logo'),
         ], heading="Logos")
     ]
 
@@ -389,7 +388,7 @@ class Project(Subprogram):
     )
 
     content_panels = [
-        PageChooserPanel('redirect_page')
+        FieldPanel('redirect_page')
     ] + Subprogram.content_panels
 
     edit_handler = TabbedInterface([

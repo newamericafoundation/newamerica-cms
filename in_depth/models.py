@@ -14,8 +14,7 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from newamericadotorg.blocks import ButtonBlock, IframeBlock, DatavizBlock
 from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock, VideoDataReferenceBlock
 
-from wagtail.admin.panels import FieldPanel, StreamFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel
 
 from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results, get_org_wide_posts
@@ -54,12 +53,12 @@ class InDepthSection(Page):
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
         FieldPanel('generate_title_panel'),
-        StreamFieldPanel('panels'),
+        FieldPanel('panels'),
     ]
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
     def get_context(self, request):
@@ -124,8 +123,8 @@ class InDepthProject(Post):
 
     content_panels = Post.content_panels + [
         FieldPanel('about_the_project'),
-    	StreamFieldPanel('buttons'),
-        ImageChooserPanel('project_logo'),
+    	FieldPanel('buttons'),
+        FieldPanel('project_logo'),
         FieldPanel('project_logo_link'),
         FieldPanel('show_data_download_links'),
     ]
@@ -161,7 +160,7 @@ class AllInDepthHomePage(AbstractContentPage):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
     def get_context(self, request):
@@ -207,7 +206,7 @@ class InDepthProfile(Page):
     content_panels = Page.content_panels + [
         FieldPanel('image_field'),
         FieldPanel('subheading'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]
 
     settings_panels = Page.settings_panels + [
