@@ -1,6 +1,6 @@
 from .base import *
 
-BASE_URL = "http://testserver"
+WAGTAILADMIN_BASE_URL = "http://testserver"
 
 SECRET_KEY = "TEST_KEY"
 

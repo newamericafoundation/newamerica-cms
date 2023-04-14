@@ -7,11 +7,11 @@ from wagtail.signals import workflow_submitted, workflow_cancelled, workflow_app
 
 
 def get_environment_prefix():
-    if 'staging' in settings.BASE_URL:
+    if 'staging' in settings.WAGTAILADMIN_BASE_URL:
         environment = '[STAGING] '
-    elif 'devel' in settings.BASE_URL:
+    elif 'devel' in settings.WAGTAILADMIN_BASE_URL:
         environment = '[DEVELOP] '
-    elif 'localhost' in settings.BASE_URL:
+    elif 'localhost' in settings.WAGTAILADMIN_BASE_URL:
         environment = '[LOCAL] '
     else:
         environment = ''
@@ -89,9 +89,9 @@ def workflow_notify_slack(message_format, workflow_state, user, header_format=No
     else:
         program = ''
     page_type = page.specific._meta.verbose_name.title()
-    preview_url = settings.BASE_URL + reverse('wagtailadmin_pages:workflow_preview', args=(page.pk, workflow_state.current_task_state.task.pk))
-    edit_url = settings.BASE_URL + reverse('wagtailadmin_pages:edit', args=(page.pk, ))
-    workflow_history_url = settings.BASE_URL + reverse('wagtailadmin_pages:workflow_history_detail', args=(page.pk, workflow_state.pk))
+    preview_url = settings.WAGTAILADMIN_BASE_URL + reverse('wagtailadmin_pages:workflow_preview', args=(page.pk, workflow_state.current_task_state.task.pk))
+    edit_url = settings.WAGTAILADMIN_BASE_URL + reverse('wagtailadmin_pages:edit', args=(page.pk, ))
+    workflow_history_url = settings.WAGTAILADMIN_BASE_URL + reverse('wagtailadmin_pages:workflow_history_detail', args=(page.pk, workflow_state.pk))
     workflow_name = workflow_state.workflow.name
     task_comment = workflow_state.current_task_state.comment
     if task_comment:
