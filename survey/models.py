@@ -8,11 +8,11 @@ from django.db import models
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel, PageChooserPanel, TabbedInterface, ObjectList
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel, PageChooserPanel, TabbedInterface, ObjectList
 from wagtail.contrib.routable_page.models import RoutablePageMixin
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page, Orderable
-from wagtail.core.blocks import StreamBlock
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page, Orderable
+from wagtail.blocks import StreamBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 

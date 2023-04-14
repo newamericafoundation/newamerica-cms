@@ -1,9 +1,9 @@
 from django.db import models
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core import blocks
+from wagtail.fields import StreamField, RichTextField
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from home.models import AbstractSimplePage
 from programs.models import AbstractContentPage
 

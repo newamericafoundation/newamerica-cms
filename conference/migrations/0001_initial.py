@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             name='Conference',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('description', wagtail.core.fields.RichTextField(help_text=b'This will be the ABOUT text')),
+                ('description', wagtail.fields.RichTextField(help_text=b'This will be the ABOUT text')),
                 ('subheading', models.TextField(blank=True, null=True)),
                 ('story_excerpt', models.CharField(blank=True, max_length=140, null=True, verbose_name=b'excerpt')),
                 ('host_organization', models.TextField(blank=True, default=b'New America', null=True)),
@@ -46,11 +46,11 @@ class Migration(migrations.Migration):
                 ('city', models.TextField(blank=True, default=b'Washington', null=True)),
                 ('state', models.TextField(blank=True, default=b'D.C.', null=True)),
                 ('zipcode', models.TextField(blank=True, default=b'20005', null=True)),
-                ('venue', wagtail.core.fields.StreamField([(b'paragraph', wagtail.core.blocks.RichTextBlock()), (b'columns', wagtail.core.blocks.StructBlock([(b'left_column', wagtail.core.blocks.RichTextBlock()), (b'right_column', wagtail.core.blocks.RichTextBlock())]))], blank=True, null=True)),
-                ('directions', wagtail.core.fields.StreamField([(b'direction', wagtail.core.blocks.StructBlock([(b'transportation_type', wagtail.core.blocks.CharBlock(help_text=b'e.g car, metro, taxi')), (b'directions', wagtail.core.blocks.RichTextBlock())]))], blank=True, null=True)),
-                ('speakers', wagtail.core.fields.StreamField([(b'person', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock(required=True)), (b'title', wagtail.core.blocks.TextBlock()), (b'description', wagtail.core.blocks.RichTextBlock()), (b'image', wagtail.images.blocks.ImageChooserBlock(icon=b'image')), (b'twitter', wagtail.core.blocks.URLBlock(required=False))]))], blank=True, null=True)),
-                ('partners', wagtail.core.fields.StreamField([(b'partner', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock()), (b'type', wagtail.core.blocks.ChoiceBlock(choices=[(b'premier_sponsor', b'Premier Sponsor'), (b'sponsor', b'Sponsor'), (b'media_partner', b'Media Partner'), (b'recognized_partner', b'Recognized Partner')])), (b'logo', wagtail.images.blocks.ImageChooserBlock(icon=b'image'))]))], blank=True, null=True)),
-                ('sessions', wagtail.core.fields.StreamField([(b'days', wagtail.core.blocks.StructBlock([(b'day', wagtail.core.blocks.ChoiceBlock(choices=[(b'1', b'1'), (b'2', b'2'), (b'3', b'3'), (b'4', b'4'), (b'5', b'5'), (b'6', b'6')], help_text=b'What day of the conference is this session on?')), (b'start_time', wagtail.core.blocks.TimeBlock()), (b'end_time', wagtail.core.blocks.TimeBlock()), (b'sessions', wagtail.core.blocks.StreamBlock([(b'session', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock()), (b'session_type', wagtail.core.blocks.ChoiceBlock(choices=[(b'panel', b'Panel'), (b'lecture', b'Lecture'), (b'break', b'Break'), (b'meal', b'Meal'), (b'reception', b'Reception'), (b'registration', b'Registration')])), (b'description', wagtail.core.blocks.RichTextBlock(required=False)), (b'start_time', wagtail.core.blocks.TimeBlock()), (b'end_time', wagtail.core.blocks.TimeBlock(required=False)), (b'speakers', wagtail.core.blocks.StreamBlock([(b'speaker', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock(required=True)), (b'title', wagtail.core.blocks.TextBlock())]))])), (b'archived_video_link', wagtail.core.blocks.URLBlock(help_text=b'Enter youtube link after conference', required=False))]))]))]))], blank=True, null=True)),
+                ('venue', wagtail.fields.StreamField([(b'paragraph', wagtail.blocks.RichTextBlock()), (b'columns', wagtail.blocks.StructBlock([(b'left_column', wagtail.blocks.RichTextBlock()), (b'right_column', wagtail.blocks.RichTextBlock())]))], blank=True, null=True)),
+                ('directions', wagtail.fields.StreamField([(b'direction', wagtail.blocks.StructBlock([(b'transportation_type', wagtail.blocks.CharBlock(help_text=b'e.g car, metro, taxi')), (b'directions', wagtail.blocks.RichTextBlock())]))], blank=True, null=True)),
+                ('speakers', wagtail.fields.StreamField([(b'person', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock(required=True)), (b'title', wagtail.blocks.TextBlock()), (b'description', wagtail.blocks.RichTextBlock()), (b'image', wagtail.images.blocks.ImageChooserBlock(icon=b'image')), (b'twitter', wagtail.blocks.URLBlock(required=False))]))], blank=True, null=True)),
+                ('partners', wagtail.fields.StreamField([(b'partner', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock()), (b'type', wagtail.blocks.ChoiceBlock(choices=[(b'premier_sponsor', b'Premier Sponsor'), (b'sponsor', b'Sponsor'), (b'media_partner', b'Media Partner'), (b'recognized_partner', b'Recognized Partner')])), (b'logo', wagtail.images.blocks.ImageChooserBlock(icon=b'image'))]))], blank=True, null=True)),
+                ('sessions', wagtail.fields.StreamField([(b'days', wagtail.blocks.StructBlock([(b'day', wagtail.blocks.ChoiceBlock(choices=[(b'1', b'1'), (b'2', b'2'), (b'3', b'3'), (b'4', b'4'), (b'5', b'5'), (b'6', b'6')], help_text=b'What day of the conference is this session on?')), (b'start_time', wagtail.blocks.TimeBlock()), (b'end_time', wagtail.blocks.TimeBlock()), (b'sessions', wagtail.blocks.StreamBlock([(b'session', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock()), (b'session_type', wagtail.blocks.ChoiceBlock(choices=[(b'panel', b'Panel'), (b'lecture', b'Lecture'), (b'break', b'Break'), (b'meal', b'Meal'), (b'reception', b'Reception'), (b'registration', b'Registration')])), (b'description', wagtail.blocks.RichTextBlock(required=False)), (b'start_time', wagtail.blocks.TimeBlock()), (b'end_time', wagtail.blocks.TimeBlock(required=False)), (b'speakers', wagtail.blocks.StreamBlock([(b'speaker', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock(required=True)), (b'title', wagtail.blocks.TextBlock())]))])), (b'archived_video_link', wagtail.blocks.URLBlock(help_text=b'Enter youtube link after conference', required=False))]))]))]))], blank=True, null=True)),
                 ('about_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='home.CustomImage', verbose_name=b'About Image')),
                 ('story_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='home.CustomImage', verbose_name=b'Cover Image')),
             ],

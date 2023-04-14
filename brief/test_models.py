@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from wagtail.core import blocks
-from wagtail.core.blocks.stream_block import StreamValue
-from wagtail.core.rich_text import RichText
-from wagtail.tests.utils import WagtailPageTests
+from wagtail import blocks
+from wagtail.blocks.stream_block import StreamValue
+from wagtail.rich_text import RichText
+from wagtail.test.utils import WagtailPageTests
 
 from home.models import HomePage
 from newamericadotorg.blocks import ResourceKit, Body, PanelsBlock

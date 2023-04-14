@@ -3,7 +3,7 @@ from io import BytesIO
 from django.utils.text import slugify
 from PIL import Image
 
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 
 from home.models import Post, HomePage
 from programs.models import Program, Subprogram

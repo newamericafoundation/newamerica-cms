@@ -1,13 +1,13 @@
 from django.db import models
 from django import forms
 
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
-from wagtail.core.blocks import URLBlock
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
+from wagtail.blocks import URLBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import PageChooserPanel, MultiFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import PageChooserPanel, MultiFieldPanel
 from wagtail.search import index
 
 from modelcluster.fields import ParentalKey

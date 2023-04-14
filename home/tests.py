@@ -3,9 +3,9 @@ from datetime import date, timedelta
 
 from django.http import HttpResponsePermanentRedirect
 from django.test import Client, TestCase
-from wagtail.core.models import Page, Site
-from wagtail.tests.utils import WagtailPageTests
-from wagtail.tests.utils.form_data import nested_form_data, streamfield
+from wagtail.models import Page, Site
+from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils.form_data import nested_form_data, streamfield
 
 from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
 from blog.models import AllBlogPostsHomePage

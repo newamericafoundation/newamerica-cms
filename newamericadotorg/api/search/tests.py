@@ -6,7 +6,7 @@ from io import StringIO
 from django.conf import settings
 from django.core import management
 from rest_framework.test import APITestCase, APIClient
-from wagtail.core.models import PageViewRestriction
+from wagtail.models import PageViewRestriction
 from wagtail.search.backends import get_search_backend
 
 from test_factories import PostFactory

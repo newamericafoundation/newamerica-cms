@@ -3,10 +3,10 @@ from __future__ import unicode_literals
 from django.db import models
 import json
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from home.models import Post
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField, RichTextField
+from wagtail import blocks
+from wagtail.fields import StreamField, RichTextField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.contrib.table_block.blocks import TableBlock
@@ -14,7 +14,7 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from newamericadotorg.blocks import ButtonBlock, IframeBlock, DatavizBlock
 from .blocks import CollapsibleBlock, PanelColorThemes, PanelBody, DataReferenceBlock, VideoDataReferenceBlock
 
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from programs.models import AbstractContentPage

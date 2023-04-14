@@ -3,11 +3,11 @@ import json
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
-from wagtail.core.models import Page, Orderable, PageRevision
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.core.blocks import PageChooserBlock, ChoiceBlock
+from wagtail.admin.panels import TabbedInterface, ObjectList
+from wagtail.models import Page, Orderable, PageRevision
+from wagtail.fields import StreamField
+from wagtail.admin.panels import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.blocks import PageChooserBlock, ChoiceBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 

@@ -1,5 +1,5 @@
-from wagtail.tests.utils import WagtailPageTests
-from wagtail.core.models import Page
+from wagtail.test.utils import WagtailPageTests
+from wagtail.models import Page
 
 from home.models import HomePage, PostProgramRelationship
 

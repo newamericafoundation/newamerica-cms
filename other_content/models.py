@@ -2,11 +2,11 @@ from django.db import models
 
 from home.models import Post
 
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.admin.panels import StreamFieldPanel, FieldPanel
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.core.fields import RichTextField
+from wagtail.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from programs.models import AbstractContentPage

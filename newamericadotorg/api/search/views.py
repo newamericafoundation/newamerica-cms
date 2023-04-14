@@ -7,7 +7,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 
-from wagtail.core.models import Page, PageViewRestriction, Site
+from wagtail.models import Page, PageViewRestriction, Site
 from wagtail.search.models import Query
 
 import survey.models

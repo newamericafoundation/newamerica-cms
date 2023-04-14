@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.contrib.legacy.richtext',
-    'wagtail.core',
+    'wagtail',
     'wagtail.contrib.styleguide',
     'wagtail.contrib.table_block',
     'wagtail.contrib.frontend_cache',

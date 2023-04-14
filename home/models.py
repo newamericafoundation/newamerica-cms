@@ -12,15 +12,15 @@ from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from pytz import timezone
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel,
 )
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core import blocks
-from wagtail.core.blocks import PageChooserBlock
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail import blocks
+from wagtail.blocks import PageChooserBlock
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel

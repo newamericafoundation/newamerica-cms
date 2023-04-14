@@ -4,10 +4,10 @@ from django.utils import timezone
 from django.utils.timezone import localtime, now
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
+from wagtail.fields import StreamField, RichTextField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.models import Page, Orderable
+from wagtail.models import Page, Orderable
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.search import index
 

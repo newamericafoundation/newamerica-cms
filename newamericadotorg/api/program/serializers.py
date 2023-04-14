@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from wagtail.core.models import Page, ContentType, PageRevision
+from wagtail.models import Page, ContentType, PageRevision
 from wagtail.images.views.serve import generate_image_url
 from django.template import loader
 

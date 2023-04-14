@@ -7,7 +7,7 @@ import tempfile
 from wagtail.documents import get_document_model
 from newamericadotorg.celery import app as celery_app
 from django.apps import apps
-from wagtail.core.models import PageRevision
+from wagtail.models import PageRevision
 from .utils.docx_save import generate_docx_streamfields
 from .utils.pdf_service import render_pdf
 from django.utils.text import slugify

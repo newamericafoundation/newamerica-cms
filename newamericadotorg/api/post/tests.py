@@ -2,7 +2,7 @@ from datetime import date
 from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework import status
 from rest_framework.test import APITestCase
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 
 from test_factories import PostFactory
 

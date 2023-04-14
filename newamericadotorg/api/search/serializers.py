@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.images.views.serve import generate_image_url
 
 from person.models import Person

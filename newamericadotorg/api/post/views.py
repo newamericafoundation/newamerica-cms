@@ -5,7 +5,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import CursorPagination
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from home.models import Post, PostAuthorRelationship
 from other_content.models import OtherPost

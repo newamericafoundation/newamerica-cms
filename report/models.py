@@ -6,14 +6,14 @@ from django.dispatch import receiver
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
     StreamFieldPanel, TabbedInterface,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.blocks import RichTextBlock, URLBlock
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page, PageRevision
+from wagtail.blocks import RichTextBlock, URLBlock
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page, PageRevision
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel

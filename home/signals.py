@@ -2,8 +2,8 @@ import requests
 
 from django.conf import settings
 from django.urls import reverse
-from wagtail.core.models import PageLogEntry
-from wagtail.core.signals import workflow_submitted, workflow_cancelled, workflow_approved, workflow_rejected, page_published
+from wagtail.models import PageLogEntry
+from wagtail.signals import workflow_submitted, workflow_cancelled, workflow_approved, workflow_rejected, page_published
 
 
 def get_environment_prefix():

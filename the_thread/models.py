@@ -3,10 +3,10 @@ import json
 
 from home.models import Post
 
-from wagtail.core.models import Page, PageRevision
-from wagtail.admin.edit_handlers import StreamFieldPanel
-from wagtail.core.fields import StreamField
-from wagtail.core.blocks import PageChooserBlock
+from wagtail.models import Page, PageRevision
+from wagtail.admin.panels import StreamFieldPanel
+from wagtail.fields import StreamField
+from wagtail.blocks import PageChooserBlock
 
 from programs.models import AbstractContentPage
 from newamericadotorg.helpers import paginate_results

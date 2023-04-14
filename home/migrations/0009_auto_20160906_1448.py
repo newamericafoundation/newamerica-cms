@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 from django.db import migrations
 import home.blocks
 import wagtail.contrib.table_block.blocks
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.embeds.blocks
 import wagtail.images.blocks
 
@@ -21,6 +21,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='post',
             name='body',
-            field=wagtail.core.fields.StreamField([('heading', wagtail.core.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image')), ('video', wagtail.embeds.blocks.EmbedBlock(icon='media')), ('table', wagtail.contrib.table_block.blocks.TableBlock()), ('button', wagtail.core.blocks.StructBlock([(b'button_text', wagtail.core.blocks.CharBlock(max_length=50, required=True)), (b'button_link', wagtail.core.blocks.URLBlock(default=b'https://www.', required=True)), (b'alignment', wagtail.core.blocks.ChoiceBlock(choices=[(b'left-aligned', b'Left'), (b'center-aligned', b'Center')]))])), ('iframe', wagtail.core.blocks.StructBlock([(b'source_url', wagtail.core.blocks.URLBlock(required=True)), (b'width', home.blocks.IntegerBlock(help_text=b'The maximum possible iframe width is 1050', max_value=1050)), (b'height', home.blocks.IntegerBlock())])), ('dataviz', wagtail.core.blocks.StructBlock([(b'title', wagtail.core.blocks.CharBlock(required=False)), (b'subheading', wagtail.core.blocks.RichTextBlock(required=False)), (b'max_width', home.blocks.IntegerBlock()), (b'show_download_link', wagtail.core.blocks.BooleanBlock(default=False, required=False)), (b'container_id', wagtail.core.blocks.CharBlock(required=True))]))]),
+            field=wagtail.fields.StreamField([('heading', wagtail.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image')), ('video', wagtail.embeds.blocks.EmbedBlock(icon='media')), ('table', wagtail.contrib.table_block.blocks.TableBlock()), ('button', wagtail.blocks.StructBlock([(b'button_text', wagtail.blocks.CharBlock(max_length=50, required=True)), (b'button_link', wagtail.blocks.URLBlock(default=b'https://www.', required=True)), (b'alignment', wagtail.blocks.ChoiceBlock(choices=[(b'left-aligned', b'Left'), (b'center-aligned', b'Center')]))])), ('iframe', wagtail.blocks.StructBlock([(b'source_url', wagtail.blocks.URLBlock(required=True)), (b'width', home.blocks.IntegerBlock(help_text=b'The maximum possible iframe width is 1050', max_value=1050)), (b'height', home.blocks.IntegerBlock())])), ('dataviz', wagtail.blocks.StructBlock([(b'title', wagtail.blocks.CharBlock(required=False)), (b'subheading', wagtail.blocks.RichTextBlock(required=False)), (b'max_width', home.blocks.IntegerBlock()), (b'show_download_link', wagtail.blocks.BooleanBlock(default=False, required=False)), (b'container_id', wagtail.blocks.CharBlock(required=True))]))]),
         ),
     ]

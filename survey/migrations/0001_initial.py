@@ -4,8 +4,8 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
 import multiselectfield.db.fields
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -73,12 +73,12 @@ class Migration(migrations.Migration):
             name='SurveysHomePage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('about', wagtail.core.fields.RichTextField(blank=True, max_length=1500, verbose_name='About This Project')),
-                ('subscribe', wagtail.core.fields.StreamField([('cta_block', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(max_length=50, required=False)), ('description', wagtail.core.blocks.TextBlock(max_length=200, required=False)), ('link_text', wagtail.core.blocks.CharBlock(max_length=200, required=False)), ('link_url', wagtail.core.blocks.CharBlock(max_length=200, required=False))]))], blank=True, null=True)),
-                ('submissions', wagtail.core.fields.StreamField([('cta_block', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(max_length=50, required=False)), ('description', wagtail.core.blocks.TextBlock(max_length=200, required=False)), ('link_text', wagtail.core.blocks.CharBlock(max_length=200, required=False)), ('link_url', wagtail.core.blocks.CharBlock(max_length=200, required=False))]))], blank=True, null=True)),
-                ('about_submission', wagtail.core.fields.RichTextField(blank=True, max_length=500)),
+                ('about', wagtail.fields.RichTextField(blank=True, max_length=1500, verbose_name='About This Project')),
+                ('subscribe', wagtail.fields.StreamField([('cta_block', wagtail.blocks.StructBlock([('title', wagtail.blocks.CharBlock(max_length=50, required=False)), ('description', wagtail.blocks.TextBlock(max_length=200, required=False)), ('link_text', wagtail.blocks.CharBlock(max_length=200, required=False)), ('link_url', wagtail.blocks.CharBlock(max_length=200, required=False))]))], blank=True, null=True)),
+                ('submissions', wagtail.fields.StreamField([('cta_block', wagtail.blocks.StructBlock([('title', wagtail.blocks.CharBlock(max_length=50, required=False)), ('description', wagtail.blocks.TextBlock(max_length=200, required=False)), ('link_text', wagtail.blocks.CharBlock(max_length=200, required=False)), ('link_url', wagtail.blocks.CharBlock(max_length=200, required=False))]))], blank=True, null=True)),
+                ('about_submission', wagtail.fields.RichTextField(blank=True, max_length=500)),
                 ('subheading', models.CharField(blank=True, max_length=300)),
-                ('methodology', wagtail.core.fields.RichTextField(blank=True, max_length=1500)),
+                ('methodology', wagtail.fields.RichTextField(blank=True, max_length=1500)),
                 ('page_author', models.ManyToManyField(blank=True, through='survey.PageAuthorRelationship', to='person.Person')),
                 ('partner_logo', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='home.CustomImage')),
             ],
@@ -95,7 +95,7 @@ class Migration(migrations.Migration):
                 ('year', models.IntegerField(blank=True, default=2000, help_text='Year Survey was conducted.')),
                 ('month', models.CharField(blank=True, choices=[(None, 'N/A'), ('Jan', 'January'), ('Feb', 'February'), ('Mar', 'March'), ('Apr', 'April'), ('May', 'May'), ('Jun', 'June'), ('Jul', 'July'), ('Aug', 'August'), ('Sep', 'September'), ('Oct', 'October'), ('Nov', 'November'), ('Dec', 'December')], default=None, help_text='Month Survey was conducted, if applicable.', max_length=3, null=True)),
                 ('sample_number', models.IntegerField(blank=True, null=True)),
-                ('findings', wagtail.core.fields.RichTextField(blank=True, max_length=12500, null=True)),
+                ('findings', wagtail.fields.RichTextField(blank=True, max_length=12500, null=True)),
                 ('data_type', multiselectfield.db.fields.MultiSelectField(choices=[('QUANT', 'Quantitative'), ('QUAL', 'Qualitative')], max_length=10)),
                 ('national', models.BooleanField(default=True, help_text='Indicates whether the survey was nationally representative or not.', verbose_name='Nationally Representative?')),
                 ('link', models.URLField(blank=True, help_text='Add a link to a webpage containing the survey details.', null=True, verbose_name='Link to Survey')),

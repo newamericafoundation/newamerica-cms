@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 
 class CtaBlock(blocks.StructBlock):
   title = blocks.CharBlock(required=False, max_length=50)

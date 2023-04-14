@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.core.fields
+import wagtail.fields
 import wagtail.documents.blocks
 
 
@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='otherpost',
             name='attachment',
-            field=wagtail.core.fields.StreamField((('attachment', wagtail.documents.blocks.DocumentChooserBlock(required=False)),), null=True),
+            field=wagtail.fields.StreamField((('attachment', wagtail.documents.blocks.DocumentChooserBlock(required=False)),), null=True),
         ),
     ]

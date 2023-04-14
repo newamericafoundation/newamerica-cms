@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from django.test import TestCase
 
-from wagtail.tests.utils import WagtailPageTests
-from wagtail.core.models import Page
+from wagtail.test.utils import WagtailPageTests
+from wagtail.models import Page
 
 from .models import Book, AllBooksHomePage, ProgramBooksPage
 

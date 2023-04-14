@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from django.conf import settings
 import json
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.images.views.serve import generate_image_url
 
 from home.models import HomePage, AbstractHomeContentPage
