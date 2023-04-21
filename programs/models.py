@@ -4,7 +4,7 @@ from django.db import models
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from wagtail.admin.panels import TabbedInterface, ObjectList
-from wagtail.models import Page, Orderable, PageRevision
+from wagtail.models import Page, Orderable
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.blocks import PageChooserBlock, ChoiceBlock
@@ -226,9 +226,9 @@ class Program(AbstractProgram):
         if getattr(request, 'is_preview', False):
             import newamericadotorg.api
             from issue.models import IssueOrTopic
-            revision = PageRevision.objects.filter(page=self).last().as_page_object()
+            revision = self.get_latest_revision_as_object()
             topics = IssueOrTopic.objects.live().filter(depth=5, parent_program__id=self.id)
-            topics = [PageRevision.objects.filter(page=t).last().as_page_object() for t in topics]
+            topics = [t.get_latest_revision_as_object() for t in topics]
             program_data = newamericadotorg.api.program.serializers.ProgramDetailSerializer(revision, context={'is_preview': True}).data
             topic_data = newamericadotorg.api.topic.serializers.TopicSerializer(topics, many=True).data
             context['initial_state'] = json.dumps(program_data)
@@ -324,7 +324,7 @@ class Subprogram(AbstractProgram):
         context = super().get_context(request)
         if getattr(request, 'is_preview', False):
             import newamericadotorg.api
-            revision = PageRevision.objects.filter(page=self).last().as_page_object()
+            revision = self.get_latest_revision_as_object()
             program_data = newamericadotorg.api.program.serializers.SubprogramSerializer(revision, context={'is_preview': True}).data
             context['initial_state'] = json.dumps(program_data)
             context['initial_topics_state'] = None

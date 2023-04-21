@@ -7,7 +7,6 @@ import tempfile
 from wagtail.documents import get_document_model
 from newamericadotorg.celery import app as celery_app
 from django.apps import apps
-from wagtail.models import PageRevision
 from .utils.docx_save import generate_docx_streamfields
 from .utils.pdf_service import render_pdf
 from django.utils.text import slugify
@@ -18,7 +17,7 @@ def generate_pdf(report_id):
     # Generate report HTML
     Report = apps.get_model('report', 'Report')
     report = Report.objects.get(pk=report_id)
-    revision = PageRevision.objects.filter(page=report).last().as_page_object()
+    revision = report.get_latest_revision_as_object()
     contents = generate_report_contents(revision)
     authors = get_report_authors(revision)
     html = loader.get_template('report/pdf.html').render({ 'page': revision, 'contents': contents, 'authors': authors, 'report': report })

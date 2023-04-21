@@ -3,7 +3,7 @@ import json
 
 from home.models import Post
 
-from wagtail.models import Page, PageRevision
+from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.blocks import PageChooserBlock
 

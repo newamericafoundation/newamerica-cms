@@ -13,7 +13,7 @@ from wagtail.admin.panels import (
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.blocks import RichTextBlock, URLBlock
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Page, PageRevision
+from wagtail.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.search import index
 
@@ -173,7 +173,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
         if getattr(request, 'is_preview', False):
             import newamericadotorg.api.report
-            revision = PageRevision.objects.filter(page=self).last().as_page_object()
+            revision = self.get_latest_revision_as_object()
             report_data = newamericadotorg.api.report.serializers.ReportDetailSerializer(revision).data
             context['initial_state'] = json.dumps(report_data)
 
