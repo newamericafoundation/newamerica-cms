@@ -283,6 +283,7 @@ CSP_DEFAULT_SRC = ("'self'", 'https://*.newamerica.org')
 CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-inline'",  # Needed for Wagtail admin pages
+    'eval:', # Needed for legacy dataviz
     'https://*.newamerica.org',
     'https://analytics.twitter.com',
     'https://bam.nr-data.net',
@@ -309,6 +310,8 @@ CSP_STYLE_SRC = (
 )
 CSP_IMG_SRC = (
     "'self'",
+    'blob:',
+    'data:',
     'https://*.newamerica.org',
     'https://*.gravatar.com',
     'https://analytics.twitter.com',
@@ -325,6 +328,7 @@ CSP_IMG_SRC = (
     'https://syndication.twitter.com',
     'https://t.co',
     'https://tile.openstreetmap.org',
+    'https://translate.google.com',
     'https://www.google-analytics.com',
     'https://www.googletagmanager.com',
     'https://www.gstatic.com',
@@ -382,11 +386,13 @@ CSP_CONNECT_SRC = (
     'https://s3-us-west-2.amazonaws.com/na-data-projects/',
     'https://stats.g.doubleclick.net',
     'https://sumo.com',
+    'https://translate.googleapis.com',
     'https://varying-degrees.herokuapp.com',
     'https://www.google-analytics.com',
 )
 CSP_FONT_SRC = (
     "'self'",
+    'data:',
     'https://d3fvh0lm0eshry.cloudfront.net',
     'https://fonts.googleapis.com',
     'https://fonts.gstatic.com',
