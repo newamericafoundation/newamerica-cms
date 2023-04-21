@@ -10,7 +10,7 @@ from wagtail.whitelist import attribute_rule, check_url, allow_without_attribute
 
 
 @hooks.register('construct_page_listing_buttons')
-def remove_copy_button_for_non_superusers(buttons, page, page_perms, is_parent=False, context=None):
+def remove_copy_button_for_non_superusers(buttons, page, page_perms, context=None):
     if not page_perms.user.is_superuser:
         for top_button in buttons:
             if hasattr(top_button, 'dropdown_buttons'):
