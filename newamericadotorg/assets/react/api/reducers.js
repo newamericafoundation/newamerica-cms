@@ -186,7 +186,12 @@ export const page = (state=1, action) => {
 export const nextParams = (state=null, action) => {
   switch(action.type){
     case SET_RESPONSE:
-      return action.response.nextParams;
+      if (action.response.nextParams) {
+        return action.response.nextParams;
+      } else {
+        return state;
+      }
+
     default:
       return state;
   }
@@ -195,7 +200,12 @@ export const nextParams = (state=null, action) => {
 export const prevParams = (state=null, action) => {
   switch(action.type){
     case SET_RESPONSE:
-      return action.response.prevParams;
+      if (action.response.prevParams) {
+        return action.response.prevParams;
+      } else {
+        return state;
+      }
+
     default:
       return state;
   }
