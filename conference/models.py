@@ -151,11 +151,11 @@ class Conference(Page):
     )
 
     # to be deleted after transfer
-    venue = StreamField(VenueBlock(), null=True, blank=True)
-    directions = StreamField(DirectionsBlock(), null=True, blank=True)
-    speakers = StreamField(PeopleBlock(), null=True, blank=True)
-    partners = StreamField(PartnersBlock(), null=True, blank=True)
-    sessions = StreamField(SessionsBlock(), null=True, blank=True)
+    venue = StreamField(VenueBlock(), null=True, blank=True, use_json_field=True)
+    directions = StreamField(DirectionsBlock(), null=True, blank=True, use_json_field=True)
+    speakers = StreamField(PeopleBlock(), null=True, blank=True, use_json_field=True)
+    partners = StreamField(PartnersBlock(), null=True, blank=True, use_json_field=True)
+    sessions = StreamField(SessionsBlock(), null=True, blank=True, use_json_field=True)
 
     partners_and_sponsors = MultiFieldPanel([
         FieldPanel('partner_heading'),

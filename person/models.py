@@ -176,7 +176,7 @@ class Person(Page):
                 help_text='Tumblr',
                 icon='user'
             )),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
     former = models.BooleanField(default=False, help_text="Select if person no longer serves above role.")

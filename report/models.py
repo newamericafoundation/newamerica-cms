@@ -36,7 +36,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
     sections = StreamField([
         ('section', ReportSectionBlock(template="components/report_section_body.html", required=False))
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     abstract = RichTextField(blank=True, null=True)
 
@@ -86,19 +86,19 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
     featured_sections = StreamField([
         ('featured', FeaturedReportSectionBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     endnotes = StreamField([
         ('endnote', EndnoteBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     report_url = StreamField([
         ('report_url', URLBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     partner_logo = models.ForeignKey(
         'home.CustomImage',

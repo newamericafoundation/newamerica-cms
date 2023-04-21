@@ -19,7 +19,7 @@ class PressRelease(Post):
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     content_panels = Post.content_panels + [
         FieldPanel('attachment'),

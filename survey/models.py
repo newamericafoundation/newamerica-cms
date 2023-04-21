@@ -61,6 +61,7 @@ class SurveysHomePage(AbstractContentPage):
         max_num=1,
         required=False
       ),
+      use_json_field=True,
       null=True,
       blank=True,
     )
@@ -72,6 +73,7 @@ class SurveysHomePage(AbstractContentPage):
       ),
       null=True,
       blank=True,
+      use_json_field=True,
     )
     about_submission = RichTextField(max_length = 500, blank=True)
     subheading = models.CharField(max_length=300, blank=True)

@@ -27,7 +27,7 @@ class Collection(AbstractSimplePage):
             ),
         ),
     ],
-    blank=True)
+    blank=True, use_json_field=True)
 
     # TODO: resources properly
     resources_description = RichTextField(blank=True)
@@ -64,7 +64,7 @@ class Collection(AbstractSimplePage):
                 ),
             ),
         ],
-    blank=True)
+        blank=True, use_json_field=True)
 
     people_description = RichTextField(blank=True)
     people_list = StreamField([
@@ -76,6 +76,7 @@ class Collection(AbstractSimplePage):
             )
         ),
     ],
+    use_json_field=True,
     blank=True)
 
     publications_description = RichTextField(blank=True)
@@ -94,6 +95,7 @@ class Collection(AbstractSimplePage):
             ),
         ),
     ],
+    use_json_field=True,
     blank=True)
 
     events_description = RichTextField(blank=True)
@@ -112,6 +114,7 @@ class Collection(AbstractSimplePage):
             ),
         ),
     ],
+    use_json_field=True,
     blank=True)
 
     content_panels = AbstractSimplePage.content_panels + [

@@ -38,7 +38,7 @@ class InDepthSection(Page):
             	('panel_body', PanelBody())
             ])
         )
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     story_excerpt = models.CharField(blank=True, null=True, max_length=140)
 
@@ -107,7 +107,7 @@ class InDepthProject(Post):
             	('button_url', blocks.URLBlock(required=True, default="https://www.")),
             ])
         )
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     project_logo = models.ForeignKey(
         'home.CustomImage',
@@ -201,7 +201,7 @@ class InDepthProfile(Page):
         ('collapsible', CollapsibleBlock()),
         ('data_reference', DataReferenceBlock()),
         ('video_data_reference', VideoDataReferenceBlock())
-    ])
+    ], use_json_field=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('image_field'),

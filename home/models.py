@@ -217,7 +217,7 @@ class HomePage(Page):
 
     about_pages = StreamField([
         ('page', PageChooserBlock()),
-    ], blank=True, null=True)
+    ], blank=True, null=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('about_pages')
@@ -295,7 +295,7 @@ class AbstractSimplePage(Page):
     Abstract Simple page class that inherits from the Page model and
     creates simple, generic pages.
     """
-    body = StreamField(BodyBlock(required=False), blank=True, null=True)
+    body = StreamField(BodyBlock(required=False), blank=True, null=True, use_json_field=True)
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
     custom_interface = models.BooleanField(default=False)
     story_image = models.ForeignKey(
@@ -481,7 +481,7 @@ class SubscribePage(OrgSimplePage):
             ('id', blocks.CharBlock(required=True, max_length=6, help_text="Enter the unique campaign monitor ID")),
             # ('checked_by_default', blocks.BooleanBlock(default=False, required=False, help_text="Controls whether subscription is checked by default on the Subscribe Page"))
         ], icon='placeholder'))
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     event_subscriptions = StreamField([
         ('subscription', blocks.StructBlock([
@@ -490,7 +490,7 @@ class SubscribePage(OrgSimplePage):
             ('id', blocks.CharBlock(required=True, max_length=6, help_text="Enter the unique campaign monitor ID")),
             # ('checked_by_default', blocks.BooleanBlock(default=False, required=False, help_text="Controls whether subscription is checked by default on the Subscribe Page"))
         ], icon='placeholder'))
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('newsletter_subscriptions'),
@@ -611,7 +611,7 @@ class Post(Page):
     # used to determine ordering for pagination in the "post" api
     ordered_date_string = models.CharField(blank=True, max_length=140)
 
-    body = StreamField(BodyBlock(required=False), blank=True, null=True)
+    body = StreamField(BodyBlock(required=False), blank=True, null=True, use_json_field=True)
 
     parent_programs = models.ManyToManyField(
         Program, through=PostProgramRelationship, blank=True)

@@ -190,7 +190,7 @@ class Program(AbstractProgram):
 
     sidebar_menu_about_us_pages = StreamField([
         ('Item', PageChooserBlock()),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     subscription_segments = models.ManyToManyField(
         SubscriptionSegment,
