@@ -33,7 +33,7 @@ dependencies = [
     'elasticsearch >= 5.5, <6',
     'redis >= 3.4.1, < 4',
     # See https://github.com/wagtail/wagtail-autocomplete
-    'wagtail-autocomplete == 0.6.3',
+    'wagtail-autocomplete >= 0.10.0',
     # See https://pypi.org/project/django-multiselectfield/
     'django-multiselectfield >= 0.1.12',
     'gunicorn == 20.0.4',
