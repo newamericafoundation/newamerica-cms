@@ -15,7 +15,7 @@ from pytz import timezone
 from wagtail.admin.panels import (
     FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 )
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail import blocks
 from wagtail.blocks import PageChooserBlock
@@ -720,7 +720,7 @@ class AbstractHomeContentPage(Page):
 
 
 @register_setting(icon='placeholder')
-class PublicationPermissions(BaseSetting, ClusterableModel):
+class PublicationPermissions(BaseSiteSetting, ClusterableModel):
     groups_with_report_permission = ParentalManyToManyField(
         Group,
         blank=True,
