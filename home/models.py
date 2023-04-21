@@ -332,6 +332,7 @@ class RedirectPage(Page):
     overrides the serve method to allow for redirects to pages
     external to the site.
     """
+    preview_modes = []
 
     story_excerpt = models.CharField(blank=True, null=True, max_length=140)
 
