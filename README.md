@@ -12,7 +12,7 @@ Custom Content Management System (CMS) built for New America
 
 You may want to use tools like [pyenv](https://github.com/pyenv/pyenv) to manage your Python version and [nvm](https://github.com/nvm-sh/nvm) to manage your Node version.
 
-**Updating dependencies**.  The "docker build" command below will create new `requirements.txt` (for production) and `dev-requirements.txt` (for development) from the information in `pyproject.toml`.
+**Updating dependencies**.  The "docker build" command below will create new `requirements.txt` (for production -- Heroku requires this file to be in the root of the project folder hierarchy) and `requirements/local-dev.txt` (for development) and `requirements/ci.txt` (for use with continuous integration services) from the information in `pyproject.toml`.
 
 ```
 docker build --target=requirements-artifacts -f ./docker/Dockerfile --output type=local,dest=. .
