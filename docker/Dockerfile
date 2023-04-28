@@ -12,7 +12,7 @@ RUN pip install -U pip pip-tools wheel
 COPY pyproject.toml ./
 COPY docker/pip-compile.sh /usr/local/bin
 COPY ./requirements/local-dev.txt ./
-COPY ./requirements/prod.txt ./
+COPY ./requirements.txt ./
 COPY ./requirements/ci.txt ./
 RUN pip-compile.sh
 
@@ -21,7 +21,7 @@ RUN pip-compile.sh
 # `docker build --output=...`
 FROM scratch AS requirements-artifacts
 COPY --from=builder local-dev.txt ./requirements/local-dev.txt
-COPY --from=builder prod.txt ./requirements/prod.txt
+COPY --from=builder requirements.txt ./requirements.txt
 COPY --from=builder ci.txt ./requirements/ci.txt
 
 FROM python-base
