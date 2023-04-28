@@ -120,7 +120,7 @@ l18n==2021.3
 lxml==4.9.2
     # via python-docx
 openpyxl==3.1.2
-    # via tablib
+    # via wagtail
 pillow==9.5.0
     # via
     #   cairosvg
@@ -168,8 +168,6 @@ soupsieve==2.4
     # via beautifulsoup4
 sqlparse==0.4.3
     # via django
-tablib[xls,xlsx]==3.4.0
-    # via wagtail
 telepath==0.3
     # via wagtail
 tinycss2==1.2.1
@@ -188,7 +186,7 @@ vine==1.3.0
     # via
     #   amqp
     #   celery
-wagtail==4.0.4
+wagtail==4.1.4
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail-autocomplete
@@ -210,12 +208,6 @@ whitenoise==6.4.0
     # via newamerica-cms (pyproject.toml)
 willow==1.4.1
     # via wagtail
-xlrd==2.0.1
-    # via tablib
-xlsxwriter==3.1.0
-    # via wagtail
-xlwt==1.3.0
-    # via tablib
 
 # The following packages are considered to be unsafe in a requirements file:
 setuptools==67.6.1
