@@ -1,6 +1,6 @@
 from datetime import date
 
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Page
 
 from test_factories import PostFactory
@@ -8,7 +8,7 @@ from test_factories import PostFactory
 from home.models import HomePage, CustomImage, PostAuthorRelationship
 from in_depth.models import InDepthProject, AllInDepthHomePage
 
-class InDepthTests(WagtailPageTests):
+class InDepthTests(WagtailPageTestCase):
     def setUp(self):
         self.login()
 

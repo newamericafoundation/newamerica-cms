@@ -3,7 +3,7 @@ from django.test import TestCase
 from wagtail import blocks
 from wagtail.blocks.stream_block import StreamValue
 from wagtail.rich_text import RichText
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 
 from home.models import HomePage
 from newamericadotorg.blocks import ResourceKit, Body, PanelsBlock
@@ -13,7 +13,7 @@ from test_factories import PostFactory
 from .models import AllBriefsHomePage, Brief, ProgramBriefsPage
 
 
-class BriefPagesHierarchy(WagtailPageTests):
+class BriefPagesHierarchy(WagtailPageTestCase):
     def test_can_create_brief_under_briefs_homepage(self):
         self.assertCanCreateAt(ProgramBriefsPage, Brief)
 

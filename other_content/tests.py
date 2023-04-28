@@ -1,4 +1,4 @@
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Page
 
 from test_factories import PostFactory
@@ -10,7 +10,7 @@ from programs.models import Program, Subprogram, Project
 from .models import OtherPost, ProgramOtherPostsPage, AllOtherPostsHomePage, OtherPostCategory
 
 
-class OtherContentTests(WagtailPageTests):
+class OtherContentTests(WagtailPageTestCase):
     def setUp(self):
         self.login()
 

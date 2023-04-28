@@ -1,4 +1,4 @@
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Page
 
 from .models import Podcast, AllPodcastsHomePage, ProgramPodcastsPage
@@ -7,7 +7,7 @@ from home.models import HomePage, PostProgramRelationship
 
 from programs.models import Program, Subprogram, Project
 
-class PodcastTests(WagtailPageTests):
+class PodcastTests(WagtailPageTestCase):
     """
     Testing the Podcast, AllPodcastsHomePage, and
     ProgramPodcastsPage models to confirm

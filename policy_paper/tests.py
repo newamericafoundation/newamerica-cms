@@ -1,4 +1,4 @@
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Page, Site
 
 from django.test import Client
@@ -12,7 +12,7 @@ from .models import PolicyPaper, AllPolicyPapersHomePage, ProgramPolicyPapersPag
 from person.models import Person, OurPeoplePage
 
 
-class PolicyPaperHierarchiesTests(WagtailPageTests):
+class PolicyPaperHierarchiesTests(WagtailPageTestCase):
     """
     Testing the PolicyPaper, AllPolicyPapersHomePage, and
     ProgramPolicyPapersPage models to confirm
@@ -184,7 +184,7 @@ class PolicyPaperHierarchiesTests(WagtailPageTests):
         )
 
 
-class PolicyPaperIntegrationTests(WagtailPageTests):
+class PolicyPaperIntegrationTests(WagtailPageTestCase):
     """
     Testing functionality of the various template tags
     used across the site.

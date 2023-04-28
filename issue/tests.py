@@ -1,4 +1,4 @@
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Page
 
 from .models import IssueOrTopic, TopicHomePage
@@ -8,7 +8,7 @@ from home.models import HomePage, PostProgramRelationship
 from programs.models import Program, Subprogram
 
 
-class IssueOrTopicTests(WagtailPageTests):
+class IssueOrTopicTests(WagtailPageTestCase):
     """
     Testing the IssueOrTopic model
     to confirm hierarchies between pages and

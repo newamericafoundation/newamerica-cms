@@ -4,7 +4,7 @@ from datetime import date, timedelta
 from django.http import HttpResponsePermanentRedirect
 from django.test import Client, TestCase
 from wagtail.models import Page, Site
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.test.utils.form_data import nested_form_data, streamfield
 
 from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
@@ -37,7 +37,7 @@ from .models import (
 from .templatetags.utilities import generate_byline
 
 
-class HomeTests(WagtailPageTests):
+class HomeTests(WagtailPageTestCase):
     """
     Testing hierarchies between pages and whether it is possible
     to create a Homepage and all the allowed subpages

@@ -1,4 +1,4 @@
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Page
 
 from .models import Article, ProgramArticlesPage, AllArticlesHomePage
@@ -8,7 +8,7 @@ from home.models import HomePage, PostProgramRelationship
 from programs.models import Program, Subprogram, Project
 
 
-class ArticleTests(WagtailPageTests):
+class ArticleTests(WagtailPageTestCase):
     """
     Testing hierarchies between pages and whether it is possible
     to create an All Articles Homepage under the Homepage,

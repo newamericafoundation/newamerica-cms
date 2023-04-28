@@ -1,4 +1,4 @@
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Page
 
 from home.models import HomePage, PostProgramRelationship
@@ -8,7 +8,7 @@ from programs.models import Program, Subprogram, Project
 from .models import PressRelease, AllPressReleasesHomePage, ProgramPressReleasesPage
 
 
-class PressReleaseTests(WagtailPageTests):
+class PressReleaseTests(WagtailPageTestCase):
     """
     Testing the PressRelease, AllPressReleasesHomePage, and
     ProgramPressReleasesPage models to confirm
