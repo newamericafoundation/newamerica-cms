@@ -110,6 +110,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'newamericadotorg.urls'
 HTML_MINIFY = True
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
