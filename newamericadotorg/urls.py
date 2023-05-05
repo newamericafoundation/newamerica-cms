@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
 
     url(r'^international-security/future-property-rights/[^.]*$', redirects.future_property_rights),
+    url(r'^international-security/planetary-politics/[^.]*$', redirects.planetary_politics),
     url(r'^education-policy/dual-language-learners/[^.]*$', redirects.dual_language_learners),
     url(r'^bretton-woods-ii/[^.]*$', redirects.digi),
     url(r'^digital-impact-governance-inititiative/[^.]*$', redirects.digi),
