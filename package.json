@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
-  "engines": {
-    "node": "10.15.1",
-    "npm": "6.8.0"
-  },
   "scripts": {
     "start": "source .env && source venv/bin/activate && ./manage.py runserver",
     "start:lite": "webpack-dev-server --config ./webpack.config.lite.js --mode development",
