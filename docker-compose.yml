@@ -58,7 +58,7 @@ services:
 
   node:
     init: true
-    image: node:10.15.1-alpine
+    image: node:12.22.12-alpine
     volumes:
       - ./:/app
     working_dir: /app

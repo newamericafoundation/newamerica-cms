@@ -1,3 +1,4 @@
+@use "sass:math";
 .checkbox {
   $root: &;
   $indicator-size: 12px;
@@ -91,8 +92,8 @@
     &::after {
       @include transition(all 0.15s linear);
       position: absolute;
-      $width: (2/3) * $indicator-size--checkbox;
-      $height: (1/3) * $indicator-size--checkbox;
+      $width: math.div(2, 3) * $indicator-size--checkbox;
+      $height: math.div(1, 3) * $indicator-size--checkbox;
       height: $height;
       width: $width;
       top: 0.5 * ($indicator-size--checkbox - (1.4 * $height));

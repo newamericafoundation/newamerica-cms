@@ -47,7 +47,7 @@ module.exports = env => {
             {
               loader: 'sass-loader',
               options: {
-                data: `$static: ${
+                additionalData: `$static: ${
                   NODE_ENV === 'development'
                     ? '"/static"'
                     : `"${STATIC_URL}/static"`
