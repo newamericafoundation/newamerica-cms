@@ -22,7 +22,6 @@ from wagtail.blocks import PageChooserBlock
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.embeds.blocks import EmbedBlock
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessPreviewMixin, PagePreview
