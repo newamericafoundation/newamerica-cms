@@ -20,6 +20,12 @@ class CustomDataVizImageBlock(blocks.StructBlock):
 	figure_number = blocks.CharBlock(required=False, max_length=3)
 	figure_title = blocks.CharBlock(required=False, max_length=100)
 	open_image_on_click = blocks.BooleanBlock(default=False, required=False)
+	alt_text = blocks.CharBlock(
+		required=False,
+		verbose_name='Alternative text',
+		help_text='A concise description of the image for users of assistive technology.',
+	)
+
 
 	class Meta:
 		template = 'blocks/image_block.html'
