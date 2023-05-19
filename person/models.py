@@ -120,6 +120,12 @@ class Person(Page):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+    profile_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Profile image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     belongs_to_these_programs = models.ManyToManyField(
         Program,
@@ -211,6 +217,7 @@ class Person(Page):
             FieldPanel('first_name'),
             FieldPanel('last_name'),
             FieldPanel('profile_image'),
+            FieldPanel('profile_image_alt'),
             FieldPanel('short_bio'),
             FieldPanel('long_bio', classname="full")
         ], heading="About"),
@@ -309,6 +316,12 @@ class OurPeoplePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('page_description'),
@@ -316,6 +329,7 @@ class OurPeoplePage(Page):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
     def get_context(self, request):
@@ -346,6 +360,12 @@ class ExpertPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('page_description'),
@@ -354,6 +374,7 @@ class ExpertPage(Page):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
 class ProgramPeoplePage(AbstractContentPage):
@@ -371,9 +392,16 @@ class ProgramPeoplePage(AbstractContentPage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     promote_panels = Page.promote_panels + [
-        FieldPanel('story_image')
+        FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
     class Meta:
@@ -395,6 +423,12 @@ class BoardAndLeadershipPeoplePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     page_description = RichTextField(blank=True, null=True)
 
@@ -413,7 +447,8 @@ class BoardAndLeadershipPeoplePage(Page):
     ]
 
     promote_panels = Page.promote_panels + [
-        FieldPanel('story_image')
+        FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
     def get_context(self, request):

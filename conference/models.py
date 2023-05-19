@@ -38,6 +38,12 @@ class Conference(Page):
         related_name='+',
         verbose_name="Cover Image"
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Cover image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     about_image = models.ForeignKey(
         'home.CustomImage',
@@ -46,6 +52,12 @@ class Conference(Page):
         on_delete=models.SET_NULL,
         related_name='+',
         verbose_name="About Image"
+    )
+    about_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='About image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
     )
 
     alternate_logo = models.ForeignKey(
@@ -56,6 +68,12 @@ class Conference(Page):
         on_delete=models.SET_NULL,
         related_name='+',
         verbose_name="Alternate Logo"
+    )
+    alternate_logo_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Alternate logo alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
     )
 
     host_organization = models.TextField(
@@ -92,12 +110,15 @@ class Conference(Page):
             FieldPanel('subheading'),
             FieldPanel('host_organization'),
             FieldPanel('alternate_logo'),
+            FieldPanel('alternate_logo_alt'),
             FieldRowPanel([
                 FieldPanel('date', classname="col6"),
                 FieldPanel('end_date', classname="col6")
             ]),
             FieldPanel('story_image'),
+            FieldPanel('story_image_alt'),
             FieldPanel('about_image'),
+            FieldPanel('about_image_alt'),
             FieldPanel('live_stream'),
             FieldPanel('description')
         ],

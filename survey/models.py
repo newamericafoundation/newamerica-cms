@@ -45,6 +45,12 @@ class SurveysHomePage(AbstractContentPage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    partner_logo_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Partner logo alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
     about = RichTextField(
       max_length=1500,
       blank=True,
@@ -93,6 +99,7 @@ class SurveysHomePage(AbstractContentPage):
         FieldPanel('about_submission'),
         InlinePanel('authors', label="Authors"),
         FieldPanel('partner_logo'),
+        FieldPanel('partner_logo_alt'),
       ], heading='About Tab')
     ]
 

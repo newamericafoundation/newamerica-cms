@@ -305,6 +305,12 @@ class AbstractSimplePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
 
@@ -315,6 +321,7 @@ class AbstractSimplePage(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
     settings_panels = Page.settings_panels + [
@@ -343,6 +350,12 @@ class RedirectPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
     redirect_url = models.URLField(blank=True, null=True)
 
     content_panels = Page.content_panels + [
@@ -352,6 +365,7 @@ class RedirectPage(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
     def serve(self, request):
@@ -634,6 +648,12 @@ class Post(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
 
@@ -650,6 +670,7 @@ class Post(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
         InlinePanel('location', label=("Locations"),)
     ]
 

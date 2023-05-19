@@ -107,6 +107,12 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    partner_logo_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Partner logo alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     theme_full_bleed = models.BooleanField(default=False, help_text="Display bleed image on landing page")
 
@@ -154,7 +160,8 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
             FieldPanel('report_pdf'),
             FieldPanel('attachment')
         ], heading='PDF Generation'),
-        FieldPanel('partner_logo')
+        FieldPanel('partner_logo'),
+        FieldPanel('partner_logo_alt'),
     ]
 
     edit_handler = TabbedInterface([
