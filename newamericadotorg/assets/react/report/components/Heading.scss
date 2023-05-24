@@ -92,10 +92,8 @@
 
 .card__image__background-image {
   flex-grow: 1;
-  background-color: #efefef;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  height: 0;
+  object-fit: cover;
 }
 
 .report__cover-image__source {

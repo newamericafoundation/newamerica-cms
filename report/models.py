@@ -122,6 +122,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
             FieldPanel('subheading'),
             FieldPanel('date'),
             FieldPanel('story_image'),
+            FieldPanel('story_image_alt'),
         ]),
         InlinePanel('authors', label=("Authors")),
         InlinePanel('programs', label=("Programs")),
