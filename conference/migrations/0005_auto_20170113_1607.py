@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='conference',
             name='speakers',
-            field=wagtail.core.fields.StreamField([(b'person', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock(required=True)), (b'title', wagtail.core.blocks.TextBlock(help_text=b'125 character limit', max_length=125, required=False)), (b'description', wagtail.core.blocks.RichTextBlock(required=False)), (b'image', wagtail.images.blocks.ImageChooserBlock(icon=b'image', required=False)), (b'twitter', wagtail.core.blocks.URLBlock(required=False))]))], blank=True, null=True),
+            field=wagtail.fields.StreamField([(b'person', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock(required=True)), (b'title', wagtail.blocks.TextBlock(help_text=b'125 character limit', max_length=125, required=False)), (b'description', wagtail.blocks.RichTextBlock(required=False)), (b'image', wagtail.images.blocks.ImageChooserBlock(icon=b'image', required=False)), (b'twitter', wagtail.blocks.URLBlock(required=False))]))], blank=True, null=True),
         ),
     ]

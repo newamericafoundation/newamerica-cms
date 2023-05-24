@@ -2,12 +2,11 @@ from django.db import models
 
 from home.models import Post
 
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.admin.panels import FieldPanel
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.core.fields import RichTextField
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.fields import RichTextField
 
 from newamericadotorg.helpers import paginate_results, get_program_and_subprogram_posts, get_org_wide_posts
 from programs.models import AbstractContentPage
@@ -23,10 +22,10 @@ class BlogPost(Post):
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     content_panels = Post.content_panels + [
-        StreamFieldPanel('attachment'),
+        FieldPanel('attachment'),
     ]
 
     class Meta:
@@ -81,7 +80,7 @@ class ProgramBlogPostsPage(AbstractContentPage):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
     @property

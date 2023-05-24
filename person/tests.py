@@ -1,5 +1,5 @@
-from wagtail.tests.utils import WagtailPageTests
-from wagtail.core.models import Page, Site
+from wagtail.test.utils import WagtailPageTestCase
+from wagtail.models import Page, Site
 
 from django.test import Client
 
@@ -16,7 +16,7 @@ from django.utils.safestring import mark_safe
 from policy_paper.models import AllPolicyPapersHomePage, ProgramPolicyPapersPage, PolicyPaper
 
 
-class PersonTests(WagtailPageTests):
+class PersonTests(WagtailPageTestCase):
     """
     Testing functionality of the Person model,
     including features to associate a Person with

@@ -6,17 +6,15 @@ from django.dispatch import receiver
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
-from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
-    StreamFieldPanel, TabbedInterface,
+from wagtail.admin.panels import (
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList,
+    TabbedInterface,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.blocks import RichTextBlock, URLBlock
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page, PageRevision
+from wagtail.blocks import RichTextBlock, URLBlock
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 from home.models import AbstractHomeContentPage, Post, RedirectHeadlessPreviewMixin
@@ -38,7 +36,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
     sections = StreamField([
         ('section', ReportSectionBlock(template="components/report_section_body.html", required=False))
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     abstract = RichTextField(blank=True, null=True)
 
@@ -88,19 +86,19 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
     featured_sections = StreamField([
         ('featured', FeaturedReportSectionBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     endnotes = StreamField([
         ('endnote', EndnoteBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     report_url = StreamField([
         ('report_url', URLBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     attachment = StreamField([
         ('attachment', DocumentChooserBlock(required=False, null=True)),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     partner_logo = models.ForeignKey(
         'home.CustomImage',
@@ -117,7 +115,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
             FieldPanel('title'),
             FieldPanel('subheading'),
             FieldPanel('date'),
-            ImageChooserPanel('story_image'),
+            FieldPanel('story_image'),
         ]),
         InlinePanel('authors', label=("Authors")),
         InlinePanel('programs', label=("Programs")),
@@ -126,16 +124,16 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
         InlinePanel('location', label=("Locations")),
         MultiFieldPanel([
             FieldPanel('abstract'),
-            StreamFieldPanel('featured_sections'),
+            FieldPanel('featured_sections'),
             FieldPanel('acknowledgements'),
         ])
     ]
 
     sections_panels = [
-        StreamFieldPanel('sections')
+        FieldPanel('sections')
     ]
 
-    endnote_panels = [StreamFieldPanel('endnotes')]
+    endnote_panels = [FieldPanel('endnotes')]
 
     settings_panels = Post.settings_panels + [
         FieldPanel('theme_full_bleed'),
@@ -148,15 +146,15 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
     pdf_panels = [
         MultiFieldPanel([
-            DocumentChooserPanel('source_word_doc'),
+            FieldPanel('source_word_doc'),
             FieldPanel('overwrite_sections_on_save'),
         ], heading='Word Doc Import'),
         MultiFieldPanel([
             FieldPanel('generate_pdf_on_publish'),
-            DocumentChooserPanel('report_pdf'),
-            StreamFieldPanel('attachment')
+            FieldPanel('report_pdf'),
+            FieldPanel('attachment')
         ], heading='PDF Generation'),
-        ImageChooserPanel('partner_logo')
+        FieldPanel('partner_logo')
     ]
 
     edit_handler = TabbedInterface([
@@ -175,7 +173,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
         if getattr(request, 'is_preview', False):
             import newamericadotorg.api.report
-            revision = PageRevision.objects.filter(page=self).last().as_page_object()
+            revision = self.get_latest_revision_as_object()
             report_data = newamericadotorg.api.report.serializers.ReportDetailSerializer(revision).data
             context['initial_state'] = json.dumps(report_data)
 
@@ -184,6 +182,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
     def save(self, *args, **kwargs):
         super(Report, self).save(*args, **kwargs)
 
+        # TODO: apply demorgan's laws
         if not self.overwrite_sections_on_save and not self.generate_pdf_on_publish:
             self.revising = False
 

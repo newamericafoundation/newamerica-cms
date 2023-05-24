@@ -23,6 +23,9 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  {% if request.in_preview_panel %}
+      <base target="_blank">
+  {% endif %}
   <link rel="icon" type="image/png" href="<%=htmlWebpackPlugin.options.extraStaticUrl%>/favicon.png">
   <link rel="shortcut icon" href="<%=htmlWebpackPlugin.options.extraStaticUrl%>/favicon.ico" type="image/x-icon">
   <link rel="icon" href="<%=htmlWebpackPlugin.options.extraStaticUrl%>/favicon.ico" type="image/x-icon">

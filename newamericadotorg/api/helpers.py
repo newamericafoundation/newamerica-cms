@@ -9,7 +9,7 @@ from other_content.models import ProgramOtherPostsPage, OtherPostCategory
 from policy_paper.models import ProgramPolicyPapersPage
 
 from django.urls import reverse
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.images.models import SourceImageIOError
 
 def generate_image_rendition(image, filter_spec=None):

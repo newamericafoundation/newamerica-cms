@@ -1,6 +1,6 @@
 from django.utils import timezone
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend, Elasticsearch5SearchQueryCompiler, Elasticsearch5Mapping
 from wagtail.search.index import FilterField
 

@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from django.test import TestCase
 
-from wagtail.tests.utils import WagtailPageTests
-from wagtail.core.models import Page
+from wagtail.test.utils import WagtailPageTestCase
+from wagtail.models import Page
 
 from .models import Book, AllBooksHomePage, ProgramBooksPage
 
@@ -11,7 +11,7 @@ from home.models import HomePage, PostProgramRelationship
 
 from programs.models import Program, Subprogram, Project
 
-class BookTests(WagtailPageTests):
+class BookTests(WagtailPageTestCase):
     """
     Testing the Book, AllBooksHomePage, and
     ProgramBooksPage models to confirm hierarchies

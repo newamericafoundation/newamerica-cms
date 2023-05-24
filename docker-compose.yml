@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   web:
+    init: true
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -26,6 +27,7 @@ services:
       - es
     working_dir: /app
   db:
+    init: true
     image: postgres:13.3-alpine
     environment:
       POSTGRES_USER: wagtail
@@ -34,6 +36,7 @@ services:
     ports:
       - "5432:5432"
   es:
+    init: true
     image: docker.elastic.co/elasticsearch/elasticsearch:5.6.16
     environment:
       - script.inline=true
@@ -47,12 +50,14 @@ services:
       - "9200"
 
   redis:
+    init: true
     image: "redis:alpine"
     command: redis-server
     expose:
      - "6379"
 
   node:
+    init: true
     image: node:10.15.1-alpine
     volumes:
       - ./:/app
@@ -60,6 +65,7 @@ services:
     command: /bin/ash -c "npm install && npm run dev"
 
   celery_worker:
+    init: true
     build:
       context: .
       dockerfile: ./docker/Dockerfile

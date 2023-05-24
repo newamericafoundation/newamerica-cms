@@ -6,8 +6,8 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.embeds.blocks
 import wagtail.images.blocks
 import wagtail.images.models
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
             name='HomePage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('recent_carousel', wagtail.core.fields.StreamField([('event', wagtail.core.blocks.PageChooserBlock()), ('policy_paper', wagtail.core.blocks.PageChooserBlock())], blank=True)),
+                ('recent_carousel', wagtail.fields.StreamField([('event', wagtail.blocks.PageChooserBlock()), ('policy_paper', wagtail.blocks.PageChooserBlock())], blank=True)),
             ],
             options={
                 'abstract': False,
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
             name='OrgSimplePage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.core.fields.StreamField([('heading', wagtail.core.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image')), ('video', wagtail.embeds.blocks.EmbedBlock(icon='media'))])),
+                ('body', wagtail.fields.StreamField([('heading', wagtail.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image')), ('video', wagtail.embeds.blocks.EmbedBlock(icon='media'))])),
                 ('story_excerpt', models.CharField(blank=True, max_length=500, null=True)),
             ],
             options={
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
                 ('subheading', models.TextField(blank=True, null=True)),
                 ('date', models.DateField(verbose_name='Post date')),
-                ('body', wagtail.core.fields.StreamField([('heading', wagtail.core.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image')), ('video', wagtail.embeds.blocks.EmbedBlock(icon='media'))])),
+                ('body', wagtail.fields.StreamField([('heading', wagtail.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image')), ('video', wagtail.embeds.blocks.EmbedBlock(icon='media'))])),
                 ('story_excerpt', models.CharField(blank=True, max_length=140, null=True)),
             ],
             options={
@@ -114,7 +114,7 @@ class Migration(migrations.Migration):
             name='ProgramSimplePage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.core.fields.StreamField([('heading', wagtail.core.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image')), ('video', wagtail.embeds.blocks.EmbedBlock(icon='media'))])),
+                ('body', wagtail.fields.StreamField([('heading', wagtail.blocks.CharBlock(classname='full title')), ('paragraph', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock(icon='image')), ('video', wagtail.embeds.blocks.EmbedBlock(icon='media'))])),
                 ('story_excerpt', models.CharField(blank=True, max_length=500, null=True)),
                 ('story_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='home.CustomImage')),
             ],

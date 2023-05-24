@@ -2,8 +2,8 @@ from django.test import TestCase
 from datetime import date, timedelta
 from django.test import Client
 
-from wagtail.tests.utils import WagtailPageTests
-from wagtail.core.models import Page, Site
+from wagtail.test.utils import WagtailPageTestCase
+from wagtail.models import Page, Site
 
 from .models import Event, AllEventsHomePage, ProgramEventsPage
 
@@ -12,7 +12,7 @@ from home.models import HomePage, PostProgramRelationship
 from programs.models import Program, Subprogram, Project
 
 
-class EventPageViewTests(WagtailPageTests):
+class EventPageViewTests(WagtailPageTestCase):
     """
     Testing the split views for past
     and future Event pages. Includes tests for
@@ -140,7 +140,7 @@ class EventPageViewTests(WagtailPageTests):
         self.assertEqual(response.status_code, 200)
 
 
-class EventTests(WagtailPageTests):
+class EventTests(WagtailPageTestCase):
     """
     Testing the Event, AllEventsHomePage, and
     ProgramEventsPage models to confirm

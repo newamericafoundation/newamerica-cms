@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from wagtail.admin.edit_handlers import StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
 from wagtail.documents.blocks import DocumentChooserBlock
 
 from home.models import AbstractHomeContentPage, Post
@@ -42,10 +42,11 @@ class Brief(Post):
         ],
         null=True,
         blank=True,
+        use_json_field=True,
     )
 
     content_panels = Post.content_panels + [
-        StreamFieldPanel('attachment'),
+        FieldPanel('attachment'),
     ]
 
     def word_count(self):

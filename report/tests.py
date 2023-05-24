@@ -1,5 +1,5 @@
-from wagtail.tests.utils import WagtailPageTests
-from wagtail.core.models import Page
+from wagtail.test.utils import WagtailPageTestCase
+from wagtail.models import Page
 
 from test_factories import PostFactory
 
@@ -10,7 +10,7 @@ from programs.models import Program, Subprogram, Project
 from .models import Report, ReportsHomepage, AllReportsHomePage
 
 
-class ReportTests(WagtailPageTests):
+class ReportTests(WagtailPageTestCase):
     def setUp(self):
         self.login()
 

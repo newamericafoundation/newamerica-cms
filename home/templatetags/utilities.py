@@ -6,7 +6,7 @@ from pytz import timezone
 from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from wagtail.core.blocks import StreamValue
+from wagtail.blocks import StreamValue
 
 from event.models import Event
 from person.models import Person

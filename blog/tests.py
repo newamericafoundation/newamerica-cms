@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from wagtail.tests.utils import WagtailPageTests
-from wagtail.core.models import Page
+from wagtail.test.utils import WagtailPageTestCase
+from wagtail.models import Page
 
 from .models import BlogPost, AllBlogPostsHomePage, ProgramBlogPostsPage
 
@@ -9,7 +9,7 @@ from home.models import HomePage, PostProgramRelationship
 
 from programs.models import Program, Subprogram, Project
 
-class BlogPostTests(WagtailPageTests):
+class BlogPostTests(WagtailPageTestCase):
     """
     Testing the BlogPost, AllBlogPostsHomePage, and
     ProgramBlogPostsPage models to confirm hierarchies

@@ -1,7 +1,7 @@
 from django.db import models
 
-from wagtail.core.models import Page
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Page
+from wagtail.admin.panels import FieldPanel
 
 from home.models import Post
 
@@ -23,7 +23,7 @@ class Book(Post):
     )
 
     content_panels = Post.content_panels + [
-        ImageChooserPanel('publication_cover_image'),
+        FieldPanel('publication_cover_image'),
     ]
 
     parent_page_types = ['ProgramBooksPage']

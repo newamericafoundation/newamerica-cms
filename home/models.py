@@ -12,18 +12,17 @@ from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from pytz import timezone
-from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel,
+from wagtail.admin.panels import (
+    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 )
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core import blocks
-from wagtail.core.blocks import PageChooserBlock
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail import blocks
+from wagtail.blocks import PageChooserBlock
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessPreviewMixin, PagePreview
@@ -218,28 +217,28 @@ class HomePage(Page):
 
     about_pages = StreamField([
         ('page', PageChooserBlock()),
-    ], blank=True, null=True)
+    ], blank=True, null=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('about_pages')
+        FieldPanel('about_pages')
     ]
 
     promote_panels = Page.promote_panels + [
         MultiFieldPanel(
             [
-                PageChooserPanel('lead_1'),
-                PageChooserPanel('lead_2'),
-                PageChooserPanel('lead_3'),
-                PageChooserPanel('lead_4'),
+                FieldPanel('lead_1'),
+                FieldPanel('lead_2'),
+                FieldPanel('lead_3'),
+                FieldPanel('lead_4'),
             ],
             heading="Lead Stories",
             classname="collapsible"
         ),
         MultiFieldPanel(
             [
-                PageChooserPanel('feature_1'),
-                PageChooserPanel('feature_2'),
-                PageChooserPanel('feature_3'),
+                FieldPanel('feature_1'),
+                FieldPanel('feature_2'),
+                FieldPanel('feature_3'),
             ],
             heading="Featured Stories",
             classname="collapsible"
@@ -296,7 +295,7 @@ class AbstractSimplePage(Page):
     Abstract Simple page class that inherits from the Page model and
     creates simple, generic pages.
     """
-    body = StreamField(BodyBlock(required=False), blank=True, null=True)
+    body = StreamField(BodyBlock(required=False), blank=True, null=True, use_json_field=True)
     story_excerpt = models.CharField(blank=True, null=True, max_length=500)
     custom_interface = models.BooleanField(default=False)
     story_image = models.ForeignKey(
@@ -310,12 +309,12 @@ class AbstractSimplePage(Page):
     data_project_external_script = models.CharField(blank=True, null=True, max_length=140, help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.")
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('body')
+        FieldPanel('body')
     ]
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
     settings_panels = Page.settings_panels + [
@@ -333,6 +332,7 @@ class RedirectPage(Page):
     overrides the serve method to allow for redirects to pages
     external to the site.
     """
+    preview_modes = []
 
     story_excerpt = models.CharField(blank=True, null=True, max_length=140)
 
@@ -351,7 +351,7 @@ class RedirectPage(Page):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
     def serve(self, request):
@@ -374,7 +374,7 @@ class OrgSimplePage(AbstractSimplePage):
             FieldPanel('title'),
             FieldPanel('page_description'),
         ]),
-        StreamFieldPanel('body')
+        FieldPanel('body')
     ]
 
     def get_context(self, request):
@@ -481,7 +481,7 @@ class SubscribePage(OrgSimplePage):
             ('id', blocks.CharBlock(required=True, max_length=6, help_text="Enter the unique campaign monitor ID")),
             # ('checked_by_default', blocks.BooleanBlock(default=False, required=False, help_text="Controls whether subscription is checked by default on the Subscribe Page"))
         ], icon='placeholder'))
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     event_subscriptions = StreamField([
         ('subscription', blocks.StructBlock([
@@ -490,11 +490,11 @@ class SubscribePage(OrgSimplePage):
             ('id', blocks.CharBlock(required=True, max_length=6, help_text="Enter the unique campaign monitor ID")),
             # ('checked_by_default', blocks.BooleanBlock(default=False, required=False, help_text="Controls whether subscription is checked by default on the Subscribe Page"))
         ], icon='placeholder'))
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('newsletter_subscriptions'),
-        StreamFieldPanel('event_subscriptions')
+        FieldPanel('newsletter_subscriptions'),
+        FieldPanel('event_subscriptions')
     ]
 
     class Meta:
@@ -510,7 +510,7 @@ class PostAuthorRelationship(models.Model):
     post = ParentalKey('Post', related_name='authors')
 
     panels = [
-        PageChooserPanel('author'),
+        FieldPanel('author'),
     ]
 
     class Meta:
@@ -611,7 +611,7 @@ class Post(Page):
     # used to determine ordering for pagination in the "post" api
     ordered_date_string = models.CharField(blank=True, max_length=140)
 
-    body = StreamField(BodyBlock(required=False), blank=True, null=True)
+    body = StreamField(BodyBlock(required=False), blank=True, null=True, use_json_field=True)
 
     parent_programs = models.ManyToManyField(
         Program, through=PostProgramRelationship, blank=True)
@@ -640,7 +640,7 @@ class Post(Page):
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
         FieldPanel('date'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         InlinePanel('programs', label=("Programs")),
         InlinePanel('subprograms', label=("Subprograms")),
         InlinePanel('authors', label=("Authors")),
@@ -649,7 +649,7 @@ class Post(Page):
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
         InlinePanel('location', label=("Locations"),)
     ]
 
@@ -721,7 +721,7 @@ class AbstractHomeContentPage(Page):
 
 
 @register_setting(icon='placeholder')
-class PublicationPermissions(BaseSetting, ClusterableModel):
+class PublicationPermissions(BaseSiteSetting, ClusterableModel):
     groups_with_report_permission = ParentalManyToManyField(
         Group,
         blank=True,

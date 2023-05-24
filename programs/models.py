@@ -3,12 +3,11 @@ import json
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
-from wagtail.core.models import Page, Orderable, PageRevision
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.core.blocks import PageChooserBlock, ChoiceBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import TabbedInterface, ObjectList
+from wagtail.models import Page, Orderable
+from wagtail.fields import StreamField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.blocks import PageChooserBlock, ChoiceBlock
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from subscribe.models import SubscriptionSegment
@@ -47,8 +46,8 @@ class FeaturedProgramPage(Orderable):
     )
 
     panels = [
-        PageChooserPanel('page'),
-        ImageChooserPanel('featured_image'),
+        FieldPanel('page'),
+        FieldPanel('featured_image'),
     ]
 
 class FeaturedSubprogramPage(Orderable):
@@ -63,8 +62,8 @@ class FeaturedSubprogramPage(Orderable):
     )
 
     panels = [
-        PageChooserPanel('page'),
-        ImageChooserPanel('featured_image'),
+        FieldPanel('page'),
+        FieldPanel('featured_image'),
     ]
 
 class AbstractProgram(RoutablePageMixin, Page):
@@ -110,7 +109,7 @@ class AbstractProgram(RoutablePageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel('name', classname='full title'),
-                ImageChooserPanel('story_image'),
+                FieldPanel('story_image'),
                 FieldPanel('location'),
                 FieldPanel('fellowship'),
                 FieldPanel('description'),
@@ -191,7 +190,7 @@ class Program(AbstractProgram):
 
     sidebar_menu_about_us_pages = StreamField([
         ('Item', PageChooserBlock()),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     subscription_segments = models.ManyToManyField(
         SubscriptionSegment,
@@ -201,8 +200,8 @@ class Program(AbstractProgram):
 
     content_panels = AbstractProgram.content_panels + [
         MultiFieldPanel([
-            ImageChooserPanel('desktop_program_logo'),
-            ImageChooserPanel('mobile_program_logo'),
+            FieldPanel('desktop_program_logo'),
+            FieldPanel('mobile_program_logo'),
         ], heading="Logos")
     ]
 
@@ -227,9 +226,9 @@ class Program(AbstractProgram):
         if getattr(request, 'is_preview', False):
             import newamericadotorg.api
             from issue.models import IssueOrTopic
-            revision = PageRevision.objects.filter(page=self).last().as_page_object()
+            revision = self.get_latest_revision_as_object()
             topics = IssueOrTopic.objects.live().filter(depth=5, parent_program__id=self.id)
-            topics = [PageRevision.objects.filter(page=t).last().as_page_object() for t in topics]
+            topics = [t.get_latest_revision_as_object() for t in topics]
             program_data = newamericadotorg.api.program.serializers.ProgramDetailSerializer(revision, context={'is_preview': True}).data
             topic_data = newamericadotorg.api.topic.serializers.TopicSerializer(topics, many=True).data
             context['initial_state'] = json.dumps(program_data)
@@ -325,7 +324,7 @@ class Subprogram(AbstractProgram):
         context = super().get_context(request)
         if getattr(request, 'is_preview', False):
             import newamericadotorg.api
-            revision = PageRevision.objects.filter(page=self).last().as_page_object()
+            revision = self.get_latest_revision_as_object()
             program_data = newamericadotorg.api.program.serializers.SubprogramSerializer(revision, context={'is_preview': True}).data
             context['initial_state'] = json.dumps(program_data)
             context['initial_topics_state'] = None
@@ -389,7 +388,7 @@ class Project(Subprogram):
     )
 
     content_panels = [
-        PageChooserPanel('redirect_page')
+        FieldPanel('redirect_page')
     ] + Subprogram.content_panels
 
     edit_handler = TabbedInterface([

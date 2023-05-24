@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -33,16 +33,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='conference',
             name='partners',
-            field=wagtail.core.fields.StreamField([(b'partner', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock()), (b'type', wagtail.core.blocks.ChoiceBlock(choices=[(b'premier_sponsor', b'Premier Sponsor'), (b'sponsor', b'Sponsor'), (b'media_partner', b'Media Partner'), (b'recognized_partner', b'Recognized Partner')])), (b'logo', wagtail.images.blocks.ImageChooserBlock(icon=b'image', required=False))]))], blank=True, null=True),
+            field=wagtail.fields.StreamField([(b'partner', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock()), (b'type', wagtail.blocks.ChoiceBlock(choices=[(b'premier_sponsor', b'Premier Sponsor'), (b'sponsor', b'Sponsor'), (b'media_partner', b'Media Partner'), (b'recognized_partner', b'Recognized Partner')])), (b'logo', wagtail.images.blocks.ImageChooserBlock(icon=b'image', required=False))]))], blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='conference',
             name='sessions',
-            field=wagtail.core.fields.StreamField([(b'days', wagtail.core.blocks.StructBlock([(b'day', wagtail.core.blocks.ChoiceBlock(choices=[(b'1', b'1'), (b'2', b'2'), (b'3', b'3'), (b'4', b'4'), (b'5', b'5'), (b'6', b'6')], help_text=b'What day of the conference is this session on?', required=False)), (b'start_time', wagtail.core.blocks.TimeBlock(required=False)), (b'end_time', wagtail.core.blocks.TimeBlock(required=False)), (b'sessions', wagtail.core.blocks.StreamBlock([(b'session', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock()), (b'session_type', wagtail.core.blocks.ChoiceBlock(choices=[(b'panel', b'Panel'), (b'lecture', b'Lecture'), (b'break', b'Break'), (b'meal', b'Meal'), (b'reception', b'Reception'), (b'registration', b'Registration')])), (b'description', wagtail.core.blocks.RichTextBlock(required=False)), (b'start_time', wagtail.core.blocks.TimeBlock(required=False)), (b'end_time', wagtail.core.blocks.TimeBlock(required=False)), (b'speakers', wagtail.core.blocks.StreamBlock([(b'speaker', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock(required=True)), (b'title', wagtail.core.blocks.TextBlock(required=False))]))])), (b'archived_video_link', wagtail.core.blocks.URLBlock(help_text=b'Enter youtube link after conference', required=False))]))]))]))], blank=True, null=True),
+            field=wagtail.fields.StreamField([(b'days', wagtail.blocks.StructBlock([(b'day', wagtail.blocks.ChoiceBlock(choices=[(b'1', b'1'), (b'2', b'2'), (b'3', b'3'), (b'4', b'4'), (b'5', b'5'), (b'6', b'6')], help_text=b'What day of the conference is this session on?', required=False)), (b'start_time', wagtail.blocks.TimeBlock(required=False)), (b'end_time', wagtail.blocks.TimeBlock(required=False)), (b'sessions', wagtail.blocks.StreamBlock([(b'session', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock()), (b'session_type', wagtail.blocks.ChoiceBlock(choices=[(b'panel', b'Panel'), (b'lecture', b'Lecture'), (b'break', b'Break'), (b'meal', b'Meal'), (b'reception', b'Reception'), (b'registration', b'Registration')])), (b'description', wagtail.blocks.RichTextBlock(required=False)), (b'start_time', wagtail.blocks.TimeBlock(required=False)), (b'end_time', wagtail.blocks.TimeBlock(required=False)), (b'speakers', wagtail.blocks.StreamBlock([(b'speaker', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock(required=True)), (b'title', wagtail.blocks.TextBlock(required=False))]))])), (b'archived_video_link', wagtail.blocks.URLBlock(help_text=b'Enter youtube link after conference', required=False))]))]))]))], blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='conference',
             name='speakers',
-            field=wagtail.core.fields.StreamField([(b'person', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock(required=True)), (b'title', wagtail.core.blocks.TextBlock(required=False)), (b'description', wagtail.core.blocks.RichTextBlock()), (b'image', wagtail.images.blocks.ImageChooserBlock(icon=b'image', required=False)), (b'twitter', wagtail.core.blocks.URLBlock(required=False))]))], blank=True, null=True),
+            field=wagtail.fields.StreamField([(b'person', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock(required=True)), (b'title', wagtail.blocks.TextBlock(required=False)), (b'description', wagtail.blocks.RichTextBlock()), (b'image', wagtail.images.blocks.ImageChooserBlock(icon=b'image', required=False)), (b'twitter', wagtail.blocks.URLBlock(required=False))]))], blank=True, null=True),
         ),
     ]

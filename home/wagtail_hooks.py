@@ -5,12 +5,12 @@ from django.http import HttpResponseForbidden
 
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler, BlockElementHandler
-from wagtail.core import hooks
-from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
+from wagtail import hooks
+from wagtail.whitelist import attribute_rule, check_url, allow_without_attributes
 
 
 @hooks.register('construct_page_listing_buttons')
-def remove_copy_button_for_non_superusers(buttons, page, page_perms, is_parent=False, context=None):
+def remove_copy_button_for_non_superusers(buttons, page, page_perms, context=None):
     if not page_perms.user.is_superuser:
         for top_button in buttons:
             if hasattr(top_button, 'dropdown_buttons'):

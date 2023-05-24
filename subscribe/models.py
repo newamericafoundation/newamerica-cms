@@ -1,4 +1,4 @@
-from wagtail.core.models import Page
+from wagtail.models import Page
 from django.db import models
 
 class SubscribePage(Page):

@@ -1,4 +1,4 @@
-from wagtail.core import hooks
+from wagtail import hooks
 
 from home.models import PublicationPermissions
 

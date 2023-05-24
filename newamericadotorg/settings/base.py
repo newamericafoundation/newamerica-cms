@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.contrib.legacy.richtext',
-    'wagtail.core',
+    'wagtail',
     'wagtail.contrib.styleguide',
     'wagtail.contrib.table_block',
     'wagtail.contrib.frontend_cache',
@@ -109,6 +109,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'newamericadotorg.urls'
 HTML_MINIFY = True
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 TEMPLATES = [
     {

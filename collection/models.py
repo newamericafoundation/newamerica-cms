@@ -1,9 +1,9 @@
 from django.db import models
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core import blocks
+from wagtail.fields import StreamField, RichTextField
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from home.models import AbstractSimplePage
 from programs.models import AbstractContentPage
 
@@ -27,7 +27,7 @@ class Collection(AbstractSimplePage):
             ),
         ),
     ],
-    blank=True)
+    blank=True, use_json_field=True)
 
     # TODO: resources properly
     resources_description = RichTextField(blank=True)
@@ -64,7 +64,7 @@ class Collection(AbstractSimplePage):
                 ),
             ),
         ],
-    blank=True)
+        blank=True, use_json_field=True)
 
     people_description = RichTextField(blank=True)
     people_list = StreamField([
@@ -76,6 +76,7 @@ class Collection(AbstractSimplePage):
             )
         ),
     ],
+    use_json_field=True,
     blank=True)
 
     publications_description = RichTextField(blank=True)
@@ -94,6 +95,7 @@ class Collection(AbstractSimplePage):
             ),
         ),
     ],
+    use_json_field=True,
     blank=True)
 
     events_description = RichTextField(blank=True)
@@ -112,37 +114,38 @@ class Collection(AbstractSimplePage):
             ),
         ),
     ],
+    use_json_field=True,
     blank=True)
 
     content_panels = AbstractSimplePage.content_panels + [
         FieldPanel('subheading'),
         MultiFieldPanel([
             FieldPanel('programs_description'),
-            StreamFieldPanel('programs_list'),
+            FieldPanel('programs_list'),
         ],
         heading = 'Programs',
         classname="collapsible"),
         MultiFieldPanel([
             FieldPanel('resources_description'),
-            StreamFieldPanel('resources_list'),
+            FieldPanel('resources_list'),
         ],
         heading = 'Resources',
         classname="collapsible"),
         MultiFieldPanel([
             FieldPanel('people_description'),
-            StreamFieldPanel('people_list'),
+            FieldPanel('people_list'),
         ],
         heading = 'People',
         classname="collapsible"),
         MultiFieldPanel([
             FieldPanel('publications_description'),
-            StreamFieldPanel('publications_list'),
+            FieldPanel('publications_list'),
         ],
         heading = 'Publications',
         classname="collapsible"),
         MultiFieldPanel([
             FieldPanel('events_description'),
-            StreamFieldPanel('events_list'),
+            FieldPanel('events_list'),
         ],
         heading = 'Events',
         classname="collapsible"),

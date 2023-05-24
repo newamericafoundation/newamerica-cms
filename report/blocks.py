@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from newamericadotorg.blocks import Body, DatavizBlock, CustomImageBlock, IframeBlock, DatawrapperBlock

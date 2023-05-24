@@ -149,7 +149,7 @@ except ImportError:
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = os.getenv('BASE_URL', None)
+WAGTAILADMIN_BASE_URL = os.getenv('BASE_URL', None)
 
-if BASE_URL is None:
-    BASE_URL = 'https://www.newamerica.org'
+if WAGTAILADMIN_BASE_URL is None:
+    WAGTAILADMIN_BASE_URL = 'https://www.newamerica.org'

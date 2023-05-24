@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from wagtail.core.models import Site
+from wagtail.models import Site
 from wagtail.contrib.redirects.models import Redirect
 
 from weekly.models import Weekly, WeeklyArticle, WeeklyEdition

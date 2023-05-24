@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from wagtail.core.models import Page, ContentType, PageRevision
+from wagtail.models import Page, ContentType
 from wagtail.images.views.serve import generate_image_url
 from django.template import loader
 
@@ -19,7 +19,7 @@ class AboutPageSerializer(ModelSerializer):
 
     def get_body(self, obj):
         if self.context.get('is_preview', False):
-            obj = PageRevision.objects.filter(page=obj).last().as_page_object()
+            obj = obj.get_latest_revision_as_object()
         return loader.get_template('components/post_body.html').render({ 'page': obj })
 
 class PostProgramSerializer(ModelSerializer):
@@ -232,7 +232,7 @@ class ProgramDetailSerializer(ModelSerializer):
         featured_pages = None
         pages = None
         if self.context.get('is_preview'):
-            revision = PageRevision.objects.filter(page=obj).last().as_page_object()
+            revision = obj.get_latest_revision_as_object()
             pages = revision.featured_pages.all().order_by('sort_order')
             featured_pages = [rel for rel in revision.featured_pages.all().order_by('sort_order')]
         else:
@@ -332,7 +332,7 @@ class SubprogramSerializer(ModelSerializer):
         featured_pages = None
         pages = None
         if self.context.get('is_preview'):
-            revision = PageRevision.objects.filter(page=obj).last().as_page_object()
+            revision = obj.get_latest_revision_as_object()
             pages = revision.featured_pages.all().order_by('sort_order')
             featured_pages = [rel for rel in revision.featured_pages.all().order_by('sort_order')]
         else:

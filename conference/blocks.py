@@ -1,9 +1,9 @@
 from django.db import models
 from django import forms
 
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core import blocks
+from wagtail.models import Page
+from wagtail.fields import StreamField, RichTextField
+from wagtail import blocks
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.contrib.table_block.blocks import TableBlock

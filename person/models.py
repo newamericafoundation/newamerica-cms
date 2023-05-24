@@ -1,13 +1,12 @@
 from django.db import models
 from django import forms
 
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
-from wagtail.core.blocks import URLBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import PageChooserPanel, MultiFieldPanel
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, FieldRowPanel
+from wagtail.blocks import URLBlock
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import PageChooserPanel, MultiFieldPanel
 from wagtail.search import index
 
 from modelcluster.fields import ParentalKey
@@ -177,7 +176,7 @@ class Person(Page):
                 help_text='Tumblr',
                 icon='user'
             )),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     role = models.CharField(choices=ROLE_OPTIONS, max_length=50)
     former = models.BooleanField(default=False, help_text="Select if person no longer serves above role.")
@@ -211,7 +210,7 @@ class Person(Page):
         MultiFieldPanel([
             FieldPanel('first_name'),
             FieldPanel('last_name'),
-            ImageChooserPanel('profile_image'),
+            FieldPanel('profile_image'),
             FieldPanel('short_bio'),
             FieldPanel('long_bio', classname="full")
         ], heading="About"),
@@ -237,7 +236,7 @@ class Person(Page):
 
         MultiFieldPanel([
             FieldPanel('email'),
-            StreamFieldPanel('social_media')
+            FieldPanel('social_media')
         ], heading="Contact"),
 
 
@@ -316,7 +315,7 @@ class OurPeoplePage(Page):
     ]
 
     promote_panels = Page.promote_panels + [
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
     def get_context(self, request):
@@ -354,7 +353,7 @@ class ExpertPage(Page):
     ]
 
     promote_panels = Page.promote_panels + [
-        ImageChooserPanel('story_image'),
+        FieldPanel('story_image'),
     ]
 
 class ProgramPeoplePage(AbstractContentPage):
@@ -374,7 +373,7 @@ class ProgramPeoplePage(AbstractContentPage):
     )
 
     promote_panels = Page.promote_panels + [
-        ImageChooserPanel('story_image')
+        FieldPanel('story_image')
     ]
 
     class Meta:
@@ -414,7 +413,7 @@ class BoardAndLeadershipPeoplePage(Page):
     ]
 
     promote_panels = Page.promote_panels + [
-        ImageChooserPanel('story_image')
+        FieldPanel('story_image')
     ]
 
     def get_context(self, request):

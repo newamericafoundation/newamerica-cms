@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.documents.blocks
 
 
@@ -33,8 +33,8 @@ class Migration(migrations.Migration):
             name='PolicyPaper',
             fields=[
                 ('post_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='home.Post')),
-                ('paper_url', wagtail.core.fields.StreamField([(b'policy_paper_url', wagtail.core.blocks.URLBlock(null=True, required=False))])),
-                ('attachment', wagtail.core.fields.StreamField([(b'attachment', wagtail.documents.blocks.DocumentChooserBlock(null=True, required=False))])),
+                ('paper_url', wagtail.fields.StreamField([(b'policy_paper_url', wagtail.blocks.URLBlock(null=True, required=False))])),
+                ('attachment', wagtail.fields.StreamField([(b'attachment', wagtail.documents.blocks.DocumentChooserBlock(null=True, required=False))])),
                 ('publication_cover_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='home.CustomImage')),
             ],
             options={

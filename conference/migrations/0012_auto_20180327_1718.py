@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -22,11 +22,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='conference',
             name='sessions',
-            field=wagtail.core.fields.StreamField([(b'days', wagtail.core.blocks.StructBlock([(b'collapsible', wagtail.core.blocks.BooleanBlock(default=True, help_text=b'Allow schedule sessions to expand and collapse', required=False)), (b'day', wagtail.core.blocks.ChoiceBlock(choices=[(b'1', b'1'), (b'2', b'2'), (b'3', b'3'), (b'4', b'4'), (b'5', b'5'), (b'6', b'6')], default=1, help_text=b'What day of the conference is this session on?', required=False)), (b'start_time', wagtail.core.blocks.TimeBlock(required=False)), (b'end_time', wagtail.core.blocks.TimeBlock(required=False)), (b'sessions', wagtail.core.blocks.StreamBlock([(b'session', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock(required=False)), (b'description', wagtail.core.blocks.RichTextBlock(required=False)), (b'start_time', wagtail.core.blocks.TimeBlock(required=False)), (b'end_time', wagtail.core.blocks.TimeBlock(required=False)), (b'speakers', wagtail.core.blocks.StreamBlock([(b'speaker', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock(required=True)), (b'twitter', wagtail.core.blocks.URLBlock(required=False)), (b'title', wagtail.core.blocks.TextBlock(required=False))]))])), (b'archived_video_link', wagtail.core.blocks.URLBlock(help_text=b'Enter youtube link after conference', required=False))]))]))], help_text=b'for multi-day events'))], blank=True, null=True),
+            field=wagtail.fields.StreamField([(b'days', wagtail.blocks.StructBlock([(b'collapsible', wagtail.blocks.BooleanBlock(default=True, help_text=b'Allow schedule sessions to expand and collapse', required=False)), (b'day', wagtail.blocks.ChoiceBlock(choices=[(b'1', b'1'), (b'2', b'2'), (b'3', b'3'), (b'4', b'4'), (b'5', b'5'), (b'6', b'6')], default=1, help_text=b'What day of the conference is this session on?', required=False)), (b'start_time', wagtail.blocks.TimeBlock(required=False)), (b'end_time', wagtail.blocks.TimeBlock(required=False)), (b'sessions', wagtail.blocks.StreamBlock([(b'session', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock(required=False)), (b'description', wagtail.blocks.RichTextBlock(required=False)), (b'start_time', wagtail.blocks.TimeBlock(required=False)), (b'end_time', wagtail.blocks.TimeBlock(required=False)), (b'speakers', wagtail.blocks.StreamBlock([(b'speaker', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock(required=True)), (b'twitter', wagtail.blocks.URLBlock(required=False)), (b'title', wagtail.blocks.TextBlock(required=False))]))])), (b'archived_video_link', wagtail.blocks.URLBlock(help_text=b'Enter youtube link after conference', required=False))]))]))], help_text=b'for multi-day events'))], blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='conference',
             name='speakers',
-            field=wagtail.core.fields.StreamField([(b'title', wagtail.core.blocks.CharBlock(required=True)), (b'description', wagtail.core.blocks.TextBlock(required=False)), (b'person', wagtail.core.blocks.StructBlock([(b'name', wagtail.core.blocks.TextBlock(required=True)), (b'title', wagtail.core.blocks.TextBlock(help_text=b'125 character limit', max_length=125, required=False)), (b'description', wagtail.core.blocks.RichTextBlock(required=False)), (b'image', wagtail.images.blocks.ImageChooserBlock(icon=b'image', required=False)), (b'twitter', wagtail.core.blocks.URLBlock(required=False))]))], blank=True, null=True),
+            field=wagtail.fields.StreamField([(b'title', wagtail.blocks.CharBlock(required=True)), (b'description', wagtail.blocks.TextBlock(required=False)), (b'person', wagtail.blocks.StructBlock([(b'name', wagtail.blocks.TextBlock(required=True)), (b'title', wagtail.blocks.TextBlock(help_text=b'125 character limit', max_length=125, required=False)), (b'description', wagtail.blocks.RichTextBlock(required=False)), (b'image', wagtail.images.blocks.ImageChooserBlock(icon=b'image', required=False)), (b'twitter', wagtail.blocks.URLBlock(required=False))]))], blank=True, null=True),
         ),
     ]

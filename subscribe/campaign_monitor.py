@@ -3,9 +3,8 @@ from django.conf import settings
 from createsend import *
 from home.models import HomePage
 from subscribe.models import SubscriptionSegment, SubscribePage
-from logdna import LogDNAHandler as LogDNA
 
-LOGDNA_KEY = os.getenv('LOGDNA_KEY')
+
 CREATESEND_API_KEY = os.getenv('CREATESEND_API_KEY')
 CREATESEND_CLIENTID = os.getenv('CREATESEND_CLIENTID')
 CREATESEND_LISTID = os.getenv('CREATESEND_LISTID')
@@ -51,24 +50,14 @@ def update_subscriber(email, name, custom_fields):
                 custom_fields.append({ 'key': cf.Key, 'value': cf.Value })
 
         subscriber.update(email, name, custom_fields, True, "Unchanged")
-        return 'OK'
     except BadRequest:
         try:
             subscriber.add(CREATESEND_LISTID, email, name, custom_fields, True, "Unchanged")
-            return 'OK'
-        except:
-            if not settings.DEBUG:
-                handler = LogDNA(LOGDNA_KEY,{
-                    'index_meta': True,
-                    'app': 'newamerica-cms',
-                    'level': 'Error',
-                    'hostname': os.getenv('HOSTNAME') or 'na-errors'
-                })
-                log = logging.getLogger('logdna')
-                log.addHandler(handler)
-                error = get_error(sys.exc_info())
-                log.error(error['msg'], {'context': error['context']})
+        except Exception:
             return 'BAD_REQUEST'
+
+    return 'OK'
+
 
 def get_error(exc_info):
     exc_type, exc_val, exc_tb = exc_info

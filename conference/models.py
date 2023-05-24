@@ -4,10 +4,9 @@ from django.utils import timezone
 from django.utils.timezone import localtime, now
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel, FieldRowPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.models import Page, Orderable
+from wagtail.fields import StreamField, RichTextField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, FieldRowPanel
+from wagtail.models import Page, Orderable
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.search import index
 
@@ -92,13 +91,13 @@ class Conference(Page):
             FieldPanel('title'),
             FieldPanel('subheading'),
             FieldPanel('host_organization'),
-            ImageChooserPanel('alternate_logo'),
+            FieldPanel('alternate_logo'),
             FieldRowPanel([
                 FieldPanel('date', classname="col6"),
                 FieldPanel('end_date', classname="col6")
             ]),
-            ImageChooserPanel('story_image'),
-            ImageChooserPanel('about_image'),
+            FieldPanel('story_image'),
+            FieldPanel('about_image'),
             FieldPanel('live_stream'),
             FieldPanel('description')
         ],
@@ -152,15 +151,15 @@ class Conference(Page):
     )
 
     # to be deleted after transfer
-    venue = StreamField(VenueBlock(), null=True, blank=True)
-    directions = StreamField(DirectionsBlock(), null=True, blank=True)
-    speakers = StreamField(PeopleBlock(), null=True, blank=True)
-    partners = StreamField(PartnersBlock(), null=True, blank=True)
-    sessions = StreamField(SessionsBlock(), null=True, blank=True)
+    venue = StreamField(VenueBlock(), null=True, blank=True, use_json_field=True)
+    directions = StreamField(DirectionsBlock(), null=True, blank=True, use_json_field=True)
+    speakers = StreamField(PeopleBlock(), null=True, blank=True, use_json_field=True)
+    partners = StreamField(PartnersBlock(), null=True, blank=True, use_json_field=True)
+    sessions = StreamField(SessionsBlock(), null=True, blank=True, use_json_field=True)
 
     partners_and_sponsors = MultiFieldPanel([
         FieldPanel('partner_heading'),
-        StreamFieldPanel('partners')
+        FieldPanel('partners')
     ]);
 
     content_panels = [
@@ -168,9 +167,9 @@ class Conference(Page):
         setup,
         address,
         hotel_address,
-        StreamFieldPanel('directions'),
-        StreamFieldPanel('speakers'),
-        StreamFieldPanel('sessions'),
+        FieldPanel('directions'),
+        FieldPanel('speakers'),
+        FieldPanel('sessions'),
         partners_and_sponsors
     ]
 
