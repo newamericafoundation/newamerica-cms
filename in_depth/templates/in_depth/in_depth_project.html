@@ -25,7 +25,7 @@
         {% image page.story_image original as story_image %}
 				{% image page.story_image fill-32x15 as story_image_thumb %}
 				<div class="title-panel__image__background" style="background-image: url({{story_image_thumb.url}});"></div>
-				<img src="{{story_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');document.querySelector('.title-panel__image__background').classList.add('loaded');">
+				<img src="{{story_image.url}}" alt="{{page.story_image_alt}}" class="fade-in-image" onload="this.classList.add('loaded');document.querySelector('.title-panel__image__background').classList.add('loaded');">
 		</div>
 		<div class="title-box-wrapper container">
 			<div class="title-panel__text-box home-title">

@@ -24,7 +24,7 @@
         {% endif %}
         background-image: url({{ thumbnail.url }})
         "></div>
-      <img src="{{story_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
+      <img src="{{story_image.url}}" alt="{{page.story_image_alt}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
     </div>
     {% if story_image.image.source %}
       <h6 class="margin-10">{{story_image.image.source}}</h6>
