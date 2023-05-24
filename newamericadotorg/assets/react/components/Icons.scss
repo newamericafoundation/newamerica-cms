@@ -33,7 +33,7 @@
     color: color(black);
 
     &:hover{
-      background-color: color(turquoise);
+      background-color: color(turquoise, dark);
       color: color(white);
     }
   }
@@ -43,7 +43,7 @@
     color: color(white);
 
     &:hover{
-      background-color: color(turquoise);
+      background-color: color(turquoise, dark);
     }
   }
 }

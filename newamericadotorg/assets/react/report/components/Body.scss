@@ -72,7 +72,7 @@ main#na-react__report {
 }
 
 .report__citation{
-  color: color(turquoise);
+  color: color(turquoise, dark);
   font-weight: bold;
   font-size: 0.7em;
   position: relative;
@@ -108,7 +108,7 @@ main#na-react__report {
 
 .report__citation-wrapper{
   .report__citation.active, &:hover .report__citation{
-    background: color(turquoise);
+    background: color(turquoise, dark);
     color: color(white);
   }
 

@@ -48,13 +48,13 @@ $bar-spacing: 6px;
 
   span:nth-child(2){
     top: $bar-spacing + 3 + 25px;
-    background: color(turquoise, base, 1);
+    background: color(turquoise, dark, 1);
     @include transform(rotate(45deg));
   }
 
   span:last-child{
     top: $bar-spacing*2 - $bar-spacing + 3 + 25px;
-    background: color(turquoise, base, 1);
+    background: color(turquoise, dark, 1);
     @include transform(rotate(-45deg));
   }
 

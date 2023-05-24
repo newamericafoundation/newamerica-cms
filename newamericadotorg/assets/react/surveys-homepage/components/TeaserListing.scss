@@ -68,9 +68,9 @@
     margin: 0;
     &:hover u {
       text-decoration: underline;
-      text-decoration-color: color(turquoise);
+      text-decoration-color: color(turquoise, dark);
       display: inline;
-      background-image: linear-gradient(90deg, #2ebcb3 100%, transparent 0);
+      background-image: linear-gradient(90deg, color(turquoise, dark) 100%, transparent 0);
       background-position: 0 1.04em;
       background-repeat: repeat-x;
       background-size: 100% 2px;

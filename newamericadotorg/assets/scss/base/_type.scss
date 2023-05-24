@@ -240,7 +240,7 @@ blockquote {
    -webkit-text-stroke-color: color(gray, dark);
    color: color(white);
    &.turquoise{
-     -webkit-text-stroke-color: color(turquoise);
+     -webkit-text-stroke-color: color(turquoise, dark);
    }
    &:hover{
      -webkit-text-stroke-width: 0px;
@@ -253,7 +253,11 @@ a {
   font-weight: bold;
   font-size: inherit;
   line-height: inherit;
-  color: color(turquoise);
+  color: color(turquoise, dark);
+
+  &:hover {
+    color: color(black)
+  }
 
   &.inline {
     display: inline !important;
