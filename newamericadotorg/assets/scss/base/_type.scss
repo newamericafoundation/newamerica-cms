@@ -249,7 +249,6 @@ blockquote {
 }
 
 a {
-  text-decoration: none;
   font-weight: bold;
   font-size: inherit;
   line-height: inherit;
@@ -257,6 +256,10 @@ a {
 
   &:hover {
     color: color(black)
+  }
+
+  p & {
+    text-decoration: underline;
   }
 
   &.inline {
