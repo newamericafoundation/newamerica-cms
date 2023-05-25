@@ -104,11 +104,13 @@
     {% include 'maintenance.html' %}
 
   {% else %}
-
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
     {% block header %}
       {% include 'components/header.html' %}
     {% endblock %}
-    {% block content %}{% endblock %}
+    <div id="mainContent">
+      {% block content %}{% endblock %}
+    </div>
     {% block footer %}
       {% include 'components/footer_mobile.html' %}
       {% include 'components/footer.html' %}
