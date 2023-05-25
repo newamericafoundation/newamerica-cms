@@ -48,6 +48,11 @@
 
 .header__nav__dropdown__header.drop {
     margin-right: calc(1.2em + 11px);
+    font-weight: unset;
+    font-size: unset;
+    text-transform: unset;
+    letter-spacing: unset;
+    padding: 0;
     &:after{
       // down arrow
       display: inline-block;
