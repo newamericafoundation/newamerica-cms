@@ -47,7 +47,7 @@ module.exports = env => {
             {
               loader: 'sass-loader',
               options: {
-                additionalData: `$static: ${
+                additionalData: `@import "./newamericadotorg/assets/scss/_mixins.scss"; $static: ${
                   NODE_ENV === 'development'
                     ? '"/static"'
                     : `"${STATIC_URL}/static"`
@@ -58,12 +58,6 @@ module.exports = env => {
                 };`
               }
             },
-            {
-              loader: 'sass-resources-loader',
-              options: {
-                resources: './newamericadotorg/assets/scss/_mixins.scss'
-              }
-            }
           ]
         },
         {
