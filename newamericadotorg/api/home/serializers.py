@@ -17,7 +17,7 @@ class HomeDetailSerializer(PostSerializer):
         model = Report
         fields = (
             'id', 'title', 'subheading', 'slug', 'url', 'story_excerpt',
-            'data', 'subpages', 'data_project_external_script'
+            'data', 'subpages', 'data_project_external_script', 'story_image_alt',
         )
 
     def get_subpages(self, obj):

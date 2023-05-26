@@ -29,7 +29,8 @@ class ListingThreadArticleSerializer(ModelSerializer):
         model = ThreadArticle
         fields = (
             'id', 'title', 'date', 'authors', 'slug',
-            'story_excerpt', 'story_image_lg', 'story_image_sm', 'url'
+            'story_excerpt', 'story_image_lg', 'story_image_sm', 'url',
+            'story_image_alt',
         )   
 
 
@@ -52,5 +53,6 @@ class DetailThreadArticleSerializer(ListingThreadArticleSerializer):
         model = ThreadArticle
         fields = (
             'id', 'title', 'date', 'authors', 'body', 'story_image', 'slug',
-            'story_excerpt', 'story_image_lg', 'story_image_sm', 'url', 'post'
+            'story_excerpt', 'story_image_lg', 'story_image_sm', 'url', 'post',
+            'story_image_alt',
         )

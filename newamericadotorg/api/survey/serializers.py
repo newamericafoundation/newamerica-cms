@@ -25,6 +25,7 @@ class SurveyHomeSerializer(ModelSerializer):
             'about_submission',
             'surveys',
             'partner_logo',
+            'partner_logo_alt',
             'subheading',
         ]
         depth = 1
