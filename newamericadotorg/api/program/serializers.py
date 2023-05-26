@@ -129,6 +129,7 @@ class FeaturedPageSerializer(ModelSerializer):
     slug = SerializerMethodField()
     content_type = SerializerMethodField()
     story_image = SerializerMethodField()
+    story_image_alt = SerializerMethodField()
     story_excerpt = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
 
@@ -161,6 +162,9 @@ class FeaturedPageSerializer(ModelSerializer):
             }
         return None
 
+    def get_story_image_alt(self, obj):
+        return getattr(obj.page.specific, 'story_image_alt', None)
+
     def get_story_image_thumbnail(self, obj):
         #return generate_image_url(obj.story_image, 'fill-30x23')
         story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
@@ -180,7 +184,7 @@ class FeaturedPageSerializer(ModelSerializer):
 
     class Meta:
         model = Page
-        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt', 'story_image_thumbnail')
+        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt', 'story_image_thumbnail',)
 
 class FeaturedLeadPageSerializer(FeaturedPageSerializer):
     def get_story_image(self, obj):

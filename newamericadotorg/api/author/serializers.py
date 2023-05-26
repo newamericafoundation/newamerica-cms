@@ -17,7 +17,7 @@ class AuthorSerializer(ModelSerializer):
         fields = (
             'id', 'first_name', 'last_name', 'position', 'role',
             'short_bio', 'profile_image', 'url', 'leadership',
-            'full_name', 'former', 'expertise', 'group'
+            'full_name', 'former', 'expertise', 'group', 'profile_image_alt',
         )
 
     def get_full_name(self, obj):

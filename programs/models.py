@@ -44,10 +44,17 @@ class FeaturedProgramPage(Orderable):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    featured_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Featured image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     panels = [
         FieldPanel('page'),
         FieldPanel('featured_image'),
+        FieldPanel('featured_image_alt'),
     ]
 
 class FeaturedSubprogramPage(Orderable):
@@ -60,10 +67,17 @@ class FeaturedSubprogramPage(Orderable):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    featured_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Featured image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     panels = [
         FieldPanel('page'),
         FieldPanel('featured_image'),
+        FieldPanel('featured_image_alt'),
     ]
 
 class AbstractProgram(RoutablePageMixin, Page):
@@ -97,6 +111,12 @@ class AbstractProgram(RoutablePageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     hide_subscription_card = models.BooleanField(default=False)
     subscription_card_text = models.TextField(blank=True, null=True, max_length=100)
@@ -110,6 +130,7 @@ class AbstractProgram(RoutablePageMixin, Page):
             [
                 FieldPanel('name', classname='full title'),
                 FieldPanel('story_image'),
+                FieldPanel('story_image_alt'),
                 FieldPanel('location'),
                 FieldPanel('fellowship'),
                 FieldPanel('description'),
@@ -179,6 +200,12 @@ class Program(AbstractProgram):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+    desktop_program_logo_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Desktop program logo alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     mobile_program_logo = models.ForeignKey(
         'home.CustomImage',
@@ -186,6 +213,12 @@ class Program(AbstractProgram):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
+    )
+    mobile_program_logo_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Mobile program logo alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
     )
 
     sidebar_menu_about_us_pages = StreamField([
@@ -201,7 +234,9 @@ class Program(AbstractProgram):
     content_panels = AbstractProgram.content_panels + [
         MultiFieldPanel([
             FieldPanel('desktop_program_logo'),
+            FieldPanel('desktop_program_logo_alt'),
             FieldPanel('mobile_program_logo'),
+            FieldPanel('mobile_program_logo_alt'),
         ], heading="Logos")
     ]
 

@@ -55,6 +55,11 @@ class CustomImageBlock(blocks.StructBlock):
     figure_number = blocks.CharBlock(required=False, max_length=3)
     figure_title = blocks.CharBlock(required=False, max_length=100)
     open_image_on_click = blocks.BooleanBlock(default=False, required=False)
+    alt_text = blocks.CharBlock(
+        required=False,
+        verbose_name='Alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     class Meta:
         template = 'blocks/image_block.html'
@@ -114,6 +119,11 @@ class IframeBlock(blocks.StructBlock):
         required=False,
         help_text="check if you do not want image compressed. Should be checked for all figures.",
     )
+    fallback_image_alt_text = blocks.CharBlock(
+        required=False,
+        verbose_name='Fallback image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     class Meta:
         template = 'blocks/iframe.html'
@@ -159,6 +169,11 @@ class DatawrapperBlock(blocks.StructBlock):
         ],
         default="initial",
         required=True,
+    )
+    fallback_image_alt_text = blocks.CharBlock(
+        required=False,
+        verbose_name='Fallback image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
     )
 
     class Meta:
@@ -247,6 +262,7 @@ class ResourceKit(blocks.StructBlock):
                     [
                         ('name', blocks.CharBlock(required=True)),
                         ('image', ImageChooserBlock(icon='image', required=False)),
+                        ('image_alt_text', blocks.CharBlock(required=False)),
                         ('description', blocks.RichTextBlock(required=False)),
                         ('resource', blocks.PageChooserBlock(required=True)),
                     ],
@@ -260,6 +276,7 @@ class ResourceKit(blocks.StructBlock):
                     [
                         ('name', blocks.CharBlock(required=True)),
                         ('image', ImageChooserBlock(icon='image', required=False)),
+                        ('image_alt_text', blocks.CharBlock(required=False)),
                         ('description', blocks.RichTextBlock(required=False)),
                         ('resource', blocks.URLBlock(required=True)),
                     ],
@@ -273,6 +290,7 @@ class ResourceKit(blocks.StructBlock):
                     [
                         ('name', blocks.CharBlock(required=True)),
                         ('image', ImageChooserBlock(icon='image', required=False)),
+                        ('image_alt_text', blocks.CharBlock(required=False)),
                         ('description', blocks.RichTextBlock(required=False)),
                         ('resource', DocumentChooserBlock(required=True)),
                     ],
@@ -434,6 +452,11 @@ class PersonBlock(blocks.StructBlock):
     )
     description = blocks.RichTextBlock(required=False)
     image = ImageChooserBlock(icon='image', required=False)
+    image_alt_text = blocks.CharBlock(
+        required=False,
+        verbose_name='Image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
     twitter = blocks.URLBlock(required=False)
 
 

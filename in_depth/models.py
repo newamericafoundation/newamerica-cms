@@ -49,6 +49,12 @@ class InDepthSection(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('subheading'),
@@ -59,6 +65,7 @@ class InDepthSection(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
     def get_context(self, request):
@@ -116,6 +123,12 @@ class InDepthProject(Post):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+    project_logo_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Project logo alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     project_logo_link = models.URLField(blank=True, null=True, max_length=140)
 
@@ -123,8 +136,9 @@ class InDepthProject(Post):
 
     content_panels = Post.content_panels + [
         FieldPanel('about_the_project'),
-    	FieldPanel('buttons'),
+        FieldPanel('buttons'),
         FieldPanel('project_logo'),
+        FieldPanel('project_logo_alt'),
         FieldPanel('project_logo_link'),
         FieldPanel('show_data_download_links'),
     ]
@@ -157,10 +171,17 @@ class AllInDepthHomePage(AbstractContentPage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
     def get_context(self, request):

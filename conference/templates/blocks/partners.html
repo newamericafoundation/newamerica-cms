@@ -10,7 +10,7 @@
         {% for partner in partner_groups.no_type %}
         {% with partner.value as p %}
           {% image p.logo width-400 as logo %}
-          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+          <div class="sponsor"><img src="{{logo.url}}" alt="{{p.logo_alt_text}}"></div>
         {% endwith %}
         {% endfor %}
       </div>
@@ -22,7 +22,7 @@
         {% for partner in partner_groups.premier_sponsor %}
         {% with partner.value as p %}
           {% image p.logo width-400 as logo %}
-          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+          <div class="sponsor"><img src="{{logo.url}}" alt="{{p.logo_alt_text}}"></div>
         {% endwith %}
         {% endfor %}
       </div>
@@ -34,7 +34,7 @@
         {% for partner in partner_groups.sponsor %}
         {% with partner.value as p %}
           {% image p.logo width-400 as logo %}
-          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+          <div class="sponsor"><img src="{{logo.url}}" alt="{{p.logo_alt_text}}"></div>
         {% endwith %}
         {% endfor %}
       </div>
@@ -46,7 +46,7 @@
         {% for partner in partner_groups.media_partner %}
         {% with partner.value as p %}
           {% image p.logo width-400 as logo %}
-          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+          <div class="sponsor"><img src="{{logo.url}}" alt="{{p.logo_alt_text}}"></div>
         {% endwith %}
         {% endfor %}
       </div>
@@ -58,7 +58,7 @@
         {% for partner in partner_groups.recognized_partner %}
         {% with partner.value as p %}
           {% image p.logo width-400 as logo %}
-          <div class="sponsor"><img src="{{logo.url}}" alt=""></div>
+          <div class="sponsor"><img src="{{logo.url}}" alt="{{p.logo_alt_text}}"></div>
         {% endwith %}
         {% endfor %}
       </div>

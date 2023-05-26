@@ -93,6 +93,12 @@ class ProgramOtherPostsPage(AbstractContentPage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    story_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Story image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('singular_title'),
@@ -102,6 +108,7 @@ class ProgramOtherPostsPage(AbstractContentPage):
     promote_panels = Page.promote_panels + [
         FieldPanel('story_excerpt'),
         FieldPanel('story_image'),
+        FieldPanel('story_image_alt'),
     ]
 
     @property

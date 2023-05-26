@@ -5,7 +5,7 @@ import React from 'react';
 const AuthorInfo = ({ author }) => (
   <>
     <div className="report__author-button__image">
-      {author.profile_image && <img src={author.profile_image} />}
+      {author.profile_image && <img src={author.profile_image} alt={author.profile_image_alt} />}
       {!author.profile_image && <i className="fa fa-user"/>}
     </div>
     <div className="report__author-button__text">

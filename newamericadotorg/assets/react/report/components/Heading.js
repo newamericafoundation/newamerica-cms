@@ -24,10 +24,11 @@ class Heading extends Component {
         <div className={`report__heading container ${report.theme_full_bleed && 'report__heading--full-width'}`}>
           {report.story_image && report.theme_full_bleed &&
             <div className="report__cover-image report__cover-image--full-width">
-              <div 
+              <img 
                 className="card__image__background-image" 
-                style={{ backgroundImage: `url(${report.story_image.url})`}}
-              ></div>
+                src={report.story_image.url}
+                alt={report.story_image_alt}
+              />
 
               {report.story_image.source && (
                 <div className="report__cover-image__source">
@@ -98,6 +99,7 @@ class Heading extends Component {
               <Image
                 thumbnail={report.story_image_thumbnail}
                 image={report.story_image.url}
+                alt={report.story_image_alt}
               />
             </div>
 

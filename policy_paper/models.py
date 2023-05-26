@@ -26,6 +26,12 @@ class PolicyPaper(Post):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+    publication_cover_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Publication cover image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
     paper_url = StreamField([
         ('policy_paper_url', URLBlock(required=False, null=True)),
@@ -39,6 +45,7 @@ class PolicyPaper(Post):
         FieldPanel('paper_url'),
         FieldPanel('attachment'),
         FieldPanel('publication_cover_image'),
+        FieldPanel('publication_cover_image_alt'),
     ]
 
     def get_context(self, request):

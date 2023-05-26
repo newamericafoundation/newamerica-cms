@@ -18,7 +18,7 @@ const EditionListItem = ({ edition }) => (
     <a href={edition.url}>
       <div className="weekly-edition__edition-list__edition">
         <div className="weekly-edition__edition-list__edition__image">
-          <Image image={edition.story_image} />
+          <Image image={edition.story_image} alt={edition.story_image_alt} />
         </div>
         <div className="weekly-edition__edition-list__edition__text">
           <h4 className="white margin-top-0 margin-bottom-10">{edition.number}</h4>

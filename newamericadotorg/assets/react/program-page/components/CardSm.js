@@ -11,7 +11,7 @@ export default class CardSm extends Component {
         <a href={post.url} className="row no-gutters">
           <div className="col-6">
             <div className={`card__image ${post.story_image ? '' : 'no-image'}`}>
-              <Image thumbnail={post.story_image_thumbnail} image={post.story_image}/>
+              <Image thumbnail={post.story_image_thumbnail} image={post.story_image} alt={post.story_image_alt} />
             </div>
           </div>
           <div className="col-6">

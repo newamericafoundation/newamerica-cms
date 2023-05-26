@@ -7,7 +7,7 @@
   <a href="{{ person.url }}">
     <div class="card__image {% if not person.profile_image%}no-image{% endif %}">
       {% if person.profile_image %}
-        <img src="{{post_image.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
+        <img src="{{post_image.url}}" alt="{{ person.profile_image_alt }}" class="fade-in-image" onload="this.classList.add('loaded');"/>
       {% endif %}
     </div>
     <div class="card__text">

@@ -30,7 +30,7 @@ class ReportDetailSerializer(PostSerializer):
         fields = (
             'id', 'title', 'subheading', 'date', 'content_type', 'featured_sections',
             'authors', 'programs', 'subprograms', 'url', 'story_excerpt',
-            'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail',
+            'story_image', 'topics', 'sections', 'body', 'endnotes', 'story_image_thumbnail', 'story_image_alt',
             'search_description', 'data_project_external_script', 'attachments', 
             'acknowledgments', 'abstract', 'theme_full_bleed', 'partner_logo'
         )
@@ -43,7 +43,8 @@ class ReportDetailSerializer(PostSerializer):
             'url': img.url,
             'height': img.height,
             'width': img.width,
-            'source': img.image.source
+            'source': img.image.source,
+            'alt': obj.story_image_alt if obj.story_image_alt else '',
         }
 
     def get_story_image_thumbnail(self, obj):

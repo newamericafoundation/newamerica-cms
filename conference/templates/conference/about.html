@@ -11,7 +11,7 @@
     {% if page.about_image %}
     {% image page.about_image original as about_image %}
       <div class="about__image">
-        <img src="{{about_image.url}}" alt="{{about_image.alt}}" class="img-responsive" />
+        <img src="{{about_image.url}}" alt="{{page.about_image_alt}}" class="img-responsive" />
       </div>
     {% endif %}
     <div class="post-body">

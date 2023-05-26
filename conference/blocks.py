@@ -22,6 +22,11 @@ class PartnerBlock(blocks.StructBlock):
     name = blocks.TextBlock()
     type = PartnerTypeBlock()
     logo = ImageChooserBlock(icon='image', required=False)
+    logo_alt_text = blocks.CharBlock(
+        required=False,
+        verbose_name='Logo alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
 
 class PartnersBlock(blocks.StreamBlock):
     partner = PartnerBlock()

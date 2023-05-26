@@ -19,11 +19,11 @@ export default class Image extends Component {
   }
 
   render(){
-    let { thumbnail, image } = this.props;
+    let { thumbnail, image, alt } = this.props;
     return (
       <span>
         {thumbnail && <div className="card__image__background temp-image" style={{ backgroundImage: `url(${thumbnail})`}} />}
-        <img className={`${this.state.imageLoaded ? 'loaded' : ''}`} src={image} onLoad={this.onImageLoad}/>
+        <img className={`${this.state.imageLoaded ? 'loaded' : ''}`} src={image} alt={alt} onLoad={this.onImageLoad}/>
       </span>
     );
   }
