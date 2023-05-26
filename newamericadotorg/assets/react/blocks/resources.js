@@ -43,7 +43,7 @@ class ResourceItem extends Component {
             </div>
             {resource.image &&
               <div className="resources-block__item__top__image">
-                <img src={resource.image} />
+                <img src={resource.image} alt={resource.image_alt_text} />
               </div>}
             {resource.description &&
               <div className={`resources-block__item__top__description post-body ${!resource.image ? 'no-image' : ''}`}>

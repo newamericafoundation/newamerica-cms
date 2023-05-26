@@ -12,7 +12,7 @@
     </div>
   {% endif %}
   <div class="figure__image">
-      <img src="{{ value.image.file.url }}"/>
+      <img src="{{ value.image.file.url }}" alt="{{ value.alt_text }}"/>
   </div>
   {% if value.image.caption or value.image.source %}
     <figcaption>

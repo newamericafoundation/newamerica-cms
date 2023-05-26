@@ -50,7 +50,7 @@ const SinglePage = ({ report, dispatch, location }) => (
           />
           {report.partner_logo && (
             <div className="margin-top-25">
-              <img src={report.partner_logo}/>
+              <img src={report.partner_logo} alt={report.partner_logo_alt} />
             </div>
           )}
         </div>
@@ -103,7 +103,7 @@ const Landing = ({ report, dispatch, location, closeMenu, preview }) => (
         />
         {report.partner_logo && (
           <div className="margin-top-25">
-            <img src={report.partner_logo}/>
+            <img src={report.partner_logo} alt={report.partner_logo_alt} />
           </div>
         )}
       </div>

@@ -13,7 +13,7 @@
 <div class="card event-card">
   <a href="{{event.url}}">
     <div class="card__image{% if not event.story_image and not image %} no-image{%endif%}">
-      <img src="{{event_image_lg.url}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
+      <img src="{{event_image_lg.url}}" alt="{{event.story_image_alt}}" class="fade-in-image" onload="this.classList.add('loaded');"/>
     </div>
   </a>
   <div class="card__text">

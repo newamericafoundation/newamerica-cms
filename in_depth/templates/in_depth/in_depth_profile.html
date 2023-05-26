@@ -24,7 +24,7 @@
 					{% image project_root.specific.project_logo min-200x100 as logo %}
 					<div class="in-depth__title-block__logo">
 						<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
-						    <img class="sidemenu__logo" src="{{ logo.url }}">
+						    <img class="sidemenu__logo" src="{{ logo.url }}" alt="{{ project_root.specific.project_logo_alt }}">
 	  					</a>
 					</div>
 					<div class="in-depth__title-block__text has-logo">

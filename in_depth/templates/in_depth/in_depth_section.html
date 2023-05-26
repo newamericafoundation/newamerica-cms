@@ -97,7 +97,7 @@
 						{% image project_root.specific.project_logo min-200x100 as logo %}
 						<div class="in-depth__title-block__logo">
 							<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
-							    <img class="sidemenu__logo" src="{{ logo.url }}">
+							    <img class="sidemenu__logo" src="{{ logo.url }}" alt="{{ project_root.specific.project_logo_alt }}">
 		  					</a>
 						</div>
 						<div class="in-depth__title-block__text has-logo">
@@ -176,7 +176,7 @@
                 {% if previous_sibling.specific.story_image %}
                   {% image previous_sibling.specific.story_image fill-100x100 as prev_background %}
                   <div class="in-depth__footer__next-prev__image">
-                    <img src="{{ prev_background.url }}" />
+                    <img src="{{ prev_background.url }}" alt="{{previous_sibling.specific.story_image_alt}}" />
                   </div>
                 {% endif %}
 							   <h6 class="inline {% if prev_background %}image-padding{% endif %}">{{ previous_sibling }}</h6>
@@ -197,7 +197,7 @@
                  {% if next_sibling.specific.story_image %}
          					{% image next_sibling.specific.story_image fill-100x100 as next_background %}
          					<div class="in-depth__footer__next-prev__image">
-                     <img src="{{ next_background.url }}" />
+                     <img src="{{ next_background.url }}" alt="{{next_sibling.specific.story_image}}" />
                    </div>
          				{% endif %}
               </div>
@@ -219,7 +219,7 @@
       						{% image project_root.specific.project_logo min-200x100 as logo %}
       						<div class="in-depth__title-block__logo">
       							<a href="{% if project_root.specific.project_logo_link %}{{ project_root.specific.project_logo_link }}{% endif %}">
-      							    <img class="sidemenu__logo" src="{{ logo.url }}">
+      							    <img class="sidemenu__logo" src="{{ logo.url }}" alt="{{project_root.specific.project_logo_alt}}">
       		  					</a>
       						</div>
       						<div class="in-depth__title-block__text has-logo">
@@ -246,7 +246,7 @@
                         {% if author.author.profile_image %}
   												<div class="post-person__image">
   													{% image author.author.profile_image fill-200x200 as author_image %}
-  											     <img src="{{ author_image.url }}" />
+  											     <img src="{{ author_image.url }}" alt="{{author.author.profile_image_alt}}" />
   												</div>
                           {% endif %}
 												<h6 class="post-person__text paragraph margin-5">

@@ -52,7 +52,7 @@
   <a href="{{ side_menu.url }}">
     {% if side_menu.desktop_program_logo %}
       {% image side_menu.desktop_program_logo min-200x100 as logo %}
-      <img class="sidemenu__logo" src="{{ logo.url }}">
+      <img class="sidemenu__logo" src="{{ logo.url }}" alt="{{ side_menu.program_logo_alt }}">
     {% else %}
       <h1 class="sidemenu__logo-fallback">{{ side_menu.title }}</h1>
     {% endif %}

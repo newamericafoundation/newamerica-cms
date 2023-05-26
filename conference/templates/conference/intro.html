@@ -9,7 +9,7 @@
           <a href="http://newamerica.org/" target="_blank" rel="noopener noreferrer">
           {% if page.alternate_logo %}
             {% image page.alternate_logo original as alt_logo %}
-            <img class="" src="{{alt_logo.url}}" />
+            <img class="" src="{{alt_logo.url}}" alt={{page.alternate_logo_alt}} />
           {% else %}
             <!-- <h1 class="centered margin-bottom-60">
               <div class="logo white" style="width:150px;height: 37px"></div>

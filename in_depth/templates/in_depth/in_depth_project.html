@@ -35,7 +35,7 @@
         			{% image page.project_logo min-200x100 as logo %}
         			<div class="title-panel__logo">
         				<a href="{% if page.project_logo_link %}{{ page.project_logo_link }}{% endif %}">
-        				    <img class="sidemenu__logo" src="{{ logo.url }}">
+        				    <img class="sidemenu__logo" src="{{ logo.url }}" alt="{{ page.project_logo_alt }}">
         				</a>
         			</div>
             </div>

@@ -31,7 +31,7 @@ const AboutTab = (props) => {
 
       {data.partner_logo && (
         <Body title="Made Possible By" body="">
-          <img src={data.partner_logo} alt="Partner" />
+          <img src={data.partner_logo} alt={data.partner_logo_alt} />
         </Body>
       )}
 
