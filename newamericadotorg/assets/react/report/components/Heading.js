@@ -27,7 +27,7 @@ class Heading extends Component {
               <img 
                 className="card__image__background-image" 
                 src={report.story_image.url}
-                alt={report.story_image.alt}
+                alt={report.story_image_alt}
               />
 
               {report.story_image.source && (
@@ -99,7 +99,7 @@ class Heading extends Component {
               <Image
                 thumbnail={report.story_image_thumbnail}
                 image={report.story_image.url}
-                alt={report.story_image.alt}
+                alt={report.story_image_alt}
               />
             </div>
 

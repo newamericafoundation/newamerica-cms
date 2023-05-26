@@ -7,7 +7,7 @@ export const Person = ({ person }) => (
   <div className="card person">
     <a href={person.url}>
       <div className={`card__image ${!person.profile_image ? 'no-image' : ''}`}>
-        {person.profile_image && <Image image={person.profile_image} />}
+        {person.profile_image && <Image image={person.profile_image} alt={person.profile_image_alt} />}
       </div>
       <div className="card__text">
         {/* <h3 className="card__text__title">{person.first_name} {person.last_name}</h3> */}
@@ -28,7 +28,7 @@ export const EventItem = ({ event }) => (
   <div className="card event-card">
     <a href={event.url}>
       <div className={`card__image ${!event.story_image ? 'no-image' : ''}`}>
-        <Image image={event.story_image} />
+        <Image image={event.story_image} alt={event.story_image_alt} />
       </div>
     </a>
     <div className="card__text">
@@ -123,7 +123,7 @@ export const PublicationListItem = ({post, style}) => (
     {(style != "search-small") && (
       <a href={post.url} className="card__image-link">
         <div className={`card__image ${!post.story_image ? 'no-image' : ''}`}>
-          <Image image={post.story_image} />
+          <Image image={post.story_image} alt={post.story_image_alt} />
         </div>
       </a>
     )}

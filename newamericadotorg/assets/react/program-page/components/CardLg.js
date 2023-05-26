@@ -21,7 +21,7 @@ export default class CardLg extends Component {
           <div className="col-12 col-md-8">
             <div className="card__image">
               {post.story_image &&
-                <Image thumbnail={post.story_image_thumbnail.url} image={post.story_image.url} loaded={loaded}/>
+                <Image thumbnail={post.story_image_thumbnail.url} image={post.story_image.url} alt={post.story_image_alt} loaded={loaded}/>
               }
             </div>
           </div>

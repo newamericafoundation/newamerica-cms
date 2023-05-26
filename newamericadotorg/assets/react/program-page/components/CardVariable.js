@@ -10,7 +10,7 @@ export default class CardVariable extends Component {
           {post.story_image &&
           <div className="col-6 col-md-12" style={{overflow: 'hidden'}}>
             <div className="card__image" style={{ paddingBottom: `${post.story_image.height/post.story_image.width*100}%`}}>
-              <Image thumbnail={post.story_image_thumbnail.url} image={post.story_image.url} loaded={loaded}/>
+                <Image thumbnail={post.story_image_thumbnail.url} image={post.story_image.url} alt={post.story_image_alt} loaded={loaded}/>
             </div>
           </div>}
           <div className={`${post.story_image ? 'col-6' : 'col-12'} col-md-12`}>

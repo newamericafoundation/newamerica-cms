@@ -18,7 +18,7 @@ const Lead = ({ article }) => (
   <div className="weekly-edition__lead margin-bottom-60">
     <a href={article.url}>
       <div className="weekly-edition__lead__image">
-        <Image image={article.story_image_lg} />
+        <Image image={article.story_image_lg} alt={article.story_image_alt}/>
       </div>
       <h1 className="margin-25">{article.title}</h1>
       <h3 className="margin-25">{article.story_excerpt}</h3>
@@ -32,7 +32,7 @@ const Article = ({ article, index }) => (
     style={{'transitionDelay': `${600 + 50*index}ms`, 'WebkitTransitionDelay': `${600 + 50*index}ms` }}>
     <a href={article.url}>
       <div className="weekly-edition__articles__article__image">
-        <Image image={article.story_image_sm} />
+        <Image image={article.story_image_sm} alt={article.story_image_alt} />
       </div>
       <h3 className="margin-15">
         {article.title}
