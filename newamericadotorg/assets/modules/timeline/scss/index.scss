@@ -1,5 +1,5 @@
 $subtext-size: .9rem;
-$sub-color: #b1b1b4;
+$sub-color: color(gray, dark);
 $desktop-next-prev-width: 120px;
 @mixin timeline-subtext {
 	color: $sub-color;

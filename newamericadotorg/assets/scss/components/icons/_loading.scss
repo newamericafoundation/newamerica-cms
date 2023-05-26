@@ -55,7 +55,7 @@ $loading-animation-delay: 0.1s;
     @include animation(loading-icon-animation .4s alternate infinite);
 
     &__circle, &__rect{
-      background: color(turquoise, base, 0.75);
+      background: color(turquoise, dark, 0.75);
       height: $loading-icon-height;
     }
 

@@ -40,7 +40,7 @@
   cursor: pointer;
 
   &:hover{
-    background-color: color(turquoise);
+    background-color: color(turquoise, dark);
   }
   &:before{
     position: absolute;
@@ -60,12 +60,12 @@
 
     &:hover {
       color: color(white);
-      background-color: color(turquoise);
+      background-color: color(turquoise, dark);
     }
   }
 
 }
 
 a:hover > .fa.circle {
-  background-color: color(turquoise);
+  background-color: color(turquoise, dark);
 }
