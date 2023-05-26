@@ -404,7 +404,7 @@ class TimelineBlock(blocks.StructBlock):
                 "splitList": getJSCompatibleList(
                     value["major_timeline_splits"], True, False
                 ),
-                "categoryList": value["event_categories"],
+                "categoryList": list(value["event_categories"]),
             }
         )
         return context
