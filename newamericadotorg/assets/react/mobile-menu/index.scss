@@ -19,6 +19,12 @@
   }
 }
 
+#mobile-menu__wrapper {
+  @include media-breakpoint(desktop){
+    display: none;
+  }
+}
+
 #mobile-menu__wrapper.open {
   .mobile-menu {
     @include transform(translateX(-125vw));

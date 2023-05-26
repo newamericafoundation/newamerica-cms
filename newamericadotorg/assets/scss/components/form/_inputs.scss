@@ -67,14 +67,14 @@ input[type="text"], textarea {
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: color(gray,light);
+  color: color(gray, dark);
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: color(gray,light);
+  color: color(gray, dark);
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: color(gray,light);
+  color: color(gray, dark);
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: color(gray,light);
+  color: color(gray, dark);
 }

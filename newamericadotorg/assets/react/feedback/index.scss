@@ -25,7 +25,7 @@
       padding-right: 15px;
       cursor: pointer;
       &.selected, &:hover {
-        color: color(turquoise);
+        color: color(turquoise, dark);
       }
     }
   }
@@ -40,7 +40,7 @@
     margin-right: 15px;
     cursor: pointer;
     &.selected {
-      color: color(turquoise);
+      color: color(turquoise, dark);
     }
   }
   form {

@@ -28,3 +28,18 @@
 body.search-is-open .header__nav__search__input{
   width: 250px;
 }
+
+.header__nav__search__form {
+  display: flex;
+}
+
+.header__nav__search__submit {
+  padding-right: 0.5rem;
+  margin-right: 0.5rem;
+  width: auto !important;
+  border-width: 0 !important;
+  border-bottom: 1px solid color(black, base, 0.3) !important;
+  &:hover, &:active, &:focus {
+    color: color(turquoise, dark);
+  }
+}

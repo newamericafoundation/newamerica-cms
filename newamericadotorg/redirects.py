@@ -14,6 +14,11 @@ def new_practice_lab(request, **kwargs):
     url = '/new-practice-lab/' + '/'.join(path)
     return redirect(url)
 
+def planetary_politics(request, **kwargs):
+    path = request.path.split('/')[3:]
+    url = '/planetary-politics/' + '/'.join(path)
+    return redirect(url)
+
 
 # Name changes
 

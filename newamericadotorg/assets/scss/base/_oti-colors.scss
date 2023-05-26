@@ -1,6 +1,6 @@
 body.oti {
   a:not(.tag):not(.button):not(.button--text){
-    color: color(oti-blue);
+    color: color(oti-blue, dark);
   }
 
   h1,h2,h3,h4,h5,h6{
@@ -22,11 +22,11 @@ body.oti {
   }
 
   .fa.circle:hover{
-    background-color: color(oti-blue);
+    background-color: color(oti-blue, dark);
   }
 
   a:hover > .fa.circle {
-    background-color: color(oti-blue);
+    background-color: color(oti-blue, dark);
   }
 
   label.card__text__title.link u{

@@ -9,10 +9,10 @@ export const PrimaryTab = ({switchTab}) => (
     <div className="menu-list">
       <SearchInput />
       <h6 className="tab-link">
-        <a onClick={()=>{switchTab('About');}}>About</a>
+        <button onClick={()=>{switchTab('About');}}>About</button>
       </h6>
       <h6 className="tab-link">
-        <a onClick={()=>{switchTab('Programs');}}>Programs</a>
+        <button onClick={()=>{switchTab('Programs');}}>Programs</button>
       </h6>
       <h6>
         <a href="/publications/">Publications</a>

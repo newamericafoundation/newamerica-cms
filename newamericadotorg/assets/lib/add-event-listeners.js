@@ -28,28 +28,16 @@ let listeners = [
   },
 
   function openSearch() {
-    let search = document.querySelector('.header__nav__search');
+    let search = document.querySelector('.header__nav__search__icon');
     if (!search) return;
     search.addEventListener('click', function() {
       store.dispatch({
-        type: 'SET_SEARCH_IS_OPEN',
+        type: 'TOGGLE_SEARCH',
         component: 'site',
-        isOpen: true
       });
     });
   },
 
-  function closeSearch() {
-    let searchInput = document.getElementById('search-input');
-    if (!searchInput) return;
-    searchInput.addEventListener('blur', function() {
-      store.dispatch({
-        type: 'SET_SEARCH_IS_OPEN',
-        component: 'site',
-        isOpen: false
-      });
-    });
-  },
 
   function menuToggle() {
     let menu = document.getElementById('mobile-menu-toggle');

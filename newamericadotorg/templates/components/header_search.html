@@ -2,12 +2,13 @@
 <div class="header__nav__search">
   <div class="header__nav__search__input">
     <div class="input">
-      <form action="/search/?query=value" method="get">
+      <form action="/search/?query=value" method="get" class="header__nav__search__form">
         <input type="text" autocomplete="off" name="query" id="search-input" placeholder="Search" />
+        <input type="submit" value="Search" class="header__nav__search__submit button--text"/>
       </form>
     </div>
   </div>
-  <div class="header__nav__search__icon">
+  <button class="header__nav__search__icon">
     {% include 'components/search-icon.html' %}
-  </div>
+  </button>
 </div>
