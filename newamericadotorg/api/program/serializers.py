@@ -184,7 +184,7 @@ class FeaturedPageSerializer(ModelSerializer):
 
     class Meta:
         model = Page
-        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt', 'story_image_thumbnail',)
+        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt', 'story_image_thumbnail', 'story_image_alt',)
 
 class FeaturedLeadPageSerializer(FeaturedPageSerializer):
     def get_story_image(self, obj):
