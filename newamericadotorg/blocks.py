@@ -90,6 +90,10 @@ class IframeBlock(blocks.StructBlock):
         required=False,
         help_text='The maximum width of the iframe. Always use "Column Width" for non-report content types (e.g. blog posts, About pages). Never use "Full-Width" unless specifically instructed to by your designer.',
     )
+    fixed_height = blocks.BooleanBlock(
+        required=False,
+        help_text="Leave unchecked if you want width-to-height ratio to be preserved on smaller screens. Check to ignore the width value and instead use the full width of the column, with a fixed height.",
+    )
     width = IntegerBlock(
         required=True,
         help_text='The iframe will look best if the width is at least as large as the column width. Note that the maximum, in 2018 and earlier, used to be 1050.',
@@ -129,7 +133,6 @@ class IframeBlock(blocks.StructBlock):
         template = 'blocks/iframe.html'
         icon = 'form'
         label = 'Iframe'
-        help_text = "Specifiy maximum width and height dimensions for the iframe. On smaller screens, width-to-height ratio will be preserved."
         group = 'Embeds'
 
 
