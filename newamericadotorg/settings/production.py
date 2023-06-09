@@ -115,6 +115,13 @@ REDIS_URL = os.getenv(
     'REDIS_TLS_URL',
     os.getenv('REDIS_URL'),
 )
+REDIS_OPTIONS = {
+    'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+}
+if REDIS_URL.startswith("rediss"):
+    REDIS_OPTIONS['CONNECTION_POOL_KWARGS'] = {
+        'ssl_cert_reqs': None,
+    }
 
 WAGTAILFRONTENDCACHE = {
     'cloudfront': {
@@ -127,12 +134,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': REDIS_URL,
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'CONNECTION_POOL_KWARGS': {
-                'ssl_cert_reqs': None,
-            },
-        }
+        'OPTIONS': REDIS_OPTIONS,
     }
 }
 
