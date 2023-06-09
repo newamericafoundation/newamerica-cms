@@ -111,7 +111,17 @@ DEFAULT_FROM_EMAIL = POSTMARK_SENDER
 SERVER_EMAIL = POSTMARK_SENDER
 WAGTAILADMIN_NOTIFICATION_USE_HTML = True
 WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = False
-REDIS_URL = os.getenv('REDIS_URL')
+REDIS_URL = os.getenv(
+    'REDIS_TLS_URL',
+    os.getenv('REDIS_URL'),
+)
+REDIS_OPTIONS = {
+    'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+}
+if os.getenv('REDIS_PLAN', '') == 'premium':
+    REDIS_OPTIONS['CONNECTION_POOL_KWARGS'] = {
+        'ssl_cert_reqs': None,
+    }
 
 WAGTAILFRONTENDCACHE = {
     'cloudfront': {
@@ -124,12 +134,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': REDIS_URL,
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'CONNECTION_POOL_KWARGS': {
-                'ssl_cert_reqs': None,
-            },
-        }
+        'OPTIONS': REDIS_OPTIONS,
     }
 }
 
