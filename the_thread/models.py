@@ -1,8 +1,11 @@
 from __future__ import unicode_literals
 import json
 
+from django.db import models
+
 from home.models import Post
 
+from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.blocks import PageChooserBlock
@@ -14,6 +17,34 @@ from home.models import AbstractHomeContentPage
 class Thread(AbstractContentPage):
     parent_page_types = ['home.HomePage']
     subpage_types = ['ThreadArticle']
+
+    featured_page_1 = models.ForeignKey(
+        'home.Post',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    featured_page_2 = models.ForeignKey(
+        'home.Post',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    featured_page_3 = models.ForeignKey(
+        'home.Post',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    content_panels = AbstractContentPage.content_panels + [
+        FieldPanel('featured_page_1'),
+        FieldPanel('featured_page_2'),
+        FieldPanel('featured_page_3'),
+    ] # x
 
     class Meta:
         verbose_name = "The Thread"
