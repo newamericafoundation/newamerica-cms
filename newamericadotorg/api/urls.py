@@ -41,6 +41,7 @@ api_urls = [
     url(r'^weekly/$', weekly_views.WeeklyList.as_view()),
     url(r'^weekly/(?P<pk>[\d]+)/$', weekly_views.WeeklyDetail.as_view()),
     url(r'^thread/$', thread_views.ThreadList.as_view()),
+    url(r'^thread/detail/$', thread_views.TopLevelThreadDetail.as_view()),
     url(r'^thread/(?P<pk>[\d]+)/$', thread_views.ThreadDetail.as_view()),
     url(r'^report/(?P<pk>[\d]+)/$', report_views.ReportDetail.as_view()),
     url(r'^preview/$', meta_views.PreviewView.as_view()),
