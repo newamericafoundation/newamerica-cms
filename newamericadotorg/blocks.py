@@ -90,9 +90,9 @@ class IframeBlock(blocks.StructBlock):
         required=False,
         help_text='The maximum width of the iframe. Always use "Column Width" for non-report content types (e.g. blog posts, About pages). Never use "Full-Width" unless specifically instructed to by your designer.',
     )
-    responsive = blocks.BooleanBlock(
+    fixed_height = blocks.BooleanBlock(
         required=False,
-        help_text="Check if you want width-to-height ratio to be preserved on smaller screens. Uncheck to ignore the width value and instead use the full width of the column, with a fixed height.",
+        help_text="Leave unchecked if you want width-to-height ratio to be preserved on smaller screens. Check to ignore the width value and instead use the full width of the column, with a fixed height.",
     )
     width = IntegerBlock(
         required=True,
