@@ -118,7 +118,7 @@ REDIS_URL = os.getenv(
 REDIS_OPTIONS = {
     'CLIENT_CLASS': 'django_redis.client.DefaultClient',
 }
-if REDIS_URL.startswith("rediss"):
+if os.getenv('REDIS_PLAN', '') == 'premium':
     REDIS_OPTIONS['CONNECTION_POOL_KWARGS'] = {
         'ssl_cert_reqs': None,
     }
