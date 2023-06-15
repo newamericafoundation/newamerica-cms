@@ -1,11 +1,49 @@
 from django.template import loader
 
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from rest_framework.serializers import (
+    ModelSerializer,
+    SerializerMethodField,
+    IntegerField,
+)
 
 from wagtail.images.views.serve import generate_image_url
 
-from the_thread.models import ThreadArticle
+from the_thread.models import ThreadArticle, Thread
 from newamericadotorg.api.author.serializers import AuthorSerializer
+
+
+class ThreadSerializer(ModelSerializer):
+    featured_pages = SerializerMethodField()
+
+    class Meta:
+        model = Thread
+        fields = (
+            'id',
+            'title',
+            'featured_pages',
+        )
+
+    def get_featured_pages(self, obj):
+        featured = []
+        if obj.featured_page_1:
+            featured.append(
+                ListingThreadArticleSerializer(
+                    obj.featured_page_1.specific
+                ).data
+            )
+        if obj.featured_page_2:
+            featured.append(
+                ListingThreadArticleSerializer(
+                    obj.featured_page_2.specific
+                ).data
+            )
+        if obj.featured_page_3:
+            featured.append(
+                ListingThreadArticleSerializer(
+                    obj.featured_page_3.specific
+                ).data
+            )
+        return featured
 
 
 class ListingThreadArticleSerializer(ModelSerializer):

@@ -2,6 +2,7 @@ import './ArticleListing.scss';
 
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
+import { Fetch } from  '../../components/API';
 import smoothScroll from '../../../lib/utils/smooth-scroll';
 import { Response } from '../../components/API';
 import { CSSTransition } from 'react-transition-group';
@@ -13,6 +14,18 @@ import Separator from '../../components/Separator';
 import { Text } from '../../components/Inputs'
 import ArticleAuthors from './Authors';
 import { format as formatDate, parseISO } from 'date-fns/esm';
+
+const Featured = (props) => {
+  if (props.response.isFetching) {
+    return null;
+  }
+  let { response: {results}, addFeatured} = props;
+  if (!results.featured_pages) { return null; }
+  if (results.featured_pages) {
+    results.featured_pages.forEach(article => addFeatured(article))
+  }
+  return null;
+};
 
 const Lead = ({ article }) => (
   <div className="weekly-edition__lead margin-bottom-60">
@@ -67,7 +80,9 @@ const Subscribe = () => (
 
 class ArticleListing extends Component {
   state = {
-    scrollPosition: 0
+    scrollPosition: 0,
+    featuredArticles: [],
+    featuredArticleSlugs: new Set(),
   }
 
   componentWillMount(){
@@ -81,10 +96,28 @@ class ArticleListing extends Component {
     }
   }
   render(){
+
+    const addFeatured = article => {
+      let {featuredArticleSlugs, featuredArticles} = this.state;
+      if (featuredArticleSlugs.has(article.slug)) { return; }
+
+      featuredArticles.push(article);
+      featuredArticleSlugs.add(article.slug);
+      this.setState({
+        featuredArticleSlugs: featuredArticleSlugs,
+        featuredArticles: featuredArticles,
+      });
+    }
     const { articles, transition, scrollPosition, canLoadMore, onLoadMore, isFetching} = this.props;
     const leadArticle = articles[0];
-    const otherArticlesFirstRow = this.props.articles.slice(1, 3);
-    const otherArticles = this.props.articles.slice(3, this.props.articles.length);
+
+    let allArticles = this.state.featuredArticles.concat(
+      articles.slice(1, articles.length).filter(a => !this.state.featuredArticleSlugs.has(a.slug))
+    );
+
+    const otherArticlesFirstRow = allArticles.slice(0, 2);
+    const otherArticles = allArticles.slice(2, allArticles.length);
+
     return(
       <CSSTransition
         classNames="weekly-stagger"
@@ -102,6 +135,17 @@ class ArticleListing extends Component {
               <div className="col-12">
                 <Lead article={leadArticle} />
               </div>
+
+              <Fetch
+                name="thread-detail"
+                key="thread-detail"
+                endpoint="thread/detail"
+                fetchOnMount={true}
+                renderIfNoResults={false}
+                component={Featured}
+                addFeatured={addFeatured}
+              />
+
               {otherArticlesFirstRow.map((a,i) => (
                 <div key={`artcile-${i}`} className="col-6 col-md-4">
                   <Article key={`article-${i}`} article={a} index={i}/>
