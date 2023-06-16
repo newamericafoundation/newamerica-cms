@@ -38,6 +38,13 @@ module.exports = env => {
     module: {
       rules: [
         {
+          test: /\.(woff(2)?|ttf|eot|otf|svg)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: './static/fonts/[name][ext]',
+          },
+        },
+        {
           test: /\.scss/,
           use: [
             {
