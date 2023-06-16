@@ -72,7 +72,8 @@ module.exports = env => {
                   {
                     targets: '> 1%, last 2 versions, Firefox ESR',
                     modules: false,
-                    useBuiltIns: 'entry'
+                    useBuiltIns: 'entry',
+                    corejs: '2.6.5'
                   }
                 ],
                 '@babel/preset-react'
