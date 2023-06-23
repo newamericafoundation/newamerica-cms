@@ -1,5 +1,6 @@
 from django.db import models
 from wagtail.models import Page
+from wagtail.snippets.models import register_snippet
 
 
 class SubscribePage(Page):
@@ -24,3 +25,10 @@ class SubscriptionSegment(Page):
 
     class Meta:
         verbose_name = "Mailing List Segment"
+
+
+@register_snippet
+class MailingListSegment(models.Model):
+    title = models.TextField()
+    segment_id = models.TextField()
+    list_id = models.TextField()
