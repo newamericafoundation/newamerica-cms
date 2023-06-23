@@ -1,13 +1,17 @@
 from rest_framework.test import APITestCase
 
+from blog.models import BlogPost, ProgramBlogPostsPage
+from home.models import ProgramAboutHomePage, ProgramAboutPage
+from issue.models import IssueOrTopic, TopicHomePage
+from programs.models import (
+    FeaturedProgramPage,
+    FeaturedSubprogramPage,
+    SubscriptionProgramRelationship,
+    SubscriptionSubprogramRelationship,
+)
+from subscribe.models import SubscribePage, SubscriptionSegment
 from test_factories import PostFactory
 
-from programs.models import Program, Subprogram, FeaturedProgramPage, FeaturedSubprogramPage, SubscriptionProgramRelationship, SubscriptionSubprogramRelationship
-from issue.models import IssueOrTopic
-from home.models import ProgramAboutHomePage, ProgramAboutPage
-from blog.models import ProgramBlogPostsPage, BlogPost
-from subscribe.models import SubscriptionSegment, SubscribePage
-from issue.models import TopicHomePage, IssueOrTopic
 
 class ProgramAPITests(APITestCase):
     @classmethod
@@ -45,7 +49,7 @@ class ProgramAPITests(APITestCase):
             program=program
         ).save()
 
-        program_about = program_about_home.add_child(instance=ProgramAboutPage(
+        program_about_home.add_child(instance=ProgramAboutPage(
             title='About Subpage',
             slug='subpage',
             show_in_menus=True
@@ -69,7 +73,7 @@ class ProgramAPITests(APITestCase):
             slug='about'
         ))
 
-        subprogram_about = subprogram_about_home.add_child(instance=ProgramAboutPage(
+        subprogram_about_home.add_child(instance=ProgramAboutPage(
             title='About Subpage',
             slug='subpage',
             show_in_menus=True

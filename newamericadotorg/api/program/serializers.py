@@ -1,73 +1,74 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from wagtail.models import Page, ContentType
-from wagtail.images.views.serve import generate_image_url
 from django.template import loader
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from wagtail.models import Page
 
 from home.models import ProgramAboutHomePage, ProgramAboutPage
-from programs.models import Program, Subprogram, Project, AbstractContentPage
+from newamericadotorg.api.helpers import (
+    generate_image_rendition,
+    get_content_type,
+    get_program_content_types,
+    get_subpages,
+)
+from programs.models import Program, Project, Subprogram
 from subscribe.models import SubscriptionSegment
-from newamericadotorg.api.helpers import get_content_type, get_program_content_types, get_subpages, generate_image_rendition
+
 
 class AboutPageSerializer(ModelSerializer):
     body = SerializerMethodField()
 
     class Meta:
         model = ProgramAboutHomePage
-        fields = (
-            'id', 'url', 'slug', 'body', 'title'
-        )
+        fields = ('id', 'url', 'slug', 'body', 'title')
 
     def get_body(self, obj):
         if self.context.get('is_preview', False):
             obj = obj.get_latest_revision_as_object()
-        return loader.get_template('components/post_body.html').render({ 'page': obj })
+        return loader.get_template('components/post_body.html').render(
+            {'page': obj}
+        )
+
 
 class PostProgramSerializer(ModelSerializer):
     name = SerializerMethodField()
 
     class Meta:
         model = Program
-        fields = (
-            'id', 'name', 'url', 'slug'
-        )
+        fields = ('id', 'name', 'url', 'slug')
 
     def get_name(self, obj):
         return obj.title
+
 
 class PostSubprogramSerializer(ModelSerializer):
     name = SerializerMethodField()
 
     class Meta:
         model = Subprogram
-        fields = (
-            'id', 'name', 'url', 'slug'
-        )
+        fields = ('id', 'name', 'url', 'slug')
 
     def get_name(self, obj):
-        return obj.title;
+        return obj.title
+
 
 class SubscriptionSegmentSerializer(ModelSerializer):
-
     class Meta:
         model = SubscriptionSegment
-        fields = (
-            'id', 'title', 'ListID', 'SegmentID'
-        )
+        fields = ('id', 'title', 'ListID', 'SegmentID')
 
 
 class ProgramSubprogramSerializer(ModelSerializer):
     '''
     Nested under program serializer
     '''
+
     name = SerializerMethodField()
     type = SerializerMethodField()
     url = SerializerMethodField()
 
     class Meta:
         model = Page
-        fields = (
-            'id', 'name', 'url', 'title', 'slug', 'type'
-        )
+        fields = ('id', 'name', 'url', 'title', 'slug', 'type')
+
     def get_name(self, obj):
         return obj.title
 
@@ -80,11 +81,13 @@ class ProgramSubprogramSerializer(ModelSerializer):
             return 'Project'
 
         return 'Initiative'
+
     def get_url(self, obj):
         if getattr(obj.specific, 'redirect_page', None):
             return obj.specific.redirect_page.url
 
         return obj.url
+
 
 class ProgramSerializer(ModelSerializer):
     logo = SerializerMethodField()
@@ -94,7 +97,16 @@ class ProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'former', 'title', 'description', 'url', 'logo', 'slug', 'subprograms', 'subscriptions'
+            'id',
+            'name',
+            'former',
+            'title',
+            'description',
+            'url',
+            'logo',
+            'slug',
+            'subprograms',
+            'subscriptions',
         )
 
     def get_subscriptions(self, obj):
@@ -112,15 +124,18 @@ class ProgramSerializer(ModelSerializer):
     def get_subprograms(self, obj):
         if type(obj) is not Program:
             return None
-        #horribly inefficient. may have to add a ManyToManyField to Program??
-        subprograms = ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live().in_menu(),many=True).data
-        if len(subprograms)==0:
+        # horribly inefficient. may have to add a ManyToManyField to Program??
+        subprograms = ProgramSubprogramSerializer(
+            obj.get_children().type(Subprogram).live().in_menu(), many=True
+        ).data
+        if len(subprograms) == 0:
             return None
         return subprograms
 
     def get_logo(self, obj):
         return ''
         return obj.desktop_program_logo
+
 
 class FeaturedPageSerializer(ModelSerializer):
     id = SerializerMethodField()
@@ -139,7 +154,7 @@ class FeaturedPageSerializer(ModelSerializer):
     def get_title(self, obj):
         return obj.page.title
 
-    def get_url(self,obj):
+    def get_url(self, obj):
         return obj.page.url
 
     def get_slug(self, obj):
@@ -149,34 +164,36 @@ class FeaturedPageSerializer(ModelSerializer):
         return getattr(obj.page.specific, 'story_excerpt', None)
 
     def get_story_image(self, obj):
-        #return generate_image_url(obj.story_image, 'fill-600x460')
-        story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
-        if not story_image: return None
+        # return generate_image_url(obj.story_image, 'fill-600x460')
+        story_image = (
+            obj.featured_image
+            if obj.featured_image
+            else getattr(obj.page.specific, 'story_image', None)
+        )
+        if not story_image:
+            return None
 
         img = generate_image_rendition(story_image, 'width-600')
         if img:
-            return {
-                'width': img.width,
-                'height': img.height,
-                'url': img.url
-            }
+            return {'width': img.width, 'height': img.height, 'url': img.url}
         return None
 
     def get_story_image_alt(self, obj):
         return getattr(obj.page.specific, 'story_image_alt', None)
 
     def get_story_image_thumbnail(self, obj):
-        #return generate_image_url(obj.story_image, 'fill-30x23')
-        story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
-        if not story_image: return None
+        # return generate_image_url(obj.story_image, 'fill-30x23')
+        story_image = (
+            obj.featured_image
+            if obj.featured_image
+            else getattr(obj.page.specific, 'story_image', None)
+        )
+        if not story_image:
+            return None
 
         img = generate_image_rendition(story_image, 'width-30')
         if img:
-            return {
-                'width': img.width,
-                'height': img.height,
-                'url': img.url
-            }
+            return {'width': img.width, 'height': img.height, 'url': img.url}
         return None
 
     def get_content_type(self, obj):
@@ -184,34 +201,48 @@ class FeaturedPageSerializer(ModelSerializer):
 
     class Meta:
         model = Page
-        fields = ('id', 'title', 'url', 'slug', 'content_type', 'story_image', 'story_excerpt', 'story_image_thumbnail', 'story_image_alt',)
+        fields = (
+            'id',
+            'title',
+            'url',
+            'slug',
+            'content_type',
+            'story_image',
+            'story_excerpt',
+            'story_image_thumbnail',
+            'story_image_alt',
+        )
+
 
 class FeaturedLeadPageSerializer(FeaturedPageSerializer):
     def get_story_image(self, obj):
-        story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
-        if not story_image: return None
+        story_image = (
+            obj.featured_image
+            if obj.featured_image
+            else getattr(obj.page.specific, 'story_image', None)
+        )
+        if not story_image:
+            return None
 
         img = generate_image_rendition(story_image, 'fill-925x430')
         if img:
-            return {
-                'width': img.width,
-                'height': img.height,
-                'url': img.url
-            }
+            return {'width': img.width, 'height': img.height, 'url': img.url}
         return None
 
     def get_story_image_thumbnail(self, obj):
-        story_image = obj.featured_image if obj.featured_image else getattr(obj.page.specific, 'story_image', None)
-        if not story_image: return None
+        story_image = (
+            obj.featured_image
+            if obj.featured_image
+            else getattr(obj.page.specific, 'story_image', None)
+        )
+        if not story_image:
+            return None
 
         img = generate_image_rendition(story_image, 'fill-32x15')
         if img:
-            return {
-                'width': img.width,
-                'height': img.height,
-                'url': img.url
-            }
+            return {'width': img.width, 'height': img.height, 'url': img.url}
         return None
+
 
 class ProgramDetailSerializer(ModelSerializer):
     story_grid = SerializerMethodField()
@@ -227,9 +258,22 @@ class ProgramDetailSerializer(ModelSerializer):
     class Meta:
         model = Program
         fields = (
-            'id', 'name', 'title', 'story_grid', 'description', 'url', 'subprograms', 'slug',
-            'content_types', 'subpages', 'logo', 'about',
-            'subscriptions', 'topics', 'hide_subscription_card', 'subscription_card_text'
+            'id',
+            'name',
+            'title',
+            'story_grid',
+            'description',
+            'url',
+            'subprograms',
+            'slug',
+            'content_types',
+            'subpages',
+            'logo',
+            'about',
+            'subscriptions',
+            'topics',
+            'hide_subscription_card',
+            'subscription_card_text',
         )
 
     def get_story_grid(self, obj):
@@ -238,32 +282,44 @@ class ProgramDetailSerializer(ModelSerializer):
         if self.context.get('is_preview'):
             revision = obj.get_latest_revision_as_object()
             pages = revision.featured_pages.all().order_by('sort_order')
-            featured_pages = [rel for rel in revision.featured_pages.all().order_by('sort_order')]
+            featured_pages = [
+                rel
+                for rel in revision.featured_pages.all().order_by('sort_order')
+            ]
         else:
             pages = obj.featured_pages.all().order_by('sort_order')
             featured_pages = [rel for rel in pages[:7]]
 
         if len(featured_pages) == 0:
-            return { 'count': 0, 'pages': [] }
+            return {'count': 0, 'pages': []}
 
         lead = FeaturedLeadPageSerializer(featured_pages.pop(0)).data
         return {
             'count': pages.count(),
-            'pages': [lead] + FeaturedPageSerializer(featured_pages, many=True).data
+            'pages': [lead]
+            + FeaturedPageSerializer(featured_pages, many=True).data,
         }
 
     def get_description(self, obj):
         return obj.description or obj.story_excerpt or obj.search_description
 
     def get_subprograms(self, obj):
-        #horribly inefficient. may have to add a ManyToManyField to Program??
-        subprograms = ProgramSubprogramSerializer(obj.get_children().type(Subprogram).live().in_menu(),many=True).data
-        if len(subprograms)==0:
+        # horribly inefficient. may have to add a ManyToManyField to Program??
+        subprograms = ProgramSubprogramSerializer(
+            obj.get_children().type(Subprogram).live().in_menu(), many=True
+        ).data
+        if len(subprograms) == 0:
             return None
         return subprograms
 
     def get_topics(self, obj):
-        topics = obj.get_descendants().filter(content_type__model='issueortopic', depth=5).specific().live().count()
+        topics = (
+            obj.get_descendants()
+            .filter(content_type__model='issueortopic', depth=5)
+            .specific()
+            .live()
+            .count()
+        )
         if topics > 0:
             return True
 
@@ -285,7 +341,11 @@ class ProgramDetailSerializer(ModelSerializer):
             return None
 
         about_page = AboutPageSerializer(about, context=self.context).data
-        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.descendant_of(about).live().in_menu(), context=self.context, many=True).data
+        about_page['subpages'] = AboutPageSerializer(
+            ProgramAboutPage.objects.descendant_of(about).live().in_menu(),
+            context=self.context,
+            many=True,
+        ).data
 
         return about_page
 
@@ -305,9 +365,8 @@ class ProgramDetailSerializer(ModelSerializer):
 class SubprogramProgramSerializer(ModelSerializer):
     class Meta:
         model = Program
-        fields = (
-            'id', 'name', 'url', 'slug', 'title'
-        )
+        fields = ('id', 'name', 'url', 'slug', 'title')
+
 
 class SubprogramSerializer(ModelSerializer):
     story_grid = SerializerMethodField()
@@ -321,14 +380,28 @@ class SubprogramSerializer(ModelSerializer):
     class Meta:
         model = Subprogram
         fields = (
-            'id', 'name', 'former', 'story_grid', 'parent_programs', 'url', 'slug', 'content_types',
-             'description', 'subpages', 'about', 'title', 'subscriptions',
-             'hide_subscription_card', 'subscription_card_text'
+            'id',
+            'name',
+            'former',
+            'story_grid',
+            'parent_programs',
+            'url',
+            'slug',
+            'content_types',
+            'description',
+            'subpages',
+            'about',
+            'title',
+            'subscriptions',
+            'hide_subscription_card',
+            'subscription_card_text',
         )
 
     def get_parent_programs(self, obj):
-        parents = SubprogramProgramSerializer(obj.parent_programs, many=True).data
-        if len(parents)==0:
+        parents = SubprogramProgramSerializer(
+            obj.parent_programs, many=True
+        ).data
+        if len(parents) == 0:
             return None
         return parents
 
@@ -338,20 +411,28 @@ class SubprogramSerializer(ModelSerializer):
         if self.context.get('is_preview'):
             revision = obj.get_latest_revision_as_object()
             pages = revision.featured_pages.all().order_by('sort_order')
-            featured_pages = [rel for rel in revision.featured_pages.all().order_by('sort_order')]
+            featured_pages = [
+                rel
+                for rel in revision.featured_pages.all().order_by('sort_order')
+            ]
         else:
             pages = obj.featured_pages.all().order_by('sort_order')
             featured_pages = [rel for rel in pages]
 
         if len(featured_pages) == 0:
-            return { 'count': 0, 'pages': [] }
+            return {'count': 0, 'pages': []}
 
-        FeaturedSerializer = FeaturedLeadPageSerializer if self.context.get('is_simple', False) else FeaturedPageSerializer
+        FeaturedSerializer = (
+            FeaturedLeadPageSerializer
+            if self.context.get('is_simple', False)
+            else FeaturedPageSerializer
+        )
 
         lead = FeaturedLeadPageSerializer(featured_pages.pop(0)).data
         return {
             'count': pages.count(),
-            'pages': [lead] + FeaturedSerializer(featured_pages, many=True).data
+            'pages': [lead]
+            + FeaturedSerializer(featured_pages, many=True).data,
         }
 
     def get_content_types(self, obj):
@@ -369,7 +450,11 @@ class SubprogramSerializer(ModelSerializer):
             return None
 
         about_page = AboutPageSerializer(about, context=self.context).data
-        about_page['subpages'] = AboutPageSerializer(ProgramAboutPage.objects.child_of(about).in_menu().live(), many=True, context=self.context).data
+        about_page['subpages'] = AboutPageSerializer(
+            ProgramAboutPage.objects.child_of(about).in_menu().live(),
+            many=True,
+            context=self.context,
+        ).data
 
         return about_page
 
