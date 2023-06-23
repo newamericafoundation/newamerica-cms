@@ -1,5 +1,10 @@
 from django.template import loader
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from rest_framework.serializers import (
+    CharField,
+    ModelSerializer,
+    Serializer,
+    SerializerMethodField,
+)
 from wagtail.models import Page
 
 from home.models import ProgramAboutHomePage, ProgramAboutPage
@@ -48,6 +53,12 @@ class PostSubprogramSerializer(ModelSerializer):
 
     def get_name(self, obj):
         return obj.title
+
+
+class MailingListSegmentSerializer(Serializer):
+    title = CharField()
+    segment_id = CharField()
+    list_id = CharField()
 
 
 class SubscriptionSegmentSerializer(ModelSerializer):
