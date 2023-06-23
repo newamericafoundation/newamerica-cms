@@ -3,8 +3,7 @@ import traceback
 
 import createsend
 
-from home.models import HomePage
-from subscribe.models import SubscribePage, SubscriptionSegment
+from subscribe.models import MailingListSegment
 
 CREATESEND_API_KEY = os.getenv("CREATESEND_API_KEY")
 CREATESEND_CLIENTID = os.getenv("CREATESEND_CLIENTID")
@@ -18,29 +17,14 @@ def update_segments():
     fields = newamerica_list.custom_fields()
     segments = None
     for f in fields:
-        if f.FieldName == 'Subscriptions':
-            segments = f.FieldOptions
+        if f.FieldName == "Subscriptions":
+            segments = set(f.FieldOptions)
 
-    existing_segments = SubscriptionSegment.objects.all()
-
-    parent = SubscribePage.objects.first()
-    if not parent:
-        home = HomePage.objects.first()
-        parent = home.add_child(
-            instance=SubscribePage(title='New America Subscription Lists')
-        )
-
-    for segment in segments:
-        exists = False
-        for e_segment in existing_segments:
-            if e_segment.title == segment:
-                exists = True
-
-        if not exists:
-            seg = SubscriptionSegment(
-                title=segment, SegmentID=segment, ListID=CREATESEND_LISTID
-            )
-            parent.add_child(instance=seg)
+    existing_segments = set(
+        MailingListSegment.objects.values_list("title", flat=True)
+    )
+    for segment in segments.difference(existing_segments):
+        MailingListSegment.objects.create(title=segment)
 
 
 def update_subscriber(email, name, custom_fields):
