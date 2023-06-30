@@ -55,10 +55,10 @@ class PostSubprogramSerializer(ModelSerializer):
         return obj.title
 
 
-class MailingListSegmentSerializer(Serializer):
-    title = CharField()
-    segment_id = CharField()
-    list_id = CharField()
+class MailingListPlacementSerializer(Serializer):
+    title = CharField(source='mailing_list_segment.title')
+    alternate_title = CharField(source='display_name')
+    checked_by_default = BooleanField()
 
 
 class SubscriptionSegmentSerializer(ModelSerializer):
