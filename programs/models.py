@@ -211,6 +211,7 @@ class Program(AbstractProgram):
         "other_content.ProgramOtherPostsPage",
         "home.ProgramAboutHomePage",
         "survey.SurveysHomePage",
+        "home.SubscribePage",
     ]
 
     desktop_program_logo = models.ForeignKey(

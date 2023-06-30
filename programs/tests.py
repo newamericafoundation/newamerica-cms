@@ -169,6 +169,7 @@ class ProgramsTests(WagtailPageTestCase):
                 ProgramAboutHomePage,
                 SurveysHomePage,
                 ProgramBriefsPage,
+                SubscribePage,
             }
         )
 

@@ -485,7 +485,11 @@ class SubscribePage(OrgSimplePage):
     """
     Subscribe Page at the organization level
     """
-    parent_page_types = ['home.HomePage']
+    parent_page_types = [
+        'home.HomePage',
+        'programs.Program',
+        'programs.Subprogram',
+    ]
 
     newsletter_subscriptions = StreamField([
         ('subscription', blocks.StructBlock([
