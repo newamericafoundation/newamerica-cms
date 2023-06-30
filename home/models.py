@@ -29,7 +29,7 @@ from newamericadotorg.blocks import BodyBlock
 from newamericadotorg.wagtailadmin.widgets import LocationWidget
 from person.models import Person
 from programs.models import AbstractProgram, Program, Subprogram
-from subscribe.models import SubscriptionSegment
+from subscribe.models import SubscriptionSegment, SubscribePageSegmentPlacement
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
@@ -247,6 +247,9 @@ class HomePage(Page):
     ]
 
     settings_panels = Page.settings_panels + [FieldPanel('down_for_maintenance')]
+
+    def get_subscription_segments(self):
+        return SubscribePageSegmentPlacement.objects.children_of(self)
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)

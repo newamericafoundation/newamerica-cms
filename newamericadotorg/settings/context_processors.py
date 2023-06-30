@@ -5,10 +5,10 @@ from django.core.cache import cache
 from wagtail.images.views.serve import generate_image_url
 from wagtail.models import Page
 
-from home.models import AbstractHomeContentPage, HomePage
+from home.models import AbstractHomeContentPage, HomePage, SubscribePage
 from newamericadotorg.api.program.serializers import (
     ProgramSerializer,
-    SubscriptionSegmentSerializer,
+    MailingListPlacementSerializer,
 )
 from programs.models import Program
 
@@ -115,12 +115,9 @@ def meta(request):
             Program.objects.live().in_menu(), many=True
         ).data
         types = content_types(request)["content_types"]
-        segments = []
-        for s in home.subscriptions.all():
-            seg = SubscriptionSegmentSerializer(s.subscription_segment).data
-            if s.alternate_title != "":
-                seg["alternate_title"] = s.alternate_title
-            segments.append(seg)
+        segments = [
+            MailingListPlacementSerializer(s).data for s in home.get_subscription_segments()
+        ]
 
         if len(segments) == 0:
             segments = None
