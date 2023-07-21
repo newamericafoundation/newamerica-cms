@@ -8,3 +8,6 @@ echo GID=$(id -g) >> .env
 
 # This file is needed to authenticate with Heroku.
 touch ~/.netrc
+
+# This directory is needed for the web container
+mkdir static
