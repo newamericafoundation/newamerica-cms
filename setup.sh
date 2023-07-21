@@ -10,4 +10,4 @@ echo GID=$(id -g) >> .env
 touch ~/.netrc
 
 # This directory is needed for the web container
-mkdir static
+mkdir -p static
