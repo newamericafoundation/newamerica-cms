@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Subquery, OuterRef
 from distutils.util import strtobool
 from django_filters import CharFilter, TypedChoiceFilter
 from django_filters.rest_framework import FilterSet, DjangoFilterBackend
@@ -6,7 +6,11 @@ from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
 
 from issue.models import IssueOrTopic
-from person.models import Person
+from person.models import (
+    Person,
+    PersonProgramRelationship,
+    PersonSubprogramRelationship,
+)
 
 from .serializers import AuthorSerializer
 
@@ -52,11 +56,7 @@ class AuthorList(ListAPIView):
         return context
 
     def get_queryset(self):
-        queryset = (
-            Person.objects.live()
-            .order_by("sort_order", "last_name")
-            .exclude(role__icontains="External Author")
-        )
+        queryset = Person.objects.live().exclude(role__icontains="External Author")
         topic_id = self.request.query_params.get("topic_id", None)
         program_id = self.request.query_params.get("program_id", None)
         subprogram_id = self.request.query_params.get("subprogram_id", None)
@@ -65,6 +65,31 @@ class AuthorList(ListAPIView):
             self.request.query_params.get("include_fellows", "false")
         )
 
+        if program_id:
+            queryset = queryset.alias(
+                program_sort_order=PersonProgramRelationship.objects.filter(
+                    person=OuterRef("pk"),
+                    program=program_id,
+                ).values("sort_order")[:1]
+            ).order_by(
+                "program_sort_order",
+                "last_name",
+            )
+        elif subprogram_id:
+            queryset = queryset.alias(
+                subprogram_sort_order=PersonSubprogramRelationship.objects.filter(
+                    person=OuterRef("pk"),
+                    subprogram=subprogram_id,
+                ).values("sort_order")[:1]
+            ).order_by(
+                "subprogram_sort_order",
+                "last_name",
+            )
+        else:
+            queryset = queryset.order_by(
+                "sort_order",
+                "last_name",
+            )
         if not include_fellows:
             if program_id:
                 queryset = queryset.exclude(

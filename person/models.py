@@ -55,6 +55,14 @@ class PersonProgramRelationship(models.Model):
         help_text="Set program-specific fellowship information",
     )
     fellowship_year = models.IntegerField(blank=True, null=True)
+    sort_order = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text=(
+            "Used for ordering this person on the Program page. "
+            "People with a lower sort order will appear first."
+        ),
+    )
     panels = [
         FieldPanel("program"),
         FieldPanel("group"),
@@ -64,6 +72,7 @@ class PersonProgramRelationship(models.Model):
             widget=forms.Select(choices=YEAR_CHOICES),
             classname="typed_choice_field",
         ),
+        FieldPanel("sort_order"),
     ]
 
 
@@ -89,6 +98,14 @@ class PersonSubprogramRelationship(models.Model):
         help_text="Set subprogram-specific fellowhip information",
     )
     fellowship_year = models.IntegerField(blank=True, null=True)
+    sort_order = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text=(
+            "Used for ordering this person on the Program page. "
+            "People with a lower sort order will appear first."
+        ),
+    )
     panels = [
         FieldPanel("subprogram"),
         FieldPanel("group"),
@@ -98,6 +115,7 @@ class PersonSubprogramRelationship(models.Model):
             widget=forms.Select(choices=YEAR_CHOICES),
             classname="typed_choice_field",
         ),
+        FieldPanel("sort_order"),
     ]
 
 

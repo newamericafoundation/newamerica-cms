@@ -25,7 +25,7 @@ api_urls = [
     url(r'^search/other/$', search_views.SearchOtherPages.as_view()),
     url(r'^event/$', event_views.EventList.as_view()),
     #url(r'^api/author/$', cache_page(60 * 10, key_prefix='author_list')(api_views.AuthorList.as_view()), name='author_list'),
-    url(r'^author/$', author_views.AuthorList.as_view()),
+    url(r'^author/$', author_views.AuthorList.as_view(), name='author_list'),
     #url(r'^api/fellow/$', cache_page(60 * 10, key_prefix='fellow_list')(api_views.FellowList.as_view())),
     url(r'^fellow/$', author_views.FellowList.as_view()),
     #url(r'^api/program/(?P<pk>[\d]+)/$', cache_page(60 * 1440, key_prefix='program_page')(api_views.ProgramDetail.as_view()), name='program'),
