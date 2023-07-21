@@ -54,7 +54,7 @@ class AuthorList(ListAPIView):
     def get_queryset(self):
         queryset = (
             Person.objects.live()
-            .order_by("sort_priority", "last_name")
+            .order_by("sort_order", "last_name")
             .exclude(role__icontains="External Author")
         )
         topic_id = self.request.query_params.get("topic_id", None)
@@ -122,7 +122,7 @@ class FellowList(ListAPIView):
         return context
 
     def get_queryset(self):
-        queryset = Person.objects.live().order_by("sort_priority", "last_name")
+        queryset = Person.objects.live().order_by("sort_order", "last_name")
         program_id = self.request.query_params.get("program_id", None)
         subprogram_id = self.request.query_params.get("subprogram_id", None)
         topic_id = self.request.query_params.get("topic_id", None)
