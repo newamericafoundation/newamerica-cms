@@ -1,18 +1,15 @@
-import os
 import traceback
 
 import createsend
+from django.conf import settings
 
 from subscribe.models import MailingListSegment
 
-CREATESEND_API_KEY = os.getenv("CREATESEND_API_KEY")
-CREATESEND_CLIENTID = os.getenv("CREATESEND_CLIENTID")
-CREATESEND_LISTID = os.getenv("CREATESEND_LISTID")
-auth = {"api_key": CREATESEND_API_KEY}
+auth = {"api_key": settings.CREATESEND_API_KEY}
 
 
 def update_segments():
-    newamerica_list = createsend.List(auth, CREATESEND_LISTID)
+    newamerica_list = createsend.List(auth, settings.CREATESEND_LISTID)
 
     fields = newamerica_list.custom_fields()
     segments = None
@@ -28,7 +25,7 @@ def update_segments():
 
 
 def update_subscriber(email, name, custom_fields):
-    subscriber = createsend.Subscriber(auth, CREATESEND_LISTID, email)
+    subscriber = createsend.Subscriber(auth, settings.CREATESEND_LISTID, email)
     try:
         s = subscriber.get()
         # prevent overwriting Subscriptions by merging existing data
@@ -44,7 +41,7 @@ def update_subscriber(email, name, custom_fields):
     except createsend.BadRequest:
         try:
             subscriber.add(
-                CREATESEND_LISTID,
+                settings.CREATESEND_LISTID,
                 email,
                 name,
                 custom_fields,

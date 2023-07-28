@@ -16,7 +16,6 @@ import os
 import dj_database_url
 from PIL import ImageFile
 
-
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -405,3 +404,7 @@ CSP_FONT_SRC = (
 
 CSP_REPORT_URI = os.environ.get('CSP_REPORT_URI')
 CSP_REPORT_PERCENTAGE = 0.05
+
+CREATESEND_API_KEY = os.getenv("CREATESEND_API_KEY")
+CREATESEND_CLIENTID = os.getenv("CREATESEND_CLIENTID")
+CREATESEND_LISTID = os.getenv("CREATESEND_LISTID")
