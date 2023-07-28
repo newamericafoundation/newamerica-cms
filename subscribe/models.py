@@ -47,9 +47,7 @@ class SubscribePageSegmentPlacementQuerySet(models.QuerySet):
             .live()
             .values_list("pk", flat=True)
         )
-        return self.filter(
-            page__pk__in=subscribe_page_ids
-        )
+        return self.filter(page__pk__in=subscribe_page_ids)
 
 
 class SubscribePageSegmentPlacement(Orderable, models.Model):
@@ -63,12 +61,18 @@ class SubscribePageSegmentPlacement(Orderable, models.Model):
     )
     checked_by_default = models.BooleanField(
         default=False,
-        help_text="If selected, this list will be checked when the subscribe page loads.",
+        help_text=(
+            "If selected, this list will be checked when the subscribe page"
+            " loads."
+        ),
     )
     display_name = models.TextField(
         blank=True,
         default="",
-        help_text="The name here will be used instead of the default name for this list.",
+        help_text=(
+            "The name here will be used instead of the default name for this"
+            " list."
+        ),
     )
 
     class Meta(Orderable.Meta):
