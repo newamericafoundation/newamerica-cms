@@ -141,6 +141,12 @@ class SortedAuthorAPITests(APITestCase):
                 "last_name": "Aardvark",
             }
         )
+        person5 = PostFactory.create_person(
+            {
+                "sort_order": None,
+                "last_name": "Bear",
+            }
+        )
 
         PersonProgramRelationship(
             program=program1,
@@ -162,6 +168,11 @@ class SortedAuthorAPITests(APITestCase):
             person=person4,
             sort_order=1,
         ).save()
+        PersonProgramRelationship(
+            program=program1,
+            person=person5,
+            sort_order=None,
+        ).save()
 
         PersonSubprogramRelationship(
             subprogram=subprogram1,
@@ -182,12 +193,18 @@ class SortedAuthorAPITests(APITestCase):
             subprogram=subprogram1,
             person=person4,
             sort_order=1,
+        ).save()
+        PersonSubprogramRelationship(
+            subprogram=subprogram1,
+            person=person5,
+            sort_order=None,
         ).save()
 
         cls.person1 = person1
         cls.person2 = person2
         cls.person3 = person3
         cls.person4 = person4
+        cls.person5 = person5
         cls.program1 = program1
         cls.subprogram1 = subprogram1
 
@@ -196,7 +213,7 @@ class SortedAuthorAPITests(APITestCase):
         results = response.json()["results"]
 
         self.assertEqual(
-            [self.person4.pk, self.person3.pk, self.person1.pk, self.person2.pk],
+            [self.person4.pk, self.person3.pk, self.person1.pk, self.person2.pk, self.person5.pk],
             [item["id"] for item in results],
         )
 
