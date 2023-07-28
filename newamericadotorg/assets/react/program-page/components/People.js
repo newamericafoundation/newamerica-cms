@@ -65,10 +65,11 @@ class StaffList extends Component {
   state = {
     sortOrder: {
       'Staff': 1,
-      'Contributing Staff': 2,
-      'Advisors': 3,
-      'Current Fellows': 4,
-      'Returning Fellows': 5
+      'Arizona State University Fellows': 2,
+      'Contributing Staff': 3,
+      'Advisors': 4,
+      'Current Fellows': 5,
+      'Returning Fellows': 6,
     }
   }
   render(){
