@@ -30,6 +30,7 @@ GROUPING_OPTIONS = (
     ("Former Fellows", "Former Fellows"),
     ("Advisors", "Advisors"),
     ("Contributing Staff", "Contributing Staff"),
+    ("Arizona State University Fellows", "Arizona State University Fellows"),
 )
 YEAR_CHOICES = [(r, r) for r in range(1999, datetime.date.today().year + 1)]
 YEAR_CHOICES.reverse()
