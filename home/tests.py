@@ -5,7 +5,7 @@ from django.http import HttpResponsePermanentRedirect
 from django.test import Client, TestCase
 from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailPageTestCase
-from wagtail.test.utils.form_data import nested_form_data
+from wagtail.test.utils.form_data import nested_form_data, inline_formset
 
 from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
 from blog.models import AllBlogPostsHomePage
@@ -207,18 +207,9 @@ class HomeTests(WagtailPageTestCase):
             'description': 'OTI2',
             'slug': 'oti-2',
             'depth': 3,
-            'featured_pages': {
-                'TOTAL_FORMS': 0,
-                'INITIAL_FORMS': 0,
-                'MIN_NUM_FORMS': 0,
-                'MAX_NUM_FORMS': 1000
-            },
-            'subscriptions': {
-                'TOTAL_FORMS': 0,
-                'INITIAL_FORMS': 0,
-                'MIN_NUM_FORMS': 0,
-                'MAX_NUM_FORMS': 1000
-            },
+            'featured_pages': inline_formset([]),
+            'people': inline_formset([]),
+            'subscriptions': inline_formset([]),
             'feature_carousel': {
                 'count': 0
             },
