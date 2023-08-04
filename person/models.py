@@ -26,7 +26,7 @@ ROLE_OPTIONS = (
     ("External Author/Former Staff", "External Author"),
 )
 GROUPING_OPTIONS = (
-    ("Current Fellows", "Current Fellows"),
+    ("Fellows", "Fellows"),
     ("Former Fellows", "Former Fellows"),
     ("Advisors", "Advisors"),
     ("Contributing Staff", "Contributing Staff"),

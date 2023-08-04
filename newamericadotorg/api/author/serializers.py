@@ -44,25 +44,9 @@ class AuthorSerializer(ModelSerializer):
 
         if not rel: return 'Staff'
 
-        this_year = datetime.datetime.now().year
-
-        if rel.group == 'Current Fellows':
-            if rel.fellowship_year and rel.fellowhip_year != this_year:
-                return 'Returning Fellows'
-            return rel.group
-        elif rel.group == 'Former Fellows':
-            if rel.fellowship_year:
-                return str(rel.fellowship_year) + ' Fellows'
+        if rel.group:
             return rel.group
         elif obj.role == 'Fellow':
-            if obj.former:
-                if obj.fellowship_year:
-                    return str(obj.fellowship_year) + ' Fellows'
-                return 'Former Fellows'
-            else:
-                if obj.fellowship_year and obj.fellowship_year != this_year:
-                    return 'Returning Fellows'
-                return 'Current Fellows'
-        if rel.group is None: return 'Staff'
+            return 'Fellows'
 
-        return rel.group
+        return 'Staff'
