@@ -1,21 +1,21 @@
-from django.db import models
-from django import forms
+import datetime
 
-from wagtail.models import Page
-from wagtail.fields import StreamField
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
+from django import forms
+from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.blocks import URLBlock
-from wagtail.fields import RichTextField
-from wagtail.admin.panels import PageChooserPanel, MultiFieldPanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page
 from wagtail.search import index
 
-from modelcluster.fields import ParentalKey
-
-from programs.models import Program, Subprogram, AbstractContentPage
-
 from newamericadotorg.helpers import paginate_results
-
-import datetime
+from programs.models import AbstractContentPage, Program, Subprogram
 
 ROLE_OPTIONS = (
     ("Board Chair", "Board Chair"),
