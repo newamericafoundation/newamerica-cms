@@ -40,7 +40,7 @@ YEAR_CHOICES.reverse()
 # to the Program model so that a Person may belong
 # to more than one Program
 class PersonProgramRelationship(models.Model):
-    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="+")
+    program = ParentalKey(Program, on_delete=models.CASCADE, related_name="people")
     person = ParentalKey("Person", related_name="programs")
     group = models.CharField(
         choices=GROUPING_OPTIONS,
@@ -81,8 +81,8 @@ class PersonProgramRelationship(models.Model):
 # to the Subprogram model so that a Person may belong
 # to more than one Subprogram
 class PersonSubprogramRelationship(models.Model):
-    subprogram = models.ForeignKey(
-        Subprogram, on_delete=models.CASCADE, related_name="+"
+    subprogram = ParentalKey(
+        Subprogram, on_delete=models.CASCADE, related_name="people"
     )
     person = ParentalKey("Person", related_name="subprograms")
     group = models.CharField(

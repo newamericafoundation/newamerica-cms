@@ -267,14 +267,28 @@ class Program(AbstractProgram):
         )
     ]
 
-    edit_handler = TabbedInterface(
-        [
-            ObjectList(content_panels, heading="Content"),
-            ObjectList(AbstractProgram.featured_panels, heading="Featured"),
-            ObjectList(promote_panels, heading="Promote"),
-            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
-        ]
-    )
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading="Content"),
+        ObjectList(AbstractProgram.featured_panels, heading="Featured"),
+        ObjectList(promote_panels, heading="Promote"),
+        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+        ObjectList(
+            [
+                InlinePanel(
+                    "people",
+                    label="Related People",
+                    panels=[
+                        FieldPanel("person"),
+                        FieldPanel("group"),
+                        FieldPanel("fellowship_position"),
+                        FieldPanel("fellowship_year"),
+                        FieldPanel("sort_order"),
+                    ],
+                ),
+            ],
+            heading="People",
+        ),
+    ])
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -382,14 +396,28 @@ class Subprogram(AbstractProgram):
         )
     ]
 
-    edit_handler = TabbedInterface(
-        [
-            ObjectList(content_panels, heading="Content"),
-            ObjectList(AbstractProgram.featured_panels, heading="Featured"),
-            ObjectList(promote_panels, heading="Promote"),
-            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
-        ]
-    )
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(AbstractProgram.featured_panels, heading='Featured'),
+        ObjectList(promote_panels, heading='Promote'),
+        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+        ObjectList(
+            [
+                InlinePanel(
+                    "people",
+                    label="Related People",
+                    panels=[
+                        FieldPanel("person"),
+                        FieldPanel("group"),
+                        FieldPanel("fellowship_position"),
+                        FieldPanel("fellowship_year"),
+                        FieldPanel("sort_order"),
+                    ],
+                ),
+            ],
+            heading="People",
+        )
+    ])
 
     def get_template(self, request):
         return "programs/program.html"
