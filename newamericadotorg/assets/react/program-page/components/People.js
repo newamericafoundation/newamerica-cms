@@ -68,8 +68,8 @@ class StaffList extends Component {
       'Arizona State University Fellows': 2,
       'Contributing Staff': 3,
       'Advisors': 4,
-      'Current Fellows': 5,
-      'Returning Fellows': 6,
+      'Fellows': 5,
+      'Former Fellows': 6,
     }
   }
   render(){
