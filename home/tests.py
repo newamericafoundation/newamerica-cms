@@ -5,7 +5,7 @@ from django.http import HttpResponsePermanentRedirect
 from django.test import Client, TestCase
 from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailPageTestCase
-from wagtail.test.utils.form_data import nested_form_data, streamfield
+from wagtail.test.utils.form_data import nested_form_data
 
 from article.models import AllArticlesHomePage, Article, ProgramArticlesPage
 from blog.models import AllBlogPostsHomePage
@@ -16,10 +16,10 @@ from conference.models import AllConferencesHomePage
 from event.models import AllEventsHomePage, Event, ProgramEventsPage
 from in_depth.models import AllInDepthHomePage
 from other_content.models import AllOtherPostsHomePage
-from person.models import BoardAndLeadershipPeoplePage, OurPeoplePage, Person
+from person.models import BoardAndLeadershipPeoplePage, OurPeoplePage
 from podcast.models import AllPodcastsHomePage
 from policy_paper.models import (
-    AllPolicyPapersHomePage, PolicyPaper, ProgramPolicyPapersPage,
+    AllPolicyPapersHomePage,
 )
 from press_release.models import AllPressReleasesHomePage
 from programs.models import Program, PublicationsPage, Subprogram
@@ -31,10 +31,9 @@ from the_thread.models import AllThreadArticlesHomePage, Thread
 from weekly.models import AllWeeklyArticlesHomePage, Weekly
 
 from .models import (
-    HomePage, JobsPage, OrgSimplePage, PostAuthorRelationship, ProgramAboutHomePage,
+    HomePage, JobsPage, OrgSimplePage, ProgramAboutHomePage,
     ProgramSimplePage, RedirectPage, SubscribePage,
 )
-from .templatetags.utilities import generate_byline
 
 
 class HomeTests(WagtailPageTestCase):
@@ -57,7 +56,7 @@ class HomeTests(WagtailPageTestCase):
         site.root_page = home
         site.save()
 
-        all_events_home_page = self.home_page.add_child(
+        self.home_page.add_child(
             instance=AllEventsHomePage(title="Events")
         )
 
@@ -229,9 +228,6 @@ class HomeTests(WagtailPageTestCase):
             'sidebar_menu_our_work_pages': {
                 'count': 0
             },
-            'sidebar_menu_our_work_pages': {
-                'count': 0
-            },
             'sidebar_menu_about_us_pages': {
                 'count': 0
             }
@@ -330,7 +326,8 @@ class HomeTests(WagtailPageTestCase):
 
     def test_article_has_correct_ordered_date_string(self):
         self.assertEqual(
-            self.article.ordered_date_string, f'{str(self.article.date)}-{self.article.id}'
+            self.article.ordered_date_string,
+            f'{str(self.article.date)}-{self.article.id}',
         )
 
 
