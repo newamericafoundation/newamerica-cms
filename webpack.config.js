@@ -1,7 +1,7 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
@@ -38,6 +38,13 @@ module.exports = env => {
     module: {
       rules: [
         {
+          test: /\.(woff(2)?|ttf|eot|otf|svg)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: './static/fonts/[name][ext]',
+          },
+        },
+        {
           test: /\.scss/,
           use: [
             {
@@ -47,7 +54,7 @@ module.exports = env => {
             {
               loader: 'sass-loader',
               options: {
-                data: `$static: ${
+                additionalData: `@import "./newamericadotorg/assets/scss/_mixins.scss"; $static: ${
                   NODE_ENV === 'development'
                     ? '"/static"'
                     : `"${STATIC_URL}/static"`
@@ -58,36 +65,33 @@ module.exports = env => {
                 };`
               }
             },
-            {
-              loader: 'sass-resources-loader',
-              options: {
-                resources: './newamericadotorg/assets/scss/_mixins.scss'
-              }
-            }
           ]
         },
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loaders: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: '> 1%, last 2 versions, Firefox ESR',
-                  modules: false,
-                  useBuiltIns: 'entry'
-                }
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: '> 1%, last 2 versions, Firefox ESR',
+                    modules: false,
+                    useBuiltIns: 'entry',
+                    corejs: '2.6.5'
+                  }
+                ],
+                '@babel/preset-react'
               ],
-              '@babel/preset-react'
-            ],
-            plugins: [
-              '@babel/plugin-proposal-class-properties',
-              '@babel/plugin-proposal-object-rest-spread',
-              '@babel/plugin-syntax-dynamic-import'
-            ]
-          }
+              plugins: [
+                '@babel/plugin-proposal-class-properties',
+                '@babel/plugin-proposal-object-rest-spread',
+                '@babel/plugin-syntax-dynamic-import'
+              ]
+            }
+          },
         }
       ]
     },
@@ -97,7 +101,7 @@ module.exports = env => {
           parallel: true,
           sourceMap: true
         }),
-        new OptimizeCSSAssetsPlugin({})
+        new CssMinimizerPlugin(),
       ],
       splitChunks: {
         chunks(chunk) {

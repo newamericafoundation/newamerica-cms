@@ -1,3 +1,4 @@
+@use "sass:math";
 $loading-icon-height: 0.5em;
 $loading-icon-width: 3.5em;
 $loading-icon-spacing: 0.5em;
@@ -101,7 +102,7 @@ $loading-animation-delay: 0.1s;
   }
 
   100% {
-    top: $loading-icon-spacing/1.5;
+    top: math.div($loading-icon-spacing, 1.5);
     opacity: 0.25;
   }
 }
@@ -121,7 +122,7 @@ $loading-animation-delay: 0.1s;
     padding-right: 5px;
     position: relative;
     position: relative;
-    top: -$loading-icon-spacing/3;
+    top: math.div(-$loading-icon-spacing, 3);
     @include animation(loading-dots-animation .4s alternate infinite);
 
     &:first-child {
@@ -149,6 +150,6 @@ $loading-animation-delay: 0.1s;
   }
 
   100% {
-    @include transform(translateY($loading-icon-spacing/1.5));
+    @include transform(translateY(math.div($loading-icon-spacing, 1.5)));
   }
 }

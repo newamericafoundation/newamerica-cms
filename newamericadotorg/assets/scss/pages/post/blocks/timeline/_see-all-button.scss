@@ -4,7 +4,7 @@
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	@include timeline-subtext
+	@include timeline-subtext;
 	cursor: pointer;
 	padding: 3px 5px;
 

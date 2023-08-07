@@ -42,10 +42,11 @@ describe('fetching data from napi', () => {
     const store = mockStore(fakeState);
 
     let expectedActions = [
-      "SET_FETCHING_STATUS",
+      "SET_IS_FETCHING",
       "SITE_IS_LOADING",
       "SITE_IS_LOADING",
-      "SET_RESPONSE"
+      "SET_FETCHING_SUCCESS",
+      "SET_RESPONSE",
     ];
 
     return store.dispatch(fetchData('fakeComponent'))
