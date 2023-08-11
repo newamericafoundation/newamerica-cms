@@ -73,29 +73,6 @@ class Body extends Component {
   loadScripts = () => {
     let { report, section } = this.props;
     newamericadotorg.renderDataViz();
-    if (!this.el) return;
-    if (
-      report.data_project_external_script &&
-      document.querySelectorAll('.dataviz-project').length
-    ) {
-      const dataScript = document.createElement('script');
-
-      dataScript.src = `https://na-data-projects.s3.amazonaws.com/projects/${
-        report.data_project_external_script
-      }`;
-      dataScript.async = true;
-
-      this.el.appendChild(dataScript);
-    }
-    let scripts = section.body.match(/<script.*?src="(.*?)"/);
-    if (scripts) {
-      const script = document.createElement('script');
-
-      script.src = scripts[1];
-      script.async = true;
-
-      this.el.appendChild(script);
-    }
   };
 
   componentDidMount() {
