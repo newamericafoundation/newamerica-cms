@@ -1,0 +1,12 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% block titletag %}Commands: Sync Campaign Monitor{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title="Sync Campaign Monitor" icon="mail" %}
+    <section class="nice-padding">
+        <form action="" method="post">{% csrf_token %}
+            <input type="submit" value="Sync Now" class="button" />
+        </form>
+    </section>
+{% endblock %}

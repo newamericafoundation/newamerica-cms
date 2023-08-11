@@ -20,8 +20,11 @@ def update_segments():
     existing_segments = set(
         MailingListSegment.objects.values_list("title", flat=True)
     )
+    created = 0
     for segment in segments.difference(existing_segments):
         MailingListSegment.objects.create(title=segment)
+        created += 1
+    return created
 
 
 def update_subscriber(email, name, custom_fields):
