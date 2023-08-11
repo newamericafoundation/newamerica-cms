@@ -33,6 +33,11 @@ class SubscriptionSegment(Page):
 class MailingListSegment(models.Model):
     title = models.TextField()
 
+    class Meta:
+        permissions = [
+            ("can_sync_from_campaign_monitor", "Can sync from Campaign Monitor"),
+        ]
+
     def __str__(self):
         return self.title
 
