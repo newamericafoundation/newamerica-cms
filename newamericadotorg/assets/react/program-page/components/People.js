@@ -66,10 +66,11 @@ class StaffList extends Component {
     sortOrder: {
       'Staff': 1,
       'Arizona State University Fellows': 2,
-      'Contributing Staff': 3,
-      'Advisors': 4,
-      'Fellows': 5,
-      'Former Fellows': 6,
+      'Former Arizona State University Fellows': 3,
+      'Contributing Staff': 4,
+      'Advisors': 5,
+      'Fellows': 6,
+      'Former Fellows': 7,
     }
   }
   render(){
