@@ -23,7 +23,7 @@ export class List extends Component {
           <CheckBox checked={checked.indexOf(s.title)>=0}
             name={s.title}
             value={s.title}
-            label={s.alternate_title || s.title}
+            label={s.title}
             onChange={()=>{toggle(s.title); }}/>
           <p>{s.search_description}</p>
         </div>

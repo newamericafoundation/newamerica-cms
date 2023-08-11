@@ -75,6 +75,12 @@ class SubscribePageSegmentPlacement(Orderable, models.Model):
         ),
     )
 
+    @property
+    def title(self):
+        if self.display_name:
+            return self.display_name
+        return self.mailing_list_segment.title
+
     class Meta(Orderable.Meta):
         verbose_name = "mailing list segment placement"
         verbose_name_plural = "mailing list segment placements"
