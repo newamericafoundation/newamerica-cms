@@ -49,6 +49,7 @@ urlpatterns = [
 
     url(r'^international-security/future-property-rights/[^.]*$', redirects.future_property_rights),
     url(r'^international-security/planetary-politics/[^.]*$', redirects.planetary_politics),
+    url(r'^international-security/[^.]*$', redirects.future_security),
     url(r'^education-policy/dual-language-learners/[^.]*$', redirects.dual_language_learners),
     url(r'^bretton-woods-ii/[^.]*$', redirects.digi),
     url(r'^digital-impact-governance-inititiative/[^.]*$', redirects.digi),

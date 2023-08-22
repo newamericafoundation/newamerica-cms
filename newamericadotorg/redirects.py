@@ -51,3 +51,9 @@ def flh(request, **kwargs):
     path[1] = 'future-land-housing'
     url = '/'.join(path)
     return redirect(url)
+
+def future_security(request, **kwargs):
+    path = request.path.split('/')
+    path[1] = 'future-security'
+    url = '/'.join(path)
+    return redirect(url)
