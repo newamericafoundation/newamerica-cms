@@ -249,8 +249,6 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
                 'link',
                 'document-link',
                 'image',
-                'undo',
-                'redo',
             ]
         }
     }
