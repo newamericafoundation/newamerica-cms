@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import dj_database_url
 import os
+
+import dj_database_url
+from PIL import ImageFile
+
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -211,7 +214,10 @@ if os.getenv("BASIC_AUTH_ENABLED", "false").lower().strip() == "true":
 
     # This is the list of network IP addresses that are allowed in without
     # basic authentication check.
-    BASIC_AUTH_WHITELISTED_IP_NETWORKS = os.getenv("BASIC_AUTH_WHITELISTED_IP_NETWORKS", "").split(",")
+    BASIC_AUTH_WHITELISTED_IP_NETWORKS = os.getenv(
+        "BASIC_AUTH_WHITELISTED_IP_NETWORKS",
+        "",
+    ).split(",")
 
     # This is the list of hosts that website can be accessed without basic auth
     # check. This may be useful to e.g. white-list "llamasavers.com" but not
@@ -249,14 +255,11 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
                 'link',
                 'document-link',
                 'image',
-                'undo',
-                'redo',
             ]
         }
     }
 }
 
-from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 REST_FRAMEWORK = {
