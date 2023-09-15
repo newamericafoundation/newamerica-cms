@@ -489,6 +489,7 @@ class SubscribePage(OrgSimplePage):
         'home.HomePage',
         'programs.Program',
         'programs.Subprogram',
+        'the_thread.Thread',
     ]
 
     newsletter_subscriptions = StreamField([

@@ -8,7 +8,7 @@ from programs.models import AbstractContentPage
 
 class Thread(AbstractContentPage):
     parent_page_types = ["home.HomePage"]
-    subpage_types = ["ThreadArticle"]
+    subpage_types = ["ThreadArticle", "home.SubscribePage"]
 
     featured_page_1 = models.ForeignKey(
         "home.Post",
