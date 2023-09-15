@@ -60,7 +60,7 @@ class SubscribePageSegmentPlacement(Orderable, models.Model):
         MailingListSegment, on_delete=models.CASCADE, related_name="+"
     )
     checked_by_default = models.BooleanField(
-        default=False,
+        default=True,
         help_text=(
             "If selected, this list will be checked when the subscribe page"
             " loads."
