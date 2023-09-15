@@ -14,18 +14,6 @@ import { Text } from '../../components/Inputs'
 import ArticleAuthors from './Authors';
 import { format as formatDate, parseISO } from 'date-fns/esm';
 
-const Lead = ({ article }) => (
-  <div className="weekly-edition__lead margin-bottom-60">
-    <a href={article.url}>
-      <div className="weekly-edition__lead__image">
-        <Image image={article.story_image_lg} alt={article.story_image_alt} />
-      </div>
-      <h1 className="margin-25">{article.title}</h1>
-      <h3 className="margin-25">{article.story_excerpt}</h3>
-    </a>
-    <ArticleAuthors authors={article.authors} />
-  </div>
-);
 
 const Article = ({ article, index }) => (
   <div className="weekly-edition__articles__article margin-bottom-60"
@@ -45,24 +33,6 @@ const Article = ({ article, index }) => (
   </div>
 );
 
-const Subscribe = () => (
-  <div className="weekly-subscribe margin-bottom-60">
-    <div className="weekly-subscribe__wrapper">
-      <div>
-        <Separator text="Subscribe"/>
-        <h1 className="margin-top-60 margin-bottom-25">
-          Be the first to hear about the latest events and research from New America.
-        </h1>
-      </div>
-      <form action="/subscribe/?email=value" method="get">
-        <Text name="email" label="Email Address">
-          <button type="submit" className="button--text input__submit with-caret--right">Go</button>
-        </Text>
-      </form>
-    </div>
-  </div>
-)
-
 class ArticleListing extends Component {
   state = {
     scrollPosition: 0
@@ -80,8 +50,7 @@ class ArticleListing extends Component {
   }
   render(){
     const { articles, transition, scrollPosition, canLoadMore, onLoadMore, isFetching} = this.props;
-    const leadArticle = articles[0];
-    const otherArticlesFirstRow = this.props.articles.slice(1, 3);
+    const otherArticlesFirstRow = this.props.articles.slice(0, 3);
     const otherArticles = this.props.articles.slice(3, this.props.articles.length);
     return(
       <CSSTransition
@@ -97,17 +66,11 @@ class ArticleListing extends Component {
               <p className="centered margin-0">Our weekly digital magazine, which prizes our diversity—and how it reflects the America we're becoming.</p>
             </div>
             <div className="row margin-top-25 margin-bottom-35 gutter-10 weekly-edition__articles">
-              <div className="col-12">
-                <Lead article={leadArticle} />
-              </div>
               {otherArticlesFirstRow.map((a,i) => (
                 <div key={`artcile-${i}`} className="col-6 col-md-4">
                   <Article key={`article-${i}`} article={a} index={i}/>
                 </div>
               ))}
-              <div className="col-6 col-md-4">
-                <Subscribe />
-              </div>
               {otherArticles.map((a,i) => (
                 <div key={`artcile-${i}`} className="col-6 col-md-4">
                   <Article key={`article-${i}`} article={a} index={i}/>
