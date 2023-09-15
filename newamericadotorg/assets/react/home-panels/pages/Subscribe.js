@@ -5,7 +5,7 @@ import { CheckBox, Text } from '../../components/Inputs';
 import React, { Component } from 'react';
 import Recaptcha from 'react-recaptcha';
 
-class HomeSubscribe extends Subscribe {
+export class HomeSubscribe extends Subscribe {
   reloadScrollEvents = () => {
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',

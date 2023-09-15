@@ -39,8 +39,12 @@ export default class Subscribe extends Component {
     super(props);
     let params = new URLSearchParams(location.search.replace('?', ''))
     let subscriptions = [];
+
     if(props.subscriptions){
-      subscriptions = props.subscriptions.map((s)=>(s.title))
+      subscriptions = props.subscriptions.reduce(
+        (result, {title, checked_by_default}) => checked_by_default ? result.push(title) && result: result,
+        []
+      )
     }
     let email = params.get('email') == 'null' ? '' : params.get('email');
     this.state = {
