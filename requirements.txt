@@ -119,8 +119,6 @@ l18n==2021.3
     # via wagtail
 lxml==4.9.2
     # via python-docx
-newrelic==6.4.3.160
-    # via newamerica-cms (pyproject.toml)
 openpyxl==3.1.2
     # via wagtail
 pillow==9.5.0
