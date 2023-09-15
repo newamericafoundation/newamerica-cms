@@ -56,7 +56,6 @@ class PersonProgramRelationship(models.Model):
         null=True,
         help_text="Set program-specific fellowship information",
     )
-    fellowship_year = models.IntegerField(blank=True, null=True)
     sort_order = models.PositiveIntegerField(
         null=True,
         blank=True,
@@ -69,11 +68,6 @@ class PersonProgramRelationship(models.Model):
         FieldPanel("program"),
         FieldPanel("group"),
         FieldPanel("fellowship_position"),
-        FieldPanel(
-            "fellowship_year",
-            widget=forms.Select(choices=YEAR_CHOICES),
-            classname="typed_choice_field",
-        ),
         FieldPanel("sort_order"),
     ]
 
@@ -99,7 +93,6 @@ class PersonSubprogramRelationship(models.Model):
         null=True,
         help_text="Set subprogram-specific fellowhip information",
     )
-    fellowship_year = models.IntegerField(blank=True, null=True)
     sort_order = models.PositiveIntegerField(
         null=True,
         blank=True,
@@ -112,11 +105,6 @@ class PersonSubprogramRelationship(models.Model):
         FieldPanel("subprogram"),
         FieldPanel("group"),
         FieldPanel("fellowship_position"),
-        FieldPanel(
-            "fellowship_year",
-            widget=forms.Select(choices=YEAR_CHOICES),
-            classname="typed_choice_field",
-        ),
         FieldPanel("sort_order"),
     ]
 
@@ -215,7 +203,6 @@ class Person(Page):
     former = models.BooleanField(
         default=False, help_text="Select if person no longer serves above role."
     )
-    fellowship_year = models.IntegerField(blank=True, null=True)
     # Up to three featured work pages to appear on bio page
     feature_work_1 = models.ForeignKey(
         "wagtailcore.Page",
@@ -258,11 +245,6 @@ class Person(Page):
                 FieldPanel("position_at_new_america"),
                 FieldPanel("role"),
                 FieldPanel("former"),
-                FieldPanel(
-                    "fellowship_year",
-                    widget=forms.Select(choices=YEAR_CHOICES),
-                    classname="typed_choice_field",
-                ),
                 FieldPanel("expert"),
                 FieldPanel("leadership"),
                 FieldPanel("sort_order"),

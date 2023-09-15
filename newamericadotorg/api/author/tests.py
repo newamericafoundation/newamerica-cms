@@ -28,7 +28,7 @@ class AuthorAPITests(APITestCase):
         person = PostFactory.create_person()
 
         fellow = PostFactory.create_person(
-            person_data={"role": "Fellow", "fellowship_year": 2016}
+            person_data={"role": "Fellow"}
         )
 
         PostFactory.create_person(person_data={"former": True})
