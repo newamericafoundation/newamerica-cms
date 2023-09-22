@@ -42,7 +42,6 @@ dependencies = [
 
 [project.optional-dependencies]
 prod = [
-    'newrelic == 6.4.3.160',  # is this being used?
     'sentry-sdk >= 1.19.1',
 ]
 
