@@ -3,6 +3,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
+from wagtailautocomplete.edit_handlers import AutocompletePanel
 
 
 class SubscribePage(Page):
@@ -99,7 +100,7 @@ class SubscribePageSegmentPlacement(Orderable, models.Model):
     objects = SubscribePageSegmentPlacementQuerySet.as_manager()
 
     panels = [
-        FieldPanel("mailing_list_segment"),
+        AutocompletePanel("mailing_list_segment"),
         FieldPanel("checked_by_default"),
         FieldPanel("display_name"),
     ]
