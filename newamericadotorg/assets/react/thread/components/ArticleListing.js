@@ -2,6 +2,7 @@ import './ArticleListing.scss';
 
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
 import { Fetch } from  '../../components/API';
 import smoothScroll from '../../../lib/utils/smooth-scroll';
 import { Response } from '../../components/API';
@@ -14,13 +15,19 @@ import Separator from '../../components/Separator';
 import { Text } from '../../components/Inputs'
 import ArticleAuthors from './Authors';
 import { format as formatDate, parseISO } from 'date-fns/esm';
+import { Overlay } from '../../report/components/OverlayMenu';
+import Subscribe from '../../program-page/components/Subscribe'
+
 
 const Featured = (props) => {
   if (props.response.isFetching) {
     return null;
   }
-  let { response: {results}, addFeatured} = props;
-  if (!results.featured_pages) { return null; }
+  let { response: {results}, addFeatured, addSubscription} = props;
+  if (!results.featured_pages && !results.subscriptions) { return null; }
+  if (results.subscriptions) {
+    results.subscriptions.forEach(sub => addSubscription(sub));
+  }
   if (results.featured_pages) {
     results.featured_pages.forEach(article => addFeatured(article))
   }
@@ -58,31 +65,76 @@ const Article = ({ article, index }) => (
   </div>
 );
 
-const Subscribe = () => (
-  <div className="weekly-subscribe margin-bottom-60">
-    <div className="weekly-subscribe__wrapper">
-      <div>
-        <Separator text="Subscribe"/>
-        <h1 className="margin-top-60 margin-bottom-25">
-          Policy. Equity. Culture. Your inbox.
-          <br /><br />
-          Get The Thread monthly newsletter.
-        </h1>
-      </div>
-      <form action="/subscribe/?email=value" method="get">
-        <Text name="email" label="Email Address">
-          <button type="submit" className="button--text input__submit with-caret--right">Go</button>
-        </Text>
-      </form>
-    </div>
-  </div>
-)
+class ThreadSubscribeCard extends Component {
+  state = {
+    email: null,
+    open: false,
+  }
+
+  fixBody = () => {
+    const top = window.pageYOffset;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = -top + 'px';
+  };
+
+  unfixBody = () => {
+    document.body.style.overflow = 'auto';
+    document.body.style.position = 'static';
+    if (document.body.style.top)
+      window.scrollTo(0, -document.body.style.top.replace('px', ''));
+
+    document.body.style.top = null;
+  };
+
+  closeModal = () => {
+    this.unfixBody();
+    this.setState({open: false});
+  }
+
+  openModal = () => {
+    this.fixBody();
+    this.setState({open: true});
+  }
+
+  render() {
+    let { subscriptions } = this.props;
+    return (
+      <>
+        <div className="weekly-subscribe margin-bottom-60">
+          <div className="weekly-subscribe__wrapper">
+            <div>
+              <Separator text="Subscribe"/>
+              <h1 className="margin-top-60 margin-bottom-25">
+                Policy. Equity. Culture. Your inbox.
+                <br /><br />
+                Get The Thread monthly newsletter.
+              </h1>
+              <button onClick={this.openModal} className="button">Subscribe</button>
+            </div>
+          </div>
+        </div>
+
+        {this.state.open && createPortal(
+          <Overlay
+            title="Subscribe"
+            open={this.state.open}
+            close={this.closeModal}
+          ><Subscribe subscriptions={this.props.subscriptions} /></Overlay>,
+          document.body
+        )}
+      </>
+    );
+  }
+}
 
 class ArticleListing extends Component {
   state = {
     scrollPosition: 0,
     featuredArticles: [],
     featuredArticleSlugs: new Set(),
+    subscriptions: [],
+    subscriptionTitles: new Set(),
   }
 
   componentWillMount(){
@@ -96,6 +148,18 @@ class ArticleListing extends Component {
     }
   }
   render(){
+
+    const addSubscription = subscription => {
+      let { subscriptions, subscriptionTitles} = this.state;
+      if (subscriptionTitles.has(subscription.title)) { return; }
+
+      subscriptionTitles.add(subscription.title);
+      subscriptions.push(subscription);
+      this.setState({
+        subscriptions: subscriptions,
+        subscriptionTitles: subscriptionTitles,
+      });
+    }
 
     const addFeatured = article => {
       let {featuredArticleSlugs, featuredArticles} = this.state;
@@ -144,15 +208,16 @@ class ArticleListing extends Component {
                 renderIfNoResults={false}
                 component={Featured}
                 addFeatured={addFeatured}
+                addSubscription={addSubscription}
               />
 
               {otherArticlesFirstRow.map((a,i) => (
-                <div key={`artcile-${i}`} className="col-6 col-md-4">
+                <div key={`artcile-${i}-pongus`} className="col-6 col-md-4">
                   <Article key={`article-${i}`} article={a} index={i}/>
                 </div>
               ))}
               <div className="col-6 col-md-4">
-                <Subscribe />
+                <ThreadSubscribeCard subscriptions={this.state.subscriptions} />
               </div>
               {otherArticles.map((a,i) => (
                 <div key={`artcile-${i}`} className="col-6 col-md-4">
