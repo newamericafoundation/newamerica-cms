@@ -4,6 +4,7 @@ from wagtail.models import Page
 
 from home.models import AbstractHomeContentPage, Post
 from programs.models import AbstractContentPage
+from subscribe.models import SubscribePageSegmentPlacement
 
 
 class Thread(AbstractContentPage):
@@ -40,6 +41,9 @@ class Thread(AbstractContentPage):
 
     class Meta:
         verbose_name = "The Thread"
+
+    def get_subscription_segments(self):
+        return SubscribePageSegmentPlacement.objects.children_of(self)
 
 
 class ThreadEdition(Page):

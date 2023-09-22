@@ -1,19 +1,18 @@
 from django.template import loader
-
 from rest_framework.serializers import (
     ModelSerializer,
     SerializerMethodField,
-    IntegerField,
 )
-
 from wagtail.images.views.serve import generate_image_url
 
-from the_thread.models import ThreadArticle, Thread
 from newamericadotorg.api.author.serializers import AuthorSerializer
+from newamericadotorg.api.program.serializers import MailingListPlacementSerializer
+from the_thread.models import Thread, ThreadArticle
 
 
 class ThreadSerializer(ModelSerializer):
     featured_pages = SerializerMethodField()
+    subscriptions = SerializerMethodField()
 
     class Meta:
         model = Thread
@@ -21,7 +20,17 @@ class ThreadSerializer(ModelSerializer):
             'id',
             'title',
             'featured_pages',
+            'subscriptions',
         )
+
+    def get_subscriptions(self, obj):
+        segments = [
+            MailingListPlacementSerializer(s).data for s in obj.get_subscription_segments()
+        ]
+
+        if len(segments) == 0:
+            return None
+        return segments
 
     def get_featured_pages(self, obj):
         featured = []
