@@ -132,7 +132,7 @@ class Nav extends Component {
           { url: '/our-funding/', label: 'How We\'re Funded', exact: true },
           { url: '/our-funding/our-funders/', label: 'Our Funders'},
           { url: '/our-funding/corporate-circle/', label: 'Corporate Circle'},
-          { url: '/our-funding/new-america-councils/', label: 'New America Councils'},
+          // { url: '/our-funding/new-america-councils/', label: 'New America Councils'},
           { url: '/our-funding/donate/', label: 'Donate' }
         ]} />
       </div>
@@ -277,7 +277,7 @@ export default class OurFunding extends Component {
         <Switch>
           <Route exact path="/our-funding/our-funders/" render={(props)=>( <OurFunderLists data={this.findSubpage('our-funders').data} heading={this.findSubpage('our-funders').title}/> )}/>
           <Route exact path="/our-funding/corporate-circle/" render={(props)=>( <FunderLists data={this.findSubpage('corporate-circle').data} /> )}/>
-          <Route exact path="/our-funding/new-america-councils/" render={(props)=>( <Councils data={this.findSubpage('new-america-councils').data} /> )}/>
+          {/* <Route exact path="/our-funding/new-america-councils/" render={(props)=>( <Councils data={this.findSubpage('new-america-councils').data} /> )}/> */}
           <Route exact path="/our-funding/donate/" render={(props)=>(
             <div className="container--1080 margin-80">
               <div className="row gutter-20">
