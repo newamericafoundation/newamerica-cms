@@ -24,6 +24,7 @@ celery==4.4.7
     # via newamerica-cms (pyproject.toml)
 certifi==2022.12.7
     # via
+    #   elasticsearch
     #   requests
     #   sentry-sdk
 cffi==1.15.1
@@ -99,7 +100,7 @@ djangorestframework==3.14.0
     # via wagtail
 draftjs-exporter==2.1.7
     # via wagtail
-elasticsearch==5.5.3
+elasticsearch==7.17.9
     # via newamerica-cms (pyproject.toml)
 et-xmlfile==1.1.0
     # via openpyxl
