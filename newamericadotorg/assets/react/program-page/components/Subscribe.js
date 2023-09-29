@@ -58,7 +58,6 @@ export default class Subscribe extends Component {
         organization: '',
         job_title: '',
         zipcode: '',
-        'g-recaptcha-response': undefined
       },
       subscriptions
     }
@@ -80,8 +79,7 @@ export default class Subscribe extends Component {
     if(this.reloadScrollEvents) this.reloadScrollEvents()
   }
 
-  submit = (e) => {
-    e.preventDefault();
+  submit = (captchaResponse) => {
     if(this.state.posting || this.state.posted) return false;
     if(this.state.subscriptions.length === 0){
       this.setState({ status: 'NO_LIST' });
@@ -96,6 +94,7 @@ export default class Subscribe extends Component {
     for(let i=0; i<this.state.subscriptions.length; i++)
       url.searchParams.append('subscriptions[]', this.state.subscriptions[i]);
 
+    url.searchParams.append("g-recaptcha-response", captchaResponse);
 
     this.setState({ posting: true });
     fetch(url, {
@@ -113,10 +112,7 @@ export default class Subscribe extends Component {
   }
 
   verify = (response) => {
-    this.setState({ params: {
-      ...this.state.params,
-      'g-recaptcha-response': response
-    }});
+    this.submit(response);
   }
 
   onloadCallback = (response) => {
@@ -144,31 +140,6 @@ export default class Subscribe extends Component {
     this.setState({ subscriptions });
   }
 
-  submitButton = () => {
-    let { posting, posted, status } = this.state;
-    if(!this.state.params['g-recaptcha-response']) return null;
-    return (
-      <div className="subscribe__submit margin-top-15">
-        {(!posting && !posted) && <input type="submit" className="button" value="Sign Up" />}
-        {posting &&
-          <h6 className="button inline turquoise">
-            <span className="loading-dots--absolute">
-              <span>.</span><span>.</span><span>.</span>
-            </span>
-          </h6>}
-        {(posted && status=='OK') && <span>
-            <h3>Thank you!</h3>
-            <h6>You'll now start receiving emails from:</h6>
-            <ConfirmationList subscriptions={this.state.subscriptions}/>
-          </span>
-        }
-        {(status=='NO_LIST') && <h6 style={{ color: 'red' }} className="margin-15">Please check at least one subscription list</h6>}
-        {status=='UNVERIFIED' && <h6>We're sorry. We were unable to verify that you're not a robot.</h6>}
-        {(status!='OK' && status!='UNVERIFIED' && status!='NO_LIST') && <h6>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</h6>}
-      </div>
-    );
-  }
-
   render(){
     let { subscriptions } = this.props;
     let { params, posting, posted, status } = this.state;
@@ -183,7 +154,7 @@ export default class Subscribe extends Component {
     return (
       <div className={`program__about program__subscribe margin-top-10`}>
         <div className="container--1080">
-        <form onSubmit={this.submit} className="subscribe">
+        <form className="subscribe">
           <div className="row primary gutter-10">
             <div className="subscribe__fields col-md-6">
               <Text name="email" label="Email" value={params.email} onChange={this.change} />
@@ -199,7 +170,25 @@ export default class Subscribe extends Component {
                 verifyCallback={this.verify}
                 size="invisible"
               />
-              {this.state.params['g-recaptcha-response'] ? this.submitButton() : <input type="submit" className="button" onClick={() => recaptchaInstance.execute()} value="Sign Up" />}
+              <div className="subscribe__submit margin-top-15">
+                {!(posting || posted) && <input type="button" className="button" onClick={() => recaptchaInstance.execute()} value="Sign Up" />}
+                {posting &&
+                 <h6 className="button inline turquoise">
+                   <span className="loading-dots--absolute">
+                     <span>.</span><span>.</span><span>.</span>
+                   </span>
+                 </h6>}
+                {(posted && status=='OK') && <span>
+                                               <h3>Thank you!</h3>
+                                               <h6>You'll now start receiving emails from:</h6>
+                                               <ConfirmationList subscriptions={this.state.subscriptions}/>
+                                             </span>
+                }
+                {(status=='NO_LIST') && <h6 style={{ color: 'red' }} className="margin-15">Please check at least one subscription list</h6>}
+                {status=='UNVERIFIED' && <h6>We're sorry. We were unable to verify that you're not a robot.</h6>}
+                {(status!='OK' && status!='UNVERIFIED' && status!='NO_LIST') && <h6>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</h6>}
+              </div>
+
               <p class="recaptcha-notice">
                 This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
               </p>
