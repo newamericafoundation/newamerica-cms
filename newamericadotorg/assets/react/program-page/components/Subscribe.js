@@ -192,7 +192,6 @@ export default class Subscribe extends Component {
     return (
       <div className={`program__about program__subscribe margin-top-10`}>
         <div className="container--1080">
-        <h1>Subscribe</h1>
         <form onSubmit={this.submit} className="subscribe">
           <div className="row primary gutter-10">
             <div className="subscribe__fields col-md-6">
