@@ -1,7 +1,7 @@
 import json
-import os
 from urllib.request import urlopen
 
+from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -17,10 +17,9 @@ def subscribe(request):
     if not recaptcha_response:
         return Response({"status": "UNVERIFIED"})
 
-    RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
     recaptcha_url = (
         "https://www.google.com/recaptcha/api/siteverify?response=%s&secret=%s"
-        % (recaptcha_response, RECAPTCHA_SECRET_KEY)
+        % (recaptcha_response, settings.RECAPTCHA_SECRET_KEY)
     )
     verification = urlopen(recaptcha_url).read()
     verification = json.loads(verification)
