@@ -203,10 +203,11 @@ export default class Subscribe extends Component {
               {this.recaptcha()}
               {this.submitButton()}
             </div>
-            <div className="subscribe__lists push-md-1 col-md-5">
-                <h5 className="margin-35">Lists</h5>
-                <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
-            </div>
+            {subscriptions.size > 1 &&
+             <div className="subscribe__lists push-md-1 col-md-5">
+               <h5 className="margin-35">Lists</h5>
+               <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
+             </div>}
           </div>
         </form>
         </div>
