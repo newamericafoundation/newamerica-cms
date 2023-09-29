@@ -123,17 +123,6 @@ export default class Subscribe extends Component {
     //
   }
 
-  recaptcha = () => {
-    return (
-      <Recaptcha
-        sitekey="6LeZg04UAAAAAGmXngof3LCn4FJUYTfDnxv7qmSg"
-        render="explicit"
-        onloadCallback={this.onloadCallback}
-        verifyCallback={this.verify}
-      />
-    )
-  }
-
   change = (e, field) => {
     this.setState({
       params: {
@@ -189,6 +178,8 @@ export default class Subscribe extends Component {
       </div>
     );
 
+    let recaptchaInstance;
+
     return (
       <div className={`program__about program__subscribe margin-top-10`}>
         <div className="container--1080">
@@ -200,8 +191,18 @@ export default class Subscribe extends Component {
               <Text name="organization" label="Organization" value={params.organization} onChange={this.change} />
               <Text name="job_title" label="Job Title" value={params.job_title} onChange={this.change} />
               <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} />
-              {this.recaptcha()}
-              {this.submitButton()}
+              <Recaptcha
+                ref={e => recaptchaInstance = e}
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                render="explicit"
+                onloadCallback={this.onloadCallback}
+                verifyCallback={this.verify}
+                size="invisible"
+              />
+              {this.state.params['g-recaptcha-response'] ? this.submitButton() : <input type="submit" className="button" onClick={() => recaptchaInstance.execute()} value="Sign Up" />}
+              <p class="recaptcha-notice">
+                This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+              </p>
             </div>
             {subscriptions.size > 1 &&
              <div className="subscribe__lists push-md-1 col-md-5">

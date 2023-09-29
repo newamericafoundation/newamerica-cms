@@ -102,3 +102,11 @@
   }
 
 }
+
+.recaptcha-notice {
+  font-size: 0.9375rem;
+  line-height: 1.125rem;
+  font-family: $label-font-family;
+}
+
+.grecaptcha-badge { visibility: hidden; }
