@@ -164,7 +164,7 @@ export default class Subscribe extends Component {
               <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} />
               <Recaptcha
                 ref={e => recaptchaInstance = e}
-                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                sitekey="6Lfu8mIoAAAAAK4F2UBBNhcNqxyxuMMAMGJnjOqm"
                 render="explicit"
                 onloadCallback={this.onloadCallback}
                 verifyCallback={this.verify}
@@ -189,7 +189,7 @@ export default class Subscribe extends Component {
                 {(status!='OK' && status!='UNVERIFIED' && status!='NO_LIST') && <h6>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</h6>}
               </div>
 
-              <p class="recaptcha-notice">
+              <p className="recaptcha-notice">
                 This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
               </p>
             </div>
