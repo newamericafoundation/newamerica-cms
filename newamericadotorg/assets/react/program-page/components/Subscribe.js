@@ -188,7 +188,7 @@ export default class Subscribe extends Component {
         <div className="container--1080">
           <form className="subscribe">
             <div className="row primary gutter-10">
-              <div className="subscribe__fields col-md-6">
+              <div className={`subscribe__fields ${subscriptions.length > 1 && 'col-md-6'}`}>
                 <Text name="email" label="Email" value={params.email} onChange={this.change} />
                 <Text name="name" label="First Name & Last Name" value={params.name} onChange={this.change} />
                 <Text name="organization" label="Organization" value={params.organization} onChange={this.change} />
