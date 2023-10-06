@@ -42,18 +42,29 @@ class APP extends Component {
   render() {
     let { programs, home_subscriptions } = JSON.parse(this.props.meta);
     return (
-      <>
-        <button onClick={this.openModal} className="button">Subscribe</button>
-
-        {this.state.open && createPortal(
-          <Overlay
-            title="Subscribe"
-            open={this.state.open}
-            close={this.closeModal}
-          ><HomeSubscribe programs={programs} subscriptions={home_subscriptions} dispatch={this.props.dispatch} /></Overlay>,
-          document.body
-        )}
-      </>
+      <div className="container">
+			<a className="homepage__promo-link" onClick={this.openModal}>
+				<h1 className="promo margin-0">
+					<div className="block">
+						<span><em>Stay in touch</em></span>
+					</div>
+				</h1>
+				<h3 className="margin-top-35 margin-bottom-0">
+					<div className="block">
+						<span><em>Be the first to hear about the latest events and research from New America.</em></span>
+					</div>
+				</h3>
+        <span className="button margin-top-35">Subscribe</span>
+			</a>
+      {this.state.open && createPortal(
+        <Overlay
+          title="Subscribe"
+          open={this.state.open}
+          close={this.closeModal}
+        ><HomeSubscribe programs={programs} subscriptions={home_subscriptions} dispatch={this.props.dispatch} /></Overlay>,
+        document.body
+      )}
+		</div>
     );
   }
 }
