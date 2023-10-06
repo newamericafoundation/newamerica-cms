@@ -49,11 +49,15 @@ export default class Subscribe extends Component {
     let params = new URLSearchParams(location.search.replace('?', ''))
     let subscriptions = [];
 
-    if(props.subscriptions){
-      subscriptions = props.subscriptions.reduce(
-        (result, {title, checked_by_default}) => checked_by_default ? result.push(title) && result: result,
-        []
-      )
+    if (props.subscriptions) {
+      if (props.subscriptions.length === 1) {
+        subscriptions = [props.subscriptions[0].title];
+      } else {
+        subscriptions = props.subscriptions.reduce(
+          (result, {title, checked_by_default}) => checked_by_default ? result.push(title) && result: result,
+          []
+        );
+      }
     }
     let email = params.get('email') == 'null' ? '' : params.get('email');
     this.state = {
