@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 import django.db.models.options as options
@@ -29,7 +30,7 @@ from newamericadotorg.blocks import BodyBlock
 from newamericadotorg.wagtailadmin.widgets import LocationWidget
 from person.models import Person
 from programs.models import AbstractProgram, Program, Subprogram
-from subscribe.models import SubscriptionSegment, SubscribePageSegmentPlacement
+from subscribe.models import SubscribePageSegmentPlacement, SubscriptionSegment
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
@@ -519,6 +520,20 @@ class SubscribePage(OrgSimplePage):
 
     class Meta:
         verbose_name = 'Subscribe Page'
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        parent_class = self.get_parent().specific_class
+        context['is_org_wide'] = parent_class == HomePage
+        context['subscriptions'] = json.dumps(
+            [
+                {
+                    'title': item.title,
+                    'checked_by_default': item.checked_by_default,
+                } for item in self.segment_placements.all()
+            ]
+        )
+        return context
 
 
 class PostAuthorRelationship(models.Model):
