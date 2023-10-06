@@ -102,15 +102,15 @@ class ThreadSubscribeCard extends Component {
     return (
       <>
         <div className="weekly-subscribe margin-bottom-60">
-          <div className="weekly-subscribe__wrapper">
+          <div className="weekly-subscribe__wrapper" onClick={this.openModal}>
             <div>
               <Separator text="Subscribe"/>
-              <h1 className="margin-top-60 margin-bottom-25">
+              <h1 className="margin-25 margin-top-lg-60">
                 Policy. Equity. Culture. Your inbox.
                 <br /><br />
                 Get The Thread monthly newsletter.
               </h1>
-              <button onClick={this.openModal} className="button">Subscribe</button>
+              <button onClick={this.openModal} className="button margin-lg-25">Subscribe</button>
             </div>
           </div>
         </div>

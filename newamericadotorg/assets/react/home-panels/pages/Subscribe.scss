@@ -56,6 +56,10 @@
     @include transform(translateX(0));
   }
 
+  .subscribe__fields {
+    white-space: normal;
+  }
+
   .subscribe__lists {
     max-height: 250px;
     overflow: hidden;

@@ -84,10 +84,13 @@ class SubscribeCard extends Component {
     return (
       <>
         <div className="card promo-md" onClick={this.openModal}>
-        <div className="card__text">
-          <h6 className="margin-top-0">Subscribe</h6>
-          <h2 className="margin-25">{subText}</h2>
-        </div>
+          <div className="card__text">
+            <h6 className="margin-top-0">Subscribe</h6>
+            <h2 className="margin-25">{subText}</h2>
+          </div>
+          <div class="card__link-to">
+            <span class="button--text link with-caret--right">Subscribe</span>
+          </div>
         </div>
 
         {this.state.open && createPortal(

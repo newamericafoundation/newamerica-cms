@@ -18,7 +18,7 @@ export class HomeSubscribe extends Subscribe {
     let { params, posting, posted, status } = this.state;
     let recaptchaInstance;
     return (
-      <div className={`margin-top-10 scroll-target`}>
+      <div className={`margin-top-25 scroll-target`}>
         <div className={`home__subscribe ${this.state.shifted ? 'shifted' : ''}`}>
         <form onSubmit={this.submit} className="subscribe">
           <div>
@@ -46,7 +46,7 @@ export class HomeSubscribe extends Subscribe {
               </div>
             </div>
             <div className="subscribe__lists push-md-1 col-md-5">
-              <div className="home__subscribe__toggles margin-top-25 margin-top-lg-0">
+              <div className="home__subscribe__toggles margin-top-25 margin-top-lg-10">
                 <h6 className={`${this.state.shifted ? '' : 'bold'} inline margin-0`}
                   onClick={()=>{this.setState({ shifted: false})}}>
                   New America Lists
