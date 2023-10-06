@@ -193,7 +193,7 @@ export default class Subscribe extends Component {
                 This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
               </p>
             </div>
-            {subscriptions.size > 1 &&
+            {subscriptions.length > 1 &&
              <div className="subscribe__lists push-md-1 col-md-5">
                <h5 className="margin-35">Lists</h5>
                <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
