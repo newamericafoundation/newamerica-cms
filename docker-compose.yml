@@ -22,7 +22,7 @@ services:
       DJANGO_SETTINGS_MODULE: newamericadotorg.settings.dev
       ELASTICSEARCH_URL: http://es:9200
       REDIS_URL: redis://redis:6379/1
-      RECAPTCHA_SECRET_KEY:
+      NEW_RECAPTCHA_SECRET_KEY:
     depends_on:
       - db
       - es
