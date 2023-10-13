@@ -40,8 +40,6 @@ services:
     init: true
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
     environment:
-      - script.inline=true
-      - script.search=true
       - bootstrap.memory_lock=false
       - "ES_JAVA_OPTS=-Xms1500m -Xmx1500m"
       - discovery.type=single-node
