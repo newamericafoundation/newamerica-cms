@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { CheckBox, Text } from '../../components/Inputs';
 import { BASEURL } from '../../api/constants';
+import { RECAPTCHA_SITE_KEY } from '../constants';
 import Recaptcha from 'react-recaptcha';
 
 const ConfirmationList = ({ subscriptions }) => (
@@ -33,14 +34,30 @@ export class List extends Component {
   }
 }
 
+export function RecaptchaNotice() {
+  return (
+    <p className="recaptcha-notice">
+      This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+    </p>
+  );
+}
+
 export default class Subscribe extends Component {
 
   constructor(props){
     super(props);
     let params = new URLSearchParams(location.search.replace('?', ''))
     let subscriptions = [];
-    if(props.subscriptions){
-      subscriptions = props.subscriptions.map((s)=>(s.title))
+
+    if (props.subscriptions) {
+      if (props.subscriptions.length === 1) {
+        subscriptions = [props.subscriptions[0].title];
+      } else {
+        subscriptions = props.subscriptions.reduce(
+          (result, {title, checked_by_default}) => checked_by_default ? result.push(title) && result: result,
+          []
+        );
+      }
     }
     let email = params.get('email') == 'null' ? '' : params.get('email');
     this.state = {
@@ -54,7 +71,6 @@ export default class Subscribe extends Component {
         organization: '',
         job_title: '',
         zipcode: '',
-        'g-recaptcha-response': undefined
       },
       subscriptions
     }
@@ -76,8 +92,7 @@ export default class Subscribe extends Component {
     if(this.reloadScrollEvents) this.reloadScrollEvents()
   }
 
-  submit = (e) => {
-    e.preventDefault();
+  submit = (captchaResponse) => {
     if(this.state.posting || this.state.posted) return false;
     if(this.state.subscriptions.length === 0){
       this.setState({ status: 'NO_LIST' });
@@ -92,6 +107,7 @@ export default class Subscribe extends Component {
     for(let i=0; i<this.state.subscriptions.length; i++)
       url.searchParams.append('subscriptions[]', this.state.subscriptions[i]);
 
+    url.searchParams.append("g-recaptcha-response", captchaResponse);
 
     this.setState({ posting: true });
     fetch(url, {
@@ -109,25 +125,11 @@ export default class Subscribe extends Component {
   }
 
   verify = (response) => {
-    this.setState({ params: {
-      ...this.state.params,
-      'g-recaptcha-response': response
-    }});
+    this.submit(response);
   }
 
   onloadCallback = (response) => {
     //
-  }
-
-  recaptcha = () => {
-    return (
-      <Recaptcha
-        sitekey="6LeZg04UAAAAAGmXngof3LCn4FJUYTfDnxv7qmSg"
-        render="explicit"
-        onloadCallback={this.onloadCallback}
-        verifyCallback={this.verify}
-      />
-    )
   }
 
   change = (e, field) => {
@@ -151,28 +153,26 @@ export default class Subscribe extends Component {
     this.setState({ subscriptions });
   }
 
-  submitButton = () => {
-    let { posting, posted, status } = this.state;
-    if(!this.state.params['g-recaptcha-response']) return null;
+  responseMessage = () => {
+    let { status, posting, posted } = this.state;
     return (
-      <div className="subscribe__submit margin-top-15">
-        {(!posting && !posted) && <input type="submit" className="button" value="Sign Up" />}
-        {posting &&
+      <>
+        {posting && (
           <h6 className="button inline turquoise">
             <span className="loading-dots--absolute">
               <span>.</span><span>.</span><span>.</span>
             </span>
-          </h6>}
+          </h6>)}
         {(posted && status=='OK') && <span>
-            <h3>Thank you!</h3>
-            <h6>You'll now start receiving emails from:</h6>
-            <ConfirmationList subscriptions={this.state.subscriptions}/>
-          </span>
+                                       <h3>Thank you!</h3>
+                                       <h6>You'll now start receiving emails from:</h6>
+                                       <ConfirmationList subscriptions={this.state.subscriptions}/>
+                                     </span>
         }
         {(status=='NO_LIST') && <h6 style={{ color: 'red' }} className="margin-15">Please check at least one subscription list</h6>}
         {status=='UNVERIFIED' && <h6>We're sorry. We were unable to verify that you're not a robot.</h6>}
         {(status!='OK' && status!='UNVERIFIED' && status!='NO_LIST') && <h6>We're sorry. Something went wrong. We've logged the error and will have a fix shortly.</h6>}
-      </div>
+      </>
     );
   }
 
@@ -181,29 +181,43 @@ export default class Subscribe extends Component {
     let { params, posting, posted, status } = this.state;
     if(!subscriptions) return (
       <div className={`program__about program__subscribe margin-top-10`}>
-        <h1>We're sorry!<br/>We don't have any subscription lists for you, yet.</h1>
+      <h1>We're sorry!<br/>We don't have any subscription lists for you, yet.</h1>
       </div>
     );
+
+    let recaptchaInstance;
 
     return (
       <div className={`program__about program__subscribe margin-top-10`}>
         <div className="container--1080">
-        <h1>Subscribe</h1>
-        <form onSubmit={this.submit} className="subscribe">
-          <div className="row primary gutter-10">
-            <div className="subscribe__fields col-md-6">
-              <Text name="email" label="Email" value={params.email} onChange={this.change} />
-              <Text name="name" label="First Name & Last Name" value={params.name} onChange={this.change} />
-              <Text name="organization" label="Organization" value={params.organization} onChange={this.change} />
-              <Text name="job_title" label="Job Title" value={params.job_title} onChange={this.change} />
-              <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} />
-              {this.recaptcha()}
-              {this.submitButton()}
+          <form className="subscribe">
+            <div className="row primary gutter-10">
+              <div className={`subscribe__fields ${subscriptions.length > 1 && 'col-md-6'}`}>
+                <Text name="email" label="Email" value={params.email} onChange={this.change} />
+                <Text name="name" label="First Name & Last Name" value={params.name} onChange={this.change} />
+                <Text name="organization" label="Organization" value={params.organization} onChange={this.change} />
+                <Text name="job_title" label="Job Title" value={params.job_title} onChange={this.change} />
+                <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} />
+              <Recaptcha
+                ref={e => recaptchaInstance = e}
+                sitekey={RECAPTCHA_SITE_KEY}
+                render="explicit"
+                onloadCallback={this.onloadCallback}
+                verifyCallback={this.verify}
+                size="invisible"
+              />
+              <div className="subscribe__submit margin-top-15">
+                {!(posting || posted) && <input type="button" className="button" onClick={() => recaptchaInstance.execute()} value="Sign Up" />}
+                {this.responseMessage()}
+              </div>
+
+                <RecaptchaNotice />
             </div>
-            <div className="subscribe__lists push-md-1 col-md-5">
-                <h5 className="margin-35">Lists</h5>
-                <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
-            </div>
+            {subscriptions.length > 1 &&
+             <div className="subscribe__lists push-md-1 col-md-5">
+               <h5 className="margin-35">Lists</h5>
+               <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
+             </div>}
           </div>
         </form>
         </div>

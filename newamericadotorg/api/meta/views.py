@@ -6,13 +6,18 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from wagtail_headless_preview.models import PagePreview
 
-from home.models import HomePage, ProgramAboutHomePage, ProgramAboutPage
+from home.models import (
+    HomePage,
+    ProgramAboutHomePage,
+    ProgramAboutPage,
+    SubscribePage,
+)
 from newamericadotorg.api.program.serializers import (
     AboutPageSerializer,
+    MailingListPlacementSerializer,
     ProgramDetailSerializer,
     ProgramSerializer,
     SubprogramSerializer,
-    SubscriptionSegmentSerializer,
 )
 from newamericadotorg.api.report.serializers import ReportDetailSerializer
 from newamericadotorg.settings.context_processors import content_types
@@ -27,12 +32,9 @@ class MetaList(APIView):
             Program.objects.live().in_menu(), many=True
         ).data
         types = content_types(request)["content_types"]
-        segments = []
-        for s in home.subscriptions.all():
-            seg = SubscriptionSegmentSerializer(s.subscription_segment).data
-            if s.alternate_title != "":
-                seg["alternate_title"] = s.alternate_title
-            segments.append(seg)
+        segments = [
+            MailingListPlacementSerializer(s).data for s in home.get_subscription_segments()
+        ]
 
         if len(segments) == 0:
             segments = None

@@ -1,6 +1,7 @@
 import './StoryGrid.scss';
 
 import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
 import CardMd from './CardMd';
 import CardLg from './CardLg';
@@ -10,6 +11,8 @@ import { Fetch } from '../../components/API';
 import InfiniteLoadMore from '../../components/InfiniteLoadMore';
 import { NAME } from '../constants';
 import bowser from 'bowser';
+import { Overlay } from '../../report/components/OverlayMenu';
+import Subscribe from './Subscribe';
 
 const browser = bowser.getParser(window.navigator.userAgent);
 const isValidBrowser = browser.satisfies({
@@ -44,7 +47,34 @@ const AboutCard = ({ program }) => (
 
 class SubscribeCard extends Component {
   state = {
-    email: null
+    email: null,
+    open: false,
+  }
+
+  fixBody = () => {
+    const top = window.pageYOffset;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = -top + 'px';
+  };
+
+  unfixBody = () => {
+    document.body.style.overflow = 'auto';
+    document.body.style.position = 'static';
+    if (document.body.style.top)
+      window.scrollTo(0, -document.body.style.top.replace('px', ''));
+
+    document.body.style.top = null;
+  };
+
+  closeModal = () => {
+    this.unfixBody();
+    this.setState({open: false});
+  }
+
+  openModal = () => {
+    this.fixBody();
+    this.setState({open: true});
   }
 
   render(){
@@ -52,15 +82,27 @@ class SubscribeCard extends Component {
     let subText = program.subscription_card_text || `Be the first to hear about the latest events and research from ${program.name}`;
 
     return (
-      <PromoMd title="Subscribe" link={{ to: `subscribe/?email=${this.state.email}`, label: 'Go'}}>
-        <h2 className="margin-25">{subText}</h2>
-        <div className="input">
-          <input required type="text" name="email"
-            onChange={(e)=>{this.setState({email: e.target.value})}}
-            value={this.state.email||''} />
-          <label className="input__label" htmlFor="email"><h5 className="margin-0">Email Address</h5></label>
+      <>
+        <div className="card promo-md" onClick={this.openModal}>
+          <div className="card__text">
+            <h6 className="margin-top-0">Subscribe</h6>
+            <h2 className="margin-25">{subText}</h2>
+          </div>
+          <div class="card__link-to">
+            <span class="button--text link with-caret--right">Subscribe</span>
+          </div>
         </div>
-      </PromoMd>
+
+        {this.state.open && createPortal(
+          <Overlay
+            title="Subscribe"
+            open={this.state.open}
+            close={this.closeModal}
+          ><Subscribe subscriptions={program.subscriptions} /></Overlay>,
+          document.body
+        )}
+
+      </>
     );
   }
 }
@@ -175,7 +217,7 @@ export default class StoryGrid extends Component {
 
     let features = [...story_grid.pages];
     let lead = features.shift(0);
-    features = program.hide_subscription_card ? [...features.splice(0, 3), 'about', ...features]
+    features = (program.hide_subscription_card || !program.subscriptions) ? [...features.splice(0, 3), 'about', ...features]
       : ['subscribe', ...features.splice(0, 3), 'about', ...features];
 
     if(story_grid.pages.length===0){

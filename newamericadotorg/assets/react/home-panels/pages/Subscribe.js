@@ -1,11 +1,12 @@
 import './Subscribe.scss';
 
-import Subscribe, { List } from '../../program-page/components/Subscribe';
+import Subscribe, { List, RecaptchaNotice } from '../../program-page/components/Subscribe';
+import { RECAPTCHA_SITE_KEY } from '../../program-page/constants';
 import { CheckBox, Text } from '../../components/Inputs';
 import React, { Component } from 'react';
 import Recaptcha from 'react-recaptcha';
 
-class HomeSubscribe extends Subscribe {
+export class HomeSubscribe extends Subscribe {
   reloadScrollEvents = () => {
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',
@@ -15,8 +16,9 @@ class HomeSubscribe extends Subscribe {
   render(){
     let { programs, subscriptions } = this.props;
     let { params, posting, posted, status } = this.state;
+    let recaptchaInstance;
     return (
-      <div className={`margin-top-10 scroll-target`}>
+      <div className={`margin-top-25 scroll-target`}>
         <div className={`home__subscribe ${this.state.shifted ? 'shifted' : ''}`}>
         <form onSubmit={this.submit} className="subscribe">
           <div>
@@ -28,12 +30,23 @@ class HomeSubscribe extends Subscribe {
                 <Text name="organization" label="Organization" value={params.organization} onChange={this.change} />
                 <Text name="job_title" label="Job Title" value={params.job_title} onChange={this.change} />
                 <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} />
-                {this.recaptcha()}
-                <div className="desktop-submit">{this.submitButton()}</div>
+                <Recaptcha
+                  ref={e => recaptchaInstance = e}
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  render="explicit"
+                  onloadCallback={this.onloadCallback}
+                  verifyCallback={this.verify}
+                  size="invisible"
+                />
+                <div className="desktop-submit">
+                  {!(posting || posted) && <input type="button" className="button" onClick={() => recaptchaInstance.execute()} value="Sign Up" />}
+                  {this.responseMessage()}
+                </div>
+                <RecaptchaNotice />
               </div>
             </div>
             <div className="subscribe__lists push-md-1 col-md-5">
-              <div className="home__subscribe__toggles margin-top-25 margin-top-lg-0">
+              <div className="home__subscribe__toggles margin-top-25 margin-top-lg-10">
                 <h6 className={`${this.state.shifted ? '' : 'bold'} inline margin-0`}
                   onClick={()=>{this.setState({ shifted: false})}}>
                   New America Lists
@@ -61,7 +74,10 @@ class HomeSubscribe extends Subscribe {
                 </div>
               </div>
             </div>
-            <div className="mobile-submit">{this.submitButton()}</div>
+              <div className="mobile-submit">
+                {!(posting || posted) && <input type="button" className="button" onClick={() => recaptchaInstance.execute()} value="Sign Up" />}
+                {this.responseMessage()}
+              </div>
             </div>
           </div>
         </form>

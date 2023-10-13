@@ -1,15 +1,13 @@
 from rest_framework.test import APITestCase
 
 from blog.models import BlogPost, ProgramBlogPostsPage
-from home.models import ProgramAboutHomePage, ProgramAboutPage
+from home.models import ProgramAboutHomePage, ProgramAboutPage, SubscribePage
 from issue.models import IssueOrTopic, TopicHomePage
 from programs.models import (
     FeaturedProgramPage,
     FeaturedSubprogramPage,
-    SubscriptionProgramRelationship,
-    SubscriptionSubprogramRelationship,
 )
-from subscribe.models import SubscribePage, SubscriptionSegment
+from subscribe.models import MailingListSegment, SubscribePageSegmentPlacement
 from test_factories import PostFactory
 
 
@@ -20,14 +18,20 @@ class ProgramAPITests(APITestCase):
         subpage = home_page.add_child(instance=SubscribePage(
             title='Subscriptions'
         ))
-        segment = subpage.add_child(instance=SubscriptionSegment(
+        segment = MailingListSegment.objects.create(
             title='Sub Segment',
-            SegmentID='0',
-            ListID='0'
-        ))
+        )
+        SubscribePageSegmentPlacement.objects.create(
+            page=subpage,
+            mailing_list_segment=segment,
+        )
 
         program = PostFactory.create_program(home_page=home_page)
+
         cls.program = program
+        program_subpage = program.add_child(instance=SubscribePage(
+            title='Subscriptions'
+        ))
         program_about_home = program.add_child(instance=ProgramAboutHomePage(
             title='About',
             slug='about'
@@ -44,11 +48,10 @@ class ProgramAPITests(APITestCase):
             page=cls.program_posts[0]
         ).save()
 
-        SubscriptionProgramRelationship(
-            subscription_segment=segment,
-            program=program
-        ).save()
-
+        SubscribePageSegmentPlacement.objects.create(
+            page=program_subpage,
+            mailing_list_segment=segment,
+        )
         program_about_home.add_child(instance=ProgramAboutPage(
             title='About Subpage',
             slug='subpage',
@@ -56,6 +59,9 @@ class ProgramAPITests(APITestCase):
         ))
 
         subprogram = PostFactory.create_subprogram(program=program)
+        subprogram_subpage = subprogram.add_child(instance=SubscribePage(
+            title='Subscriptions'
+        ))
         cls.subprogram = subprogram
 
         FeaturedSubprogramPage(
@@ -63,10 +69,10 @@ class ProgramAPITests(APITestCase):
             page=cls.program_posts[1]
         ).save()
 
-        SubscriptionSubprogramRelationship(
-            subscription_segment=segment,
-            subprogram=subprogram
-        ).save()
+        SubscribePageSegmentPlacement.objects.create(
+            page=subprogram_subpage,
+            mailing_list_segment=segment,
+        )
 
         subprogram_about_home = subprogram.add_child(instance=ProgramAboutHomePage(
             title='About',
@@ -104,8 +110,8 @@ class ProgramAPITests(APITestCase):
         self.assertEqual(data['content_types'][0]['api_name'], 'blogpost')
         self.assertEqual(data['subscriptions'][0]['title'], 'Sub Segment')
         # only retrieves subpages that are not Content pages
-        # so should only return Subprogram and About Home Page here
-        self.assertEqual(len(data['subpages']), 2)
+        # so should only return Subprogram, About Home Page, and Subscription Page here
+        self.assertEqual(len(data['subpages']), 3)
         self.assertEqual(data['topics'], False)
 
     def test_program_topic(self):
@@ -133,5 +139,5 @@ class ProgramAPITests(APITestCase):
         self.assertEqual(data['story_grid']['pages'][0]['title'], self.program_posts[1].title)
         self.assertEqual(data['subscriptions'][0]['title'], 'Sub Segment')
         # only retrieves subpages that are not Content pages
-        # so should only return About Home Page
-        self.assertEqual(len(data['subpages']), 1)
+        # so should only return About Home Page and Subscription Page
+        self.assertEqual(len(data['subpages']), 2)

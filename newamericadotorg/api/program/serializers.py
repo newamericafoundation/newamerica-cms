@@ -8,7 +8,7 @@ from rest_framework.serializers import (
 )
 from wagtail.models import Page
 
-from home.models import ProgramAboutHomePage, ProgramAboutPage
+from home.models import ProgramAboutHomePage, ProgramAboutPage, SubscribePage
 from newamericadotorg.api.helpers import (
     generate_image_rendition,
     get_content_type,
@@ -121,12 +121,9 @@ class ProgramSerializer(ModelSerializer):
         )
 
     def get_subscriptions(self, obj):
-        segments = []
-        for s in obj.subscriptions.all():
-            seg = SubscriptionSegmentSerializer(s.subscription_segment).data
-            if s.alternate_title != '':
-                seg['alternate_title'] = s.alternate_title
-            segments.append(seg)
+        segments = [
+            MailingListPlacementSerializer(s).data for s in obj.get_subscription_segments()
+        ]
 
         if len(segments) == 0:
             return None
@@ -361,12 +358,9 @@ class ProgramDetailSerializer(ModelSerializer):
         return about_page
 
     def get_subscriptions(self, obj):
-        segments = []
-        for s in obj.subscriptions.all():
-            seg = SubscriptionSegmentSerializer(s.subscription_segment).data
-            if s.alternate_title != '':
-                seg['alternate_title'] = s.alternate_title
-            segments.append(seg)
+        segments = [
+            MailingListPlacementSerializer(s).data for s in obj.get_subscription_segments()
+        ]
 
         if len(segments) == 0:
             return None
@@ -470,12 +464,9 @@ class SubprogramSerializer(ModelSerializer):
         return about_page
 
     def get_subscriptions(self, obj):
-        segments = []
-        for s in obj.subscriptions.all():
-            seg = SubscriptionSegmentSerializer(s.subscription_segment).data
-            if s.alternate_name != '':
-                seg['alternate_title'] = s.alternate_name
-            segments.append(seg)
+        segments = [
+            MailingListPlacementSerializer(s).data for s in obj.get_subscription_segments()
+        ]
 
         if len(segments) == 0:
             return None

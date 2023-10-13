@@ -56,6 +56,10 @@
     @include transform(translateX(0));
   }
 
+  .subscribe__fields {
+    white-space: normal;
+  }
+
   .subscribe__lists {
     max-height: 250px;
     overflow: hidden;
@@ -102,3 +106,11 @@
   }
 
 }
+
+.recaptcha-notice {
+  font-size: 0.9375rem;
+  line-height: 1.125rem;
+  font-family: $label-font-family;
+}
+
+.grecaptcha-badge { visibility: hidden; }

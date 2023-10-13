@@ -16,7 +16,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
 
-from subscribe.models import SubscriptionSegment
+from subscribe.models import SubscribePageSegmentPlacement, SubscriptionSegment
 
 
 class SubscriptionProgramRelationship(models.Model):
@@ -166,6 +166,9 @@ class AbstractProgram(RoutablePageMixin, Page):
         """
         return self.person_set.filter(expert=True).order_by("-title")
 
+    def get_subscription_segments(self):
+        return SubscribePageSegmentPlacement.objects.children_of(self)
+
     def get_subprograms(self):
         """
         Method that returns the subprograms that live underneath
@@ -274,7 +277,6 @@ class Program(AbstractProgram):
             [
                 FieldPanel("hide_subscription_card"),
                 FieldPanel("subscription_card_text"),
-                InlinePanel("subscriptions", label=("Subscription Segments")),
             ]
         )
     ]
@@ -395,7 +397,6 @@ class Subprogram(AbstractProgram):
             [
                 FieldPanel("hide_subscription_card"),
                 FieldPanel("subscription_card_text"),
-                InlinePanel("subscriptions", label=("Subscription Segments")),
             ]
         )
     ]

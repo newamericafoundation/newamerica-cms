@@ -16,7 +16,11 @@
       </div>
     </section>
 
-    <div id="na-react__home-panels" class="col-12" data-page-id="{{page.id}}"></div>
+    {% if is_org_wide %}
+        <div id="na-react__home-panels" class="col-12" data-page-id="{{page.id}}"></div>
+    {% else %}
+        <div id="na-react__subscribe-page" data-subscriptions="{{ subscriptions }}"></div>
+    {% endif %}
   </div>
 </main>
 {% endblock %}

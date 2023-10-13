@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 import django.db.models.options as options
@@ -29,7 +30,7 @@ from newamericadotorg.blocks import BodyBlock
 from newamericadotorg.wagtailadmin.widgets import LocationWidget
 from person.models import Person
 from programs.models import AbstractProgram, Program, Subprogram
-from subscribe.models import SubscriptionSegment
+from subscribe.models import SubscribePageSegmentPlacement, SubscriptionSegment
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
@@ -242,11 +243,12 @@ class HomePage(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
-
-        InlinePanel('subscriptions', label=("Subscription Segments")),
     ]
 
     settings_panels = Page.settings_panels + [FieldPanel('down_for_maintenance')]
+
+    def get_subscription_segments(self):
+        return SubscribePageSegmentPlacement.objects.children_of(self)
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
@@ -511,11 +513,25 @@ class SubscribePage(OrgSimplePage):
     ], null=True, blank=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
-        InlinePanel("segment_placements", label="Mailing List Segments"),
+        InlinePanel("segment_placements", label="Mailing List Segments", min_num=1),
     ]
 
     class Meta:
         verbose_name = 'Subscribe Page'
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        parent_class = self.get_parent().specific_class
+        context['is_org_wide'] = parent_class == HomePage
+        context['subscriptions'] = json.dumps(
+            [
+                {
+                    'title': item.title,
+                    'checked_by_default': item.checked_by_default,
+                } for item in self.segment_placements.all()
+            ]
+        )
+        return context
 
 
 class PostAuthorRelationship(models.Model):
