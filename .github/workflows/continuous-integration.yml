@@ -20,8 +20,8 @@ jobs:
         ports:
         - 5432:5432
       elasticsearch:
-        image: elasticsearch:5.6.16
-        options: -e="script.inline=true" -e="script.search=true" -e="bootstrap.memory_lock=false" -e="ES_JAVA_OPTS=-Xms1500m -Xmx1500m" -e="discovery.type=single-node" -e="xpack.security.enabled=false" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
+        image: elasticsearch:7.17.13
+        options: -e="bootstrap.memory_lock=false" -e="ES_JAVA_OPTS=-Xms1500m -Xmx1500m" -e="discovery.type=single-node" -e="xpack.security.enabled=false" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
         ports:
           - 9200/tcp
     env:
