@@ -513,7 +513,7 @@ class SubscribePage(OrgSimplePage):
     ], null=True, blank=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
-        InlinePanel("segment_placements", label="Mailing List Segments"),
+        InlinePanel("segment_placements", label="Mailing List Segments", min_num=1),
     ]
 
     class Meta:
