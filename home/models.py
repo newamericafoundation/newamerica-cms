@@ -5,24 +5,23 @@ from django.apps import apps
 from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import Q
-from django.db.models.signals import pre_delete
-from django.dispatch import receiver
 from django.shortcuts import redirect
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from pytz import timezone
-from wagtail.admin.panels import (
-    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-)
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
-from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail import blocks
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.blocks import PageChooserBlock
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Page
-from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
+from wagtail.models import Page
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessPreviewMixin, PagePreview
 
@@ -44,9 +43,10 @@ class RedirectHeadlessPreviewMixin(HeadlessPreviewMixin):
             page_preview, existed = self.update_page_preview(token)
             PagePreview.garbage_collect()
 
+            # Imported locally as live preview is optional
             from wagtail_headless_preview.signals import (
                 preview_update,
-            )  # Imported locally as live preview is optional
+            )
 
             preview_update.send(sender=HeadlessPreviewMixin, token=token)
         else:
@@ -76,7 +76,7 @@ class CustomImage(AbstractImage):
     def get_url(self):
             try:
                  return self.url
-            except:
+            except Exception:
                  return None
 
 class CustomRendition(AbstractRendition):
@@ -392,7 +392,7 @@ class OrgSimplePage(AbstractSimplePage):
 
     def get_context(self, request):
         context = super(OrgSimplePage, self).get_context(request)
-        if self.custom_interface == True:
+        if self.custom_interface is True:
             context['template'] = 'home/custom_simple_interface.html'
         else:
             context['template'] = 'post_page.html'
@@ -485,7 +485,12 @@ class SubscribePage(OrgSimplePage):
     """
     Subscribe Page at the organization level
     """
-    parent_page_types = ['home.HomePage']
+    parent_page_types = [
+        'home.HomePage',
+        'programs.Program',
+        'programs.Subprogram',
+        'the_thread.Thread',
+    ]
 
     newsletter_subscriptions = StreamField([
         ('subscription', blocks.StructBlock([
@@ -506,8 +511,7 @@ class SubscribePage(OrgSimplePage):
     ], null=True, blank=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel('newsletter_subscriptions'),
-        FieldPanel('event_subscriptions')
+        InlinePanel("segment_placements", label="Mailing List Segments"),
     ]
 
     class Meta:
