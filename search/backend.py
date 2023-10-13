@@ -1,20 +1,20 @@
 from wagtail.models import Page
-from wagtail.search.backends.elasticsearch5 import (
-    Elasticsearch5Mapping,
-    Elasticsearch5SearchBackend,
-    Elasticsearch5SearchQueryCompiler,
+from wagtail.search.backends.elasticsearch7 import (
+    Elasticsearch7Mapping,
+    Elasticsearch7SearchBackend,
+    Elasticsearch7SearchQueryCompiler,
 )
 from wagtail.search.index import FilterField
 
 from home.models import Post
 
 
-class QueryCompiler(Elasticsearch5SearchQueryCompiler):
+class QueryCompiler(Elasticsearch7SearchQueryCompiler):
     def get_inner_query(self):
         query = super().get_inner_query()
 
         # Get name of date field from a model that has it, but other models may have this field too
-        date_field_name = Elasticsearch5Mapping(Post).get_field_column_name(
+        date_field_name = Elasticsearch7Mapping(Post).get_field_column_name(
             FilterField("date")
         )
 
@@ -52,5 +52,5 @@ class QueryCompiler(Elasticsearch5SearchQueryCompiler):
         return query
 
 
-class SearchBackend(Elasticsearch5SearchBackend):
+class SearchBackend(Elasticsearch7SearchBackend):
     query_compiler_class = QueryCompiler
