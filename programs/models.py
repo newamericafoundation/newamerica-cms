@@ -16,7 +16,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
 
-from subscribe.models import SubscriptionSegment, SubscribePageSegmentPlacement
+from subscribe.models import SubscribePageSegmentPlacement, SubscriptionSegment
 
 
 class SubscriptionProgramRelationship(models.Model):
@@ -277,7 +277,6 @@ class Program(AbstractProgram):
             [
                 FieldPanel("hide_subscription_card"),
                 FieldPanel("subscription_card_text"),
-                InlinePanel("subscriptions", label=("Subscription Segments")),
             ]
         )
     ]
@@ -398,7 +397,6 @@ class Subprogram(AbstractProgram):
             [
                 FieldPanel("hide_subscription_card"),
                 FieldPanel("subscription_card_text"),
-                InlinePanel("subscriptions", label=("Subscription Segments")),
             ]
         )
     ]

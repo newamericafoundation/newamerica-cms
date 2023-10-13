@@ -243,8 +243,6 @@ class HomePage(Page):
             heading="Featured Stories",
             classname="collapsible"
         ),
-
-        InlinePanel('subscriptions', label=("Subscription Segments")),
     ]
 
     settings_panels = Page.settings_panels + [FieldPanel('down_for_maintenance')]
