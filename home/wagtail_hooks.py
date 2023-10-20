@@ -1,12 +1,59 @@
-from django.utils.safestring import mark_safe
-from django.utils.html import format_html, format_html_join
 from django.conf import settings
 from django.http import HttpResponseForbidden
-
-from wagtail.admin.rich_text.editors.draftail import features as draftail_features
-from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler, BlockElementHandler
+from django.urls import include, path, reverse
+from django.utils.html import format_html, format_html_join
 from wagtail import hooks
-from wagtail.whitelist import attribute_rule, check_url, allow_without_attributes
+from wagtail.admin.menu import AdminOnlyMenuItem, Menu, SubmenuMenuItem
+from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
+from wagtail.admin.rich_text.editors.draftail import features as draftail_features
+from wagtail.whitelist import attribute_rule
+
+from .views import clear_cache_view
+
+
+@hooks.register("register_admin_urls")
+def register_command_urls():
+    return [
+        path(
+            "clear_cache/",
+            include(
+                (
+                    [
+                        path(
+                            "",
+                            clear_cache_view,
+                            name="clear",
+                        )
+                    ],
+                    "cache",
+                ),
+                namespace="cache",
+            ),
+        )
+    ]
+
+
+@hooks.register("register_admin_menu_item")
+def register_commands_menu_item():
+    sync_menu_item = AdminOnlyMenuItem(
+        "Sync Campaign Monitor",
+        reverse("campaign_monitor:sync"),
+        classnames="icon icon-mail",
+        order=10,
+    )
+    clear_cache_menu_item = AdminOnlyMenuItem(
+        "Clear Cache",
+        reverse("cache:clear"),
+        classnames="icon icon-placeholder",
+        order=20,
+    )
+    submenu = Menu(
+        items=[
+            sync_menu_item,
+            clear_cache_menu_item,
+        ],
+    )
+    return SubmenuMenuItem("Commands", submenu, icon_name="code", order=10000)
 
 
 @hooks.register('construct_page_listing_buttons')
