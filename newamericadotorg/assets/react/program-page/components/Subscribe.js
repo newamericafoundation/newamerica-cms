@@ -195,9 +195,9 @@ export default class Subscribe extends Component {
               <div className={`subscribe__fields ${subscriptions.length > 1 && 'col-md-6'}`}>
                 <Text name="email" label="Email" value={params.email} onChange={this.change} />
                 <Text name="name" label="First Name & Last Name" value={params.name} onChange={this.change} />
-                <Text name="organization" label="Organization" value={params.organization} onChange={this.change} />
-                <Text name="job_title" label="Job Title" value={params.job_title} onChange={this.change} />
-                <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} />
+                <Text name="organization" label="Organization" value={params.organization} onChange={this.change} required={false} />
+                <Text name="job_title" label="Job Title" value={params.job_title} onChange={this.change} required={false} required={false} />
+                <Text name="zipcode" label="Zipcode" value={params.zipcode} onChange={this.change} required={false} />
               <Recaptcha
                 ref={e => recaptchaInstance = e}
                 sitekey={RECAPTCHA_SITE_KEY}
