@@ -8,7 +8,7 @@ from rest_framework.serializers import (
 )
 from wagtail.models import Page
 
-from home.models import ProgramAboutHomePage, ProgramAboutPage, SubscribePage
+from home.models import ProgramAboutHomePage, ProgramAboutPage
 from newamericadotorg.api.helpers import (
     generate_image_rendition,
     get_content_type,

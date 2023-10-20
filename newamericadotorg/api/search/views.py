@@ -1,36 +1,31 @@
 from django.utils.timezone import localtime, now
-from django_filters.rest_framework import DjangoFilterBackend, FilterSet
-from django_filters import DateFilter
-from rest_framework.settings import api_settings
-from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
-from rest_framework.response import Response
-
+from rest_framework.generics import ListAPIView
 from wagtail.models import Page, PageViewRestriction, Site
 from wagtail.search.models import Query
 
 import survey.models
-from .serializers import SearchSerializer
-from newamericadotorg.api.event.serializers import EventSerializer
 from article.models import Article
+from blog.models import BlogPost
 from book.models import Book
 from brief.models import Brief
-from press_release.models import PressRelease
 from event.models import Event
-from weekly.models import WeeklyArticle
-from blog.models import BlogPost
-from the_thread.models import ThreadArticle
-from podcast.models import Podcast
-from quoted.models import Quoted
-from policy_paper.models import PolicyPaper
+from home.models import Post, RedirectPage
 from in_depth.models import InDepthProject
 from other_content.models import OtherPost
-from programs.models import Program, Subprogram
-from home.models import Post, RedirectPage
 from person.models import Person
-from subscribe.models import SubscriptionSegment
+from podcast.models import Podcast
+from policy_paper.models import PolicyPaper
+from press_release.models import PressRelease
+from programs.models import Program, Subprogram
+from quoted.models import Quoted
 from report.models import Report
+from subscribe.models import SubscriptionSegment
+from the_thread.models import ThreadArticle
+from weekly.models import WeeklyArticle
+
+from .serializers import SearchSerializer
 
 
 def exclude_invisible_pages(request, pages):
