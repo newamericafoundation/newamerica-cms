@@ -16,7 +16,6 @@ from newamericadotorg.api.helpers import (
     get_subpages,
 )
 from programs.models import Program, Project, Subprogram
-from subscribe.models import SubscriptionSegment
 
 
 class AboutPageSerializer(ModelSerializer):
@@ -59,12 +58,6 @@ class PostSubprogramSerializer(ModelSerializer):
 class MailingListPlacementSerializer(Serializer):
     title = ReadOnlyField()
     checked_by_default = BooleanField()
-
-
-class SubscriptionSegmentSerializer(ModelSerializer):
-    class Meta:
-        model = SubscriptionSegment
-        fields = ('id', 'title', 'ListID', 'SegmentID')
 
 
 class ProgramSubprogramSerializer(ModelSerializer):

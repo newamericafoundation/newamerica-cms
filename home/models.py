@@ -30,7 +30,7 @@ from newamericadotorg.blocks import BodyBlock
 from newamericadotorg.wagtailadmin.widgets import LocationWidget
 from person.models import Person
 from programs.models import AbstractProgram, Program, Subprogram
-from subscribe.models import SubscribePageSegmentPlacement, SubscriptionSegment
+from subscribe.models import SubscribePageSegmentPlacement
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
 
@@ -100,15 +100,6 @@ class CustomRendition(AbstractRendition):
 # def rendition_delete(sender, instance, **kwargs):
 #     instance.file.delete(False)
 
-class SubscriptionHomePageRelationship(models.Model):
-    subscription_segment = models.ForeignKey(SubscriptionSegment, on_delete=models.CASCADE, related_name="+")
-    program = ParentalKey('HomePage', related_name='subscriptions')
-    alternate_title = models.TextField(blank=True)
-    panels = [
-        FieldPanel('subscription_segment'),
-        FieldPanel('alternate_title')
-    ]
-
 class HomePage(Page):
     """
     Model for the homepage for the website. In Wagtail's parent
@@ -137,7 +128,6 @@ class HomePage(Page):
     'JobsPage',
     'RedirectPage',
     'home.SubscribePage',
-    'subscribe.SubscribePage',
     'programs.PublicationsPage',
     'report.AllReportsHomePage',
     'other_content.AllOtherPostsHomePage',
@@ -146,12 +136,6 @@ class HomePage(Page):
     ]
 
     down_for_maintenance = models.BooleanField(default=False)
-
-    subscription_segments = models.ManyToManyField(
-        SubscriptionSegment,
-        through=SubscriptionHomePageRelationship,
-        blank=True,
-    )
 
     # Up to four lead stories can be featured on the homepage.
     # Lead_1 will be featured most prominently.

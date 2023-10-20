@@ -1,33 +1,9 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel
-from wagtail.models import Orderable, Page
+from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 from wagtailautocomplete.edit_handlers import AutocompletePanel
-
-
-class SubscribePage(Page):
-    parent_page_types = ["home.HomePage"]
-    subpage_types = ["SubscriptionSegment"]
-
-    class Meta:
-        verbose_name = "New America Mailing List"
-
-
-class SubscriptionSegment(Page):
-    """
-    Subscription Segments imported from Campaign Monitor
-    """
-
-    parent_page_types = ["SubscribePage"]
-    SegmentID = models.TextField()
-    ListID = models.TextField()
-    is_creatable = False
-
-    # alternative_title = models.TextField()
-
-    class Meta:
-        verbose_name = "Mailing List Segment"
 
 
 @register_snippet

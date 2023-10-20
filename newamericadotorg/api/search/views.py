@@ -21,7 +21,6 @@ from press_release.models import PressRelease
 from programs.models import Program, Subprogram
 from quoted.models import Quoted
 from report.models import Report
-from subscribe.models import SubscriptionSegment
 from the_thread.models import ThreadArticle
 from weekly.models import WeeklyArticle
 
@@ -129,7 +128,6 @@ class SearchOtherPages(ListAPIView):
                     Program,
                     Subprogram,
                     Event,
-                    SubscriptionSegment,
                     RedirectPage,
                     # Exclude all Post subclasses except "Survey"
                     Article,

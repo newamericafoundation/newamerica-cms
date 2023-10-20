@@ -25,7 +25,6 @@ from press_release.models import AllPressReleasesHomePage
 from programs.models import Program, PublicationsPage, Subprogram
 from quoted.models import AllQuotedHomePage
 from report.models import AllReportsHomePage
-from subscribe.models import SubscribePage as SubscribeHome
 from test_factories import PostFactory
 from the_thread.models import AllThreadArticlesHomePage, Thread
 from weekly.models import AllWeeklyArticlesHomePage, Weekly
@@ -175,7 +174,6 @@ class HomeTests(WagtailPageTestCase):
             Weekly,
             Thread,
             RedirectPage,
-            SubscribeHome,
             AllReportsHomePage,
             PublicationsPage,
             AllBriefsHomePage,
