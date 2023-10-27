@@ -10,6 +10,7 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     ObjectList,
     TabbedInterface,
+    TitleFieldPanel,
 )
 from wagtail.blocks import URLBlock
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
@@ -164,7 +165,7 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
     content_panels = [
         MultiFieldPanel(
             [
-                FieldPanel("title"),
+                TitleFieldPanel("title"),
                 FieldPanel("subheading"),
                 FieldPanel("date"),
                 FieldPanel("story_image"),
