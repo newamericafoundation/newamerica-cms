@@ -265,13 +265,15 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'newamericadotorg.api.pagination.CustomPagination'
 }
 
-HEADLESS_PREVIEW_CLIENT_URLS = {
-    'default': 'http://localhost:8000/h_preview',
-    'newamerica.org': 'https://www.newamerica.org/h_preview',
-    'staging.newamerica.org': 'https://staging.newamerica.org/h_preview',
-    'newamericadotorg.herokuapp.com': 'https://newamericadotorg.herokuapp.com/h_preview',
-    'na-staging.herokuapp.com': 'https://na-staging.herokuapp.com/h_preview',
-    'na-develop.herokuapp.com': 'https://na-develop.herokuapp.com/h_preview',
+WAGTAIL_HEADLESS_PREVIEW = {
+    "CLIENT_URLS": {
+        'default': 'http://localhost:8000/h_preview',
+        'newamerica.org': 'https://www.newamerica.org/h_preview',
+        'staging.newamerica.org': 'https://staging.newamerica.org/h_preview',
+        'newamericadotorg.herokuapp.com': 'https://newamericadotorg.herokuapp.com/h_preview',
+        'na-staging.herokuapp.com': 'https://na-staging.herokuapp.com/h_preview',
+        'na-develop.herokuapp.com': 'https://na-develop.herokuapp.com/h_preview',
+    },
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
