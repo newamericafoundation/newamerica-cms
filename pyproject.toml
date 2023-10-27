@@ -9,7 +9,7 @@ version = "0"
 dependencies = [
     # Django related
     'Django >= 3.2.6, < 4',
-    'Wagtail >= 4.1.4, < 4.2',
+    'Wagtail >= 4.2.4, < 5.0',
     'Celery >= 4.4, < 5.0',
     'dj-database-url >= 1.3.0, < 2',
     'django-cors-headers >= 3.13.0, < 4',
@@ -37,7 +37,7 @@ dependencies = [
     # See https://pypi.org/project/django-multiselectfield/
     'django-multiselectfield >= 0.1.12',
     'gunicorn == 20.0.4',
-    'wagtail-headless-preview == 0.1.4',
+    'wagtail-headless-preview == 0.7',
 ]
 
 [project.optional-dependencies]
