@@ -1,16 +1,14 @@
-from django_filters import CharFilter, DateFilter
-from django_filters.rest_framework import FilterSet, DjangoFilterBackend
 from django.db.models import Prefetch
-from rest_framework.generics import ListAPIView
+from django_filters import CharFilter, DateFilter
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListAPIView
 from rest_framework.pagination import CursorPagination
 
-from wagtail.models import Page
-
-from home.models import Post, PostAuthorRelationship
-from other_content.models import OtherPost
-from issue.models import IssueOrTopic
 from event.models import Event
+from home.models import Post, PostAuthorRelationship
+from issue.models import IssueOrTopic
+from other_content.models import OtherPost
 from survey.models import Survey
 
 from .serializers import PostSerializer
@@ -83,7 +81,7 @@ class PostList(ListAPIView):
                     .get_descendants(inclusive=True).live()
 
                 posts = posts.filter(post_topic__id__in=[t.id for t in topics])
-            except:
+            except Exception:
                 return posts.none()
 
         return posts.distinct()

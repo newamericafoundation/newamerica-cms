@@ -1,20 +1,21 @@
 import json
 
 from django.db import models
-from django.db.models.signals import post_save, pre_save
-from django.dispatch import receiver
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
 from wagtail.admin.panels import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList,
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    ObjectList,
     TabbedInterface,
 )
+from wagtail.blocks import URLBlock
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.blocks import RichTextBlock, URLBlock
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
-from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.search import index
 
 from home.models import AbstractHomeContentPage, Post, RedirectHeadlessPreviewMixin
@@ -22,7 +23,11 @@ from programs.models import AbstractContentPage
 
 from .blocks import EndnoteBlock, FeaturedReportSectionBlock, ReportSectionBlock
 from .tasks import (
-    generate_pdf, generate_report_contents, get_report_authors, parse_pdf, write_pdf,
+    generate_pdf,
+    generate_report_contents,
+    get_report_authors,
+    parse_pdf,
+    write_pdf,
 )
 
 
@@ -31,12 +36,23 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
     Report class that inherits from the abstract
     Post model and creates pages for Policy Papers.
     """
-    parent_page_types = ['ReportsHomepage']
+
+    parent_page_types = ["ReportsHomepage"]
     subpage_types = []
 
-    sections = StreamField([
-        ('section', ReportSectionBlock(template="components/report_section_body.html", required=False))
-    ], null=True, blank=True, use_json_field=True)
+    sections = StreamField(
+        [
+            (
+                "section",
+                ReportSectionBlock(
+                    template="components/report_section_body.html", required=False
+                ),
+            )
+        ],
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
     abstract = RichTextField(blank=True, null=True)
 
@@ -44,146 +60,190 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
         blank=True,
         null=True,
         features=[
-            'blockquote',
-            'bold',
-            'document-link',
-            'h2',
-            'h3',
-            'h4',
-            'h5',
-            'hr',
-            'italic',
-            'link',
-            'ol',
-            'pullquote',
-            'ul',
-        ]
+            "blockquote",
+            "bold",
+            "document-link",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "hr",
+            "italic",
+            "link",
+            "ol",
+            "pullquote",
+            "ul",
+        ],
     )
 
     source_word_doc = models.ForeignKey(
-        'wagtaildocs.Document',
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Source Word Document'
+        related_name="+",
+        verbose_name="Source Word Document",
     )
 
     report_pdf = models.ForeignKey(
-        'wagtaildocs.Document',
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Report PDF'
+        related_name="+",
+        verbose_name="Report PDF",
     )
 
     dataviz_src = models.CharField(blank=True, null=True, max_length=300, help_text="")
 
-    overwrite_sections_on_save = models.BooleanField(default=False, help_text='If checked, sections and endnote fields ⚠ will be overwritten ⚠ with Word document source on save. Use with CAUTION!')
-    generate_pdf_on_publish = models.BooleanField('Generate PDF on save', default=False, help_text='⚠ Save latest content before checking this ⚠\nIf checked, the "Report PDF" field will be filled with a generated pdf. Otherwise, leave this unchecked and upload a pdf to the "Report PDF" field.')
+    overwrite_sections_on_save = models.BooleanField(
+        default=False,
+        help_text="If checked, sections and endnote fields ⚠ will be overwritten ⚠ with Word document source on save. Use with CAUTION!",
+    )
+    generate_pdf_on_publish = models.BooleanField(
+        "Generate PDF on save",
+        default=False,
+        help_text='⚠ Save latest content before checking this ⚠\nIf checked, the "Report PDF" field will be filled with a generated pdf. Otherwise, leave this unchecked and upload a pdf to the "Report PDF" field.',
+    )
     revising = False
 
-    featured_sections = StreamField([
-        ('featured', FeaturedReportSectionBlock(required=False, null=True)),
-    ], null=True, blank=True, use_json_field=True)
+    featured_sections = StreamField(
+        [
+            ("featured", FeaturedReportSectionBlock(required=False, null=True)),
+        ],
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
-    endnotes = StreamField([
-        ('endnote', EndnoteBlock(required=False, null=True)),
-    ], null=True, blank=True, use_json_field=True)
+    endnotes = StreamField(
+        [
+            ("endnote", EndnoteBlock(required=False, null=True)),
+        ],
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
-    report_url = StreamField([
-        ('report_url', URLBlock(required=False, null=True)),
-    ], null=True, blank=True, use_json_field=True)
+    report_url = StreamField(
+        [
+            ("report_url", URLBlock(required=False, null=True)),
+        ],
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
-    attachment = StreamField([
-        ('attachment', DocumentChooserBlock(required=False, null=True)),
-    ], null=True, blank=True, use_json_field=True)
+    attachment = StreamField(
+        [
+            ("attachment", DocumentChooserBlock(required=False, null=True)),
+        ],
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
     partner_logo = models.ForeignKey(
-        'home.CustomImage',
+        "home.CustomImage",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     partner_logo_alt = models.TextField(
-        default='',
+        default="",
         blank=True,
-        verbose_name='Partner logo alternative text',
-        help_text='A concise description of the image for users of assistive technology.',
+        verbose_name="Partner logo alternative text",
+        help_text="A concise description of the image for users of assistive technology.",
     )
 
-    theme_full_bleed = models.BooleanField(default=False, help_text="Display bleed image on landing page")
+    theme_full_bleed = models.BooleanField(
+        default=False, help_text="Display bleed image on landing page"
+    )
 
     content_panels = [
-        MultiFieldPanel([
-            FieldPanel('title'),
-            FieldPanel('subheading'),
-            FieldPanel('date'),
-            FieldPanel('story_image'),
-            FieldPanel('story_image_alt'),
-        ]),
-        InlinePanel('authors', label=("Authors")),
-        InlinePanel('programs', label=("Programs")),
-        InlinePanel('subprograms', label=("Subprograms")),
-        InlinePanel('topics', label=("Topics")),
-        InlinePanel('location', label=("Locations")),
-        MultiFieldPanel([
-            FieldPanel('abstract'),
-            FieldPanel('featured_sections'),
-            FieldPanel('acknowledgements'),
-        ])
+        MultiFieldPanel(
+            [
+                FieldPanel("title"),
+                FieldPanel("subheading"),
+                FieldPanel("date"),
+                FieldPanel("story_image"),
+                FieldPanel("story_image_alt"),
+            ]
+        ),
+        InlinePanel("authors", label=("Authors")),
+        InlinePanel("programs", label=("Programs")),
+        InlinePanel("subprograms", label=("Subprograms")),
+        InlinePanel("topics", label=("Topics")),
+        InlinePanel("location", label=("Locations")),
+        MultiFieldPanel(
+            [
+                FieldPanel("abstract"),
+                FieldPanel("featured_sections"),
+                FieldPanel("acknowledgements"),
+            ]
+        ),
     ]
 
-    sections_panels = [
-        FieldPanel('sections')
-    ]
+    sections_panels = [FieldPanel("sections")]
 
-    endnote_panels = [FieldPanel('endnotes')]
+    endnote_panels = [FieldPanel("endnotes")]
 
     settings_panels = Post.settings_panels + [
-        FieldPanel('theme_full_bleed'),
-        FieldPanel('dataviz_src')
+        FieldPanel("theme_full_bleed"),
+        FieldPanel("dataviz_src"),
     ]
 
     promote_panels = Page.promote_panels + [
-        FieldPanel('story_excerpt'),
+        FieldPanel("story_excerpt"),
     ]
 
     pdf_panels = [
-        MultiFieldPanel([
-            FieldPanel('source_word_doc'),
-            FieldPanel('overwrite_sections_on_save'),
-        ], heading='Word Doc Import'),
-        MultiFieldPanel([
-            FieldPanel('generate_pdf_on_publish'),
-            FieldPanel('report_pdf'),
-            FieldPanel('attachment')
-        ], heading='PDF Generation'),
-        FieldPanel('partner_logo'),
-        FieldPanel('partner_logo_alt'),
+        MultiFieldPanel(
+            [
+                FieldPanel("source_word_doc"),
+                FieldPanel("overwrite_sections_on_save"),
+            ],
+            heading="Word Doc Import",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("generate_pdf_on_publish"),
+                FieldPanel("report_pdf"),
+                FieldPanel("attachment"),
+            ],
+            heading="PDF Generation",
+        ),
+        FieldPanel("partner_logo"),
+        FieldPanel("partner_logo_alt"),
     ]
 
-    edit_handler = TabbedInterface([
-        ObjectList(content_panels, heading="Landing"),
-        ObjectList(sections_panels, heading="Sections"),
-        ObjectList(endnote_panels, heading="Endnotes"),
-        ObjectList(promote_panels, heading="Promote"),
-        ObjectList(settings_panels, heading='Settings', classname="settings"),
-        ObjectList(pdf_panels, heading="PDF Publishing")
-    ])
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(content_panels, heading="Landing"),
+            ObjectList(sections_panels, heading="Sections"),
+            ObjectList(endnote_panels, heading="Endnotes"),
+            ObjectList(promote_panels, heading="Promote"),
+            ObjectList(settings_panels, heading="Settings", classname="settings"),
+            ObjectList(pdf_panels, heading="PDF Publishing"),
+        ]
+    )
 
-    search_fields = Post.search_fields + [index.SearchField('sections')]
+    search_fields = Post.search_fields + [index.SearchField("sections")]
 
     def get_context(self, request):
         context = super().get_context(request)
 
-        if getattr(request, 'is_preview', False):
+        if getattr(request, "is_preview", False):
             import newamericadotorg.api.report
+
             revision = self.get_latest_revision_as_object()
-            report_data = newamericadotorg.api.report.serializers.ReportDetailSerializer(revision).data
-            context['initial_state'] = json.dumps(report_data)
+            report_data = (
+                newamericadotorg.api.report.serializers.ReportDetailSerializer(
+                    revision
+                ).data
+            )
+            context["initial_state"] = json.dumps(report_data)
 
         return context
 
@@ -194,7 +254,11 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
         if not self.overwrite_sections_on_save and not self.generate_pdf_on_publish:
             self.revising = False
 
-        if not self.revising and self.source_word_doc is not None and self.overwrite_sections_on_save:
+        if (
+            not self.revising
+            and self.source_word_doc is not None
+            and self.overwrite_sections_on_save
+        ):
             self.revising = True
             parse_pdf(self)
             self.overwrite_sections_on_save = False
@@ -205,47 +269,49 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
     # Extra views
 
-    @route(r'pdf/$')
+    @route(r"pdf/$")
     def pdf(self, request):
         if not self.report_pdf:
             return self.pdf_render(request)
-        url = 'https://s3.amazonaws.com/newamericadotorg/' + self.report_pdf.file.name
+        url = "https://s3.amazonaws.com/newamericadotorg/" + self.report_pdf.file.name
         return redirect(url)
 
-    @route(r'pdf/render/$')
+    @route(r"pdf/render/$")
     def pdf_render(self, request):
-        response = HttpResponse(content_type='application/pdf;')
-        response['Content-Disposition'] = 'inline; filename=%s.pdf' % self.title
-        response['Content-Transfer-Encoding'] = 'binary'
-        protocol = 'https://' if request.is_secure() else 'http://'
+        response = HttpResponse(content_type="application/pdf;")
+        response["Content-Disposition"] = "inline; filename=%s.pdf" % self.title
+        response["Content-Transfer-Encoding"] = "binary"
+        protocol = "https://" if request.is_secure() else "http://"
         base_url = protocol + request.get_host()
 
         contents = generate_report_contents(self)
         authors = get_report_authors(self)
 
-        html = loader.get_template('report/pdf.html').render({
-            'page': self,
-            'contents': contents,
-            'authors': authors
-        })
-        pdf = write_pdf(response, html, base_url)
+        html = loader.get_template("report/pdf.html").render(
+            {"page": self, "contents": contents, "authors": authors}
+        )
+        write_pdf(response, html, base_url)
 
         return response
 
-    @route(r'print/$')
+    @route(r"print/$")
     def print(self, request):
         contents = generate_report_contents(self)
         authors = get_report_authors(self)
 
-        return render(request, 'report/pdf.html', context={ 'page': self, 'contents': contents, 'authors': authors })
+        return render(
+            request,
+            "report/pdf.html",
+            context={"page": self, "contents": contents, "authors": authors},
+        )
 
-    @route(r'[a-zA-Z0-9_\.\-]*/$')
+    @route(r"[a-zA-Z0-9_\.\-]*/$")
     def section(self, request):
         # Serve the whole report, subsection routing is handled by React
         return self.render(request)
 
     class Meta:
-        verbose_name = 'Report'
+        verbose_name = "Report"
 
 
 class AllReportsHomePage(AbstractHomeContentPage):
@@ -254,7 +320,8 @@ class AllReportsHomePage(AbstractHomeContentPage):
     returns every Report in the Report model
     for the organization wide Report omepage
     """
-    parent_page_types = ['home.Homepage']
+
+    parent_page_types = ["home.Homepage"]
     subpage_types = []
 
     @property
@@ -271,8 +338,9 @@ class ReportsHomepage(AbstractContentPage):
     returns all Reports associated with a specific
     Program or Subprogram
     """
-    parent_page_types = ['programs.Program', 'programs.Subprogram', 'programs.Project']
-    subpage_types = ['Report']
+
+    parent_page_types = ["programs.Program", "programs.Subprogram", "programs.Project"]
+    subpage_types = ["Report"]
 
     @property
     def content_model(self):
