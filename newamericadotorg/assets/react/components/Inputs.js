@@ -27,7 +27,7 @@ export const Text = ({ children, ...props}) => (
       <h5 className="margin-0">
         {props.label}
         {props.required && (
-           <span aria-label="required" class="required-asterisk"> *</span>
+           <span aria-label="required" className="required-asterisk"> *</span>
          )}
       </h5>
     </label>
