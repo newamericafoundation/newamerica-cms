@@ -1,8 +1,8 @@
 import os
 
 from django.shortcuts import render
+from wagtail.contrib.search_promotions.models import Query
 from wagtail.models import Page
-from wagtail.search.models import Query
 
 
 def search(request):
