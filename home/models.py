@@ -17,6 +17,7 @@ from wagtail.admin.panels import (
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
+    TitleFieldPanel,
 )
 from wagtail.blocks import PageChooserBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
@@ -403,7 +404,7 @@ class OrgSimplePage(AbstractSimplePage):
     content_panels = [
         MultiFieldPanel(
             [
-                FieldPanel("title"),
+                TitleFieldPanel("title"),
                 FieldPanel("page_description"),
             ]
         ),

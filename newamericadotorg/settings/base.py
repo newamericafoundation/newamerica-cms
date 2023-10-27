@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.table_block',
     'wagtail.contrib.frontend_cache',
     'wagtail.contrib.settings',
+    'wagtail.contrib.search_promotions',
 
     'modelcluster',
     'compressor',

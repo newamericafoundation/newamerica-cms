@@ -39,7 +39,9 @@ cssselect2==0.7.0
     #   cairosvg
     #   weasyprint
 defusedxml==0.7.1
-    # via cairosvg
+    # via
+    #   cairosvg
+    #   willow
 dj-database-url==1.3.0
     # via newamerica-cms (pyproject.toml)
 django==3.2.18
@@ -101,6 +103,8 @@ elasticsearch==5.5.3
     # via newamerica-cms (pyproject.toml)
 et-xmlfile==1.1.0
     # via openpyxl
+filetype==1.2.0
+    # via willow
 gunicorn==20.0.4
     # via newamerica-cms (pyproject.toml)
 html5lib==1.1
@@ -187,7 +191,7 @@ vine==1.3.0
     # via
     #   amqp
     #   celery
-wagtail==4.2.4
+wagtail==5.0.5
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail-autocomplete
@@ -207,7 +211,7 @@ webencodings==0.5.1
     #   tinycss2
 whitenoise==6.4.0
     # via newamerica-cms (pyproject.toml)
-willow==1.4.1
+willow==1.6.2
     # via wagtail
 
 # The following packages are considered to be unsafe in a requirements file:

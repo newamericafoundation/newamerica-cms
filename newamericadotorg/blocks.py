@@ -589,7 +589,7 @@ class Body(blocks.StreamBlock):
     iframe = IframeBlock(icon="link")
     datawrapper = DatawrapperBlock(icon="code")
     dataviz = DatavizBlock(icon="code")
-    timeline = TimelineBlock(icon="arrows-up-down")
+    timeline = TimelineBlock(icon="order")
     google_map = GoogleMapBlock(icon="site")
     resource_kit = ResourceKit(icon="folder")
 

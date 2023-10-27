@@ -1,6 +1,11 @@
 from django.db import models
 from django.utils import timezone
-from wagtail.admin.panels import FieldPanel, FieldRowPanel, MultiFieldPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    FieldRowPanel,
+    MultiFieldPanel,
+    TitleFieldPanel,
+)
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.search import index
@@ -109,7 +114,7 @@ class Conference(Page):
 
     about = MultiFieldPanel(
         [
-            FieldPanel("title"),
+            TitleFieldPanel("title"),
             FieldPanel("subheading"),
             FieldPanel("host_organization"),
             FieldPanel("alternate_logo"),

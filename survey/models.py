@@ -9,6 +9,7 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     ObjectList,
     TabbedInterface,
+    TitleFieldPanel,
 )
 from wagtail.blocks import StreamBlock
 from wagtail.fields import RichTextField, StreamField
@@ -79,7 +80,7 @@ class SurveysHomePage(AbstractContentPage):
     subheading = models.CharField(max_length=300, blank=True)
     methodology = RichTextField(max_length=1500, blank=True)
     content_panels = [
-        FieldPanel("title"),
+        TitleFieldPanel("title"),
         FieldPanel("subheading"),
         MultiFieldPanel(
             [
@@ -249,7 +250,7 @@ class Survey(Post):
     content_panels = [
         MultiFieldPanel(
             [
-                FieldPanel("title"),
+                TitleFieldPanel("title"),
                 FieldPanel("date"),
             ],
             heading="Survey Created",
