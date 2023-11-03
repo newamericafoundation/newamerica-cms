@@ -22,7 +22,7 @@ export const CheckBox = (props) => (
 
 export const Text = ({ children, ...props}) => (
   <div className="input">
-    <input type="text" {...props} />
+    <input type="text" {...props} data-text-status={props.value === "" ? "empty" : "filled"} />
     <label className="input__label" htmlFor={props.name}>
       <h5 className="margin-0">
         {props.label}

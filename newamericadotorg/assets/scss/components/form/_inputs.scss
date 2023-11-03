@@ -50,6 +50,7 @@ input[type="text"], textarea {
 	}
 	input[type="text"]:active + label,
 	input[type="text"]:focus + label,
+	input[type="text"][data-text-status="filled"] + label,
 	input[type="text"]:required:valid + label,
 	textarea:active + label,
 	textarea:focus + label,
