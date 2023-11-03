@@ -41,6 +41,18 @@ class APP extends Component {
 
   render() {
     let { programs, home_subscriptions } = JSON.parse(this.props.meta);
+    let allSubscriptions = home_subscriptions;
+    programs.forEach(program => {
+      let programSubscriptions = (program.subscriptions || []).map(subscription => {
+        // On the site-wide subscription component, all non-site-wide
+        // lists should be unchecked by default.
+        let temp = Object.assign({}, subscription);
+        temp.checked_by_default = false;
+        return temp;
+      });
+
+      allSubscriptions = allSubscriptions.concat(programSubscriptions);
+    });
     return (
       <div className="container">
 			<a className="homepage__promo-link" onClick={this.openModal}>
@@ -61,7 +73,13 @@ class APP extends Component {
           title="Subscribe"
           open={this.state.open}
           close={this.closeModal}
-        ><HomeSubscribe programs={programs} subscriptions={home_subscriptions} dispatch={this.props.dispatch} /></Overlay>,
+        ><HomeSubscribe
+           programs={programs}
+           homeSubscriptions={home_subscriptions}
+           subscriptions={allSubscriptions}
+           dispatch={this.props.dispatch}
+         />
+        </Overlay>,
         document.body
       )}
 		</div>
