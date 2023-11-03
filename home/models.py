@@ -504,15 +504,16 @@ class SubscribePage(OrgSimplePage):
         verbose_name = 'Subscribe Page'
 
     def get_context(self, request):
+        from newamericadotorg.api.program.serializers import (
+            MailingListPlacementSerializer,
+        )
+
         context = super().get_context(request)
         parent_class = self.get_parent().specific_class
         context['is_org_wide'] = parent_class == HomePage
         context['subscriptions'] = json.dumps(
             [
-                {
-                    'title': item.title,
-                    'checked_by_default': item.checked_by_default,
-                } for item in self.segment_placements.all()
+                MailingListPlacementSerializer(s).data for s in self.segment_placements.all()
             ]
         )
         return context
