@@ -14,7 +14,7 @@ export class HomeSubscribe extends Subscribe {
     });
   }
   render(){
-    let { programs, subscriptions } = this.props;
+    let { programs, subscriptions, homeSubscriptions } = this.props;
     let { params, posting, posted, status } = this.state;
     let recaptchaInstance;
     return (
@@ -58,7 +58,7 @@ export class HomeSubscribe extends Subscribe {
                 </h6>
               </div>
               <div className="primary margin-25">
-                <List list={subscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
+                <List list={homeSubscriptions} checked={this.state.subscriptions} toggle={this.toggleSubscription} />
               </div>
               <div className="secondary margin-25">
                 <div>
@@ -92,8 +92,25 @@ export default class SubscribeWrapper extends Component {
   render(){
     let { response : { results : { home_subscriptions, programs } }, dispatch } = this.props;
 
+    let allSubscriptions = home_subscriptions;
+    programs.forEach(program => {
+      let programSubscriptions = (program.subscriptions || []).map(subscription => {
+        // On the site-wide subscription component, all non-site-wide
+        // lists should be unchecked by default.
+        let temp = Object.assign({}, subscription);
+        temp.checked_by_default = false;
+        return temp;
+      });
+
+      allSubscriptions = allSubscriptions.concat(programSubscriptions);
+    });
     return (
-      <HomeSubscribe subscriptions={home_subscriptions} programs={programs} dispatch={dispatch} />
+      <HomeSubscribe
+        subscriptions={allSubscriptions}
+        homeSubscriptions={home_subscriptions}
+        programs={programs}
+        dispatch={dispatch}
+      />
     );
   }
 }

@@ -5,10 +5,10 @@ import { BASEURL } from '../../api/constants';
 import { RECAPTCHA_SITE_KEY } from '../constants';
 import Recaptcha from 'react-recaptcha';
 
-const ConfirmationList = ({ subscriptions }) => (
+const ConfirmationList = ({ subscriptionDefs, confirmedSubscriptions}) => (
     <ul>
-      {subscriptions.map((s,i)=>(
-        <li key={`list-${i}`}><h6 className="margin-10">{s}</h6></li>
+      {subscriptionDefs.filter(d => confirmedSubscriptions.has(d.mailing_list_segment_id)).map((s,i)=>(
+        <li key={`list-${i}`}><h6 className="margin-10">{s.title}</h6></li>
       ))}
     </ul>
   );
@@ -21,7 +21,7 @@ export class List extends Component {
       <span>
       {list.map((s,i)=>(
         <div key={i} className="subscribe__field">
-          <CheckBox checked={checked.indexOf(s.title)>=0}
+          <CheckBox checked={checked.has(s.mailing_list_segment_id)}
             name={s.title}
             value={s.title}
             label={s.title}
@@ -47,15 +47,15 @@ export default class Subscribe extends Component {
   constructor(props){
     super(props);
     let params = new URLSearchParams(location.search.replace('?', ''))
-    let subscriptions = [];
+    let subscriptions = new Set();
 
     if (props.subscriptions) {
       if (props.subscriptions.length === 1) {
-        subscriptions = [props.subscriptions[0].title];
+        subscriptions.add(props.subscriptions[0].mailing_list_segment_id);
       } else {
         subscriptions = props.subscriptions.reduce(
-          (result, {title, checked_by_default}) => checked_by_default ? result.push(title) && result: result,
-          []
+          (result, {mailing_list_segment_id, checked_by_default}) => checked_by_default ? result.add(mailing_list_segment_id) && result: result,
+          new Set()
         );
       }
     }
@@ -92,6 +92,12 @@ export default class Subscribe extends Component {
     if(this.reloadScrollEvents) this.reloadScrollEvents()
   }
 
+  lookupSegmentIdForTitle = (title) => {
+    return this.props.subscriptions.find(
+      subscription => subscription.title === title
+    )?.mailing_list_segment_id
+  }
+
   submit = (captchaResponse) => {
     if(this.state.posting || this.state.posted) return false;
     if(this.state.subscriptions.length === 0){
@@ -104,8 +110,9 @@ export default class Subscribe extends Component {
     for(let k in this.state.params)
       url.searchParams.append(k, this.state.params[k]);
 
-    for(let i=0; i<this.state.subscriptions.length; i++)
-      url.searchParams.append('subscriptions[]', this.state.subscriptions[i]);
+    this.state.subscriptions.forEach(mailingListSegmentId => {
+      url.searchParams.append('subscriptions[]', mailingListSegmentId);
+    });
 
     url.searchParams.append("g-recaptcha-response", captchaResponse);
 
@@ -142,15 +149,21 @@ export default class Subscribe extends Component {
   }
 
   toggleSubscription = (title) => {
-    let subscriptions;
-    let i = this.state.subscriptions.indexOf(title);
-    if(i==-1) {
-      subscriptions = [...this.state.subscriptions, title];
-    } else {
-      subscriptions = [...this.state.subscriptions]
-      subscriptions.splice(i,1);
+    const mailingListSegmentId = this.lookupSegmentIdForTitle(title);
+    if (mailingListSegmentId == null) {
+      return;
     }
-    this.setState({ subscriptions });
+    this.setState(({subscriptions}) => {
+      const newSubscriptions = new Set(subscriptions);
+      if (subscriptions.has(mailingListSegmentId)) {
+        newSubscriptions.delete(mailingListSegmentId);
+      } else {
+        newSubscriptions.add(mailingListSegmentId);
+      }
+      return {
+        subscriptions: newSubscriptions
+      }
+    });
   }
 
   responseMessage = () => {
@@ -166,7 +179,9 @@ export default class Subscribe extends Component {
         {(posted && status=='OK') && <span>
                                        <h3>Thank you!</h3>
                                        <h6>You'll now start receiving emails from:</h6>
-                                       <ConfirmationList subscriptions={this.state.subscriptions}/>
+                                       <ConfirmationList
+                                         subscriptionDefs={this.props.subscriptions}
+                                         confirmedSubscriptions={this.state.subscriptions}/>
                                      </span>
         }
         {(status=='NO_LIST') && <h6 style={{ color: 'red' }} className="margin-15">Please check at least one subscription list</h6>}

@@ -1,6 +1,7 @@
 from django.template import loader
 from rest_framework.serializers import (
     BooleanField,
+    IntegerField,
     ModelSerializer,
     ReadOnlyField,
     Serializer,
@@ -58,6 +59,7 @@ class PostSubprogramSerializer(ModelSerializer):
 class MailingListPlacementSerializer(Serializer):
     title = ReadOnlyField()
     checked_by_default = BooleanField()
+    mailing_list_segment_id = IntegerField()
 
 
 class ProgramSubprogramSerializer(ModelSerializer):

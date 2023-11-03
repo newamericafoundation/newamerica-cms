@@ -7,6 +7,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from subscribe.campaign_monitor import update_subscriber
+from subscribe.models import MailingListSegment
 
 
 @api_view(["POST"])
@@ -27,7 +28,10 @@ def subscribe(request):
     if not verification["success"]:
         return Response({"status": "UNVERIFIED"})
 
-    subscriptions = params.getlist("subscriptions[]", None)
+    subscriptions = params.getlist("subscriptions[]", [])
+    subscription_titles = MailingListSegment.objects.filter(
+        pk__in=subscriptions,
+    ).values_list('title', flat=True)
     job_title = params.get("job_title", None)
     org = params.get("organization", None)
     zipcode = params.get("zipcode", None)
@@ -39,8 +43,8 @@ def subscribe(request):
         custom_fields.append({"key": "Organization", "value": org})
     if zipcode:
         custom_fields.append({"key": "MailingZip/PostalCode", "value": zipcode})
-    if subscriptions:
-        for s in subscriptions:
+    if subscription_titles:
+        for s in subscription_titles:
             custom_fields.append({"key": "Subscriptions", "value": s})
 
     status = update_subscriber(params.get("email"), params.get("name"), custom_fields)
