@@ -1,6 +1,5 @@
-from django.urls import include, path, reverse
+from django.urls import include, path
 from wagtail import hooks
-from wagtail.admin.menu import AdminOnlyMenuItem, Menu, SubmenuMenuItem
 
 from .views import campaign_monitor_sync_view
 
@@ -25,19 +24,3 @@ def register_commands_urls():
             ),
         )
     ]
-
-
-@hooks.register("register_admin_menu_item")
-def register_commands_menu_item():
-    sync_menu_item = AdminOnlyMenuItem(
-        "Sync Campaign Monitor",
-        reverse("campaign_monitor:sync"),
-        classnames="icon icon-mail",
-        order=10,
-    )
-    submenu = Menu(
-        items=[
-            sync_menu_item,
-        ],
-    )
-    return SubmenuMenuItem("Commands", submenu, icon_name="code", order=10000)

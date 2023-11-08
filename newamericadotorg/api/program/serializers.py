@@ -1,6 +1,7 @@
 from django.template import loader
 from rest_framework.serializers import (
     BooleanField,
+    IntegerField,
     ModelSerializer,
     ReadOnlyField,
     Serializer,
@@ -8,7 +9,7 @@ from rest_framework.serializers import (
 )
 from wagtail.models import Page
 
-from home.models import ProgramAboutHomePage, ProgramAboutPage, SubscribePage
+from home.models import ProgramAboutHomePage, ProgramAboutPage
 from newamericadotorg.api.helpers import (
     generate_image_rendition,
     get_content_type,
@@ -16,7 +17,6 @@ from newamericadotorg.api.helpers import (
     get_subpages,
 )
 from programs.models import Program, Project, Subprogram
-from subscribe.models import SubscriptionSegment
 
 
 class AboutPageSerializer(ModelSerializer):
@@ -59,12 +59,7 @@ class PostSubprogramSerializer(ModelSerializer):
 class MailingListPlacementSerializer(Serializer):
     title = ReadOnlyField()
     checked_by_default = BooleanField()
-
-
-class SubscriptionSegmentSerializer(ModelSerializer):
-    class Meta:
-        model = SubscriptionSegment
-        fields = ('id', 'title', 'ListID', 'SegmentID')
+    mailing_list_segment_id = IntegerField()
 
 
 class ProgramSubprogramSerializer(ModelSerializer):

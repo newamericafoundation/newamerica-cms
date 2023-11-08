@@ -16,28 +16,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
 
-from subscribe.models import SubscribePageSegmentPlacement, SubscriptionSegment
-
-
-class SubscriptionProgramRelationship(models.Model):
-    subscription_segment = models.ForeignKey(
-        SubscriptionSegment, on_delete=models.CASCADE, related_name="+"
-    )
-    program = ParentalKey("Program", related_name="subscriptions")
-    alternate_title = models.TextField(blank=True)
-    panels = [
-        FieldPanel("subscription_segment"),
-        FieldPanel("alternate_title"),
-    ]
-
-
-class SubscriptionSubprogramRelationship(models.Model):
-    subscription_segment = models.ForeignKey(
-        SubscriptionSegment, on_delete=models.CASCADE, related_name="+"
-    )
-    subprogram = ParentalKey("Subprogram", related_name="subscriptions")
-    alternate_name = models.TextField(blank=True)
-    panels = [FieldPanel("subscription_segment"), FieldPanel("alternate_name")]
+from subscribe.models import SubscribePageSegmentPlacement
 
 
 class FeaturedProgramPage(Orderable):
@@ -254,12 +233,6 @@ class Program(AbstractProgram):
         use_json_field=True,
     )
 
-    subscription_segments = models.ManyToManyField(
-        SubscriptionSegment,
-        through=SubscriptionProgramRelationship,
-        blank=True,
-    )
-
     content_panels = AbstractProgram.content_panels + [
         MultiFieldPanel(
             [
@@ -376,12 +349,6 @@ class Subprogram(AbstractProgram):
 
     parent_programs = models.ManyToManyField(
         Program, through=ProgramSubprogramRelationship, blank=True
-    )
-
-    subscription_segments = models.ManyToManyField(
-        SubscriptionSegment,
-        through=SubscriptionSubprogramRelationship,
-        blank=True,
     )
 
     content_panels = (

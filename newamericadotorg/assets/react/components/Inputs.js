@@ -22,12 +22,22 @@ export const CheckBox = (props) => (
 
 export const Text = ({ children, ...props}) => (
   <div className="input">
-    <input type="text" required {...props} />
+    <input type="text" {...props} data-text-status={props.value === "" ? "empty" : "filled"} />
     <label className="input__label" htmlFor={props.name}>
-      <h5 className="margin-0">{props.label}</h5></label>
+      <h5 className="margin-0">
+        {props.label}
+        {props.required && (
+           <span aria-label="required" className="required-asterisk"> *</span>
+         )}
+      </h5>
+    </label>
     {children}
   </div>
 );
+
+Text.defaultProps = {
+  required: true,
+}
 
 export const TextArea = ({ children, ...props}) => (
   <div className="input">
