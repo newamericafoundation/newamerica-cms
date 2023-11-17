@@ -1,28 +1,33 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from wagtail.core.models import Page
 
 from home.models import (
+    Post,
     PostProgramRelationship,
     PostSubprogramRelationship,
     PostTopicRelationship,
 )
-from programs.models import Program
+from issue.models import IssueOrTopic
+from programs.models import Program, Subprogram
 
 
 class Command(BaseCommand):
-    help = "Tag all posts from one program, subprogram, or topic onto a different program, subprogram, or topic."
+    help = "For all posts under a given Program/Subprogram/Topic, remove the tag for a second Program, and run the save method."
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--from",
-            help="The slug of a Program, Subprogram, or Topic in which to find posts",
+            "--parent",
+            help="The ID of a parent Program, Subprogram, or Topic in which to find child posts",
             required=True,
+            type=int,
         )
 
         parser.add_argument(
-            "--to",
-            help="The slug of a Program to which to add posts",
+            "--remove",
+            help="The ID of a Program to remove from the posts",
             required=True,
+            type=int,
         )
         parser.add_argument(
             "--commit",
@@ -30,68 +35,83 @@ class Command(BaseCommand):
             help="Commit changes to the database",
         )
 
-    def get_posts_for_program(self, slug):
+    def get_posts_for_program(self, pk):
         return PostProgramRelationship.objects.filter(
-            program__slug=slug,
+            program__pk=pk,
         )
 
-    def get_posts_for_subprogram(self, slug):
+    def get_posts_for_subprogram(self, pk):
         return PostSubprogramRelationship.objects.filter(
-            subprogram__slug=slug,
+            subprogram__pk=pk,
         )
 
-    def get_posts_for_topic(self, slug):
+    def get_posts_for_topic(self, pk):
         return PostTopicRelationship.objects.filter(
-            topic__slug=slug,
+            topic__pk=pk,
         )
 
-    def display_plan(self, container_type, posts, slug):
-        self.stdout.write(f"Posts in {container_type} {slug}: {len(posts)}")
+    def show_page(self, page):
+        return f'{page.title} (id={page.pk}, type={page.page_type_display_name})'
+
+    def display_plan(self):
+        parent_page = self.parent
+        self.stdout.write(f"Found {len(self.posts_to_modify)} posts descended from {self.show_page(parent_page)}.\n- These posts will be saved.")
+        self.stdout.write(f"\nFound {len(self.tags_to_remove)} of these posts tagged with {self.show_page(self.page_to_untag)}.\n- These tags will be removed.")
+
+    def execute_plan(self):
+        for post in self.posts_to_modify:
+            post.save()
+
+        for tag in self.tags_to_remove:
+            self.stdout.write(f'Deleting {tag!r}')
+            tag.delete()
 
     @transaction.atomic
     def handle(self, **options):
-        from_slug = options["from"]
+        parent_pk = options["parent"]
 
-        if post_rels := self.get_posts_for_program(from_slug):
-            self.display_plan("Program", post_rels, from_slug)
-        elif post_rels := self.get_posts_for_subprogram(from_slug):
-            self.display_plan("Subprogram", post_rels, from_slug)
-        elif post_rels := self.get_posts_for_topic(from_slug):
-            self.display_plan("IssueOrTopic", post_rels, from_slug)
+        try:
+            self.parent = Page.objects.get(pk=parent_pk)
+        except Page.DoesNotExist:
+            self.stdout.write(f'Page with ID {parent_pk!r} does not exist. Exiting.')
+            return
+
+        self.posts_to_modify = Post.objects.descendant_of(self.parent)
+        posts_to_modify_ids = self.posts_to_modify.values_list("pk", flat=True)
+        remove_pk = options["remove"]
+        try:
+            self.page_to_untag = Page.objects.get(pk=remove_pk).specific
+        except Page.DoesNotExist:
+            self.stdout.write(f'Page with ID {remove_pk!r} does not exist. Exiting.')
+            return
+
+        if isinstance(self.page_to_untag, Program):
+            self.tags_to_remove = PostProgramRelationship.objects.filter(
+                program__pk=self.page_to_untag.pk,
+                post_id__in=posts_to_modify_ids,
+            )
+        elif isinstance(self.page_to_untag, Subprogram):
+            self.tags_to_remove = PostSubprogramRelationship.objects.filter(
+                subprogram__pk=self.page_to_untag.pk,
+                post_id__in=posts_to_modify_ids,
+            )
+        elif isinstance(self.page_to_untag, IssueOrTopic):
+            self.tags_to_remove = PostTopicRelationship.objects.filter(
+                topic__pk=self.page_to_untag.pk,
+                post_id__in=posts_to_modify_ids,
+            )
         else:
             self.stdout.write(
-                f"No posts found for any program, subprogram, or topic with slug {from_slug!r}, aborting."
+                f"Page with id {remove_pk!r} is of type {self.page_to_untag.page_type_display_name!r}, not program, subprogram, or topic. Exiting."
             )
             return
 
-        to_slug = options["to"]
-        try:
-            program = Program.objects.get(slug=to_slug)
-            self.stdout.write(f"Found program {program.title} with slug {to_slug!r}")
-        except Program.DoesNotExist:
-            self.stdout.write(f"No program found with slug {to_slug!r}, aborting.")
-            return
-
         if options.get("commit", False):
-            total_created = 0
-            total_unchanged = 0
-
-            for post_rel in post_rels:
-                try:
-                    ppr, created = PostProgramRelationship.objects.get_or_create(
-                        program=program,
-                        post=post_rel.post,
-                    )
-                except PostProgramRelationship.MultipleObjectsReturned:
-                    created = False
-                if created:
-                    total_created += 1
-                else:
-                    total_unchanged += 1
-
-            self.stdout.write(f"Updated post count: {total_created}")
-            self.stdout.write(f"Posts already in program: {total_unchanged}")
+            self.display_plan()
+            self.execute_plan()
+            self.stdout.write('*** Database updated ***')
         else:
+            self.display_plan()
             self.stdout.write(
-                "Database not updated, pass option --commit to retag posts."
+                "\n*** Database not updated, pass option --commit to retag posts. ***"
             )
