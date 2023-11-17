@@ -3,6 +3,8 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import path
+from django.views.generic.base import RedirectView
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -72,6 +74,22 @@ urlpatterns = [
     ),
     url(r"^public-interest-technology/[^.]*$", redirects.pit),
     url(r"^future-property-rights/[^.]*$", redirects.flh),
+    path(
+        "education-policy/early-elementary-education-policy/<path:path>",
+        RedirectView.as_view(url="/early-elementary-education-policy/%(path)s"),
+    ),
+    path(
+        "education-policy/prek-12-education/<path:path>",
+        RedirectView.as_view(url="/prek-12-education/%(path)s"),
+    ),
+    path(
+        "education-policy/higher-education/<path:path>",
+        RedirectView.as_view(url="/higher-education/%(path)s"),
+    ),
+    path(
+        "education-policy/teaching-learning-tech/<path:path>",
+        RedirectView.as_view(url="/teaching-learning-tech/%(path)s"),
+    ),
     url(r"", include(wagtail_urls)),
 ]
 
