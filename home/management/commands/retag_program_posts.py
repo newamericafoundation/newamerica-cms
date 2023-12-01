@@ -74,18 +74,22 @@ class Command(BaseCommand):
             post.save()
 
         for tag in self.post_tags_to_remove:
-            self.stdout.write(f"Deleting {tag!r}")
+            self.stdout.write(f"Updating tag for {tag.post!r}")
+            PostProgramRelationship.objects.get_or_create(
+                program=self.destination,
+                post=tag.post,
+            )
             tag.delete()
-        post_rs = PostProgramRelationship.objects.bulk_create(self.post_tags_to_create)
-        self.stdout.write(f"Post program relationships created: {len(post_rs)}.")
-
         for tag in self.person_tags_to_remove:
-            self.stdout.write(f"Deleting {tag!r}")
+            self.stdout.write(f"Updating tag for {tag.person!r}")
+            PersonProgramRelationship.objects.get_or_create(
+                program=self.destination,
+                person=tag.person,
+                group=getattr(tag, 'group', None),
+                fellowship_position=getattr(tag, 'fellowship_position', None),
+                sort_order=getattr(tag, 'sort_order', None),
+            )
             tag.delete()
-        person_rs = PersonProgramRelationship.objects.bulk_create(
-            self.person_tags_to_create
-        )
-        self.stdout.write(f"Person program relationships created: {len(person_rs)}.")
 
     @transaction.atomic
     def handle(self, **options):
@@ -110,71 +114,23 @@ class Command(BaseCommand):
             self.post_tags_to_remove = PostProgramRelationship.objects.filter(
                 program__pk=self.page_to_untag.pk,
             )
-            self.post_tags_to_create = [
-                PostProgramRelationship(
-                    program=self.destination,
-                    post=tag.post,
-                )
-                for tag in self.post_tags_to_remove
-            ]
             self.person_tags_to_remove = PersonProgramRelationship.objects.filter(
                 program__pk=self.page_to_untag.pk,
             )
-            self.person_tags_to_create = [
-                PersonProgramRelationship(
-                    program=self.destination,
-                    person=tag.person,
-                    group=tag.group,
-                    fellowship_position=tag.fellowship_position,
-                    sort_order=tag.sort_order,
-                )
-                for tag in self.person_tags_to_remove
-            ]
         elif isinstance(self.page_to_untag, Subprogram):
             self.post_tags_to_remove = PostSubprogramRelationship.objects.filter(
                 subprogram__pk=self.page_to_untag.pk,
             )
-            self.post_tags_to_create = [
-                PostProgramRelationship(
-                    program=self.destination,
-                    post=tag.post,
-                )
-                for tag in self.post_tags_to_remove
-            ]
             self.person_tags_to_remove = PersonSubprogramRelationship.objects.filter(
                 subprogram__pk=self.page_to_untag.pk,
             )
-            self.person_tags_to_create = [
-                PersonProgramRelationship(
-                    program=self.destination,
-                    person=tag.person,
-                    group=tag.group,
-                    fellowship_position=tag.fellowship_position,
-                    sort_order=tag.sort_order,
-                )
-                for tag in self.person_tags_to_remove
-            ]
         elif isinstance(self.page_to_untag, IssueOrTopic):
             self.post_tags_to_remove = PostTopicRelationship.objects.filter(
                 topic__pk=self.page_to_untag.pk,
             )
-            self.post_tags_to_create = [
-                PostProgramRelationship(
-                    program=self.destination,
-                    post=tag.post,
-                )
-                for tag in self.post_tags_to_remove
-            ]
             self.person_tags_to_remove = PersonTopicRelationship.objects.filter(
                 topic__pk=self.page_to_untag.pk,
             )
-            self.person_tags_to_create = [
-                PersonProgramRelationship(
-                    program=self.destination,
-                    person=tag.person,
-                )
-                for tag in self.person_tags_to_remove
-            ]
         else:
             self.stdout.write(
                 f"Page with id {from_pk!r} is of type {self.page_to_untag.page_type_display_name!r}, not program, subprogram, or topic. Exiting."
