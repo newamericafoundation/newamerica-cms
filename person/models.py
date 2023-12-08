@@ -332,19 +332,25 @@ class Person(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField("position_at_new_america", boost=0.33),
+        index.AutocompleteField("position_at_new_america", boost=0.33),
         index.SearchField("long_bio", boost=0.01),
+        index.AutocompleteField("long_bio", boost=0.01),
         index.SearchField("short_bio", boost=0.33),
+        index.AutocompleteField("short_bio", boost=0.33),
         index.SearchField("role", boost=0.01),
+        index.AutocompleteField("role", boost=0.01),
         index.RelatedFields(
             "belongs_to_these_programs",
             [
                 index.SearchField("name"),
+                index.AutocompleteField("name"),
             ],
         ),
         index.RelatedFields(
             "belongs_to_these_subprograms",
             [
                 index.SearchField("name"),
+                index.AutocompleteField("name"),
             ],
         ),
         index.FilterField("former"),

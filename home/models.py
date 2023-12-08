@@ -792,19 +792,24 @@ class Post(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField("body", boost=0.5),
+        index.AutocompleteField("body", boost=0.5),
         index.FilterField("date"),
         index.RelatedFields(
             "parent_programs",
             [
                 index.SearchField("name"),
+                index.AutocompleteField("name"),
             ],
         ),
         index.RelatedFields(
             "post_author",
             [
                 index.SearchField("first_name"),
+                index.AutocompleteField("first_name"),
                 index.SearchField("last_name"),
+                index.AutocompleteField("last_name"),
                 index.SearchField("position_at_new_america"),
+                index.AutocompleteField("position_at_new_america"),
             ],
         ),
     ]
