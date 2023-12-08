@@ -230,7 +230,10 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
         ]
     )
 
-    search_fields = Post.search_fields + [index.SearchField("sections")]
+    search_fields = Post.search_fields + [
+        index.SearchField("sections"),
+        index.AutocompleteField("sections"),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)
