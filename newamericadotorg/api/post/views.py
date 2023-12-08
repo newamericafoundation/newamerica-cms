@@ -38,7 +38,7 @@ class PostFilter(FilterSet):
 class PostList(ListAPIView):
     serializer_class = PostSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
-    filter_class = PostFilter
+    filterset_class = PostFilter
     pagination_class = PostCursorPagination
 
     def get_queryset(self):

@@ -17,7 +17,7 @@ class TopicFilter(FilterSet):
 class TopicList(ListAPIView):
     serializer_class = TopicSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_class = TopicFilter
+    filterset_class = TopicFilter
     queryset = IssueOrTopic.objects.live().filter(depth=5)
 
 class TopicDetail(RetrieveAPIView):

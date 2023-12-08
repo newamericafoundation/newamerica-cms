@@ -28,7 +28,7 @@ class EventFilter(FilterSet):
 class EventList(ListAPIView):
     serializer_class = EventSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
-    filter_class = EventFilter
+    filterset_class = EventFilter
 
     def get_queryset(self):
         time_period = self.request.query_params.get('time_period', None)

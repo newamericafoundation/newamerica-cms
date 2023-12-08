@@ -33,7 +33,7 @@ class ProgramDetail(RetrieveAPIView):
 class ProgramList(ListAPIView):
     serializer_class = ProgramSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
-    filter_class = ProgramFilter
+    filterset_class = ProgramFilter
 
     def get_queryset(self):
         return Program.objects.in_menu().live().public().order_by('title').exclude(location=True)
@@ -50,7 +50,7 @@ class SubprogramList(ListAPIView):
     queryset = Subprogram.objects.live().order_by('title')
     serializer_class = ProgramSubprogramSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
-    filter_class = SubprogramFilter
+    filterset_class = SubprogramFilter
 
 class SubprogramDetail(RetrieveAPIView):
     queryset = Subprogram.objects.live()
