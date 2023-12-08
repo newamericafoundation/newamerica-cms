@@ -73,11 +73,11 @@ django-cors-headers==3.14.0
     # via newamerica-cms (pyproject.toml)
 django-csp==3.7
     # via newamerica-cms (pyproject.toml)
-django-filter==21.1
+django-filter==23.5
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail
-django-modelcluster==6.0
+django-modelcluster==6.1
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail
@@ -128,7 +128,10 @@ openpyxl==3.1.2
 pillow==9.5.0
     # via
     #   cairosvg
+    #   pillow-heif
     #   wagtail
+pillow-heif==0.14.0
+    # via willow
 psycopg2==2.9.6
     # via newamerica-cms (pyproject.toml)
 pycparser==2.21
@@ -190,7 +193,7 @@ vine==1.3.0
     # via
     #   amqp
     #   celery
-wagtail==5.0.5
+wagtail==5.2.2
     # via
     #   newamerica-cms (pyproject.toml)
     #   wagtail-autocomplete
@@ -210,7 +213,7 @@ webencodings==0.5.1
     #   tinycss2
 whitenoise==6.4.0
     # via newamerica-cms (pyproject.toml)
-willow==1.6.2
+willow[heif]==1.6.2
     # via wagtail
 
 # The following packages are considered to be unsafe in a requirements file:
