@@ -45,7 +45,7 @@ class AuthorFilter(FilterSet):
 class AuthorList(ListAPIView):
     serializer_class = AuthorSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_class = AuthorFilter
+    filterset_class = AuthorFilter
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -136,7 +136,7 @@ class AuthorList(ListAPIView):
 class FellowList(ListAPIView):
     serializer_class = AuthorSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_class = AuthorFilter
+    filterset_class = AuthorFilter
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
