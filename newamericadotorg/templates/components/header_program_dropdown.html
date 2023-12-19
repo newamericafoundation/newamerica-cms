@@ -3,30 +3,13 @@
 {% group_programs program_data as program_groups %}
 <div class="programs-dropdown-wrapper container">
 <div class="row">
-
-  <div class="col-3">
-    <h4 class="link column-heading margin-0"><a href="/local/"><u>New America Local &mdash;</u></a></h4>
-    <div class="header__nav__dropdown__list margin-top-25">
-      {% for p in locations %}
-        {% if p.url != '/local/' %}
-          <div class="header__nav__dropdown__list__item">
-            <h6 class="link margin-0">
-              <a href="{{p.url}}">
-                <u>{{p.title}}</u>
-              </a>
-            </h6>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-  <div class="col-9">
+  <div class="col-12">
     <h4 class="link column-heading margin-0">
       <a href="/programs/"><u>Programs &mdash;</u></a>
     </h4>
     <div class="row margin-top-25">
     {% for pg in program_groups %}
-      <div class="header__nav__dropdown__list col-4">
+      <div class="header__nav__dropdown__list col-3">
         {% for p in pg %}
         <div class="header__nav__dropdown__list__item">
           <h6 class="link margin-0">

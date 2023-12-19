@@ -287,7 +287,7 @@ def split_program_list(start_list, max_size=6):
 
 
 @register.simple_tag()
-def group_programs(programs, cols=3):
+def group_programs(programs, cols=4):
     length = len(programs)
     l = length / float(cols)
     max_items = math.ceil(l)
