@@ -30,7 +30,8 @@ dependencies = [
     'WeasyPrint==51',
     'python-docx >= 0.8.11',
     'boto3 >= 1.26, <2',
-    'elasticsearch >= 7.17.7, <8',
+    # See https://stackoverflow.com/a/68918449/1382355
+    'elasticsearch < 7.14.0',
     'redis >= 3.4.1, < 4',
     # See https://github.com/wagtail/wagtail-autocomplete
     'wagtail-autocomplete >= 0.10.0',

@@ -109,7 +109,7 @@ djangorestframework==3.14.0
     # via wagtail
 draftjs-exporter==2.1.7
     # via wagtail
-elasticsearch==7.17.9
+elasticsearch==7.13.4
     # via newamerica-cms (pyproject.toml)
 et-xmlfile==1.1.0
     # via openpyxl
