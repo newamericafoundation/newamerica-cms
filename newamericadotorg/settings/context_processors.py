@@ -2,13 +2,12 @@ import json
 
 from django.conf import settings
 from django.core.cache import cache
-from wagtail.images.views.serve import generate_image_url
 from wagtail.models import Page
 
-from home.models import AbstractHomeContentPage, HomePage, SubscribePage
+from home.models import AbstractHomeContentPage, HomePage
 from newamericadotorg.api.program.serializers import (
-    ProgramSerializer,
     MailingListPlacementSerializer,
+    ProgramSerializer,
 )
 from programs.models import Program
 
@@ -62,7 +61,6 @@ def locations(request):
 
 def about_pages(request):
     aboutpages = cache.get("NA_about_pages", [])
-    aboutimage = cache.get("NA_about_img", "")
 
     if len(aboutpages) == 0:
         about_pages = HomePage.objects.first().about_pages
@@ -71,14 +69,9 @@ def about_pages(request):
                 {"title": a.value.title, "url": a.value.url}
                 for a in about_pages
             ]
-            image = about_pages[0].value.specific.story_image
-            aboutimage = (
-                generate_image_url(image, "fill-200x170") if image else None
-            )
             cache.set("NA_about_pages", aboutpages, 60 * 60)
-            cache.set("NA_about_img", aboutimage, 60 * 60)
 
-    return {"about_pages": aboutpages, "about_image": aboutimage}
+    return {"about_pages": aboutpages}
 
 
 def content_types(request):
