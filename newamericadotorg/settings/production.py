@@ -1,6 +1,6 @@
-from .base import *
-
 import os
+
+from .base import *  # noqa: F403
 
 # Timezone settings
 TIME_ZONE = 'America/New_York'
@@ -150,7 +150,7 @@ REST_FRAMEWORK = {
 PDF_GENERATOR_URL = os.getenv('PDF_GENERATOR_URL')
 
 try:
-    from .local import *
+    from .local import *  # noqa: F403
 except ImportError:
     pass
 
