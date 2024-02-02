@@ -1,6 +1,6 @@
-from .base import *
-
 import os
+
+from .base import *  # noqa: F403
 
 # Timezone settings
 TIME_ZONE = 'America/New_York'
@@ -26,7 +26,7 @@ SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
-SECURE_HSTS_SECONDS = 3600  # 1 hour in seconds
+SECURE_HSTS_SECONDS = 63072000 # 2 years in seconds
 
 AWS_QUERYSTRING_AUTH = False
 AWS_IS_GZIPPED = True
@@ -150,7 +150,7 @@ REST_FRAMEWORK = {
 PDF_GENERATOR_URL = os.getenv('PDF_GENERATOR_URL')
 
 try:
-    from .local import *
+    from .local import *  # noqa: F403
 except ImportError:
     pass
 
