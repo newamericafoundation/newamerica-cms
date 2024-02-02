@@ -4,6 +4,19 @@ import React, { Component } from 'react';
 import { Highlight, DataViz, Resource } from '../../components/Icons';
 import { Link } from 'react-router-dom';
 
+function PossiblyExternalLink({children, ...props}) {
+  // If the given link url is relative to the site domain, return a
+  // `Link` component to tie into react-router.  If it's an external
+  // link, return an plain old `a` tag.
+  let relativizedTarget = props.to.replace(location.origin, '');
+
+  if (relativizedTarget.startsWith('/') || !relativizedTarget) {
+    return (<Link {...props} to={relativizedTarget}>{children}</Link>);
+  } else {
+    return (<a href={props.to} className={props.className} style={props.style}>{children}</a>);
+  }
+}
+
 const iconsMap = {
   'Highlight': Highlight,
   'Data Visualization': DataViz,
@@ -19,7 +32,7 @@ const FeaturedIcon = ({ featuredType, Icon }) => (
 
 const Featured = ({ section }) => (
   <div className="report__featured-button" style={{ marginBottom: '30px' }}>
-    <Link to={section.url.replace(location.origin, '')} style={{ display: 'block' }} className="ga-track-click" data-action="click_landing" data-label="report" data-value="featured_button">
+    <PossiblyExternalLink to={section.url} style={{ display: 'block' }} className="ga-track-click" data-action="click_landing" data-label="report" data-value="featured_button">
       {section.label && <h4 className="margin-top-0 margin-bottom-10">
         {section.label}
       </h4>}
@@ -28,7 +41,7 @@ const Featured = ({ section }) => (
         &nbsp;
       </h4>}
       <FeaturedIcon featuredType={section.type} Icon={iconsMap[section.type]} />
-    </Link>
+    </PossiblyExternalLink>
   </div>
 );
 
