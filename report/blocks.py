@@ -59,7 +59,7 @@ class BoxBody(blocks.StreamBlock):
 
 
 class BoxBlock(blocks.StructBlock):
-    title = blocks.TextBlock()
+    title = blocks.TextBlock(required=False)
     body = BoxBody()
 
     class Meta:
