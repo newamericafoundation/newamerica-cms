@@ -32,11 +32,9 @@ h2 + .report__body__section__article .block-paragraph:first-child .rich-text:fir
 
     h4 {
       margin-top: 25px;
-      font-size: 0.9375rem;
+      font-size: 19px;
+      line-height: 1.3em;
       max-width: 80%;
-      @include media-breakpoint(desktop){
-        max-width: 60%;
-      }
     }
 
     h5 {
@@ -55,5 +53,5 @@ h2 + .report__body__section__article .block-paragraph:first-child .rich-text:fir
 
 .report__body__section-title, .figure.width-full + .block-paragraph h2 {
   margin-bottom: 35px;
-  @include report__h2;
+  // @include report__h2;
 }
