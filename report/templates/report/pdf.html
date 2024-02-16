@@ -145,6 +145,10 @@
                       </div>
                     {% elif box_block.block_type == 'inline_image' %}
                       {% include './figure.html' with value=box_block.value %}
+                    {% elif box_block.block_type == 'iframe' or box_block.block_type == 'datawrapper' %}
+                      {% if box_block.value.fallback_image %}
+                        {% include './figure_iframe.html' with value=box_block.value %}
+                      {% endif %}
                     {% else %}
                       <div class="block-{{ block.block_type }}">
                         {% include_block box_block %}
