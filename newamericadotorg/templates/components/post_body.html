@@ -1,5 +1,6 @@
 {% load wagtailcore_tags %}
 {% load utilities %}
+{% load anchorize_headings %}
 {% if page.authors.all|length > 0 and page|model_name != 'event.Event' and page|model_name != 'press_release.PressRelease' and page|model_name != 'report.Report' %}
   <div class="post__byline margin-bottom-15"><span>By&nbsp;</span>
     {% generate_byline page|model_name page.authors.all %}
@@ -13,17 +14,18 @@
     {{ page.soundcloud }}
   </div>
 {% endif %}
-{% for block in page.body %}
-  {% if block.block_type == "inline_image" %}
-    {% include_block block %}
-  {% else %}
-    <div class="block-{{ block.block_type }}">
-       {% include_block block %}
-    </div>
-  {% endif %}
 
-{% endfor %}
-
+{% filter anchorize_headings %}
+    {% for block in page.body %}
+        {% if block.block_type == "inline_image" %}
+            {% include_block block %}
+        {% else %}
+            <div class="block-{{ block.block_type }}">
+                {% include_block block %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfilter %}
 {% if page.attachment|length > 1 %}
   <div class="section-separator margin-bottom-15 margin-top-60"><div class="section-separator__text"><h6 class="inline margin-0">Downloads</h6></div><div class="section-separator__line"></div></div>
   {% for rel in page.attachment %}
