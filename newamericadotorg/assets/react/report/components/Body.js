@@ -134,9 +134,9 @@ class Body extends Component {
           className={`report__body${section.hide_title ? ' hide-title' : ''}`}
         >
           <div className="post-body-wrapper">
-            <h2 className="margin-top-0 report__body__section-title">
+            <h1 className="margin-top-0 report__body__section-title">
               {section.title}
-            </h2>
+            </h1>
             <div
               className="report__body__article"
               dangerouslySetInnerHTML={{ __html: section.body }}
