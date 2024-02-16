@@ -1,14 +1,18 @@
 .block-box{
   margin-top: 50px;
   margin-bottom: 50px;
-  border-top: 1px solid color(black);
-  border-bottom: 1px solid color(black);
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 40px;
+  background-color: #f5f5f5;
+
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin-top: 0;
+  }
 
   p, li, blockquote, a{
     font-family: $label-font-family !important;
-    font-size: 0.9375rem !important;
+    font-size: 1rem !important;
     line-height: 1.75rem !important;
   }
 
@@ -20,5 +24,20 @@
   blockquote {
     margin-top: 30px;
     margin-bottom: 30px;
+  }
+
+  > .block-paragraph:first-child .rich-text {
+    h1, h2, h3, h4, h5, h6, p {
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .block-datawrapper {
+    margin: -15px -20px -20px;
   }
 }

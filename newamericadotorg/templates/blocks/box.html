@@ -1,8 +1,8 @@
 {% load wagtailcore_tags %}
 {% load cited_html %}
-<div class="block-box">
+<aside class="block-box">
   {% if value.title %}
-  <h5>→&nbsp;{{value.title}}</h5>
+  <h4 class="block-box__title">→&nbsp;{{value.title}}</h4>
   {% endif %}
   {% for block in value.body %}
       {% if block.block_type == 'paragraph' %}
@@ -17,4 +17,4 @@
         </div>
       {% endif %}
   {% endfor %}
-</div>
+</aside>
