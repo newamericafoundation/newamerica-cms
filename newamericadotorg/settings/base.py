@@ -106,7 +106,7 @@ MIDDLEWARE = [
     # Gzip/minify
     'django.middleware.gzip.GZipMiddleware',
     # Content security policy
-    'csp.middleware.CSPMiddleware',
+    # 'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'newamericadotorg.urls'
