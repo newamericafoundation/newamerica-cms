@@ -237,9 +237,9 @@
 
     .block-box{
       margin: 35pt 0;
-      padding: 25pt 0;
-      border-top: 1pt solid #000;
-      border-bottom: 1pt solid #000;
+      padding: 25pt 25pt;
+      background-color: #f5f5f5;
+      box-decoration-break: clone;
     }
 
     .block-box h5{
@@ -254,6 +254,12 @@
     .block-box > *:last-child > *:last-child,
     .block-box > *:last-child > *:last-child > *:last-child{
       margin-bottom: 0;
+    }
+
+    .block-box > *:first-child,
+    .block-box > *:first-child > *:first-child,
+    .block-box > *:first-child > *:first-child > *:first-child{
+      margin-top: 0;
     }
 
     .block-box blockquote{
