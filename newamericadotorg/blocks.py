@@ -579,7 +579,10 @@ class SessionsBlock(blocks.StreamBlock):
 class Body(blocks.StreamBlock):
     introduction = blocks.RichTextBlock(icon="openquote")
     heading = blocks.CharBlock(
-        form_classname="full title", icon="title", template="blocks/heading.html"
+        form_classname="full title",
+        icon="title",
+        template="blocks/heading.html",
+        label="Heading (Heading 2)",
     )
     paragraph = blocks.RichTextBlock()
     inline_image = CustomImageBlock(icon="image")
