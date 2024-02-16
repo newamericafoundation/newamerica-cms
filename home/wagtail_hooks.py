@@ -6,6 +6,7 @@ from wagtail import hooks
 from wagtail.admin.menu import AdminOnlyMenuItem, Menu, SubmenuMenuItem
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
+from wagtail.admin.userbar import AccessibilityItem
 from wagtail.whitelist import attribute_rule
 
 from .views import clear_cache_view
@@ -196,3 +197,8 @@ def register_blockquote_feature(features):
         'from_database_format': {tag: BlockElementHandler(type_)},
         'to_database_format': {'block_map': {type_: tag}},
     })
+
+
+@hooks.register('construct_wagtail_userbar')
+def remove_userbar_accessibility_checks(request, items):
+    items[:] = [item for item in items if not isinstance(item, AccessibilityItem)]
