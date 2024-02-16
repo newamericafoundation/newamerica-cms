@@ -1,21 +1,15 @@
-from django.db import models
-from django import forms
+import datetime
+import json
 
 from wagtail import blocks
+from wagtail.blocks import IntegerBlock, stream_block
+from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.blocks import IntegerBlock
-from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.rich_text import RichText
-from wagtail.blocks import stream_block
 
 import home.models
-from wagtail.documents.models import Document
-from wagtail.models import Page
-
-from operator import itemgetter, attrgetter
-import json, datetime
 
 
 class CustomJSONEncoder(json.JSONEncoder):
@@ -33,17 +27,17 @@ class CustomJSONEncoder(json.JSONEncoder):
 class CustomImageBlock(blocks.StructBlock):
     image = ImageChooserBlock(icon="image", required=True)
     align = blocks.ChoiceBlock(
-        choices=[('center', 'Centered'), ('left', 'Left'), ('right', 'Right')],
-        default='center',
+        choices=[("center", "Centered"), ("left", "Left"), ("right", "Right")],
+        default="center",
         required=True,
     )
     width = blocks.ChoiceBlock(
         [
-            ('initial', 'Auto'),
-            ('width-133', 'Medium'),
-            ('width-166', 'Large'),
-            ('width-200', 'X-Large'),
-            ('width-full', 'Full-width'),
+            ("initial", "Auto"),
+            ("width-133", "Medium"),
+            ("width-166", "Large"),
+            ("width-200", "X-Large"),
+            ("width-full", "Full-width"),
         ],
         default="initial",
         required=True,
@@ -57,36 +51,36 @@ class CustomImageBlock(blocks.StructBlock):
     open_image_on_click = blocks.BooleanBlock(default=False, required=False)
     alt_text = blocks.CharBlock(
         required=False,
-        verbose_name='Alternative text',
-        help_text='A concise description of the image for users of assistive technology.',
+        verbose_name="Alternative text",
+        help_text="A concise description of the image for users of assistive technology.",
     )
 
     class Meta:
-        template = 'blocks/image_block.html'
+        template = "blocks/image_block.html"
 
 
 class ButtonBlock(blocks.StructBlock):
     button_text = blocks.CharBlock(required=True, max_length=50)
     button_link = blocks.URLBlock(required=True, default="https://www.")
     alignment = blocks.ChoiceBlock(
-        choices=[('left-aligned', 'Left'), ('center-aligned', 'Center')]
+        choices=[("left-aligned", "Left"), ("center-aligned", "Center")]
     )
 
     class Meta:
-        template = 'blocks/button.html'
-        icon = 'radio-full'
-        label = 'Button'
+        template = "blocks/button.html"
+        icon = "radio-full"
+        label = "Button"
 
 
 class IframeBlock(blocks.StructBlock):
     source_url = blocks.URLBlock(required=True)
     column_width = blocks.ChoiceBlock(
         [
-            ('column-width', 'Column Width (max 650px)'),
-            ('width-1200', 'Site Width (max 1200px)'),
-            ('full-width', 'Full Width (max 100%)'),
+            ("column-width", "Column Width (max 650px)"),
+            ("width-1200", "Site Width (max 1200px)"),
+            ("full-width", "Full Width (max 100%)"),
         ],
-        default='column-width',
+        default="column-width",
         required=False,
         help_text='The maximum width of the iframe. Always use "Column Width" for non-report content types (e.g. blog posts, About pages). Never use "Full-Width" unless specifically instructed to by your designer.',
     )
@@ -96,7 +90,7 @@ class IframeBlock(blocks.StructBlock):
     )
     width = IntegerBlock(
         required=True,
-        help_text='The iframe will look best if the width is at least as large as the column width. Note that the maximum, in 2018 and earlier, used to be 1050.',
+        help_text="The iframe will look best if the width is at least as large as the column width. Note that the maximum, in 2018 and earlier, used to be 1050.",
     )
     height = IntegerBlock(required=True)
     fallback_image = ImageChooserBlock(
@@ -105,16 +99,16 @@ class IframeBlock(blocks.StructBlock):
         help_text="The fallback image will be rendered for the PDF",
     )
     fallback_image_align = blocks.ChoiceBlock(
-        choices=[('center', 'Centered'), ('left', 'Left'), ('right', 'Right')],
-        default='center',
+        choices=[("center", "Centered"), ("left", "Left"), ("right", "Right")],
+        default="center",
         required=True,
     )
     fallback_image_width = blocks.ChoiceBlock(
         [
-            ('initial', 'Auto'),
-            ('width-133', 'Medium'),
-            ('width-166', 'Large'),
-            ('width-200', 'X-Large'),
+            ("initial", "Auto"),
+            ("width-133", "Medium"),
+            ("width-166", "Large"),
+            ("width-200", "X-Large"),
         ],
         default="initial",
         required=True,
@@ -125,15 +119,15 @@ class IframeBlock(blocks.StructBlock):
     )
     fallback_image_alt_text = blocks.CharBlock(
         required=False,
-        verbose_name='Fallback image alternative text',
-        help_text='A concise description of the image for users of assistive technology.',
+        verbose_name="Fallback image alternative text",
+        help_text="A concise description of the image for users of assistive technology.",
     )
 
     class Meta:
-        template = 'blocks/iframe.html'
-        icon = 'form'
-        label = 'Iframe'
-        group = 'Embeds'
+        template = "blocks/iframe.html"
+        icon = "form"
+        label = "Iframe"
+        group = "Embeds"
 
 
 class DatawrapperBlock(blocks.StructBlock):
@@ -145,11 +139,11 @@ class DatawrapperBlock(blocks.StructBlock):
     )
     width = blocks.ChoiceBlock(
         [
-            ('column-width', 'Column Width (max 650px)'),
-            ('width-1200', 'Site Width (max 1200px)'),
-            ('full-width', 'Full Width (max 100%)'),
+            ("column-width", "Column Width (max 650px)"),
+            ("width-1200", "Site Width (max 1200px)"),
+            ("full-width", "Full Width (max 100%)"),
         ],
-        default='column-width',
+        default="column-width",
         required=False,
         help_text='The maximum width of the chart. Always use "Column Width" for non-report content types (e.g. blog posts, About pages). Never use "Full-Width" unless specifically instructed to by your designer.',
     )
@@ -159,54 +153,54 @@ class DatawrapperBlock(blocks.StructBlock):
         help_text="The fallback image will be rendered for the PDF",
     )
     fallback_image_align = blocks.ChoiceBlock(
-        choices=[('center', 'Centered'), ('left', 'Left'), ('right', 'Right')],
-        default='center',
+        choices=[("center", "Centered"), ("left", "Left"), ("right", "Right")],
+        default="center",
         required=True,
     )
     fallback_image_width = blocks.ChoiceBlock(
         [
-            ('initial', 'Auto'),
-            ('width-133', 'Medium'),
-            ('width-166', 'Large'),
-            ('width-200', 'X-Large'),
+            ("initial", "Auto"),
+            ("width-133", "Medium"),
+            ("width-166", "Large"),
+            ("width-200", "X-Large"),
         ],
         default="initial",
         required=True,
     )
     fallback_image_alt_text = blocks.CharBlock(
         required=False,
-        verbose_name='Fallback image alternative text',
-        help_text='A concise description of the image for users of assistive technology.',
+        verbose_name="Fallback image alternative text",
+        help_text="A concise description of the image for users of assistive technology.",
     )
 
     class Meta:
-        template = 'blocks/datawrapper.html'
-        icon = 'site'
-        label = 'Datawrapper'
-        group = 'Embeds'
+        template = "blocks/datawrapper.html"
+        icon = "site"
+        label = "Datawrapper"
+        group = "Embeds"
 
 
 class DatavizBlock(blocks.StructBlock):
     container_id = blocks.CharBlock(required=True)
     width = blocks.ChoiceBlock(
         [
-            ('column-width', 'Column Width (max 650px)'),
-            ('width-1200', 'Site Width (max 1200px)'),
-            ('full-width', 'Full Width (max 100%)'),
+            ("column-width", "Column Width (max 650px)"),
+            ("width-1200", "Site Width (max 1200px)"),
+            ("full-width", "Full Width (max 100%)"),
         ],
-        default='column-width',
+        default="column-width",
         required=False,
     )
     title = blocks.CharBlock(required=False)
     subheading = blocks.RichTextBlock(required=False)
-    max_width = IntegerBlock(help_text='for legacy dataviz projects', required=False)
+    max_width = IntegerBlock(help_text="for legacy dataviz projects", required=False)
     show_chart_buttons = blocks.BooleanBlock(default=False, required=False)
 
     class Meta:
-        template = 'blocks/dataviz.html'
-        icon = 'site'
-        label = 'Custom Dataviz'
-        group = 'Embeds'
+        template = "blocks/dataviz.html"
+        icon = "site"
+        label = "Custom Dataviz"
+        group = "Embeds"
 
 
 def ResourceKitSerializer(r):
@@ -215,43 +209,43 @@ def ResourceKitSerializer(r):
         for child in r:
             d = {}
             for key, val in child.value.items():
-                if key == 'image' and val is not None:
+                if key == "image" and val is not None:
                     if isinstance(val, home.models.CustomImage):
                         img = val
                     else:
                         img = home.models.CustomImage.objects.get(pk=val)
                     try:
-                        img = img.get_rendition('fill-200x200')
-                    except:
+                        img = img.get_rendition("fill-200x200")
+                    except Exception:
                         img = img
-                    d['image'] = img.file.url
-                elif key == 'resource':
-                    if child.block_type == 'post':
+                    d["image"] = img.file.url
+                elif key == "resource":
+                    if child.block_type == "post":
                         pg = val.specific
-                        d['url'] = pg.url
-                        if not getattr(d, 'image', False):
-                            img = getattr(pg, 'story_image', None)
-                            if img == None:
-                                img = getattr(pg, 'profile_image', None)
+                        d["url"] = pg.url
+                        if not getattr(d, "image", False):
+                            img = getattr(pg, "story_image", None)
+                            if img is None:
+                                img = getattr(pg, "profile_image", None)
                             if img:
                                 try:
-                                    d['image'] = img.get_rendition(
-                                        'fill-200x200'
+                                    d["image"] = img.get_rendition(
+                                        "fill-200x200"
                                     ).file.url
-                                except:
-                                    d['image'] = img.file.url
-                    elif child.block_type == 'attachment':
-                        d['url'] = val.file.url
+                                except Exception:
+                                    d["image"] = img.file.url
+                    elif child.block_type == "attachment":
+                        d["url"] = val.file.url
                     else:
-                        d['url'] = val
-                elif key == 'description':
+                        d["url"] = val
+                elif key == "description":
                     d[key] = str(val)
                 else:
                     d[key] = val
             resources.append(d)
         return json.dumps(resources, ensure_ascii=False)
     except Exception:
-        return '[]'
+        return "[]"
 
 
 class ResourceKit(blocks.StructBlock):
@@ -260,45 +254,45 @@ class ResourceKit(blocks.StructBlock):
     resources = blocks.StreamBlock(
         [
             (
-                'post',
+                "post",
                 blocks.StructBlock(
                     [
-                        ('name', blocks.CharBlock(required=True)),
-                        ('image', ImageChooserBlock(icon='image', required=False)),
-                        ('image_alt_text', blocks.CharBlock(required=False)),
-                        ('description', blocks.RichTextBlock(required=False)),
-                        ('resource', blocks.PageChooserBlock(required=True)),
+                        ("name", blocks.CharBlock(required=True)),
+                        ("image", ImageChooserBlock(icon="image", required=False)),
+                        ("image_alt_text", blocks.CharBlock(required=False)),
+                        ("description", blocks.RichTextBlock(required=False)),
+                        ("resource", blocks.PageChooserBlock(required=True)),
                     ],
-                    icon='redirect',
-                    label='Post',
+                    icon="redirect",
+                    label="Post",
                 ),
             ),
             (
-                'external_resource',
+                "external_resource",
                 blocks.StructBlock(
                     [
-                        ('name', blocks.CharBlock(required=True)),
-                        ('image', ImageChooserBlock(icon='image', required=False)),
-                        ('image_alt_text', blocks.CharBlock(required=False)),
-                        ('description', blocks.RichTextBlock(required=False)),
-                        ('resource', blocks.URLBlock(required=True)),
+                        ("name", blocks.CharBlock(required=True)),
+                        ("image", ImageChooserBlock(icon="image", required=False)),
+                        ("image_alt_text", blocks.CharBlock(required=False)),
+                        ("description", blocks.RichTextBlock(required=False)),
+                        ("resource", blocks.URLBlock(required=True)),
                     ],
-                    icon='site',
-                    label='External resource',
+                    icon="site",
+                    label="External resource",
                 ),
             ),
             (
-                'attachment',
+                "attachment",
                 blocks.StructBlock(
                     [
-                        ('name', blocks.CharBlock(required=True)),
-                        ('image', ImageChooserBlock(icon='image', required=False)),
-                        ('image_alt_text', blocks.CharBlock(required=False)),
-                        ('description', blocks.RichTextBlock(required=False)),
-                        ('resource', DocumentChooserBlock(required=True)),
+                        ("name", blocks.CharBlock(required=True)),
+                        ("image", ImageChooserBlock(icon="image", required=False)),
+                        ("image_alt_text", blocks.CharBlock(required=False)),
+                        ("description", blocks.RichTextBlock(required=False)),
+                        ("resource", DocumentChooserBlock(required=True)),
                     ],
-                    icon='doc-full',
-                    label='Attachment',
+                    icon="doc-full",
+                    label="Attachment",
                 ),
             ),
         ]
@@ -308,32 +302,32 @@ class ResourceKit(blocks.StructBlock):
         context = super(ResourceKit, self).get_context(
             value, parent_context=parent_context
         )
-        context['resources'] = ResourceKitSerializer(value['resources'])
+        context["resources"] = ResourceKitSerializer(value["resources"])
         return context
 
     class Meta:
-        template = 'blocks/resource_kit.html'
+        template = "blocks/resource_kit.html"
 
 
 def getJSCompatibleList(input_list, is_era, sort):
     if sort:
-        sortedList = sorted(input_list, key=lambda member: member['start_date'])
+        sortedList = sorted(input_list, key=lambda member: member["start_date"])
     else:
         sortedList = input_list
 
     retList = []
     for i, item in enumerate(sortedList):
         curr_item = {}
-        curr_item['id'] = i
-        curr_item['title'] = item['title']
+        curr_item["id"] = i
+        curr_item["title"] = item["title"]
         if not (is_era):
-            curr_item['italicize_title'] = item['italicize_title']
-        curr_item['start_date'] = item['start_date'].isoformat()
-        curr_item['date_display_type'] = item['date_display_type']
-        if item['end_date'] and item['end_date'] > item['start_date']:
-            curr_item['end_date'] = item['end_date'].isoformat()
-        if not (is_era) and item['category']:
-            curr_item['category'] = item['category']
+            curr_item["italicize_title"] = item["italicize_title"]
+        curr_item["start_date"] = item["start_date"].isoformat()
+        curr_item["date_display_type"] = item["date_display_type"]
+        if item["end_date"] and item["end_date"] > item["start_date"]:
+            curr_item["end_date"] = item["end_date"].isoformat()
+        if not (is_era) and item["category"]:
+            curr_item["category"] = item["category"]
 
         retList.append(curr_item)
 
@@ -346,17 +340,17 @@ def PersonBlockSerializer(block_value):
         for child in block_value:
             d = {}
             for key, val in child.value.items():
-                if key == 'image' and val is not None:
+                if key == "image" and val is not None:
                     if isinstance(val, home.models.CustomImage):
                         img = val
                     else:
                         img = home.models.CustomImage.objects.get(pk=val)
                     try:
-                        img = img.get_rendition('fill-200x200')
-                    except:
+                        img = img.get_rendition("fill-200x200")
+                    except Exception:
                         img = img
-                    d['image'] = img.file.url
-                elif key == 'description':
+                    d["image"] = img.file.url
+                elif key == "description":
                     d[key] = str(val)
                 else:
                     d[key] = val
@@ -364,8 +358,8 @@ def PersonBlockSerializer(block_value):
 
         return json.dumps(people, ensure_ascii=False)
     except Exception:
-        print('block render failed')
-        return '[]'
+        print("block render failed")
+        return "[]"
 
 
 class TimelineEventBlock(blocks.StructBlock):
@@ -376,8 +370,8 @@ class TimelineEventBlock(blocks.StructBlock):
     start_date = blocks.DateBlock(required=True)
     end_date = blocks.DateBlock(required=False)
     date_display_type = blocks.ChoiceBlock(
-        [('year', 'Year'), ('month', 'Month'), ('day', 'Day')],
-        default='year',
+        [("year", "Year"), ("month", "Month"), ("day", "Day")],
+        default="year",
         help_text="Controls how specific the date is displayed",
     )
 
@@ -387,8 +381,8 @@ class TimelineEraBlock(blocks.StructBlock):
     start_date = blocks.DateBlock(required=True)
     end_date = blocks.DateBlock(required=False)
     date_display_type = blocks.ChoiceBlock(
-        [('year', 'Year'), ('month', 'Month'), ('day', 'Day')],
-        default='year',
+        [("year", "Year"), ("month", "Month"), ("day", "Day")],
+        default="year",
         help_text="Controls how specific the date is displayed",
     )
 
@@ -397,17 +391,17 @@ class TimelineBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True)
     subheading = blocks.CharBlock(required=False)
     default_view = blocks.ChoiceBlock(
-        [('timeline', 'Timeline'), ('list', 'List')],
-        default='timeline',
+        [("timeline", "Timeline"), ("list", "List")],
+        default="timeline",
         required=False,
         help_text="Should the default view be a timeline or a list?",
     )
 
     major_timeline_splits = blocks.ListBlock(
-        TimelineEraBlock(), default='', required=False
+        TimelineEraBlock(), default="", required=False
     )
-    event_eras = blocks.ListBlock(TimelineEraBlock(), default='', required=False)
-    event_categories = blocks.ListBlock(blocks.CharBlock(), default='', required=False)
+    event_eras = blocks.ListBlock(TimelineEraBlock(), default="", required=False)
+    event_categories = blocks.ListBlock(blocks.CharBlock(), default="", required=False)
     event_list = blocks.ListBlock(TimelineEventBlock())
 
     def get_context(self, value, parent_context=None):
@@ -415,7 +409,7 @@ class TimelineBlock(blocks.StructBlock):
             value, parent_context=parent_context
         )
         context["sorted_event_list"] = sorted(
-            value["event_list"], key=lambda member: member['start_date']
+            value["event_list"], key=lambda member: member["start_date"]
         )
         context["settings_json"] = json.dumps(
             {
@@ -431,9 +425,9 @@ class TimelineBlock(blocks.StructBlock):
         return context
 
     class Meta:
-        template = 'blocks/timeline.html'
-        icon = 'site'
-        label = 'Timeline'
+        template = "blocks/timeline.html"
+        icon = "site"
+        label = "Timeline"
 
 
 class TwoColumnBlock(blocks.StructBlock):
@@ -441,11 +435,11 @@ class TwoColumnBlock(blocks.StructBlock):
     right_column = blocks.RichTextBlock()
 
     class Meta:
-        template = 'blocks/two-column.html'
+        template = "blocks/two-column.html"
 
 
 class IntegerChoiceBlock(blocks.ChoiceBlock):
-    choices = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'))
+    choices = (("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"), ("6", "6"))
 
 
 class PersonBlock(blocks.StructBlock):
@@ -454,11 +448,11 @@ class PersonBlock(blocks.StructBlock):
         required=False, max_length=125, help_text="125 character limit"
     )
     description = blocks.RichTextBlock(required=False)
-    image = ImageChooserBlock(icon='image', required=False)
+    image = ImageChooserBlock(icon="image", required=False)
     image_alt_text = blocks.CharBlock(
         required=False,
-        verbose_name='Image alternative text',
-        help_text='A concise description of the image for users of assistive technology.',
+        verbose_name="Image alternative text",
+        help_text="A concise description of the image for users of assistive technology.",
     )
     twitter = blocks.URLBlock(required=False)
 
@@ -472,11 +466,11 @@ class PeopleBlock(blocks.StreamBlock):
         context = super(PeopleBlock, self).get_context(
             value, parent_context=parent_context
         )
-        context['people'] = PersonBlockSerializer(value)
+        context["people"] = PersonBlockSerializer(value)
         return context
 
     class Meta:
-        template = 'blocks/people.html'
+        template = "blocks/people.html"
 
 
 class GoogleMapBlock(blocks.StructBlock):
@@ -486,12 +480,12 @@ class GoogleMapBlock(blocks.StructBlock):
         help_text="If selected, map will use the address already defined for this page, if applicable. For most posts besides events, this should be left unchecked and the form below should be completed.",
     )
     street = blocks.TextBlock(required=False)
-    city = blocks.TextBlock(required=False, default='Washington')
-    state = blocks.TextBlock(required=False, default='D.C.')
-    zipcode = blocks.TextBlock(required=False, default='200')
+    city = blocks.TextBlock(required=False, default="Washington")
+    state = blocks.TextBlock(required=False, default="D.C.")
+    zipcode = blocks.TextBlock(required=False, default="200")
 
     class Meta:
-        template = 'blocks/google_map.html'
+        template = "blocks/google_map.html"
 
 
 class SessionSpeakerBlock(blocks.StructBlock):
@@ -502,12 +496,12 @@ class SessionSpeakerBlock(blocks.StructBlock):
 
 class SessionTypesBlock(blocks.ChoiceBlock):
     choices = (
-        ('panel', 'Panel'),
-        ('lecture', 'Lecture'),
-        ('break', 'Break'),
-        ('meal', 'Meal'),
-        ('reception', 'Reception'),
-        ('registration', 'Registration'),
+        ("panel", "Panel"),
+        ("lecture", "Lecture"),
+        ("break", "Break"),
+        ("meal", "Meal"),
+        ("reception", "Reception"),
+        ("registration", "Registration"),
     )
 
 
@@ -518,13 +512,13 @@ def SessionsSerializer(s):
         value = block.value
 
         for key, val in value.items():
-            if key == 'speakers':
-                d['speakers'] = []
+            if key == "speakers":
+                d["speakers"] = []
                 for speakerBlock in val:
                     speaker = {}
                     for k, v in speakerBlock.value.items():
                         speaker[k] = v
-                    d['speakers'].append(speaker)
+                    d["speakers"].append(speaker)
             else:
                 d[key] = str(val)
         sessions.append(d)
@@ -538,7 +532,7 @@ class SessionBlock(blocks.StructBlock):
     description = blocks.RichTextBlock(required=False)
     start_time = blocks.TimeBlock(required=False)
     end_time = blocks.TimeBlock(required=False)
-    speakers = blocks.StreamBlock([('speaker', SessionSpeakerBlock())], required=False)
+    speakers = blocks.StreamBlock([("speaker", SessionSpeakerBlock())], required=False)
     archived_video_link = blocks.URLBlock(
         help_text="Enter youtube link after conference", required=False
     )
@@ -557,11 +551,11 @@ class SessionDayBlock(blocks.StructBlock):
     )
     start_time = blocks.TimeBlock(required=False)
     end_time = blocks.TimeBlock(required=False)
-    sessions = blocks.StreamBlock([('session', SessionBlock())])
+    sessions = blocks.StreamBlock([("session", SessionBlock())])
 
 
 class SessionsBlock(blocks.StreamBlock):
-    days = SessionDayBlock(help_text='for multi-day events')
+    days = SessionDayBlock(help_text="for multi-day events")
 
     def get_context(self, value, parent_context=None):
         context = super(SessionsBlock, self).get_context(
@@ -570,26 +564,26 @@ class SessionsBlock(blocks.StreamBlock):
         days = []
         try:
             for day in value:
-                days.append(SessionsSerializer(day.value['sessions']))
-        except:
+                days.append(SessionsSerializer(day.value["sessions"]))
+        except Exception:
             pass
 
-        context['days'] = json.dumps(days, ensure_ascii=False)
+        context["days"] = json.dumps(days, ensure_ascii=False)
 
         return context
 
     class Meta:
-        template = 'blocks/schedule.html'
+        template = "blocks/schedule.html"
 
 
 class Body(blocks.StreamBlock):
     introduction = blocks.RichTextBlock(icon="openquote")
     heading = blocks.CharBlock(
-        form_classname='full title', icon="title", template="blocks/heading.html"
+        form_classname="full title", icon="title", template="blocks/heading.html"
     )
     paragraph = blocks.RichTextBlock()
-    inline_image = CustomImageBlock(icon='image')
-    video = EmbedBlock(icon='media')
+    inline_image = CustomImageBlock(icon="image")
+    video = EmbedBlock(icon="media")
     table = TableBlock(template="blocks/table.html")
     button = ButtonBlock()
     iframe = IframeBlock(icon="link")
@@ -609,7 +603,7 @@ class PanelsBlock(blocks.StreamBlock):
     panel = PanelBlock(icon="doc-empty-inverse")
 
     class Meta:
-        template = 'blocks/panels.html'
+        template = "blocks/panels.html"
 
 
 class BodyBlock(Body):
@@ -619,7 +613,7 @@ class BodyBlock(Body):
     )
     panels = PanelsBlock(icon="list-ul")
     image = ImageChooserBlock(
-        template='blocks/image_block.html',
-        help_text='Legacy option. Consider using Inline Image instead.',
+        template="blocks/image_block.html",
+        help_text="Legacy option. Consider using Inline Image instead.",
         icon="placeholder",
     )
