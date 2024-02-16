@@ -137,7 +137,7 @@
               {% include './figure.html' with value=block.value %}
             {% elif block.block_type == 'box' %}
               <div class="block-box">
-                <h5>→&nbsp;{{block.value.title}}</h5>
+                {% if block.value.title %}<h5>→&nbsp;{{block.value.title}}</h5>{% endif %}
                 {% for box_block in block.value.body %}
                     {% if box_block.block_type == 'paragraph' %}
                       <div class="block-{{ box_block.block_type }}">
