@@ -1,19 +1,19 @@
 {% load wagtailcore_tags %}
 {% load cited_html anchorize_headings %}
-{% for block in value.body %}
-    {% if block.block_type == 'paragraph' %}
-        <div class="block-{{ block.block_type }}">
-            {% filter anchorize_headings %}
+{% filter anchorize_headings %}
+    {% for block in value.body %}
+        {% if block.block_type == 'paragraph' %}
+            <div class="block-{{ block.block_type }}">
+
                 {{ block.value|cited_html|safe }}
-            {% endfilter %}
-        </div>
-    {% elif block.block_type == 'inline_image' or block.block_type == 'box' %}
-        {% filter anchorize_headings %}
+
+            </div>
+        {% elif block.block_type == 'inline_image' or block.block_type == 'box' %}
             {% include_block block %}
-        {% endfilter %}
-    {% else %}
-      <div class="block-{{ block.block_type }}">
-        {% include_block block %}
-      </div>
-    {% endif %}
-{% endfor %}
+        {% else %}
+            <div class="block-{{ block.block_type }}">
+                {% include_block block %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfilter %}
