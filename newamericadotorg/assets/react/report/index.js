@@ -240,24 +240,20 @@ class Report extends Component {
           menuOpen={this.state.menuOpen}
         />
 
-        <main>
+        {singlePage && <SinglePage {...this.props} />}
 
-          {singlePage && <SinglePage {...this.props} />}
+        {landing && <Landing closeMenu={this.closeMenu} {...this.props} />}
 
-          {landing && <Landing closeMenu={this.closeMenu} {...this.props} />}
-
-          {section && (
-            <div className={`report section`}>
-              <Body
-                section={section}
-                report={report}
-                dispatch={this.props.dispatch}
-                location={location}
-              />
-            </div>
-          )}
-
-        </main>
+        {section && (
+          <div className={`report section`}>
+            <Body
+              section={section}
+              report={report}
+              dispatch={this.props.dispatch}
+              location={location}
+            />
+          </div>
+        )}
 
         <div
           className={`bottom-nav-wrapper scroll-target ${
