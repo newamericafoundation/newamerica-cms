@@ -1,9 +1,10 @@
-{% load utilities %}
+{% load utilities wagtailimages_tags %}
 
 <figure class="figure {{value.fallback_image_align}} {{value.fallback_image_width|temp_image_width_map}}">
 
   <div class="figure__image">
-      <img src="{{ value.fallback_image.file.url }}" alt="{{ value.fallback_image_alt_text }}"/>
+      {% image value.fallback_image max-984x1500 as image %}
+      <img src="{{ image.url }}" alt="{{ value.fallback_image_alt_text }}"/>
   </div>
 
   {% if value.fallback_image.caption or value.fallback_image.source %}

@@ -1,4 +1,4 @@
-{% load utilities %}
+{% load utilities wagtailimages_tags %}
 
 <figure class="figure {{value.align}} {{value.width|temp_image_width_map}}">
   {% if value.figure_number or value.figure_title %}
@@ -12,7 +12,8 @@
     </div>
   {% endif %}
   <div class="figure__image">
-      <img src="{{ value.image.file.url }}" alt="{{ value.alt_text }}"/>
+      {% image value.image max-984x1500 as image %}
+      <img src="{{ image.url }}" alt="{{ value.alt_text }}"/>
   </div>
   {% if value.image.caption or value.image.source %}
     <figcaption>
