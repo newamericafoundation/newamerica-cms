@@ -5,12 +5,15 @@ import { Highlight, DataViz, Resource } from '../../components/Icons';
 import { Link } from 'react-router-dom';
 
 function PossiblyExternalLink({children, ...props}) {
-  // If the given link url is relative to the site domain, return a
+  // If the given link url is relative to the report path, return a
   // `Link` component to tie into react-router.  If it's an external
-  // link, return an plain old `a` tag.
-  let relativizedTarget = props.to.replace(location.origin, '');
+  // link, or a link to a part of the site outside of the report,
+  // return an plain old `a` tag.
 
-  if (relativizedTarget.startsWith('/') || !relativizedTarget) {
+  let linkTarget = new URL(props.to);
+
+  if (linkTarget.pathname.startsWith(location.pathname)) {
+    let relativizedTarget = props.to.replace(location.origin, '');
     return (<Link {...props} to={relativizedTarget}>{children}</Link>);
   } else {
     return (<a href={props.to} className={props.className} style={props.style}>{children}</a>);
