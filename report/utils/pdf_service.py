@@ -1,10 +1,8 @@
 import logging
-import json
 
 import boto3
-from botocore.exceptions import ClientError
 import requests
-
+from botocore.exceptions import ClientError
 from django.conf import settings
 
 
