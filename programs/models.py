@@ -117,7 +117,7 @@ class AbstractProgram(RoutablePageMixin, Page):
         InlinePanel(
             "featured_pages",
             label="Featured Pages",
-            help_text="First page becomes lead story",
+            help_text="CHANGED MARCH 2023: Pages are shown in reverse order. The last page in this list is shown as the lead story.",
         )
     ]
 
