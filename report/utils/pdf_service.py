@@ -1,11 +1,13 @@
 import logging
-import json
 
 import boto3
-from botocore.exceptions import ClientError
 import requests
-
+from botocore.exceptions import ClientError
 from django.conf import settings
+
+from .logging import StructuredMessage as sm
+
+logger = logging.getLogger(__name__)
 
 
 def create_presigned_s3_upload_url(bucket_name, object_name, expiration=3600):
@@ -24,11 +26,13 @@ def render_pdf(html, filename):
     Sends a request to the PDF generator to render the specified HTML and save the
     result to the given filename on S3.
     """
+    logger.info(sm("posting data", length=len(html), filename=filename))
     response = requests.post(settings.PDF_GENERATOR_URL, json={
         'filename': filename,
         'base_url': 'https://www.newamerica.org/',
         'html': html,
         's3_upload': create_presigned_s3_upload_url(settings.AWS_STORAGE_BUCKET_NAME, filename),
     })
+    logger.info(sm("PDF service responded", status_code=response.status_code, json=response.json()))
 
     return response.status_code == 200 and response.json()['s3_upload_response_status_code'] == 204
