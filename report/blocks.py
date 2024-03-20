@@ -72,7 +72,7 @@ class ReportBody(Body):
 
 
 class ReportSectionBlock(blocks.StructBlock):
-    title = blocks.TextBlock()
+    title = blocks.TextBlock(label="Title (Heading 1)")
     hide_title = blocks.BooleanBlock(required=False)
     body = ReportBody()
 
