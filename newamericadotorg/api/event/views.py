@@ -1,14 +1,15 @@
-from django.utils.timezone import localtime, now
 from django.db.models import Q
+from django.utils.timezone import localtime, now
 from django_filters import CharFilter, DateFilter
-from django_filters.rest_framework import FilterSet, DjangoFilterBackend
-from rest_framework.generics import ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListAPIView
 
-from home.models import Post
 from event.models import Event
+from home.models import Post
 
 from .serializers import EventSerializer
+
 
 class EventFilter(FilterSet):
     id = CharFilter(field_name='id', lookup_expr='iexact')
@@ -27,7 +28,7 @@ class EventFilter(FilterSet):
 class EventList(ListAPIView):
     serializer_class = EventSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
-    filter_class = EventFilter
+    filterset_class = EventFilter
 
     def get_queryset(self):
         time_period = self.request.query_params.get('time_period', None)

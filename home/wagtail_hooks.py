@@ -38,13 +38,13 @@ def register_commands_menu_item():
     sync_menu_item = AdminOnlyMenuItem(
         "Sync Campaign Monitor",
         reverse("campaign_monitor:sync"),
-        classnames="icon icon-mail",
+        classname="icon icon-mail",
         order=10,
     )
     clear_cache_menu_item = AdminOnlyMenuItem(
         "Clear Cache",
         reverse("cache:clear"),
-        classnames="icon icon-placeholder",
+        classname="icon icon-placeholder",
         order=20,
     )
     submenu = Menu(
@@ -57,8 +57,8 @@ def register_commands_menu_item():
 
 
 @hooks.register('construct_page_listing_buttons')
-def remove_copy_button_for_non_superusers(buttons, page, page_perms, context=None):
-    if not page_perms.user.is_superuser:
+def remove_copy_button_for_non_superusers(buttons, page, user, context=None):
+    if not user.is_superuser:
         for top_button in buttons:
             if hasattr(top_button, 'dropdown_buttons'):
                 top_button.dropdown_buttons = [
@@ -101,7 +101,7 @@ def editor_js():
     )
 
 
-@hooks.register('insert_editor_css')
+@hooks.register('insert_global_admin_css')
 def editor_css():
     return format_html('<style>{}</style>', '''
         .Draftail-block--blockquote {

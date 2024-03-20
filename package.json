@@ -1,6 +1,9 @@
 {
   "name": "newamerica-cms",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.x"
+  },
   "description": "Custom Content Management System (CMS) built for New America",
   "main": "index.js",
   "scripts": {
