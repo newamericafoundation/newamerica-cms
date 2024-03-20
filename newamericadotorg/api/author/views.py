@@ -1,9 +1,10 @@
-from django.db.models import Q, Subquery, OuterRef
 from distutils.util import strtobool
+
+from django.db.models import OuterRef, Q
 from django_filters import CharFilter, TypedChoiceFilter
-from django_filters.rest_framework import FilterSet, DjangoFilterBackend
-from rest_framework.generics import ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListAPIView
 
 from issue.models import IssueOrTopic
 from person.models import (
@@ -44,7 +45,7 @@ class AuthorFilter(FilterSet):
 class AuthorList(ListAPIView):
     serializer_class = AuthorSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_class = AuthorFilter
+    filterset_class = AuthorFilter
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -135,7 +136,7 @@ class AuthorList(ListAPIView):
 class FellowList(ListAPIView):
     serializer_class = AuthorSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_class = AuthorFilter
+    filterset_class = AuthorFilter
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
