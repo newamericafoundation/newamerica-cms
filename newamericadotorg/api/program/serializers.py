@@ -1,4 +1,5 @@
 from django.template import loader
+from django.utils.functional import cached_property
 from rest_framework.serializers import (
     BooleanField,
     IntegerField,
@@ -279,18 +280,37 @@ class ProgramDetailSerializer(ModelSerializer):
             'subscription_card_text',
         )
 
+    @cached_property
+    def _featured_pages_ordering(self):
+        """Returns the appropriate column specification to sort by,
+        given either `asc` or `desc` in the query parameters for this
+        request."""
+        featured_pages_ordering_direction = self.context["request"].GET.get(
+            "featured_pages_ordering",
+            "desc",
+        ).lower()
+        return "sort_order" if featured_pages_ordering_direction == "asc" \
+            else "-sort_order"
+
+    def _get_related_featured_pages(self, base_obj):
+        """Retrive the set of related featured pages in the correct order.
+
+        We might be applying this query to either a `Program` or to a
+        `Revision`.
+
+        """
+        return base_obj.featured_pages.all().order_by(self._featured_pages_ordering)
+
     def get_story_grid(self, obj):
         featured_pages = None
         pages = None
+
         if self.context.get('is_preview'):
             revision = obj.get_latest_revision_as_object()
-            pages = revision.featured_pages.all().order_by('sort_order')
-            featured_pages = [
-                rel
-                for rel in revision.featured_pages.all().order_by('sort_order')
-            ]
+            pages = self._get_related_featured_pages(revision)
+            featured_pages = [rel for rel in pages]
         else:
-            pages = obj.featured_pages.all().order_by('sort_order')
+            pages = self._get_related_featured_pages(obj)
             featured_pages = [rel for rel in pages[:7]]
 
         if len(featured_pages) == 0:
@@ -397,6 +417,24 @@ class SubprogramSerializer(ModelSerializer):
             'subscription_card_text',
         )
 
+    @cached_property
+    def _featured_pages_ordering(self):
+        featured_pages_ordering_direction = self.context["request"].GET.get(
+            "featured_pages_ordering",
+            "desc",
+        ).lower()
+        return "sort_order" if featured_pages_ordering_direction == "asc" \
+            else "-sort_order"
+
+    def _get_related_featured_pages(self, base_obj):
+        """Retrive the set of related featured pages in the correct order.
+
+        We might be applying this query to either a `Subprogram` or to
+        a `Revision`.
+
+        """
+        return base_obj.featured_pages.all().order_by(self._featured_pages_ordering)
+
     def get_parent_programs(self, obj):
         parents = SubprogramProgramSerializer(
             obj.parent_programs, many=True
@@ -408,15 +446,13 @@ class SubprogramSerializer(ModelSerializer):
     def get_story_grid(self, obj):
         featured_pages = None
         pages = None
+
         if self.context.get('is_preview'):
             revision = obj.get_latest_revision_as_object()
-            pages = revision.featured_pages.all().order_by('sort_order')
-            featured_pages = [
-                rel
-                for rel in revision.featured_pages.all().order_by('sort_order')
-            ]
+            pages = self._get_related_featured_pages(revision)
+            featured_pages = [rel for rel in pages]
         else:
-            pages = obj.featured_pages.all().order_by('sort_order')
+            pages = self._get_related_featured_pages(obj)
             featured_pages = [rel for rel in pages]
 
         if len(featured_pages) == 0:

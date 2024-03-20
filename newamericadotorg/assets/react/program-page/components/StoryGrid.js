@@ -246,7 +246,8 @@ export default class StoryGrid extends Component {
               program={program}
               endpoint={`${programType}/${program.id}/featured`}
               initialQuery={{
-                page_size: 7
+                page_size: 7,
+                ordering: "-sort_order",
               }}/>
           </div>
         </div>

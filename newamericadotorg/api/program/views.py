@@ -1,6 +1,6 @@
 from django_filters import CharFilter
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from programs.models import (
@@ -64,6 +64,8 @@ class SubprogramDetail(RetrieveAPIView):
 
 class ProgramFeaturedPageList(ListAPIView):
     serializer_class = FeaturedPageSerializer
+    filter_backends = (OrderingFilter,)
+    ordering_fields = ['sort_order']
 
     def get_queryset(self):
-        return FeaturedProgramPage.objects.filter(program__id=self.kwargs['pk']).order_by('sort_order')
+        return FeaturedProgramPage.objects.filter(program__id=self.kwargs['pk'])

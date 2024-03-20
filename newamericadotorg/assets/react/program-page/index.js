@@ -181,6 +181,7 @@ class APP extends Component {
             name={NAME}
             loadingState={<LoadingState title={programTitle} />}
             endpoint={`${programType}/${programId}`}
+            initialQuery={{'featured_pages_ordering': 'desc'}}
             fetchOnMount={true}
             programType={programType}
           />

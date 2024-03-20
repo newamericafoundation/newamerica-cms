@@ -112,7 +112,7 @@ class APP extends Component {
       <Fetch component={ProgramPage}
         name={NAME}
         endpoint={`${programType}/${programId}`}
-        initialQuery={{ 'simple': 'true' }}
+        initialQuery={{ 'simple': 'true', 'featured_pages_ordering': 'desc' }}
         fetchOnMount={true}
         programId={programId}
         programType={programType}
