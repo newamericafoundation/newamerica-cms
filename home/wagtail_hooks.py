@@ -6,6 +6,7 @@ from wagtail import hooks
 from wagtail.admin.menu import AdminOnlyMenuItem, Menu, SubmenuMenuItem
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
+from wagtail.admin.userbar import AccessibilityItem
 from wagtail.whitelist import attribute_rule
 
 from .views import clear_cache_view
@@ -38,13 +39,13 @@ def register_commands_menu_item():
     sync_menu_item = AdminOnlyMenuItem(
         "Sync Campaign Monitor",
         reverse("campaign_monitor:sync"),
-        classnames="icon icon-mail",
+        classname="icon icon-mail",
         order=10,
     )
     clear_cache_menu_item = AdminOnlyMenuItem(
         "Clear Cache",
         reverse("cache:clear"),
-        classnames="icon icon-placeholder",
+        classname="icon icon-placeholder",
         order=20,
     )
     submenu = Menu(
@@ -57,8 +58,8 @@ def register_commands_menu_item():
 
 
 @hooks.register('construct_page_listing_buttons')
-def remove_copy_button_for_non_superusers(buttons, page, page_perms, context=None):
-    if not page_perms.user.is_superuser:
+def remove_copy_button_for_non_superusers(buttons, page, user, context=None):
+    if not user.is_superuser:
         for top_button in buttons:
             if hasattr(top_button, 'dropdown_buttons'):
                 top_button.dropdown_buttons = [
@@ -101,7 +102,7 @@ def editor_js():
     )
 
 
-@hooks.register('insert_editor_css')
+@hooks.register('insert_global_admin_css')
 def editor_css():
     return format_html('<style>{}</style>', '''
         .Draftail-block--blockquote {
@@ -196,3 +197,8 @@ def register_blockquote_feature(features):
         'from_database_format': {tag: BlockElementHandler(type_)},
         'to_database_format': {'block_map': {type_: tag}},
     })
+
+
+@hooks.register('construct_wagtail_userbar')
+def remove_userbar_accessibility_checks(request, items):
+    items[:] = [item for item in items if not isinstance(item, AccessibilityItem)]

@@ -1,21 +1,20 @@
-from django.db import models
-from django import forms
+import datetime
 
-from wagtail.models import Page
-from wagtail.fields import StreamField
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
+from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.blocks import URLBlock
-from wagtail.fields import RichTextField
-from wagtail.admin.panels import PageChooserPanel, MultiFieldPanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page
 from wagtail.search import index
 
-from modelcluster.fields import ParentalKey
-
-from programs.models import Program, Subprogram, AbstractContentPage
-
 from newamericadotorg.helpers import paginate_results
-
-import datetime
+from programs.models import AbstractContentPage, Program, Subprogram
 
 ROLE_OPTIONS = (
     ("Board Chair", "Board Chair"),
@@ -31,7 +30,10 @@ GROUPING_OPTIONS = (
     ("Advisors", "Advisors"),
     ("Contributing Staff", "Contributing Staff"),
     ("Arizona State University Fellows", "Arizona State University Fellows"),
-    ("Former Arizona State University Fellows", "Former Arizona State University Fellows"),
+    (
+        "Former Arizona State University Fellows",
+        "Former Arizona State University Fellows",
+    ),
 )
 YEAR_CHOICES = [(r, r) for r in range(1999, datetime.date.today().year + 1)]
 YEAR_CHOICES.reverse()
@@ -330,19 +332,25 @@ class Person(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField("position_at_new_america", boost=0.33),
+        index.AutocompleteField("position_at_new_america", boost=0.33),
         index.SearchField("long_bio", boost=0.01),
+        index.AutocompleteField("long_bio", boost=0.01),
         index.SearchField("short_bio", boost=0.33),
+        index.AutocompleteField("short_bio", boost=0.33),
         index.SearchField("role", boost=0.01),
+        index.AutocompleteField("role", boost=0.01),
         index.RelatedFields(
             "belongs_to_these_programs",
             [
                 index.SearchField("name"),
+                index.AutocompleteField("name"),
             ],
         ),
         index.RelatedFields(
             "belongs_to_these_subprograms",
             [
                 index.SearchField("name"),
+                index.AutocompleteField("name"),
             ],
         ),
         index.FilterField("former"),

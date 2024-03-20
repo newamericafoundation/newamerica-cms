@@ -2,8 +2,8 @@ from django.utils.timezone import localtime, now
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView
+from wagtail.contrib.search_promotions.models import Query
 from wagtail.models import Page, PageViewRestriction, Site
-from wagtail.search.models import Query
 
 import survey.models
 from article.models import Article

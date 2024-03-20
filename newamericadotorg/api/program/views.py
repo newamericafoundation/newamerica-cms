@@ -1,13 +1,22 @@
-from django_filters.rest_framework import FilterSet, DjangoFilterBackend
 from django_filters import CharFilter
-from rest_framework.generics import RetrieveAPIView, ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
-from programs.models import Program, Subprogram, FeaturedProgramPage, FeaturedSubprogramPage
-from home.models import Post
+from programs.models import (
+    FeaturedProgramPage,
+    Program,
+    Subprogram,
+)
 
-from .serializers import ProgramSerializer, SubprogramSerializer, ProgramSubprogramSerializer, ProgramDetailSerializer, FeaturedPageSerializer
-from newamericadotorg.api.post.serializers import PostSerializer
+from .serializers import (
+    FeaturedPageSerializer,
+    ProgramDetailSerializer,
+    ProgramSerializer,
+    ProgramSubprogramSerializer,
+    SubprogramSerializer,
+)
+
 
 class ProgramFilter(FilterSet):
     id = CharFilter(field_name='id', lookup_expr='iexact')
@@ -24,7 +33,7 @@ class ProgramDetail(RetrieveAPIView):
 class ProgramList(ListAPIView):
     serializer_class = ProgramSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
-    filter_class = ProgramFilter
+    filterset_class = ProgramFilter
 
     def get_queryset(self):
         return Program.objects.in_menu().live().public().order_by('title').exclude(location=True)
@@ -41,7 +50,7 @@ class SubprogramList(ListAPIView):
     queryset = Subprogram.objects.live().order_by('title')
     serializer_class = ProgramSubprogramSerializer
     filter_backends = (DjangoFilterBackend,SearchFilter)
-    filter_class = SubprogramFilter
+    filterset_class = SubprogramFilter
 
 class SubprogramDetail(RetrieveAPIView):
     queryset = Subprogram.objects.live()
