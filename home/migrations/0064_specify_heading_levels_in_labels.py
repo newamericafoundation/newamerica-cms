@@ -12,7 +12,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0062_remove_legacy_subscribe_page_models'),
+        ('home', '0063_auto_20240308_1840'),
     ]
 
     operations = [

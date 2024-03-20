@@ -12,7 +12,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('collection', '0006_alter_collection_body'),
+        ('collection', '0007_alter_collection_body'),
     ]
 
     operations = [

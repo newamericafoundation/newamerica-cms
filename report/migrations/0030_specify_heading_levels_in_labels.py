@@ -12,7 +12,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('report', '0028_optional_boxblock_title_field'),
+        ('report', '0029_alter_report_sections'),
     ]
 
     operations = [

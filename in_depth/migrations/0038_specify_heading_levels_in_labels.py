@@ -12,7 +12,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('in_depth', '0036_auto_20230609_1503'),
+        ('in_depth', '0037_auto_20240308_1840'),
     ]
 
     operations = [
