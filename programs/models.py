@@ -67,6 +67,21 @@ class FeaturedSubprogramPage(Orderable):
     ]
 
 
+class ProgramNavOptions(models.Model):
+    description = models.TextField(
+        help_text="Human-readable description for these options to show when listing in the Wagtail admin.",
+    )
+    url_label_array = models.TextField(
+        help_text='Must contain an array of objects formatted as JSON text.  Example: [{"url": "about/", "label": "About Page"}, {"url": "our-people/", "label": "All Our People"}]',
+    )
+
+    def __str__(self):
+        return self.description
+
+    class Meta:
+        verbose_name_plural = "Program Nav Options"
+
+
 class AbstractProgram(RoutablePageMixin, Page):
     """
     Abstract Program class that inherits from Page and is inherited
@@ -113,6 +128,14 @@ class AbstractProgram(RoutablePageMixin, Page):
         blank=True, null=True, max_length=100
     )
 
+    nav_options = models.ForeignKey(
+        ProgramNavOptions,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
     featured_panels = [
         InlinePanel(
             "featured_pages",
@@ -136,6 +159,10 @@ class AbstractProgram(RoutablePageMixin, Page):
             heading="Setup",
             classname="collapsible",
         ),
+    ]
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel("nav_options"),
     ]
 
     def get_experts(self):
