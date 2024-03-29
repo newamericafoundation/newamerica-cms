@@ -12,10 +12,12 @@ export default class Nav extends Component {
 
     if (program.nav_options?.url_label_array) {
       let items = JSON.parse(program.nav_options.url_label_array);
-      return items.map(({label, url}) => {
+      return items.map(({label, url, active}) => {
         let item = {label, url: `${base}${url}`};
         if (label === "Publications") {
           item["active"] = program.content_types.find(c => c.slug === subpage);
+        } else if (active) {
+          item["active"] = active;
         }
         return item;
       });
