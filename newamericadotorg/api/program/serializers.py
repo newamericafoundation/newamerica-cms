@@ -2,6 +2,7 @@ from django.template import loader
 from django.utils.functional import cached_property
 from rest_framework.serializers import (
     BooleanField,
+    CharField,
     IntegerField,
     ModelSerializer,
     ReadOnlyField,
@@ -96,6 +97,10 @@ class ProgramSubprogramSerializer(ModelSerializer):
         return obj.url
 
 
+class ProgramNavOptionsSerializer(Serializer):
+    url_label_array = CharField(read_only=True)
+
+
 class ProgramSerializer(ModelSerializer):
     logo = SerializerMethodField()
     subprograms = SerializerMethodField()
@@ -114,6 +119,7 @@ class ProgramSerializer(ModelSerializer):
             'slug',
             'subprograms',
             'subscriptions',
+            'nav_options',
         )
 
     def get_subscriptions(self, obj):
@@ -258,6 +264,7 @@ class ProgramDetailSerializer(ModelSerializer):
     topics = SerializerMethodField()
     about = SerializerMethodField()
     subscriptions = SerializerMethodField()
+    nav_options = ProgramNavOptionsSerializer()
 
     class Meta:
         model = Program
@@ -278,6 +285,7 @@ class ProgramDetailSerializer(ModelSerializer):
             'topics',
             'hide_subscription_card',
             'subscription_card_text',
+            'nav_options',
         )
 
     @cached_property
