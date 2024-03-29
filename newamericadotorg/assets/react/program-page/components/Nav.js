@@ -9,6 +9,18 @@ export default class Nav extends Component {
     let subpage = match.params.subpage;
     ;
     let base = preview ? `/${root}/` : program.url;
+
+    if (program.nav_options?.url_label_array) {
+      let items = JSON.parse(program.nav_options.url_label_array);
+      return items.map(({label, url}) => {
+        let item = {label, url: `${base}${url}`};
+        if (label === "Publications") {
+          item[active] = program.content_types.find(c => c.slug === subpage);
+        }
+        return item;
+      });
+    }
+
     return [
       program.about && { url: `${base}about/`, label: 'About' },
       { url: `${base}our-people/`, label: 'Our People' },
