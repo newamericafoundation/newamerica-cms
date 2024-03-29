@@ -15,7 +15,7 @@ export default class Nav extends Component {
       return items.map(({label, url}) => {
         let item = {label, url: `${base}${url}`};
         if (label === "Publications") {
-          item[active] = program.content_types.find(c => c.slug === subpage);
+          item["active"] = program.content_types.find(c => c.slug === subpage);
         }
         return item;
       });
