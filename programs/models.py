@@ -15,6 +15,7 @@ from wagtail.blocks import PageChooserBlock
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
+from wagtail.snippets.models import register_snippet
 
 from subscribe.models import SubscribePageSegmentPlacement
 
@@ -66,7 +67,7 @@ class FeaturedSubprogramPage(Orderable):
         FieldPanel("featured_image_alt"),
     ]
 
-
+@register_snippet
 class ProgramNavOptions(models.Model):
     description = models.TextField(
         help_text="Human-readable description for these options to show when listing in the Wagtail admin.",
