@@ -576,6 +576,30 @@ class SessionsBlock(blocks.StreamBlock):
         template = "blocks/schedule.html"
 
 
+class AccordionItemBlock(blocks.StructBlock):
+    title = blocks.TextBlock()
+    body = blocks.RichTextBlock()
+
+
+class AccordionBlock(blocks.StreamBlock):
+    item = AccordionItemBlock()
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        context["items"] = json.dumps([
+            {
+                "title": item.value["title"],
+                # json.dumps cannot implicitly serialize RichText
+                # instances, so we must call `str`.
+                "body": str(item.value["body"]),
+            } for item in value
+        ])
+        return context
+
+    class Meta:
+        template = "blocks/accordion.html"
+
+
 class Body(blocks.StreamBlock):
     introduction = blocks.RichTextBlock(icon="openquote")
     heading = blocks.CharBlock(
@@ -595,6 +619,7 @@ class Body(blocks.StreamBlock):
     timeline = TimelineBlock(icon="order")
     google_map = GoogleMapBlock(icon="site")
     resource_kit = ResourceKit(icon="folder")
+    accordion = AccordionBlock(icon="tasks")
 
 
 class PanelBlock(blocks.StructBlock):

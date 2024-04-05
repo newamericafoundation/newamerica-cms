@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Link, NavLink, Route } from 'react-router-dom';
 import { APP as Resources, ID as resourcesDOMId }  from '../../blocks/resources';
+import Accordion from '../../blocks/accordion'
 import getProps from '../../../lib/utils/get-props';
 
 class AboutBody extends Component {
@@ -21,12 +22,29 @@ class AboutBody extends Component {
       );
     }
   }
+
+  // repeat of above hack for accordion blocks defined inside Django template.
+  addAccordionBlocks = () => {
+    let accordionElements = document.querySelectorAll(`.na-react__${Accordion.ID}`);
+    if (!accordionElements) return;
+
+    accordionElements.forEach(r => {
+      if (r.hasChildNodes()) return;  // already rendered
+      let props = getProps(r);
+      render(
+        <Accordion.APP {...props} />, r
+      );
+    })
+  }
+
   componentDidMount(){
     this.addResourcesBlocks();
+    this.addAccordionBlocks();
   }
 
   componentDidUpdate(){
     this.addResourcesBlocks();
+    this.addAccordionBlocks();
   }
 
   render(){
