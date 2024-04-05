@@ -28,7 +28,7 @@ class APP extends Component {
     let itemsArray = JSON.parse(items);
     return (
       <section className="padding-80">
-        <div className="container--1080 home__fellowships">
+        <div className="home__fellowships">
           <div className="menu-list">
             {itemsArray.map((item, i) => (
               <div key={`accordion-${i}`} className={`${expanded.has(i) ? 'expanded ': ''}home__fellowship`}>
