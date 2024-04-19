@@ -89,7 +89,10 @@ class OurPeople extends Component {
 
     let role = this.getRole();
     if (role) q.role = role;
-    if (peoplePage === 'our-people') q.include_fellows = true;
+    if (peoplePage === 'our-people') {
+      q.include_fellows = true;
+      q.exclude_roles = "External Partner";
+    }
     if (peoplePage === 'leadership') q.leadership = true;
     if (peoplePage === 'board-emeriti') q.former = true;
 
