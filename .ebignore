@@ -3,9 +3,35 @@
 *__pycache__/
 *.pyc
 *.DS_Store
+*.rdb
+fixture.json
+/.vagrant
 
 node_modules
 bower_components
 npm-debug.log
 *.env
 
+media/
+static/
+
+newamericadotorg/static/js/
+newamericadotorg/templates/style.css
+newamericadotorg/templates/styles.css
+newamericadotorg/templates/style.css.map
+newamericadotorg/templates/styles.css.map
+
+venv
+*.log
+
+*.csv
+*.crt
+*.key
+*.csr
+
+home/management/api/article_images/
+home/management/api/images/
+home/management/api/documents/
+report/utils/test.docx
+
+.vscode
