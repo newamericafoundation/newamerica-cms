@@ -1,13 +1,14 @@
 from distutils.util import strtobool
 
 from django.db.models import OuterRef, Q
-from django_filters import CharFilter, TypedChoiceFilter
+from django_filters import CharFilter, MultipleChoiceFilter, TypedChoiceFilter
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView
 
 from issue.models import IssueOrTopic
 from person.models import (
+    ROLE_OPTIONS,
     Person,
     PersonProgramRelationship,
     PersonSubprogramRelationship,
@@ -34,6 +35,11 @@ class AuthorFilter(FilterSet):
         field_name="belongs_to_these_subprograms__id", lookup_expr="iexact"
     )
     role = CharFilter(field_name="role", lookup_expr="iexact")
+    exclude_roles = MultipleChoiceFilter(
+        field_name="role",
+        choices=ROLE_OPTIONS,
+        exclude=True,
+    )
     leadership = TypedChoiceFilter(choices=BOOLEAN_CHOICES, coerce=strtobool)
     name = CharFilter(field_name="title", lookup_expr="icontains")
 
