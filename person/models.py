@@ -23,6 +23,7 @@ ROLE_OPTIONS = (
     ("Central Staff", "Central Staff"),
     ("Program Staff", "Program Staff"),
     ("External Author/Former Staff", "External Author"),
+    ("External Partner", "External Partner"),
 )
 GROUPING_OPTIONS = (
     ("Fellows", "Fellows"),
