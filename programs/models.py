@@ -252,6 +252,11 @@ class Program(AbstractProgram):
         help_text="A concise description of the image for users of assistive technology.",
     )
 
+    display_logo_as_name = models.BooleanField(
+        default=False,
+        verbose_name="Display program logo instead of text program name",
+    )
+
     sidebar_menu_about_us_pages = StreamField(
         [
             ("Item", PageChooserBlock()),
@@ -278,6 +283,7 @@ class Program(AbstractProgram):
             [
                 FieldPanel("hide_subscription_card"),
                 FieldPanel("subscription_card_text"),
+                FieldPanel("display_logo_as_name"),
             ]
         )
     ]

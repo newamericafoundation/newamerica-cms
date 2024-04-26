@@ -286,6 +286,7 @@ class ProgramDetailSerializer(ModelSerializer):
             'hide_subscription_card',
             'subscription_card_text',
             'nav_options',
+            'display_logo_as_name',
         )
 
     @cached_property
@@ -360,8 +361,13 @@ class ProgramDetailSerializer(ModelSerializer):
         return get_program_content_types(obj.id)
 
     def get_logo(self, obj):
-        return ''
-        return obj.desktop_program_logo
+        image = generate_image_rendition(obj.desktop_program_logo)
+        if image:
+            return {
+                'url': image.url,
+                'alt': obj.desktop_program_logo_alt,
+            }
+        return None
 
     def get_subpages(self, obj):
         return get_subpages(obj)
