@@ -17,17 +17,16 @@ export default class Heading extends Component {
                   <u>{program.parent_programs[0].title}</u>
                 </a>
               </h6>}
-              {program.display_logo_as_name && program.logo ? (
-                <img
-                  className="program__heading__logo"
-                  src={program.logo.url}
-                  alt={program.logo.alt}
-                />
-              ) : (
-               <h1 className="margin-0 promo">
-                 <Link to={program.url}>{program.title}</Link>
+              <h1 className="margin-0 promo">
+                <Link to={program.url}>{program.display_logo_as_name && program.logo ? (
+                  <img
+                    className="program__heading__logo"
+                    src={program.logo.url}
+                    alt={program.logo.alt}
+                  />
+                ) : ( program.title )}
+                </Link>
                </h1>
-              )}
   			</div>
   		</div>
     );
