@@ -69,6 +69,7 @@ class StaffList extends Component {
       'Former Arizona State University Fellows': 3,
       'Contributing Staff': 4,
       'Advisors': 5,
+      'CivicAI Advisory Trust': 5,
       'Fellows': 6,
       'Former Fellows': 7,
     }
