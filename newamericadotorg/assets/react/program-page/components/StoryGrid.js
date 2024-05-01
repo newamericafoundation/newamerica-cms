@@ -177,12 +177,12 @@ class MoreStories extends Component {
   }
 
   render(){
-    let { response, features, count } = this.props;
+    let { response, features, count, additionalExclusions } = this.props;
 
-    // Filter results to not include features
-    let featuresIds = features.map(feature => feature.id);
+    // Filter results to not include features and other explicit exclusions
+    let combinedExclusions = new Set(features.map(feature => feature.id).filter(x=>x).concat(additionalExclusions));
     let results = response.results.filter(result => {
-      return featuresIds.indexOf(result.id) === -1
+      return !combinedExclusions.has(result.id);
     });
 
     return(
@@ -220,6 +220,8 @@ export default class StoryGrid extends Component {
     features = (program.hide_subscription_card || !program.subscriptions) ? [...features.splice(0, 3), 'about', ...features]
       : ['subscribe', ...features.splice(0, 3), 'about', ...features];
 
+    let additionalExclusions = [lead.id];
+
     if(story_grid.pages.length===0){
       return (
         <div className="program__story-grid">
@@ -243,6 +245,7 @@ export default class StoryGrid extends Component {
               renderGridItem={this.renderGridItem}
               count={story_grid.count}
               features={features}
+              additionalExclusions={additionalExclusions}
               program={program}
               endpoint={`${programType}/${program.id}/featured`}
               initialQuery={{
