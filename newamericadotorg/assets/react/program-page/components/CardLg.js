@@ -32,7 +32,7 @@ export default class CardLg extends Component {
               </h2>
               <h6 className="card__text__subtitle margin-10">{post.story_excerpt}</h6>
               <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
-                {post.programs ? post.programs[0].title : ''} {post.content_type ? post.content_type.name : ''}</h6>
+                {post.programs ? post.programs[0].title : ''} {post.show_page_type && post.content_type ? post.content_type.name : ''}</h6>
             </div>
           </div>
           </a>
