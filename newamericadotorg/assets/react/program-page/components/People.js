@@ -64,14 +64,15 @@ class InfiniteFellowsList extends Component {
 class StaffList extends Component {
   state = {
     sortOrder: {
-      'Staff': 1,
-      'Arizona State University Fellows': 2,
-      'Former Arizona State University Fellows': 3,
-      'Contributing Staff': 4,
-      'Advisors': 5,
-      'CivicAI Advisory Trust': 5,
-      'Fellows': 6,
-      'Former Fellows': 7,
+      'Principals': 1,
+      'Staff': 2,
+      'Arizona State University Fellows': 3,
+      'Former Arizona State University Fellows': 4,
+      'Contributing Staff': 5,
+      'Advisors': 6,
+      'CivicAI Advisory Trust': 7,
+      'Fellows': 8,
+      'Former Fellows': 9,
     }
   }
   render(){
