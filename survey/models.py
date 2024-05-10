@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from multiselectfield import MultiSelectField
+from multiselectfield.utils import get_max_length
 from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
@@ -222,7 +223,10 @@ class Survey(Post):
         verbose_name="Demographics Keys",
     )
     findings = RichTextField(blank=True, null=True, max_length=12500)
-    data_type = MultiSelectField(choices=DATA_TYPE_CHOICES)
+    data_type = MultiSelectField(
+        choices=DATA_TYPE_CHOICES,
+        max_length=get_max_length(DATA_TYPE_CHOICES, None),
+    )
     national = models.BooleanField(
         default=True,
         verbose_name="Nationally Representative?",
