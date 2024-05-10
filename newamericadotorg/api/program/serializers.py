@@ -295,6 +295,7 @@ class ProgramDetailSerializer(ModelSerializer):
             'subscription_card_text',
             'nav_options',
             'display_logo_as_name',
+            'show_about_card_label',
         )
 
     @cached_property
