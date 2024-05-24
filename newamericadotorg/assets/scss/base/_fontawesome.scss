@@ -1,22 +1,38 @@
-@import '~font-awesome/scss/variables';
-$fa-font-path: '#{$extra-static}/fonts';
-@import '~font-awesome/scss/mixins';
-@import '~font-awesome/scss/path';
-@import '~font-awesome/scss/core';
-@import '~font-awesome/scss/larger';
-@import '~font-awesome/scss/fixed-width';
-@import '~font-awesome/scss/list';
-@import '~font-awesome/scss/bordered-pulled';
-@import '~font-awesome/scss/animated';
-@import '~font-awesome/scss/rotated-flipped';
-@import '~font-awesome/scss/stacked';
-@import '~font-awesome/scss/icons';
-@import '~font-awesome/scss/screen-reader';
+// import core styling file from within `node_modules` folder
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 
-.fa-youtube{
-  @extend .fa-youtube-play;
+// Override $fa-font-path variable so that we can use it, and so that
+// it knows where to look in its own folder structure.
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+// our project needs Regular + Brands
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+
+// Declare font faces for the Font Awesome fonts we are using.  I'm
+// not completely sure why these are not being imported by the above
+// imports from the actual Font Awesome sass files, but this is
+// something I had to add for it to work.
+@font-face {
+  font-family: FontAwesome;
+  src: url("#{$fa-font-path}/fa-solid-900.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
 }
 
-.fa-google_plus{
-  @extend .fa-google-plus;
+@font-face {
+  font-family: FontAwesomeBrands;
+  src: url("#{$fa-font-path}/fa-brands-400.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+
+// For backward compatibility with Font Awesome 4 where we are using the
+// old CSS prefixes and/or font family names.
+.fa {
+  font-family: FontAwesome, sans-serif;
+}
+
+.fa-brands {
+  font-family: FontAwesomeBrands, sans-serif;
 }
