@@ -2,6 +2,7 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load font_awesome_social_media %}
 {% load utilities %}
 
 {% block body_id %}na-home{% endblock %}
@@ -41,7 +42,7 @@
                     <a href="mailto:{{page.email}}" target="_blank" rel="noopener noreferrer" class="fa fa-envelope circle"></a>
                 {% endif %}
               {% for s in page.social_media %}
-                <a href="{{s.value}}" target="_blank" rel="noopener noreferrer" class="fa fa-{{s.block_type}} circle"></a>
+                <a href="{{s.value}}" target="_blank" rel="noopener noreferrer" class="fa fa-brands {{s.block_type|social_media_icon_name}} circle"></a>
               {% endfor %}
             </ul>
           </div>
