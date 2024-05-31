@@ -20,7 +20,7 @@
         <div class="conference__title__location-date row">
           <h4 class="white margin-0 col-6" style="text-align:right">
             <span>
-              <span class="fa fa-calendar-o base-clr-txt" style="padding-right: 10px;"></span>
+              <span class="fa fa-calendar base-clr-txt" style="padding-right: 10px;"></span>
               {% if page.end_date %}
                 {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
               {% else %}
@@ -30,7 +30,7 @@
           </h4>
           <h4 class="white margin-0 col-6">
             <span>
-              <span class="fa fa-map-marker base-clr-txt" style="padding-right: 10px;"></span>
+              <span class="fa fa-location-dot base-clr-txt" style="padding-right: 10px;"></span>
               {{page.city}}, {{page.state}}
             </span>
           </h4>

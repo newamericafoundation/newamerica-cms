@@ -62,7 +62,7 @@ class Session extends Component {
                       {s.name}
                       {s.twitter && (
                         <a href={s.twitter} target="_blank" rel="noopener noreferrer">
-                          <i className="fa fa-twitter" />
+                          <i className="fa fa-brands fa-x-twitter" />
                         </a>
                       )}
                     </h4>

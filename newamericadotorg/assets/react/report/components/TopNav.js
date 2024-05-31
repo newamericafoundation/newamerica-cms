@@ -36,10 +36,10 @@ class TopNav extends Component {
               }
               <div className="report__top-nav__icon">
                 <a href={`https://twitter.com/intent/tweet/?url=${'https://' + location.host + report.url}&text=${report.title}&via=newamerica`} className="ga-track-click" data-action="click_social" data-label="report" data-value="twitter">
-                  <i className="fa fa-twitter circle gray ga-track-click" style={{ marginRight: '20px' }} />
+                  <i className="fa fa-brands fa-x-twitter circle gray ga-track-click" style={{ marginRight: '20px' }} />
                 </a>
                 <a href={`https://www.facebook.com/dialog/share?app_id=1650004735115559&display=popup&href=${'https://' + location.host + report.url}`} className="ga-track-click" data-action="click_social" data-label="report" data-value="facebook">
-                  <i className="fa fa-facebook circle gray"/>
+                  <i className="fa fa-brands fa-facebook-f circle gray"/>
                 </a>
               </div>
             </div>

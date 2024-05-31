@@ -18,7 +18,7 @@ const Subsection = ({ section, url, closeMenu, action, preview }) => (
 
 const InteractiveDiv = () => (
   <div className="interactive-div">
-    <i className="fa fa-hand-pointer-o" />
+    <i className="fa fa-hand-pointer" />
     <div className="interactive-div__text">
       <h6 className="inline">View the interactive graphic in this section!</h6>
     </div>
