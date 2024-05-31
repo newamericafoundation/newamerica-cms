@@ -75,20 +75,13 @@ class Command(BaseCommand):
 
         for tag in self.post_tags_to_remove:
             self.stdout.write(f"Updating tag for {tag.post!r}")
-            PostProgramRelationship.objects.get_or_create(
-                program=self.destination,
+            PostTopicRelationship.objects.get_or_create(
+                topic=self.destination,
                 post=tag.post,
             )
             tag.delete()
         for tag in self.person_tags_to_remove:
             self.stdout.write(f"Updating tag for {tag.person!r}")
-            PersonProgramRelationship.objects.get_or_create(
-                program=self.destination,
-                person=tag.person,
-                group=getattr(tag, 'group', None),
-                fellowship_position=getattr(tag, 'fellowship_position', None),
-                sort_order=getattr(tag, 'sort_order', None),
-            )
             tag.delete()
 
     @transaction.atomic
