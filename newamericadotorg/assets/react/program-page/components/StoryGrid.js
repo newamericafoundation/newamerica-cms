@@ -32,7 +32,7 @@ const isValidBrowser = browser.satisfies({
 });
 
 const AboutCard = ({ program }) => (
-  <PromoMd title="About" link={{ to: 'about', label: 'Read More'}}>
+  <PromoMd title={program.show_about_card_label ? "About" : ""} link={{ to: 'about', label: 'Read More'}}>
     <h2 className="margin-25">
       <span className="desktop-about-text" style={{whiteSpace: 'nowrap'}} dangerouslySetInnerHTML={{ __html: manualBreaks24(program.description).text}}/>
       <span className="tablet-about-text">
