@@ -35,6 +35,9 @@ class TopNav extends Component {
               </div>
               }
               <div className="report__top-nav__icon">
+                <a href={`https://www.linkedin.com/shareArticle?url=${'https://' + location.host + report.url}`} className="ga-track-click" data-action="click_social" data-label="report" data-value="linkedin">
+                  <i className="fa fa-brands fa-linkedin circle gray ga-track-click" style={{ marginRight: '20px' }} />
+                </a>
                 <a href={`https://twitter.com/intent/tweet/?url=${'https://' + location.host + report.url}&text=${report.title}&via=newamerica`} className="ga-track-click" data-action="click_social" data-label="report" data-value="twitter">
                   <i className="fa fa-brands fa-x-twitter circle gray ga-track-click" style={{ marginRight: '20px' }} />
                 </a>
