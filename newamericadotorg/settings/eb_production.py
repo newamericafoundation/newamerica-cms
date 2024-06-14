@@ -87,14 +87,15 @@ else:
 # Elastic Search setup
 es_url = os.getenv('SEARCHBOX_URL', "http://localhost:9200/")
 
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'search.backend',
-        'URLS': [es_url],
-        'INDEX': 'elasticsearch',
-        'TIMEOUT': 1500,
+if es_url:
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'search.backend',
+            'URLS': [es_url],
+            'INDEX': 'elasticsearch',
+            'TIMEOUT': 1500,
+        }
     }
-}
 
 ANYMAIL = {
     "MAILGUN_API_KEY": os.getenv('MAILGUN_API_KEY')
@@ -129,25 +130,32 @@ REDIS_URL = os.getenv(
     os.getenv('REDIS_URL'),
 )
 
-WAGTAILFRONTENDCACHE = {
-    'cloudfront': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
-        'DISTRIBUTION_ID': 'E3IZZ8NUJMHTIF',
-    },
-}
+# WAGTAILFRONTENDCACHE = {
+#     'cloudfront': {
+#         'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
+#         'DISTRIBUTION_ID': 'E3IZZ8NUJMHTIF',
+#     },
+# }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': REDIS_URL,
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'CONNECTION_POOL_KWARGS': {
-                'ssl_cert_reqs': None,
+if REDIS_URL:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': REDIS_URL,
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'CONNECTION_POOL_KWARGS': {
+                    'ssl_cert_reqs': None,
+                },
             },
-        },
+        }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+        }
+    }
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'newamericadotorg.api.pagination.CustomPagination',
