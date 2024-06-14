@@ -28,6 +28,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Will be changed to final host url
 ALLOWED_HOSTS = [
     '.newamerica.org',
+    # TODO: Eventually move to "dev" settings file.  The below is not
+    # a production domain.
+    'newamerica-cms-dev.us-east-1.elasticbeanstalk.com',
+    '44.223.168.94',
     # 'na-staging.herokuapp.com',
     # 'na-develop.herokuapp.com',
 ]
