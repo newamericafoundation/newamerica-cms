@@ -35,6 +35,7 @@ GROUPING_OPTIONS = (
         "Former Arizona State University Fellows",
         "Former Arizona State University Fellows",
     ),
+    ("Digital Futures Task Force", "Digital Futures Task Force"),
     ("CivicAI Advisory Trust", "CivicAI Advisory Trust"),
     ("Principals", "Principals"),
 )
