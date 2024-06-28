@@ -71,8 +71,9 @@ class StaffList extends Component {
       'Contributing Staff': 5,
       'Advisors': 6,
       'CivicAI Advisory Trust': 7,
-      'Fellows': 8,
-      'Former Fellows': 9,
+      'Digital Futures Task Force': 8,
+      'Fellows': 9,
+      'Former Fellows': 10,
     }
   }
   render(){
