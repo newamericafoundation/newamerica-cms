@@ -183,8 +183,16 @@ class Person(Page):
                 URLBlock(required=False, help_text="Twitter Profile Link", icon="user"),
             ),
             (
+                "linkedin",
+                URLBlock(required=False, help_text="LinkedIn Profile", icon="user"),
+            ),
+            (
                 "facebook",
                 URLBlock(required=False, help_text="Facebook Profile", icon="user"),
+            ),
+            (
+                "instagram",
+                URLBlock(required=False, help_text="Instagram Profile", icon="user"),
             ),
             (
                 "youtube",
@@ -193,10 +201,6 @@ class Person(Page):
             (
                 "google_plus",
                 URLBlock(required=False, help_text="Google+ Profile", icon="user"),
-            ),
-            (
-                "linkedin",
-                URLBlock(required=False, help_text="LinkedIn Profile", icon="user"),
             ),
             ("tumblr", URLBlock(required=False, help_text="Tumblr", icon="user")),
         ],
