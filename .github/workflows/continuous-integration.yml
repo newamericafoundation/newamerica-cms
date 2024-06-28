@@ -27,11 +27,11 @@ jobs:
     env:
       DATABASE_URL: postgres://wagtail:test@localhost:5432/wagtail
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
       - name: Install Specific Pip Version
