@@ -82,12 +82,12 @@ class ReportDetailSerializer(PostSerializer):
     def get_abstract(self, obj):
         if obj.abstract == "<p></p>":
             return None
-        return obj.abstract
+        return obj.rendered_abstract()
 
     def get_acknowledgments(self, obj):
         if obj.acknowledgements == "<p></p>":
             return None
-        return obj.acknowledgements
+        return obj.rendered_acknowledgements()
 
     def get_endnotes(self, obj):
         if obj.endnotes:
@@ -156,7 +156,7 @@ class ReportDetailSerializer(PostSerializer):
                 "hide_title": s.value["hide_title"],
                 "number": i + 1,
                 "slug": slug,
-                "body": s.render(),
+                "body": s.render({"page": obj}),
                 "subsections": [],
                 "url": obj.url + slug,
             }
