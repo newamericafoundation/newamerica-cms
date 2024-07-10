@@ -38,6 +38,11 @@ GROUPING_OPTIONS = (
     ("Digital Futures Task Force", "Digital Futures Task Force"),
     ("CivicAI Advisory Trust", "CivicAI Advisory Trust"),
     ("Principals", "Principals"),
+    ("Digital Impact and Governance Initiative", "Digital Impact and Governance Initiative"),
+    ("Open Technology Institute", "Open Technology Institute"),
+    ("Planetary Politics", "Planetary Politics"),
+    ("Public Interest Technology", "Public Interest Technology"),
+    ("Wireless Future Project", "Wireless Future Project"),
 )
 YEAR_CHOICES = [(r, r) for r in range(1999, datetime.date.today().year + 1)]
 YEAR_CHOICES.reverse()
