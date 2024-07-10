@@ -74,6 +74,11 @@ class StaffList extends Component {
       'Digital Futures Task Force': 8,
       'Fellows': 9,
       'Former Fellows': 10,
+      'Digital Impact and Governance Initiative': 11,
+      'Open Technology Institute': 12,
+      'Planetary Politics': 13,
+      'Public Interest Technology': 14,
+      'Wireless Future Project': 15,
     }
   }
   render(){
