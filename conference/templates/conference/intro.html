@@ -2,7 +2,7 @@
 {% load wagtailimages_tags %}
 
 {% image page.story_image original as cover %}
-<section id="hero" class="conference__intro" style="background: url({{cover.url}}) no-repeat center/cover fixed">
+<section id="hero" class="conference__intro" style="background: black url({{cover.url}}) no-repeat center/cover fixed">
   <div class="heading-block centered-block align-center">
       <div class="conference__title">
         <div class="na-logo">
@@ -17,8 +17,8 @@
           {% endif %}
           </a>
       	</div>
-        <div class="conference__title__location-date row">
-          <h4 class="white margin-0 col-6" style="text-align:right">
+        <div class="conference__title__location-date">
+          <h4 class="white">
             <span>
               <span class="fa fa-calendar base-clr-txt" style="padding-right: 10px;"></span>
               {% if page.end_date %}
@@ -28,14 +28,19 @@
               {% endif %}
             </span>
           </h4>
-          <h4 class="white margin-0 col-6">
+          <h4 class="white">
             <span>
               <span class="fa fa-location-dot base-clr-txt" style="padding-right: 10px;"></span>
               {{page.city}}, {{page.state}}
             </span>
           </h4>
         </div>
-        <h1 class="promo white centered margin-35">{{page.title}}</h1>
+        {% if page.alternate_title_image %}
+          {% image page.alternate_title_image original as alt_title_image %}
+          <img class="conference__title__image" src="{{alt_title_image.url}}" alt={{page.alternate_title_image_alt}} />
+        {% else %}
+          <h1 class="promo white centered margin-35">{{page.title}}</h1>
+        {% endif %}
         <h6 class="pullquote white centered">{{ page.subheading }}</h6>
         <p class="white centered">{{page.search_description}}</p>
         <div class="btns-container {%if page.invitation_only %}invite-only{% endif %}" style="text-align:center;">
@@ -44,7 +49,7 @@
           {% elif page.rsvp_link %}
             <a href="{{page.rsvp_link}}" target="_blank" rel="noopener noreferrer" class="button white-outline" style="width:175px;">Register</a>
           {% endif %}
-            <a href="#about" class="button white-outline" style="width:175px;">About </a>
+            <a href="#about" class="button white-outline margin-10" style="width:175px;">About </a>
         </div>
       </div>
 
