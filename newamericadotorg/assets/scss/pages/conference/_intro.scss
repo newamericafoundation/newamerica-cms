@@ -18,11 +18,19 @@
     left: 50%;
     @include transform(translateX(-50%));
     position: absolute;
-    top: -45px;
+    top: 0;
 
     @media (min-width: 430px){
       max-width: 400px;
     }
+  }
+}
+
+.conference__title__location-date {
+  text-align: center;
+  > h4 {
+    display: inline-block;
+    margin: 10px;
   }
 }
 
