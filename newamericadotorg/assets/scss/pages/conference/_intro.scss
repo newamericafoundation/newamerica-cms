@@ -25,3 +25,10 @@
     }
   }
 }
+
+.conference__title__image {
+  display: block;
+  max-width: 60%;
+  max-height: calc(100vh - 500px);
+  margin: 30px auto;
+}

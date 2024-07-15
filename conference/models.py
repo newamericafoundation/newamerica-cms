@@ -78,6 +78,20 @@ class Conference(Page):
         verbose_name="Alternate logo alternative text",
         help_text="A concise description of the image for users of assistive technology.",
     )
+    alternate_title_image = models.ForeignKey(
+        "home.CustomImage",
+        help_text="This will replace the title in the introduction / cover image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    alternate_title_image_alt = models.TextField(
+        default="",
+        blank=True,
+        verbose_name="Alternate title image alternative text",
+        help_text="A concise description of the image for users of assistive technology.",
+    )
 
     host_organization = models.TextField(default="New America", blank=True, null=True)
 
@@ -117,6 +131,8 @@ class Conference(Page):
             TitleFieldPanel("title"),
             FieldPanel("subheading"),
             FieldPanel("host_organization"),
+            FieldPanel("alternate_title_image"),
+            FieldPanel("alternate_title_image_alt"),
             FieldPanel("alternate_logo"),
             FieldPanel("alternate_logo_alt"),
             FieldRowPanel(

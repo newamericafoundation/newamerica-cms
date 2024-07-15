@@ -35,7 +35,12 @@
             </span>
           </h4>
         </div>
-        <h1 class="promo white centered margin-35">{{page.title}}</h1>
+        {% if page.alternate_title_image %}
+          {% image page.alternate_title_image original as alt_title_image %}
+          <img class="conference__title__image" src="{{alt_title_image.url}}" alt={{page.alternate_title_image_alt}} />
+        {% else %}
+          <h1 class="promo white centered margin-35">{{page.title}}</h1>
+        {% endif %}
         <h6 class="pullquote white centered">{{ page.subheading }}</h6>
         <p class="white centered">{{page.search_description}}</p>
         <div class="btns-container {%if page.invitation_only %}invite-only{% endif %}" style="text-align:center;">
