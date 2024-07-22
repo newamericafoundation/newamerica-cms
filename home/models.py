@@ -763,6 +763,10 @@ class Post(Page):
         max_length=140,
         help_text="Specify the name of the external script file within the na-data-projects/projects AWS directory to include that script in the body of the document.",
     )
+    apply_smart_punctuation = models.BooleanField(
+        default=False,
+        help_text="Change straight quote characters into curly quote characters",
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("subheading"),
@@ -786,6 +790,7 @@ class Post(Page):
 
     settings_panels = Page.settings_panels + [
         FieldPanel("data_project_external_script"),
+        FieldPanel("apply_smart_punctuation"),
     ]
 
     is_creatable = False
