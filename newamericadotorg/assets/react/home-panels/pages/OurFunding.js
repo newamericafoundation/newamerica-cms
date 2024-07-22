@@ -225,7 +225,8 @@ class OurFundingMain extends Component {
           <h1>{transparency_table.heading[0]}</h1>
           {/* <h3>{transparency_table.dataviz[0].title}</h3> */}
           <HorizontalNav className={`our-funding__nav our-funding__nav--chart-tabs`} items={[
-            { url: '/our-funding/', label: '2023', exact: true },
+            { url: '/our-funding/', label: '2024', exact: true },
+            { url: '/our-funding/2023/', label: '2023'},
             { url: '/our-funding/2022/', label: '2022'},
             { url: '/our-funding/2021/', label: '2021'},
             { url: '/our-funding/2020/', label: '2020'},
@@ -249,8 +250,11 @@ class OurFundingMain extends Component {
               <Route exact path="/our-funding/2022/" render={(props)=>(
                 <iframe title="Active Funding in Q4 2022" aria-label="Table" id="datawrapper-chart-faFek" src="//datawrapper.dwcdn.net/faFek/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
               )}/>
+              <Route exact path="/our-funding/2023/" render={(props)=>(
+                <iframe title="Active Funding in Q4 2023" aria-label="Table" id="datawrapper-chart-1btVH" src="//datawrapper.dwcdn.net/1btVH/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+              )}/>
               <Route render={(props)=>(
-                <iframe title="Current active funding" aria-label="Table" id="datawrapper-chart-1btVH" src="//datawrapper.dwcdn.net/1btVH/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
+                <iframe title="Current active funding" aria-label="Table" id="datawrapper-chart-cqPd0" src="//datawrapper.dwcdn.net/cqPd0/"  scrolling="no" frameborder="0" width="100%" height="650"></iframe>
               )}/>
             </Switch>
       		</div>
