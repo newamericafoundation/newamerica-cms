@@ -12,7 +12,7 @@ class MailingListSegment(models.Model):
 
     class Meta:
         permissions = [
-            ("can_sync_from_campaign_monitor", "Can sync from Campaign Monitor"),
+            ("can_sync_from_mailchimp", "Can sync from Mailchimp"),
         ]
 
     def __str__(self):

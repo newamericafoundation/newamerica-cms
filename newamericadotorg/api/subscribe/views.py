@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from subscribe.campaign_monitor import update_subscriber
+from subscribe.mailchimp import update_subscriber
 from subscribe.models import MailingListSegment
 
 
@@ -29,24 +29,16 @@ def subscribe(request):
         return Response({"status": "UNVERIFIED"})
 
     subscriptions = params.getlist("subscriptions[]", [])
-    subscription_titles = MailingListSegment.objects.filter(
+    subscription_titles = list(MailingListSegment.objects.filter(
         pk__in=subscriptions,
-    ).values_list('title', flat=True)
-    job_title = params.get("job_title", None)
-    org = params.get("organization", None)
+    ).values_list('title', flat=True))
+
     zipcode = params.get("zipcode", None)
-    custom_fields = []
+    custom_fields = {}
 
-    if job_title:
-        custom_fields.append({"key": "JobTitle", "value": job_title})
-    if org:
-        custom_fields.append({"key": "Organization", "value": org})
     if zipcode:
-        custom_fields.append({"key": "MailingZip/PostalCode", "value": zipcode})
-    if subscription_titles:
-        for s in subscription_titles:
-            custom_fields.append({"key": "Subscriptions", "value": s})
+        custom_fields['ZIP'] = zipcode
 
-    status = update_subscriber(params.get("email"), params.get("name"), custom_fields)
+    status = update_subscriber(params.get("email"), params.get("name"), subscription_titles, custom_fields)
 
     return Response({"status": status})
