@@ -5,8 +5,10 @@ import hashlib
 from enum import Enum
 from django.conf import settings
 from urllib.parse import urljoin
-
+import logging
 from subscribe.models import MailingListSegment
+
+logger = logging.getLogger(__name__)
 
 
 class StatusEnum(Enum):
@@ -32,8 +34,10 @@ class MailchimpClient:
                 method,
                 self._build_url(path),
                 headers={"Authorization": f"Bearer {self.api_key}"},
+                timeout=10,
                 **kwargs,
             )
+            response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
             raise MailchimpError(f"Request to Mailchimp failed") from e
@@ -48,7 +52,7 @@ class MailchimpClient:
         return self._do_request("PUT", path, json=data)
 
     def _get_subscriber_hash(self, email):
-        return hashlib.md5(email.lower().encode()).hexdigest()
+        return hashlib.md5(email.lower().strip().encode()).hexdigest()
 
     def get_tags(self, list_id):
         tags = []
@@ -86,9 +90,17 @@ class MailchimpClient:
 
 
 def _get_client():
-    return MailchimpClient(
-        host=settings.MAILCHIMP_HOST, api_key=settings.MAILCHIMP_API_KEY
-    )
+    host = settings.MAILCHIMP_HOST
+    api_key = settings.MAILCHIMP_API_KEY
+
+    if not host:
+        raise ValueError(
+            "MAILCHIMP_HOST is not set. Set this to the base API host for your Mailchimp account, for example: us22.api.mailchimp.com"
+        )
+    if not api_key:
+        raise ValueError("MAILCHIMP_API_KEY is not set. Set this to your Mailchimp API key.")
+
+    return MailchimpClient(host=host, api_key=api_key)
 
 
 def update_segments():
@@ -126,5 +138,6 @@ def update_subscriber(email, name, tags, custom_fields):
             tags=tags,
         )
         return StatusEnum.OK.value
-    except MailchimpError as e:
+    except MailchimpError:
+        logger.warning("Failed to create subscriber in Mailchimp", exc_info=True)
         return StatusEnum.BAD_REQUEST.value
