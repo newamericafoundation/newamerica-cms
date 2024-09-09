@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from subscribe.campaign_monitor import update_segments
+from subscribe.mailchimp import update_segments
 
 class Command(BaseCommand):
 

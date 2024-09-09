@@ -1,9 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 
-{% block titletag %}Commands: Sync Campaign Monitor{% endblock %}
+{% block titletag %}Commands: Sync Mailchimp{% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Sync Campaign Monitor" icon="mail" %}
+    {% include "wagtailadmin/shared/header.html" with title="Sync Mailchimp" icon="mail" %}
     <section class="nice-padding">
         <form action="" method="post">{% csrf_token %}
             <input type="submit" value="Sync Now" class="button" />

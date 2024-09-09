@@ -25,7 +25,6 @@ dependencies = [
 
     # Other packages
     'Wand >= 0.6.11',
-    'createsend >= 7.0, <8',
     'psycopg2 >=2.8, <3',
     'WeasyPrint==51',
     'python-docx >= 0.8.11',
