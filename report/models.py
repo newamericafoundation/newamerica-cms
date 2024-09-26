@@ -20,6 +20,7 @@ from wagtail.models import Page
 from wagtail.search import index
 
 from home.models import AbstractHomeContentPage, Post, RedirectHeadlessPreviewMixin
+from home.templatetags import typography
 from programs.models import AbstractContentPage
 
 from .blocks import EndnoteBlock, FeaturedReportSectionBlock, ReportSectionBlock
@@ -270,6 +271,26 @@ class Report(RedirectHeadlessPreviewMixin, RoutablePageMixin, Post):
 
         if not self.revising and self.generate_pdf_on_publish:
             generate_pdf.apply_async(args=(self.id,))
+
+    def rendered_abstract(self):
+        """Conditionally apply smart punctuation logic to the abstract
+        field.
+
+        """
+        return typography.smart_quotes(
+            self.abstract,
+            self.apply_smart_punctuation,
+        )
+
+    def rendered_acknowledgements(self):
+        """Conditionally apply smart punctuation logic to the acknowledgements
+        field.
+
+        """
+        return typography.smart_quotes(
+            self.acknowledgements,
+            self.apply_smart_punctuation,
+        )
 
     # Extra views
 

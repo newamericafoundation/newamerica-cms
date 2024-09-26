@@ -1,6 +1,8 @@
 {% load wagtailcore_tags %}
 {% load utilities %}
 {% load anchorize_headings %}
+{% load smart_quotes from typography %}
+
 {% if page.authors.all|length > 0 and page|model_name != 'event.Event' and page|model_name != 'press_release.PressRelease' and page|model_name != 'report.Report' %}
   <div class="post__byline margin-bottom-15"><span>By&nbsp;</span>
     {% generate_byline page|model_name page.authors.all %}
@@ -15,7 +17,7 @@
   </div>
 {% endif %}
 
-{% filter anchorize_headings %}
+{% filter anchorize_headings|smart_quotes:page.apply_smart_punctuation %}
     {% for block in page.body %}
         {% if block.block_type == "inline_image" %}
             {% include_block block %}
