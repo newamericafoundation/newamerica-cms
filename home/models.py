@@ -280,19 +280,6 @@ class HomePage(Page):
             context["lead_3"] = self.lead_3.specific if self.lead_3 else None
             context["lead_4"] = self.lead_4.specific if self.lead_4 else None
 
-        # In order to apply different styling to main lead story
-        # versus the other lead stories, we needed to separate them out
-        context["other_lead_stories"] = []
-
-        # Solution to account for null values for the stories
-        # so that the div in the template wouldn't attempt to add styling to nothing
-        if self.lead_2:
-            context["other_lead_stories"].append(self.lead_2)
-        if self.lead_3:
-            context["other_lead_stories"].append(self.lead_3)
-        if self.lead_4:
-            context["other_lead_stories"].append(self.lead_4)
-
         # In order to preserve style, minimum and maximum of feature stories is 3
         # If there are less than 3 feature stories - none show up even if they're added.
         if self.feature_1 and self.feature_2 and self.feature_3:
