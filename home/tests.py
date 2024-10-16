@@ -3,6 +3,9 @@ from datetime import date, timedelta
 
 from django.http import HttpResponsePermanentRedirect
 from django.test import Client, TestCase
+from wagtail import blocks
+from wagtail.images import get_image_model
+from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailPageTestCase
 from wagtail.test.utils.form_data import nested_form_data
@@ -29,6 +32,7 @@ from test_factories import PostFactory
 from the_thread.models import AllThreadArticlesHomePage, Thread
 from weekly.models import AllWeeklyArticlesHomePage, Weekly
 
+from .blocks import ExternalLeadStoryBlock
 from .models import (
     HomePage,
     JobsPage,
@@ -38,6 +42,8 @@ from .models import (
     RedirectPage,
     SubscribePage,
 )
+
+WagtailImage = get_image_model()
 
 
 class HomeTests(WagtailPageTestCase):
@@ -199,7 +205,10 @@ class HomeTests(WagtailPageTestCase):
             },
             'about_pages': {
                 'count': 0
-            }
+            },
+            'lead_stories': {
+                'count': 0
+            },
           })
         )
 
@@ -237,10 +246,38 @@ class HomeTests(WagtailPageTestCase):
           })
         )
 
-    def test_adding_lead_story_to_homepage(self):
-        self.home_page.lead_1 = self.article
+    def test_adding_lead_stories_to_homepage(self):
+        # Create mock Wagtail image.
+        test_image_file = get_test_image_file(filename="test.jpg")
+        mock_image = WagtailImage.objects.create(
+            title="test.jpg",
+            file=test_image_file,
+        )
+
+        # Create example external link.
+        external_link = {
+            "link": "https://www.example.com/",
+            "image": mock_image.pk,
+            "image_alt": "Some alt text",
+            "heading": "Some heading",
+            "description": "Some description. Lorem ipsum.",
+            "tag": "External Link",
+        }
+
+        # Populate lead stories.
+        self.home_page.lead_stories = [
+            ("internal", blocks.PageChooserBlock().to_python(self.article.pk)),
+            ("external", ExternalLeadStoryBlock().to_python(external_link)),
+        ]
         self.home_page.save()
-        self.assertEqual(self.home_page.lead_1, self.article)
+
+        # Check if the homepage has the correct data.
+        self.home_page.refresh_from_db()
+        self.assertEqual(self.home_page.lead_stories[0].value.specific, self.article)
+        self.assertEqual(
+            ExternalLeadStoryBlock().get_prep_value(self.home_page.lead_stories[1].value),
+            external_link,
+        )
 
     def test_adding_feature_story_to_homepage(self):
         self.home_page.feature_1 = self.article
