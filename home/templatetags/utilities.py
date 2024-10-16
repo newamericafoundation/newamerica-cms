@@ -7,6 +7,7 @@ from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
 from wagtail.blocks import StreamValue
+from wagtail.models import Page
 
 from event.models import Event
 from person.models import Person
@@ -362,7 +363,7 @@ def model_display_name(page):
     """
     Gets verbose name of the page's model
     """
-    if isinstance(page, str):
+    if not isinstance(page, Page):
         return
     if page._meta.verbose_name.title() == "Other Post":
         return page.other_content_type
