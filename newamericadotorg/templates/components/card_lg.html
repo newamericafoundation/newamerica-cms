@@ -6,20 +6,39 @@
 {% image post.story_image fill-32x15 as post_image_thumb %}
 
 <div class="card lg">
-  <a href="{{post.url}}" class="row no-gutters">
+  <a href="{{ post.url }}" class="row no-gutters">
+    {# Card image #}
     <div class="col-md-6 col-lg-8">
       <div class="card__image">
-        <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
-        <img src="{{post_image_lg.url}}" alt="{{ post.story_image_alt }}" class="fade-in-image" onload="this.classList.add('loaded');">
+        <div class="card__image__background" style="background-image: url({{ post_image_thumb.url }});"></div>
+        <img src="{{ post_image_lg.url }}" alt="{{ post.story_image_alt }}" class="fade-in-image" onload="this.classList.add('loaded');">
       </div>
     </div>
+    {# Card text #}
     <div class="col-md-5 col-lg-4">
       <div class="card__text">
+        {# Heading #}
         <h2 class="card__text__title margin-top-0 block">
           <span><u>{% firstof post.seo_title post.title %}</u></span>
         </h2>
-        {% if post.story_excerpt or post.search_description or post.subheading %}<h6 class="card__text__subtitle margin-10">{% firstof post.story_excerpt post.search_description post.subheading %}</h6>{% endif %}
-        <h6 class="card__text__program caption margin-top-10 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post|model_display_name}}</h6>
+
+        {# Description #}
+        {% if post.story_excerpt or post.search_description or post.subheading %}
+          <h6 class="card__text__subtitle margin-10">
+            {% firstof post.story_excerpt post.search_description post.subheading %}
+          </h6>
+        {% endif %}
+
+        {# Tag #}
+        {% if post.tag %}
+          <h6 class="card__text__program caption margin-top-10 margin-bottom-0">
+            {{ post.tag }}
+          </h6>
+        {% elif post|model_display_name %}
+          <h6 class="card__text__program caption margin-top-10 margin-bottom-0">
+            {{ post.parent_programs.all.0.title }} {{ post|model_display_name }}
+          </h6>
+        {% endif %}
       </div>
     </div>
     </a>
