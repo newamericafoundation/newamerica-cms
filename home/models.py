@@ -8,6 +8,7 @@ from django.db import models
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.functional import cached_property
+from home.blocks import ExternalLeadStoryBlock
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from pytz import timezone
@@ -143,7 +144,17 @@ class HomePage(Page):
     down_for_maintenance = models.BooleanField(default=False)
 
     # Up to four lead stories can be featured on the homepage.
-    # Lead_1 will be featured most prominently.
+    # The first will be featured most prominently.
+    lead_stories = StreamField(
+        [
+            ("internal", blocks.PageChooserBlock()),
+            ("external", ExternalLeadStoryBlock()),
+        ],
+        blank=True,
+        max_num=4,
+        use_json_field=True,
+    )
+
     lead_1 = models.ForeignKey(
         "wagtailcore.Page",
         null=True,
@@ -216,6 +227,7 @@ class HomePage(Page):
     content_panels = Page.content_panels + [FieldPanel("about_pages")]
 
     promote_panels = Page.promote_panels + [
+        FieldPanel("lead_stories", heading="Lead Stories"),
         MultiFieldPanel(
             [
                 FieldPanel("lead_1"),
@@ -223,7 +235,7 @@ class HomePage(Page):
                 FieldPanel("lead_3"),
                 FieldPanel("lead_4"),
             ],
-            heading="Lead Stories",
+            heading="Lead Stories (Legacy fields)",
             classname="collapsible",
         ),
         MultiFieldPanel(
@@ -244,6 +256,29 @@ class HomePage(Page):
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
+
+        # Set up external lead stories to match the page structure.
+        for index, block in enumerate(self.lead_stories):
+            key = f"lead_{index + 1}"
+            if block.block_type == "external":
+                context[key] = {
+                    "url": block.value["link"],
+                    "story_image": block.value["image"],
+                    "story_image_alt": block.value["image_alt"],
+                    "title": block.value["heading"],
+                    "description": block.value["description"],
+                    "tag": block.value["tag"],
+                }
+            elif block.block_type == "internal":
+                # Get the specific page type already.
+                context[key] = block.value.specific
+
+        # If lead_stories is not populated, use the old lead story fields.
+        if not self.lead_stories:
+            context["lead_1"] = self.lead_1.specific if self.lead_1 else None
+            context["lead_2"] = self.lead_2.specific if self.lead_2 else None
+            context["lead_3"] = self.lead_3.specific if self.lead_3 else None
+            context["lead_4"] = self.lead_4.specific if self.lead_4 else None
 
         # In order to apply different styling to main lead story
         # versus the other lead stories, we needed to separate them out
