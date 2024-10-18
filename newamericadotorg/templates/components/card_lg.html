@@ -23,9 +23,9 @@
         </h2>
 
         {# Description #}
-        {% if post.story_excerpt or post.search_description or post.subheading %}
+        {% if post.story_excerpt or post.search_description or post.subheading or post.description %}
           <h6 class="card__text__subtitle margin-10">
-            {% firstof post.story_excerpt post.search_description post.subheading %}
+            {% firstof post.story_excerpt post.search_description post.subheading post.description %}
           </h6>
         {% endif %}
 
