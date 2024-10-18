@@ -7,19 +7,34 @@
 {% image post.story_image fill-150x55 as post_image_thumb %}
 
 <div class="card sm">
-  <a href="{{post.url}}" class="row no-gutters">
+  <a href="{{ post.url }}" class="row no-gutters">
+    {# Card image #}
     <div class="col-6">
-      <div class="card__image{% if not post.story_image %} no-image{%endif%}">
-        <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
-        <img src="{{post_image_lg.url}}"  alt="{{ post.story_image_alt }}" srcset="{{post_image_lg.url}} 675w, {{post_image_md.url}} 350w, {{post_image_thumb.url}} 150w" class="fade-in-image" onload="this.classList.add('loaded');"/>
+      <div class="card__image{% if not post.story_image %} no-image{% endif %}">
+        <div class="card__image__background" style="background-image: url({{ post_image_thumb.url }});"></div>
+        <img src="{{ post_image_lg.url }}"  alt="{{ post.story_image_alt }}" srcset="{{ post_image_lg.url }} 675w, {{ post_image_md.url }} 350w, {{ post_image_thumb.url }} 150w" class="fade-in-image" onload="this.classList.add('loaded');"/>
       </div>
     </div>
+    {# Card text #}
     <div class="col-6">
       <div class="card__text">
+        {# Heading (truncated) #}
         <h4 class="card__text__title margin-0">
-          <span><u>{% firstof post.seo_title|ellipsize:56 post.title|ellipsize:56 %}</u></span>
+          {# Make sure we don't try to truncate a null object. #}
+          {% firstof post.seo_title post.title "" as title %}
+          <span><u>{{ title|ellipsize:56 }}</u></span>
         </h4>
-        <h6 class="card__text__program caption margin-top-10 margin-bottom-0">{{post.parent_programs.all.0.title}} {{post|model_display_name}}</h6>
+
+        {# Tag #}
+        {% if post.tag %}
+          <h6 class="card__text__program caption margin-top-10 margin-bottom-0">
+            {{ post.tag }}
+          </h6>
+        {% elif post|model_display_name %}
+          <h6 class="card__text__program caption margin-top-10 margin-bottom-0">
+            {{ post.parent_programs.all.0.title }} {{ post|model_display_name }}
+          </h6>
+        {% endif %}
       </div>
     </div>
   </a>

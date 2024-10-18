@@ -6,28 +6,40 @@
 {% image post.story_image fill-30x23 as post_image_thumb %}
 
 <div class="card md">
-  <a href="{{post.url}}" class="row gutter-0">
+  <a href="{{ post.url }}" class="row gutter-0">
+    {# Card image #}
     <div class="col-6 col-md-12">
       <div class="card__image">
-        <div class="card__image__background" style="background-image: url({{post_image_thumb.url}});"></div>
-        <img src="{{post_image_lg.url}}" alt="{{ post.story_image_alt }}" class="fade-in-image" onload="this.classList.add('loaded');"/>
+        <div class="card__image__background" style="background-image: url({{ post_image_thumb.url }});"></div>
+        <img src="{{ post_image_lg.url }}" alt="{{ post.story_image_alt }}" class="fade-in-image" onload="this.classList.add('loaded');"/>
       </div>
     </div>
+    {# Card text #}
     <div class="col-6 col-md-12">
       <div class="card__text">
-        <!-- <h3 class="card__text__title bold margin-top-0 block">{{post.title}}</h3> -->
+        {# Heading #}
         <h4 class="card__text__title margin-0">
           <span><u>{% firstof post.seo_title post.title %}</u></span>
         </h4>
-        {% if description %}
+
+        {# Description #}
+        {% if description or post.description %}
           <h6 class="card__text__excerpt margin-top-5 margin-bottom-0">
-            {{ description }}
+            {% firstof description post.description %}
           </h6>
         {% endif %}
+
+        {# Tag #}
         {% if not hide_display_name %}
-          <h6 class="card__text__program caption margin-top-10 margin-bottom-0">
-            {{post.parent_programs.all.0.title}} {{post|model_display_name}}
-          </h6>
+          {% if post.tag %}
+            <h6 class="card__text__program caption margin-top-10 margin-bottom-0">
+              {{ post.tag }}
+            </h6>
+          {% elif post|model_display_name %}
+            <h6 class="card__text__program caption margin-top-10 margin-bottom-0">
+              {{ post.parent_programs.all.0.title }} {{ post|model_display_name }}
+            </h6>
+          {% endif %}
         {% endif %}
       </div>
     </div>
