@@ -155,38 +155,6 @@ class HomePage(Page):
         use_json_field=True,
     )
 
-    lead_1 = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    lead_2 = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    lead_3 = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    lead_4 = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
     # Up to three featured stories to appear underneath
     # the lead stories. All of the same size and formatting.
     feature_1 = models.ForeignKey(
@@ -230,16 +198,6 @@ class HomePage(Page):
         FieldPanel("lead_stories", heading="Lead Stories"),
         MultiFieldPanel(
             [
-                FieldPanel("lead_1"),
-                FieldPanel("lead_2"),
-                FieldPanel("lead_3"),
-                FieldPanel("lead_4"),
-            ],
-            heading="Lead Stories (Legacy fields)",
-            classname="collapsible",
-        ),
-        MultiFieldPanel(
-            [
                 FieldPanel("feature_1"),
                 FieldPanel("feature_2"),
                 FieldPanel("feature_3"),
@@ -272,13 +230,6 @@ class HomePage(Page):
             elif block.block_type == "internal":
                 # Get the specific page type already.
                 context[key] = block.value.specific
-
-        # If lead_stories is not populated, use the old lead story fields.
-        if not self.lead_stories:
-            context["lead_1"] = self.lead_1.specific if self.lead_1 else None
-            context["lead_2"] = self.lead_2.specific if self.lead_2 else None
-            context["lead_3"] = self.lead_3.specific if self.lead_3 else None
-            context["lead_4"] = self.lead_4.specific if self.lead_4 else None
 
         # In order to preserve style, minimum and maximum of feature stories is 3
         # If there are less than 3 feature stories - none show up even if they're added.
