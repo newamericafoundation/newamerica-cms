@@ -4,10 +4,16 @@
 {% load wagtailimages_tags %}
 
 {% block body_id %}na-post{% endblock %}
-
-{% block header %}{% endblock %}
-{% block footer %}{% endblock %}
-
+{% block header %}
+    {% if page.include_header_footer %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+{% block footer %}
+    {% if page.include_header_footer %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
 {% block content %}
     <iframe src="{{ page.embed_url }}" style="width: 100vw; height: 100vh;"></iframe>
 {% endblock %}
