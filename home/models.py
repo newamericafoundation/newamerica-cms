@@ -137,6 +137,7 @@ class HomePage(Page):
         "programs.PublicationsPage",
         "report.AllReportsHomePage",
         "other_content.AllOtherPostsHomePage",
+        "other_content.FullPageEmbed",
         "collection.Collection",
         "collection.CollectionsHomePage",
     ]

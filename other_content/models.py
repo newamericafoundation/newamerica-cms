@@ -126,3 +126,18 @@ class OtherPostCategory(Page):
 
     class Meta:
         verbose_name = 'Category'
+
+class FullPageEmbed(Page):
+    parent_page_types = ['home.HomePage', 'programs.Program', 'programs.Subprogram', 'programs.Project']
+    subpage_types = []
+
+    embed_url = models.URLField()
+
+    content_panels = Page.content_panels + [
+        FieldPanel('embed_url'),
+    ]
+
+    # These pages are not indexed for search
+    search_fields = []
+    
+    
