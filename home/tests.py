@@ -18,7 +18,7 @@ from collection.models import CollectionsHomePage
 from conference.models import AllConferencesHomePage
 from event.models import AllEventsHomePage, Event, ProgramEventsPage
 from in_depth.models import AllInDepthHomePage
-from other_content.models import AllOtherPostsHomePage
+from other_content.models import AllOtherPostsHomePage, FullPageEmbed
 from person.models import BoardAndLeadershipPeoplePage, OurPeoplePage
 from podcast.models import AllPodcastsHomePage
 from policy_paper.models import (
@@ -184,6 +184,7 @@ class HomeTests(WagtailPageTestCase):
             PublicationsPage,
             AllBriefsHomePage,
             AllOtherPostsHomePage,
+            FullPageEmbed,
             AllThreadArticlesHomePage,
             AllWeeklyArticlesHomePage,
             CollectionsHomePage,
