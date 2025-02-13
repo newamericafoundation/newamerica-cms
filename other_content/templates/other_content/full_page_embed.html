@@ -18,9 +18,7 @@
     {% if page.include_header_footer %}
     <div class="container margin-35">
         {% include 'components/post_heading_text.html' %}
-        <iframe src="{{ page.embed_url }}" style="width: 100%; height: 100vh;"></iframe>
     </div>
-    {% else %}
-        <iframe src="{{ page.embed_url }}" style="width: 100vw; height: 100vh;"></iframe>
     {% endif %}
+    <iframe src="{{ page.embed_url }}" style="width: 100vw; height: 100vh;"></iframe>
 {% endblock %}
