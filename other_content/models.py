@@ -132,9 +132,11 @@ class FullPageEmbed(Page):
     subpage_types = []
 
     embed_url = models.URLField()
+    subheading = models.CharField(max_length=255, blank=True, null=True)
     include_header_footer = models.BooleanField(default=True, help_text="If true, the header and footer will be included in the page.")
 
     content_panels = Page.content_panels + [
+        FieldPanel('subheading'),
         FieldPanel('embed_url'),
         FieldPanel('include_header_footer'),
     ]
