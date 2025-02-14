@@ -36,11 +36,35 @@ class FeaturedProgramPage(Orderable):
         verbose_name="Featured image alternative text",
         help_text="A concise description of the image for users of assistive technology.",
     )
+    title = models.CharField(
+        default="",
+        max_length=500,
+        blank=True,
+        help_text="Title for feature card. If blank, use the title of the featured page.",
+    )
+    story_excerpt = models.TextField(
+        default="",
+        blank=True,
+        help_text="Story excerpt for feature card. If blank, use the excerpt of the featured page.",
+    )
+    show_page_type = models.BooleanField(
+        default=True,
+        help_text="If checked, a label will be displayed on the card that shows the type of the featured page.",
+    )
 
     panels = [
         FieldPanel("page"),
         FieldPanel("featured_image"),
         FieldPanel("featured_image_alt"),
+        MultiFieldPanel(
+            [
+                FieldPanel("title"),
+                FieldPanel("story_excerpt"),
+                FieldPanel("show_page_type"),
+            ],
+            heading="Options",
+            classname="collapsible collapsed",
+        ),
     ]
 
 
@@ -60,11 +84,36 @@ class FeaturedSubprogramPage(Orderable):
         verbose_name="Featured image alternative text",
         help_text="A concise description of the image for users of assistive technology.",
     )
+    title = models.CharField(
+        default="",
+        max_length=500,
+        blank=True,
+        help_text="Title for feature card. If blank, use the title of the featured page.",
+    )
+    story_excerpt = models.TextField(
+        default="",
+        blank=True,
+        help_text="Story excerpt for feature card. If blank, use the excerpt of the featured page.",
+    )
+    show_page_type = models.BooleanField(
+        default=True,
+        help_text="If checked, a label will be displayed on the card that shows the type of the featured page.",
+    )
 
     panels = [
         FieldPanel("page"),
         FieldPanel("featured_image"),
         FieldPanel("featured_image_alt"),
+        MultiFieldPanel(
+            [
+                FieldPanel("title"),
+                FieldPanel("story_excerpt"),
+                FieldPanel("show_page_type"),
+            ],
+            heading="Options",
+            classname="collapsible collapsed",
+        ),
+
     ]
 
 @register_snippet
@@ -104,6 +153,10 @@ class AbstractProgram(RoutablePageMixin, Page):
         help_text="Select if location based program i.e. New America NYC",
     )
     description = models.TextField()
+    show_about_card_label = models.BooleanField(
+        default=True,
+        help_text="If checked, an \"About\" label will be displayed on the card that shows the description text.",
+    )
 
     # Story excerpt and story image fields are to provide information
     # about the program or subprogram if they are featured on a homepage
@@ -154,6 +207,7 @@ class AbstractProgram(RoutablePageMixin, Page):
                 FieldPanel("location"),
                 FieldPanel("fellowship"),
                 FieldPanel("description"),
+                FieldPanel("show_about_card_label"),
                 FieldPanel("story_excerpt"),
                 FieldPanel("former"),
             ],

@@ -19,7 +19,7 @@ export default class CardVariable extends Component {
                 <span><u dangerouslySetInnerHTML={{ __html: manualBreaks(post.seo_title || post.title) }}/></span>
               </h4>
               <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
-                {post.programs ? post.programs[0].name : ''} {post.content_type ? post.content_type.name : ''}
+                {post.programs ? post.programs[0].name : ''} {post.show_page_type && post.content_type ? post.content_type.name : ''}
               </h6>
             </div>
           </div>
