@@ -17,6 +17,9 @@
   {% if page.dataviz_src %}
     <script type="text/javascript" src="{{page.dataviz_src}}"></script>
   {% endif %}
+  {% if page.data_project_external_script %}
+      <script type="text/javascript" src="https://na-data-projects.s3.amazonaws.com/projects/{{ page.data_project_external_script }}" async=""></script>
+  {% endif %}
 {% endblock %}
 
 {% block content %}
