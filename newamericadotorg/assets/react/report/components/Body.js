@@ -108,6 +108,11 @@ class Body extends Component {
       prevProps.section.number != this.props.section.number &&
       this.props.section
     ) {
+      // When the section changes, remove the Shorthand embed,
+      // allowing it to reinitialize when navigated back to the page.
+      if (window.Shorthand) {
+        window.Shorthand.remove();
+      };
       this.citationEvents();
       this.loadScripts();
       this.props.dispatch({
