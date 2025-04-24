@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_id %}na-conference{% endblock %}
+{% block header %}
+  {% include 'components/header.html' with transparent=True %}
+{% endblock %}
+
+{% block content %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% image page.story_image original as cover %}
+<section id="hero" class="conference__intro fsf-2025-intro" style="background: black url({{cover.url}}) no-repeat center/cover fixed">
+  <div class="heading-block centered-block align-center">
+      <div class="conference__title">
+        <div class="na-logo">
+          <a href="http://newamerica.org/" target="_blank" rel="noopener noreferrer">
+          {% if page.alternate_logo %}
+            {% image page.alternate_logo original as alt_logo %}
+            <img class="" src="{{alt_logo.url}}" alt={{page.alternate_logo_alt}} />
+          {% else %}
+          {% endif %}
+          </a>
+      	</div>
+        <div class="conference__title__location-date">
+          <h4 class="white">
+            <span>
+              <span class="fa fa-calendar base-clr-txt" style="padding-right: 10px;"></span>
+              {% if page.end_date %}
+                {{ page.date|date:'F' }} {{ page.date|date:'j' }}&ndash;{{ page.end_date|date:'j' }} {{ page.date|date:'Y' }}
+              {% else %}
+                {{ page.date|date:'F' }} {{ page.date|date:'j' }}, {{ page.date|date:'Y' }}
+              {% endif %}
+            </span>
+          </h4>
+          <h4 class="white">
+            <span>
+              <span class="fa fa-location-dot base-clr-txt" style="padding-right: 10px;"></span>
+              {{page.city}}, {{page.state}}
+            </span>
+          </h4>
+        </div>
+        {% if page.alternate_title_image %}
+          {% image page.alternate_title_image original as alt_title_image %}
+          <img class="conference__title__image" src="{{alt_title_image.url}}" alt={{page.alternate_title_image_alt}} />
+        {% else %}
+          <h1 class="promo white centered margin-35">{{page.title}}</h1>
+        {% endif %}
+        <h6 class="pullquote white centered">{{ page.subheading }}</h6>
+        <p class="white centered">{{page.search_description}}</p>
+        <div class="btns-container {%if page.invitation_only %}invite-only{% endif %}" style="text-align:center;">
+          {% if page.invitation_only %}
+            <a href="mailto:events@newamerica.org?Subject={{page.title}}" target="_top" class="button white-outline" style="width:175px;">Request Invitation</a>
+          {% elif page.rsvp_link %}
+            <a href="{{page.rsvp_link}}" target="_blank" rel="noopener noreferrer" class="button white-outline" style="width:175px;">Register</a>
+          {% endif %}
+        </div>
+      </div>
+
+  </div>
+</section>
+
+{% endblock %}

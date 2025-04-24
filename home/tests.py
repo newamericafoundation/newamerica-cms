@@ -16,6 +16,7 @@ from book.models import AllBooksHomePage
 from brief.models import AllBriefsHomePage
 from collection.models import CollectionsHomePage
 from conference.models import AllConferencesHomePage
+from future_security_forum.models import FutureSecurityForumPage
 from event.models import AllEventsHomePage, Event, ProgramEventsPage
 from in_depth.models import AllInDepthHomePage
 from other_content.models import AllOtherPostsHomePage, FullPageEmbed
@@ -188,6 +189,7 @@ class HomeTests(WagtailPageTestCase):
             AllThreadArticlesHomePage,
             AllWeeklyArticlesHomePage,
             CollectionsHomePage,
+            FutureSecurityForumPage,
             })
 
     # Test that pages can be created with POST data

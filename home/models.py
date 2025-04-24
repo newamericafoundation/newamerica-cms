@@ -121,6 +121,7 @@ class HomePage(Page):
         "the_thread.AllThreadArticlesHomePage",
         "event.AllEventsHomePage",
         "conference.AllConferencesHomePage",
+        "future_security_forum.FutureSecurityForumPage",
         "blog.AllBlogPostsHomePage",
         "book.AllBooksHomePage",
         "person.OurPeoplePage",

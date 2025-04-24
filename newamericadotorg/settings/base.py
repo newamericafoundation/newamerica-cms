@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'blog',
     'event',
     'conference',
+    'future_security_forum',
     'collection',
     'podcast',
     'report',
