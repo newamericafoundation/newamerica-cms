@@ -157,12 +157,13 @@ class FeaturedPageSerializer(ModelSerializer):
     story_image_alt = SerializerMethodField()
     story_excerpt = SerializerMethodField()
     story_image_thumbnail = SerializerMethodField()
+    show_page_type = SerializerMethodField()
 
     def get_id(self, obj):
         return obj.page.id
 
     def get_title(self, obj):
-        return obj.page.title
+        return obj.title if obj.title else obj.page.title
 
     def get_url(self, obj):
         return obj.page.url
@@ -171,7 +172,10 @@ class FeaturedPageSerializer(ModelSerializer):
         return obj.page.slug
 
     def get_story_excerpt(self, obj):
-        return getattr(obj.page.specific, 'story_excerpt', None)
+        return (
+            obj.story_excerpt if obj.story_excerpt
+            else getattr(obj.page.specific, 'story_excerpt', None)
+        )
 
     def get_story_image(self, obj):
         # return generate_image_url(obj.story_image, 'fill-600x460')
@@ -209,6 +213,9 @@ class FeaturedPageSerializer(ModelSerializer):
     def get_content_type(self, obj):
         return get_content_type(obj.page.specific)
 
+    def get_show_page_type(self, obj):
+        return obj.show_page_type
+
     class Meta:
         model = Page
         fields = (
@@ -221,6 +228,7 @@ class FeaturedPageSerializer(ModelSerializer):
             'story_excerpt',
             'story_image_thumbnail',
             'story_image_alt',
+            'show_page_type',
         )
 
 
@@ -287,6 +295,7 @@ class ProgramDetailSerializer(ModelSerializer):
             'subscription_card_text',
             'nav_options',
             'display_logo_as_name',
+            'show_about_card_label',
         )
 
     @cached_property

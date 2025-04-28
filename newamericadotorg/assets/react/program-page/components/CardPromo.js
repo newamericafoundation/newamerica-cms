@@ -36,7 +36,7 @@ export class PromoMd extends Component {
     return (
       <div className="card promo-md">
         <div className="card__text">
-          <h6 className="margin-top-0">{title}</h6>
+          {title !== "" && <h6 className="margin-top-0">{title}</h6>}
           {this.props.children}
         </div>
         <div className="card__link-to">
