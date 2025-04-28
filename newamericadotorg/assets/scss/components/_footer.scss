@@ -63,3 +63,13 @@ body:not(.homepage):not(.programpage) .footer.mobile{
     }
   }
 }
+
+.charity-seals {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.charity-img img{
+  max-height: 82px;
+}
