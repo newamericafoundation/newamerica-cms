@@ -1,75 +1,86 @@
 body:not(.homepage):not(.programpage) .footer > div,
-body:not(.homepage):not(.programpage) .footer.mobile{
-  @include box-shadow( 0px -1px 0px 0px color(black, base, 0.075) );
+body:not(.homepage):not(.programpage) .footer.mobile {
+    @include box-shadow(0px -1px 0px 0px color(black, base, 0.075));
 }
 
-#na-report .footer{
-  background: color(black);
-  h1,h2,h3,h4,h5,h6{
-    color: color(white) !important;
-  }
+#na-report .footer {
+    background: color(black);
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: color(white) !important;
+    }
 
-  i {
-    background-color: #d5d5d5;
-    color: color(black);
-  }
+    i {
+        background-color: #d5d5d5;
+        color: color(black);
+    }
 }
 
-.footer.desktop{
-  display: none;
-  background: color(white);
-  @include media-breakpoint(desktop){
-    display: block;
-  }
+.footer.desktop {
+    display: none;
+    background: color(white);
+    @include media-breakpoint(desktop) {
+        display: block;
+    }
 
-  & > div {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
+    & > div {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
 }
 
 .footer__social i {
-  margin-right: 15px;
+    margin-right: 15px;
 }
 
-.footer.mobile{
-  padding-top: 25px;
-  padding-bottom: 25px;
-  background: color(white);
-  @include media-breakpoint(desktop){
-    display: none;
-  }
-  .footer__logo-wrapper {
-    text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-  .footer-mobile__content-list {
-    text-align: center;
-    padding: 0;
-    max-width: 450px;
-    margin: 0 auto;
-    li{
-      display: inline-block;
-      label{
-        color: color(black);
-      }
-      &:not(:last-child):after{
-        font-size: 0.8em;
-        content: '•';
-        margin-left: 5px;
-        margin-right: 5px;
-      }
+.footer.mobile {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background: color(white);
+    @include media-breakpoint(desktop) {
+        display: none;
     }
-  }
+    .footer__logo-wrapper {
+        text-align: center;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .footer-mobile__content-list {
+        text-align: center;
+        padding: 0;
+        max-width: 450px;
+        margin: 0 auto;
+        li {
+            display: inline-block;
+            label {
+                color: color(black);
+            }
+            &:not(:last-child):after {
+                font-size: 0.8em;
+                content: "•";
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+        }
+    }
 }
 
 .charity-seals {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
 }
 
-.charity-img img{
-  max-height: 82px;
+.charity-img {
+    img {
+        max-height: 82px;
+    }
+
+    &.charity-lg img {
+        max-height: 108px;
+    }
 }

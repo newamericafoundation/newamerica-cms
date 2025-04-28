@@ -213,12 +213,15 @@ class OurFundingMain extends Component {
     return(
       <div class="our-funding-main" ref={(el)=>{ this.el = el; }}>
         <Body data={how_were_funded} aside={<div className="buttons">
-          <div className="charity-navigator-img margin-bottom-25" style={{textAlign: 'center'}}>
+          <div className="charity-navigator-img margin-bottom-25 charity-seals" style={{textAlign: 'center'}}>
             {/* <img src={charity_navigator.inline_image[0].url}/> */}
             {/* <img src="http://localhost:8000/media/images/image_WO3pmoz.original.png" style={{width: '100%', maxWidth: '350px', margin: '0 auto', display: 'block'}}/> */}
-            <a href="https://app.candid.org/profile/7781756" target="_blank"> 
+            <a class="charity-img charity-lg" href="https://app.candid.org/profile/7781756" target="_blank"> 
               <img src="https://widgets.guidestar.org/prod/v1/pdp/transparency-seal/7781756/svg" />
             </a>
+            <a class="charity-img charity-lg" href="https://www.charitynavigator.org/ein/522096845" target="_blank"> 
+                  <img src="https://d1y8sb8igg2f8e.cloudfront.net/images/charity-nav.original.png" />
+              </a>
           </div>
           <div style={{textAlign: "center"}}>
             <a className="button" href={donate_button.button[0].button_link}>{donate_button.button[0].button_text}</a>
