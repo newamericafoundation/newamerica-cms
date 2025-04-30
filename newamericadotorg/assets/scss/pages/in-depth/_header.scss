@@ -40,14 +40,18 @@ $section-header-height: 80px;
     width: 100%;
   }
 	.slick-slide {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		height: $section-header-height;
 		h6 {
 			margin: 0;
 			width: 100%;
       padding: 10px;
-			position: relative;
-	    top: 50%;
-	    @include transform(translateY(-50%));
+	  margin-top: 2px;
+		// 	position: relative;
+	    // top: 50%;
+	    // @include transform(translateY(-50%));
 		}
 	}
 
