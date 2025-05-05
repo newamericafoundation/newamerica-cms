@@ -38,14 +38,14 @@
     @include transition(border-color 0.15s ease);
   }
 
-  @include transition(background 0.15s ease);
+  // @include transition(background 0.15s ease);
 
   .mobile-menu-icon > span {
     @include transition(background 0.15s ease);
   }
 
   .logo{
-    @include transition(background-image 0.15s ease);
+    // @include transition(background-image 0.15s ease);
   }
 
   h4,h6{

@@ -6,7 +6,7 @@
   // height: 24px;
   width: 120px;
   height: 40px;
-  @include transition(background-image 0.15s ease);
+  // @include transition(background-image 0.15s ease);
   &:after{
     //preload white logo
     content: '';
