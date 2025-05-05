@@ -245,7 +245,7 @@ class SaveTheDatePage(Page):
 
     template = "save-date/landing.html"
 
-    subheading = models.TextField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True, help_text="This will be the ABOUT text")
 
     story_image = models.ForeignKey(
         "home.CustomImage",
@@ -300,7 +300,6 @@ class SaveTheDatePage(Page):
     end_date = models.DateField(blank=True, null=True)
     rsvp_link = models.URLField(blank=True, null=True)
 
-
     location_name = models.TextField(
         help_text="Name of building (e.g. the Kennedy Center)", blank=True, null=True
     )
@@ -325,7 +324,7 @@ class SaveTheDatePage(Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel("subheading"),
+        FieldPanel("description"),
         FieldRowPanel(
             [
                 FieldPanel("date", classname="col6"),

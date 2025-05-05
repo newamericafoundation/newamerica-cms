@@ -42,12 +42,14 @@
 }
 
 .fsf-2025-intro {
-    .pullquote {
+   .rich-text p {
         font-family: $label-font-family;
         font-size: 14px;
         padding-left: 15px;
         padding-right: 15px;
         line-height: 1.3;
+        color: white;
+        text-align: center;
 
         @media (min-width: 430px) {
             font-size: 16px;
@@ -59,7 +61,4 @@
         }
     }
 
-    .conference__title {
-        max-width: 660px;
-    }
 }

@@ -49,8 +49,9 @@
         {% else %}
           <h1 class="promo white centered margin-35">{{page.title}}</h1>
         {% endif %}
-        {% if page.subheading %}
-          <p class="pullquote white centered">{{ page.subheading }}</p>
+        {% if page.description %}
+          <!-- <p class="pullquote white centered">{{ page.description|richtext }}</p> -->
+          {{ page.description|richtext }}
         {% endif %}
 
         {% if page.rsvp_link %}
