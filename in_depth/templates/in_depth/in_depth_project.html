@@ -93,7 +93,9 @@
 				{% for section in project_sections.specific %}
 					<div class="contents-panel__item margin-bottom-35">
 						<h3 class="contents-panel__item__title block bold white"><a href="{{ section.url }}">{{ section.title }}</a></h3>
+						{% if section.story_excerpt %}
 						<h6 class="contents-panel__item__description paragraph white">{{ section.story_excerpt }}</h6>
+						{% endif %}
 					</div>
 				{% endfor %}
 			</div>
