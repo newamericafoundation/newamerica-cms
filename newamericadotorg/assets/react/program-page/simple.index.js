@@ -37,9 +37,11 @@ class StoryGrid extends Component {
               limit: 100
             }}/>
           {promos[1] && <CardLg post={promos[1]} />}
+          {program.slug !== "future-security-scenarios-lab" && (
           <Promo title="About" linkTo={aboutUrl}>
             <p>{program.description}</p>
           </Promo>
+          )}
           {promos[2] && <CardLg post={promos[2]} />}
           {(program.subscriptions && !program.hide_subscription_card) &&
           <Promo title="Subscribe">

@@ -16,7 +16,7 @@ export default class CardLg extends Component {
   render(){
     let { post, loaded } = this.props;
     return (
-      <div className="card lg">
+      <div className="card lg">    
         <a href={post.url} className="row no-gutters">
           <div className="col-12 col-md-8">
             <div className="card__image">
@@ -31,8 +31,10 @@ export default class CardLg extends Component {
                 <span><u>{post.seo_title || post.title}</u></span>
               </h2>
               <h6 className="card__text__subtitle margin-10">{post.story_excerpt}</h6>
+              {post.url !== "/future-security/future-security-scenarios-lab/about/" && (
               <h6 className="card__text__program caption margin-top-10 margin-bottom-0">
                 {post.programs ? post.programs[0].title : ''} {post.content_type ? post.content_type.name : ''}</h6>
+              )}
             </div>
           </div>
           </a>
