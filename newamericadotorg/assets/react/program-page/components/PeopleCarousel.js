@@ -10,11 +10,11 @@ const Person = ({ person }) => (
     <div className="promo__people-carousel__person__image">
       <img className="promo__people-carousel__person__image__background" src={person.profile_image} />
     </div>
-    <div className="promo__people-carousel__person__text">
+    <a href={person.url} className="promo__people-carousel__person__text">
       <h3 className="margin-top-0">{person.first_name} {person.last_name}</h3>
       <h6 className="caption">{person.position}</h6>
       <h6>{person.description}</h6>
-    </div>
+    </a>
   </div>
 );
 
