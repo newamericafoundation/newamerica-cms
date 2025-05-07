@@ -83,7 +83,7 @@ const generateAuthors = authors => {
   let authorElements = [];
   let len = authors.length;
   let _authors = [...authors];
-  if (len > 3) _authors = authors.splice(0, 3);
+  if (len > 3) _authors = authors.slice(0, 3);
   _authors.forEach((a, i) => {
     authorElements.push(
       <div className="h6 inline link margin-0" key={`author-${i}`}>
