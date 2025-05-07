@@ -22,8 +22,21 @@ class OtherPost(Post):
         ('attachment', DocumentChooserBlock(required=False)),
     ], null=True, blank=True, use_json_field=True)
 
+    archived_page = models.BooleanField(
+        default=False,
+        verbose_name="Archived Page"
+    )
+
+    last_updated = models.TextField(blank=True, null=True, help_text='Enter in the month and year this page was last updated (Example: April 2022).')
+
     content_panels = Post.content_panels + [
         FieldPanel('attachment'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel("data_project_external_script"),
+        FieldPanel("archived_page"),
+        FieldPanel("last_updated"),
     ]
 
     other_content_type = models.ForeignKey(

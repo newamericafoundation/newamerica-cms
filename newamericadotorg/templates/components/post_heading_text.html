@@ -1,5 +1,13 @@
 {% load utilities %}
 <div class="post-heading__text margin-bottom-35">
+  {% if page.archived_page %}
+  <h5 style="display: inline-flex;gap: 12px;align-items: center;">
+    <span style="padding: 5px 10px;color: white;background-color: #333;border-radius: 2px;">Archived</span>
+    {% if page.last_updated %}
+    <span>Last Updated April 2022</span>
+    {% endif %}
+  </h5>
+  {% endif %}
   <h1 class="margin-top-0">
     {% firstof custom_title page.title %}
   </h1>
