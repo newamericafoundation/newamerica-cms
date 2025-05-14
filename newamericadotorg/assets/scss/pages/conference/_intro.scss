@@ -2,10 +2,6 @@
     height: 100vh;
     position: relative;
     margin-top: #{-$header-height};
-
-    @media (min-width: 1000px) {
-        height: 110vh;
-    }
 }
 
 .conference__title {
@@ -46,6 +42,14 @@
 }
 
 .fsf-2025-intro {
+    .conference__intro {
+        height: 100vh;
+
+        @media (min-width: 1000px) {
+            height: 110vh;
+        }
+    }
+
     .rich-text p {
         font-family: $label-font-family;
         font-size: 14px;
