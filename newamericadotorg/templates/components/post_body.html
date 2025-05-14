@@ -39,3 +39,7 @@
     <a href="{{rel.topic.url}}" class="tag">{{rel.topic.title}}</a>
   {% endfor %}
 {% endif %}
+
+{% if page.media_links %}
+{% include 'components/post_book_media_mentions.html' %}
+{% endif %}
