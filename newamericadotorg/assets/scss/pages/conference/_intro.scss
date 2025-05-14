@@ -42,7 +42,7 @@
 }
 
 .fsf-2025-intro {
-    .conference__intro {
+    &.conference__intro {
         height: 100vh;
 
         @media (min-width: 1000px) {
