@@ -43,6 +43,8 @@ class Book(Post):
         null=True,
         blank=True,
         use_json_field=True,
+        max_num=4,
+        verbose_name='In the News',
     )
 
     content_panels = Post.content_panels + [
