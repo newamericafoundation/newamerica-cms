@@ -5,7 +5,7 @@
             {% for link in page.media_links %}
             <div class="col-md-6 col-12">
                 <div class="media-mention">
-                    <a href="{{ link.value.url }}" class="ga-track-click">
+                    <a href="{{ link.value.url }}" target="_blank" class="ga-track-click">
                         <h4 class="margin-top-0 margin-bottom-10">{{ link.value.label }}</h4>
                         <h6 class="paragraph margin-0">{{ link.value.description }}</h6>
                     </a>
