@@ -21,14 +21,16 @@ class Jobs extends Component {
   }
 
   render(){
-    let { response: { results } } = this.props;
-    let { expanded } = this.state
+    let { response: { results } } = this.props; 
+    let jobs = Array.isArray(results) ? results : [results];
+
+    let { expanded } = this.state;
 
     return (
       <section className="padding-80">
         <div className="container--1080 home__fellowships">
           <div className="menu-list">
-            {results.sort((a,b)=>(a.title > b.title ? 1 : -1)).map((j,i)=>(
+            {Array.isArray(jobs) && jobs.sort((a,b)=>(a.title > b.title ? 1 : -1)).map((j,i)=>(
               <div key={`fellowship-${i}`} className={`${expanded[i] ? 'expanded ' : ''}home__fellowship`}>
                 <PlusX x={expanded[i]} />
                 <h2 onClick={()=>{ this.toggleExpand(i) }}>{j.title}</h2>
@@ -38,11 +40,11 @@ class Jobs extends Component {
                     <h6 className="inline">{j.city ? `${j.city}, ` : ''}{j.state} </h6>
                   </span>
                   <span className="home__fellowship__more__label">
-                    <h4 className="inline">Department:</h4>
+                    <h4 className="inline">Department: </h4>
                     <h6 className="inline">{j.department}</h6>
                   </span>
                   <span className="home__fellowship__more__label">
-                    <h4 className="inline">Type:</h4>
+                    <h4 className="inline">Type: </h4>
                     <h6 className="inline">{j.type}</h6>
                   </span>
                 </div>
