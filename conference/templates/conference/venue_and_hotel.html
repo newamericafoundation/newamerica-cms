@@ -31,7 +31,9 @@
         <br/>
         {{page.hotel_city}}, {{page.hotel_state}} {{page.hotel_zipcode}}
       </p>
-      {% include_block page.hotel_details %}
+      <p>
+      {% include_block page.hotel_details|richtext  %}
+      </p>
     </div>
     <div class="col-md-6">
       <div class="block-google-map">
@@ -44,9 +46,9 @@
   <div class="row gutter-50">
     <div class="col-6">
       {% include './location.html' %}
-      <span style="text-align:center;">
-      {% include_block page.venue_details %}
-      </span>
+      <p>
+      {% include_block page.venue_details|richtext %}
+      </p>
     </div>
     <div class="col-6">
       <div class="block-google-map">
