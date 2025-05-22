@@ -52,7 +52,7 @@
     <meta name="twitter:site" content="@NewAmerica">
   {% endif %}
 
-  {% if page.archived_page %}
+  {% if page.archived_page or page.no_index_page %}
   <meta name="robots" content="noindex, nofollow">
   {% endif %}
 

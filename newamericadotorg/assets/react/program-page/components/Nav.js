@@ -23,6 +23,14 @@ export default class Nav extends Component {
       });
     }
 
+    if (program.slug === "future-security-scenarios-lab") {
+      return [
+        program.about && { url: `${base}about/`, label: 'About' },
+        { url: `${base}our-people/`, label: 'Our People' },
+        { url: `${base}publications/`, label: 'Publications', active: program.content_types.find((c)=>(c.slug===subpage))},
+      ];
+    }
+
     return [
       program.about && { url: `${base}about/`, label: 'About' },
       { url: `${base}our-people/`, label: 'Our People' },
