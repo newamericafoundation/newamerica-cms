@@ -222,6 +222,17 @@ class FutureSecurityForumPage(Page):
         [FieldPanel("partner_heading"), FieldPanel("partners")]
     )
 
+    social_sharing_image = models.ForeignKey(
+        "home.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Social Sharing Image",
+    )
+
+    promote_panels = Page.promote_panels + [FieldPanel("social_sharing_image")]
+
     content_panels = [
         about,
         setup,
@@ -233,8 +244,6 @@ class FutureSecurityForumPage(Page):
         partners_and_sponsors,
     ]
 
-    promote_panels = Page.promote_panels
-
     class Meta:
         verbose_name = "Future Security Forum (DO NOT USE)"
     
@@ -243,9 +252,18 @@ class SaveTheDatePage(Page):
     parent_page_types = ["FutureSecurityForumPage"]
     subpage_types = []
 
-    template = "save-date/landing.html"
-
     description = RichTextField(blank=True, null=True, help_text="This will be the ABOUT text")
+
+    social_sharing_image = models.ForeignKey(
+        "home.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Social Sharing Image",
+    )
+
+    promote_panels = Page.promote_panels + [FieldPanel("social_sharing_image")]
 
     story_image = models.ForeignKey(
         "home.CustomImage",

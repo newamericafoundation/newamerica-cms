@@ -240,7 +240,16 @@ class Conference(Page):
         partners_and_sponsors,
     ]
 
-    promote_panels = Page.promote_panels
+    social_sharing_image = models.ForeignKey(
+        "home.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Social Sharing Image",
+    )
+
+    promote_panels = Page.promote_panels + [FieldPanel("social_sharing_image")]
 
     class Meta:
         verbose_name = "Conference"
