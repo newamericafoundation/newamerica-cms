@@ -30,6 +30,7 @@ class Conference(Page):
     subpage_types = []
 
     description = RichTextField(help_text="This will be the ABOUT text")
+    callout_box = RichTextField(help_text="This will be displayed under the Description text. Leave blank for nothing to show up", blank=True, null=True)
     subheading = models.TextField(blank=True, null=True)
     story_excerpt = models.CharField("excerpt", blank=True, null=True, max_length=140)
 
@@ -147,6 +148,7 @@ class Conference(Page):
             FieldPanel("about_image_alt"),
             FieldPanel("live_stream"),
             FieldPanel("description"),
+            FieldPanel("callout_box"),
         ],
         heading="About",
     )
@@ -223,6 +225,7 @@ class Conference(Page):
     )
     speakers = StreamField(PeopleBlock(), null=True, blank=True, use_json_field=True)
     partners = StreamField(PartnersBlock(), null=True, blank=True, use_json_field=True)
+    partner_text = RichTextField(help_text="This will be displayed under the Partner and Sponsor Logos. Leave blank for nothing to show up", blank=True, null=True)
     sessions = StreamField(SessionsBlock(), null=True, blank=True, use_json_field=True)
 
     partners_and_sponsors = MultiFieldPanel(
@@ -238,6 +241,7 @@ class Conference(Page):
         FieldPanel("speakers"),
         FieldPanel("sessions"),
         partners_and_sponsors,
+        FieldPanel("partner_text"),
     ]
 
     social_sharing_image = models.ForeignKey(

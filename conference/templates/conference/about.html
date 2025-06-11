@@ -17,5 +17,12 @@
     <div class="post-body">
       {{ page.description|richtext }}
     </div>
+    {% if page.callout_box %}
+    <div class="block-introduction" style="margin-top: 25px;margin-bottom: 0;">
+      <div class="rich-text">
+        {{ page.callout_box|richtext }}
+      </div>
+    </div>
+    {% endif %}
   </div>
 </section>

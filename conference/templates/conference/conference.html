@@ -75,6 +75,11 @@
       <span class="line-icon section-icon line-icon-seo-icons-24"></span>
       <h1 class="centered">{{ page.partner_heading }}</h1>
       {{ page.partners }}
+      {% if page.partner_text %}
+        <div class="rich-text">
+          {{ page.partner_text|richtext }}
+        </div>
+      {% endif %}
     </section>
     {% endif %}
 
