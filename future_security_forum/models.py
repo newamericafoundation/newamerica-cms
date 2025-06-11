@@ -252,6 +252,8 @@ class SaveTheDatePage(Page):
     parent_page_types = ["FutureSecurityForumPage"]
     subpage_types = []
 
+    template = "save-date/landing.html"
+
     description = RichTextField(blank=True, null=True, help_text="This will be the ABOUT text")
 
     social_sharing_image = models.ForeignKey(
