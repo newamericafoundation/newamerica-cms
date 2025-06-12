@@ -243,10 +243,7 @@ class Person(Page):
         related_name="+",
     )
 
-    no_index_page = models.BooleanField(
-        default=False,
-        verbose_name="Page is Not Indexed"
-    )
+    no_index_page = models.BooleanField(default=False)
 
     settings_panels = Page.settings_panels + [
         FieldPanel("no_index_page"),
