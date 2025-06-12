@@ -367,6 +367,7 @@ class Subprogram(AbstractProgram):
         "other_content.ProgramOtherPostsPage",
         "home.ProgramAboutHomePage",
         "survey.SurveysHomePage",
+        "home.SubscribePage",
     ]
 
     TEMPLATE_OPTIONS = (
