@@ -194,6 +194,7 @@ class ProgramsTests(WagtailPageTestCase):
                 ProgramAboutHomePage,
                 SurveysHomePage,
                 ProgramBriefsPage,
+                SubscribePage,
             }
         )
     def test_program_subpage_redirect(self):
