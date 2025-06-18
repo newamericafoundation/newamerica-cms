@@ -8,6 +8,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.rich_text import RichText
+from django.core.validators import RegexValidator
 
 import home.models
 
@@ -251,6 +252,13 @@ def ResourceKitSerializer(r):
 class ResourceKit(blocks.StructBlock):
     title = blocks.CharBlock(required=True)
     description = blocks.TextBlock(required=False)
+
+    no_space_validator = RegexValidator(
+    regex=r'^\S*$',
+    message='Spaces are not allowed. Please only use underscores or dashes.',
+    )
+
+    anchor = blocks.CharBlock(required=False, validators=[no_space_validator], help_text="Please only use letters, numbers, underscores, and hyphens.")
     resources = blocks.StreamBlock(
         [
             (

@@ -91,7 +91,7 @@ export class APP extends Component {
       <div className={`resources-block row gutter-10 ${this.state.expanded !== false ? 'expanded' : ''}`}>
         <div className="resources-block__overlay" onClick={()=>{this.expand(this.state.expanded)}}/>
         {title && <div className="resources-block__title col-12 margin-bottom-60">
-          <h1 className="centered">{title}</h1>
+          <h2 className="resource-title centered">{title}</h2>
           <p className="centered">{description}</p>
         </div>}
         {resources.map((r,i)=>(
