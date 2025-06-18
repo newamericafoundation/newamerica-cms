@@ -5,4 +5,7 @@
   data-description='{{value.description}}'
   data-resources='{{resources}}'
   data-type="resource"
-  id="{{value.anchor}}"></div>
+  {% if value.anchor %}
+  id="{{value.anchor}}"
+  {% endif %}
+></div>
