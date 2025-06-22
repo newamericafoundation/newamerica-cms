@@ -1,6 +1,7 @@
 {% load wagtailcore_tags %}
 {% load cited_html anchorize_headings %}
-{% filter anchorize_headings %}
+{% load smart_quotes from typography %}
+{% filter anchorize_headings|smart_quotes:page.apply_smart_punctuation %}
     {% for block in value.body %}
         {% if block.block_type == 'paragraph' %}
             <div class="block-{{ block.block_type }}">
