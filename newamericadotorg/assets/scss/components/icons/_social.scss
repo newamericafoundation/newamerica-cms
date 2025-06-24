@@ -35,6 +35,17 @@
         &:hover {
             color: color(turquoise, dark);
         }
+
+        @include media-breakpoint-down(desktop) {
+            display: block;
+        }
+    }
+
+    @include media-breakpoint-down(desktop) {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        margin-bottom: 25px;
     }
 }
 
