@@ -113,6 +113,7 @@ class HomePage(Page):
 
     subpage_types = [
         "OrgSimplePage",
+        "ProjectRequests",
         "programs.Program",
         "article.AllArticlesHomePage",
         "weekly.Weekly",
@@ -468,6 +469,23 @@ class ProgramSimplePage(AbstractSimplePage):
 
     class Meta:
         verbose_name = "About Page"
+
+class ProjectRequests(AbstractSimplePage):
+
+    parent_page_types = ["home.HomePage"]
+    subpage_types = []
+
+    def get_context(self, request):
+        context = super(ProjectRequests, self).get_context(request)
+        if self.custom_interface is True:
+            context["template"] = "home/custom_simple_interface.html"
+        else:
+            context["template"] = "post_page.html"
+
+        return context
+
+    class Meta:
+        verbose_name = "Project Requests Page"
 
 
 class ProgramAboutHomePage(RedirectHeadlessPreviewMixin, ProgramSimplePage):

@@ -1,71 +1,82 @@
-.post__social__wrapper > div{
-  @include media-breakpoint-down(desktop){
-    display: inline-block;
-    padding-right: 15px;
-    h6 {
-      display: none;
+.post__social__wrapper > div {
+    @include media-breakpoint-down(desktop) {
+        display: inline-block;
+        padding-right: 15px;
+        h6 {
+            display: none;
+        }
     }
-  }
 }
 
-.social-share{
-  margin: 10px 0;
-  &__item{
-    padding-right: 10px;
-  }
+.social-share {
+    margin: 10px 0;
+    &__item {
+        padding-right: 10px;
+    }
 }
 
-.social--inline{
-  line-height: 0;
-  h6 {
-    margin: 0;
-    margin-left: 15px;
-    display: inline-block;
-  }
-  .fa.circle, h6{
-    vertical-align: middle;
-  }
+.social--inline {
+    line-height: 0;
+    h6 {
+        margin: 0;
+        margin-left: 15px;
+        display: inline-block;
+    }
+    .fa.circle,
+    h6 {
+        vertical-align: middle;
+    }
 }
 
-.fa.circle{
-  width: 22px;
-  height: 22px;
-  border-radius: 2px;
-  font-size: 0.75rem;
-  text-align: center;
-  color: color(white);
-  background-color: color(black);
-  @include transition(background-color 0.15s ease);
-  position: relative;
-  cursor: pointer;
+.quick-links {
+    .social--inline h6 {
+        @include transition(color 0.15s ease);
 
-  &:hover{
-    background-color: color(turquoise, dark);
-  }
-  &:before{
-    position: absolute;
-    @include center;
-  }
+        &:hover {
+            color: color(turquoise, dark);
+        }
+    }
+}
 
-  &.white {
-    background-color: color(white);
-  }
-
-  &.gray {
-    background-color: color(gray);
-  }
-
-  &.gray, &.white {
-    color: color(black);
+.fa.circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 2px;
+    font-size: 0.75rem;
+    text-align: center;
+    color: color(white);
+    background-color: color(black);
+    @include transition(background-color 0.15s ease);
+    position: relative;
+    cursor: pointer;
 
     &:hover {
-      color: color(white);
-      background-color: color(turquoise, dark);
+        background-color: color(turquoise, dark);
     }
-  }
+    &:before {
+        position: absolute;
+        @include center;
+    }
 
+    &.white {
+        background-color: color(white);
+    }
+
+    &.gray {
+        background-color: color(gray);
+    }
+
+    &.gray,
+    &.white {
+        color: color(black);
+
+        &:hover {
+            color: color(white);
+            background-color: color(turquoise, dark);
+        }
+    }
 }
 
 a:hover > .fa.circle {
-  background-color: color(turquoise, dark);
+    background-color: color(turquoise, dark);
 }

@@ -1,3 +1,6 @@
+{% load utilities %}
+
+{% if page|model_name != 'home.ProjectRequests' %}
 <div class="post-aside-wrapper post__social__wrapper">
   <h4>Share on</h4>
   <div class="margin-bottom-lg-25">
@@ -27,3 +30,20 @@
   </div>
   {% endif %}
 </div>
+
+{% else %}
+<div class="post-aside-wrapper post__social__wrapper quick-links">
+  <h4>Quick Links</h4>
+  <!-- <h4>{{page.body}}</h4> -->
+  {% for block in page.body %}
+    {% if block.block_type == "heading" %}
+      <div class="margin-bottom-lg-25">
+        <a class="social--inline block" href="#{{ block.value|slugify }}">
+          <h6 style="margin-left: 0;">{{ block.value }}</h6>
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
