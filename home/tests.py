@@ -179,7 +179,7 @@ class HomeTests(WagtailPageTestCase):
             OurPeoplePage,
             OrgSimplePage,
             ProjectRequests,
-            ProjectFormPage
+            ProjectFormPage,
             Program,
             SubscribePage,
             Weekly,
