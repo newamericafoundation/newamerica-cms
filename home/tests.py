@@ -39,7 +39,7 @@ from .models import (
     JobsPage,
     OrgSimplePage,
     ProjectRequests,
-    ProjectFormPage
+    ProjectFormPage,
     ProgramAboutHomePage,
     ProgramSimplePage,
     RedirectPage,
