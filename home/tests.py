@@ -39,6 +39,7 @@ from .models import (
     JobsPage,
     OrgSimplePage,
     ProjectRequests,
+    ProjectFormPage
     ProgramAboutHomePage,
     ProgramSimplePage,
     RedirectPage,
@@ -178,6 +179,7 @@ class HomeTests(WagtailPageTestCase):
             OurPeoplePage,
             OrgSimplePage,
             ProjectRequests,
+            ProjectFormPage
             Program,
             SubscribePage,
             Weekly,

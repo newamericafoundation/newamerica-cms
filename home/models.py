@@ -114,6 +114,7 @@ class HomePage(Page):
     subpage_types = [
         "OrgSimplePage",
         "ProjectRequests",
+        "ProjectFormPage",
         "programs.Program",
         "article.AllArticlesHomePage",
         "weekly.Weekly",
@@ -470,22 +471,43 @@ class ProgramSimplePage(AbstractSimplePage):
     class Meta:
         verbose_name = "About Page"
 
-class ProjectRequests(AbstractSimplePage):
+class ProjectRequests(Page):
 
     parent_page_types = ["home.HomePage"]
-    subpage_types = []
+    subpage_types = ["ProjectFormPage"]
 
-    def get_context(self, request):
-        context = super(ProjectRequests, self).get_context(request)
-        if self.custom_interface is True:
-            context["template"] = "home/custom_simple_interface.html"
-        else:
-            context["template"] = "post_page.html"
+    intro_paragraph = models.TextField(blank=True, null=True)
 
+    content_panels = Page.content_panels + [
+        FieldPanel('intro_paragraph'),
+    ]
+
+    template = "home/project_requests.html"
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["posts"] = ProjectFormPage.objects.live()
         return context
 
     class Meta:
         verbose_name = "Project Requests Page"
+
+class ProjectFormPage(Page):
+
+    parent_page_types = ["ProjectRequests"]
+
+    embed_url = models.URLField(blank=True, null=True,)
+    svg_code = models.TextField(blank=True, null=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('embed_url'),
+        FieldPanel('svg_code'),
+    ]
+
+    template = "home/project_form.html"
+
+    class Meta:
+        verbose_name = "Project Form Page"
 
 
 class ProgramAboutHomePage(RedirectHeadlessPreviewMixin, ProgramSimplePage):
