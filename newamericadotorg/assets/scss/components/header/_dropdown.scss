@@ -1,50 +1,50 @@
 @use "sass:math";
-.header__nav__dropdown{
-  float: left;
-  // position: relative;
+.header__nav__dropdown {
+    float: left;
+    // position: relative;
 
-  &__header{
-    display: block;
-    position: relative;
-    border-bottom: none !important;
-    margin-right: 1.2em;
-    margin-left: 1.2em;
-    padding-top: 25px;
-    height: $header-height;
+    &__header {
+        display: block;
+        position: relative;
+        border-bottom: none !important;
+        margin-right: 1.2em;
+        margin-left: 1.2em;
+        padding-top: 25px;
+        height: $header-height;
 
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  &:last-child > a{
-    margin-right: 1.2em;
-  }
-
-  &__list-wrapper{
-    position: absolute;
-    z-index: 200;
-    top: $header-height;
-    visibility: hidden;
-    opacity: 0;
-    width: 100vw;
-    left: 0;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 65px;
-    padding-bottom: 50px;
-    border-top: 1px solid color(black, base, 0.075);
-    @include box-shadow( 0px 2px 4px 1px color(black, base, 0.05) );
-    background: $dropdown-background-color;
-    @include transform(translateY(-10px));
-    @include transition(transform 0.3s ease, opacity 0.3s ease, visibilty 0.3s ease);
-    @include breakpoint($max-site-width){
-      @include transform(translateY(-10px) translateX(calc(-50vw + #{math.div($max-site-width, 2)})));
+        cursor: pointer;
+        text-decoration: none;
     }
 
-    a {
-      display: block;
+    &:last-child > a {
+        margin-right: 1.2em;
     }
-  }
+
+    &__list-wrapper {
+        position: absolute;
+        z-index: 200;
+        top: $header-height;
+        visibility: hidden;
+        opacity: 0;
+        width: 100vw;
+        left: 0;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 65px;
+        padding-bottom: 50px;
+        border-top: 1px solid color(black, base, 0.075);
+        @include box-shadow(0px 2px 4px 1px color(black, base, 0.05));
+        background: $dropdown-background-color;
+        @include transform(translateY(-10px));
+        @include transition(transform 0.3s ease, opacity 0.3s ease, visibilty 0.3s ease);
+        @include breakpoint($max-site-width) {
+            @include transform(translateY(-10px) translateX(calc(-50vw + #{math.div($max-site-width, 2)})));
+        }
+
+        a {
+            display: block;
+        }
+    }
 }
 
 .header__nav__dropdown__header.drop {
@@ -54,63 +54,68 @@
     text-transform: unset;
     letter-spacing: unset;
     padding: 0;
-    &:after{
-      // down arrow
-      display: inline-block;
-      content: '';
-      position: absolute;
-      top: calc(50% - 0px);
-      right: -15px;
-      @include transform(rotate(45deg) translateY(-3.5px));
-      border-right: 2px solid color(black);
-      border-bottom: 2px solid color(black);
-      height: 6px;
-      width: 6px;
-      margin: 0 5px 0 5px;
+    &:after {
+        // down arrow
+        display: inline-block;
+        content: "";
+        position: absolute;
+        top: calc(50% - 0px);
+        right: -15px;
+        @include transform(rotate(45deg) translateY(-3.5px));
+        border-right: 2px solid color(black);
+        border-bottom: 2px solid color(black);
+        height: 6px;
+        width: 6px;
+        margin: 0 5px 0 5px;
     }
 
-    &:before{
-      // caret
-      content: '';
-      display: block;
-      height: 12px;
-      width: 12px;
-      background: color(white);
-      left: calc(50% - 6px);
-      bottom: -1px;
-      visibility: hidden;
-      opacity: 0;
-      border-top: 1px solid color(black, base, 0.1);
-      border-right: 1px solid color(black, base, 0.1);
-      position: absolute;
-      z-index: 300;
-      @include transform(rotate(-45deg));
-      @include transition-delay(0.3s);
-      @include transition(opacity 0.9s ease);
+    &:before {
+        // caret
+        content: "";
+        display: block;
+        height: 12px;
+        width: 12px;
+        background: color(white);
+        left: calc(50% - 6px);
+        bottom: -1px;
+        visibility: hidden;
+        opacity: 0;
+        border-top: 1px solid color(black, base, 0.1);
+        border-right: 1px solid color(black, base, 0.1);
+        position: absolute;
+        z-index: 300;
+        @include transform(rotate(-45deg));
+        @include transition-delay(0.3s);
+        @include transition(opacity 0.9s ease);
+    }
+}
+
+#na-conference .header__wrapper.transparent:not(:hover) .header__nav__dropdown__header.drop {
+    &:after {
+        border-color: color(white);
     }
 }
 
 body:not(.dropdown-active) .header__nav__dropdown:hover,
 .header__nav__dropdown.active {
     // dropdown hover/active state
-    .header__nav__dropdown__list-wrapper{
-      visibility: visible;
-      opacity: 1;
+    .header__nav__dropdown__list-wrapper {
+        visibility: visible;
+        opacity: 1;
 
-      @include transform(translateY(0px));
-      @include breakpoint($max-site-width){
-        @include transform(translateY(0px) translateX(calc(-50vw + #{math.div($max-site-width, 2)})));
-      }
+        @include transform(translateY(0px));
+        @include breakpoint($max-site-width) {
+            @include transform(translateY(0px) translateX(calc(-50vw + #{math.div($max-site-width, 2)})));
+        }
     }
 
-    .header__nav__dropdown__header .link:after{
-      @include transform(translateX(0%));
+    .header__nav__dropdown__header .link:after {
+        @include transform(translateX(0%));
     }
 
-    .header__nav__dropdown__header.drop:before{
-      opacity: 1;
-      visibility: visible;
-      @include transform(rotate(-45deg) translate(-50%, 0px));
+    .header__nav__dropdown__header.drop:before {
+        opacity: 1;
+        visibility: visible;
+        @include transform(rotate(-45deg) translate(-50%, 0px));
     }
-
 }
