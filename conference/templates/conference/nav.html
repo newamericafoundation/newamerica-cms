@@ -9,16 +9,20 @@
                   <a href="#about" id="nav__about" class="navigation-link">About</a>
                 </h6>
               </li>
+              {% if page.publish_speakers %}
               <li class="navigation-item">
                 <h6 class="inline margin-0 white">
                   <a href="#speakers" id="nav__speakers" class="navigation-link">Speakers</a>
                 </label>
               </li>
+              {% endif %}
+              {% if page.publish_sessions %}
               <li class="navigation-item">
                 <h6 class="inline margin-0 white">
                   <a href="#schedule" id="nav__schedule" class="navigation-link">Schedule</a>
                 </h6>
               </li>
+              {% endif %}
               {% if page.partners|length > 0 %}
                 <li class="navigation-item">
                   <h6 class="inline margin-0 white">
