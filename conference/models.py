@@ -109,6 +109,9 @@ class Conference(Page):
         default=False, help_text="Sessions list will not show up until this is checked."
     )
 
+    speakers_subtitle = models.TextField(blank=True, null=True)
+    schedule_subtitle = models.TextField(blank=True, null=True)
+
     date = models.DateField("Start Date", default=timezone.now)
     end_date = models.DateField(blank=True, null=True)
 
@@ -238,7 +241,9 @@ class Conference(Page):
         address,
         hotel_address,
         FieldPanel("directions"),
+        FieldPanel("speakers_subtitle"),
         FieldPanel("speakers"),
+        FieldPanel("schedule_subtitle"),
         FieldPanel("sessions"),
         partners_and_sponsors,
         FieldPanel("partner_text"),

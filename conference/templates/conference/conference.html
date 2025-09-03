@@ -56,16 +56,26 @@
 
     {% if page.publish_speakers %}
     <section id="speakers" class="conference__section section-nav align-center">
-      <span class="line-icon section-icon line-icon-faces-users-04"></span>
-      <h1 class="centered">Speakers</h1>
+      <div class="conference__section-title">
+        <span class="line-icon section-icon line-icon-faces-users-04"></span>
+        <h1 class="centered">Speakers</h1>
+        {% if page.speakers_subtitle %}
+        <div class="subtitle">{{ page.speakers_subtitle }}</div>
+        {% endif %}
+      </div>
       {{ page.speakers }}
     </section>
     {% endif %}
 
     {% if page.publish_sessions %}
     <section id="schedule" class="conference__section section-nav schedule-section align-center">
+      <div class="conference__section-title">
       <span class="line-icon section-icon line-icon-office-21"></span>
       <h1 class="centered">Schedule</h1>
+      {% if page.schedule_subtitle %}
+      <div class="subtitle">{{ page.schedule_subtitle }}</div>
+      {% endif %}
+      </div>
       {% include_block page.sessions %}
     </section>
     {% endif %}
