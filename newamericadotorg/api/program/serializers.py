@@ -235,7 +235,7 @@ class FeaturedLeadPageSerializer(FeaturedPageSerializer):
             return None
 
         # img = generate_image_rendition(story_image, 'fill-925x430')
-        img = generate_image_rendition(story_image, 'fill-1600x775')
+        img = generate_image_rendition(story_image, 'fill-1600x744')
         if img:
             return {'width': img.width, 'height': img.height, 'url': img.url}
         return None
