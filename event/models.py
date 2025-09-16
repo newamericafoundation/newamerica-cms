@@ -42,7 +42,7 @@ class Event(Post):
     )
     street_address = models.TextField(default='740 15th St NW #900', blank=True)
     city = models.TextField(default='Washington', blank=True)
-    state = models.TextField(default='D.C.', blank=True)
+    state = models.TextField(default='DC', blank=True)
     zipcode = models.TextField(default='20005', blank=True)
     online_only = models.BooleanField(default=False, help_text="Checking this will mean the address is not shown")
     webcast_url = models.URLField(blank=True)
