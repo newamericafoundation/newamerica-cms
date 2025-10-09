@@ -180,6 +180,16 @@ class DatawrapperBlock(blocks.StructBlock):
         label = "Datawrapper"
         group = "Embeds"
 
+class StaticDataviz(blocks.StructBlock):
+    iframe_link = blocks.URLBlock(
+        required=True, help_text='The link for the html file in the project bucket'
+    )
+
+    class Meta:
+        template = "blocks/staticdataviz.html"
+        icon = "site"
+        label = "Static Dataviz"
+        group = "Embeds"
 
 class DatavizBlock(blocks.StructBlock):
     container_id = blocks.CharBlock(required=True)
@@ -623,6 +633,7 @@ class Body(blocks.StreamBlock):
     button = ButtonBlock()
     iframe = IframeBlock(icon="link")
     datawrapper = DatawrapperBlock(icon="code")
+    staticdataviz = StaticDataviz(icon="code")
     dataviz = DatavizBlock(icon="code")
     timeline = TimelineBlock(icon="order")
     google_map = GoogleMapBlock(icon="site")

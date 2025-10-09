@@ -102,6 +102,8 @@ class Body extends Component {
         this.citationEvents();
         this.addAccordionBlocks();
         if (this.props.section) this.loadScripts();
+
+        document.querySelectorAll(".static-dataviz-block").forEach(initStaticDatavizBlock);
     }
 
     componentDidUpdate(prevProps) {
@@ -119,6 +121,8 @@ class Body extends Component {
                 component: "SITE",
             });
         }
+        
+        document.querySelectorAll(".static-dataviz-block").forEach(initStaticDatavizBlock);
     }
 
     render() {

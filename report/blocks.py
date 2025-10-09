@@ -7,6 +7,7 @@ from newamericadotorg.blocks import (
     CustomImageBlock,
     DatavizBlock,
     DatawrapperBlock,
+    StaticDataviz,
     IframeBlock,
 )
 
@@ -55,6 +56,7 @@ class BoxBody(blocks.StreamBlock):
     video = EmbedBlock(icon="media")
     iframe = IframeBlock(icon="link")
     datawrapper = DatawrapperBlock(icon="code")
+    staticdataviz = StaticDataviz(icon="code")
     dataviz = ReportDataVizBlock(icon="code")
 
 
