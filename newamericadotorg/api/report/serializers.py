@@ -54,7 +54,8 @@ class ReportDetailSerializer(PostSerializer):
     def get_partner_logo(self, obj):
         if obj.partner_logo:
             # return generate_image_url(obj.partner_logo, 'max-240x30')
-            return generate_image_url(obj.partner_logo, 'width-240')
+            # return generate_image_url(obj.partner_logo, 'width-240')
+            return generate_image_url(obj.partner_logo, 'width-480')
 
     def get_body(self, obj):
         if obj.body:

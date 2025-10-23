@@ -111,6 +111,58 @@ const Landing = ({ report, dispatch, location, closeMenu, preview }) => (
   </div>
 );
 
+const LandingAckFirst = ({ report, dispatch, location, closeMenu, preview }) => (
+  <div className={`report landing`}>
+    <Heading report={report} />
+
+    {report.abstract && (
+      <div className="container margin-80" id="abstract">
+        <h3 className="margin-top-0 margin-bottom-25">Abstract</h3>
+        <div
+          className="report__abstract"
+          dangerouslySetInnerHTML={{ __html: report.abstract }}
+          style={{ maxWidth: '800px' }}
+        />
+      </div>
+    )}
+
+    {report.featured_sections.length > 0 && (
+      <div className="container margin-80" id="featured">
+        <h3 className="margin-top-0 margin-bottom-25">Featured Sections</h3>
+        <div className="featured__scroll-wrapper">
+          <FeaturedSections featuredSections={report.featured_sections} />
+        </div>
+      </div>
+    )}
+
+    <div className="container margin-80" id="contents">
+      <h3 className="margin-top-0 margin-bottom-25">Contents</h3>
+      <ContentMenu preview={preview} report={report} closeMenu={closeMenu} />
+    </div>
+
+    {report.acknowledgments && (
+      <div className="container margin-80" id="acknowledgments">
+        <h3 className="margin-top-0 margin-bottom-25">Acknowledgments</h3>
+        <div
+          className="report__acknowledgments"
+          dangerouslySetInnerHTML={{ __html: report.acknowledgments }}
+          style={{ maxWidth: '800px' }}
+        />
+        {report.partner_logo && (
+          <div className="margin-top-25">
+            <img src={report.partner_logo} alt={report.partner_logo_alt} />
+          </div>
+        )}
+      </div>
+    )}
+
+    {report.authors && <div className="container margin-80" id="authors">
+      <h3 className="margin-top-0 margin-bottom-25">Authors</h3>
+      <Authors authors={report.authors} />
+    </div>}
+  </div>
+);
+
 class Report extends Component {
   constructor(props) {
     super(props);
@@ -119,7 +171,8 @@ class Report extends Component {
       contentsPosition: '0%',
       attchsOpen: false,
       section: this.getSection(),
-      attchClicked: false
+      attchClicked: false,
+      pageSlug: null
     };
   }
 
@@ -188,6 +241,10 @@ class Report extends Component {
   };
 
   componentDidMount() {
+    const pageSlug = document.getElementById('na-react__report')?.dataset?.pageSlug || null;
+    const pageID = document.getElementById('na-react__report')?.dataset?.pageSlug || null;
+    this.setState({ pageSlug });
+
     let { report } = this.props;
     this.props.dispatch({
       type: 'RELOAD_SCROLL_EVENTS',
@@ -219,7 +276,7 @@ class Report extends Component {
 
   render() {
     let { location, match, report, redirect, dispatch } = this.props;
-    let { section, attchClicked } = this.state;
+    let { section, attchClicked, pageSlug } = this.state;
 
     let singlePage = report.sections.length === 1;
     let landing = !section && !singlePage;
@@ -244,7 +301,14 @@ class Report extends Component {
 
           {singlePage && <SinglePage {...this.props} />}
 
-          {landing && <Landing closeMenu={this.closeMenu} {...this.props} />}
+          {/* {landing && <Landing closeMenu={this.closeMenu} {...this.props} />} */}
+          {landing && (
+            pageSlug === 'leo-satellites' ? (
+              <LandingAckFirst closeMenu={this.closeMenu} {...this.props} />
+            ) : (
+              <Landing closeMenu={this.closeMenu} {...this.props} />
+            )
+          )}
 
           {section && (
             <div className={`report section`}>
