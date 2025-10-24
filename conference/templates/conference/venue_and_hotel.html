@@ -51,9 +51,15 @@
       </p>
     </div>
     <div class="col-6">
+      {% if page.id == 37343 %}
+      <div class="block-google-map">
+        <iframe class="block-google_map__iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83938.27926915155!2d18.400188878481586!3d-33.89045382034956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc675aced5a8b9%3A0x865f815f832012de!2sUCT%20Graduate%20School%20of%20Business!5e0!3m2!1sen!2sus!4v1761320801225!5m2!1sen!2sus"></iframe>
+      </div>
+      {% else %}
       <div class="block-google-map">
         <iframe class="block-google_map__iframe" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDMSQPdSAK-SrB9YUIrt3P8pl3zUChwkoI&q={{ page.street }} {{ page.city }},{{ page.state }} {{ page.zipcode }}&zoom=14"></iframe>
       </div>
+      {% endif %}
     </div>
   </div>
 {% endif %}
