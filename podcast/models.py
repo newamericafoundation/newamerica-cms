@@ -26,9 +26,25 @@ class Podcast(Post):
 
     itunes_url = models.URLField(blank=True, null=True)
 
+    publication_cover_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    publication_cover_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Publication cover image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
+
     content_panels = Post.content_panels + [
         FieldPanel('soundcloud'),
         FieldPanel('itunes_url'),
+        FieldPanel('publication_cover_image'),
+        FieldPanel('publication_cover_image_alt'),
     ]
 
     class Meta:

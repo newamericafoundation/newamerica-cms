@@ -27,10 +27,26 @@ class OtherPost(Post):
         verbose_name="Archived Page"
     )
 
+    publication_cover_image = models.ForeignKey(
+        'home.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    publication_cover_image_alt = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Publication cover image alternative text',
+        help_text='A concise description of the image for users of assistive technology.',
+    )
+
     last_updated = models.TextField(blank=True, null=True, help_text='Enter in the month and year this page was last updated (Example: April 2022).')
 
     content_panels = Post.content_panels + [
         FieldPanel('attachment'),
+        FieldPanel('publication_cover_image'),
+        FieldPanel('publication_cover_image_alt'),
     ]
 
     settings_panels = Page.settings_panels + [
@@ -67,6 +83,22 @@ class OtherPost(Post):
 
     class Meta:
         verbose_name = 'Other Post'
+    #     permissions = [
+    #         ("can_add_otherpostpage", "Can add Other Post page"),
+    #     ]
+    
+    # @classmethod
+    # def has_add_permission(cls, request):
+    #     """
+    #     Let admins add as normal.
+    #     Non-admins can add other page types,
+    #     but never OtherPostPage under OtherPostsHomepage.
+    #     """
+    #     if request.user.is_superuser:
+    #         return True
+
+    #     # Explicitly block non-admins from creating this type
+    #     return False
 
 class AllOtherPostsHomePage(AbstractHomeContentPage):
     """
