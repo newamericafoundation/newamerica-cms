@@ -26,6 +26,12 @@ class Quoted(Post):
         FieldPanel('source_url'),
     ]
 
+    no_index_page = models.BooleanField(default=False)
+
+    settings_panels = Post.settings_panels + [
+        FieldPanel("no_index_page"),
+    ]
+
     class Meta:
         verbose_name = "In The News Piece"
 
