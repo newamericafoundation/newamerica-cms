@@ -22,7 +22,7 @@
         <h4 class="card__text__title margin-0">
           {# Make sure we don't try to truncate a null object. #}
           {% firstof post.seo_title post.title "" as title %}
-          <span><u>{{ title|ellipsize:56 }}</u></span>
+          <span><u>{{ title|ellipsize:56|safe }}</u></span>
         </h4>
 
         {# Tag #}
